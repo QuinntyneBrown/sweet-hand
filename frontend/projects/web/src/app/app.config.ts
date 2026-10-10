@@ -3,10 +3,15 @@ import { provideHttpClient, withFetch, withInterceptors, withXsrfConfiguration }
 import { systemErrorsInterceptor } from './shell/system-errors.interceptor';
 import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
 import { routes } from './app.routes';
-import { DiscoveryApi, HttpDiscoveryApi } from './core/api/discovery-api';
 import { HttpSessionApi, SessionApi } from './core/session/session-api';
-import { HttpIdentityApi, IdentityApi } from './core/api/identity-api';
 import { Session } from './core/session/session';
+import { accountProviders } from './features/account/providers';
+import { dashboardProviders } from './features/dashboard/providers';
+import { discoveryProviders } from './features/discovery/providers';
+import { enquiriesProviders } from './features/enquiries/providers';
+import { identityProviders } from './features/identity/providers';
+import { operatorProviders } from './features/operator/providers';
+import { reviewsProviders } from './features/reviews/providers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,8 +19,13 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding(), withInMemoryScrolling({ scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' })),
     provideHttpClient(withFetch(), withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }), withInterceptors([systemErrorsInterceptor])),
     { provide: SessionApi, useClass: HttpSessionApi },
-    { provide: DiscoveryApi, useClass: HttpDiscoveryApi },
-    { provide: IdentityApi, useClass: HttpIdentityApi },
+    ...discoveryProviders,
+    ...identityProviders,
+    ...accountProviders,
+    ...enquiriesProviders,
+    ...dashboardProviders,
+    ...operatorProviders,
+    ...reviewsProviders,
     provideAppInitializer(() => inject(Session).load()),
   ],
 };

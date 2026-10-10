@@ -1,59 +1,130 @@
-# Frontend
+# Sweet Hand frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.26.
+Angular 21 workspace (ADR 0001) with two projects, a fake backend and the
+Playwright acceptance suite.
 
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
+```
+frontend/
+  projects/components/   sh-* design-system components (docs/specs/components)
+  projects/web/          the product application
+  fake-backend/          in-memory HTTP API for development and e2e (ADR 0004)
+  e2e/                   Playwright: support/, pages/ (page objects), specs/
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Commands
 
-## Code scaffolding
+Run everything from `frontend/` (Node 22.12+).
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+| Command | What it does |
+|---|---|
+| `npm install` | Install dependencies |
+| `npm start` | Fake backend on :4300 and the dev server on :4200 (proxy in `proxy.conf.mjs`) |
+| `npm run e2e` | Acceptance suite, Chromium only; starts both servers unless already running |
+| `npm run lint` | ESLint, including the i18n rule (ADR 0005) |
+| `npm run typecheck` | `tsc` for the app, the e2e suite and the fake backend |
+| `npm run build` | Production build |
+| `npm run extract-i18n` | Writes `projects/web/src/locale/messages.xlf` |
 
-```bash
-ng generate component component-name
-```
+Ports: set `E2E_WEB_PORT` and `E2E_API_PORT` to run a second checkout side by
+side (`E2E_WEB_PORT=4210 E2E_API_PORT=4310 npx playwright test`).
+`E2E_WORKERS=1` limits Playwright workers.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The Angular CLI sometimes keeps running after a failed compile. Wrap builds in a
+timeout: `timeout 120 node_modules/.bin/ng build web --configuration development < /dev/null`.
 
-```bash
-ng generate --help
-```
+## How a change is made (AGENTS.md, ATDD)
 
-## Building
+Every production behaviour change goes slice by slice:
 
-To build the project run:
+1. Read the L2 requirement, the detailed design (`docs/detailed-designs/`),
+   the mock (`docs/mocks/`, every state) and the CRD of every component the
+   slice touches (`docs/specs/components/`).
+2. Write Given/When/Then acceptance criteria as Playwright tests in
+   `e2e/specs/<area>/`, naming the L2 or CRD criterion in the test title.
+3. Run them and see them fail for the expected reason.
+4. Implement just enough: page, API contract, fake endpoint, components.
+5. Run the slice, then the whole suite, `npm run lint` and `npm run typecheck`.
+6. Commit. Next slice.
 
-```bash
-ng build
-```
+Never weaken a test to make it pass, and never write architecture tests
+(structure, naming, traceability). Tests prove behaviour only.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## E2E conventions (ADR 0004)
 
-## Running unit tests
+- Import `test` and `expect` from `e2e/support/test`. Each test gets an
+  isolated fake backend and a browser clock fixed at Saturday 10 October 2026,
+  10:00 a.m. Toronto.
+- **No selectors in tests.** One page object per screen in `e2e/pages/`
+  (extending `BasePage`); shared overlays (header, menus, search) live in
+  `e2e/pages/shell.ts`. Prefer roles and accessible names; fall back to the
+  mocks' class names.
+- Arrange state through the `backend` fixture:
+  - `backend.signInAs('marcia')` (cast in `e2e/support/cast.ts`)
+  - `backend.scenario('name', args)` — named store changes, defined next to the
+    area's fake routes (`fake-backend/routes/<area>.ts`, `xScenarios`)
+  - `backend.fail('GET /api/path*', { status, body, times, network, delayMs })`
+  - `backend.hold('POST /api/path')` then `backend.release()` for busy states
+  - `backend.requests()` and `backend.state()` to assert what was sent
+- `page.clock.runFor(ms)` advances timers (polling, toasts).
+- Call `expectNoAccessibilityViolations()` in the states a test covers (L2-066)
+  and `usePhone()` for phone layouts.
+- Fake data is the fictional cast in `docs/mocks/README.md`. Never use real
+  people, businesses or addresses.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Fake backend
 
-```bash
-ng test
-```
+- `server.ts` routes `/api/*` to handlers registered in `routes/index.ts`.
+  Each area has `routes/<area>.ts` (`registerX` + `xScenarios`) and seed data
+  in `seed/<area>.ts`; the store (`lib/store.ts`) holds one copy per test.
+- Wire types live in the app as import-free `*.models.ts` files under
+  `projects/web/src/app/core/api/` and are imported by the fake with
+  `import type`, so both sides share one contract.
+- Validation errors: `invalid({ field: ['message'] })` → HTTP 400 problem body
+  `{ title, errors }`; field names match the form control names.
+- State-changing requests need the CSRF header; Angular's HttpClient adds it.
+- The fake runs with Node type stripping: erasable TypeScript only (no enums,
+  no parameter properties), `.ts` extensions in relative imports.
 
-## Running end-to-end tests
+## Application conventions
 
-For end-to-end (e2e) testing, run:
+- `core/api/<area>-api.ts`: an abstract class (the contract and DI token) plus
+  `Http…` implementation; register it in `features/<area>/providers.ts`.
+- `features/<area>/routes.ts` holds the area's lazy routes; guard pages with
+  `requireRole(...)` / `requireAdmin` from `core/session/guards.ts`.
+  `data.mainClass` sets the classes of `<main>` from the mock; `data.chrome:
+  'minimal'` shows the wordmark-only header.
+- Business rules (validation, eligibility, view models) live in plain
+  TypeScript beside the page, never in templates or library components.
+- Dates, times and counts: `core/format/format.ts` (America/Toronto, en-CA:
+  "Sat 21 Nov", "Saturday 21 November 2026", "9:42 a.m.").
+- Problem bodies: `core/forms/problem.ts`; summary headings and shared
+  messages: `core/forms/validation.ts`.
+- Toasts: inject `ToastNotifier` from the library and call `show(...)`.
 
-```bash
-ng e2e
-```
+### i18n (ADR 0005)
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- Every user-facing template string has `i18n="@@area.key"` (attributes:
+  `i18n-label="@@area.key"`); TypeScript uses
+  ``$localize`:@@area.key:Text` ``. Reuse an id only for the identical text.
+- Plurals in templates use ICU; in TypeScript, pick between two messages.
+- Data from the API (names, cuisines, captions, user text) is not marked.
+- `npm run lint` fails on unmarked text. Non-text attributes that trip the rule
+  go in `ignoreAttributes` in `eslint.config.js`.
 
-## Additional Resources
+## Component library rules
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- One folder per CRD component: `projects/components/src/lib/<component>/`,
+  selectors and inputs exactly as the CRD's API section, markup exactly as its
+  Markup section (class names and ARIA are the e2e contract). Export from
+  `src/public-api.ts`.
+- Library components hold no user-facing strings; every label is an input.
+- Wrapper hosts use `host: { style: 'display: contents' }`. **Do not** use an
+  inline `styles` string that is identical in two components of the same
+  file: the Angular CLI then never exits after a build.
+- Template reference names must not shadow component members (`#title` next to
+  a `title` input breaks compilation).
+- Overlays: `sh-dialog` and `sh-sheet` render through `ModalLayer` (focus trap,
+  inert page, Escape, focus return). Pass `returnFocus` when the opener will be
+  gone.
+- Chrome computes "Inbox , 1 unread" for a link whose badge and hidden text are
+  non-inline boxes; give such links an explicit `aria-label`.

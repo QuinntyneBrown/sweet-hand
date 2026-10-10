@@ -5,6 +5,7 @@ import { discoveryRoutes } from './features/discovery/routes';
 import { enquiriesRoutes } from './features/enquiries/routes';
 import { identityRoutes } from './features/identity/routes';
 import { operatorRoutes } from './features/operator/routes';
+import { reviewsRoutes } from './features/reviews/routes';
 
 const system = (path: string, kind: string, title: string): Routes[number] => ({
   path,
@@ -22,6 +23,7 @@ export const routes: Routes = [
   ...accountRoutes,
   ...dashboardRoutes,
   ...operatorRoutes,
+  ...reviewsRoutes,
   ...discoveryRoutes,
   system('403', 'forbidden', $localize`:@@system.forbidden.title:No access · Sweet Hand`),
   system('500', 'server-error', $localize`:@@system.serverError.title:Something went wrong · Sweet Hand`),

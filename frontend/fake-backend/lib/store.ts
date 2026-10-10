@@ -3,6 +3,11 @@ import type { Fault } from './faults.ts';
 import { seedCaterers, type Caterer } from '../seed/caterers.ts';
 import { seedCuisines, seedRegions, type Cuisine, type Region } from '../seed/taxonomy.ts';
 import { seedUsers, type User } from '../seed/users.ts';
+import { seedEnquiries, type Enquiry } from '../seed/enquiries.ts';
+import { seedReviews, type Review } from '../seed/reviews.ts';
+import { seedReports, type Report } from '../seed/reports.ts';
+import { seedOperator, type OperatorState } from '../seed/operator.ts';
+import { seedAccount, type AccountState } from '../seed/account.ts';
 
 /** Saturday 10 October 2026, 10:00 a.m. in Toronto (UTC−4): "today" in the mocks' cast. */
 export const DEFAULT_NOW = '2026-10-10T14:00:00.000Z';
@@ -17,6 +22,11 @@ export interface Store {
   cuisines: Cuisine[];
   regions: Region[];
   users: User[];
+  enquiries: Enquiry[];
+  reviews: Review[];
+  reports: Report[];
+  operator: OperatorState;
+  account: AccountState;
   /** Unread threads per user id until the enquiries area computes them from threads. */
   unread: Record<string, number>;
   /** Items in the operator review queue until the moderation area computes them. */
@@ -35,6 +45,11 @@ export function createStore(): Store {
     cuisines: seedCuisines(),
     regions: seedRegions(),
     users: seedUsers(),
+    enquiries: seedEnquiries(),
+    reviews: seedReviews(),
+    reports: seedReports(),
+    operator: seedOperator(),
+    account: seedAccount(),
     unread: { 'user-marcia': 1, 'user-kendra': 2 },
     queueCount: 7,
     sessions: new Map(),

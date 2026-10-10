@@ -1,4 +1,10 @@
 import type { Store } from '../lib/store.ts';
+import { accountScenarios } from './account.ts';
+import { catererProfileScenarios } from './caterer-profile.ts';
+import { enquiriesScenarios } from './enquiries.ts';
+import { operatorScenarios } from './operator.ts';
+import { reportsScenarios } from './reports.ts';
+import { reviewsScenarios } from './reviews.ts';
 
 /**
  * Named store mutations a test can ask for (`backend.scenario(name, args)`),
@@ -19,8 +25,18 @@ const SCENARIOS: Record<string, (store: Store, args: any) => unknown> = {
   },
 };
 
+const ALL: Record<string, (store: Store, args: any) => unknown> = {
+  ...SCENARIOS,
+  ...accountScenarios,
+  ...catererProfileScenarios,
+  ...enquiriesScenarios,
+  ...operatorScenarios,
+  ...reportsScenarios,
+  ...reviewsScenarios,
+};
+
 export function applyScenario(store: Store, name: string, args: unknown): unknown {
-  const fn = SCENARIOS[name];
+  const fn = ALL[name];
   if (!fn) throw new Error(`Unknown scenario "${name}"`);
   return fn(store, args);
 }
