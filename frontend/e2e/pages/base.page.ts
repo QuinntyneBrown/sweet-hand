@@ -1,9 +1,27 @@
 import { expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { AccountMenu, SiteFooter, SiteHeader, SiteMenu, SkipLink } from './shell';
 
 /** Shared behaviour of every screen's page object. */
 export abstract class BasePage {
-  constructor(readonly page: Page) {}
+  readonly header: SiteHeader;
+  readonly footer: SiteFooter;
+  readonly siteMenu: SiteMenu;
+  readonly accountMenu: AccountMenu;
+  readonly skipLink: SkipLink;
+
+  constructor(readonly page: Page) {
+    this.header = new SiteHeader(page);
+    this.footer = new SiteFooter(page);
+    this.siteMenu = new SiteMenu(page);
+    this.accountMenu = new AccountMenu(page);
+    this.skipLink = new SkipLink(page);
+  }
+
+  /** Switch to a phone-sized viewport (XS). */
+  async usePhone() {
+    await this.page.setViewportSize({ width: 360, height: 780 });
+  }
 
   get main() {
     return this.page.getByRole('main');

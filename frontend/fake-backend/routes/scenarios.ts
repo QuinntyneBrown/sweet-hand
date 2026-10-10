@@ -13,6 +13,10 @@ const SCENARIOS: Record<string, (store: Store, args: any) => unknown> = {
     const c = store.caterers.find((x) => x.slug === slug);
     if (c) c.status = status as typeof c.status;
   },
+  'set-unread': (store, { email, count }: { email: string; count: number }) => {
+    const user = store.users.find((u) => u.email === email);
+    if (user) store.unread[user.id] = count;
+  },
 };
 
 export function applyScenario(store: Store, name: string, args: unknown): unknown {

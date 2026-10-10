@@ -17,6 +17,10 @@ export interface Store {
   cuisines: Cuisine[];
   regions: Region[];
   users: User[];
+  /** Unread threads per user id until the enquiries area computes them from threads. */
+  unread: Record<string, number>;
+  /** Items in the operator review queue until the moderation area computes them. */
+  queueCount: number;
   /** Session cookie value → user id. */
   sessions: Map<string, string>;
   faults: Fault[];
@@ -31,6 +35,8 @@ export function createStore(): Store {
     cuisines: seedCuisines(),
     regions: seedRegions(),
     users: seedUsers(),
+    unread: { 'user-marcia': 1, 'user-kendra': 2 },
+    queueCount: 7,
     sessions: new Map(),
     faults: [],
     requests: [],

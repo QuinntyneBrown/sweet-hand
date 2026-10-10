@@ -1,0 +1,72 @@
+<a class="skip-link" href="#main" (click)="skipToMain($event)" i18n="@@shell.skipLink">Skip to main content</a>
+<div class="page">
+  <sh-site-header
+    brandName="Sweet Hand"
+    i18n-brandName="@@brand"
+    [homeHref]="home()"
+    [tag]="tag()"
+    [minimal]="minimal()"
+    [links]="links()"
+    [inboxShortcut]="shortcut()"
+    [searchLabel]="canSearch() ? searchLabel : null"
+    menuLabel="Menu"
+    i18n-menuLabel="@@header.menu"
+    [menuOpen]="menuOpen()"
+    [account]="account()"
+    [accountOpen]="accountOpen()"
+    (menuRequested)="menuOpen.set(true)"
+    (accountRequested)="accountOpen.set(!accountOpen())"
+  />
+
+  <main #main id="main" [class]="mainClass()" tabindex="-1">
+    <router-outlet />
+  </main>
+
+  <sh-footer brandName="Sweet Hand" i18n-brandName="@@brand" [line]="footerLine()" label="Footer" i18n-label="@@footer.label" [links]="footerLinks()" />
+</div>
+
+<sh-sheet
+  [open]="menuOpen()"
+  title="Menu"
+  i18n-title="@@siteMenu.title"
+  closeLabel="Close menu"
+  i18n-closeLabel="@@siteMenu.close"
+  bodyAs="nav"
+  [returnFocus]="menuTrigger()"
+  (dismissed)="menuOpen.set(false)"
+>
+  <ul class="filter-list">
+    @for (link of menuLinks(); track link.href) {
+      <li>
+        <a class="filter-list__item" [routerLink]="link.href" [attr.aria-current]="link.current ? 'page' : null" [attr.aria-label]="link.count ? link.label + ', ' + link.countLabel : null"
+          >{{ link.label }}@if (link.count) {&ngsp;<span class="badge badge--count" aria-hidden="true">{{ link.count > 99 ? '99+' : link.count }}</span><span class="visually-hidden">, {{ link.countLabel }}</span>
+          }</a
+        >
+      </li>
+    }
+  </ul>
+  @if (user()) {
+    <div class="stack stack--sm">
+      <p class="text-muted">{{ signedIn() }}</p>
+      <button class="btn" type="button" (click)="signOut()"><svg shIcon="sign-out"></svg><ng-container i18n="@@nav.signOut">Sign out</ng-container></button>
+    </div>
+  }
+  <ul class="cluster text-sm site-menu__small">
+    @for (link of smallLinks(); track link.href) {
+      <li><a [routerLink]="link.href">{{ link.label }}</a></li>
+    }
+  </ul>
+</sh-sheet>
+
+@if (user(); as u) {
+  <sh-account-menu
+    [open]="accountOpen()"
+    [name]="u.displayName"
+    [secondLine]="accountSecondLine()"
+    [initials]="account()!.initials"
+    [items]="accountItems()"
+    [trigger]="accountTrigger()"
+    (openChange)="accountOpen.set($event)"
+    (itemActivated)="onAccountItem($event.id)"
+  />
+}
