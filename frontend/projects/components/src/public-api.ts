@@ -26,5 +26,8 @@ export * from './lib/status/status';
 export * from './lib/inbox-row/inbox-row';
 export * from './lib/button-group/segmented';
 export * from './lib/message/thread-placeholder';
+export * from './lib/message/thread';
+export * from './lib/message/message';
+export * from './lib/message/reply-box';
 export * from './lib/empty-state/empty-state';
 export * from './lib/pagination/pagination';

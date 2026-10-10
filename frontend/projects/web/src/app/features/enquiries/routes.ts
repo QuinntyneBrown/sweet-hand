@@ -10,4 +10,11 @@ export const enquiriesRoutes: Routes = [
     data: { mainClass: 'container' },
     title: $localize`:@@inbox.documentTitle:Inbox · Sweet Hand`,
   },
+  {
+    path: 'inbox/:id',
+    canActivate: [requireRole('Customer')],
+    loadComponent: () => import('./thread/thread.page').then((m) => m.ThreadPage),
+    data: { mainClass: 'container' },
+    title: $localize`:@@thread.documentTitle:Enquiry · Sweet Hand`,
+  },
 ];

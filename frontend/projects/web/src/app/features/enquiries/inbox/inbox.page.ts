@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, afterRenderEffect, computed, effect, inject, signal, viewChild } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EMPTY_STATE, Icon, ThreadPlaceholder } from '@sweet-hand/components';
@@ -7,6 +7,7 @@ import { time } from '../../../core/format/format';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { Connection } from '../shared/connection';
 import { EnquiryList } from '../shared/enquiry-list';
+import { LastThread } from '../shared/last-thread';
 import { filteredSubtitle, inboxSubtitle, readFilter, readPage } from '../enquiry-text';
 
 /** The customer's inbox, /inbox (docs/detailed-designs/enquiries/browse-inbox). */
@@ -52,9 +53,20 @@ export class InboxPage {
     return a && b && c ? [{ src: a, size: 72 as const }, { src: b, size: 104 as const }, { src: c, size: 72 as const }] : [];
   });
 
+  private readonly list = viewChild(EnquiryList);
+  private readonly lastThread = inject(LastThread);
+
   constructor() {
     effect(() => {
       if (this.view()) this.loadedAt.set(time(new Date()));
+    });
+    // Back from a thread, focus returns to its row so a long inbox does not start over (inbox-row AC-10).
+    afterRenderEffect(() => {
+      const list = this.list();
+      if (list && this.view()) {
+        const id = this.lastThread.take();
+        if (id) list.focusRow(id);
+      }
     });
   }
 
