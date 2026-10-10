@@ -122,6 +122,12 @@
       <section class="caterer-section" aria-labelledby="delete-title">
         <h2 id="delete-title" i18n="@@account.delete">Delete account</h2>
         <p class="text-muted measure account__lead">{{ deleteText() }}</p>
+        <p>
+          <button #deleteButton class="btn" type="button" aria-haspopup="dialog" (click)="dialog.set('delete')">
+            <svg shIcon="trash"></svg><ng-container i18n="@@account.deleteAccount">Delete my account</ng-container>
+          </button>
+        </p>
+        <app-delete-account-dialog [open]="dialog() === 'delete'" [account]="a" [returnFocus]="deleteButton" (closed)="dialog.set(null)" (deleted)="accountDeleted()" />
       </section>
     }
     <app-end-session-dialog [open]="dialog() === 'session'" [session]="ending()" [returnFocus]="endOpener()" (closed)="dialog.set(null)" (signedOut)="sessionEnded($event)" />

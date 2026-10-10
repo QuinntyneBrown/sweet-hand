@@ -10,15 +10,16 @@ import { Session } from '../../core/session/session';
 import { initials, memberLine, orderSessions, sessionMeta } from './account-view';
 import { ChangePasswordDialog } from './change-password/change-password.dialog';
 import { EditDetailsDialog } from './edit-details/edit-details.dialog';
+import { DeleteAccountDialog } from './delete-account/delete-account.dialog';
 import { DownloadDataDialog } from './download-data/download-data.dialog';
 import { EndSessionDialog } from './end-session/end-session.dialog';
 
-type AccountDialog = 'details' | 'password' | 'session' | 'download' | null;
+type AccountDialog = 'details' | 'password' | 'session' | 'download' | 'delete' | null;
 
 /** Account settings, /account (docs/mocks/pages/account; manage-sessions, export and delete-account designs). */
 @Component({
   selector: 'app-account-page',
-  imports: [RouterLink, Alert, ChangePasswordDialog, DownloadDataDialog, EditDetailsDialog, EndSessionDialog, Icon, List, ListItem, PrivateNote],
+  imports: [RouterLink, Alert, ChangePasswordDialog, DeleteAccountDialog, DownloadDataDialog, EditDetailsDialog, EndSessionDialog, Icon, List, ListItem, PrivateNote],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './account.page.html',
   styleUrl: './account.page.css',
@@ -113,6 +114,18 @@ export class AccountPage {
     return torontoToday(new Date(at)) === torontoToday()
       ? $localize`:@@account.exportRequestedToday:Export requested today at ${time(at)}:time:`
       : $localize`:@@account.exportRequestedOn:Export requested ${shortDate(at)}:date:`;
+  }
+
+  /** Signed out on the server; the person lands on the listing with a confirmation (L2-072.1). */
+  protected async accountDeleted(): Promise<void> {
+    this.dialog.set(null);
+    await this.session.refresh();
+    await this.router.navigateByUrl('/caterers');
+    this.toasts.show({
+      tone: 'success',
+      title: $localize`:@@delete.done:Your account is deleted`,
+      text: $localize`:@@delete.doneText:We’ve sent a confirmation email. Thank you for using Sweet Hand.`,
+    });
   }
 
   protected signOutLabel(device: string): string {

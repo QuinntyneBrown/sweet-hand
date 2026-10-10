@@ -1,5 +1,5 @@
 import type { Router } from '../lib/router.ts';
-import { invalid, notFound, ok, unauthorized, type Ctx, type Reply } from '../lib/http.ts';
+import { forbidden, invalid, notFound, ok, unauthorized, type Ctx, type Reply } from '../lib/http.ts';
 import { currentUser, type Store } from '../lib/store.ts';
 import type { User } from '../seed/users.ts';
 import type { AccountView, ActiveSession, ChangePasswordRequest, UpdateDetailsRequest } from '../../projects/web/src/app/core/api/account.models.ts';
@@ -108,6 +108,24 @@ export function registerAccount(r: Router<Store>): void {
     if (isReply(me)) return me;
     ctx.store.account.dataExports[me.user.id] ??= ctx.store.now.toISOString();
     return { status: 202, body: accountView(ctx.store, me.user) };
+  });
+
+  /**
+   * Closes the account after the password is confirmed: every session ends,
+   * a confirmation is emailed, and a caterer's profile leaves public view.
+   * Anonymising and deleting follow within 30 days (L2-072).
+   */
+  r.post('/api/me/deletion', (ctx): Reply => {
+    const me = signedIn(ctx);
+    if (isReply(me)) return me;
+    if (me.user.role === 'Operator') return forbidden();
+    if ((ctx.body ?? {}).password !== me.user.password) return invalid({ password: ['That password isn’t right'] });
+    me.user.deleted = true;
+    const profile = me.user.catererId ? ctx.store.caterers.find((c) => c.id === me.user.catererId) : undefined;
+    if (profile) profile.status = 'Removed';
+    endSessions(ctx.store, me.user.id);
+    sendEmail(ctx.store, me.user.email, 'account-deleted');
+    return { status: 204, headers: { 'set-cookie': 'sh_session=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax' } };
   });
 
   /** The caller's own sessions only (L2-078.5). */
