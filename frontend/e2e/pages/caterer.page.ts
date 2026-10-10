@@ -94,6 +94,19 @@ export class CatererPage extends BasePage {
     return this.menu.getByRole('status');
   }
 
+  get areasServed() {
+    return this.main.getByRole('region', { name: 'Areas served' });
+  }
+
+  get regionNames() {
+    return this.areasServed.locator('dl.regions dt');
+  }
+
+  /** The areas listed under one region name. */
+  areasIn(region: string) {
+    return this.fact(this.areasServed.locator('dl.regions'), region);
+  }
+
   metaContent(name: string) {
     return this.page.locator(`head meta[name="${name}"], head meta[property="${name}"]`);
   }

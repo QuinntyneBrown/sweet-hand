@@ -35,6 +35,15 @@
         </sh-dish-list>
       </section>
 
+      <section class="caterer-section" aria-labelledby="areas-title">
+        <h2 id="areas-title" i18n="@@caterer.areasServed">Areas served</h2>
+        <sh-description-list layout="regions">
+          @for (r of c.regions; track r.name) {
+            <sh-description [term]="r.name">{{ r.areas.join(', ') }}</sh-description>
+          }
+        </sh-description-list>
+      </section>
+
       <div class="caterer-section until-lg">
         <sh-button variant="primary" size="lg" [block]="true" haspopup="dialog" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>
       </div>

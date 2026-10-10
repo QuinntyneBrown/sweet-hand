@@ -139,4 +139,14 @@ test.describe('Caterer page', () => {
     await expect(caterer.dishes).toHaveCount(12);
     await expect(caterer.menuToggle).toHaveText('Show all 18 dishes');
   });
+
+  test('L2-015.3: the areas served are grouped under their region names', async ({ page }) => {
+    const caterer = new CatererPage(page);
+
+    await caterer.open('pelau-house');
+
+    await expect(caterer.regionNames).toHaveText(['City of Toronto', 'Durham']);
+    await expect(caterer.areasIn('City of Toronto')).toHaveText('Scarborough, East York, North York');
+    await expect(caterer.areasIn('Durham')).toHaveText('Pickering, Ajax');
+  });
 });
