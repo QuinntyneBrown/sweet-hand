@@ -58,24 +58,25 @@
         <button class="btn" type="button" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>Export CSV</button>
       </form>
       <dl class="stat-grid" style="margin-bottom: var(--space-10);">
-        <div class="stat"><dt class="stat__label">Published caterers</dt><dd class="stat__value">60</dd><dd class="stat__delta stat__delta--up">+4 in this range</dd></div>
-        <div class="stat"><dt class="stat__label">Enquiries</dt><dd class="stat__value">–</dd><dd class="text-caption">Not loaded</dd></div>
-        <div class="stat"><dt class="stat__label">Replied within 48 h</dt><dd class="stat__value">–</dd><dd class="text-caption">Not loaded</dd></div>
+        <div class="stat"><dt class="stat__label">Published caterers</dt><dd class="stat__value">60</dd><dd class="stat__delta stat__delta--up"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>+4 in this range</dd></div>
+        <div class="stat"><dt class="stat__label">Enquiries</dt><dd class="stat__value"><span aria-hidden="true">–</span><span class="visually-hidden">Not loaded</span></dd><dd class="text-caption" aria-hidden="true">Not loaded</dd></div>
+        <div class="stat"><dt class="stat__label">Replied within 48 hours</dt><dd class="stat__value"><span aria-hidden="true">–</span><span class="visually-hidden">Not loaded</span></dd><dd class="text-caption" aria-hidden="true">Not loaded</dd></div>
         <div class="stat"><dt class="stat__label">Caterer page visits</dt><dd class="stat__value">39,700</dd></div>
       </dl>
       <h2 class="visually-hidden">Charts</h2>
+      <div class="alert alert--danger" role="alert" style="margin-bottom: var(--space-6);"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><p class="alert__title">2 charts didn’t load</p><p>The other figures are up to date.</p><div class="alert__actions"><button class="btn btn--sm" type="button" data-mock-href="default.html">Try again</button></div></div></div>
       <div class="chart-grid">
         <section class="chart-card" aria-labelledby="c-enquiries">
           <div class="chart-card__head"><h3 id="c-enquiries">Enquiries</h3></div>
-          <div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><p class="alert__title">This chart didn’t load</p><p>The other figures are up to date.</p><div class="alert__actions"><button class="btn btn--sm" type="button" data-mock-href="default.html">Try again</button></div></div></div>
+          <div class="alert alert--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><p class="alert__title">This chart didn’t load</p><p>The other figures are up to date.</p><div class="alert__actions"><button class="btn btn--sm" type="button" data-mock-href="default.html">Try again</button></div></div></div>
         </section>
         <section class="chart-card" aria-labelledby="c-replied">
           <div class="chart-card__head"><h3 id="c-replied">Replied within 48 hours</h3></div>
-          <div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><p class="alert__title">This chart didn’t load</p><p>The other figures are up to date.</p><div class="alert__actions"><button class="btn btn--sm" type="button" data-mock-href="default.html">Try again</button></div></div></div>
+          <div class="alert alert--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><p class="alert__title">This chart didn’t load</p><p>The other figures are up to date.</p><div class="alert__actions"><button class="btn btn--sm" type="button" data-mock-href="default.html">Try again</button></div></div></div>
         </section>
         <section class="chart-card" aria-labelledby="c-listing">
           <div class="chart-card__head"><h3 id="c-listing">Listing page visits</h3><span class="chart-card__total">22,670</span></div>
-          <div class="bar-chart" role="img" aria-label="Listing page visits by week. 31 Aug: 3,120, 7 Sep: 3,480, 14 Sep: 4,050, 21 Sep: 3,910, 28 Sep: 4,240, 5 Oct: 3,870."><span class="bar-chart__bar" style="--value: 74%;"></span><span class="bar-chart__bar" style="--value: 82%;"></span><span class="bar-chart__bar" style="--value: 96%;"></span><span class="bar-chart__bar" style="--value: 92%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 91%;"></span></div>
+          <div class="bar-chart" role="img" aria-label="Listing page visits by week. 31 Aug: 3,120, 7 Sep: 3,480, 14 Sep: 4,050, 21 Sep: 3,910, 28 Sep: 4,240, 5 Oct so far: 3,870."><span class="bar-chart__bar" style="--value: 74%;"></span><span class="bar-chart__bar" style="--value: 82%;"></span><span class="bar-chart__bar" style="--value: 96%;"></span><span class="bar-chart__bar" style="--value: 92%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar bar-chart__bar--accent" style="--value: 91%;"></span></div>
           <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
           <details>
             <summary>Show as a table</summary>
@@ -90,7 +91,7 @@
         </section>
         <section class="chart-card" aria-labelledby="c-caterer">
           <div class="chart-card__head"><h3 id="c-caterer">Caterer page visits</h3><span class="chart-card__total">39,700</span></div>
-          <div class="bar-chart" role="img" aria-label="Caterer page visits by week. 31 Aug: 5,610, 7 Sep: 6,020, 14 Sep: 7,140, 21 Sep: 6,880, 28 Sep: 7,350, 5 Oct: 6,700."><span class="bar-chart__bar" style="--value: 76%;"></span><span class="bar-chart__bar" style="--value: 82%;"></span><span class="bar-chart__bar" style="--value: 97%;"></span><span class="bar-chart__bar" style="--value: 94%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 91%;"></span></div>
+          <div class="bar-chart" role="img" aria-label="Caterer page visits by week. 31 Aug: 5,610, 7 Sep: 6,020, 14 Sep: 7,140, 21 Sep: 6,880, 28 Sep: 7,350, 5 Oct so far: 6,700."><span class="bar-chart__bar" style="--value: 76%;"></span><span class="bar-chart__bar" style="--value: 82%;"></span><span class="bar-chart__bar" style="--value: 97%;"></span><span class="bar-chart__bar" style="--value: 94%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar bar-chart__bar--accent" style="--value: 91%;"></span></div>
           <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
           <details>
             <summary>Show as a table</summary>
@@ -105,7 +106,7 @@
         </section>
         <section class="chart-card" aria-labelledby="c-unique">
           <div class="chart-card__head"><h3 id="c-unique">Unique visitors</h3><span class="chart-card__total">2,578 avg</span></div>
-          <div class="bar-chart" role="img" aria-label="Unique visitors by week. 31 Aug: 2,210, 7 Sep: 2,390, 14 Sep: 2,760, 21 Sep: 2,640, 28 Sep: 2,890, 5 Oct: 2,580."><span class="bar-chart__bar" style="--value: 76%;"></span><span class="bar-chart__bar" style="--value: 83%;"></span><span class="bar-chart__bar" style="--value: 96%;"></span><span class="bar-chart__bar" style="--value: 91%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 89%;"></span></div>
+          <div class="bar-chart" role="img" aria-label="Unique visitors by week. 31 Aug: 2,210, 7 Sep: 2,390, 14 Sep: 2,760, 21 Sep: 2,640, 28 Sep: 2,890, 5 Oct so far: 2,580."><span class="bar-chart__bar" style="--value: 76%;"></span><span class="bar-chart__bar" style="--value: 83%;"></span><span class="bar-chart__bar" style="--value: 96%;"></span><span class="bar-chart__bar" style="--value: 91%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar bar-chart__bar--accent" style="--value: 89%;"></span></div>
           <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
           <details>
             <summary>Show as a table</summary>
@@ -120,7 +121,7 @@
         </section>
         <section class="chart-card" aria-labelledby="c-published">
           <div class="chart-card__head"><h3 id="c-published">New caterers published</h3><span class="chart-card__total">4</span></div>
-          <div class="bar-chart" role="img" aria-label="New caterers published by week. 31 Aug: 1, 7 Sep: 0, 14 Sep: 2, 21 Sep: 0, 28 Sep: 1, 5 Oct: 0."><span class="bar-chart__bar" style="--value: 50%;"></span><span class="bar-chart__bar" style="--value: 2%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 2%;"></span><span class="bar-chart__bar" style="--value: 50%;"></span><span class="bar-chart__bar" style="--value: 2%;"></span></div>
+          <div class="bar-chart" role="img" aria-label="New caterers published by week. 31 Aug: 1, 7 Sep: 0, 14 Sep: 2, 21 Sep: 0, 28 Sep: 1, 5 Oct so far: 0."><span class="bar-chart__bar" style="--value: 50%;"></span><span class="bar-chart__bar" style="--value: 2%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 2%;"></span><span class="bar-chart__bar" style="--value: 50%;"></span><span class="bar-chart__bar bar-chart__bar--accent" style="--value: 2%;"></span></div>
           <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
           <details>
             <summary>Show as a table</summary>
@@ -159,7 +160,7 @@
   </nav>
 </footer>
 </div>
-<p class="mock-note" style="top: 8rem; right: 1rem;">Export CSV is disabled until every figure has loaded, so a file never has silent gaps.</p>
+<p class="mock-note" style="top: 8rem; right: 1rem;">Export CSV is disabled until every figure has loaded, so a file never has silent gaps. One assertive alert sums up the failures; each failed card shows its own “This chart didn’t load” with no live role, so the two never interrupt each other.</p>
 
 <nav class="mock-bar" aria-label="Mock navigation">
   <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
