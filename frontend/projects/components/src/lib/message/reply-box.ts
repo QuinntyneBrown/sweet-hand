@@ -11,6 +11,8 @@ import { Textarea, graphemeLength } from '../form/textarea';
   imports: [Icon, Textarea],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
+  // The field takes the room; Send keeps its 44 px target on phones (L2-065.1, message AC-26).
+  styles: ['.reply-box__row > .btn { flex: none; }'],
   template: `
     <form class="reply-box" novalidate (submit)="onSubmit($event)">
       @if (error() && summaryTitle()) {

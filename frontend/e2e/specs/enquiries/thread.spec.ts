@@ -231,6 +231,52 @@ test.describe('Customer thread on a phone', () => {
   });
 });
 
+test.describe('Customer thread on a phone, by keyboard and touch', () => {
+  test.beforeEach(async ({ backend }) => {
+    await backend.signInAs('marcia');
+  });
+
+  test('L2-065.1 message AC-26 inbox-row AC-18: actions, Send and rows are at least 44 px tall on a phone', async ({ page, backend }) => {
+    const inbox = new InboxPage(page);
+    const thread = new ThreadPage(page);
+    await inbox.usePhone();
+    await inbox.open();
+    const row = await inbox.enquiries.row('Sugar Dumplin').boundingBox();
+    expect(row!.height).toBeGreaterThanOrEqual(44);
+
+    await thread.open(await enquiryId(backend, 'pelau-house'));
+
+    for (const target of [thread.thread.action('Share my contact details'), thread.thread.action('Close enquiry'), thread.thread.sendButton, thread.thread.backLink]) {
+      const box = await target.boundingBox();
+      expect(box!.height).toBeGreaterThanOrEqual(44);
+    }
+    const send = await thread.thread.sendButton.boundingBox();
+    expect(send!.width).toBeGreaterThanOrEqual(44);
+  });
+
+  test('L2-067.1 message AC-17: Tab goes from the heading through the thread in reading order', async ({ page, backend }) => {
+    const thread = new ThreadPage(page);
+    await thread.usePhone();
+    await thread.open(await enquiryId(backend, 'pelau-house'));
+    await expect(thread.thread.heading).toBeFocused();
+
+    await page.keyboard.press('Tab');
+    await expect(thread.thread.viewCaterer).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(thread.thread.action('Share my contact details')).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(thread.thread.action('Close enquiry')).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(thread.thread.replyField).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(thread.thread.sendButton).toBeFocused();
+
+    await thread.thread.heading.focus();
+    await page.keyboard.press('Shift+Tab');
+    await expect(thread.thread.backLink).toBeFocused();
+  });
+});
+
 test('L2-027.4 L2-013: a signed-out visitor following a thread link signs in and lands on the thread', async ({ page, backend }) => {
   const id = await enquiryId(backend, 'pelau-house');
   const signIn = new SignInPage(page);

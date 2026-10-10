@@ -349,4 +349,22 @@ test.describe('Caterer enquiry', () => {
     await backend.release();
     await expect(enquiry.thread.heading).toHaveText('Priya Ramdial');
   });
+
+  test('message AC-11 (caterer side): while Kendra’s reply sends, it shows as sending and Send is busy', async ({ page, backend }) => {
+    const id = await enquiryId(backend, PRIYA);
+    const enquiry = new EnquiryPage(page);
+    await enquiry.open(id);
+    await expect(enquiry.thread.replyBox).toBeVisible();
+    await backend.hold(`POST /api/enquiries/${id}/messages`);
+
+    await enquiry.thread.reply('Hi Priya, thanks for thinking of us! I’ll send a full menu by Monday.');
+
+    await expect(enquiry.thread.metaOf(enquiry.thread.pending)).toHaveText('You · Sending…');
+    await expect(enquiry.thread.sendButton).toHaveText('Send');
+    await expect(enquiry.thread.sendButton).toHaveAttribute('aria-busy', 'true');
+    await expect(enquiry.thread.replyField).toHaveAttribute('readonly', '');
+    await enquiry.expectNoAccessibilityViolations();
+    await backend.release();
+    await expect(enquiry.thread.pending).toHaveCount(0);
+  });
 });
