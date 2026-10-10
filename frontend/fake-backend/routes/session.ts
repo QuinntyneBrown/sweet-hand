@@ -1,6 +1,6 @@
 import type { Router } from '../lib/router.ts';
 import { ok } from '../lib/http.ts';
-import { currentUser, type Store } from '../lib/store.ts';
+import { currentUser, newId, type Store } from '../lib/store.ts';
 import type { SessionUser, SessionView } from '../../projects/web/src/app/core/api/session.models.ts';
 import type { User } from '../seed/users.ts';
 import { privacyUpdateRequired } from './identity.ts';
@@ -57,7 +57,7 @@ export function sessionRecord(store: Store, token: string, userId: string, userA
   let record = store.account.sessions.find((s) => s.token === token);
   if (!record) {
     const now = store.now.toISOString();
-    record = { token, userId, device: deviceOf(userAgent), createdAt: now, lastActiveAt: now };
+    record = { id: `ses-${newId()}`, token, userId, device: deviceOf(userAgent), createdAt: now, lastActiveAt: now };
     store.account.sessions.push(record);
   }
   return record;
