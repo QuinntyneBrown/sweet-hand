@@ -1,9 +1,9 @@
 import type { Router } from '../lib/router.ts';
-import { ok, unauthorized, type Ctx, type Reply } from '../lib/http.ts';
+import { invalid, ok, unauthorized, type Ctx, type Reply } from '../lib/http.ts';
 import { currentUser, type Store } from '../lib/store.ts';
 import type { User } from '../seed/users.ts';
-import type { AccountView, ActiveSession } from '../../projects/web/src/app/core/api/account.models.ts';
-import { identityScenarios } from './identity.ts';
+import type { AccountView, ActiveSession, UpdateDetailsRequest } from '../../projects/web/src/app/core/api/account.models.ts';
+import { findUser, identityScenarios, sendVerification } from './identity.ts';
 import { sessionRecord } from './session.ts';
 
 const EMPTY_SUMMARY = { enquiries: 0, reviews: 0, reports: 0, photos: 0, dishes: 0, reviewResponses: 0, openEnquiriesWith: [] as string[] };
@@ -50,6 +50,30 @@ export function registerAccount(r: Router<Store>): void {
   r.get('/api/me/account', (ctx): Reply => {
     const me = signedIn(ctx);
     if (isReply(me)) return me;
+    return ok(accountView(ctx.store, me.user));
+  });
+
+  /** Name, email and phone; a new email must be verified again (L2-077.3). */
+  r.put('/api/me/details', (ctx): Reply => {
+    const me = signedIn(ctx);
+    if (isReply(me)) return me;
+    const body = (ctx.body ?? {}) as Partial<UpdateDetailsRequest>;
+    const displayName = typeof body.displayName === 'string' ? body.displayName.trim() : '';
+    const email = typeof body.email === 'string' ? body.email.trim() : '';
+    const errors: Record<string, string[]> = {};
+    if ([...displayName].length < 2 || [...displayName].length > 50) errors['name'] = ['Enter a display name of 2 to 50 characters'];
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors['email'] = ['Enter an email address like name@example.com'];
+    else if (email.toLowerCase() !== me.user.email.toLowerCase() && findUser(ctx.store, email)) errors['email'] = ['Use a different email address'];
+    if (Object.keys(errors).length) return invalid(errors);
+    const emailChanged = email.toLowerCase() !== me.user.email.toLowerCase();
+    me.user.displayName = displayName;
+    me.user.email = email;
+    me.user.phone = typeof body.phone === 'string' && body.phone.trim() ? body.phone.trim() : undefined;
+    if (emailChanged) {
+      me.user.emailVerified = false;
+      me.user.emailBounced = false;
+      sendVerification(ctx.store, me.user);
+    }
     return ok(accountView(ctx.store, me.user));
   });
 

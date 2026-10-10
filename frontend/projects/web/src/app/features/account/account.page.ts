@@ -1,18 +1,21 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { Icon, List, ListItem, PrivateNote } from '@sweet-hand/components';
+import { Icon, List, ListItem, PrivateNote, ToastNotifier } from '@sweet-hand/components';
 import { AccountApi } from '../../core/api/account-api';
 import type { AccountView, ActiveSession } from '../../core/api/account.models';
 import { shortDate } from '../../core/format/format';
 import { problemOf, reference } from '../../core/forms/problem';
 import { Session } from '../../core/session/session';
 import { initials, memberLine, orderSessions, sessionMeta } from './account-view';
+import { EditDetailsDialog } from './edit-details/edit-details.dialog';
+
+type AccountDialog = 'details' | null;
 
 /** Account settings, /account (docs/mocks/pages/account; manage-sessions, export and delete-account designs). */
 @Component({
   selector: 'app-account-page',
-  imports: [RouterLink, Icon, List, ListItem, PrivateNote],
+  imports: [RouterLink, EditDetailsDialog, Icon, List, ListItem, PrivateNote],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './account.page.html',
   styleUrl: './account.page.css',
@@ -21,7 +24,10 @@ export class AccountPage {
   private readonly api = inject(AccountApi);
   private readonly session = inject(Session);
   private readonly router = inject(Router);
+  private readonly toasts = inject(ToastNotifier);
 
+  /** The one dialog open over the page (no inline forms: AGENTS.md). */
+  protected readonly dialog = signal<AccountDialog>(null);
   protected readonly account = signal<AccountView | null>(null);
   protected readonly sessions = signal<ActiveSession[] | null>(null);
   protected readonly loadFailed = signal<{ reference: string | null } | null>(null);
@@ -67,6 +73,13 @@ export class AccountPage {
     } catch (error) {
       this.loadFailed.set({ reference: reference(problemOf(error).problem) });
     }
+  }
+
+  protected detailsSaved(event: { account: AccountView; message: string }): void {
+    this.account.set(event.account);
+    this.dialog.set(null);
+    this.toasts.show({ tone: 'success', title: $localize`:@@editDetails.saved:Details saved`, text: event.message });
+    void this.session.refresh();
   }
 
   protected async signOut(): Promise<void> {
