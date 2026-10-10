@@ -2,3 +2,7 @@
 .description {
   margin-top: var(--space-8);
 }
+
+.facts {
+  margin-top: var(--space-10);
+}

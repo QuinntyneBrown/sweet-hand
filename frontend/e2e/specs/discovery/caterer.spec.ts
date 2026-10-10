@@ -44,4 +44,46 @@ test.describe('Caterer page', () => {
     await expect(caterer.metaContent('og:image')).toHaveAttribute('content', `${WEB_URL}/media/pelau-house.jpg?w=1200&fm=jpeg`);
     await expect(caterer.metaContent('og:url')).toHaveAttribute('content', `${WEB_URL}/caterers/pelau-house`);
   });
+
+  test('L2-019.3 L2-020.1 L2-021.1: on a desktop the side panel holds the guest range, the occasions and the enquiry button', async ({ page }) => {
+    const caterer = new CatererPage(page);
+
+    await caterer.open('pelau-house');
+
+    await expect(caterer.fact(caterer.panel, 'Guests')).toHaveText('Serves 20–300 guests');
+    await expect(caterer.occasions(caterer.panel)).toHaveText(['Weddings', 'Birthdays', 'Family gatherings', 'Corporate events', 'Religious and cultural celebrations']);
+    await expect(caterer.enquireButtonIn(caterer.panel)).toHaveAttribute('aria-haspopup', 'dialog');
+    await expect(caterer.panel).toContainText('Free to ask. Your email and phone stay private until you choose to share them.');
+    await expect(caterer.enquireButtons).toHaveCount(1);
+    await expect(caterer.stickyBar).toBeHidden();
+    await expect(caterer.mainFacts).toBeHidden();
+  });
+
+  test('L2-015.4 L2-019.1: on a phone the summary is in the column and a bar keeps "Send an enquiry" in view', async ({ page }) => {
+    const caterer = new CatererPage(page);
+    await caterer.usePhone();
+
+    await caterer.open('pelau-house');
+
+    await expect(caterer.fact(caterer.mainFacts, 'Guests')).toHaveText('Serves 20–300 guests');
+    await expect(caterer.occasions(caterer.mainFacts)).toHaveCount(5);
+    await expect(caterer.panel).toBeHidden();
+    await expect(caterer.stickyBar).toHaveAttribute('role', 'region');
+    await expect(caterer.stickyBar).toHaveAccessibleName('Enquire');
+    await expect(caterer.stickyBar).toHaveText(/^Pelau House\s*Serves 20–300 guests\s*Send an enquiry$/);
+    await expect(caterer.stickyBar).toBeInViewport();
+    await caterer.footer.root.scrollIntoViewIfNeeded();
+    await expect(caterer.enquireButtonIn(caterer.stickyBar)).toBeInViewport();
+    await caterer.expectNoHorizontalScroll();
+    await caterer.expectNoAccessibilityViolations();
+  });
+
+  test('L2-013.3: a visitor who asks to send an enquiry is taken to sign in and brought back to the caterer', async ({ page }) => {
+    const caterer = new CatererPage(page);
+    await caterer.open('pelau-house');
+
+    await caterer.enquireButtonIn(caterer.panel).click();
+
+    await expect(page).toHaveURL(/\/sign-in\?returnUrl=%2Fcaterers%2Fpelau-house$/);
+  });
 });

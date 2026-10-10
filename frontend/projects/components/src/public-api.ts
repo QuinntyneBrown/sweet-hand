@@ -23,3 +23,5 @@ export * from './lib/dialog/dialog';
 export * from './lib/combobox/combobox';
 export * from './lib/toast/toast';
 export * from './lib/link/link';
+export * from './lib/description-list/description-list';
+export * from './lib/sticky-cta/sticky-cta';

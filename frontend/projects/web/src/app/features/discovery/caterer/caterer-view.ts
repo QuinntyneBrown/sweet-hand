@@ -11,6 +11,13 @@ export function paragraphs(description: string): string[] {
     .filter(Boolean);
 }
 
+/** "Serves 20–300 guests", or "Serves 50 guests" when both ends are equal (L2-020.1, L2-020.2). */
+export function guestRange(min: number, max: number): string {
+  const n = (v: number) => new Intl.NumberFormat('en-CA').format(v);
+  if (min === max) return min === 1 ? $localize`:@@caterer.servesOne:Serves 1 guest` : $localize`:@@caterer.servesExactly:Serves ${n(min)}:count: guests`;
+  return $localize`:@@caterer.servesRange:Serves ${n(min)}:min:–${n(max)}:max: guests`;
+}
+
 /** The meta and Open Graph description: the description's opening, cut at a word near 160 characters. */
 export function previewText(description: string, max = 160): string {
   const text = description.replace(/\s+/g, ' ').trim();

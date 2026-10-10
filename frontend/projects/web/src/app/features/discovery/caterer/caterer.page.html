@@ -17,6 +17,28 @@
           <p>{{ p }}</p>
         }
       </div>
+
+      <sh-description-list layout="facts" class="until-lg facts">
+        <sh-description term="Guests" i18n-term="@@caterer.guests">{{ guests() }}</sh-description>
+        <sh-description term="Occasions" i18n-term="@@caterer.occasions"><sh-inline-list [items]="c.occasions" /></sh-description>
+      </sh-description-list>
+
+      <div class="caterer-section until-lg">
+        <sh-button variant="primary" size="lg" [block]="true" haspopup="dialog" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>
+      </div>
     </div>
+
+    <aside class="enquiry-panel only-lg" aria-label="Enquire" i18n-aria-label="@@caterer.enquireRegion">
+      <sh-description-list layout="facts">
+        <sh-description term="Guests" i18n-term="@@caterer.guests">{{ guests() }}</sh-description>
+        <sh-description term="Occasions" i18n-term="@@caterer.occasions"><sh-inline-list [items]="c.occasions" /></sh-description>
+      </sh-description-list>
+      <sh-button variant="primary" size="lg" [block]="true" haspopup="dialog" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>
+      <p class="enquiry-panel__note" i18n="@@caterer.enquireNote">Free to ask. Your email and phone stay private until you choose to share them.</p>
+    </aside>
+  </div>
+
+  <div sh-sticky-cta regionLabel="Enquire" i18n-regionLabel="@@caterer.enquireRegion" [heading]="c.name" [detail]="guests()">
+    <sh-button variant="primary" haspopup="dialog" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>
   </div>
 }
