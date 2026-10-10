@@ -24,6 +24,10 @@
         </div>
       </sh-alert>
     }
+  } @else if (challenge()) {
+    <sh-alert live="polite" title="One quick check first" i18n-title="@@signIn.challengeTitle"
+      ><ng-container i18n="@@signIn.challengeText">We’ve seen a lot of sign-in attempts from your network. Confirm you’re a person and we’ll sign you in.</ng-container></sh-alert
+    >
   }
 
   <sh-form-summary [heading]="summaryTitle()" [items]="summary()" [attempt]="attempt()" />
@@ -38,6 +42,14 @@
       >
       <sh-text-field formControlName="password" type="password" size="lg" name="password" autocomplete="current-password" [required]="true" [revealed]="revealed()" [readonly]="busy() || locked()" />
     </sh-form-field>
+    @if (challenge()) {
+      <sh-well as="fieldset" legend="Quick check" i18n-legend="@@botCheck.legend" [legendHidden]="true">
+        <sh-form-field controlId="human" [error]="errors().human">
+          <sh-checkbox formControlName="human" name="human" [required]="true" describedBy="human-help"><ng-container i18n="@@botCheck.label">I’m a person, not a bot</ng-container></sh-checkbox>
+        </sh-form-field>
+        <p class="text-caption" id="human-help" i18n="@@botCheck.help">A privacy-friendly check. No tracking cookies, nothing shared with advertisers.</p>
+      </sh-well>
+    }
 
     <sh-button type="submit" variant="primary" size="lg" [block]="true" [busy]="busy()" [disabled]="locked()"><ng-container i18n="@@signIn.submit">Sign in</ng-container></sh-button>
     <p class="visually-hidden" role="status">{{ busy() ? signingIn : '' }}</p>

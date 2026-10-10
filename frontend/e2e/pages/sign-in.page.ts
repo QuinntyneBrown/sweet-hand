@@ -42,11 +42,16 @@ export class SignInPage extends BasePage {
     return this.alert.getByRole('link', { name });
   }
 
+  /** The bot-protection check shown after many failed sign-ins from one network (L2-076.5). */
+  get humanCheck() {
+    return this.page.getByRole('checkbox', { name: 'I’m a person, not a bot' });
+  }
+
   get status() {
     return this.page.locator('form [role="status"]').last();
   }
 
-  errorFor(field: 'email' | 'password') {
+  errorFor(field: 'email' | 'password' | 'human') {
     return this.page.locator(`#${field}-error`);
   }
 

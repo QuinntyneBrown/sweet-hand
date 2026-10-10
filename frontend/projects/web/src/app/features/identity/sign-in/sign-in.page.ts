@@ -2,9 +2,10 @@ import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject, input
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { Alert, Button, FormField, FormSummary, LabelAction, TextField, type SummaryItem } from '@sweet-hand/components';
+import { Alert, Button, Checkbox, FormField, FormSummary, LabelAction, TextField, Well, type SummaryItem } from '@sweet-hand/components';
+import { BotChallenge } from '../../../core/api/bot-challenge';
 import { IdentityApi } from '../../../core/api/identity-api';
-import type { SignInLocked } from '../../../core/api/identity.models';
+import type { SignInLocked, SignInRequest } from '../../../core/api/identity.models';
 import { time } from '../../../core/format/format';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { emailError, summaryHeading } from '../../../core/forms/validation';
@@ -12,16 +13,23 @@ import { landingFor, safeReturnUrl } from '../../../core/session/guards';
 import { Session } from '../../../core/session/session';
 
 type Failure = { kind: 'server'; reference: string | null } | { kind: 'locked'; until: string } | null;
+interface Errors {
+  email: string | null;
+  password: string | null;
+  human: string | null;
+}
+const NO_ERRORS: Errors = { email: null, password: null, human: null };
 
 /** Sign in, /sign-in (docs/detailed-designs/identity-and-security/sign-in). */
 @Component({
   selector: 'app-sign-in-page',
-  imports: [ReactiveFormsModule, RouterLink, Alert, Button, FormField, FormSummary, LabelAction, TextField],
+  imports: [ReactiveFormsModule, RouterLink, Alert, Button, Checkbox, FormField, FormSummary, LabelAction, TextField, Well],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './sign-in.page.html',
 })
 export class SignInPage {
   private readonly api = inject(IdentityApi);
+  private readonly bots = inject(BotChallenge);
   private readonly session = inject(Session);
   private readonly router = inject(Router);
 
@@ -30,12 +38,15 @@ export class SignInPage {
   protected readonly form = new FormGroup({
     email: new FormControl('', { nonNullable: true }),
     password: new FormControl('', { nonNullable: true }),
+    human: new FormControl(false, { nonNullable: true }),
   });
-  protected readonly errors = signal<{ email: string | null; password: string | null }>({ email: null, password: null });
+  protected readonly errors = signal<Errors>(NO_ERRORS);
   protected readonly attempt = signal(0);
   protected readonly busy = signal(false);
   protected readonly revealed = signal(false);
   protected readonly failure = signal<Failure>(null);
+  /** Too many failed sign-ins from this network: the person confirms they are one first (L2-076.5). */
+  protected readonly challenge = signal(false);
   protected readonly signingIn = $localize`:@@signIn.busy:Signing in`;
   private readonly alert = viewChild(Alert);
   private unlockTimer: ReturnType<typeof setTimeout> | undefined;
@@ -52,27 +63,31 @@ export class SignInPage {
     const items: SummaryItem[] = [];
     if (e.email) items.push({ controlId: 'email', message: e.email });
     if (e.password) items.push({ controlId: 'password', message: e.password });
+    if (e.human) items.push({ controlId: 'human', message: e.human });
     return items;
   });
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@signIn.action:sign in`));
 
   protected async submit(): Promise<void> {
     if (this.busy() || this.locked()) return;
-    const { email, password } = this.form.getRawValue();
-    const errors = {
+    const { email, password, human } = this.form.getRawValue();
+    const errors: Errors = {
       email: emailError(email),
       password: password ? null : $localize`:@@signIn.passwordRequired:Enter your password`,
+      human: this.challenge() && !human ? $localize`:@@signIn.humanRequired:Tick the box to show you’re a person` : null,
     };
     this.failure.set(null);
     this.errors.set(errors);
-    if (errors.email || errors.password) {
+    if (errors.email || errors.password || errors.human) {
       this.attempt.update((n) => n + 1);
       return;
     }
 
     this.busy.set(true);
     try {
-      const result = await firstValueFrom(this.api.signIn({ email: email.trim(), password }));
+      const request: SignInRequest = { email: email.trim(), password };
+      if (this.challenge()) request.challengeToken = await this.bots.token('sign-in');
+      const result = await firstValueFrom(this.api.signIn(request));
       await this.session.refresh();
       const user = this.session.user();
       if (result.secondFactorRequired) {
@@ -86,10 +101,15 @@ export class SignInPage {
       const { status, problem } = problemOf(error);
       if (status === 423) {
         this.pause((problem as Partial<SignInLocked>).lockedUntil ?? new Date().toISOString());
+      } else if (status === 400 && problem['challengeRequired']) {
+        // Nothing was checked yet: the password stays so the person only ticks the box (L2-082.2).
+        this.challenge.set(true);
+        this.form.controls.human.setValue(false);
       } else if (status === 401 || status === 400) {
         // The same message whatever was wrong, so the form never reveals who has an account (L2-076.3).
         this.form.controls.password.setValue('');
-        this.errors.set({ email: null, password: $localize`:@@signIn.incorrect:Email or password is incorrect` });
+        this.form.controls.human.setValue(false);
+        this.errors.set({ ...NO_ERRORS, password: $localize`:@@signIn.incorrect:Email or password is incorrect` });
         this.attempt.update((n) => n + 1);
       } else {
         this.failure.set({ kind: 'server', reference: reference(problem) });
@@ -102,7 +122,7 @@ export class SignInPage {
 
   private pause(until: string): void {
     this.form.controls.password.setValue('');
-    this.errors.set({ email: null, password: null });
+    this.errors.set(NO_ERRORS);
     this.failure.set({ kind: 'locked', until });
     clearTimeout(this.unlockTimer);
     this.unlockTimer = setTimeout(() => this.failure.set(null), Math.max(0, Date.parse(until) - Date.now()));

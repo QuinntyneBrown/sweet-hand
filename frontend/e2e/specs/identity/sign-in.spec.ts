@@ -191,6 +191,44 @@ test.describe('Sign-in protection', () => {
     await signIn.signIn(cast.marcia.email, SEED_PASSWORD);
     await expect(page).toHaveURL(/\/inbox$/);
   });
+
+  test('L2-076.5 L2-082.2: after many failed sign-ins from one network, a privacy-friendly check comes before signing in', async ({ page, backend }) => {
+    await backend.scenario('many-failed-sign-ins-from-network');
+    const signIn = new SignInPage(page);
+    await signIn.open();
+
+    await signIn.signIn(cast.marcia.email, SEED_PASSWORD);
+
+    await expect(page).toHaveURL(/\/sign-in$/);
+    await expect(signIn.alertTitle).toHaveText('One quick check first');
+    await expect(signIn.alert).toContainText('We’ve seen a lot of sign-in attempts from your network. Confirm you’re a person and we’ll sign you in.');
+    await expect(signIn.humanCheck).not.toBeChecked();
+    await expect(signIn.humanCheck).toHaveAccessibleDescription('A privacy-friendly check. No tracking cookies, nothing shared with advertisers.');
+    await signIn.expectNoAccessibilityViolations();
+
+    await signIn.submit.click();
+    await expect(signIn.errorFor('human')).toHaveText('Tick the box to show you’re a person');
+    await expect(signIn.humanCheck).toHaveAttribute('aria-invalid', 'true');
+
+    await signIn.humanCheck.check();
+    await signIn.submit.click();
+
+    await expect(page).toHaveURL(/\/inbox$/);
+    const attempts = (await backend.requests()).filter((r) => r.path === '/api/identity/sign-in');
+    expect(attempts).toHaveLength(2);
+    expect(attempts[1].body).toMatchObject({ email: cast.marcia.email, challengeToken: expect.any(String) });
+  });
+
+  test('L2-082.2: without the check the sign-in is not processed, even with the right password', async ({ page, backend }) => {
+    await backend.scenario('many-failed-sign-ins-from-network');
+    const signIn = new SignInPage(page);
+    await signIn.open();
+
+    await signIn.signIn(cast.marcia.email, SEED_PASSWORD);
+
+    await expect(signIn.humanCheck).toBeVisible();
+    await expect(signIn.header.accountButton).toHaveCount(0);
+  });
 });
 
 test.describe('Pages that need an account', () => {

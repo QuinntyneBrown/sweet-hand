@@ -9,6 +9,8 @@ const MINUTE = 60_000;
 /** 5 failed sign-ins for one account within 15 minutes pause it for 15 minutes (L2-076.4). */
 const ACCOUNT_FAILURES = 5;
 const WINDOW_MS = 15 * MINUTE;
+/** 20 failed sign-ins from one network within 15 minutes need a bot-protection check (L2-076.5). */
+const NETWORK_FAILURES = 20;
 
 export const sessionCookie = (token: string) => `sh_session=${token}; Path=/; HttpOnly; SameSite=Lax`;
 
@@ -22,7 +24,19 @@ export function findUser(store: Store, email: unknown): User | undefined {
   return store.users.find((u) => u.email.toLowerCase() === e && !u.deleted);
 }
 
-function recordFailure(store: Store, user: User): void {
+/** Tokens from the frontend's LocalBotChallenge for this action (L2-082.2). */
+export function validChallenge(token: unknown, action: string): boolean {
+  return typeof token === 'string' && token.startsWith(`local:${action}:`);
+}
+
+function recent(store: Store, times: string[]): string[] {
+  const now = store.now.getTime();
+  return times.filter((t) => now - Date.parse(t) < WINDOW_MS);
+}
+
+function recordFailure(store: Store, user: User | undefined): void {
+  store.account.networkFailures = [...recent(store, store.account.networkFailures), store.now.toISOString()];
+  if (!user) return;
   const now = store.now.getTime();
   user.failedSignIns = (user.failedSignIns ?? 0) + 1;
   user.failedSignInsAt = [...(user.failedSignInsAt ?? []), store.now.toISOString()].filter((t) => now - Date.parse(t) < WINDOW_MS);
@@ -43,12 +57,16 @@ function locked(store: Store, user: User | undefined): Reply | null {
 export function registerIdentity(r: Router<Store>): void {
   r.post('/api/identity/sign-in', (ctx): Reply => {
     const body = (ctx.body ?? {}) as Partial<SignInRequest>;
+    // Past the network threshold nothing is checked until the challenge passes (L2-076.5, L2-082.2).
+    if (recent(ctx.store, ctx.store.account.networkFailures).length >= NETWORK_FAILURES && !validChallenge(body.challengeToken, 'sign-in')) {
+      return { status: 400, body: { title: 'Confirm you’re a person', challengeRequired: true } };
+    }
     const user = findUser(ctx.store, body.email);
     const paused = locked(ctx.store, user);
     if (paused) return paused;
     // One message, status and timing for an unknown email and a wrong password (L2-076.3).
     if (!user || user.password !== body.password) {
-      if (user) recordFailure(ctx.store, user);
+      recordFailure(ctx.store, user);
       return { status: 401, body: { title: 'Email or password is incorrect' } };
     }
     user.failedSignIns = 0;
@@ -64,6 +82,10 @@ export function registerIdentity(r: Router<Store>): void {
 
 /** Named store changes for identity tests (`backend.scenario(name, args)`). */
 export const identityScenarios: Record<string, (store: Store, args: any) => unknown> = {
+  /** 20 failed sign-ins from the network in the last 15 minutes (L2-076.5). */
+  'many-failed-sign-ins-from-network': (store) => {
+    store.account.networkFailures = Array.from({ length: NETWORK_FAILURES }, () => store.now.toISOString());
+  },
   /** The account has had 5 failed sign-ins: sign-in is paused for 15 minutes (L2-076.4). */
   'pause-sign-in': (store, { email }: { email: string }) => {
     const user = findUser(store, email);
