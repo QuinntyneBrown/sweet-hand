@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Injector, afterNextRender, computed, inject, input, model, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Injector, afterNextRender, computed, inject, input, model, signal, viewChild } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Icon, Message, MessageList, ReplyBox, Thread, ThreadActionsSlot, ToastNotifier, graphemeLength } from '@sweet-hand/components';
 import { EnquiriesApi } from '../../../core/api/enquiries-api';
@@ -6,6 +6,8 @@ import type { ThreadView } from '../../../core/api/enquiries.models';
 import { count } from '../../../core/format/format';
 import { problemOf } from '../../../core/forms/problem';
 import { messageTime, statusLabel, statusTone } from '../enquiry-text';
+import { CloseEnquiryDialog } from './close-enquiry-dialog';
+import { ShareContactDialog } from './share-contact-dialog';
 import {
   REPLY_MAX,
   actionsFor,
@@ -35,7 +37,7 @@ let nextOutgoing = 0;
  */
 @Component({
   selector: 'app-enquiry-thread',
-  imports: [Icon, Message, MessageList, ReplyBox, Thread, ThreadActionsSlot],
+  imports: [Icon, Message, MessageList, ReplyBox, Thread, ThreadActionsSlot, CloseEnquiryDialog, ShareContactDialog],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
   templateUrl: './enquiry-thread.html',
@@ -44,6 +46,7 @@ export class EnquiryThread {
   private readonly api = inject(EnquiriesApi);
   private readonly toasts = inject(ToastNotifier);
   private readonly injector = inject(Injector);
+  private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
 
   /** The thread; replies and actions update it and emit `threadChange`. */
   readonly thread = model.required<ThreadView>();
@@ -92,8 +95,36 @@ export class EnquiryThread {
   protected readonly sending = computed(() => this.outbox().some((o) => o.state === 'pending'));
   protected readonly hasMessages = computed(() => this.entries().length > 0 || this.outbox().length > 0);
 
+  /** The dialog open over the thread, and where focus goes when it closes (L2-067.4). */
+  protected readonly dialog = signal<'share' | 'close' | 'decline' | null>(null);
+  protected readonly returnTo = signal<HTMLElement | null>(null);
+
   focusTitle(): void {
     this.threadEl().focusTitle();
+  }
+
+  protected openDialog(kind: 'share' | 'close' | 'decline', event: Event): void {
+    this.returnTo.set(event.currentTarget as HTMLElement);
+    this.dialog.set(kind);
+  }
+
+  protected closeDialog(): void {
+    this.dialog.set(null);
+  }
+
+  /** An action succeeded: show the thread as it is now; the action that opened the dialog may be gone, so focus goes to the heading. */
+  protected acted(t: ThreadView): void {
+    const kind = this.dialog();
+    this.returnTo.set(this.host.nativeElement.querySelector<HTMLElement>('.thread__title [tabindex="-1"]'));
+    this.thread.set(t);
+    this.dialog.set(null);
+    if (kind === 'share') {
+      this.toasts.show({
+        tone: 'success',
+        title: $localize`:@@toast.shared:Contact details shared`,
+        text: $localize`:@@toast.sharedText:${otherShortName(t)}:name: can now see your email and phone in this enquiry.`,
+      });
+    }
   }
 
   protected send(text: string): void {

@@ -358,6 +358,30 @@ export const enquiriesScenarios: Record<string, (store: Store, args: any) => unk
     e.status = args.status;
   },
 
+  /** One party shares their contact details in a thread, as if from another device. */
+  'share-contact': (store, args: { customer?: string; caterer: string; by: Party }) => {
+    push(store, find(store, args), { kind: 'shared', by: args.by });
+  },
+
+  /** A second enquiry between the same customer and caterer (L2-035.3). */
+  'another-enquiry': (store, args: { customer: string; caterer: string }) => {
+    const first = find(store, args);
+    const e: Enquiry = {
+      ...first,
+      id: randomUUID(),
+      eventDate: '2026-12-19',
+      guests: 40,
+      occasion: 'birthdays',
+      message: 'Another one: could you do a small Christmas lunch for 40?',
+      createdAt: new Date(store.now.getTime() - 3_600_000).toISOString(),
+      status: 'Open',
+      events: [],
+      readAt: {},
+    };
+    store.enquiries.push(e);
+    return { id: e.id };
+  },
+
   'set-event-date': (store, args: { customer?: string; caterer: string; date: string }) => {
     find(store, args).eventDate = args.date;
   },
