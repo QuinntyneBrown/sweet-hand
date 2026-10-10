@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, type Params } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Button, Combobox, Dialog, FormField, type AreaOption } from '@sweet-hand/components';
 import { DiscoveryApi } from '../../../core/api/discovery-api';
 import { problemOf } from '../../../core/forms/problem';
+import type { ListingQuery } from '../../../core/api/discovery.models';
+import { toQueryParams, withArea, withRegion } from '../listing/listing-query';
 import { interpretSearch, matchCountText } from './area-search';
 
 const REGIONS = [
@@ -59,7 +61,7 @@ const REGIONS = [
           <h3 class="filter-group__title" id="q-regions" i18n="@@search.regions">Or choose a whole region</h3>
           <ul class="filter-list">
             @for (r of regions; track r.id) {
-              <li><a class="filter-list__item" routerLink="/caterers" [queryParams]="{ region: r.id }" (click)="closed.emit()">{{ r.name }}</a></li>
+              <li><a class="filter-list__item" routerLink="/caterers" [queryParams]="regionParams(r.id)" (click)="closed.emit()">{{ r.name }}</a></li>
             }
           </ul>
         </div>
@@ -71,6 +73,8 @@ const REGIONS = [
 export class SearchDialog {
   readonly open = input(false);
   readonly returnFocus = input<HTMLElement | null>(null);
+  /** The listing's filters when opened from the listing: the area is added to them; from the header it replaces them. */
+  readonly current = input<ListingQuery | null>(null);
   readonly closed = output<void>();
 
   private readonly api = inject(DiscoveryApi);
@@ -96,13 +100,21 @@ export class SearchDialog {
   protected async goToArea(id: string): Promise<void> {
     this.reset();
     this.closed.emit();
-    await this.router.navigate(['/caterers'], { queryParams: { area: id } });
+    const current = this.current();
+    await this.router.navigate(['/caterers'], { queryParams: current ? toQueryParams(withArea(current, id, true)) : { area: id } });
+  }
+
+  protected regionParams(id: string): Params {
+    const current = this.current();
+    return current ? toQueryParams(withRegion(current, id, true)) : { region: id };
   }
 
   protected async submit(): Promise<void> {
     this.error.set(null);
     this.warning.set(null);
-    const outcome = interpretSearch(this.text(), this.list());
+    // A search sent before the area list has arrived waits for it rather than finding nothing.
+    const areas = this.areas.hasValue() ? this.list() : await firstValueFrom(this.api.serviceAreas()).catch(() => []);
+    const outcome = interpretSearch(this.text(), areas);
     switch (outcome.kind) {
       case 'area':
         return this.goToArea(outcome.area.id);

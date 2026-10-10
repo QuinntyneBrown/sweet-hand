@@ -33,6 +33,28 @@
   <section class="browse__results" aria-labelledby="results-title">
     <h2 #resultsHeading class="visually-hidden" id="results-title" tabindex="-1" i18n="@@listing.results">Results</h2>
     <div class="browse__head" [class.until-lg]="!chips().length">
+      <div class="mobile-browse-bar only-xs-sm">
+        <sh-filter-trigger
+          label="Filters"
+          i18n-label="@@filters.sheetTitle"
+          mode="dialog"
+          [count]="activeCount()"
+          countLabel="active"
+          i18n-countLabel="@@filters.activeCount"
+          [disabled]="firstRun()"
+          (activated)="sheetOpen.set(true)"
+        >
+          <svg slot="icon" shIcon="filters"></svg>
+        </sh-filter-trigger>
+        <sh-button #areaButton variant="ghost" haspopup="dialog" [disabled]="firstRun()" (activated)="searchOpen.set(true)"
+          ><svg shIcon="pin"></svg
+          >@if (activeCount()) {
+            <ng-container i18n="@@filters.area">Area</ng-container>
+          } @else {
+            <ng-container i18n="@@search.label">Area or postal code</ng-container>
+          }</sh-button
+        >
+      </div>
       <app-listing-filter-bar
         [cuisines]="cuisines()"
         [areas]="areas()"
@@ -125,3 +147,14 @@
     }
   </section>
 </div>
+
+<app-listing-filters-sheet
+  [open]="sheetOpen()"
+  [current]="known()"
+  [currentView]="shown()"
+  [serviceAreas]="serviceAreas()"
+  [returnFocus]="filtersTrigger()?.element ?? null"
+  (applied)="applySheet($event)"
+  (dismissed)="sheetOpen.set(false)"
+/>
+<app-search-dialog [open]="searchOpen()" [current]="known()" [returnFocus]="areaSearchButton()?.element ?? null" (closed)="searchOpen.set(false)" />

@@ -152,6 +152,16 @@ export class ListingPage extends BasePage {
     return this.page.locator('.mobile-browse-bar').getByRole('button', { name: /^Filters/ });
   }
 
+  /** The phone button that opens the area or postal code search. */
+  get phoneAreaButton() {
+    return this.page.locator('.mobile-browse-bar').getByRole('button', { name: /^Area/ });
+  }
+
+  /** The phone Filters sheet (docs/mocks/dialogs/filters). */
+  get filtersSheet() {
+    return new FiltersSheet(this.page.getByRole('dialog', { name: /^Filters/ }));
+  }
+
   /** An open filter dropdown at MD, named by its title. */
   dropdown(title: 'Cuisine' | 'Area') {
     return new FilterDropdown(this.page.locator('.filter-dropdown').filter({ has: this.page.getByRole('heading', { name: title, exact: true }) }));
@@ -210,6 +220,55 @@ export class ListingPage extends BasePage {
 
   get nextPage() {
     return this.pagination.getByRole('link', { name: 'Next page' });
+  }
+}
+
+/** The Filters sheet: pending choices, Clear and "Show N caterers". */
+export class FiltersSheet {
+  constructor(readonly dialog: Locator) {}
+
+  get title() {
+    return this.dialog.locator('.sheet__title');
+  }
+
+  get close() {
+    return this.dialog.getByRole('button', { name: 'Close filters' });
+  }
+
+  get cuisines() {
+    return this.dialog.getByRole('group', { name: 'Cuisine' }).getByRole('checkbox');
+  }
+
+  get regions() {
+    return this.dialog.getByRole('group', { name: 'Area' }).getByRole('checkbox');
+  }
+
+  choice(name: string) {
+    return this.dialog.getByRole('checkbox', { name: optionName(name) });
+  }
+
+  get search() {
+    return this.dialog.getByRole('combobox', { name: 'Area or postal code' });
+  }
+
+  get suggestions() {
+    return this.dialog.getByRole('listbox', { name: 'Matching areas' }).getByRole('option');
+  }
+
+  get selectedAreas() {
+    return this.dialog.getByRole('group', { name: 'Selected areas' }).locator('.chip--filter');
+  }
+
+  removeArea(name: string) {
+    return this.dialog.getByRole('group', { name: 'Selected areas' }).getByRole('button', { name: `Remove ${name} filter` });
+  }
+
+  get clear() {
+    return this.dialog.getByRole('button', { name: 'Clear', exact: true });
+  }
+
+  get apply() {
+    return this.dialog.getByRole('button', { name: /^Show \d[\d,]* caterers?$/ });
   }
 }
 

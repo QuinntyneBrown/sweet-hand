@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, computed, inject, signal, viewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { AccountMenu, Footer, Icon, Sheet, SiteHeader, ToastRegion, type MenuItemEntry } from '@sweet-hand/components';
 import { Session } from './core/session/session';
@@ -89,7 +89,9 @@ export class App {
   protected readonly accountTrigger = computed(() => (this.accountOpen() ? this.header().trigger('account') : null));
 
   constructor() {
-    this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
+    // Overlays close when a navigation starts, so one opened while the first page
+    // is still loading is not closed when that load finishes.
+    this.router.events.pipe(filter((e) => e instanceof NavigationStart)).subscribe(() => {
       this.menuOpen.set(false);
       this.accountOpen.set(false);
       this.searchOpen.set(false);

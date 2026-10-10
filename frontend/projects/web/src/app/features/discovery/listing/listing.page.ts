@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, inject, linkedSignal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, inject, linkedSignal, signal, viewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,6 +10,7 @@ import {
   CatererGrid,
   EmptyState,
   FilterGroup,
+  FilterTrigger,
   Icon,
   Pagination,
   Skeleton,
@@ -20,6 +21,8 @@ import type { ListingPageView, ListingQuery } from '../../../core/api/discovery.
 import { problemOf, reference } from '../../../core/forms/problem';
 import { AreaField } from '../search/area-field';
 import { ListingFilterBar } from './listing-filter-bar';
+import { ListingFiltersSheet } from './listing-filters-sheet';
+import { SearchDialog } from '../search/search-dialog';
 import {
   activeChips,
   areaOptions,
@@ -34,12 +37,12 @@ import {
   withoutChip,
 } from './listing-filters';
 import { pageLabel, pageSummary } from './listing-text';
-import { knownQuery, readListingQuery, toQueryParams, withArea, withCuisine, withRegion, withoutCuisines } from './listing-query';
+import { activeFilterCount, knownQuery, readListingQuery, toQueryParams, withArea, withCuisine, withRegion, withoutCuisines } from './listing-query';
 
 /** The caterer listing, /caterers (docs/detailed-designs/discovery/browse-listing). */
 @Component({
   selector: 'app-listing-page',
-  imports: [ActiveFilters, AreaField, ListingFilterBar, Button, ButtonAnchor, CatererCard, CatererGrid, EmptyState, FilterGroup, Icon, Pagination, Skeleton],
+  imports: [ActiveFilters, AreaField, ListingFilterBar, ListingFiltersSheet, SearchDialog, FilterTrigger, Button, ButtonAnchor, CatererCard, CatererGrid, EmptyState, FilterGroup, Icon, Pagination, Skeleton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './listing.page.html',
 })
@@ -74,7 +77,12 @@ export class ListingPage {
   protected readonly serviceAreas = computed(() => (this.areaList.hasValue() ? this.areaList.value() : []));
   private readonly cuisineList = rxResource({ stream: () => this.api.cuisines() });
   /** The URL's filters without values the listing does not know (L2-003.3). */
-  private readonly known = computed(() => knownQuery(this.query(), this.shown()));
+  protected readonly known = computed(() => knownQuery(this.query(), this.shown()));
+  protected readonly activeCount = computed(() => (this.shown() ? activeFilterCount(this.known()) : 0));
+  protected readonly sheetOpen = signal(false);
+  protected readonly searchOpen = signal(false);
+  protected readonly filtersTrigger = viewChild(FilterTrigger);
+  protected readonly areaSearchButton = viewChild('areaButton', { read: Button });
 
   protected readonly cuisines = computed(() => {
     const v = this.shown();
@@ -131,6 +139,11 @@ export class ListingPage {
 
   protected addArea(id: string): void {
     this.go(withArea(this.known(), id, true));
+  }
+
+  protected applySheet(q: ListingQuery): void {
+    this.sheetOpen.set(false);
+    this.go(q);
   }
 
   protected clearCuisines(): void {
