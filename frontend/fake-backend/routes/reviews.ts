@@ -1,7 +1,7 @@
 import type { Router } from '../lib/router.ts';
 import { conflict, forbidden, invalid, noContent, notFound, ok, unauthorized } from '../lib/http.ts';
 import { currentUser, newId, torontoDate, type Store } from '../lib/store.ts';
-import { REVIEWABLE_EVENTS, type Review } from '../seed/reviews.ts';
+import type { Review } from '../seed/reviews.ts';
 import type { RatingSummaryView } from '../../projects/web/src/app/core/api/caterer-page.models.ts';
 import type { PublicReviewView, ReviewEligibility, ReviewPageView, ReviewRequest, ReviewResult } from '../../projects/web/src/app/core/api/reviews.models.ts';
 
@@ -51,14 +51,17 @@ function canEdit(store: Store, r: Review): boolean {
   return (r.status === 'Published' || r.status === 'Held') && store.now.getTime() < new Date(editableUntil(r)).getTime();
 }
 
-/** A replied enquiry whose event is before today and no more than 90 days ago (L2-049). */
-function eligibleEvent(store: Store, userId: string, catererId: string) {
+/**
+ * A replied enquiry whose event is before today and no more than 90 days ago
+ * (L2-049): one the caterer answered, whatever its status is now.
+ */
+function eligibleEvent(store: Store, userId: string, catererId: string): { eventDate: string } | undefined {
   const today = torontoDate(store.now);
-  return REVIEWABLE_EVENTS.find((e) => {
-    if (e.userId !== userId || e.catererId !== catererId || !e.replied || e.eventDate >= today) return false;
-    const days = Math.round((new Date(`${today}T12:00:00Z`).getTime() - new Date(`${e.eventDate}T12:00:00Z`).getTime()) / DAY_MS);
-    return days <= 90;
-  });
+  return store.enquiries
+    .filter((e) => e.customerId === userId && e.catererId === catererId && e.eventDate < today)
+    .filter((e) => e.events.some((ev) => ev.kind === 'reply' && ev.by === 'caterer'))
+    .filter((e) => Math.round((new Date(`${today}T12:00:00Z`).getTime() - new Date(`${e.eventDate}T12:00:00Z`).getTime()) / DAY_MS) <= 90)
+    .sort((a, b) => b.eventDate.localeCompare(a.eventDate))[0];
 }
 
 function ownReview(store: Store, userId: string, catererId: string): Review | undefined {
