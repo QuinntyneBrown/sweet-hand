@@ -2,7 +2,9 @@
   <div class="browse__title">
     <h1 i18n="@@listing.title">Caterers</h1>
     <p class="result-count" role="status" aria-live="polite">
-      @if (view(); as v) {
+      @if (busy()) {
+        <span class="visually-hidden" i18n="@@listing.loading">Loading caterers</span><sh-skeleton width="var(--space-24)" />
+      } @else if (current(); as v) {
         <ng-container i18n="@@listing.resultCount">{v.total, plural, =1 {1 caterer} other {{{v.total}} caterers}}</ng-container>
       }
     </p>
@@ -20,10 +22,11 @@
       fewerLabel="Fewer cuisines"
       i18n-fewerLabel="@@filters.fewerCuisines"
       [countNoun]="caterersNoun"
+      [disabled]="firstRun()"
       (toggled)="toggleCuisine($event)"
     />
-    <sh-filter-group title="Area" i18n-title="@@filters.area" [options]="areas()" [countNoun]="caterersNoun" (toggled)="toggleArea($event)">
-      <app-area-field slot="before-list" [areas]="serviceAreas()" (areaChosen)="addArea($event)" />
+    <sh-filter-group title="Area" i18n-title="@@filters.area" [options]="areas()" [countNoun]="caterersNoun" [disabled]="firstRun()" (toggled)="toggleArea($event)">
+      <app-area-field slot="before-list" [areas]="serviceAreas()" [disabled]="firstRun()" (areaChosen)="addArea($event)" />
     </sh-filter-group>
   </aside>
 
@@ -42,14 +45,43 @@
         (emptied)="focusResults()"
       />
     </div>
-    @if (noResults(); as text) {
+    @if (failure(); as f) {
+      <sh-empty-state
+        tone="error"
+        heading="We couldn’t load caterers"
+        i18n-heading="@@listing.error.title"
+        [headingLevel]="3"
+        text="Something went wrong on our side. Your filters are kept."
+        i18n-text="@@listing.error.text"
+        [reference]="f.reference"
+        referenceLabel="Reference"
+        i18n-referenceLabel="@@system.reference"
+      >
+        <svg slot="icon" shIcon="danger"></svg>
+        <sh-button slot="actions" variant="primary" (activated)="retry()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></sh-button>
+        <sh-button-anchor slot="actions" href="/occasions"><ng-container i18n="@@listing.error.occasions">Browse occasions</ng-container></sh-button-anchor>
+      </sh-empty-state>
+    } @else if (firstRun()) {
+      <sh-empty-state
+        heading="The first caterers are on their way"
+        i18n-heading="@@listing.empty.title"
+        [headingLevel]="3"
+        text="We’re reviewing caterers from across Toronto and the GTA. Check back soon."
+        i18n-text="@@listing.empty.text"
+      >
+        <span slot="photos" class="photo"><img src="/media/sunday-pot.jpg" alt="" width="72" height="72" /></span>
+        <span slot="photos" class="photo"><img src="/media/pelau-house.jpg" alt="" width="104" height="104" /></span>
+        <span slot="photos" class="photo"><img src="/media/sugar-dumplin.jpg" alt="" width="72" height="72" /></span>
+        <sh-button-anchor slot="actions" variant="primary" href="/join"><ng-container i18n="@@nav.join">Cater with Sweet Hand</ng-container></sh-button-anchor>
+      </sh-empty-state>
+    } @else if (noResults(); as text) {
       <sh-empty-state heading="No caterers match these filters" i18n-heading="@@listing.noResults.title" [headingLevel]="3" [text]="text">
         <svg slot="icon" shIcon="search"></svg>
         <sh-button-anchor slot="actions" variant="primary" href="/caterers"><ng-container i18n="@@filters.clear">Clear filters</ng-container></sh-button-anchor>
       </sh-empty-state>
     } @else {
-      <sh-caterer-grid [busy]="listing.isLoading()">
-        @for (c of view()?.items ?? []; track c.slug) {
+      <sh-caterer-grid [busy]="busy()">
+        @for (c of current()?.items ?? []; track c.slug) {
           <li>
             <sh-caterer-card
               [href]="'/caterers/' + c.slug"
@@ -63,21 +95,21 @@
           </li>
         }
       </sh-caterer-grid>
-    }
-    @if (view(); as v) {
-      <sh-pagination
-        [page]="v.page"
-        [pageCount]="v.pageCount"
-        [hrefFor]="hrefFor"
-        [summary]="summary()"
-        label="Pagination"
-        i18n-label="@@pagination.label"
-        previousLabel="Previous page"
-        i18n-previousLabel="@@pagination.previous"
-        nextLabel="Next page"
-        i18n-nextLabel="@@pagination.next"
-        [pageLabel]="pageLabel"
-      />
+      @if (current(); as v) {
+        <sh-pagination
+          [page]="v.page"
+          [pageCount]="v.pageCount"
+          [hrefFor]="hrefFor"
+          [summary]="summary()"
+          label="Pagination"
+          i18n-label="@@pagination.label"
+          previousLabel="Previous page"
+          i18n-previousLabel="@@pagination.previous"
+          nextLabel="Next page"
+          i18n-nextLabel="@@pagination.next"
+          [pageLabel]="pageLabel"
+        />
+      }
     }
   </section>
 </div>

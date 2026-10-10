@@ -29,3 +29,4 @@ export * from './lib/filter-list/filter-list';
 export * from './lib/chip/chip';
 export * from './lib/filter-list/active-filters';
 export * from './lib/empty-state/empty-state';
+export * from './lib/skeleton/skeleton';

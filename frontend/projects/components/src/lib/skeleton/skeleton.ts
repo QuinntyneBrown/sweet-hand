@@ -1,0 +1,49 @@
+import { ChangeDetectionStrategy, Component, DestroyRef, computed, effect, inject, input, signal, untracked, type Signal } from '@angular/core';
+
+/** One placeholder shape while content loads; always hidden from assistive technology (docs/specs/components/skeleton.md). */
+@Component({
+  selector: 'sh-skeleton',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { style: 'display: contents' },
+  template: `<span [class]="'skeleton skeleton--' + shape()" aria-hidden="true" [style.width]="width()" [style.height]="usesHeight() ? height() : null"></span>`,
+})
+export class Skeleton {
+  readonly shape = input<'text' | 'title' | 'circle' | 'rect' | 'pill'>('text');
+  readonly width = input<string | null>(null);
+  readonly height = input<string | null>(null);
+
+  protected readonly usesHeight = computed(() => this.shape() !== 'text' && this.shape() !== 'title');
+}
+
+/** The region's hidden status line: what is loading, then what loaded (D-6). */
+@Component({
+  selector: 'sh-loading-status',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { style: 'display: contents' },
+  template: `<p class="visually-hidden" role="status">{{ loading() ? loadingLabel() : (doneLabel() ?? '') }}</p>`,
+})
+export class LoadingStatus {
+  readonly loading = input(false);
+  readonly loadingLabel = input.required<string>();
+  readonly doneLabel = input<string | null>(null);
+}
+
+/**
+ * Turns "a request is in flight" into the busy signal skeletons and status
+ * lines bind to: true only once the request has run for `delay` ms, false as
+ * soon as it ends (D-3). Call in an injection context.
+ */
+export function delayedBusy(source: Signal<boolean>, { delay = 300 }: { delay?: number } = {}): Signal<boolean> {
+  const busy = signal(false);
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  effect(() => {
+    const inFlight = source();
+    untracked(() => {
+      clearTimeout(timer);
+      if (!inFlight) busy.set(false);
+      else if (!busy()) timer = setTimeout(() => busy.set(true), delay);
+    });
+  });
+  inject(DestroyRef).onDestroy(() => clearTimeout(timer));
+  return busy.asReadonly();
+}

@@ -5,7 +5,7 @@ import { EmptyState } from './empty-state';
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 /** A filter option is named by its label and count: "Jamaican 14 caterers", "Belizean 1 caterer". */
-export const optionName = (name: string) => new RegExp(`^${escape(name)} \\d[\\d,]* caterers?$`);
+export const optionName = (name: string, counted = true) => new RegExp(`^${escape(name)}${counted ? ' \\d[\\d,]* caterers?' : ''}$`);
 
 /** The caterer listing, /caterers (docs/mocks/pages/caterers). */
 export class ListingPage extends BasePage {
@@ -21,8 +21,17 @@ export class ListingPage extends BasePage {
     return this.page.getByRole('heading', { name: 'Results', exact: true });
   }
 
+  get grid() {
+    return this.page.locator('ul.caterer-grid');
+  }
+
   get cards() {
-    return this.page.locator('.caterer-grid .caterer-card');
+    return this.page.locator('.caterer-grid .caterer-card:not(.caterer-card--skeleton)');
+  }
+
+  /** Placeholder cards while results load (docs/specs/components/skeleton.md). */
+  get skeletonCards() {
+    return this.page.locator('.caterer-grid .caterer-card--skeleton');
   }
 
   card(name: string) {
@@ -88,13 +97,13 @@ export class ListingPage extends BasePage {
     return this.cuisineGroup.locator('button.filter-more');
   }
 
-  /** An option by its name; its accessible name is "Jamaican 14 caterers". */
-  cuisineOption(name: string) {
-    return this.cuisineGroup.getByRole('button', { name: optionName(name) });
+  /** An option by its name; its accessible name is "Jamaican 14 caterers", or just "Jamaican" before counts are known. */
+  cuisineOption(name: string, { counted = true } = {}) {
+    return this.cuisineGroup.getByRole('button', { name: optionName(name, counted) });
   }
 
-  areaOption(name: string) {
-    return this.areaGroup.getByRole('button', { name: optionName(name) });
+  areaOption(name: string, { counted = true } = {}) {
+    return this.areaGroup.getByRole('button', { name: optionName(name, counted) });
   }
 
   /** The area or postal code search in the column's Area group. */

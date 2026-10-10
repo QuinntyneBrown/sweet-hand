@@ -58,6 +58,11 @@ export interface ServiceArea {
   regionName: string;
 }
 
+export interface CuisineRef {
+  id: string;
+  name: string;
+}
+
 export interface Occasion {
   id: string;
   name: string;

@@ -1,5 +1,5 @@
 import type { FilterOption } from '@sweet-hand/components';
-import type { ListingPageView, ListingQuery } from '../../../core/api/discovery.models';
+import type { CuisineRef, ListingPageView, ListingQuery, ServiceArea } from '../../../core/api/discovery.models';
 
 /**
  * Filter options of the listing (filter-by-cuisine and filter-by-area designs):
@@ -19,6 +19,22 @@ export function areaOptions(view: ListingPageView, q: ListingQuery): FilterOptio
     .filter((a) => q.areas.includes(a.id))
     .map((a) => ({ value: `area:${a.id}`, label: a.name, count: a.count, pressed: true }));
   const regions = view.regions.map((r) => ({ value: `region:${r.id}`, label: r.name, count: r.count, pressed: q.regions.includes(r.id) }));
+  return [...chosen, ...regions];
+}
+
+/** Before the first results arrive (loading, error) the column lists names without counts. */
+export function uncountedCuisineOptions(cuisines: readonly CuisineRef[], q: ListingQuery): FilterOption[] {
+  return cuisines.map((c) => ({ value: c.id, label: c.name, count: null, pressed: q.cuisines.includes(c.id) }));
+}
+
+export function uncountedAreaOptions(areas: readonly ServiceArea[], q: ListingQuery): FilterOption[] {
+  const chosen = areas.filter((a) => q.areas.includes(a.id)).map((a) => ({ value: `area:${a.id}`, label: a.name, count: null, pressed: true }));
+  const regions = [...new Map(areas.map((a) => [a.regionId, a.regionName])).entries()].map(([id, name]) => ({
+    value: `region:${id}`,
+    label: name,
+    count: null,
+    pressed: q.regions.includes(id),
+  }));
   return [...chosen, ...regions];
 }
 

@@ -2,10 +2,23 @@ import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, injec
 import { toSignal } from '@angular/core/rxjs-interop';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ActiveFilters, ButtonAnchor, CatererCard, CatererGrid, EmptyState, FilterGroup, Icon, Pagination } from '@sweet-hand/components';
+import {
+  ActiveFilters,
+  Button,
+  ButtonAnchor,
+  CatererCard,
+  CatererGrid,
+  EmptyState,
+  FilterGroup,
+  Icon,
+  Pagination,
+  Skeleton,
+  delayedBusy,
+} from '@sweet-hand/components';
 import { DiscoveryApi } from '../../../core/api/discovery-api';
-import { AreaField } from '../search/area-field';
 import type { ListingPageView, ListingQuery } from '../../../core/api/discovery.models';
+import { problemOf, reference } from '../../../core/forms/problem';
+import { AreaField } from '../search/area-field';
 import {
   activeChips,
   areaOptions,
@@ -15,6 +28,8 @@ import {
   noResultsText,
   parseAreaValue,
   removeFilterLabel,
+  uncountedAreaOptions,
+  uncountedCuisineOptions,
   withoutChip,
 } from './listing-filters';
 import { pageLabel, pageSummary } from './listing-text';
@@ -23,7 +38,7 @@ import { knownQuery, readListingQuery, toQueryParams, withArea, withCuisine, wit
 /** The caterer listing, /caterers (docs/detailed-designs/discovery/browse-listing). */
 @Component({
   selector: 'app-listing-page',
-  imports: [ActiveFilters, AreaField, ButtonAnchor, CatererCard, CatererGrid, EmptyState, FilterGroup, Icon, Pagination],
+  imports: [ActiveFilters, AreaField, Button, ButtonAnchor, CatererCard, CatererGrid, EmptyState, FilterGroup, Icon, Pagination, Skeleton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './listing.page.html',
 })
@@ -35,32 +50,58 @@ export class ListingPage {
   private readonly params = toSignal(this.route.queryParamMap, { requireSync: true });
   protected readonly query = computed(() => readListingQuery(this.params()));
   protected readonly listing = rxResource({ params: () => this.query(), stream: ({ params }) => this.api.listing(params) });
-  protected readonly view = computed(() => (this.listing.hasValue() ? this.listing.value() : undefined));
-  /** The last results shown, kept while the next ones load so the filters do not flash. */
+  private readonly view = computed(() => (this.listing.hasValue() ? this.listing.value() : undefined));
+  /** The last results that arrived, kept while the next ones load so the filters do not flash. */
   protected readonly shown = linkedSignal<ListingPageView | undefined, ListingPageView | undefined>({
     source: this.view,
     computation: (v, previous) => v ?? previous?.value,
   });
+  private readonly failed = computed(() => this.listing.status() === 'error');
+  /** Skeletons only once a load has taken 300 ms (skeleton D-3). */
+  protected readonly busy = delayedBusy(this.listing.isLoading);
+  /** What the results show: the new page, or the last one until the skeletons take over. */
+  protected readonly current = computed(() => {
+    if (this.failed() || this.busy()) return undefined;
+    return this.view() ?? this.shown();
+  });
+  protected readonly failure = computed(() => {
+    if (!this.failed()) return null;
+    return { reference: reference(problemOf(this.listing.error()).problem) };
+  });
+
   private readonly areaList = rxResource({ stream: () => this.api.serviceAreas() });
   protected readonly serviceAreas = computed(() => (this.areaList.hasValue() ? this.areaList.value() : []));
+  private readonly cuisineList = rxResource({ stream: () => this.api.cuisines() });
   /** The URL's filters without values the listing does not know (L2-003.3). */
   private readonly known = computed(() => knownQuery(this.query(), this.shown()));
 
-  protected readonly cuisines = computed(() => (this.shown() ? cuisineOptions(this.shown()!, this.query()) : []));
-  protected readonly areas = computed(() => (this.shown() ? areaOptions(this.shown()!, this.query()) : []));
+  protected readonly cuisines = computed(() => {
+    const v = this.shown();
+    if (v) return cuisineOptions(v, this.query());
+    return this.cuisineList.hasValue() ? uncountedCuisineOptions(this.cuisineList.value(), this.query()) : [];
+  });
+  protected readonly areas = computed(() => {
+    const v = this.shown();
+    return v ? areaOptions(v, this.query()) : uncountedAreaOptions(this.serviceAreas(), this.query());
+  });
   protected readonly allCuisinesHref = computed(() => this.href(withoutCuisines(this.known())));
   protected readonly chips = computed(() => (this.shown() ? activeChips(this.shown()!, this.query()) : []));
   protected readonly removeFilterLabel = removeFilterLabel;
+  /** No caterer is published at all yet: the first-run state, with every filter disabled. */
+  protected readonly firstRun = computed(() => {
+    const v = this.current();
+    return !!v && v.total === 0 && activeChips(v, this.query()).length === 0;
+  });
   protected readonly noResults = computed(() => {
-    const v = this.view();
-    return v && v.total === 0 ? noResultsText(v, this.query()) : null;
+    const v = this.current();
+    return v && v.total === 0 && !this.firstRun() ? noResultsText(v, this.query()) : null;
   });
   protected readonly caterersNoun = caterersNoun;
   protected readonly moreCuisines = moreCuisines;
 
   protected readonly pageLabel = pageLabel;
   protected readonly summary = computed(() => {
-    const v = this.view();
+    const v = this.current();
     return v ? pageSummary(v.page, v.pageSize, v.total) : null;
   });
   protected readonly hrefFor = (page: number): string => this.href({ ...this.known(), page });
@@ -97,6 +138,10 @@ export class ListingPage {
 
   protected focusResults(): void {
     this.resultsHeading().nativeElement.focus();
+  }
+
+  protected retry(): void {
+    this.listing.reload();
   }
 
   private go(q: ListingQuery): void {
