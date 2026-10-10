@@ -42,6 +42,7 @@ export function graphemeLength(text: string): number {
       [attr.minlength]="minlength()"
       [disabled]="disabled() || formDisabled()"
       [readOnly]="readonly()"
+      [attr.autofocus]="autofocus() ? '' : null"
       [attr.spellcheck]="spellcheck() === null ? null : spellcheck()"
       [attr.aria-invalid]="isInvalid() ? 'true' : null"
       [attr.aria-describedby]="describedByIds()"

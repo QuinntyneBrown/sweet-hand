@@ -151,7 +151,9 @@ export class Dialog {
       initialFocus: (host) =>
         this.initialFocus() === 'cancel'
           ? host.querySelector<HTMLElement>('.dialog__footer .btn:not(.btn--primary):not(.btn--danger)')
-          : (host.querySelector<HTMLElement>('[autofocus], .dialog__body input:not([type=hidden]), .dialog__body textarea, .dialog__body select') ??
+          : // [autofocus] wins wherever it is; one selector list would pick whichever comes first in the DOM.
+            (host.querySelector<HTMLElement>('[autofocus]') ??
+            host.querySelector<HTMLElement>('.dialog__body input:not([type=hidden]), .dialog__body textarea, .dialog__body select') ??
             host.querySelector<HTMLElement>('.dialog__title')),
     });
   }
