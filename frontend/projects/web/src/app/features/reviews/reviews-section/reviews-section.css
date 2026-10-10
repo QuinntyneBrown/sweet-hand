@@ -1,4 +1,8 @@
 /* Spacing the mocks set inline (docs/mocks/pages/caterer/default.html, no-reviews.html). */
+.write-prompt {
+  margin-bottom: var(--space-6);
+}
+
 .show-more {
   margin-top: var(--space-6);
 }

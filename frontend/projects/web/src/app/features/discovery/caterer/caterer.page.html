@@ -134,7 +134,7 @@
         </sh-description-list>
       </section>
 
-      <app-reviews-section [slug]="c.slug" [catererName]="c.name" [rating]="c.rating" />
+      <app-reviews-section [slug]="c.slug" [catererName]="c.name" [rating]="c.rating" (changed)="caterer.reload()" />
 
       <div class="caterer-section until-lg">
         <sh-button variant="primary" size="lg" [block]="true" haspopup="dialog" [disabled]="offline()" [describedBy]="offline() ? 'offline-note' : null" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>

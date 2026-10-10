@@ -2,16 +2,44 @@ import type { Locator, Page } from '@playwright/test';
 import { BasePage } from './base.page';
 import { PhotoViewer } from './photo-viewer';
 import { ReportDialog } from './report-dialog';
+import { ReviewDialog } from './review-dialog';
 
 /** A caterer's public page, /caterers/:slug (docs/mocks/pages/caterer). */
 export class CatererPage extends BasePage {
   readonly viewer: PhotoViewer;
   readonly report: ReportDialog;
+  readonly reviewDialog: ReviewDialog;
 
   constructor(page: Page) {
     super(page);
     this.viewer = new PhotoViewer(page);
     this.report = new ReportDialog(page);
+    this.reviewDialog = new ReviewDialog(page);
+  }
+
+  get writeReview() {
+    return this.reviewsSection.getByRole('button', { name: 'Write a review' });
+  }
+
+  get writePrompt() {
+    return this.reviewsSection.locator('.write-prompt p');
+  }
+
+  /** The signed-in author's own review, shown first. */
+  get ownReview() {
+    return this.reviews.filter({ has: this.page.locator('.badge', { hasText: 'Your review' }) });
+  }
+
+  get ownReviewEditWindow() {
+    return this.ownReview.locator('.text-caption');
+  }
+
+  get editReview() {
+    return this.ownReview.getByRole('button', { name: /^Edit/ });
+  }
+
+  get deleteReview() {
+    return this.ownReview.getByRole('button', { name: /^Delete/ });
   }
 
   get reportListing() {
