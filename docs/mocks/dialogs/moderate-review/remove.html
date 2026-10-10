@@ -53,10 +53,14 @@
         <p class="subtitle">2 held for a check · 2 hidden</p>
       </div>
       <ul class="segmented" aria-label="Review status"><li><a href="../../pages/admin-reviews/default.html">Held <span class="filter-list__count">2</span></a></li><li><a href="../../pages/admin-reviews/hidden.html" aria-current="page">Hidden <span class="filter-list__count">2</span></a></li></ul>
-      <form class="search-field" role="search" action="../../pages/admin-reviews/no-results.html" style="max-width: var(--layout-panel-width); margin-bottom: var(--space-6);">
-        <label class="visually-hidden" for="rq">Caterer or reviewer</label>
-        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input class="input" id="rq" name="q" type="search" placeholder="Caterer or reviewer" value="">
+      <form role="search" action="../../pages/admin-reviews/no-results.html" style="max-width: var(--layout-panel-width); margin-bottom: var(--space-6);">
+        <div class="field">
+          <label class="visually-hidden" for="rq">Caterer or reviewer</label>
+          <div class="search-field">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input class="input" id="rq" name="q" type="search" placeholder="Caterer or reviewer" value="" autocomplete="off">
+          </div>
+        </div>
       </form>
       <ul class="review-list">
         <li class="review">
@@ -110,7 +114,7 @@
         
         <span class="visually-hidden" role="status"></span>
       </div>
-      <label class="choice"><input type="checkbox" name="understand" required><span class="choice__text">I understand this review can’t be restored</span></label>
+      <label class="choice"><input type="checkbox" name="understand" required><span class="choice__text"><span>I understand this review can’t be restored</span></span></label>
       <p class="visually-hidden" role="status"></p>
     </div>
     <div class="dialog__footer">
