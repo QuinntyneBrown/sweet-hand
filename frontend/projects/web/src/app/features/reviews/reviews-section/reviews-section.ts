@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Injector, afterNextRender, computed, effect, inject, input, output, signal, untracked, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Injector, afterNextRender, computed, effect, inject, input, output, signal, untracked, viewChild } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
 import { Button, Icon, RatingSummary, Review, ReviewList } from '@sweet-hand/components';
@@ -8,6 +8,7 @@ import type { PublicReviewView, ReviewEligibility } from '../../../core/api/revi
 import { shortDate } from '../../../core/format/format';
 import { Session } from '../../../core/session/session';
 import { ReviewDialog, type ReviewDialogOutcome, type ReviewDialogSubject } from '../review-dialog/review-dialog';
+import { DeleteReviewDialog } from '../delete-review-dialog/delete-review-dialog';
 import { eventLabel, ratingLabel, responseLabel, reviewCount, reviewsShown } from './review-labels';
 
 /**
@@ -17,7 +18,7 @@ import { eventLabel, ratingLabel, responseLabel, reviewCount, reviewsShown } fro
  */
 @Component({
   selector: 'app-reviews-section',
-  imports: [NgTemplateOutlet, Button, Icon, RatingSummary, Review, ReviewList, ReviewDialog],
+  imports: [NgTemplateOutlet, Button, Icon, RatingSummary, Review, ReviewList, ReviewDialog, DeleteReviewDialog],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
   templateUrl: './reviews-section.html',
@@ -142,6 +143,23 @@ export class ReviewsSection {
   }
 
   private focusOwnAfterLoad = false;
+
+  /** The Delete button, while its confirmation is open. */
+  protected readonly deleteFrom = signal<HTMLElement | null>(null);
+  private readonly heading = viewChild<ElementRef<HTMLElement>>('heading');
+
+  protected askToDelete(event: MouseEvent): void {
+    this.deleteFrom.set((event.target as HTMLElement).closest('button'));
+  }
+
+  /** After a deletion the Delete button is gone: focus moves to the section heading. */
+  protected onDeleteClosed(deleted: boolean): void {
+    this.deleteFrom.set(null);
+    if (!deleted) return;
+    this.eligibility.set({ status: 'NotEligible' });
+    this.onSaved();
+    afterNextRender(() => this.heading()?.nativeElement.focus(), { injector: this.injector });
+  }
 
   private openDialog(event: MouseEvent, subject: ReviewDialogSubject): void {
     this.dialogFrom.set((event.target as HTMLElement).closest('button'));

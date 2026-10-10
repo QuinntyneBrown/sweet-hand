@@ -93,8 +93,13 @@ export class ReviewDialog {
     return this.dialog.locator('.empty__text');
   }
 
+  /** Click a star, as a person does: the radio itself is visually hidden behind it. */
+  async rate(stars: number) {
+    await this.dialog.locator(`.star-input label[for="star-${stars}"]`).click();
+  }
+
   async write(stars: number | null, text: string) {
-    if (stars) await this.star(stars).check();
+    if (stars) await this.rate(stars);
     await this.text.fill(text);
   }
 }

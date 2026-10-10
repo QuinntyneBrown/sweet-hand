@@ -1,7 +1,7 @@
 <section class="caterer-section" id="reviews" aria-labelledby="reviews-title">
   @if (rating().count > 0 || own()) {
     <div class="caterer-section__head">
-      <h2 id="reviews-title" i18n="@@reviews.title">Reviews</h2>
+      <h2 #heading id="reviews-title" tabindex="-1" i18n="@@reviews.title">Reviews</h2>
       <sh-rating-summary [average]="rating().average" [count]="rating().count" [countLabel]="countLabel(rating().count)" />
     </div>
     <ng-container *ngTemplateOutlet="prompt" />
@@ -22,6 +22,11 @@
           @if (o.canEdit) {
             <sh-button #ownEdit slot="actions" size="sm" haspopup="dialog" (activated)="edit($event)"
               ><svg shIcon="edit"></svg><ng-container i18n="@@reviews.edit">Edit</ng-container><span class="visually-hidden" i18n="@@reviews.yourReview"> your review</span></sh-button
+            >
+          }
+          @if (o.canDelete) {
+            <sh-button slot="actions" size="sm" variant="ghost" haspopup="dialog" (activated)="askToDelete($event)"
+              ><svg shIcon="trash"></svg><ng-container i18n="@@reviews.delete">Delete</ng-container><span class="visually-hidden" i18n="@@reviews.yourReview"> your review</span></sh-button
             >
           }
         </sh-review>
@@ -45,7 +50,7 @@
     }
     <p class="visually-hidden" role="status">{{ announcement() }}</p>
   } @else {
-    <h2 id="reviews-title" i18n="@@reviews.title">Reviews</h2>
+    <h2 #heading id="reviews-title" tabindex="-1" i18n="@@reviews.title">Reviews</h2>
     <p class="text-muted no-reviews" i18n="@@reviews.none">No reviews yet</p>
     <p class="text-subtle text-sm no-reviews__note" i18n="@@reviews.noneNote">Reviews come from customers after their event.</p>
     <ng-container *ngTemplateOutlet="prompt" />
@@ -60,5 +65,14 @@
     </div>
   }
 </ng-template>
+
+<app-delete-review-dialog
+  [open]="deleteFrom() !== null"
+  [reviewId]="own()?.review?.id ?? null"
+  [catererName]="catererName()"
+  [hasResponse]="!!own()?.review?.response"
+  [returnFocus]="deleteFrom()"
+  (closed)="onDeleteClosed($event)"
+/>
 
 <app-review-dialog [open]="dialogSubject() !== null" [subject]="dialogSubject()" [returnFocus]="dialogFrom()" (saved)="onSaved()" (closed)="onClosed($event)" />
