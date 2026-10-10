@@ -71,8 +71,8 @@ design-system page's, which the API must build.
    over the hairline, `--radius-xs` top corners; `--color-accent` when
    selected, `--color-border-strong` on hover, transparent otherwise.
 4. **Count (optional)** — a total as plain text in the label ("All 7"), or an
-   action count as `span.badge.badge--count` from [badge](badge.md) with an
-   `aria-label` ("1 open report").
+   action count as `span.badge.badge--count` from [badge](badge.md),
+   `aria-hidden="true"`, followed by visually hidden text (", 1 open report"; D-10).
 5. **Panel** — `div[role="tabpanel"]` (panel tabs only), rendered by
    `sh-tab-panel`, `tabindex="0"`, `--space-4` above it; non-selected panels
    carry `hidden`.
@@ -99,7 +99,7 @@ interface TabItem {
   id: string;            // "profile"; the tab is rendered with id "<tabs id>-tab-profile", the panel "<tabs id>-panel-profile"
   label: string;         // "Profile", from the resource files; may include a total: "All 7"
   count?: number;        // action count rendered as a badge; 0 or absent renders none
-  countLabel?: string;   // "1 open report"; required when count > 0
+  countLabel?: string;   // hidden text after the badge: "1 open report"; required when count > 0 (D-10)
   disabled?: boolean;    // native disabled; never on a tab with a count
 }
 ```
@@ -170,7 +170,7 @@ track is as wide as its container and scrolls when the tabs are wider.
 | Current (link) | `aria-current="page"` | Same as selected | "current page" |
 | Not selected (panel) | `aria-selected="false"` | Default look | `tabindex="-1"`; its panel has `hidden` |
 | Disabled | `disabled` (button) / `aria-disabled="true"`, no `href` (link) | Label `--color-fg-disabled`, no bar, `cursor: not-allowed` | Skipped by arrow keys and Tab; announced as unavailable |
-| With action count | `count > 0` | Badge after the label, `--space-1` apart | Name "Reports 1 open report" |
+| With action count | `count > 0` | Badge after the label, `--space-1` apart | Badge `aria-hidden`; name "Reports, 1 open report" (D-10) |
 | Overflowing | tabs wider than the track | Track scrolls sideways inside itself; scrollbar hidden; the selected tab is scrolled into view | — |
 | Panel loading | consumer content | A skeleton inside the panel; the tab row never shows a spinner | The consumer sets `aria-busy` on its content |
 | Forced colours | `forced-colors: active` | The selected or current tab is also underlined in text | — |
@@ -186,7 +186,7 @@ and mocks. The components never render it.
   <button class="tab" type="button" role="tab" id="record-tab-profile" aria-controls="record-panel-profile" aria-selected="true" tabindex="0">Profile</button>
   <button class="tab" type="button" role="tab" id="record-tab-certificate" aria-controls="record-panel-certificate" aria-selected="false" tabindex="-1">Certificate</button>
   <button class="tab" type="button" role="tab" id="record-tab-activity" aria-controls="record-panel-activity" aria-selected="false" tabindex="-1">Activity</button>
-  <button class="tab" type="button" role="tab" id="record-tab-reports" aria-controls="record-panel-reports" aria-selected="false" tabindex="-1">Reports <span class="badge badge--count" aria-label="1 open report">1</span></button>
+  <button class="tab" type="button" role="tab" id="record-tab-reports" aria-controls="record-panel-reports" aria-selected="false" tabindex="-1">Reports <span class="badge badge--count" aria-hidden="true">1</span><span class="visually-hidden">, 1 open report</span></button>
 </div>
 <div role="tabpanel" id="record-panel-profile" aria-labelledby="record-tab-profile" tabindex="0">…</div>
 <div role="tabpanel" id="record-panel-certificate" aria-labelledby="record-tab-certificate" tabindex="0" hidden>…</div>
@@ -330,8 +330,9 @@ with automatic activation by default: `role="tablist"` with `aria-label`,
 
 - The tablist (or link nav) names the object: "Pelau House record". Tab labels
   name the view.
-- A total in the label is plain text ("All 7"); an action count is a badge
-  whose `aria-label` joins the tab name: "Reports 1 open report".
+- A total in the label is plain text ("All 7"); an action count is an
+  `aria-hidden` badge whose following hidden text joins the tab name:
+  "Reports, 1 open report" (D-10).
 
 ### Announcements
 
@@ -363,7 +364,7 @@ The bar's colour fade uses `--duration-fast`, which
   timers or observers. `scrollIntoView` runs only when the selection changes.
 - Perf-test scenario: `frontend/projects/perf-test/src/scenarios/Tabs.ts`
   renders the Pelau House record tabs ("Profile", "Certificate", "Activity",
-  "Reports 1 open report") and arrows through all four; iterations in
+  "Reports, 1 open report") and arrows through all four; iterations in
   `e2e/perf-test/config/scenario-iterations.mjs` keep it at roughly
   100–300 ms.
 - Composite scenarios: `DarkTheme`.
@@ -381,7 +382,7 @@ The bar's colour fade uses `--duration-fast`, which
 
 - **AC-1** Given `sh-tabs` labelled "Pelau House record" with tabs "Profile", "Certificate", "Activity" and "Status history", when it renders, then the DOM is a `div.tabs[role="tablist"]` named "Pelau House record" holding four `button.tab[role="tab"]`, each `aria-controls` pointing at a `div[role="tabpanel"]` whose `aria-labelledby` points back, and only the Profile panel is shown. (L2-068)
 - **AC-2** Given `sh-link-tabs` labelled "Pelau House record pages" with "Profile" current, when it renders, then it is a `nav` named "Pelau House record pages" holding `div.tabs` with `a.tab` links, "Profile" has `aria-current="page"`, and no element has a tab role. (L2-068)
-- **AC-3** Given a "Reports" tab with `count` 1 and `countLabel` "1 open report", when it renders, then it holds `span.badge.badge--count` reading "1" and its accessible name is "Reports 1 open report". (L2-068)
+- **AC-3** Given a "Reports" tab with `count` 1 and `countLabel` "1 open report", when it renders, then it holds `span.badge.badge--count` reading "1" with `aria-hidden="true"`, followed by visually hidden text ", 1 open report", and its accessible name is "Reports, 1 open report". (L2-068)
 - **AC-4** Given the component sources, when they are scanned for user-facing string literals, then none are found. (L2-064)
 
 ### States
@@ -457,3 +458,4 @@ The bar's colour fade uses `--duration-fast`, which
 - **D-7** *Does selecting a tab change tab widths?* No. Semibold text is wider than regular ("Profile" grows from 73.4 to 74.2 px), so without reserved space every tab after the selected one would shift as the selection moves; the component reserves the semibold width.
 - **D-8** *How are disabled tabs treated by the keyboard?* Skipped by the arrows and out of the tab order, as the design system's keyboard table says. A tab that will never apply is removed rather than disabled, and a tab with a count is never disabled.
 - **D-9** *Where is the focus ring drawn?* Inside the tab. The track scrolls (`overflow-x: auto`), which clips the shared ring drawn `--focus-ring-offset` outside an element: the rendering shows only one side of it. An inset ring of the same colour and width, held clear of the bar, stays fully visible (WCAG 2.4.7, L2-067.2).
+- **D-10** *How does a tab name its count?* Aligned with [badge](badge.md) D-3: the pill is `aria-hidden="true"` and visually hidden text follows it (", 1 open report", ", 2 open reports"), so the tab is named "Reports, 1 open report". No badge carries `aria-label`.
