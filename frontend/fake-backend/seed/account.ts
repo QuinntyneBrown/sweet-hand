@@ -34,6 +34,16 @@ export interface SavedEnquiry {
   guests: number;
 }
 
+/** What the platform knows about one session: the coarse device and when it was last used (L2-078.5). */
+export interface SessionRecord {
+  /** The session cookie value; seeded sessions on other devices have tokens no browser holds. */
+  token: string;
+  userId: string;
+  device: string;
+  createdAt: string;
+  lastActiveAt: string;
+}
+
 export interface AccountState {
   outbox: SentEmail[];
   /** Failed sign-ins from the test's network (every request in a test shares one), for L2-076.5. */
@@ -45,6 +55,7 @@ export interface AccountState {
   savedEnquiries: SavedEnquiry[];
   /** Session cookie → operator id, for operators who still owe the second step (L2-056.2). */
   pendingSecondFactor: Record<string, string>;
+  sessions: SessionRecord[];
 }
 
 export function seedAccount(): AccountState {
@@ -56,5 +67,6 @@ export function seedAccount(): AccountState {
     privacyNotice: { version: '2026-03', effectiveDate: '2026-03-01', substantialChange: false, changes: [] },
     savedEnquiries: [],
     pendingSecondFactor: {},
+    sessions: [],
   };
 }

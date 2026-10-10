@@ -23,6 +23,44 @@ export function sessionUser(store: Store, user: User): SessionUser {
 /** Ends every session of the account, except `keep` (L2-077.4, L2-072.1, password change). */
 export function endSessions(store: Store, userId: string, keep?: string): void {
   for (const [token, id] of [...store.sessions]) if (id === userId && token !== keep) store.sessions.delete(token);
+  store.account.sessions = store.account.sessions.filter((s) => s.userId !== userId || s.token === keep);
+}
+
+export function endSession(store: Store, token: string): void {
+  store.sessions.delete(token);
+  store.account.sessions = store.account.sessions.filter((s) => s.token !== token);
+}
+
+/** "Chrome on Windows": only the coarse device type is kept, never the user agent (manage-sessions design). */
+export function deviceOf(userAgent: string | undefined): string {
+  const ua = userAgent ?? '';
+  const browser = /SamsungBrowser/.test(ua)
+    ? 'Samsung Internet'
+    : /Edg\//.test(ua)
+      ? 'Edge'
+      : /Firefox\//.test(ua)
+        ? 'Firefox'
+        : /Chrome\//.test(ua)
+          ? 'Chrome'
+          : /Safari\//.test(ua)
+            ? 'Safari'
+            : 'A browser';
+  const os = /iPhone/.test(ua) ? 'iPhone' : /iPad/.test(ua) ? 'iPad' : /Android/.test(ua) ? 'Android' : /Windows/.test(ua) ? 'Windows' : /Mac OS X/.test(ua) ? 'Mac' : /Linux/.test(ua) ? 'Linux' : 'another device';
+  return `${browser} on ${os}`;
+}
+
+/** Operators are signed out after 30 idle minutes (L2-078.3). */
+const OPERATOR_IDLE_MS = 30 * 60_000;
+
+/** The record of the caller's session, created the first time it is seen. */
+export function sessionRecord(store: Store, token: string, userId: string, userAgent: string | undefined) {
+  let record = store.account.sessions.find((s) => s.token === token);
+  if (!record) {
+    const now = store.now.toISOString();
+    record = { token, userId, device: deviceOf(userAgent), createdAt: now, lastActiveAt: now };
+    store.account.sessions.push(record);
+  }
+  return record;
 }
 
 /** Unread threads for a customer or caterer. The enquiries area derives this from its threads. */
@@ -36,19 +74,35 @@ export function queueCount(store: Store): number {
 
 export function registerSession(r: Router<Store>): void {
   r.get('/api/session', (ctx) => {
-    const user = currentUser(ctx.store, ctx.cookies);
+    const token = ctx.cookies['sh_session'] ?? '';
+    let user = currentUser(ctx.store, ctx.cookies);
+    let expired: SessionView['expired'] = null;
+    if (user) {
+      const record = sessionRecord(ctx.store, token, user.id, ctx.headers['user-agent']);
+      if (user.role === 'Operator' && ctx.store.now.getTime() - Date.parse(record.lastActiveAt) > OPERATOR_IDLE_MS) {
+        endSession(ctx.store, token);
+        expired = { email: user.email };
+        user = undefined;
+      } else {
+        record.lastActiveAt = ctx.store.now.toISOString();
+      }
+    }
     const view: SessionView = user
       ? { user: sessionUser(ctx.store, user), unread: unreadCount(ctx.store, user), queueCount: user.role === 'Operator' ? queueCount(ctx.store) : 0 }
       : { user: null, unread: 0, queueCount: 0 };
     const pendingId = ctx.store.account.pendingSecondFactor[ctx.cookies['sh_session'] ?? ''];
     const pending = pendingId ? ctx.store.users.find((u) => u.id === pendingId && !u.deleted) : undefined;
     if (!user && pending) view.pendingSecondFactor = { email: pending.email, method: pending.secondFactor ?? 'authenticator app' };
+    if (expired) {
+      view.expired = expired;
+      return { ...ok(view), headers: { 'set-cookie': 'sh_session=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax' } };
+    }
     return ok(view);
   });
 
   /** Ends the session on the server (L2-078.4). */
   r.post('/api/identity/sign-out', (ctx) => {
-    ctx.store.sessions.delete(ctx.cookies['sh_session'] ?? '');
+    endSession(ctx.store, ctx.cookies['sh_session'] ?? '');
     delete ctx.store.account.pendingSecondFactor[ctx.cookies['sh_session'] ?? ''];
     return { status: 204, headers: { 'set-cookie': 'sh_session=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax' } };
   });

@@ -1,4 +1,5 @@
 import { DestroyRef, Injectable, computed, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import type { SessionView } from '../api/session.models';
 import { SessionApi } from './session-api';
@@ -12,7 +13,9 @@ const VISITOR: SessionView = { user: null, unread: 0, queueCount: 0 };
 @Injectable({ providedIn: 'root' })
 export class Session {
   private readonly api = inject(SessionApi);
+  private readonly router = inject(Router);
   private readonly view = signal<SessionView>(VISITOR);
+  private readonly expiredAs = signal<{ email: string } | null>(null);
   private timer: ReturnType<typeof setInterval> | undefined;
 
   readonly user = computed(() => this.view().user);
@@ -21,6 +24,8 @@ export class Session {
   readonly queueCount = computed(() => this.view().queueCount);
   /** Set while an operator still owes the second step (L2-056.2). */
   readonly pendingSecondFactor = computed(() => this.view().pendingSecondFactor ?? null);
+  /** Who was signed out for being idle, until they sign in again (L2-078.3). */
+  readonly expired = this.expiredAs.asReadonly();
 
   constructor() {
     inject(DestroyRef).onDestroy(() => clearInterval(this.timer));
@@ -34,15 +39,26 @@ export class Session {
   }
 
   async refresh(): Promise<void> {
+    let next: SessionView;
     try {
-      this.view.set(await firstValueFrom(this.api.current()));
+      next = await firstValueFrom(this.api.current());
     } catch {
       // Offline or failing: keep what we had; the next refresh tries again.
+      return;
+    }
+    const wasSignedIn = !!this.view().user;
+    this.view.set(next);
+    if (next.user) this.expiredAs.set(null);
+    if (next.expired) {
+      this.expiredAs.set(next.expired);
+      // Signed out while on a page: sign in again and come back to it (L2-078.3).
+      if (wasSignedIn) await this.router.navigate(['/sign-in'], { queryParams: { returnUrl: this.router.url } });
     }
   }
 
   async signOut(): Promise<void> {
     await firstValueFrom(this.api.signOut()).catch(() => undefined);
     this.view.set(VISITOR);
+    this.expiredAs.set(null);
   }
 }

@@ -11,6 +11,7 @@ import { problemOf, reference } from '../../../core/forms/problem';
 import { emailError, summaryHeading } from '../../../core/forms/validation';
 import { landingFor, safeReturnUrl } from '../../../core/session/guards';
 import { Session } from '../../../core/session/session';
+import { AuthPhotos } from '../auth-photos';
 
 type Failure = { kind: 'server'; reference: string | null } | { kind: 'locked'; until: string } | null;
 interface Errors {
@@ -23,7 +24,7 @@ const NO_ERRORS: Errors = { email: null, password: null, human: null };
 /** Sign in, /sign-in (docs/detailed-designs/identity-and-security/sign-in). */
 @Component({
   selector: 'app-sign-in-page',
-  imports: [ReactiveFormsModule, RouterLink, Alert, Button, Checkbox, FormField, FormSummary, LabelAction, TextField, Well],
+  imports: [ReactiveFormsModule, RouterLink, Alert, AuthPhotos, Button, Checkbox, FormField, FormSummary, LabelAction, TextField, Well],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './sign-in.page.html',
 })
@@ -53,9 +54,14 @@ export class SignInPage {
 
   /** Sign-in is paused for the account (L2-076.4): the form stays read-only until the time given. */
   protected readonly locked = computed(() => this.failure()?.kind === 'locked');
+  /** An operator signed out after 30 idle minutes (L2-078.3). */
+  protected readonly expired = this.session.expired;
+  protected readonly photos = computed(() => (this.expired() ? ['cook-up', 'pimento-and-thyme', 'ti-kay'] : ['pelau-house', 'ti-kay', 'black-cake-co']));
 
   constructor() {
     inject(DestroyRef).onDestroy(() => clearTimeout(this.unlockTimer));
+    const expired = this.session.expired();
+    if (expired) this.form.controls.email.setValue(expired.email);
   }
 
   protected readonly summary = computed<SummaryItem[]>(() => {

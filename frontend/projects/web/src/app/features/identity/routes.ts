@@ -1,10 +1,14 @@
+import { inject } from '@angular/core';
 import type { Routes } from '@angular/router';
 import { requirePendingSecondFactor } from '../../core/session/guards';
+import { Session } from '../../core/session/session';
 
 export const identityRoutes: Routes = [
   {
     path: 'sign-in',
     loadComponent: () => import('./sign-in/sign-in.page').then((m) => m.SignInPage),
+    // After an operator's idle sign-out the page shows only the wordmark (mocks: sign-in/expired).
+    resolve: { chrome: () => (inject(Session).expired() ? 'minimal' : null) },
     title: $localize`:@@signIn.documentTitle:Sign in · Sweet Hand`,
   },
   {

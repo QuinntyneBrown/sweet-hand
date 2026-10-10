@@ -1,12 +1,10 @@
 <div class="auth">
   <div class="auth__head">
-    <div class="photo-row">
-      <span class="photo"><img src="/media/pelau-house.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
-      <span class="photo"><img src="/media/ti-kay.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
-      <span class="photo"><img src="/media/black-cake-co.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
-    </div>
+    <app-auth-photos [photos]="photos()" />
     <h1 i18n="@@signIn.title">Sign in</h1>
-    <p class="subtitle" i18n="@@signIn.subtitle">Welcome back. Your inbox and saved enquiries are waiting.</p>
+    @if (!expired()) {
+      <p class="subtitle" i18n="@@signIn.subtitle">Welcome back. Your inbox and saved enquiries are waiting.</p>
+    }
   </div>
 
   @if (failure(); as f) {
@@ -24,6 +22,10 @@
         </div>
       </sh-alert>
     }
+  } @else if (expired()) {
+    <sh-alert live="polite" title="You were signed out" i18n-title="@@signIn.expiredTitle"
+      ><ng-container i18n="@@signIn.expiredText">Operator sessions end after 30 minutes without activity. Sign in again to pick up where you left off.</ng-container></sh-alert
+    >
   } @else if (challenge()) {
     <sh-alert live="polite" title="One quick check first" i18n-title="@@signIn.challengeTitle"
       ><ng-container i18n="@@signIn.challengeText">We’ve seen a lot of sign-in attempts from your network. Confirm you’re a person and we’ll sign you in.</ng-container></sh-alert
@@ -55,5 +57,9 @@
     <p class="visually-hidden" role="status">{{ busy() ? signingIn : '' }}</p>
     <p><a class="link--standalone" routerLink="/forgot-password" i18n="@@signIn.forgot">Forgot your password?</a></p>
   </form>
-  <p class="auth__alt" i18n="@@signIn.alt">New to Sweet Hand? <a class="link--standalone" routerLink="/register">Create an account</a> · Caterers: <a routerLink="/join">list your business</a></p>
+  @if (expired()) {
+    <p class="auth__alt" i18n="@@signIn.altOperator">Not an operator? <a routerLink="/caterers">Browse caterers</a></p>
+  } @else {
+    <p class="auth__alt" i18n="@@signIn.alt">New to Sweet Hand? <a class="link--standalone" routerLink="/register">Create an account</a> · Caterers: <a routerLink="/join">list your business</a></p>
+  }
 </div>
