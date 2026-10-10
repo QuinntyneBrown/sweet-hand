@@ -451,7 +451,7 @@ legend .optional { color: var(--color-fg-subtle); font-weight: var(--font-weight
 /* ---------- Filter list (the reference's cuisine column) · components/filter-list.html */
 .filter-group { display: flex; flex-direction: column; border: 0; padding: 0; margin: 0; min-width: 0; }
 .filter-group__title { font: var(--text-label); color: var(--color-fg-subtle); margin-bottom: var(--space-2); padding: 0; }
-.filter-group .search-field { margin-bottom: var(--space-3); }
+.filter-group .field, .filter-group > .search-field { margin-bottom: var(--space-3); }
 .filter-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
 .filter-list__item { display: flex; align-items: center; gap: var(--space-2); width: 100%; min-height: var(--target-comfortable); padding: 0; border: 0; background: none; color: var(--color-fg-muted); font: var(--text-body-lg); text-align: left; text-decoration: none; cursor: pointer; transition: color var(--duration-fast) var(--ease-standard); }
 .filter-list__item:hover, .filter-list__item[data-state="hover"] { color: var(--color-fg-default); }
@@ -475,6 +475,7 @@ legend .optional { color: var(--color-fg-subtle); font-weight: var(--font-weight
 .filter-trigger__count { display: inline-grid; place-items: center; min-width: 1.375rem; height: 1.375rem; padding-inline: var(--space-1); border-radius: var(--radius-full); background: var(--color-action); color: var(--color-fg-on-action); font: var(--text-caption); font-weight: var(--font-weight-semibold); }
 .filter-dropdown { position: absolute; z-index: var(--z-dropdown); top: calc(100% + var(--space-2)); left: 0; width: min(20rem, calc(100vw - 2 * var(--layout-margin))); padding: var(--space-4) var(--space-5); background: var(--color-bg-surface-raised); border: var(--border-width-hairline) solid var(--color-border-default); border-radius: var(--radius-lg); box-shadow: var(--shadow-3); animation: scale-in var(--duration-fast) var(--ease-enter); transform-origin: top left; }
 .filter-dropdown fieldset { max-height: min(50dvh, 20rem); overflow: auto; }
+.filter-dropdown fieldset > * { flex-shrink: 0; }
 .filter-dropdown .cluster { margin-top: var(--space-4); }
 .mobile-browse-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); }
 
