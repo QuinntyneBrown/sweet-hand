@@ -1,6 +1,6 @@
 import { expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { AccountMenu, SiteFooter, SiteHeader, SiteMenu, SkipLink } from './shell';
+import { AccountMenu, SearchDialog, SiteFooter, SiteHeader, SiteMenu, SkipLink } from './shell';
 
 /** Shared behaviour of every screen's page object. */
 export abstract class BasePage {
@@ -9,6 +9,7 @@ export abstract class BasePage {
   readonly siteMenu: SiteMenu;
   readonly accountMenu: AccountMenu;
   readonly skipLink: SkipLink;
+  readonly search: SearchDialog;
 
   constructor(readonly page: Page) {
     this.header = new SiteHeader(page);
@@ -16,6 +17,7 @@ export abstract class BasePage {
     this.siteMenu = new SiteMenu(page);
     this.accountMenu = new AccountMenu(page);
     this.skipLink = new SkipLink(page);
+    this.search = new SearchDialog(page);
   }
 
   /** Switch to a phone-sized viewport (XS). */

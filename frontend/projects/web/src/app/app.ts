@@ -2,8 +2,9 @@ import { ChangeDetectionStrategy, Component, ElementRef, computed, inject, signa
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter, map } from 'rxjs';
-import { AccountMenu, Footer, Icon, Sheet, SiteHeader, type MenuItemEntry } from '@sweet-hand/components';
+import { AccountMenu, Footer, Icon, Sheet, SiteHeader, ToastRegion, type MenuItemEntry } from '@sweet-hand/components';
 import { Session } from './core/session/session';
+import { SearchDialog } from './features/discovery/search/search-dialog';
 import {
   accountSecondLine,
   areaTag,
@@ -22,7 +23,7 @@ import {
 /** The application shell: skip link, header, the page's main landmark, footer and the shell's overlays. */
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, SiteHeader, Footer, Sheet, AccountMenu, Icon],
+  imports: [RouterOutlet, RouterLink, SiteHeader, Footer, Sheet, AccountMenu, Icon, SearchDialog, ToastRegion],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
   styleUrl: './app.css',
@@ -84,12 +85,14 @@ export class App {
 
   protected readonly menuOpen = signal(false);
   protected readonly accountOpen = signal(false);
+  protected readonly searchOpen = signal(false);
   protected readonly accountTrigger = computed(() => (this.accountOpen() ? this.header().trigger('account') : null));
 
   constructor() {
     this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
       this.menuOpen.set(false);
       this.accountOpen.set(false);
+      this.searchOpen.set(false);
     });
   }
 
@@ -100,6 +103,10 @@ export class App {
 
   protected menuTrigger(): HTMLElement | null {
     return this.header().trigger('menu');
+  }
+
+  protected searchTrigger(): HTMLElement | null {
+    return this.header().trigger('search');
   }
 
   protected onAccountItem(id: string): void {

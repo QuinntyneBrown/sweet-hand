@@ -11,6 +11,8 @@
     [searchLabel]="canSearch() ? searchLabel : null"
     menuLabel="Menu"
     i18n-menuLabel="@@header.menu"
+    [searchOpen]="searchOpen()"
+    (searchRequested)="searchOpen.set(true)"
     [menuOpen]="menuOpen()"
     [account]="account()"
     [accountOpen]="accountOpen()"
@@ -70,3 +72,6 @@
     (itemActivated)="onAccountItem($event.id)"
   />
 }
+
+<app-search-dialog [open]="searchOpen()" [returnFocus]="searchTrigger()" (closed)="searchOpen.set(false)" />
+<sh-toast-region dismissLabel="Dismiss" i18n-dismissLabel="@@toast.dismiss" />

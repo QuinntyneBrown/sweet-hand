@@ -19,3 +19,6 @@ export * from './lib/form/textarea';
 export * from './lib/form/select';
 export * from './lib/form/checkbox';
 export * from './lib/form/form-summary';
+export * from './lib/dialog/dialog';
+export * from './lib/combobox/combobox';
+export * from './lib/toast/toast';
