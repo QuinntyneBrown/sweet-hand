@@ -1,4 +1,64 @@
-<sh-back-link href="/caterers" i18n="@@caterer.back">Caterers</sh-back-link>
+@if (state() === 'gone') {
+  <sh-error-page
+    heading="This caterer has left Sweet Hand"
+    i18n-heading="@@caterer.gone.heading"
+    [text]="goneText()"
+    code="Error 410"
+    i18n-code="@@caterer.gone.code"
+  >
+    <ng-container slot="photos">
+      <span class="photo"><img src="/media/cou-cou.jpg?w=400&fm=jpeg" alt="" width="72" height="72" /></span>
+      <span class="photo"><img src="/media/ti-kay.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
+      <span class="photo"><img src="/media/sugar-dumplin.jpg?w=400&fm=jpeg" alt="" width="72" height="72" /></span>
+    </ng-container>
+    <ng-container slot="actions">
+      <a class="btn btn--primary btn--lg" routerLink="/caterers" i18n="@@system.browseCaterers">Browse caterers</a>
+      <a class="btn btn--lg" routerLink="/occasions" i18n="@@caterer.gone.byOccasion">Browse by occasion</a>
+    </ng-container>
+  </sh-error-page>
+} @else if (state() !== 'not-found') {
+  <sh-back-link href="/caterers" i18n="@@caterer.back">Caterers</sh-back-link>
+}
+
+@if (state() === 'loading') {
+  <div class="caterer-layout" aria-busy="true">
+    <div>
+      <sh-gallery [photos]="[]" [busy]="true" label="Photos" i18n-label="@@gallery.label" [openLabel]="openPhotoLabel" [moreLabel]="morePhotosLabel" failedSuffix="" failedLabel="" />
+      <div class="caterer-head">
+        <h1><span class="visually-hidden" i18n="@@caterer.loading">Loading caterer</span><span class="skeleton skeleton--text skeleton--name" aria-hidden="true"></span></h1>
+        <span class="skeleton skeleton--text skeleton--meta" aria-hidden="true"></span>
+      </div>
+      <div class="measure description" aria-hidden="true">
+        <span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span>
+      </div>
+      <section class="caterer-section" aria-hidden="true">
+        <span class="skeleton skeleton--title skeleton--heading"></span>
+        <sh-dish-list class="menu-skeleton" listId="dish-list" [busy]="true" />
+      </section>
+    </div>
+    <aside class="enquiry-panel only-lg" aria-hidden="true">
+      <span class="skeleton skeleton--text" style="width: 5rem"></span><span class="skeleton skeleton--text" style="width: 12rem"></span>
+      <span class="skeleton skeleton--text" style="width: 6rem"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text" style="width: 70%"></span>
+      <span class="skeleton skeleton--rect skeleton--pill" style="height: var(--control-height-lg)"></span>
+    </aside>
+  </div>
+  <p class="visually-hidden" role="status" i18n="@@caterer.loading">Loading caterer</p>
+}
+
+@if (state() === 'error') {
+  <div class="empty empty--error">
+    <sh-photo-row [photos]="errorPhotos" />
+    <h1 class="empty__title" i18n="@@caterer.error.title">We couldn’t load this caterer</h1>
+    <p class="empty__text" i18n="@@caterer.error.text">Something went wrong on our side. Try again in a moment — the rest of Sweet Hand still works.</p>
+    <div class="empty__actions">
+      <sh-button variant="primary" (activated)="caterer.reload()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></sh-button>
+      <a class="btn" routerLink="/caterers" i18n="@@caterer.error.back">Back to caterers</a>
+    </div>
+    @if (errorReference(); as ref) {
+      <p class="text-caption"><ng-container i18n="@@system.reference">Reference</ng-container> <code>{{ ref }}</code></p>
+    }
+  </div>
+}
 
 @if (view(); as c) {
   <div class="caterer-layout">

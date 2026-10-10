@@ -3,6 +3,24 @@
   margin-top: var(--space-8);
 }
 
+/* Skeleton sizes from docs/mocks/pages/caterer/loading.html. */
+.skeleton--name {
+  width: 60%;
+}
+
+.skeleton--meta {
+  width: 18rem;
+  max-width: 100%;
+}
+
+.skeleton--heading {
+  width: 8rem;
+}
+
+.menu-skeleton {
+  margin-top: var(--space-6);
+}
+
 .facts {
   margin-top: var(--space-10);
 }

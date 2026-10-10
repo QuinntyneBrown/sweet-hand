@@ -2,7 +2,7 @@ import type { Router } from '../lib/router.ts';
 import { ok, notFound } from '../lib/http.ts';
 import { torontoDate, type Store } from '../lib/store.ts';
 import { photoView } from '../lib/views.ts';
-import { FSA_TO_AREA, OCCASION_PHOTOS, OCCASIONS, slugify } from '../seed/taxonomy.ts';
+import { FSA_TO_AREA, OCCASIONS, slugify } from '../seed/taxonomy.ts';
 import type { Caterer } from '../seed/caterers.ts';
 import type { ListingPageView, ServiceArea } from '../../projects/web/src/app/core/api/discovery.models.ts';
 import type { CatererGoneView, CatererPageView, CatererRegionView, DietaryTag } from '../../projects/web/src/app/core/api/caterer-page.models.ts';
@@ -156,6 +156,23 @@ export function catererPageView(store: Store, c: Caterer): CatererPageView {
     rating: ratingSummary(store, c.id),
   };
 }
+
+/** Named store changes for the caterer page (`backend.scenario(name, args)`). */
+export const catererPageScenarios: Record<string, (store: Store, args: any) => unknown> = {
+  /** An approved business name change: new slug from the name, the old one redirects (L2-018.3). */
+  'rename-caterer': (store, { slug, name }: { slug: string; name: string }) => {
+    const c = store.caterers.find((x) => x.slug === slug);
+    if (!c) return;
+    c.previousSlugs.push(c.slug);
+    c.name = name;
+    c.slug = slugify(name.replace(/'/g, ''));
+  },
+  /** A name change waiting for approval: the public page keeps the approved name (L2-014.3). */
+  'request-name-change': (store, { slug, name }: { slug: string; name: string }) => {
+    const c = store.caterers.find((x) => x.slug === slug);
+    if (c) c.pendingName = name;
+  },
+};
 
 function registerCatererPage(r: Router<Store>): void {
   /** Anonymous by explicit choice (L2-013): public browsing. */

@@ -170,7 +170,7 @@ export class CatererPage extends BasePage {
 
   /** Which of the three gallery layouts is showing: carousel (XS), lead + strip (SM–MD) or lead + grid (LG–XL). */
   async galleryLayout(): Promise<'carousel' | 'lead-strip' | 'lead-grid'> {
-    return this.main.locator('.gallery__track').evaluate((track) => {
+    return this.main.locator('section.gallery:not([aria-busy]) .gallery__track').evaluate((track) => {
       const style = getComputedStyle(track);
       if (style.display === 'flex') return 'carousel';
       return style.gridTemplateColumns.split(' ').length === 5 ? 'lead-strip' : 'lead-grid';
@@ -184,7 +184,7 @@ export class CatererPage extends BasePage {
 
   /** The carousel scrolls sideways inside itself. */
   async galleryScrollsSideways(): Promise<boolean> {
-    return this.main.locator('.gallery__track').evaluate((track) => track.scrollWidth > track.clientWidth && getComputedStyle(track).overflowX === 'auto');
+    return this.main.locator('section.gallery:not([aria-busy]) .gallery__track').evaluate((track) => track.scrollWidth > track.clientWidth && getComputedStyle(track).overflowX === 'auto');
   }
 
   /** "Rated 4.7 · 23 reviews" under the name, linking to the reviews. */
@@ -235,6 +235,71 @@ export class CatererPage extends BasePage {
   /** The quiet text a section shows when there are no reviews yet. */
   get noReviews() {
     return this.reviewsSection.locator('p');
+  }
+
+  /** Opens the page and returns the bodies of every API response it used. */
+  async openCollectingResponses(slug: string): Promise<string[]> {
+    const bodies: Promise<string>[] = [];
+    const listener = (response: import('@playwright/test').Response) => {
+      if (response.url().includes('/api/')) bodies.push(response.text().catch(() => ''));
+    };
+    this.page.on('response', listener);
+    await this.open(slug);
+    await this.heading.waitFor();
+    await this.reviews.first().waitFor().catch(() => undefined);
+    this.page.off('response', listener);
+    return Promise.all(bodies);
+  }
+
+  /** Everything the page shows, as text and markup. */
+  async pageMarkup(): Promise<string> {
+    return this.page.content();
+  }
+
+  get loadingStatus() {
+    return this.main.locator(':scope > p[role="status"], app-caterer-page > p[role="status"]').first();
+  }
+
+  get layout() {
+    return this.main.locator('.caterer-layout');
+  }
+
+  get galleryBusy() {
+    return this.main.locator('section.gallery[aria-busy="true"]');
+  }
+
+  get menuSkeleton() {
+    return this.main.locator('.dish-list[aria-busy="true"] .dish--skeleton');
+  }
+
+  /** The "We couldn't load …" state. */
+  get loadError() {
+    return this.main.locator('.empty--error');
+  }
+
+  get loadErrorText() {
+    return this.loadError.locator('.empty__text');
+  }
+
+  get loadErrorReference() {
+    return this.loadError.locator('.text-caption code');
+  }
+
+  loadErrorAction(name: string) {
+    return this.loadError.getByRole('button', { name }).or(this.loadError.getByRole('link', { name }));
+  }
+
+  /** The system page shown for a removed caterer (410) and its parts. */
+  get systemText() {
+    return this.main.locator('.system-page .prose');
+  }
+
+  get systemCode() {
+    return this.main.locator('.system-page__code');
+  }
+
+  systemAction(name: string) {
+    return this.main.locator('.system-page__actions').getByRole('link', { name });
   }
 
   metaContent(name: string) {

@@ -253,4 +253,24 @@ function applyCatererPageCast(all: Caterer[]): void {
   const files = [maracas.photos[0], ...CATALOG.filter(([, file]) => file !== 'maracas-bay').map(([, file, , , caption]) => ({ file: `${file}.jpg`, caption }))].slice(0, 30);
   maracas.photos = files.map((p, j) => ({ id: `maracas-bay-photo-${j + 1}`, file: p.file, caption: p.caption }));
   maracas.dishes = MARACAS_DISHES.map((name, j) => ({ id: `maracas-bay-dish-${j + 1}`, name, tags: j % 3 === 0 ? ['vegan'] : [], price: j % 4 === 0 ? 'From $14 per person' : undefined }));
+
+  // Winston Daley's Coal Pot Kitchen: the removed example (Mon 28 Sep).
+  all.push({
+    id: 'cat-901',
+    slug: 'coal-pot-kitchen',
+    name: 'Coal Pot Kitchen',
+    status: 'Removed',
+    cuisines: ['jamaican'],
+    areas: ['brampton'],
+    minGuests: 20,
+    maxGuests: 150,
+    occasions: ['birthdays', 'family-gatherings'],
+    description: 'Coal Pot Kitchen cooks Jamaican food for gatherings in Brampton.',
+    photos: ['brown-stew-kitchen', 'bammy-bros', 'island-pot'].map((file, j) => ({ id: `coal-pot-kitchen-photo-${j + 1}`, file: `${file}.jpg`, caption: CATALOG.find(([, f]) => f === file)![4] })),
+    dishes: GENERIC_DISHES.map((d, j) => ({ ...d, id: `coal-pot-kitchen-dish-${j + 1}` })),
+    createdAt: '2026-08-05T13:00:00Z',
+    publishedAt: '2026-08-12T13:00:00Z',
+    previousSlugs: [],
+    statusReason: 'Repeated food safety concerns from customers, confirmed by our team.',
+  });
 }
