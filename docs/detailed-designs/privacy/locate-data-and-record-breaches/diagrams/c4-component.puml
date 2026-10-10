@@ -1,0 +1,44 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Locate data in Canada and record breaches
+
+Person(operator, "Operator", "Records confirmed breaches")
+Person(contributor, "Contributor", "Changes infrastructure")
+
+Container_Boundary(ci, "Continuous integration service") {
+  Component(iac, "Infrastructure-as-code definitions", "<TO SUPPLY>", "Every resource, its region and data classification")
+  Component(check, "DataResidencyPolicyCheck", "CI step", "Fails the build for personal-data resources outside approved Canadian regions")
+  Component(regions, "ApprovedRegions", "Policy data", "Approved Canadian regions <TO SUPPLY>")
+}
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(registerPage, "BreachRegisterPage", "<TO SUPPLY>", "Lists breach records")
+  Component(recordScreen, "RecordBreachScreen", "<TO SUPPLY>", "Captures a breach record")
+  Component(client, "BreachRegisterClient", "API client contract", "Reads and records breaches")
+}
+
+Container_Boundary(api, "Sweet Hand API") {
+  Component(pipeline, "RequestPipeline", "<TO SUPPLY>", "Operator role and second factor check")
+  Component(endpoints, "OperatorBreachEndpoints", "Endpoint group", "GET and POST /operator/breaches")
+  Component(handler, "RecordBreachHandler", "Application handler", "Validates and saves a breach record")
+  Component(record, "BreachRecord", "Domain entity", "Facts, risk assessment, notification decision")
+  Component(audit, "AuditLog", "Infrastructure", "Append-only operator audit log")
+  ComponentDb(db, "Sweet Hand database", "<TO SUPPLY>", "BreachRecord, AuditEntry")
+}
+
+Rel(contributor, iac, "Edits")
+Rel(check, iac, "Reads planned resources from")
+Rel(check, regions, "Compares with")
+Rel(operator, registerPage, "Opens")
+Rel(registerPage, recordScreen, "Navigates to")
+Rel(registerPage, client, "Lists through")
+Rel(recordScreen, client, "Records through")
+Rel(client, pipeline, "Calls", "JSON/HTTPS")
+Rel(pipeline, endpoints, "Routes to")
+Rel(endpoints, handler, "Sends RecordBreachCommand")
+Rel(handler, record, "Creates")
+Rel(handler, db, "Saves")
+Rel(handler, audit, "Appends AuditEntry")
+Rel(audit, db, "Inserts into audit table")
+@enduml

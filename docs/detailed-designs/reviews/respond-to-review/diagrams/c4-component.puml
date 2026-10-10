@@ -1,0 +1,51 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Respond to a review
+
+Person(caterer, "Caterer", "Person or small business selling Caribbean food")
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(screen, "CatererReviewsScreen", "Screen", "Reviews of the caterer's business with responses")
+  Component(dialog, "ReviewResponseDialog", "Dialog", "Write or edit a response")
+  Component(confirm, "ConfirmDeleteResponseDialog", "Dialog", "Confirm response deletion")
+  Component(client, "ReviewsClient", "API client contract", "Typed review operations")
+}
+
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "CatererReviewsEndpoints", "Endpoint group", "Caterer-only review and response endpoints")
+  Component(postH, "PostReviewResponseHandler", "Command handler", "One response per review, owner only")
+  Component(editH, "EditReviewResponseHandler", "Command handler", "Replaces response text")
+  Component(delH, "DeleteReviewResponseHandler", "Command handler", "Removes the response")
+  Component(review, "Review", "Domain entity", "Owns the response rules")
+  Component(revRepo, "ReviewRepository", "Repository", "Reviews and responses")
+  Component(jobQueue, "JobQueue", "Infrastructure", "Enqueues jobs in the unit of work")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Reviews and responses")
+ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent queue of background jobs")
+Container_Boundary(worker, "Sweet Hand background worker") {
+  Component(job, "SendNotificationJob", "Job", "Emails the reviewer")
+}
+System_Ext(email, "Email provider", "Sends transactional email")
+
+Rel(caterer, screen, "Uses", "HTTPS")
+Rel(screen, dialog, "Opens")
+Rel(screen, confirm, "Opens")
+Rel(dialog, client, "Posts or edits")
+Rel(confirm, client, "Deletes")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, postH, "Sends PostReviewResponseCommand")
+Rel(endpoints, editH, "Sends EditReviewResponseCommand")
+Rel(endpoints, delH, "Sends DeleteReviewResponseCommand")
+Rel(postH, review, "Respond")
+Rel(editH, review, "EditResponse")
+Rel(delH, review, "DeleteResponse")
+Rel(postH, revRepo, "Saves")
+Rel(editH, revRepo, "Saves")
+Rel(delH, revRepo, "Saves")
+Rel(postH, jobQueue, "Enqueues notification")
+Rel(revRepo, db, "Reads and writes")
+Rel(jobQueue, queue, "Writes")
+Rel(job, queue, "Reads")
+Rel(job, email, "Sends", "<TO SUPPLY>")
+@enduml

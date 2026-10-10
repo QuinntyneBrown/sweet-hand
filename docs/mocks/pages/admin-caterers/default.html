@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Caterers (operator) · default — Sweet Hand mocks</title>
+<meta name="mock:kind" content="page">
+<meta name="mock:screen" content="admin-caterers">
+<meta name="mock:state" content="default">
+<meta name="mock:requirements" content="L2-046 L2-058">
+<meta name="description" content="Operator list of all 68 caterers in every status, newest change first, with a status filter and search.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="page">
+<header class="site-header">
+  <a class="wordmark" href="../../pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-caterers/default.html" aria-current="page">Caterers</a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-metrics/default.html">Metrics</a>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+  </nav>
+</header>
+
+<main id="main" class="container">
+  <div class="work-layout">
+    <nav class="side-nav" aria-label="Operator">
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count">7</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-changes/default.html">Recent changes</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-caterers/default.html" aria-current="page">Caterers</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-reviews/default.html">Reviews</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-metrics/default.html">Metrics</a></li>
+      </ul>
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../../pages/admin-audit/default.html">Audit log</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-cuisines/default.html">Cuisines</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-operators/default.html">Operators</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-breaches/default.html">Breach register</a></li>
+      </ul>
+    </nav>
+
+    <div class="work-main">
+      <div class="page-intro">
+        <h1>Caterers</h1>
+        <p class="subtitle">68 caterers · 60 published · sorted by last change</p>
+      </div>
+      <form class="search-field" role="search" action="no-results.html" style="max-width: 28rem; margin-bottom: var(--space-4);">
+        <label class="visually-hidden" for="cat-q">Search caterers</label>
+        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input class="input" id="cat-q" name="q" type="search" placeholder="Business or owner name" autocomplete="off">
+      </form>
+      <ul class="segmented" aria-label="Filter by status">
+        <li><a href="default.html" aria-current="page">All 68</a></li>
+        <li><a href="no-results.html">Draft 3</a></li>
+        <li><a href="no-results.html">Pending review 2</a></li>
+        <li><a href="no-results.html">Changes requested 1</a></li>
+        <li><a href="no-results.html">Published 60</a></li>
+        <li><a href="no-results.html">Suspended 1</a></li>
+        <li><a href="no-results.html">Removed 1</a></li>
+      </ul>
+      <ul class="queue">
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Pelau House</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Trinidadian &amp; Tobagonian · Scarborough · Kendra Baptiste · updated today · <span class="changed-flag">Name change waiting</span></span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo"><img src="../../assets/img/island-pot.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Island Pot</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Jamaican · Scarborough · Garfield Brown · updated today · <span class="changed-flag">1 open report</span></span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-profile-review/default.html"><span class="photo"><img src="../../assets/img/auntie-merles-table.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Breadfruit &amp; Butter</span><span class="queue-item__wait"><span class="status status--pending">Pending review</span></span><span class="queue-item__meta">Vincentian · Brampton · Ianthe Providence · updated Thu 8 Oct · <span class="changed-flag">Resubmitted</span></span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-profile-review/default.html"><span class="photo"><img src="../../assets/img/green-fig-catering.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Auntie Bev’s Kitchen</span><span class="queue-item__wait"><span class="status status--pending">Pending review</span></span><span class="queue-item__meta">Jamaican · Oshawa · Beverley Campbell · updated Wed 7 Oct</span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/certificate-expired.html"><span class="photo"><img src="../../assets/img/flying-fish-kitchen.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Flying Fish Kitchen</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Barbadian (Bajan) · Oshawa · Wendell Forde · updated Wed 7 Oct · <span class="changed-flag">Certificate expired</span></span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/suspended.html"><span class="photo photo--placeholder"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg></span><span class="queue-item__title">Hibiscus Hut</span><span class="queue-item__wait"><span class="status status--suspended">Suspended</span></span><span class="queue-item__meta">Jamaican · Brampton · Sharon Bailey · updated Tue 6 Oct</span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo photo--placeholder"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg></span><span class="queue-item__title">Tamarind Tree</span><span class="queue-item__wait"><span class="status status--changes">Changes requested</span></span><span class="queue-item__meta">Trinidadian &amp; Tobagonian · Whitby · Anil Maharaj · updated Mon 5 Oct</span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo photo--placeholder"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg></span><span class="queue-item__title">Callaloo Corner</span><span class="queue-item__wait"><span class="status status--draft">Draft</span></span><span class="queue-item__meta">Grenadian · Markham · Josephine Noel · updated Sun 4 Oct</span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo"><img src="../../assets/img/maracas-bay.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Maracas Bay</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Trinidadian &amp; Tobagonian · Mississauga · Vishnu Ramlogan · updated Sat 3 Oct</span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo"><img src="../../assets/img/sugar-dumplin.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Sugar Dumplin</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Antiguan &amp; Barbudan · Vaughan · Ondine Samuel · updated Fri 2 Oct</span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo photo--placeholder"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg></span><span class="queue-item__title">Doubles Duo</span><span class="queue-item__wait"><span class="status status--draft">Draft</span></span><span class="queue-item__meta">Trinidadian &amp; Tobagonian · Ajax · Ravi Persad · updated Thu 1 Oct</span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo"><img src="../../assets/img/ti-kay.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Ti Kay</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Haitian · Etobicoke · Fabienne Étienne · updated Wed 30 Sep</span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/removed.html"><span class="photo photo--placeholder"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg></span><span class="queue-item__title">Rum Shop Catering</span><span class="queue-item__wait"><span class="status status--removed">Removed</span></span><span class="queue-item__meta">Pan-Caribbean · Oshawa · Clive Dennis · updated Mon 28 Sep</span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo"><img src="../../assets/img/demerara-kitchen.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Demerara Kitchen</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Guyanese · Brampton · Rohan Persaud · updated Sun 27 Sep</span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo"><img src="../../assets/img/cou-cou.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Cou-Cou</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Barbadian (Bajan) · North York · Desmond Greaves · updated Fri 25 Sep</span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo photo--placeholder"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg></span><span class="queue-item__title">Plantain Plate</span><span class="queue-item__wait"><span class="status status--draft">Draft</span></span><span class="queue-item__meta">Haitian · North York · Mireille Joseph · updated Thu 24 Sep</span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo"><img src="../../assets/img/sorrel-and-spice.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Sorrel &amp; Spice</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Grenadian · Downtown Toronto · Celestine Charles · updated Tue 22 Sep</span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo"><img src="../../assets/img/scotch-bonnet-social.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Scotch Bonnet Social</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Jamaican · Pickering · Tanisha Reid · updated Sun 20 Sep</span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo"><img src="../../assets/img/black-cake-co.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Black Cake Co.</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Jamaican · Ajax · Paulette Morgan · updated Fri 18 Sep</span></a></li>
+        <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo"><img src="../../assets/img/sunday-pot.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Sunday Pot</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">St. Lucian · Mississauga · Marcus Alexander · updated Wed 16 Sep</span></a></li>
+      </ul>
+      <nav class="load-more" aria-label="Pagination">
+        <p class="result-count">Showing 1–20 of 68</p>
+        <ul class="pagination">
+          <li><a href="default.html" aria-current="page" aria-label="Page 1">1</a></li>
+          <li><a href="long.html" aria-label="Page 2">2</a></li>
+          <li><a href="long.html" aria-label="Page 3">3</a></li>
+          <li><a href="long.html" aria-label="Page 4">4</a></li>
+          <li><a href="long.html" aria-label="Next page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__brand"><strong>Sweet Hand</strong><span>Operator console. Every action is written to the audit log.</span></div>
+  <nav aria-label="Footer">
+    <ul>
+      <li><a href="../../pages/privacy/default.html">Privacy</a></li>
+      <li><a href="../../pages/terms/default.html">Terms</a></li>
+    </ul>
+  </nav>
+</footer>
+</div>
+<p class="mock-note" style="top: 8rem; right: 1rem;">Operators see every status; the public never sees anything but Published (L2-001). Statuses pair a word with a shape, so colour is never the only cue.</p>
+
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Caterers (operator)</span>
+  <ul class="mock-bar__states">
+    <li><a href="default.html" aria-current="page">default</a></li>
+    <li><a href="loading.html">loading</a></li>
+    <li><a href="empty.html">empty</a></li>
+    <li><a href="error.html">error</a></li>
+    <li><a href="no-results.html">no-results</a></li>
+    <li><a href="long.html">long</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>

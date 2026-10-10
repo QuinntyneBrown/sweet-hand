@@ -1,0 +1,20 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Locate data in Canada and record breaches
+
+Person(operator, "Operator", "Records confirmed breaches in the breach register")
+Person(contributor, "Contributor", "Changes infrastructure-as-code definitions")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(ci, "Continuous integration service", "Builds and checks every change")
+System_Ext(hosting, "Hosting provider", "Canadian regions; provider <TO SUPPLY>")
+System_Ext(email, "Email provider", "Third-party processor listed in the privacy notice")
+System_Ext(opc, "Office of the Privacy Commissioner of Canada", "Receives breach reports")
+
+Rel(contributor, ci, "Pushes infrastructure changes to")
+Rel(ci, hosting, "Deploys only after residency check passes to")
+Rel(hosting, sweethand, "Hosts in Canadian regions")
+Rel(operator, sweethand, "Records breaches in", "HTTPS")
+Rel(sweethand, email, "Sends transactional email via", "<TO SUPPLY>")
+Rel(operator, opc, "Reports qualifying breaches to (outside the platform)")
+@enduml

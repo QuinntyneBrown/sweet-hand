@@ -1,0 +1,53 @@
+@startuml
+title UML sequence behaviour — Record an operator action
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Operator screen" as page
+  participant "ModerationClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "Operator endpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "Operator command handler" as handler
+  participant "Domain aggregate" as entity
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AuditLog" as audit
+  database "Sweet Hand database" as db
+end box
+actor -> page : Perform action with reason (for example Suspend)
+page -> client : Typed request
+client -> endpoints : POST /operator/... (operator check in RequestPipeline)
+endpoints -> handler : Send command
+handler -> db : Begin unit of work; load target
+db --> handler : Target
+handler -> entity : Apply action
+entity --> handler : Values before and after
+handler -> audit : Append(operator, action, target, UTC time, reason, before, after) (L2-060 AC1)
+audit -> db : INSERT into audit table
+handler -> db : Commit action and audit entry together
+alt commit fails
+  db --> handler : Rollback: neither action nor entry stored
+  handler --> endpoints : Error
+else committed
+  db --> handler : Committed
+  handler --> endpoints : Success
+  endpoints --> client : 200
+  client --> page : Done
+end
+@enduml

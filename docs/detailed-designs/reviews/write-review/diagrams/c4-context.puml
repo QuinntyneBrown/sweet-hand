@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Write a review
+
+Person(customer, "Customer", "Signed-in person who sent an enquiry to a caterer")
+Person(operator, "Operator", "Member of the Sweet Hand team who checks held reviews")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+
+Rel(customer, sweethand, "Writes a review of a caterer using", "HTTPS")
+Rel(operator, sweethand, "Checks held reviews in the review queue using", "HTTPS")
+@enduml

@@ -1,0 +1,38 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Show reviews on the caterer page
+
+Person(visitor, "Visitor", "Anyone browsing without signing in")
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "CatererPage", "Page", "Server-rendered caterer page")
+  Component(section, "ReviewsSection", "Page section", "Rating summary and review list")
+  Component(more, "ShowMoreReviewsButton", "Control", "Appends the next review page")
+  Component(client, "ReviewsClient", "API client contract", "Typed review reads")
+}
+
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "PublicCaterersEndpoints", "Endpoint group", "Anonymous caterer and review reads")
+  Component(handler, "GetCatererReviewsHandler", "Query handler", "Summary and one review page")
+  Component(labelFmt, "ReviewerLabelFormatter", "Domain service", "First name and last initial")
+  Component(monthFmt, "EventMonthFormatter", "Domain service", "Event in Month yyyy")
+  Component(profRepo, "CatererProfileRepository", "Repository", "Slug to caterer and status")
+  Component(revRepo, "ReviewRepository", "Repository", "Published reviews and summary")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles, reviews, rating summaries")
+
+Rel(visitor, page, "Opens", "HTTPS")
+Rel(page, section, "Renders")
+Rel(section, more, "Contains")
+Rel(page, client, "Reads first review page")
+Rel(more, client, "Reads next review page")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, handler, "Sends GetCatererReviewsQuery")
+Rel(handler, profRepo, "Checks caterer is Published")
+Rel(handler, revRepo, "Reads summary and page")
+Rel(handler, labelFmt, "Formats reviewer")
+Rel(handler, monthFmt, "Formats event month")
+Rel(profRepo, db, "Reads")
+Rel(revRepo, db, "Reads")
+@enduml

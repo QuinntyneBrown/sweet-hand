@@ -1,0 +1,65 @@
+@startuml
+title UML sequence behaviour — View the metrics dashboard
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "MetricsDashboardPage" as page
+  participant "MetricsClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "OperatorMetricsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetMetricsHandler" as handler
+  participant "MetricsRange" as range
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "MetricsRepository" as repo
+  database "Sweet Hand database" as db
+end box
+actor -> page : Choose date range and granularity
+page -> page : Store range and granularity in URL
+page -> client : getMetrics(from, to, granularity)
+client -> endpoints : GET operator metrics
+endpoints -> endpoints : Require operator role with completed MFA (L2-056)
+alt not an operator session
+  endpoints -> endpoints : Log security event (L2-056 AC3)
+  endpoints --> client : 403
+else operator
+  endpoints -> handler : Send GetMetricsQuery
+  handler -> range : Create(from, to, granularity)
+  alt range longer than 24 months
+    range --> handler : Invalid
+    handler --> endpoints : Validation error
+    endpoints --> client : 400 Choose a range of 24 months or less (L2-061 AC2)
+    client --> page : Show message on range control
+  else valid
+    range --> handler : MetricsRange
+    handler -> repo : ListDaily(from, to)
+    repo -> db : Select daily aggregates
+    db --> repo : DailyMetric rows
+    repo --> handler : Rows
+    handler -> range : Buckets() in America/Toronto, weeks Monday to Sunday
+    range --> handler : TimeBuckets
+    handler -> handler : Sum counts per bucket; caterer status at bucket end; share from numerator and denominator
+    handler --> endpoints : MetricsReport
+    endpoints --> client : 200
+    client --> page : MetricsReport
+    page -> page : Render MetricsChart and MetricsDataTable per metric (L2-061 AC5)
+    page --> actor : Dashboard within 3 seconds for 12 months daily (L2-061 AC4)
+  end
+end
+@enduml

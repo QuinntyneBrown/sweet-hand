@@ -1,0 +1,73 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Browse the inbox
+
+enum EnquiryStatus {
+  Open
+  Replied
+  Declined
+  Closed
+}
+
+class GetInboxQuery {
+  +Guid AccountId
+  +Role Role
+  +EnquiryStatus? Status
+  +int Page
+}
+
+class GetInboxHandler {
+  -int PageSize = 20
+  +Handle(query: GetInboxQuery): InboxPageView
+}
+
+class InboxPageView {
+  +List<InboxRowView> Rows
+  +int Page
+  +int PageCount
+  +int TotalCount
+}
+
+class InboxRowView {
+  +Guid EnquiryId
+  +string OtherPartyName
+  +Date EventDate
+  +int GuestCount
+  +EnquiryStatus Status
+  +DateTime LastActivityAt
+  +bool Unread
+}
+
+class Enquiry {
+  +Guid Id
+  +Guid CustomerId
+  +Guid CatererId
+  +Date EventDate
+  +int GuestCount
+  +EnquiryStatus Status
+  +DateTime LastActivityAt
+}
+
+interface EnquiryRepository {
+  +ListForParty(accountId: Guid, role: Role, status: EnquiryStatus?, page: int, pageSize: int): InboxPageView
+}
+
+GetInboxHandler ..> GetInboxQuery : handles
+GetInboxHandler ..> EnquiryRepository
+GetInboxHandler ..> InboxPageView : returns
+InboxPageView *-- "0..20" InboxRowView
+InboxRowView ..> Enquiry : projects
+InboxRowView --> EnquiryStatus
+Enquiry --> EnquiryStatus
+@enduml

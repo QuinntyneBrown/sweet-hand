@@ -1,0 +1,102 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Suspend, reinstate or remove a profile
+
+enum ProfileStatus {
+  Draft
+  PendingReview
+  ChangesRequested
+  Published
+  Suspended
+  Removed
+}
+
+enum EnquiryStatus {
+  Open
+  Replied
+  Declined
+  Closed
+}
+
+class CatererProfile {
+  +Guid Id
+  +string Slug
+  +ProfileStatus Status
+  +Suspend(reason: ModerationReason, operatorId: Guid): void
+  +Reinstate(reason: ModerationReason, operatorId: Guid): void
+  +Remove(reason: ModerationReason, operatorId: Guid): void
+}
+
+class ProfileStateMachine {
+  +EnsureTransition(from: ProfileStatus, to: ProfileStatus, actor: Role): void
+}
+
+class ModerationReason {
+  +string Value
+  +{static} From(text: string): ModerationReason
+}
+
+class Enquiry {
+  +Guid Id
+  +Guid CustomerId
+  +Guid CatererId
+  +EnquiryStatus Status
+  +CloseBecauseCatererUnavailable(): void
+}
+
+class SuspendProfileHandler {
+  +Handle(command: SuspendProfileCommand): Result
+}
+
+class ReinstateProfileHandler {
+  +Handle(command: ReinstateProfileCommand): Result
+}
+
+class RemoveProfileHandler {
+  +Handle(command: RemoveProfileCommand): Result
+}
+
+class GetPublicCatererHandler {
+  +Handle(query: GetPublicCatererQuery): PublicCatererResult
+}
+
+enum PublicCatererOutcome {
+  Found
+  NotFound
+  Gone
+}
+
+class PublicCatererResult {
+  +PublicCatererOutcome Outcome
+  +PublicProfileProjection Profile
+}
+
+class PurgeCatererPhotosJob {
+  +Run(catererId: Guid): void
+}
+
+CatererProfile --> ProfileStatus : has
+CatererProfile ..> ProfileStateMachine : checks transitions
+CatererProfile ..> ModerationReason : requires
+Enquiry --> EnquiryStatus : has
+SuspendProfileHandler --> CatererProfile : loads / mutates
+SuspendProfileHandler --> "*" Enquiry : closes
+RemoveProfileHandler --> CatererProfile : loads / mutates
+RemoveProfileHandler --> "*" Enquiry : closes
+RemoveProfileHandler ..> PurgeCatererPhotosJob : enqueues
+ReinstateProfileHandler --> CatererProfile : loads / mutates
+GetPublicCatererHandler ..> CatererProfile : reads
+GetPublicCatererHandler --> PublicCatererResult : returns
+PublicCatererResult --> PublicCatererOutcome : has
+@enduml

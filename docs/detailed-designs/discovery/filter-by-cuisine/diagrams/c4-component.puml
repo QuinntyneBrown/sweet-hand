@@ -1,0 +1,40 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Filter the listing by cuisine
+
+Person(visitor, "Visitor", "Browses caterers")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "ListingPage", "Page", "Hosts filters and results")
+  Component(filters, "ListingFilters", "Component", "Panel dialog (XS-SM), bar (MD) or sidebar (LG-XL)")
+  Component(cuisine, "CuisineFilter", "Component", "Multi-select options with facet counts")
+  Component(chips, "ActiveFilterChips", "Component", "Removable chips and Clear filters")
+  Component(state, "ListingQueryState", "URL state", "Repeated cuisine parameters")
+  Component(client, "ListingClient", "API client contract", "Listing and cuisine requests")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "PublicCaterersEndpoints", "Endpoint group", "GET /api/public/caterers, GET /api/public/cuisines")
+  Component(handler, "GetListingHandler", "Query handler", "Applies the filter to published caterers")
+  Component(filter, "ListingFilter", "Domain value object", "Any cuisine AND any area")
+  Component(facets, "FacetCounter", "Domain service", "Counts per option given other filters")
+  Component(repo, "CatererProfileRepository", "Repository", "Matching caterers and grouped counts")
+  Component(cuisines, "CuisineRepository", "Repository", "Active cuisine catalogue")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles and cuisines")
+
+Rel(visitor, filters, "Selects cuisines")
+Rel(page, filters, "Renders")
+Rel(filters, cuisine, "Hosts")
+Rel(page, chips, "Renders")
+Rel(page, state, "Pushes selection")
+Rel(page, client, "Requests results")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, handler, "Sends GetListingQuery")
+Rel(handler, filter, "Matches with")
+Rel(handler, facets, "Requests counts")
+Rel(handler, repo, "Reads caterers")
+Rel(facets, repo, "Reads grouped counts")
+Rel(endpoints, cuisines, "Reads active cuisines")
+Rel(repo, db, "Queries")
+Rel(cuisines, db, "Queries")
+@enduml

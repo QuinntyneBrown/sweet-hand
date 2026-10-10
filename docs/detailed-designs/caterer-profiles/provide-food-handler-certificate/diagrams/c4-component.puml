@@ -1,0 +1,46 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Provide a food handler certificate
+
+Person(caterer, "Caterer", "Provides certificate")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(section, "CertificateSectionView", "Component", "Certificate fields, file picker, View file link")
+  Component(client, "CertificateClient", "API client contract", "saveDetails, uploadFile, getFileUrl")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "CatererCertificateEndpoints", "Endpoint group", "Owner-scoped certificate endpoints")
+  Component(save, "SaveCertificateHandler", "Command handler", "Validates and stores details")
+  Component(upload, "UploadCertificateFileHandler", "Command handler", "Signature, size, scan, private storage")
+  Component(url, "GetCertificateFileUrlHandler", "Query handler", "Time-limited URL for owner or operator")
+  Component(cert, "FoodHandlerCertificate", "Domain entity", "Details and IsValidOn(date)")
+  Component(scanner, "MalwareScanner", "Infrastructure", "Calls malware scanning service")
+  Component(store, "ObjectStore", "Infrastructure", "Private file area and signed URLs")
+  Component(repo, "CatererProfileRepository", "Infrastructure", "Persists profile and certificate")
+}
+Container_Boundary(worker, "Sweet Hand background worker") {
+  Component(daily, "DailyMaintenanceJob", "Scheduled job", "Runs date-based rules once a day")
+  Component(check, "CertificateExpiryCheck", "Job step", "30-day and 7-day reminders, expired items")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Certificates, reminder log, review queue")
+ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Certificate files")
+ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Notification jobs")
+
+Rel(caterer, section, "Fills in")
+Rel(section, client, "Calls")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, save, "Sends SaveCertificateCommand")
+Rel(endpoints, upload, "Sends UploadCertificateFileCommand")
+Rel(endpoints, url, "Sends GetCertificateFileUrlQuery")
+Rel(save, cert, "Validates expiry")
+Rel(save, repo, "Saves")
+Rel(upload, scanner, "Scans")
+Rel(upload, store, "Writes file")
+Rel(upload, repo, "Records file key")
+Rel(url, store, "Requests signed URL")
+Rel(repo, db, "Reads and writes")
+Rel(store, storage, "Reads and writes")
+Rel(daily, check, "Runs")
+Rel(check, db, "Reads certificates, writes reminder log and queue items")
+Rel(check, queue, "Enqueues reminder emails")
+@enduml

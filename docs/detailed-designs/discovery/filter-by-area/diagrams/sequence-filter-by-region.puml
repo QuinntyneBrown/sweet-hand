@@ -1,0 +1,39 @@
+@startuml
+title UML sequence behaviour — Filter by a region
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "AreaFilter" as area
+  participant "ListingPage" as page
+  participant "ListingQueryState" as state
+  participant "ListingClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "PublicCaterersEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetListingHandler" as handler
+  participant "ListingFilter" as filter
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> area : Choose region "City of Toronto"
+area -> page : Region selected
+page -> state : Push ?region=city-of-toronto&page=1
+page -> client : Get filtered listing
+client -> endpoints : GET /api/public/caterers?region=city-of-toronto
+endpoints -> handler : Send GetListingQuery
+handler -> filter : Expand region to its 6 areas (L2-011 AC2)
+filter --> handler : Area set
+handler -> db : Published caterers serving any area in set, AND any selected cuisine
+db --> handler : Matching caterers
+handler --> endpoints : ListingPageView with facet counts
+endpoints --> client : HTTP 200 JSON
+client --> page : Results
+page --> actor : Results and "City of Toronto" chip (L2-009 AC4)
+@enduml

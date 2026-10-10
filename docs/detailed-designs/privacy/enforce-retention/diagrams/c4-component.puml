@@ -1,0 +1,42 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Enforce retention limits
+
+Container_Boundary(worker, "Sweet Hand background worker") {
+  Component(job, "RetentionJob", "Scheduled job", "Runs once a day")
+  Component(policy, "RetentionPolicy", "Domain policy", "Data categories and retention periods")
+  Component(enquiryRule, "EnquiryRetentionRule", "Retention rule", "3 years after closure")
+  Component(accountRule, "InactiveAccountRule", "Retention rule", "Warn, then delete after 30 days")
+  Component(securityRule, "SecurityLogRetentionRule", "Retention rule", "13 months")
+  Component(certRule, "CertificateFileRetentionRule", "Retention rule", "90 days after replacement or deletion")
+  Component(auditRule, "AuditLogRetentionRule", "Retention rule", "7 years")
+  Component(visitRule, "VisitAnalyticsRetentionRule", "Retention rule", "25 months")
+  Component(deletion, "ProcessAccountDeletionJob", "Job", "Account deletion processing (delete-account)")
+  Component(notify, "SendNotificationJob", "Job", "Sends inactivity warnings")
+  Component(purger, "AuditLogPurger", "Infrastructure", "Separate database identity for audit purges")
+}
+
+ComponentDb(db, "Sweet Hand database", "<TO SUPPLY>", "Records under retention and RetentionRun")
+ComponentDb(storage, "Object storage", "<TO SUPPLY>", "Certificate files")
+ComponentQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent job queue")
+
+Rel(job, policy, "Reads rules from")
+Rel(job, enquiryRule, "Runs")
+Rel(job, accountRule, "Runs")
+Rel(job, securityRule, "Runs")
+Rel(job, certRule, "Runs")
+Rel(job, auditRule, "Runs")
+Rel(job, visitRule, "Runs")
+Rel(job, db, "Saves RetentionRun with counts")
+Rel(enquiryRule, db, "Deletes enquiries and messages")
+Rel(accountRule, db, "Reads last sign-in; saves InactivityWarning")
+Rel(accountRule, queue, "Enqueues warnings and deletions")
+Rel(securityRule, db, "Deletes log entries")
+Rel(certRule, storage, "Deletes files")
+Rel(auditRule, purger, "Purges through")
+Rel(purger, db, "Deletes audit entries older than 7 years")
+Rel(visitRule, db, "Deletes hashed visits")
+Rel(queue, deletion, "Delivers")
+Rel(queue, notify, "Delivers")
+@enduml

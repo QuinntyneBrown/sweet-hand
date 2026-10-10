@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Manage the menu
+
+Person(caterer, "Caterer", "Manages dishes")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Menu manager and dish dialog")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Menu endpoints and menu rules")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Menu items")
+}
+
+Rel(caterer, web, "Edits dishes", "HTTPS")
+Rel(web, api, "Calls menu endpoints", "JSON/HTTPS")
+Rel(api, db, "Reads and writes menu items", "<TO SUPPLY>")
+@enduml

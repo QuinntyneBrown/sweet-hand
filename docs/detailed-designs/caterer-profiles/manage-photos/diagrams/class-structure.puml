@@ -1,0 +1,131 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Manage photos
+
+enum PhotoProcessingState {
+  Processing
+  Ready
+  Rejected
+}
+
+enum ImageFormat {
+  Avif
+  WebP
+  Jpeg
+}
+
+class CatererProfile {
+  +Guid id
+  +ProfileStatus status
+  +AddPhoto(originalKey: string): Photo
+  +ReplacePhoto(photoId: Guid, originalKey: string): void
+  +SetCaption(photoId: Guid, caption: Caption): void
+  +SetCover(photoId: Guid): void
+  +Reorder(photoIds: List<Guid>): void
+  +RemovePhoto(photoId: Guid): void
+}
+
+class Photo {
+  +Guid id
+  +int position
+  +Caption caption
+  +bool isCover
+  +PhotoProcessingState processingState
+  +string originalKey
+  +string pendingReplacementKey
+  +List<Derivative> derivatives
+  +MarkReady(derivatives: List<Derivative>): void
+  +MarkRejected(): void
+}
+
+class Caption <<value object>> {
+  +string text
+  +{static} Create(raw: string): Caption
+}
+
+class Derivative <<value object>> {
+  +ImageFormat format
+  +int width
+  +string publicKey
+}
+
+class UploadPhotoHandler {
+  +long maxBytes = 15 MB
+  +int minShorterSide = 800
+  +Handle(command: UploadPhotoCommand, caller: AccountId): PhotoView
+}
+
+class ReplacePhotoHandler {
+  +Handle(command: ReplacePhotoCommand, caller: AccountId): PhotoView
+}
+
+class UpdatePhotoHandler {
+  +Handle(command: UpdatePhotoCommand, caller: AccountId): PhotoView
+}
+
+class ReorderPhotosHandler {
+  +Handle(command: ReorderPhotosCommand, caller: AccountId): void
+}
+
+class RemovePhotoHandler {
+  +Handle(command: RemovePhotoCommand, caller: AccountId): void
+}
+
+class ProcessPhotoJob {
+  +Guid photoId
+  +string originalKey
+  +Run(): void
+}
+
+interface MalwareScanner {
+  +Scan(content: Stream): ScanResult
+}
+
+interface ImageProcessor {
+  +StripMetadata(image: Stream): Stream
+  +Encode(image: Stream, format: ImageFormat, width: int): Stream
+}
+
+interface ObjectStore {
+  +PutPrivate(key: string, content: Stream): void
+  +PutPublic(key: string, content: Stream): void
+  +Delete(key: string): void
+}
+
+interface CdnPurger {
+  +Purge(paths: List<string>): void
+}
+
+interface FileSignatureSniffer {
+  +Detect(content: Stream): ImageType
+}
+
+CatererProfile "1" *-- "0..30" Photo
+Photo --> PhotoProcessingState
+Photo *-- Caption
+Photo "1" *-- "*" Derivative
+Derivative --> ImageFormat
+UploadPhotoHandler ..> FileSignatureSniffer
+UploadPhotoHandler ..> ObjectStore
+UploadPhotoHandler ..> CatererProfile
+UploadPhotoHandler ..> ProcessPhotoJob : queues
+ReplacePhotoHandler ..> ProcessPhotoJob : queues
+UpdatePhotoHandler ..> CatererProfile
+ReorderPhotosHandler ..> CatererProfile
+RemovePhotoHandler ..> CatererProfile
+RemovePhotoHandler ..> ObjectStore
+ProcessPhotoJob ..> MalwareScanner
+ProcessPhotoJob ..> ImageProcessor
+ProcessPhotoJob ..> ObjectStore
+ProcessPhotoJob ..> CdnPurger
+ProcessPhotoJob ..> Photo : updates
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Handle reports
+
+Person(operator, "Operator", "Sweet Hand team member who approves caterers and moderates content")
+Person(customer, "Customer", "Signed-in person in Toronto or the GTA planning a meal or event")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions for visitors, customers, caterers and operators")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Runs queued and scheduled jobs")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, profiles, enquiries, reviews, reports, audit log")
+  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent queue of background jobs")
+}
+System_Ext(email, "Email provider", "Sends transactional email and reports bounces")
+
+Rel(operator, web, "Handles reports", "HTTPS")
+Rel(web, api, "Calls operator report endpoints", "JSON/HTTPS")
+Rel(api, db, "Resolves reports; reads enquiries; writes audit")
+Rel(api, queue, "Enqueues notices")
+Rel(worker, queue, "Consumes jobs")
+Rel(worker, email, "Sends email", "HTTPS")
+Rel(email, customer, "Delivers email")
+@enduml

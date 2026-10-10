@@ -1,0 +1,120 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — View the metrics dashboard
+
+enum Granularity {
+  Day
+  Week
+  Month
+}
+
+enum MetricKey {
+  CaterersByStatus
+  NewCaterersPublished
+  ListingPageVisits
+  CatererPageVisits
+  UniqueVisitors
+  EnquiriesCreated
+  ReplyWithin48HoursShare
+}
+
+class GetMetricsQuery {
+  +Date From
+  +Date To
+  +Granularity Granularity
+}
+
+class GetMetricsHandler {
+  +Handle(query: GetMetricsQuery): MetricsReport
+}
+
+class MetricsRange {
+  +Date From
+  +Date To
+  +Granularity Granularity
+  +{static} Create(from: Date, to: Date, granularity: Granularity): MetricsRange
+  +Buckets(): TimeBucket[]
+}
+
+class TimeBucket {
+  +Date Start
+  +Date End
+  +string Label
+}
+
+class MetricsReport {
+  +MetricsRange Range
+  +MetricsSeries[] Series
+}
+
+class MetricsSeries {
+  +MetricKey Key
+  +string Dimension
+  +decimal[] Values
+}
+
+class DailyMetric {
+  +Date Day
+  +MetricKey Key
+  +string Dimension
+  +decimal Value
+  +int Denominator
+}
+
+interface MetricsRepository {
+  +ListDaily(from: Date, to: Date): DailyMetric[]
+  +Upsert(rows: DailyMetric[]): void
+}
+
+class DailyMetricsAggregator {
+  +Compute(day: Date): DailyMetric[]
+}
+
+class AggregateMetricsJob {
+  +Run(): void
+}
+
+GetMetricsHandler ..> GetMetricsQuery : handles
+GetMetricsHandler ..> MetricsRange : creates
+GetMetricsHandler --> MetricsRepository : reads via
+GetMetricsHandler ..> MetricsReport : returns
+MetricsRange --> Granularity
+MetricsRange ..> TimeBucket : enumerates
+MetricsReport *-- "1..*" MetricsSeries
+MetricsSeries --> MetricKey
+DailyMetric --> MetricKey
+AggregateMetricsJob --> DailyMetricsAggregator : uses
+AggregateMetricsJob --> MetricsRepository : upserts via
+DailyMetricsAggregator ..> DailyMetric : produces
+DailyMetricsAggregator ..> VisitRecord : counts
+DailyMetricsAggregator ..> Enquiry : counts
+DailyMetricsAggregator ..> ProfileStatusChange : counts
+
+class VisitRecord {
+  +string DailyHash
+  +PageType PageType
+  +DateTime OccurredAt
+}
+
+class Enquiry {
+  +Guid Id
+  +DateTime CreatedAt
+  +DateTime FirstCatererReplyAt
+}
+
+class ProfileStatusChange {
+  +Guid CatererId
+  +ProfileStatus From
+  +ProfileStatus To
+  +DateTime ChangedAt
+}
+@enduml

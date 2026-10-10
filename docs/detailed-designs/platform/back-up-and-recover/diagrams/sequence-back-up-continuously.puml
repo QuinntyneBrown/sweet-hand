@@ -1,0 +1,45 @@
+@startuml
+title UML sequence behaviour — Back up continuously
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Profile editor" as page
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "Feature endpoints" as ep
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+  participant "Object storage" as storage
+end box
+box "Backend — Sweet Hand Infrastructure (secondary Canadian region)" #FFF4E5
+  database "Database backups" as dbbackup
+  participant "Replicated object storage" as replica
+end box
+actor -> page : Save profile change or upload photo
+page -> ep : HTTPS request
+ep -> db : Commit transaction
+ep -> storage : Write file (photo or certificate)
+ep --> page : Saved
+loop continuously
+  db -> dbbackup : Ship transaction logs, encrypted (L2-090 AC1)
+end
+loop on schedule <TO SUPPLY>
+  db -> dbbackup : Encrypted snapshot, kept 35 days (L2-090 AC1)
+end
+storage -> replica : Version or replicate file (L2-090 AC2)
+note over dbbackup : Point-in-time recovery covers the last 35 days\nRPO 15 minutes
+@enduml

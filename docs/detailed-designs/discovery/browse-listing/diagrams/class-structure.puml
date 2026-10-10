@@ -1,0 +1,80 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Browse the caterer listing
+
+class GetListingQuery {
+  +ListingFilter Filter
+  +string RequestedPage
+}
+class GetListingHandler {
+  +Handle(query: GetListingQuery): ListingPageView
+}
+class ListingFilter {
+  +Set<CuisineId> Cuisines
+  +Set<ServiceAreaId> Areas
+  +{static} Parse(raw: QueryString, catalogue: TaxonomyCatalogue): ListingFilter
+}
+class PageNumber {
+  +int Value
+  +{static} int PageSize = 24
+  +{static} Normalise(raw: string, totalCount: int): PageNumber
+}
+class ListingOrder {
+  +Order(caterers: List<CatererSummary>, seed: Date): List<CatererSummary>
+}
+class PublishedOnly {
+  +IsSatisfiedBy(status: ProfileStatus): bool
+}
+class ListingPageView {
+  +int TotalCount
+  +int Page
+  +int PageCount
+  +List<ListingCardView> Cards
+}
+class ListingCardView {
+  +string Slug
+  +PhotoView CoverPhoto
+  +string BusinessName
+  +string PrimaryCuisine
+  +string PrimaryArea
+}
+class PhotoView {
+  +string Caption
+  +List<ImageSource> Sources
+}
+class CatererProfileRepository {
+  +ListPublishedSummaries(filter: ListingFilter): List<CatererSummary>
+}
+class Clock {
+  +TodayInToronto(): Date
+}
+enum ProfileStatus {
+  Draft
+  PendingReview
+  ChangesRequested
+  Published
+  Suspended
+  Removed
+}
+
+GetListingHandler ..> GetListingQuery : handles
+GetListingQuery --> ListingFilter
+GetListingHandler ..> PageNumber : normalises
+GetListingHandler ..> ListingOrder : orders with
+GetListingHandler ..> PublishedOnly : applies
+GetListingHandler ..> CatererProfileRepository : reads
+GetListingHandler ..> Clock : reads seed
+GetListingHandler ..> ListingPageView : returns
+ListingPageView "1" *-- "0..24" ListingCardView
+ListingCardView *-- PhotoView
+PublishedOnly ..> ProfileStatus : admits Published
+@enduml

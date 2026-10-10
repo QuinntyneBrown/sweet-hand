@@ -1,0 +1,30 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Browse the inbox
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "InboxPage", "<TO SUPPLY>", "Route /inbox; state in URL")
+  Component(layout, "InboxLayout", "<TO SUPPLY>", "Side by side on LG-XL; stacked on XS-MD")
+  Component(list, "InboxList", "<TO SUPPLY>", "Rows and pagination")
+  Component(filter, "InboxStatusFilter", "<TO SUPPLY>", "Status filter")
+  Component(pane, "ThreadPane", "<TO SUPPLY>", "Thread view (reply-in-thread)")
+  Component(client, "EnquiriesClient", "<TO SUPPLY>", "API client contract")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ep, "EnquiriesEndpoints", "<TO SUPPLY>", "GET /enquiries")
+  Component(handler, "GetInboxHandler", "<TO SUPPLY>", "Caller-scoped inbox page")
+  Component(repo, "EnquiryRepository", "<TO SUPPLY>", "ListForParty")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Enquiries and read markers")
+
+Rel(page, layout, "Renders")
+Rel(layout, list, "Shows")
+Rel(layout, pane, "Shows beside list or full width")
+Rel(page, filter, "Shows")
+Rel(page, client, "Calls listInbox")
+Rel(client, ep, "Calls", "JSON/HTTPS")
+Rel(ep, handler, "Sends GetInboxQuery")
+Rel(handler, repo, "Reads page with")
+Rel(repo, db, "Queries")
+@enduml

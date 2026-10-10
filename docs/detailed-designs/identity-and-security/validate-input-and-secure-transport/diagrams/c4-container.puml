@@ -1,0 +1,20 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Validate input and secure transport
+
+Person(customer, "Customer", "Signed-in person planning a meal or an event")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, sessions, tokens, consent records")
+}
+System_Ext(cdn, "CDN", "Terminates HTTPS and caches public pages for 60 s or less")
+System_Ext(scanner, "Security scanners in CI", "OWASP ZAP baseline and TLS scanner")
+
+Rel(customer, cdn, "Requests pages", "HTTPS")
+Rel(cdn, web, "Forwards", "HTTPS")
+Rel(web, api, "Calls", "JSON/HTTPS")
+Rel(api, db, "Parameterised queries only")
+Rel(scanner, web, "Scans staging (L2-080 AC5, L2-081 AC2)")
+@enduml

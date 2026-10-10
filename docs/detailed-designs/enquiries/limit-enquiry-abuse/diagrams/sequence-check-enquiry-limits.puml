@@ -1,0 +1,75 @@
+@startuml
+title UML sequence behaviour — Check limits on an enquiry submission
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "EnquiryFormDialog" as page
+  participant "BotChallengeWidget" as widget
+  participant "EnquiriesClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipe
+  participant "EnquiriesEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SendEnquiryHandler" as handler
+  participant "EnquiryLimitPolicy" as policy
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "BotProtectionVerifier" as verifier
+  participant "SecurityLog" as seclog
+  database "Sweet Hand database" as db
+end box
+actor -> page : Submit enquiry
+page -> widget : Get challenge token
+widget --> page : Token
+page -> client : sendEnquiry(request, token)
+client -> pipe : POST /enquiries
+pipe -> ep : Authorised request
+ep -> handler : Send SendEnquiryCommand
+handler -> verifier : Verify token (L2-025 AC4, L2-082 AC2)
+verifier --> handler : ChallengeResult
+alt token missing or invalid
+  handler --> ep : Rejected: ChallengeFailed
+  ep --> client : 400
+else token valid
+  handler -> policy : Check(customer, catererId, eventDate, now)
+  policy -> db : Account CreatedAt; count sent in past hour and past 24 h; find active enquiry
+  db --> policy : Counts and any active enquiry
+  alt account < 1 h old and 3 already sent (L2-025 AC3)
+    policy --> handler : NewAccountLimitReached
+    handler --> ep : Rejected
+    ep --> client : Status and message <TO SUPPLY>
+  else 10 sent in past 24 h (L2-025 AC1)
+    policy --> handler : DailyLimitReached
+    handler --> ep : Rejected
+    ep -> pipe : 429
+    pipe -> seclog : Record rate-limit block (L2-084)
+    pipe --> client : 429 "You've reached today's enquiry limit. Try again tomorrow."
+  else Open or Replied enquiry to same caterer for same date (L2-025 AC2)
+    policy --> handler : Duplicate(existingEnquiryId)
+    handler --> ep : Rejected
+    ep --> client : Rejection with link to existing thread
+  else within limits
+    policy --> handler : Allowed
+    handler -> handler : Validate, assess fit, create enquiry (send-enquiry)
+    handler --> ep : Created enquiry
+    ep --> client : 201
+  end
+end
+client --> page : Typed result
+page --> actor : Show confirmation or limit message
+@enduml

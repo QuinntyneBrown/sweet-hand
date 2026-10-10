@@ -1,0 +1,51 @@
+@startuml
+title UML sequence behaviour — First visit cookies
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Public page" as page
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "CookiePolicy" as policy
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "CookieRegistry" as registry
+end box
+
+actor -> page : First visit, no stored preferences
+page -> pipeline : Request public page
+pipeline -> policy : Issue session cookie
+policy -> registry : IsAllowed("session", optedIn = false)
+registry --> policy : StrictlyNecessary: allowed
+policy --> pipeline : Set-Cookie with Secure, SameSite=Lax, HttpOnly (L2-074 AC2)
+pipeline -> policy : Issue CSRF token cookie
+policy -> registry : IsAllowed("csrf", optedIn = false)
+registry --> policy : StrictlyNecessary: allowed
+policy --> pipeline : Set-Cookie with Secure and SameSite; HttpOnly unless a script-access reason is declared
+pipeline -> policy : Issue bot-protection cookie
+policy -> registry : IsAllowed("bot-protection", optedIn = false)
+registry --> policy : StrictlyNecessary: allowed
+policy --> pipeline : Set-Cookie with declared attributes
+opt a non-essential cookie is requested (none in the first release)
+  pipeline -> policy : Issue non-essential cookie
+  policy -> registry : IsAllowed(name, optedIn = false)
+  registry --> policy : NonEssential: blocked until opt-in
+  policy --> pipeline : Cookie not set (L2-074)
+end
+pipeline --> page : Page with only the three strictly necessary cookies (L2-074 AC1)
+page --> actor : Show page; footer links to privacy notice (L2-070 AC1)
+@enduml

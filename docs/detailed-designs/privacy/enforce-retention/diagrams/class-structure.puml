@@ -1,0 +1,91 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Enforce retention limits
+
+enum DataCategory {
+  EnquiriesAndMessages
+  InactiveAccounts
+  SecurityAndAccessLogs
+  CertificateFiles
+  OperatorAuditLog
+  VisitAnalytics
+}
+
+class RetentionPeriod {
+  +int Years
+  +int Months
+  +int Days
+  +CutOff(nowUtc: DateTime): DateTime
+}
+
+class RetentionPolicy {
+  +PeriodFor(category: DataCategory): RetentionPeriod
+  +Rules(): RetentionRule[]
+}
+
+interface RetentionRule {
+  +Category: DataCategory
+  +Apply(nowUtc: DateTime): RetentionOutcome
+}
+
+class EnquiryRetentionRule
+class InactiveAccountRule {
+  +WarnAfter: RetentionPeriod
+  +GraceDays: int = 30
+}
+class SecurityLogRetentionRule
+class CertificateFileRetentionRule
+class AuditLogRetentionRule
+class VisitAnalyticsRetentionRule
+
+class RetentionOutcome {
+  +DataCategory Category
+  +int DeletedCount
+  +int WarnedCount
+  +string Error
+}
+
+class RetentionRun {
+  +Guid Id
+  +DateTime StartedAtUtc
+  +DateTime FinishedAtUtc
+  +Add(outcome: RetentionOutcome): void
+}
+
+class InactivityWarning {
+  +Guid AccountId
+  +DateTime WarnedAtUtc
+  +DateTime ClearedAtUtc
+  +IsDue(nowUtc: DateTime): bool
+}
+
+class RetentionJob {
+  +Run(nowUtc: DateTime): RetentionRun
+}
+
+RetentionPolicy "1" *-- "6" RetentionPeriod : per category
+RetentionPolicy ..> RetentionRule : provides
+RetentionRule <|.. EnquiryRetentionRule
+RetentionRule <|.. InactiveAccountRule
+RetentionRule <|.. SecurityLogRetentionRule
+RetentionRule <|.. CertificateFileRetentionRule
+RetentionRule <|.. AuditLogRetentionRule
+RetentionRule <|.. VisitAnalyticsRetentionRule
+RetentionRule ..> RetentionOutcome : returns
+RetentionOutcome --> DataCategory : for
+RetentionRun "1" *-- "*" RetentionOutcome : collects
+RetentionJob --> RetentionPolicy : reads
+RetentionJob ..> RetentionRun : creates
+InactiveAccountRule --> InactivityWarning : creates and checks
+@enduml

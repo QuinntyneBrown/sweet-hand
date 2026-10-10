@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Metrics · invalid — Sweet Hand mocks</title>
+<meta name="mock:kind" content="page">
+<meta name="mock:screen" content="admin-metrics">
+<meta name="mock:state" content="invalid">
+<meta name="mock:requirements" content="L2-061 L2-062 L2-063">
+<meta name="description" content="A 33-month range is rejected: summary plus an inline error on From; the last good charts stay below.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="page">
+<header class="site-header">
+  <a class="wordmark" href="../admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__link site-nav__extra" href="../admin-queue/default.html">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a>
+    <a class="site-nav__link site-nav__extra" href="../admin-caterers/default.html">Caterers</a>
+    <a class="site-nav__link site-nav__extra" href="../admin-metrics/default.html" aria-current="page">Metrics</a>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+  </nav>
+</header>
+
+<main id="main" class="container">
+  <div class="work-layout">
+    <nav class="side-nav" aria-label="Operator">
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../admin-queue/default.html">Review queue <span class="filter-list__count">7</span></a></li>
+        <li><a class="filter-list__item" href="../admin-changes/default.html">Recent changes</a></li>
+        <li><a class="filter-list__item" href="../admin-caterers/default.html">Caterers</a></li>
+        <li><a class="filter-list__item" href="../admin-reviews/default.html">Reviews <span class="filter-list__count">2 held</span></a></li>
+        <li><a class="filter-list__item" href="../admin-metrics/default.html" aria-current="page">Metrics</a></li>
+      </ul>
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../admin-audit/default.html">Audit log</a></li>
+        <li><a class="filter-list__item" href="../admin-cuisines/default.html">Cuisines</a></li>
+        <li><a class="filter-list__item" href="../admin-operators/default.html">Operators</a></li>
+        <li><a class="filter-list__item" href="../admin-breaches/default.html">Breach register</a></li>
+      </ul>
+    </nav>
+
+    <div class="work-main">
+      <div class="page-intro">
+        <h1>Metrics</h1>
+        <p class="subtitle">31 Aug – 10 Oct 2026 · by week · Toronto time</p>
+      </div>
+      <div class="form-summary" id="summary" role="alert" tabindex="-1" style="margin-bottom: var(--space-6);">
+        <h2>Fix 1 problem</h2>
+        <ul><li><a href="#from">Choose a range of 24 months or less</a></li></ul>
+      </div>
+      <form class="toolbar" action="default.html" aria-label="Date range">
+        <label class="field" for="from"><span class="field__label">From</span><input class="input" id="from" name="from" type="date" value="2024-01-01" max="2026-10-10" aria-invalid="true" aria-describedby="from-error"><span class="field__error" id="from-error">Choose a range of 24 months or less</span></label>
+        <label class="field" for="to"><span class="field__label">To</span><input class="input" id="to" name="to" type="date" value="2026-10-10" max="2026-10-10"></label>
+        <label class="field" for="by"><span class="field__label">Show by</span><select class="select" id="by" name="by"><option>Day</option><option selected>Week</option><option>Month</option></select></label>
+        <button class="btn btn--primary" type="submit">Apply</button>
+        <button class="btn" type="button" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>Export CSV</button>
+      </form>
+      <dl class="stat-grid">
+        <div class="stat"><dt class="stat__label">Published caterers</dt><dd class="stat__value">60</dd><dd class="stat__delta stat__delta--up">+4 in this range</dd></div>
+        <div class="stat"><dt class="stat__label">Enquiries</dt><dd class="stat__value">71</dd></div>
+        <div class="stat"><dt class="stat__label">Replied within 48 h</dt><dd class="stat__value">82%</dd></div>
+        <div class="stat"><dt class="stat__label">Caterer page visits</dt><dd class="stat__value">39,700</dd></div>
+      </dl>
+      <h2 class="visually-hidden">Charts</h2>
+      <div class="chart-grid">
+        <section class="chart-card" aria-labelledby="c-enquiries">
+          <div class="chart-card__head"><h3 id="c-enquiries">Enquiries</h3><span class="chart-card__total">71</span></div>
+          <div class="bar-chart" role="img" aria-label="Enquiries by week. 31 Aug: 8, 7 Sep: 11, 14 Sep: 15, 21 Sep: 13, 28 Sep: 12, 5 Oct: 12."><span class="bar-chart__bar" style="--value: 53%;"></span><span class="bar-chart__bar" style="--value: 73%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 87%;"></span><span class="bar-chart__bar" style="--value: 80%;"></span><span class="bar-chart__bar" style="--value: 80%;"></span></div>
+          <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
+          <details>
+            <summary>Show as a table</summary>
+            <div class="table-wrap">
+              <table class="table">
+                <caption class="visually-hidden">Enquiries by week</caption>
+                <thead><tr><th scope="col">Week</th><th scope="col" class="num">Enquiries</th></tr></thead>
+                <tbody><tr><th scope="row">Week of 31 Aug</th><td class="num">8</td></tr><tr><th scope="row">Week of 7 Sep</th><td class="num">11</td></tr><tr><th scope="row">Week of 14 Sep</th><td class="num">15</td></tr><tr><th scope="row">Week of 21 Sep</th><td class="num">13</td></tr><tr><th scope="row">Week of 28 Sep</th><td class="num">12</td></tr><tr><th scope="row">Week of 5 Oct</th><td class="num">12</td></tr></tbody>
+              </table>
+            </div>
+          </details>
+        </section>
+        <section class="chart-card" aria-labelledby="c-replied">
+          <div class="chart-card__head"><h3 id="c-replied">Replied within 48 hours</h3><span class="chart-card__total">82%</span></div>
+          <div class="bar-chart" role="img" aria-label="Replied within 48 hours by week. 31 Aug: 75%, 7 Sep: 82%, 14 Sep: 80%, 21 Sep: 85%, 28 Sep: 83%, 5 Oct: 88%."><span class="bar-chart__bar" style="--value: 85%;"></span><span class="bar-chart__bar" style="--value: 93%;"></span><span class="bar-chart__bar" style="--value: 91%;"></span><span class="bar-chart__bar" style="--value: 97%;"></span><span class="bar-chart__bar" style="--value: 94%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span></div>
+          <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
+          <details>
+            <summary>Show as a table</summary>
+            <div class="table-wrap">
+              <table class="table">
+                <caption class="visually-hidden">Replied within 48 hours by week</caption>
+                <thead><tr><th scope="col">Week</th><th scope="col" class="num">Share replied</th></tr></thead>
+                <tbody><tr><th scope="row">Week of 31 Aug</th><td class="num">75%</td></tr><tr><th scope="row">Week of 7 Sep</th><td class="num">82%</td></tr><tr><th scope="row">Week of 14 Sep</th><td class="num">80%</td></tr><tr><th scope="row">Week of 21 Sep</th><td class="num">85%</td></tr><tr><th scope="row">Week of 28 Sep</th><td class="num">83%</td></tr><tr><th scope="row">Week of 5 Oct</th><td class="num">88%</td></tr></tbody>
+              </table>
+            </div>
+          </details>
+        </section>
+        <section class="chart-card" aria-labelledby="c-listing">
+          <div class="chart-card__head"><h3 id="c-listing">Listing page visits</h3><span class="chart-card__total">22,670</span></div>
+          <div class="bar-chart" role="img" aria-label="Listing page visits by week. 31 Aug: 3,120, 7 Sep: 3,480, 14 Sep: 4,050, 21 Sep: 3,910, 28 Sep: 4,240, 5 Oct: 3,870."><span class="bar-chart__bar" style="--value: 74%;"></span><span class="bar-chart__bar" style="--value: 82%;"></span><span class="bar-chart__bar" style="--value: 96%;"></span><span class="bar-chart__bar" style="--value: 92%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 91%;"></span></div>
+          <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
+          <details>
+            <summary>Show as a table</summary>
+            <div class="table-wrap">
+              <table class="table">
+                <caption class="visually-hidden">Listing page visits by week</caption>
+                <thead><tr><th scope="col">Week</th><th scope="col" class="num">Visits</th></tr></thead>
+                <tbody><tr><th scope="row">Week of 31 Aug</th><td class="num">3,120</td></tr><tr><th scope="row">Week of 7 Sep</th><td class="num">3,480</td></tr><tr><th scope="row">Week of 14 Sep</th><td class="num">4,050</td></tr><tr><th scope="row">Week of 21 Sep</th><td class="num">3,910</td></tr><tr><th scope="row">Week of 28 Sep</th><td class="num">4,240</td></tr><tr><th scope="row">Week of 5 Oct</th><td class="num">3,870</td></tr></tbody>
+              </table>
+            </div>
+          </details>
+        </section>
+        <section class="chart-card" aria-labelledby="c-caterer">
+          <div class="chart-card__head"><h3 id="c-caterer">Caterer page visits</h3><span class="chart-card__total">39,700</span></div>
+          <div class="bar-chart" role="img" aria-label="Caterer page visits by week. 31 Aug: 5,610, 7 Sep: 6,020, 14 Sep: 7,140, 21 Sep: 6,880, 28 Sep: 7,350, 5 Oct: 6,700."><span class="bar-chart__bar" style="--value: 76%;"></span><span class="bar-chart__bar" style="--value: 82%;"></span><span class="bar-chart__bar" style="--value: 97%;"></span><span class="bar-chart__bar" style="--value: 94%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 91%;"></span></div>
+          <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
+          <details>
+            <summary>Show as a table</summary>
+            <div class="table-wrap">
+              <table class="table">
+                <caption class="visually-hidden">Caterer page visits by week</caption>
+                <thead><tr><th scope="col">Week</th><th scope="col" class="num">Visits</th></tr></thead>
+                <tbody><tr><th scope="row">Week of 31 Aug</th><td class="num">5,610</td></tr><tr><th scope="row">Week of 7 Sep</th><td class="num">6,020</td></tr><tr><th scope="row">Week of 14 Sep</th><td class="num">7,140</td></tr><tr><th scope="row">Week of 21 Sep</th><td class="num">6,880</td></tr><tr><th scope="row">Week of 28 Sep</th><td class="num">7,350</td></tr><tr><th scope="row">Week of 5 Oct</th><td class="num">6,700</td></tr></tbody>
+              </table>
+            </div>
+          </details>
+        </section>
+        <section class="chart-card" aria-labelledby="c-unique">
+          <div class="chart-card__head"><h3 id="c-unique">Unique visitors</h3><span class="chart-card__total">2,578 a week on average</span></div>
+          <div class="bar-chart" role="img" aria-label="Unique visitors by week. 31 Aug: 2,210, 7 Sep: 2,390, 14 Sep: 2,760, 21 Sep: 2,640, 28 Sep: 2,890, 5 Oct: 2,580."><span class="bar-chart__bar" style="--value: 76%;"></span><span class="bar-chart__bar" style="--value: 83%;"></span><span class="bar-chart__bar" style="--value: 96%;"></span><span class="bar-chart__bar" style="--value: 91%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 89%;"></span></div>
+          <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
+          <details>
+            <summary>Show as a table</summary>
+            <div class="table-wrap">
+              <table class="table">
+                <caption class="visually-hidden">Unique visitors by week</caption>
+                <thead><tr><th scope="col">Week</th><th scope="col" class="num">Visitors</th></tr></thead>
+                <tbody><tr><th scope="row">Week of 31 Aug</th><td class="num">2,210</td></tr><tr><th scope="row">Week of 7 Sep</th><td class="num">2,390</td></tr><tr><th scope="row">Week of 14 Sep</th><td class="num">2,760</td></tr><tr><th scope="row">Week of 21 Sep</th><td class="num">2,640</td></tr><tr><th scope="row">Week of 28 Sep</th><td class="num">2,890</td></tr><tr><th scope="row">Week of 5 Oct</th><td class="num">2,580</td></tr></tbody>
+              </table>
+            </div>
+          </details>
+        </section>
+        <section class="chart-card" aria-labelledby="c-published">
+          <div class="chart-card__head"><h3 id="c-published">New caterers published</h3><span class="chart-card__total">4</span></div>
+          <div class="bar-chart" role="img" aria-label="New caterers published by week. 31 Aug: 1, 7 Sep: 0, 14 Sep: 2, 21 Sep: 0, 28 Sep: 1, 5 Oct: 0."><span class="bar-chart__bar" style="--value: 50%;"></span><span class="bar-chart__bar" style="--value: 2%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 2%;"></span><span class="bar-chart__bar" style="--value: 50%;"></span><span class="bar-chart__bar" style="--value: 2%;"></span></div>
+          <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
+          <details>
+            <summary>Show as a table</summary>
+            <div class="table-wrap">
+              <table class="table">
+                <caption class="visually-hidden">New caterers published by week</caption>
+                <thead><tr><th scope="col">Week</th><th scope="col" class="num">Published</th></tr></thead>
+                <tbody><tr><th scope="row">Week of 31 Aug</th><td class="num">1</td></tr><tr><th scope="row">Week of 7 Sep</th><td class="num">0</td></tr><tr><th scope="row">Week of 14 Sep</th><td class="num">2</td></tr><tr><th scope="row">Week of 21 Sep</th><td class="num">0</td></tr><tr><th scope="row">Week of 28 Sep</th><td class="num">1</td></tr><tr><th scope="row">Week of 5 Oct</th><td class="num">0</td></tr></tbody>
+              </table>
+            </div>
+          </details>
+        </section>
+      </div>
+      <section class="caterer-section" aria-labelledby="status-title">
+        <h2 id="status-title">Caterers by status</h2>
+        <div class="table-wrap">
+          <table class="table">
+            <caption class="visually-hidden">Caterers by status on 10 Oct 2026</caption>
+            <thead><tr><th scope="col">Status</th><th scope="col" class="num">Caterers</th></tr></thead>
+            <tbody><tr><th scope="row">Published</th><td class="num">60</td></tr><tr><th scope="row">Pending review</th><td class="num">3</td></tr><tr><th scope="row">Changes requested</th><td class="num">1</td></tr><tr><th scope="row">Draft</th><td class="num">9</td></tr><tr><th scope="row">Suspended</th><td class="num">1</td></tr><tr><th scope="row">Removed</th><td class="num">2</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__brand"><strong>Sweet Hand</strong><span>Operator console. Every action is written to the audit log.</span></div>
+  <nav aria-label="Footer">
+    <ul>
+      <li><a href="../privacy/default.html">Privacy</a></li>
+      <li><a href="../terms/default.html">Terms</a></li>
+    </ul>
+  </nav>
+</footer>
+</div>
+<p class="mock-note" style="top: 8rem; right: 1rem;">Focus moves to the summary. The charts keep showing the last valid range until a valid one is applied.</p>
+
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Metrics</span>
+  <ul class="mock-bar__states">
+    <li><a href="default.html">default</a></li>
+    <li><a href="loading.html">loading</a></li>
+    <li><a href="empty.html">empty</a></li>
+    <li><a href="error.html">error</a></li>
+    <li><a href="invalid.html" aria-current="page">invalid</a></li>
+    <li><a href="partial.html">partial</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>

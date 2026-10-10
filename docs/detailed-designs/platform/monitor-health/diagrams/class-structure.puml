@@ -1,0 +1,106 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Monitor health
+
+class HealthEndpoints {
+  +live(): HttpStatus
+  +ready(): HttpStatus
+}
+
+class ReadinessCheck {
+  +timeoutMs: int <TO SUPPLY>
+  +check(): ReadinessResult
+}
+
+enum ReadinessResult {
+  Ready
+  NotReady
+}
+
+class RequestPipeline {
+  +steps: PipelineStep[]
+  +handle(request: Request): Response
+}
+
+interface PipelineStep {
+  +invoke(context: RequestContext, next: PipelineStep): Response
+}
+
+class CorrelationIdStep {
+  +headerName: string = "X-Correlation-ID"
+  +trustedSources: string[] <TO SUPPLY>
+  +invoke(context: RequestContext, next: PipelineStep): Response
+}
+
+class UnhandledExceptionHandler {
+  +invoke(context: RequestContext, next: PipelineStep): Response
+  -renderGenericError(correlationId: string): Response
+}
+
+class RequestContext {
+  +correlationId: string
+  +traceId: string
+}
+
+class TelemetryEmitter {
+  +log(entry: LogEntry): void
+  +metric(name: string, value: decimal, tags: Map): void
+  +span(name: string, context: RequestContext): Span
+}
+
+class MetricsRegistry {
+  +requestRate
+  +errorRate
+  +latencyPercentiles
+  +notificationQueueDepth
+  +notificationFailureCount
+  +imageQueueDepth
+}
+
+class AlertRule {
+  +metric: string
+  +threshold: decimal
+  +sustainedMinutes: int
+  +channel: string = "on-call"
+}
+
+class MaintenanceWindow {
+  +startUtc: DateTime
+  +endUtc: DateTime
+  +maxHoursPerMonth: int = 4
+  +allowedLocalWindow: string = "01:00–05:00 America/Toronto"
+}
+
+class AvailabilityReport {
+  +month: YearMonth
+  +targetPercent: decimal = 99.5
+  +compute(checks: UptimeCheck[], windows: MaintenanceWindow[]): decimal
+}
+
+class UptimeCheck {
+  +url: string = "listing page"
+  +intervalSeconds: int = 60
+  +succeeded: bool
+}
+
+HealthEndpoints ..> ReadinessCheck : uses
+ReadinessCheck ..> ReadinessResult : returns
+RequestPipeline "1" *-- "*" PipelineStep : runs in order
+CorrelationIdStep ..|> PipelineStep
+UnhandledExceptionHandler ..|> PipelineStep
+CorrelationIdStep ..> RequestContext : sets correlationId
+TelemetryEmitter ..> RequestContext : reads
+TelemetryEmitter ..> MetricsRegistry : uses definitions
+AlertRule ..> MetricsRegistry : evaluates
+AvailabilityReport ..> UptimeCheck : aggregates
+AvailabilityReport ..> MaintenanceWindow : excludes
+@enduml

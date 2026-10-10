@@ -1,0 +1,56 @@
+@startuml
+title UML sequence behaviour — Create an operator account
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Admin operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "CreateOperatorDialog" as page
+  participant "OperatorAccountsClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "OperatorAccountsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "CreateOperatorAccountHandler" as handler
+  participant "UserAccount" as account
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AuditLog" as audit
+  participant "JobQueue" as jobs
+  database "Sweet Hand database" as db
+end box
+actor -> page : Enter name, email, Admin permission choice
+page -> client : createOperator(name, email, admin)
+client -> pipeline : POST /operator/accounts
+pipeline -> pipeline : AdminPolicy: role Operator, second factor satisfied, Admin permission (L2-056)
+alt not an Admin operator
+  pipeline --> client : 403, security event logged
+else Admin operator
+  pipeline -> endpoints : Forward request
+  endpoints -> handler : Send CreateOperatorAccountCommand
+  handler -> account : CreateOperator(email, name, admin)
+  account --> handler : UserAccount with role Operator
+  handler -> handler : Issue OperatorInvitation; store token hash only
+  handler -> audit : Append CreateOperator entry (L2-060)
+  handler -> jobs : Enqueue invitation email
+  handler -> db : Commit in one unit of work
+  db --> handler : Committed
+  handler --> endpoints : Created
+  endpoints --> client : 201
+  client --> page : Created
+  page --> actor : Show invited operator
+end
+@enduml

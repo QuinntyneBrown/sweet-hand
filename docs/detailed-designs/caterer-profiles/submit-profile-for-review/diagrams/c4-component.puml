@@ -1,0 +1,37 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Submit a profile for review
+
+Person(caterer, "Caterer", "Submits their profile")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "ProfileEditorPage", "Page component", "Submit, resubmit, read-only state, checklist highlights")
+  Component(dialog, "WithdrawSubmissionDialog", "Dialog component", "Confirms withdrawal")
+  Component(client, "ProfileSubmissionClient", "API client contract", "submit(), withdraw()")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "ProfileSubmissionEndpoints", "Endpoint group", "POST and DELETE /caterer/profile/submission")
+  Component(submit, "SubmitProfileHandler", "Command handler", "Checks rules and submits")
+  Component(withdraw, "WithdrawSubmissionHandler", "Command handler", "Returns profile to Draft")
+  Component(rules, "ProfileSubmissionRules", "Domain service", "L2-039 rules")
+  Component(profile, "CatererProfile", "Domain aggregate", "ChangeStatus and status history")
+  Component(transitions, "ProfileStatusTransitions", "Domain policy", "L2-046 transition table")
+  Component(repos, "CatererProfileRepository / ProfileSubmissionRepository", "Infrastructure", "Persistence in one unit of work")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles, history, submissions")
+
+Rel(caterer, page, "Submits")
+Rel(page, dialog, "Opens to withdraw")
+Rel(page, client, "submit()")
+Rel(dialog, client, "withdraw()")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, submit, "Sends SubmitProfileCommand")
+Rel(endpoints, withdraw, "Sends WithdrawSubmissionCommand")
+Rel(submit, rules, "Evaluates")
+Rel(submit, profile, "ChangeStatus(PendingReview)")
+Rel(withdraw, profile, "ChangeStatus(Draft)")
+Rel(profile, transitions, "Checks transition")
+Rel(submit, repos, "Loads and saves")
+Rel(withdraw, repos, "Loads and saves")
+Rel(repos, db, "Reads and writes")
+@enduml

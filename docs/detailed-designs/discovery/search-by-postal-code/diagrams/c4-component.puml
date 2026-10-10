@@ -1,0 +1,36 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Search the listing by postal code
+
+Person(visitor, "Visitor", "Enters a postal code")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(search, "PostalCodeSearch", "Component", "Input, format check, messages")
+  Component(page, "ListingPage", "Page", "Hosts search and results")
+  Component(state, "ListingQueryState", "URL state", "Stores fsa only")
+  Component(client, "ListingClient", "API client contract", "GET /api/public/caterers?fsa=")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(redactor, "RequestLogRedactor", "Request pipeline", "Truncates postal values to 3 characters")
+  Component(endpoints, "PublicCaterersEndpoints", "Endpoint group", "Anonymous listing endpoint")
+  Component(postal, "PostalCode", "Domain value object", "Parses format; exposes FSA only")
+  Component(resolve, "ResolveFsaHandler", "Query handler", "FSA to one service area")
+  Component(handler, "GetListingHandler", "Query handler", "Filters by resolved area")
+  Component(fsaRepo, "FsaMappingRepository", "Repository", "FSA mapping reference data")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "FSA mapping and profiles")
+
+Rel(visitor, search, "Submits code")
+Rel(page, search, "Hosts")
+Rel(search, page, "Valid FSA")
+Rel(page, state, "Pushes fsa")
+Rel(page, client, "Requests results")
+Rel(client, redactor, "Calls", "JSON/HTTPS")
+Rel(redactor, endpoints, "Passes request")
+Rel(endpoints, postal, "Parses")
+Rel(endpoints, resolve, "Sends ResolveFsaQuery")
+Rel(resolve, fsaRepo, "Looks up")
+Rel(endpoints, handler, "Sends GetListingQuery")
+Rel(fsaRepo, db, "Queries")
+Rel(handler, db, "Queries caterers")
+@enduml

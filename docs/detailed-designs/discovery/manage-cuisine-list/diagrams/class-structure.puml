@@ -1,0 +1,75 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Manage the cuisine list
+
+class Cuisine {
+  +CuisineId Id
+  +string Name
+  +string Slug
+  +bool Retired
+  +DateTime? RetiredAt
+  +{static} Create(name: string): Cuisine
+  +Retire(at: DateTime): void
+}
+class AddCuisineCommand {
+  +string Name
+  +string Reason
+}
+class AddCuisineHandler {
+  +Handle(command: AddCuisineCommand): Result<CuisineId>
+}
+class RetireCuisineCommand {
+  +CuisineId CuisineId
+  +string Reason
+}
+class RetireCuisineHandler {
+  +Handle(command: RetireCuisineCommand): Result<RetirementResult>
+}
+class RetirementResult {
+  +CuisineId CuisineId
+  +List<CatererReference> PublishedCaterersUsing
+}
+class CatererReference {
+  +Guid CatererId
+  +string BusinessName
+}
+class CuisineSelection {
+  +CuisineId CuisineId
+  +bool IsPrimary
+}
+class CuisineSeed {
+  +{static} List<string> InitialNames
+  +Run(repository: CuisineRepository): int
+}
+class CuisineRepository {
+  +FindBySlug(slug: string): Cuisine
+  +ListAll(): List<Cuisine>
+  +ListActiveAlphabetical(): List<Cuisine>
+  +Save(cuisine: Cuisine): void
+}
+class AuditLog {
+  +Append(entry: AuditEntry): void
+}
+
+AddCuisineHandler ..> AddCuisineCommand : handles
+RetireCuisineHandler ..> RetireCuisineCommand : handles
+AddCuisineHandler ..> Cuisine : creates
+RetireCuisineHandler ..> Cuisine : retires
+RetireCuisineHandler ..> RetirementResult : returns
+RetirementResult "1" *-- "*" CatererReference
+CuisineSelection --> Cuisine : references
+AddCuisineHandler ..> CuisineRepository
+RetireCuisineHandler ..> CuisineRepository
+AddCuisineHandler ..> AuditLog
+RetireCuisineHandler ..> AuditLog
+CuisineSeed ..> CuisineRepository : inserts missing
+@enduml

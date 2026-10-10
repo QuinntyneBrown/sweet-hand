@@ -1,0 +1,87 @@
+@startuml
+title UML sequence behaviour — Upload and process a photo
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "PhotoManagerPage" as page
+  participant "PhotosClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CatererPhotosEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "UploadPhotoHandler" as handler
+  participant "CatererProfile" as profile
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "ObjectStore" as store
+  participant "JobQueue" as jobs
+  database "Sweet Hand database" as db
+end box
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "ProcessPhotoJob" as job
+  participant "MalwareScanner" as scanner
+  participant "ImageProcessor" as imaging
+end box
+
+actor -> page : Choose photo from camera or library
+page -> client : upload(file)
+client -> endpoints : POST /caterer/profile/photos (multipart)
+endpoints -> handler : Send UploadPhotoCommand (session caterer)
+handler -> handler : Size at most 15 MB, shorter side at least 800 px (L2-041 AC2)
+handler -> handler : Content signature is JPEG, PNG, WebP or HEIC (L2-041 AC3)
+alt any check fails
+  handler --> endpoints : Rejected, nothing stored
+  endpoints --> client : HTTP 400 with message
+  client --> page : Error shown
+else checks pass
+  handler -> profile : AddPhoto(originalKey)
+  alt profile already has 30 photos
+    profile --> handler : "You can have up to 30 photos" (L2-042 AC5)
+    handler --> endpoints : Rejected
+    endpoints --> client : HTTP 400
+  else under maximum
+    handler -> store : PutPrivate(original)
+    profile --> handler : Photo in Processing
+    handler -> db : Save profile and photo
+    handler -> jobs : Enqueue ProcessPhotoJob
+    endpoints --> client : HTTP 202 with photo id and state Processing
+    client --> page : Placeholder tile marked Processing
+  end
+end
+
+jobs -> job : Worker takes job
+job -> scanner : Scan original before any derivative (L2-041 AC6)
+alt flagged as malicious
+  job -> store : Delete original
+  job -> db : Photo Rejected, security event logged
+else clean
+  alt image processing available
+    job -> imaging : Strip EXIF, XMP, IPTC (L2-041 AC4)
+    job -> imaging : Encode AVIF, WebP, JPEG at 400, 800, 1200, 2000 px, never enlarging (L2-041 AC5)
+    job -> store : PutPublic(derivatives); original stays private
+    job -> db : Photo Ready
+    page -> client : Poll photo state
+    client --> page : Preview within 10 s (L2-041 AC1)
+  else image processing unavailable (L2-091 AC2)
+    job -> jobs : Leave job queued for retry
+    note right of job
+      Photo stays Processing and becomes
+      Ready automatically once processing recovers.
+    end note
+  end
+end
+@enduml

@@ -1,0 +1,32 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Export metrics as CSV
+
+Person(operator, "Operator", "Member of the Sweet Hand team")
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "MetricsDashboardPage", "Screen", "Hosts the Export CSV control")
+  Component(client, "MetricsClient", "API client contract", "Starts the CSV download")
+}
+
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "OperatorMetricsEndpoints", "Endpoint group", "Operator-only metrics and export endpoints")
+  Component(exportH, "ExportMetricsCsvHandler", "Query handler", "Builds report and CSV")
+  Component(getH, "GetMetricsHandler", "Query handler", "Same report as the dashboard")
+  Component(writer, "MetricsCsvWriter", "Domain service", "Header row and one row per bucket")
+  Component(guard, "CsvFormulaGuard", "Domain service", "Neutralises leading = + - @")
+  Component(repo, "MetricsRepository", "Repository", "Daily aggregate rows")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Daily metric aggregates")
+
+Rel(operator, page, "Uses", "HTTPS")
+Rel(page, client, "exportCsv")
+Rel(client, endpoints, "GET export", "HTTPS")
+Rel(endpoints, exportH, "Sends ExportMetricsCsvQuery")
+Rel(exportH, getH, "Sends GetMetricsQuery")
+Rel(getH, repo, "Reads")
+Rel(repo, db, "Reads")
+Rel(exportH, writer, "Writes report")
+Rel(writer, guard, "Guards each value")
+@enduml

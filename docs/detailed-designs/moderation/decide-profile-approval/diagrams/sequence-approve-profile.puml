@@ -1,0 +1,74 @@
+@startuml
+title UML sequence behaviour — Approve a profile
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ApproveProfileDialog" as page
+  participant "ModerationClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "OperatorProfilesEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "ApproveProfileHandler" as handler
+  participant "CatererProfile" as entity
+  participant "ProfileStateMachine" as fsm
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AuditLog" as audit
+  participant "JobQueue" as jobs
+  database "Sweet Hand database" as db
+end box
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "SendNotificationJob" as job
+end box
+actor -> page : Confirm approval
+page -> client : approve(profileId)
+client -> pipeline : POST /operator/profiles/{id}/approve
+pipeline -> pipeline : Check Operator role and second factor
+alt caller is a caterer or customer
+  pipeline --> client : 403, security event logged (L2-046 AC1, L2-056 AC3)
+else operator
+  pipeline -> endpoints : Forward request
+  endpoints -> handler : Send ApproveProfileCommand
+  handler -> db : Load profile
+  db --> handler : CatererProfile
+  handler -> entity : Approve(operatorId, now)
+  entity -> fsm : EnsureTransition(status, Published, Operator)
+  alt status is not Pending review
+    fsm --> entity : Invalid transition
+    entity --> handler : Conflict
+    handler --> endpoints : Conflict result
+    endpoints --> client : 409 (L2-046 AC2, AC3)
+  else Pending review
+    fsm --> entity : Allowed
+    entity -> entity : Set Published, record ProfileStatusChange (L2-046 AC4)
+    entity --> handler : Approved
+    handler -> handler : Assign slug on first publication (L2-018 AC1, AC2)
+    handler -> audit : Append Approve entry (L2-048 AC4, L2-060)
+    handler -> jobs : Enqueue approval email with public page link
+    handler -> db : Commit profile, history, queue item, audit entry and job in one unit of work
+    db --> handler : Committed
+    handler --> endpoints : Success
+    endpoints --> client : 200
+    client --> page : Approved
+    page --> actor : Show profile published
+    jobs -> job : Deliver job
+    job -> job : Send email via EmailGateway within 2 minutes (L2-048 AC1)
+  end
+end
+@enduml

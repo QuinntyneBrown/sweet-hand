@@ -1,0 +1,43 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Manage the cuisine list
+
+Person(operator, "Operator", "Maintains the cuisine catalogue")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(screen, "CuisineListScreen", "Operator screen", "Lists active and retired cuisines with usage")
+  Component(addDlg, "AddCuisineDialog", "Dialog", "Collects a new cuisine name")
+  Component(retireDlg, "RetireCuisineDialog", "Dialog", "Confirms retirement; names affected caterers")
+  Component(client, "CuisinesAdminClient", "API client contract", "Operator cuisine requests")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "OperatorCuisinesEndpoints", "Endpoint group", "Operator role required")
+  Component(addH, "AddCuisineHandler", "Command handler", "Validates and stores a new cuisine")
+  Component(retireH, "RetireCuisineHandler", "Command handler", "Retires a cuisine and reports usage")
+  Component(cuisine, "Cuisine", "Domain entity", "Owns the retirement rule")
+  Component(seed, "CuisineSeed", "Seed command", "Idempotent load of 18 initial cuisines")
+  Component(repo, "CuisineRepository", "Repository", "Catalogue persistence")
+  Component(profiles, "CatererProfileRepository", "Repository", "Published caterers using a cuisine")
+  Component(audit, "AuditLog", "Infrastructure", "Append-only operator action record")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Catalogue and audit log")
+
+Rel(operator, screen, "Uses")
+Rel(screen, addDlg, "Opens")
+Rel(screen, retireDlg, "Opens")
+Rel(addDlg, client, "Submits")
+Rel(retireDlg, client, "Submits")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, addH, "Sends AddCuisineCommand")
+Rel(endpoints, retireH, "Sends RetireCuisineCommand")
+Rel(addH, repo, "Saves")
+Rel(retireH, cuisine, "Calls Retire()")
+Rel(retireH, repo, "Saves")
+Rel(retireH, profiles, "Lists affected caterers")
+Rel(addH, audit, "Appends entry")
+Rel(retireH, audit, "Appends entry")
+Rel(seed, repo, "Inserts missing entries")
+Rel(repo, db, "Reads and writes")
+Rel(profiles, db, "Reads")
+Rel(audit, db, "Appends")
+@enduml

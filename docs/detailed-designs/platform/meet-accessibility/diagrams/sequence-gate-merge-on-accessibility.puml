@@ -1,0 +1,42 @@
+@startuml
+title UML sequence behaviour — Gate a merge on accessibility
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Contributor" as actor
+participant "CI pipeline" as ci
+participant "Acceptance suite" as suite
+participant "AccessibilityCheck (axe-core)" as check
+participant "MergeGate" as gate
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Page template under test" as page
+end box
+actor -> ci : Open pull request
+ci -> suite : Run acceptance suite
+loop each page template and each UI state covered by acceptance tests
+  loop viewports XS and XL
+    suite -> page : Drive to UI state through page object
+    page --> suite : Rendered state (default, empty, error, dialog open)
+    suite -> check : run(state) with WCAG 2.1 A and AA rules (L2-066 AC1)
+    check --> suite : Violations
+  end
+end
+suite --> ci : Suite result
+ci -> gate : evaluate(result)
+alt any test or violation failed
+  gate --> actor : Build failed, merge blocked (L2-066 AC2)
+else zero violations and all tests passed
+  gate --> actor : Merge allowed
+end
+@enduml

@@ -1,0 +1,99 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Render responsive pages
+
+enum ViewportClass {
+  XS
+  SM
+  MD
+  LG
+  XL
+  +minWidthPx: int
+  +fromWidth(px: int): ViewportClass
+}
+
+class PageShell {
+  +minWidthPx: int = 320
+  +maxWidthPx: int = 2560
+  +applySafeAreaInsets(): void
+  +render(content: PageContent): Html
+}
+
+class ResourceCatalog {
+  +locale: string = "en-CA"
+  +load(resourceFile: string): void
+  +text(key: string, params: Map): string
+}
+
+enum FieldKind {
+  Email
+  Phone
+  PostalCode
+  GuestCount
+  Date
+}
+
+class InputAttributes {
+  +type: string
+  +inputMode: string
+  +autocomplete: string
+  +autocapitalize: string
+}
+
+class FieldInputPolicy {
+  +attributesFor(kind: FieldKind): InputAttributes
+}
+
+class TouchTargetTokens {
+  +minTargetPx: int = 44
+  +minSpacingPx: int = 8
+}
+
+class HoverDisclosure {
+  +content: string
+  +revealOnHover(): void
+  +revealOnTap(): void
+  +revealOnFocus(): void
+}
+
+class FormStateKeeper {
+  +register(form: Form): void
+  +captureScrollAnchor(): ScrollAnchor
+  +restoreScrollAnchor(anchor: ScrollAnchor): void
+}
+
+class ResponsiveLayoutSuite {
+  +widthsPx: int[10]
+  +browsers: string[]
+  +checkTemplate(page: PageObject, widthPx: int): LayoutResult
+}
+
+class PageObject {
+  +open(widthPx: int): void
+  +hasHorizontalScroll(): bool
+  +hasClippedOrOverlappingContent(): bool
+}
+
+class StringLiteralLintStep {
+  +scan(sourceRoot: string): LintResult
+}
+
+PageShell ..> ViewportClass : selects layout by
+PageShell ..> TouchTargetTokens : applies
+PageShell ..> FormStateKeeper : re-lays out with
+FieldInputPolicy ..> FieldKind : keyed by
+FieldInputPolicy ..> InputAttributes : returns
+ResponsiveLayoutSuite "1" --> "*" PageObject : drives
+ResponsiveLayoutSuite ..> ViewportClass : reads breakpoints
+StringLiteralLintStep ..> ResourceCatalog : allows literals only in resource files
+note bottom of ResponsiveLayoutSuite : browsers: <TO SUPPLY>\n(L2-064 AC1 vs AGENTS.md Chromium-only)
+@enduml

@@ -1,0 +1,89 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Deliver fast pages
+
+enum AssetKind {
+  HashedStaticAsset
+  PublicHtml
+  PrivateHtml
+  ProcessedPhoto
+}
+
+class CacheDirective {
+  +header: string
+  +cdnMaxAgeSeconds: int
+}
+
+class CachePolicy {
+  +directiveFor(kind: AssetKind): CacheDirective
+}
+
+class ImageLoadingPolicy {
+  +maxImagesBeforeLoad: int = 6
+  +loadingFor(position: int, firstViewportCount: int): string
+}
+
+class WebVitalsReporter {
+  +pageType: string
+  +deviceClass: string
+  +report(lcpMs: int, inpMs: int, cls: decimal): void
+}
+
+class WebVitalsSample {
+  +pageType: string
+  +deviceClass: string
+  +lcpMs: int
+  +inpMs: int
+  +cls: decimal
+}
+
+class PerformanceEndpoints {
+  +postVitals(sample: WebVitalsSample): void
+}
+
+class PerformanceBudget {
+  +lcpP75Ms: int = 2500
+  +inpP75Ms: int = 200
+  +clsP75: decimal = 0.1
+  +lighthouseMinScore: int = 90
+  +firstLoadJsKbGzip: int = 170
+  +cardImage800Kb: int = 120
+  +listingP95Ms: int = 300
+  +listingP99Ms: int = 800
+  +catererPageP95Ms: int = 250
+  +enquiryWriteP95Ms: int = 500
+  +maxErrorRatePercent: decimal = 0.1
+}
+
+class LighthouseBudgetStep {
+  +run(urls: string[]): BudgetResult
+}
+
+class BundleSizeBudgetStep {
+  +run(build: BuildOutput): BudgetResult
+}
+
+class LoadTestSuite {
+  +requestsPerSecond: int = 200
+  +readShare: decimal = 0.9
+  +durationMinutes: int = 30
+  +run(multiplier: int): LoadResult
+}
+
+CachePolicy ..> AssetKind : keyed by
+CachePolicy ..> CacheDirective : returns
+WebVitalsReporter ..> WebVitalsSample : creates
+PerformanceEndpoints ..> WebVitalsSample : receives
+LighthouseBudgetStep --> PerformanceBudget : checks
+BundleSizeBudgetStep --> PerformanceBudget : checks
+LoadTestSuite --> PerformanceBudget : checks
+@enduml

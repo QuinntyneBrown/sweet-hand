@@ -1,0 +1,76 @@
+@startuml
+title UML sequence behaviour — Verify a challenge on a protected form
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Report dialog" as page
+  participant "BotChallengeWidget" as widget
+  participant "ReportsClient" as client
+end box
+participant "Bot-protection provider" as bot
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RateLimiter" as limiter
+  participant "ChallengeGuard" as guard
+  participant "ReportsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "ProtectedForms" as forms
+  participant "DegradedModePolicy" as degraded
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "BotProtectionVerifier" as verifier
+  participant "SecurityLog" as seclog
+end box
+actor -> page : Fill in report form
+page -> widget : Request challenge
+widget -> bot : Run check
+bot --> widget : Challenge token
+actor -> page : Submit
+page -> client : submitReport(fields, token)
+client -> limiter : POST report (feature rule 5 per IP per hour, L2-054 AC3)
+limiter -> guard : Within limits
+guard -> forms : isProtected(endpoint) (L2-082 AC2)
+forms --> guard : Yes
+alt Token missing
+  guard --> client : 400
+else Token present
+  guard -> verifier : verify(token)
+  verifier -> bot : Verify
+  alt Provider reachable
+    bot --> verifier : Valid or invalid
+    verifier --> guard : Result
+    alt Invalid
+      guard --> client : 400
+    else Valid
+      guard -> endpoints : Continue to handler
+      endpoints --> client : 201
+    end
+  else Provider unreachable
+    verifier --> guard : Unavailable
+    guard -> degraded : Apply half thresholds and raise alert (L2-091 AC4)
+    degraded -> seclog : Record degraded mode
+    guard -> limiter : Re-check counters at half thresholds
+    alt Within half thresholds
+      guard -> endpoints : Continue to handler
+      endpoints --> client : 201
+    else Over half thresholds
+      guard --> client : 429 with Retry-After
+    end
+  end
+end
+client --> page : Result
+page --> actor : Confirmation or error
+@enduml

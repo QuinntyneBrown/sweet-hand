@@ -1,0 +1,57 @@
+@startuml
+title UML sequence behaviour — Render a page
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Page template" as page
+  participant "Feature API client" as client
+  participant "ResourceCatalog" as res
+  participant "FieldInputPolicy" as policy
+  participant "PageShell" as shell
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "Feature endpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "Feature query handler" as qh
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> page : Request page URL (any width 320–2560 px)
+page -> client : Request page data through contract
+client -> ep : HTTPS request
+ep -> qh : Send query
+qh -> db : Read authorised data
+db --> qh : Rows
+qh --> ep : Typed result
+ep --> client : JSON response
+client --> page : Page data
+page -> res : Resolve every user-facing string (L2-064)
+res --> page : en-CA text
+opt Page contains a form
+  page -> policy : Attributes for each field kind (L2-065 AC2)
+  policy --> page : type, inputmode, autocomplete, autocapitalize
+end
+page -> shell : Render inside shell with safe-area insets
+shell --> actor : Server-rendered HTML
+actor -> shell : Browser applies ViewportClass layout
+note right of shell : No horizontal scroll at any width\n44 x 44 px targets at XS and SM (L2-065 AC1)
+opt Touch device and hover-only content
+  actor -> page : Tap control
+  page --> actor : HoverDisclosure reveals content (L2-065 AC3)
+end
+@enduml

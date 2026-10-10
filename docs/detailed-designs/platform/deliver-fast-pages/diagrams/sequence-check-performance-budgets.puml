@@ -1,0 +1,42 @@
+@startuml
+title UML sequence behaviour — Check performance budgets in CI
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Contributor" as actor
+participant "CI pipeline" as ci
+participant "BundleSizeBudgetStep" as bundle
+participant "LighthouseBudgetStep" as lh
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Production build" as build
+end box
+actor -> ci : Push change
+ci -> build : Build for production
+build --> ci : Build output
+ci -> bundle : Measure listing first-load JavaScript
+bundle --> ci : Size after gzip
+alt over 170 KB (L2-087 AC1)
+  ci --> actor : Build failed
+else within budget
+  ci -> lh : Run mobile mode, slow 4G, 4x CPU on listing and caterer pages
+  lh -> build : Load pages
+  build --> lh : Rendered pages
+  lh --> ci : Performance scores
+  alt any score below 90 (L2-085 AC2)
+    ci --> actor : Build failed
+  else all scores 90 or more
+    ci --> actor : Budgets passed
+  end
+end
+@enduml

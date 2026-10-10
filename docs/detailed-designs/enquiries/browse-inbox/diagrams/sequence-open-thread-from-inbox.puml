@@ -1,0 +1,49 @@
+@startuml
+title UML sequence behaviour — Open a thread from the inbox
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "InboxPage" as page
+  participant "InboxLayout" as layout
+  participant "ThreadPane" as pane
+  participant "EnquiriesClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "EnquiriesEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetThreadHandler" as handler
+end box
+actor -> page : Select an inbox row
+page -> layout : Show enquiry {id}
+alt viewport LG or XL (L2-036 AC1)
+  layout -> pane : Render beside the list
+else viewport XS, SM or MD (L2-036 AC2)
+  layout -> layout : Navigate to /inbox/{id}
+  layout -> pane : Render full width with "Back to inbox"
+end
+pane -> client : getThread(id)
+client -> ep : GET /enquiries/{id}
+ep -> handler : Send GetThreadQuery (reply-in-thread)
+handler --> ep : Thread view, or not found when caller is not a party
+ep --> client : 200 or 404
+client --> pane : Thread
+pane --> actor : Enquiry details and messages
+opt XS, SM or MD
+  actor -> pane : Activate "Back to inbox"
+  pane -> page : Return to /inbox with previous filter and page
+end
+@enduml

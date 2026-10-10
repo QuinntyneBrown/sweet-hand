@@ -1,0 +1,41 @@
+@startuml
+title UML sequence behaviour — Run a quarterly restore drill
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operations team" as ops
+participant "RestoreDrill" as drill
+participant "RestoreRunbook" as runbook
+box "Backend — Sweet Hand Infrastructure (secondary Canadian region)" #FFF4E5
+  database "Database backups" as dbbackup
+end box
+participant "Isolated restore environment" as env
+participant "RestoreDrillRecord" as record
+ops -> drill : Start quarterly drill, choose point in time
+drill -> runbook : restoreTo(point, isolated environment)
+runbook -> env : Provision in Canadian region, no production routes
+runbook -> dbbackup : Point-in-time restore request
+dbbackup -> env : Restore database to chosen point
+env --> runbook : Restore finished
+runbook --> drill : RestoreResult (start, finish, latest restored change)
+drill -> drill : Duration of 4 hours or less (L2-090 AC3)
+drill -> drill : Data matches point to within 15 minutes (L2-090 AC3)
+alt both checks pass
+  drill -> record : Write passed record
+else any check fails
+  drill -> record : Write failed record with follow-up actions
+end
+drill -> env : Tear down <TO SUPPLY>
+record --> ops : Drill result
+@enduml

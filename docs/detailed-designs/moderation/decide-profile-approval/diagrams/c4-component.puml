@@ -1,0 +1,48 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Decide profile approval
+
+Person(operator, "Operator", "Decides submitted profiles")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(screen, "ProfileReviewScreen", "Page", "Submitted profile with decision actions")
+  Component(approveDlg, "ApproveProfileDialog", "Dialog", "Confirms approval")
+  Component(changesDlg, "RequestChangesDialog", "Dialog", "Captures the change reason")
+  Component(client, "ModerationClient", "API client contract", "Typed operator calls")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(pipeline, "RequestPipeline", "Request pipeline", "Operator role and second factor check")
+  Component(endpoints, "OperatorProfilesEndpoints", "Endpoint group", "approve and request-changes")
+  Component(approveH, "ApproveProfileHandler", "Command handler", "Publishes the profile")
+  Component(changesH, "RequestProfileChangesHandler", "Command handler", "Returns profile to caterer")
+  Component(profile, "CatererProfile", "Domain aggregate", "Status, history, slug")
+  Component(fsm, "ProfileStateMachine", "Domain service", "L2-046 transition table")
+  Component(audit, "AuditLog", "Infrastructure", "Append-only audit entries")
+  Component(repo, "CatererProfileRepository", "Infrastructure", "Profiles, history, snapshots")
+  Component(jobs, "JobQueue", "Infrastructure", "Transactional outbox")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles, history, audit log")
+ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Notification jobs")
+
+Rel(operator, screen, "Uses", "HTTPS")
+Rel(screen, approveDlg, "Opens")
+Rel(screen, changesDlg, "Opens")
+Rel(approveDlg, client, "approve")
+Rel(changesDlg, client, "requestChanges")
+Rel(client, pipeline, "Calls", "JSON/HTTPS")
+Rel(pipeline, endpoints, "Forwards authorised request")
+Rel(endpoints, approveH, "Sends ApproveProfileCommand")
+Rel(endpoints, changesH, "Sends RequestProfileChangesCommand")
+Rel(approveH, profile, "Approve")
+Rel(changesH, profile, "RequestChanges")
+Rel(profile, fsm, "Checks transition")
+Rel(approveH, repo, "Loads and saves")
+Rel(changesH, repo, "Loads and saves")
+Rel(approveH, audit, "Appends entry")
+Rel(changesH, audit, "Appends entry")
+Rel(approveH, jobs, "Enqueues email")
+Rel(changesH, jobs, "Enqueues email")
+Rel(repo, db, "Reads and writes")
+Rel(audit, db, "Inserts")
+Rel(jobs, queue, "Publishes")
+@enduml

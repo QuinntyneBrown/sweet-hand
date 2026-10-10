@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inbox · error — Sweet Hand mocks</title>
+<meta name="mock:kind" content="page">
+<meta name="mock:screen" content="inbox">
+<meta name="mock:state" content="error">
+<meta name="mock:requirements" content="L2-029 L2-031 L2-036 L2-067">
+<meta name="description" content="Inbox failed to load: the header stays, the message says nothing is lost, Try again and a way back.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="page">
+<header class="site-header">
+  <a class="wordmark" href="../caterers/default.html">Sweet Hand</a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__link site-nav__extra" href="../caterers/default.html">Caterers</a>
+    <a class="site-nav__link site-nav__extra" href="../occasions/default.html">Occasions</a>
+    <a class="site-nav__link site-nav__extra" href="../inbox/default.html" aria-current="page">Inbox</a>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <a class="icon-btn site-nav__menu" href="../inbox/default.html" aria-label="Inbox" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/signed-in.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/default.html">MT</button>
+  </nav>
+</header>
+<main id="main" class="container">
+  <div class="inbox-layout inbox-layout--solo">
+    <section aria-labelledby="inbox-title">
+      <div class="page-intro">
+        <h1 id="inbox-title">Inbox</h1>
+        <p class="subtitle">Your conversations with caterers</p>
+      </div>
+    <div class="empty empty--error" role="alert">
+      <div class="empty__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg></div>
+      <h2 class="empty__title">We couldn’t load your enquiries</h2>
+      <p class="empty__text">Your messages are safe. Check your connection and try again.</p>
+      <div class="empty__actions"><button class="btn btn--primary" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>Try again</button><a class="btn" href="../caterers/default.html">Browse caterers</a></div>
+      <p class="text-caption">Reference 7f3c-91ad</p>
+    </div>
+    </section>
+    <div class="inbox-layout__thread">
+    </div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="site-footer__brand"><strong>Sweet Hand</strong><span>Caribbean caterers in Toronto and the GTA.</span></div>
+  <nav aria-label="Footer">
+    <ul>
+      <li><a href="../about/default.html">About</a></li>
+      <li><a href="../register-caterer/default.html">Cater with us</a></li>
+      <li><a href="../privacy/default.html">Privacy</a></li>
+      <li><a href="../terms/default.html">Terms</a></li>
+    </ul>
+  </nav>
+</footer>
+</div>
+
+
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Inbox</span>
+  <ul class="mock-bar__states">
+    <li><a href="default.html">default</a></li>
+    <li><a href="loading.html">loading</a></li>
+    <li><a href="empty.html">empty</a></li>
+    <li><a href="error.html" aria-current="page">error</a></li>
+    <li><a href="filtered.html">filtered</a></li>
+    <li><a href="no-results.html">no-results</a></li>
+    <li><a href="long.html">long</a></li>
+    <li><a href="offline.html">offline</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Show reviews on the caterer page
+
+Person(visitor, "Visitor", "Anyone browsing without signing in")
+Person(customer, "Customer", "Signed-in person planning a meal or an event")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(cdn, "CDN", "Caches public HTML for 60 seconds or less")
+
+Rel(visitor, cdn, "Requests caterer page", "HTTPS")
+Rel(customer, cdn, "Requests caterer page", "HTTPS")
+Rel(cdn, sweethand, "Fetches uncached pages from", "HTTPS")
+@enduml

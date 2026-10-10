@@ -1,0 +1,17 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Rate limit requests and challenge abusive forms
+
+Person(visitor, "Visitor", "Browses without signing in")
+Person(customer, "Customer", "Signed-in person planning a meal or an event")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(bot, "Bot-protection provider", "Issues and verifies challenge tokens")
+System_Ext(obs, "Observability platform", "Logs, metrics, traces and alerts")
+
+Rel(visitor, sweethand, "Browses and submits public forms on")
+Rel(customer, sweethand, "Submits enquiries and reports on")
+Rel(visitor, bot, "Completes challenge in browser")
+Rel(sweethand, bot, "Verifies challenge tokens with", "HTTPS")
+Rel(sweethand, obs, "Sends rate-limit and degraded-mode alerts to")
+@enduml

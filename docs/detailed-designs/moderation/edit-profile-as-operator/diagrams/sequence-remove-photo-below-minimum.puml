@@ -1,0 +1,55 @@
+@startuml
+title UML sequence behaviour — Remove a photo below the minimum
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "OperatorEditDialog" as page
+  participant "ModerationClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "OperatorProfilesEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "RemoveProfileItemAsOperatorHandler" as handler
+  participant "CatererProfile" as entity
+  participant "MinimumsShortfall" as shortfall
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "ObjectStore" as store
+  participant "AuditLog" as audit
+  participant "JobQueue" as jobs
+  database "Sweet Hand database" as db
+end box
+actor -> page : Remove photo 2 with reason
+page -> client : removeItem(profileId, photoId, reason)
+client -> endpoints : DELETE /operator/profiles/{id}/photos/{photoId}
+endpoints -> handler : Send RemoveProfileItemAsOperatorCommand
+handler -> db : Load profile
+db --> handler : CatererProfile with 3 photos
+handler -> entity : RemovePhoto(photoId, reason)
+entity --> handler : Removed; status stays Published (L2-057 AC2)
+handler -> shortfall : Check(profile)
+shortfall --> handler : ReplacementDeadline: photo, now plus 14 days
+handler -> store : Stop serving photo derivatives
+handler -> audit : Append RemovePhoto entry with reason
+handler -> jobs : Enqueue email with reason and 14-day replacement request
+handler -> db : Commit in one unit of work
+db --> handler : Committed
+handler --> endpoints : Success
+endpoints --> client : 200
+client --> page : Removed
+page --> actor : Show removal and replacement deadline
+@enduml

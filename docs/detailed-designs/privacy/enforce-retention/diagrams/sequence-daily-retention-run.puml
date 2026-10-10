@@ -1,0 +1,58 @@
+@startuml
+title UML sequence behaviour — Daily retention run
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+participant "Scheduler" as scheduler
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "RetentionJob" as job
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "RetentionPolicy" as policy
+  participant "RetentionRule (each category)" as rule
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AuditLogPurger" as purger
+  database "Sweet Hand database" as db
+  database "Object storage" as storage
+end box
+
+scheduler -> job : Daily trigger (time of day <TO SUPPLY>)
+job -> policy : Rules()
+policy --> job : Six rules with retention periods (L2-073)
+loop each rule
+  job -> rule : Apply(nowUtc)
+  alt EnquiriesAndMessages
+    rule -> db : Delete enquiries closed more than 3 years ago, with messages (L2-073 AC1)
+  else SecurityAndAccessLogs
+    rule -> db : Delete entries older than 13 months
+  else CertificateFiles
+    rule -> storage : Delete files 90 days after replacement or account deletion
+  else OperatorAuditLog
+    rule -> purger : Purge entries older than 7 years
+    purger -> db : Delete under separate database identity (L2-060 AC2, AC4)
+  else VisitAnalytics
+    rule -> db : Delete hashed visits older than 25 months
+  else InactiveAccounts
+    rule -> rule : See inactive account behaviour
+  end
+  alt rule succeeded
+    rule --> job : RetentionOutcome(category, deletedCount)
+  else rule failed
+    rule --> job : RetentionOutcome(category, error)
+    job -> job : Raise alert; continue with next rule
+  end
+end
+job -> db : Save RetentionRun with counts per category (L2-073 AC3)
+@enduml

@@ -1,0 +1,51 @@
+@startuml
+title UML sequence behaviour — Daily certificate expiry checks
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "DailyMaintenanceJob" as daily
+  participant "CertificateExpiryCheck" as check
+  participant "SendNotificationJob" as send
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "Clock" as clock
+  database "Sweet Hand database" as db
+  participant "JobQueue" as jobs
+end box
+participant "Email provider" as email
+
+daily -> check : Run once a day
+check -> clock : Today() in America/Toronto
+clock --> check : today
+check -> db : Load Published profiles with certificates expiring within 30 days or expired
+db --> check : Certificates
+loop each certificate
+  alt 30 days before expiry and no ThirtyDays entry in reminder log
+    check -> jobs : Enqueue first reminder email (L2-040 AC2)
+    check -> db : Write CertificateReminderLog(ThirtyDays)
+  else 7 days before expiry and no SevenDays entry in reminder log
+    check -> jobs : Enqueue second reminder email (L2-040 AC2)
+    check -> db : Write CertificateReminderLog(SevenDays)
+  else expired and no open ExpiredCertificate item
+    check -> db : Add ReviewQueueItem(ExpiredCertificate) (L2-040 AC3)
+    note right of check
+      Profile stays Published
+      until an operator acts.
+    end note
+  end
+end
+jobs -> send : Worker takes reminder job
+send -> email : Send reminder to caterer account email
+@enduml

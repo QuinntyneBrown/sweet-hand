@@ -1,0 +1,118 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Provide a food handler certificate
+
+class CatererProfile {
+  +Guid id
+  +Guid ownerAccountId
+  +ProfileStatus status
+  +SetCertificate(details: CertificateDetails, today: Date): void
+  +AttachCertificateFile(fileKey: string): void
+}
+
+class FoodHandlerCertificate {
+  +string holderName
+  +string issuingBody
+  +string certificateNumber
+  +Date expiryDate
+  +string fileKey
+  +List<ReplacedFile> replacedFiles
+  +IsValidOn(date: Date): bool
+  +DaysUntilExpiry(today: Date): int
+}
+
+class ReplacedFile {
+  +string fileKey
+  +DateTime replacedAtUtc
+}
+
+class SaveCertificateHandler {
+  +Handle(command: SaveCertificateCommand, caller: AccountId): void
+}
+
+class UploadCertificateFileHandler {
+  +long maxBytes = 10 MB
+  +Handle(command: UploadCertificateFileCommand, caller: AccountId): void
+}
+
+class GetCertificateFileUrlHandler {
+  +Handle(query: GetCertificateFileUrlQuery, caller: Caller): TimeLimitedUrl
+}
+
+class TimeLimitedUrl <<value object>> {
+  +string url
+  +DateTime expiresAtUtc
+}
+
+interface MalwareScanner {
+  +Scan(content: Stream): ScanResult
+}
+
+interface ObjectStore {
+  +PutPrivate(key: string, content: Stream): void
+  +SignedUrl(key: string, ttl: Duration): TimeLimitedUrl
+}
+
+interface Clock {
+  +Today(): Date
+}
+
+class DailyMaintenanceJob {
+  +Run(): void
+}
+
+class CertificateExpiryCheck {
+  +Run(today: Date): void
+}
+
+class CertificateReminderLog {
+  +Guid profileId
+  +Date expiryDate
+  +ReminderKind kind
+  +DateTime sentAtUtc
+}
+
+enum ReminderKind {
+  ThirtyDays
+  SevenDays
+}
+
+class ReviewQueueItem {
+  +Guid id
+  +ReviewQueueItemKind kind
+  +Guid profileId
+  +DateTime createdAtUtc
+}
+
+enum ReviewQueueItemKind {
+  ProfileSubmission
+  NameChange
+  ExpiredCertificate
+  Report
+}
+
+CatererProfile "1" *-- "0..1" FoodHandlerCertificate
+FoodHandlerCertificate "1" *-- "*" ReplacedFile
+SaveCertificateHandler ..> CatererProfile
+SaveCertificateHandler ..> Clock
+UploadCertificateFileHandler ..> MalwareScanner
+UploadCertificateFileHandler ..> ObjectStore
+UploadCertificateFileHandler ..> CatererProfile
+GetCertificateFileUrlHandler ..> ObjectStore
+GetCertificateFileUrlHandler ..> TimeLimitedUrl : returns
+DailyMaintenanceJob ..> CertificateExpiryCheck : runs
+CertificateExpiryCheck ..> FoodHandlerCertificate : reads
+CertificateExpiryCheck ..> CertificateReminderLog : writes
+CertificateExpiryCheck ..> ReviewQueueItem : creates
+CertificateReminderLog --> ReminderKind
+ReviewQueueItem --> ReviewQueueItemKind
+@enduml

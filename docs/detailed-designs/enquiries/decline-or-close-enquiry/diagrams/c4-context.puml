@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Decline or close an enquiry
+
+Person(customer, "Customer", "Signed-in person in Toronto or the GTA planning a meal or an event")
+Person(caterer, "Caterer", "Person or small business selling Caribbean food")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(email, "Email provider", "Sends transactional email and reports bounces")
+
+Rel(caterer, sweethand, "Declines or closes enquiries in")
+Rel(customer, sweethand, "Closes enquiries in")
+Rel(sweethand, email, "Sends decline email via")
+Rel(email, customer, "Delivers decline email to")
+@enduml

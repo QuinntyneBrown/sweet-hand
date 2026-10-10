@@ -1,0 +1,95 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Manage the menu
+
+enum DietaryTag {
+  Vegetarian
+  Vegan
+  GlutenFree
+  DairyFree
+  Halal
+  ContainsNuts
+  ContainsShellfish
+  Spicy
+}
+
+class CatererProfile {
+  +Guid id
+  +ProfileStatus status
+  +AddMenuItem(fields: MenuItemFields, position: int): MenuItem
+  +UpdateMenuItem(itemId: Guid, fields: MenuItemFields): void
+  +RemoveMenuItem(itemId: Guid): void
+  +ReorderMenu(itemIds: List<Guid>): void
+}
+
+class MenuItem {
+  +Guid id
+  +int position
+  +MenuItemName name
+  +string description
+  +Set<DietaryTag> dietaryTags
+  +string priceGuidance
+}
+
+class MenuItemName <<value object>> {
+  +string value
+  +{static} Create(raw: string): MenuItemName
+}
+
+class MenuItemFields <<value object>> {
+  +string name
+  +string description
+  +Set<DietaryTag> dietaryTags
+  +string priceGuidance
+  +Validate(): Result
+}
+
+class AddMenuItemHandler {
+  +Handle(command: AddMenuItemCommand, caller: AccountId): MenuItemView
+}
+
+class UpdateMenuItemHandler {
+  +Handle(command: UpdateMenuItemCommand, caller: AccountId): MenuItemView
+}
+
+class RemoveMenuItemHandler {
+  +Handle(command: RemoveMenuItemCommand, caller: AccountId): void
+}
+
+class ReorderMenuItemsHandler {
+  +Handle(command: ReorderMenuItemsCommand, caller: AccountId): void
+}
+
+interface CatererProfileRepository {
+  +GetByOwner(accountId: Guid): CatererProfile
+  +Save(profile: CatererProfile): void
+}
+
+note right of MenuItemFields
+  name 2–80 characters
+  description up to 300 characters
+  priceGuidance up to 60 characters
+end note
+
+CatererProfile "1" *-- "0..50" MenuItem
+MenuItem *-- MenuItemName
+MenuItem --> "*" DietaryTag
+CatererProfile ..> MenuItemFields : validates
+AddMenuItemHandler ..> CatererProfile
+UpdateMenuItemHandler ..> CatererProfile
+RemoveMenuItemHandler ..> CatererProfile
+ReorderMenuItemsHandler ..> CatererProfile
+AddMenuItemHandler ..> CatererProfileRepository
+UpdateMenuItemHandler ..> CatererProfileRepository
+RemoveMenuItemHandler ..> CatererProfileRepository
+ReorderMenuItemsHandler ..> CatererProfileRepository
+@enduml

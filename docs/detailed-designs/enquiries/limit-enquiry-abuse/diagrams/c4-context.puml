@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Limit enquiry abuse
+
+Person(customer, "Customer", "Signed-in person in Toronto or the GTA planning a meal or an event")
+Person(caterer, "Caterer", "Person or small business selling Caribbean food")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(bot, "Bot-protection provider", "Issues and verifies challenge tokens")
+
+Rel(customer, sweethand, "Submits enquiries to")
+Rel(customer, bot, "Passes challenge from")
+Rel(sweethand, bot, "Verifies challenge tokens with", "HTTPS")
+Rel(sweethand, caterer, "Delivers only enquiries that pass the limits to")
+@enduml

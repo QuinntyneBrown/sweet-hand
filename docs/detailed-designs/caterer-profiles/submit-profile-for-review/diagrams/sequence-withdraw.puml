@@ -1,0 +1,64 @@
+@startuml
+title UML sequence behaviour — Withdraw a submission
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ProfileEditorPage" as page
+  participant "WithdrawSubmissionDialog" as dialog
+  participant "ProfileSubmissionClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "ProfileSubmissionEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "WithdrawSubmissionHandler" as handler
+  participant "CatererProfile" as profile
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "CatererProfileRepository" as repo
+  participant "ProfileSubmissionRepository" as subs
+  database "Sweet Hand database" as db
+end box
+
+actor -> page : Activate "Withdraw submission"
+page -> dialog : Open (focus moves into dialog)
+actor -> dialog : Confirm
+dialog -> client : withdraw()
+client -> endpoints : DELETE /caterer/profile/submission
+endpoints -> handler : Send WithdrawSubmissionCommand for session account
+handler -> repo : GetByOwner(accountId)
+repo -> db : Load
+db --> repo : Profile
+repo --> handler : CatererProfile
+handler -> profile : ChangeStatus(Draft, caterer)
+alt status is Pending review
+  profile -> profile : Append ProfileStatusChange (L2-046 AC4)
+  handler -> subs : RemovePending(profileId)
+  handler -> repo : Save(profile)
+  repo -> db : Commit
+  handler --> endpoints : Withdrawn
+  endpoints --> client : HTTP 200
+  client --> dialog : Done
+  dialog --> page : Close, focus returns to trigger
+  page --> actor : Editable Draft with checklist
+else any other status
+  profile --> handler : InvalidStatusTransition
+  handler --> endpoints : Conflict
+  endpoints --> client : HTTP 409, status unchanged
+  client --> dialog : Error
+  dialog --> actor : Error message
+end
+@enduml

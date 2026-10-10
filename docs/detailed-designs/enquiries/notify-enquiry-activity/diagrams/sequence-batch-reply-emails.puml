@@ -1,0 +1,57 @@
+@startuml
+title UML sequence behaviour — Batch reply emails
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+actor "Customer" as customer
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "EnquiriesEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "PostReplyHandler" as handler
+  participant "NotificationScheduler" as sched
+  participant "Notification" as notif
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+  queue "Job queue" as queue
+end box
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "SendNotificationJob" as job
+end box
+actor -> ep : POST /enquiries/{id}/messages (reply 1)
+ep -> handler : Send PostReplyCommand
+handler -> sched : QueueNewMessage(enquiry, message)
+sched -> db : Find Queued NewMessages notification for thread and customer
+db --> sched : None
+sched -> notif : Create (MessageCount 1, SendAfter = coalescing delay <TO SUPPLY>)
+sched -> db : Save with reply in one unit of work
+sched -> queue : Enqueue SendNotificationJob at SendAfter
+actor -> ep : Replies 2 and 3 within 10 minutes
+ep -> handler : Send PostReplyCommand
+handler -> sched : QueueNewMessage(enquiry, message)
+sched -> db : Find Queued NewMessages notification
+db --> sched : Existing notification
+sched -> notif : AddMessage() (L2-028 AC2)
+sched -> db : Save MessageCount 3
+queue -> job : Deliver job at SendAfter
+job -> db : Load notification
+db --> job : MessageCount 3
+job --> customer : One email naming the caterer and mentioning 3 new messages
+note over handler, sched
+  A customer reply notifies the caterer
+  under the same rules (L2-028 AC3).
+end note
+@enduml

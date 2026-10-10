@@ -1,0 +1,27 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Deliver fast pages
+
+Person(visitor, "Visitor", "Phone browser")
+System_Ext(cdn, "CDN", "HTML cache of 60 s or less; photo delivery")
+System_Ext(obs, "Observability platform", "Metrics")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages with cache headers and lazy images")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Stateless instances; listing, caterer page and enquiry endpoints")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles, enquiries and sessions")
+  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Notification jobs")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Sends email and processes photos")
+  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Processed photo derivatives")
+}
+
+Rel(visitor, cdn, "Requests", "HTTPS")
+Rel(cdn, web, "Forwards cache misses for HTML", "HTTPS")
+Rel(cdn, storage, "Fetches photo derivatives", "HTTPS")
+Rel(web, api, "Reads page data", "JSON/HTTPS")
+Rel(api, db, "Reads and writes")
+Rel(api, queue, "Enqueues email asynchronously (L2-086 AC3)")
+Rel(worker, queue, "Consumes jobs")
+Rel(worker, storage, "Writes encoded derivatives")
+Rel(api, obs, "Sends latency metrics and Web Vitals")
+@enduml

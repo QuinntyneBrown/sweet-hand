@@ -1,0 +1,140 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Register a caterer
+
+class RegisterCatererCommand {
+  +string businessName
+  +string contactName
+  +string email
+  +string phone
+  +string password
+  +bool sellsCaribbeanFoodInGta
+  +bool acceptsTermsAndPrivacyNotice
+  +string botChallengeToken
+}
+
+class RegisterCatererHandler {
+  +Handle(command: RegisterCatererCommand): RegistrationAcknowledgement
+}
+
+class RegistrationAcknowledgement {
+  +string message
+}
+
+class BusinessName <<value object>> {
+  +string value
+  +{static} Create(raw: string): BusinessName
+}
+
+class ContactName <<value object>> {
+  +string value
+  +{static} Create(raw: string): ContactName
+}
+
+class PhoneNumber <<value object>> {
+  +string e164
+  +{static} Parse(raw: string): PhoneNumber
+}
+
+enum Role {
+  Customer
+  Caterer
+  Operator
+}
+
+class UserAccount {
+  +Guid id
+  +string email
+  +bool emailVerified
+  +Role role
+  +ContactName displayName
+  +PhoneNumber phone
+  +string passwordHash
+  +{static} RegisterCaterer(email, name, phone, hash): UserAccount
+}
+
+enum ProfileStatus {
+  Draft
+  PendingReview
+  ChangesRequested
+  Published
+  Suspended
+  Removed
+}
+
+class CatererProfile {
+  +Guid id
+  +Guid ownerAccountId
+  +BusinessName businessName
+  +ProfileStatus status
+  +{static} StartDraft(owner: Guid, name: BusinessName): CatererProfile
+}
+
+class ConsentRecord {
+  +Guid accountId
+  +string privacyNoticeVersion
+  +string catererTermsVersion
+  +DateTime acceptedAtUtc
+}
+
+class VerificationToken {
+  +Guid accountId
+  +string tokenHash
+  +DateTime expiresAtUtc
+  +DateTime usedAtUtc
+}
+
+interface PasswordHasher {
+  +CheckPolicy(password: string): Result
+  +Hash(password: string): string
+}
+
+interface BotProtectionVerifier {
+  +Verify(token: string): bool
+}
+
+interface UserAccountRepository {
+  +FindByEmail(email: string): UserAccount
+  +Add(account: UserAccount): void
+}
+
+interface CatererProfileRepository {
+  +Add(profile: CatererProfile): void
+}
+
+interface JobQueue {
+  +Enqueue(job: SendNotificationJob): void
+}
+
+class SendNotificationJob {
+  +string template
+  +string recipientEmail
+  +map data
+}
+
+RegisterCatererHandler ..> RegisterCatererCommand : handles
+RegisterCatererHandler ..> RegistrationAcknowledgement : returns
+RegisterCatererHandler ..> BotProtectionVerifier
+RegisterCatererHandler ..> PasswordHasher
+RegisterCatererHandler ..> UserAccountRepository
+RegisterCatererHandler ..> CatererProfileRepository
+RegisterCatererHandler ..> JobQueue
+JobQueue ..> SendNotificationJob
+UserAccount --> Role
+UserAccount *-- PhoneNumber
+UserAccount *-- ContactName
+UserAccount "1" *-- "1..*" ConsentRecord
+UserAccount "1" *-- "*" VerificationToken
+CatererProfile --> ProfileStatus
+CatererProfile *-- BusinessName
+CatererProfile "1" --> "1" UserAccount : owned by
+@enduml

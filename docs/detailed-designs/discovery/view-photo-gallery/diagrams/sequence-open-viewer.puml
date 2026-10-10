@@ -1,0 +1,39 @@
+@startuml
+title UML sequence behaviour — Open the photo viewer
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "CatererPage" as page
+  participant "CatererGallery" as gallery
+  participant "PhotoOrder" as order
+  participant "PhotoViewerDialog" as viewer
+  participant "CatererPageClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "PublicCaterersEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetCatererPageHandler" as handler
+end box
+participant "CDN" as cdn
+page -> client : Get caterer page view (server render)
+client -> endpoints : GET /api/public/caterers/{slug}
+endpoints -> handler : Send GetCatererPageQuery
+handler --> endpoints : PublicCatererView with photos by position
+endpoints --> client : HTTP 200 JSON
+client --> page : View
+page -> gallery : Render photos
+gallery -> order : Cover first, then caterer order (L2-016 AC1)
+order --> gallery : Ordered photos
+gallery -> gallery : Choose layout by viewport class (L2-019 AC1-AC3)
+gallery --> actor : Gallery shown
+actor -> gallery : Click, tap or Enter on photo 2
+gallery -> viewer : Show(index 1), remember opener
+viewer -> cdn : Request large derivative
+cdn --> viewer : Photo
+viewer --> actor : Full-screen photo, caption, "2 of 6"; focus inside dialog (L2-016 AC2)
+@enduml

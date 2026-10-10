@@ -1,0 +1,38 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Filter the listing by area
+
+Person(visitor, "Visitor", "Browses caterers")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "ListingPage", "Page", "Hosts filters and results")
+  Component(area, "AreaFilter", "Combobox", "Client-side suggestions; No matching areas")
+  Component(chips, "ActiveFilterChips", "Component", "Removable area and region chips")
+  Component(state, "ListingQueryState", "URL state", "Repeated area and region parameters")
+  Component(areasClient, "ServiceAreasClient", "API client contract", "GET /api/public/service-areas")
+  Component(listingClient, "ListingClient", "API client contract", "GET /api/public/caterers")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "PublicCaterersEndpoints", "Endpoint group", "Anonymous area and listing endpoints")
+  Component(handler, "GetListingHandler", "Query handler", "Applies the filter to published caterers")
+  Component(filter, "ListingFilter", "Domain value object", "Expands regions; any area matches")
+  Component(areasRepo, "ServiceAreaRepository", "Repository", "Regions and areas")
+  Component(repo, "CatererProfileRepository", "Repository", "Caterers by service area")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Areas and selections")
+
+Rel(visitor, area, "Types and selects")
+Rel(page, area, "Hosts")
+Rel(page, chips, "Renders")
+Rel(area, areasClient, "Loads list once")
+Rel(page, state, "Pushes selection")
+Rel(page, listingClient, "Requests results")
+Rel(areasClient, endpoints, "Calls", "JSON/HTTPS")
+Rel(listingClient, endpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, areasRepo, "Reads regions and areas")
+Rel(endpoints, handler, "Sends GetListingQuery")
+Rel(handler, filter, "Expands and matches")
+Rel(handler, repo, "Reads caterers")
+Rel(areasRepo, db, "Queries")
+Rel(repo, db, "Queries")
+@enduml

@@ -1,0 +1,59 @@
+@startuml
+title UML sequence behaviour — Authenticate a request by session
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Account holder" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Page" as page
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "SessionAuthenticator" as auth
+  participant "Endpoint" as endpoint
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SessionPolicy" as policy
+  participant "Session" as session
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "SessionStore" as store
+  participant "Clock" as clock
+  database "Sweet Hand database" as db
+end box
+actor -> page : Open any page while signed in
+page -> auth : Request with session cookie
+auth -> auth : Hash cookie value
+auth -> store : findByIdHash(hash)
+store -> db : Parameterised select
+db --> store : Session or none
+store --> auth : Session or none
+alt No session found or already ended
+  auth -> endpoint : Continue as unauthenticated (Visitor)
+else Session found
+  auth -> clock : Now (UTC)
+  auth -> policy : isActive(session, now) by role (L2-078)
+  alt Idle or absolute timeout passed
+    auth -> session : end(now)
+    auth -> store : Save ended session
+    auth -> endpoint : Continue as unauthenticated
+    note right of endpoint : Protected endpoint returns 401;\noperator is sent to sign in (L2-078 AC3)
+  else Session active
+    auth -> session : touch(now) when throttle interval passed
+    auth -> store : Save last active time
+    auth -> endpoint : Continue with CallerContext (account, role)
+  end
+end
+endpoint --> page : Response
+page --> actor : Page content or sign-in screen
+@enduml

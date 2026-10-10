@@ -1,0 +1,21 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Rate limit requests and challenge abusive forms
+
+Person(visitor, "Visitor", "Browses without signing in")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, sessions, tokens, consent records")
+}
+System_Ext(bot, "Bot-protection provider", "Issues and verifies challenge tokens")
+System_Ext(obs, "Observability platform", "Logs, metrics, traces and alerts")
+
+Rel(visitor, web, "Uses", "HTTPS")
+Rel(web, bot, "Obtains challenge token from", "HTTPS")
+Rel(web, api, "Calls", "JSON/HTTPS")
+Rel(api, db, "Counts requests (rate-limit store; backing store TO SUPPLY)")
+Rel(api, bot, "Verifies challenge token with", "HTTPS")
+Rel(api, obs, "Sends security events and alerts")
+@enduml

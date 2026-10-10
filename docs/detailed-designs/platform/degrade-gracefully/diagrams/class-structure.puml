@@ -1,0 +1,105 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Degrade gracefully
+
+enum Dependency {
+  EmailProvider
+  ImageProcessing
+  BotProtection
+  Cdn
+}
+
+enum DependencyState {
+  Available
+  Unavailable
+}
+
+class DependencyHealth {
+  +stateOf(dependency: Dependency): DependencyState
+  +recordFailure(dependency: Dependency): void
+  +recordSuccess(dependency: Dependency): void
+}
+
+enum VerificationResult {
+  Valid
+  Invalid
+  Missing
+  ProviderUnavailable
+}
+
+class BotProtectionVerifier {
+  +verify(token: string): VerificationResult
+}
+
+class RateLimitPolicy {
+  +normalLimit(form: ProtectedForm): int
+  +effectiveLimit(form: ProtectedForm): int
+  -degradedFactor: decimal = 0.5
+}
+
+enum ProtectedForm {
+  Registration
+  SignIn
+  PasswordReset
+  Enquiry
+  AnonymousReport
+}
+
+class DegradationAlert {
+  +raise(dependency: Dependency): void
+}
+
+class Notification {
+  +id: Guid
+  +attempts: int
+  +nextAttemptAt: DateTime
+  +status: string
+  +markFailed(): void
+}
+
+class SendNotificationJob {
+  +maxRetryHours: int = 24
+  +run(notification: Notification): void
+}
+
+enum ProcessingState {
+  Processing
+  Ready
+  Rejected
+}
+
+class Photo {
+  +id: Guid
+  +processingState: ProcessingState
+  +markReady(): void
+}
+
+class ProcessPhotoJob {
+  +run(photo: Photo): void
+}
+
+class UploadPhotoHandler {
+  +handle(command: UploadPhotoCommand): Result
+}
+
+DependencyHealth ..> Dependency
+DependencyHealth ..> DependencyState
+BotProtectionVerifier ..> VerificationResult : returns
+BotProtectionVerifier --> DependencyHealth : reports to
+RateLimitPolicy --> DependencyHealth : reads
+RateLimitPolicy ..> ProtectedForm : keyed by
+DependencyHealth ..> DegradationAlert : triggers
+SendNotificationJob --> Notification : retries
+Photo --> ProcessingState : has
+UploadPhotoHandler ..> Photo : creates as Processing
+ProcessPhotoJob --> Photo : marks ready
+@enduml

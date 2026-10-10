@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guests and occasions · invalid — Sweet Hand mocks</title>
+<meta name="mock:kind" content="page">
+<meta name="mock:screen" content="profile-events">
+<meta name="mock:state" content="invalid">
+<meta name="mock:requirements" content="L2-020 L2-021 L2-038 L2-045">
+<meta name="description" content="Smallest 400 and largest 100, with no occasion ticked: the L2-020 and L2-021 messages, inline and in a summary.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="page">
+<header class="site-header">
+  <a class="wordmark" href="../../pages/dashboard/default.html">Sweet Hand <span class="wordmark__tag">for caterers</span></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__link site-nav__extra" href="../../pages/dashboard/default.html">Dashboard</a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/dashboard-enquiries/default.html">Enquiries <span class="badge badge--count" aria-label="2 unread enquiries">2</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/caterer/default.html">My page</a>
+    <a class="icon-btn site-nav__menu" href="../../pages/dashboard-enquiries/default.html" aria-label="Enquiries, 2 unread"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">2</span></a>
+    <button class="avatar" type="button" aria-label="Account menu for Kendra Baptiste" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/caterer.html">KB</button>
+  </nav>
+</header>
+
+<main id="main" class="container">
+  <div class="work-layout work-layout--preview">
+    <nav class="side-nav" aria-label="Dashboard">
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../../pages/dashboard/default.html">Overview</a></li>
+        <li><a class="filter-list__item" href="../../pages/profile-details/default.html">Business details</a></li>
+        <li><a class="filter-list__item" href="../../pages/profile-cuisines/default.html">Cuisines and areas</a></li>
+        <li><a class="filter-list__item" href="../../pages/profile-events/default.html" aria-current="page">Guests and occasions</a></li>
+        <li><a class="filter-list__item" href="../../pages/profile-photos/default.html">Photos</a></li>
+        <li><a class="filter-list__item" href="../../pages/profile-menu/default.html">Menu</a></li>
+        <li><a class="filter-list__item" href="../../pages/profile-certificate/default.html">Food safety</a></li>
+      </ul>
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../../pages/dashboard-enquiries/default.html">Enquiries <span class="filter-list__count">2 unread</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/dashboard-reviews/default.html">Reviews</a></li>
+        <li><a class="filter-list__item" href="../../pages/account/default.html">Account</a></li>
+      </ul>
+    </nav>
+
+    <div class="work-main">
+      <a class="eyebrow until-lg" href="../dashboard/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Overview</a>
+      <div class="page-intro">
+        <h1 id="page-title">Guests and occasions</h1>
+        <p class="save-status save-status--error" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>Not saved: fix 2 things below</p>
+      </div>
+      <div class="form-summary" role="alert" tabindex="-1" id="error-summary" aria-labelledby="summary-title">
+        <h2 id="summary-title">Fix 2 things so we can save</h2>
+        <ul>
+          <li><a href="#min-guests">Minimum guests can’t be more than maximum guests</a></li>
+          <li><a href="#o-weddings">Choose at least one occasion</a></li>
+        </ul>
+      </div>
+      <form class="form" style="margin-top: var(--space-6);" aria-labelledby="page-title" novalidate>
+        <fieldset class="stack">
+          <legend><h2 style="font: var(--text-h3);">Guests</h2></legend>
+          <div class="field-row">
+          <label class="field" for="min-guests"><span class="field__label">Smallest event</span>
+            <input class="input" id="min-guests" name="min-guests" type="text" inputmode="numeric" pattern="[0-9]*" value="400" required aria-invalid="true" aria-describedby="min-guests-error guests-help">
+            <span class="field__error" id="min-guests-error">Minimum guests can’t be more than maximum guests</span>
+          </label>
+          <label class="field" for="max-guests"><span class="field__label">Largest event</span>
+            <input class="input" id="max-guests" name="max-guests" type="text" inputmode="numeric" pattern="[0-9]*" value="100" required aria-describedby="guests-help">
+          </label>
+          </div>
+          <p class="field__help" id="guests-help">Whole numbers from 1 to 5,000. Your page keeps showing “Serves 20–300 guests” until this is fixed.</p>
+        </fieldset>
+        <fieldset class="stack" style="margin-top: var(--space-8);" aria-describedby="occ-error occ-help">
+          <legend><h2 style="font: var(--text-h3);">Occasions</h2></legend>
+          <p class="field__help" id="occ-help">Choose every kind of event you take on.</p>
+          <p class="field__error" id="occ-error">Choose at least one occasion</p>
+          <div class="option-grid">
+            <label class="choice"><input type="checkbox" name="occasion" id="o-weddings" value="Weddings"><span class="choice__text">Weddings</span></label>
+            <label class="choice"><input type="checkbox" name="occasion" id="o-birthdays" value="Birthdays"><span class="choice__text">Birthdays</span></label>
+            <label class="choice"><input type="checkbox" name="occasion" id="o-corporate-events" value="Corporate events"><span class="choice__text">Corporate events</span></label>
+            <label class="choice"><input type="checkbox" name="occasion" id="o-funerals-and-repasts" value="Funerals and repasts"><span class="choice__text">Funerals and repasts</span></label>
+            <label class="choice"><input type="checkbox" name="occasion" id="o-religious-and-cultural-celebrations" value="Religious and cultural celebrations"><span class="choice__text">Religious and cultural celebrations</span></label>
+            <label class="choice"><input type="checkbox" name="occasion" id="o-family-gatherings" value="Family gatherings"><span class="choice__text">Family gatherings</span></label>
+            <label class="choice"><input type="checkbox" name="occasion" id="o-private-dinners" value="Private dinners"><span class="choice__text">Private dinners</span></label>
+            <label class="choice"><input type="checkbox" name="occasion" id="o-community-events" value="Community events"><span class="choice__text">Community events</span></label>
+          </div>
+        </fieldset>
+      </form>
+      <p style="margin-top: var(--space-8);"><a class="btn" href="../dashboard/default.html">Done</a></p>
+    </div>
+    <aside class="preview-pane" aria-labelledby="preview-title">
+      <h2 class="preview-pane__label" id="preview-title">Live preview</h2>
+      <div class="caterer-card"><span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="Chicken pelau in a steel pot with lime and cucumber chutney" width="280" height="280"></span><span class="caterer-card__name">Pelau House</span><span class="caterer-card__meta">Trinidadian &amp; Tobagonian · Scarborough</span></div>
+      <dl class="facts"><div><dt>On your page</dt><dd>Serves 20–300 guests</dd></div></dl>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__brand"><strong>Sweet Hand</strong><span>Caribbean caterers in Toronto and the GTA.</span></div>
+  <nav aria-label="Footer">
+    <ul>
+      <li><a href="../../pages/about/default.html">About</a></li>
+      <li><a href="../../pages/privacy/default.html">Privacy</a></li>
+      <li><a href="../../pages/terms/default.html">Terms</a></li>
+    </ul>
+  </nav>
+</footer>
+</div>
+
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Guests and occasions</span>
+  <ul class="mock-bar__states">
+    <li><a href="default.html">default</a></li>
+    <li><a href="loading.html">loading</a></li>
+    <li><a href="error.html">error</a></li>
+    <li><a href="invalid.html" aria-current="page">invalid</a></li>
+    <li><a href="saving.html">saving</a></li>
+    <li><a href="read-only.html">read-only</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>

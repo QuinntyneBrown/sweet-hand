@@ -1,0 +1,57 @@
+@startuml
+title UML sequence behaviour — Open the inbox
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "InboxPage" as page
+  participant "InboxStatusFilter" as filter
+  participant "EnquiriesClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "EnquiriesEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetInboxHandler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "EnquiryRepository" as repo
+  database "Sweet Hand database" as db
+end box
+actor -> page : Open /inbox
+page -> client : listInbox(status from URL, page from URL)
+client -> ep : GET /enquiries?status&page
+ep -> ep : Authenticate; require Customer or Caterer
+ep -> handler : Send GetInboxQuery(caller, status, page)
+handler -> repo : ListForParty(caller, role, status, page, 20)
+repo -> db : Select enquiries where caller is party (L2-034), order by LastActivityAt desc
+db --> repo : Up to 20 rows and total count
+repo --> handler : InboxPageView
+handler --> ep : InboxPageView
+ep --> client : 200 with rows (L2-031 AC1)
+client --> page : Rows
+page --> actor : Rows with other party, event date, guests, status text, latest activity
+actor -> filter : Choose "Open"
+filter -> page : Update URL status=Open, page 1
+page -> client : listInbox(Open, 1)
+client -> ep : GET /enquiries?status=Open&page=1
+ep -> handler : Send GetInboxQuery
+handler -> repo : ListForParty(..., Open, 1, 20)
+repo --> handler : Open enquiries only (L2-031 AC2)
+handler --> ep : InboxPageView
+ep --> client : 200
+client --> page : Rows
+page --> actor : Filtered list
+@enduml

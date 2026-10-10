@@ -1,0 +1,69 @@
+@startuml
+title UML sequence behaviour — Post a reply
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ReplyBox" as box
+  participant "EnquiriesClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "EnquiriesEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "PostReplyHandler" as handler
+  participant "EnquiryAccessPolicy" as policy
+  participant "Enquiry" as entity
+  participant "NotificationScheduler" as sched
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> box : Type reply and send
+alt empty or over 2,000 characters (L2-032 AC2)
+  box --> actor : Inline error; nothing sent
+else 1 to 2,000 characters
+  box -> client : postReply(id, text)
+  client -> ep : POST /enquiries/{id}/messages
+  ep -> ep : Authenticate, check CSRF
+  ep -> handler : Send PostReplyCommand
+  handler -> db : Load enquiry
+  db --> handler : Enquiry
+  handler -> policy : ForParty(caller, enquiry)
+  alt not a party
+    policy --> handler : NotFound
+    handler --> ep : NotFound
+    ep --> client : 404
+  else party
+    policy --> handler : Allowed
+    handler -> entity : AddMessage(caterer, text, now)
+    alt status Closed or Declined (L2-033 AC5)
+      entity --> handler : Rejected: EnquiryClosed
+      handler --> ep : Conflict
+      ep --> client : 409
+      client --> box : Show "This enquiry is closed"
+    else Open or Replied
+      entity -> entity : First caterer reply moves Open to Replied (L2-033 AC1)
+      entity --> handler : EnquiryMessage
+      handler -> sched : QueueNewMessage (L2-028)
+      handler -> db : Save message, status, notification in one unit of work
+      db --> handler : Commit result
+      handler --> ep : MessageView
+      ep --> client : 201 with message
+      client --> box : Append message to end of thread at once
+    end
+  end
+end
+@enduml

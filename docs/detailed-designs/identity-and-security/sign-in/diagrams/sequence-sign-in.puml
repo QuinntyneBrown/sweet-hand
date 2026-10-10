@@ -1,0 +1,80 @@
+@startuml
+title UML sequence behaviour — Sign in with email and password
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Account holder" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "SignInPage" as page
+  participant "IdentityClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "IdentityEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SignInHandler" as handler
+  participant "SignInAttemptPolicy" as policy
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "SignInAttemptRepository" as attempts
+  participant "UserAccountRepository" as accounts
+  participant "PasswordHasher" as hasher
+  participant "SessionStore" as sessions
+  participant "SecurityLog" as seclog
+  participant "JobQueue" as jobs
+end box
+actor -> page : Enter email and password
+page -> client : signIn(request)
+client -> endpoints : POST /identity/sign-in (CSRF token, pre-sign-in cookie)
+endpoints -> handler : Send SignInCommand
+handler -> attempts : countIpFailures(hashed IP, last 15 min)
+attempts --> handler : Count
+handler -> policy : needsChallenge(count) (L2-076 AC5)
+opt 20 or more failures from this IP
+  handler -> handler : Require valid challenge token (L2-082 AC2)
+  handler --> endpoints : ChallengeRequired when token missing or invalid
+end
+handler -> accounts : findByEmail(email)
+accounts --> handler : Account or none
+handler -> attempts : countAccountFailures(account, last 15 min)
+handler -> policy : isLockedOut(count) (L2-076 AC4)
+alt Account locked out
+  handler -> seclog : Record AccountLockedOut
+  handler --> endpoints : Rejected for 15 minutes whatever the password
+else Unknown email
+  handler -> hasher : Verify against fixed dummy hash (equal timing, L2-076 AC3)
+  handler -> attempts : recordFailure(null, hashed IP)
+  handler -> seclog : Record SignInFailed
+  handler --> endpoints : Rejected "Email or password is incorrect"
+else Wrong password
+  handler -> hasher : Verify Argon2id hash
+  hasher --> handler : No match
+  handler -> attempts : recordFailure(account, hashed IP)
+  opt Fifth failure within 15 minutes
+    handler -> jobs : Enqueue lockout notice to owner (L2-076 AC4)
+  end
+  handler -> seclog : Record SignInFailed
+  handler --> endpoints : Rejected "Email or password is incorrect"
+else Correct password
+  handler -> hasher : Verify Argon2id hash
+  hasher --> handler : Match
+  handler -> sessions : Delete pre-sign-in session (L2-078 AC2)
+  handler -> sessions : Create session with new 128-bit random ID (L2-078 AC1)
+  handler -> seclog : Record SignInSucceeded
+  handler --> endpoints : SignedIn, or SecondFactorRequired for operators
+end
+endpoints --> client : Response; on success Set-Cookie HttpOnly; Secure; SameSite=Lax
+client --> page : Result
+page --> actor : Return path, second-factor screen, or generic error
+@enduml

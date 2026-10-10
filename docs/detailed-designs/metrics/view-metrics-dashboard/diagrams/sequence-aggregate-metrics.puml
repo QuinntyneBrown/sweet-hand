@@ -1,0 +1,57 @@
+@startuml
+title UML sequence behaviour — Aggregate daily metrics
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+participant "Scheduler" as scheduler
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "AggregateMetricsJob" as job
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "DailyMetricsAggregator" as aggregator
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "VisitRepository" as visits
+  participant "EnquiryRepository" as enquiries
+  participant "ProfileStatusHistoryRepository" as history
+  participant "MetricsRepository" as metrics
+  database "Sweet Hand database" as db
+end box
+scheduler -> job : Trigger at an interval that meets 60 minutes (interval TO SUPPLY)
+job -> job : Days to recompute: today and the 2 days before
+loop each day
+  job -> aggregator : Compute(day in America/Toronto)
+  aggregator -> visits : Count page visits by page type; count distinct daily hashes
+  visits -> db : Select
+  db --> visits : Counts
+  visits --> aggregator : Visit counts
+  aggregator -> enquiries : Count created; count first caterer reply within 48 hours
+  enquiries -> db : Select
+  db --> enquiries : Counts
+  enquiries --> aggregator : Enquiry counts
+  aggregator -> history : Status at end of day by status; first publications
+  history -> db : Select
+  db --> history : Counts
+  history --> aggregator : Caterer counts
+  aggregator --> job : DailyMetric rows
+  job -> metrics : Upsert(rows), idempotent per day and key
+  metrics -> db : Upsert
+  db --> metrics : Done
+end
+job -> job : Record run time and row counts in logs and metrics (L2-089)
+note over job, db
+  New visits and enquiries reach the dashboard
+  within 60 minutes (L2-061 AC3)
+end note
+@enduml

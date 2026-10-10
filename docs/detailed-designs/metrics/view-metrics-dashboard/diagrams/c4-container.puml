@@ -1,0 +1,17 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — View the metrics dashboard
+
+Person(operator, "Operator", "Member of the Sweet Hand team")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Metrics dashboard with charts and data tables")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Operator metrics queries")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Aggregates daily metrics on a schedule")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Visit records, enquiries, status history, daily aggregates")
+}
+Rel(operator, web, "Chooses range and granularity", "HTTPS")
+Rel(web, api, "Requests metrics", "JSON/HTTPS")
+Rel(api, db, "Reads daily aggregates", "<TO SUPPLY>")
+Rel(worker, db, "Reads source records; upserts daily aggregates", "<TO SUPPLY>")
+@enduml

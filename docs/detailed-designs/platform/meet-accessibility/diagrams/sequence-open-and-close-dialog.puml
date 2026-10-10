@@ -1,0 +1,44 @@
+@startuml
+title UML sequence behaviour — Open and close a dialog
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Keyboard user" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Page template" as page
+  participant "DialogHost" as host
+  participant "FocusManager" as focus
+  participant "Dialog content" as dialog
+end box
+actor -> page : Activate opener (Enter or Space)
+page -> host : open(dialog, opener)
+host -> focus : moveInto(dialog) (L2-067 AC4)
+focus -> focus : Record opener as return target
+focus -> dialog : Focus first focusable element
+dialog --> actor : Visible focus ring, at least 3:1 (L2-067 AC2)
+loop Tab or Shift+Tab
+  actor -> dialog : Press Tab
+  dialog -> focus : trapTab(dialog)
+  focus --> dialog : Focus stays inside dialog (L2-067 AC1)
+end
+alt Escape pressed
+  actor -> host : Escape
+else Close button activated
+  actor -> host : Activate close IconButton
+end
+host -> host : close()
+host -> focus : restore()
+focus -> page : Focus returns to opener (L2-067 AC4)
+page --> actor : Focus on opener
+@enduml

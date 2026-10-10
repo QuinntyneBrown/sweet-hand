@@ -1,0 +1,50 @@
+@startuml
+title UML sequence behaviour — Rate limit a public read
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor or script" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ListingPage" as page
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RateLimiter" as limiter
+  participant "PublicCaterersEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "RateLimitPolicy" as policy
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "IpHasher" as iphash
+  participant "RateLimitStore" as store
+  participant "SecurityLog" as seclog
+end box
+actor -> page : Request listing page
+page -> limiter : GET public read endpoint
+limiter -> policy : rulesFor(endpoint)
+policy --> limiter : 300 per IP per minute (L2-082 AC1)
+limiter -> iphash : hash(client IP)
+iphash --> limiter : Hashed IP
+limiter -> store : increment(rule, hashed IP, current window)
+store --> limiter : Count in window
+alt Count within 300
+  limiter -> endpoints : Continue
+  endpoints --> page : 200 listing data
+  page --> actor : Listing
+else Count above 300
+  limiter -> seclog : Record RateLimitBlocked
+  limiter --> page : 429 with Retry-After = seconds to window reset
+  page --> actor : Too many requests
+end
+@enduml

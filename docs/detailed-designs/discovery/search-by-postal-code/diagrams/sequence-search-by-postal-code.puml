@@ -1,0 +1,59 @@
+@startuml
+title UML sequence behaviour — Search by postal code
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "PostalCodeSearch" as search
+  participant "ListingPage" as page
+  participant "ListingQueryState" as state
+  participant "ListingClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestLogRedactor" as redactor
+  participant "PublicCaterersEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "PostalCode" as postal
+  participant "ResolveFsaHandler" as resolve
+  participant "GetListingHandler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> search : Enter "m1b2k3" and submit
+search -> search : Trim, remove spaces, upper-case, check format (L2-012 AC2)
+alt invalid format (e.g. "12345", "MMM 1B1")
+  search --> actor : "Enter a valid postal code, like M5V 2T6"; results unchanged (L2-012 AC4)
+else valid format
+  search -> page : FSA "M1B" only
+  page -> client : Get listing for FSA
+  client -> redactor : GET /api/public/caterers?fsa=M1B
+  redactor -> redactor : Truncate postal values to 3 characters in logs and traces (L2-012 AC6)
+  redactor -> endpoints : Request
+  endpoints -> postal : Parse("M1B")
+  postal --> endpoints : Fsa M1B
+  endpoints -> resolve : Send ResolveFsaQuery
+  resolve -> db : Find FSA mapping
+  db --> resolve : Mapping row or none
+  alt FSA has no mapping (e.g. "K1A")
+    resolve --> endpoints : OutsideServiceArea
+    endpoints --> client : HTTP 422 problem "outside-service-area"
+    client --> page : Search problem
+    page --> actor : "Sweet Hand currently serves Toronto and the GTA"; results unchanged (L2-012 AC5)
+  else mapped
+    resolve --> endpoints : Scarborough
+    endpoints -> handler : Send GetListingQuery with area Scarborough
+    handler -> db : Published caterers serving Scarborough
+    db --> handler : Matching caterers
+    handler --> endpoints : ListingPageView
+    endpoints --> client : HTTP 200 JSON
+    client --> page : Results
+    page -> state : Push ?fsa=M1B&page=1 (FSA only)
+    page --> actor : Caterers serving Scarborough (L2-012 AC1)
+  end
+end
+@enduml

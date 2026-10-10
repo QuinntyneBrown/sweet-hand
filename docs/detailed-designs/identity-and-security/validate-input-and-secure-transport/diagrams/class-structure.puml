@@ -1,0 +1,85 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+hide empty members
+title Class structure — Validate input and secure transport
+
+class RequestPipeline {
+  +stages: PipelineStage[]
+  +run(request: HttpRequest): HttpResponse
+}
+
+interface PipelineStage {
+  +apply(request: HttpRequest): StageResult
+}
+
+class HttpsRedirect {
+  +int redirectStatus = 301
+  +string hsts = "max-age=31536000; includeSubDomains"
+}
+
+class SecurityHeaders {
+  +string contentSecurityPolicy
+  +string referrerPolicy = "strict-origin-when-cross-origin"
+  +string permissionsPolicy
+}
+
+class CsrfGuard {
+  +string[] allowedOrigins
+  +apply(request): StageResult
+}
+
+class BodySizeLimit {
+  +int jsonLimitBytes = 1 MB
+  +map<string,int> uploadLimits
+}
+
+class TextSanitiser {
+  +rejectInvalidUtf8(): StageResult
+  +removeControlCharacters(text): string
+}
+
+class RequestSchemaValidator {
+  +validate(body, schema: RequestSchema): FieldError[]
+}
+
+class RequestSchema {
+  +string commandType
+  +FieldRule[] fields
+}
+
+class FieldRule {
+  +string name
+  +string type
+  +int minLength
+  +int maxLength
+  +string format
+  +decimal min
+  +decimal max
+  +bool required
+}
+
+class FieldError {
+  +string field
+  +string message
+}
+
+PipelineStage <|.. HttpsRedirect
+PipelineStage <|.. SecurityHeaders
+PipelineStage <|.. CsrfGuard
+PipelineStage <|.. BodySizeLimit
+PipelineStage <|.. TextSanitiser
+PipelineStage <|.. RequestSchemaValidator
+RequestPipeline o-- "*" PipelineStage
+RequestSchemaValidator ..> RequestSchema
+RequestSchema *-- "*" FieldRule
+RequestSchemaValidator ..> FieldError : returns
+@enduml

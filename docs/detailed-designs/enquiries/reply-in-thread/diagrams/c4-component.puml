@@ -1,0 +1,44 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Reply in a thread
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(pane, "ThreadPane", "<TO SUPPLY>", "Thread view")
+  Component(list, "ThreadMessageList", "<TO SUPPLY>", "Literal text, Toronto timestamps")
+  Component(reply, "ReplyBox", "<TO SUPPLY>", "1-2,000 characters; fixed on XS")
+  Component(client, "EnquiriesClient", "<TO SUPPLY>", "API client contract")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ep, "EnquiriesEndpoints", "<TO SUPPLY>", "Thread and reply endpoints")
+  Component(opep, "OperatorEnquiriesEndpoints", "<TO SUPPLY>", "Report-linked access")
+  Component(policy, "EnquiryAccessPolicy", "<TO SUPPLY>", "Party or linked-report check")
+  Component(get, "GetThreadHandler", "<TO SUPPLY>", "Thread view")
+  Component(post, "PostReplyHandler", "<TO SUPPLY>", "Adds a reply")
+  Component(opget, "GetThreadForReportHandler", "<TO SUPPLY>", "Audited operator read")
+  Component(agg, "Enquiry", "<TO SUPPLY>", "Aggregate; AddMessage rules")
+  Component(sched, "NotificationScheduler", "<TO SUPPLY>", "Queues new-message email")
+  Component(audit, "AuditLog", "<TO SUPPLY>", "Append-only")
+  Component(repo, "EnquiryRepository", "<TO SUPPLY>", "Enquiries and messages")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Enquiries, messages, reports, audit log")
+
+Rel(pane, list, "Renders")
+Rel(pane, reply, "Renders when open")
+Rel(pane, client, "Calls")
+Rel(client, ep, "Calls", "JSON/HTTPS")
+Rel(client, opep, "Calls (operator)", "JSON/HTTPS")
+Rel(ep, get, "Sends GetThreadQuery")
+Rel(ep, post, "Sends PostReplyCommand")
+Rel(opep, opget, "Sends GetThreadForReportQuery")
+Rel(get, policy, "Checks access")
+Rel(post, policy, "Checks access")
+Rel(opget, policy, "Checks report link")
+Rel(post, agg, "AddMessage")
+Rel(post, sched, "Queues notification")
+Rel(opget, audit, "Writes access entry")
+Rel(get, repo, "Loads with")
+Rel(post, repo, "Saves with")
+Rel(repo, db, "Reads and writes")
+Rel(audit, db, "Appends")
+@enduml

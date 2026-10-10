@@ -1,0 +1,36 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Query the audit log
+
+Person(admin, "Admin operator", "Searches the audit log")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "AuditLogPage", "Page", "Filters and results, newest first")
+  Component(dialog, "AuditEntryDialog", "Dialog", "Reason and before/after values")
+  Component(client, "AuditLogClient", "API client contract", "Typed audit calls")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(pipeline, "RequestPipeline", "Request pipeline", "AdminPolicy")
+  Component(endpoints, "AuditLogEndpoints", "Endpoint group", "GET /operator/audit-log only")
+  Component(searchH, "SearchAuditLogHandler", "Query handler", "Filtered, paged search")
+  Component(opHandlers, "Operator command handlers", "Command handlers", "Every moderation and account action")
+  Component(writer, "AuditLog", "Infrastructure", "Append only")
+  Component(reader, "AuditLogReader", "Infrastructure", "Filtered queries")
+}
+Container_Boundary(worker, "Sweet Hand background worker") {
+  Component(retention, "RetentionJob", "Scheduled job", "Deletes entries older than 7 years")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Audit table: INSERT and SELECT for the application account")
+
+Rel(admin, page, "Uses", "HTTPS")
+Rel(page, dialog, "Opens entry")
+Rel(page, client, "search")
+Rel(client, pipeline, "Calls", "JSON/HTTPS")
+Rel(pipeline, endpoints, "Forwards Admin request")
+Rel(endpoints, searchH, "Sends SearchAuditLogQuery")
+Rel(searchH, reader, "Queries")
+Rel(opHandlers, writer, "Append in same unit of work")
+Rel(writer, db, "INSERT")
+Rel(reader, db, "SELECT")
+Rel(retention, db, "Deletes expired entries")
+@enduml

@@ -1,0 +1,67 @@
+@startuml
+title UML sequence behaviour — Edit a review
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "EditReviewDialog" as dialog
+  participant "ReviewsClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "ReviewsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "EditReviewHandler" as handler
+  participant "ReviewContentScreen" as screen
+  participant "Review" as review
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "ReviewRepository" as repo
+  database "Sweet Hand database" as db
+end box
+actor -> dialog : Change rating or text and save
+dialog -> client : editReview(reviewId, rating, text)
+client -> endpoints : PUT review
+endpoints -> endpoints : Authenticate, verify CSRF (RequestPipeline)
+endpoints -> handler : Send EditReviewCommand
+handler -> repo : Get(reviewId)
+repo -> db : Select review
+db --> repo : Review
+repo --> handler : Review
+handler -> screen : ContainsContactPattern(text)
+screen --> handler : Held flag (L2-050 AC3)
+handler -> review : Edit(callerId, rating, text, held, now)
+alt caller is not the author
+  review --> handler : Forbidden
+  handler --> endpoints : Forbidden (L2-053 AC4)
+  endpoints --> client : 403
+else more than 30 days since first posting
+  review --> handler : Forbidden
+  handler --> endpoints : Forbidden (L2-053 AC2)
+  endpoints --> client : 403
+else rating or text out of range
+  review --> handler : Validation errors
+  endpoints --> client : 400 with field errors (L2-050 AC2)
+else accepted
+  review --> handler : EditedAt set; status Published or Held
+  handler -> repo : Save review, queue item if Held, recalculated summary
+  repo -> db : Commit in one unit of work
+  db --> repo : Committed
+  handler --> endpoints : Review edited
+  endpoints --> client : 200
+  client --> dialog : Close dialog
+  dialog --> actor : Review shows with the Edited label (L2-053 AC1)
+end
+@enduml

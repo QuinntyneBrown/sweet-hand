@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Delete an account
+
+Person(customer, "Customer", "Deletes their own account")
+Person(caterer, "Caterer", "Deletes their own account")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(email, "Email provider", "Sends transactional email")
+
+Rel(customer, sweethand, "Requests account deletion", "HTTPS")
+Rel(caterer, sweethand, "Requests account deletion", "HTTPS")
+Rel(sweethand, email, "Sends deletion confirmation and enquiry-closed notices via", "<TO SUPPLY>")
+Rel(email, customer, "Delivers email to")
+Rel(email, caterer, "Delivers email to")
+@enduml

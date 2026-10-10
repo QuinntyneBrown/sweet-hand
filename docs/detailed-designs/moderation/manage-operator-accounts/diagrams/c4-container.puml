@@ -1,0 +1,24 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Manage operator accounts
+
+Person(admin, "Admin operator", "Operator holding the Admin permission")
+Person(operator, "Operator", "Sweet Hand team member who approves caterers and moderates content")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions for visitors, customers, caterers and operators")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Runs queued and scheduled jobs")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, profiles, enquiries, reviews, reports, audit log")
+  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent queue of background jobs")
+}
+System_Ext(email, "Email provider", "Sends transactional email and reports bounces")
+
+Rel(admin, web, "Manages operator accounts", "HTTPS")
+Rel(operator, web, "Enrols and verifies second factor", "HTTPS")
+Rel(web, api, "Calls account, MFA and operator endpoints", "JSON/HTTPS")
+Rel(api, db, "Reads and writes accounts, sessions, audit entries")
+Rel(api, queue, "Enqueues invitation email")
+Rel(worker, queue, "Consumes jobs")
+Rel(worker, email, "Sends email", "HTTPS")
+@enduml

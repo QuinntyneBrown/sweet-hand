@@ -1,0 +1,72 @@
+@startuml
+title UML sequence behaviour — Autosave a profile section
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ProfileSectionView" as section
+  participant "DraftAutosave" as autosave
+  participant "CatererProfileClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CatererProfileEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SaveProfileSectionHandler" as handler
+  participant "CatererProfile" as profile
+  participant "ProfileSubmissionRules" as rules
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "CatererProfileRepository" as repo
+  database "Sweet Hand database" as db
+end box
+
+actor -> section : Edit cuisines (for example 3 selected, one primary)
+section -> autosave : Field changed
+autosave -> autosave : Wait 2 s without typing, or field blur (L2-038 AC1)
+autosave -> client : saveSection(Cuisines, values)
+client -> endpoints : PUT /caterer/profile/sections/cuisines
+endpoints -> endpoints : Authenticate, CSRF, schema check (unknown occasion value gives HTTP 400, L2-021 AC3)
+endpoints -> handler : Send SaveProfileSectionCommand
+handler -> repo : GetByOwner(session account)
+repo -> db : Load
+db --> repo : Profile
+repo --> handler : CatererProfile
+handler -> profile : IsEditableAsDraft()
+profile --> handler : true for Draft or Changes requested
+handler -> profile : SetCuisines(selections)
+alt rule broken
+  profile --> handler : Rejected, for example "Choose between 1 and 5 cuisines" (L2-007 AC2)\nor "Mark one cuisine as primary" (L2-007 AC3)
+  handler --> endpoints : Validation failure, nothing stored
+  endpoints --> client : HTTP 400 with field error
+  client --> section : Error
+  section --> actor : Inline error linked to field (L2-068)
+else rules met
+  note right of profile
+    Same pattern for SetServiceAreas (L2-010 AC2–AC4,
+    region expanded to its areas), SetGuestRange
+    (L2-020 AC3–AC4) and SetOccasions (L2-021 AC2)
+  end note
+  profile --> handler : Section applied
+  handler -> repo : Save(profile)
+  repo -> db : Commit
+  handler -> rules : Evaluate L2-039 rules
+  rules --> handler : SetupChecklist
+  handler --> endpoints : Saved section and checklist
+  endpoints --> client : HTTP 200
+  client --> section : Result
+  section --> actor : "Saved" indicator and updated checklist
+end
+@enduml

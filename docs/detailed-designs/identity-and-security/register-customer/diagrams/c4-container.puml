@@ -1,0 +1,25 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Register a customer account
+
+Person(visitor, "Visitor", "Browses without signing in")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, sessions, tokens, consent records")
+  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent queue of background jobs")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Runs queued and scheduled jobs")
+}
+System_Ext(bot, "Bot-protection provider", "Issues and verifies challenge tokens")
+System_Ext(email, "Email provider", "Sends transactional email")
+
+Rel(visitor, web, "Fills in the registration form", "HTTPS")
+Rel(web, bot, "Obtains challenge token from", "HTTPS")
+Rel(web, api, "Submits registration", "JSON/HTTPS")
+Rel(api, bot, "Verifies challenge token with", "HTTPS")
+Rel(api, db, "Writes account, consent record and token hash")
+Rel(api, queue, "Enqueues email job")
+Rel(worker, queue, "Takes email job from")
+Rel(worker, email, "Sends email via", "HTTPS")
+@enduml

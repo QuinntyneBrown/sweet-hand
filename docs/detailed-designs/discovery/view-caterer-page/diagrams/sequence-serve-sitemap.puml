@@ -1,0 +1,28 @@
+@startuml
+title UML sequence behaviour — Serve the sitemap
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Search engine" as actor
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "SitemapEndpoint" as endpoint
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetSitemapHandler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "CatererProfileRepository" as repo
+  database "Sweet Hand database" as db
+end box
+actor -> endpoint : GET /sitemap.xml
+endpoint -> handler : Send GetSitemapQuery
+handler -> repo : List slugs with status Published
+repo -> db : Query
+db --> repo : Published slugs
+repo --> handler : Slugs
+handler -> handler : Build absolute /caterers/{slug} URLs (L2-018 AC6)
+handler --> endpoint : URL list
+endpoint --> actor : HTTP 200 application/xml with published caterer URLs only
+@enduml

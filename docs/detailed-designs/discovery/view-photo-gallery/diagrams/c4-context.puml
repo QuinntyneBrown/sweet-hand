@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — View the photo gallery
+
+Person(visitor, "Visitor", "Views caterer photos without signing in")
+Person(customer, "Customer", "Signed-in person planning a meal or event")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(cdn, "CDN", "Serves processed photo derivatives")
+
+Rel(visitor, sweethand, "Views the gallery and photo viewer in", "HTTPS")
+Rel(customer, sweethand, "Views the gallery and photo viewer in", "HTTPS")
+Rel(visitor, cdn, "Downloads photos from", "HTTPS")
+Rel(cdn, sweethand, "Fetches photo derivatives from", "HTTPS")
+@enduml

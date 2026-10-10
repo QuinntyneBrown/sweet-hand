@@ -1,0 +1,30 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Monitor health
+
+System_Ext(hosting, "Hosting platform", "<TO SUPPLY>")
+System_Ext(obs, "Observability platform", "Holds AlertRules, UptimeCheck and MaintenanceWindow")
+Person(ops, "Operations team", "On-call")
+Container_Boundary(api, "Sweet Hand API") {
+  Component(health, "HealthEndpoints", "<TO SUPPLY>", "/health/live and /health/ready")
+  Component(ready, "ReadinessCheck", "<TO SUPPLY>", "Database connection with timeout")
+  Component(corr, "CorrelationIdStep", "<TO SUPPLY>", "First RequestPipeline step; X-Correlation-ID")
+  Component(endpoints, "Feature endpoints", "<TO SUPPLY>", "All other endpoints")
+  Component(exc, "UnhandledExceptionHandler", "<TO SUPPLY>", "Last pipeline step; generic error with correlation ID")
+  Component(tele, "TelemetryEmitter", "<TO SUPPLY>", "Structured logs, metrics, spans")
+  Component(metrics, "MetricsRegistry", "<TO SUPPLY>", "Rate, errors, latency, queue depths")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Readiness dependency")
+
+Rel(hosting, health, "Probes", "HTTPS")
+Rel(health, ready, "Runs for /health/ready")
+Rel(ready, db, "Checks connection")
+Rel(corr, endpoints, "Passes request with correlation ID")
+Rel(endpoints, exc, "Unhandled exceptions caught by")
+Rel(corr, tele, "Attaches correlation ID to")
+Rel(exc, tele, "Records stack trace through")
+Rel(tele, metrics, "Uses definitions from")
+Rel(tele, obs, "Exports")
+Rel(obs, ops, "Alerts")
+@enduml

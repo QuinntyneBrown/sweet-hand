@@ -1,0 +1,32 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Degrade gracefully
+
+System_Ext(email, "Email provider", "Transactional email")
+System_Ext(bot, "Bot-protection provider", "Challenge tokens")
+System_Ext(obs, "Observability platform", "Alerts")
+Container_Boundary(api, "Sweet Hand API") {
+  Component(handlers, "Command handlers", "<TO SUPPLY>", "SendEnquiryHandler, ReplyToEnquiryHandler, UploadPhotoHandler")
+  Component(verifier, "BotProtectionVerifier", "<TO SUPPLY>", "Returns ProviderUnavailable on outage")
+  Component(health, "DependencyHealth", "<TO SUPPLY>", "Tracks availability per dependency")
+  Component(limits, "RateLimitPolicy", "<TO SUPPLY>", "Halves thresholds in degraded mode")
+  Component(alert, "DegradationAlert", "<TO SUPPLY>", "Raises on-call alert")
+}
+ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent jobs")
+Container_Boundary(worker, "Sweet Hand background worker") {
+  Component(notify, "SendNotificationJob", "<TO SUPPLY>", "Exponential backoff up to 24 hours")
+  Component(photo, "ProcessPhotoJob", "<TO SUPPLY>", "Retries until processing recovers")
+}
+
+Rel(handlers, queue, "Enqueue jobs in the same unit of work")
+Rel(handlers, verifier, "Verify token")
+Rel(verifier, bot, "Verifies", "HTTPS")
+Rel(verifier, health, "Reports outcome")
+Rel(limits, health, "Reads state")
+Rel(health, alert, "Triggers on change")
+Rel(alert, obs, "Sends")
+Rel(notify, queue, "Consumes")
+Rel(photo, queue, "Consumes")
+Rel(notify, email, "Sends", "HTTPS")
+@enduml

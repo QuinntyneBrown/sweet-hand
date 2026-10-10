@@ -1,0 +1,40 @@
+@startuml
+title UML sequence behaviour — Change page and go back
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ListingPage" as page
+  participant "ListingQueryState" as state
+  participant "ListingClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "PublicCaterersEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetListingHandler" as handler
+end box
+actor -> page : Activate page 2
+page -> state : Push ?page=2 with current filters (L2-003)
+state --> page : History entry added
+page -> client : Get listing page 2
+client -> endpoints : GET /api/public/caterers?page=2
+endpoints -> handler : Send GetListingQuery
+handler --> endpoints : ListingPageView (same daily order, L2-002 AC2)
+endpoints --> client : HTTP 200 JSON
+client --> page : Page 2 cards
+page --> actor : Page 2 without full reload
+actor -> page : Press browser Back
+page -> state : Read restored query string
+state --> page : Previous filters and page
+page -> client : Get listing for restored state
+client -> endpoints : GET /api/public/caterers?page=1
+endpoints -> handler : Send GetListingQuery
+handler --> endpoints : ListingPageView
+endpoints --> client : HTTP 200 JSON
+client --> page : Previous results
+page --> actor : Previous state restored (L2-003 AC2)
+@enduml

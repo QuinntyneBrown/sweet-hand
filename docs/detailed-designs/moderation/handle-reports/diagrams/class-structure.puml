@@ -1,0 +1,116 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Handle reports
+
+enum ResolutionOutcome {
+  Dismissed
+  ActionTaken
+}
+
+enum ModerationActionKind {
+  EditProfile
+  SuspendProfile
+  RemoveProfile
+  HideReview
+  RemoveReview
+}
+
+class Report {
+  +Guid Id
+  +ReportTarget Target
+  +ReportReason Reason
+  +string Details
+  +Guid? ReporterAccountId
+  +ReportStatus Status
+  +Resolve(resolution: ReportResolution): void
+}
+
+class ReportedItemGroup {
+  +Guid ItemId
+  +ReportTarget Target
+  +int Count
+  +List<ReportReason> Reasons
+  +List<Report> Reports
+}
+
+class ReportResolution {
+  +ResolutionOutcome Outcome
+  +string Note
+  +Guid OperatorId
+  +DateTime ResolvedAt
+  +Guid? ActionAuditEntryId
+}
+
+class DismissReportsCommand {
+  +Guid ItemId
+  +string Note
+}
+
+class TakeActionOnReportsCommand {
+  +Guid ItemId
+  +ModerationActionKind Action
+  +string Reason
+  +Map<string,string> ActionInput
+}
+
+class DismissReportsHandler {
+  +Handle(command: DismissReportsCommand): Result
+}
+
+class TakeActionOnReportsHandler {
+  +Handle(command: TakeActionOnReportsCommand): Result
+}
+
+class OpenEnquiryForReportQuery {
+  +Guid ReportId
+  +Guid EnquiryId
+  +string AccessReason
+}
+
+class OpenEnquiryForReportHandler {
+  +Handle(query: OpenEnquiryForReportQuery): EnquiryThreadView
+}
+
+class EnquiryAccessPolicy {
+  +IsLinked(report: Report, enquiry: Enquiry): bool
+}
+
+class Enquiry {
+  +Guid Id
+  +Guid CustomerId
+  +Guid CatererId
+  +EnquiryStatus Status
+}
+
+class Review {
+  +Guid Id
+  +ReviewStatus Status
+  +string HiddenCause
+  +UndoAutomaticHide(): void
+}
+
+ReportedItemGroup "1" o-- "*" Report
+Report *-- "0..1" ReportResolution
+ReportResolution --> ResolutionOutcome
+TakeActionOnReportsCommand --> ModerationActionKind
+DismissReportsHandler ..> DismissReportsCommand : handles
+DismissReportsHandler --> Report : resolves
+DismissReportsHandler --> Review : undoes automatic hide
+TakeActionOnReportsHandler ..> TakeActionOnReportsCommand : handles
+TakeActionOnReportsHandler --> Report : resolves and links
+OpenEnquiryForReportHandler ..> OpenEnquiryForReportQuery : handles
+OpenEnquiryForReportHandler ..> EnquiryAccessPolicy : uses
+EnquiryAccessPolicy ..> Report : reads
+EnquiryAccessPolicy ..> Enquiry : reads
+@enduml

@@ -1,0 +1,110 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Submit a profile for review
+
+enum ProfileStatus {
+  Draft
+  PendingReview
+  ChangesRequested
+  Published
+  Suspended
+  Removed
+}
+
+enum ActorKind {
+  Caterer
+  Operator
+  System
+}
+
+class CatererProfile {
+  +Guid id
+  +Guid ownerAccountId
+  +ProfileStatus status
+  +ChangeStatus(target: ProfileStatus, actor: Actor, reason: string): void
+  +IsReadOnlyForOwner(): bool
+}
+
+class ProfileStatusTransitions <<domain policy>> {
+  +IsAllowed(from: ProfileStatus, to: ProfileStatus, actor: ActorKind): bool
+  +RequiresReason(from: ProfileStatus, to: ProfileStatus): bool
+}
+
+class ProfileStatusChange <<immutable>> {
+  +Guid id
+  +ProfileStatus from
+  +ProfileStatus to
+  +Guid actorId
+  +ActorKind actorKind
+  +DateTime atUtc
+  +string reason
+}
+
+class ProfileSubmission {
+  +Guid id
+  +Guid profileId
+  +DateTime submittedAtUtc
+  +ProfileSnapshot snapshot
+  +bool isResubmission
+}
+
+class ProfileSnapshot <<value object>> {
+  +map fieldValues
+}
+
+class ProfileSubmissionRules <<domain service>> {
+  +Evaluate(profile: CatererProfile, account: UserAccount): SetupChecklist
+}
+
+class SetupChecklist {
+  +List<ChecklistItem> items
+  +bool AllDone()
+  +List<ChecklistItem> Unmet()
+}
+
+class InvalidStatusTransition <<exception>> {
+  +ProfileStatus from
+  +ProfileStatus to
+}
+
+class SubmitProfileHandler {
+  +Handle(command: SubmitProfileCommand, caller: AccountId): SubmissionResult
+}
+
+class WithdrawSubmissionHandler {
+  +Handle(command: WithdrawSubmissionCommand, caller: AccountId): void
+}
+
+interface CatererProfileRepository {
+  +GetByOwner(accountId: Guid): CatererProfile
+  +Save(profile: CatererProfile): void
+}
+
+interface ProfileSubmissionRepository {
+  +Add(submission: ProfileSubmission): void
+  +RemovePending(profileId: Guid): void
+}
+
+CatererProfile --> ProfileStatus
+CatererProfile "1" *-- "*" ProfileStatusChange : history
+CatererProfile ..> ProfileStatusTransitions : consults
+CatererProfile ..> InvalidStatusTransition : raises
+ProfileStatusChange --> ActorKind
+ProfileSubmission *-- ProfileSnapshot
+ProfileSubmission "*" --> "1" CatererProfile
+SubmitProfileHandler ..> ProfileSubmissionRules
+SubmitProfileHandler ..> CatererProfileRepository
+SubmitProfileHandler ..> ProfileSubmissionRepository
+WithdrawSubmissionHandler ..> CatererProfileRepository
+WithdrawSubmissionHandler ..> ProfileSubmissionRepository
+ProfileSubmissionRules ..> SetupChecklist : creates
+@enduml

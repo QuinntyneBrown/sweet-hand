@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Submit a profile for review
+
+Person(caterer, "Caterer", "Submits their profile")
+Person(operator, "Operator", "Reviews submissions")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Profile editor, submit and withdraw controls, operator queue")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Submission rules and profile status state machine")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles, status history, submissions")
+}
+
+Rel(caterer, web, "Submits or withdraws", "HTTPS")
+Rel(operator, web, "Opens review queue", "HTTPS")
+Rel(web, api, "Calls submission endpoints", "JSON/HTTPS")
+Rel(api, db, "Reads profile, writes status, history and submission", "<TO SUPPLY>")
+@enduml

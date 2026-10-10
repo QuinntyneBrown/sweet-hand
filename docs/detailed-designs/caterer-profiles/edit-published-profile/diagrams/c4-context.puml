@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Edit a published profile
+
+Person(caterer, "Caterer", "Edits their published profile")
+Person(operator, "Operator", "Approves business name changes, reads recent-changes feed")
+Person(visitor, "Visitor", "Sees the updated caterer page")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(cdn, "CDN", "Caches public HTML for 60 s or less")
+
+Rel(caterer, sweethand, "Edits published profile using", "HTTPS")
+Rel(operator, sweethand, "Approves name changes in", "HTTPS")
+Rel(sweethand, cdn, "Purges changed pages through", "<TO SUPPLY>")
+Rel(visitor, cdn, "Requests caterer pages through", "HTTPS")
+@enduml

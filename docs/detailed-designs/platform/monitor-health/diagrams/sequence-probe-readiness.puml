@@ -1,0 +1,48 @@
+@startuml
+title UML sequence behaviour — Probe readiness
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+participant "Hosting platform" as hosting
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "HealthEndpoints" as health
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "ReadinessCheck" as ready
+  database "Sweet Hand database" as db
+end box
+hosting -> health : GET /health/live
+health --> hosting : 200 within 100 ms (L2-088 AC2)
+hosting -> health : GET /health/ready
+health -> ready : check()
+ready -> db : Open connection with timeout
+alt Database reachable
+  db --> ready : Connected
+  ready --> health : Ready
+  health --> hosting : 200
+  hosting -> hosting : Keep routing traffic
+else Database unreachable
+  db --> ready : Timeout or error
+  ready --> health : NotReady
+  health --> hosting : 503 (L2-088 AC3)
+  hosting -> hosting : Stop routing traffic to instance
+  loop until ready
+    hosting -> health : GET /health/ready
+  end
+  hosting -> hosting : Resume routing
+end
+opt /health/live fails
+  hosting -> hosting : Replace failed instance
+end
+@enduml

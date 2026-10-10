@@ -1,0 +1,79 @@
+@startuml
+title UML sequence behaviour — Submit a report
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ReportDialog" as page
+  participant "ReportsClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "ReportsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SubmitReportHandler" as handler
+  participant "ReportPolicy" as policy
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "BotProtectionVerifier" as bot
+  participant "ReportRateLimiter" as limiter
+  participant "ReportRepository" as repo
+  database "Sweet Hand database" as db
+end box
+actor -> page : Choose reason, add details, pass challenge, submit
+page -> page : Client check: Other needs details; at most 1,000 characters
+page -> client : submitReport(target, reason, details, token)
+client -> endpoints : POST /reports (CSRF check in RequestPipeline)
+endpoints -> handler : Send SubmitReportCommand
+handler -> bot : Verify(token) (L2-082 AC2)
+alt token missing or invalid
+  bot --> handler : Invalid
+  handler --> endpoints : Rejected
+  endpoints --> client : 400
+else token valid
+  handler -> limiter : TryCount(hashed IP)
+  alt sixth report from this IP within the hour
+    limiter --> handler : Limit reached
+    handler --> endpoints : Too many requests
+    endpoints --> client : 429 (L2-054 AC3)
+  else within limit
+    handler -> handler : Validate reason and ReportDetails
+    alt reason Other with no details
+      handler --> endpoints : Validation failure
+      endpoints --> client : 400 "Tell us what's wrong" (L2-054 AC2)
+    else valid
+      handler -> repo : Load open reports by this signed-in reporter for target
+      repo -> db : Query
+      db --> repo : Reports
+      repo --> handler : Open reports
+      handler -> policy : IsDuplicate(reporter, target, open)
+      alt duplicate open report
+        policy --> handler : true
+        handler --> endpoints : Already reported
+        endpoints --> client : 200 "You've already reported this" (L2-054 AC4)
+      else new report
+        policy --> handler : false
+        handler -> repo : Save Report and attach to grouped ReviewQueueItem (L2-055)
+        repo -> db : Insert in one unit of work
+        db --> repo : Committed
+        handler --> endpoints : Created
+        endpoints --> client : 201
+        client --> page : Success
+        page --> actor : Show "Thanks — our team will look into this" (L2-054 AC1)
+      end
+    end
+  end
+end
+@enduml

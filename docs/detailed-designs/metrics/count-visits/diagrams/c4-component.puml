@@ -1,0 +1,38 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Count visits
+
+Person(visitor, "Visitor", "Anyone browsing without signing in")
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(beacon, "VisitBeacon", "Page script", "Reports page type and caterer ID once per page load")
+  Component(client, "VisitsClient", "API client contract", "Typed visit reporting")
+}
+
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "VisitsEndpoints", "Endpoint group", "Anonymous POST visits; always 204")
+  Component(handler, "RecordVisitHandler", "Command handler", "Drops crawlers, hashes visitor, saves visit")
+  Component(crawler, "CrawlerDetector", "Domain service", "Known crawler user agents")
+  Component(salt, "DailySaltProvider", "Domain service", "Salt for today in America/Toronto")
+  Component(visitRepo, "VisitRepository", "Repository", "Appends visit records")
+  Component(saltRepo, "DailySaltRepository", "Repository", "Current day salt only")
+}
+
+Container_Boundary(worker, "Sweet Hand background worker") {
+  Component(rotate, "RotateDailySaltJob", "Scheduled job", "Deletes salts for earlier days")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Hashed visit analytics and daily salt")
+
+Rel(visitor, beacon, "Loads page with", "HTTPS")
+Rel(beacon, client, "Reports visit")
+Rel(client, endpoints, "POST visit", "JSON/HTTPS")
+Rel(endpoints, handler, "Sends RecordVisitCommand")
+Rel(handler, crawler, "Checks user agent")
+Rel(handler, salt, "Gets daily salt")
+Rel(salt, saltRepo, "Reads or creates")
+Rel(handler, visitRepo, "Saves VisitRecord")
+Rel(visitRepo, db, "Writes")
+Rel(saltRepo, db, "Reads and writes")
+Rel(rotate, saltRepo, "Deletes earlier salts")
+@enduml

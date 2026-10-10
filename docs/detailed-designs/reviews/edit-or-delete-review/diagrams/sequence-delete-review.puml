@@ -1,0 +1,60 @@
+@startuml
+title UML sequence behaviour — Delete a review
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ConfirmDeleteReviewDialog" as dialog
+  participant "ReviewsClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "ReviewsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "DeleteReviewHandler" as handler
+  participant "Review" as review
+  participant "CatererRatingSummary" as summary
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "ReviewRepository" as repo
+  database "Sweet Hand database" as db
+end box
+actor -> dialog : Confirm delete
+dialog -> client : deleteReview(reviewId)
+client -> endpoints : DELETE review
+endpoints -> endpoints : Authenticate, verify CSRF (RequestPipeline)
+endpoints -> handler : Send DeleteReviewCommand
+handler -> repo : Get(reviewId)
+repo --> handler : Review
+handler -> review : CanDelete(callerId)
+alt caller is not the author
+  review --> handler : false
+  handler --> endpoints : Forbidden (L2-053 AC4)
+  endpoints --> client : 403
+else author
+  review --> handler : true
+  handler -> repo : Delete review and response; remove queue items
+  handler -> repo : ListPublished(catererId)
+  repo --> handler : Remaining published reviews
+  handler -> summary : Recalculate (L2-053 AC3)
+  handler -> repo : SaveSummary
+  repo -> db : Commit in one unit of work
+  db --> repo : Committed
+  handler --> endpoints : Deleted
+  endpoints --> client : 204
+  client --> dialog : Close dialog
+  dialog --> actor : Review and response gone from the page within 60 seconds
+end
+@enduml

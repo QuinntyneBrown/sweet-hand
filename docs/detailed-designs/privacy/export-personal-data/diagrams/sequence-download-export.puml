@@ -1,0 +1,66 @@
+@startuml
+title UML sequence behaviour — Download an export
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Person holding the link" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "DataExportDownloadPage" as page
+  participant "DataExportClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "AccountDataEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetDataExportDownloadHandler" as handler
+  participant "DataExport" as export
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+  database "Object storage" as storage
+end box
+
+actor -> page : Open emailed link
+alt not signed in
+  page --> actor : Ask to sign in, then return to the link
+end
+page -> client : Request download URL
+client -> pipeline : GET /me/data-exports/{exportId}/download
+pipeline -> pipeline : Authenticate and authorise signed-in user
+pipeline -> endpoints : Route
+endpoints -> handler : GetDataExportDownloadQuery(exportId, requesterId)
+handler -> db : Load DataExport
+db --> handler : DataExport or none
+handler -> export : CanBeDownloadedBy(requesterId, nowUtc)
+alt export missing or requester is not the owner
+  export --> handler : false
+  handler --> endpoints : Not found
+  endpoints --> client : HTTP 404 (same body as missing) (L2-071 AC3)
+  page --> actor : "This link isn't available"
+else owner, but more than 7 days after creation
+  export --> handler : false (expired)
+  handler --> endpoints : Expired
+  endpoints --> client : Access denied, status <TO SUPPLY> (L2-071 AC3)
+  page --> actor : Explain expiry and offer a new request
+else owner within 7 days
+  export --> handler : true
+  handler -> storage : Issue time-limited URL for objectKey
+  storage --> handler : Signed URL
+  handler --> endpoints : Download URL
+  endpoints --> client : HTTP 200 with URL
+  client --> page : URL
+  page --> actor : Start download
+end
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Manage photos
+
+Person(caterer, "Caterer", "Manages photos")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Photo manager and photo details dialog")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Upload checks and photo rules")
+  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "ProcessPhotoJob entries")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Malware scan and image processing")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Photo records and order")
+  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Private originals, public derivatives")
+}
+System_Ext(malware, "Malware scanning service", "Scans uploaded files")
+System_Ext(cdn, "CDN", "Serves derivatives")
+
+Rel(caterer, web, "Uploads and arranges photos", "HTTPS")
+Rel(web, api, "Calls photo endpoints", "JSON and multipart/HTTPS")
+Rel(api, storage, "Writes originals to private area", "<TO SUPPLY>")
+Rel(api, db, "Writes photo records", "<TO SUPPLY>")
+Rel(api, queue, "Enqueues ProcessPhotoJob")
+Rel(worker, queue, "Takes jobs from")
+Rel(worker, malware, "Scans original", "<TO SUPPLY>")
+Rel(worker, storage, "Reads originals, writes derivatives", "<TO SUPPLY>")
+Rel(worker, db, "Updates processing state", "<TO SUPPLY>")
+Rel(worker, cdn, "Purges replaced images", "<TO SUPPLY>")
+Rel(cdn, storage, "Fetches public derivatives from", "HTTPS")
+@enduml

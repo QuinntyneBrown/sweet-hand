@@ -1,0 +1,41 @@
+@startuml
+title UML sequence behaviour — Apply filters on a phone
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ListingFilters" as filters
+  participant "FilterPanelDialog" as panel
+  participant "CuisineFilter" as cuisine
+  participant "ListingPage" as page
+  participant "ListingClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "PublicCaterersEndpoints" as endpoints
+end box
+actor -> filters : Activate "Filters (1)" button at XS (L2-009 AC1)
+filters -> panel : Open full-height panel (dialog primitive)
+panel --> actor : Focus moves into panel
+actor -> cuisine : Tick "Jamaican"
+cuisine -> panel : Pending selection (no request yet)
+alt Visitor activates "Apply"
+  actor -> panel : Apply
+  panel -> page : Commit pending selection
+  page -> client : Get filtered listing
+  client -> endpoints : GET /api/public/caterers?cuisine=jamaican
+  endpoints --> client : HTTP 200 JSON with facets
+  client --> page : Results
+  panel --> filters : Close; focus returns to "Filters (2)" button
+  page --> actor : Results and active filter chips (L2-009 AC4)
+else Visitor activates "Clear"
+  actor -> panel : Clear
+  panel -> page : Remove all cuisine and area filters
+  page -> client : Get unfiltered listing
+  client --> page : Full listing
+  panel --> filters : Close; focus returns to "Filters" button
+  page --> actor : Full listing, no chips
+end
+@enduml

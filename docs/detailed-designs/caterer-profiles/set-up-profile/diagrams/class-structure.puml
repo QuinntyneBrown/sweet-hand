@@ -1,0 +1,143 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Set up a caterer profile
+
+enum ProfileStatus {
+  Draft
+  PendingReview
+  ChangesRequested
+  Published
+  Suspended
+  Removed
+}
+
+enum ProfileSection {
+  BusinessDetails
+  Cuisines
+  ServiceAreas
+  GuestRange
+  Occasions
+  Photos
+  Menu
+  Certificate
+}
+
+enum Occasion {
+  Weddings
+  Birthdays
+  CorporateEvents
+  FuneralsAndRepasts
+  ReligiousAndCulturalCelebrations
+  FamilyGatherings
+  PrivateDinners
+  CommunityEvents
+}
+
+class CatererProfile {
+  +Guid id
+  +Guid ownerAccountId
+  +ProfileStatus status
+  +BusinessName businessName
+  +string description
+  +SetBusinessDetails(name: BusinessName, description: string): void
+  +SetCuisines(selections: List<CuisineSelection>, active: Set<Cuisine>): void
+  +SetServiceAreas(selections: List<ServiceAreaSelection>): void
+  +SetGuestRange(range: GuestRange): void
+  +SetOccasions(occasions: Set<Occasion>): void
+  +IsEditableAsDraft(): bool
+}
+
+class Cuisine {
+  +Guid id
+  +string name
+  +bool retired
+}
+
+class CuisineSelection {
+  +Guid cuisineId
+  +bool isPrimary
+}
+
+class Region {
+  +Guid id
+  +string name
+}
+
+class ServiceArea {
+  +Guid id
+  +string name
+  +Guid regionId
+}
+
+class ServiceAreaSelection {
+  +Guid serviceAreaId
+  +bool isPrimary
+  +{static} ExpandRegion(region: Region): List<ServiceAreaSelection>
+}
+
+class GuestRange <<value object>> {
+  +int min
+  +int max
+  +{static} Create(min: int, max: int): GuestRange
+}
+
+class ProfileSubmissionRules <<domain service>> {
+  +Evaluate(profile: CatererProfile, account: UserAccount): SetupChecklist
+}
+
+class SetupChecklist {
+  +List<ChecklistItem> items
+  +bool AllDone()
+}
+
+class ChecklistItem {
+  +string ruleKey
+  +string label
+  +bool done
+}
+
+class SaveProfileSectionCommand {
+  +ProfileSection section
+  +map values
+}
+
+class SaveProfileSectionHandler {
+  +Handle(command: SaveProfileSectionCommand, caller: AccountId): SectionSaveResult
+}
+
+class GetOwnProfileHandler {
+  +Handle(query: GetOwnProfileQuery, caller: AccountId): OwnProfileView
+}
+
+interface CatererProfileRepository {
+  +GetByOwner(accountId: Guid): CatererProfile
+  +Save(profile: CatererProfile): void
+}
+
+CatererProfile --> ProfileStatus
+CatererProfile "1" *-- "1..5" CuisineSelection
+CatererProfile "1" *-- "1..*" ServiceAreaSelection
+CatererProfile *-- GuestRange
+CatererProfile "1" --> "1..*" Occasion
+CuisineSelection --> Cuisine
+ServiceAreaSelection --> ServiceArea
+ServiceArea "*" --> "1" Region
+SetupChecklist "1" *-- "*" ChecklistItem
+ProfileSubmissionRules ..> CatererProfile : reads
+ProfileSubmissionRules ..> SetupChecklist : creates
+SaveProfileSectionHandler ..> SaveProfileSectionCommand : handles
+SaveProfileSectionCommand --> ProfileSection
+SaveProfileSectionHandler ..> CatererProfileRepository
+SaveProfileSectionHandler ..> ProfileSubmissionRules
+GetOwnProfileHandler ..> CatererProfileRepository
+GetOwnProfileHandler ..> ProfileSubmissionRules
+@enduml

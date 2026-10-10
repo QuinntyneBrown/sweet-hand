@@ -1,0 +1,20 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Query the audit log
+
+Person(admin, "Admin operator", "Operator holding the Admin permission")
+Person(operator, "Operator", "Sweet Hand team member who approves caterers and moderates content")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions for visitors, customers, caterers and operators")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Runs queued and scheduled jobs")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, profiles, enquiries, reviews, reports, audit log")
+}
+
+Rel(operator, web, "Performs moderation actions", "HTTPS")
+Rel(admin, web, "Searches audit log", "HTTPS")
+Rel(web, api, "Calls operator and audit endpoints", "JSON/HTTPS")
+Rel(api, db, "Inserts and selects audit entries")
+Rel(worker, db, "Deletes entries older than 7 years")
+@enduml

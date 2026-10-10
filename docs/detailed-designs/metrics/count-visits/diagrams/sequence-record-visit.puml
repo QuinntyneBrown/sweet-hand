@@ -1,0 +1,64 @@
+@startuml
+title UML sequence behaviour — Record a visit
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "VisitBeacon" as beacon
+  participant "VisitsClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "VisitsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "RecordVisitHandler" as handler
+  participant "CrawlerDetector" as crawler
+  participant "DailySaltProvider" as salt
+  participant "VisitorHash" as hash
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "DailySaltRepository" as saltRepo
+  participant "VisitRepository" as visitRepo
+  database "Sweet Hand database" as db
+end box
+actor -> beacon : Load listing or caterer page (HTML may come from CDN)
+beacon -> client : reportVisit(pageType, catererId)
+client -> endpoints : POST visit to own origin, no cookies (L2-062, L2-074)
+endpoints -> endpoints : Apply public rate limit (L2-082)
+endpoints -> handler : Send RecordVisitCommand with IP and user agent in memory only
+handler -> crawler : IsKnownCrawler(userAgent)
+alt known crawler such as Googlebot or Bingbot
+  crawler --> handler : true
+  handler --> endpoints : Dropped (L2-062 AC3)
+else browser
+  crawler --> handler : false
+  handler -> salt : GetOrCreate(today in America/Toronto)
+  salt -> saltRepo : Find(today)
+  saltRepo -> db : Select salt
+  db --> saltRepo : Salt or none
+  opt no salt for today
+    salt -> salt : Generate random salt
+    salt -> saltRepo : Add(salt)
+  end
+  salt --> handler : DailySalt
+  handler -> hash : Compute(ip, userAgent, salt)
+  hash --> handler : Daily visitor hash
+  handler -> visitRepo : Append VisitRecord with hash, page type, caterer ID, time only (L2-062 AC2)
+  visitRepo -> db : Insert
+  db --> visitRepo : Stored
+  handler --> endpoints : Recorded
+end
+endpoints --> client : 204 in every case
+@enduml

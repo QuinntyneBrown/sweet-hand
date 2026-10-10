@@ -1,0 +1,32 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Degrade gracefully
+
+Person(customer, "Customer", "Browser")
+System_Ext(cdn, "CDN", "stale-while-revalidate up to 10 minutes")
+System_Ext(email, "Email provider", "May be down")
+System_Ext(bot, "Bot-protection provider", "May be unreachable")
+System_Ext(obs, "Observability platform", "Alerts")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Pages and forms")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Enqueues jobs; bot-protection fallback")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Enquiries, photos, notifications")
+  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent notification and photo jobs")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Retries email and image processing")
+  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Photo originals and derivatives")
+}
+
+Rel(customer, cdn, "Requests pages", "HTTPS")
+Rel(cdn, web, "Forwards misses", "HTTPS")
+Rel(web, api, "Calls", "JSON/HTTPS")
+Rel(api, db, "Commits state change")
+Rel(api, queue, "Enqueues job with state change")
+Rel(api, storage, "Stores photo original")
+Rel(api, bot, "Verifies token")
+Rel(worker, queue, "Consumes and retries")
+Rel(worker, email, "Sends email")
+Rel(worker, storage, "Writes derivatives")
+Rel(api, obs, "Raises alerts")
+Rel(worker, obs, "Raises alerts")
+@enduml

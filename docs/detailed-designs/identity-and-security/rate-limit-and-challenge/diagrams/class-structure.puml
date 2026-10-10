@@ -1,0 +1,88 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+hide empty members
+title Class structure — Rate limit requests and challenge abusive forms
+
+enum ClientKeyType {
+  IpAddress
+  Account
+}
+
+enum ChallengeResult {
+  Valid
+  Invalid
+  Unavailable
+}
+
+class RateLimitRule {
+  +string action
+  +ClientKeyType keyType
+  +int maximum
+  +Duration window
+}
+
+class RateLimitPolicy {
+  +RateLimitRule[] rules
+  +rulesFor(endpoint): RateLimitRule[]
+}
+
+note right of RateLimitPolicy
+  Public read endpoints: 300 per IP per minute (L2-082 AC1)
+  Password reset requests: 5 per IP per hour (L2-082 AC3)
+  Feature rules: L2-025, L2-054, L2-076
+end note
+
+class RateLimiter {
+  +apply(request): StageResult
+}
+
+class RateLimitDecision {
+  +bool allowed
+  +int retryAfterSeconds
+}
+
+class ChallengeGuard {
+  +apply(request): StageResult
+}
+
+class ProtectedForms {
+  +isProtected(endpoint): bool
+}
+
+class DegradedModePolicy {
+  +decimal thresholdFactor = 0.5
+  +raiseAlert(): void
+}
+
+interface RateLimitStore {
+  +increment(rule, clientKey, window): int
+}
+
+interface IpHasher {
+  +hash(ip: string): string
+}
+
+interface BotProtectionVerifier {
+  +verify(token: string): ChallengeResult
+}
+
+RateLimitPolicy *-- "*" RateLimitRule
+RateLimitRule --> ClientKeyType
+RateLimiter ..> RateLimitPolicy
+RateLimiter ..> RateLimitStore
+RateLimiter ..> IpHasher
+RateLimiter ..> RateLimitDecision : produces
+ChallengeGuard ..> ProtectedForms
+ChallengeGuard ..> BotProtectionVerifier
+ChallengeGuard ..> DegradedModePolicy
+BotProtectionVerifier ..> ChallengeResult : returns
+@enduml

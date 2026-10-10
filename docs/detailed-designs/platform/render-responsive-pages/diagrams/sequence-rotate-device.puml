@@ -1,0 +1,33 @@
+@startuml
+title UML sequence behaviour — Rotate a device
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Form page" as page
+  participant "FormStateKeeper" as keeper
+  participant "PageShell" as shell
+end box
+actor -> page : Enter values in form fields
+page -> keeper : Register form
+actor -> shell : Rotate phone or tablet
+shell -> keeper : Orientation change detected
+keeper -> keeper : Capture scroll anchor
+shell -> shell : Re-apply ViewportClass layout without reload
+note right of shell : Form values stay in memory
+shell -> keeper : Layout complete
+keeper -> keeper : Restore scroll anchor (L2-064 AC3)
+keeper --> actor : Same values and scroll position shown
+@enduml

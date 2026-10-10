@@ -1,0 +1,88 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+hide empty members
+title Class structure — Manage sessions
+
+enum Role {
+  Customer
+  Caterer
+  Operator
+}
+
+class UserAccount {
+  +Guid id
+  +Role role
+}
+
+class Session {
+  +string idHash
+  +Guid accountId
+  +Role role
+  +DateTime createdAtUtc
+  +DateTime lastActiveAtUtc
+  +string deviceType
+  +DateTime endedAtUtc
+  +touch(nowUtc: DateTime): void
+  +end(nowUtc: DateTime): void
+}
+
+class SessionPolicy {
+  +Duration idleTimeout(role: Role)
+  +Duration absoluteTimeout(role: Role)
+  +isActive(session: Session, nowUtc: DateTime): bool
+}
+
+note right of SessionPolicy
+  Customer, Caterer: idle 14 days, absolute 30 days
+  Operator: idle 30 minutes, absolute 12 hours
+end note
+
+class SessionAuthenticator {
+  +authenticate(cookieValue: string): CallerContext
+}
+
+class GetActiveSessionsHandler {
+  +handle(query: GetActiveSessionsQuery): SessionSummary[]
+}
+
+class EndSessionHandler {
+  +handle(command: EndSessionCommand): Result
+}
+
+class SignOutHandler {
+  +handle(command: SignOutCommand): Result
+}
+
+class SessionSummary {
+  +string sessionId
+  +string deviceType
+  +DateTime lastActiveAtUtc
+  +bool isCurrent
+}
+
+interface SessionStore {
+  +findByIdHash(idHash: string): Session
+  +listActive(accountId: Guid): Session[]
+  +save(session: Session): void
+  +revokeAll(accountId: Guid): void
+}
+
+UserAccount --> Role
+UserAccount "1" -- "*" Session
+Session --> Role
+SessionAuthenticator ..> SessionStore
+SessionAuthenticator ..> SessionPolicy
+GetActiveSessionsHandler ..> SessionStore
+GetActiveSessionsHandler ..> SessionSummary : returns
+EndSessionHandler ..> SessionStore
+SignOutHandler ..> SessionStore
+@enduml

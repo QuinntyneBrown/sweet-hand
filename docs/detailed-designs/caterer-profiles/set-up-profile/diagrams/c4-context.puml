@@ -1,0 +1,10 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Set up a caterer profile
+
+Person(caterer, "Caterer", "Builds their profile from a phone, tablet or desktop")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+
+Rel(caterer, sweethand, "Edits draft profile and reads setup checklist using", "HTTPS")
+@enduml

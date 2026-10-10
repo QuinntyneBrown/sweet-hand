@@ -1,0 +1,32 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — View the photo gallery
+
+Person(visitor, "Visitor", "Views caterer photos")
+System_Ext(cdn, "CDN", "Serves photo derivatives")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "CatererPage", "Server-rendered page", "Hosts the gallery first")
+  Component(gallery, "CatererGallery", "Component", "Chooses layout by viewport class")
+  Component(carousel, "GalleryCarousel", "Layout (XS)", "Swipeable full-width photos")
+  Component(strip, "GalleryLeadWithStrip", "Layout (SM-MD)", "Lead photo and thumbnail strip")
+  Component(grid, "GalleryLeadWithGrid", "Layout (LG-XL)", "Lead photo and up to 4 thumbnails")
+  Component(viewer, "PhotoViewerDialog", "Dialog", "Full screen, caption, position, focus trap")
+  Component(nav, "ViewerNavigation", "Component", "Arrow keys, swipes, buttons")
+  Component(order, "PhotoOrder", "Component", "Cover first, then caterer order")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(handler, "GetCatererPageHandler", "Query handler", "Returns ordered PublicPhotoView list")
+}
+
+Rel(visitor, gallery, "Activates a photo")
+Rel(page, gallery, "Renders")
+Rel(page, handler, "Gets caterer view", "JSON/HTTPS")
+Rel(gallery, order, "Orders photos")
+Rel(gallery, carousel, "Uses at XS")
+Rel(gallery, strip, "Uses at SM-MD")
+Rel(gallery, grid, "Uses at LG-XL")
+Rel(gallery, viewer, "Opens at selected photo")
+Rel(viewer, nav, "Delegates input")
+Rel(viewer, cdn, "Loads large derivative", "HTTPS")
+@enduml

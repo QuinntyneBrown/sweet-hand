@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Enforce retention limits
+
+Person(user, "Customer or caterer", "Receives an inactivity warning before account deletion")
+Person(operator, "Operator", "Reviews retention run results")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(email, "Email provider", "Sends transactional email")
+System_Ext(obs, "Observability platform", "Logs, metrics, traces, alerts")
+
+Rel(sweethand, email, "Sends inactivity warnings via", "<TO SUPPLY>")
+Rel(email, user, "Delivers warning to")
+Rel(sweethand, obs, "Reports retention run outcomes and failures to")
+Rel(operator, obs, "Reviews retention alerts in")
+@enduml

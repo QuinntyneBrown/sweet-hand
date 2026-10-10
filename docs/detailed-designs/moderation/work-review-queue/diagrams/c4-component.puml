@@ -1,0 +1,40 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Work the review queue
+
+Person(operator, "Operator", "Works the review queue")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(queuePage, "ReviewQueuePage", "Page", "Lists items oldest first with waiting time")
+  Component(reviewScreen, "ProfileReviewScreen", "Page", "Public preview, certificate and changed fields")
+  Component(feedPage, "RecentChangesPage", "Page", "Edits from the last 30 days, newest first")
+  Component(client, "ModerationClient", "API client contract", "Typed operator calls")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(pipeline, "RequestPipeline", "Request pipeline", "Operator role and second factor check")
+  Component(endpoints, "OperatorQueueEndpoints", "Endpoint group", "/operator/queue and /operator/recent-changes")
+  Component(qHandler, "GetReviewQueueHandler", "Query handler", "Orders items by waitingSince")
+  Component(pHandler, "GetProfileForReviewHandler", "Query handler", "Builds ProfileReviewView with ProfileDiff")
+  Component(fHandler, "GetRecentChangesHandler", "Query handler", "Lists ProfileEdit records")
+  Component(repos, "Repositories", "Infrastructure", "ReviewQueue, CatererProfile, ProfileEdit")
+  Component(objStore, "ObjectStore", "Infrastructure", "Time-limited certificate URLs")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Queue items, profiles, snapshots, edits")
+ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Certificate files")
+
+Rel(operator, queuePage, "Uses", "HTTPS")
+Rel(queuePage, client, "Loads queue")
+Rel(reviewScreen, client, "Loads profile for review")
+Rel(feedPage, client, "Loads recent changes")
+Rel(client, pipeline, "Calls", "JSON/HTTPS")
+Rel(pipeline, endpoints, "Forwards authorised request")
+Rel(endpoints, qHandler, "Sends GetReviewQueueQuery")
+Rel(endpoints, pHandler, "Sends GetProfileForReviewQuery")
+Rel(endpoints, fHandler, "Sends GetRecentChangesQuery")
+Rel(qHandler, repos, "Reads")
+Rel(pHandler, repos, "Reads")
+Rel(fHandler, repos, "Reads")
+Rel(pHandler, objStore, "Requests certificate URL")
+Rel(repos, db, "Queries")
+Rel(objStore, storage, "Signs URL for")
+@enduml

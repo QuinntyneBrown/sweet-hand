@@ -1,0 +1,14 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Register a customer account
+
+Person(visitor, "Visitor", "Browses without signing in")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(bot, "Bot-protection provider", "Issues and verifies challenge tokens")
+System_Ext(email, "Email provider", "Sends transactional email")
+
+Rel(visitor, sweethand, "Registers a customer account with")
+Rel(sweethand, bot, "Verifies challenge tokens with", "HTTPS")
+Rel(sweethand, email, "Sends verification and duplicate-registration emails via", "HTTPS")
+@enduml

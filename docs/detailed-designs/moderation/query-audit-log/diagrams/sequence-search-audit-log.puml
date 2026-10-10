@@ -1,0 +1,59 @@
+@startuml
+title UML sequence behaviour — Search the audit log
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Admin operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "AuditLogPage" as page
+  participant "AuditLogClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "AuditLogEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SearchAuditLogHandler" as handler
+  participant "AuditLogFilter" as filter
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AuditLogReader" as reader
+  database "Sweet Hand database" as db
+end box
+actor -> page : Set operator, action type, target and date range
+page -> client : search(filter, page)
+client -> pipeline : GET /operator/audit-log?...
+pipeline -> pipeline : AdminPolicy (L2-056)
+alt not an Admin operator
+  pipeline --> client : 403, security event logged
+else Admin operator
+  pipeline -> endpoints : Forward request
+  endpoints -> handler : Send SearchAuditLogQuery
+  handler -> filter : Validate()
+  alt invalid range
+    filter --> handler : Invalid
+    handler --> endpoints : Validation failure
+    endpoints --> client : 400
+  else valid
+    handler -> reader : Search(filter, page)
+    reader -> db : SELECT ... ORDER BY occurredAtUtc DESC (L2-060 AC3)
+    db --> reader : Rows
+    reader --> handler : Page of AuditEntry
+    handler --> endpoints : Results
+    endpoints --> client : 200 JSON
+    client --> page : Entries
+    page --> actor : Show entries newest first in America/Toronto time
+  end
+end
+@enduml

@@ -1,0 +1,90 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Consent to the privacy notice
+
+class PrivacyNoticeVersion {
+  +string Version
+  +DateTime PublishedAtUtc
+  +bool HasSubstantialPurposeChange
+  +string ChangeSummary
+  +string PrivacyOfficerContact
+  +IsCurrent(): bool
+}
+
+class ThirdPartyProcessor {
+  +string Name
+  +string Purpose
+  +string ProcessingCountry
+}
+
+class ConsentRecord {
+  +Guid Id
+  +Guid AccountId
+  +string NoticeVersion
+  +DateTime AcceptedAtUtc
+}
+
+class RecordConsentCommand {
+  +Guid AccountId
+  +string NoticeVersion
+  +bool ConsentGiven
+}
+
+class RecordConsentHandler {
+  +Handle(command: RecordConsentCommand): Result
+}
+
+class ConsentRequirement {
+  +IsReconsentOwed(accountId: Guid): bool
+}
+
+class ConsentGate {
+  +Inspect(request: Request): GateDecision
+}
+
+enum CookieCategory {
+  StrictlyNecessary
+  NonEssential
+}
+
+class CookieDefinition {
+  +string Name
+  +string Purpose
+  +CookieCategory Category
+  +SameSiteMode SameSite
+  +bool HttpOnly
+  +string ScriptAccessReason
+}
+
+class CookieRegistry {
+  +Definitions(): CookieDefinition[]
+  +IsAllowed(name: string, optedIn: bool): bool
+}
+
+class CookiePolicy {
+  +Issue(response: Response, name: string, value: string): void
+}
+
+PrivacyNoticeVersion "1" *-- "*" ThirdPartyProcessor : lists
+ConsentRecord "*" --> "1" PrivacyNoticeVersion : accepts
+RecordConsentHandler ..> RecordConsentCommand : handles
+RecordConsentHandler ..> ConsentRecord : creates
+RecordConsentHandler ..> PrivacyNoticeVersion : checks current
+ConsentRequirement ..> ConsentRecord : reads latest
+ConsentRequirement ..> PrivacyNoticeVersion : compares
+ConsentGate --> ConsentRequirement : asks
+CookieRegistry "1" *-- "3..*" CookieDefinition : declares
+CookieDefinition --> CookieCategory : has
+CookiePolicy --> CookieRegistry : enforces
+@enduml

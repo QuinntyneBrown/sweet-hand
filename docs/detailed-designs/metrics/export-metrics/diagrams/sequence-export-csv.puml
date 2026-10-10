@@ -1,0 +1,65 @@
+@startuml
+title UML sequence behaviour — Export metrics as CSV
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "MetricsDashboardPage" as page
+  participant "MetricsClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "OperatorMetricsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "ExportMetricsCsvHandler" as handler
+  participant "GetMetricsHandler" as getH
+  participant "MetricsCsvWriter" as writer
+  participant "CsvFormulaGuard" as guard
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "MetricsRepository" as repo
+  database "Sweet Hand database" as db
+end box
+actor -> page : Activate Export CSV
+page -> client : exportCsv(from, to, granularity)
+client -> endpoints : GET metrics export
+endpoints -> endpoints : Require operator role with completed MFA (L2-056)
+alt non-operator session
+  endpoints -> endpoints : Log security event (L2-084)
+  endpoints --> client : 403 (L2-063 AC3)
+else operator
+  endpoints -> handler : Send ExportMetricsCsvQuery
+  handler -> getH : Send GetMetricsQuery with same range and granularity
+  getH -> repo : ListDaily(from, to)
+  repo -> db : Select daily aggregates
+  db --> repo : Rows
+  repo --> getH : Rows
+  getH --> handler : MetricsReport
+  handler -> writer : Write(report)
+  writer -> writer : Header row from resource strings
+  loop each time bucket
+    loop each value in the row
+      writer -> guard : Guard(value)
+      guard --> writer : Prefix ' if value starts with = + - @, then quote (L2-063 AC2)
+    end
+    writer -> writer : Append row
+  end
+  writer --> handler : UTF-8 CSV content (L2-063 AC1)
+  handler --> endpoints : CsvFile
+  endpoints --> client : 200 text/csv; charset=utf-8, attachment, not cacheable
+  client --> page : Browser saves file
+  page --> actor : CSV downloaded
+end
+@enduml

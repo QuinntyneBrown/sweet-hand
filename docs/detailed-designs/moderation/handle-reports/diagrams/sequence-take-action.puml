@@ -1,0 +1,60 @@
+@startuml
+title UML sequence behaviour — Take action on reports
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "TakeActionDialog" as page
+  participant "ModerationClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "OperatorReportsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "TakeActionOnReportsHandler" as handler
+  participant "Moderation command handler" as mod
+  participant "Report" as report
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AuditLog" as audit
+  participant "JobQueue" as jobs
+  database "Sweet Hand database" as db
+end box
+actor -> page : Choose action (edit, suspend, hide or remove) and reason
+page -> client : takeAction(itemId, action, reason, input)
+client -> endpoints : POST /operator/reports/items/{itemId}/take-action
+endpoints -> handler : Send TakeActionOnReportsCommand
+handler -> db : Load open reports in the group
+db --> handler : Reports
+handler -> mod : Dispatch matching command (L2-057, L2-058 or L2-059)
+alt action rejected (for example invalid transition)
+  mod --> handler : Failure
+  handler --> endpoints : Failure, reports stay open
+  endpoints --> client : 409 or 400
+else action applied
+  mod -> audit : Append action entry
+  mod --> handler : Success with audit entry ID
+  loop each open report
+    handler -> report : Resolve(ActionTaken, link to audit entry) (L2-055 AC4)
+  end
+  handler -> jobs : Enqueue reporter emails for signed-in reporters (L2-055 AC5)
+  handler -> db : Commit action and resolutions in one unit of work
+  db --> handler : Committed
+  handler --> endpoints : Success
+  endpoints --> client : 200
+  client --> page : Done
+  page --> actor : Item leaves the queue
+end
+@enduml

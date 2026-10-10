@@ -1,0 +1,95 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Secure build pipeline
+
+interface PipelineStep {
+  +name: string
+  +required: bool
+  +run(input: BuildInput): StepResult
+}
+
+class StepResult {
+  +passed: bool
+  +findings: Finding[]
+}
+
+class Finding {
+  +location: string
+  +severity: Severity
+  +message: string
+}
+
+enum Severity {
+  Critical
+  High
+  Medium
+  Low
+}
+
+class SecretScanStep {
+  +run(input: BuildInput): StepResult
+}
+
+class CompositionAnalysisStep {
+  +failOn: Severity[] = Critical, High
+  +onlyWhenFixAvailable: bool = true
+  +run(input: BuildInput): StepResult
+}
+
+class ImageScanStep {
+  +failOn: Severity[] = Critical
+  +requireNonRootUser: bool = true
+  +run(input: BuildInput): StepResult
+}
+
+class RegionPolicyCheckStep {
+  +allowedRegions: string[] = Canadian regions
+  +personalInformationTag: string <TO SUPPLY>
+  +run(input: BuildInput): StepResult
+}
+
+class StringLiteralLintStep {
+  +run(input: BuildInput): StepResult
+}
+
+class PipelineGatePolicy {
+  +steps: PipelineStep[]
+  +evaluate(results: StepResult[]): bool
+}
+
+class SecretProvider {
+  +load(references: SecretReference[]): void
+  +get(name: string): string
+}
+
+class SecretReference {
+  +name: string
+  +storePath: string
+}
+
+class RuntimeConfiguration {
+  +settings: Map
+  +secretReferences: SecretReference[]
+}
+
+SecretScanStep ..|> PipelineStep
+CompositionAnalysisStep ..|> PipelineStep
+ImageScanStep ..|> PipelineStep
+RegionPolicyCheckStep ..|> PipelineStep
+StringLiteralLintStep ..|> PipelineStep
+PipelineStep ..> StepResult : returns
+StepResult "1" *-- "*" Finding
+Finding --> Severity
+PipelineGatePolicy "1" o-- "*" PipelineStep : requires
+RuntimeConfiguration "1" *-- "*" SecretReference
+SecretProvider ..> SecretReference : resolves
+@enduml

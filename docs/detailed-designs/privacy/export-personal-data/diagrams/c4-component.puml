@@ -1,0 +1,52 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Export personal data
+
+Person(user, "Customer or caterer", "Requests and downloads an export")
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(settings, "AccountSettingsPage", "<TO SUPPLY>", "Offers Download my data")
+  Component(dialog, "DataExportDialog", "<TO SUPPLY>", "Confirms the request and explains timing")
+  Component(downloadPage, "DataExportDownloadPage", "<TO SUPPLY>", "Target of the emailed link")
+  Component(client, "DataExportClient", "API client contract", "Requests exports and download URLs")
+}
+
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "AccountDataEndpoints", "Endpoint group", "POST /me/data-exports, GET /me/data-exports/{id}/download")
+  Component(requestHandler, "RequestDataExportHandler", "Application handler", "Creates DataExport and enqueues the job")
+  Component(downloadHandler, "GetDataExportDownloadHandler", "Application handler", "Applies ownership and 7-day expiry")
+}
+
+Container_Boundary(worker, "Sweet Hand background worker") {
+  Component(job, "GenerateDataExportJob", "Job", "Builds and stores the export file")
+  Component(collector, "PersonalDataCollector", "Domain service", "Gathers role-specific export sections")
+  Component(filter, "ContactDisclosureFilter", "Domain service", "Keeps only contact details shared in a thread")
+  Component(notify, "SendNotificationJob", "Job", "Sends the download link email")
+}
+
+ComponentDb(db, "Sweet Hand database", "<TO SUPPLY>", "Personal data and DataExport records")
+ComponentDb(storage, "Object storage", "<TO SUPPLY>", "Photo originals and export files")
+ComponentQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent job queue")
+System_Ext(email, "Email provider", "Sends transactional email")
+
+Rel(user, settings, "Activates Download my data")
+Rel(settings, dialog, "Opens")
+Rel(dialog, client, "Requests export through")
+Rel(downloadPage, client, "Requests download URL through")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, requestHandler, "Sends RequestDataExportCommand")
+Rel(endpoints, downloadHandler, "Sends GetDataExportDownloadQuery")
+Rel(requestHandler, db, "Saves DataExport")
+Rel(requestHandler, queue, "Enqueues GenerateDataExportJob")
+Rel(downloadHandler, db, "Loads DataExport")
+Rel(downloadHandler, storage, "Issues time-limited URL")
+Rel(queue, job, "Delivers")
+Rel(job, collector, "Builds export with")
+Rel(collector, filter, "Filters enquiry data with")
+Rel(collector, db, "Reads")
+Rel(collector, storage, "Reads full-resolution photos")
+Rel(job, storage, "Writes export file")
+Rel(job, queue, "Enqueues SendNotificationJob")
+Rel(notify, email, "Sends via", "<TO SUPPLY>")
+@enduml

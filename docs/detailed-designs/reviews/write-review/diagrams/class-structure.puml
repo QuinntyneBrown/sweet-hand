@@ -1,0 +1,129 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Write a review
+
+enum ReviewStatus {
+  Published
+  Held
+  Hidden
+  Removed
+}
+
+enum EligibilityResult {
+  Eligible
+  AlreadyReviewed
+  NotEligible
+}
+
+enum EnquiryStatus {
+  Open
+  Replied
+  Declined
+  Closed
+}
+
+class CreateReviewCommand {
+  +Guid CatererId
+  +int Rating
+  +string Text
+}
+
+class GetReviewEligibilityQuery {
+  +Guid CatererId
+}
+
+class CreateReviewHandler {
+  +Handle(command: CreateReviewCommand): Result<ReviewCreated>
+}
+
+class GetReviewEligibilityHandler {
+  +Handle(query: GetReviewEligibilityQuery): EligibilityResult
+}
+
+class ReviewEligibilityPolicy {
+  +FindEligibleEnquiry(customerId: Guid, catererId: Guid, today: Date): Enquiry
+}
+
+class ReviewContentScreen {
+  +ContainsContactPattern(text: string): bool
+}
+
+class Review {
+  +Guid Id
+  +Guid CustomerId
+  +Guid CatererId
+  +Guid EnquiryId
+  +int Rating
+  +string Text
+  +ReviewStatus Status
+  +DateTime CreatedAt
+  +DateTime EditedAt
+  +{static} Create(enquiry: Enquiry, rating: int, text: string, held: bool, now: DateTime): Review
+}
+
+class Enquiry {
+  +Guid Id
+  +Guid CustomerId
+  +Guid CatererId
+  +Date EventDate
+  +EnquiryStatus Status
+  +HasCatererReply(): bool
+}
+
+class CatererRatingSummary {
+  +Guid CatererId
+  +decimal AverageRating
+  +int PublishedReviewCount
+  +Recalculate(published: Review[]): void
+}
+
+class ReviewQueueItem {
+  +Guid Id
+  +string Kind
+  +Guid TargetId
+  +DateTime CreatedAt
+}
+
+interface EnquiryRepository {
+  +ListForCustomerAndCaterer(customerId: Guid, catererId: Guid): Enquiry[]
+}
+
+interface ReviewRepository {
+  +FindByCustomerAndCaterer(customerId: Guid, catererId: Guid): Review
+  +Add(review: Review): void
+  +SaveSummary(summary: CatererRatingSummary): void
+  +AddQueueItem(item: ReviewQueueItem): void
+}
+
+interface Clock {
+  +TodayInToronto(): Date
+  +UtcNow(): DateTime
+}
+
+CreateReviewHandler ..> CreateReviewCommand : handles
+GetReviewEligibilityHandler ..> GetReviewEligibilityQuery : handles
+CreateReviewHandler --> ReviewEligibilityPolicy : uses
+GetReviewEligibilityHandler --> ReviewEligibilityPolicy : uses
+CreateReviewHandler --> ReviewContentScreen : uses
+CreateReviewHandler --> ReviewRepository : persists via
+GetReviewEligibilityHandler --> ReviewRepository : reads via
+ReviewEligibilityPolicy --> EnquiryRepository : reads via
+ReviewEligibilityPolicy --> Clock : reads today
+GetReviewEligibilityHandler ..> EligibilityResult : returns
+CreateReviewHandler ..> Review : creates
+CreateReviewHandler ..> ReviewQueueItem : creates when held
+CreateReviewHandler ..> CatererRatingSummary : recalculates when published
+Review --> ReviewStatus : has
+Review "*" --> "1" Enquiry : event from
+Enquiry --> EnquiryStatus : has
+CatererRatingSummary o-- "*" Review : summarises published
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Log security events
+
+Container_Boundary(api, "Sweet Hand API") {
+  Component(corr, "CorrelationIdStage", "<TO SUPPLY>", "Creates or accepts correlation ID")
+  Component(sources, "Event sources", "<TO SUPPLY>", "Sign-in, reset, sessions, guard, rate limiter, operator handlers")
+  Component(seclog, "SecurityLog", "<TO SUPPLY>", "Builds structured entries")
+  Component(iphash, "IpHasher", "<TO SUPPLY>", "Keyed IP hash")
+  Component(redactor, "LogRedactor", "<TO SUPPLY>", "Drops forbidden fields (L2-084 AC2)")
+  Component(monitor, "AuthorisationFailureMonitor", "<TO SUPPLY>", "10 failures per session in 5 min (L2-084 AC3)")
+}
+System_Ext(secrets, "Managed secret store", "IP hashing key")
+System_Ext(obs, "Observability platform", "Log store, alerting")
+
+Rel(corr, sources, "Provides correlation ID to")
+Rel(sources, seclog, "Records SecurityEvent")
+Rel(seclog, iphash, "Hashes IP address")
+Rel(iphash, secrets, "Reads key")
+Rel(seclog, redactor, "Passes entry through")
+Rel(seclog, monitor, "Forwards AuthorisationFailed events")
+Rel(redactor, obs, "Ships entry", "Structured log")
+Rel(monitor, obs, "Raises alert")
+@enduml

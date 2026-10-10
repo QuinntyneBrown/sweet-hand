@@ -1,0 +1,76 @@
+@startuml
+title UML sequence behaviour — Request and generate an export
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer or caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "AccountSettingsPage" as page
+  participant "DataExportDialog" as dialog
+  participant "DataExportClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "AccountDataEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "RequestDataExportHandler" as handler
+end box
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "GenerateDataExportJob" as job
+  participant "PersonalDataCollector" as collector
+  participant "ContactDisclosureFilter" as filter
+  participant "SendNotificationJob" as notify
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+  queue "Job queue" as queue
+  database "Object storage" as storage
+end box
+
+actor -> page : Activate "Download my data"
+page -> dialog : Open
+actor -> dialog : Confirm
+dialog -> client : Request export
+client -> pipeline : POST /me/data-exports
+pipeline -> pipeline : Authenticate, CSRF, authorise signed-in user
+pipeline -> endpoints : Route
+endpoints -> handler : RequestDataExportCommand(accountId)
+handler -> db : Save DataExport(Requested)
+handler -> queue : Enqueue GenerateDataExportJob
+handler --> endpoints : Export id
+endpoints --> client : HTTP 202 Accepted
+dialog --> actor : "Expect an email within 24 hours" (L2-071 AC1)
+
+queue -> job : Deliver job
+job -> collector : Collect(account)
+alt account is a customer
+  collector -> db : Profile, consent records, enquiries, messages, reviews, reports submitted (L2-071 AC1)
+else account is a caterer
+  collector -> db : Account, profile, menu, certificate details, enquiries, messages, review responses (L2-071 AC2)
+  collector -> storage : Full-resolution photos the caterer uploaded
+end
+collector -> filter : Remove other parties' contact details unless shared in that thread (L2-071 AC4)
+filter --> collector : Filtered enquiry data
+collector --> job : Export document
+job -> storage : Write export file (private, Canadian region)
+job -> db : MarkReady(objectKey); expiresAt = created + 7 days (L2-071 AC3)
+job -> queue : Enqueue SendNotificationJob with download link
+queue -> notify : Deliver job
+notify -> notify : Send transactional email through email provider
+alt generation fails after the last retry
+  job -> db : MarkFailed()
+  job -> job : Raise operator alert
+end
+@enduml

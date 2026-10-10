@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Reply in a thread
+
+Person(customer, "Customer", "Signed-in person in Toronto or the GTA planning a meal or an event")
+Person(caterer, "Caterer", "Person or small business selling Caribbean food")
+Person(operator, "Operator", "Sweet Hand team member who moderates the platform")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(email, "Email provider", "Sends transactional email and reports bounces")
+
+Rel(customer, sweethand, "Reads and replies to own threads")
+Rel(caterer, sweethand, "Reads and replies to own threads")
+Rel(operator, sweethand, "Reads a thread only while handling a report")
+Rel(sweethand, email, "Sends new-message email via")
+@enduml

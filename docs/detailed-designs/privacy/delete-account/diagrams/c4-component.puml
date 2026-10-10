@@ -1,0 +1,46 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Delete an account
+
+Person(user, "Customer or caterer", "Deletes their own account")
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(settings, "AccountSettingsPage", "<TO SUPPLY>", "Offers Delete my account")
+  Component(dialog, "DeleteAccountDialog", "<TO SUPPLY>", "Confirms with the current password")
+  Component(client, "AccountClient", "API client contract", "Requests deletion")
+}
+
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "AccountEndpoints", "Endpoint group", "POST /me/deletion")
+  Component(handler, "RequestAccountDeletionHandler", "Application handler", "Verifies password, closes account, queues work")
+  Component(account, "UserAccount", "Domain entity", "Active, Closed, Deleted")
+  Component(sessions, "SessionStore", "Infrastructure", "Ends every session of the account")
+}
+
+Container_Boundary(worker, "Sweet Hand background worker") {
+  Component(job, "ProcessAccountDeletionJob", "Job", "Idempotent deletion processing")
+  Component(policy, "AccountDeletionPolicy", "Domain service", "Role-specific deletion and anonymisation steps")
+  Component(notify, "SendNotificationJob", "Job", "Sends confirmation and enquiry-closed emails")
+}
+
+ComponentDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, enquiries, messages, reviews, profiles")
+ComponentDb(storage, "Object storage", "<TO SUPPLY>", "Photos and certificate files")
+ComponentQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent job queue")
+
+Rel(user, settings, "Activates Delete my account")
+Rel(settings, dialog, "Opens")
+Rel(dialog, client, "Submits password through")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, handler, "Sends RequestAccountDeletionCommand")
+Rel(handler, account, "Close(nowUtc)")
+Rel(handler, sessions, "Ends sessions")
+Rel(handler, db, "Saves closed account")
+Rel(handler, queue, "Enqueues jobs")
+Rel(queue, job, "Delivers")
+Rel(queue, notify, "Delivers")
+Rel(job, policy, "Gets steps for role from")
+Rel(job, db, "Anonymises and deletes")
+Rel(job, storage, "Deletes files")
+Rel(job, queue, "Enqueues enquiry-closed notifications")
+@enduml

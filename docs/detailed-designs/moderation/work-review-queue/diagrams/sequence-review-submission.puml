@@ -1,0 +1,52 @@
+@startuml
+title UML sequence behaviour — Review a submitted profile
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ProfileReviewScreen" as page
+  participant "ModerationClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "OperatorQueueEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetProfileForReviewHandler" as handler
+  participant "ProfileDiff" as diff
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "CatererProfileRepository" as repo
+  participant "ObjectStore" as store
+  database "Sweet Hand database" as db
+end box
+actor -> page : Open submitted profile from queue
+page -> client : getProfileForReview(profileId)
+client -> endpoints : GET /operator/queue/profiles/{profileId} (operator check in RequestPipeline)
+endpoints -> handler : Send GetProfileForReviewQuery
+handler -> repo : Load profile, certificate and latest ProfileSnapshot
+repo -> db : Query
+db --> repo : Profile rows
+repo --> handler : CatererProfile and ProfileSnapshot
+opt profile was resubmitted after Changes requested
+  handler -> diff : Between(snapshot, current) (L2-047 AC3)
+  diff --> handler : Changed field names
+end
+handler -> store : Create certificate URL expiring in 5 minutes or less (L2-040 AC4)
+store --> handler : Time-limited URL
+handler --> endpoints : ProfileReviewView with public projection and certificate (L2-047 AC2)
+endpoints --> client : 200 JSON
+client --> page : ProfileReviewView
+page --> actor : Show public preview, certificate details and highlighted changes
+@enduml

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Write a review · success — Sweet Hand mocks</title>
+<meta name="mock:kind" content="dialog">
+<meta name="mock:screen" content="review">
+<meta name="mock:state" content="success">
+<meta name="mock:requirements" content="L2-049 L2-050 L2-053">
+<meta name="description" content="Review posted: it’s live on Pelau House, and can be edited until Mon 9 Nov.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+<a class="skip-link" href="#dlg-title">Skip to the dialog</a>
+
+<!-- The caterer page underneath is inert while the dialog is open. -->
+<div class="page" inert aria-hidden="true">
+  <header class="site-header">
+    <span class="wordmark">Sweet Hand</span>
+    <span class="site-nav"><span class="site-nav__link site-nav__extra">Caterers</span><span class="site-nav__link site-nav__extra">Occasions</span><span class="site-nav__link site-nav__extra">Inbox</span><span class="avatar">JP</span></span>
+  </header>
+  <main id="main" class="container">
+    <div class="caterer-layout">
+      <div>
+        <div class="gallery"><ul class="gallery__track">
+          <li><span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="" width="280" height="280"></span></li>
+          <li><span class="photo"><img src="../../assets/img/maracas-bay.jpg" alt="" width="280" height="280"></span></li>
+          <li><span class="photo"><img src="../../assets/img/sunday-pot.jpg" alt="" width="280" height="280"></span></li>
+          <li><span class="photo"><img src="../../assets/img/scotch-bonnet-social.jpg" alt="" width="280" height="280"></span></li>
+          <li><span class="photo"><img src="../../assets/img/black-cake-co.jpg" alt="" width="280" height="280"></span></li>
+        </ul></div>
+        <div class="caterer-head"><h1>Pelau House</h1><ul class="caterer-head__meta"><li>Trinidadian &amp; Tobagonian</li><li>Guyanese</li></ul></div>
+      </div>
+      <div class="enquiry-panel only-lg"><dl class="facts"><div><dt>Guests</dt><dd>Serves 20–300 guests</dd></div></dl><span class="btn btn--primary btn--lg btn--block">Send an enquiry</span></div>
+    </div>
+  </main>
+</div>
+
+<div class="backdrop"></div>
+<div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc" data-dismiss-on-escape>
+  <div class="dialog__panel">
+    <div class="dialog__header">
+      <div style="flex: 1;">
+        <h2 class="dialog__title" id="dlg-title">Write a review</h2>
+        <p id="dlg-desc" class="text-muted" style="margin-top: var(--space-1);">Pelau House · your event on Sun 6 Sep</p>
+      </div>
+      <button class="icon-btn" type="button" aria-label="Close" data-mock-href="../../pages/caterer/can-review.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="dialog__body stack">
+      <div class="empty empty--compact" role="status">
+        <div class="empty__icon" aria-hidden="true" style="background: var(--color-success-bg); color: var(--color-success-icon);"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></div>
+        <p class="empty__title">Thanks, Jean-Robert. Your review is live.</p>
+        <p class="empty__text">It’s on Pelau House’s page now. You can edit it until Mon 9 Nov, or delete it any time.</p>
+      </div>
+    </div>
+    <div class="dialog__footer">
+      <button class="btn btn--primary" type="button" autofocus data-mock-href="../../pages/caterer/own-review.html">See your review</button>
+    </div>
+  </div>
+</div>
+
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Write a review</span>
+  <ul class="mock-bar__states">
+    <li><a href="default.html">default</a></li>
+    <li><a href="busy.html">busy</a></li>
+    <li><a href="invalid.html">invalid</a></li>
+    <li><a href="failed.html">failed</a></li>
+    <li><a href="held.html">held</a></li>
+    <li><a href="success.html" aria-current="page">success</a></li>
+    <li><a href="edit.html">edit</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>

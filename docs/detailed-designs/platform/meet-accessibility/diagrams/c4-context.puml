@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Meet accessibility
+
+Person(customer, "Customer", "Uses a keyboard, screen reader, zoom or reduced-motion setting")
+Person(caterer, "Caterer", "Manages a profile with the same assistive technology")
+Person_Ext(contributor, "Contributor", "Opens pull requests against the repository")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(ci, "CI pipeline", "<TO SUPPLY>: runs the acceptance suite with axe-core checks")
+
+Rel(customer, sweethand, "Browses and enquires with assistive technology", "HTTPS")
+Rel(caterer, sweethand, "Manages profile with assistive technology", "HTTPS")
+Rel(contributor, ci, "Opens pull request")
+Rel(ci, sweethand, "Checks every page template and UI state (L2-066)")
+@enduml

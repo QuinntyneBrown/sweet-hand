@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Manage operator accounts
+
+Person(admin, "Admin operator", "Operator holding the Admin permission")
+Person(operator, "Operator", "Sweet Hand team member who approves caterers and moderates content")
+Person(customer, "Customer", "Signed-in person in Toronto or the GTA planning a meal or event")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(email, "Email provider", "Sends transactional email and reports bounces")
+
+Rel(admin, sweethand, "Creates and deactivates operator accounts", "HTTPS")
+Rel(operator, sweethand, "Signs in with password and second factor", "HTTPS")
+Rel(customer, sweethand, "Registers; cannot choose operator role", "HTTPS")
+Rel(sweethand, email, "Sends operator invitations via")
+@enduml

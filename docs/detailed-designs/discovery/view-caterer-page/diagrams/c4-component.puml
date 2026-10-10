@@ -1,0 +1,45 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — View a caterer page
+
+Person(visitor, "Visitor", "Reads a caterer page")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "CatererPage", "Server-rendered page", "Sections in L2-015 order")
+  Component(meta, "CatererPageMetadata", "Component", "Title, description, canonical, Open Graph")
+  Component(summary, "EventSummary", "Component", "Guest range and occasions")
+  Component(menu, "MenuList", "Component", "First 12 items; Show all N dishes")
+  Component(areas, "ServiceAreasByRegion", "Component", "Areas grouped by region")
+  Component(cta, "EnquiryCallToAction", "Component", "Inline, sticky bar or sticky panel")
+  Component(client, "CatererPageClient", "API client contract", "GET /api/public/caterers/{slug}")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "PublicCaterersEndpoints", "Endpoint group", "Anonymous caterer page endpoint")
+  Component(sitemap, "SitemapEndpoint", "Endpoint", "GET /sitemap.xml")
+  Component(handler, "GetCatererPageHandler", "Query handler", "Slug, status and projection")
+  Component(view, "PublicCatererView", "Read model", "Allow-listed display fields")
+  Component(sitemapH, "GetSitemapHandler", "Query handler", "Published slugs")
+  Component(repo, "CatererProfileRepository", "Repository", "Approved profile values")
+  Component(redirects, "SlugRedirectRepository", "Repository", "Retired slugs")
+  Component(images, "ImageUrlBuilder", "Infrastructure", "CDN derivative URLs")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles and redirects")
+
+Rel(visitor, page, "Opens /caterers/{slug}", "HTTPS")
+Rel(page, meta, "Renders")
+Rel(page, summary, "Renders")
+Rel(page, menu, "Renders")
+Rel(page, areas, "Renders")
+Rel(page, cta, "Renders")
+Rel(page, client, "Requests view")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, handler, "Sends GetCatererPageQuery")
+Rel(handler, repo, "Reads by slug")
+Rel(handler, redirects, "Resolves retired slug")
+Rel(handler, images, "Builds photo URLs")
+Rel(handler, view, "Maps to")
+Rel(sitemap, sitemapH, "Sends GetSitemapQuery")
+Rel(sitemapH, repo, "Lists published slugs")
+Rel(repo, db, "Queries")
+Rel(redirects, db, "Queries")
+@enduml

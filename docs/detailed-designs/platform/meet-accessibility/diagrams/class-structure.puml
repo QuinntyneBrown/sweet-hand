@@ -1,0 +1,103 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Meet accessibility
+
+class SkipLink {
+  +targetId: string = "main"
+  +activate(): void
+}
+
+class FocusManager {
+  -returnTarget: Element
+  +moveInto(dialog: Dialog): void
+  +trapTab(dialog: Dialog): void
+  +restore(): void
+}
+
+class DialogHost {
+  +open(dialog: Dialog, opener: Element): void
+  +close(): void
+  +onEscape(): void
+}
+
+class FormField {
+  +label: string
+  +inputId: string
+  +errorText: string
+  +setError(text: string): void
+  +clearError(): void
+}
+
+class ErrorSummary {
+  +errors: FieldError[]
+  +show(errors: FieldError[]): void
+  +focus(): void
+}
+
+class FieldError {
+  +fieldId: string
+  +message: string
+}
+
+class LiveRegionAnnouncer {
+  +politeness: string = "polite"
+  +announce(message: string): void
+}
+
+class ImageAltPolicy {
+  +altFor(photo: Photo): string
+  +decorative(): string
+}
+
+class IconButton {
+  +accessibleName: string
+  +icon: string
+}
+
+class StatusIndicator {
+  +label: string
+  +icon: string
+  +colourRole: string
+}
+
+class PhotoScrim {
+  +minContrast: decimal = 4.5
+}
+
+class MotionPreference {
+  +reduce: bool
+  +maxFadeMs: int = 200
+}
+
+class AccessibilityCheck {
+  +rules: string = "WCAG 2.1 A, AA"
+  +viewports: ViewportClass[] = XS, XL
+  +run(state: UiState): Violation[]
+}
+
+class Violation {
+  +ruleId: string
+  +target: string
+  +impact: string
+}
+
+class MergeGate {
+  +evaluate(results: SuiteResult): bool
+}
+
+DialogHost ..> FocusManager : uses
+ErrorSummary "1" *-- "*" FieldError : lists
+FieldError --> FormField : links to
+ErrorSummary ..> FocusManager : takes focus via
+AccessibilityCheck ..> Violation : returns
+MergeGate ..> AccessibilityCheck : blocks on violations from
+@enduml

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Caterers (operator) · no-results — Sweet Hand mocks</title>
+<meta name="mock:kind" content="page">
+<meta name="mock:screen" content="admin-caterers">
+<meta name="mock:state" content="no-results">
+<meta name="mock:requirements" content="L2-046 L2-058">
+<meta name="description" content="Search “Pelau” with the Suspended filter: nothing matches; filters stay visible and clearable.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="page">
+<header class="site-header">
+  <a class="wordmark" href="../../pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-caterers/default.html" aria-current="page">Caterers</a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-metrics/default.html">Metrics</a>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+  </nav>
+</header>
+
+<main id="main" class="container">
+  <div class="work-layout">
+    <nav class="side-nav" aria-label="Operator">
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count">7</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-changes/default.html">Recent changes</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-caterers/default.html" aria-current="page">Caterers</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-reviews/default.html">Reviews</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-metrics/default.html">Metrics</a></li>
+      </ul>
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../../pages/admin-audit/default.html">Audit log</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-cuisines/default.html">Cuisines</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-operators/default.html">Operators</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-breaches/default.html">Breach register</a></li>
+      </ul>
+    </nav>
+
+    <div class="work-main">
+      <div class="page-intro">
+        <h1>Caterers</h1>
+        <p class="subtitle">0 of 68 caterers match</p>
+      </div>
+      <form class="search-field" role="search" action="no-results.html" style="max-width: 28rem; margin-bottom: var(--space-4);">
+        <label class="visually-hidden" for="cat-q">Search caterers</label>
+        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input class="input" id="cat-q" name="q" type="search" placeholder="Business or owner name" autocomplete="off" value="Pelau">
+      </form>
+      <ul class="segmented" aria-label="Filter by status">
+        <li><a href="default.html">All 68</a></li>
+        <li><a href="no-results.html">Draft 3</a></li>
+        <li><a href="no-results.html">Pending review 2</a></li>
+        <li><a href="no-results.html">Changes requested 1</a></li>
+        <li><a href="no-results.html">Published 60</a></li>
+        <li><a href="no-results.html" aria-current="page">Suspended 1</a></li>
+        <li><a href="no-results.html">Removed 1</a></li>
+      </ul>
+      <div class="active-filters" style="margin-bottom: var(--space-6);">
+        <span class="chip chip--filter">“Pelau”<button class="remove" type="button" aria-label="Remove search Pelau"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></span>
+        <span class="chip chip--filter">Suspended<button class="remove" type="button" aria-label="Remove filter Suspended"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></span>
+      </div>
+      <div class="empty">
+        <div class="empty__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>
+        <h2 class="empty__title">No suspended caterers match “Pelau”</h2>
+        <p class="empty__text">Pelau House is published. Try all statuses.</p>
+        <div class="empty__actions"><a class="btn" href="default.html">Clear filters</a></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__brand"><strong>Sweet Hand</strong><span>Operator console. Every action is written to the audit log.</span></div>
+  <nav aria-label="Footer">
+    <ul>
+      <li><a href="../../pages/privacy/default.html">Privacy</a></li>
+      <li><a href="../../pages/terms/default.html">Terms</a></li>
+    </ul>
+  </nav>
+</footer>
+</div>
+
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Caterers (operator)</span>
+  <ul class="mock-bar__states">
+    <li><a href="default.html">default</a></li>
+    <li><a href="loading.html">loading</a></li>
+    <li><a href="empty.html">empty</a></li>
+    <li><a href="error.html">error</a></li>
+    <li><a href="no-results.html" aria-current="page">no-results</a></li>
+    <li><a href="long.html">long</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>

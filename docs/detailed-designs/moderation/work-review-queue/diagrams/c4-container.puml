@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Work the review queue
+
+Person(operator, "Operator", "Sweet Hand team member who approves caterers and moderates content")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions for visitors, customers, caterers and operators")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, profiles, enquiries, reviews, reports, audit log")
+  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Photos, certificate files and data exports in a Canadian region")
+}
+
+Rel(operator, web, "Opens queue, review screen and feed", "HTTPS")
+Rel(web, api, "Calls operator queue endpoints", "JSON/HTTPS")
+Rel(api, db, "Reads queue items, profiles, snapshots and edits")
+Rel(api, storage, "Issues certificate file URL valid 5 minutes or less")
+@enduml

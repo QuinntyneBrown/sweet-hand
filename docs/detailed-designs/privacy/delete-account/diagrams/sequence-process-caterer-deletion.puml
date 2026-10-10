@@ -1,0 +1,54 @@
+@startuml
+title UML sequence behaviour — Process a caterer deletion
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "ProcessAccountDeletionJob" as job
+  participant "SendNotificationJob" as notify
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "AccountDeletionPolicy" as policy
+  participant "CatererProfile" as profile
+  participant "Enquiry" as enquiry
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  queue "Job queue" as queue
+  database "Sweet Hand database" as db
+  database "Object storage" as storage
+end box
+
+queue -> job : Deliver ProcessAccountDeletionJob(accountId)
+job -> db : Load account, profile and DeletionRecord
+job -> policy : StepsFor(caterer account)
+policy --> job : Ordered steps
+job -> profile : Take out of public view (status <TO SUPPLY>) (L2-072 AC4)
+job -> db : Save profile; drop from listing and sitemap
+loop each Open or Replied enquiry
+  job -> enquiry : Close (system)
+  job -> db : Save enquiry
+  job -> queue : Enqueue enquiry-closed email to the customer (L2-072 AC4)
+end
+job -> storage : Delete photo originals and derivatives (L2-072 AC4)
+job -> storage : Delete food handler certificate files (L2-072 AC4)
+job -> db : Delete menu items and certificate details
+job -> db : Replace caterer identity on threads; remove business email and phone from ContactShare
+job -> db : Mark account Deleted; save DeletionRecord.CompletedAtUtc
+queue -> notify : Deliver enquiry-closed emails
+notify -> notify : Send through email provider (L2-030)
+note over job, storage
+  All steps finish within 30 days of the request (L2-072).
+  L2-073 keeps certificate files 90 days after deletion; reconciliation is <TO SUPPLY>.
+end note
+@enduml

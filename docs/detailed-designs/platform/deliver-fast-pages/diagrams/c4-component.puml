@@ -1,0 +1,38 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Deliver fast pages
+
+Person(visitor, "Visitor", "Phone browser")
+System_Ext(cdn, "CDN", "Edge cache")
+System_Ext(obs, "Observability platform", "Metrics")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(pages, "Listing and caterer pages", "<TO SUPPLY>", "Public page templates")
+  Component(cache, "CachePolicy", "<TO SUPPLY>", "Cache-Control per asset kind")
+  Component(imgs, "ImageLoadingPolicy", "<TO SUPPLY>", "Eager first viewport, lazy below")
+  Component(vitals, "WebVitalsReporter", "<TO SUPPLY>", "First-party LCP, INP, CLS beacon")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(perf, "PerformanceEndpoints", "<TO SUPPLY>", "Receives Web Vitals beacons")
+  Component(read, "Listing and caterer query handlers", "<TO SUPPLY>", "p95 300 ms listing, 250 ms caterer page")
+}
+Container_Boundary(worker, "Sweet Hand background worker") {
+  Component(encode, "ImageEncodingProfile", "<TO SUPPLY>", "800 px AVIF or WebP at 120 KB or less")
+}
+Container_Boundary(ci, "CI pipeline") {
+  Component(lh, "LighthouseBudgetStep", "Lighthouse", "Mobile score of 90 or more")
+  Component(bundle, "BundleSizeBudgetStep", "<TO SUPPLY>", "170 KB gzip first-load JavaScript")
+  Component(load, "LoadTestSuite", "<TO SUPPLY>", "Planned peak and 2x peak")
+}
+
+Rel(visitor, cdn, "Requests", "HTTPS")
+Rel(cdn, pages, "Forwards misses", "HTTPS")
+Rel(pages, cache, "Applies")
+Rel(pages, imgs, "Applies")
+Rel(pages, read, "Reads data", "JSON/HTTPS")
+Rel(vitals, perf, "Posts beacon", "HTTPS")
+Rel(perf, obs, "Forwards metrics")
+Rel(lh, pages, "Audits")
+Rel(bundle, pages, "Measures build output")
+Rel(load, read, "Loads")
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Manage the menu
+
+Person(caterer, "Caterer", "Manages dishes")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "MenuManagerPage", "Page component", "Ordered dishes, Move up and Move down, Add dish")
+  Component(dialog, "MenuItemDialog", "Dialog component", "Name, description, dietary tags, price guidance")
+  Component(client, "MenuClient", "API client contract", "list, add, update, remove, reorder")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "CatererMenuEndpoints", "Endpoint group", "Owner-scoped /caterer/profile/menu-items")
+  Component(add, "AddMenuItemHandler / UpdateMenuItemHandler", "Command handlers", "Add at position, edit fields")
+  Component(remove, "RemoveMenuItemHandler", "Command handler", "Removal with published minimum")
+  Component(reorder, "ReorderMenuItemsHandler", "Command handler", "Full ordering")
+  Component(profile, "CatererProfile", "Domain aggregate", "Max 50 items, min 3 when published")
+  Component(item, "MenuItem / DietaryTag", "Domain entity and enumeration", "Field lengths and fixed tag list")
+  Component(repo, "CatererProfileRepository", "Infrastructure", "Persistence")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Menu items")
+
+Rel(caterer, page, "Uses")
+Rel(page, dialog, "Opens")
+Rel(page, client, "Calls")
+Rel(dialog, client, "Calls")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, add, "Sends AddMenuItemCommand, UpdateMenuItemCommand")
+Rel(endpoints, remove, "Sends RemoveMenuItemCommand")
+Rel(endpoints, reorder, "Sends ReorderMenuItemsCommand")
+Rel(add, profile, "AddMenuItem, UpdateMenuItem")
+Rel(remove, profile, "RemoveMenuItem")
+Rel(reorder, profile, "ReorderMenu")
+Rel(profile, item, "Creates and validates")
+Rel(add, repo, "Saves")
+Rel(remove, repo, "Saves")
+Rel(reorder, repo, "Saves")
+Rel(repo, db, "Reads and writes")
+@enduml

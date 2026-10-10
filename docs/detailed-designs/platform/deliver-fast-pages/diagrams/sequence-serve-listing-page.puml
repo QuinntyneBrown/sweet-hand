@@ -1,0 +1,55 @@
+@startuml
+title UML sequence behaviour — Serve a listing page
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor" as actor
+participant "CDN" as cdn
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ListingPage" as page
+  participant "CachePolicy" as cache
+  participant "ImageLoadingPolicy" as imgs
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "PublicCaterersEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetListingQueryHandler" as qh
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> cdn : GET /caterers?filters
+alt Fresh copy cached (60 s or less, L2-087 AC4)
+  cdn --> actor : Cached HTML
+else Cache miss
+  cdn -> page : Forward request
+  page -> ep : Listing query
+  ep -> qh : GetListingQuery
+  qh -> db : Indexed read of published caterers
+  db --> qh : 24 cards
+  qh --> ep : Listing page result
+  ep --> page : JSON (p95 300 ms or less, L2-086 AC1)
+  page -> imgs : loadingFor each card
+  imgs --> page : Eager in first viewport, lazy below (L2-085 AC3)
+  page -> cache : directiveFor(PublicHtml)
+  cache --> page : CDN max age of 60 s or less
+  page --> cdn : HTML with Cache-Control
+  cdn --> actor : HTML
+end
+actor -> cdn : Hashed scripts and styles
+cdn --> actor : public, max-age=31536000, immutable (L2-087 AC2)
+actor -> cdn : First-viewport photos (AVIF or WebP)
+cdn --> actor : Photo derivatives
+@enduml

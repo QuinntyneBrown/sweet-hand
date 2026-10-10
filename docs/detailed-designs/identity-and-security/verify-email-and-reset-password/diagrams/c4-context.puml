@@ -1,0 +1,17 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Verify an email address and reset a password
+
+Person(customer, "Customer", "Signed-in person planning a meal or an event")
+Person(caterer, "Caterer", "Sells Caribbean food and receives enquiries")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(email, "Email provider", "Sends transactional email")
+System_Ext(bot, "Bot-protection provider", "Issues and verifies challenge tokens")
+
+Rel(customer, sweethand, "Verifies email and resets password with")
+Rel(caterer, sweethand, "Verifies email and resets password with")
+Rel(sweethand, email, "Sends verification, reset and confirmation emails via", "HTTPS")
+Rel(sweethand, bot, "Verifies reset-form challenge tokens with", "HTTPS")
+Rel(email, customer, "Delivers links to")
+@enduml

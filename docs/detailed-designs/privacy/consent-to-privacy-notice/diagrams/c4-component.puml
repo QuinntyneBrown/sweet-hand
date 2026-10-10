@@ -1,0 +1,42 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Consent to the privacy notice
+
+Person(user, "Customer or caterer", "Registers or signs in")
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(footer, "SiteFooter", "<TO SUPPLY>", "Links to the privacy notice on every page")
+  Component(noticePage, "PrivacyNoticePage", "<TO SUPPLY>", "Renders the current privacy notice version")
+  Component(consentField, "ConsentField", "<TO SUPPLY>", "Unticked consent checkbox with purpose summary")
+  Component(changesScreen, "PrivacyChangesScreen", "<TO SUPPLY>", "Shows changes and asks for acceptance")
+  Component(client, "PrivacyClient", "API client contract", "Reads the notice and posts acceptances")
+}
+
+Container_Boundary(api, "Sweet Hand API") {
+  Component(pipeline, "RequestPipeline", "<TO SUPPLY>", "Authentication, CSRF, rate limit, correlation ID, authorisation")
+  Component(gate, "ConsentGate", "Pipeline step", "Holds accounts that owe re-consent")
+  Component(cookies, "CookiePolicy", "Pipeline step", "Issues only declared cookies with required attributes")
+  Component(endpoints, "PrivacyEndpoints", "Endpoint group", "GET /privacy-notice, POST /me/consents")
+  Component(handler, "RecordConsentHandler", "Application handler", "Records acceptance of the current version")
+  Component(requirement, "ConsentRequirement", "Domain service", "Decides whether re-consent is owed")
+  Component(registry, "CookieRegistry", "Domain policy", "Declares cookies and their categories")
+  ComponentDb(db, "Sweet Hand database", "<TO SUPPLY>", "PrivacyNoticeVersion, ConsentRecord")
+}
+
+Rel(user, consentField, "Ticks consent")
+Rel(user, changesScreen, "Accepts changes")
+Rel(footer, noticePage, "Links to")
+Rel(noticePage, client, "Reads notice through")
+Rel(consentField, client, "Reads current version through")
+Rel(changesScreen, client, "Accepts through")
+Rel(client, pipeline, "Calls", "JSON/HTTPS")
+Rel(pipeline, gate, "Runs")
+Rel(pipeline, cookies, "Runs")
+Rel(pipeline, endpoints, "Routes to")
+Rel(gate, requirement, "Asks")
+Rel(cookies, registry, "Reads declarations from")
+Rel(endpoints, handler, "Sends RecordConsentCommand")
+Rel(handler, db, "Appends ConsentRecord")
+Rel(requirement, db, "Reads latest consent and current version")
+@enduml

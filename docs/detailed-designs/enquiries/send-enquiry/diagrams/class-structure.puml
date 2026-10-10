@@ -1,0 +1,145 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Send an enquiry
+
+enum EnquiryStatus {
+  Open
+  Replied
+  Declined
+  Closed
+}
+
+enum Occasion {
+  Weddings
+  Birthdays
+  CorporateEvents
+  FuneralsAndRepasts
+  ReligiousAndCulturalCelebrations
+  FamilyGatherings
+  PrivateDinners
+  CommunityEvents
+}
+
+enum FitWarningKind {
+  GuestCountOutsideRange
+  AreaNotServed
+}
+
+class Enquiry {
+  +Guid Id
+  +Guid CustomerId
+  +Guid CatererId
+  +Date EventDate
+  +int GuestCount
+  +EventLocation Location
+  +Occasion Occasion
+  +string Message
+  +EnquiryStatus Status
+  +List<FitWarning> FitWarnings
+  +DateTime CreatedAt
+  +DateTime LastActivityAt
+  +{static} Open(customer, caterer, details, warnings, now): Enquiry
+}
+
+class EventLocation {
+  +Guid ServiceAreaId
+  +string Fsa
+}
+
+class FitWarning {
+  +FitWarningKind Kind
+  +string Detail
+}
+
+class EnquiryDraft {
+  +Guid CustomerId
+  +Guid CatererId
+  +Map<string,string> Values
+  +DateTime SavedAt
+}
+
+class SendEnquiryCommand {
+  +Guid CatererId
+  +Date EventDate
+  +string GuestCount
+  +Guid ServiceAreaId
+  +string PostalCode
+  +string Occasion
+  +string Message
+  +string ChallengeToken
+}
+
+class SendEnquiryHandler {
+  +Handle(command: SendEnquiryCommand): Result<Enquiry>
+}
+
+class EnquiryValidator {
+  +Validate(command: SendEnquiryCommand, today: Date): List<FieldError>
+}
+
+class FieldError {
+  +string Field
+  +string MessageKey
+}
+
+class EnquiryFitPolicy {
+  +Assess(guestCount: int, areaId: Guid, caterer: CatererProfile): List<FitWarning>
+}
+
+class EnquiryLimitPolicy {
+  +Check(customer: UserAccount, catererId: Guid, eventDate: Date, now: DateTime): LimitDecision
+}
+
+class CatererProfile {
+  +Guid Id
+  +string BusinessName
+  +ProfileStatus Status
+  +GuestRange GuestRange
+  +List<ServiceAreaSelection> ServiceAreas
+}
+
+class GuestRange {
+  +int Min
+  +int Max
+  +Contains(count: int): bool
+}
+
+class UserAccount {
+  +Guid Id
+  +Role Role
+  +bool EmailVerified
+  +string DisplayName
+}
+
+interface EnquiryRepository {
+  +Add(enquiry: Enquiry): void
+}
+
+Enquiry *-- "1" EventLocation
+Enquiry *-- "0..2" FitWarning
+Enquiry --> EnquiryStatus
+Enquiry --> Occasion
+FitWarning --> FitWarningKind
+SendEnquiryHandler ..> SendEnquiryCommand : handles
+SendEnquiryHandler ..> EnquiryValidator
+SendEnquiryHandler ..> EnquiryLimitPolicy
+SendEnquiryHandler ..> EnquiryFitPolicy
+SendEnquiryHandler ..> EnquiryRepository
+SendEnquiryHandler ..> EnquiryDraft : deletes after send
+SendEnquiryHandler ..> UserAccount : checks verification
+EnquiryValidator ..> FieldError : produces
+EnquiryFitPolicy ..> CatererProfile : reads
+CatererProfile *-- GuestRange
+EnquiryRepository ..> Enquiry : persists
+@enduml

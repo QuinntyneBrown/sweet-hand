@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Monitor health
+
+Person(customer, "Customer", "Uses the platform")
+Person(ops, "Operations team", "Detects, diagnoses and recovers from failures")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(hosting, "Hosting platform", "<TO SUPPLY>: routes traffic, probes health, replaces instances")
+System_Ext(obs, "Observability platform", "Logs, metrics, traces, uptime checks and alerts")
+
+Rel(customer, hosting, "Sends requests", "HTTPS")
+Rel(hosting, sweethand, "Routes traffic and probes /health/live and /health/ready", "HTTPS")
+Rel(sweethand, obs, "Sends logs, metrics and traces with correlation IDs")
+Rel(obs, sweethand, "Checks listing page every minute", "HTTPS")
+Rel(obs, ops, "Alerts on-call channel within 2 minutes")
+Rel(ops, obs, "Diagnoses by correlation ID")
+@enduml

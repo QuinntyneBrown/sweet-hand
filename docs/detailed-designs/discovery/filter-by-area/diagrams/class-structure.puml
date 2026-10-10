@@ -1,0 +1,62 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Filter the listing by area
+
+class Region {
+  +RegionId Id
+  +string Name
+  +string Slug
+}
+class ServiceArea {
+  +ServiceAreaId Id
+  +string Name
+  +string Slug
+  +RegionId RegionId
+}
+class ServiceAreaSelection {
+  +ServiceAreaId ServiceAreaId
+  +bool IsPrimary
+}
+class CatererProfile {
+  +Guid Id
+  +ProfileStatus Status
+  +List<ServiceAreaSelection> ServiceAreas
+  +SetServiceAreas(areas: Set<ServiceAreaId>, regions: Set<RegionId>, primary: ServiceAreaId?): Result
+}
+class ServiceAreaRules {
+  +ExpandRegions(regions: Set<RegionId>): Set<ServiceAreaId>
+  +Validate(selections: List<ServiceAreaSelection>): List<ValidationError>
+}
+class ListingFilter {
+  +Set<ServiceAreaId> Areas
+  +Set<RegionId> Regions
+  +ExpandedAreas(rules: ServiceAreaRules): Set<ServiceAreaId>
+  +Matches(caterer: CatererSummary): bool
+}
+class AreaMatcher {
+  +{static} Normalise(text: string): string
+  +{static} Matches(typed: string, name: string): bool
+}
+class ServiceAreaRepository {
+  +ListRegionsWithAreas(): List<Region>
+}
+class ServiceAreaSeed {
+  +Run(repository: ServiceAreaRepository): int
+}
+
+Region "1" *-- "1..*" ServiceArea
+CatererProfile "1" *-- "1..*" ServiceAreaSelection
+ServiceAreaSelection --> ServiceArea
+CatererProfile ..> ServiceAreaRules : validates with
+ListingFilter ..> ServiceAreaRules : expands regions with
+ServiceAreaSeed ..> ServiceAreaRepository : inserts missing
+@enduml

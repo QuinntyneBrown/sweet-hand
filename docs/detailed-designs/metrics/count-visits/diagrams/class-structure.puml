@@ -1,0 +1,88 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Count visits
+
+enum PageType {
+  Listing
+  CatererPage
+}
+
+class RecordVisitCommand {
+  +PageType PageType
+  +Guid CatererId
+  +string IpAddress
+  +string UserAgent
+}
+
+class RecordVisitHandler {
+  +Handle(command: RecordVisitCommand): void
+}
+
+class CrawlerDetector {
+  +IsKnownCrawler(userAgent: string): bool
+}
+
+class DailySaltProvider {
+  +GetOrCreate(day: Date): DailySalt
+}
+
+class DailySalt {
+  +Date Day
+  +byte[] Value
+}
+
+class VisitorHash {
+  +string Value
+  +{static} Compute(ipAddress: string, userAgent: string, salt: DailySalt): VisitorHash
+}
+
+class VisitRecord {
+  +Guid Id
+  +string DailyHash
+  +PageType PageType
+  +Guid CatererId
+  +DateTime OccurredAt
+}
+
+interface VisitRepository {
+  +Append(record: VisitRecord): void
+}
+
+interface DailySaltRepository {
+  +Find(day: Date): DailySalt
+  +Add(salt: DailySalt): void
+  +DeleteBefore(day: Date): int
+}
+
+interface Clock {
+  +TodayInToronto(): Date
+  +UtcNow(): DateTime
+}
+
+class RotateDailySaltJob {
+  +Run(): void
+}
+
+RecordVisitHandler ..> RecordVisitCommand : handles
+RecordVisitHandler --> CrawlerDetector : uses
+RecordVisitHandler --> DailySaltProvider : uses
+RecordVisitHandler ..> VisitorHash : computes
+RecordVisitHandler ..> VisitRecord : creates
+RecordVisitHandler --> VisitRepository : saves via
+DailySaltProvider --> DailySaltRepository : reads and creates via
+DailySaltProvider --> Clock
+DailySaltProvider ..> DailySalt : returns
+VisitorHash ..> DailySalt : keyed by
+VisitRecord --> PageType : has
+RotateDailySaltJob --> DailySaltRepository : deletes via
+RotateDailySaltJob --> Clock
+@enduml

@@ -1,0 +1,57 @@
+@startuml
+title UML sequence behaviour — Open the review queue
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ReviewQueuePage" as page
+  participant "ModerationClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "OperatorQueueEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetReviewQueueHandler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "ReviewQueueRepository" as repo
+  participant "Clock" as clock
+  database "Sweet Hand database" as db
+end box
+actor -> page : Open review queue
+page -> client : getQueue(page)
+client -> pipeline : GET /operator/queue
+pipeline -> pipeline : Check Operator role and second factor (L2-056)
+alt not an operator session
+  pipeline --> client : 403, security event logged
+  client --> page : Forbidden
+  page --> actor : Show access denied
+else operator session
+  pipeline -> endpoints : Forward request
+  endpoints -> handler : Send GetReviewQueueQuery
+  handler -> repo : Load open items ordered by waitingSince ascending (L2-047)
+  repo -> db : Query unresolved review queue items
+  db --> repo : Items
+  repo --> handler : ReviewQueueItem list
+  handler -> clock : Now()
+  clock --> handler : Current time
+  handler -> handler : Compute waiting time per item (L2-047 AC1)
+  handler --> endpoints : ReviewQueuePage
+  endpoints --> client : 200 JSON
+  client --> page : Queue items
+  page --> actor : Show items oldest first with waiting time
+end
+@enduml

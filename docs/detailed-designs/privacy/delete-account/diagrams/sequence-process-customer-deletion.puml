@@ -1,0 +1,48 @@
+@startuml
+title UML sequence behaviour — Process a customer deletion
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "ProcessAccountDeletionJob" as job
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "AccountDeletionPolicy" as policy
+  participant "UserAccount" as account
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  queue "Job queue" as queue
+  database "Sweet Hand database" as db
+end box
+
+queue -> job : Deliver ProcessAccountDeletionJob(accountId)
+job -> db : Load account and DeletionRecord
+alt DeletionRecord already complete
+  job --> queue : Acknowledge; nothing to do
+else steps outstanding
+  job -> policy : StepsFor(customer account)
+  policy --> job : Ordered steps
+  job -> db : Replace customer name on threads with "Former Sweet Hand user" (L2-072 AC2)
+  job -> db : Remove email and phone from account and every ContactShare (L2-072 AC2)
+  job -> db : Delete the customer's reviews (L2-072 AC3)
+  job -> db : Recalculate each affected caterer's average and count (L2-072 AC3)
+  job -> db : Delete consent records, sessions, verification and reset tokens
+  job -> account : MarkDeleted()
+  job -> db : Save account and DeletionRecord.CompletedAtUtc
+  note over job, db
+    Enquiries and messages stay for the caterer, unlinked from the person.
+    Backups age the deleted data out within 35 days (L2-072 AC5, L2-090).
+  end note
+end
+@enduml

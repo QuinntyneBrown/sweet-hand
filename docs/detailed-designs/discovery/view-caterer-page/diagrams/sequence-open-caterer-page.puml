@@ -1,0 +1,55 @@
+@startuml
+title UML sequence behaviour — Open a caterer page
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "CatererPage" as page
+  participant "CatererPageClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "PublicCaterersEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetCatererPageHandler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "SlugRedirectRepository" as redirects
+  database "Sweet Hand database" as db
+end box
+actor -> page : GET /caterers/auntie-bevs-kitchen (no sign-in, L2-013)
+page -> client : Get caterer page view
+client -> endpoints : GET /api/public/caterers/auntie-bevs-kitchen
+endpoints -> endpoints : Apply anonymous endpoint policy (explicit public access)
+endpoints -> handler : Send GetCatererPageQuery
+handler -> db : Find profile by current slug
+db --> handler : Profile or none
+alt no profile with this slug
+  handler -> redirects : Find retired slug
+  redirects --> handler : Current slug or none
+end
+alt retired slug found
+  handler --> endpoints : Redirect to current slug
+  endpoints --> client : HTTP 301 Location /caterers/{new-slug} (L2-018 AC3)
+  client --> page : Redirect
+  page --> actor : Permanent redirect to new URL
+else status Removed
+  handler --> endpoints : Gone
+  endpoints --> client : HTTP 410
+  page --> actor : GoneNotice with link to listing (L2-018 AC5)
+else unknown slug or status not Published
+  handler --> endpoints : Not found
+  endpoints --> client : HTTP 404, identical body for every case (L2-014 AC2)
+  page --> actor : Not found page
+else Published
+  handler -> handler : Map approved values to PublicCatererView; no contact, certificate, status or pending edits (L2-014)
+  handler --> endpoints : PublicCatererView
+  endpoints --> client : HTTP 200 JSON
+  client --> page : View
+  page -> page : Render sections in L2-015 order, metadata (L2-018 AC4), layout by viewport class (L2-019)
+  page --> actor : HTTP 200 full HTML, no script required
+end
+@enduml

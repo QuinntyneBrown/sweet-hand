@@ -1,0 +1,19 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Count visits
+
+Person(visitor, "Visitor", "Anyone browsing without signing in")
+System_Ext(cdn, "CDN", "Caches public HTML for 60 seconds or less")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Listing and caterer pages with the visit beacon")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Records hashed visits")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Hashed visit analytics and the current daily salt")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Deletes expired daily salts")
+}
+Rel(visitor, cdn, "Loads pages", "HTTPS")
+Rel(cdn, web, "Fetches uncached HTML", "HTTPS")
+Rel(visitor, api, "Sends visit beacon (no cookies)", "JSON/HTTPS")
+Rel(api, db, "Appends VisitRecord; reads daily salt", "<TO SUPPLY>")
+Rel(worker, db, "Deletes salts for earlier days", "<TO SUPPLY>")
+@enduml

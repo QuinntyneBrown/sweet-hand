@@ -1,0 +1,78 @@
+@startuml
+title UML sequence behaviour — Register a caterer
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "CatererRegistrationPage" as page
+  participant "RegistrationClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "RegistrationEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "RegisterCatererHandler" as handler
+  participant "UserAccount / CatererProfile" as domain
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "BotProtectionVerifier" as botv
+  participant "UserAccountRepository" as repo
+  participant "JobQueue" as jobs
+  database "Sweet Hand database" as db
+end box
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "SendNotificationJob" as job
+end box
+
+actor -> page : Complete form and tick both confirmations
+page -> page : Client checks (lengths, phone format, boxes ticked)
+page -> client : Register(request)
+client -> pipeline : POST /registrations/caterer
+pipeline -> pipeline : CSRF, rate limit, correlation ID
+pipeline -> endpoints : Checked request
+endpoints -> endpoints : Ignore role, status and owner fields (L2-079)
+endpoints -> handler : Send RegisterCatererCommand
+handler -> botv : Verify challenge token (L2-082)
+botv --> handler : Valid
+handler -> handler : Validate names and both boxes ticked (L2-037 AC3)
+handler -> domain : PhoneNumber.Parse to +1 and 10 digits (L2-037 AC2)
+domain --> handler : PhoneNumber or rejection
+alt any field invalid
+  handler --> endpoints : Field errors
+  endpoints --> client : HTTP 400 with an error per field
+  client --> page : Errors
+  page --> actor : Error summary with links to fields (L2-068)
+else all fields valid
+  handler -> repo : FindByEmail(email)
+  repo -> db : Query account by email
+  db --> repo : Result
+  repo --> handler : Existing account or none
+  alt email not registered
+    handler -> domain : UserAccount.RegisterCaterer and CatererProfile.StartDraft
+    handler -> repo : Save account, Draft profile, ConsentRecord, token hash
+    repo -> db : Commit one unit of work
+    handler -> jobs : Enqueue verification email
+  else email already registered (L2-037 AC4)
+    handler -> jobs : Enqueue attempted-registration notice to existing address
+  end
+  handler --> endpoints : RegistrationAcknowledgement (identical on both paths)
+  endpoints --> client : Same status and body
+  client --> page : Acknowledgement
+  page --> actor : Post-registration screen <TO SUPPLY>
+end
+jobs -> job : Worker takes job
+job -> job : Send via Email provider within 2 minutes (L2-037 AC1)
+@enduml

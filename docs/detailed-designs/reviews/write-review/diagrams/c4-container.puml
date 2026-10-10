@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Write a review
+
+Person(customer, "Customer", "Signed-in person who sent an enquiry to a caterer")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Caterer page and the write-review dialog")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Review eligibility, validation, screening and persistence")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Enquiries, reviews, rating summaries, review queue")
+}
+Rel(customer, web, "Opens caterer page and writes review", "HTTPS")
+Rel(web, api, "Checks eligibility and creates review", "JSON/HTTPS")
+Rel(api, db, "Reads enquiries; writes review and queue item", "<TO SUPPLY>")
+@enduml

@@ -1,0 +1,41 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Manage sessions
+
+Person(user, "Customer, caterer or operator", "Signed in")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "ActiveSessionsPage", "<TO SUPPLY>", "Lists sessions; End session dialog")
+  Component(signout, "SignOutControl", "<TO SUPPLY>", "Header sign-out")
+  Component(client, "SessionsClient", "API client contract", "listSessions, endSession, signOut")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(auth, "SessionAuthenticator", "<TO SUPPLY>", "RequestPipeline stage")
+  Component(endpoints, "SessionsEndpoints", "<TO SUPPLY>", "GET /sessions, DELETE /sessions/{id}, POST /sessions/sign-out")
+  Component(policy, "SessionPolicy", "Domain policy", "Idle and absolute timeouts by role")
+  Component(query, "GetActiveSessionsHandler", "<TO SUPPLY>", "Lists caller's sessions")
+  Component(end, "EndSessionHandler", "<TO SUPPLY>", "Revokes one session")
+  Component(out, "SignOutHandler", "<TO SUPPLY>", "Revokes current session")
+  Component(store, "SessionStore", "<TO SUPPLY>", "Sessions by identifier hash")
+  Component(seclog, "SecurityLog", "<TO SUPPLY>", "Session revocation events")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Sessions")
+
+Rel(user, page, "Uses")
+Rel(user, signout, "Uses")
+Rel(page, client, "Calls")
+Rel(signout, client, "Calls")
+Rel(client, auth, "Sends request with cookie", "JSON/HTTPS")
+Rel(auth, store, "Loads and refreshes session")
+Rel(auth, policy, "Applies timeouts")
+Rel(auth, endpoints, "Passes authenticated request")
+Rel(endpoints, query, "Sends GetActiveSessionsQuery")
+Rel(endpoints, end, "Sends EndSessionCommand")
+Rel(endpoints, out, "Sends SignOutCommand")
+Rel(query, store, "Reads")
+Rel(end, store, "Revokes")
+Rel(out, store, "Revokes")
+Rel(end, seclog, "Records")
+Rel(out, seclog, "Records")
+Rel(store, db, "Reads and writes")
+@enduml

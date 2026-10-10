@@ -1,0 +1,46 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Edit a published profile
+
+Person(caterer, "Caterer", "Edits published profile")
+Person(operator, "Operator", "Approves name changes")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(editor, "ProfileEditorPage", "Page component", "Published mode: Save changes, pending name banner, read-only when suspended")
+  Component(client, "CatererProfileClient", "API client contract", "saveSection, requestNameChange")
+  Component(queuePage, "ReviewQueuePage", "Page component (moderation)", "Name change items")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "CatererProfileEndpoints", "Endpoint group", "Sections and name change for own profile")
+  Component(opEndpoints, "OperatorProfilesEndpoints", "Endpoint group (moderation)", "Approve name change")
+  Component(save, "SaveProfileSectionHandler", "Command handler", "Live edit and feed entry")
+  Component(request, "RequestNameChangeHandler", "Command handler", "PendingNameChange and queue item")
+  Component(approve, "ApproveNameChangeHandler", "Command handler", "Applies name, slug, redirect, audit")
+  Component(profile, "CatererProfile", "Domain aggregate", "Section rules, pending name change")
+  Component(slugs, "SlugService", "Domain service", "Slug derivation and collision suffix")
+  Component(purger, "CdnPurger", "Infrastructure", "Purges public paths")
+  Component(repos, "CatererProfileRepository / ProfileChangeFeed / AuditLog", "Infrastructure", "Persistence")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles, feed, redirects, audit")
+System_Ext(cdn, "CDN", "Caches public HTML")
+
+Rel(caterer, editor, "Edits")
+Rel(editor, client, "Calls")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(operator, queuePage, "Approves")
+Rel(queuePage, opEndpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, save, "Sends SaveProfileSectionCommand")
+Rel(endpoints, request, "Sends RequestNameChangeCommand")
+Rel(opEndpoints, approve, "Sends ApproveNameChangeCommand")
+Rel(save, profile, "Applies section")
+Rel(request, profile, "Sets PendingNameChange")
+Rel(approve, profile, "Applies BusinessName")
+Rel(approve, slugs, "Derives new slug")
+Rel(save, purger, "Purges")
+Rel(approve, purger, "Purges")
+Rel(purger, cdn, "Calls", "<TO SUPPLY>")
+Rel(save, repos, "Saves profile and feed entry")
+Rel(request, repos, "Saves profile and queue item")
+Rel(approve, repos, "Saves profile, redirect, audit entry")
+Rel(repos, db, "Reads and writes")
+@enduml

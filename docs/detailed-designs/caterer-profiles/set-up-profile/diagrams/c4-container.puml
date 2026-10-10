@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Set up a caterer profile
+
+Person(caterer, "Caterer", "Builds their profile")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Profile editor, setup checklist, listing card preview")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Profile endpoints, section rules, checklist rules")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Draft profiles, cuisines, regions and service areas")
+}
+
+Rel(caterer, web, "Edits sections", "HTTPS")
+Rel(web, api, "Loads profile, saves sections", "JSON/HTTPS")
+Rel(api, db, "Reads reference data, reads and writes draft", "<TO SUPPLY>")
+@enduml

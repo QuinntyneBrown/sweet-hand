@@ -1,0 +1,42 @@
+@startuml
+title UML sequence behaviour — Raise an alert
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "Feature endpoints" as ep
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "TelemetryEmitter" as tele
+end box
+participant "Observability platform" as obs
+participant "AlertRules" as rules
+actor "Operations team (on-call)" as ops
+loop every request
+  ep -> tele : Status code and latency per endpoint
+  tele -> obs : Export metrics (L2-089 AC2)
+end
+loop each evaluation interval
+  obs -> rules : Evaluate
+  alt 5xx rate above 2 percent for 5 minutes
+    rules -> ops : Alert within 2 minutes (L2-089 AC3)
+  else p95 listing latency above 1 s for 10 minutes
+    rules -> ops : Alert within 2 minutes (L2-089 AC3)
+  else within thresholds
+    rules -> rules : No alert
+  end
+end
+ops -> obs : Search logs and traces by correlation ID
+obs --> ops : Linked logs, metrics and spans
+@enduml

@@ -1,0 +1,106 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Manage operator accounts
+
+enum Role {
+  Customer
+  Caterer
+  Operator
+}
+
+enum OperatorPermission {
+  Admin
+}
+
+class UserAccount {
+  +Guid Id
+  +string Email
+  +string DisplayName
+  +Role Role
+  +Set<OperatorPermission> OperatorPermissions
+  +DateTime? DeactivatedAt
+  +{static} CreateOperator(email: string, name: string, admin: bool): UserAccount
+  +Deactivate(now: DateTime): void
+  +HasPermission(p: OperatorPermission): bool
+}
+
+abstract class MfaFactor {
+  +Guid Id
+  +DateTime EnrolledAt
+}
+
+class TotpFactor {
+  +string EncryptedSecret
+}
+
+class WebAuthnCredential {
+  +string CredentialId
+  +string PublicKey
+  +long SignCount
+}
+
+class Session {
+  +string Id
+  +Guid AccountId
+  +bool MfaSatisfied
+  +DateTime LastActiveAt
+  +DateTime CreatedAt
+  +DateTime? RevokedAt
+  +MarkMfaSatisfied(): void
+  +Revoke(now: DateTime): void
+}
+
+class OperatorInvitation {
+  +Guid AccountId
+  +string TokenHash
+  +DateTime ExpiresAt
+  +DateTime? UsedAt
+}
+
+class OperatorPolicy {
+  +Allows(session: Session, account: UserAccount): bool
+}
+
+class AdminPolicy {
+  +Allows(session: Session, account: UserAccount): bool
+}
+
+class CreateOperatorAccountHandler {
+  +Handle(command: CreateOperatorAccountCommand): Result
+}
+
+class DeactivateOperatorAccountHandler {
+  +Handle(command: DeactivateOperatorAccountCommand): Result
+}
+
+class VerifySecondFactorHandler {
+  +Handle(command: VerifySecondFactorCommand): Result
+}
+
+UserAccount --> Role
+UserAccount --> "*" OperatorPermission
+UserAccount "1" *-- "*" MfaFactor
+MfaFactor <|-- TotpFactor
+MfaFactor <|-- WebAuthnCredential
+UserAccount "1" --> "*" Session : signed in as
+UserAccount "1" --> "0..1" OperatorInvitation
+AdminPolicy --|> OperatorPolicy
+OperatorPolicy ..> Session : reads
+CreateOperatorAccountHandler ..> UserAccount : creates
+CreateOperatorAccountHandler ..> OperatorInvitation : issues
+DeactivateOperatorAccountHandler --> UserAccount : deactivates
+DeactivateOperatorAccountHandler --> Session : revokes
+VerifySecondFactorHandler ..> MfaFactor : verifies
+VerifySecondFactorHandler --> Session : marks satisfied
+@enduml

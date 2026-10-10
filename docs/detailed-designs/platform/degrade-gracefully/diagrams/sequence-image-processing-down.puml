@@ -1,0 +1,59 @@
+@startuml
+title UML sequence behaviour — Image processing down
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "PhotoManagerPage" as page
+  participant "PhotosClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CatererPhotosEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "UploadPhotoHandler" as handler
+  participant "Photo" as photo
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "ObjectStore" as store
+  database "Sweet Hand database" as db
+  queue "JobQueue" as queue
+end box
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "ProcessPhotoJob" as job
+end box
+actor -> page : Upload photo
+page -> client : Upload file
+client -> ep : HTTPS multipart request
+ep -> handler : UploadPhotoCommand
+handler -> store : Store original (not public)
+handler -> photo : Create with state Processing
+handler -> db : Save photo
+handler -> queue : Enqueue ProcessPhotoJob
+handler --> ep : Accepted
+ep --> client : 202
+client --> page : Photo shown as "Processing" (L2-091 AC2)
+loop until processing recovers
+  queue -> job : Deliver job
+  alt image processing unavailable
+    job -> queue : Reschedule
+  else image processing available
+    job -> job : Scan, strip metadata, encode derivatives (L2-041)
+    job -> store : Write derivatives
+    job -> photo : markReady()
+    job -> db : Save photo, published automatically
+  end
+end
+@enduml

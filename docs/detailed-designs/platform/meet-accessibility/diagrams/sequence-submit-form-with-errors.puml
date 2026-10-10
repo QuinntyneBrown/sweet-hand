@@ -1,0 +1,54 @@
+@startuml
+title UML sequence behaviour — Submit a form with errors
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Form page" as page
+  participant "Feature API client" as client
+  participant "ErrorSummary" as summary
+  participant "FormField" as field
+  participant "LiveRegionAnnouncer" as live
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "Feature endpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "Feature command handler" as handler
+end box
+actor -> page : Submit form
+page -> client : Send typed request
+client -> ep : HTTPS request
+ep -> handler : Send command
+handler -> handler : Validate against allow-list schema
+handler --> ep : Validation failure per field
+ep --> client : HTTP 400 with field errors
+client --> page : Field errors
+loop each field in error
+  page -> field : setError(text)
+  field -> field : aria-invalid=true, aria-describedby=error id (L2-068 AC3)
+end
+page -> summary : show(errors) as links to fields
+summary -> summary : Take focus (L2-068 AC3)
+summary --> actor : Screen reader reads error summary
+opt Customer activates an error link
+  actor -> summary : Activate link
+  summary -> field : Move focus to field
+  field --> actor : Field label and error text announced
+end
+opt Errors found by client checks before submit
+  page -> live : Announce error count
+end
+@enduml

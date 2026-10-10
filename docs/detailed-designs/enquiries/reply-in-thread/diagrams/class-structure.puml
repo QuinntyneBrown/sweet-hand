@@ -1,0 +1,108 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Reply in a thread
+
+enum EnquiryStatus {
+  Open
+  Replied
+  Declined
+  Closed
+}
+
+enum MessageKind {
+  Reply
+  System
+}
+
+enum AccessDecision {
+  Allowed
+  NotFound
+  Forbidden
+}
+
+class Enquiry {
+  +Guid Id
+  +Guid CustomerId
+  +Guid CatererId
+  +EnquiryStatus Status
+  +List<EnquiryMessage> Messages
+  +AddMessage(sender: Party, text: MessageText, now: DateTime): EnquiryMessage
+  +IsParty(accountId: Guid): bool
+}
+
+class EnquiryMessage {
+  +Guid Id
+  +Guid EnquiryId
+  +Role SenderRole
+  +Guid SenderAccountId
+  +MessageKind Kind
+  +string Text
+  +DateTime SentAt
+}
+
+class MessageText {
+  +string Value
+  +{static} Create(raw: string): Result<MessageText>
+}
+
+class EnquiryAccessPolicy {
+  +ForParty(caller: Caller, enquiry: Enquiry): AccessDecision
+  +ForOperator(caller: Caller, enquiry: Enquiry, report: Report): AccessDecision
+}
+
+class ThreadView {
+  +EnquirySummaryView Summary
+  +List<MessageView> Messages
+  +bool CanReply
+}
+
+class GetThreadHandler {
+  +Handle(query: GetThreadQuery): Result<ThreadView>
+}
+
+class PostReplyHandler {
+  +Handle(command: PostReplyCommand): Result<MessageView>
+}
+
+class GetThreadForReportHandler {
+  +Handle(query: GetThreadForReportQuery): Result<ThreadView>
+}
+
+class AuditEntry {
+  +Guid OperatorId
+  +string Action
+  +Guid TargetId
+  +Guid ReportId
+  +DateTime At
+  +string Reason
+}
+
+class Report {
+  +Guid Id
+  +ReportStatus Status
+  +IsLinkedTo(enquiryId: Guid): bool
+}
+
+Enquiry *-- "0..*" EnquiryMessage
+Enquiry --> EnquiryStatus
+EnquiryMessage --> MessageKind
+Enquiry ..> MessageText
+GetThreadHandler ..> EnquiryAccessPolicy
+PostReplyHandler ..> EnquiryAccessPolicy
+GetThreadForReportHandler ..> EnquiryAccessPolicy
+GetThreadForReportHandler ..> AuditEntry : writes
+GetThreadForReportHandler ..> Report : reads
+EnquiryAccessPolicy ..> AccessDecision : returns
+GetThreadHandler ..> ThreadView : returns
+@enduml

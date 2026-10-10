@@ -1,0 +1,42 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Send an enquiry
+
+Person(customer, "Customer", "Signed-in, verified customer")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "CatererPage", "<TO SUPPLY>", "Shows Send an enquiry button")
+  Component(dialog, "EnquiryFormDialog", "<TO SUPPLY>", "Responsive enquiry form (L2-026)")
+  Component(cval, "EnquiryFormValidator", "<TO SUPPLY>", "Client mirror of L2-022 rules")
+  Component(fit, "EnquiryFitAdvisor", "<TO SUPPLY>", "Shows L2-024 fit warnings")
+  Component(draft, "EnquiryDraftStore", "<TO SUPPLY>", "Keeps values across sign-in")
+  Component(client, "EnquiriesClient", "<TO SUPPLY>", "API client contract")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(pipe, "RequestPipeline", "<TO SUPPLY>", "Authentication, CSRF, Customer role")
+  Component(ep, "EnquiriesEndpoints", "<TO SUPPLY>", "POST /enquiries, drafts")
+  Component(handler, "SendEnquiryHandler", "<TO SUPPLY>", "Creates the enquiry in one unit of work")
+  Component(val, "EnquiryValidator", "<TO SUPPLY>", "Server-side L2-022 rules")
+  Component(limits, "EnquiryLimitPolicy", "<TO SUPPLY>", "L2-025 limits (limit-enquiry-abuse)")
+  Component(fitp, "EnquiryFitPolicy", "<TO SUPPLY>", "Computes FitWarning values")
+  Component(sched, "NotificationScheduler", "<TO SUPPLY>", "Queues caterer email (notify-enquiry-activity)")
+  Component(repo, "EnquiryRepository", "<TO SUPPLY>", "Enquiry and draft persistence")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Enquiries, drafts, notifications")
+
+Rel(customer, page, "Activates Send an enquiry")
+Rel(page, dialog, "Opens")
+Rel(dialog, cval, "Validates fields with")
+Rel(dialog, fit, "Shows warnings from")
+Rel(dialog, draft, "Saves and restores values with")
+Rel(dialog, client, "Submits through")
+Rel(client, pipe, "Calls", "JSON/HTTPS")
+Rel(pipe, ep, "Forwards authorised request to")
+Rel(ep, handler, "Sends SendEnquiryCommand")
+Rel(handler, val, "Validates with")
+Rel(handler, limits, "Checks limits with")
+Rel(handler, fitp, "Computes warnings with")
+Rel(handler, sched, "Queues notification with")
+Rel(handler, repo, "Saves enquiry with")
+Rel(repo, db, "Reads and writes")
+@enduml

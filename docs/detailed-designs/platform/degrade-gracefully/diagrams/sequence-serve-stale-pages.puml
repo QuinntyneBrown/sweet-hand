@@ -1,0 +1,43 @@
+@startuml
+title UML sequence behaviour — Serve stale pages under overload
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor" as actor
+participant "CDN" as cdn
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Listing or caterer page" as page
+  participant "CachePolicy" as cache
+end box
+actor -> cdn : GET public page
+alt cached copy younger than CDN max age (60 s or less)
+  cdn --> actor : Fresh cached HTML
+else cached copy expired, within 10-minute stale window
+  cdn --> actor : Stale cached HTML (L2-091 AC3)
+  cdn -> page : Revalidate in background
+  alt application servers overloaded
+    page --> cdn : Slow response or 5xx
+    cdn -> cdn : Keep stale copy until window ends
+  else application servers healthy
+    page -> cache : directiveFor(PublicHtml)
+    cache --> page : max age 60 s or less, stale-while-revalidate 600
+    page --> cdn : Fresh HTML
+    cdn -> cdn : Replace cached copy
+  end
+else no usable cached copy
+  cdn -> page : Forward request
+  page --> cdn : Response or error
+  cdn --> actor : Response or error page
+end
+@enduml

@@ -1,0 +1,68 @@
+@startuml
+title UML sequence behaviour — Send a new-enquiry email
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer" as actor
+actor "Caterer" as caterer
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "EnquiriesEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SendEnquiryHandler" as handler
+  participant "NotificationScheduler" as sched
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+  queue "Job queue" as queue
+  participant "EmailGateway" as gateway
+end box
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "SendNotificationJob" as job
+  participant "NotificationComposer" as composer
+  participant "RetryPolicy" as retry
+end box
+actor -> ep : POST /enquiries
+ep -> handler : Send SendEnquiryCommand
+handler -> sched : QueueNewEnquiry(enquiry) (L2-027)
+sched --> handler : Notification (Queued)
+handler -> db : Save enquiry and notification in one unit of work (L2-030)
+db --> handler : Commit result
+handler -> queue : Enqueue SendNotificationJob
+handler --> ep : Created enquiry
+ep --> actor : Confirmation, even if email provider is down (L2-030 AC1)
+queue -> job : Deliver job
+job -> db : Load notification, caterer email, enquiry
+db --> job : Data
+job -> composer : Compose new-enquiry email
+composer --> job : Display name, date, guests, area, occasion, first 200 chars, thread link; no customer email or phone; Reply-To no-reply (L2-027 AC2, AC3)
+job -> gateway : Send
+alt sent
+  gateway --> job : Accepted
+  job -> db : Mark Sent
+  gateway --> caterer : Email within 2 minutes at p95 (L2-027 AC1)
+else provider unavailable
+  gateway --> job : Failure
+  job -> retry : Next attempt (exponential backoff)
+  alt within 24 hours of first attempt
+    retry --> job : NextAttemptAt
+    job -> db : Record failure and attempt count
+    job -> queue : Re-enqueue at NextAttemptAt
+  else 24 hours exceeded (L2-030 AC2)
+    retry --> job : Expired
+    job -> db : Mark Failed
+    job -> job : Raise operator alert
+  end
+end
+@enduml

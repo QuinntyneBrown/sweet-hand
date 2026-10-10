@@ -1,0 +1,70 @@
+@startuml
+title UML sequence behaviour — Save a live edit
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ProfileEditorPage" as page
+  participant "CatererProfileClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CatererProfileEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SaveProfileSectionHandler" as handler
+  participant "CatererProfile" as profile
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "CatererProfileRepository" as repo
+  participant "ProfileChangeFeed" as feed
+  participant "CdnPurger" as purger
+  database "Sweet Hand database" as db
+end box
+
+actor -> page : Change description, activate "Save changes"
+page -> client : saveSection(BusinessDetails, values)
+client -> endpoints : PUT /caterer/profile/sections/business-details
+endpoints -> handler : Send SaveProfileSectionCommand (session caterer)
+handler -> repo : GetByOwner(accountId)
+repo -> db : Load
+db --> repo : Profile
+repo --> handler : CatererProfile
+handler -> profile : IsEditable()
+alt status is Suspended
+  profile --> handler : false
+  handler --> endpoints : Conflict
+  endpoints --> client : HTTP 409
+  client --> page : Read-only fields and suspension reason banner (L2-044 AC4)
+else status is Published
+  handler -> profile : ApplySection(section, values) — same rules as set-up-profile
+  alt rule broken
+    profile --> handler : Field errors
+    endpoints --> client : HTTP 400, nothing stored
+  else applied
+    profile --> handler : SectionDiff with old and new values
+    handler -> repo : Save(profile)
+    handler -> feed : Add ProfileChangeRecord(old, new) for recent-changes feed (L2-047)
+    repo -> db : Commit profile and feed entry in one unit of work
+    handler -> purger : Purge caterer page and listing pages
+    note right of purger
+      Public HTML is cached for 60 s or less,
+      so the page shows the new description
+      within 60 s (L2-044 AC1)
+    end note
+    endpoints --> client : HTTP 200
+    client --> page : "Saved"
+  end
+end
+@enduml

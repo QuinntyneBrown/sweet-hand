@@ -1,0 +1,36 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Meet accessibility
+
+Person(customer, "Customer", "Keyboard and screen reader user")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "Page templates", "<TO SUPPLY>", "Every page, dialog and form")
+  Component(skip, "SkipLink", "<TO SUPPLY>", "First Tab target; jumps to main content")
+  Component(dialog, "DialogHost", "<TO SUPPLY>", "Wraps the UI framework dialog primitive")
+  Component(focus, "FocusManager", "<TO SUPPLY>", "Move in, trap, return focus")
+  Component(field, "FormField", "<TO SUPPLY>", "Visible label, aria-invalid, aria-describedby")
+  Component(summary, "ErrorSummary", "<TO SUPPLY>", "Linked list of errors; receives focus")
+  Component(live, "LiveRegionAnnouncer", "<TO SUPPLY>", "aria-live polite announcements")
+  Component(visual, "Visual building blocks", "<TO SUPPLY>", "IconButton, StatusIndicator, PhotoScrim, MotionPreference, focus and colour tokens")
+}
+Container(api, "Sweet Hand API", "<TO SUPPLY>", "Field errors")
+Container_Boundary(ci, "CI pipeline") {
+  Component(suite, "Acceptance suite", "<TO SUPPLY>", "Page objects drive each UI state")
+  Component(check, "AccessibilityCheck", "axe-core", "WCAG 2.1 A and AA rules at XS and XL")
+  Component(gate, "MergeGate", "<TO SUPPLY>", "Blocks merge on failure")
+}
+
+Rel(customer, page, "Uses", "HTTPS")
+Rel(page, skip, "Renders first")
+Rel(page, dialog, "Opens dialogs through")
+Rel(dialog, focus, "Registers with")
+Rel(page, field, "Composes forms from")
+Rel(page, summary, "Shows errors in")
+Rel(page, live, "Announces result counts through")
+Rel(page, visual, "Uses")
+Rel(page, api, "Submits forms", "JSON/HTTPS")
+Rel(suite, page, "Drives")
+Rel(suite, check, "Runs after each UI state")
+Rel(gate, suite, "Reads result of")
+@enduml

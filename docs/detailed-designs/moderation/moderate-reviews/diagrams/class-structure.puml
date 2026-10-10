@@ -1,0 +1,93 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Moderate reviews
+
+enum ReviewStatus {
+  Published
+  Held
+  Hidden
+  Removed
+}
+
+enum ReviewModerationAction {
+  Approve
+  Hide
+  Restore
+}
+
+class Review {
+  +Guid Id
+  +Guid CatererId
+  +Guid AuthorAccountId
+  +int Rating
+  +string Text
+  +ReviewStatus Status
+  +string HiddenCause
+  +Approve(reason: ModerationReason): void
+  +Hide(reason: ModerationReason): void
+  +Restore(reason: ModerationReason): void
+  +Remove(reason: ModerationReason): void
+}
+
+class ReviewResponse {
+  +Guid Id
+  +string Text
+}
+
+class ModerationReason {
+  +string Value
+  +{static} From(text: string): ModerationReason
+}
+
+class RatingSummary {
+  +Guid CatererId
+  +decimal Average
+  +int Count
+}
+
+class RatingSummaryCalculator {
+  +Recalculate(catererId: Guid, published: List<Review>): RatingSummary
+}
+
+class ModerateReviewCommand {
+  +Guid ReviewId
+  +ReviewModerationAction Action
+  +string Reason
+}
+
+class RemoveReviewCommand {
+  +Guid ReviewId
+  +string Reason
+}
+
+class ModerateReviewHandler {
+  +Handle(command: ModerateReviewCommand): Result
+}
+
+class RemoveReviewHandler {
+  +Handle(command: RemoveReviewCommand): Result
+}
+
+Review --> ReviewStatus : has
+Review "1" *-- "0..1" ReviewResponse
+Review ..> ModerationReason : requires
+ModerateReviewCommand --> ReviewModerationAction
+ModerateReviewHandler ..> ModerateReviewCommand : handles
+ModerateReviewHandler --> Review : loads / mutates
+ModerateReviewHandler ..> RatingSummaryCalculator : uses
+RemoveReviewHandler ..> RemoveReviewCommand : handles
+RemoveReviewHandler --> Review : loads / removes
+RemoveReviewHandler ..> RatingSummaryCalculator : uses
+RatingSummaryCalculator ..> RatingSummary : creates
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Edit or delete a review
+
+Person(customer, "Customer", "Author of a review")
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "CatererPage", "Page", "Shows Edit and Delete on the author's review")
+  Component(editDlg, "EditReviewDialog", "Dialog", "Prefilled rating and text")
+  Component(delDlg, "ConfirmDeleteReviewDialog", "Dialog", "Confirms deletion")
+  Component(client, "ReviewsClient", "API client contract", "Typed review operations")
+}
+
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "ReviewsEndpoints", "Endpoint group", "Customer review endpoints")
+  Component(editH, "EditReviewHandler", "Command handler", "Applies author and 30-day rules")
+  Component(delH, "DeleteReviewHandler", "Command handler", "Deletes review and response")
+  Component(review, "Review", "Domain entity", "Edit window and authorship rules")
+  Component(screen, "ReviewContentScreen", "Domain service", "Detects URL, email and phone")
+  Component(repo, "ReviewRepository", "Repository", "Reviews, responses, summary, queue items")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Reviews and rating summaries")
+
+Rel(customer, page, "Uses", "HTTPS")
+Rel(page, editDlg, "Opens")
+Rel(page, delDlg, "Opens")
+Rel(editDlg, client, "Edits")
+Rel(delDlg, client, "Deletes")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, editH, "Sends EditReviewCommand")
+Rel(endpoints, delH, "Sends DeleteReviewCommand")
+Rel(editH, review, "Edit")
+Rel(editH, screen, "Re-screens text")
+Rel(delH, review, "Checks author")
+Rel(editH, repo, "Saves and recalculates summary")
+Rel(delH, repo, "Deletes and recalculates summary")
+Rel(repo, db, "Reads and writes")
+@enduml

@@ -1,0 +1,86 @@
+@startuml
+title UML sequence behaviour — Save certificate details and file
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "CertificateSectionView" as section
+  participant "CertificateClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CatererCertificateEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SaveCertificateHandler" as save
+  participant "UploadCertificateFileHandler" as upload
+  participant "CatererProfile" as profile
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "Clock" as clock
+  participant "MalwareScanner" as scanner
+  participant "ObjectStore" as store
+  participant "CatererProfileRepository" as repo
+  database "Sweet Hand database" as db
+end box
+
+actor -> section : Enter holder, issuing body, number, expiry date
+section -> client : saveDetails(details)
+client -> endpoints : PUT /caterer/profile/certificate
+endpoints -> save : Send SaveCertificateCommand (session caterer)
+save -> clock : Today() in America/Toronto
+clock --> save : today
+save -> repo : GetByOwner(accountId)
+repo --> save : CatererProfile
+save -> profile : SetCertificate(details, today)
+alt expiry date before today
+  profile --> save : Rejected
+  save --> endpoints : Field error
+  endpoints --> client : HTTP 400 "This certificate has expired" (L2-040 AC1)
+  client --> section : Inline error on expiry date
+else valid
+  profile --> save : Applied
+  save -> repo : Save(profile)
+  repo -> db : Commit
+  endpoints --> client : HTTP 200
+  client --> section : "Saved"
+end
+
+opt caterer attaches a copy
+  actor -> section : Choose PDF, JPEG or PNG
+  section -> client : uploadFile(file)
+  client -> endpoints : POST /caterer/profile/certificate/file
+  endpoints -> upload : Send UploadCertificateFileCommand
+  upload -> upload : Size at most 10 MB, content signature is PDF, JPEG or PNG
+  alt size or signature check fails
+    upload --> endpoints : Rejected, nothing stored
+    endpoints --> client : HTTP 400
+  else checks pass
+    upload -> scanner : Scan(content) (L2-041 AC6)
+    alt flagged as malicious
+      scanner --> upload : Malicious
+      upload --> endpoints : Rejected, file discarded, event logged
+      endpoints --> client : HTTP 400
+    else clean
+      scanner --> upload : Clean
+      upload -> store : PutPrivate(unguessable key)
+      upload -> profile : AttachCertificateFile(key), mark old file replaced (L2-073)
+      upload -> repo : Save(profile)
+      repo -> db : Commit
+      endpoints --> client : HTTP 200
+      client --> section : File name shown
+    end
+  end
+end
+@enduml

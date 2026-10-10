@@ -1,0 +1,109 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Work the review queue
+
+enum ReviewQueueItemKind {
+  ProfileSubmission
+  NameChange
+  ExpiredCertificate
+  Reports
+  HeldReview
+}
+
+class ReviewQueueItem {
+  +Guid Id
+  +ReviewQueueItemKind Kind
+  +Guid TargetId
+  +DateTime WaitingSince
+  +string Summary
+  +DateTime? ResolvedAt
+  +WaitingTime(now: DateTime): TimeSpan
+}
+
+class GetReviewQueueQuery {
+  +int Page
+}
+
+class GetReviewQueueHandler {
+  +Handle(query: GetReviewQueueQuery): ReviewQueuePage
+}
+
+class GetProfileForReviewQuery {
+  +Guid ProfileId
+}
+
+class GetProfileForReviewHandler {
+  +Handle(query: GetProfileForReviewQuery): ProfileReviewView
+}
+
+class ProfileReviewView {
+  +PublicProfileProjection Profile
+  +CertificateDetails Certificate
+  +Uri CertificateFileUrl
+  +ProfileDiff ChangedFields
+}
+
+class ProfileSnapshot {
+  +Guid ProfileId
+  +DateTime TakenAt
+  +Map<string,string> Values
+}
+
+class ProfileDiff {
+  +List<string> FieldNames
+  +{static} Between(snapshot: ProfileSnapshot, current: CatererProfile): ProfileDiff
+}
+
+class CatererProfile {
+  +Guid Id
+  +ProfileStatus Status
+  +FoodHandlerCertificate Certificate
+}
+
+class GetRecentChangesQuery {
+  +DateTime Since
+}
+
+class GetRecentChangesHandler {
+  +Handle(query: GetRecentChangesQuery): List<ProfileEdit>
+}
+
+class ProfileEdit {
+  +Guid Id
+  +Guid ProfileId
+  +string Field
+  +string OldValue
+  +string NewValue
+  +DateTime EditedAt
+  +DateTime? RevertedAt
+}
+
+interface Clock {
+  +Now(): DateTime
+}
+
+GetReviewQueueHandler ..> GetReviewQueueQuery : handles
+GetReviewQueueHandler ..> ReviewQueueItem : reads
+GetReviewQueueHandler ..> Clock : uses
+ReviewQueueItem --> ReviewQueueItemKind : has
+GetProfileForReviewHandler ..> GetProfileForReviewQuery : handles
+GetProfileForReviewHandler ..> CatererProfile : reads
+GetProfileForReviewHandler ..> ProfileSnapshot : reads
+GetProfileForReviewHandler --> ProfileReviewView : returns
+ProfileReviewView *-- ProfileDiff
+ProfileDiff ..> ProfileSnapshot : compares
+GetRecentChangesHandler ..> GetRecentChangesQuery : handles
+GetRecentChangesHandler ..> ProfileEdit : reads
+CatererProfile "1" --> "*" ProfileEdit : edited by
+@enduml

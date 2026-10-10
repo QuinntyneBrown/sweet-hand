@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Moderate reviews
+
+Person(operator, "Operator", "Sweet Hand team member who approves caterers and moderates content")
+Person(customer, "Customer", "Signed-in person in Toronto or the GTA planning a meal or event")
+Person(visitor, "Visitor", "Anyone using the platform without signing in")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(email, "Email provider", "Sends transactional email and reports bounces")
+System_Ext(cdn, "CDN", "Caches public HTML for 60 s or less and serves processed photos")
+
+Rel(operator, sweethand, "Approves, hides, restores or removes reviews", "HTTPS")
+Rel(sweethand, email, "Sends moderation notices via")
+Rel(email, customer, "Delivers reason to review author")
+Rel(visitor, cdn, "Reads caterer page reviews", "HTTPS")
+Rel(cdn, sweethand, "Refreshes cached pages from")
+@enduml

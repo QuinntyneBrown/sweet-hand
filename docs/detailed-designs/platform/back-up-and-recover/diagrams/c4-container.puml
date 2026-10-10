@@ -1,0 +1,24 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Back up and recover
+
+Person(ops, "Operations team", "Runs restores and drills")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Writes profiles, enquiries and reviews")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Primary Canadian region; PITR enabled")
+  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Photos and certificate files; versioned or replicated")
+}
+System_Boundary(secondary, "Secondary Canadian region") {
+  ContainerDb(dbbackup, "Database backups", "<TO SUPPLY>", "Encrypted; 35 days of point-in-time recovery")
+  ContainerDb(replica, "Replicated object storage", "<TO SUPPLY>", "Photo and certificate copies or versions")
+}
+System_Ext(restore, "Isolated restore environment", "Canadian region")
+
+Rel(api, db, "Writes")
+Rel(api, storage, "Writes files")
+Rel(db, dbbackup, "Ships logs and snapshots")
+Rel(storage, replica, "Versions or replicates")
+Rel(ops, dbbackup, "Starts point-in-time restore")
+Rel(dbbackup, restore, "Restores into")
+@enduml

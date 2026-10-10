@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Consent to the privacy notice
+
+Person(visitor, "Visitor", "Browses without an account and reads the privacy notice")
+Person(customer, "Customer", "Registers, consents and re-consents to the privacy notice")
+Person(caterer, "Caterer", "Registers, consents and re-consents to the privacy notice")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(bot, "Bot-protection provider", "Issues challenge tokens; its cookie is strictly necessary")
+
+Rel(visitor, sweethand, "Reads privacy notice; receives only strictly necessary cookies", "HTTPS")
+Rel(customer, sweethand, "Gives consent at registration and after substantial changes", "HTTPS")
+Rel(caterer, sweethand, "Gives consent at registration and after substantial changes", "HTTPS")
+Rel(sweethand, bot, "Verifies challenge tokens", "HTTPS")
+@enduml

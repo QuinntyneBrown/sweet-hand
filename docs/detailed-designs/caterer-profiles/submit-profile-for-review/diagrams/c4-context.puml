@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Submit a profile for review
+
+Person(caterer, "Caterer", "Submits, withdraws and resubmits their profile")
+Person(operator, "Operator", "Reviews submitted profiles")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+
+Rel(caterer, sweethand, "Submits profile for review using", "HTTPS")
+Rel(operator, sweethand, "Reviews queued submissions in", "HTTPS")
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Back up and recover
+
+Person(ops, "Operations team", "Runs restores and drills")
+Container_Boundary(iac, "Infrastructure-as-code definitions") {
+  Component(dbpolicy, "DatabaseBackupPolicy", "<TO SUPPLY>", "PITR, 35 days, encrypted, secondary Canadian region")
+  Component(storepolicy, "StorageProtectionPolicy", "<TO SUPPLY>", "Versioning or replication to secondary Canadian region")
+}
+Container_Boundary(runbooks, "Operations runbooks") {
+  Component(runbook, "RestoreRunbook", "<TO SUPPLY>", "Restore to a point in time within 4 hours")
+  Component(drill, "RestoreDrill", "<TO SUPPLY>", "Quarterly rehearsal in an isolated environment")
+  Component(record, "RestoreDrillRecord", "<TO SUPPLY>", "Date, point, duration, data gap, result")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Primary")
+ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Photos and certificates")
+ContainerDb(dbbackup, "Database backups", "<TO SUPPLY>", "Secondary Canadian region")
+
+Rel(dbpolicy, db, "Configures")
+Rel(storepolicy, storage, "Configures")
+Rel(db, dbbackup, "Ships backups")
+Rel(ops, drill, "Runs quarterly")
+Rel(drill, runbook, "Follows")
+Rel(runbook, dbbackup, "Restores from")
+Rel(drill, record, "Writes")
+@enduml

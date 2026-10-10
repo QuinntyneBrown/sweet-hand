@@ -1,0 +1,52 @@
+@startuml
+title UML sequence behaviour — Request a business name change
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ProfileEditorPage" as page
+  participant "CatererProfileClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CatererProfileEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "RequestNameChangeHandler" as handler
+  participant "CatererProfile" as profile
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "CatererProfileRepository" as repo
+  database "Sweet Hand database" as db
+end box
+
+actor -> page : Change business name from "Bev's" to "Auntie Bev's", save
+page -> client : requestNameChange("Auntie Bev's")
+client -> endpoints : POST /caterer/profile/name-change
+endpoints -> handler : Send RequestNameChangeCommand (session caterer)
+handler -> repo : GetByOwner(accountId)
+repo --> handler : CatererProfile (Published)
+handler -> profile : RequestNameChange(BusinessName 2–80 characters)
+profile -> profile : Store PendingNameChange; businessName stays "Bev's"
+handler -> repo : Save profile and ReviewQueueItem(NameChange)
+repo -> db : Commit in one unit of work
+handler --> endpoints : Pending
+endpoints --> client : HTTP 202
+client --> page : Pending state
+page --> actor : "Name change waiting for review" (L2-044 AC2)
+note over db
+  Public page and listing card
+  keep showing "Bev's" until approval.
+end note
+@enduml

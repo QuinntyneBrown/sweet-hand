@@ -1,0 +1,75 @@
+@startuml
+title UML sequence behaviour — Post a response to a review
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ReviewResponseDialog" as dialog
+  participant "ReviewsClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CatererReviewsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "PostReviewResponseHandler" as handler
+  participant "Review" as review
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "ReviewRepository" as repo
+  participant "JobQueue" as jobs
+  database "Sweet Hand database" as db
+end box
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "SendNotificationJob" as job
+end box
+participant "Email provider" as email
+actor -> dialog : Write response and submit
+dialog -> dialog : Client check of 1 to 1,000 characters
+dialog -> client : postResponse(reviewId, text)
+client -> endpoints : POST review response
+endpoints -> endpoints : Authenticate caterer, verify CSRF (RequestPipeline)
+endpoints -> handler : Send PostReviewResponseCommand
+handler -> repo : Get(reviewId)
+repo -> db : Select review and response
+db --> repo : Review
+repo --> handler : Review
+handler -> review : Respond(callerCatererId, text, now)
+alt review is about another caterer
+  review --> handler : Forbidden
+  handler --> endpoints : Forbidden (L2-052 AC3)
+  endpoints --> client : 403
+else response already exists
+  review --> handler : Conflict
+  handler --> endpoints : Conflict (L2-052 AC2)
+  endpoints --> client : 409
+  client --> dialog : Offer to edit the existing response
+else text empty or over 1,000 characters
+  review --> handler : Validation error
+  endpoints --> client : 400 with field error
+else accepted
+  review --> handler : ReviewResponse added
+  handler -> repo : Save(review)
+  handler -> jobs : Enqueue SendNotificationJob for reviewer
+  repo -> db : Commit review, response and job in one unit of work
+  db --> repo : Committed
+  handler --> endpoints : Response posted
+  endpoints --> client : 201
+  client --> dialog : Close dialog
+  dialog --> actor : Response shown as Response from business name (L2-052 AC1)
+  jobs -> job : Deliver job
+  job -> email : Send response notification within 2 minutes (L2-052 AC4)
+  email --> job : Accepted
+end
+@enduml

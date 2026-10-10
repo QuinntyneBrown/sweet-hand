@@ -1,0 +1,58 @@
+@startuml
+title UML sequence behaviour — Edit a profile field as an operator
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "OperatorEditDialog" as page
+  participant "ModerationClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "OperatorProfilesEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "EditProfileAsOperatorHandler" as handler
+  participant "CatererProfile" as entity
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AuditLog" as audit
+  participant "JobQueue" as jobs
+  database "Sweet Hand database" as db
+end box
+actor -> page : Change description, enter reason, save
+page -> client : editField(profileId, field, value, reason)
+client -> endpoints : PATCH /operator/profiles/{id} (operator check in RequestPipeline)
+endpoints -> handler : Send EditProfileAsOperatorCommand
+alt reason empty
+  handler --> endpoints : Validation failure
+  endpoints --> client : 400 "Add a reason for this change" (L2-057 AC4)
+  client --> page : Field error
+  page --> actor : Show error on reason field
+else reason given
+  handler -> db : Load profile
+  db --> handler : CatererProfile
+  handler -> entity : ApplyOperatorEdit(field, value, reason)
+  entity -> entity : Validate value with profile field rules
+  entity --> handler : FieldChange (before, after)
+  handler -> audit : Append Edit entry with before, after and reason (L2-060)
+  handler -> jobs : Enqueue caterer email with the reason (L2-057 AC1)
+  handler -> db : Commit in one unit of work
+  db --> handler : Committed
+  handler --> endpoints : Success
+  endpoints --> client : 200
+  client --> page : Saved
+  page --> actor : Close dialog; public page updates within 60 s via CDN TTL
+end
+@enduml

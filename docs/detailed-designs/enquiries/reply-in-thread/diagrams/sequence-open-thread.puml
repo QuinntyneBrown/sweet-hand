@@ -1,0 +1,61 @@
+@startuml
+title UML sequence behaviour — Open a thread
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer or caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ThreadPane" as pane
+  participant "EnquiriesClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "EnquiriesEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetThreadHandler" as handler
+  participant "EnquiryAccessPolicy" as policy
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+  participant "SecurityLog" as seclog
+end box
+actor -> pane : Open /inbox/{id}
+pane -> client : getThread(id)
+client -> ep : GET /enquiries/{id}
+alt not signed in
+  ep --> client : Redirect to sign-in, then back to thread (L2-027 AC4)
+else signed in as Customer or Caterer
+  ep -> handler : Send GetThreadQuery(caller, id)
+  handler -> db : Load enquiry with messages
+  db --> handler : Enquiry or nothing
+  handler -> policy : ForParty(caller, enquiry)
+  alt missing, or caller is not the customer or the caterer (L2-034 AC1)
+    policy --> handler : NotFound
+    handler -> seclog : Record authorisation failure (L2-079 AC4)
+    handler --> ep : NotFound
+    ep --> client : 404, same body as a missing enquiry
+  else party
+    policy --> handler : Allowed
+    handler -> handler : Dispatch MarkThreadReadCommand
+    handler --> ep : ThreadView (details first, messages oldest to newest)
+    ep --> client : 200
+    client --> pane : ThreadView
+    alt status Closed or Declined (L2-032 AC5)
+      pane --> actor : Thread with "This enquiry is closed"
+    else Open or Replied
+      pane --> actor : Thread with ReplyBox; text shown literally, URLs not linked
+    end
+  end
+end
+@enduml

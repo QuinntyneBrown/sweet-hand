@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Render responsive pages
+
+Person(visitor, "Visitor", "Browses caterers without an account")
+Person(customer, "Customer", "Signed-in person planning an event")
+Person(caterer, "Caterer", "Sells Caribbean food and manages a profile")
+Person(operator, "Operator", "Sweet Hand team member")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(ci, "CI pipeline", "<TO SUPPLY>: runs the layout suite and lint steps on every change")
+
+Rel(visitor, sweethand, "Browses on phone, tablet or desktop", "HTTPS")
+Rel(customer, sweethand, "Sends enquiries from any viewport", "HTTPS")
+Rel(caterer, sweethand, "Manages profile from any viewport", "HTTPS")
+Rel(operator, sweethand, "Moderates from a desktop browser", "HTTPS")
+Rel(ci, sweethand, "Renders page templates at 10 widths (L2-064 AC2)")
+@enduml

@@ -1,0 +1,103 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Notify enquiry activity
+
+enum NotificationKind {
+  NewEnquiry
+  NewMessages
+  Declined
+}
+
+enum NotificationStatus {
+  Queued
+  Sent
+  Failed
+}
+
+class Notification {
+  +Guid Id
+  +Guid RecipientAccountId
+  +Guid EnquiryId
+  +NotificationKind Kind
+  +int MessageCount
+  +DateTime FirstEventAt
+  +DateTime SendAfter
+  +int Attempts
+  +DateTime NextAttemptAt
+  +NotificationStatus Status
+  +AddMessage(): void
+  +MarkSent(at: DateTime): void
+  +RecordFailure(next: DateTime): void
+  +MarkFailed(): void
+}
+
+class NotificationScheduler {
+  +QueueNewEnquiry(enquiry: Enquiry): void
+  +QueueNewMessage(enquiry: Enquiry, message: EnquiryMessage): void
+  +QueueDeclined(enquiry: Enquiry, note: string): void
+}
+
+class SendNotificationJob {
+  +Run(notificationId: Guid): void
+}
+
+class NotificationComposer {
+  +Compose(notification: Notification): EmailMessage
+}
+
+class EmailMessage {
+  +string To
+  +string ReplyTo
+  +string Subject
+  +string Body
+  +bool Transactional
+}
+
+class RetryPolicy {
+  +NextAttempt(firstAttemptAt: DateTime, attempts: int): DateTime
+  +HasExpired(firstAttemptAt: DateTime, now: DateTime): bool
+}
+
+interface EmailGateway {
+  +Send(message: EmailMessage): SendResult
+}
+
+interface NotificationRepository {
+  +FindQueuedBatch(enquiryId: Guid, recipientId: Guid): Notification
+  +Save(notification: Notification): void
+}
+
+class HandleEmailBounceHandler {
+  +Handle(command: HandleEmailBounceCommand): void
+}
+
+class UserAccount {
+  +Guid Id
+  +string Email
+  +bool EmailUndeliverable
+  +MarkEmailUndeliverable(): void
+}
+
+Notification --> NotificationKind
+Notification --> NotificationStatus
+NotificationScheduler ..> NotificationRepository
+NotificationScheduler ..> Notification : creates or extends
+SendNotificationJob ..> NotificationRepository
+SendNotificationJob ..> NotificationComposer
+SendNotificationJob ..> EmailGateway
+SendNotificationJob ..> RetryPolicy
+NotificationComposer ..> EmailMessage : builds
+HandleEmailBounceHandler ..> UserAccount : marks
+Notification "*" --> "1" UserAccount : recipient
+@enduml

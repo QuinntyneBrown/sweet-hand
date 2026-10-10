@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Export metrics as CSV
+
+Person(operator, "Operator", "Member of the Sweet Hand team")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(spreadsheet, "Spreadsheet software", "Opens the downloaded CSV file on the operator's device")
+
+Rel(operator, sweethand, "Downloads metrics CSV from", "HTTPS")
+Rel(operator, spreadsheet, "Opens the CSV file in")
+@enduml

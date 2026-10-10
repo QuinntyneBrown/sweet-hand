@@ -1,0 +1,76 @@
+@startuml
+title UML sequence behaviour — Replace or remove a photo
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "PhotoDetailsDialog" as dialog
+  participant "PhotosClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CatererPhotosEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "ReplacePhotoHandler / RemovePhotoHandler" as handler
+  participant "CatererProfile" as profile
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "ObjectStore" as store
+  participant "JobQueue" as jobs
+  participant "CdnPurger" as cdn
+  database "Sweet Hand database" as db
+end box
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "ProcessPhotoJob" as job
+end box
+
+alt Replace
+  actor -> dialog : Replace, choose new file
+  dialog -> client : replace(photoId, file)
+  client -> endpoints : PUT /caterer/profile/photos/{id}/file
+  endpoints -> handler : ReplacePhotoCommand (same checks as upload, L2-041)
+  handler -> store : PutPrivate(new original)
+  handler -> profile : ReplacePhoto(photoId, key) — position and caption kept
+  handler -> db : Save pending replacement
+  handler -> jobs : Enqueue ProcessPhotoJob
+  endpoints --> client : HTTP 202
+  jobs -> job : Worker takes job
+  job -> job : Scan, strip metadata, encode derivatives
+  job -> db : Swap derivatives on the photo
+  job -> store : Delete old derivatives
+  job -> cdn : Purge old image paths
+  note right of cdn
+    Old image no longer served
+    within 60 s (L2-042 AC2)
+  end note
+else Remove
+  actor -> dialog : Remove, confirm
+  dialog -> client : remove(photoId)
+  client -> endpoints : DELETE /caterer/profile/photos/{id}
+  endpoints -> handler : RemovePhotoCommand
+  handler -> profile : RemovePhoto(photoId)
+  alt profile is Published and has exactly 3 photos
+    profile --> handler : "Published profiles need at least 3 photos" (L2-042 AC4)
+    handler --> endpoints : Rejected
+    endpoints --> client : HTTP 409
+    client --> dialog : Message shown, photo kept
+  else removal allowed
+    handler -> db : Save; next photo becomes cover if the cover was removed <TO SUPPLY>
+    handler -> store : Delete original and derivatives
+    handler -> cdn : Purge image paths and public pages
+    endpoints --> client : HTTP 200
+  end
+end
+@enduml

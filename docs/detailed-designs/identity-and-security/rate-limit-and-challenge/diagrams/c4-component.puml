@@ -1,0 +1,34 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Rate limit requests and challenge abusive forms
+
+Person(visitor, "Visitor", "Browses and submits forms")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(widget, "BotChallengeWidget", "<TO SUPPLY>", "Adds challenge token to protected forms")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(limiter, "RateLimiter", "<TO SUPPLY>", "429 with Retry-After")
+  Component(policy, "RateLimitPolicy", "Domain policy", "Rules per action and client key")
+  Component(guard, "ChallengeGuard", "<TO SUPPLY>", "400 on missing or invalid token")
+  Component(forms, "ProtectedForms", "Domain policy", "Forms that require a challenge (L2-082 AC2)")
+  Component(degraded, "DegradedModePolicy", "Domain policy", "Half thresholds when provider unreachable")
+  Component(store, "RateLimitStore", "<TO SUPPLY>", "Atomic counters shared across instances")
+  Component(iphash, "IpHasher", "<TO SUPPLY>", "Hashes IP addresses")
+  Component(verifier, "BotProtectionVerifier", "<TO SUPPLY>", "Calls provider")
+  Component(seclog, "SecurityLog", "<TO SUPPLY>", "Rate-limit block events")
+}
+System_Ext(bot, "Bot-protection provider", "Verifies tokens")
+
+Rel(visitor, widget, "Completes challenge")
+Rel(widget, limiter, "Form submission", "JSON/HTTPS")
+Rel(limiter, policy, "Finds matching rules")
+Rel(limiter, iphash, "Hashes client IP")
+Rel(limiter, store, "Increments counters")
+Rel(limiter, seclog, "Records block")
+Rel(limiter, guard, "Passes request within limits")
+Rel(guard, forms, "Is form protected?")
+Rel(guard, verifier, "Verifies token")
+Rel(guard, degraded, "Applies when provider unreachable")
+Rel(verifier, bot, "Calls", "HTTPS")
+@enduml

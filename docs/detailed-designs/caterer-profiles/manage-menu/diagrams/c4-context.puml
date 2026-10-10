@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Manage the menu
+
+Person(caterer, "Caterer", "Adds, edits, removes and orders dishes")
+Person(visitor, "Visitor", "Reads the menu on the caterer page")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+
+Rel(caterer, sweethand, "Manages menu items using", "HTTPS")
+Rel(visitor, sweethand, "Reads published menu on", "HTTPS")
+@enduml

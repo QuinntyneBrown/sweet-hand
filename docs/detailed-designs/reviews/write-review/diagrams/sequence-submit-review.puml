@@ -1,0 +1,83 @@
+@startuml
+title UML sequence behaviour — Submit a review
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "WriteReviewDialog" as dialog
+  participant "ReviewsClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "ReviewsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "CreateReviewHandler" as handler
+  participant "ReviewEligibilityPolicy" as policy
+  participant "ReviewContentScreen" as screen
+  participant "Review" as review
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "ReviewRepository" as repo
+  database "Sweet Hand database" as db
+end box
+actor -> dialog : Choose rating, enter text, submit
+dialog -> dialog : Client check of rating 1 to 5 and text 20 to 2,000 characters
+dialog -> client : createReview(catererId, rating, text)
+client -> endpoints : POST review
+endpoints -> endpoints : Authenticate, verify CSRF, rate limit (RequestPipeline)
+endpoints -> handler : Send CreateReviewCommand
+alt caller is a caterer or operator account
+  handler --> endpoints : Forbidden (L2-049 AC5)
+  endpoints --> client : 403
+else caller is a customer
+  handler -> repo : FindByCustomerAndCaterer
+  repo --> handler : Existing review or none
+  alt review already exists
+    handler --> endpoints : Conflict (L2-049 AC4)
+    endpoints --> client : 409 with existing review id
+    client --> dialog : Offer to edit the existing review
+  else no review
+    handler -> policy : FindEligibleEnquiry
+    policy --> handler : Eligible enquiry or none
+    alt no eligible enquiry
+      handler --> endpoints : Forbidden (L2-049 AC2, AC3)
+      endpoints --> client : 403
+    else eligible
+      handler -> screen : ContainsContactPattern(text)
+      screen --> handler : Held flag (L2-050 AC3)
+      handler -> review : Create(enquiry, rating, text, held)
+      alt rating or text out of range
+        review --> handler : Validation errors
+        handler --> endpoints : Invalid
+        endpoints --> client : 400 with field errors (L2-050 AC2)
+        client --> dialog : Show inline error per field
+      else valid
+        review --> handler : Review with status Published or Held
+        handler -> repo : Add review, queue item if Held, summary if Published
+        repo -> db : Commit in one unit of work
+        db --> repo : Committed
+        handler --> endpoints : ReviewCreated(status)
+        endpoints --> client : 201
+        client --> dialog : Close dialog
+        alt Published
+          dialog --> actor : Review shows on caterer page within 60 seconds (L2-050 AC1)
+        else Held
+          dialog --> actor : Your review will appear after a quick check (L2-050 AC3)
+        end
+      end
+    end
+  end
+end
+@enduml

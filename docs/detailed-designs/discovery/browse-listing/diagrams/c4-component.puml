@@ -1,0 +1,38 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Browse the caterer listing
+
+Person(visitor, "Visitor", "Browses caterers")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "ListingPage", "Page", "Renders count, grid, pager and empty state")
+  Component(state, "ListingQueryState", "URL state", "Reads and writes filters and page in the query string")
+  Component(grid, "ListingGrid", "Component", "1 to 4 columns by viewport class")
+  Component(card, "ListingCard", "Component", "Cover photo, name, primary cuisine, primary area")
+  Component(client, "ListingClient", "API client contract", "GET /api/public/caterers")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "PublicCaterersEndpoints", "Endpoint group", "Anonymous listing endpoint")
+  Component(handler, "GetListingHandler", "Query handler", "Filters, orders, pages and maps caterers")
+  Component(order, "ListingOrder", "Domain service", "Daily-seeded pseudo-random order")
+  Component(paging, "PageNumber", "Value object", "Normalises invalid pages to 1")
+  Component(repo, "CatererProfileRepository", "Repository", "Reads published caterer summaries")
+  Component(images, "ImageUrlBuilder", "Infrastructure", "Builds CDN derivative URLs")
+  Component(clock, "Clock", "Infrastructure", "Current date in America/Toronto")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Caterer profiles")
+
+Rel(visitor, page, "Opens", "HTTPS")
+Rel(page, state, "Reads and pushes state")
+Rel(page, grid, "Renders")
+Rel(grid, card, "Renders up to 24 per page")
+Rel(page, client, "Requests pages")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, handler, "Sends GetListingQuery")
+Rel(handler, repo, "Reads published caterers")
+Rel(handler, order, "Orders by daily seed")
+Rel(handler, paging, "Normalises page")
+Rel(handler, images, "Builds photo URLs")
+Rel(order, clock, "Reads today's date")
+Rel(repo, db, "Queries")
+@enduml

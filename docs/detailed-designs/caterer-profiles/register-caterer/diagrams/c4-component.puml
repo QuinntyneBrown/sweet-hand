@@ -1,0 +1,38 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Register a caterer
+
+Person(caterer, "Caterer", "Registers a caterer account")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "CatererRegistrationPage", "Page component", "Registration form, confirmations, client checks")
+  Component(client, "RegistrationClient", "API client contract", "Typed registration request and result")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(pipeline, "RequestPipeline", "Request pipeline", "CSRF, rate limit, correlation ID")
+  Component(endpoints, "RegistrationEndpoints", "Endpoint group", "POST /registrations/caterer (anonymous)")
+  Component(handler, "RegisterCatererHandler", "Application service", "Validates, creates account and draft profile")
+  Component(domain, "UserAccount / CatererProfile", "Domain aggregates", "Caterer account and Draft profile")
+  Component(hasher, "PasswordHasher", "Infrastructure", "Password policy and hashing (L2-076)")
+  Component(botv, "BotProtectionVerifier", "Infrastructure", "Checks challenge tokens")
+  Component(repos, "UserAccountRepository / CatererProfileRepository", "Infrastructure", "Persists aggregates in one unit of work")
+  Component(jobs, "JobQueue", "Infrastructure", "Enqueues SendNotificationJob")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts and profiles")
+ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Background jobs")
+System_Ext(bot, "Bot-protection provider", "Verifies challenge tokens")
+
+Rel(caterer, page, "Completes form")
+Rel(page, client, "Calls")
+Rel(client, pipeline, "POST registration", "JSON/HTTPS")
+Rel(pipeline, endpoints, "Passes checked request")
+Rel(endpoints, handler, "Sends RegisterCatererCommand")
+Rel(handler, botv, "Verifies token")
+Rel(botv, bot, "Calls", "HTTPS")
+Rel(handler, hasher, "Checks policy and hashes password")
+Rel(handler, domain, "Creates")
+Rel(handler, repos, "Saves")
+Rel(repos, db, "Reads and writes")
+Rel(handler, jobs, "Queues verification email")
+Rel(jobs, queue, "Writes job")
+@enduml

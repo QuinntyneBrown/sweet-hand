@@ -1,0 +1,113 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Export personal data
+
+enum DataExportStatus {
+  Requested
+  Ready
+  Failed
+}
+
+class DataExport {
+  +Guid Id
+  +Guid AccountId
+  +DataExportStatus Status
+  +DateTime RequestedAtUtc
+  +DateTime ReadyAtUtc
+  +DateTime ExpiresAtUtc
+  +string ObjectKey
+  +MarkReady(objectKey: string, nowUtc: DateTime): void
+  +MarkFailed(): void
+  +CanBeDownloadedBy(accountId: Guid, nowUtc: DateTime): bool
+}
+
+class RequestDataExportCommand {
+  +Guid AccountId
+}
+
+class RequestDataExportHandler {
+  +Handle(command: RequestDataExportCommand): Result<Guid>
+}
+
+class GetDataExportDownloadQuery {
+  +Guid ExportId
+  +Guid RequesterAccountId
+}
+
+class GetDataExportDownloadHandler {
+  +Handle(query: GetDataExportDownloadQuery): Result<Uri>
+}
+
+class GenerateDataExportJob {
+  +Guid ExportId
+  +Run(): void
+}
+
+class PersonalDataCollector {
+  +Collect(account: UserAccount): ExportDocument
+}
+
+interface ExportSection {
+  +Name: string
+  +Collect(account: UserAccount): object
+}
+
+class CustomerProfileSection
+class CatererProfileSection
+class ConsentRecordsSection
+class EnquiriesAndMessagesSection
+class ReviewsSection
+class ReportsSection
+class MenuSection
+class PhotosSection
+class CertificateSection
+class ReviewResponsesSection
+
+class ContactDisclosureFilter {
+  +Apply(thread: Enquiry, requesterId: Guid, shares: ContactShare[]): Enquiry
+}
+
+class UserAccount {
+  +Guid Id
+  +Role Role
+}
+
+class ContactShare {
+  +Guid EnquiryId
+  +Guid SharedByAccountId
+  +DateTime SharedAtUtc
+}
+
+DataExport --> DataExportStatus : has
+DataExport "*" --> "1" UserAccount : belongs to
+RequestDataExportHandler ..> RequestDataExportCommand : handles
+RequestDataExportHandler ..> DataExport : creates
+GetDataExportDownloadHandler ..> GetDataExportDownloadQuery : handles
+GetDataExportDownloadHandler ..> DataExport : checks
+GenerateDataExportJob ..> DataExport : completes
+GenerateDataExportJob --> PersonalDataCollector : uses
+PersonalDataCollector "1" *-- "*" ExportSection : composes
+ExportSection <|.. CustomerProfileSection
+ExportSection <|.. CatererProfileSection
+ExportSection <|.. ConsentRecordsSection
+ExportSection <|.. EnquiriesAndMessagesSection
+ExportSection <|.. ReviewsSection
+ExportSection <|.. ReportsSection
+ExportSection <|.. MenuSection
+ExportSection <|.. PhotosSection
+ExportSection <|.. CertificateSection
+ExportSection <|.. ReviewResponsesSection
+EnquiriesAndMessagesSection --> ContactDisclosureFilter : uses
+ContactDisclosureFilter ..> ContactShare : reads
+@enduml

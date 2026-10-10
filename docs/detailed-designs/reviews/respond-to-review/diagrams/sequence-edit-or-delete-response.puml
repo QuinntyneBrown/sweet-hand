@@ -1,0 +1,72 @@
+@startuml
+title UML sequence behaviour — Edit or delete a response
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "CatererReviewsScreen" as screen
+  participant "ReviewsClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CatererReviewsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "EditReviewResponseHandler" as editH
+  participant "DeleteReviewResponseHandler" as delH
+  participant "Review" as review
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "ReviewRepository" as repo
+  database "Sweet Hand database" as db
+end box
+alt edit
+  actor -> screen : Edit response in ReviewResponseDialog
+  screen -> client : editResponse(reviewId, text)
+  client -> endpoints : PUT review response
+  endpoints -> editH : Send EditReviewResponseCommand
+  editH -> repo : Get(reviewId)
+  repo --> editH : Review
+  editH -> review : EditResponse(callerCatererId, text, now)
+  alt not the review's caterer
+    review --> editH : Forbidden
+    endpoints --> client : 403 (L2-052 AC3)
+  else valid text of 1 to 1,000 characters
+    review --> editH : Response text replaced
+    editH -> repo : Save(review)
+    repo -> db : Commit
+    endpoints --> client : 200
+    client --> screen : Show updated response
+  end
+else delete
+  actor -> screen : Delete response and confirm in ConfirmDeleteResponseDialog
+  screen -> client : deleteResponse(reviewId)
+  client -> endpoints : DELETE review response
+  endpoints -> delH : Send DeleteReviewResponseCommand
+  delH -> repo : Get(reviewId)
+  repo --> delH : Review
+  delH -> review : DeleteResponse(callerCatererId)
+  alt not the review's caterer
+    review --> delH : Forbidden
+    endpoints --> client : 403 (L2-052 AC3)
+  else owner
+    review --> delH : Response removed
+    delH -> repo : Save(review)
+    repo -> db : Commit
+    endpoints --> client : 204
+    client --> screen : Offer Respond again
+  end
+end
+screen --> actor : Public page reflects change within the 60-second cache window (L2-087)
+@enduml

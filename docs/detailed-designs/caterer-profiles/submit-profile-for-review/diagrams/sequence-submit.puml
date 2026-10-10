@@ -1,0 +1,74 @@
+@startuml
+title UML sequence behaviour — Submit or resubmit a profile
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ProfileEditorPage" as page
+  participant "ProfileSubmissionClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "ProfileSubmissionEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SubmitProfileHandler" as handler
+  participant "ProfileSubmissionRules" as rules
+  participant "CatererProfile" as profile
+  participant "ProfileStatusTransitions" as transitions
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "CatererProfileRepository" as repo
+  participant "ProfileSubmissionRepository" as subs
+  database "Sweet Hand database" as db
+end box
+
+actor -> page : Activate "Submit for review"
+page -> client : submit()
+client -> endpoints : POST /caterer/profile/submission
+endpoints -> endpoints : Authenticate, CSRF, require Caterer role
+endpoints -> handler : Send SubmitProfileCommand
+handler -> repo : Load profile and owning account
+repo -> db : Query
+db --> repo : Rows
+repo --> handler : CatererProfile, UserAccount
+handler -> rules : Evaluate every L2-039 rule
+rules --> handler : SetupChecklist
+alt one or more rules unmet
+  handler --> endpoints : Unmet rules
+  endpoints --> client : HTTP 422 listing every failed rule (L2-039 AC3)
+  client --> page : Unmet items
+  page --> actor : Checklist highlights, for example "Add at least 3 photos" (L2-039 AC2)
+else all rules met
+  handler -> profile : ChangeStatus(PendingReview, caterer)
+  profile -> transitions : IsAllowed(Draft or ChangesRequested to PendingReview, Caterer)
+  alt transition not allowed (for example already Published)
+    transitions --> profile : false
+    profile --> handler : InvalidStatusTransition
+    handler --> endpoints : Conflict
+    endpoints --> client : HTTP 409, status unchanged
+  else allowed
+    transitions --> profile : true
+    profile -> profile : Append ProfileStatusChange (L2-046 AC4)
+    handler -> subs : Add ProfileSubmission with snapshot and time
+    handler -> repo : Save(profile)
+    repo -> db : Commit status, history, submission in one unit of work
+    handler --> endpoints : Submitted
+    endpoints --> client : HTTP 200
+    client --> page : Pending review
+    page --> actor : "Thanks — we'll review your profile within 3 business days" (L2-039 AC1)
+    page --> actor : All sections read-only with "Withdraw submission" (L2-039 AC4)
+  end
+end
+@enduml

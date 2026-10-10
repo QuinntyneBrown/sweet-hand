@@ -1,0 +1,99 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Edit or delete a review
+
+enum ReviewStatus {
+  Published
+  Held
+  Hidden
+  Removed
+}
+
+class EditReviewCommand {
+  +Guid ReviewId
+  +int Rating
+  +string Text
+}
+
+class DeleteReviewCommand {
+  +Guid ReviewId
+}
+
+class EditReviewHandler {
+  +Handle(command: EditReviewCommand): Result
+}
+
+class DeleteReviewHandler {
+  +Handle(command: DeleteReviewCommand): Result
+}
+
+class Review {
+  +Guid Id
+  +Guid CustomerId
+  +Guid CatererId
+  +int Rating
+  +string Text
+  +ReviewStatus Status
+  +DateTime CreatedAt
+  +DateTime EditedAt
+  +Edit(authorId: Guid, rating: int, text: string, held: bool, now: DateTime): void
+  +CanEdit(now: DateTime): bool
+  +CanDelete(callerId: Guid): bool
+}
+
+class ReviewResponse {
+  +string Text
+}
+
+class ReviewContentScreen {
+  +ContainsContactPattern(text: string): bool
+}
+
+class CatererRatingSummary {
+  +Guid CatererId
+  +decimal AverageRating
+  +int PublishedReviewCount
+  +Recalculate(published: Review[]): void
+}
+
+class ReviewQueueItem {
+  +Guid Id
+  +string Kind
+  +Guid TargetId
+}
+
+interface ReviewRepository {
+  +Get(reviewId: Guid): Review
+  +Save(review: Review): void
+  +Delete(review: Review): void
+  +ListPublished(catererId: Guid): Review[]
+  +SaveSummary(summary: CatererRatingSummary): void
+  +AddQueueItem(item: ReviewQueueItem): void
+  +RemoveQueueItems(reviewId: Guid): void
+}
+
+interface Clock {
+  +UtcNow(): DateTime
+}
+
+EditReviewHandler ..> EditReviewCommand : handles
+DeleteReviewHandler ..> DeleteReviewCommand : handles
+EditReviewHandler --> ReviewRepository
+DeleteReviewHandler --> ReviewRepository
+EditReviewHandler --> ReviewContentScreen : re-screens
+EditReviewHandler --> Clock
+EditReviewHandler ..> ReviewQueueItem : creates when held
+EditReviewHandler ..> CatererRatingSummary : recalculates
+DeleteReviewHandler ..> CatererRatingSummary : recalculates
+Review "1" *-- "0..1" ReviewResponse : response
+Review --> ReviewStatus : has
+@enduml

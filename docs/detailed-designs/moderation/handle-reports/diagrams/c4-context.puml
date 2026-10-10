@@ -1,0 +1,17 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Handle reports
+
+Person(operator, "Operator", "Sweet Hand team member who approves caterers and moderates content")
+Person(customer, "Customer", "Signed-in person in Toronto or the GTA planning a meal or event")
+Person(caterer, "Caterer", "Person or small business selling Caribbean food")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(email, "Email provider", "Sends transactional email and reports bounces")
+
+Rel(operator, sweethand, "Dismisses or acts on reports", "HTTPS")
+Rel(customer, sweethand, "Submits reports", "HTTPS")
+Rel(sweethand, email, "Sends report-reviewed and moderation notices via")
+Rel(email, customer, "Delivers report-reviewed notice")
+Rel(email, caterer, "Delivers moderation notice")
+@enduml

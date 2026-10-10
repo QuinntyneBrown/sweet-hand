@@ -1,0 +1,53 @@
+@startuml
+title UML sequence behaviour — View the certificate file
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Requester" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "CertificateSectionView" as section
+  participant "CertificateClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CatererCertificateEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetCertificateFileUrlHandler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "CatererProfileRepository" as repo
+  participant "ObjectStore" as store
+end box
+
+actor -> section : Activate "View file"
+section -> client : getFileUrl()
+client -> endpoints : GET /caterer/profile/certificate/file-url
+endpoints -> handler : Send GetCertificateFileUrlQuery with caller
+handler -> repo : Load profile and certificate
+repo --> handler : Certificate with fileKey
+alt caller is the owning caterer or an operator
+  handler -> store : SignedUrl(fileKey, ttl 5 minutes or less)
+  store --> handler : TimeLimitedUrl
+  handler --> endpoints : TimeLimitedUrl
+  endpoints --> client : HTTP 200
+  client --> section : Open file in new tab
+else any other caller
+  handler --> endpoints : Not found
+  endpoints --> client : HTTP 404, same body as a missing record (L2-040 AC4)
+end
+note over store
+  The private file area serves no file
+  without a valid signed URL.
+end note
+@enduml

@@ -1,0 +1,44 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Suspend, reinstate or remove a profile
+
+Person(operator, "Operator", "Moderates caterers")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(screen, "CatererModerationScreen", "Page", "Status, history and actions")
+  Component(dialogs, "Suspend / Reinstate / Remove dialogs", "Dialogs", "Reason and confirmation")
+  Component(client, "ModerationClient", "API client contract", "Typed operator calls")
+  Component(catererPage, "CatererPage", "Page", "Public page; 404 and 410 views")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(opEndpoints, "OperatorProfilesEndpoints", "Endpoint group", "suspend, reinstate, remove")
+  Component(pubEndpoints, "PublicCaterersEndpoints", "Endpoint group", "/caterers/{slug}")
+  Component(handlers, "Suspend / Reinstate / Remove handlers", "Command handlers", "Apply action and side effects")
+  Component(pubHandler, "GetPublicCatererHandler", "Query handler", "Found, NotFound or Gone")
+  Component(profile, "CatererProfile", "Domain aggregate", "Status transitions via ProfileStateMachine")
+  Component(enquiry, "Enquiry", "Domain entity", "CloseBecauseCatererUnavailable")
+  Component(audit, "AuditLog", "Infrastructure", "Append-only audit entries")
+  Component(jobs, "JobQueue", "Infrastructure", "Transactional outbox")
+}
+Container_Boundary(worker, "Sweet Hand background worker") {
+  Component(notify, "SendNotificationJob", "Job", "Caterer and customer emails")
+  Component(purge, "PurgeCatererPhotosJob", "Job", "Revokes and purges photos")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles, enquiries, audit log")
+
+Rel(operator, screen, "Uses", "HTTPS")
+Rel(screen, dialogs, "Opens")
+Rel(dialogs, client, "suspend / reinstate / remove")
+Rel(client, opEndpoints, "Calls via RequestPipeline", "JSON/HTTPS")
+Rel(opEndpoints, handlers, "Sends command")
+Rel(handlers, profile, "Applies transition")
+Rel(handlers, enquiry, "Closes open enquiries")
+Rel(handlers, audit, "Appends")
+Rel(handlers, jobs, "Enqueues")
+Rel(catererPage, pubEndpoints, "Requests caterer", "JSON/HTTPS")
+Rel(pubEndpoints, pubHandler, "Sends GetPublicCatererQuery")
+Rel(pubHandler, db, "Reads status")
+Rel(handlers, db, "Writes")
+Rel(jobs, notify, "Delivers jobs")
+Rel(jobs, purge, "Delivers jobs")
+@enduml

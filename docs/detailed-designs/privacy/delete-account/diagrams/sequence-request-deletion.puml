@@ -1,0 +1,63 @@
+@startuml
+title UML sequence behaviour — Request deletion
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer or caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "AccountSettingsPage" as page
+  participant "DeleteAccountDialog" as dialog
+  participant "AccountClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "AccountEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "RequestAccountDeletionHandler" as handler
+  participant "UserAccount" as account
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+  participant "SessionStore" as sessions
+  queue "Job queue" as queue
+end box
+
+actor -> page : Activate "Delete my account"
+page -> dialog : Open (focus moves into dialog)
+actor -> dialog : Re-enter password and confirm
+dialog -> client : Request deletion
+client -> pipeline : POST /me/deletion
+pipeline -> pipeline : Authenticate, CSRF, authorise signed-in customer or caterer
+pipeline -> endpoints : Route
+endpoints -> handler : RequestAccountDeletionCommand(accountId, password)
+handler -> db : Load account and password hash
+alt password incorrect
+  handler -> handler : Count failed attempt toward L2-076 lockout
+  handler --> endpoints : Field error
+  endpoints --> client : HTTP 400
+  dialog --> actor : Show password error; nothing changes
+else password correct
+  handler -> account : Close(nowUtc)
+  account --> handler : Status = Closed; sign-in refused
+  handler -> db : Save account and DeletionRecord in one unit of work
+  handler -> sessions : End every session of the account
+  handler -> queue : Enqueue ProcessAccountDeletionJob (within 30 days) (L2-072)
+  handler -> queue : Enqueue confirmation email (L2-072 AC1)
+  handler --> endpoints : Closed
+  endpoints --> client : HTTP 204; session cookie cleared
+  client --> dialog : Result
+  dialog --> actor : Signed out; deletion confirmed
+end
+@enduml

@@ -1,0 +1,55 @@
+@startuml
+title UML sequence behaviour — Trace a request
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Page template" as page
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CorrelationIdStep" as corr
+  participant "Feature endpoints" as ep
+  participant "UnhandledExceptionHandler" as exc
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "Feature handler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "TelemetryEmitter" as tele
+end box
+participant "Observability platform" as obs
+actor -> page : Request page
+page -> corr : HTTPS request
+alt Trusted upstream header present
+  corr -> corr : Reuse correlation ID
+else No trusted header
+  corr -> corr : Create correlation ID
+end
+corr -> tele : Start span with correlation ID (L2-089 AC1)
+corr -> ep : Forward request
+ep -> handler : Command or query
+alt Success
+  handler --> ep : Result
+  ep --> corr : Response
+  corr --> page : Response with X-Correlation-ID
+  page --> actor : Page
+else Unhandled exception
+  handler --> exc : Exception
+  exc -> tele : Log error with stack trace and correlation ID (L2-089 AC4)
+  exc --> page : 500 generic error with correlation ID
+  page --> actor : Error page showing correlation ID, no internal details
+end
+tele -> obs : Export logs, metrics and spans
+@enduml

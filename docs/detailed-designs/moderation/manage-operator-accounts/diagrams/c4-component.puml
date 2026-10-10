@@ -1,0 +1,47 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Manage operator accounts
+
+Person(admin, "Admin operator", "Manages operators")
+Person(operator, "Operator", "Signs in with a second factor")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(accountsPage, "OperatorAccountsPage", "Page", "Operator list")
+  Component(dialogs, "CreateOperatorDialog / DeactivateOperatorDialog", "Dialogs", "Create and deactivate")
+  Component(mfaScreens, "MfaEnrolmentScreen / MfaChallengeScreen", "Pages", "Enrol and verify factors")
+  Component(clients, "OperatorAccountsClient / MfaClient", "API client contracts", "Typed calls")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(pipeline, "RequestPipeline", "Request pipeline", "OperatorPolicy and AdminPolicy")
+  Component(accEndpoints, "OperatorAccountsEndpoints", "Endpoint group", "/operator/accounts")
+  Component(mfaEndpoints, "MfaEndpoints", "Endpoint group", "/mfa")
+  Component(createH, "CreateOperatorAccountHandler", "Command handler", "Account and invitation")
+  Component(deactH, "DeactivateOperatorAccountHandler", "Command handler", "Deactivates and revokes sessions")
+  Component(verifyH, "VerifySecondFactorHandler", "Command handler", "Sets mfaSatisfied")
+  Component(verifiers, "TotpVerifier / WebAuthnVerifier", "Infrastructure", "Factor checks")
+  Component(sessions, "SessionStore", "Infrastructure", "Server-side sessions")
+  Component(logs, "AuditLog / SecurityLog", "Infrastructure", "Audit and security events")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, sessions, audit log")
+
+Rel(admin, accountsPage, "Uses", "HTTPS")
+Rel(operator, mfaScreens, "Uses", "HTTPS")
+Rel(accountsPage, dialogs, "Opens")
+Rel(dialogs, clients, "create / deactivate")
+Rel(mfaScreens, clients, "enrol / verify")
+Rel(clients, pipeline, "Calls", "JSON/HTTPS")
+Rel(pipeline, sessions, "Reads session role and MFA state")
+Rel(pipeline, logs, "Records denied requests")
+Rel(pipeline, accEndpoints, "Forwards Admin request")
+Rel(pipeline, mfaEndpoints, "Forwards signed-in request")
+Rel(accEndpoints, createH, "CreateOperatorAccountCommand")
+Rel(accEndpoints, deactH, "DeactivateOperatorAccountCommand")
+Rel(mfaEndpoints, verifyH, "VerifySecondFactorCommand")
+Rel(verifyH, verifiers, "Verifies proof")
+Rel(verifyH, sessions, "Sets mfaSatisfied")
+Rel(deactH, sessions, "Revokes sessions")
+Rel(createH, logs, "Appends audit entry")
+Rel(deactH, logs, "Appends audit entry")
+Rel(sessions, db, "Reads and writes")
+Rel(createH, db, "Writes account")
+@enduml

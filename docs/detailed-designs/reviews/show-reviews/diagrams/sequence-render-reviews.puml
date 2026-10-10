@@ -1,0 +1,70 @@
+@startuml
+title UML sequence behaviour — Render reviews with the caterer page
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "CatererPage" as page
+  participant "ReviewsSection" as section
+  participant "ReviewsClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "PublicCaterersEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetCatererReviewsHandler" as handler
+  participant "ReviewerLabelFormatter" as labelFmt
+  participant "EventMonthFormatter" as monthFmt
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "CatererProfileRepository" as profRepo
+  participant "ReviewRepository" as revRepo
+  database "Sweet Hand database" as db
+end box
+actor -> page : Request caterer page (via CDN on cache miss)
+page -> client : getReviews(slug, page 1)
+client -> endpoints : GET caterer reviews page 1
+endpoints -> endpoints : Anonymous access allowed (L2-013)
+endpoints -> handler : Send GetCatererReviewsQuery
+handler -> profRepo : FindBySlug
+profRepo -> db : Select profile
+db --> profRepo : Profile
+profRepo --> handler : Profile and status
+alt caterer is not Published
+  handler --> endpoints : NotFound (L2-014 AC2)
+  endpoints --> client : 404
+else Published
+  handler -> revRepo : GetSummary and ListPublished(offset 0, limit 10)
+  revRepo -> db : Select status Published, newest first (L2-051 AC5)
+  db --> revRepo : Summary, reviews, responses
+  revRepo --> handler : Summary and review page
+  loop each review
+    handler -> labelFmt : Format display name (L2-051 AC3)
+    labelFmt --> handler : First name and last initial
+    handler -> monthFmt : Format event date
+    monthFmt --> handler : Event in Month yyyy
+  end
+  handler --> endpoints : CatererReviewsView
+  endpoints --> client : 200 display fields only (L2-014)
+end
+client --> page : Reviews view
+page -> section : Render summary and review page
+alt count is 0
+  section --> page : No reviews yet, no average (L2-051 AC2)
+else count above 0
+  section --> page : Average to one decimal and count (L2-051 AC1), reviews as literal text
+end
+page --> actor : Server-rendered HTML
+@enduml

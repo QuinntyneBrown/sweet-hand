@@ -1,0 +1,48 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Handle reports
+
+Person(operator, "Operator", "Handles reports")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(screen, "ReportedItemScreen", "Page", "Grouped reports with actions")
+  Component(dialogs, "DismissReportsDialog / TakeActionDialog", "Dialogs", "Note or action with reason")
+  Component(viewer, "ReportEnquiryViewer", "Page", "Read-only enquiry thread")
+  Component(client, "ModerationClient", "API client contract", "Typed operator calls")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "OperatorReportsEndpoints", "Endpoint group", "Report items, resolutions, enquiry access")
+  Component(getH, "GetReportedItemHandler", "Query handler", "Builds ReportedItemGroup")
+  Component(dismissH, "DismissReportsHandler", "Command handler", "Closes reports, undoes automatic hiding")
+  Component(actionH, "TakeActionOnReportsHandler", "Command handler", "Runs moderation command, links reports")
+  Component(modCmds, "Moderation commands", "Command handlers", "Edit, suspend, remove profile; hide, remove review")
+  Component(enqH, "OpenEnquiryForReportHandler", "Query handler", "Audited enquiry read")
+  Component(policy, "EnquiryAccessPolicy", "Domain service", "Report-to-enquiry link check")
+  Component(audit, "AuditLog", "Infrastructure", "Append-only audit entries")
+  Component(jobs, "JobQueue", "Infrastructure", "Transactional outbox")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Reports, enquiries, audit log")
+
+Rel(operator, screen, "Uses", "HTTPS")
+Rel(screen, dialogs, "Opens")
+Rel(screen, viewer, "Opens enquiry")
+Rel(screen, client, "Loads item")
+Rel(dialogs, client, "dismiss / takeAction")
+Rel(viewer, client, "openEnquiry")
+Rel(client, endpoints, "Calls via RequestPipeline", "JSON/HTTPS")
+Rel(endpoints, getH, "GetReportedItemQuery")
+Rel(endpoints, dismissH, "DismissReportsCommand")
+Rel(endpoints, actionH, "TakeActionOnReportsCommand")
+Rel(endpoints, enqH, "OpenEnquiryForReportQuery")
+Rel(actionH, modCmds, "Dispatches chosen action")
+Rel(enqH, policy, "Checks link")
+Rel(dismissH, audit, "Appends")
+Rel(actionH, audit, "Reads action entry")
+Rel(enqH, audit, "Appends access entry")
+Rel(dismissH, jobs, "Enqueues reporter emails")
+Rel(actionH, jobs, "Enqueues reporter emails")
+Rel(getH, db, "Reads")
+Rel(dismissH, db, "Writes")
+Rel(actionH, db, "Writes")
+Rel(enqH, db, "Reads")
+@enduml

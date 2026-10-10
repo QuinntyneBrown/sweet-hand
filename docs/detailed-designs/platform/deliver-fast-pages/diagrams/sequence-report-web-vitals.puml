@@ -1,0 +1,35 @@
+@startuml
+title UML sequence behaviour — Report Core Web Vitals
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Listing or caterer page" as page
+  participant "WebVitalsReporter" as vitals
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "PerformanceEndpoints" as ep
+end box
+participant "Observability platform" as obs
+actor -> page : Load and interact with page
+page -> vitals : Observe LCP, INP and CLS
+vitals -> vitals : Wait until page hidden or settled
+vitals -> ep : POST first-party beacon (page type, device class, metrics)
+note right of vitals : No third-party request (L2-062 AC1)\nNo user identifier
+ep -> ep : Validate sample against schema
+ep -> obs : Record metrics, no IP address stored
+ep --> vitals : 204 No Content
+obs -> obs : 75th percentile for mobile over 28 days (L2-085 AC1)
+@enduml

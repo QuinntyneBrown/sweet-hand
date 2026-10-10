@@ -1,0 +1,50 @@
+@startuml
+title UML sequence behaviour — Open the listing
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ListingPage" as page
+  participant "ListingQueryState" as state
+  participant "ListingClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "PublicCaterersEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetListingHandler" as handler
+  participant "ListingOrder" as order
+  participant "PageNumber" as paging
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "Clock" as clock
+  database "Sweet Hand database" as db
+end box
+actor -> page : Open listing URL (no sign-in, L2-013)
+page -> state : Parse query string
+state --> page : Valid filters and page (unknown values dropped, L2-003 AC3)
+page -> client : Get listing page
+client -> endpoints : GET /api/public/caterers?page=n
+endpoints -> endpoints : Apply anonymous endpoint policy (explicit public access)
+endpoints -> handler : Send GetListingQuery
+handler -> db : Read summaries with status Published only (L2-001)
+db --> handler : Published caterer summaries
+handler -> clock : Today in America/Toronto
+clock --> handler : Daily seed
+handler -> order : Order by hash(seed, caterer id) (L2-002)
+order --> handler : Ordered caterers
+handler -> paging : Normalise requested page, size 24 (L2-002 AC5)
+paging --> handler : Page number
+handler -> handler : Map to four-field ListingCardView (L2-004)
+handler --> endpoints : ListingPageView
+endpoints --> client : HTTP 200 JSON
+client --> page : Listing result
+alt total count is 0
+  page --> actor : "No caterers match these filters" and "Clear filters" (L2-001 AC4)
+else results
+  page --> actor : Result count, grid and responsive images (L2-005, L2-006)
+end
+@enduml

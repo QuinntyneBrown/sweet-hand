@@ -1,0 +1,105 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — View a caterer page
+
+class GetCatererPageQuery {
+  +string Slug
+}
+class GetCatererPageHandler {
+  +Handle(query: GetCatererPageQuery): CatererPageResult
+}
+class CatererPageResult {
+  +PublicCatererView? View
+  +string? RedirectToSlug
+  +bool Gone
+  +bool NotFound
+}
+class PublicCatererView {
+  +string Slug
+  +string BusinessName
+  +List<string> Cuisines
+  +string Description
+  +GuestRange GuestRange
+  +List<Occasion> Occasions
+  +List<PublicPhotoView> Photos
+  +List<PublicMenuItemView> MenuItems
+  +List<RegionAreasView> ServiceAreas
+  +ReviewSummaryView Reviews
+}
+class PublicMenuItemView {
+  +string Name
+  +string? Description
+  +List<DietaryTag> DietaryTags
+  +string? PriceGuidance
+}
+class PublicPhotoView {
+  +string Caption
+  +bool IsCover
+  +List<ImageSource> Sources
+}
+class RegionAreasView {
+  +string Region
+  +List<string> Areas
+}
+class GuestRange <<value object>> {
+  +int Min
+  +int Max
+  +Format(): string
+}
+enum Occasion {
+  Weddings
+  Birthdays
+  CorporateEvents
+  FuneralsAndRepasts
+  ReligiousAndCulturalCelebrations
+  FamilyGatherings
+  PrivateDinners
+  CommunityEvents
+}
+enum DietaryTag {
+  Vegetarian
+  Vegan
+  GlutenFree
+  DairyFree
+  Halal
+  ContainsNuts
+  ContainsShellfish
+  Spicy
+}
+class SlugGenerator {
+  +Generate(businessName: string, taken: Set<string>): string
+}
+class SlugRedirect {
+  +string OldSlug
+  +string CurrentSlug
+}
+class CatererProfile {
+  +Guid Id
+  +string Slug
+  +ProfileStatus Status
+  +string BusinessName
+  +PendingNameChange? PendingNameChange
+}
+
+GetCatererPageHandler ..> GetCatererPageQuery : handles
+GetCatererPageHandler ..> CatererPageResult : returns
+GetCatererPageHandler ..> CatererProfile : reads approved values
+GetCatererPageHandler ..> SlugRedirect : resolves
+CatererPageResult o-- PublicCatererView
+PublicCatererView *-- GuestRange
+PublicCatererView *-- "0..*" PublicMenuItemView
+PublicCatererView *-- "0..30" PublicPhotoView
+PublicCatererView *-- "1..*" RegionAreasView
+PublicCatererView --> "1..*" Occasion
+PublicMenuItemView --> "0..*" DietaryTag
+SlugGenerator ..> CatererProfile : sets slug on first publish
+@enduml

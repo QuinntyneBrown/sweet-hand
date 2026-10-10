@@ -1,0 +1,52 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Manage photos
+
+Person(caterer, "Caterer", "Manages photos")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "PhotoManagerPage", "Page component", "Ordered photos, upload, Move up and Move down, drag to reorder")
+  Component(dialog, "PhotoDetailsDialog", "Dialog component", "Caption, Replace, Remove, Set as cover")
+  Component(client, "PhotosClient", "API client contract", "upload, replace, update, reorder, remove, list")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "CatererPhotosEndpoints", "Endpoint group", "Owner-scoped /caterer/profile/photos")
+  Component(upload, "UploadPhotoHandler", "Command handler", "Size, dimension and signature checks")
+  Component(replace, "ReplacePhotoHandler", "Command handler", "Pending replacement")
+  Component(update, "UpdatePhotoHandler / ReorderPhotosHandler", "Command handlers", "Caption, cover, order")
+  Component(remove, "RemovePhotoHandler", "Command handler", "Removal with published minimum")
+  Component(profile, "CatererProfile", "Domain aggregate", "Photo rules: max 30, single cover, min 3 when published")
+  Component(store, "ObjectStore", "Infrastructure", "Private and public areas")
+  Component(jobs, "JobQueue", "Infrastructure", "Enqueues ProcessPhotoJob")
+}
+Container_Boundary(worker, "Sweet Hand background worker") {
+  Component(process, "ProcessPhotoJob", "Job", "Scan, strip metadata, encode, publish")
+  Component(scanner, "MalwareScanner", "Infrastructure", "Calls malware scanning service")
+  Component(imaging, "ImageProcessor", "Infrastructure", "AVIF, WebP, JPEG at 400, 800, 1200, 2000 px")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Photos")
+ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Originals and derivatives")
+
+Rel(caterer, page, "Uses")
+Rel(page, dialog, "Opens")
+Rel(page, client, "Calls")
+Rel(dialog, client, "Calls")
+Rel(client, endpoints, "Calls", "HTTPS")
+Rel(endpoints, upload, "Sends UploadPhotoCommand")
+Rel(endpoints, replace, "Sends ReplacePhotoCommand")
+Rel(endpoints, update, "Sends UpdatePhotoCommand, ReorderPhotosCommand")
+Rel(endpoints, remove, "Sends RemovePhotoCommand")
+Rel(upload, profile, "AddPhoto")
+Rel(replace, profile, "ReplacePhoto")
+Rel(update, profile, "SetCaption, SetCover, Reorder")
+Rel(remove, profile, "RemovePhoto")
+Rel(upload, store, "Writes original")
+Rel(replace, store, "Writes original")
+Rel(upload, jobs, "Queues processing")
+Rel(replace, jobs, "Queues processing")
+Rel(profile, db, "Persisted via CatererProfileRepository")
+Rel(process, scanner, "Scans first")
+Rel(process, imaging, "Processes")
+Rel(process, storage, "Writes derivatives")
+Rel(store, storage, "Reads and writes")
+@enduml

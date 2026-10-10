@@ -1,0 +1,68 @@
+@startuml
+title UML sequence behaviour — Sign out and end a session
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Account holder" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ActiveSessionsPage" as page
+  participant "SignOutControl" as signout
+  participant "SessionsClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "SessionsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SignOutHandler" as outh
+  participant "EndSessionHandler" as endh
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "SessionStore" as store
+  participant "SecurityLog" as seclog
+end box
+== Sign out ==
+actor -> signout : Activate "Sign out"
+signout -> client : signOut()
+client -> endpoints : POST /sessions/sign-out
+endpoints -> outh : Send SignOutCommand
+outh -> store : End current session (server side)
+outh -> seclog : Record SessionRevoked
+outh --> endpoints : Signed out
+endpoints --> client : 200; clear session cookie
+client --> signout : Done
+signout --> actor : Signed-out page
+note over store : Replaying the old cookie now\nreturns unauthenticated (L2-078 AC4)
+== End another session ==
+actor -> page : Open "Active sessions"
+page -> client : listSessions()
+client -> endpoints : GET /sessions
+endpoints --> client : Device type and last active time per session (L2-078 AC5)
+actor -> page : Choose "End session" and confirm in dialog
+page -> client : endSession(sessionId)
+client -> endpoints : DELETE /sessions/{sessionId}
+endpoints -> endh : Send EndSessionCommand
+endh -> store : Find session scoped to caller's account
+alt Session belongs to caller
+  endh -> store : End session
+  endh -> seclog : Record SessionRevoked
+  endh --> endpoints : Ended
+  endpoints --> client : 204
+  client --> page : Remove row
+else Session belongs to another account or does not exist
+  endh --> endpoints : NotFoundResult
+  endpoints --> client : 404
+  client --> page : Show error
+end
+page --> actor : Updated session list
+@enduml

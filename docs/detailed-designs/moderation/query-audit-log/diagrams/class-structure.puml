@@ -1,0 +1,87 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Query the audit log
+
+enum AuditAction {
+  Approve
+  RequestChanges
+  Edit
+  Revert
+  RemoveItem
+  Suspend
+  Reinstate
+  Remove
+  ApproveReview
+  HideReview
+  RestoreReview
+  RemoveReview
+  DismissReports
+  ResolveReports
+  EnquiryAccess
+  CreateOperator
+  DeactivateOperator
+}
+
+class AuditEntry {
+  +Guid Id
+  +Guid OperatorId
+  +AuditAction Action
+  +string TargetType
+  +Guid TargetId
+  +DateTime OccurredAtUtc
+  +string Reason
+  +string Before
+  +string After
+  +Guid? RelatedReportId
+}
+
+interface AuditLog {
+  +Append(entry: AuditEntry): void
+}
+
+interface AuditLogReader {
+  +Search(filter: AuditLogFilter, page: int): Page<AuditEntry>
+}
+
+class AuditLogFilter {
+  +Guid? OperatorId
+  +AuditAction? Action
+  +string TargetType
+  +Guid? TargetId
+  +DateTime? FromUtc
+  +DateTime? ToUtc
+  +Validate(): void
+}
+
+class SearchAuditLogQuery {
+  +AuditLogFilter Filter
+  +int Page
+}
+
+class SearchAuditLogHandler {
+  +Handle(query: SearchAuditLogQuery): Page<AuditEntry>
+}
+
+class RetentionJob {
+  +Run(now: DateTime): RetentionReport
+}
+
+AuditEntry --> AuditAction
+AuditLog ..> AuditEntry : inserts
+AuditLogReader ..> AuditEntry : reads
+SearchAuditLogHandler ..> SearchAuditLogQuery : handles
+SearchAuditLogHandler ..> AuditLogReader : uses
+SearchAuditLogQuery *-- AuditLogFilter
+RetentionJob ..> AuditEntry : deletes after 7 years
+@enduml

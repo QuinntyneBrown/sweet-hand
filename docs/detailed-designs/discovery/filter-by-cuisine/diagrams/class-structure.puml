@@ -1,0 +1,71 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Filter the listing by cuisine
+
+class ListingFilter {
+  +Set<CuisineId> Cuisines
+  +Set<ServiceAreaId> Areas
+  +Matches(caterer: CatererSummary): bool
+  +Without(facet: FacetKind): ListingFilter
+}
+class FacetCounter {
+  +CountCuisines(filter: ListingFilter): List<FacetCount>
+}
+class FacetCount {
+  +CuisineId CuisineId
+  +string Name
+  +int Count
+  +bool Selected
+  +bool Disabled
+}
+class GetListingHandler {
+  +Handle(query: GetListingQuery): ListingPageView
+}
+class ListingPageView {
+  +int TotalCount
+  +List<ListingCardView> Cards
+  +List<FacetCount> CuisineFacets
+}
+class Cuisine {
+  +CuisineId Id
+  +string Name
+  +string Slug
+  +bool Retired
+}
+class CuisineSelection {
+  +CuisineId CuisineId
+  +bool IsPrimary
+}
+class CatererProfile {
+  +Guid Id
+  +ProfileStatus Status
+  +List<CuisineSelection> Cuisines
+  +List<ServiceAreaSelection> ServiceAreas
+}
+class CatererProfileRepository {
+  +ListPublishedSummaries(filter: ListingFilter): List<CatererSummary>
+  +CountPublishedByCuisine(filter: ListingFilter): Map<CuisineId, int>
+}
+class CuisineRepository {
+  +ListActive(): List<Cuisine>
+}
+
+GetListingHandler ..> ListingFilter : applies
+GetListingHandler ..> FacetCounter : uses
+GetListingHandler ..> ListingPageView : returns
+ListingPageView "1" *-- "*" FacetCount
+FacetCounter ..> CatererProfileRepository : reads counts
+FacetCounter ..> CuisineRepository : reads active cuisines
+CatererProfile "1" *-- "1..5" CuisineSelection
+CuisineSelection --> Cuisine
+FacetCount ..> Cuisine : describes
+@enduml

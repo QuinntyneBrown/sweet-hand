@@ -1,0 +1,23 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Degrade gracefully
+
+Person(customer, "Customer", "Sends enquiries and browses caterers")
+Person(caterer, "Caterer", "Uploads photos and replies to enquiries")
+Person(ops, "Operations team", "Receives degradation alerts")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(email, "Email provider", "Transactional email")
+System_Ext(cdn, "CDN", "Caches public HTML; serves stale copies for up to 10 minutes")
+System_Ext(bot, "Bot-protection provider", "Challenge tokens")
+System_Ext(obs, "Observability platform", "Alerts")
+
+Rel(customer, cdn, "Browses", "HTTPS")
+Rel(cdn, sweethand, "Forwards cache misses", "HTTPS")
+Rel(customer, sweethand, "Sends enquiries", "HTTPS")
+Rel(caterer, sweethand, "Uploads photos, replies", "HTTPS")
+Rel(sweethand, email, "Sends queued notifications")
+Rel(sweethand, bot, "Verifies challenge tokens")
+Rel(sweethand, obs, "Raises degradation alerts")
+Rel(obs, ops, "Notifies on-call channel")
+@enduml

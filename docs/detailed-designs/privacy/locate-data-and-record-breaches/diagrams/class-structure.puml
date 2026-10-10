@@ -1,0 +1,108 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Locate data in Canada and record breaches
+
+package "Breach register" {
+  class BreachRecord {
+    +Guid Id
+    +Date BreachDate
+    +DateTime RecordedAtUtc
+    +Guid RecordedByOperatorId
+    +string Description
+    +string DataAffected
+    +int PeopleAffectedCount
+    +DateTime RetainUntilUtc
+    +Record(command: RecordBreachCommand, nowUtc: DateTime): BreachRecord
+  }
+
+  class RiskAssessment {
+    +bool RealRiskOfSignificantHarm
+    +string Rationale
+  }
+
+  class NotificationDecision {
+    +bool NotifyCommissioner
+    +bool NotifyAffectedPeople
+    +string Rationale
+    +Date DecidedOn
+  }
+
+  class RecordBreachCommand {
+    +Guid OperatorId
+    +Date BreachDate
+    +string Description
+    +string DataAffected
+    +int PeopleAffectedCount
+    +RiskAssessment Risk
+    +NotificationDecision Decision
+  }
+
+  class RecordBreachHandler {
+    +Handle(command: RecordBreachCommand): Result<Guid>
+  }
+
+  class AuditEntry {
+    +Guid OperatorId
+    +string Action
+    +string TargetId
+    +DateTime AtUtc
+    +string Reason
+  }
+}
+
+package "Data residency" {
+  class ApprovedRegions {
+    +string[] Regions
+    +Contains(region: string): bool
+  }
+
+  class ClassifiedResource {
+    +string Name
+    +string Kind
+    +string Region
+    +bool StoresPersonalInformation
+    +bool HasClassification
+  }
+
+  class DataResidencyPolicyCheck {
+    +Run(resources: ClassifiedResource[]): PolicyResult
+  }
+
+  class PolicyResult {
+    +bool Passed
+    +string[] Violations
+  }
+}
+
+package "Privacy notice" {
+  class PrivacyNoticeVersion {
+    +string Version
+  }
+  class ThirdPartyProcessor {
+    +string Name
+    +string Purpose
+    +string ProcessingCountry
+  }
+}
+
+BreachRecord *-- "1" RiskAssessment
+BreachRecord *-- "1" NotificationDecision
+RecordBreachHandler ..> RecordBreachCommand : handles
+RecordBreachHandler ..> BreachRecord : creates
+RecordBreachHandler ..> AuditEntry : appends
+DataResidencyPolicyCheck --> ApprovedRegions : reads
+DataResidencyPolicyCheck ..> ClassifiedResource : inspects
+DataResidencyPolicyCheck ..> PolicyResult : returns
+PrivacyNoticeVersion "1" *-- "*" ThirdPartyProcessor : lists
+@enduml

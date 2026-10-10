@@ -1,0 +1,75 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Share contact details
+
+class Enquiry {
+  +Guid Id
+  +Guid CustomerId
+  +Guid CatererId
+  +EnquiryStatus Status
+  +List<ContactShare> ContactShares
+  +ShareContact(party: Party, now: DateTime): void
+  +HasShared(role: Role): bool
+}
+
+class ContactShare {
+  +Guid EnquiryId
+  +Role SharedByRole
+  +Guid SharedByAccountId
+  +DateTime SharedAt
+}
+
+class EnquiryMessage {
+  +MessageKind Kind
+  +string Text
+  +DateTime SentAt
+}
+
+class ShareContactDetailsHandler {
+  +Handle(command: ShareContactDetailsCommand): Result
+}
+
+class GetThreadHandler {
+  +Handle(query: GetThreadQuery): Result<ThreadView>
+}
+
+class ThreadView {
+  +EnquirySummaryView Summary
+  +List<MessageView> Messages
+  +bool CanReply
+  +bool CallerHasShared
+  +ContactDetailsView? CounterpartContact
+}
+
+class ContactDetailsView {
+  +string Email
+  +string? Phone
+}
+
+class UserAccount {
+  +Guid Id
+  +string Email
+  +string Phone
+  +string DisplayName
+}
+
+Enquiry *-- "0..2" ContactShare
+Enquiry *-- "0..*" EnquiryMessage
+Enquiry ..> EnquiryMessage : adds system message on share
+ShareContactDetailsHandler ..> Enquiry
+GetThreadHandler ..> Enquiry : checks shares
+GetThreadHandler ..> UserAccount : reads current details
+GetThreadHandler ..> ThreadView : returns
+ThreadView *-- "0..1" ContactDetailsView
+@enduml

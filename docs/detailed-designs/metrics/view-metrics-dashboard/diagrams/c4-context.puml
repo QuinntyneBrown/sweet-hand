@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — View the metrics dashboard
+
+Person(operator, "Operator", "Member of the Sweet Hand team")
+Person(visitor, "Visitor", "Anyone browsing without signing in")
+Person(customer, "Customer", "Sends enquiries to caterers")
+Person(caterer, "Caterer", "Receives and replies to enquiries")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+
+Rel(operator, sweethand, "Views usage metrics using", "HTTPS")
+Rel(visitor, sweethand, "Generates page visits in", "HTTPS")
+Rel(customer, sweethand, "Creates enquiries in", "HTTPS")
+Rel(caterer, sweethand, "Replies to enquiries in", "HTTPS")
+@enduml

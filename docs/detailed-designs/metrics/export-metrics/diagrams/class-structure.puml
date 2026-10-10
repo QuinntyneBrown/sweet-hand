@@ -1,0 +1,69 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Export metrics as CSV
+
+enum Granularity {
+  Day
+  Week
+  Month
+}
+
+class ExportMetricsCsvQuery {
+  +Date From
+  +Date To
+  +Granularity Granularity
+}
+
+class ExportMetricsCsvHandler {
+  +Handle(query: ExportMetricsCsvQuery): CsvFile
+}
+
+class GetMetricsHandler {
+  +Handle(query: GetMetricsQuery): MetricsReport
+}
+
+class GetMetricsQuery {
+  +Date From
+  +Date To
+  +Granularity Granularity
+}
+
+class MetricsReport {
+  +MetricsRange Range
+  +MetricsSeries[] Series
+}
+
+class MetricsCsvWriter {
+  +Write(report: MetricsReport, output: Stream): void
+}
+
+class CsvFormulaGuard {
+  +Guard(value: string): string
+}
+
+class CsvFile {
+  +string FileName
+  +string ContentType
+  +Stream Content
+}
+
+ExportMetricsCsvHandler ..> ExportMetricsCsvQuery : handles
+ExportMetricsCsvHandler --> GetMetricsHandler : reuses
+ExportMetricsCsvHandler ..> GetMetricsQuery : sends
+GetMetricsHandler ..> MetricsReport : returns
+ExportMetricsCsvHandler --> MetricsCsvWriter : uses
+MetricsCsvWriter --> CsvFormulaGuard : uses
+MetricsCsvWriter ..> MetricsReport : reads
+ExportMetricsCsvHandler ..> CsvFile : returns
+ExportMetricsCsvQuery --> Granularity
+GetMetricsQuery --> Granularity
+@enduml

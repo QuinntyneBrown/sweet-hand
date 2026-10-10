@@ -1,0 +1,20 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Validate input and secure transport
+
+Person(visitor, "Visitor", "Browses without signing in")
+Person(customer, "Customer", "Signed-in person planning a meal or an event")
+Person(caterer, "Caterer", "Sells Caribbean food and receives enquiries")
+Person(operator, "Operator", "Sweet Hand team member who moderates the platform")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(cdn, "CDN", "Terminates HTTPS and caches public pages for 60 s or less")
+System_Ext(scanner, "Security scanners in CI", "OWASP ZAP baseline and TLS scanner")
+
+Rel(visitor, cdn, "Requests pages over HTTPS")
+Rel(customer, sweethand, "Submits forms over HTTPS")
+Rel(caterer, sweethand, "Submits forms over HTTPS")
+Rel(operator, sweethand, "Submits forms over HTTPS")
+Rel(cdn, sweethand, "Forwards requests to", "HTTPS")
+Rel(scanner, sweethand, "Scans staging environment of")
+@enduml

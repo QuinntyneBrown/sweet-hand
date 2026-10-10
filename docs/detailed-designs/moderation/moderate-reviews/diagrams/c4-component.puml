@@ -1,0 +1,42 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Moderate reviews
+
+Person(operator, "Operator", "Moderates reviews")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(screen, "ReviewModerationScreen", "Page", "Review, reports, history, actions")
+  Component(dialog, "ModerateReviewDialog", "Dialog", "Confirms action, collects reason")
+  Component(client, "ModerationClient", "API client contract", "Typed operator calls")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "OperatorReviewsEndpoints", "Endpoint group", "approve, hide, restore, remove")
+  Component(modH, "ModerateReviewHandler", "Command handler", "Approve, hide, restore")
+  Component(remH, "RemoveReviewHandler", "Command handler", "Permanent removal")
+  Component(review, "Review", "Domain entity", "Status transitions")
+  Component(calc, "RatingSummaryCalculator", "Domain service", "Average and count of published reviews")
+  Component(audit, "AuditLog", "Infrastructure", "Append-only audit entries")
+  Component(jobs, "JobQueue", "Infrastructure", "Transactional outbox")
+  Component(repo, "ReviewRepository", "Infrastructure", "Reviews and summaries")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Reviews, summaries, audit log")
+
+Rel(operator, screen, "Uses", "HTTPS")
+Rel(screen, dialog, "Opens")
+Rel(dialog, client, "approve / hide / restore / remove")
+Rel(client, endpoints, "Calls via RequestPipeline", "JSON/HTTPS")
+Rel(endpoints, modH, "Sends ModerateReviewCommand")
+Rel(endpoints, remH, "Sends RemoveReviewCommand")
+Rel(modH, review, "Applies transition")
+Rel(remH, review, "Remove")
+Rel(modH, calc, "Recalculates")
+Rel(remH, calc, "Recalculates")
+Rel(modH, audit, "Appends")
+Rel(remH, audit, "Appends")
+Rel(modH, jobs, "Enqueues email")
+Rel(remH, jobs, "Enqueues email")
+Rel(modH, repo, "Loads and saves")
+Rel(remH, repo, "Loads and saves")
+Rel(repo, db, "Reads and writes")
+Rel(audit, db, "Inserts")
+@enduml

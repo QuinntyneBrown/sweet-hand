@@ -1,0 +1,95 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+hide empty members
+title Class structure — Verify an email address and reset a password
+
+abstract class AccountToken {
+  +Guid accountId
+  +string tokenHash
+  +DateTime issuedAtUtc
+  +DateTime expiresAtUtc
+  +DateTime consumedAtUtc
+  +isUsable(nowUtc: DateTime): bool
+  +consume(nowUtc: DateTime): void
+}
+
+class VerificationToken {
+  validity = 24 hours
+}
+
+class PasswordResetToken {
+  validity = 30 minutes
+}
+
+class VerifyEmailHandler {
+  +handle(command: VerifyEmailCommand): Result
+}
+
+class ResendVerificationEmailHandler {
+  +handle(command: ResendVerificationEmailCommand): Result
+}
+
+class RequestPasswordResetHandler {
+  +handle(command: RequestPasswordResetCommand): Result
+}
+
+class ResetPasswordHandler {
+  +handle(command: ResetPasswordCommand): Result
+}
+
+class UserAccount {
+  +Guid id
+  +bool emailVerified
+  +string passwordHash
+  +markEmailVerified(): void
+  +changePasswordHash(hash: string): void
+}
+
+class PasswordPolicy {
+  +check(password: string): PolicyResult
+}
+
+interface TokenGenerator {
+  +generate(): string
+}
+
+interface TokenHasher {
+  +hash(token: string): string
+}
+
+interface TokenRepository {
+  +findByHash(hash: string): AccountToken
+  +add(token: AccountToken): void
+  +invalidateUnconsumed(accountId: Guid): void
+}
+
+interface SessionStore {
+  +revokeAll(accountId: Guid): void
+}
+
+AccountToken <|-- VerificationToken
+AccountToken <|-- PasswordResetToken
+UserAccount "1" *-- "*" AccountToken
+VerifyEmailHandler ..> TokenHasher
+VerifyEmailHandler ..> TokenRepository
+VerifyEmailHandler ..> UserAccount : verifies
+ResendVerificationEmailHandler ..> TokenGenerator
+ResendVerificationEmailHandler ..> TokenRepository
+RequestPasswordResetHandler ..> TokenGenerator
+RequestPasswordResetHandler ..> TokenHasher
+RequestPasswordResetHandler ..> TokenRepository
+ResetPasswordHandler ..> TokenHasher
+ResetPasswordHandler ..> TokenRepository
+ResetPasswordHandler ..> PasswordPolicy
+ResetPasswordHandler ..> SessionStore
+ResetPasswordHandler ..> UserAccount : changes password
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Secure build pipeline
+
+Person_Ext(contributor, "Contributor", "Commits code and infrastructure changes")
+System_Ext(repo, "Source repository", "<TO SUPPLY>: code, dependency manifests, IaC definitions")
+System_Ext(ci, "CI pipeline", "<TO SUPPLY>: runs pipeline gates")
+System_Ext(registry, "Container registry", "<TO SUPPLY>: production images")
+System_Ext(secrets, "Managed secret store", "<TO SUPPLY>: runtime secrets, Canadian region")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+
+Rel(contributor, repo, "Pushes commits")
+Rel(repo, ci, "Triggers build on every commit")
+Rel(ci, registry, "Publishes scanned images")
+Rel(registry, sweethand, "Supplies images to deploy")
+Rel(sweethand, secrets, "Reads secrets at start-up")
+@enduml

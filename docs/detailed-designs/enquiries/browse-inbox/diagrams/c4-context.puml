@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Browse the inbox
+
+Person(customer, "Customer", "Signed-in person in Toronto or the GTA planning a meal or an event")
+Person(caterer, "Caterer", "Person or small business selling Caribbean food")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+
+Rel(customer, sweethand, "Reviews sent enquiries in")
+Rel(caterer, sweethand, "Reviews received enquiries in")
+@enduml

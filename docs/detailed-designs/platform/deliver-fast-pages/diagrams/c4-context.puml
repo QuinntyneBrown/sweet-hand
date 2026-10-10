@@ -1,0 +1,17 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Deliver fast pages
+
+Person(visitor, "Visitor", "Browses on a phone over a mobile network")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(cdn, "CDN", "Caches public HTML for 60 s or less and serves processed photos")
+System_Ext(obs, "Observability platform", "Stores Core Web Vitals and server latency metrics")
+System_Ext(ci, "CI pipeline", "<TO SUPPLY>: Lighthouse and bundle budgets")
+
+Rel(visitor, cdn, "Requests pages and photos", "HTTPS")
+Rel(cdn, sweethand, "Forwards cache misses", "HTTPS")
+Rel(visitor, sweethand, "Posts Core Web Vitals beacons", "HTTPS")
+Rel(sweethand, obs, "Sends metrics")
+Rel(ci, sweethand, "Measures lab performance and bundle size")
+@enduml

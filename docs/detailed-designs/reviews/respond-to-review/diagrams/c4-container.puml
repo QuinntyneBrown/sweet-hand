@@ -1,0 +1,21 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Respond to a review
+
+Person(caterer, "Caterer", "Person or small business selling Caribbean food")
+System_Ext(email, "Email provider", "Sends transactional email")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Caterer reviews screen and response dialogs")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Response rules and persistence")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Reviews and responses")
+  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent queue of background jobs")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Sends queued notifications")
+}
+Rel(caterer, web, "Manages responses", "HTTPS")
+Rel(web, api, "Posts, edits, deletes response", "JSON/HTTPS")
+Rel(api, db, "Reads and writes review and response", "<TO SUPPLY>")
+Rel(api, queue, "Enqueues SendNotificationJob", "<TO SUPPLY>")
+Rel(worker, queue, "Dequeues jobs", "<TO SUPPLY>")
+Rel(worker, email, "Sends email", "<TO SUPPLY>")
+@enduml

@@ -1,0 +1,88 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+hide empty members
+title Class structure — Authorise requests
+
+enum Role {
+  Visitor
+  Customer
+  Caterer
+  Operator
+}
+
+class CallerContext {
+  +Guid accountId
+  +Role role
+  +bool secondFactorCompleted
+  +Guid linkedReportId
+}
+
+class EndpointPolicy {
+  +string endpoint
+  +string method
+  +Role[] allowedRoles
+  +bool anonymousByChoice
+  +bool requiresSecondFactor
+  +allows(caller: CallerContext): bool
+}
+
+class EndpointPolicyCatalog {
+  +EndpointPolicy[] all()
+  +EndpointPolicy find(endpoint, method)
+}
+
+class EndpointPolicyGuard {
+  +check(caller: CallerContext, endpoint, method): GuardResult
+}
+
+enum GuardResult {
+  Allowed
+  Unauthenticated401
+  Forbidden403
+}
+
+class RecordScope {
+  +forCatererProfile(caller): Scope
+  +forEnquiry(caller): Scope
+  +forReview(caller): Scope
+}
+
+class Scope {
+  +Guid ownerOrPartyAccountId
+  +Role role
+}
+
+class NotFoundResult {
+  +int status = 404
+  +string body
+}
+
+interface "<Entity>Repository" as Repository {
+  +findScoped(id: Guid, scope: Scope): Entity
+}
+
+interface SecurityLog {
+  +record(event: SecurityEvent): void
+}
+
+EndpointPolicyCatalog "1" *-- "*" EndpointPolicy
+EndpointPolicyGuard ..> EndpointPolicyCatalog
+EndpointPolicyGuard ..> CallerContext
+EndpointPolicyGuard ..> GuardResult : returns
+EndpointPolicyGuard ..> SecurityLog
+CallerContext --> Role
+EndpointPolicy --> Role
+RecordScope ..> CallerContext
+RecordScope ..> Scope : builds
+Repository ..> Scope
+Repository ..> NotFoundResult : missing or hidden
+@enduml

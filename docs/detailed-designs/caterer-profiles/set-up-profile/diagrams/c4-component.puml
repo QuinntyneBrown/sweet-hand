@@ -1,0 +1,44 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Set up a caterer profile
+
+Person(caterer, "Caterer", "Builds their profile")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "ProfileEditorPage", "Page component", "Stacked sections on XS/SM, sidebar and preview on LG/XL")
+  Component(section, "ProfileSectionView", "Component", "Fields, labels, inline errors, Saved indicator")
+  Component(autosave, "DraftAutosave", "Component", "Saves 2 s after typing stops or on blur")
+  Component(checklist, "SetupChecklist", "Component", "Shows L2-039 rules as done or not done")
+  Component(preview, "ListingCardPreview", "Component", "Live listing card preview")
+  Component(client, "CatererProfileClient", "API client contract", "getOwnProfile, saveSection, getReferenceData")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "CatererProfileEndpoints", "Endpoint group", "GET /caterer/profile, PUT /caterer/profile/sections/{section}")
+  Component(refEndpoints, "ReferenceDataEndpoints", "Endpoint group", "Cuisines, regions and areas, occasions")
+  Component(getHandler, "GetOwnProfileHandler", "Query handler", "Loads own draft with checklist")
+  Component(saveHandler, "SaveProfileSectionHandler", "Command handler", "Applies one section change")
+  Component(aggregate, "CatererProfile", "Domain aggregate", "Section rules L2-007, L2-010, L2-020, L2-021")
+  Component(rules, "ProfileSubmissionRules", "Domain service", "Evaluates L2-039 rules into a checklist")
+  Component(repos, "CatererProfileRepository / CuisineRepository / ServiceAreaRepository", "Infrastructure", "Persistence")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles and reference data")
+
+Rel(caterer, page, "Edits")
+Rel(page, section, "Renders")
+Rel(section, autosave, "Reports changes to")
+Rel(page, checklist, "Renders")
+Rel(page, preview, "Renders")
+Rel(autosave, client, "saveSection")
+Rel(page, client, "getOwnProfile, getReferenceData")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(client, refEndpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, getHandler, "Sends GetOwnProfileQuery")
+Rel(endpoints, saveHandler, "Sends SaveProfileSectionCommand")
+Rel(saveHandler, aggregate, "Applies section rules")
+Rel(getHandler, rules, "Builds checklist")
+Rel(saveHandler, rules, "Refreshes checklist")
+Rel(getHandler, repos, "Loads")
+Rel(saveHandler, repos, "Loads and saves")
+Rel(refEndpoints, repos, "Reads reference data")
+Rel(repos, db, "Reads and writes")
+@enduml

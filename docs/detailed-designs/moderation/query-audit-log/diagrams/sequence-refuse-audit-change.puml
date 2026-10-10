@@ -1,0 +1,34 @@
+@startuml
+title UML sequence behaviour — Refuse a change to the audit log
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Any operator, including Admin" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "AuditLogClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "AuditLogEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> client : Attempt to edit or delete an entry
+client -> pipeline : PUT, PATCH or DELETE /operator/audit-log/{id}
+pipeline -> endpoints : Route lookup
+endpoints --> pipeline : No such route
+pipeline --> client : 404 or 405; no state changes (L2-060 AC2)
+note over db : Defence in depth: the application database account\nholds INSERT and SELECT only on the audit table;\nany UPDATE or DELETE is refused by the database (L2-060 AC2)
+@enduml

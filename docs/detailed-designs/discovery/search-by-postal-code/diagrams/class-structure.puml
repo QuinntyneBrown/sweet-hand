@@ -1,0 +1,58 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Search the listing by postal code
+
+class PostalCode <<value object>> {
+  +Fsa Fsa
+  +{static} Parse(text: string): Result<PostalCode>
+}
+class Fsa <<value object>> {
+  +string Value
+}
+class ResolveFsaQuery {
+  +Fsa Fsa
+}
+class ResolveFsaHandler {
+  +Handle(query: ResolveFsaQuery): FsaResolution
+}
+class FsaResolution {
+  +ServiceAreaId? ServiceAreaId
+  +bool OutsideServiceArea
+}
+class FsaMapping {
+  +Fsa Fsa
+  +ServiceAreaId ServiceAreaId
+}
+class FsaMappingRepository {
+  +Find(fsa: Fsa): FsaMapping?
+}
+class ListingFilter {
+  +Set<ServiceAreaId> Areas
+  +WithArea(area: ServiceAreaId): ListingFilter
+}
+class RequestLogRedactor {
+  +Redact(query: QueryString): QueryString
+}
+enum PostalCodeError {
+  InvalidFormat
+  OutsideServiceArea
+}
+
+PostalCode *-- Fsa
+ResolveFsaHandler ..> ResolveFsaQuery : handles
+ResolveFsaHandler ..> FsaMappingRepository : reads
+ResolveFsaHandler ..> FsaResolution : returns
+FsaMappingRepository ..> FsaMapping
+FsaMapping --> Fsa
+FsaResolution ..> ListingFilter : adds area to
+PostalCode ..> PostalCodeError : reports
+@enduml

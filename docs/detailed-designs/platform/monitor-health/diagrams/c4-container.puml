@@ -1,0 +1,25 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Monitor health
+
+System_Ext(hosting, "Hosting platform", "<TO SUPPLY>")
+System_Ext(obs, "Observability platform", "Telemetry and alerts")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Health endpoints; generic error page")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Health endpoints; request pipeline with correlation IDs")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Jobs carry the enqueuing correlation ID")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Readiness dependency")
+  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Notification and image processing jobs")
+}
+
+Rel(hosting, web, "Probes and routes", "HTTPS")
+Rel(hosting, api, "Probes and routes", "HTTPS")
+Rel(web, api, "Calls with X-Correlation-ID", "JSON/HTTPS")
+Rel(api, db, "Checks connection for readiness")
+Rel(api, queue, "Enqueues jobs with correlation ID")
+Rel(worker, queue, "Consumes jobs")
+Rel(web, obs, "Sends telemetry")
+Rel(api, obs, "Sends telemetry")
+Rel(worker, obs, "Sends telemetry and queue depths")
+@enduml

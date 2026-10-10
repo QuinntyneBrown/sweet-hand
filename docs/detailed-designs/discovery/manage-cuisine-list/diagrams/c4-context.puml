@@ -1,0 +1,14 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Manage the cuisine list
+
+Person(operator, "Operator", "Sweet Hand team member who keeps listings accurate")
+Person(caterer, "Caterer", "Chooses cuisines for a profile")
+Person(visitor, "Visitor", "Filters the listing by cuisine")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+
+Rel(operator, sweethand, "Adds and retires cuisines using", "HTTPS")
+Rel(caterer, sweethand, "Selects active cuisines in", "HTTPS")
+Rel(visitor, sweethand, "Filters by active cuisines in", "HTTPS")
+@enduml

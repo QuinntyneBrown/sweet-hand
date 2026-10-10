@@ -1,0 +1,58 @@
+@startuml
+title UML sequence behaviour — Reach operator pages with a second factor
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "MfaChallengeScreen" as page
+  participant "MfaClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "MfaEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "VerifySecondFactorHandler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "TotpVerifier / WebAuthnVerifier" as verifier
+  participant "SessionStore" as sessions
+  participant "SecurityLog" as seclog
+end box
+actor -> pipeline : Request /operator/queue after password sign-in
+pipeline -> sessions : Load session
+sessions --> pipeline : Role Operator, mfaSatisfied false
+pipeline --> actor : Redirect to second-factor challenge (L2-056 AC2)
+actor -> page : Enter TOTP code or use WebAuthn key
+page -> client : verify(proof)
+client -> endpoints : POST /mfa/verify
+endpoints -> handler : Send VerifySecondFactorCommand
+handler -> verifier : Verify proof against enrolled factor
+alt proof invalid
+  verifier --> handler : Invalid
+  handler -> seclog : Record failed second factor
+  handler --> endpoints : Failure
+  endpoints --> client : 400
+  client --> page : Error
+  page --> actor : Ask again; operator pages stay blocked
+else proof valid
+  verifier --> handler : Valid
+  handler -> sessions : MarkMfaSatisfied(session)
+  handler --> endpoints : Success
+  endpoints --> client : 200
+  client --> page : Verified
+  page --> actor : Open operator queue
+end
+@enduml

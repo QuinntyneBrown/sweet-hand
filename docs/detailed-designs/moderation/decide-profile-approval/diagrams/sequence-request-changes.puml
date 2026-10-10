@@ -1,0 +1,63 @@
+@startuml
+title UML sequence behaviour — Request changes to a profile
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "RequestChangesDialog" as page
+  participant "ModerationClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "OperatorProfilesEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "RequestProfileChangesHandler" as handler
+  participant "DecisionReason" as reason
+  participant "CatererProfile" as entity
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AuditLog" as audit
+  participant "JobQueue" as jobs
+  database "Sweet Hand database" as db
+end box
+actor -> page : Enter reason and submit
+page -> page : Client check: at least 10 characters
+page -> client : requestChanges(profileId, reason)
+client -> endpoints : POST /operator/profiles/{id}/request-changes (operator check in RequestPipeline)
+endpoints -> handler : Send RequestProfileChangesCommand
+handler -> reason : ForChangeRequest(text)
+alt fewer than 10 characters
+  reason --> handler : Invalid
+  handler --> endpoints : Validation failure
+  endpoints --> client : 400 "Explain what the caterer needs to change" (L2-048 AC2)
+  client --> page : Field error
+  page --> actor : Show error on reason field
+else valid reason
+  reason --> handler : DecisionReason
+  handler -> db : Load profile
+  db --> handler : CatererProfile
+  handler -> entity : RequestChanges(reason, operatorId, now)
+  entity -> entity : Apply L2-046 transition Pending review to Changes requested
+  entity --> handler : ProfileSnapshot for change highlighting (L2-047 AC3)
+  handler -> audit : Append RequestChanges entry with reason (L2-060)
+  handler -> jobs : Enqueue email containing the reason (L2-048 AC3)
+  handler -> db : Commit in one unit of work
+  db --> handler : Committed
+  handler --> endpoints : Success
+  endpoints --> client : 200
+  client --> page : Done
+  page --> actor : Show changes requested; caterer editor shows reason banner
+end
+@enduml

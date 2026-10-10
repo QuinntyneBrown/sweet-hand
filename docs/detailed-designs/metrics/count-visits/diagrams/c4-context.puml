@@ -1,0 +1,17 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Count visits
+
+Person(visitor, "Visitor", "Anyone browsing without signing in")
+Person(customer, "Customer", "Signed-in person planning a meal or an event")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(cdn, "CDN", "Caches public HTML for 60 seconds or less")
+System_Ext(search, "Search engines", "Crawl public pages; never counted")
+
+Rel(visitor, cdn, "Loads listing and caterer pages", "HTTPS")
+Rel(customer, cdn, "Loads listing and caterer pages", "HTTPS")
+Rel(cdn, sweethand, "Fetches uncached pages from", "HTTPS")
+Rel(visitor, sweethand, "Sends first-party visit beacon to", "HTTPS")
+Rel(search, sweethand, "Crawls pages of", "HTTPS")
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Suspend, reinstate or remove a profile
+
+Person(operator, "Operator", "Sweet Hand team member who approves caterers and moderates content")
+Person(caterer, "Caterer", "Person or small business selling Caribbean food")
+Person(customer, "Customer", "Signed-in person in Toronto or the GTA planning a meal or event")
+Person(visitor, "Visitor", "Anyone using the platform without signing in")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(email, "Email provider", "Sends transactional email and reports bounces")
+System_Ext(cdn, "CDN", "Caches public HTML for 60 s or less and serves processed photos")
+System_Ext(search, "Search engines", "Crawl public pages and the sitemap")
+
+Rel(operator, sweethand, "Suspends, reinstates or removes profiles", "HTTPS")
+Rel(sweethand, email, "Sends caterer and customer notices via")
+Rel(email, caterer, "Delivers reason")
+Rel(email, customer, "Delivers caterer-unavailable notice")
+Rel(visitor, cdn, "Requests caterer page", "HTTPS")
+Rel(search, cdn, "Crawls pages and sitemap", "HTTPS")
+Rel(cdn, sweethand, "Fetches pages and receives purges from")
+@enduml

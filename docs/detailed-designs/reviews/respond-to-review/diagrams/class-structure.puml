@@ -1,0 +1,106 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Respond to a review
+
+enum ReviewStatus {
+  Published
+  Held
+  Hidden
+  Removed
+}
+
+class PostReviewResponseCommand {
+  +Guid ReviewId
+  +string Text
+}
+
+class EditReviewResponseCommand {
+  +Guid ReviewId
+  +string Text
+}
+
+class DeleteReviewResponseCommand {
+  +Guid ReviewId
+}
+
+class PostReviewResponseHandler {
+  +Handle(command: PostReviewResponseCommand): Result
+}
+
+class EditReviewResponseHandler {
+  +Handle(command: EditReviewResponseCommand): Result
+}
+
+class DeleteReviewResponseHandler {
+  +Handle(command: DeleteReviewResponseCommand): Result
+}
+
+class Review {
+  +Guid Id
+  +Guid CatererId
+  +Guid CustomerId
+  +ReviewStatus Status
+  +Respond(catererId: Guid, text: string, now: DateTime): void
+  +EditResponse(catererId: Guid, text: string, now: DateTime): void
+  +DeleteResponse(catererId: Guid): void
+}
+
+class ReviewResponse {
+  +string Text
+  +DateTime CreatedAt
+  +DateTime UpdatedAt
+  +{static} Create(text: string, now: DateTime): ReviewResponse
+}
+
+class Notification {
+  +Guid Id
+  +string Kind
+  +Guid RecipientAccountId
+  +Guid ReviewId
+  +int Attempts
+  +string State
+}
+
+interface ReviewRepository {
+  +Get(reviewId: Guid): Review
+  +Save(review: Review): void
+}
+
+interface CatererProfileRepository {
+  +FindByOwner(accountId: Guid): CatererProfile
+}
+
+interface JobQueue {
+  +Enqueue(job: SendNotificationJob): void
+}
+
+class SendNotificationJob {
+  +Guid NotificationId
+  +Run(): void
+}
+
+PostReviewResponseHandler ..> PostReviewResponseCommand : handles
+EditReviewResponseHandler ..> EditReviewResponseCommand : handles
+DeleteReviewResponseHandler ..> DeleteReviewResponseCommand : handles
+PostReviewResponseHandler --> ReviewRepository
+EditReviewResponseHandler --> ReviewRepository
+DeleteReviewResponseHandler --> ReviewRepository
+PostReviewResponseHandler --> CatererProfileRepository : resolves caller
+EditReviewResponseHandler --> CatererProfileRepository : resolves caller
+DeleteReviewResponseHandler --> CatererProfileRepository : resolves caller
+PostReviewResponseHandler --> JobQueue : enqueues
+PostReviewResponseHandler ..> Notification : creates
+JobQueue ..> SendNotificationJob : holds
+SendNotificationJob --> Notification : sends
+Review "1" *-- "0..1" ReviewResponse : response
+Review --> ReviewStatus : has
+@enduml

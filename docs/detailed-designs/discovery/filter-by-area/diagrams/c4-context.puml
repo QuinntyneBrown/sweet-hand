@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Filter the listing by area
+
+Person(visitor, "Visitor", "Browses caterers without signing in")
+Person(customer, "Customer", "Signed-in person planning a meal or event")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+
+Rel(visitor, sweethand, "Filters the listing by area or region using", "HTTPS")
+Rel(customer, sweethand, "Filters the listing by area or region using", "HTTPS")
+@enduml

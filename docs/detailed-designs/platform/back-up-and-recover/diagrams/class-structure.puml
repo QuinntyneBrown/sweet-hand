@@ -1,0 +1,74 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Back up and recover
+
+class RecoveryObjectives {
+  +rpoMinutes: int = 15
+  +rtoHours: int = 4
+}
+
+class DatabaseBackupPolicy {
+  +pointInTimeRecovery: bool = true
+  +retentionDays: int = 35
+  +encrypted: bool = true
+  +primaryRegion: CanadianRegion
+  +backupRegion: CanadianRegion
+}
+
+enum StorageProtectionMode {
+  Versioning
+  Replication
+}
+
+class StorageProtectionPolicy {
+  +mode: StorageProtectionMode
+  +protectedContent: string = "photos, certificate files"
+  +targetRegion: CanadianRegion
+}
+
+class CanadianRegion {
+  +name: string
+}
+
+class RestoreRunbook {
+  +restoreTo(pointInTime: DateTime, target: Environment): RestoreResult
+}
+
+class RestoreDrill {
+  +quarter: string
+  +chosenPoint: DateTime
+  +run(runbook: RestoreRunbook): RestoreDrillRecord
+}
+
+class RestoreResult {
+  +startedAt: DateTime
+  +finishedAt: DateTime
+  +latestRestoredChangeAt: DateTime
+}
+
+class RestoreDrillRecord {
+  +drillDate: Date
+  +chosenPoint: DateTime
+  +durationMinutes: int
+  +dataGapMinutes: int
+  +passed: bool
+  +followUps: string
+}
+
+DatabaseBackupPolicy --> CanadianRegion : primary and backup
+StorageProtectionPolicy --> StorageProtectionMode : uses
+StorageProtectionPolicy --> CanadianRegion : targets
+RestoreDrill ..> RestoreRunbook : follows
+RestoreRunbook ..> RestoreResult : returns
+RestoreDrill ..> RecoveryObjectives : checks against
+RestoreDrill ..> RestoreDrillRecord : writes
+@enduml

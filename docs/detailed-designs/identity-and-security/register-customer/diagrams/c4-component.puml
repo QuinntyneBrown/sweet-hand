@@ -1,0 +1,41 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Register a customer account
+
+Person(visitor, "Visitor", "Creates a customer account")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "RegistrationPage", "<TO SUPPLY>", "Fields, unticked consent checkbox, error summary")
+  Component(widget, "BotChallengeWidget", "<TO SUPPLY>", "Obtains challenge token")
+  Component(client, "IdentityClient", "API client contract", "register(request)")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(pipeline, "RequestPipeline", "<TO SUPPLY>", "Rate limit, CSRF, request schema")
+  Component(endpoints, "IdentityEndpoints", "<TO SUPPLY>", "POST /identity/registrations")
+  Component(handler, "RegisterCustomerHandler", "<TO SUPPLY>", "Applies registration rules")
+  Component(policy, "PasswordPolicy", "Domain policy", "12-128 characters, not breached (L2-076)")
+  Component(hasher, "PasswordHasher", "<TO SUPPLY>", "Argon2id, unique salt")
+  Component(verifier, "BotProtectionVerifier", "<TO SUPPLY>", "Validates challenge tokens")
+  Component(repo, "UserAccountRepository", "<TO SUPPLY>", "Persists accounts")
+  Component(consent, "ConsentRepository", "<TO SUPPLY>", "Persists consent records (L2-070)")
+  Component(jobs, "JobQueue", "<TO SUPPLY>", "Enqueues email jobs")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts and consent records")
+System_Ext(bot, "Bot-protection provider", "Verifies challenge tokens")
+
+Rel(visitor, page, "Uses")
+Rel(page, widget, "Embeds")
+Rel(page, client, "Calls")
+Rel(client, pipeline, "Sends request", "JSON/HTTPS")
+Rel(pipeline, endpoints, "Passes valid request to")
+Rel(endpoints, handler, "Sends RegisterCustomerCommand")
+Rel(handler, verifier, "Verifies token")
+Rel(verifier, bot, "Calls", "HTTPS")
+Rel(handler, policy, "Applies")
+Rel(handler, hasher, "Hashes password")
+Rel(handler, repo, "Finds by email, creates account")
+Rel(handler, consent, "Records consent")
+Rel(handler, jobs, "Queues verification or duplicate notice")
+Rel(repo, db, "Reads and writes")
+Rel(consent, db, "Writes")
+@enduml

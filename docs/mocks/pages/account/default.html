@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Account · default — Sweet Hand mocks</title>
+<meta name="mock:kind" content="page">
+<meta name="mock:screen" content="account">
+<meta name="mock:state" content="default">
+<meta name="mock:requirements" content="L2-030 L2-071 L2-072 L2-078">
+<meta name="description" content="Marcia's account: details, password, signed-in devices, data download and account deletion. Editing opens dialogs.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="page">
+<header class="site-header">
+  <a class="wordmark" href="../caterers/default.html">Sweet Hand</a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__link site-nav__extra" href="../caterers/default.html">Caterers</a>
+    <a class="site-nav__link site-nav__extra" href="../occasions/default.html">Occasions</a>
+    <a class="site-nav__link site-nav__extra" href="../inbox/default.html">Inbox <span class="badge badge--count" aria-label="1 unread enquiry">1</span></a>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/signed-in.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/default.html">MT</button>
+  </nav>
+</header>
+
+<main id="main" class="container">
+  <div style="max-width: 48rem;">
+      <div class="page-intro">
+        <div class="cluster" style="gap: var(--space-5);"><span class="avatar avatar--lg" aria-hidden="true">MT</span><div><h1>Account</h1><p class="subtitle">Marcia Thompson · Customer since March 2026</p></div></div>
+      </div>
+      <section class="caterer-section" style="margin-top: 0;" aria-labelledby="details-title">
+        <div class="caterer-section__head"><h2 id="details-title">Your details</h2><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/edit-details/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit details</button></div>
+        <dl class="kv">
+          <dt>Display name</dt><dd>Marcia Thompson</dd>
+          <dt>Email</dt><dd><span>marcia.t@example.com</span><span class="status status--published">Verified</span></dd>
+          <dt>Phone</dt><dd><span>+1 647 555 0187</span><span class="private-note"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Private until you share it in a thread</span></dd>
+          <dt>Password</dt><dd><span>Last changed Sat 14 Mar</span><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/change-password/default.html">Change password</button></dd>
+        </dl>
+      </section>
+
+      <section class="caterer-section" aria-labelledby="devices-title">
+        <h2 id="devices-title">Signed-in devices</h2>
+        <ul class="list device-list">
+          <li class="list__item"><div class="list__body"><div class="list__title">Chrome on Windows</div><div class="list__meta">This device · active now</div></div><span class="status status--published">Current</span></li>
+          <li class="list__item"><div class="list__body"><div class="list__title">Safari on iPhone</div><div class="list__meta">Last active today, 8:15 a.m.</div></div><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/end-session/default.html">Sign out</button></li>
+          <li class="list__item"><div class="list__body"><div class="list__title">Samsung Internet on Android</div><div class="list__meta">Last active Mon 28 Sep</div></div><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/end-session/default.html">Sign out</button></li>
+        </ul>
+      </section>
+
+      <section class="caterer-section" aria-labelledby="data-title">
+        <h2 id="data-title">Your data</h2>
+        <p class="text-muted" style="margin-bottom: var(--space-4);">Privacy notice version 2026-03, accepted Sat 14 Mar. <a href="../privacy/default.html">Read the privacy notice</a></p>
+        <p class="text-muted measure">Your profile, consent records, enquiries, messages, reviews and the reports you sent, as a JSON file. We email you a link within 24 hours; it works for 7 days.</p>
+        <p><button class="btn" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/download-data/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>Download my data</button></p>
+      </section>
+
+      <section class="caterer-section" aria-labelledby="delete-title">
+        <h2 id="delete-title">Delete account</h2>
+        <p class="text-muted measure" style="margin-bottom: var(--space-4);">Removes your profile and reviews. Caterers keep your messages, signed “Former Sweet Hand user”. This can’t be undone.</p>
+        <p><button class="btn" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/delete-account/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Delete my account</button></p>
+      </section>
+      <p class="caterer-section"><a class="btn btn--link" href="../sign-in/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/></svg>Sign out</a></p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__brand"><strong>Sweet Hand</strong><span>Caribbean caterers in Toronto and the GTA.</span></div>
+  <nav aria-label="Footer">
+    <ul>
+      <li><a href="../about/default.html">About</a></li>
+      <li><a href="../register-caterer/default.html">Cater with us</a></li>
+      <li><a href="../privacy/default.html">Privacy</a></li>
+      <li><a href="../terms/default.html">Terms</a></li>
+    </ul>
+  </nav>
+</footer>
+</div>
+
+<div class="toast-region" role="status" aria-live="polite"></div>
+
+<p class="mock-note" style="top: 8rem; right: 1rem;">No inline forms: every Edit opens a dialog. Phone and email stay private; a caterer sees them only in a thread where Marcia chose to share (L2-035).</p>
+
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Account</span>
+  <ul class="mock-bar__states">
+    <li><a href="default.html" aria-current="page">default</a></li>
+    <li><a href="loading.html">loading</a></li>
+    <li><a href="error.html">error</a></li>
+    <li><a href="saved.html">saved</a></li>
+    <li><a href="unverified.html">unverified</a></li>
+    <li><a href="bounced.html">bounced</a></li>
+    <li><a href="export-requested.html">export-requested</a></li>
+    <li><a href="caterer.html">caterer</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>

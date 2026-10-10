@@ -1,0 +1,27 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Delete an account
+
+Person(user, "Customer or caterer", "Deletes their own account")
+System_Ext(email, "Email provider", "Sends transactional email")
+System_Ext(cdn, "CDN", "Caches public HTML and serves processed photos")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Account settings and delete account dialog")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Verifies the password, closes the account and ends sessions")
+  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent queue of background jobs")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Runs deletion processing and notifications")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, profiles, enquiries, reviews, sessions")
+  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Photos and certificate files")
+}
+
+Rel(user, web, "Uses", "HTTPS")
+Rel(web, api, "Calls", "JSON/HTTPS")
+Rel(api, db, "Closes account; ends sessions", "<TO SUPPLY>")
+Rel(api, queue, "Enqueues ProcessAccountDeletionJob and confirmation email")
+Rel(queue, worker, "Delivers jobs to")
+Rel(worker, db, "Anonymises and deletes records", "<TO SUPPLY>")
+Rel(worker, storage, "Deletes photo and certificate files")
+Rel(cdn, storage, "Serves processed photos from; deleted photos stop being served")
+Rel(worker, email, "Sends email via", "<TO SUPPLY>")
+@enduml

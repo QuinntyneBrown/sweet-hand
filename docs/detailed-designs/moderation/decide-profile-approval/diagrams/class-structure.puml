@@ -1,0 +1,112 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Decide profile approval
+
+enum ProfileStatus {
+  Draft
+  PendingReview
+  ChangesRequested
+  Published
+  Suspended
+  Removed
+}
+
+class CatererProfile {
+  +Guid Id
+  +string Slug
+  +string BusinessName
+  +ProfileStatus Status
+  +Guid OwnerAccountId
+  +Approve(operatorId: Guid, now: DateTime): void
+  +RequestChanges(reason: DecisionReason, operatorId: Guid, now: DateTime): void
+  +TakeSnapshot(): ProfileSnapshot
+}
+
+class ProfileStateMachine {
+  +CanTransition(from: ProfileStatus, to: ProfileStatus, actor: Role): bool
+  +EnsureTransition(from: ProfileStatus, to: ProfileStatus, actor: Role): void
+}
+
+class ProfileStatusChange {
+  +Guid Id
+  +ProfileStatus OldStatus
+  +ProfileStatus NewStatus
+  +Guid ChangedBy
+  +DateTime ChangedAtUtc
+  +string Reason
+}
+
+class DecisionReason {
+  +string Value
+  +{static} ForChangeRequest(text: string): DecisionReason
+}
+
+class ProfileSnapshot {
+  +Guid ProfileId
+  +DateTime TakenAt
+  +Map<string,string> Values
+}
+
+class SlugGenerator {
+  +Generate(businessName: string): string
+}
+
+class ApproveProfileCommand {
+  +Guid ProfileId
+}
+
+class ApproveProfileHandler {
+  +Handle(command: ApproveProfileCommand): Result
+}
+
+class RequestProfileChangesCommand {
+  +Guid ProfileId
+  +string Reason
+}
+
+class RequestProfileChangesHandler {
+  +Handle(command: RequestProfileChangesCommand): Result
+}
+
+class AuditEntry {
+  +Guid OperatorId
+  +string Action
+  +Guid TargetId
+  +DateTime OccurredAtUtc
+  +string Reason
+  +string Before
+  +string After
+}
+
+class Notification {
+  +Guid RecipientAccountId
+  +string Template
+  +Map<string,string> Data
+}
+
+CatererProfile --> ProfileStatus : has
+CatererProfile "1" *-- "*" ProfileStatusChange : history
+CatererProfile ..> ProfileStateMachine : checks transitions
+CatererProfile ..> DecisionReason : uses
+CatererProfile ..> ProfileSnapshot : creates
+ApproveProfileHandler ..> ApproveProfileCommand : handles
+ApproveProfileHandler --> CatererProfile : loads / mutates
+ApproveProfileHandler ..> SlugGenerator : first publication
+ApproveProfileHandler ..> AuditEntry : appends
+ApproveProfileHandler ..> Notification : enqueues
+RequestProfileChangesHandler ..> RequestProfileChangesCommand : handles
+RequestProfileChangesHandler --> CatererProfile : loads / mutates
+RequestProfileChangesHandler ..> AuditEntry : appends
+RequestProfileChangesHandler ..> Notification : enqueues
+@enduml

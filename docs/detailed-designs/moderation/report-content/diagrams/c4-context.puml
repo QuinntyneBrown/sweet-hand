@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Report a listing or review
+
+Person(visitor, "Visitor", "Anyone using the platform without signing in")
+Person(customer, "Customer", "Signed-in person in Toronto or the GTA planning a meal or event")
+Person(operator, "Operator", "Sweet Hand team member who approves caterers and moderates content")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(bot, "Bot-protection provider", "Issues and verifies challenge tokens")
+
+Rel(visitor, sweethand, "Reports a listing or review", "HTTPS")
+Rel(customer, sweethand, "Reports a listing or review", "HTTPS")
+Rel(sweethand, bot, "Verifies challenge tokens with", "HTTPS")
+Rel(operator, sweethand, "Sees grouped reports in the review queue", "HTTPS")
+@enduml

@@ -1,0 +1,107 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Show reviews on the caterer page
+
+enum ReviewStatus {
+  Published
+  Held
+  Hidden
+  Removed
+}
+
+class GetCatererReviewsQuery {
+  +string Slug
+  +int Page
+}
+
+class GetCatererReviewsHandler {
+  +Handle(query: GetCatererReviewsQuery): CatererReviewsView
+}
+
+class CatererReviewsView {
+  +decimal AverageRating
+  +int ReviewCount
+  +int Page
+  +bool HasMore
+  +PublicReviewView[] Reviews
+}
+
+class PublicReviewView {
+  +string ReviewerLabel
+  +string EventMonth
+  +int Rating
+  +string Text
+  +bool Edited
+  +string ResponseText
+  +string ResponderBusinessName
+}
+
+class Review {
+  +Guid Id
+  +Guid CatererId
+  +Guid CustomerId
+  +Guid EnquiryId
+  +int Rating
+  +string Text
+  +ReviewStatus Status
+  +DateTime CreatedAt
+  +DateTime EditedAt
+}
+
+class ReviewResponse {
+  +Guid ReviewId
+  +string Text
+  +DateTime UpdatedAt
+}
+
+class CatererRatingSummary {
+  +Guid CatererId
+  +decimal AverageRating
+  +int PublishedReviewCount
+}
+
+class ReviewerLabelFormatter {
+  +Format(displayName: string): string
+}
+
+class EventMonthFormatter {
+  +Format(eventDate: Date): string
+}
+
+interface ReviewRepository {
+  +GetSummary(catererId: Guid): CatererRatingSummary
+  +ListPublished(catererId: Guid, offset: int, limit: int): Review[]
+}
+
+interface CatererProfileRepository {
+  +FindBySlug(slug: string): CatererProfile
+}
+
+class CatererProfile {
+  +Guid Id
+  +string Slug
+  +string BusinessName
+  +ProfileStatus Status
+}
+
+GetCatererReviewsHandler ..> GetCatererReviewsQuery : handles
+GetCatererReviewsHandler ..> CatererReviewsView : returns
+GetCatererReviewsHandler --> ReviewRepository : reads via
+GetCatererReviewsHandler --> CatererProfileRepository : reads via
+GetCatererReviewsHandler --> ReviewerLabelFormatter : uses
+GetCatererReviewsHandler --> EventMonthFormatter : uses
+CatererReviewsView *-- "0..10" PublicReviewView
+Review --> ReviewStatus : has
+Review "1" *-- "0..1" ReviewResponse : response
+CatererProfile "1" --> "*" Review : reviewed in
+CatererRatingSummary --> CatererProfile : summarises
+@enduml

@@ -1,0 +1,66 @@
+@startuml
+title UML sequence behaviour — Remove or reorder dishes
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "MenuManagerPage" as page
+  participant "MenuClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CatererMenuEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "RemoveMenuItemHandler / ReorderMenuItemsHandler" as handler
+  participant "CatererProfile" as profile
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "CatererProfileRepository" as repo
+  database "Sweet Hand database" as db
+end box
+
+alt Remove
+  actor -> page : Remove dish, confirm in dialog
+  page -> client : remove(itemId)
+  client -> endpoints : DELETE /caterer/profile/menu-items/{id}
+  endpoints -> handler : RemoveMenuItemCommand (session caterer)
+  handler -> repo : GetByOwner(accountId)
+  repo --> handler : CatererProfile
+  alt item id not in this profile
+    handler --> endpoints : Not found
+    endpoints --> client : HTTP 404, nothing changed (L2-079 AC1)
+  else profile is Published and has exactly 3 dishes
+    handler -> profile : RemoveMenuItem(itemId)
+    profile --> handler : "Published profiles need at least 3 dishes" (L2-043 AC2)
+    endpoints --> client : HTTP 409
+    client --> page : Message shown, dish kept
+  else removal allowed
+    handler -> profile : RemoveMenuItem(itemId)
+    handler -> repo : Save(profile)
+    repo -> db : Commit
+    endpoints --> client : HTTP 200
+    client --> page : Dish removed, positions closed up
+  end
+else Reorder
+  actor -> page : Move up, Move down, or drag
+  page -> client : reorder(orderedIds)
+  client -> endpoints : PUT /caterer/profile/menu-items/order
+  endpoints -> handler : ReorderMenuItemsCommand
+  handler -> profile : ReorderMenu(ids) — ids are exactly the profile's dishes
+  handler -> repo : Save(profile)
+  repo -> db : Commit
+  endpoints --> client : HTTP 200
+end
+@enduml

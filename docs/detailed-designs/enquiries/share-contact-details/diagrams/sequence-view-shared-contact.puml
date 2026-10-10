@@ -1,0 +1,58 @@
+@startuml
+title UML sequence behaviour — View shared contact details
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ThreadPane" as pane
+  participant "SharedContactCard" as card
+  participant "EnquiriesClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "EnquiriesEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetThreadHandler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> pane : Open thread T1
+pane -> client : getThread(T1)
+client -> ep : GET /enquiries/T1
+ep -> handler : Send GetThreadQuery
+handler -> db : Load enquiry T1 with contact shares
+db --> handler : Enquiry with customer share
+alt customer has shared in T1 (L2-035 AC2)
+  handler -> db : Read customer's current email and phone
+  db --> handler : Email, phone if on file
+  handler --> ep : ThreadView with CounterpartContact
+else no customer share in T1 (L2-035 AC1)
+  handler --> ep : ThreadView without CounterpartContact
+end
+ep --> client : 200
+client --> pane : ThreadView
+pane -> card : Render when CounterpartContact present
+card --> actor : Customer's email and phone
+actor -> pane : Open thread T2 with the same customer
+pane -> client : getThread(T2)
+client -> ep : GET /enquiries/T2
+ep -> handler : Send GetThreadQuery
+handler -> db : Load enquiry T2 with contact shares
+db --> handler : No customer share in T2
+handler --> ep : ThreadView without CounterpartContact (L2-035 AC3)
+ep --> client : 200
+client --> pane : No contact card in T2
+@enduml

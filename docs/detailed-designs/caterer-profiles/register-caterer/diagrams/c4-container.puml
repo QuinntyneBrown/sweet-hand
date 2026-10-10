@@ -1,0 +1,24 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Register a caterer
+
+Person(caterer, "Caterer", "Registers a caterer account")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, profiles, consent records, token hashes")
+  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent queue of background jobs")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Sends queued notifications")
+}
+System_Ext(bot, "Bot-protection provider", "Verifies challenge tokens")
+System_Ext(email, "Email provider", "Sends transactional email")
+
+Rel(caterer, web, "Fills in registration form", "HTTPS")
+Rel(web, api, "Submits registration", "JSON/HTTPS")
+Rel(api, bot, "Verifies challenge token", "HTTPS")
+Rel(api, db, "Writes account, draft profile and consent", "<TO SUPPLY>")
+Rel(api, queue, "Enqueues verification email job")
+Rel(worker, queue, "Takes jobs from")
+Rel(worker, email, "Sends email via", "<TO SUPPLY>")
+@enduml

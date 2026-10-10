@@ -1,0 +1,60 @@
+@startuml
+title UML sequence behaviour — Remove a review
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ModerateReviewDialog" as page
+  participant "ModerationClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "OperatorReviewsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "RemoveReviewHandler" as handler
+  participant "Review" as review
+  participant "RatingSummaryCalculator" as calc
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AuditLog" as audit
+  participant "JobQueue" as jobs
+  database "Sweet Hand database" as db
+end box
+actor -> page : Choose remove, enter reason, confirm permanent removal
+page -> client : remove(reviewId, reason)
+client -> endpoints : POST /operator/reviews/{id}/remove
+endpoints -> handler : Send RemoveReviewCommand
+handler -> db : Load review
+db --> handler : Review
+handler -> review : Remove(reason)
+alt already Removed
+  review --> handler : Invalid transition
+  handler --> endpoints : Conflict
+  endpoints --> client : 409
+else Held, Published or Hidden
+  review -> review : Clear text and response; status Removed (L2-059 AC4)
+  review --> handler : Removed
+  handler -> calc : Recalculate(catererId, published reviews)
+  calc --> handler : RatingSummary
+  handler -> audit : Append RemoveReview entry with reason
+  handler -> jobs : Enqueue author email with reason
+  handler -> db : Commit in one unit of work
+  db --> handler : Committed
+  handler --> endpoints : Success
+  endpoints --> client : 200
+  client --> page : Removed
+  page --> actor : Review cannot be restored; only its audit entry remains
+end
+@enduml

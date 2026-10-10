@@ -1,0 +1,19 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Report a listing or review
+
+Person(visitor, "Visitor", "Anyone using the platform without signing in")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions for visitors, customers, caterers and operators")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, profiles, enquiries, reviews, reports, audit log")
+}
+System_Ext(bot, "Bot-protection provider", "Issues and verifies challenge tokens")
+
+Rel(visitor, web, "Opens report dialog", "HTTPS")
+Rel(web, bot, "Loads challenge widget", "HTTPS")
+Rel(web, api, "POST /reports", "JSON/HTTPS")
+Rel(api, bot, "Verifies token", "HTTPS")
+Rel(api, db, "Writes report, queue item and review status")
+@enduml

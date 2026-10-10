@@ -1,0 +1,63 @@
+@startuml
+title UML sequence behaviour — Register with consent
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer or caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Registration screen" as page
+  participant "ConsentField" as field
+  participant "PrivacyClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "Registration endpoint\n(identity-and-security)" as endpoint
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "Register handler\n(identity-and-security)" as register
+  participant "RecordConsentHandler" as consent
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+
+actor -> page : Open registration
+page -> client : Read current privacy notice
+client -> pipeline : GET /privacy-notice
+pipeline --> client : Current version and purpose summary
+page -> field : Render unticked checkbox with purpose summary (L2-070 AC2)
+actor -> page : Complete fields and submit
+alt consent box not ticked
+  page --> actor : Highlight consent as required; nothing submitted (L2-070 AC2)
+else consent box ticked
+  page -> pipeline : POST registration with noticeVersion and consentGiven
+  pipeline -> pipeline : CSRF, rate limit, bot-protection token
+  pipeline -> endpoint : Route request
+  endpoint -> register : Register command including consent
+  register -> consent : RecordConsentCommand
+  alt consentGiven is false or noticeVersion is not current
+    consent --> register : Validation failure
+    register --> endpoint : Failure, nothing stored
+    endpoint --> page : HTTP 400 ProblemDetails
+    page --> actor : Show consent error
+  else valid
+    consent -> db : Append ConsentRecord(accountId, version, acceptedAt UTC) (L2-070 AC3)
+    register -> db : Save account and consent in one unit of work
+    db --> register : Commit result
+    register --> endpoint : Account created
+    endpoint --> page : Registration result
+    page --> actor : Continue to next registration step
+  end
+end
+@enduml

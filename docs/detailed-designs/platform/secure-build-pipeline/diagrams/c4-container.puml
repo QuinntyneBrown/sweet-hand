@@ -1,0 +1,25 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Secure build pipeline
+
+System_Ext(ci, "CI pipeline", "<TO SUPPLY>")
+System_Ext(secrets, "Managed secret store", "<TO SUPPLY>")
+System_Boundary(sweethand, "Sweet Hand (Canadian region, declared in IaC)") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Non-root container image")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Non-root container image")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Non-root container image")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Personal information; Canadian region")
+  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Photos, certificates, exports; Canadian region")
+  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Canadian region")
+}
+
+Rel(ci, web, "Scans image of")
+Rel(ci, api, "Scans image of")
+Rel(ci, worker, "Scans image of")
+Rel(ci, db, "Checks region of IaC definition (L2-075 AC1)")
+Rel(ci, storage, "Checks region of IaC definition (L2-075 AC1)")
+Rel(web, secrets, "Reads secrets at start-up")
+Rel(api, secrets, "Reads secrets at start-up")
+Rel(worker, secrets, "Reads secrets at start-up")
+@enduml

@@ -1,0 +1,60 @@
+@startuml
+title UML sequence behaviour — Verify an email address
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer or caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "VerifyEmailPage" as page
+  participant "IdentityClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "IdentityEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "VerifyEmailHandler" as handler
+  participant "VerificationToken" as token
+  participant "UserAccount" as account
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "TokenHasher" as hasher
+  participant "TokenRepository" as tokens
+  database "Sweet Hand database" as db
+end box
+actor -> page : Open verification link from email
+page -> client : verifyEmail(token)
+client -> endpoints : POST /identity/email-verifications
+endpoints -> handler : Send VerifyEmailCommand
+handler -> hasher : hash(token) (L2-077 AC5)
+hasher --> handler : Token hash
+handler -> tokens : findByHash(hash)
+tokens -> db : Parameterised select
+db --> tokens : Token record or none
+tokens --> handler : VerificationToken or none
+alt Token found, unconsumed and issued less than 24 hours ago
+  handler -> token : consume(now)
+  handler -> account : markEmailVerified()
+  handler -> tokens : Save token and account in one unit of work
+  tokens -> db : Commit
+  handler --> endpoints : Verified
+  endpoints --> client : 200
+  client --> page : Verified
+  page --> actor : Email verified; continue to saved return path
+else Token missing, used, or older than 24 hours
+  handler --> endpoints : Rejected (L2-077 AC3)
+  endpoints --> client : 400
+  client --> page : Link not valid
+  page --> actor : Offer "Resend verification email"
+end
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Report a listing or review
+
+Person(visitor, "Visitor", "Signed in or not")
+System_Ext(bot, "Bot-protection provider", "Verifies challenge tokens")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(pages, "CatererPage / ReviewList", "Page components", "Report controls")
+  Component(dialog, "ReportDialog", "Dialog", "Reason, details, challenge")
+  Component(client, "ReportsClient", "API client contract", "Typed report calls")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "ReportsEndpoints", "Endpoint group", "POST /reports, anonymous allowed")
+  Component(handler, "SubmitReportHandler", "Command handler", "Validates and stores reports")
+  Component(policy, "ReportPolicy", "Domain service", "Duplicates and automatic hiding")
+  Component(report, "Report", "Domain entity", "Target, reason, details")
+  Component(verifier, "BotProtectionVerifier", "Infrastructure", "Challenge token check")
+  Component(limiter, "ReportRateLimiter", "Infrastructure", "5 per hour per hashed IP")
+  Component(repos, "Repositories", "Infrastructure", "Report, Review, ReviewQueue")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Reports, reviews, queue items")
+
+Rel(visitor, pages, "Uses", "HTTPS")
+Rel(pages, dialog, "Opens")
+Rel(dialog, client, "submitReport")
+Rel(client, endpoints, "Calls via RequestPipeline", "JSON/HTTPS")
+Rel(endpoints, handler, "Sends SubmitReportCommand")
+Rel(handler, verifier, "Verifies token")
+Rel(verifier, bot, "Calls", "HTTPS")
+Rel(handler, limiter, "Checks and counts")
+Rel(handler, policy, "Applies rules")
+Rel(handler, report, "Creates")
+Rel(handler, repos, "Loads and saves")
+Rel(repos, db, "Reads and writes")
+@enduml

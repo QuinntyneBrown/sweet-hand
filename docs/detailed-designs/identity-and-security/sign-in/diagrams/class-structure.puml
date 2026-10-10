@@ -1,0 +1,111 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+hide empty members
+title Class structure — Sign in
+
+enum Role {
+  Customer
+  Caterer
+  Operator
+}
+
+enum SignInOutcome {
+  SignedIn
+  SecondFactorRequired
+  ChallengeRequired
+  Rejected
+}
+
+class SignInCommand {
+  +string email
+  +string password
+  +string challengeToken
+  +string returnPath
+  +string ipAddress
+  +string deviceType
+}
+
+class SignInHandler {
+  +handle(command: SignInCommand): SignInResult
+}
+
+class SignInResult {
+  +SignInOutcome outcome
+  +string message
+  +string returnPath
+}
+
+class SignInAttemptPolicy {
+  +int accountFailureLimit = 5
+  +Duration accountWindow = 15 min
+  +Duration lockoutLength = 15 min
+  +int ipFailureLimit = 20
+  +Duration ipWindow = 15 min
+  +isLockedOut(failures): bool
+  +needsChallenge(ipFailures): bool
+}
+
+class CompleteSecondFactorCommand {
+  +string totpCode
+  +string webAuthnAssertion
+}
+
+class CompleteSecondFactorHandler {
+  +handle(command: CompleteSecondFactorCommand): Result
+}
+
+class UserAccount {
+  +Guid id
+  +string email
+  +Role role
+  +string passwordHash
+}
+
+class Session {
+  +string idHash
+  +Guid accountId
+  +Role role
+  +DateTime createdAtUtc
+  +DateTime lastActiveAtUtc
+  +string deviceType
+  +DateTime secondFactorCompletedAtUtc
+  +isFullyAuthenticated(): bool
+}
+
+interface SignInAttemptRepository {
+  +countAccountFailures(accountId, since): int
+  +countIpFailures(ipHash, since): int
+  +recordFailure(accountId, ipHash, atUtc): void
+}
+
+interface SessionStore {
+  +create(session: Session): string
+  +delete(idHash: string): void
+}
+
+interface PasswordHasher {
+  +verify(password, hash): bool
+}
+
+SignInHandler ..> SignInCommand : handles
+SignInHandler ..> SignInResult : returns
+SignInResult --> SignInOutcome
+SignInHandler ..> SignInAttemptPolicy
+SignInHandler ..> SignInAttemptRepository
+SignInHandler ..> PasswordHasher
+SignInHandler ..> SessionStore
+SignInHandler ..> UserAccount : loads
+CompleteSecondFactorHandler ..> CompleteSecondFactorCommand : handles
+CompleteSecondFactorHandler ..> Session : completes
+UserAccount --> Role
+UserAccount "1" -- "*" Session
+@enduml

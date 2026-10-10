@@ -1,0 +1,42 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Decline or close an enquiry
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(pane, "ThreadPane", "<TO SUPPLY>", "Decline and Close actions")
+  Component(decl, "DeclineEnquiryDialog", "<TO SUPPLY>", "Optional note up to 500 characters")
+  Component(close, "CloseEnquiryDialog", "<TO SUPPLY>", "Confirmation")
+  Component(client, "EnquiriesClient", "<TO SUPPLY>", "API client contract")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ep, "EnquiriesEndpoints", "<TO SUPPLY>", "decline and close endpoints")
+  Component(dh, "DeclineEnquiryHandler", "<TO SUPPLY>", "Caterer decline")
+  Component(ch, "CloseEnquiryHandler", "<TO SUPPLY>", "Party close")
+  Component(ah, "AutoCloseEnquiriesHandler", "<TO SUPPLY>", "Closes enquiries 30 days after event")
+  Component(agg, "Enquiry", "<TO SUPPLY>", "Status state machine")
+  Component(sched, "NotificationScheduler", "<TO SUPPLY>", "Queues decline email")
+  Component(repo, "EnquiryRepository", "<TO SUPPLY>", "Enquiry persistence")
+}
+Container_Boundary(worker, "Sweet Hand background worker") {
+  Component(job, "DailyMaintenanceJob", "<TO SUPPLY>", "Runs daily rules")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Enquiries and notifications")
+
+Rel(pane, decl, "Opens")
+Rel(pane, close, "Opens")
+Rel(decl, client, "declineEnquiry")
+Rel(close, client, "closeEnquiry")
+Rel(client, ep, "Calls", "JSON/HTTPS")
+Rel(ep, dh, "Sends DeclineEnquiryCommand")
+Rel(ep, ch, "Sends CloseEnquiryCommand")
+Rel(job, ah, "Sends AutoCloseEnquiriesCommand")
+Rel(dh, agg, "Decline")
+Rel(ch, agg, "Close")
+Rel(ah, agg, "Close by System")
+Rel(dh, sched, "Queues decline email")
+Rel(dh, repo, "Saves with")
+Rel(ch, repo, "Saves with")
+Rel(ah, repo, "Finds due and saves with")
+Rel(repo, db, "Reads and writes")
+@enduml

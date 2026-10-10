@@ -1,0 +1,44 @@
+@startuml
+title UML sequence behaviour — Close stale enquiries automatically
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "DailyMaintenanceJob" as job
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "AutoCloseEnquiriesHandler" as handler
+  participant "Enquiry" as entity
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "Clock" as clock
+  participant "EnquiryRepository" as repo
+  database "Sweet Hand database" as db
+end box
+job -> handler : Send AutoCloseEnquiriesCommand (once a day)
+handler -> clock : Today in America/Toronto
+clock --> handler : today
+loop until no due enquiries remain
+  handler -> repo : FindDueForAutoClose(today, batchSize)
+  repo -> db : Status Open or Replied and EventDate + 30 days <= today
+  db --> repo : Batch
+  repo --> handler : Enquiries
+  loop each enquiry in batch
+    handler -> entity : Close(System, now) (L2-033 AC4)
+  end
+  handler -> repo : Save batch in one unit of work
+  repo -> db : Commit
+end
+handler --> job : Count closed
+@enduml

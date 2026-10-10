@@ -1,0 +1,67 @@
+@startuml
+title UML sequence behaviour — Register a customer account
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "RegistrationPage" as page
+  participant "IdentityClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "IdentityEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "RegisterCustomerHandler" as handler
+  participant "PasswordPolicy" as policy
+  participant "UserAccount" as account
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "BotProtectionVerifier" as verifier
+  participant "UserAccountRepository" as repo
+  participant "JobQueue" as jobs
+  database "Sweet Hand database" as db
+end box
+actor -> page : Enter display name, email, password; tick consent
+page -> page : Client checks for immediate feedback
+page -> client : register(request with challenge token)
+client -> pipeline : POST /identity/registrations
+pipeline -> pipeline : Rate limit, CSRF, request schema
+pipeline -> endpoints : Bind command fields only (role ignored, L2-056 AC1)
+endpoints -> handler : Send RegisterCustomerCommand
+handler -> verifier : Verify challenge token (L2-082 AC2)
+verifier --> handler : Valid
+handler -> policy : Check password rules (L2-076 AC1)
+policy --> handler : Accepted
+handler -> handler : Display name 2-50 characters, consent ticked (L2-023, L2-070 AC2)
+handler -> repo : findByEmail(email)
+repo -> db : Parameterised select
+db --> repo : Result
+repo --> handler : Account or none
+alt Email address not registered
+  handler -> account : createCustomer(...) with Role.Customer
+  account --> handler : New account, emailVerified = false
+  handler -> repo : Add account, consent record (version, UTC time, L2-070 AC3), verification token hash
+  repo -> db : Insert in one unit of work
+  db --> repo : Committed
+  handler -> jobs : Enqueue verification email
+else Email address already registered
+  handler -> jobs : Enqueue notice to existing address (L2-076)
+end
+handler --> endpoints : Same RegistrationResult in both branches
+endpoints --> client : Same response in both branches
+client --> page : Result
+page --> actor : Continue to return path
+@enduml

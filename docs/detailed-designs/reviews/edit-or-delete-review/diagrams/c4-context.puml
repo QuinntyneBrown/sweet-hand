@@ -1,0 +1,10 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Edit or delete a review
+
+Person(customer, "Customer", "Author of a review")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+
+Rel(customer, sweethand, "Edits or deletes their review using", "HTTPS")
+@enduml

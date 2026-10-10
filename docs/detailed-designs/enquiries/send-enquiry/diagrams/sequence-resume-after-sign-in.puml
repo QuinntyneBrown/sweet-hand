@@ -1,0 +1,66 @@
+@startuml
+title UML sequence behaviour — Resume the enquiry form after signing in
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "CatererPage" as cpage
+  participant "EnquiryFormDialog" as page
+  participant "EnquiryDraftStore" as store
+  participant "EnquiriesClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "EnquiriesEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SendEnquiryHandler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> cpage : Activate Send an enquiry
+cpage -> page : Open form
+actor -> page : Fill in every field and submit
+page -> store : Keep form values for this caterer
+page --> actor : Redirect to sign-in or registration with return address (L2-013 AC3)
+actor -> actor : Sign in or register
+actor -> cpage : Return to caterer page with form open
+cpage -> page : Reopen form
+page -> store : Restore values
+store --> page : Values entered before sign-in (L2-023 AC1)
+actor -> page : Submit
+page -> client : sendEnquiry(request)
+client -> ep : POST /enquiries
+ep -> handler : Send SendEnquiryCommand
+alt email not yet verified
+  handler --> ep : Rejected: EmailNotVerified
+  ep --> client : Rejection "Verify your email to send enquiries"
+  client -> ep : PUT /enquiries/drafts/{catererId}
+  ep -> db : Save EnquiryDraft for the customer
+  db --> ep : Saved
+  client --> page : Show message with Resend verification email
+  actor -> page : Verify email within 24 hours, then reopen form
+  page -> client : getDraft(catererId)
+  client -> ep : GET /enquiries/drafts/{catererId}
+  ep -> db : Load EnquiryDraft
+  db --> ep : Draft values
+  ep --> client : Draft
+  client --> page : Fill form from draft (L2-023 AC3)
+else verified
+  handler --> ep : Created enquiry
+  ep --> client : 201
+  client --> page : Show confirmation
+end
+@enduml

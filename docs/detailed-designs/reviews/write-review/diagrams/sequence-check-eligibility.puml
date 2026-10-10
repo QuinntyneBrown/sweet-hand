@@ -1,0 +1,68 @@
+@startuml
+title UML sequence behaviour — Check review eligibility
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "CatererPage" as page
+  participant "ReviewsClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "ReviewsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetReviewEligibilityHandler" as handler
+  participant "ReviewEligibilityPolicy" as policy
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "ReviewRepository" as revRepo
+  participant "EnquiryRepository" as enqRepo
+  database "Sweet Hand database" as db
+end box
+actor -> page : Open caterer page while signed in
+page -> client : getEligibility(catererId)
+client -> endpoints : GET review eligibility
+endpoints -> endpoints : Authenticate session (RequestPipeline)
+alt caller is not a customer
+  endpoints --> client : NotEligible
+else caller is a customer
+  endpoints -> handler : Send GetReviewEligibilityQuery
+  handler -> revRepo : FindByCustomerAndCaterer
+  revRepo -> db : Select review
+  db --> revRepo : Review or none
+  revRepo --> handler : Existing review
+  alt review exists
+    handler --> endpoints : AlreadyReviewed (L2-049 AC4)
+  else no review
+    handler -> policy : FindEligibleEnquiry(today in America/Toronto)
+    policy -> enqRepo : ListForCustomerAndCaterer
+    enqRepo -> db : Select caller-scoped enquiries
+    db --> enqRepo : Enquiries
+    enqRepo --> policy : Enquiries
+    policy -> policy : Apply L2-049 reply and 90-day event-date rule
+    policy --> handler : Eligible enquiry or none
+    handler --> endpoints : Eligible or NotEligible
+  end
+  endpoints --> client : 200 EligibilityResult
+end
+client --> page : EligibilityResult
+alt Eligible
+  page --> actor : Show Write a review control (L2-049 AC1)
+else AlreadyReviewed
+  page --> actor : Show Edit your review control
+else NotEligible
+  page --> actor : Show no review control (L2-049 AC2)
+end
+@enduml

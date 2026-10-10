@@ -1,0 +1,72 @@
+@startuml
+title UML sequence behaviour — Approve a business name change
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+actor "Visitor" as visitor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ReviewQueuePage" as page
+  participant "OperatorProfilesClient" as client
+  participant "CatererPage (server-rendered)" as caterPage
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "OperatorProfilesEndpoints" as endpoints
+  participant "PublicCaterersEndpoints" as pub
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "ApproveNameChangeHandler" as handler
+  participant "CatererProfile" as profile
+  participant "SlugService" as slugs
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "SlugRedirectRepository" as redirects
+  participant "AuditLog" as audit
+  participant "CdnPurger" as purger
+  database "Sweet Hand database" as db
+end box
+
+actor -> page : Approve name change item
+page -> client : approveNameChange(profileId)
+client -> endpoints : POST /operator/profiles/{id}/name-change/approval
+endpoints -> endpoints : Require Operator role and MFA session
+endpoints -> handler : Send ApproveNameChangeCommand
+handler -> db : Load profile with PendingNameChange
+handler -> slugs : Derive("Auntie Bev's") gives auntie-bevs (L2-018 AC1)
+slugs -> redirects : Is slug used by another caterer or its redirects?
+alt taken
+  slugs --> handler : auntie-bevs-2 (L2-018 AC2)
+else free
+  slugs --> handler : auntie-bevs
+end
+handler -> profile : ApproveNameChange(newSlug)
+profile -> profile : businessName = "Auntie Bev's", slug = new slug
+handler -> redirects : Add SlugRedirect(old slug); repoint all former slugs to new slug
+handler -> audit : Append name change approval (L2-060)
+handler -> db : Commit in one unit of work
+handler -> purger : Purge old and new caterer paths, listing pages, sitemap
+endpoints --> client : HTTP 200
+client --> page : Item resolved
+note right of purger
+  Public page shows "Auntie Bev's"
+  within 60 s (L2-044 AC3)
+end note
+
+visitor -> caterPage : GET /caterers/bevs (former slug)
+caterPage -> pub : GET caterer by slug "bevs"
+pub -> redirects : FindBySlug("bevs")
+redirects --> pub : Current slug
+pub --> caterPage : Moved to auntie-bevs
+caterPage --> visitor : HTTP 301 to /caterers/auntie-bevs (L2-018 AC3)
+@enduml

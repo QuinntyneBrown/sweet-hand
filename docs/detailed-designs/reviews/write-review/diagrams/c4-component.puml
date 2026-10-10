@@ -1,0 +1,40 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Write a review
+
+Person(customer, "Customer", "Signed-in person who sent an enquiry to a caterer")
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "CatererPage", "Page", "Shows the Write a review control when eligible")
+  Component(dialog, "WriteReviewDialog", "Dialog", "Rating and text entry with inline errors")
+  Component(client, "ReviewsClient", "API client contract", "Typed review operations")
+}
+
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "ReviewsEndpoints", "Endpoint group", "Review eligibility and create review endpoints")
+  Component(eligQ, "GetReviewEligibilityHandler", "Query handler", "Returns Eligible, AlreadyReviewed or NotEligible")
+  Component(createH, "CreateReviewHandler", "Command handler", "Creates a published or held review")
+  Component(policy, "ReviewEligibilityPolicy", "Domain service", "Applies L2-049")
+  Component(screen, "ReviewContentScreen", "Domain service", "Detects URL, email and phone (L2-050)")
+  Component(enqRepo, "EnquiryRepository", "Repository", "Caller-scoped enquiry reads")
+  Component(revRepo, "ReviewRepository", "Repository", "Reviews, rating summary, queue items")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Enquiries, reviews, review queue")
+
+Rel(customer, page, "Opens", "HTTPS")
+Rel(page, dialog, "Opens")
+Rel(page, client, "Asks eligibility")
+Rel(dialog, client, "Submits review")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, eligQ, "Sends GetReviewEligibilityQuery")
+Rel(endpoints, createH, "Sends CreateReviewCommand")
+Rel(eligQ, policy, "Evaluates")
+Rel(createH, policy, "Evaluates")
+Rel(createH, screen, "Screens text")
+Rel(policy, enqRepo, "Reads enquiries")
+Rel(createH, revRepo, "Saves")
+Rel(eligQ, revRepo, "Reads existing review")
+Rel(enqRepo, db, "Reads")
+Rel(revRepo, db, "Reads and writes")
+@enduml

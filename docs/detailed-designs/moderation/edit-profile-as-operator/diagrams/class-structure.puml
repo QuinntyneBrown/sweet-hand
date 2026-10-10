@@ -1,0 +1,116 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Edit a caterer profile as an operator
+
+class CatererProfile {
+  +Guid Id
+  +ProfileStatus Status
+  +List<Photo> Photos
+  +List<MenuItem> MenuItems
+  +ApplyOperatorEdit(field: string, value: string, reason: OperatorEditReason): FieldChange
+  +RemovePhoto(photoId: Guid, reason: OperatorEditReason): void
+  +RemoveMenuItem(itemId: Guid, reason: OperatorEditReason): void
+}
+
+class OperatorEditReason {
+  +string Value
+  +{static} From(text: string): OperatorEditReason
+}
+
+class FieldChange {
+  +string Field
+  +string Before
+  +string After
+}
+
+class MinimumsShortfall {
+  +Check(profile: CatererProfile): ReplacementDeadline?
+}
+
+class ReplacementDeadline {
+  +string ItemKind
+  +DateTime DueAt
+}
+
+class ProfileEdit {
+  +Guid Id
+  +Guid ProfileId
+  +string Field
+  +string OldValue
+  +string NewValue
+  +DateTime EditedAt
+  +DateTime? RevertedAt
+  +MarkReverted(now: DateTime): void
+}
+
+class EditProfileAsOperatorCommand {
+  +Guid ProfileId
+  +string Field
+  +string Value
+  +string Reason
+}
+
+class RemoveProfileItemAsOperatorCommand {
+  +Guid ProfileId
+  +Guid ItemId
+  +string ItemKind
+  +string Reason
+}
+
+class RevertProfileEditCommand {
+  +Guid EditId
+  +string Reason
+}
+
+class EditProfileAsOperatorHandler {
+  +Handle(command: EditProfileAsOperatorCommand): Result
+}
+
+class RemoveProfileItemAsOperatorHandler {
+  +Handle(command: RemoveProfileItemAsOperatorCommand): Result
+}
+
+class RevertProfileEditHandler {
+  +Handle(command: RevertProfileEditCommand): Result
+}
+
+class Photo {
+  +Guid Id
+  +string Caption
+  +int Position
+  +bool IsCover
+}
+
+class MenuItem {
+  +Guid Id
+  +string Name
+  +int Position
+}
+
+CatererProfile "1" *-- "*" Photo
+CatererProfile "1" *-- "*" MenuItem
+CatererProfile ..> OperatorEditReason : requires
+CatererProfile ..> FieldChange : returns
+CatererProfile "1" --> "*" ProfileEdit : edited by
+MinimumsShortfall ..> CatererProfile : inspects
+MinimumsShortfall ..> ReplacementDeadline : creates
+EditProfileAsOperatorHandler ..> EditProfileAsOperatorCommand : handles
+EditProfileAsOperatorHandler --> CatererProfile : loads / mutates
+RemoveProfileItemAsOperatorHandler ..> RemoveProfileItemAsOperatorCommand : handles
+RemoveProfileItemAsOperatorHandler --> CatererProfile : loads / mutates
+RemoveProfileItemAsOperatorHandler ..> MinimumsShortfall : uses
+RevertProfileEditHandler ..> RevertProfileEditCommand : handles
+RevertProfileEditHandler --> ProfileEdit : loads / marks reverted
+RevertProfileEditHandler --> CatererProfile : restores old value
+@enduml

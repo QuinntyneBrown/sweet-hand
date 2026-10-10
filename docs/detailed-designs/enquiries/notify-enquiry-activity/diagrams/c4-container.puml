@@ -1,0 +1,28 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Notify enquiry activity
+
+Person(customer, "Customer", "Signed-in person in Toronto or the GTA planning a meal or an event")
+Person(caterer, "Caterer", "Person or small business selling Caribbean food")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions for visitors, customers, caterers and operators")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, profiles, enquiries, messages, notifications, audit log")
+  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent queue of background jobs")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Runs queued jobs and scheduled jobs")
+}
+System_Ext(email, "Email provider", "Sends transactional email and reports bounces")
+System_Ext(obs, "Observability platform", "Collects logs, metrics and traces; raises alerts")
+
+Rel(customer, web, "Sends enquiries and replies", "HTTPS")
+Rel(caterer, web, "Replies and declines", "HTTPS")
+Rel(web, api, "Calls", "JSON/HTTPS")
+Rel(api, db, "Writes action and notification in one unit of work")
+Rel(api, queue, "Enqueues SendNotificationJob")
+Rel(worker, queue, "Takes and re-enqueues jobs")
+Rel(worker, db, "Reads and updates notifications")
+Rel(worker, email, "Sends email via", "HTTPS")
+Rel(email, api, "Posts bounce events to", "Webhook")
+Rel(worker, obs, "Raises alert when a notification fails")
+@enduml

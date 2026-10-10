@@ -1,0 +1,62 @@
+@startuml
+title UML sequence behaviour — Complete an operator second factor
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "SecondFactorPage" as page
+  participant "IdentityClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "IdentityEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "CompleteSecondFactorHandler" as handler
+  participant "Session" as session
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "SessionStore" as sessions
+  participant "SecurityLog" as seclog
+end box
+actor -> page : Open an operator page after password sign-in
+page -> client : Request operator page data
+client -> pipeline : GET operator endpoint
+pipeline -> sessions : Load session
+sessions --> pipeline : Operator session, second factor not completed
+pipeline --> client : Denied; second factor required (L2-056 AC2)
+client --> page : Show second-factor screen
+actor -> page : Enter TOTP code or use WebAuthn credential
+page -> client : completeSecondFactor(request)
+client -> pipeline : POST /identity/second-factor
+pipeline -> endpoints : Authenticated operator session
+endpoints -> handler : Send CompleteSecondFactorCommand
+handler -> handler : Verify TOTP code or WebAuthn assertion
+alt Valid second factor
+  handler -> session : Set secondFactorCompletedAt
+  handler -> sessions : Save session
+  handler -> seclog : Record SignInSucceeded (second factor)
+  handler --> endpoints : Fully authenticated
+  endpoints --> client : 200
+  client --> page : Success
+  page --> actor : Continue to operator page
+else Invalid second factor
+  handler -> seclog : Record SignInFailed (second factor)
+  handler --> endpoints : Rejected
+  endpoints --> client : 400 with generic message
+  client --> page : Error
+  page --> actor : Ask for a new code
+end
+@enduml

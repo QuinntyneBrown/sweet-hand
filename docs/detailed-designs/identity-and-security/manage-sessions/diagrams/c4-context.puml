@@ -1,0 +1,14 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Manage sessions
+
+Person(customer, "Customer", "Signed-in person planning a meal or an event")
+Person(caterer, "Caterer", "Sells Caribbean food and receives enquiries")
+Person(operator, "Operator", "Sweet Hand team member who moderates the platform")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+
+Rel(customer, sweethand, "Holds sessions with; signs out of")
+Rel(caterer, sweethand, "Holds sessions with; signs out of")
+Rel(operator, sweethand, "Holds short-lived sessions with")
+@enduml

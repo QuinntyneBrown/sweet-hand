@@ -1,0 +1,48 @@
+@startuml
+title UML sequence behaviour — Run the build gates
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Contributor" as actor
+participant "Source repository" as repo
+participant "CI pipeline" as ci
+participant "SecretScanStep" as secretscan
+participant "CompositionAnalysisStep" as sca
+participant "StringLiteralLintStep" as lint
+participant "RegionPolicyCheckStep" as region
+participant "ImageScanStep" as imagescan
+participant "PipelineGatePolicy" as gate
+participant "Container registry" as registry
+actor -> repo : Push commit
+repo -> ci : Trigger build
+ci -> secretscan : Scan commit for credentials and keys
+secretscan --> ci : Result (L2-083 AC1)
+ci -> sca : Analyse dependency manifests
+sca --> ci : Fail on Critical or High with fix (L2-083 AC3)
+ci -> lint : Scan templates and components
+lint --> ci : Literals outside resource files (L2-064 AC4)
+ci -> region : Check IaC definitions
+region --> ci : Personal-information resources in Canadian regions (L2-075 AC1)
+ci -> ci : Build production images
+ci -> imagescan : Scan images
+imagescan --> ci : No Critical, non-root user (L2-083 AC4)
+ci -> gate : evaluate(all step results)
+alt any required step failed
+  gate --> actor : Build failed, merge blocked
+else all passed
+  gate --> ci : Pass
+  ci -> registry : Publish images
+  ci --> actor : Build passed
+end
+@enduml

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Filter dropdown (tablet) · area — Sweet Hand mocks</title>
+<meta name="mock:kind" content="dialog">
+<meta name="mock:screen" content="filter-menu">
+<meta name="mock:state" content="area">
+<meta name="mock:requirements" content="L2-008 L2-009 L2-011">
+<meta name="description" content="Tablet filter bar with the Area dropdown open: area or postal code search plus whole regions.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="page">
+<header class="site-header">
+  <a class="wordmark" href="../../pages/caterers/default.html">Sweet Hand</a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__link site-nav__extra" href="../../pages/caterers/default.html" aria-current="page">Caterers</a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/occasions/default.html">Occasions</a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/sign-in/default.html">Sign in</a>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+  </nav>
+</header>
+
+<main id="main" class="container">
+  <div class="browse">
+    <div class="browse__title"><h1>Caterers</h1><p class="result-count" role="status" aria-live="polite">60 caterers</p></div>
+    <section class="browse__results" aria-label="Results">
+      <div class="browse__head">
+        <div class="filter-bar">
+          <div class="menu-anchor">
+            <button class="filter-trigger" type="button" aria-expanded="false" aria-controls="menu-cuisine" data-mock-href="default.html">Cuisine <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+          </div>
+          <div class="menu-anchor">
+            <button class="filter-trigger" type="button" aria-expanded="true" aria-controls="menu-area">Area <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="filter-dropdown" id="menu-area" role="dialog" aria-labelledby="dlg-title">
+            <h2 class="filter-group__title" id="dlg-title">Area</h2>
+            <div class="search-field">
+              <label class="visually-hidden" for="m-area">Area or postal code</label>
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+              <input class="input" id="m-area" type="search" placeholder="Area or postal code" autocomplete="postal-code" autocapitalize="characters" autofocus>
+            </div>
+            <fieldset style="margin-top: var(--space-3);">
+              <legend class="visually-hidden">Regions</legend>
+          <label class="choice"><input type="checkbox" name="region" value="City of Toronto"><span class="choice__text">City of Toronto <small>31 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="region" value="Peel"><span class="choice__text">Peel <small>13 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="region" value="York Region"><span class="choice__text">York Region <small>8 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="region" value="Durham"><span class="choice__text">Durham <small>6 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="region" value="Halton"><span class="choice__text">Halton <small>2 caterers</small></span></label>
+            </fieldset>
+            <div class="cluster cluster--between" style="margin-top: var(--space-4);"><button class="btn btn--link btn--sm" type="button">Clear</button><span class="result-count" role="status">60 caterers</span></div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <ul class="caterer-grid">
+      <li><a class="caterer-card" href="../../pages/caterer/default.html"><span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="Chicken pelau in a steel pot with lime and cucumber chutney" width="280" height="280"></span><span class="caterer-card__name">Pelau House</span><span class="caterer-card__meta">Trinidadian &amp; Tobagonian · Scarborough</span></a></li>
+      <li><a class="caterer-card" href="../../pages/caterer/default.html"><span class="photo"><img src="../../assets/img/cou-cou.jpg" alt="Sesame chicken with sweet peppers and broccoli over brown rice" width="280" height="280"></span><span class="caterer-card__name">Cou-Cou</span><span class="caterer-card__meta">Barbadian (Bajan) · North York</span></a></li>
+      <li><a class="caterer-card" href="../../pages/caterer/default.html"><span class="photo"><img src="../../assets/img/scotch-bonnet-social.jpg" alt="Curry chicken scattered with coriander over white rice" width="280" height="280"></span><span class="caterer-card__name">Scotch Bonnet Social</span><span class="caterer-card__meta">Jamaican · Pickering</span></a></li>
+      <li><a class="caterer-card" href="../../pages/caterer/default.html"><span class="photo"><img src="../../assets/img/ti-kay.jpg" alt="Shrimp arranged in a heart on a mound of tomato rice" width="280" height="280"></span><span class="caterer-card__name">Ti Kay</span><span class="caterer-card__meta">Haitian · Etobicoke</span></a></li>
+      <li><a class="caterer-card" href="../../pages/caterer/default.html"><span class="photo"><img src="../../assets/img/black-cake-co.jpg" alt="Dark rum cake dusted with icing sugar and topped with a raspberry" width="280" height="280"></span><span class="caterer-card__name">Black Cake Co.</span><span class="caterer-card__meta">Jamaican · Ajax</span></a></li>
+      <li><a class="caterer-card" href="../../pages/caterer/default.html"><span class="photo"><img src="../../assets/img/demerara-kitchen.jpg" alt="Fried rice with chicken, peas, carrots and egg in a serving dish" width="280" height="280"></span><span class="caterer-card__name">Demerara Kitchen</span><span class="caterer-card__meta">Guyanese · Brampton</span></a></li>
+      </ul>
+    </section>
+  </div>
+</main>
+</div>
+
+<p class="mock-note" style="top: 9rem; right: 1rem;">Tablet layout (768–991px) shown at every width for review. A non-modal dropdown under its trigger: ticking updates results behind it within a second; Escape or a click outside closes it and returns focus to the trigger.</p>
+
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Filter dropdown (tablet)</span>
+  <ul class="mock-bar__states">
+    <li><a href="default.html">default</a></li>
+    <li><a href="area.html" aria-current="page">area</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>

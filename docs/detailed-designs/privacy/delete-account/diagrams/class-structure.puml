@@ -1,0 +1,96 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Delete an account
+
+enum AccountStatus {
+  Active
+  Closed
+  Deleted
+}
+
+enum Role {
+  Customer
+  Caterer
+  Operator
+}
+
+class UserAccount {
+  +Guid Id
+  +string Email
+  +string Phone
+  +string DisplayName
+  +Role Role
+  +AccountStatus Status
+  +DateTime ClosedAtUtc
+  +Close(nowUtc: DateTime): void
+  +Anonymise(): void
+  +MarkDeleted(): void
+  +CanSignIn(): bool
+}
+
+class RequestAccountDeletionCommand {
+  +Guid AccountId
+  +string Password
+}
+
+class RequestAccountDeletionHandler {
+  +Handle(command: RequestAccountDeletionCommand): Result
+}
+
+class AccountDeletionPolicy {
+  +StepsFor(account: UserAccount): DeletionStep[]
+}
+
+interface DeletionStep {
+  +Apply(account: UserAccount): void
+}
+
+class AnonymiseThreadsStep {
+  +string Label = "Former Sweet Hand user"
+}
+class RemoveContactDetailsStep
+class DeleteReviewsAndRecalculateStep
+class HideCatererProfileStep
+class CloseOpenEnquiriesStep
+class DeleteCatererFilesStep
+class DeleteConsentSessionsAndTokensStep
+
+class DeletionRecord {
+  +Guid AccountId
+  +DateTime RequestedAtUtc
+  +DateTime CompletedAtUtc
+  +string[] CompletedSteps
+}
+
+class ProcessAccountDeletionJob {
+  +Guid AccountId
+  +Run(): void
+}
+
+UserAccount --> AccountStatus : has
+UserAccount --> Role : has
+RequestAccountDeletionHandler ..> RequestAccountDeletionCommand : handles
+RequestAccountDeletionHandler ..> UserAccount : closes
+RequestAccountDeletionHandler ..> ProcessAccountDeletionJob : enqueues
+ProcessAccountDeletionJob --> AccountDeletionPolicy : uses
+ProcessAccountDeletionJob --> DeletionRecord : tracks progress in
+AccountDeletionPolicy ..> DeletionStep : produces
+DeletionStep <|.. AnonymiseThreadsStep
+DeletionStep <|.. RemoveContactDetailsStep
+DeletionStep <|.. DeleteReviewsAndRecalculateStep
+DeletionStep <|.. HideCatererProfileStep
+DeletionStep <|.. CloseOpenEnquiriesStep
+DeletionStep <|.. DeleteCatererFilesStep
+DeletionStep <|.. DeleteConsentSessionsAndTokensStep
+@enduml

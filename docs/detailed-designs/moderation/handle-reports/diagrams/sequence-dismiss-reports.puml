@@ -1,0 +1,57 @@
+@startuml
+title UML sequence behaviour — Dismiss reports
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "DismissReportsDialog" as page
+  participant "ModerationClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "OperatorReportsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "DismissReportsHandler" as handler
+  participant "Report" as report
+  participant "Review" as review
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AuditLog" as audit
+  participant "JobQueue" as jobs
+  database "Sweet Hand database" as db
+end box
+actor -> page : Enter note and dismiss
+page -> client : dismiss(itemId, note)
+client -> endpoints : POST /operator/reports/items/{itemId}/dismiss (operator check in RequestPipeline)
+endpoints -> handler : Send DismissReportsCommand
+handler -> db : Load open reports in the group and the target
+db --> handler : Reports, target
+loop each open report
+  handler -> report : Resolve(Dismissed, note)
+end
+opt target is a review hidden with cause Reports
+  handler -> review : UndoAutomaticHide() (L2-055 AC3)
+end
+handler -> audit : Append DismissReports entry with note (L2-060)
+loop each report with a signed-in reporter
+  handler -> jobs : Enqueue "report has been reviewed" email without the action (L2-055 AC5)
+end
+handler -> db : Commit in one unit of work
+db --> handler : Committed
+handler --> endpoints : Success
+endpoints --> client : 200
+client --> page : Dismissed
+page --> actor : Item leaves the queue
+@enduml

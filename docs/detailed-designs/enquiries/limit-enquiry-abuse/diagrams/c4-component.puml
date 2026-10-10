@@ -1,0 +1,35 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Limit enquiry abuse
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(dialog, "EnquiryFormDialog", "<TO SUPPLY>", "Shows limit and duplicate messages")
+  Component(widget, "BotChallengeWidget", "<TO SUPPLY>", "Obtains challenge token")
+  Component(client, "EnquiriesClient", "<TO SUPPLY>", "API client contract")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(pipe, "RequestPipeline", "<TO SUPPLY>", "Logs rate-limit blocks")
+  Component(ep, "EnquiriesEndpoints", "<TO SUPPLY>", "POST /enquiries")
+  Component(handler, "SendEnquiryHandler", "<TO SUPPLY>", "Runs checks before creating")
+  Component(policy, "EnquiryLimitPolicy", "<TO SUPPLY>", "New-account, daily and duplicate limits")
+  Component(verifier, "BotProtectionVerifier", "<TO SUPPLY>", "Verifies challenge tokens")
+  Component(repo, "EnquiryRepository", "<TO SUPPLY>", "Counts and finds enquiries")
+  Component(seclog, "SecurityLog", "<TO SUPPLY>", "Structured security events")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Enquiries and accounts")
+System_Ext(bot, "Bot-protection provider", "Issues and verifies challenge tokens")
+
+Rel(dialog, widget, "Embeds")
+Rel(widget, bot, "Runs challenge", "HTTPS")
+Rel(dialog, client, "Submits through")
+Rel(client, pipe, "Calls", "JSON/HTTPS")
+Rel(pipe, ep, "Forwards to")
+Rel(pipe, seclog, "Records 429 blocks in")
+Rel(ep, handler, "Sends SendEnquiryCommand")
+Rel(handler, verifier, "Verifies token with")
+Rel(verifier, bot, "Calls", "HTTPS")
+Rel(handler, policy, "Checks limits with")
+Rel(policy, repo, "Reads counts from")
+Rel(repo, db, "Queries")
+@enduml

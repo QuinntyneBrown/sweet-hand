@@ -1,0 +1,64 @@
+@startuml
+title UML sequence behaviour — Share contact details
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ThreadPane" as pane
+  participant "ShareContactDialog" as dialog
+  participant "EnquiriesClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "EnquiriesEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "ShareContactDetailsHandler" as handler
+  participant "EnquiryAccessPolicy" as policy
+  participant "Enquiry" as entity
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> pane : Activate "Share my contact details"
+pane -> dialog : Open confirmation stating email and phone to be shown to the caterer
+actor -> dialog : Confirm
+dialog -> client : shareContactDetails(id)
+client -> ep : POST /enquiries/{id}/contact-shares
+ep -> ep : Authenticate, check CSRF
+ep -> handler : Send ShareContactDetailsCommand
+handler -> db : Load enquiry
+db --> handler : Enquiry
+handler -> policy : ForParty(caller, enquiry)
+alt not a party (L2-034)
+  policy --> handler : NotFound
+  handler --> ep : NotFound
+  ep --> client : 404
+else party
+  policy --> handler : Allowed
+  handler -> entity : ShareContact(customer, now)
+  alt customer already shared in this thread
+    entity --> handler : No change
+  else first share by customer
+    entity -> entity : Add ContactShare and System message "{Customer} shared their contact details" (L2-035 AC2)
+    entity --> handler : Shared
+  end
+  handler -> db : Save in one unit of work
+  db --> handler : Commit result
+  handler --> ep : Shared
+  ep --> client : 200
+  client --> dialog : Close dialog; return focus
+  dialog --> actor : Thread shows system message
+end
+@enduml

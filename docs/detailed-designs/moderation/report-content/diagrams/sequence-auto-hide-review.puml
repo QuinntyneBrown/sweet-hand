@@ -1,0 +1,57 @@
+@startuml
+title UML sequence behaviour — Hide a review automatically
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Signed-in customer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ReportDialog" as page
+  participant "ReportsClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "ReportsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SubmitReportHandler" as handler
+  participant "ReportPolicy" as policy
+  participant "Review" as review
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "ReportRepository" as repo
+  database "Sweet Hand database" as db
+end box
+actor -> page : Report a review
+page -> client : submitReport(Review target, reason, details, token)
+client -> endpoints : POST /reports
+endpoints -> handler : Send SubmitReportCommand (checks as in Submit a report)
+handler -> repo : Save new Report
+handler -> repo : Load reports on this review from the last 7 days
+repo -> db : Query
+db --> repo : Reports
+repo --> handler : Reports with reporter accounts
+handler -> policy : ShouldHideReview(reports, now)
+alt 3 or more distinct signed-in reporters within 7 days
+  policy --> handler : true
+  handler -> review : HideAutomatically() (L2-055 AC2)
+  review --> handler : Hidden with cause Reports
+else fewer
+  policy --> handler : false
+end
+handler -> db : Commit report, review status and queue item together
+db --> handler : Committed
+handler --> endpoints : Created
+endpoints --> client : 201
+client --> page : Success
+page --> actor : Show confirmation; reporter identity never shown to review author (L2-054 AC5)
+@enduml

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Delete account · default — Sweet Hand mocks</title>
+<meta name="mock:kind" content="dialog">
+<meta name="mock:screen" content="delete-account">
+<meta name="mock:state" content="default">
+<meta name="mock:requirements" content="L2-072">
+<meta name="description" content="Delete account: what is deleted, what is kept, and password re-entry to confirm.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+<a class="skip-link" href="#dlg-title">Skip to the dialog</a>
+
+<!-- The page underneath is inert while the dialog is open. -->
+<div class="page" inert aria-hidden="true">
+  <header class="site-header">
+    <span class="wordmark">Sweet Hand</span>
+    <span class="site-nav"><span class="site-nav__link site-nav__extra">Caterers</span><span class="site-nav__link site-nav__extra">Occasions</span><span class="site-nav__link site-nav__extra">Inbox</span><span class="avatar">MT</span></span>
+  </header>
+  <main id="main" class="container">
+    <div style="max-width: 48rem;">
+      <div class="page-intro">
+        <div class="cluster" style="gap: var(--space-5);"><span class="avatar avatar--lg" aria-hidden="true">MT</span><div><h1>Account</h1><p class="subtitle">Marcia Thompson · Customer since March 2026</p></div></div>
+      </div>
+      <section class="caterer-section" style="margin-top: 0;">
+        <div class="caterer-section__head"><h2>Your details</h2><span class="btn btn--sm"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit details</span></div>
+        <dl class="kv">
+          <dt>Display name</dt><dd>Marcia Thompson</dd>
+          <dt>Email</dt><dd><span>marcia.t@example.com</span><span class="status status--published">Verified</span></dd>
+          <dt>Phone</dt><dd><span>+1 647 555 0187</span><span class="private-note"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Private until you share it in a thread</span></dd>
+          <dt>Password</dt><dd><span>Last changed Sat 14 Mar</span><span class="btn btn--sm">Change password</span></dd>
+        </dl>
+      </section>
+
+      <section class="caterer-section">
+        <h2>Signed-in devices</h2>
+        <ul class="list device-list">
+          <li class="list__item"><div class="list__body"><div class="list__title">Chrome on Windows</div><div class="list__meta">This device · active now</div></div><span class="status status--published">Current</span></li>
+          <li class="list__item"><div class="list__body"><div class="list__title">Safari on iPhone</div><div class="list__meta">Last active today, 8:15 a.m.</div></div><span class="btn btn--sm">Sign out</span></li>
+          <li class="list__item"><div class="list__body"><div class="list__title">Samsung Internet on Android</div><div class="list__meta">Last active Mon 28 Sep</div></div><span class="btn btn--sm">Sign out</span></li>
+        </ul>
+      </section>
+
+      <section class="caterer-section">
+        <h2>Your data</h2>
+        <p class="text-muted" style="margin-bottom: var(--space-4);">Privacy notice version 2026-03, accepted Sat 14 Mar. <a href="../../pages/privacy/default.html">Read the privacy notice</a></p>
+        <p class="text-muted measure">Your profile, consent records, enquiries, messages, reviews and the reports you sent, as a JSON file. We email you a link within 24 hours; it works for 7 days.</p>
+        <p><span class="btn"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>Download my data</span></p>
+      </section>
+
+      <section class="caterer-section">
+        <h2>Delete account</h2>
+        <p class="text-muted measure" style="margin-bottom: var(--space-4);">Removes your profile and reviews. Caterers keep your messages, signed “Former Sweet Hand user”. This can’t be undone.</p>
+        <p><span class="btn"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Delete my account</span></p>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="backdrop"></div>
+<div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc" data-dismiss-on-escape>
+  <form class="dialog__panel dialog__panel--form" novalidate>
+    <div class="dialog__header">
+      <div class="dialog__icon dialog__icon--danger" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></div>
+      <div style="flex: 1;">
+        <h2 class="dialog__title" id="dlg-title">Delete your account?</h2>
+        <p id="dlg-desc" class="text-muted" style="margin-top: var(--space-1);">This can’t be undone. You’ll be signed out and get a confirmation email.</p>
+      </div>
+      <button class="icon-btn" type="button" aria-label="Close" data-mock-href="../../pages/account/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="dialog__body stack" style="gap: var(--space-5);">
+        <div>
+          <p class="field__label">What’s deleted</p>
+          <ul style="padding-left: var(--space-5); margin-top: var(--space-2);"><li>Your name, email and phone</li><li>Your 2 reviews (the caterers’ ratings are recalculated)</li><li>Your sign-in and saved devices</li></ul>
+        </div>
+        <p class="text-muted">Caterers keep your messages in their threads, signed “Former Sweet Hand user”. Everything is gone from our systems within 30 days and from backups within 35.</p>
+        <label class="field" for="password"><span class="field__label">Enter your password for marcia.t@example.com</span>
+          <input class="input" id="password" name="password" type="password" autocomplete="current-password" autofocus>
+        </label>
+    </div>
+    <div class="dialog__footer">
+      <button class="btn" type="button" data-mock-href="../../pages/account/default.html">Cancel</button>
+      <button class="btn btn--danger" type="submit">Delete my account</button>
+    </div>
+  </form>
+</div>
+
+<p class="mock-note" style="top: 1rem; left: 1rem;">Focus starts on the password field, never on the danger button. Enter in the field does not submit until a password is typed.</p>
+
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Delete account</span>
+  <ul class="mock-bar__states">
+    <li><a href="default.html" aria-current="page">default</a></li>
+    <li><a href="busy.html">busy</a></li>
+    <li><a href="invalid.html">invalid</a></li>
+    <li><a href="failed.html">failed</a></li>
+    <li><a href="confirm.html">confirm</a></li>
+    <li><a href="caterer.html">caterer</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>

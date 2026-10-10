@@ -1,0 +1,20 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Authorise requests
+
+Person(customer, "Customer", "Signed-in person planning a meal or an event")
+Person(caterer, "Caterer", "Sells Caribbean food and receives enquiries")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, sessions, tokens, consent records")
+}
+System_Ext(obs, "Observability platform", "Logs, metrics, traces and alerts")
+
+Rel(customer, web, "Uses", "HTTPS")
+Rel(caterer, web, "Uses", "HTTPS")
+Rel(web, api, "Forwards requests with session cookie", "JSON/HTTPS")
+Rel(api, db, "Reads records through scoped queries")
+Rel(api, obs, "Ships security log entries to")
+@enduml

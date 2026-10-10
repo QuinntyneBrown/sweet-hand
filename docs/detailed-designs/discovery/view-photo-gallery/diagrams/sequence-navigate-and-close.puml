@@ -1,0 +1,35 @@
+@startuml
+title UML sequence behaviour — Move between photos and close the viewer
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "PhotoViewerDialog" as viewer
+  participant "ViewerNavigation" as nav
+  participant "CatererGallery" as gallery
+end box
+participant "CDN" as cdn
+alt Right Arrow or swipe left
+  actor -> nav : Next input (L2-016 AC3)
+  nav -> viewer : Next()
+else Left Arrow or swipe right
+  actor -> nav : Previous input (L2-016 AC3)
+  nav -> viewer : Previous()
+end
+viewer -> cdn : Request large derivative
+cdn --> viewer : Photo
+viewer --> actor : New photo, caption and position text
+actor -> viewer : Press Tab repeatedly
+viewer --> actor : Focus cycles inside the dialog (L2-016 AC5)
+alt Escape key
+  actor -> viewer : Escape
+else close button
+  actor -> viewer : Activate close
+end
+viewer -> viewer : Close()
+viewer -> gallery : Return focus to opening photo (L2-016 AC4)
+gallery --> actor : Gallery with focus on opener
+@enduml

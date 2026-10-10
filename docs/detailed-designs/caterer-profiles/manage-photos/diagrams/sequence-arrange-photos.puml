@@ -1,0 +1,82 @@
+@startuml
+title UML sequence behaviour — Caption, reorder and set the cover
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "PhotoManagerPage" as page
+  participant "PhotoDetailsDialog" as dialog
+  participant "PhotosClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CatererPhotosEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "UpdatePhotoHandler / ReorderPhotosHandler" as handler
+  participant "CatererProfile" as profile
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "CatererProfileRepository" as repo
+  participant "CdnPurger" as cdn
+end box
+
+group Caption
+  actor -> page : Open photo
+  page -> dialog : Open (focus moves into dialog)
+  actor -> dialog : Enter caption
+  dialog -> client : update(photoId, caption)
+  client -> endpoints : PATCH /caterer/profile/photos/{id}
+  endpoints -> handler : UpdatePhotoCommand
+  handler -> profile : SetCaption(photoId, caption)
+  alt shorter than 5 or longer than 125 characters
+    profile --> handler : "Captions describe the photo in 5–125 characters" (L2-042 AC3)
+    handler --> endpoints : Rejected
+    endpoints --> client : HTTP 400
+    client --> dialog : Inline error
+  else valid
+    handler -> repo : Save
+    endpoints --> client : HTTP 200
+    client --> dialog : Saved
+    dialog --> page : Close, focus returns to photo
+  end
+end
+
+group Reorder
+  actor -> page : Move up, Move down, or drag photo 7 to position 2
+  page -> client : reorder(orderedIds)
+  client -> endpoints : PUT /caterer/profile/photos/order
+  endpoints -> handler : ReorderPhotosCommand
+  handler -> profile : Reorder(ids) — ids are exactly the profile's photos
+  handler -> repo : Save new order (L2-042 AC1)
+  endpoints --> client : HTTP 200
+end
+
+group Set cover
+  actor -> dialog : Set as cover
+  dialog -> client : update(photoId, isCover = true)
+  client -> endpoints : PATCH /caterer/profile/photos/{id}
+  endpoints -> handler : UpdatePhotoCommand
+  handler -> profile : SetCover(photoId) — previous cover cleared
+  handler -> repo : Save
+  opt profile is Published
+    handler -> cdn : Purge listing pages and caterer page
+    note right of cdn
+      Listing card and og:image show the
+      new cover within 60 s (L2-042 AC6)
+    end note
+  end
+  endpoints --> client : HTTP 200
+end
+@enduml

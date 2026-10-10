@@ -1,0 +1,51 @@
+@startuml
+title UML sequence behaviour — Request an unavailable caterer page
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "CatererPage" as page
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "PublicCaterersEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetPublicCatererHandler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "CatererProfileRepository" as repo
+  database "Sweet Hand database" as db
+end box
+actor -> page : GET /caterers/{slug} (through CDN)
+page -> endpoints : Request caterer by slug
+endpoints -> handler : Send GetPublicCatererQuery
+handler -> repo : Find profile by slug
+repo -> db : Query
+db --> repo : Profile or none
+repo --> handler : CatererProfile or none
+alt status Published
+  handler --> endpoints : Found with public projection
+  endpoints --> page : 200
+  page --> actor : Render caterer page
+else status Removed
+  handler --> endpoints : Gone
+  endpoints --> page : 410 (L2-018 AC5)
+  page --> actor : Render removed page with link back to the listing
+else no profile or any other status, including Suspended
+  handler --> endpoints : NotFound
+  endpoints --> page : 404 with the standard not-found body (L2-014 AC2)
+  page --> actor : Render not-found page
+end
+@enduml

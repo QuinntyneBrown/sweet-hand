@@ -1,0 +1,51 @@
+@startuml
+title UML sequence behaviour — Select cuisines
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "CuisineFilter" as cuisine
+  participant "ListingPage" as page
+  participant "ListingQueryState" as state
+  participant "ListingClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "PublicCaterersEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetListingHandler" as handler
+  participant "ListingFilter" as filter
+  participant "FacetCounter" as facets
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> cuisine : Select "Haitian" and "Trinidadian & Tobagonian"
+cuisine -> page : Selection changed
+page -> state : Push ?cuisine=haitian&cuisine=trinidadian-tobagonian&page=1 (L2-003)
+page -> client : Get filtered listing
+client -> endpoints : GET /api/public/caterers?cuisine=…
+endpoints -> handler : Send GetListingQuery
+handler -> filter : Parse; drop unknown and retired slugs (L2-007 AC5)
+filter --> handler : ListingFilter
+handler -> db : Published caterers offering any selected cuisine AND any selected area (L2-008 AC1, AC4)
+db --> handler : Matching caterers
+handler -> facets : Count each cuisine with other active filters (L2-008 AC3)
+facets -> db : Grouped counts by cuisine over area-filtered published caterers
+db --> facets : Counts
+facets --> handler : FacetCount list (count 0 marked disabled)
+handler --> endpoints : ListingPageView with facets
+endpoints --> client : HTTP 200 JSON
+client --> page : Results and counts
+page --> actor : Grid, chips and counts updated in place within 1 s p95 (L2-008 AC6)
+opt Visitor activates "Clear filters"
+  actor -> page : Clear filters
+  page -> state : Remove all cuisine and area parameters (L2-008 AC5)
+  page -> client : Get unfiltered listing
+  client --> page : Full listing
+  page --> actor : Full listing shown
+end
+@enduml

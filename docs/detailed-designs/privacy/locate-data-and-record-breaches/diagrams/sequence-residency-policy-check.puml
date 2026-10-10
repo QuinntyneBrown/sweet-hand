@@ -1,0 +1,49 @@
+@startuml
+title UML sequence behaviour — Residency policy check
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Contributor" as actor
+box "Build — Continuous integration service" #F2F4F7
+  participant "CI pipeline" as ci
+  participant "Infrastructure-as-code definitions" as iac
+  participant "DataResidencyPolicyCheck" as check
+  participant "ApprovedRegions" as regions
+end box
+
+actor -> ci : Push change
+ci -> iac : Produce planned resources
+iac --> ci : Resources with kind, region and classification
+ci -> check : Run(resources)
+loop each resource that can hold data
+  alt resource has no data classification
+    check -> check : Record violation "unclassified data store"
+  else resource stores personal information
+    check -> regions : Contains(resource.Region)
+    alt region not approved (outside Canada)
+      regions --> check : false
+      check -> check : Record violation naming the resource and region (L2-075 AC1)
+    else approved Canadian region
+      regions --> check : true
+    end
+  end
+end
+alt any violation
+  check --> ci : PolicyResult(Passed = false, violations)
+  ci --> actor : Build fails; deployment blocked (L2-075 AC1)
+else no violation
+  check --> ci : PolicyResult(Passed = true)
+  ci --> actor : Build continues
+end
+@enduml

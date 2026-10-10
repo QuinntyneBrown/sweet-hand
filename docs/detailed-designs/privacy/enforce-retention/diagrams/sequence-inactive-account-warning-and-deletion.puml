@@ -1,0 +1,57 @@
+@startuml
+title UML sequence behaviour — Inactive account warning and deletion
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Account owner" as owner
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "RetentionJob" as job
+  participant "SendNotificationJob" as notify
+  participant "ProcessAccountDeletionJob" as deletion
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "InactiveAccountRule" as rule
+  participant "InactivityWarning" as warning
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+  queue "Job queue" as queue
+end box
+
+job -> rule : Apply(nowUtc)
+rule -> db : Accounts with last sign-in 2 years 11 months ago or earlier and no open warning
+db --> rule : Accounts to warn
+loop each account to warn
+  rule -> warning : Create(accountId, warnedAt = now)
+  rule -> db : Save InactivityWarning
+  rule -> queue : Enqueue warning email (L2-073 AC2)
+end
+queue -> notify : Deliver warning email
+notify --> owner : "Sign in within 30 days to keep the account"
+
+opt owner signs in before 30 days pass
+  owner -> db : Sign in (identity-and-security) updates last sign-in time
+  note right of db : Sign-in clears the open InactivityWarning
+end
+
+rule -> db : Uncleared warnings issued 30 days ago or more
+db --> rule : Accounts due for deletion
+loop each due account
+  rule -> warning : IsDue(nowUtc)
+  warning --> rule : true
+  rule -> queue : Enqueue ProcessAccountDeletionJob (L2-073 AC2, L2-072)
+end
+rule --> job : RetentionOutcome(InactiveAccounts, warned, queued for deletion)
+queue -> deletion : Deliver; delete as in delete-account
+@enduml

@@ -1,0 +1,51 @@
+@startuml
+title UML sequence behaviour — Retire a cuisine
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "CuisineListScreen" as screen
+  participant "RetireCuisineDialog" as dialog
+  participant "CuisinesAdminClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "OperatorCuisinesEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "RetireCuisineHandler" as handler
+  participant "Cuisine" as entity
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "CuisineRepository" as repo
+  participant "CatererProfileRepository" as profiles
+  participant "AuditLog" as audit
+  database "Sweet Hand database" as db
+end box
+actor -> screen : Activate "Retire" on a cuisine
+screen -> dialog : Open confirmation dialog
+actor -> dialog : Confirm
+dialog -> client : Retire cuisine
+client -> endpoints : POST /api/operator/cuisines/{id}/retire
+endpoints -> endpoints : Authenticate; require operator role on server
+endpoints -> handler : Send RetireCuisineCommand
+handler -> repo : Load cuisine
+repo --> handler : Cuisine
+handler -> entity : Retire(now) (L2-007 AC5)
+entity --> handler : Retired; existing selections untouched
+handler -> profiles : List published caterers with this cuisine
+profiles -> db : Query selections
+db --> profiles : 2 caterers
+profiles --> handler : Caterer references
+handler -> repo : Save cuisine
+handler -> audit : Append operator action
+repo -> db : Update in one unit of work
+db --> handler : Commit result
+handler --> endpoints : RetirementResult
+endpoints --> client : HTTP 200 JSON
+client --> dialog : Result
+dialog --> actor : Warning naming the 2 caterers that keep the cuisine
+note over screen : Filter options and new selections\nno longer include the retired cuisine
+@enduml

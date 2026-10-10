@@ -1,0 +1,65 @@
+@startuml
+title UML sequence behaviour — Remove a profile
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "RemoveProfileDialog" as page
+  participant "ModerationClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "OperatorProfilesEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "RemoveProfileHandler" as handler
+  participant "CatererProfile" as entity
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AuditLog" as audit
+  participant "JobQueue" as jobs
+  participant "ObjectStore" as store
+  participant "CdnPurger" as cdn
+  database "Sweet Hand database" as db
+end box
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "PurgeCatererPhotosJob" as purge
+end box
+actor -> page : Enter reason and confirm permanent removal
+page -> client : remove(profileId, reason)
+client -> endpoints : POST /operator/profiles/{id}/remove
+endpoints -> handler : Send RemoveProfileCommand
+handler -> db : Load profile and Open or Replied enquiries
+db --> handler : CatererProfile, enquiries
+handler -> entity : Remove(reason, operatorId)
+alt status is Removed
+  entity --> handler : Invalid transition
+  handler --> endpoints : Conflict
+  endpoints --> client : 409 (L2-046 AC3)
+else any other status
+  entity -> entity : Apply L2-046 transition to Removed, record history
+  handler -> handler : Close Open and Replied enquiries, enqueue customer emails (L2-058 AC2)
+  handler -> audit : Append Remove entry
+  handler -> jobs : Enqueue caterer email with reason and PurgeCatererPhotosJob
+  handler -> db : Commit in one unit of work
+  db --> handler : Committed
+  handler --> endpoints : Success
+  endpoints --> client : 200
+  client --> page : Removed
+  page --> actor : Show Removed
+  jobs -> purge : Deliver job
+  purge -> store : Revoke public access to photo derivatives
+  purge -> cdn : Purge photo URLs so none are served after 60 s (L2-058 AC4)
+end
+@enduml

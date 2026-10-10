@@ -1,0 +1,36 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Secure build pipeline
+
+Person_Ext(contributor, "Contributor", "Opens pull requests")
+System_Ext(repo, "Source repository", "<TO SUPPLY>")
+System_Ext(registry, "Container registry", "<TO SUPPLY>")
+System_Ext(secrets, "Managed secret store", "<TO SUPPLY>")
+Container_Boundary(ci, "CI pipeline") {
+  Component(secretscan, "SecretScanStep", "<TO SUPPLY>", "Credentials, API keys, private keys")
+  Component(sca, "CompositionAnalysisStep", "<TO SUPPLY>", "Critical or High with fix fails")
+  Component(imagescan, "ImageScanStep", "<TO SUPPLY>", "No Critical; non-root user")
+  Component(region, "RegionPolicyCheckStep", "<TO SUPPLY>", "Personal-information resources in Canadian regions")
+  Component(lint, "StringLiteralLintStep", "<TO SUPPLY>", "User-facing literals outside resource files")
+  Component(gate, "PipelineGatePolicy", "<TO SUPPLY>", "Required steps block merge")
+}
+Container_Boundary(api, "Sweet Hand API (same pattern in web application and worker)") {
+  Component(provider, "SecretProvider", "<TO SUPPLY>", "Loads secrets at start-up")
+  Component(config, "RuntimeConfiguration", "<TO SUPPLY>", "Non-secret settings and secret references")
+}
+
+Rel(contributor, repo, "Pushes")
+Rel(repo, secretscan, "Commit contents")
+Rel(repo, sca, "Dependency manifests")
+Rel(repo, region, "IaC definitions")
+Rel(repo, lint, "Templates and components")
+Rel(imagescan, registry, "Publishes passing images")
+Rel(gate, secretscan, "Requires")
+Rel(gate, sca, "Requires")
+Rel(gate, imagescan, "Requires")
+Rel(gate, region, "Requires")
+Rel(gate, lint, "Requires")
+Rel(config, provider, "Supplies secret references to")
+Rel(provider, secrets, "Reads", "HTTPS")
+@enduml

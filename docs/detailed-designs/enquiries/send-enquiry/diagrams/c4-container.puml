@@ -1,0 +1,22 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Send an enquiry
+
+Person(customer, "Customer", "Signed-in person in Toronto or the GTA planning a meal or an event")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions for visitors, customers, caterers and operators")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, profiles, enquiries, messages, notifications, audit log")
+  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent queue of background jobs")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Runs queued jobs and scheduled jobs")
+}
+System_Ext(email, "Email provider", "Sends transactional email and reports bounces")
+
+Rel(customer, web, "Fills in and submits the enquiry form", "HTTPS")
+Rel(web, api, "POST /enquiries; saves and reads drafts", "JSON/HTTPS")
+Rel(api, db, "Writes enquiry, draft and queued notification")
+Rel(api, queue, "Enqueues notification job")
+Rel(worker, queue, "Takes notification job from")
+Rel(worker, email, "Sends new-enquiry email via")
+@enduml

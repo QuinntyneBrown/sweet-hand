@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Query the audit log
+
+Person(admin, "Admin operator", "Operator holding the Admin permission")
+Person(operator, "Operator", "Sweet Hand team member who approves caterers and moderates content")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+
+Rel(operator, sweethand, "Performs audited actions", "HTTPS")
+Rel(admin, sweethand, "Searches the audit log", "HTTPS")
+@enduml

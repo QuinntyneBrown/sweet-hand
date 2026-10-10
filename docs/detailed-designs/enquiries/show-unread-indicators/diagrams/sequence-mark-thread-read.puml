@@ -1,0 +1,49 @@
+@startuml
+title UML sequence behaviour — Mark a thread read
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ThreadPane" as pane
+  participant "EnquiriesClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "EnquiriesEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetThreadHandler" as thread
+  participant "MarkThreadReadHandler" as handler
+  participant "ThreadReadState" as state
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> pane : Open unread thread
+pane -> client : getThread(id)
+client -> ep : GET /enquiries/{id}
+ep -> thread : Send GetThreadQuery (reply-in-thread)
+thread --> ep : Thread view
+ep -> handler : Send MarkThreadReadCommand
+handler -> db : Load ThreadReadState and enquiry activity
+db --> handler : State, latest item time
+handler -> state : MarkRead(latest item time)
+handler -> db : Save
+ep --> client : Thread view
+client --> pane : Render thread
+actor -> pane : Return to any page
+pane -> client : getUnreadCount()
+client -> ep : GET /enquiries/unread-count
+ep --> client : { count: 1 } (L2-029 AC2)
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Work the review queue
+
+Person(caterer, "Caterer", "Person or small business selling Caribbean food")
+Person(customer, "Customer", "Signed-in person in Toronto or the GTA planning a meal or event")
+Person(operator, "Operator", "Sweet Hand team member who approves caterers and moderates content")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+
+Rel(caterer, sweethand, "Submits profiles, name changes and certificates")
+Rel(customer, sweethand, "Reports listings and reviews; writes reviews")
+Rel(operator, sweethand, "Works the review queue and recent-changes feed", "HTTPS")
+@enduml

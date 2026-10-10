@@ -1,0 +1,59 @@
+@startuml
+title UML sequence behaviour — Approve, hide or restore a review
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ModerateReviewDialog" as page
+  participant "ModerationClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "OperatorReviewsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "ModerateReviewHandler" as handler
+  participant "Review" as review
+  participant "RatingSummaryCalculator" as calc
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AuditLog" as audit
+  participant "JobQueue" as jobs
+  database "Sweet Hand database" as db
+end box
+actor -> page : Choose approve, hide or restore and enter reason
+page -> client : moderate(reviewId, action, reason)
+client -> endpoints : POST /operator/reviews/{id}/{action} (operator check in RequestPipeline)
+endpoints -> handler : Send ModerateReviewCommand
+handler -> db : Load review and caterer's published reviews
+db --> handler : Review, published reviews
+handler -> review : Approve / Hide / Restore(reason)
+alt transition not allowed for current status
+  review --> handler : Invalid transition
+  handler --> endpoints : Conflict
+  endpoints --> client : 409
+else allowed
+  review --> handler : New status (L2-059 AC1, AC2, AC3)
+  handler -> calc : Recalculate(catererId, published reviews)
+  calc --> handler : RatingSummary
+  handler -> audit : Append review moderation entry with reason (L2-060)
+  handler -> jobs : Enqueue author email with reason
+  handler -> db : Commit review, summary, queue item, audit entry and job
+  db --> handler : Committed
+  handler --> endpoints : Success
+  endpoints --> client : 200
+  client --> page : Done
+  page --> actor : Caterer page reflects change within 60 s
+end
+@enduml

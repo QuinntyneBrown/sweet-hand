@@ -1,0 +1,105 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Report a listing or review
+
+enum ReportReason {
+  InaccurateInformation
+  InappropriateContent
+  FakeOrSpam
+  FoodSafetyConcern
+  Other
+}
+
+enum ReportTargetKind {
+  CatererProfile
+  Review
+}
+
+enum ReportStatus {
+  Open
+  Resolved
+}
+
+class ReportTarget {
+  +ReportTargetKind Kind
+  +Guid Id
+}
+
+class ReportDetails {
+  +string Text
+  +{static} For(reason: ReportReason, text: string): ReportDetails
+}
+
+class Report {
+  +Guid Id
+  +ReportTarget Target
+  +ReportReason Reason
+  +ReportDetails Details
+  +Guid? ReporterAccountId
+  +DateTime CreatedAt
+  +ReportStatus Status
+}
+
+class ReportPolicy {
+  +IsDuplicate(reporterId: Guid, target: ReportTarget, open: List<Report>): bool
+  +ShouldHideReview(reports: List<Report>, now: DateTime): bool
+}
+
+class Review {
+  +Guid Id
+  +ReviewStatus Status
+  +string HiddenCause
+  +HideAutomatically(): void
+}
+
+class SubmitReportCommand {
+  +ReportTarget Target
+  +ReportReason Reason
+  +string Details
+  +string ChallengeToken
+  +string ClientIpHash
+  +Guid? ReporterAccountId
+}
+
+class SubmitReportHandler {
+  +Handle(command: SubmitReportCommand): Result
+}
+
+interface BotProtectionVerifier {
+  +Verify(token: string): bool
+}
+
+interface ReportRateLimiter {
+  +TryCount(ipHash: string): bool
+}
+
+class ReviewQueueItem {
+  +ReviewQueueItemKind Kind
+  +Guid TargetId
+  +DateTime WaitingSince
+}
+
+Report --> ReportTarget
+Report --> ReportReason
+Report --> ReportStatus
+Report *-- ReportDetails
+ReportTarget --> ReportTargetKind
+SubmitReportHandler ..> SubmitReportCommand : handles
+SubmitReportHandler ..> BotProtectionVerifier : uses
+SubmitReportHandler ..> ReportRateLimiter : uses
+SubmitReportHandler ..> ReportPolicy : uses
+SubmitReportHandler --> Report : creates
+SubmitReportHandler --> ReviewQueueItem : creates or attaches
+SubmitReportHandler --> Review : hides when policy says
+@enduml

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Decline enquiry · invalid — Sweet Hand mocks</title>
+<meta name="mock:kind" content="dialog">
+<meta name="mock:screen" content="decline-enquiry">
+<meta name="mock:state" content="invalid">
+<meta name="mock:requirements" content="L2-028 L2-033">
+<meta name="description" content="The note is over 500 characters: summary at the top, inline error, the text is kept.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+<a class="skip-link" href="#dlg-title">Skip to the dialog</a>
+<div class="page" inert aria-hidden="true">
+<header class="site-header">
+  <a class="wordmark" href="../../pages/dashboard/default.html">Sweet Hand <span class="wordmark__tag">for caterers</span></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__link site-nav__extra" href="../../pages/dashboard/default.html">Dashboard</a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/dashboard-enquiries/default.html" aria-current="page">Enquiries <span class="badge badge--count" aria-label="2 unread enquiries">2</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/caterer/default.html">My page</a>
+    <a class="icon-btn site-nav__menu" href="../../pages/dashboard-enquiries/default.html" aria-label="Enquiries, 2 unread"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">2</span></a>
+    <button class="avatar" type="button" aria-label="Account menu for Kendra Baptiste" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/caterer.html">KB</button>
+  </nav>
+</header>
+<main id="main" class="container">
+  <div class="inbox-layout" style="margin-top: var(--space-6);">
+    <section class="only-lg" aria-label="Enquiry list"><ul class="segmented" aria-label="Filter by status"><li><a href="../../pages/dashboard-enquiries/default.html" aria-current="page">All 6</a></li><li><a href="../../pages/dashboard-enquiries/filtered.html">Open 2</a></li><li><a href="../../pages/dashboard-enquiries/default.html">Replied 2</a></li><li><a href="../../pages/dashboard-enquiries/default.html">Declined 1</a></li><li><a href="../../pages/dashboard-enquiries/default.html">Closed 1</a></li></ul>
+        <ul class="inbox-list">
+          <li><a class="inbox-row" href="../../pages/dashboard-enquiry/replied.html"><span class="avatar" aria-hidden="true">MT</span><span class="inbox-row__name">Marcia Thompson</span><span class="inbox-row__time">9:42 a.m.</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests · Family gatherings</span><span class="inbox-row__status status status--replied">Replied</span></a></li>
+          <li><a class="inbox-row inbox-row--unread" href="../../pages/dashboard-enquiry/default.html" aria-current="true"><span class="avatar" aria-hidden="true">PR</span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Priya Ramdial</span><span class="inbox-row__time">Yesterday</span><span class="inbox-row__meta">Thu 5 Nov · 60 guests · Corporate events</span><span class="inbox-row__status status status--open">Open</span></a></li>
+          <li><a class="inbox-row inbox-row--unread" href="../../pages/dashboard-enquiry/default.html"><span class="avatar" aria-hidden="true">AC</span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Andre Clarke</span><span class="inbox-row__time">Thu</span><span class="inbox-row__meta">Sat 12 Jun 2027 · 250 guests · Weddings</span><span class="inbox-row__status status status--open">Open</span></a></li>
+          <li><a class="inbox-row" href="../../pages/dashboard-enquiry/closed.html"><span class="avatar" aria-hidden="true">JP</span><span class="inbox-row__name">Jean-Robert Pierre</span><span class="inbox-row__time">Tue 6 Oct</span><span class="inbox-row__meta">Sun 6 Sep · 80 guests · Religious and cultural celebrations</span><span class="inbox-row__status status status--closed">Closed</span></a></li>
+          <li><a class="inbox-row" href="../../pages/dashboard-enquiry/declined.html"><span class="avatar" aria-hidden="true">NJ</span><span class="inbox-row__name">Nadia Joseph</span><span class="inbox-row__time">Mon 5 Oct</span><span class="inbox-row__meta">Sat 17 Oct · 40 guests · Birthdays</span><span class="inbox-row__status status status--declined">Declined</span></a></li>
+          <li><a class="inbox-row" href="../../pages/dashboard-enquiry/former-user.html"><span class="avatar" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><span class="inbox-row__name">Former Sweet Hand user</span><span class="inbox-row__time">Tue 22 Sep</span><span class="inbox-row__meta">Sat 26 Sep · 35 guests · Birthdays</span><span class="inbox-row__status status status--replied">Replied</span></a></li>
+        </ul></section>
+    <div><article class="thread" aria-labelledby="thread-title">
+        <div class="thread__head">
+          <span class="avatar" aria-hidden="true">PR</span>
+          <div class="thread__title"><h1 id="thread-title">Priya Ramdial</h1><p class="result-count" id="thread-sub">Sent yesterday at 4:15 p.m.</p></div>
+          <span class="status status--open">Open</span>
+        </div>
+        <div class="cluster" style="gap: var(--space-2);"><button class="btn btn--link btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/share-contact/default.html">Share my contact details</button><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/decline-enquiry/default.html">Decline</button></div>
+        <dl class="enquiry-summary"><div><dt>Event date</dt><dd>Thu 5 Nov 2026</dd></div><div><dt>Guests</dt><dd>60</dd></div><div><dt>Area</dt><dd>Downtown Toronto · M5V</dd></div><div><dt>Occasion</dt><dd>Corporate events</dd></div></dl>
+        <p class="field__warning">This caterer doesn’t list Downtown Toronto as an area they serve</p>
+        <ol class="messages" aria-label="Messages"><li class="message message--theirs"><p class="message__bubble">Hello! We’re hosting a lunch for our team of 60 near King and Spadina on Thursday 5 November, around noon. Could you do doubles, aloo pie, curry channa and one more vegan dish? A few people avoid gluten.</p><span class="message__meta">Priya Ramdial · Fri 9 Oct, 4:15 p.m.</span></li></ol>
+        <form class="reply-box" action="submitting.html" novalidate>
+          <label class="field__label" for="reply">Reply to Priya</label>
+          <div class="reply-box__row"><textarea class="textarea" id="reply" name="reply" rows="2" maxlength="2000" aria-describedby="reply-help"></textarea>
+          <button class="btn btn--primary" type="submit"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg>Send</button></div>
+          <span class="field__help" id="reply-help">Priya sees Pelau House, not your email or phone.</span>
+        </form>
+      </article></div>
+  </div>
+</main>
+</div>
+<div class="backdrop"></div>
+<div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc" data-dismiss-on-escape>
+  <form class="dialog__panel" action="../../pages/dashboard-enquiry/declined.html" novalidate>
+    <div class="dialog__header">
+      <div style="flex: 1;">
+        <h2 class="dialog__title" id="dlg-title">Decline Priya’s enquiry?</h2>
+        <p id="dlg-desc" class="text-muted" style="margin-top: var(--space-1);">Priya gets an email saying you can’t take on the event. This can’t be undone.</p>
+      </div>
+      <button class="icon-btn" type="button" aria-label="Close" data-mock-href="../../pages/dashboard-enquiry/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="dialog__body stack">
+      <div class="form-summary" role="alert" tabindex="-1" id="summary"><h3>Check your note</h3><ul><li><a href="#note">Keep your note under 500 characters</a></li></ul></div>
+      <div class="field">
+        <label class="field__label" for="note">Note to Priya <span class="optional">(optional)</span></label>
+        <textarea class="textarea" id="note" name="note" rows="3" aria-invalid="true" aria-describedby="note-error note-count">Sorry Priya, downtown is outside the areas we deliver to on weekdays, and that Thursday we already have a lunch for 150 in Scarborough. If your team ever plans something in the east end, we’d love to cook for you. In the meantime, Sorrel & Spice is close to King and Spadina and does a lovely vegan spread, and Roti Road delivers downtown most weekdays. Good luck with the lunch, and thank you for thinking of Pelau House. We hope to cook for you another time — Kendra and the Pelau House team.</textarea>
+        <span class="cluster cluster--between"><p class="field__error" id="note-error">Keep your note under 500 characters</p><span class="field__counter" id="note-count">512 / 500</span></span>
+      </div>
+    </div>
+    <div class="dialog__footer">
+      <button class="btn" type="button" data-mock-href="../../pages/dashboard-enquiry/default.html">Cancel</button><button class="btn btn--danger" type="submit">Decline enquiry</button>
+    </div>
+  </form>
+</div>
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Decline enquiry</span>
+  <ul class="mock-bar__states">
+    <li><a href="default.html">default</a></li>
+    <li><a href="busy.html">busy</a></li>
+    <li><a href="invalid.html" aria-current="page">invalid</a></li>
+    <li><a href="failed.html">failed</a></li>
+    <li><a href="conflict.html">conflict</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>

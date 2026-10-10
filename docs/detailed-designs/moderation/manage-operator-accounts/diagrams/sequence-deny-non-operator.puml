@@ -1,0 +1,36 @@
+@startuml
+title UML sequence behaviour — Deny a non-operator
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer or caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Any page" as page
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "SessionStore" as sessions
+  participant "SecurityLog" as seclog
+end box
+actor -> page : Change URL or request to an operator endpoint
+page -> pipeline : GET or POST /operator/...
+pipeline -> sessions : Load session
+sessions --> pipeline : Role Customer or Caterer
+pipeline -> pipeline : OperatorPolicy fails
+pipeline -> seclog : Record security event: user, endpoint, time (L2-056 AC3, L2-084)
+pipeline --> page : 403
+page --> actor : Show access denied
+@enduml

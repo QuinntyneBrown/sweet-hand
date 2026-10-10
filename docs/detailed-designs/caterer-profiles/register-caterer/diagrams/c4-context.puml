@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Register a caterer
+
+Person(caterer, "Caterer", "Person or small business selling Caribbean food in Toronto or the GTA")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(bot, "Bot-protection provider", "Issues and verifies challenge tokens")
+System_Ext(email, "Email provider", "Sends transactional email")
+
+Rel(caterer, sweethand, "Registers a caterer account using", "HTTPS")
+Rel(sweethand, bot, "Verifies challenge token with", "HTTPS")
+Rel(sweethand, email, "Sends verification email via", "<TO SUPPLY>")
+Rel(email, caterer, "Delivers verification email to")
+@enduml

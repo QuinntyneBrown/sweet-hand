@@ -1,0 +1,19 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Log security events
+
+Person(operator, "Operator", "Sweet Hand team member who moderates the platform")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Runs queued and scheduled jobs")
+}
+System_Ext(obs, "Observability platform", "Logs, metrics, traces and alerts")
+System_Ext(secrets, "Managed secret store", "Holds keys and credentials")
+
+Rel(api, secrets, "Reads IP hashing key")
+Rel(worker, secrets, "Reads IP hashing key")
+Rel(api, obs, "Ships structured security log entries")
+Rel(worker, obs, "Ships structured security log entries")
+Rel(obs, operator, "Sends alerts to operations channel")
+@enduml

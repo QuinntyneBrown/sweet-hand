@@ -1,0 +1,52 @@
+@startuml
+title UML sequence behaviour — Rotate the daily salt
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+participant "Scheduler" as scheduler
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "RotateDailySaltJob" as job
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "Clock" as clock
+  participant "DailySaltRepository" as saltRepo
+  database "Sweet Hand database" as db
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "DailySaltProvider" as salt
+end box
+scheduler -> job : Trigger after midnight America/Toronto (schedule TO SUPPLY)
+job -> clock : TodayInToronto()
+clock --> job : Today
+job -> saltRepo : DeleteBefore(today)
+saltRepo -> db : Delete salts for earlier days
+db --> saltRepo : Rows deleted
+saltRepo --> job : Count
+job -> job : Log count, no salt values
+note over job, db
+  Hashes from earlier days can no longer be
+  recomputed or linked to new hashes (L2-062 AC4)
+end note
+== First visit of the new day ==
+salt -> saltRepo : Find(today)
+saltRepo --> salt : none
+salt -> salt : Generate random salt for today
+salt -> saltRepo : Add(salt)
+saltRepo -> db : Insert, unique per day
+alt another instance inserted first
+  db --> saltRepo : Unique conflict
+  salt -> saltRepo : Find(today)
+  saltRepo --> salt : Existing salt
+end
+@enduml

@@ -1,0 +1,65 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — View the photo gallery
+
+class CatererGallery {
+  +List<PublicPhotoView> Photos
+  +GalleryLayout Layout
+  +OpenViewer(index: int, opener: Element): void
+}
+enum GalleryLayout {
+  Carousel
+  LeadWithStrip
+  LeadWithGrid
+}
+class PhotoOrder {
+  +{static} CoverFirst(photos: List<PublicPhotoView>): List<PublicPhotoView>
+}
+class PhotoViewerDialog {
+  +int CurrentIndex
+  +int Count
+  +Element ReturnFocusTo
+  +Show(index: int): void
+  +Next(): void
+  +Previous(): void
+  +Close(): void
+  +PositionText(): string
+}
+class ViewerNavigation {
+  +OnKey(key: string): void
+  +OnSwipe(direction: SwipeDirection): void
+}
+class PublicPhotoView {
+  +string Caption
+  +bool IsCover
+  +int Position
+  +List<ImageSource> Sources
+}
+class ImageSource {
+  +string Url
+  +int Width
+  +string Format
+}
+enum SwipeDirection {
+  Left
+  Right
+}
+
+CatererGallery --> GalleryLayout
+CatererGallery "1" o-- "0..30" PublicPhotoView
+CatererGallery ..> PhotoOrder : orders with
+CatererGallery ..> PhotoViewerDialog : opens
+PhotoViewerDialog *-- ViewerNavigation
+PhotoViewerDialog o-- PublicPhotoView : shows current
+PublicPhotoView *-- "4..12" ImageSource
+ViewerNavigation ..> SwipeDirection
+@enduml

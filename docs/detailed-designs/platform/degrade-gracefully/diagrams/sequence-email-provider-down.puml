@@ -1,0 +1,62 @@
+@startuml
+title UML sequence behaviour — Email provider down
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "EnquiryFormDialog" as page
+  participant "EnquiriesClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "EnquiriesEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SendEnquiryHandler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+  queue "JobQueue" as queue
+end box
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "SendNotificationJob" as job
+end box
+participant "Email provider" as email
+participant "Observability platform" as obs
+actor -> page : Submit enquiry
+page -> client : Send typed request
+client -> ep : HTTPS request
+ep -> handler : SendEnquiryCommand
+handler -> db : Save enquiry (Open)
+handler -> queue : Enqueue notification in same unit of work
+handler --> ep : Created
+ep --> client : 201
+client --> page : Confirmation naming the caterer
+page --> actor : Enquiry sent (L2-091 AC1)
+loop exponential backoff, up to 24 hours (L2-030)
+  queue -> job : Deliver job
+  job -> email : Send
+  alt provider down
+    email --> job : Error or timeout
+    job -> queue : Reschedule with backoff
+  else provider recovered
+    email --> job : Accepted
+    job -> db : Mark notification sent
+  end
+end
+opt still failing after 24 hours
+  job -> db : Mark notification Failed
+  job -> obs : Raise operator alert
+end
+@enduml

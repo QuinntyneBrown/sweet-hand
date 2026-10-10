@@ -1,0 +1,72 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+hide empty members
+title Class structure — Log security events
+
+enum SecurityEventType {
+  SignInSucceeded
+  SignInFailed
+  AccountLockedOut
+  PasswordReset
+  SecondFactorChanged
+  SessionRevoked
+  AuthorisationFailed
+  OperatorAction
+  RateLimitBlocked
+}
+
+class SecurityEvent {
+  +SecurityEventType type
+  +Guid userId
+  +string hashedIp
+  +DateTime occurredAtUtc
+  +string correlationId
+  +string endpoint
+  +string targetId
+}
+
+class SecurityLog {
+  +record(event: SecurityEvent): void
+}
+
+class LogRedactor {
+  +string[] forbiddenFields
+  +redact(entry): LogEntry
+  +truncatePostalCodeToFsa(value): string
+}
+
+note right of LogRedactor
+  Never logged: password, session ID, reset token,
+  full postal code, message text, certificate number
+end note
+
+class AuthorisationFailureMonitor {
+  +int threshold = 10
+  +Duration window = 5 min
+  +observe(event: SecurityEvent): void
+}
+
+interface IpHasher {
+  +hash(ip: string): string
+}
+
+interface AlertPublisher {
+  +publish(alert: Alert): void
+}
+
+SecurityEvent --> SecurityEventType
+SecurityLog ..> SecurityEvent : writes
+SecurityLog ..> IpHasher
+SecurityLog ..> LogRedactor
+SecurityLog ..> AuthorisationFailureMonitor
+AuthorisationFailureMonitor ..> AlertPublisher
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Authorise requests
+
+Person(visitor, "Visitor", "Browses without signing in")
+Person(customer, "Customer", "Signed-in person planning a meal or an event")
+Person(caterer, "Caterer", "Sells Caribbean food and receives enquiries")
+Person(operator, "Operator", "Sweet Hand team member who moderates the platform")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(obs, "Observability platform", "Logs, metrics, traces and alerts")
+
+Rel(visitor, sweethand, "Browses public pages of")
+Rel(customer, sweethand, "Reads and changes own enquiries and reviews in")
+Rel(caterer, sweethand, "Reads and changes own profile and enquiries in")
+Rel(operator, sweethand, "Moderates through")
+Rel(sweethand, obs, "Sends authorisation failure events to")
+@enduml

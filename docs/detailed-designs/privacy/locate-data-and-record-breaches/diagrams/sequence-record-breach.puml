@@ -1,0 +1,64 @@
+@startuml
+title UML sequence behaviour — Record a breach
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "BreachRegisterPage" as page
+  participant "RecordBreachScreen" as screen
+  participant "BreachRegisterClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "OperatorBreachEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "RecordBreachHandler" as handler
+  participant "BreachRecord" as record
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AuditLog" as audit
+  database "Sweet Hand database" as db
+end box
+
+actor -> page : Activate "Record a breach"
+page -> screen : Navigate
+actor -> screen : Enter date, description, data affected, people affected, risk assessment, notification decision
+screen -> client : Record breach
+client -> pipeline : POST /operator/breaches
+pipeline -> pipeline : Authenticate; require operator role and completed second factor (L2-056)
+alt not an operator
+  pipeline --> client : HTTP 403; security event logged
+else operator
+  pipeline -> endpoints : Route
+  endpoints -> handler : RecordBreachCommand
+  handler -> handler : Validate required fields (L2-075 AC2)
+  alt validation fails
+    handler --> endpoints : Field errors
+    endpoints --> client : HTTP 400 ProblemDetails
+    screen --> actor : Show errors linked to fields; focus moves to summary
+  else valid
+    handler -> record : Record(command, nowUtc)
+    record --> handler : BreachRecord with RetainUntilUtc >= recorded + 24 months (L2-075 AC2)
+    handler -> db : Save BreachRecord
+    handler -> audit : Append AuditEntry(operator, "Record breach", recordId) (L2-060)
+    audit -> db : Insert into append-only audit table
+    db --> handler : Commit result (one unit of work)
+    handler --> endpoints : Record id
+    endpoints --> client : HTTP 201
+    screen --> actor : Return to register with the new record listed
+  end
+end
+@enduml

@@ -1,0 +1,67 @@
+@startuml
+title UML sequence behaviour — Re-consent at sign-in
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Existing user" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Requested page" as page
+  participant "PrivacyChangesScreen" as screen
+  participant "PrivacyClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "ConsentGate" as gate
+  participant "PrivacyEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "ConsentRequirement" as requirement
+  participant "RecordConsentHandler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+
+actor -> page : Sign in, then request a page
+page -> pipeline : Authenticated request
+pipeline -> gate : Inspect request
+gate -> requirement : IsReconsentOwed(accountId)
+requirement -> db : Latest ConsentRecord and current PrivacyNoticeVersion
+db --> requirement : Versions
+alt current version has substantially different purposes and is not accepted
+  requirement --> gate : Re-consent owed
+  gate --> page : Re-consent required (L2-070 AC4)
+  page -> screen : Navigate
+  screen -> client : Read current notice
+  client -> endpoints : GET /privacy-notice
+  endpoints --> client : Version and change summary
+  screen --> actor : Show changes and "Accept and continue"
+  actor -> screen : Accept
+  screen -> client : Accept current version
+  client -> pipeline : POST /me/consents
+  pipeline -> gate : Inspect request
+  gate -> endpoints : Allow (consent endpoint is exempt)
+  endpoints -> handler : RecordConsentCommand
+  handler -> db : Append ConsentRecord with UTC timestamp (L2-070 AC3)
+  db --> handler : Commit result
+  handler --> endpoints : Recorded
+  endpoints --> screen : HTTP 204
+  screen --> actor : Continue to the requested page
+else no re-consent owed
+  requirement --> gate : Not owed
+  gate -> pipeline : Continue
+  pipeline --> page : Requested content
+  page --> actor : Show page
+end
+@enduml

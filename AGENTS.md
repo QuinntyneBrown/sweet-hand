@@ -16,8 +16,11 @@ The repository is at an early stage. Record the layout here as it lands, and
 keep it accurate:
 
 - `docs/specs/` — L1/L2 requirements (`engineering-requirements` skill)
+- `docs/specs/components/` — component requirements documents (CRDs), one
+  `<component>.md` and `<component>.html` pair per component, tracing to L2
+  (`writing-component-requirements-documents` skill)
 - `docs/detailed-designs/` — detailed designs (`writing-software-design-documents` skill)
-- `docs/mocks/` — static HTML design reference
+- `docs/mocks/` — static HTML design reference (`writing-html-mocks` skill)
 - `docs/design-system/` — design system extracted from the mocks (`extracting-design-systems` skill)
 - `docs/adr/` — architecture decisions; read relevant ADRs before changing the areas they cover
 - `docs/videos/` — narrated walkthroughs (`creating-videos` skill)
@@ -143,6 +146,9 @@ for other agents. Keep the two copies identical.
 
 - `engineering-requirements` — L1/L2 requirements with acceptance criteria
 - `writing-software-design-documents` — detailed designs from requirements
+- `writing-html-mocks` — static HTML mocks for every page, dialog and
+  notification in every state
 - `extracting-design-systems` — design system from the HTML mocks
+- `writing-component-requirements-documents` — CRDs for UI components
 - `implementing-incrementally` — thin, verifiable slices (mandatory, see above)
 - `creating-videos` — narrated walkthrough videos

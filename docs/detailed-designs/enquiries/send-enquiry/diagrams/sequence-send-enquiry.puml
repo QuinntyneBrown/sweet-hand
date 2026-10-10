@@ -1,0 +1,72 @@
+@startuml
+title UML sequence behaviour — Send an enquiry
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "EnquiryFormDialog" as page
+  participant "EnquiriesClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipe
+  participant "EnquiriesEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SendEnquiryHandler" as handler
+  participant "EnquiryValidator" as val
+  participant "EnquiryLimitPolicy" as limits
+  participant "EnquiryFitPolicy" as fit
+  participant "Enquiry" as entity
+  participant "NotificationScheduler" as sched
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> page : Fill in date, guests, location, occasion, message
+page -> page : Client checks (L2-022) and fit warnings (L2-024)
+actor -> page : Submit
+page -> client : sendEnquiry(request)
+client -> pipe : POST /enquiries
+pipe -> pipe : Authenticate, check CSRF, require Customer role (L2-023 AC4)
+pipe -> ep : Authorised request
+ep -> handler : Send SendEnquiryCommand
+handler -> db : Load customer account and published caterer
+db --> handler : Account, caterer profile
+alt email not verified (L2-023 AC2)
+  handler --> ep : Rejected: EmailNotVerified
+  ep --> client : Rejection "Verify your email to send enquiries"
+  client --> page : Show message with Resend verification email
+else field rules broken (L2-022 AC6)
+  handler -> val : Validate(command, today in America/Toronto)
+  val --> handler : One FieldError per failing field
+  handler --> ep : Rejected: validation errors
+  ep --> client : 400 with field errors
+  client --> page : Show error summary, focus first error (L2-022 AC7)
+else valid
+  handler -> limits : Check daily, new-account and duplicate limits (L2-025)
+  limits --> handler : Allowed
+  handler -> fit : Assess guest count and area (L2-024)
+  fit --> handler : FitWarning list
+  handler -> entity : Enquiry.Open(...) with status Open, UUIDv4 id
+  entity --> handler : New enquiry
+  handler -> sched : Queue new-enquiry email (L2-027)
+  handler -> db : Save enquiry, delete draft, save notification in one unit of work
+  db --> handler : Commit result
+  handler --> ep : Created enquiry
+  ep --> client : 201 with enquiry id
+  client --> page : Show confirmation naming the caterer (L2-022 AC1)
+end
+page --> actor : Present result
+@enduml

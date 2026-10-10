@@ -1,0 +1,88 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Decline or close an enquiry
+
+enum EnquiryStatus {
+  Open
+  Replied
+  Declined
+  Closed
+}
+
+enum ClosedBy {
+  Customer
+  Caterer
+  System
+}
+
+class Enquiry {
+  +Guid Id
+  +Guid CustomerId
+  +Guid CatererId
+  +Date EventDate
+  +EnquiryStatus Status
+  +DeclineNote DeclineNote
+  +ClosedBy? ClosedBy
+  +DateTime? ClosedAt
+  +RecordCatererReply(): void
+  +Decline(note: DeclineNote, now: DateTime): void
+  +Close(by: ClosedBy, now: DateTime): void
+  +IsDueForAutoClose(today: Date): bool
+}
+
+class DeclineNote {
+  +string Value
+  +{static} Create(raw: string): Result<DeclineNote>
+}
+
+class EnquiryTransitionRejected {
+  +EnquiryStatus From
+  +string Attempted
+}
+
+class DeclineEnquiryHandler {
+  +Handle(command: DeclineEnquiryCommand): Result
+}
+
+class CloseEnquiryHandler {
+  +Handle(command: CloseEnquiryCommand): Result
+}
+
+class AutoCloseEnquiriesHandler {
+  +Handle(command: AutoCloseEnquiriesCommand): int
+}
+
+class DailyMaintenanceJob {
+  +Run(): void
+}
+
+class NotificationScheduler {
+  +QueueDeclined(enquiry: Enquiry, note: DeclineNote): void
+}
+
+interface EnquiryRepository {
+  +FindDueForAutoClose(today: Date, batchSize: int): List<Enquiry>
+  +Save(enquiry: Enquiry): void
+}
+
+Enquiry --> EnquiryStatus
+Enquiry --> ClosedBy
+Enquiry *-- "0..1" DeclineNote
+Enquiry ..> EnquiryTransitionRejected : raises
+DeclineEnquiryHandler ..> Enquiry
+DeclineEnquiryHandler ..> NotificationScheduler
+CloseEnquiryHandler ..> Enquiry
+AutoCloseEnquiriesHandler ..> EnquiryRepository
+DailyMaintenanceJob ..> AutoCloseEnquiriesHandler : dispatches
+@enduml

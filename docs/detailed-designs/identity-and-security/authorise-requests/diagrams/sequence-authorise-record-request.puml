@@ -1,0 +1,63 @@
+@startuml
+title UML sequence behaviour — Authorise a request for a record
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer X" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Profile editor page" as page
+  participant "ProfileClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "RequestPipeline" as pipeline
+  participant "EndpointPolicyGuard" as guard
+  participant "CatererProfileEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "UpdateProfileHandler" as handler
+  participant "RecordScope" as scope
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "CatererProfileRepository" as repo
+  participant "SecurityLog" as seclog
+  database "Sweet Hand database" as db
+end box
+actor -> page : Save a change (request names profile Y)
+page -> client : updateProfile(profileId = Y, fields)
+client -> pipeline : PATCH profile Y
+pipeline -> pipeline : SessionAuthenticator resolves CallerContext
+pipeline -> guard : Check role for endpoint (L2-079)
+alt No session
+  guard -> seclog : Record AuthorisationFailed
+  guard --> client : 401
+else Role not allowed for endpoint
+  guard -> seclog : Record AuthorisationFailed
+  guard --> client : 403
+else Role allowed (Caterer)
+  guard -> endpoints : Continue
+  endpoints -> endpoints : Bind command fields only;\nstatus, role, ownerId, approvedAt dropped (L2-079 AC2)
+  endpoints -> handler : Send command with CallerContext
+  handler -> scope : forCatererProfile(caller)
+  scope --> handler : Scope owner = X
+  handler -> repo : findScoped(Y, scope)
+  repo -> db : Select profile where id = Y and owner = X
+  db --> repo : No row
+  repo --> handler : None
+  handler -> seclog : Record AuthorisationFailed (user, endpoint, target Y, time, L2-079 AC4)
+  handler --> endpoints : NotFoundResult
+  endpoints --> client : 404, same body as a missing record (L2-079 AC1)
+end
+client --> page : Result
+page --> actor : Not found; profile Y unchanged
+@enduml

@@ -1,0 +1,111 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Edit a published profile
+
+class CatererProfile {
+  +Guid id
+  +string slug
+  +BusinessName businessName
+  +ProfileStatus status
+  +PendingNameChange pendingNameChange
+  +ApplySection(section: ProfileSection, values: map): SectionDiff
+  +RequestNameChange(name: BusinessName): void
+  +ApproveNameChange(newSlug: string): void
+  +IsEditable(): bool
+}
+
+class PendingNameChange {
+  +BusinessName requestedName
+  +DateTime requestedAtUtc
+}
+
+class SlugRedirect {
+  +string formerSlug
+  +Guid profileId
+  +DateTime createdAtUtc
+}
+
+class SectionDiff <<value object>> {
+  +ProfileSection section
+  +map oldValues
+  +map newValues
+}
+
+class ProfileChangeRecord {
+  +Guid id
+  +Guid profileId
+  +ProfileSection section
+  +map oldValues
+  +map newValues
+  +Guid actorId
+  +DateTime atUtc
+}
+
+class SlugService <<domain service>> {
+  +Derive(name: BusinessName): string
+  +Allocate(base: string, profileId: Guid): string
+}
+
+class SaveProfileSectionHandler {
+  +Handle(command: SaveProfileSectionCommand, caller: AccountId): SectionSaveResult
+}
+
+class RequestNameChangeHandler {
+  +Handle(command: RequestNameChangeCommand, caller: AccountId): void
+}
+
+class ApproveNameChangeHandler {
+  +Handle(command: ApproveNameChangeCommand, operator: OperatorId): void
+}
+
+class ReviewQueueItem {
+  +Guid id
+  +ReviewQueueItemKind kind
+  +Guid profileId
+  +DateTime createdAtUtc
+}
+
+class AuditEntry <<append-only>> {
+  +Guid operatorId
+  +string action
+  +Guid targetId
+  +DateTime atUtc
+  +string reason
+  +map before
+  +map after
+}
+
+interface CdnPurger {
+  +Purge(paths: List<string>): void
+}
+
+interface SlugRedirectRepository {
+  +FindBySlug(slug: string): SlugRedirect
+  +RepointAll(profileId: Guid, currentSlug: string): void
+  +Add(redirect: SlugRedirect): void
+}
+
+CatererProfile "1" *-- "0..1" PendingNameChange
+CatererProfile "1" --> "*" SlugRedirect : former slugs
+CatererProfile ..> SectionDiff : produces
+SaveProfileSectionHandler ..> CatererProfile
+SaveProfileSectionHandler ..> ProfileChangeRecord : records
+SaveProfileSectionHandler ..> CdnPurger
+RequestNameChangeHandler ..> CatererProfile
+RequestNameChangeHandler ..> ReviewQueueItem : creates
+ApproveNameChangeHandler ..> CatererProfile
+ApproveNameChangeHandler ..> SlugService
+ApproveNameChangeHandler ..> SlugRedirectRepository
+ApproveNameChangeHandler ..> AuditEntry : appends
+ApproveNameChangeHandler ..> CdnPurger
+SlugService ..> SlugRedirectRepository : checks collisions
+@enduml

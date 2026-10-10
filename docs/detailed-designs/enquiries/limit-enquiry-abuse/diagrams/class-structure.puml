@@ -1,0 +1,70 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Limit enquiry abuse
+
+abstract class LimitDecision
+class Allowed
+class NewAccountLimitReached
+class DailyLimitReached
+class Duplicate {
+  +Guid ExistingEnquiryId
+}
+
+class EnquiryLimitPolicy {
+  -int DailyLimit = 10
+  -TimeSpan DailyWindow = 24 h
+  -int NewAccountLimit = 3
+  -TimeSpan NewAccountAge = 1 h
+  +Check(customer: UserAccount, catererId: Guid, eventDate: Date, now: DateTime): LimitDecision
+}
+
+interface BotProtectionVerifier {
+  +Verify(token: string, clientAddress: string): ChallengeResult
+}
+
+class ChallengeResult {
+  +bool Valid
+  +string FailureCode
+}
+
+interface EnquiryRepository {
+  +CountSentSince(customerId: Guid, since: DateTime): int
+  +FindActive(customerId: Guid, catererId: Guid, eventDate: Date): Enquiry
+}
+
+class UserAccount {
+  +Guid Id
+  +DateTime CreatedAt
+}
+
+interface Clock {
+  +Now(): DateTime
+}
+
+class SendEnquiryHandler {
+  +Handle(command: SendEnquiryCommand): Result<Enquiry>
+}
+
+LimitDecision <|-- Allowed
+LimitDecision <|-- NewAccountLimitReached
+LimitDecision <|-- DailyLimitReached
+LimitDecision <|-- Duplicate
+EnquiryLimitPolicy ..> LimitDecision : returns
+EnquiryLimitPolicy ..> EnquiryRepository
+EnquiryLimitPolicy ..> UserAccount : reads CreatedAt
+SendEnquiryHandler ..> EnquiryLimitPolicy
+SendEnquiryHandler ..> BotProtectionVerifier
+SendEnquiryHandler ..> Clock
+BotProtectionVerifier ..> ChallengeResult : returns
+@enduml

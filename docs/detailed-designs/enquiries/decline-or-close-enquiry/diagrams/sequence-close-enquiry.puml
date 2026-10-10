@@ -1,0 +1,56 @@
+@startuml
+title UML sequence behaviour — Close an enquiry
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Customer or caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "CloseEnquiryDialog" as dialog
+  participant "EnquiriesClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "EnquiriesEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "CloseEnquiryHandler" as handler
+  participant "Enquiry" as entity
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> dialog : Activate Close enquiry, confirm
+dialog -> client : closeEnquiry(id)
+client -> ep : POST /enquiries/{id}/close
+ep -> handler : Send CloseEnquiryCommand
+handler -> db : Load enquiry
+db --> handler : Enquiry
+alt caller is not a party
+  handler --> ep : NotFound
+  ep --> client : 404
+else status Declined or Closed (L2-033 AC5)
+  handler -> entity : Close(party, now)
+  entity --> handler : EnquiryTransitionRejected
+  handler --> ep : Conflict
+  ep --> client : 409
+else status Open or Replied
+  handler -> entity : Close(party, now)
+  entity --> handler : Status Closed, ClosedBy party
+  handler -> db : Save
+  db --> handler : Commit result
+  handler --> ep : Closed
+  ep --> client : 200
+  client --> dialog : Close dialog
+  dialog --> actor : Thread shows "This enquiry is closed"
+end
+@enduml

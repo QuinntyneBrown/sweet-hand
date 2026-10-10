@@ -1,0 +1,38 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Share contact details
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(pane, "ThreadPane", "<TO SUPPLY>", "Share action and shared details")
+  Component(dialog, "ShareContactDialog", "<TO SUPPLY>", "Confirmation")
+  Component(card, "SharedContactCard", "<TO SUPPLY>", "Other party's email and phone")
+  Component(client, "EnquiriesClient", "<TO SUPPLY>", "API client contract")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ep, "EnquiriesEndpoints", "<TO SUPPLY>", "contact-shares and thread endpoints")
+  Component(policy, "EnquiryAccessPolicy", "<TO SUPPLY>", "Party check")
+  Component(share, "ShareContactDetailsHandler", "<TO SUPPLY>", "Records a share")
+  Component(get, "GetThreadHandler", "<TO SUPPLY>", "Reveals details only when shared")
+  Component(agg, "Enquiry", "<TO SUPPLY>", "ShareContact")
+  Component(repo, "EnquiryRepository", "<TO SUPPLY>", "Enquiries and shares")
+  Component(accounts, "UserAccountRepository", "<TO SUPPLY>", "Current email and phone")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Enquiries, shares, accounts")
+
+Rel(pane, dialog, "Opens")
+Rel(pane, card, "Renders when other party shared")
+Rel(dialog, client, "shareContactDetails")
+Rel(pane, client, "getThread")
+Rel(client, ep, "Calls", "JSON/HTTPS")
+Rel(ep, share, "Sends ShareContactDetailsCommand")
+Rel(ep, get, "Sends GetThreadQuery")
+Rel(share, policy, "Checks party")
+Rel(get, policy, "Checks party")
+Rel(share, agg, "ShareContact")
+Rel(share, repo, "Saves with")
+Rel(get, repo, "Loads with")
+Rel(get, accounts, "Reads shared details from")
+Rel(repo, db, "Reads and writes")
+Rel(accounts, db, "Reads")
+@enduml

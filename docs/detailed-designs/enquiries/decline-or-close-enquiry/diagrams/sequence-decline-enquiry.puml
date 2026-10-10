@@ -1,0 +1,64 @@
+@startuml
+title UML sequence behaviour — Decline an enquiry
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+actor "Customer" as customer
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "DeclineEnquiryDialog" as dialog
+  participant "EnquiriesClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "EnquiriesEndpoints" as ep
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "DeclineEnquiryHandler" as handler
+  participant "Enquiry" as entity
+  participant "NotificationScheduler" as sched
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+box "Backend — Sweet Hand background worker" #D1FADF
+  participant "SendNotificationJob" as job
+end box
+actor -> dialog : Activate Decline, enter "Fully booked that weekend", confirm
+dialog -> client : declineEnquiry(id, note)
+client -> ep : POST /enquiries/{id}/decline
+ep -> ep : Authenticate, check CSRF, require Caterer role
+ep -> handler : Send DeclineEnquiryCommand
+handler -> db : Load enquiry
+db --> handler : Enquiry
+alt caller is not this enquiry's caterer
+  handler --> ep : NotFound
+  ep --> client : 404
+else status is not Open (L2-033 AC3, AC5)
+  handler -> entity : Decline(note, now)
+  entity --> handler : EnquiryTransitionRejected
+  handler --> ep : Conflict
+  ep --> client : 409; status unchanged
+else status Open
+  handler -> entity : Decline(note, now)
+  entity -> entity : Status Declined; note added as System message (L2-033 AC2)
+  handler -> sched : QueueDeclined(enquiry, note) (L2-028 AC4)
+  handler -> db : Save status, message, notification in one unit of work
+  db --> handler : Commit result
+  handler --> ep : Declined
+  ep --> client : 200
+  client --> dialog : Close dialog, return focus to Decline action
+  dialog --> actor : Thread shows note and "This enquiry is closed"
+  job --> customer : Email within 2 minutes: caterer can't take on the event, with note
+end
+@enduml

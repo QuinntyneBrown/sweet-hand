@@ -1,0 +1,49 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Edit a caterer profile as an operator
+
+Person(operator, "Operator", "Corrects caterer profiles")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(editor, "OperatorProfileEditorScreen", "Page", "Sections with Edit and Remove buttons")
+  Component(editDlg, "OperatorEditDialog", "Dialog", "New value and required reason")
+  Component(revertDlg, "RevertChangeDialog", "Dialog", "Confirms a revert")
+  Component(client, "ModerationClient", "API client contract", "Typed operator calls")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "OperatorProfilesEndpoints", "Endpoint group", "PATCH, DELETE item, POST revert")
+  Component(editH, "EditProfileAsOperatorHandler", "Command handler", "Applies a field edit")
+  Component(removeH, "RemoveProfileItemAsOperatorHandler", "Command handler", "Removes photo or menu item")
+  Component(revertH, "RevertProfileEditHandler", "Command handler", "Restores previous value")
+  Component(profile, "CatererProfile", "Domain aggregate", "Applies operator edits")
+  Component(shortfall, "MinimumsShortfall", "Domain service", "Checks L2-039 minimums")
+  Component(audit, "AuditLog", "Infrastructure", "Append-only audit entries")
+  Component(jobs, "JobQueue", "Infrastructure", "Transactional outbox")
+  Component(repo, "Repositories", "Infrastructure", "CatererProfile, ProfileEdit")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles, edits, audit log")
+
+Rel(operator, editor, "Uses", "HTTPS")
+Rel(editor, editDlg, "Opens")
+Rel(editDlg, client, "edit / removeItem")
+Rel(revertDlg, client, "revert")
+Rel(client, endpoints, "Calls via RequestPipeline", "JSON/HTTPS")
+Rel(endpoints, editH, "Sends EditProfileAsOperatorCommand")
+Rel(endpoints, removeH, "Sends RemoveProfileItemAsOperatorCommand")
+Rel(endpoints, revertH, "Sends RevertProfileEditCommand")
+Rel(editH, profile, "ApplyOperatorEdit")
+Rel(removeH, profile, "RemovePhoto / RemoveMenuItem")
+Rel(removeH, shortfall, "Checks gap")
+Rel(revertH, profile, "ApplyOperatorEdit with old value")
+Rel(editH, audit, "Appends")
+Rel(removeH, audit, "Appends")
+Rel(revertH, audit, "Appends")
+Rel(editH, jobs, "Enqueues email")
+Rel(removeH, jobs, "Enqueues email")
+Rel(revertH, jobs, "Enqueues email")
+Rel(editH, repo, "Loads and saves")
+Rel(removeH, repo, "Loads and saves")
+Rel(revertH, repo, "Loads and saves")
+Rel(repo, db, "Reads and writes")
+Rel(audit, db, "Inserts")
+@enduml

@@ -1,0 +1,70 @@
+@startuml
+title UML sequence behaviour — Validate a state-changing request
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "Menu editor dialog" as page
+  participant "MenuClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CsrfGuard" as csrf
+  participant "BodySizeLimit" as size
+  participant "TextSanitiser" as sanitiser
+  participant "RequestSchemaValidator" as validator
+  participant "MenuEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "AddMenuItemHandler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "MenuItemRepository" as repo
+  database "Sweet Hand database" as db
+end box
+actor -> page : Add a dish whose name contains <script>
+page -> client : addMenuItem(fields)
+client -> csrf : POST with CSRF token and Origin header
+alt Missing or invalid CSRF token, or origin not allowed
+  csrf --> client : 403 (L2-081 AC4)
+else CSRF valid
+  csrf -> size : Continue
+  alt JSON body larger than 1 MB
+    size --> client : 413 (L2-080 AC3)
+  else Within limit
+    size -> sanitiser : Continue
+    alt Invalid UTF-8
+      sanitiser --> client : 400 (L2-080 AC4)
+    else Valid UTF-8
+      sanitiser -> sanitiser : Remove control characters except tab and newline
+      sanitiser -> validator : Continue
+      validator -> validator : Apply allow-list schema: type, length, format, range
+      alt One or more fields fail
+        validator --> client : 400 with one error per field
+      else All fields valid
+        validator -> endpoints : Bind command fields only
+        endpoints -> handler : Send AddMenuItemCommand
+        handler -> repo : Add item (text stored as given, L2-080 AC1)
+        repo -> db : Parameterised insert (L2-080 AC2)
+        db --> repo : Committed
+        repo --> handler : Saved
+        handler --> endpoints : Created
+        endpoints --> client : 201
+      end
+    end
+  end
+end
+client --> page : Result
+page --> actor : Dish saved or errors linked to fields
+@enduml

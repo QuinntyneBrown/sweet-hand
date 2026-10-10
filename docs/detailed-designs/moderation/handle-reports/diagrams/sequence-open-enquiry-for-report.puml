@@ -1,0 +1,57 @@
+@startuml
+title UML sequence behaviour — Open an enquiry while handling a report
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "ReportEnquiryViewer" as page
+  participant "ModerationClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "OperatorReportsEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "OpenEnquiryForReportHandler" as handler
+  participant "EnquiryAccessPolicy" as policy
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AuditLog" as audit
+  participant "SecurityLog" as seclog
+  database "Sweet Hand database" as db
+end box
+actor -> page : Open enquiry from reported item, giving a reason
+page -> client : openEnquiry(reportId, enquiryId, reason)
+client -> endpoints : GET /operator/reports/{reportId}/enquiries/{enquiryId}
+endpoints -> handler : Send OpenEnquiryForReportQuery
+handler -> db : Load report and enquiry
+db --> handler : Report or none, Enquiry
+handler -> policy : IsLinked(report, enquiry)
+alt no linked report
+  policy --> handler : false
+  handler -> seclog : Record authorisation failure (L2-084)
+  handler --> endpoints : Forbidden
+  endpoints --> client : 403 (L2-034 AC4)
+  client --> page : Denied
+else linked report
+  policy --> handler : true
+  handler -> audit : Append EnquiryAccess entry: operator, enquiry ID, report ID, time, reason (L2-034 AC3)
+  handler -> db : Commit audit entry, then read messages
+  db --> handler : Thread
+  handler --> endpoints : EnquiryThreadView
+  endpoints --> client : 200
+  client --> page : Thread
+  page --> actor : Show read-only thread
+end
+@enduml

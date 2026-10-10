@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Back up and recover
+
+Person(ops, "Operations team", "Restores the platform and runs quarterly drills")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(backup, "Managed backup service", "<TO SUPPLY>: encrypted backups in a secondary Canadian region")
+System_Ext(restore, "Isolated restore environment", "Canadian region; no production traffic")
+
+Rel(sweethand, backup, "Ships continuous database backups and file versions")
+Rel(ops, backup, "Selects point in time and starts restore")
+Rel(backup, restore, "Restores database into")
+Rel(ops, restore, "Verifies duration and data gap")
+@enduml

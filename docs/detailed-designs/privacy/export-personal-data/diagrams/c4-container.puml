@@ -1,0 +1,27 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Export personal data
+
+Person(user, "Customer or caterer", "Requests and downloads an export")
+System_Ext(email, "Email provider", "Sends transactional email")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Account settings, export dialog and download page")
+  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Records export requests and authorises downloads")
+  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent queue of background jobs")
+  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Generates export files and sends notifications")
+  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, profiles, enquiries, reviews, reports, data exports")
+  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Photo originals and private export files (Canadian region)")
+}
+
+Rel(user, web, "Uses", "HTTPS")
+Rel(web, api, "Calls", "JSON/HTTPS")
+Rel(api, db, "Reads and writes DataExport", "<TO SUPPLY>")
+Rel(api, queue, "Enqueues GenerateDataExportJob")
+Rel(api, storage, "Issues time-limited download URL")
+Rel(queue, worker, "Delivers jobs to")
+Rel(worker, db, "Reads personal data", "<TO SUPPLY>")
+Rel(worker, storage, "Reads photo originals; writes export file")
+Rel(worker, email, "Sends download link via", "<TO SUPPLY>")
+Rel(user, storage, "Downloads export file via time-limited URL", "HTTPS")
+@enduml

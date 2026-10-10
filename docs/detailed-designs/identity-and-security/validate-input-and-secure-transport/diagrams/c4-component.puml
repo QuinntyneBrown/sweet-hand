@@ -1,0 +1,34 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Validate input and secure transport
+
+System_Ext(cdn, "CDN", "Forwards HTTPS requests")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(webredirect, "HttpsRedirect", "<TO SUPPLY>", "301 to HTTPS; HSTS")
+  Component(headers, "SecurityHeaders", "<TO SUPPLY>", "CSP, nosniff, Referrer-Policy, Permissions-Policy")
+  Component(templates, "Page templates and components", "<TO SUPPLY>", "Encode user text as text nodes")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(csrf, "CsrfGuard", "<TO SUPPLY>", "CSRF token and origin allow-list (L2-081 AC4)")
+  Component(size, "BodySizeLimit", "<TO SUPPLY>", "1 MB JSON limit (L2-080 AC3)")
+  Component(sanitiser, "TextSanitiser", "<TO SUPPLY>", "Invalid UTF-8 and control characters (L2-080 AC4)")
+  Component(validator, "RequestSchemaValidator", "<TO SUPPLY>", "Allow-list schema per endpoint")
+  Component(schemas, "RequestSchema", "<TO SUPPLY>", "Fields, type, length, format, range")
+  Component(handler, "Command handlers", "<TO SUPPLY>", "Domain rules")
+  Component(repo, "<Entity>Repository", "<TO SUPPLY>", "Parameterised queries (L2-080 AC2)")
+}
+ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "All stored records")
+
+Rel(cdn, webredirect, "Forwards request", "HTTPS")
+Rel(webredirect, templates, "Passes HTTPS request")
+Rel(templates, headers, "Responses pass through")
+Rel(templates, csrf, "Client and server calls", "JSON/HTTPS")
+Rel(csrf, size, "Then")
+Rel(size, sanitiser, "Then")
+Rel(sanitiser, validator, "Then")
+Rel(validator, schemas, "Reads")
+Rel(validator, handler, "Passes valid command")
+Rel(handler, repo, "Reads and writes through")
+Rel(repo, db, "Parameterised SQL")
+@enduml

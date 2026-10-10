@@ -1,0 +1,65 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title Class structure — Show unread indicators
+
+class Enquiry {
+  +Guid Id
+  +Guid CustomerId
+  +Guid CatererId
+  +DateTime LastCustomerActivityAt
+  +DateTime LastCatererActivityAt
+  +LastActivityBy(other: Role): DateTime
+}
+
+class ThreadReadState {
+  +Guid AccountId
+  +Guid EnquiryId
+  +DateTime LastReadAt
+  +MarkRead(upTo: DateTime): void
+}
+
+class GetUnreadCountQuery {
+  +Guid AccountId
+  +Role Role
+}
+
+class GetUnreadCountHandler {
+  +Handle(query: GetUnreadCountQuery): int
+}
+
+class MarkThreadReadCommand {
+  +Guid AccountId
+  +Guid EnquiryId
+}
+
+class MarkThreadReadHandler {
+  +Handle(command: MarkThreadReadCommand): void
+}
+
+interface EnquiryRepository {
+  +CountUnreadFor(accountId: Guid, role: Role): int
+}
+
+interface ThreadReadStateRepository {
+  +Find(accountId: Guid, enquiryId: Guid): ThreadReadState
+  +Save(state: ThreadReadState): void
+}
+
+Enquiry "1" -- "0..2" ThreadReadState : read markers
+GetUnreadCountHandler ..> GetUnreadCountQuery : handles
+GetUnreadCountHandler ..> EnquiryRepository
+MarkThreadReadHandler ..> MarkThreadReadCommand : handles
+MarkThreadReadHandler ..> ThreadReadStateRepository
+MarkThreadReadHandler ..> Enquiry : reads latest activity
+@enduml

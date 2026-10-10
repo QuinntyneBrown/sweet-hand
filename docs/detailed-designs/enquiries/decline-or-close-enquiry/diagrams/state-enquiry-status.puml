@@ -1,0 +1,30 @@
+@startuml
+' --- shared skin header ---
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+skinparam state {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+' --------------------------
+title State machine — Enquiry status (L2-033)
+
+[*] --> Open : Customer sends enquiry
+Open --> Replied : First caterer reply
+Open --> Declined : Caterer declines\n(optional note, up to 500 characters)
+Open --> Closed : Customer or caterer closes\nor System, 30 days after event date
+Replied --> Closed : Customer or caterer closes\nor System, 30 days after event date
+Declined --> [*]
+Closed --> [*]
+note right of Declined : Terminal: further changes\nand messages get HTTP 409
+note right of Closed : Terminal: further changes\nand messages get HTTP 409
+@enduml

@@ -1,0 +1,47 @@
+@startuml
+title UML sequence behaviour — View recent changes
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "RecentChangesPage" as page
+  participant "ModerationClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "OperatorQueueEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetRecentChangesHandler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "ProfileEditRepository" as repo
+  participant "Clock" as clock
+  database "Sweet Hand database" as db
+end box
+actor -> page : Open recent-changes feed
+page -> client : getRecentChanges()
+client -> endpoints : GET /operator/recent-changes (operator check in RequestPipeline)
+endpoints -> handler : Send GetRecentChangesQuery
+handler -> clock : Now()
+clock --> handler : Current time
+handler -> repo : Load edits since now minus 30 days, newest first (L2-047 AC4)
+repo -> db : Query ProfileEdit records
+db --> repo : Rows
+repo --> handler : ProfileEdit list
+handler --> endpoints : Edits with old and new values
+endpoints --> client : 200 JSON
+client --> page : Edits
+page --> actor : Show edits newest first, each with a Revert action (L2-057)
+@enduml

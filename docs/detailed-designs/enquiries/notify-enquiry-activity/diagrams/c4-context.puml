@@ -1,0 +1,21 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Notify enquiry activity
+
+Person(customer, "Customer", "Signed-in person in Toronto or the GTA planning a meal or an event")
+Person(caterer, "Caterer", "Person or small business selling Caribbean food")
+Person(operator, "Operator", "Sweet Hand team member who moderates the platform")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(email, "Email provider", "Sends transactional email and reports bounces")
+System_Ext(obs, "Observability platform", "Collects logs, metrics and traces; raises alerts")
+
+Rel(customer, sweethand, "Sends enquiries and replies through")
+Rel(caterer, sweethand, "Replies and declines through")
+Rel(sweethand, email, "Sends transactional email via", "HTTPS")
+Rel(email, sweethand, "Reports permanent bounces to", "Webhook")
+Rel(email, caterer, "Delivers new-enquiry and new-message email to")
+Rel(email, customer, "Delivers new-message and decline email to")
+Rel(sweethand, obs, "Raises failed-notification alerts in")
+Rel(obs, operator, "Alerts")
+@enduml

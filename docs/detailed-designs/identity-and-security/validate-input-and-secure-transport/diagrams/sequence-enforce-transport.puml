@@ -1,0 +1,46 @@
+@startuml
+title UML sequence behaviour — Enforce HTTPS and security headers
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor" as actor
+participant "CDN" as cdn
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "HttpsRedirect" as redirect
+  participant "CatererPage template" as template
+  participant "SecurityHeaders" as headers
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "PublicCaterersEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> cdn : GET http://.../caterers/auntie-bevs-kitchen
+cdn -> redirect : Forward request
+redirect --> actor : 301 to https://... (L2-081 AC1)
+actor -> cdn : GET https://.../caterers/auntie-bevs-kitchen
+note over cdn : TLS 1.2 or 1.3 only (L2-081 AC2);\ntermination point TO SUPPLY
+cdn -> redirect : Forward HTTPS request
+redirect -> template : Render page
+template -> endpoints : Load public caterer data
+endpoints -> db : Parameterised select
+db --> endpoints : Approved values
+endpoints --> template : Caterer view model
+template -> template : Encode description, menu and reviews as text (L2-080 AC1)
+template -> headers : Response
+headers -> headers : Add HSTS, CSP (no unsafe-inline or unsafe-eval,\nframe-ancestors none), nosniff, Referrer-Policy,\nPermissions-Policy (L2-081 AC3)
+headers --> cdn : 200 HTML with headers
+cdn --> actor : Page (cached 60 s or less)
+@enduml

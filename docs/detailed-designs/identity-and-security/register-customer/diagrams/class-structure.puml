@@ -1,0 +1,105 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+hide empty members
+title Class structure — Register a customer account
+
+enum Role {
+  Customer
+  Caterer
+  Operator
+}
+
+class RegisterCustomerCommand {
+  +string displayName
+  +string email
+  +string password
+  +bool consentGiven
+  +string privacyNoticeVersion
+  +string challengeToken
+  +string returnPath
+}
+
+class RegisterCustomerHandler {
+  +handle(command: RegisterCustomerCommand): RegistrationResult
+}
+
+class RegistrationResult {
+  +string returnPath
+  +FieldError[] errors
+}
+
+class UserAccount {
+  +Guid id
+  +string email
+  +bool emailVerified
+  +Role role
+  +string displayName
+  +string passwordHash
+  +createCustomer(displayName, email, passwordHash): UserAccount
+}
+
+class ConsentRecord {
+  +Guid accountId
+  +string privacyNoticeVersion
+  +DateTime consentedAtUtc
+}
+
+class VerificationToken {
+  +Guid accountId
+  +string tokenHash
+  +DateTime expiresAtUtc
+}
+
+class PasswordPolicy {
+  +int minLength = 12
+  +int maxLength = 128
+  +check(password: string): PolicyResult
+}
+
+interface BreachedPasswordList {
+  +contains(password: string): bool
+}
+
+interface PasswordHasher {
+  +hash(password: string): string
+}
+
+interface BotProtectionVerifier {
+  +verify(token: string): ChallengeResult
+}
+
+interface UserAccountRepository {
+  +findByEmail(email: string): UserAccount
+  +add(account: UserAccount): void
+}
+
+interface ConsentRepository {
+  +add(record: ConsentRecord): void
+}
+
+interface JobQueue {
+  +enqueue(job: Job): void
+}
+
+RegisterCustomerHandler ..> RegisterCustomerCommand : handles
+RegisterCustomerHandler ..> RegistrationResult : returns
+RegisterCustomerHandler ..> BotProtectionVerifier
+RegisterCustomerHandler ..> PasswordPolicy
+RegisterCustomerHandler ..> PasswordHasher
+RegisterCustomerHandler ..> UserAccountRepository
+RegisterCustomerHandler ..> ConsentRepository
+RegisterCustomerHandler ..> JobQueue
+PasswordPolicy ..> BreachedPasswordList
+UserAccount --> Role : has
+UserAccount "1" *-- "*" ConsentRecord
+UserAccount "1" *-- "*" VerificationToken
+@enduml

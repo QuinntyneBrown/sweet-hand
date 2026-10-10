@@ -1,0 +1,14 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Browse the caterer listing
+
+Person(visitor, "Visitor", "Browses caterers without signing in")
+Person(customer, "Customer", "Signed-in person planning a meal or event")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(cdn, "CDN", "Caches public HTML for 60 s or less and serves processed photos")
+
+Rel(visitor, cdn, "Requests listing pages and photos", "HTTPS")
+Rel(customer, cdn, "Requests listing pages and photos", "HTTPS")
+Rel(cdn, sweethand, "Fetches uncached listing pages and photos", "HTTPS")
+@enduml

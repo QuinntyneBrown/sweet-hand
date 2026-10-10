@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Edit a caterer profile as an operator
+
+Person(operator, "Operator", "Sweet Hand team member who approves caterers and moderates content")
+Person(caterer, "Caterer", "Person or small business selling Caribbean food")
+Person(visitor, "Visitor", "Anyone using the platform without signing in")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(email, "Email provider", "Sends transactional email and reports bounces")
+System_Ext(cdn, "CDN", "Caches public HTML for 60 s or less and serves processed photos")
+
+Rel(operator, sweethand, "Edits profiles and reverts caterer edits", "HTTPS")
+Rel(sweethand, email, "Sends edit notices via")
+Rel(email, caterer, "Delivers notice with reason")
+Rel(visitor, cdn, "Views corrected caterer page", "HTTPS")
+Rel(cdn, sweethand, "Refreshes cached pages from")
+@enduml
