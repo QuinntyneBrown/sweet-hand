@@ -7,7 +7,7 @@
   </div>
 
   <section class="browse__results" aria-labelledby="results-title">
-    <h2 class="visually-hidden" id="results-title" i18n="@@listing.results">Results</h2>
+    <h2 #resultsHeading class="visually-hidden" id="results-title" tabindex="-1" i18n="@@listing.results">Results</h2>
     <sh-caterer-grid [busy]="listing.isLoading()">
       @for (c of view()?.items ?? []; track c.slug) {
         <li>
@@ -23,5 +23,20 @@
         </li>
       }
     </sh-caterer-grid>
+    @if (view(); as v) {
+      <sh-pagination
+        [page]="v.page"
+        [pageCount]="v.pageCount"
+        [hrefFor]="hrefFor"
+        [summary]="summary()"
+        label="Pagination"
+        i18n-label="@@pagination.label"
+        previousLabel="Previous page"
+        i18n-previousLabel="@@pagination.previous"
+        nextLabel="Next page"
+        i18n-nextLabel="@@pagination.next"
+        [pageLabel]="pageLabel"
+      />
+    }
   </section>
 </div>

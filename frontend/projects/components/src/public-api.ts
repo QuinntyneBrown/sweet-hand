@@ -22,3 +22,4 @@ export * from './lib/form/form-summary';
 export * from './lib/dialog/dialog';
 export * from './lib/combobox/combobox';
 export * from './lib/toast/toast';
+export * from './lib/pagination/pagination';
