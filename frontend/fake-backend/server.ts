@@ -56,6 +56,13 @@ const server = createServer(async (req, res) => {
   try {
     if (path.startsWith('/media/')) {
       const file = normalize(path.slice('/media/'.length)).replace(/^(\.\.[/\\])+/, '');
+      // A slow image: hold or delay it (the photo viewer's loading state), counting `times`.
+      const slow = store.faults.find((f) => matches(f, method, path) && (f.hang || f.delayMs));
+      if (slow) {
+        if (slow.times !== undefined && --slow.times <= 0) store.faults.splice(store.faults.indexOf(slow), 1);
+        if (slow.hang) await new Promise<void>((resolve) => hanging.set(sessionId, [...(hanging.get(sessionId) ?? []), resolve]));
+        if (slow.delayMs) await new Promise((r) => setTimeout(r, slow.delayMs));
+      }
       for (const fault of store.faults) {
         if (matches(fault, method, path) && fault.status) return send(res, { status: fault.status });
       }

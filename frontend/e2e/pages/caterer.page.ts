@@ -1,8 +1,21 @@
-import type { Locator } from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 import { BasePage } from './base.page';
+import { PhotoViewer } from './photo-viewer';
 
 /** A caterer's public page, /caterers/:slug (docs/mocks/pages/caterer). */
 export class CatererPage extends BasePage {
+  readonly viewer: PhotoViewer;
+
+  constructor(page: Page) {
+    super(page);
+    this.viewer = new PhotoViewer(page);
+  }
+
+  /** Whether the page behind an open dialog is inert. */
+  async pageIsInert(): Promise<boolean> {
+    return this.main.evaluate((el) => el.closest('[inert]') !== null);
+  }
+
   async open(slug: string) {
     await this.page.goto(`/caterers/${slug}`);
   }

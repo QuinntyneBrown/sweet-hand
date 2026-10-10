@@ -29,3 +29,4 @@ export * from './lib/tag/tag';
 export * from './lib/dish/dish';
 export * from './lib/photo/photo';
 export * from './lib/gallery/gallery';
+export * from './lib/gallery/photo-viewer';

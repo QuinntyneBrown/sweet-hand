@@ -13,6 +13,7 @@
         i18n-failedSuffix="@@gallery.failedSuffix"
         failedLabel="Photo unavailable"
         i18n-failedLabel="@@photo.unavailable"
+        (opened)="viewerAt.set($event.index)"
       />
 
       <div class="caterer-head">
@@ -70,6 +71,10 @@
       <p class="enquiry-panel__note" i18n="@@caterer.enquireNote">Free to ask. Your email and phone stay private until you choose to share them.</p>
     </aside>
   </div>
+
+  @if (viewerAt() !== null) {
+    <sh-photo-viewer [photos]="c.photos" [index]="viewerAt()!" (indexChange)="viewerAt.set($event)" [title]="photosTitle()" [countLabel]="photoCountLabel" [labels]="viewerLabels" (closed)="closeViewer($event.index)" />
+  }
 
   <div sh-sticky-cta regionLabel="Enquire" i18n-regionLabel="@@caterer.enquireRegion" [heading]="c.name" [detail]="guests()">
     <sh-button variant="primary" haspopup="dialog" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>

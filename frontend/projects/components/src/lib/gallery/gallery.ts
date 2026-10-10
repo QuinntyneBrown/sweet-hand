@@ -69,6 +69,8 @@ const SCRIM_AT = [5, 6];
       }
     </section>
   `,
+  // The "+N" scrim is decoration over the button: a tap on it opens that photo.
+  styles: `.gallery__more { pointer-events: none; }`,
 })
 export class Gallery {
   readonly photos = input.required<readonly GalleryPhoto[]>();

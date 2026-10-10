@@ -1,4 +1,16 @@
+import type { ViewerLabels } from '@sweet-hand/components';
+
 /** Words for the gallery and the photo viewer (gallery CRD), from the resource files. */
+
+export const VIEWER_LABELS: ViewerLabels = {
+  close: $localize`:@@viewer.close:Close photo viewer`,
+  previous: $localize`:@@viewer.previous:Previous photo`,
+  next: $localize`:@@viewer.next:Next photo`,
+  loading: (n, total) => $localize`:@@viewer.loading:Loading photo ${n}:n: of ${total}:total:`,
+  failed: (n, total) => $localize`:@@viewer.failed:Photo ${n}:n: of ${total}:total: didn’t load`,
+  failedNote: $localize`:@@viewer.failedNote:This photo didn’t load.`,
+  retry: $localize`:@@common.tryAgain:Try again`,
+};
 
 /** "Open photo 2 of 6: Curry chicken with rice and buss up shut in a steel karahi" */
 export function openPhotoLabel(n: number, total: number, caption: string): string {
