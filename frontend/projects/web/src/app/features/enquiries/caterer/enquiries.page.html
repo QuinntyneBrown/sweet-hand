@@ -45,7 +45,7 @@
     @if (!noResults()) {
       <div class="inbox-layout__thread">
         @if (paneThread(); as t) {
-          <app-enquiry-thread [thread]="t" (threadChange)="changed($event)" [headingLevel]="2" />
+          <app-enquiry-thread [thread]="t" (threadChange)="changed($event)" [headingLevel]="2" [markRead]="false" />
         } @else {
           <sh-thread [busy]="true" [headingLevel]="2" loadingLabel="Loading enquiry" i18n-loadingLabel="@@thread.loading" />
         }

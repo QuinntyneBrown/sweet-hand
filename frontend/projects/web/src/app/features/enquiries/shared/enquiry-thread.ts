@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Injector, afterNextRender, computed, inject, input, model, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, Injector, afterNextRender, computed, effect, inject, input, model, signal, untracked, viewChild, viewChildren } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Icon, Message, MessageList, ReplyBox, Thread, ThreadActionsSlot, ToastNotifier, graphemeLength } from '@sweet-hand/components';
 import { EnquiriesApi } from '../../../core/api/enquiries-api';
 import type { ThreadView } from '../../../core/api/enquiries.models';
-import { count } from '../../../core/format/format';
+import { count, shortDate } from '../../../core/format/format';
 import { problemOf } from '../../../core/forms/problem';
+import { SESSION_REFRESH_MS, Session } from '../../../core/session/session';
 import { messageTime, statusLabel, statusTone } from '../enquiry-text';
 import { CloseEnquiryDialog } from './close-enquiry-dialog';
 import { DeclineEnquiryDialog } from './decline-enquiry-dialog';
@@ -53,9 +54,13 @@ export class EnquiryThread {
   readonly thread = model.required<ThreadView>();
   readonly headingLevel = input<1 | 2>(1);
   readonly backLink = input<{ href: string; label: string } | null>(null);
+  /** Whether looking at the thread counts as reading it; the caterer's preview pane passes false. */
+  readonly markRead = input(true);
 
   private readonly threadEl = viewChild.required(Thread);
   private readonly replyBox = viewChild(ReplyBox);
+  private readonly messageViews = viewChildren(Message);
+  private readonly session = inject(Session);
 
   protected readonly customerView = computed(() => this.thread().viewer === 'customer');
   protected readonly title = computed(() => otherName(this.thread()));
@@ -100,8 +105,56 @@ export class EnquiryThread {
   protected readonly dialog = signal<'share' | 'close' | 'decline' | null>(null);
   protected readonly returnTo = signal<HTMLElement | null>(null);
 
+  private warnedClosing: string | null = null;
+
+  constructor() {
+    // After the event, say once when the enquiry will close by itself (L2-033.4; notifications/toast/warning).
+    effect(() => {
+      const t = this.thread();
+      untracked(() => {
+        if (!t.closesOn || !canReply(t) || this.warnedClosing === t.id) return;
+        this.warnedClosing = t.id;
+        this.toasts.show({
+          tone: 'warning',
+          title: $localize`:@@toast.closesOn:This enquiry closes on ${shortDate(t.closesOn!)}:date:`,
+          text: $localize`:@@toast.closesOnText:Enquiries close 30 days after the event. You can still message until then.`,
+        });
+      });
+    });
+    // New messages show up without a reload within 60 seconds (L2-029.3).
+    const timer = setInterval(() => void this.refresh(), SESSION_REFRESH_MS);
+    inject(DestroyRef).onDestroy(() => clearInterval(timer));
+  }
+
   focusTitle(): void {
     this.threadEl().focusTitle();
+  }
+
+  private async refresh(): Promise<void> {
+    if (this.sending() || this.dialog()) return;
+    const before = this.thread();
+    const fresh = await firstValueFrom(this.api.thread(before.id, { markRead: this.markRead() })).catch(() => null);
+    if (!fresh || fresh.id !== this.thread().id || this.sending()) return;
+    const known = new Set(this.thread().entries.map((e) => e.id));
+    const incoming = fresh.entries.filter((e) => !known.has(e.id) && e.kind === 'reply' && e.from !== fresh.viewer);
+    if (fresh.entries.length === before.entries.length && fresh.status === before.status) return;
+    this.thread.set(fresh);
+    const last = incoming.at(-1);
+    if (!last || last.kind !== 'reply') return;
+    if (this.markRead()) void this.session.refresh();
+    const quote = last.text.length > 80 ? `${last.text.slice(0, 79).trimEnd()}…` : last.text;
+    this.toasts.show({
+      tone: 'info',
+      title: $localize`:@@toast.newMessage:New message from ${otherName(fresh)}:name:`,
+      text: `“${quote}”`,
+      action: { label: $localize`:@@toast.showMessage:Show message`, run: () => this.showMessage(last.id) },
+    });
+  }
+
+  /** Scrolls to a message and moves focus to it (notifications/toast/with-action). */
+  private showMessage(id: string): void {
+    const index = this.entries().findIndex((e) => e.id === id);
+    this.messageViews()[index]?.focus();
   }
 
   protected openDialog(kind: 'share' | 'close' | 'decline', event: Event): void {
