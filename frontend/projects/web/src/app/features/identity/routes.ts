@@ -26,4 +26,14 @@ export const identityRoutes: Routes = [
     loadComponent: () => import('./reset-password/reset-password.page').then((m) => m.ResetPasswordPage),
     title: $localize`:@@reset.documentTitle:Choose a new password · Sweet Hand`,
   },
+  {
+    path: 'verify-email/sent',
+    loadComponent: () => import('./verify-email/verification-sent.page').then((m) => m.VerificationSentPage),
+    title: $localize`:@@verifySent.documentTitle:Check your email · Sweet Hand`,
+  },
+  {
+    path: 'verify-email/:token',
+    loadComponent: () => import('./verify-email/verify-email.page').then((m) => m.VerifyEmailPage),
+    title: $localize`:@@verify.documentTitle:Verify email · Sweet Hand`,
+  },
 ];

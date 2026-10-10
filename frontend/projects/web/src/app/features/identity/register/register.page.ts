@@ -104,6 +104,7 @@ export class RegisterPage {
   }
 
   protected async resend(): Promise<void> {
+    // The "Check your email" page sends the new link when it opens.
     await this.router.navigate(['/verify-email/sent'], { state: { email: this.sentTo() } });
   }
 

@@ -69,6 +69,11 @@ export interface ResetPasswordRequest {
   password: string;
 }
 
+export interface ResendVerificationRequest {
+  email?: string | null;
+  token?: string | null;
+}
+
 /** Where the verification email went (L2-023.2). */
 export interface VerificationSent {
   email: string | null;

@@ -7,6 +7,7 @@ import type {
   PasswordResetRequest,
   RegisterCatererRequest,
   RegisterRequest,
+  ResendVerificationRequest,
   ResetPasswordRequest,
   SecondFactorRequest,
   SignInRequest,
@@ -23,8 +24,12 @@ export abstract class IdentityApi {
   abstract registerCaterer(request: RegisterCatererRequest): Observable<void>;
   abstract completeSecondFactor(request: SecondFactorRequest): Observable<SignInResult>;
   abstract verifyEmail(token: string): Observable<EmailVerified>;
-  /** Sends a new link to the signed-in account, or to `email` if it is waiting for verification. */
-  abstract resendVerification(email?: string | null): Observable<VerificationSent>;
+  /**
+   * Sends a new verification link: to the signed-in account, to the account an
+   * expired `token` belongs to, or to `email` if it waits for verification.
+   * The answer is the same whether or not such an account exists (L2-076).
+   */
+  abstract resendVerification(from?: ResendVerificationRequest): Observable<VerificationSent>;
   abstract requestPasswordReset(request: PasswordResetRequest): Observable<void>;
   abstract passwordReset(token: string): Observable<PasswordResetLink>;
   abstract resetPassword(request: ResetPasswordRequest): Observable<void>;
@@ -54,8 +59,8 @@ export class HttpIdentityApi extends IdentityApi {
     return this.http.post<EmailVerified>('/api/identity/email-verifications', { token });
   }
 
-  resendVerification(email?: string | null): Observable<VerificationSent> {
-    return this.http.post<VerificationSent>('/api/identity/email-verifications/resend', email ? { email } : {});
+  resendVerification(from: ResendVerificationRequest = {}): Observable<VerificationSent> {
+    return this.http.post<VerificationSent>('/api/identity/email-verifications/resend', from);
   }
 
   requestPasswordReset(request: PasswordResetRequest): Observable<void> {

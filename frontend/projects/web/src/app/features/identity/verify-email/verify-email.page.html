@@ -1,0 +1,70 @@
+@switch (view().kind) {
+  @case ('loading') {
+    <div class="auth" aria-busy="true">
+      <div class="auth__head">
+        <div class="photo-row" aria-hidden="true">
+          <span class="photo"><span class="skeleton skeleton--circle"></span></span>
+          <span class="photo"><span class="skeleton skeleton--circle"></span></span>
+          <span class="photo"><span class="skeleton skeleton--circle"></span></span>
+        </div>
+        <h1 class="visually-hidden" i18n="@@verify.loadingTitle">Verifying your email</h1>
+        <span class="skeleton skeleton--title verify__title-skeleton" aria-hidden="true"></span>
+        <span class="skeleton skeleton--text" aria-hidden="true"></span>
+      </div>
+      <div class="stack" aria-hidden="true">
+        <span class="skeleton skeleton--rect verify__button-skeleton"></span>
+        <span class="skeleton skeleton--rect verify__button-skeleton"></span>
+      </div>
+      <p class="text-muted" role="status" i18n="@@verify.loadingStatus">Verifying your email…</p>
+    </div>
+  }
+  @case ('verified') {
+    <div class="auth">
+      <div class="auth__head">
+        <app-auth-photos [photos]="['black-cake-co', 'sugar-dumplin', 'sorrel-and-spice']" />
+        <h1 i18n="@@verify.title">Your email is verified</h1>
+        <p class="subtitle" i18n="@@verify.subtitle">Thanks, {{ firstName() }}. You can send enquiries now.</p>
+      </div>
+      <div class="stack">
+        @if (saved(); as e) {
+          <div class="dialog__caterer">
+            <span class="photo"><img [src]="'/media/' + e.photo + '?w=112&fm=jpeg'" alt="" width="56" height="56" /></span>
+            <span
+              ><span class="dialog__caterer-name" i18n="@@verify.savedEnquiry">Your enquiry to {{ e.catererName }} is still saved</span><br /><span class="text-muted">{{ e.when }}</span></span
+            >
+          </div>
+          <a class="btn btn--primary btn--lg btn--block" [routerLink]="['/caterers', e.catererSlug]" i18n="@@verify.finishEnquiry">Finish your enquiry</a>
+          <a class="btn btn--lg btn--block" routerLink="/caterers" i18n="@@verify.browse">Browse caterers</a>
+        } @else {
+          <a class="btn btn--primary btn--lg btn--block" routerLink="/caterers" i18n="@@verify.browse">Browse caterers</a>
+        }
+      </div>
+    </div>
+  }
+  @case ('expired') {
+    <div class="auth">
+      <div class="auth__head">
+        <app-auth-photos [photos]="['cook-up', 'sunday-pot', 'ti-kay']" />
+        <h1 i18n="@@verify.expired.title">This link has expired</h1>
+        <p class="subtitle" i18n="@@verify.expired.subtitle">Verification links work for 24 hours. We can send you a new one.</p>
+      </div>
+      <sh-button variant="primary" size="lg" [block]="true" (activated)="resend()"><ng-container i18n="@@verify.expired.resend">Resend verification email</ng-container></sh-button>
+      <p class="auth__alt" i18n="@@verify.expired.alt">Signed up with a different address? <a routerLink="/account">Check your account</a></p>
+    </div>
+  }
+  @case ('failed') {
+    <div class="auth">
+      <div class="auth__head">
+        <app-auth-photos [photos]="['black-cake-co', 'sugar-dumplin', 'sorrel-and-spice']" />
+        <h1 i18n="@@verify.failedTitle">Verify email</h1>
+      </div>
+      <sh-alert tone="danger" live="assertive" title="We couldn’t verify your email just now" i18n-title="@@verify.failedAlertTitle"
+        >{{ failedText() }}
+        <div slot="actions" class="alert__actions">
+          <sh-button size="sm" (activated)="verify()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></sh-button>
+          <a routerLink="/caterers" i18n="@@signIn.keepBrowsing">Keep browsing</a>
+        </div>
+      </sh-alert>
+    </div>
+  }
+}

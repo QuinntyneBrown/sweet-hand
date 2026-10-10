@@ -1,11 +1,11 @@
 import type { Router } from '../lib/router.ts';
 import { invalid, ok, type Reply } from '../lib/http.ts';
-import { newId, startSession, type Store } from '../lib/store.ts';
+import { currentUser, newId, startSession, type Store } from '../lib/store.ts';
 import type { User } from '../seed/users.ts';
 import type { AccountToken } from '../seed/account.ts';
 import { slugify } from '../seed/taxonomy.ts';
 import { endSessions } from './session.ts';
-import type { PasswordResetLink, PasswordResetRequest, ResetPasswordRequest, RegisterCatererRequest, RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/web/src/app/core/api/identity.models.ts';
+import type { EmailVerified, ResendVerificationRequest, VerificationSent, PasswordResetLink, PasswordResetRequest, ResetPasswordRequest, RegisterCatererRequest, RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/web/src/app/core/api/identity.models.ts';
 
 const MINUTE = 60_000;
 /** 5 failed sign-ins for one account within 15 minutes pause it for 15 minutes (L2-076.4). */
@@ -242,6 +242,41 @@ export function registerIdentity(r: Router<Store>): void {
     return { status: 202, body: {} };
   });
 
+  /** A verification link: valid for 24 hours, once (L2-077.3). */
+  r.post('/api/identity/email-verifications', (ctx): Reply => {
+    const t = liveToken(ctx.store, 'verify', (ctx.body ?? {}).token);
+    const user = t && ctx.store.users.find((u) => u.id === t.userId && !u.deleted);
+    if (!t || !user) return gone();
+    t.consumedAt = ctx.store.now.toISOString();
+    user.emailVerified = true;
+    const draft = ctx.store.account.savedEnquiries.find((e) => e.userId === user.id);
+    const caterer = draft && ctx.store.caterers.find((c) => c.slug === draft.catererSlug);
+    const body: EmailVerified = {
+      displayName: user.displayName,
+      savedEnquiry:
+        draft && caterer
+          ? { catererName: caterer.name, catererSlug: caterer.slug, photo: caterer.photos[0]?.file ?? `${caterer.slug}.jpg`, eventDate: draft.eventDate, guests: draft.guests }
+          : null,
+    };
+    return ok(body);
+  });
+
+  /**
+   * A new verification link for the signed-in account, the account an expired
+   * link belongs to, or an address waiting for verification. Always 202 (L2-076).
+   */
+  r.post('/api/identity/email-verifications/resend', (ctx): Reply => {
+    const body = (ctx.body ?? {}) as ResendVerificationRequest;
+    const fromToken = body.token ? ctx.store.account.tokens.find((t) => t.kind === 'verify' && t.token === body.token) : undefined;
+    const user =
+      currentUser(ctx.store, ctx.cookies) ??
+      (fromToken && ctx.store.users.find((u) => u.id === fromToken.userId && !u.deleted)) ??
+      (body.email ? findUser(ctx.store, body.email) : undefined);
+    if (user && !user.emailVerified) sendVerification(ctx.store, user);
+    const sent: VerificationSent = { email: user && (fromToken || !body.email) ? user.email : body.email ?? null };
+    return { status: 202, body: sent };
+  });
+
   r.get('/api/identity/password-resets/:token', (ctx): Reply => {
     const t = liveToken(ctx.store, 'reset', ctx.params['token']);
     const user = t && ctx.store.users.find((u) => u.id === t.userId && !u.deleted);
@@ -298,6 +333,19 @@ export function normalisePhone(value: string): string | null {
 
 /** Named store changes for identity tests (`backend.scenario(name, args)`). */
 export const identityScenarios: Record<string, (store: Store, args: any) => unknown> = {
+  /** The account is waiting for verification and a link was emailed just now; returns its path. */
+  'issue-verification': (store, { email }: { email: string }) => {
+    const user = findUser(store, email);
+    if (!user) throw new Error(`No account for ${email}`);
+    user.emailVerified = false;
+    sendVerification(store, user);
+    return { link: store.account.outbox.at(-1)!.link };
+  },
+  /** The customer filled in an enquiry before verifying (L2-023.3). */
+  'save-enquiry-draft': (store, { email, catererSlug, eventDate, guests }: { email: string; catererSlug: string; eventDate: string; guests: number }) => {
+    const user = findUser(store, email);
+    if (user) store.account.savedEnquiries.push({ userId: user.id, catererSlug, eventDate, guests });
+  },
   /** A reset link was emailed just now; returns its path. */
   'issue-password-reset': (store, { email }: { email: string }) => {
     const user = findUser(store, email);
