@@ -81,9 +81,12 @@ export function registerDiscovery(r: Router<Store>): void {
       page,
       pageSize: PAGE_SIZE,
       pageCount,
+      // Ordered by how many published caterers offer each cuisine overall, so the
+      // options keep their places when the other filters recount them (filter-list CRD).
       cuisines: activeCuisines
-        .map((c) => ({ id: c.id, name: c.name, count: count({ ...filter, cuisines: [c.id] }) }))
-        .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name)),
+        .map((c) => ({ id: c.id, name: c.name, count: count({ ...filter, cuisines: [c.id] }), overall: count({ cuisines: [c.id], places: [] }) }))
+        .sort((a, b) => b.overall - a.overall || a.name.localeCompare(b.name))
+        .map(({ id, name, count }) => ({ id, name, count })),
       regions: store.regions.map((rg) => ({
         id: rg.id,
         name: rg.name,

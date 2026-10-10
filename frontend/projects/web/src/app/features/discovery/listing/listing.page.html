@@ -1,10 +1,29 @@
 <div class="browse">
   <div class="browse__title">
     <h1 i18n="@@listing.title">Caterers</h1>
-    @if (view(); as v) {
-      <p class="result-count" role="status" aria-live="polite" i18n="@@listing.resultCount">{v.total, plural, =1 {1 caterer} other {{{v.total}} caterers}}</p>
-    }
+    <p class="result-count" role="status" aria-live="polite">
+      @if (view(); as v) {
+        <ng-container i18n="@@listing.resultCount">{v.total, plural, =1 {1 caterer} other {{{v.total}} caterers}}</ng-container>
+      }
+    </p>
   </div>
+
+  <aside class="browse__aside" aria-label="Filters" i18n-aria-label="@@filters.title">
+    <sh-filter-group
+      title="Cuisine"
+      i18n-title="@@filters.cuisine"
+      allLabel="All"
+      i18n-allLabel="@@filters.all"
+      [allHref]="allCuisinesHref()"
+      [options]="cuisines()"
+      [moreLabel]="moreCuisines"
+      fewerLabel="Fewer cuisines"
+      i18n-fewerLabel="@@filters.fewerCuisines"
+      [countNoun]="caterersNoun"
+      (toggled)="toggleCuisine($event)"
+    />
+    <sh-filter-group title="Area" i18n-title="@@filters.area" [options]="areas()" [countNoun]="caterersNoun" (toggled)="toggleArea($event)" />
+  </aside>
 
   <section class="browse__results" aria-labelledby="results-title">
     <h2 #resultsHeading class="visually-hidden" id="results-title" tabindex="-1" i18n="@@listing.results">Results</h2>

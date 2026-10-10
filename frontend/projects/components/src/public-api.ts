@@ -23,3 +23,6 @@ export * from './lib/dialog/dialog';
 export * from './lib/combobox/combobox';
 export * from './lib/toast/toast';
 export * from './lib/pagination/pagination';
+export * from './lib/filter-list/filter-option';
+export * from './lib/filter-list/filter-group';
+export * from './lib/filter-list/filter-list';
