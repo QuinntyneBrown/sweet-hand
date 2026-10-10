@@ -3,6 +3,7 @@ import { ok } from '../lib/http.ts';
 import { currentUser, type Store } from '../lib/store.ts';
 import type { SessionUser, SessionView } from '../../projects/web/src/app/core/api/session.models.ts';
 import type { User } from '../seed/users.ts';
+import { unreadThreads } from './enquiries.ts';
 
 export function sessionUser(store: Store, user: User): SessionUser {
   const caterer = user.catererId ? store.caterers.find((c) => c.id === user.catererId) : undefined;
@@ -19,9 +20,9 @@ export function sessionUser(store: Store, user: User): SessionUser {
   };
 }
 
-/** Unread threads for a customer or caterer. The enquiries area derives this from its threads. */
+/** Threads with something unread for a customer or caterer (L2-029). */
 export function unreadCount(store: Store, user: User): number {
-  return store.unread[user.id] ?? 0;
+  return user.role === 'Customer' || user.role === 'Caterer' ? unreadThreads(store, user) : 0;
 }
 
 export function queueCount(store: Store): number {

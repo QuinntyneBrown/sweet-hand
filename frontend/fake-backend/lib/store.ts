@@ -27,8 +27,6 @@ export interface Store {
   reports: Report[];
   operator: OperatorState;
   account: AccountState;
-  /** Unread threads per user id until the enquiries area computes them from threads. */
-  unread: Record<string, number>;
   /** Items in the operator review queue until the moderation area computes them. */
   queueCount: number;
   /** Session cookie value → user id. */
@@ -50,7 +48,6 @@ export function createStore(): Store {
     reports: seedReports(),
     operator: seedOperator(),
     account: seedAccount(),
-    unread: { 'user-marcia': 1, 'user-kendra': 2 },
     queueCount: 7,
     sessions: new Map(),
     faults: [],

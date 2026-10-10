@@ -1,0 +1,24 @@
+<div class="inbox-layout">
+  <section class="inbox-layout__list" aria-labelledby="inbox-title">
+    <div class="page-intro">
+      <h1 id="inbox-title" i18n="@@inbox.title">Inbox</h1>
+      @if (view()) {
+        <p class="subtitle" [attr.role]="filter() ? 'status' : null" [attr.aria-live]="filter() ? 'polite' : null">{{ subtitle() }}</p>
+      } @else {
+        <p class="subtitle">
+          <span class="skeleton skeleton--text" style="width: 10rem" aria-hidden="true"></span><span class="visually-hidden" role="status" i18n="@@inbox.loading">Loading your enquiries</span>
+        </p>
+      }
+    </div>
+    <app-enquiry-list [view]="view()" viewer="customer" basePath="/inbox" label="Your enquiries" i18n-label="@@inbox.listLabel" [filter]="filter()" />
+  </section>
+  <div class="inbox-layout__thread">
+    @if (view()) {
+      <sh-thread-placeholder [photos]="placeholderPhotos()" text="Choose an enquiry to read it here." i18n-text="@@inbox.choose" />
+    } @else {
+      <div class="thread-placeholder" aria-hidden="true">
+        <span class="skeleton skeleton--circle" style="width: 6rem; height: 6rem"></span><span class="skeleton skeleton--text" style="width: 12rem"></span>
+      </div>
+    }
+  </div>
+</div>
