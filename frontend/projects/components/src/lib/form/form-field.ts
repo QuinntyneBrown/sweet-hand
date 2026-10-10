@@ -68,10 +68,15 @@ export class LabelAction {}
         } @else if (warning()) {
           <span class="field__warning" [id]="id() + '-warning'">{{ warning() }}</span>
         }
-        @if (help()) {
+        @if (help() && counter()) {
+          <!-- Help and counter share one row (form-field CRD, Markup). -->
+          <span class="cluster cluster--between">
+            <span class="field__help" [id]="id() + '-help'">{{ help() }}</span>
+            <span class="field__counter" [id]="id() + '-count'" [attr.data-over]="counterOver() ? '' : null">{{ counter() }}</span>
+          </span>
+        } @else if (help()) {
           <span class="field__help" [id]="id() + '-help'">{{ help() }}</span>
-        }
-        @if (counter()) {
+        } @else if (counter()) {
           <span class="field__counter" [id]="id() + '-count'" [attr.data-over]="counterOver() ? '' : null">{{ counter() }}</span>
         }
         <span class="visually-hidden" role="status">{{ !error() && warning() ? warning() : counterOver() ? counterAnnouncement() : '' }}</span>
