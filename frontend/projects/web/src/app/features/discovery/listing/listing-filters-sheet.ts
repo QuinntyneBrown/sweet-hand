@@ -5,7 +5,7 @@ import { DiscoveryApi } from '../../../core/api/discovery-api';
 import type { ListingPageView, ListingQuery, ServiceArea } from '../../../core/api/discovery.models';
 import { AreaField } from '../search/area-field';
 import { activeChips, areaOptions, cuisineOptions, removeFilterLabel } from './listing-filters';
-import { activeFilterCount, withArea, withCuisine, withRegion } from './listing-query';
+import { activeFilterCount, sameFilters, withArea, withCuisine, withRegion } from './listing-query';
 import { caterersCount } from './listing-text';
 
 /**
@@ -73,15 +73,21 @@ export class ListingFiltersSheet {
 
   private readonly api = inject(DiscoveryApi);
   protected readonly pending = signal<ListingQuery>({ cuisines: [], regions: [], areas: [], page: 1 });
+  /** The choices are those in force, whose results the listing already shows. */
+  private readonly unchanged = computed(() => sameFilters(this.pending(), this.current()) && !!this.currentView());
+  /** Only changed choices are counted. */
   private readonly counted = rxResource({
-    params: () => (this.open() ? { ...this.pending(), page: 1 } : undefined),
+    params: () => (this.open() && !this.unchanged() ? { ...this.pending(), page: 1 } : undefined),
     stream: ({ params }) => this.api.listing(params),
   });
   protected readonly busy = delayedBusy(this.counted.isLoading);
-  /** The latest count; while the next one loads, the previous one, and on opening the results in force. */
-  private readonly view = linkedSignal<{ v: ListingPageView | undefined; open: boolean }, ListingPageView | undefined>({
-    source: () => ({ v: this.counted.hasValue() ? this.counted.value() : undefined, open: this.open() }),
-    computation: (s, previous) => s.v ?? (previous?.source.open && s.open ? previous.value : this.currentView()),
+  /** The latest count; while the next one loads, the previous one; for the choices in force, the listing's results. */
+  private readonly view = linkedSignal<{ v: ListingPageView | undefined; open: boolean; unchanged: boolean }, ListingPageView | undefined>({
+    source: () => ({ v: this.counted.hasValue() ? this.counted.value() : undefined, open: this.open(), unchanged: this.unchanged() }),
+    computation: (s, previous) => {
+      if (s.unchanged) return this.currentView();
+      return s.v ?? (previous?.source.open && s.open ? previous.value : this.currentView());
+    },
   });
 
   protected readonly cuisines = computed(() => (this.view() ? cuisineOptions(this.view()!, this.pending()) : []));

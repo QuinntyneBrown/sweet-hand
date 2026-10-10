@@ -47,6 +47,11 @@ export class ListingPage extends BasePage {
     return this.page.locator('.caterer-grid .caterer-card:not(.caterer-card--skeleton)');
   }
 
+  /** How many columns the grid lays its cards out in (L2-005). */
+  async gridColumns(): Promise<number> {
+    return this.grid.evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(' ').filter(Boolean).length);
+  }
+
   /** Placeholder cards while results load (docs/specs/components/skeleton.md). */
   get skeletonCards() {
     return this.page.locator('.caterer-grid .caterer-card--skeleton');

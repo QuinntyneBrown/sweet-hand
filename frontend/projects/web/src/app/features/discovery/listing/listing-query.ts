@@ -44,7 +44,13 @@ export function knownQuery(q: ListingQuery, view: ListingPageView | undefined): 
   };
 }
 
-const toggled = (list: string[], value: string, on: boolean) => (on ? [...new Set([...list, value])] : list.filter((v) => v !== value));
+/** Whether two queries select the same caterers, whatever the order of values and the page. */
+export function sameFilters(a: ListingQuery, b: ListingQuery): boolean {
+  const same = (x: string[], y: string[]) => x.length === y.length && x.every((v) => y.includes(v));
+  return same(a.cuisines, b.cuisines) && same(a.regions, b.regions) && same(a.areas, b.areas) && (a.occasion ?? null) === (b.occasion ?? null);
+}
+
+const toggled =(list: string[], value: string, on: boolean) => (on ? [...new Set([...list, value])] : list.filter((v) => v !== value));
 
 /** A filter change always goes back to page 1. */
 export function withCuisine(q: ListingQuery, id: string, on: boolean): ListingQuery {
