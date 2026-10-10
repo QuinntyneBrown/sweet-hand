@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rating — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand rating: average summary, five-star display with empty stars at 3:1, and the accessible star-input radio group, in every state and both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Data display</p>
+      <h1>Rating</h1>
+      <p class="ds-lead">Stars, three ways: the caterer's average as a number with one star, a review's whole-star score, and the five-star radio group customers use to rate their event. The number always carries the value; the stars only echo it.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.rating</code></span><span class="ds-pill"><code>.stars</code></span><span class="ds-pill"><code>.star-input</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <ul>
+        <li><b>Summary</b> (<code>.rating</code> + <code>.rating__summary</code>): one filled star and "4.7 · 23 reviews" at the head of a caterer's Reviews section. The average is a number, never a row of partly filled stars.</li>
+        <li><b>Stars</b> (<code>.stars</code>): five 16px stars showing one review's whole-number score, with <code>role="img"</code> and <code>aria-label="4 out of 5"</code>. Unfilled stars use <code>.icon--empty</code>.</li>
+        <li><b>Star input</b> (<code>.star-input</code>): five native radio buttons in a fieldset ("Your rating") with 44px star labels, used only in <a href="../../mocks/dialogs/review/default.html">dialogs/review</a>.</li>
+      </ul>
+      <p>Use a rating only for customer reviews of a caterer. A count of something ("18 dishes", "2 unread") is plain text or a <a href="badge.html">badge</a>; progress through setup is a <a href="progress.html">meter</a>; the full review with author and response is a <a href="review.html">review</a>. When a caterer has no reviews, show "No reviews yet" as text, never five empty stars or "0.0".</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="stack" style="align-items: flex-start;">
+            <span class="rating"><span class="stars" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span><span class="rating__summary">4.7 · 23 reviews</span></span>
+            <span class="stars" role="img" aria-label="4 out of 5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span>
+            <fieldset><legend>Your rating</legend><div class="star-input"><input type="radio" name="anat" id="anat-1" value="1"><label for="anat-1" data-filled><span class="visually-hidden">1 star</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="anat" id="anat-2" value="2"><label for="anat-2" data-filled><span class="visually-hidden">2 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="anat" id="anat-3" value="3" checked><label for="anat-3" data-filled><span class="visually-hidden">3 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="anat" id="anat-4" value="4"><label for="anat-4"><span class="visually-hidden">4 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="anat" id="anat-5" value="5"><label for="anat-5"><span class="visually-hidden">5 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label></div></fieldset>
+          </div>
+          <span class="ds-callout" style="left: 9%; top: 14%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 60%; top: 14%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 32%; top: 36%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 9%; top: 58%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 40%; top: 86%;" aria-hidden="true">5</span>
+          <span class="ds-callout" style="left: 80%; top: 86%;" aria-hidden="true">6</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Summary star</b><small>One filled star, decorative (the wrapper is <code>aria-hidden</code>).</small></div></li>
+          <li><div><b>Summary text</b><small><code>.rating__summary</code>: average to one decimal and the count, <code>--text-h3</code>, tabular figures.</small></div></li>
+          <li><div><b>Display stars</b><small><code>.stars</code>: 16px filled icons in <code>--color-star</code>, empties in <code>--color-star-empty</code>, 2px apart. One accessible image.</small></div></li>
+          <li><div><b>Legend</b><small>"Your rating" names the radio group.</small></div></li>
+          <li><div><b>Filled star label</b><small>A 44px round <code>&lt;label&gt;</code> with a 28px star; <code>data-filled</code> paints it <code>--color-star</code> for every star up to the chosen one.</small></div></li>
+          <li><div><b>Empty star label</b><small>Unfilled stars stay <code>--color-star-empty</code> at 3:1 because they are controls. Each label holds visually hidden "4 stars" text.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Summary</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <span class="rating"><span class="stars" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span><span class="rating__summary">4.7 · 23 reviews</span></span>
+          <span class="rating"><span class="stars" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span><span class="rating__summary">3.0 · 1 review</span></span>
+          <a href="#overview"><span class="visually-hidden">Rated </span>4.7 · 23 reviews</a>
+        </div>
+        <div class="ds-example__caption"><span>Section head (Pelau House; the edge-case caterer with one review); the facts-line link that jumps to Reviews, with a visually hidden "Rated".</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;span class="rating"&gt;
+  &lt;span class="stars" aria-hidden="true"&gt;&lt;svg class="icon" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;&lt;/span&gt;
+  &lt;span class="rating__summary"&gt;4.7 · 23 reviews&lt;/span&gt;
+&lt;/span&gt;
+&lt;a href="#reviews"&gt;&lt;span class="visually-hidden"&gt;Rated &lt;/span&gt;4.7 · 23 reviews&lt;/a&gt;</code></pre></details>
+      </div>
+
+      <h3>Display stars</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="align-items: flex-start;">
+          <span class="stars" role="img" aria-label="5 out of 5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span>
+          <span class="stars" role="img" aria-label="4 out of 5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span>
+          <span class="stars" role="img" aria-label="3 out of 5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span>
+          <span class="stars" role="img" aria-label="2 out of 5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span>
+          <span class="stars" role="img" aria-label="1 out of 5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span>
+        </div>
+        <div class="ds-example__caption"><span>Whole stars only: a review is 1 to 5. Read as "5 out of 5" … "1 out of 5".</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;span class="stars" role="img" aria-label="4 out of 5"&gt;
+  &lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;&lt;path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/&gt;&lt;/svg&gt; ×4
+  &lt;svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;
+&lt;/span&gt;</code></pre></details>
+      </div>
+
+      <h3>Star input</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <fieldset><legend>Your rating</legend><div class="star-input"><input type="radio" name="var" id="var-1" value="1"><label for="var-1"><span class="visually-hidden">1 star</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="var" id="var-2" value="2"><label for="var-2"><span class="visually-hidden">2 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="var" id="var-3" value="3"><label for="var-3"><span class="visually-hidden">3 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="var" id="var-4" value="4"><label for="var-4"><span class="visually-hidden">4 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="var" id="var-5" value="5"><label for="var-5"><span class="visually-hidden">5 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label></div></fieldset>
+          <fieldset><legend>Your rating</legend><div class="star-input"><input type="radio" name="var5" id="var5-1" value="1"><label for="var5-1" data-filled><span class="visually-hidden">1 star</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="var5" id="var5-2" value="2"><label for="var5-2" data-filled><span class="visually-hidden">2 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="var5" id="var5-3" value="3"><label for="var5-3" data-filled><span class="visually-hidden">3 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="var5" id="var5-4" value="4"><label for="var5-4" data-filled><span class="visually-hidden">4 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="var5" id="var5-5" value="5" checked><label for="var5-5" data-filled><span class="visually-hidden">5 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label></div></fieldset>
+        </div>
+        <div class="ds-example__caption"><span>Unrated (new review) and 5 stars (editing Marcia T.'s review).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;fieldset&gt;
+  &lt;legend&gt;Your rating&lt;/legend&gt;
+  &lt;div class="star-input"&gt;
+    &lt;input type="radio" name="rating" id="star-1" value="1"&gt;
+    &lt;label for="star-1" data-filled&gt;&lt;span class="visually-hidden"&gt;1 star&lt;/span&gt;&lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;&lt;/label&gt;
+    …
+    &lt;input type="radio" name="rating" id="star-5" value="5" checked&gt;
+    &lt;label for="star-5" data-filled&gt;&lt;span class="visually-hidden"&gt;5 stars&lt;/span&gt;…&lt;/label&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;</code></pre></details>
+      </div>
+
+      <h3>No reviews</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p class="text-muted">No reviews yet</p>
+          <p class="text-subtle text-sm">Reviews come from customers after their event.</p>
+        </div>
+        <div class="ds-example__caption"><span>Green Fig Catering (<code>caterer/no-reviews</code>): words, no stars.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>Two star sizes, chosen by job, not by breakpoint. Display stars are 16px (<code>--icon-size-sm</code>) so they sit on a line of small text; input stars are 28px (<code>--icon-size-xl</code>) inside 44px targets (<code>--target-comfortable</code>) so a thumb can pick one.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <span class="stars" role="img" aria-label="4 out of 5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span>
+          <fieldset><legend class="visually-hidden">Your rating, large size</legend><div class="star-input"><input type="radio" name="size" id="size-1" value="1"><label for="size-1" data-filled><span class="visually-hidden">1 star</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="size" id="size-2" value="2"><label for="size-2" data-filled><span class="visually-hidden">2 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="size" id="size-3" value="3"><label for="size-3" data-filled><span class="visually-hidden">3 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="size" id="size-4" value="4" checked><label for="size-4" data-filled><span class="visually-hidden">4 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="size" id="size-5" value="5"><label for="size-5"><span class="visually-hidden">5 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label></div></fieldset>
+        </div>
+        <div class="ds-example__caption"><span>Display · 16px icon, 2px gap · Input · 28px icon in a 44px circle, 4px gap.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Display stars are static. The star input has the radio states, shown on the whole group because one star never stands alone. Hover is a subtle disc behind one star plus a <em>preview</em> fill (script sets <code>data-filled</code> on stars 1…n while the pointer is over star n and restores the chosen value on leave).</p>
+      <div class="ds-matrix" style="position: relative;"><table>
+        <caption class="visually-hidden">Star input states</caption>
+        <thead><tr><th scope="col">State</th><th scope="col">Star input</th><th scope="col">How</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Default (unrated)</th><td><fieldset><legend class="visually-hidden">Default</legend><div class="star-input"><input type="radio" name="st0" id="st0-1" value="1"><label for="st0-1"><span class="visually-hidden">1 star</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st0" id="st0-2" value="2"><label for="st0-2"><span class="visually-hidden">2 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st0" id="st0-3" value="3"><label for="st0-3"><span class="visually-hidden">3 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st0" id="st0-4" value="4"><label for="st0-4"><span class="visually-hidden">4 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st0" id="st0-5" value="5"><label for="st0-5"><span class="visually-hidden">5 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label></div></fieldset></td><td>No radio checked; all stars empty.</td></tr>
+          <tr><th scope="row">Hover (3)</th><td><fieldset><legend class="visually-hidden">Hover</legend><div class="star-input"><input type="radio" name="st1" id="st1-1" value="1"><label for="st1-1" data-filled><span class="visually-hidden">1 star</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st1" id="st1-2" value="2"><label for="st1-2" data-filled><span class="visually-hidden">2 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st1" id="st1-3" value="3"><label for="st1-3" data-filled data-state="hover"><span class="visually-hidden">3 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st1" id="st1-4" value="4"><label for="st1-4"><span class="visually-hidden">4 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st1" id="st1-5" value="5"><label for="st1-5"><span class="visually-hidden">5 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label></div></fieldset></td><td><code>:hover</code> disc + preview <code>data-filled</code> on 1–3.</td></tr>
+          <tr><th scope="row">Focus</th><td><fieldset><legend class="visually-hidden">Focus</legend><div class="star-input"><input type="radio" name="st2" id="st2-1" value="1"><label for="st2-1" data-state="focus"><span class="visually-hidden">1 star</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st2" id="st2-2" value="2"><label for="st2-2"><span class="visually-hidden">2 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st2" id="st2-3" value="3"><label for="st2-3"><span class="visually-hidden">3 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st2" id="st2-4" value="4"><label for="st2-4"><span class="visually-hidden">4 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st2" id="st2-5" value="5"><label for="st2-5"><span class="visually-hidden">5 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label></div></fieldset></td><td><code>input:focus-visible + label</code>: 2px ring, no offset, round.</td></tr>
+          <tr><th scope="row">Selected (4)</th><td><fieldset><legend class="visually-hidden">Selected</legend><div class="star-input"><input type="radio" name="st3" id="st3-1" value="1"><label for="st3-1" data-filled><span class="visually-hidden">1 star</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st3" id="st3-2" value="2"><label for="st3-2" data-filled><span class="visually-hidden">2 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st3" id="st3-3" value="3"><label for="st3-3" data-filled><span class="visually-hidden">3 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st3" id="st3-4" value="4" checked><label for="st3-4" data-filled><span class="visually-hidden">4 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st3" id="st3-5" value="5"><label for="st3-5"><span class="visually-hidden">5 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label></div></fieldset></td><td><code>checked</code> on 4; <code>data-filled</code> on 1–4.</td></tr>
+          <tr><th scope="row">Invalid</th><td><fieldset><legend class="visually-hidden">Invalid</legend><div class="star-input"><input type="radio" name="st4" id="st4-1" value="1" aria-invalid="true" aria-describedby="st4-error"><label for="st4-1"><span class="visually-hidden">1 star</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st4" id="st4-2" value="2" aria-invalid="true" aria-describedby="st4-error"><label for="st4-2"><span class="visually-hidden">2 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st4" id="st4-3" value="3" aria-invalid="true" aria-describedby="st4-error"><label for="st4-3"><span class="visually-hidden">3 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st4" id="st4-4" value="4" aria-invalid="true" aria-describedby="st4-error"><label for="st4-4"><span class="visually-hidden">4 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st4" id="st4-5" value="5" aria-invalid="true" aria-describedby="st4-error"><label for="st4-5"><span class="visually-hidden">5 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label></div><span class="field__error" id="st4-error">Choose a rating from 1 to 5 stars</span></fieldset></td><td><code>aria-invalid</code> + <code>aria-describedby</code> on each radio; error under the group.</td></tr>
+          <tr><th scope="row">Disabled (posting)</th><td><fieldset disabled><legend class="visually-hidden">Disabled</legend><div class="star-input"><input type="radio" name="st5" id="st5-1" value="1" disabled><label for="st5-1" data-filled><span class="visually-hidden">1 star</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st5" id="st5-2" value="2" disabled><label for="st5-2" data-filled><span class="visually-hidden">2 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st5" id="st5-3" value="3" disabled><label for="st5-3" data-filled><span class="visually-hidden">3 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st5" id="st5-4" value="4" disabled><label for="st5-4" data-filled><span class="visually-hidden">4 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="st5" id="st5-5" value="5" checked disabled><label for="st5-5" data-filled><span class="visually-hidden">5 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label></div></fieldset></td><td><code>disabled</code> on the fieldset while the review posts; value stays visible.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="stack" style="align-items: flex-start;"><span class="rating"><span class="stars" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span><span class="rating__summary">4.7 · 23 reviews</span></span><span class="stars" role="img" aria-label="3 out of 5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span><fieldset><legend>Your rating</legend><div class="star-input"><input type="radio" name="thl" id="thl-1" value="1"><label for="thl-1" data-filled><span class="visually-hidden">1 star</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="thl" id="thl-2" value="2"><label for="thl-2" data-filled><span class="visually-hidden">2 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="thl" id="thl-3" value="3" checked><label for="thl-3" data-filled><span class="visually-hidden">3 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="thl" id="thl-4" value="4"><label for="thl-4"><span class="visually-hidden">4 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="thl" id="thl-5" value="5"><label for="thl-5"><span class="visually-hidden">5 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label></div></fieldset></div></div>
+        <div data-theme="dark"><div class="stack" style="align-items: flex-start;"><span class="rating"><span class="stars" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span><span class="rating__summary">4.7 · 23 reviews</span></span><span class="stars" role="img" aria-label="3 out of 5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span><fieldset><legend>Your rating</legend><div class="star-input"><input type="radio" name="thd" id="thd-1" value="1"><label for="thd-1" data-filled><span class="visually-hidden">1 star</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="thd" id="thd-2" value="2"><label for="thd-2" data-filled><span class="visually-hidden">2 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="thd" id="thd-3" value="3" checked><label for="thd-3" data-filled><span class="visually-hidden">3 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="thd" id="thd-4" value="4"><label for="thd-4"><span class="visually-hidden">4 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="thd" id="thd-5" value="5"><label for="thd-5"><span class="visually-hidden">5 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label></div></fieldset></div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Sizes never change by breakpoint. Five 44px stars plus gaps are 236px, which fits the full-screen review dialog at 320px (288px of content).</li>
+        <li><code>.stars</code> and <code>.rating</code> are <code>inline-flex</code> and never wrap internally. In a <a href="review.html">review head</a> the stars drop to their own line when author, date and stars do not fit (the head wraps).</li>
+        <li>In the caterer section head the summary moves under the "Reviews" heading on narrow screens (<code>.caterer-section__head</code> wraps) and sits at the right from about 36rem.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Two semantic tokens: <code>--color-star</code> (filled) and <code>--color-star-empty</code> (unfilled). Stars are ink, not gold and not pepper: a gold star would add a colour the brand does not have, and pepper means "selected". In dark the filled star is light stone and the empty star a mid stone.</p>
+      <p>The empty star was raised to 3:1 during extraction. The mocks used <code>--palette-stone-300</code> in light (about 1.6:1 on the canvas) and <code>--palette-stone-700</code> in dark; an empty star in the input is part of a control, so it must meet WCAG 1.4.11. It is now <code>--palette-stone-500</code> / <code>--palette-stone-600</code>. Filled and empty stay distinguishable by shape and by the count text, so their contrast with each other only needs 1.2:1.</p>
+      <p>To re-skin stars for a campaign, override the two semantic tokens on a theme scope; never colour <code>.stars .icon</code> directly.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Display stars are one <code>role="img"</code> with <code>aria-label="4 out of 5"</code>; the icons inside are <code>aria-hidden</code>. The star input is a native radio group in a <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code> (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/radio/">APG Radio Group</a>): the radios are visually hidden but stay in the accessibility tree and take focus; the labels are what you see and tap.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Moves into the group, to the checked star (or the first star when none is checked), then out to the review text.</td></tr>
+        <tr><td><kbd>→</kbd> <kbd>↓</kbd> / <kbd>←</kbd> <kbd>↑</kbd></td><td>Selects the next / previous star and fills up to it; wraps from 5 to 1.</td></tr>
+        <tr><td><kbd>Space</kbd></td><td>Selects the focused star when none is checked yet.</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>The ring is drawn on the label (<code>input:focus-visible + label</code>) with no offset, following its round shape. In the review dialog the legend is the first thing read, then "1 star, radio, 1 of 5".</p>
+      <h3>Labelling</h3>
+      <p>Each label holds visually hidden "1 star" … "5 stars", so a choice is announced as a number, not as "star". Errors are tied to every radio with <code>aria-describedby</code>, and listed in the dialog's error summary ("Choose a rating from 1 to 5 stars"). Summaries outside a heading context get a hidden "Rated " prefix.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Filled star on canvas</span><span class="ds-pair__ratio" data-contrast="--color-star|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Empty star on canvas (control)</span><span class="ds-pair__ratio" data-contrast="--color-star-empty|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Filled vs empty star</span><span class="ds-pair__ratio" data-contrast="--color-star|--color-star-empty" data-min="1.2"></span></div>
+        <div class="ds-pair"><span>Summary text</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring in the dialog</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+        <div class="ds-pair"><span>Error text in the dialog</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface-raised" data-min="4.5"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>The hover disc fades in over <code>--duration-fast</code>; preview fill is instant. Reduced motion removes the fade. Stars never bounce or sparkle.</p>
+      <h3>Touch</h3>
+      <p>Each input star is a 44px circle with 4px between neighbours. Display stars are not interactive.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Summary format: average to one decimal, a middle dot, the count with the right noun: "4.7 · 23 reviews", "3.0 · 1 review". Always one decimal, even for whole numbers.</li>
+        <li>Accessible label: "4 out of 5". Not "4 stars", not "4/5".</li>
+        <li>Legend: "Your rating". Error: "Choose a rating from 1 to 5 stars".</li>
+        <li>Zero state: "No reviews yet" with "Reviews come from customers after their event." Never "0 reviews" or "Be the first!".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><span class="rating"><span class="stars" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span><span class="rating__summary">4.7 · 23 reviews</span></span></div><figcaption>Show the average as a number with one decorative star.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="stars" role="img" aria-label="5 out of 5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span><span class="text-muted">(23)</span></div><figcaption>Don't round 4.7 to five stars or draw partial stars; the number is the truth.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><fieldset><legend>Your rating</legend><div class="star-input"><input type="radio" name="dd1" id="dd1-1" value="1"><label for="dd1-1"><span class="visually-hidden">1 star</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="dd1" id="dd1-2" value="2"><label for="dd1-2"><span class="visually-hidden">2 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="dd1" id="dd1-3" value="3"><label for="dd1-3"><span class="visually-hidden">3 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="dd1" id="dd1-4" value="4"><label for="dd1-4"><span class="visually-hidden">4 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="dd1" id="dd1-5" value="5"><label for="dd1-5"><span class="visually-hidden">5 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label></div></fieldset></div><figcaption>Empty stars at 3:1 so the control is visible before anything is chosen.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><p class="text-subtle">The mocks' pale empty star (stone-300, about 1.6:1) made an unrated input nearly invisible.</p></div><figcaption>Don't use a pale grey for empty stars in an input; it fails WCAG 1.4.11.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><fieldset disabled><legend>Your rating</legend><div class="star-input"><input type="radio" name="dd2" id="dd2-1" value="1" disabled><label for="dd2-1" data-filled><span class="visually-hidden">1 star</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="dd2" id="dd2-2" value="2" disabled><label for="dd2-2" data-filled><span class="visually-hidden">2 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="dd2" id="dd2-3" value="3" disabled><label for="dd2-3" data-filled><span class="visually-hidden">3 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="dd2" id="dd2-4" value="4" disabled><label for="dd2-4" data-filled><span class="visually-hidden">4 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label><input type="radio" name="dd2" id="dd2-5" value="5" checked disabled><label for="dd2-5" data-filled><span class="visually-hidden">5 stars</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></label></div></fieldset></div><figcaption>While posting, disable the whole group at once (on the fieldset).</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><p class="text-muted">Stars 1–4 disabled, star 5 still enabled</p></div><figcaption>Don't disable some radios and not others, as <code>dialogs/review/busy</code> did; the group must act as one.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Filled star</td><td><code>--color-star</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-star" data-swatch></i><span data-token="--color-star"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-star" data-swatch></i><span data-token="--color-star"></span></span></td></tr>
+          <tr><td>Empty star</td><td><code>--color-star-empty</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-star-empty" data-swatch></i><span data-token="--color-star-empty"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-star-empty" data-swatch></i><span data-token="--color-star-empty"></span></span></td></tr>
+          <tr><td>Hover disc</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+          <tr><td>Summary text</td><td><code>--color-fg-default</code>, <code>--text-h3</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Display star / input star</td><td><code>--icon-size-sm</code> / <code>--icon-size-xl</code></td><td colspan="2"><span data-token="--icon-size-sm"></span> / <span data-token="--icon-size-xl"></span></td></tr>
+          <tr><td>Input target</td><td><code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Star gap display / input</td><td><code>--space-0-5</code> / <code>--space-1</code></td><td colspan="2"><span data-token="--space-0-5"></span> / <span data-token="--space-1"></span></td></tr>
+          <tr><td>Summary gap</td><td><code>--space-2</code></td><td colspan="2"><span data-token="--space-2"></span></td></tr>
+          <tr><td>Hover fade</td><td><code>--duration-fast</code></td><td colspan="2"><span data-token="--duration-fast"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;span class="stars" role="img" aria-label="4 out of 5"&gt;…4 × .icon, 1 × .icon.icon--empty…&lt;/span&gt;
+
+&lt;fieldset&gt;
+  &lt;legend&gt;Your rating&lt;/legend&gt;
+  &lt;div class="star-input"&gt;
+    &lt;input type="radio" name="rating" id="star-1" value="1" aria-invalid="true" aria-describedby="rating-error"&gt;
+    &lt;label for="star-1"&gt;&lt;span class="visually-hidden"&gt;1 star&lt;/span&gt;&lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;&lt;/label&gt;
+    …
+  &lt;/div&gt;
+  &lt;span class="field__error" id="rating-error"&gt;Choose a rating from 1 to 5 stars&lt;/span&gt;
+&lt;/fieldset&gt;</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.rating</code> <code>.rating__summary</code></td><td>Summary row; h3-sized tabular text.</td></tr>
+        <tr><td><code>.stars</code></td><td>Inline row of 16px filled icons in <code>--color-star</code>.</td></tr>
+        <tr><td><code>.icon--empty</code></td><td>Inside <code>.stars</code>: paints the star <code>--color-star-empty</code>.</td></tr>
+        <tr><td><code>.star-input</code></td><td>Radio group of 44px star labels; resets fieldset styles if used on one.</td></tr>
+        <tr><td><code>data-filled</code> on a label</td><td>Paints that input star filled (chosen value or hover preview).</td></tr>
+        <tr><td><code>checked</code> / <code>aria-invalid</code> / <code>disabled</code></td><td>Native radio states; the error lives in <code>.field__error</code>.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code> on a label</td><td>Documentation only: forces the state.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/caterer/default.html">pages/caterer/default</a> (summary, facts link, review stars), <a href="../../mocks/pages/caterer/edge.html">caterer/edge</a> ("3.0 · 1 review"), <a href="../../mocks/pages/caterer/no-reviews.html">caterer/no-reviews</a></li>
+        <li><a href="../../mocks/dialogs/review/default.html">dialogs/review/default</a>, <a href="../../mocks/dialogs/review/edit.html">edit</a>, <a href="../../mocks/dialogs/review/invalid.html">invalid</a>, <a href="../../mocks/dialogs/review/busy.html">busy</a>, <a href="../../mocks/dialogs/review/failed.html">failed</a></li>
+        <li><a href="../../mocks/pages/dashboard-reviews/default.html">pages/dashboard-reviews/default</a>, <a href="../../mocks/pages/admin-reviews/hidden.html">pages/admin-reviews/hidden</a> (1- and 2-star displays)</li>
+      </ul>
+      <p>Drift fixed during extraction:</p>
+      <ul>
+        <li><code>--color-star-empty</code> was <code>--palette-stone-300</code> in light (about 1.6:1) and <code>--palette-stone-700</code> in dark; raised to <code>--palette-stone-500</code> / <code>--palette-stone-600</code> so empty input stars meet 3:1.</li>
+        <li><code>dialogs/review/busy</code> disabled stars 1–4 but not 5; the whole group is now disabled on the fieldset. Its button also swapped to "Posting…" (see <a href="button.html">Button</a>).</li>
+        <li><code>.star-input</code> has no disabled look, so a disabled group looks live; a rule is proposed (no hover disc, <code>cursor: not-allowed</code>).</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

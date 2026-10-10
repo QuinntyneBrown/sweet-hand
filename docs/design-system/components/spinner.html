@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spinner — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand spinner: three sizes, inline with text, on every surface, role=status with visually hidden text, keeps turning under reduced motion.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Feedback</p>
+      <h1>Spinner</h1>
+      <p class="ds-lead">A spinner says "working on it" when the wait is short and has no shape to preview: the next photo in the viewer, a postal code lookup. It always comes with words for screen readers.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.spinner</code></span><span class="ds-pill"><code>role="status"</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A spinner is a 2px ring with an ink arc that turns once every 800ms. It is the least informative loading indicator, so Sweet Hand uses it sparingly:</p>
+      <ul>
+        <li>Inside the <a href="photo.html">round photo placeholder</a> when the photo viewer moves to a photo that has not loaded yet ("Loading photo 3 of 6").</li>
+        <li>Inline with a short status line while something small is checked: "Looking up M1B 2K3…" under the area search.</li>
+        <li>Inside a busy <a href="button.html">button</a>, where it is drawn by the button itself (<code>aria-busy="true"</code>), not by a <code>.spinner</code> element.</li>
+      </ul>
+      <p>Show it only after 300ms; most waits end sooner and a spinner that flashes is worse than none. Choose something else when:</p>
+      <ul>
+        <li>Content is loading into a known layout (listing, inbox, queue, dashboard): a <a href="skeleton.html">skeleton</a> in the same shape, so nothing jumps.</li>
+        <li>The amount is measurable (an upload): a <a href="progress.html">progress bar</a>.</li>
+        <li>An action is in flight on a button: the button's own busy state.</li>
+        <li>Autosave is in flight: the save status line "Saving…" with its pulsing dot (see <a href="inline-message.html">inline message</a>).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <p class="inline-status" role="status"><span class="spinner spinner--lg" aria-hidden="true"></span><span class="visually-hidden">Loading photo 3 of 6</span></p>
+          <span class="ds-callout" style="left: 40%; top: 22%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 62%; top: 22%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 62%; top: 70%;" aria-hidden="true">3</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Track</b><small>Full circle, <code>--border-width-thick</code> (3px at large) in <code>--color-border-default</code>. Decorative.</small></div></li>
+          <li><div><b>Arc</b><small>The top quarter in <code>--color-fg-default</code> (ink), turning linearly every <code>--duration-loop-fast</code>.</small></div></li>
+          <li><div><b>Status text</b><small>A <code>role="status"</code> wrapper with visible or visually hidden words ("Loading photo 3 of 6"). The ring itself is <code>aria-hidden</code>.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Standalone</h3>
+      <p>Centred in the space the content will fill, with hidden text. In the viewer it sits inside a round placeholder exactly the size of the coming photo.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas" style="justify-content: center;">
+          <span class="photo photo--placeholder photo--lg" role="status"><span class="spinner spinner--lg" aria-hidden="true"></span><span class="visually-hidden">Loading photo 3 of 6</span></span>
+        </div>
+        <div class="ds-example__caption"><span>Photo viewer moving to photo 3 of 6 (caption already shown beneath).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;span class="photo photo--placeholder" role="status"&gt;
+  &lt;span class="spinner spinner--lg" aria-hidden="true"&gt;&lt;/span&gt;
+  &lt;span class="visually-hidden"&gt;Loading photo 3 of 6&lt;/span&gt;
+&lt;/span&gt;</code></pre></details>
+      </div>
+
+      <h3>Inline with text</h3>
+      <p>Small or medium spinner before a short status line. The words are visible, so nothing is hidden.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p class="inline-status" role="status"><span class="spinner spinner--sm" aria-hidden="true"></span>Looking up M1B 2K3…</p>
+          <p class="inline-status" role="status"><span class="spinner" aria-hidden="true"></span>Verifying your email…</p>
+        </div>
+        <div class="ds-example__caption"><span><code>.inline-status</code> with <code>.spinner--sm</code> (16px) beside small text, default (20px) beside body text.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;p class="inline-status" role="status"&gt;&lt;span class="spinner spinner--sm" aria-hidden="true"&gt;&lt;/span&gt;Looking up M1B 2K3…&lt;/p&gt;</code></pre></details>
+      </div>
+
+      <h3>In a button (not a <code>.spinner</code>)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <button class="btn btn--primary" type="button" aria-busy="true" aria-disabled="true">Send enquiry</button>
+          <button class="btn" type="button" aria-busy="true" aria-disabled="true">Resend verification email</button>
+        </div>
+        <div class="ds-example__caption"><span>The button draws its own spinner in the label colour and keeps its label for screen readers. Never put a <code>.spinner</code> element inside a button.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>Match the spinner to the text or space beside it.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <span class="inline-status" role="status"><span class="spinner spinner--sm" aria-hidden="true"></span>Small · 16px</span>
+          <span class="inline-status" role="status"><span class="spinner" aria-hidden="true"></span>Medium · 20px</span>
+          <span class="inline-status" role="status"><span class="spinner spinner--lg" aria-hidden="true"></span>Large · 40px</span>
+        </div>
+        <div class="ds-example__caption"><span>Small (<code>--icon-size-sm</code>) beside <code>--text-body-sm</code>; medium (<code>--icon-size-md</code>) beside body text; large (<code>--space-10</code>, 3px ring) inside photo placeholders and empty regions.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>A spinner has no interactive states: it is either present (working) or removed (done). The matrix shows each size on each surface it appears on; with no real attribute to set, the "state" is the context.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Spinner sizes by surface</caption>
+        <thead><tr><th scope="col">Size</th><th scope="col">Canvas</th><th scope="col">Surface</th><th scope="col">Sunken well</th><th scope="col">Subtle (hover row)</th><th scope="col">Photo placeholder</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Small</th>
+            <td><div class="ds-example__canvas ds-example__canvas--canvas" style="padding: var(--space-3);"><span class="spinner spinner--sm" aria-hidden="true"></span></div></td>
+            <td><div class="ds-example__canvas" style="padding: var(--space-3); background: var(--color-bg-surface);"><span class="spinner spinner--sm" aria-hidden="true"></span></div></td>
+            <td><div class="ds-example__canvas" style="padding: var(--space-3); background: var(--color-bg-surface-sunken);"><span class="spinner spinner--sm" aria-hidden="true"></span></div></td>
+            <td><div class="ds-example__canvas" style="padding: var(--space-3); background: var(--color-bg-subtle);"><span class="spinner spinner--sm" aria-hidden="true"></span></div></td>
+            <td><span class="ds-na">Too small for a photo</span></td>
+          </tr>
+          <tr><th scope="row">Medium</th>
+            <td><div class="ds-example__canvas ds-example__canvas--canvas" style="padding: var(--space-3);"><span class="spinner" aria-hidden="true"></span></div></td>
+            <td><div class="ds-example__canvas" style="padding: var(--space-3); background: var(--color-bg-surface);"><span class="spinner" aria-hidden="true"></span></div></td>
+            <td><div class="ds-example__canvas" style="padding: var(--space-3); background: var(--color-bg-surface-sunken);"><span class="spinner" aria-hidden="true"></span></div></td>
+            <td><div class="ds-example__canvas" style="padding: var(--space-3); background: var(--color-bg-subtle);"><span class="spinner" aria-hidden="true"></span></div></td>
+            <td><span class="photo photo--placeholder photo--sm"><span class="spinner" aria-hidden="true"></span></span></td>
+          </tr>
+          <tr><th scope="row">Large</th>
+            <td><div class="ds-example__canvas ds-example__canvas--canvas" style="padding: var(--space-3);"><span class="spinner spinner--lg" aria-hidden="true"></span></div></td>
+            <td><div class="ds-example__canvas" style="padding: var(--space-3); background: var(--color-bg-surface);"><span class="spinner spinner--lg" aria-hidden="true"></span></div></td>
+            <td><div class="ds-example__canvas" style="padding: var(--space-3); background: var(--color-bg-surface-sunken);"><span class="spinner spinner--lg" aria-hidden="true"></span></div></td>
+            <td><div class="ds-example__canvas" style="padding: var(--space-3); background: var(--color-bg-subtle);"><span class="spinner spinner--lg" aria-hidden="true"></span></div></td>
+            <td><span class="photo photo--placeholder photo--md"><span class="spinner spinner--lg" aria-hidden="true"></span></span></td>
+          </tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas" style="padding: 0;"><span class="spinner spinner--sm" aria-hidden="true"></span><span class="spinner" aria-hidden="true"></span><span class="spinner spinner--lg" aria-hidden="true"></span><span class="photo photo--placeholder photo--md"><span class="spinner spinner--lg" aria-hidden="true"></span></span></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas" style="padding: 0;"><span class="spinner spinner--sm" aria-hidden="true"></span><span class="spinner" aria-hidden="true"></span><span class="spinner spinner--lg" aria-hidden="true"></span><span class="photo photo--placeholder photo--md"><span class="spinner spinner--lg" aria-hidden="true"></span></span></div></div>
+      </div>
+      <ul>
+        <li><b>Delayed</b>: render nothing for the first 300ms, then the spinner. If the wait ends between 300ms and 600ms, keep it for the remainder of 600ms so it never flickers.</li>
+        <li><b>Done</b>: remove the spinner and its status text together; the arriving content announces itself (the photo's caption, the area name).</li>
+        <li><b>Taking long</b>: after 10 seconds, replace the spinner with words and a way out ("Still loading. Try again"), using an <a href="empty-state.html">empty state</a> in error tone if it fails.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Size never changes by breakpoint; a 20px ring reads the same on a phone and a 1440px screen.</li>
+        <li>Standalone spinners centre in the box the content will occupy (the round viewer photo is full width on xs, the lead photo size from 48rem), so the layout does not move when the content arrives.</li>
+        <li>Inline spinners stay on the first line of their text and do not wrap away from it (<code>flex: none</code>).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The ring reads <code>--color-border-default</code>; the arc reads <code>--color-fg-default</code>. In dark both flip with the theme: a pale arc on a dark-stone track. There are no component tokens. On the inverse surface (inside a toast, should one ever need it) give the parent <code>color</code> and override the arc with <code>border-top-color: currentColor</code>; the button already does this for its busy state.</p>
+      <p>The mock kit drew the arc in pepper red; it is ink now, because a red arc read as an error or a selected item on screens where pepper already marks the current filter.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>The ring is <code>aria-hidden="true"</code>. The words live in a <code>role="status"</code> element (polite live region, WCAG 4.1.3) that exists before the text is inserted. The region being loaded gets <code>aria-busy="true"</code> until it is ready. There is no APG pattern for spinners; this follows the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/alert/">live region guidance of the APG</a> and <a href="https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html">Understanding 4.1.3 Status Messages</a>.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Skips the spinner; it is never focusable. Controls around it (Previous photo, Close photo viewer) stay operable while it turns.</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>A spinner never takes or moves focus. When the content arrives, focus stays where the person left it (on Next photo, for example).</p>
+      <h3>Labelling</h3>
+      <p>Say what is loading, not that something is: "Loading photo 3 of 6", "Looking up M1B 2K3…". The words are visually hidden for a standalone spinner and visible for an inline one; never both.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Arc on canvas</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Arc on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Arc on sunken well</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-sunken" data-min="3"></span></div>
+        <div class="ds-pair"><span>Inline status text on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+      </div>
+      <p>The arc is a graphical object that conveys "working", so it needs 3:1 against the surface (WCAG 1.4.11); the track is decorative. The arc on the photo placeholder background (<code>--color-bg-photo</code>) is not yet a checked pair and is listed for addition.</p>
+      <h3>Motion</h3>
+      <p>The spinner keeps turning under <code>prefers-reduced-motion</code>. It is not decoration: a still ring would read as frozen, and the turn is slow, linear, small and stops as soon as the content arrives (WCAG 2.3.3 covers motion triggered by interaction; this is a status indicator). Loop durations are deliberately not zeroed in <code>tokens.css</code>. Skeleton shimmer and the indeterminate progress sweep, which are decorative, do stop.</p>
+      <h3>Touch</h3>
+      <p>Nothing to touch, and nothing under the spinner is blocked: it never sits on top of a control.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Name the thing: "Loading photo 3 of 6", "Looking up M1B 2K3…", "Verifying your email…". Not "Loading…" or "Please wait".</li>
+        <li>Present participle plus an ellipsis character (…) for visible text; no exclamation marks.</li>
+        <li>No time estimates unless they are real; if a wait passes 10 seconds, say so and offer a way out.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><p class="inline-status" role="status"><span class="spinner spinner--sm" aria-hidden="true"></span>Looking up M1B 2K3…</p></div><figcaption>Hide the ring; say what is happening in a status region.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="spinner" role="img" aria-label="Loading"></span></div><figcaption>Don't label the ring itself as an image (the viewer mock did); "Loading" in an <code>img</code> role is not announced as status.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas" style="flex-direction: column; align-items: center;"><span class="skeleton skeleton--circle" style="width: 6rem; height: 6rem;"></span><span class="skeleton skeleton--text" style="width: 8rem;"></span></div><figcaption>A list of caterers loads as skeleton circles in the final grid.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas" style="justify-content: center;"><span class="spinner spinner--lg" aria-hidden="true"></span></div><figcaption>Don't put one big spinner where a page of cards will appear; everything jumps when it ends.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Arc</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Track</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Placeholder behind (viewer)</td><td><code>--color-bg-photo</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-photo" data-swatch></i><span data-token="--color-bg-photo"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-photo" data-swatch></i><span data-token="--color-bg-photo"></span></span></td></tr>
+          <tr><td>Size sm / md / lg</td><td><code>--icon-size-sm</code> / <code>--icon-size-md</code> / <code>--space-10</code></td><td colspan="2"><span data-token="--icon-size-sm"></span> / <span data-token="--icon-size-md"></span> / <span data-token="--space-10"></span></td></tr>
+          <tr><td>Ring width</td><td><code>--border-width-thick</code> (3px at large)</td><td colspan="2"><span data-token="--border-width-thick"></span></td></tr>
+          <tr><td>One revolution</td><td><code>--duration-loop-fast</code>, linear</td><td colspan="2"><span data-token="--duration-loop-fast"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="viewer__stage" aria-busy="true"&gt;
+  &lt;span class="photo photo--placeholder" role="status"&gt;
+    &lt;span class="spinner spinner--lg" aria-hidden="true"&gt;&lt;/span&gt;
+    &lt;span class="visually-hidden"&gt;Loading photo 3 of 6&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.spinner</code></td><td>20px ring, ink arc, 800ms linear turn.</td></tr>
+        <tr><td><code>.spinner--sm</code> <code>.spinner--lg</code></td><td>16px / 40px with a 3px ring.</td></tr>
+        <tr><td><code>aria-hidden="true"</code></td><td>Required on the ring.</td></tr>
+        <tr><td><code>role="status"</code> + text (or <code>.visually-hidden</code> text)</td><td>Required wrapper; announces what is loading.</td></tr>
+        <tr><td><code>aria-busy="true"</code></td><td>On the region being loaded; remove when done.</td></tr>
+        <tr><td><code>.inline-status</code></td><td>Row of spinner plus small muted text.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/dialogs/photo-viewer/busy.html">dialogs/photo-viewer/busy</a> (large spinner in the round placeholder, 300ms delay)</li>
+        <li><a href="../../mocks/dialogs/enquiry/busy.html">dialogs/enquiry/busy</a> and <a href="../../mocks/pages/profile-certificate/saving.html">pages/profile-certificate/saving</a> (button busy spinner)</li>
+        <li><a href="../../mocks/pages/verify-email/loading.html">pages/verify-email/loading</a> ("Verifying your email…" status text)</li>
+      </ul>
+      <p>Drift fixed during extraction: the mock kit drew the arc in pepper red (<code>--color-accent</code>); it is ink (<code>--color-fg-default</code>). The viewer mock labelled the placeholder <code>role="img" aria-label="Loading photo 3 of 6"</code>; the system uses <code>role="status"</code> with visually hidden text. The kit had no small size and used literal durations (0.8s); <code>.spinner--sm</code> and <code>--duration-loop-fast</code> replace them. No mock shows an inline spinner with text; the inline variant is documented from the kit's <code>.inline-status</code>.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

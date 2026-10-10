@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Timeline — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand timelines: status history, plain history and next steps, with time stamps, actors and reasons, states, accessibility and both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Data display</p>
+      <h1>Timeline</h1>
+      <p class="ds-lead">A timeline lists what happened to a record, in order: submitted, changes requested, published, suspended. Operators read it on every caterer record and in every decision dialog; caterers see one after they submit, as the steps still to come.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;ol&gt;</code></span><span class="ds-pill"><code>.timeline</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A timeline is an ordered list with a 2px rule down its left edge. Each entry is a time stamp, what happened and, where it matters, who did it and why. It never has dots, icons or colour: the order and the words are the information.</p>
+      <ul>
+        <li><b>Status history</b>: on <code>pages/admin-caterer</code> and in the suspend, remove, reinstate, approve and request-changes dialogs, newest first, so the operator sees the latest decision and its reason before acting again.</li>
+        <li><b>History</b>: a short record of events in sentence form, such as a name change request ("Name change requested by Kendra Baptiste").</li>
+        <li><b>Next steps</b>: after a caterer submits their profile, what happens now, then within 3 business days, then on approval. Forward order, no time stamps.</li>
+      </ul>
+      <p>Use the <a href="table.html">audit log table</a> when operators need to filter and compare many events across caterers (operator, action, target, reason, before → after). Use <a href="message.html">message thread</a> for conversations, and <a href="description-list.html">description list</a> for a record's current values.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="padding: var(--space-8) var(--space-4); place-items: stretch;">
+          <ol class="timeline">
+            <li><time class="timeline__when" datetime="2025-03-10T14:40">Mon 10 Mar 2025, 2:40 p.m.</time><span><strong>Changes requested</strong> · Leah Mohammed</span><span class="text-muted text-sm">“Photo 4 is blurry. Please replace it with a sharper one.”</span></li>
+          </ol>
+          <span class="ds-callout" style="left: 2%; top: 46%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 60%; top: 26%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 56%; top: 46%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 80%; top: 70%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Rule</b><small>The list's left border: <code>--border-width-thick</code> in <code>--color-border-default</code>, with <code>--space-4</code> padding to the text.</small></div></li>
+          <li><div><b>When</b><small><code>.timeline__when</code> on a <code>&lt;time datetime&gt;</code>: caption size, <code>--color-fg-subtle</code>, Toronto time.</small></div></li>
+          <li><div><b>Event · actor</b><small>The event in <code>&lt;strong&gt;</code> (a status word where there is one), a middot, then the person.</small></div></li>
+          <li><div><b>Reason (optional)</b><small><code>.text-muted.text-sm</code>: the operator's reason in curly quotes, or a short note ("Approved", "Resubmitted").</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Status history (operator record)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ol class="timeline">
+            <li><time class="timeline__when" datetime="2025-03-14T11:20">Fri 14 Mar 2025, 11:20 a.m.</time><span><strong>Published</strong> · Tomas Reyes</span><span class="text-muted text-sm">Approved</span></li>
+            <li><time class="timeline__when" datetime="2025-03-12T20:05">Wed 12 Mar 2025, 8:05 p.m.</time><span><strong>Pending review</strong> · Kendra Baptiste</span><span class="text-muted text-sm">Resubmitted</span></li>
+            <li><time class="timeline__when" datetime="2025-03-10T14:40">Mon 10 Mar 2025, 2:40 p.m.</time><span><strong>Changes requested</strong> · Leah Mohammed</span><span class="text-muted text-sm">“Photo 4 is blurry. Please replace it with a sharper one.”</span></li>
+            <li><time class="timeline__when" datetime="2025-03-08T09:12">Sat 8 Mar 2025, 9:12 a.m.</time><span><strong>Pending review</strong> · Kendra Baptiste</span><span class="text-muted text-sm">Submitted</span></li>
+            <li><time class="timeline__when" datetime="2025-03-04T19:30">Tue 4 Mar 2025, 7:30 p.m.</time><span><strong>Draft</strong> · Kendra Baptiste</span><span class="text-muted text-sm">Account created</span></li>
+          </ol>
+          <p class="text-caption">History entries can’t be edited.</p>
+        </div>
+        <div class="ds-example__caption"><span>Pelau House in <code>pages/admin-caterer/default</code>, newest first, under a "Status history" heading with an "Audit log" link.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;ol class="timeline" aria-label="Status history, newest first"&gt;
+  &lt;li&gt;&lt;time class="timeline__when" datetime="2025-03-14T11:20"&gt;Fri 14 Mar 2025, 11:20 a.m.&lt;/time&gt;
+      &lt;span&gt;&lt;strong&gt;Published&lt;/strong&gt; · Tomas Reyes&lt;/span&gt;
+      &lt;span class="text-muted text-sm"&gt;Approved&lt;/span&gt;&lt;/li&gt;
+  …
+&lt;/ol&gt;</code></pre></details>
+      </div>
+      <h3>History (sentence form)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ol class="timeline">
+            <li><time class="timeline__when" datetime="2026-10-09T18:20">Fri 9 Oct, 6:20 p.m.</time><span>Name change requested by Kendra Baptiste</span></li>
+            <li><time class="timeline__when" datetime="2026-04-14T11:02">Tue 14 Apr, 11:02 a.m.</time><span>Published by Leah Mohammed</span></li>
+          </ol>
+        </div>
+        <div class="ds-example__caption"><span><code>pages/admin-profile-review/name-change</code>. Dates in 2026 drop the year.</span></div>
+      </div>
+      <h3>Next steps (forward)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ol class="timeline">
+            <li><strong>Now</strong><span class="text-muted">Your profile is read-only while we look at it.</span></li>
+            <li><strong>Within 3 business days</strong><span class="text-muted">We email beverley@auntiebevs.example with the result.</span></li>
+            <li><strong>Approved</strong><span class="text-muted">Auntie Bev’s Kitchen appears in the listing within a minute.</span></li>
+          </ol>
+        </div>
+        <div class="ds-example__caption"><span>The success state of <code>dialogs/submit-profile</code>: oldest to newest, because it describes the future.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="Timelines have one size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Timelines have one size: caption time stamps, body text events and small reasons, <code>--space-4</code> between entries. In dialogs they keep the same size; the dialog scrolls.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Timelines are read-only and not interactive: no hover, focus or disabled. Their states are about the data.</p>
+      <div class="ds-matrix" style="position: relative;"><table>
+        <caption class="visually-hidden">Timeline data states</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Long reason</th><th scope="col">One entry</th><th scope="col">Loading</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Status history</th>
+            <td><ol class="timeline" style="width: 16rem;"><li><time class="timeline__when" datetime="2026-10-09T16:30">Fri 9 Oct, 4:30 p.m.</time><span><strong>Suspended</strong> · Leah Mohammed</span><span class="text-muted text-sm">Food handler certificate expired on 30 Sep 2026</span></li></ol></td>
+            <td><ol class="timeline" style="width: 16rem;"><li><time class="timeline__when" datetime="2026-10-10T10:48">Sat 10 Oct, 10:48 a.m.</time><span><strong>Removed</strong> · Leah Mohammed</span><span class="text-muted text-sm">“Repeated stock photos after two warnings; owner confirmed the business has closed.”</span></li></ol></td>
+            <td><ol class="timeline" style="width: 16rem;"><li><time class="timeline__when" datetime="2026-09-28T20:47">Mon 28 Sep, 8:47 p.m.</time><span><strong>Draft</strong> · Beverley Campbell</span><span class="text-muted text-sm">Account created</span></li></ol></td>
+            <td><div class="timeline" style="width: 16rem;" aria-hidden="true"><span class="skeleton skeleton--text" style="width: 8rem;"></span><span class="skeleton skeleton--text" style="width: 12rem;"></span><span class="skeleton skeleton--text" style="width: 8rem;"></span><span class="skeleton skeleton--text" style="width: 10rem;"></span></div></td></tr>
+          <tr><th scope="row">Next steps</th>
+            <td><ol class="timeline" style="width: 16rem;"><li><strong>Now</strong><span class="text-muted">Your profile is read-only while we look at it.</span></li></ol></td>
+            <td><span class="ds-na">Keep steps to one line</span></td>
+            <td><span class="ds-na">Use a sentence instead</span></td>
+            <td><span class="ds-na">Static copy</span></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><ol class="timeline"><li><time class="timeline__when" datetime="2025-03-14T11:20">Fri 14 Mar 2025, 11:20 a.m.</time><span><strong>Published</strong> · Tomas Reyes</span><span class="text-muted text-sm">Approved</span></li><li><time class="timeline__when" datetime="2025-03-10T14:40">Mon 10 Mar 2025, 2:40 p.m.</time><span><strong>Changes requested</strong> · Leah Mohammed</span><span class="text-muted text-sm">“Photo 4 is blurry.”</span></li></ol></div>
+        <div data-theme="dark"><ol class="timeline"><li><time class="timeline__when" datetime="2025-03-14T11:20">Fri 14 Mar 2025, 11:20 a.m.</time><span><strong>Published</strong> · Tomas Reyes</span><span class="text-muted text-sm">Approved</span></li><li><time class="timeline__when" datetime="2025-03-10T14:40">Mon 10 Mar 2025, 2:40 p.m.</time><span><strong>Changes requested</strong> · Leah Mohammed</span><span class="text-muted text-sm">“Photo 4 is blurry.”</span></li></ol></div>
+      </div>
+      <ul>
+        <li><b>Long</b> histories show the latest 10 entries and end with the "Audit log" link in the section head; the timeline itself never paginates.</li>
+        <li><b>Read-only</b>: entries can't be edited or deleted; say so once under the list ("History entries can’t be edited").</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>The timeline is one column at every width; entries are stacked (when, event, reason), so nothing has to fit side by side at 320px.</li>
+        <li>Long reasons wrap under the event; the rule runs the full height of the list.</li>
+        <li>In dialogs that fill the screen below 48rem the timeline scrolls with the dialog body; from 48rem it keeps the dialog's measure.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Reads <code>--color-border-default</code> (rule), <code>--color-fg-subtle</code> (time), <code>--color-fg-default</code> (event) and <code>--color-fg-muted</code> (reason). No component tokens. In dark the rule is stone-750 and the time stone-400. Don't tint entries by status; if the status matters visually, the status history's event word is already the status, in bold.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>An <code>&lt;ol&gt;</code> — the order is the meaning — with one <code>&lt;li&gt;</code> per event and a <code>&lt;time datetime&gt;</code> for the stamp. Screen readers announce "list, 5 items". Put the order in the heading or an <code>aria-label</code> ("Status history, newest first") because newest-first contradicts the numbering a screen reader may read.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Never stops in the timeline; the "Audit log" link in the section head is the next stop.</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>None.</p>
+      <h3>Labelling</h3>
+      <p>Each entry is self-contained: time, event, actor, reason. Don't rely on position ("the one above") or on the rule. Reasons are quoted exactly as the operator wrote them, because the caterer received the same words by email.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Time stamp on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Time stamp in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Event</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Reason</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Reason in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+      </div>
+      <p>The rule is decorative (order is in the list semantics and the time stamps), so it needs no 3:1.</p>
+      <h3>Motion</h3>
+      <p>None.</p>
+      <h3>Touch</h3>
+      <p>Not a target.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Time stamps: "Fri 14 Mar 2025, 11:20 a.m." — weekday, day, short month, the year only when it isn't 2026, a comma, then the time with "a.m."/"p.m.". Toronto time.</li>
+        <li>Status history: the status word in bold (the same words as the <a href="status.html">status label</a>: Published, Pending review, Changes requested, Suspended, Removed, Draft), a middot, the person's full name. Then the reason: quoted if an operator wrote it, a short past-tense note otherwise ("Approved", "Resubmitted", "Submitted", "Account created").</li>
+        <li>Sentence-form history: "Name change requested by Kendra Baptiste", "Published by Leah Mohammed". Pick one form per timeline; don't mix.</li>
+        <li>Next steps: a short time phrase in bold ("Now", "Within 3 business days") and one sentence each.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><ol class="timeline"><li><time class="timeline__when" datetime="2026-09-28T10:00">Mon 28 Sep, 10:00 a.m.</time><span><strong>Removed</strong> · Leah Mohammed</span><span class="text-muted text-sm">“Repeated food safety concerns from customers, confirmed by our team.”</span></li></ol></div><figcaption>Event, actor and the exact reason the caterer was sent.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><ol class="timeline"><li><span class="timeline__when">28/09/26</span><span class="status status--removed">Removed</span></li></ol></div><figcaption>No numeric dates, no missing actor or reason, and no status pill standing in for the event.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><ol class="timeline"><li><time class="timeline__when" datetime="2026-10-09T18:20">Fri 9 Oct, 6:20 p.m.</time><span><strong>Name change requested</strong> · Kendra Baptiste</span></li><li><time class="timeline__when" datetime="2026-04-14T11:02">Tue 14 Apr, 11:02 a.m.</time><span><strong>Published</strong> · Leah Mohammed</span></li></ol></div><figcaption>One pattern for every entry in the list.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><ol class="timeline"><li><span>Name change requested by Kendra Baptiste</span></li><li><span><strong>Published</strong> · Leah Mohammed</span></li></ol></div><figcaption>Don't mix sentence and "event · actor" forms, or drop the time.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Rule</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Time stamp</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Event</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Reason</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Rule width</td><td><code>--border-width-thick</code></td><td colspan="2"><span data-token="--border-width-thick"></span></td></tr>
+          <tr><td>Indent / entry gap / line gap</td><td><code>--space-4</code>, <code>--space-4</code>, <code>--space-0-5</code></td><td colspan="2"><span data-token="--space-4"></span> · <span data-token="--space-0-5"></span></td></tr>
+          <tr><td>Time / reason font</td><td><code>--text-caption</code>, <code>--text-body-sm</code></td><td colspan="2"><span data-token="--font-size-xs"></span> · <span data-token="--font-size-sm"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;section aria-labelledby="hist-title"&gt;
+  &lt;div class="caterer-section__head"&gt;&lt;h2 id="hist-title"&gt;Status history&lt;/h2&gt;&lt;a href="/operator/audit?caterer=pelau-house"&gt;Audit log&lt;/a&gt;&lt;/div&gt;
+  &lt;ol class="timeline" aria-label="Status history, newest first"&gt;
+    &lt;li&gt;&lt;time class="timeline__when" datetime="2025-03-14T11:20"&gt;Fri 14 Mar 2025, 11:20 a.m.&lt;/time&gt;
+        &lt;span&gt;&lt;strong&gt;Published&lt;/strong&gt; · Tomas Reyes&lt;/span&gt;&lt;span class="text-muted text-sm"&gt;Approved&lt;/span&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/section&gt;</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / element</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.timeline</code></td><td>The <code>&lt;ol&gt;</code>: no numbers, left rule, stacked entries.</td></tr>
+        <tr><td><code>.timeline li</code></td><td>One entry: column of time, event, reason.</td></tr>
+        <tr><td><code>.timeline__when</code></td><td>Caption-size time stamp; put it on a <code>&lt;time datetime&gt;</code>.</td></tr>
+        <tr><td><code>&lt;strong&gt;</code> / <code>.text-muted.text-sm</code></td><td>Event word / reason.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <ul>
+        <li><a href="../../mocks/pages/admin-caterer/default.html">pages/admin-caterer/default</a>, <a href="../../mocks/pages/admin-caterer/removed.html">removed</a> and <a href="../../mocks/pages/admin-caterer/suspended.html">suspended</a> (status history)</li>
+        <li><a href="../../mocks/pages/admin-profile-review/name-change.html">pages/admin-profile-review/name-change</a> and <a href="../../mocks/pages/admin-profile-review/default.html">default</a> (sentence-form history)</li>
+        <li><a href="../../mocks/dialogs/suspend-caterer/default.html">dialogs/suspend-caterer/default</a> (history inside a decision dialog)</li>
+        <li><a href="../../mocks/dialogs/submit-profile/success.html">dialogs/submit-profile/success</a> (next steps)</li>
+        <li><a href="../../mocks/pages/admin-audit/default.html">pages/admin-audit/default</a> (the audit table the history links to)</li>
+      </ul>
+      <p>Drift fixed during extraction: time stamps were plain <code>&lt;span&gt;</code>s while the audit log used <code>&lt;time datetime&gt;</code>; the system uses <code>&lt;time&gt;</code> everywhere. Operator records used "<b>Status</b> · person" but profile-review history used sentences ("Published by Leah Mohammed"); the system recommends the first for status history and one form per list. Newest-first lists didn't say so to screen readers.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

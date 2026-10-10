@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Link — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand links: inline, standalone, external, the back link (eyebrow), links in alerts, summaries and the footer; visited behaviour, states and both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Actions</p>
+      <h1>Link</h1>
+      <p class="ds-lead">Links take people somewhere: to a caterer, the privacy notice, a field with an error. They are ink and underlined, and turn pepper on hover.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;a href&gt;</code></span><span class="ds-pill"><code>.link--standalone</code></span><span class="ds-pill"><code>.eyebrow</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use a link when activating it only goes somewhere: another page, a place on this page, an email address. If it changes something (sends, saves, removes, opens a dialog), use a <a href="button.html">button</a>, even if it should look like a link (<code>.btn--link</code>, as in "Clear filters"). A link can look like a button ("Browse caterers" on the 404 page uses <code>.btn</code> on an <code>&lt;a&gt;</code>), but it stays a link.</p>
+      <ul>
+        <li><b>Inline</b> (bare <code>&lt;a&gt;</code>) sits in a sentence: "I agree to the <a href="../../mocks/pages/privacy/default.html">privacy notice</a>". Ink, underlined, pepper on hover.</li>
+        <li><b>Standalone</b> (<code>.link--standalone</code>) stands on its own line or beside a heading: "All enquiries", "Forgot your password?", "View caterer". Label weight, 44px tall, an optional icon.</li>
+        <li><b>External</b> (<code>.link--external</code>) leaves Sweet Hand, such as the privacy notice's pointer to the Office of the Privacy Commissioner of Canada. It shows a small arrow and says so to screen readers.</li>
+        <li><b>Back link</b> (<code>.eyebrow</code>) is the quiet chevron link above a page title: "Caterers" on a caterer page, "Review queue" on an operator record, "Dashboard" on a setup screen.</li>
+        <li><b>In context</b>: links inside an <a href="alert.html">alert</a>, the error summary and the <a href="footer.html">footer</a> inherit that container's colour; the underline and wording do the work.</li>
+      </ul>
+      <p>For a list of places to go, use the <a href="side-nav.html">side navigation</a>, the <a href="filter-list.html">filter list</a> or the <a href="site-header.html">site header</a>; their links have their own current-page styles.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <p style="max-width: 22rem;">If you aren’t satisfied with our answer, contact the <a class="link--standalone link--external" href="https://www.priv.gc.ca/">Office of the Privacy Commissioner of Canada<span class="visually-hidden"> (another website)</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8M17 14v5H5V7h5"/></svg></a></p>
+          <span class="ds-callout" style="left: 24%; top: 82%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 48%; top: 80%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 80%; top: 50%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 10%; top: 50%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Label</b><small>Says where it goes. <code>--color-fg-link</code> (ink); <code>--text-label</code> when standalone, the surrounding text style when inline.</small></div></li>
+          <li><div><b>Underline</b><small>1px (<code>--border-width-hairline</code>) at 0.15em offset; thickens to 2px on hover. Always present on inline links.</small></div></li>
+          <li><div><b>Icon (optional)</b><small>Chevron for back links, arrow for external links; 0.9em on external, <code>.icon--sm</code> on back links; <code>aria-hidden</code>.</small></div></li>
+          <li><div><b>Target</b><small>Standalone and back links are inline-flex boxes at least 44px tall (<code>--target-comfortable</code>). Inline links take the line height and are exempt from target size.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Inline</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p>Privacy notice version 1.0, accepted Thu 1 Oct. <a href="../../mocks/pages/privacy/default.html">Read the privacy notice</a></p>
+          <p>Email <a href="mailto:hello@sweethand.example">hello@sweethand.example</a>. For privacy questions, see the <a href="../../mocks/pages/privacy/default.html">privacy notice</a>.</p>
+        </div>
+        <div class="ds-example__caption"><span>Ink with a hairline underline; email addresses are their own link text.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;p&gt;Email &lt;a href="mailto:hello@sweethand.example"&gt;hello@sweethand.example&lt;/a&gt;.
+For privacy questions, see the &lt;a href="/privacy"&gt;privacy notice&lt;/a&gt;.&lt;/p&gt;</code></pre></details>
+      </div>
+      <h3>Standalone</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <a class="link--standalone" href="../../mocks/pages/dashboard-enquiries/default.html">All enquiries<svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a>
+          <a class="link--standalone" href="../../mocks/pages/forgot-password/default.html">Forgot your password?</a>
+          <a class="link--standalone" href="../../mocks/pages/caterer/default.html">View caterer</a>
+        </div>
+        <div class="ds-example__caption"><span>A section-head link ("Latest enquiries · All enquiries"), the sign-in recovery link, and the thread's link to the caterer page.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="caterer-section__head"&gt;
+  &lt;h2&gt;Latest enquiries&lt;/h2&gt;
+  &lt;a class="link--standalone" href="/dashboard/enquiries"&gt;All enquiries&lt;svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;&lt;/a&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>External</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <a class="link--standalone link--external" href="https://www.priv.gc.ca/">Office of the Privacy Commissioner of Canada<span class="visually-hidden"> (another website)</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8M17 14v5H5V7h5"/></svg></a>
+        </div>
+        <div class="ds-example__caption"><span>Opens in the same tab. The arrow and the hidden "(another website)" say Sweet Hand is being left.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;a class="link--standalone link--external" href="https://www.priv.gc.ca/"&gt;
+  Office of the Privacy Commissioner of Canada&lt;span class="visually-hidden"&gt; (another website)&lt;/span&gt;
+  &lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;&lt;path d="M14 5h5v5M19 5l-8 8M17 14v5H5V7h5"/&gt;&lt;/svg&gt;
+&lt;/a&gt;</code></pre></details>
+      </div>
+      <h3>Back link (eyebrow)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <a class="eyebrow" href="../../mocks/pages/caterers/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Caterers</a>
+          <a class="eyebrow" href="../../mocks/pages/admin-queue/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Review queue</a>
+          <a class="eyebrow" href="../../mocks/pages/inbox/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Inbox</a>
+        </div>
+        <div class="ds-example__caption"><span>Muted small text with a left chevron, named for the destination. On dashboard and inbox pages it carries <code>.until-lg</code>, because from 62rem the side nav or list is on screen.</span></div>
+      </div>
+      <h3>In alerts, the error summary and the footer</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="alert alert--warning" role="status"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg><div class="alert__body"><p><strong>Changes requested:</strong> “Photos 2 and 5 look like stock images. Please upload photos of your own food.”</p><span class="alert__actions"><a href="../../mocks/pages/profile-photos/default.html">Go to photos</a></span></div></div>
+          <div class="form-summary"><p class="alert__title">Fix 2 things so we can save</p><ul><li><a href="#overview">Enter a business name of 2 to 80 characters</a></li><li><a href="#overview">Write at least 50 characters (35 so far)</a></li></ul></div>
+          <div class="site-footer" style="margin: 0; padding: 0;"><ul><li><a href="../../mocks/pages/about/default.html">About</a></li><li><a href="../../mocks/pages/register-caterer/default.html">Cater with us</a></li><li><a href="../../mocks/pages/privacy/default.html">Privacy</a></li><li><a href="../../mocks/pages/terms/default.html">Terms</a></li></ul></div>
+        </div>
+        <div class="ds-example__caption"><span>Alert and summary links inherit the tone's text colour and keep the underline. Footer links are muted with no underline, because the footer nav identifies them; they underline on hover.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>Inline links take the size of their text: <code>--text-body</code> in forms, <code>--text-prose</code> (18px) on the about, privacy and terms pages, <code>--text-body-sm</code> in help and status lines. Standalone links use <code>--text-label</code> at <code>--font-size-md</code>. Back links use <code>--text-body-sm</code>. Every standalone and back link is at least 44px tall, whatever its text size.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p class="text-sm">Signed in as leah.mohammed@sweethand.example · <a href="../../mocks/pages/sign-in/default.html">Not you?</a></p>
+          <p>Shown on your listing card. <a href="../../mocks/pages/privacy/default.html">How we use your area</a></p>
+          <div class="prose"><p>Write to <a href="mailto:privacy@sweethand.example">privacy@sweethand.example</a>.</p></div>
+        </div>
+        <div class="ds-example__caption"><span>14px status line, 16px body, 18px prose: the link follows its sentence.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover and focus are forced with <code>data-state</code>; real pages get them from <code>:hover</code> and <code>:focus-visible</code>.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Link states by variant</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Visited</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Inline</th><td><a href="../../mocks/pages/privacy/default.html">privacy notice</a></td><td><a href="../../mocks/pages/privacy/default.html" data-state="hover">privacy notice</a></td><td><a href="../../mocks/pages/privacy/default.html" data-state="focus">privacy notice</a></td><td><a href="../../mocks/pages/privacy/default.html" data-state="visited">privacy notice</a></td></tr>
+          <tr><th scope="row">Standalone</th><td><a class="link--standalone" href="../../mocks/pages/forgot-password/default.html">Forgot your password?</a></td><td><a class="link--standalone" href="../../mocks/pages/forgot-password/default.html" data-state="hover">Forgot your password?</a></td><td><a class="link--standalone" href="../../mocks/pages/forgot-password/default.html" data-state="focus">Forgot your password?</a></td><td><a class="link--standalone" href="../../mocks/pages/forgot-password/default.html" data-state="visited">Forgot your password?</a></td></tr>
+          <tr><th scope="row">External</th><td><a class="link--standalone link--external" href="https://www.priv.gc.ca/">Privacy Commissioner<span class="visually-hidden"> (another website)</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8M17 14v5H5V7h5"/></svg></a></td><td><a class="link--standalone link--external" href="https://www.priv.gc.ca/" data-state="hover">Privacy Commissioner<span class="visually-hidden"> (another website)</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8M17 14v5H5V7h5"/></svg></a></td><td><a class="link--standalone link--external" href="https://www.priv.gc.ca/" data-state="focus">Privacy Commissioner<span class="visually-hidden"> (another website)</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8M17 14v5H5V7h5"/></svg></a></td><td><a class="link--standalone link--external" href="https://www.priv.gc.ca/" data-state="visited">Privacy Commissioner<span class="visually-hidden"> (another website)</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8M17 14v5H5V7h5"/></svg></a></td></tr>
+          <tr><th scope="row">Back link</th><td><a class="eyebrow" href="../../mocks/pages/caterers/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Caterers</a></td><td><a class="eyebrow" href="../../mocks/pages/caterers/default.html" data-state="hover"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Caterers</a></td><td><a class="eyebrow" href="../../mocks/pages/caterers/default.html" data-state="focus"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Caterers</a></td><td><a class="eyebrow" href="../../mocks/pages/caterers/default.html" data-state="visited"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Caterers</a></td></tr>
+          <tr><th scope="row">Footer</th><td><span class="site-footer" style="margin: 0; padding: 0;"><a href="../../mocks/pages/terms/default.html">Terms</a></span></td><td><span class="site-footer" style="margin: 0; padding: 0;"><a href="../../mocks/pages/terms/default.html" data-state="hover">Terms</a></span></td><td><span class="site-footer" style="margin: 0; padding: 0;"><a href="../../mocks/pages/terms/default.html" data-state="focus">Terms</a></span></td><td><span class="site-footer" style="margin: 0; padding: 0;"><a href="../../mocks/pages/terms/default.html" data-state="visited">Terms</a></span></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><p>See the <a href="../../mocks/pages/privacy/default.html">privacy notice</a>, or <a href="../../mocks/pages/privacy/default.html" data-state="hover">how we use your area</a>.</p><a class="eyebrow" href="../../mocks/pages/caterers/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Caterers</a><a class="link--standalone" href="../../mocks/pages/dashboard-enquiries/default.html">All enquiries</a></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><p>See the <a href="../../mocks/pages/privacy/default.html">privacy notice</a>, or <a href="../../mocks/pages/privacy/default.html" data-state="hover">how we use your area</a>.</p><a class="eyebrow" href="../../mocks/pages/caterers/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Caterers</a><a class="link--standalone" href="../../mocks/pages/dashboard-enquiries/default.html">All enquiries</a></div></div>
+      </div>
+      <ul>
+        <li><b>Visited</b> is deliberately not styled: links are navigation within a small product, and a purple or faded link would break the ink look. Pages that need "seen" use real state instead: inbox rows show unread with a dot and a hidden "Unread." label.</li>
+        <li><b>Active</b> (pressed) has no separate look; navigation follows immediately. <b>Disabled</b> does not exist: a link that cannot go anywhere is plain text.</li>
+        <li><b>Current page</b>: don't link to the page you are on. Navigation components (<a href="site-header.html">site header</a>, <a href="side-nav.html">side nav</a>) mark theirs with <code>aria-current="page"</code> and their own style.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Inline links wrap with their sentence. Long unbroken strings (email addresses such as kendra@pelauhouse.example in a 320px menu) need <code>overflow-wrap: anywhere</code> on the container, as <code>.account-menu__email</code> already does.</li>
+        <li>Back links with <code>.until-lg</code> show below 62rem only. From LG the side nav (dashboard, operator console) or the list column (inbox) is on screen and gives the same route. Back links without it (caterer page "Caterers", operator record "Review queue") show at every width.</li>
+        <li>Section-head links (<code>.caterer-section__head</code>) wrap under their heading when space runs out, and keep their 44px height.</li>
+        <li>Footer links wrap in rows with <code>--space-6</code> between them, each 44px tall.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Links read <code>--color-fg-link</code> (ink: stone-950 in light, stone-100 in dark) and <code>--color-fg-link-hover</code> (pepper-600, pepper-300 in dark). The underline uses <code>--border-width-hairline</code>, then <code>--border-width-thick</code> on hover. Back links and footer links read <code>--color-fg-muted</code> and go to <code>--color-fg-default</code> on hover. In alerts, the error summary and the footer, <code>color: inherit</code> hands the link its container's tone. Hover keeps that colour and only thickens the underline.</p>
+      <p>Pepper on hover is the one place a link uses the accent. It is momentary, so it never competes with a selected filter. To re-skin, override the two semantic link tokens in a theme; don't add colours to <code>a</code>.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native <code>&lt;a href&gt;</code> (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/link/">APG Link</a>). Never a <code>&lt;span&gt;</code> with a click handler, never an <code>&lt;a&gt;</code> without <code>href</code>. A link that only performs an action is a button.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves to and from the link in DOM order.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Follows the link. Space scrolls the page (it does not activate links).</td></tr>
+        <tr><td>Browser shortcuts</td><td>Open in new tab, copy link address: these work because it is a real link.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The shared 2px pepper ring with a 3px offset and <code>--radius-sm</code> corners. On standalone and back links it wraps the whole 44px box. An error-summary link moves focus to its field (<code>href="#name"</code> with the input's id), so the field's label and error are read next.</p>
+      <h3>Labelling</h3>
+      <p>The link text is the name and makes sense on its own (WCAG 2.4.4): "Read the privacy notice", "Go to photos", "Review the name change". External links add hidden text "(another website)". Sweet Hand does not open new tabs; if one ever must, say "(opens in a new tab)" too. Don't give a link a <code>title</code> or an <code>aria-label</code> that differs from its visible words.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Link on canvas</span><span class="ds-pair__ratio" data-contrast="--color-fg-link|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Link hover on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-link-hover|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Back link and footer link</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Link in a warning banner</span><span class="ds-pair__ratio" data-contrast="--color-warning-fg|--color-warning-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Link in the error summary</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-danger-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on canvas</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+      </div>
+      <p>Inline links are ink like the text around them, so the underline identifies them, not colour (WCAG 1.4.1). Never remove it in running text.</p>
+      <h3>Motion</h3>
+      <p>None at rest; hover changes colour and underline thickness instantly. Smooth scrolling to an in-page target turns off with reduced motion (<code>scroll-behavior: auto</code>).</p>
+      <h3>Touch</h3>
+      <p>Standalone and back links are 44px tall. Inline links in sentences are exempt from WCAG 2.5.8, but don't place two inline links side by side with only a space between them. A link that stands alone in a paragraph ("Forgot your password?") is a standalone link, not an inline one.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Say where it goes, in sentence case: "Read the privacy notice", "Go to photos", "View your page", "Upload a new certificate". Never "Click here", "Learn more" or a bare URL.</li>
+        <li>Error-summary links repeat the field's error exactly: "Enter a business name of 2 to 80 characters".</li>
+        <li>Back links name the destination only, because the chevron already says "back": "Caterers", "Dashboard", "Inbox". Not "Back to inbox".</li>
+        <li>Questions are fine when they are the task: "Forgot your password?", "Not you?".</li>
+        <li>Name external organisations in full the first time: "Office of the Privacy Commissioner of Canada".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><p>Accepted Thu 1 Oct. <a href="../../mocks/pages/privacy/default.html">Read the privacy notice</a></p></div><figcaption>The link text says where it goes.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><p>To read the privacy notice, <a href="../../mocks/pages/privacy/default.html">click here</a>.</p></div><figcaption>"Click here" means nothing in a list of links.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><a class="link--standalone" href="../../mocks/pages/forgot-password/default.html">Forgot your password?</a></div><figcaption>A link on its own line is standalone: a 44px target.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><p class="text-sm"><a href="../../mocks/pages/forgot-password/default.html">Forgot your password?</a></p></div><figcaption>A bare link alone in a paragraph is only as tall as its line (about 21px). The sign-in and dashboard mocks did this.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><a class="eyebrow" href="../../mocks/pages/inbox/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Inbox</a></div><figcaption>The back link names the destination.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><a class="eyebrow" href="../../mocks/pages/inbox/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Back to inbox</a></div><figcaption>"Back to" repeats the chevron (28 mocks; 117 others name the destination only).</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Link</td><td><code>--color-fg-link</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-link" data-swatch></i><span data-token="--color-fg-link"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-link" data-swatch></i><span data-token="--color-fg-link"></span></span></td></tr>
+          <tr><td>Link, hover</td><td><code>--color-fg-link-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-link-hover" data-swatch></i><span data-token="--color-fg-link-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-link-hover" data-swatch></i><span data-token="--color-fg-link-hover"></span></span></td></tr>
+          <tr><td>Back link, footer link</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Back link, hover</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span data-token="--color-focus-ring"></span></td><td><span data-theme="dark" data-token="--color-focus-ring"></span></td></tr>
+          <tr><td>Underline / hover underline</td><td><code>--border-width-hairline</code> / <code>--border-width-thick</code></td><td colspan="2"><span data-token="--border-width-hairline"></span> / <span data-token="--border-width-thick"></span></td></tr>
+          <tr><td>Standalone label</td><td><code>--text-label</code> at <code>--font-size-md</code></td><td colspan="2"><span data-token="--text-label"></span></td></tr>
+          <tr><td>Back link text</td><td><code>--text-body-sm</code></td><td colspan="2"><span data-token="--text-body-sm"></span></td></tr>
+          <tr><td>Target height</td><td><code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Icon gap</td><td><code>--space-1</code></td><td colspan="2"><span data-token="--space-1"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;a class="eyebrow until-lg" href="/dashboard"&gt;
+  &lt;svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"&gt;&lt;path d="m15 18-6-6 6-6"/&gt;&lt;/svg&gt;Dashboard
+&lt;/a&gt;
+&lt;p&gt;&lt;a class="link--standalone" href="/forgot-password"&gt;Forgot your password?&lt;/a&gt;&lt;/p&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>a</code></td><td>Inline link: ink, hairline underline, pepper and thick underline on hover.</td></tr>
+        <tr><td><code>.link--standalone</code></td><td>Inline-flex, 44px tall, label font; icon gap <code>--space-1</code>.</td></tr>
+        <tr><td><code>.link--external</code></td><td>Sizes the trailing arrow to 0.9em; pair with hidden "(another website)".</td></tr>
+        <tr><td><code>.eyebrow</code></td><td>Back link: muted, small, no underline until hover, 44px tall.</td></tr>
+        <tr><td><code>.until-lg</code></td><td>Hides the back link from 62rem where the side nav takes over.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation and mocks only.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/terms/default.html">pages/terms/default</a> and <a href="../../mocks/pages/privacy/default.html">pages/privacy/default</a> (inline and email links in prose)</li>
+        <li><a href="../../mocks/pages/caterer/default.html">pages/caterer/default</a> (back link "Caterers")</li>
+        <li><a href="../../mocks/pages/profile-details/invalid.html">pages/profile-details/invalid</a> (back link with <code>.until-lg</code>, error summary links)</li>
+        <li><a href="../../mocks/pages/dashboard/default.html">pages/dashboard/default</a> ("All enquiries" beside a section heading)</li>
+        <li><a href="../../mocks/pages/sign-in/default.html">pages/sign-in/default</a> ("Forgot your password?")</li>
+        <li><a href="../../mocks/pages/thread/default.html">pages/thread/default</a> ("View caterer"; "Back to inbox")</li>
+        <li><a href="../../mocks/notifications/profile-banner/warning.html">notifications/profile-banner/warning</a> ("Go to photos" in a banner)</li>
+        <li><a href="../../mocks/pages/caterers/default.html">pages/caterers/default</a> (footer links)</li>
+      </ul>
+      <p>Drift fixed during extraction: standalone links ("All enquiries", "Forgot your password?", "View caterer", "Public page", "Not you?") were bare <code>&lt;a&gt;</code> with line-height targets; they now use <code>.link--standalone</code>, which the mocks never used. Back links said "Back to inbox" or "Back to enquiries" in 28 mocks and named the destination in 117; the system names the destination. The privacy page names the Office of the Privacy Commissioner of Canada without linking it; the external link is the documented fix. The account page says "Privacy notice version 2026-03, accepted Sat 14 Mar", but the README's placeholder is version 1.0 dated Thu 1 Oct 2026; this page uses the README's.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

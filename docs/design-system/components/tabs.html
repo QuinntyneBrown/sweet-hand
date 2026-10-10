@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tabs — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand tabs: APG tablist with aria-selected, link tabs with aria-current, counts, scrolling on phones; states in both themes, and when the segmented control or stacked sections are used instead.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Navigation</p>
+      <h1>Tabs</h1>
+      <p class="ds-lead">Tabs switch between panels of one thing without leaving the page, marked by a pepper underline. Sweet Hand rarely needs them: no mock uses tabs, and list filters use the lighter segmented control instead.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: available, unused</span><span class="ds-pill">APG Tabs</span><span class="ds-pill"><code>.tabs</code> <code>.tab</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p><code>.tabs</code> is a row of <code>.tab</code> buttons over a hairline. The selected tab is ink and semibold with a 2px pepper underline: pepper because a selected tab is "you are here".</p>
+      <p><b>Where the mocks use tabs: nowhere.</b> The patterns that look like tabs are something else:</p>
+      <ul>
+        <li><b>Status filters on lists</b> (Inbox "All 4 · Open 1 · Replied 1 · Declined 1 · Closed 1", caterer Enquiries, the operator queue "All 7 · Profiles 2 · Name changes 1…", Caterers "All 68 · Draft 3…", Reviews "Held 2 · Hidden 2") use the <a href="button-group.html">segmented control</a> (<code>.segmented</code>): links that change the URL and filter the same list, current in pepper text, no underline, no panels. That is navigation, so it is <code>&lt;ul&gt;</code> of links with <code>aria-current="page"</code>, not a tablist.</li>
+        <li><b>Long records</b> such as the operator's caterer record (Owner, Profile, Food handler certificate, Activity, Status history) and the public caterer page (Menu, Areas served, Reviews) are stacked sections with headings. Operators scan them top to bottom; hiding the certificate behind a tab would make an expired one easy to miss.</li>
+        <li><b>Work-area sections</b> use the <a href="side-nav.html">side navigation</a>.</li>
+      </ul>
+      <p>Use tabs only when one object has two to five views that people switch between, each view is long enough that stacking would bury the others, and nobody needs to see two views at once. The examples below borrow the operator caterer record's section names to show the component; they are not a design decision for that page.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="padding-inline: var(--space-4);">
+          <div class="tabs" role="tablist" aria-label="Pelau House record, anatomy example" style="width: 100%;">
+            <button class="tab" type="button" role="tab" aria-selected="true" id="tb-a-1" tabindex="0">Profile</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" id="tb-a-2" tabindex="-1">Certificate</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" id="tb-a-3" tabindex="-1">Reports <span class="badge badge--count" aria-label="1 open report">1</span></button>
+          </div>
+          <span class="ds-callout" style="left: 8%; top: 70%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 40%; top: 22%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 74%; top: 22%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 92%; top: 74%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Selected indicator</b><small>2px (<code>--border-width-thick</code>) <code>--color-accent</code> bar over the hairline, top corners <code>--radius-xs</code>.</small></div></li>
+          <li><div><b>Tab</b><small><code>.tab</code>: label in <code>--text-label</code> at 16px, <code>--color-fg-muted</code>; 44px tall, <code>--space-3</code> padding.</small></div></li>
+          <li><div><b>Count (optional)</b><small>A <a href="badge.html">badge</a>: <code>.badge--count</code> only for something that needs action ("1 open report"); totals stay plain text in the label.</small></div></li>
+          <li><div><b>Track</b><small><code>.tabs</code>: flex row, <code>--space-1</code> gap, 1px <code>--color-border-default</code> bottom edge; scrolls sideways when it overflows.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Panel tabs (APG, automatic activation)</h3>
+      <p>Buttons with <code>role="tab"</code> inside <code>role="tablist"</code>, each controlling a <code>role="tabpanel"</code>. Arrow keys move and select at once (automatic activation), which is right when panels are already loaded. This example works: click or use the arrow keys.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas" data-tabs-demo style="display: block;">
+          <div class="tabs" role="tablist" aria-label="Pelau House record">
+            <button class="tab" type="button" role="tab" id="tb-1" aria-controls="tb-p1" aria-selected="true" tabindex="0">Profile</button>
+            <button class="tab" type="button" role="tab" id="tb-2" aria-controls="tb-p2" aria-selected="false" tabindex="-1">Certificate</button>
+            <button class="tab" type="button" role="tab" id="tb-3" aria-controls="tb-p3" aria-selected="false" tabindex="-1">Activity</button>
+            <button class="tab" type="button" role="tab" id="tb-4" aria-controls="tb-p4" aria-selected="false" tabindex="-1">Status history</button>
+          </div>
+          <div role="tabpanel" id="tb-p1" aria-labelledby="tb-1" tabindex="0" style="margin-top: var(--space-4);"><p>Trinidadian &amp; Tobagonian (primary), Guyanese · Scarborough (primary), East York, North York, Pickering, Ajax · Serves 20–300 guests.</p></div>
+          <div role="tabpanel" id="tb-p2" aria-labelledby="tb-2" tabindex="0" style="margin-top: var(--space-4);" hidden><p>Kendra Baptiste · Toronto Public Health · FH-2024-118734 · expires 14 Mar 2029.</p></div>
+          <div role="tabpanel" id="tb-p3" aria-labelledby="tb-3" tabindex="0" style="margin-top: var(--space-4);" hidden><p>23 reviews · 4.7 · last enquiry reply today 9:42 a.m.</p></div>
+          <div role="tabpanel" id="tb-p4" aria-labelledby="tb-4" tabindex="0" style="margin-top: var(--space-4);" hidden><p>Published · approved by Leah Mohammed.</p></div>
+        </div>
+        <div class="ds-example__caption"><span>Illustrative content from the Pelau House record. Only the selected tab is in the tab order (<code>tabindex="0"</code>); the panel follows it.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="tabs" role="tablist" aria-label="Pelau House record"&gt;
+  &lt;button class="tab" type="button" role="tab" id="tab-profile" aria-controls="panel-profile" aria-selected="true"&gt;Profile&lt;/button&gt;
+  &lt;button class="tab" type="button" role="tab" id="tab-cert" aria-controls="panel-cert" aria-selected="false" tabindex="-1"&gt;Certificate&lt;/button&gt;
+&lt;/div&gt;
+&lt;div role="tabpanel" id="panel-profile" aria-labelledby="tab-profile" tabindex="0"&gt;…&lt;/div&gt;
+&lt;div role="tabpanel" id="panel-cert" aria-labelledby="tab-cert" tabindex="0" hidden&gt;…&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Link tabs (navigation)</h3>
+      <p>When each view has its own URL, the row is navigation: links in a <code>&lt;nav&gt;</code>, current one <code>aria-current="page"</code>, no tab roles, no arrow keys. <code>.tab</code> styles <code>a</code> as well as <code>button</code>. Prefer the <a href="button-group.html">segmented control</a> for filters of one list; use link tabs for sibling pages of one object.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <nav aria-label="Pelau House record pages">
+            <div class="tabs">
+              <a class="tab" href="../../mocks/pages/admin-caterer/default.html" aria-current="page">Profile</a>
+              <a class="tab" href="../../mocks/pages/admin-caterer/certificate-expired.html">Certificate</a>
+              <a class="tab" href="../../mocks/pages/admin-audit/default.html">Audit log</a>
+            </div>
+          </nav>
+        </div>
+        <div class="ds-example__caption"><span>Same look, navigation semantics.</span></div>
+      </div>
+
+      <h3>With counts, scrolling</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="tabs" role="tablist" aria-label="Queue kinds, scrolling example" style="max-width: 20rem;">
+            <button class="tab" type="button" role="tab" aria-selected="true" tabindex="0">All 7</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" tabindex="-1">Profiles 2</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" tabindex="-1">Name changes 1</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" tabindex="-1">Certificates 1</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" tabindex="-1">Reports <span class="badge badge--count" aria-label="2 open reports">2</span></button>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Constrained to 20rem to show overflow: the row scrolls sideways inside itself with the scrollbar hidden; the page never scrolls. (The real queue uses the segmented control, which wraps instead.)</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="Tabs have one size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Tabs have one size: 44px tall with 16px labels, so they meet the phone target without a compact variant. A denser row would need the segmented control, which is plain text.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover and focus are forced with <code>data-state</code>; selected uses <code>aria-selected="true"</code> (panel tabs) or <code>aria-current="page"</code> (link tabs); disabled uses <code>disabled</code> or <code>aria-disabled="true"</code>.</p>
+      <div class="ds-matrix" style="position: relative;"><table>
+        <caption class="visually-hidden">Tab states</caption>
+        <thead><tr><th scope="col">Tab</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Selected</th><th scope="col">Disabled</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Panel tab</th>
+            <td><div class="tabs" role="tablist" aria-label="Default"><button class="tab" type="button" role="tab" aria-selected="false">Activity</button></div></td>
+            <td><div class="tabs" role="tablist" aria-label="Hover"><button class="tab" type="button" role="tab" aria-selected="false" data-state="hover">Activity</button></div></td>
+            <td><div class="tabs" role="tablist" aria-label="Focus"><button class="tab" type="button" role="tab" aria-selected="false" data-state="focus">Activity</button></div></td>
+            <td><div class="tabs" role="tablist" aria-label="Selected"><button class="tab" type="button" role="tab" aria-selected="true">Activity</button></div></td>
+            <td><div class="tabs" role="tablist" aria-label="Disabled"><button class="tab" type="button" role="tab" aria-selected="false" disabled>Activity</button></div></td></tr>
+          <tr><th scope="row">Link tab</th>
+            <td><div class="tabs"><a class="tab" href="../../mocks/pages/admin-caterer/default.html">Profile</a></div></td>
+            <td><div class="tabs"><a class="tab" href="../../mocks/pages/admin-caterer/default.html" data-state="hover">Profile</a></div></td>
+            <td><div class="tabs"><a class="tab" href="../../mocks/pages/admin-caterer/default.html" data-state="focus">Profile</a></div></td>
+            <td><div class="tabs"><a class="tab" href="../../mocks/pages/admin-caterer/default.html" aria-current="page">Profile</a></div></td>
+            <td><div class="tabs"><a class="tab" aria-disabled="true">Profile</a></div></td></tr>
+          <tr><th scope="row">With count</th>
+            <td><div class="tabs" role="tablist" aria-label="Count default"><button class="tab" type="button" role="tab" aria-selected="false">Reports <span class="badge badge--count" aria-label="2 open reports">2</span></button></div></td>
+            <td><div class="tabs" role="tablist" aria-label="Count hover"><button class="tab" type="button" role="tab" aria-selected="false" data-state="hover">Reports <span class="badge badge--count" aria-label="2 open reports">2</span></button></div></td>
+            <td><div class="tabs" role="tablist" aria-label="Count focus"><button class="tab" type="button" role="tab" aria-selected="false" data-state="focus">Reports <span class="badge badge--count" aria-label="2 open reports">2</span></button></div></td>
+            <td><div class="tabs" role="tablist" aria-label="Count selected"><button class="tab" type="button" role="tab" aria-selected="true">Reports <span class="badge badge--count" aria-label="2 open reports">2</span></button></div></td>
+            <td><small class="text-muted">A tab with work waiting is never disabled</small></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="tabs" role="tablist" aria-label="Light theme example"><button class="tab" type="button" role="tab" aria-selected="true">Profile</button><button class="tab" type="button" role="tab" aria-selected="false" tabindex="-1">Certificate</button><button class="tab" type="button" role="tab" aria-selected="false" tabindex="-1" disabled>History</button></div></div>
+        <div data-theme="dark"><div class="tabs" role="tablist" aria-label="Dark theme example"><button class="tab" type="button" role="tab" aria-selected="true">Profile</button><button class="tab" type="button" role="tab" aria-selected="false" tabindex="-1">Certificate</button><button class="tab" type="button" role="tab" aria-selected="false" tabindex="-1" disabled>History</button></div></div>
+      </div>
+      <ul>
+        <li><b>Loading</b> a panel shows a <a href="skeleton.html">skeleton</a> inside the panel; the tab row never shows a spinner.</li>
+        <li><b>Disabled</b> tabs are rare: remove a tab that can never apply; disable only one that will apply later and say why in the panel area.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>The row never wraps. When the tabs are wider than the container it scrolls sideways inside itself (<code>overflow-x: auto</code>, scrollbar hidden), so the page never scrolls at 320px. Keep labels short so four tabs fit at 360px; if they don't, the content wants the segmented control (which wraps) or stacked sections.</li>
+        <li>Scroll the selected tab into view on load and on arrow-key moves (<code>scrollIntoView({ inline: "nearest" })</code>).</li>
+        <li>Sizes are the same at every breakpoint. From 62rem tabs sit in the main column of a <code>.work-layout</code>, never beside the side nav.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Tabs read <code>--color-fg-muted</code> (label), <code>--color-fg-default</code> (hover and selected label), <code>--color-border-strong</code> (hover underline), <code>--color-accent</code> (selected underline), <code>--color-border-default</code> (track) and <code>--color-fg-disabled</code>. In dark the selected underline lifts to <code>--palette-pepper-300</code>. In forced-colours mode the selected tab is also underlined in text, because the bar may disappear. No component tokens.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Panel tabs follow the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/">APG Tabs pattern</a> with <b>automatic activation</b>: <code>role="tablist"</code> with an <code>aria-label</code>, <code>role="tab"</code> with <code>aria-selected</code> and <code>aria-controls</code>, <code>role="tabpanel"</code> with <code>aria-labelledby</code> and <code>tabindex="0"</code>. Use manual activation (arrows move, Enter selects) only if a panel has to load from the network. Link tabs are a <code>&lt;nav&gt;</code> of links with <code>aria-current="page"</code> and no tab roles.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Into the tablist on the selected tab; the next Tab goes to the panel.</td></tr>
+        <tr><td><kbd>→</kbd> / <kbd>←</kbd></td><td>Next / previous tab, selecting it; wraps at the ends; skips disabled tabs.</td></tr>
+        <tr><td><kbd>Home</kbd> / <kbd>End</kbd></td><td>First / last tab.</td></tr>
+        <tr><td><kbd>Enter</kbd> / <kbd>Space</kbd></td><td>Selects the focused tab (needed only with manual activation).</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>Roving <code>tabindex</code>: the selected tab is <code>0</code>, the others <code>-1</code>. The shared ring draws around the focused tab with the usual 3px offset, clear of the pepper bar.</p>
+      <h3>Labelling</h3>
+      <ul>
+        <li>The tablist names the object: "Pelau House record". Tab labels name the view.</li>
+        <li>Counts inside a tab are part of its name: a total as plain text ("All 7"), an action count as a badge with an <code>aria-label</code> ("2 open reports").</li>
+      </ul>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Tab label</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Selected label</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Selected underline</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Hover underline</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Action count</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-danger|--color-danger-solid" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+      </div>
+      <p>Selected is shown three ways: weight, colour and the bar. Disabled labels are exempt from contrast minimums.</p>
+      <h3>Motion</h3>
+      <p>The underline colour fades over <code>--duration-fast</code>; it does not slide between tabs. Panels swap instantly.</p>
+      <h3>Touch</h3>
+      <p>Each tab is 44px tall and at least 44px wide in practice, with <code>--space-1</code> between tabs plus their own padding. The row scrolls by swipe.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>One or two words per tab, nouns, sentence case: "Profile", "Certificate", "Status history".</li>
+        <li>Don't repeat the object in every tab ("Caterer profile", "Caterer certificate").</li>
+        <li>Counts follow the label with a space: "All 7", "Profiles 2". Write them one way across a row (the mocks' segmented rows mixed plain numbers and caption-styled counts).</li>
+        <li>Never use a tab label as an instruction ("Click to see reviews").</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><ul class="segmented" aria-label="Filter by status, example" style="margin: 0;"><li><a href="../../mocks/pages/inbox/default.html" aria-current="page">All 4</a></li><li><a href="../../mocks/pages/inbox/filtered.html">Open 1</a></li><li><a href="../../mocks/pages/inbox/filtered.html">Replied 1</a></li></ul></div><figcaption>Filter one list with the segmented control: links, URL changes, wraps on phones.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="tabs" role="tablist" aria-label="Inbox filter, misuse example"><button class="tab" type="button" role="tab" aria-selected="true">All 4</button><button class="tab" type="button" role="tab" aria-selected="false" tabindex="-1">Open 1</button><button class="tab" type="button" role="tab" aria-selected="false" tabindex="-1">Replied 1</button></div></div><figcaption>Don't build list filters as tabs: there are no separate panels, and tab roles promise behaviour the list doesn't have.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><p><b>Food handler certificate</b></p><p class="text-muted">FH-2024-118734 · expires 14 Mar 2029</p></div><figcaption>Keep must-see facts in stacked sections, as the operator caterer record does.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="tabs" role="tablist" aria-label="Hidden certificate, misuse example"><button class="tab" type="button" role="tab" aria-selected="true">Profile</button><button class="tab" type="button" role="tab" aria-selected="false" tabindex="-1">Certificate</button></div></div><figcaption>Don't tuck an expired certificate behind a second tab where a busy operator won't open it.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Label</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Label, hover and selected</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Underline, hover</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Underline, selected</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Track edge</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Disabled label</td><td><code>--color-fg-disabled</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td></tr>
+          <tr><td>Label type</td><td><code>--text-label</code> at <code>--font-size-md</code>; selected <code>--font-weight-semibold</code></td><td colspan="2"><span data-token="--text-label"></span></td></tr>
+          <tr><td>Height / padding / gap</td><td><code>--target-comfortable</code> / <code>--space-3</code> / <code>--space-1</code></td><td colspan="2"><span data-token="--target-comfortable"></span> / <span data-token="--space-3"></span> / <span data-token="--space-1"></span></td></tr>
+          <tr><td>Underline</td><td><code>--border-width-thick</code>, <code>--radius-xs</code></td><td colspan="2"><span data-token="--border-width-thick"></span> / <span data-token="--radius-xs"></span></td></tr>
+          <tr><td>Motion</td><td><code>--duration-fast</code></td><td colspan="2"><span data-token="--duration-fast"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>// Automatic activation: arrows move focus and select.
+tablist.addEventListener("keydown", (e) =&gt; {
+  const tabs = [...tablist.querySelectorAll('[role="tab"]:not([disabled])')];
+  const i = tabs.indexOf(document.activeElement);
+  const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+  if (next === undefined) return;
+  e.preventDefault();
+  select(tabs[(next + tabs.length) % tabs.length]);   // sets aria-selected, tabindex, hidden; focuses the tab
+});</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.tabs</code></td><td>Row with a hairline; scrolls sideways when it overflows.</td></tr>
+        <tr><td><code>.tab</code> (button or a)</td><td>Tab label, 44px, muted.</td></tr>
+        <tr><td><code>aria-selected="true"</code> / <code>aria-current="page"</code></td><td>Selected: ink, semibold, pepper underline.</td></tr>
+        <tr><td><code>disabled</code> / <code>aria-disabled="true"</code></td><td>Disabled label, no underline.</td></tr>
+        <tr><td><code>.tab .badge</code></td><td>Count spacing inside a tab.</td></tr>
+        <tr><td><code>role="tablist|tab|tabpanel"</code>, <code>aria-controls</code>, <code>aria-labelledby</code>, roving <code>tabindex</code></td><td>APG semantics for panel tabs.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation only.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>No mock uses <code>.tabs</code>; it comes from the base kit. The related patterns come from:</p>
+      <ul>
+        <li><a href="../../mocks/pages/inbox/default.html">pages/inbox/default</a> (segmented status filter with counts)</li>
+        <li><a href="../../mocks/pages/dashboard-enquiries/default.html">pages/dashboard-enquiries/default</a> (segmented, caterer side)</li>
+        <li><a href="../../mocks/pages/admin-queue/default.html">pages/admin-queue/default</a> (segmented by kind)</li>
+        <li><a href="../../mocks/pages/admin-caterers/default.html">pages/admin-caterers/default</a>, <a href="../../mocks/pages/admin-reviews/default.html">pages/admin-reviews/default</a> (segmented by status)</li>
+        <li><a href="../../mocks/pages/admin-caterer/default.html">pages/admin-caterer/default</a> (stacked sections instead of tabs)</li>
+      </ul>
+      <p>Drift fixed during extraction: the kit's <code>.tab</code> styled only <code>aria-selected</code>; the system also styles <code>aria-current="page"</code> for link tabs and adds a disabled state. Segmented rows wrote counts two ways (<code>pages/inbox</code> wraps them in <code>.filter-list__count</code>; queue, caterers and reviews write plain "All 6"), and the queue's "Held reviews 1" sits in the filter row but links to a different page; both belong to the <a href="button-group.html">segmented control</a> and are reported there.</p>
+    </section>
+
+    <script>
+    (function () {
+      var root = document.querySelector('[data-tabs-demo]');
+      if (!root) return;
+      var list = root.querySelector('[role="tablist"]');
+      var tabs = Array.prototype.slice.call(list.querySelectorAll('[role="tab"]'));
+      function select(tab) {
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          t.tabIndex = on ? 0 : -1;
+          document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+        });
+        tab.focus();
+      }
+      tabs.forEach(function (t) { t.addEventListener('click', function () { select(t); }); });
+      list.addEventListener('keydown', function (e) {
+        var i = tabs.indexOf(document.activeElement);
+        var map = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 };
+        if (!(e.key in map) || i < 0) return;
+        e.preventDefault();
+        select(tabs[(map[e.key] + tabs.length) % tabs.length]);
+      });
+    })();
+    </script>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

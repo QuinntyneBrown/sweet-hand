@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Theming — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand theming: data-theme, prefers-color-scheme and color-scheme, the three token tiers, how dark differs from light, preference overrides, adding a theme and consuming tokens.json.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Theming</h1>
+      <p class="ds-lead">Sweet Hand ships a light theme and a dark theme from one set of semantic tokens. A theme changes what the roles resolve to; components never know which theme they are in.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Light and dark</span><span class="ds-pill">3 token tiers</span><span class="ds-pill">DTCG <code>tokens.json</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#switching">How themes apply</a></li><li><a href="#tiers">Token tiers</a></li><li><a href="#dark">Dark is not inverted</a></li><li><a href="#preferences">Contrast and forced colours</a></li><li><a href="#adding">Adding a theme</a></li><li><a href="#tokens-json">Consuming tokens.json</a></li><li><a href="#usage">Usage</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Light is a white canvas with near-black ink and one pepper red. Dark is a warm near-black canvas with light stone ink and a lighter pepper. Both are first-class: every contrast pair is checked in both, every component page shows both, and the mocks render in both.</p>
+      <ul>
+        <li><b>One source.</b> <code>tokens/tokens.css</code> holds light on <code>:root</code> and dark in two identical blocks. <code>tokens/tokens.json</code> is generated from it for other platforms.</li>
+        <li><b>Themes override semantic tokens only.</b> Primitives (<code>--palette-*</code>) never change; components (<code>--btn-*</code>, <code>--field-*</code>, <code>--alert-*</code>) alias semantic tokens and follow automatically.</li>
+        <li><b>The OS decides by default.</b> With no choice made, Sweet Hand follows <code>prefers-color-scheme</code>. A page or a subtree can force either theme with <code>data-theme</code>.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="switching"><h2><a href="#switching">How themes apply</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Situation</th><th scope="col">Result</th><th scope="col">Mechanism</th></tr></thead>
+        <tbody>
+          <tr><td>No attribute, OS in light mode</td><td>Light</td><td><code>:root</code> values</td></tr>
+          <tr><td>No attribute, OS in dark mode</td><td>Dark</td><td><code>@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { … } }</code></td></tr>
+          <tr><td><code>&lt;html data-theme="dark"&gt;</code></td><td>Dark, whatever the OS</td><td><code>[data-theme="dark"] { … }</code></td></tr>
+          <tr><td><code>&lt;html data-theme="light"&gt;</code></td><td>Light, whatever the OS</td><td>The <code>:not([data-theme="light"])</code> guard skips the media block</td></tr>
+          <tr><td><code>data-theme="dark"</code> on one element</td><td>That subtree is dark</td><td>The dark block matches any element, so custom properties cascade from it (the side-by-side examples on these pages use this)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Each theme also sets <code>color-scheme: light</code> or <code>color-scheme: dark</code>, so native controls, date pickers, scrollbars and autofill follow without extra styles. Set the attribute before first paint to avoid a flash of the wrong theme:</p>
+      <pre><code>&lt;html lang="en-CA"&gt;
+&lt;script&gt;
+  // Before any stylesheet paints: apply a saved choice, else follow the OS.
+  try { var t = localStorage.getItem('theme'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}
+&lt;/script&gt;</code></pre>
+      <p>Only store a choice when someone makes one; removing the attribute hands control back to the operating system. The mocks and these docs also accept <code>?theme=dark</code> or <code>?theme=light</code> and the <kbd>t</kbd> key; those are review conveniences, not product features.</p>
+      <p>Themes and breakpoints are independent. The responsive layout tokens (<code>--layout-columns</code>, <code>--layout-gutter</code>, <code>--layout-margin</code>, display sizes) change by viewport and are identical in both themes.</p>
+    </section>
+
+    <section class="ds-section" id="tiers"><h2><a href="#tiers">Token tiers</a></h2>
+      <p>A value appears once as a primitive, gets meaning as a semantic token, and is scoped to one component as a component token. Each tier reads only from the tier above it.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Tier</th><th scope="col">Prefix</th><th scope="col">Sweet Hand example</th><th scope="col">Who reads it</th><th scope="col">Themes change it?</th></tr></thead>
+        <tbody>
+          <tr><td>1 · Primitive</td><td><code>--palette-*</code>, <code>--font-*</code>, <code>--line-height-*</code>, <code>--letter-spacing-*</code></td><td><code>--palette-pepper-600</code>, <code>--palette-pepper-300</code>, <code>--palette-stone-950</code></td><td>Semantic tokens only</td><td>Never</td></tr>
+          <tr><td>2 · Semantic</td><td><code>--color-*</code>, <code>--text-*</code>, <code>--space-*</code>, <code>--radius-*</code>, <code>--shadow-*</code>, <code>--duration-*</code>, <code>--ease-*</code>, <code>--z-*</code>, <code>--layout-*</code>, <code>--target-*</code>, <code>--control-height-*</code>, <code>--icon-*</code></td><td><code>--color-accent: var(--palette-pepper-600)</code> in light, <code>var(--palette-pepper-300)</code> in dark</td><td>Components and pages</td><td>Yes: colours, shadows and <code>color-scheme</code></td></tr>
+          <tr><td>3 · Component</td><td><code>--btn-*</code>, <code>--field-*</code>, <code>--alert-*</code>, <code>--toast-tone</code></td><td><code>.btn--primary { --btn-bg: var(--color-action); }</code></td><td>One component in <code>components.css</code></td><td>No; follows its semantic alias</td></tr>
+        </tbody>
+      </table></div>
+      <p>So the primary button's fill is <code>--btn-bg</code> → <code>--color-action</code> → <code>--palette-stone-950</code> in light and <code>--palette-stone-100</code> in dark. Changing the brand hue touches primitives; changing what "action" means touches the semantic tier; changing how buttons look touches the component tier.</p>
+    </section>
+
+    <section class="ds-section" id="dark"><h2><a href="#dark">Dark is not inverted</a></h2>
+      <p>The dark theme is built from the roles, not by flipping the light values. Compare the same components:</p>
+      <div class="ds-themes">
+        <div data-theme="light">
+          <div class="stack">
+            <ul class="filter-list">
+              <li><button class="filter-list__item" type="button" aria-pressed="true">Jamaican <span class="filter-list__count">14</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false">Guyanese <span class="filter-list__count">9</span></button></li>
+            </ul>
+            <div class="cluster"><button class="btn btn--primary" type="button">Send an enquiry</button><button class="btn" type="button">Cancel</button></div>
+            <div class="popover popover--static" style="max-width: 100%;"><p class="popover__title">Serves 20–300 guests</p><p class="text-muted">Weddings, birthdays and family gatherings</p></div>
+            <div class="toast-region toast-region--static"><div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><p class="toast__title">Reply sent</p><p class="toast__text">Pelau House will get an email.</p></div></div></div>
+            <div class="ds-pair">Text on accent<span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
+          </div>
+        </div>
+        <div data-theme="dark">
+          <div class="stack">
+            <ul class="filter-list">
+              <li><button class="filter-list__item" type="button" aria-pressed="true">Jamaican <span class="filter-list__count">14</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false">Guyanese <span class="filter-list__count">9</span></button></li>
+            </ul>
+            <div class="cluster"><button class="btn btn--primary" type="button">Send an enquiry</button><button class="btn" type="button">Cancel</button></div>
+            <div class="popover popover--static" style="max-width: 100%;"><p class="popover__title">Serves 20–300 guests</p><p class="text-muted">Weddings, birthdays and family gatherings</p></div>
+            <div class="toast-region toast-region--static"><div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><p class="toast__title">Reply sent</p><p class="toast__text">Pelau House will get an email.</p></div></div></div>
+            <div class="ds-pair">Text on accent<span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Role</th><th scope="col">Light</th><th scope="col">Dark</th><th scope="col">Why</th></tr></thead>
+        <tbody>
+          <tr><td>Ink: <code>--color-fg-default</code>, <code>--color-action</code></td><td>stone-950</td><td>stone-100, a warm light stone, not pure white</td><td>Pure white on near-black glares and halates for people with astigmatism</td></tr>
+          <tr><td>Text on the ink button: <code>--color-fg-on-action</code></td><td>white</td><td>stone-950</td><td>The primary button stays the highest-contrast thing on screen in both themes</td></tr>
+          <tr><td>Pepper: <code>--color-accent</code>, <code>--color-fg-accent</code>, <code>--color-focus-ring</code></td><td>pepper-600</td><td>pepper-300, lighter and softer</td><td>Pepper-600 on the near-black canvas drops to about 3:1, too low for accent text, and vibrates; the lighter tint keeps "selected" readable at 4.5:1</td></tr>
+          <tr><td>Text on accent: <code>--color-fg-on-accent</code></td><td>white</td><td>stone-950</td><td>A light accent needs dark text to reach 4.5:1</td></tr>
+          <tr><td>Surfaces: canvas, surface, raised, sunken</td><td>White, white, white, stone-50</td><td>stone-950, stone-950, stone-850, stone-900</td><td>Surfaces get lighter as they rise (canvas &lt; raised), because shadows barely show on dark</td></tr>
+          <tr><td>Shadows: <code>--shadow-1</code> to <code>--shadow-4</code></td><td>Warm, 6–18% opacity</td><td>Black, 40–65% opacity</td><td>Stronger shadows plus a lighter raised surface keep overlays lifted</td></tr>
+          <tr><td>Status backgrounds and text</td><td>Pale tints with deep text</td><td>Deep tints (950) with light text (300)</td><td>A pale alert box on dark would glow like a hole in the page</td></tr>
+          <tr><td>Inverse (tooltips, toasts)</td><td>stone-950 with white text</td><td>stone-50 with stone-950 text</td><td>Inverse still means "opposite of the page"</td></tr>
+          <tr><td>Photo placeholder <code>--color-bg-photo</code></td><td>stone-100</td><td>stone-800</td><td>An empty plate stays a quiet grey; photos themselves are never dimmed or filtered</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="preferences"><h2><a href="#preferences">Contrast and forced colours</a></h2>
+      <p>Two more preferences adjust the active theme rather than replacing it.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Media query</th><th scope="col">What changes</th></tr></thead>
+        <tbody>
+          <tr><td><code>prefers-contrast: more</code></td><td>Default borders take <code>--color-border-strong</code>, so card and divider edges reach 3:1; muted text becomes default ink and subtle text becomes muted. Applies in both themes.</td></tr>
+          <tr><td><code>forced-colors: active</code> (Windows High Contrast)</td><td>The focus ring becomes <code>Highlight</code> and borders <code>CanvasText</code>. Buttons, fields, chips, tags, cards and filter triggers draw a system-colour border so their edges stay visible; the primary button uses <code>Highlight</code>/<code>HighlightText</code>; the selected filter and current tab are underlined because colour alone disappears.</td></tr>
+        </tbody>
+      </table></div>
+      <p>Icons draw with <code>currentColor</code> and need nothing extra. Never use <code>forced-color-adjust: none</code> on content; it is reserved for the controls above, which then supply system colours themselves.</p>
+    </section>
+
+    <section class="ds-section" id="adding"><h2><a href="#adding">Adding a theme</a></h2>
+      <p>A new theme, for example a high-contrast variant or a partner event microsite, is another <code>[data-theme="&lt;name&gt;"]</code> block that overrides semantic colour tokens and nothing else.</p>
+      <ol>
+        <li>Add any new raw colours as primitives in <code>:root</code> (<code>--palette-*</code>).</li>
+        <li>Write <code>[data-theme="&lt;name&gt;"] { … }</code> overriding only <code>--color-*</code>, <code>--shadow-*</code> and <code>color-scheme</code>. Never override spacing, type, radius, motion or layout in a theme, and never component tokens.</li>
+        <li>Override every role the light theme defines, not just the ones that look wrong: a missed role silently falls back to light.</li>
+        <li>Run <code>check_contrast.py</code> (in <code>.claude/skills/extracting-design-systems/scripts/</code>); it picks up every <code>[data-theme]</code> block by itself. Make every pair in <code>contrast-pairs.json</code> pass with margin (aim for 4.8:1 on body text and 3.3:1 on edges).</li>
+        <li>Keep pepper meaning "selected" and the ink button meaning "primary". A theme changes colours, not meanings.</li>
+        <li>Regenerate <code>tokens.json</code> and check the mocks with <code>?theme=&lt;name&gt;</code> where the mock script supports it.</li>
+      </ol>
+      <pre><code>[data-theme="high-contrast"] {
+  --color-fg-muted: var(--palette-stone-950);
+  --color-fg-subtle: var(--palette-stone-800);
+  --color-border-default: var(--palette-stone-700);
+  --color-border-strong: var(--palette-stone-950);
+  --color-accent: var(--palette-pepper-700);
+  --color-fg-accent: var(--palette-pepper-700);
+  --color-focus-ring: var(--palette-pepper-800);
+  /* …every other --color-* role… */
+  color-scheme: light;
+}</code></pre>
+    </section>
+
+    <section class="ds-section" id="tokens-json"><h2><a href="#tokens-json">Consuming tokens.json</a></h2>
+      <p><code>tokens/tokens.json</code> follows the W3C Design Tokens Community Group (DTCG) format and is regenerated from <code>tokens.css</code> by <code>tokens_to_json.py</code> (in the same scripts folder); never edit it by hand.</p>
+      <ul>
+        <li><b>Groups follow the names.</b> <code>--color-accent-subtle-hover</code> lives at <code>color.accent.subtle.hover</code>; <code>--duration-loop-fast</code> at <code>duration.loop.fast</code>.</li>
+        <li><b>Each token has <code>$type</code> and <code>$value</code></b>: <code>color</code>, <code>dimension</code>, <code>duration</code>, <code>cubicBezier</code>, <code>number</code>, <code>shadow</code>, <code>typography</code>, <code>fontFamily</code>, <code>fontWeight</code>.</li>
+        <li><b>Aliases keep the tiers.</b> A semantic token's <code>$value</code> is a reference such as <code>{palette.pepper.600}</code>, so tools can resolve or preserve the chain.</li>
+        <li><b>Sweet Hand metadata sits under <code>$extensions["com.agent-toolkit"]</code></b>: <code>css</code> (the custom property name), <code>resolved</code> (the final value in light) and <code>themes</code>, which holds each theme's override as <code>themes.dark.$value</code> plus its <code>resolved</code> value.</li>
+        <li>Light values are the defaults. Responsive overrides (columns, gutters, margins and display sizes at 48rem and 62rem) and the reduced-motion and contrast overrides are not in the JSON; platforms apply their own equivalents.</li>
+      </ul>
+      <pre><code>"accent": {
+  "$type": "color",
+  "$value": "{palette.pepper.600}",
+  "$extensions": {
+    "com.agent-toolkit": {
+      "css": "--color-accent",
+      "resolved": "#b5381f",
+      "themes": { "dark": { "$value": "{palette.pepper.300}", "resolved": "#ff8f73" } }
+    }
+  }
+}</code></pre>
+      <p>To build platform constants, read <code>$value</code> for the light set and <code>$extensions["com.agent-toolkit"].themes.dark.$value</code> for the dark set, resolving <code>{…}</code> references through the same file. Web code should not consume the JSON at all: link <code>tokens/tokens.css</code> and read the custom properties.</p>
+    </section>
+
+    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+      <ul>
+        <li>Read colour by role (<code>var(--color-fg-muted)</code>), never by primitive (<code>var(--palette-stone-700)</code>) and never by hex (<code>AGENTS.md</code>).</li>
+        <li>Pick the role for what something is, not for how it looks in light: a selected chip is <code>--color-accent-subtle</code>, not "the pale pink".</li>
+        <li>Check every new screen in both themes before review; the mocks' <kbd>t</kbd> key and the docs toggle make that one keystroke.</li>
+        <li>Don't add <code>@media (prefers-color-scheme)</code> rules in components. If a component needs a different value in dark, it needs a semantic token.</li>
+        <li>Never dim, invert or filter food photos in dark. They are the content.</li>
+      </ul>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><code>color: var(--color-fg-accent);</code></div><figcaption>Use the semantic role; dark resolves it to pepper-300 for you.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>color: var(--palette-pepper-600);</code></div><figcaption>Reach for a primitive. It stays deep red in dark and fails contrast on the near-black canvas.</figcaption></figure>
+      </div>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><code>[data-theme="dark"] { --color-accent: …; }</code></div><figcaption>Theme by overriding semantic tokens in one block.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>[data-theme="dark"] .btn--primary { background: …; }</code></div><figcaption>Patch components per theme. Every such rule is a place the next theme will be wrong.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <ul>
+        <li>Both themes pass every pair in <code>contrast-pairs.json</code>; <code>check_contrast.py</code> must exit 0 for light and dark before any colour change merges.</li>
+        <li>Theme never carries meaning. Status, selection and errors read the same in both: words first, colour second.</li>
+        <li>Respect the person's choice: follow the OS unless they choose otherwise, and keep their choice across visits.</li>
+        <li>Forced colours and increased contrast are honoured in both themes (see <a href="#preferences">above</a>).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <p>Theming has no tokens of its own. The themed tokens are the semantic colours (<code>--color-*</code>), documented with light and dark values on <a href="color.html">Color</a>, and the shadows (<code>--shadow-color</code>, <code>--shadow-1</code> to <code>--shadow-4</code>), documented on <a href="elevation.html">Elevation</a>. Everything else is identical in every theme.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

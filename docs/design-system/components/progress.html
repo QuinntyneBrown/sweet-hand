@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Progress and meter — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand progress bars and the setup meter: determinate, indeterminate, success and danger, labelled progressbar semantics, both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Feedback</p>
+      <h1>Progress and meter</h1>
+      <p class="ds-lead">A progress bar shows how far a task has got: a photo uploading, an export being prepared. The setup meter shows how much of a caterer's profile is ready to submit.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>role="progressbar"</code></span><span class="ds-pill"><code>.progress</code></span><span class="ds-pill"><code>.meter</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A progress bar is an 8px rounded track with a fill. Sweet Hand uses it in two places:</p>
+      <ul>
+        <li><b>Transfer progress</b> (<code>.progress</code>): one bar per photo while it uploads, under the round preview on the photo tile ("IMG_2076.heic", 64%). It moves on its own and ends when the photo is in.</li>
+        <li><b>Setup meter</b> (<code>.meter</code>): a label row ("Ready to submit" · "8 of 10 done") above a bar on the caterer dashboard and in the submit-profile dialog. It counts finished checklist items; it moves only when the caterer completes something.</li>
+      </ul>
+      <p>Choose something else when:</p>
+      <ul>
+        <li>The wait is short and has no measurable amount (a button saving, a photo loading in the viewer): the button's busy state or a <a href="spinner.html">spinner</a>.</li>
+        <li>Content is loading into a known layout (the listing, the inbox): a <a href="skeleton.html">skeleton</a>.</li>
+        <li>The list of what is left matters more than the amount: the <a href="checklist.html">checklist</a> under the meter. The meter summarises it; it never replaces it.</li>
+        <li>A value on a scale that is not progress (a rating, a chart): <a href="rating.html">rating</a> or <a href="bar-chart.html">bar chart</a>.</li>
+      </ul>
+      <p>Fills are ink (<code>--color-action</code>), never pepper red. Progress is not a selection, and a red bar would read as "something is wrong" on a screen where pepper already marks the current section.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="meter" style="width: min(100%, 24rem);">
+            <div class="meter__label"><span id="anat-meter-label">Ready to submit</span><span>8 of 10 done</span></div>
+            <div class="progress" role="progressbar" aria-labelledby="anat-meter-label" aria-valuemin="0" aria-valuemax="10" aria-valuenow="8" aria-valuetext="8 of 10 done"><div class="progress__bar" style="--value: 80%"></div></div>
+          </div>
+          <span class="ds-callout" style="left: 14%; top: 22%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 84%; top: 22%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 40%; top: 72%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 80%; top: 72%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Label</b><small>What is measured, in <code>.meter__label</code> (or a visible caption above a bare <code>.progress</code>). It labels the bar via <code>aria-labelledby</code>.</small></div></li>
+          <li><div><b>Value text</b><small>"8 of 10 done" or "64%": the same words as <code>aria-valuetext</code>. Never colour or length alone.</small></div></li>
+          <li><div><b>Fill</b><small><code>.progress__bar</code>, width from <code>--value</code> (a percentage), ink, pill ends, eases over <code>--duration-deliberate</code>.</small></div></li>
+          <li><div><b>Track</b><small><code>.progress</code>: full width, <code>--space-2</code> (8px) high, <code>--color-bg-subtle-hover</code>, <code>--radius-full</code>.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Determinate</h3>
+      <p>Set <code>--value</code> on <code>.progress__bar</code> and keep <code>aria-valuenow</code> in step. Upload bars sit under the file name on the photo tile, capped at 8rem wide.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 24rem;">
+          <div class="stack stack--sm">
+            <span class="text-sm" id="up-1">IMG_2076.heic</span>
+            <div class="progress" role="progressbar" aria-labelledby="up-1" aria-valuemin="0" aria-valuemax="100" aria-valuenow="64" aria-valuetext="64%, uploading"><div class="progress__bar" style="--value: 64%"></div></div>
+          </div>
+          <div class="stack stack--sm">
+            <span class="text-sm" id="up-2">IMG_2077.heic</span>
+            <div class="progress" role="progressbar" aria-labelledby="up-2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="18" aria-valuetext="18%, uploading"><div class="progress__bar" style="--value: 18%"></div></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Two photos uploading on the photo manager (64% and 18%).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;span class="text-sm" id="up-1"&gt;IMG_2076.heic&lt;/span&gt;
+&lt;div class="progress" role="progressbar" aria-labelledby="up-1"
+     aria-valuemin="0" aria-valuemax="100" aria-valuenow="64" aria-valuetext="64%, uploading"&gt;
+  &lt;div class="progress__bar" style="--value: 64%"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Setup meter</h3>
+      <p><code>.meter</code> wraps a label row and a bar. It always counts items, so the value text is "N of 10 done", not a percentage.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 28rem;">
+          <div class="meter">
+            <div class="meter__label"><span id="m-1">Ready to submit</span><span>1 of 10 done</span></div>
+            <div class="progress" role="progressbar" aria-labelledby="m-1" aria-valuemin="0" aria-valuemax="10" aria-valuenow="1" aria-valuetext="1 of 10 done"><div class="progress__bar" style="--value: 10%"></div></div>
+          </div>
+          <div class="meter">
+            <div class="meter__label"><span id="m-2">Ready to submit</span><span>8 of 10 done</span></div>
+            <div class="progress" role="progressbar" aria-labelledby="m-2" aria-valuemin="0" aria-valuemax="10" aria-valuenow="8" aria-valuetext="8 of 10 done"><div class="progress__bar" style="--value: 80%"></div></div>
+          </div>
+          <div class="meter">
+            <div class="meter__label"><span id="m-3">Ready to submit</span><span>10 of 10 done</span></div>
+            <div class="progress" role="progressbar" aria-labelledby="m-3" aria-valuemin="0" aria-valuemax="10" aria-valuenow="10" aria-valuetext="10 of 10 done"><div class="progress__bar" style="--value: 100%"></div></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Auntie Bev’s Kitchen on first run (1 of 10), in draft (8 of 10) and ready (10 of 10, as in the submit-profile dialog).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="meter"&gt;
+  &lt;div class="meter__label"&gt;&lt;span id="meter-label"&gt;Ready to submit&lt;/span&gt;&lt;span&gt;8 of 10 done&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="progress" role="progressbar" aria-labelledby="meter-label"
+       aria-valuemin="0" aria-valuemax="10" aria-valuenow="8" aria-valuetext="8 of 10 done"&gt;
+    &lt;div class="progress__bar" style="--value: 80%"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Indeterminate, success and danger</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 24rem;">
+          <div class="stack stack--sm">
+            <span class="text-sm" id="ind-1">Preparing your metrics export</span>
+            <div class="progress progress--indeterminate" role="progressbar" aria-labelledby="ind-1" aria-busy="true"><div class="progress__bar"></div></div>
+          </div>
+          <div class="stack stack--sm">
+            <span class="text-sm" id="ok-1">IMG_2076.heic · uploaded</span>
+            <div class="progress progress--success" role="progressbar" aria-labelledby="ok-1" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" aria-valuetext="Uploaded"><div class="progress__bar" style="--value: 100%"></div></div>
+          </div>
+          <div class="stack stack--sm">
+            <span class="text-sm" id="bad-1">IMG_2077.heic · didn’t upload</span>
+            <div class="progress progress--danger" role="progressbar" aria-labelledby="bad-1" aria-valuemin="0" aria-valuemax="100" aria-valuenow="18" aria-valuetext="Failed at 18%"><div class="progress__bar" style="--value: 18%"></div></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span><code>.progress--indeterminate</code> when no amount is known (no value attributes); <code>--success</code> and <code>--danger</code> for the moment an upload ends, before the tile changes to the photo or to its error.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="progress progress--indeterminate" role="progressbar" aria-labelledby="export-label" aria-busy="true"&gt;&lt;div class="progress__bar"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="progress progress--success" role="progressbar" … aria-valuenow="100" aria-valuetext="Uploaded"&gt;…&lt;/div&gt;
+&lt;div class="progress progress--danger"  role="progressbar" … aria-valuenow="18"  aria-valuetext="Failed at 18%"&gt;…&lt;/div&gt;</code></pre></details>
+      </div>
+      <p>Success and danger are end states that last about a second; the words beside the bar ("uploaded", "didn’t upload") carry the meaning, and a danger end always comes with a way to retry (the tile's Retry, or the dashboard toast "Upload failed · Retry").</p>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="One height."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Progress has one height (8px, <code>--space-2</code>), thick enough to read at a glance on a phone and thin enough to sit under a file name. Width comes from the container: full width in the meter, up to 8rem on a photo tile.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Progress is not interactive, so there is no hover, focus, active or disabled. The states are values and outcomes, set with the real ARIA attributes.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Progress states by variant</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Empty (0)</th><th scope="col">In progress</th><th scope="col">Complete</th><th scope="col">Unknown amount</th><th scope="col">Succeeded</th><th scope="col">Failed</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Upload bar</th>
+            <td><div class="progress" role="progressbar" aria-label="Uploading IMG_2078.heic" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="width: 8rem;"><div class="progress__bar" style="--value: 0%"></div></div></td>
+            <td><div class="progress" role="progressbar" aria-label="Uploading IMG_2076.heic" aria-valuemin="0" aria-valuemax="100" aria-valuenow="64" style="width: 8rem;"><div class="progress__bar" style="--value: 64%"></div></div></td>
+            <td><div class="progress" role="progressbar" aria-label="Uploading IMG_2079.heic" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" style="width: 8rem;"><div class="progress__bar" style="--value: 100%"></div></div></td>
+            <td><div class="progress progress--indeterminate" role="progressbar" aria-label="Processing IMG_2077.heic" aria-busy="true" style="width: 8rem;"><div class="progress__bar"></div></div></td>
+            <td><div class="progress progress--success" role="progressbar" aria-label="IMG_2076.heic" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" aria-valuetext="Uploaded" style="width: 8rem;"><div class="progress__bar" style="--value: 100%"></div></div></td>
+            <td><div class="progress progress--danger" role="progressbar" aria-label="IMG_2077.heic" aria-valuemin="0" aria-valuemax="100" aria-valuenow="18" aria-valuetext="Failed at 18%" style="width: 8rem;"><div class="progress__bar" style="--value: 18%"></div></div></td>
+          </tr>
+          <tr><th scope="row">Setup meter</th>
+            <td><div class="meter" style="width: 11rem;"><div class="meter__label"><span id="sm-0">Ready to submit</span><span>0 of 10</span></div><div class="progress" role="progressbar" aria-labelledby="sm-0" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" aria-valuetext="0 of 10 done"><div class="progress__bar" style="--value: 0%"></div></div></div></td>
+            <td><div class="meter" style="width: 11rem;"><div class="meter__label"><span id="sm-8">Ready to submit</span><span>8 of 10</span></div><div class="progress" role="progressbar" aria-labelledby="sm-8" aria-valuemin="0" aria-valuemax="10" aria-valuenow="8" aria-valuetext="8 of 10 done"><div class="progress__bar" style="--value: 80%"></div></div></div></td>
+            <td><div class="meter" style="width: 11rem;"><div class="meter__label"><span id="sm-10">Ready to submit</span><span>10 of 10</span></div><div class="progress" role="progressbar" aria-labelledby="sm-10" aria-valuemin="0" aria-valuemax="10" aria-valuenow="10" aria-valuetext="10 of 10 done"><div class="progress__bar" style="--value: 100%"></div></div></div></td>
+            <td><span class="ds-na">The count is always known</span></td>
+            <td><span class="ds-na">Not an outcome</span></td>
+            <td><span class="ds-na">Not an outcome</span></td>
+          </tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;">
+          <div class="meter"><div class="meter__label"><span id="tl-m">Ready to submit</span><span>8 of 10 done</span></div><div class="progress" role="progressbar" aria-labelledby="tl-m" aria-valuemin="0" aria-valuemax="10" aria-valuenow="8" aria-valuetext="8 of 10 done"><div class="progress__bar" style="--value: 80%"></div></div></div>
+          <div class="progress" role="progressbar" aria-label="Uploading IMG_2076.heic" aria-valuemin="0" aria-valuemax="100" aria-valuenow="64"><div class="progress__bar" style="--value: 64%"></div></div>
+          <div class="progress progress--success" role="progressbar" aria-label="IMG_2079.heic uploaded" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><div class="progress__bar" style="--value: 100%"></div></div>
+          <div class="progress progress--danger" role="progressbar" aria-label="IMG_2077.heic failed" aria-valuemin="0" aria-valuemax="100" aria-valuenow="18"><div class="progress__bar" style="--value: 18%"></div></div>
+        </div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;">
+          <div class="meter"><div class="meter__label"><span id="td-m">Ready to submit</span><span>8 of 10 done</span></div><div class="progress" role="progressbar" aria-labelledby="td-m" aria-valuemin="0" aria-valuemax="10" aria-valuenow="8" aria-valuetext="8 of 10 done"><div class="progress__bar" style="--value: 80%"></div></div></div>
+          <div class="progress" role="progressbar" aria-label="Uploading IMG_2076.heic, dark" aria-valuemin="0" aria-valuemax="100" aria-valuenow="64"><div class="progress__bar" style="--value: 64%"></div></div>
+          <div class="progress progress--success" role="progressbar" aria-label="IMG_2079.heic uploaded, dark" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><div class="progress__bar" style="--value: 100%"></div></div>
+          <div class="progress progress--danger" role="progressbar" aria-label="IMG_2077.heic failed, dark" aria-valuemin="0" aria-valuemax="100" aria-valuenow="18"><div class="progress__bar" style="--value: 18%"></div></div>
+        </div></div>
+      </div>
+      <ul>
+        <li><b>Value changes</b> animate the fill width over <code>--duration-deliberate</code> (500ms); a meter that jumps from 7 to 8 when a section is ticked glides rather than snaps.</li>
+        <li><b>Cancelled</b> uploads remove the bar and the tile together ("Cancel upload of IMG_2077.heic"); no "cancelled" bar state exists.</li>
+        <li><b>Paused offline</b>: the bar stops where it is and the caption changes to "Waiting for connection"; it resumes on its own.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>The bar is always 100% of its container; the container decides. The meter spans the main column on every size; upload bars are <code>min(100%, 8rem)</code> under each photo tile.</li>
+        <li><b>Below 48rem:</b> the dashboard meter sits above the checklist and below the welcome text, full width. The label row wraps if "Ready to submit" and "8 of 10 done" cannot share one line at 320px; it never truncates.</li>
+        <li><b>From 62rem:</b> the meter stays in <code>.work-main</code>, beside the listing-card preview pane, not in the side navigation.</li>
+        <li>The submit-profile dialog repeats the meter at the top of its body, at the dialog's width (full screen below 48rem).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The track reads <code>--color-bg-subtle-hover</code>; the fill reads <code>--color-action</code> (ink), <code>--color-success-solid</code> or <code>--color-danger-solid</code>; the meter label reads <code>--color-fg-muted</code>. There are no component tokens; a theme changes the semantic roles.</p>
+      <p>In dark, ink flips to light stone and the track to a raised dark stone, so the fill still reads as the brighter, filled part. Success and danger use the lighter callaloo and sorrel steps.</p>
+      <pre><code>/* The fill is one declaration per variant; a theme never edits .progress */
+.progress__bar            { background: var(--color-action); }
+.progress--success .progress__bar { background: var(--color-success-solid); }
+.progress--danger  .progress__bar { background: var(--color-danger-solid); }</code></pre>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p><code>role="progressbar"</code> with <code>aria-valuemin</code>, <code>aria-valuemax</code>, <code>aria-valuenow</code> and a human <code>aria-valuetext</code> ("8 of 10 done", "64%, uploading"). Indeterminate bars omit the value attributes and set <code>aria-busy="true"</code> on the region they belong to. The setup meter is a progressbar, not <code>role="meter"</code>: it measures progress towards a goal, not a reading on a gauge. See WAI-ARIA <a href="https://www.w3.org/TR/wai-aria-1.2/#progressbar">progressbar</a>; the APG has no separate pattern, so follow its <a href="https://www.w3.org/WAI/ARIA/apg/practices/range-related-properties/">range properties guidance</a>.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Skips the bar; it is not focusable. The controls around it (Cancel upload, the checklist links) are.</td></tr>
+        <tr><td>Screen reader browse keys</td><td>Read the label and value text where the bar sits in the document.</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>Not focusable and never moves focus. When an upload finishes, focus stays where it was; the outcome is announced by the photo tile's status text or the dashboard toast.</p>
+      <h3>Labelling</h3>
+      <p>Every bar has a name: <code>aria-labelledby</code> pointing at the visible label ("Ready to submit", the file name) or, when there is no visible label, <code>aria-label</code> ("Uploading IMG_2076.heic"). Do not make screen readers announce every percentage: update <code>aria-valuenow</code> freely but announce only milestones (done, failed) through the tile's status text.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Meter fill (ink) on track</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle-hover" data-min="3"></span></div>
+        <div class="ds-pair"><span>Meter label on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Meter label on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Success fill on card</span><span class="ds-pair__ratio" data-contrast="--color-success-solid|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Danger fill on card</span><span class="ds-pair__ratio" data-contrast="--color-danger-solid|--color-bg-surface" data-min="3"></span></div>
+      </div>
+      <p>The fill must reach 3:1 against the track (WCAG 1.4.11), because the boundary between them is the information. The checked pairs cover ink on the track and the solid fills on the card; ink (<code>--color-action</code>), success and danger fills against <code>--color-bg-subtle-hover</code> are listed for addition. The track itself does not need 3:1 against the page: the value text carries the amount.</p>
+      <h3>Motion</h3>
+      <p>Fill changes read <code>--duration-deliberate</code>, which reduced motion zeroes, so the bar jumps to the new value. The indeterminate sweep (<code>--duration-loop</code>) stops under reduced motion and the bar becomes a full-width fill at 60% opacity; the caption still says what is happening.</p>
+      <h3>Touch</h3>
+      <p>Nothing to touch. Controls next to a bar (Cancel upload) keep their own 44px target and 8px clearance from the bar.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Label what is measured</b>, not the act: "Ready to submit", the file name "IMG_2076.heic". Not "Progress" or "Loading".</li>
+        <li><b>Value text counts things</b> people recognise: "8 of 10 done" for the checklist, a percentage only for transfers. Use numerals.</li>
+        <li><b>Name the next step near the meter</b>, not in it: "Start with your description" sits above; the checklist below says what each item needs ("3 to 30, each with a caption and a cover").</li>
+        <li><b>Outcome words are plain</b>: "uploaded", "didn’t upload", "Waiting for connection". No "Success!".</li>
+        <li><b>Indeterminate captions say what is happening</b>: "Preparing your metrics export". Never a bare bar.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="meter"><div class="meter__label"><span id="do-m">Ready to submit</span><span>8 of 10 done</span></div><div class="progress" role="progressbar" aria-labelledby="do-m" aria-valuemin="0" aria-valuemax="10" aria-valuenow="8" aria-valuetext="8 of 10 done"><div class="progress__bar" style="--value: 80%"></div></div></div></div><figcaption>The meter counts checklist items, in words and in ink.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="progress" role="progressbar" aria-label="Profile completeness" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80"><div class="progress__bar" style="--value: 80%; background: var(--color-accent);"></div></div></div><figcaption>Don't show a bare pepper-red bar: red reads as selection or error, and without words nobody knows what 80% means.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><span class="text-sm" id="do-ind">Preparing your metrics export</span><div class="progress progress--indeterminate" role="progressbar" aria-labelledby="do-ind" aria-busy="true"><div class="progress__bar"></div></div></div><figcaption>An unknown amount gets the indeterminate bar and a caption.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="progress" role="progressbar" aria-label="Export" aria-valuemin="0" aria-valuemax="100" aria-valuenow="90"><div class="progress__bar" style="--value: 90%"></div></div></div><figcaption>Don't fake a percentage that sits at 90% while the server works; it teaches people the bar lies.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Track</td><td><code>--color-bg-subtle-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td></tr>
+          <tr><td>Fill (progress and meter)</td><td><code>--color-action</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-action" data-swatch></i><span data-token="--color-action"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-action" data-swatch></i><span data-token="--color-action"></span></span></td></tr>
+          <tr><td>Fill, success</td><td><code>--color-success-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-success-solid" data-swatch></i><span data-token="--color-success-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-success-solid" data-swatch></i><span data-token="--color-success-solid"></span></span></td></tr>
+          <tr><td>Fill, danger</td><td><code>--color-danger-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td></tr>
+          <tr><td>Meter label</td><td><code>--color-fg-muted</code>, <code>--text-body-sm</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Height</td><td><code>--space-2</code></td><td colspan="2"><span data-token="--space-2"></span></td></tr>
+          <tr><td>Radius</td><td><code>--radius-full</code></td><td colspan="2"><span data-token="--radius-full"></span></td></tr>
+          <tr><td>Meter gap</td><td><code>--space-2</code></td><td colspan="2"><span data-token="--space-2"></span></td></tr>
+          <tr><td>Fill transition</td><td><code>--duration-deliberate</code>, <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-deliberate"></span> · <span data-token="--ease-standard"></span></td></tr>
+          <tr><td>Indeterminate sweep</td><td><code>--duration-loop</code></td><td colspan="2"><span data-token="--duration-loop"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="meter"&gt;
+  &lt;div class="meter__label"&gt;&lt;span id="meter-label"&gt;Ready to submit&lt;/span&gt;&lt;span&gt;1 of 10 done&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="progress" role="progressbar" aria-labelledby="meter-label"
+       aria-valuemin="0" aria-valuemax="10" aria-valuenow="1" aria-valuetext="1 of 10 done"&gt;
+    &lt;div class="progress__bar" style="--value: 10%"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- script --&gt;
+bar.style.setProperty('--value', pct + '%');
+track.setAttribute('aria-valuenow', pct);
+track.setAttribute('aria-valuetext', pct + '%, uploading');</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.progress</code></td><td>Track: full width, 8px, pill.</td></tr>
+        <tr><td><code>.progress__bar</code></td><td>Fill; width from <code>--value</code> (default 0%). Set <code>--value</code> on the bar (setting it on the track also works, by inheritance).</td></tr>
+        <tr><td><code>.progress--indeterminate</code></td><td>40% sweep loop; full-width 60% fill under reduced motion. Omit value attributes.</td></tr>
+        <tr><td><code>.progress--success</code> <code>.progress--danger</code></td><td>End-state fill colours.</td></tr>
+        <tr><td><code>.meter</code> / <code>.meter__label</code></td><td>Label row above an ink bar; label row is space-between, muted, small.</td></tr>
+        <tr><td><code>role="progressbar"</code> + <code>aria-valuemin/max/now/text</code></td><td>Required on every determinate bar.</td></tr>
+        <tr><td><code>aria-labelledby</code> / <code>aria-label</code></td><td>Required name.</td></tr>
+        <tr><td><code>aria-busy="true"</code></td><td>On an indeterminate bar or the region it belongs to.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/dashboard/empty.html">pages/dashboard/empty</a> (meter 1 of 10) and <a href="../../mocks/pages/dashboard/draft.html">pages/dashboard/draft</a> (8 of 10)</li>
+        <li><a href="../../mocks/dialogs/submit-profile/default.html">dialogs/submit-profile/default</a>, <a href="../../mocks/dialogs/submit-profile/invalid.html">invalid</a> (8 of 10), <a href="../../mocks/dialogs/submit-profile/busy.html">busy</a></li>
+        <li><a href="../../mocks/dialogs/withdraw-submission/default.html">dialogs/withdraw-submission/default</a></li>
+        <li><a href="../../mocks/pages/profile-photos/uploading.html">pages/profile-photos/uploading</a> (upload bars at 64% and 18%)</li>
+      </ul>
+      <p>Drift fixed during extraction: the upload bars set <code>--value</code> on the track while the meters set it on the fill; both work by inheritance, the fill is canonical. The mock kit's default fill was pepper red (<code>--color-accent</code>) and only the meter was ink; every fill is now ink, since pepper means "selected". The fill transition moved from <code>--duration-slow</code> to <code>--duration-deliberate</code> and the indeterminate loop from a literal 1.4s to <code>--duration-loop</code>. The upload bars had a label but no <code>aria-valuetext</code>; it is now required. No mock shows the indeterminate, success or danger bars; they are documented from the kit.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

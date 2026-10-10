@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Accordion — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand accordion and disclosure: grouped details/summary rows, single-open groups and the chart &#x27;Show as a table&#x27; disclosure, every state, both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Containers and overlays</p>
+      <h1>Accordion</h1>
+      <p class="ds-lead">An accordion tucks optional detail behind a short label so the screen stays calm. Sweet Hand builds it on native details and summary, so it opens with no script and is found by find-in-page.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable, lightly used</span><span class="ds-pill">Native <code>&lt;details&gt;</code></span><span class="ds-pill"><code>.accordion</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use an accordion when people need some of the content some of the time and showing all of it would bury the screen: an operator's raw numbers behind a chart, or the longer answers on an information page. Each row is a <code>&lt;details&gt;</code> element; its <code>&lt;summary&gt;</code> is the button.</p>
+      <ul>
+        <li><b>Grouped accordion</b> (<code>.accordion</code>): several related rows in one group, each opening on its own.</li>
+        <li><b>Single-open group</b>: the same markup with a shared <code>name</code> attribute on each <code>&lt;details&gt;</code>, so opening one closes the others. Use it when the rows are alternatives.</li>
+        <li><b>Quiet disclosure</b>: one bare <code>&lt;details&gt;</code> inside a component, styled by that component. The operator metrics page uses it under every bar chart: "Show as a table" reveals the same weekly numbers as an accessible table.</li>
+      </ul>
+      <p>Do not use an accordion for:</p>
+      <ul>
+        <li>Navigation between screens. The caterer dashboard on phones lists its sections as links that open a screen (<a href="side-nav.html">side navigation</a>), not panels that expand in place.</li>
+        <li>Editing. Sweet Hand never puts a form inside a panel that opens on the page; button-triggered editing opens a <a href="dialog.html">dialog</a> or a new screen.</li>
+        <li>Content everyone needs, such as a caterer's menu, areas or allergens. Hiding allergens behind a toggle would break the "food safety is first-class" rule; show them as <a href="tag.html">tags</a> on the <a href="dish.html">dish</a>.</li>
+        <li>Switching between views of the same thing; use <a href="tabs.html">tabs</a> or a segmented control.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="accordion" style="width: 100%; max-width: 26rem;">
+            <details open><summary>Free, and only enquiries</summary><div class="accordion__body"><p>Listing and enquiring are free. No money moves through Sweet Hand; you agree price and payment directly with the caterer.</p></div></details>
+            <details><summary>Every caterer is reviewed</summary><div class="accordion__body"><p>Our team checks each profile and its food handler certificate before it goes live.</p></div></details>
+          </div>
+          <span class="ds-callout" style="left: 4%; top: 6%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 30%; top: 22%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 84%; top: 22%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 30%; top: 46%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 50%; top: 66%;" aria-hidden="true">5</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Group</b><small><code>.accordion</code>: 1px <code>--color-border-default</code> outline, <code>--radius-md</code>, <code>--color-bg-surface</code>.</small></div></li>
+          <li><div><b>Summary (the button)</b><small>Native <code>&lt;summary&gt;</code>, <code>--text-label</code> at <code>--font-size-md</code>, padding <code>--space-4</code>, at least 44px tall.</small></div></li>
+          <li><div><b>Indicator</b><small>A "+" in <code>--color-fg-subtle</code> that turns 45° into "×" when open. Decorative: the expanded state comes from <code>&lt;details&gt;</code>.</small></div></li>
+          <li><div><b>Panel</b><small><code>.accordion__body</code>: muted body text, padding <code>0 --space-4 --space-4</code>, so it lines up with the summary label.</small></div></li>
+          <li><div><b>Row separator</b><small>1px <code>--color-border-default</code> between rows (<code>details + details</code>), never a gap or a shadow.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Grouped accordion</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="accordion">
+            <details><summary>What we collect, and why</summary><div class="accordion__body"><p>Your name and email to run your account, and the event details you put in an enquiry so the caterer can reply.</p></div></details>
+            <details open><summary>Who sees it</summary><div class="accordion__body"><p>A caterer sees your name and your enquiry, not your email or phone, until you choose to share them.</p></div></details>
+            <details><summary>How long we keep it</summary><div class="accordion__body"><p>Enquiries and messages are kept for 3 years after the enquiry closes.</p></div></details>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Rows open independently; any number can be open. Copy from the privacy notice.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="accordion"&gt;
+  &lt;details&gt;
+    &lt;summary&gt;What we collect, and why&lt;/summary&gt;
+    &lt;div class="accordion__body"&gt;&lt;p&gt;Your name and email to run your account…&lt;/p&gt;&lt;/div&gt;
+  &lt;/details&gt;
+  &lt;details open&gt;
+    &lt;summary&gt;Who sees it&lt;/summary&gt;
+    &lt;div class="accordion__body"&gt;&lt;p&gt;A caterer sees your name and your enquiry…&lt;/p&gt;&lt;/div&gt;
+  &lt;/details&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>Single-open group</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="accordion">
+            <details name="terms-demo" open><summary>For customers</summary><div class="accordion__body"><p>Send honest enquiries, and tell the caterer if your plans change.</p></div></details>
+            <details name="terms-demo"><summary>For caterers</summary><div class="accordion__body"><p>Keep your food handler certificate current and your menu accurate.</p></div></details>
+            <details name="terms-demo"><summary>Questions</summary><div class="accordion__body"><p>Write to help@sweethand.example and a person will answer within 2 business days.</p></div></details>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>The shared <code>name</code> makes the group exclusive natively. Browsers without support fall back to independent rows, which is harmless.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="accordion"&gt;
+  &lt;details name="terms" open&gt;&lt;summary&gt;For customers&lt;/summary&gt;…&lt;/details&gt;
+  &lt;details name="terms"&gt;&lt;summary&gt;For caterers&lt;/summary&gt;…&lt;/details&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>Quiet disclosure: "Show as a table"</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <section class="chart-card" aria-labelledby="acc-chart-title">
+            <div class="chart-card__head"><h3 id="acc-chart-title">Enquiries</h3><span class="chart-card__total">71</span></div>
+            <div class="bar-chart" role="img" aria-label="Enquiries by week. 31 Aug: 8, 7 Sep: 11, 14 Sep: 15, 21 Sep: 13, 28 Sep: 12, 5 Oct: 12."><span class="bar-chart__bar" style="--value: 53%;"></span><span class="bar-chart__bar" style="--value: 73%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 87%;"></span><span class="bar-chart__bar" style="--value: 80%;"></span><span class="bar-chart__bar" style="--value: 80%;"></span></div>
+            <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
+            <details open>
+              <summary>Show as a table</summary>
+              <div class="table-wrap">
+                <table class="table">
+                  <caption class="visually-hidden">Enquiries by week</caption>
+                  <thead><tr><th scope="col">Week</th><th scope="col" class="num">Enquiries</th></tr></thead>
+                  <tbody><tr><th scope="row">Week of 31 Aug</th><td class="num">8</td></tr><tr><th scope="row">Week of 7 Sep</th><td class="num">11</td></tr><tr><th scope="row">Week of 14 Sep</th><td class="num">15</td></tr><tr><th scope="row">Week of 21 Sep</th><td class="num">13</td></tr><tr><th scope="row">Week of 28 Sep</th><td class="num">12</td></tr><tr><th scope="row">Week of 5 Oct</th><td class="num">12</td></tr></tbody>
+                </table>
+              </div>
+            </details>
+          </section>
+        </div>
+        <div class="ds-example__caption"><span>From <code>pages/admin-metrics/default</code>. The chart is an image with a full text alternative; the disclosure adds a real <a href="table.html">table</a> for people who want to read or copy the numbers.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;section class="chart-card" aria-labelledby="c-enquiries"&gt;
+  …chart…
+  &lt;details&gt;
+    &lt;summary&gt;Show as a table&lt;/summary&gt;
+    &lt;div class="table-wrap"&gt;&lt;table class="table"&gt;…&lt;/table&gt;&lt;/div&gt;
+  &lt;/details&gt;
+&lt;/section&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="The accordion has one size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">The accordion has one size: the summary is at least 44px (<code>--target-comfortable</code>) with <code>--space-4</code> padding, and the quiet disclosure keeps the same 44px target in smaller muted text. Density comes from the content, not from a size modifier.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Open and closed come from the native <code>open</code> attribute; hover and focus are forced here with <code>data-state</code> on the summary. There is no disabled state: if a row has nothing to show, leave it out (the metrics page drops "Show as a table" from a chart that failed to load).</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Accordion states by variant</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default (closed)</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Expanded</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Grouped</th>
+            <td><div class="accordion" style="min-width: 13rem;"><details><summary>Who sees it</summary><div class="accordion__body"><p>Your name, not your email.</p></div></details></div></td>
+            <td><div class="accordion" style="min-width: 13rem;"><details><summary data-state="hover">Who sees it</summary><div class="accordion__body"><p>Your name, not your email.</p></div></details></div></td>
+            <td><div class="accordion" style="min-width: 13rem;"><details><summary data-state="focus">Who sees it</summary><div class="accordion__body"><p>Your name, not your email.</p></div></details></div></td>
+            <td><div class="accordion" style="min-width: 13rem;"><details open><summary>Who sees it</summary><div class="accordion__body"><p>Your name, not your email.</p></div></details></div></td></tr>
+          <tr><th scope="row">Quiet disclosure</th>
+            <td><div class="chart-card" style="min-width: 11rem; padding-block: 0; border-top: 0;"><details><summary>Show as a table</summary><p>Table</p></details></div></td>
+            <td><div class="chart-card" style="min-width: 11rem; padding-block: 0; border-top: 0;"><details><summary data-state="hover">Show as a table</summary><p>Table</p></details></div></td>
+            <td><div class="chart-card" style="min-width: 11rem; padding-block: 0; border-top: 0;"><details><summary data-state="focus">Show as a table</summary><p>Table</p></details></div></td>
+            <td><div class="chart-card" style="min-width: 11rem; padding-block: 0; border-top: 0;"><details open><summary>Show as a table</summary><p class="text-muted">Week of 31 Aug · 8</p></details></div></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="accordion"><details open><summary>Free, and only enquiries</summary><div class="accordion__body"><p>No money moves through Sweet Hand.</p></div></details><details><summary data-state="hover">Every caterer is reviewed</summary><div class="accordion__body"><p>Checked before it goes live.</p></div></details></div></div>
+        <div data-theme="dark"><div class="accordion"><details open><summary>Free, and only enquiries</summary><div class="accordion__body"><p>No money moves through Sweet Hand.</p></div></details><details><summary data-state="hover">Every caterer is reviewed</summary><div class="accordion__body"><p>Checked before it goes live.</p></div></details></div></div>
+      </div>
+      <ul>
+        <li><b>Expanded</b>: the indicator rotates to "×"; the panel appears below the summary and pushes content down. Nothing overlays.</li>
+        <li><b>Hover</b>: the summary row takes <code>--color-bg-subtle</code>. The quiet disclosure has no hover fill; its text stays muted.</li>
+        <li><b>Focus</b>: the shared 2px pepper ring around the summary on <code>:focus-visible</code>.</li>
+        <li><b>Loading and error</b> belong to the content, not the accordion: a chart that fails shows an <a href="alert.html">alert</a> in place of the chart and no disclosure.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>All breakpoints</b>: the group fills its column; the summary label wraps onto more lines and the indicator stays centred on the right. Nothing truncates.</li>
+        <li><b>XS and SM (below 48rem)</b>: the accordion runs edge to edge inside the page margin (<code>--layout-margin</code>, 16px). Panel text keeps the 16px inset so it never touches the border.</li>
+        <li><b>MD and up (48rem+)</b>: panel prose is capped at the reading measure (<code>--layout-measure</code>, 62ch) by the base <code>p</code> rule even when the group is wider.</li>
+        <li><b>Quiet disclosure tables</b> scroll sideways inside <code>.table-wrap</code> rather than widening the page; the metrics tables have two columns and fit at 320px.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The accordion reads semantic tokens directly and has no component tokens: <code>--color-bg-surface</code> (group), <code>--color-border-default</code> (outline and separators), <code>--color-bg-subtle</code> (summary hover), <code>--color-fg-default</code> (label), <code>--color-fg-muted</code> (panel text) and <code>--color-fg-subtle</code> (indicator). The quiet disclosure inherits from <code>.chart-card summary</code>: <code>--color-fg-muted</code> in <code>--text-body-sm</code>.</p>
+      <p>In dark, the surface and the canvas are the same stone-950, so the 1px stone-750 outline is what holds the group together; hover lifts the row to stone-800. To re-skin, override the semantic tokens on a theme scope; do not add a background tint or a shadow to the group, which would break Sweet Hand's flat surfaces.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code>, which browsers expose as a disclosure button with an expanded or collapsed state (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/">APG Disclosure</a>; a group of them is the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/">APG Accordion</a> without the optional arrow keys). No ARIA is added. Put plain text in the summary, not a heading element: a heading inside the button role is flattened by some screen readers. Name the whole group with the section heading above it.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves between summaries, then into the open panel's links and buttons.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Opens or closes the focused row.</td></tr>
+        <tr><td>Arrow keys</td><td>Not used. Rows are reached with Tab like any button, which is what the native element gives everywhere.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>Focus stays on the summary when it toggles; it never jumps into the panel. Browser find-in-page searches closed panels and opens the matching row automatically, so content is not lost by being folded.</p>
+      <h3>Labelling</h3>
+      <p>The summary text is the accessible name and must make sense on its own when read in a list of buttons: "Show as a table" sits inside a chart section labelled "Enquiries", so it is announced in that context. Don't put the state in the label ("Hide table"); the expanded state is announced for you.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Summary label on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Summary label on hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Panel text on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Indicator on surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Quiet disclosure on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on surface</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Only the indicator moves: a 45° turn over <code>--duration-base</code> (200ms) and the hover fill over <code>--duration-fast</code>. The panel opens instantly; there is no height animation to wait for. Reduced motion sets both durations to near zero.</p>
+      <h3>Touch</h3>
+      <p>The whole summary row is the target, at least 44px tall and full width. The quiet disclosure also keeps a 44px row even though its text is small.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Summaries are short noun phrases or questions in sentence case, Canadian English: "Who sees it", "How long we keep it", "Show as a table". Four or five words at most.</li>
+        <li>Front-load the distinctive word so a scanning eye finds it: "For caterers", not "Information for caterers".</li>
+        <li>Panels answer in one or two short paragraphs. If a panel needs headings of its own, it deserves its own page.</li>
+        <li>Never hide prices, allergens, licensing statements or anything a person must agree to inside a closed row.</li>
+        <li>Keep the label the same when open or closed.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="accordion"><details><summary>How long we keep it</summary><div class="accordion__body"><p>3 years after the enquiry closes.</p></div></details></div></div><figcaption>Fold optional, reference-style detail that some readers want.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="accordion"><details><summary>Allergens</summary><div class="accordion__body"><p>Contains nuts.</p></div></details></div></div><figcaption>Don't fold allergens or dietary information. Show them as tags on every dish.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas"><div class="chart-card" style="padding-block: 0; border-top: 0;"><details><summary>Show as a table</summary><p>Table</p></details></div></div><figcaption>Give every chart a disclosure with the same numbers as a table.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="accordion"><details open><summary>Edit your details</summary><div class="accordion__body"><label class="field" for="acc-dont-name"><span class="field__label">Business name</span><input class="input" id="acc-dont-name" type="text" value="Pelau House"></label></div></details></div></div><figcaption>Don't put a form in a panel. Editing opens a dialog or a screen ("Edit details" opens <code>dialogs/edit-details</code>).</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Group background</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Outline and row separator</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Summary hover</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Summary label</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Panel text, quiet disclosure label</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Indicator</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+          <tr><td>Summary padding / panel inset</td><td><code>--space-4</code></td><td colspan="2"><span data-token="--space-4"></span></td></tr>
+          <tr><td>Summary minimum height</td><td><code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Radius</td><td><code>--radius-md</code></td><td colspan="2"><span data-token="--radius-md"></span></td></tr>
+          <tr><td>Summary font</td><td><code>--text-label</code> at <code>--font-size-md</code></td><td colspan="2"><span data-token="--text-label"></span></td></tr>
+          <tr><td>Indicator turn / hover fill</td><td><code>--duration-base</code>, <code>--duration-fast</code></td><td colspan="2"><span data-token="--duration-base"></span> / <span data-token="--duration-fast"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;h2 id="privacy-title"&gt;Your privacy&lt;/h2&gt;
+&lt;div class="accordion" role="group" aria-labelledby="privacy-title"&gt;
+  &lt;details name="privacy"&gt;
+    &lt;summary&gt;Who sees it&lt;/summary&gt;
+    &lt;div class="accordion__body"&gt;&lt;p&gt;A caterer sees your name and your enquiry…&lt;/p&gt;&lt;/div&gt;
+  &lt;/details&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.accordion</code></td><td>Group: outline, radius, surface; separators between child <code>&lt;details&gt;</code>.</td></tr>
+        <tr><td><code>.accordion summary</code></td><td>Full-width 44px row with the "+" indicator; native marker hidden.</td></tr>
+        <tr><td><code>.accordion__body</code></td><td>Panel inset and muted text.</td></tr>
+        <tr><td><code>open</code></td><td>Expanded. Set it in markup for a row that should start open.</td></tr>
+        <tr><td><code>name="…"</code></td><td>Shared by rows of a single-open group.</td></tr>
+        <tr><td><code>.chart-card details</code></td><td>Quiet disclosure under a chart; styled by the <a href="bar-chart.html">bar chart</a> card.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation and mocks only, on the summary.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>The grouped accordion is part of the original kit (<code>docs/mocks/assets/ui.css</code>) and is not used on any current screen; its copy here comes from the information pages. The quiet disclosure is extracted from:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-metrics/default.html">pages/admin-metrics/default</a> ("Show as a table" under six charts)</li>
+        <li><a href="../../mocks/pages/admin-metrics/invalid.html">pages/admin-metrics/invalid</a> (same disclosures with a corrected date range)</li>
+        <li><a href="../../mocks/pages/admin-metrics/partial.html">pages/admin-metrics/partial</a> (failed charts drop the disclosure)</li>
+        <li><a href="../../mocks/pages/privacy/default.html">pages/privacy/default</a>, <a href="../../mocks/pages/terms/default.html">pages/terms/default</a> and <a href="../../mocks/pages/about/default.html">pages/about/default</a> (example copy)</li>
+      </ul>
+      <p>Drift fixed during extraction: the "Show as a table" summaries are <code>display: flex</code>, which removes the native disclosure triangle, so nothing showed they expand; the system gives them the accordion's "+" indicator (CSS change requested). The kit's summary had no hover transition; it now fades over <code>--duration-fast</code>.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

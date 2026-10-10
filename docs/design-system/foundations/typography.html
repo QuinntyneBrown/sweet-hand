@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Typography — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand typography: Figtree with fallbacks, the 9-step type scale, weights, line heights, letter spacing, 16 text roles, measure, numbers and responsive display sizes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Typography</h1>
+      <p class="ds-lead">One geometric sans, nine sizes, four weights. Text is short and confident: bold names, quiet supporting lines, and the food photos doing the rest.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Figtree</span><span class="ds-pill">9 sizes</span><span class="ds-pill">16 roles</span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#families">Families</a></li><li><a href="#scale">Type scale</a></li><li><a href="#weights">Weights</a></li><li><a href="#line-height">Line height and letter spacing</a></li><li><a href="#roles">Text roles</a></li><li><a href="#measure">Measure and wrapping</a></li><li><a href="#numbers">Numbers, money and dates</a></li><li><a href="#usage">Usage</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The reference design sets a bold geometric grotesque wordmark over a quiet text-only nav, a vertical filter list at 18px and short captions under round photos. The system keeps exactly that: large, tight, bold headings; a 16px body with generous line height; and a muted 14px line for the supporting detail ("Jamaican · Pickering").</p>
+      <p>Type has three tiers, like colour. Primitives (<code>--font-family-*</code>, <code>--font-size-*</code>, <code>--font-weight-*</code>, <code>--line-height-*</code>, <code>--letter-spacing-*</code>) are building blocks. <b>Roles</b> (<code>--text-*</code>) combine them into a <code>font</code> shorthand, and components use roles: <code>font: var(--text-label)</code>. A component may adjust one primitive on top of a role (for example a button label is <code>--text-label</code> at <code>--font-size-md</code>), but never invents a size.</p>
+      <p>All sizes are in <code>rem</code>, so they follow the reader's browser text size. Only the two largest steps change with the viewport.</p>
+    </section>
+
+    <section class="ds-section" id="families"><h2><a href="#families">Families</a></h2>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p style="font: var(--text-display); letter-spacing: var(--letter-spacing-tight);">Sweet Hand</p>
+          <p style="font: var(--text-body-lg);">Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz<br>0123456789 · $2,600 · 9:42 a.m. · “curry goat” — buss up shut, shado beni</p>
+          <p style="font: var(--text-code);">--font-family-mono: font: var(--text-code);</p>
+        </div>
+        <div class="ds-example__caption"><span><code>--font-family-sans</code> (display, body, mono specimen below in <code>--font-family-mono</code>)</span></div>
+      </div>
+      <p><b>Figtree</b> is first in the stack: an open, friendly geometric sans close to the reference's type, with tabular figures and a full Latin set for names like Jean-Robert, Ollivierre and Paramaribo. The fallbacks are chosen to keep the same proportions when Figtree is not loaded (the mocks open from disk without web fonts): Instrument Sans, Avenir Next / Avenir on Apple systems, Segoe UI Variable Display and Segoe UI on Windows, then <code>system-ui</code>, Roboto, Helvetica Neue and Arial.</p>
+      <p>The licensed web font is still an open decision (mocks README, question 11). When it lands, load it with <code>font-display: swap</code> and keep the fallback list so text never waits for a download.</p>
+      <p>The mono stack is only for inline code and code blocks. No product screen in the mocks uses it: certificate numbers (FH-2024-118734) and report numbers (R-2047) stay in Figtree.</p>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Resolved value</th><th scope="col">Declared as</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code>--font-family-sans</code></td><td><span data-token="--font-family-sans"></span></td><td><code>"Figtree", "Instrument Sans", "Avenir Next", "Avenir", "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif</code></td><td>Figtree, then geometric and system fallbacks. Every UI string.</td></tr><tr><td><code>--font-family-mono</code></td><td><span data-token="--font-family-mono"></span></td><td><code>ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace</code></td><td>Inline code and code blocks. No product screen in the mocks uses it; certificate numbers stay in Figtree.</td></tr></tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="scale"><h2><a href="#scale">Type scale</a></h2>
+      <p>Nine steps from 12px to 48px on phones (64px on laptops). Steps 3xl and below never change; the gaps between steps grow as sizes grow, so a heading is always clearly a heading. Values shown are live for your current window width.</p>
+      <div class="ds-example">
+        <div class="ds-specimen"><div class="ds-specimen__meta">--font-size-5xl · <span data-token="--font-size-5xl"></span><br>48px, 64px from 62rem</div><p style="font-size: var(--font-size-5xl); line-height: var(--line-height-tight); font-weight: var(--font-weight-bold); letter-spacing: var(--letter-spacing-tight);">Pelau House</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--font-size-4xl · <span data-token="--font-size-4xl"></span><br>36px, 44px from 62rem</div><p style="font-size: var(--font-size-4xl); line-height: var(--line-height-tight); font-weight: var(--font-weight-bold); letter-spacing: var(--letter-spacing-tight);">Caterers</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--font-size-3xl · <span data-token="--font-size-3xl"></span><br>30px</div><p style="font-size: var(--font-size-3xl); line-height: var(--line-height-tight); font-weight: var(--font-weight-bold); letter-spacing: var(--letter-spacing-tight);">Menu</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--font-size-2xl · <span data-token="--font-size-2xl"></span><br>24px</div><p style="font-size: var(--font-size-2xl); line-height: var(--line-height-snug); font-weight: var(--font-weight-semibold);">Send an enquiry to Pelau House</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--font-size-xl · <span data-token="--font-size-xl"></span><br>21px</div><p style="font-size: var(--font-size-xl); line-height: var(--line-height-snug); font-weight: var(--font-weight-medium);">Scotch Bonnet Social</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--font-size-lg · <span data-token="--font-size-lg"></span><br>18px</div><p style="font-size: var(--font-size-lg);">Trinidadian &amp; Tobagonian · Serves 20–300 guests</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--font-size-md · <span data-token="--font-size-md"></span><br>16px</div><p style="font-size: var(--font-size-md);">Browned in burnt sugar, cooked down with pigeon peas, rice and coconut milk.</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--font-size-sm · <span data-token="--font-size-sm"></span><br>14px</div><p style="font-size: var(--font-size-sm); color: var(--color-fg-muted);">Jamaican · Pickering</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--font-size-xs · <span data-token="--font-size-xs"></span><br>12px, the minimum</div><p style="font-size: var(--font-size-xs);">Contains nuts · 23 reviews · Today 9:42 a.m.</p></div>
+      </div>
+      <h3>Responsive display sizes</h3>
+      <p>Phones cannot fit a 64px caterer name, and laptops make a 36px page title look timid. So the two display steps are redefined in <code>tokens.css</code> at the LG breakpoint (62rem, 992px), and every role built on them follows automatically. Nothing else in the scale moves.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Token</th><th scope="col">XS–MD (&lt; 62rem)</th><th scope="col">LG and up (≥ 62rem)</th><th scope="col">Roles that follow</th></tr></thead>
+        <tbody>
+          <tr><td><code>--font-size-5xl</code></td><td>3rem · 48px</td><td>4rem · 64px</td><td><code>--text-display</code> (caterer name)</td></tr>
+          <tr><td><code>--font-size-4xl</code></td><td>2.25rem · 36px</td><td>2.75rem · 44px</td><td><code>--text-h1</code> (page titles, inbox heading)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Very long caterer names on phones wrap to several lines at display size; <code>.caterer-head h1</code> uses <code>overflow-wrap: anywhere</code> so nothing overflows at 320px (see <a href="../../mocks/pages/caterer/edge.html">pages/caterer/edge</a>). Whether to step the size down for long names is an open question in the mocks README (question 25).</p>
+    </section>
+
+    <section class="ds-section" id="weights"><h2><a href="#weights">Weights</a></h2>
+      <p>Four weights. Bold is for the three largest roles and the wordmark; semibold for small headings and the selected filter (weight, not just colour, marks selection); medium for labels and caterer names; regular for everything you read.</p>
+      <div class="ds-example">
+        <div class="ds-specimen"><div class="ds-specimen__meta">--font-weight-regular · <span data-token="--font-weight-regular"></span></div><p style="font-size: var(--font-size-xl); font-weight: var(--font-weight-regular);">Curry goat, slow-cooked with scotch bonnet</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--font-weight-medium · <span data-token="--font-weight-medium"></span></div><p style="font-size: var(--font-size-xl); font-weight: var(--font-weight-medium);">Auntie Merle's Table</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--font-weight-semibold · <span data-token="--font-weight-semibold"></span></div><p style="font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold);">Reviews</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--font-weight-bold · <span data-token="--font-weight-bold"></span></div><p style="font-size: var(--font-size-xl); font-weight: var(--font-weight-bold);">Sweet Hand</p></div>
+      </div>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Resolved value</th><th scope="col">Declared as</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code>--font-weight-regular</code></td><td><span data-token="--font-weight-regular"></span></td><td><code>400</code></td><td>Body, captions, nav links, filter counts.</td></tr><tr><td><code>--font-weight-medium</code></td><td><span data-token="--font-weight-medium"></span></td><td><code>500</code></td><td>Labels, buttons, caterer names on cards.</td></tr><tr><td><code>--font-weight-semibold</code></td><td><span data-token="--font-weight-semibold"></span></td><td><code>600</code></td><td>h3, h4, overlines, the selected filter and tab.</td></tr><tr><td><code>--font-weight-bold</code></td><td><span data-token="--font-weight-bold"></span></td><td><code>700</code></td><td>Display, h1, h2, the wordmark.</td></tr></tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="line-height"><h2><a href="#line-height">Line height and letter spacing</a></h2>
+      <p>Line height is unitless so it scales with the size. Tight for the big bold roles (they rarely wrap past two lines), snug for small headings and card titles, normal (1.5) for everything you read, and relaxed (1.65) for long-form pages. Letter spacing is tightened on bold headings and the wordmark, and widened only for short uppercase overlines.</p>
+      <div class="ds-example">
+        <div class="ds-specimen"><div class="ds-specimen__meta">--line-height-tight · <span data-token="--line-height-tight"></span><br>+ --letter-spacing-tight</div><p style="font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold); line-height: var(--line-height-tight); letter-spacing: var(--letter-spacing-tight); max-width: 18ch;">Caterers for weddings in Brampton</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--line-height-snug · <span data-token="--line-height-snug"></span></div><p style="font-size: var(--font-size-xl); font-weight: var(--font-weight-medium); line-height: var(--line-height-snug); max-width: 16ch;">Fungee &amp; Pepperpot by the Sea</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--line-height-normal · <span data-token="--line-height-normal"></span></div><p style="line-height: var(--line-height-normal);">Hi Kendra, we're planning my parents' 40th anniversary at a hall on Ellesmere Road. We'd love pelau, curry goat, macaroni pie and callaloo for about 120 people, served buffet style around 6 p.m.</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--line-height-relaxed · <span data-token="--line-height-relaxed"></span></div><p style="font-size: var(--font-size-lg); line-height: var(--line-height-relaxed);">We collect your name, email address and the details of your enquiry so caterers can reply. We never show a caterer your email or phone number unless you choose to share them.</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--letter-spacing-wide · <span data-token="--letter-spacing-wide"></span><br>uppercase only</div><p class="overline">Caterer · Pending review</p></div>
+      </div>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Resolved value</th><th scope="col">Declared as</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code>--line-height-tight</code></td><td><span data-token="--line-height-tight"></span></td><td><code>1.1</code></td><td>Display, h1, h2.</td></tr><tr><td><code>--line-height-snug</code></td><td><span data-token="--line-height-snug"></span></td><td><code>1.3</code></td><td>H3, h4, card titles, wrapped buttons.</td></tr><tr><td><code>--line-height-normal</code></td><td><span data-token="--line-height-normal"></span></td><td><code>1.5</code></td><td>Body.</td></tr><tr><td><code>--line-height-relaxed</code></td><td><span data-token="--line-height-relaxed"></span></td><td><code>1.65</code></td><td>Long-form reading (about, privacy, terms).</td></tr><tr><td><code>--letter-spacing-tight</code></td><td><span data-token="--letter-spacing-tight"></span></td><td><code>-0.02em</code></td><td>Headings, wordmark.</td></tr><tr><td><code>--letter-spacing-normal</code></td><td><span data-token="--letter-spacing-normal"></span></td><td><code>0</code></td><td>Body and everything not listed below.</td></tr><tr><td><code>--letter-spacing-wide</code></td><td><span data-token="--letter-spacing-wide"></span></td><td><code>0.06em</code></td><td>Uppercase overlines and "kind" labels.</td></tr></tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="roles"><h2><a href="#roles">Text roles</a></h2>
+      <p>Sixteen roles cover every piece of text in the 436 mocks. Each is a full <code>font</code> shorthand (weight, size / line height, family); letter spacing and text transform are set alongside where noted. Pick the role by what the text <em>is</em>, not by how big you want it.</p>
+      <div class="ds-example">
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-display<br>bold · 5xl / tight · tight tracking</div><p style="font: var(--text-display); letter-spacing: var(--letter-spacing-tight);">Pelau House</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-h1<br>bold · 4xl / tight · tight tracking</div><p style="font: var(--text-h1); letter-spacing: var(--letter-spacing-tight);">Inbox</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-h2<br>bold · 3xl / tight · tight tracking</div><p style="font: var(--text-h2); letter-spacing: var(--letter-spacing-tight);">Reviews</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-h3<br>semibold · 2xl / snug</div><p style="font: var(--text-h3);">Remove “Curry goat”?</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-h4<br>semibold · xl / snug</div><p style="font: var(--text-h4);">Food handler certificate</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-wordmark<br>bold · 2xl / 1 · tight tracking</div><p style="font: var(--text-wordmark); letter-spacing: var(--letter-spacing-tight);">Sweet Hand</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-card-title<br>medium · xl / snug</div><p style="font: var(--text-card-title);">Demerara Kitchen</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-body-lg<br>regular · lg / normal</div><p style="font: var(--text-body-lg);">Serves 20–300 guests · Weddings, Birthdays, Family gatherings</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-body<br>regular · md / normal</div><p style="font: var(--text-body);">Dasheen bush, okra and coconut, swizzled smooth.</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-body-sm<br>regular · sm / normal</div><p style="font: var(--text-body-sm); color: var(--color-fg-muted);">Haitian · Etobicoke</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-caption<br>regular · xs / normal</div><p style="font: var(--text-caption); color: var(--color-fg-muted);">Marcia Thompson · Thu 8 Oct, 7:15 p.m.</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-label<br>medium · sm / normal</div><p style="font: var(--text-label);">Event date</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-nav<br>regular · md / normal</div><p style="font: var(--text-nav);">Caterers · Occasions · Inbox</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-overline<br>semibold · xs / normal · wide, uppercase</div><p class="overline">For caterers</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-code<br>regular · sm / normal · mono</div><p style="font: var(--text-code);">font: var(--text-card-title);</p></div>
+        <div class="ds-specimen"><div class="ds-specimen__meta">--text-prose<br>regular · lg / relaxed</div><p style="font: var(--text-prose);">Sweet Hand helps you find Caribbean caterers across Toronto and the GTA, from a Guyanese cook-up for 40 to a Trinidadian wedding for 300.</p></div>
+      </div>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Resolved value</th><th scope="col">Declared as</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code>--text-display</code></td><td><span data-token="--text-display"></span></td><td><code>var(--font-weight-bold) var(--font-size-5xl) / var(--line-height-tight) var(--font-family-sans)</code></td><td>Caterer name on the caterer page; 48px phones, 64px from 62rem.</td></tr><tr><td><code>--text-h1</code></td><td><span data-token="--text-h1"></span></td><td><code>var(--font-weight-bold) var(--font-size-4xl) / var(--line-height-tight) var(--font-family-sans)</code></td><td>Page titles ("Caterers", "Inbox"); 36px phones, 44px from 62rem.</td></tr><tr><td><code>--text-h2</code></td><td><span data-token="--text-h2"></span></td><td><code>var(--font-weight-bold) var(--font-size-3xl) / var(--line-height-tight) var(--font-family-sans)</code></td><td>Section titles ("Menu", "Reviews"), dialog headings in operator flows.</td></tr><tr><td><code>--text-h3</code></td><td><span data-token="--text-h3"></span></td><td><code>var(--font-weight-semibold) var(--font-size-2xl) / var(--line-height-snug) var(--font-family-sans)</code></td><td>Dialog titles, sub-sections, rating summary, prose headings.</td></tr><tr><td><code>--text-h4</code></td><td><span data-token="--text-h4"></span></td><td><code>var(--font-weight-semibold) var(--font-size-xl) / var(--line-height-snug) var(--font-family-sans)</code></td><td>Card titles and form group headings.</td></tr><tr><td><code>--text-wordmark</code></td><td><span data-token="--text-wordmark"></span></td><td><code>var(--font-weight-bold) var(--font-size-2xl) / 1 var(--font-family-sans)</code></td><td>The Sweet Hand wordmark only (line height 1).</td></tr><tr><td><code>--text-card-title</code></td><td><span data-token="--text-card-title"></span></td><td><code>var(--font-weight-medium) var(--font-size-xl) / var(--line-height-snug) var(--font-family-sans)</code></td><td>Caterer name under the round photo.</td></tr><tr><td><code>--text-body-lg</code></td><td><span data-token="--text-body-lg"></span></td><td><code>var(--font-weight-regular) var(--font-size-lg) / var(--line-height-normal) var(--font-family-sans)</code></td><td>Lead text, filter list, caterer facts, long reviews.</td></tr><tr><td><code>--text-body</code></td><td><span data-token="--text-body"></span></td><td><code>var(--font-weight-regular) var(--font-size-md) / var(--line-height-normal) var(--font-family-sans)</code></td><td>Default body text, inputs, button labels.</td></tr><tr><td><code>--text-body-sm</code></td><td><span data-token="--text-body-sm"></span></td><td><code>var(--font-weight-regular) var(--font-size-sm) / var(--line-height-normal) var(--font-family-sans)</code></td><td>Card meta line, help text, table cells, timestamps.</td></tr><tr><td><code>--text-caption</code></td><td><span data-token="--text-caption"></span></td><td><code>var(--font-weight-regular) var(--font-size-xs) / var(--line-height-normal) var(--font-family-sans)</code></td><td>Captions, counts, tags, badges. The smallest size (12px).</td></tr><tr><td><code>--text-label</code></td><td><span data-token="--text-label"></span></td><td><code>var(--font-weight-medium) var(--font-size-sm) / var(--line-height-normal) var(--font-family-sans)</code></td><td>Form labels, buttons, status labels, nav items.</td></tr><tr><td><code>--text-nav</code></td><td><span data-token="--text-nav"></span></td><td><code>var(--font-weight-regular) var(--font-size-md) / var(--line-height-normal) var(--font-family-sans)</code></td><td>Site header links.</td></tr><tr><td><code>--text-overline</code></td><td><span data-token="--text-overline"></span></td><td><code>var(--font-weight-semibold) var(--font-size-xs) / var(--line-height-normal) var(--font-family-sans)</code></td><td>Uppercase "kind" labels with <code>--letter-spacing-wide</code>.</td></tr><tr><td><code>--text-code</code></td><td><span data-token="--text-code"></span></td><td><code>var(--font-weight-regular) var(--font-size-sm) / var(--line-height-normal) var(--font-family-mono)</code></td><td>Inline code and code blocks.</td></tr><tr><td><code>--text-prose</code></td><td><span data-token="--text-prose"></span></td><td><code>var(--font-weight-regular) var(--font-size-lg) / var(--line-height-relaxed) var(--font-family-sans)</code></td><td>Long-form pages: About, Privacy, Terms (line height 1.65).</td></tr></tbody></table></div>
+      <p><b>Where these came from.</b> Fifteen roles come straight from the mocks' draft and are used in <code>ui.css</code> (most often <code>--text-body-sm</code> and <code>--text-label</code>, 44 uses each). <code>--text-prose</code> is new: the About, Privacy and Terms mocks set long text in <code>.prose</code>, which reads <code>--text-body-lg</code> at line height 1.5, which is cramped for paragraphs of policy; the role adds the relaxed 1.65 line height the draft defined but never used.</p>
+    </section>
+
+    <section class="ds-section" id="measure"><h2><a href="#measure">Measure and wrapping</a></h2>
+      <p>Paragraphs stop at <code>--layout-measure</code> (62ch, about 10–12 words per line). Every <code>&lt;p&gt;</code> has it by default in <code>components.css</code>, and <code>.measure</code> applies it to anything else; reviews, enquiry messages and the policy pages all rely on it. The token itself lives on <a href="layout.html#container">Layout</a>.</p>
+      <ul>
+        <li><b>Headings</b> use <code>text-wrap: balance</code> so a two-line title splits evenly instead of leaving one word behind.</li>
+        <li><b>Paragraphs</b> use <code>text-wrap: pretty</code> to avoid a single short last line.</li>
+        <li><b>Names and user text</b> (caterer names, messages, reviews) use <code>overflow-wrap: anywhere</code> so a long unbroken string cannot push the page sideways at 320px.</li>
+        <li><b>Caterer names on cards</b> clamp to two lines; the full name is on the caterer page.</li>
+        <li><b>Truncation</b> with an ellipsis is only for one-line UI (the sticky enquiry bar's caterer name, inbox previews), never for content someone needs to read in full.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="numbers"><h2><a href="#numbers">Numbers, money and dates</a></h2>
+      <p>Figures that line up in a column or change in place use tabular numbers (<code>font-variant-numeric: tabular-nums</code>): prices on the menu, filter counts, stats, the rating summary, queue wait times, table number columns and the unread badge. Running text keeps proportional figures.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ul class="filter-list" style="max-width: 18rem;">
+            <li><button class="filter-list__item" type="button" aria-pressed="false">Jamaican <span class="filter-list__count">14</span></button></li>
+            <li><button class="filter-list__item" type="button" aria-pressed="false">Trinidadian &amp; Tobagonian <span class="filter-list__count">11</span></button></li>
+            <li><button class="filter-list__item" type="button" aria-pressed="false">Guyanese <span class="filter-list__count">9</span></button></li>
+          </ul>
+          <p style="font: var(--text-h3); font-variant-numeric: tabular-nums;">4.7 · 23 reviews</p>
+        </div>
+        <div class="ds-example__caption"><span>Filter counts and the rating summary use tabular figures.</span></div>
+      </div>
+      <ul>
+        <li>Money is CAD with a dollar sign and no currency code in the product: "From $18 per person", "$14 per litre", "about $2,600 before tax".</li>
+        <li>Dates in lists: "Sat 21 Nov" (add the year when it isn't 2026); on detail screens: "Saturday 21 November 2026".</li>
+        <li>Times: "9:42 a.m.", "6 p.m.", in <code>America/Toronto</code>.</li>
+        <li>Ranges use an en dash without spaces: "20–300 guests", "1:00–3:00 a.m.".</li>
+      </ul>
+      <p>The full number and date rules are on <a href="content.html">Content</a>.</p>
+    </section>
+
+    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+      <ul>
+        <li><b>Use roles.</b> <code>font: var(--text-body-sm)</code>, not a size, weight and line height set separately. Add a primitive only to adjust one property of a role.</li>
+        <li><b>One h1 per page</b>, then h2 for sections and h3 inside them. Pick the heading level by structure and the role by appearance; they usually match.</li>
+        <li><b>Few sizes per screen.</b> A caterer card is two sizes (card title and body-sm). A screen with more than four sizes is usually missing hierarchy elsewhere.</li>
+        <li><b>Muted, not smaller.</b> To push a line back, use <code>--color-fg-muted</code> before dropping a size.</li>
+        <li><b>Sentence case everywhere</b>, including buttons and headings. Uppercase only for overlines, which stay under four words.</li>
+        <li><b>No italics for emphasis in UI.</b> Use weight. Italics are for quoted titles in reviews only.</li>
+        <li><b>Keep the wordmark role for the wordmark.</b> It has line height 1 and would clip descenders in running text.</li>
+      </ul>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><p style="font: var(--text-card-title);">Pelau House</p><p style="font: var(--text-body-sm); color: var(--color-fg-muted);">Trinidadian &amp; Tobagonian · Scarborough</p></div><figcaption>Name in the card title role, supporting line in muted body-sm.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><p class="overline">Pelau House</p><p style="font: var(--text-h4);">Trinidadian &amp; Tobagonian · Scarborough</p></div><figcaption>Shout the name in an overline and make the metadata the biggest thing on the card.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <ul>
+        <li><b>12px minimum.</b> Nothing is set smaller than <code>--font-size-xs</code>, and xs is only for short captions, counts and tags, never for sentences a person must read to act.</li>
+        <li><b>Resizable text (1.4.4) and reflow (1.4.10).</b> Every size is in <code>rem</code>, so browser text settings apply; at 200% zoom in a 1280px window (640 CSS px, the SM class) every page reflows to one column with no horizontal scrolling (L2-069.3).</li>
+        <li><b>Text spacing (1.4.12).</b> No text container has a fixed height; content survives line height 1.5×, paragraph spacing 2×, letter spacing 0.12em and word spacing 0.16em.</li>
+        <li><b>Line height.</b> Body text is 1.5 and prose 1.65; tight line heights are limited to large bold headings.</li>
+        <li><b>Large text.</b> Text at 24px or larger, or 18.66px bold, counts as large (L2-069.1). The system does not rely on that exception: muted and subtle text pass 4.5:1 at every size.</li>
+        <li><b>Headings are real headings.</b> Visual roles never replace <code>&lt;h1&gt;</code>–<code>&lt;h4&gt;</code>; a card title inside a listing is an <code>&lt;h3&gt;</code> or a link, not a styled <code>&lt;div&gt;</code>.</li>
+        <li><b>Language.</b> Pages declare <code>lang="en-CA"</code>; caterer-written text in Haitian Creole or French can be marked with its own <code>lang</code> so screen readers pronounce it.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <p>Every typography token with its value at your current window width. Type does not change between themes.</p>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Resolved value</th><th scope="col">Declared as</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code>--font-family-sans</code></td><td><span data-token="--font-family-sans"></span></td><td><code>"Figtree", "Instrument Sans", "Avenir Next", "Avenir", "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif</code></td><td>Figtree, then geometric and system fallbacks. Every UI string.</td></tr><tr><td><code>--font-family-mono</code></td><td><span data-token="--font-family-mono"></span></td><td><code>ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace</code></td><td>Inline code and code blocks. No product screen in the mocks uses it; certificate numbers stay in Figtree.</td></tr><tr><td><code>--font-size-xs</code></td><td><span data-token="--font-size-xs"></span></td><td><code>0.75rem</code></td><td>12px · captions, badges, tags.</td></tr><tr><td><code>--font-size-sm</code></td><td><span data-token="--font-size-sm"></span></td><td><code>0.875rem</code></td><td>14px · area under a caterer name, metadata.</td></tr><tr><td><code>--font-size-md</code></td><td><span data-token="--font-size-md"></span></td><td><code>1rem</code></td><td>16px · body, button labels.</td></tr><tr><td><code>--font-size-lg</code></td><td><span data-token="--font-size-lg"></span></td><td><code>1.125rem</code></td><td>18px · filter list, facts, lead text.</td></tr><tr><td><code>--font-size-xl</code></td><td><span data-token="--font-size-xl"></span></td><td><code>1.3125rem</code></td><td>21px · caterer name on a card, h4.</td></tr><tr><td><code>--font-size-2xl</code></td><td><span data-token="--font-size-2xl"></span></td><td><code>1.5rem</code></td><td>24px · h3, wordmark.</td></tr><tr><td><code>--font-size-3xl</code></td><td><span data-token="--font-size-3xl"></span></td><td><code>1.875rem</code></td><td>30px · h2.</td></tr><tr><td><code>--font-size-4xl</code></td><td><span data-token="--font-size-4xl"></span></td><td><code>2.25rem</code></td><td>36px · h1 on phones; 44px from 62rem.</td></tr><tr><td><code>--font-size-5xl</code></td><td><span data-token="--font-size-5xl"></span></td><td><code>3rem</code></td><td>48px · display on phones; 64px from 62rem.</td></tr><tr><td><code>--font-weight-regular</code></td><td><span data-token="--font-weight-regular"></span></td><td><code>400</code></td><td>Body, captions, nav links, filter counts.</td></tr><tr><td><code>--font-weight-medium</code></td><td><span data-token="--font-weight-medium"></span></td><td><code>500</code></td><td>Labels, buttons, caterer names on cards.</td></tr><tr><td><code>--font-weight-semibold</code></td><td><span data-token="--font-weight-semibold"></span></td><td><code>600</code></td><td>h3, h4, overlines, the selected filter and tab.</td></tr><tr><td><code>--font-weight-bold</code></td><td><span data-token="--font-weight-bold"></span></td><td><code>700</code></td><td>Display, h1, h2, the wordmark.</td></tr><tr><td><code>--line-height-tight</code></td><td><span data-token="--line-height-tight"></span></td><td><code>1.1</code></td><td>Display, h1, h2.</td></tr><tr><td><code>--line-height-snug</code></td><td><span data-token="--line-height-snug"></span></td><td><code>1.3</code></td><td>H3, h4, card titles, wrapped buttons.</td></tr><tr><td><code>--line-height-normal</code></td><td><span data-token="--line-height-normal"></span></td><td><code>1.5</code></td><td>Body.</td></tr><tr><td><code>--line-height-relaxed</code></td><td><span data-token="--line-height-relaxed"></span></td><td><code>1.65</code></td><td>Long-form reading (about, privacy, terms).</td></tr><tr><td><code>--letter-spacing-tight</code></td><td><span data-token="--letter-spacing-tight"></span></td><td><code>-0.02em</code></td><td>Headings, wordmark.</td></tr><tr><td><code>--letter-spacing-normal</code></td><td><span data-token="--letter-spacing-normal"></span></td><td><code>0</code></td><td>Body and everything not listed below.</td></tr><tr><td><code>--letter-spacing-wide</code></td><td><span data-token="--letter-spacing-wide"></span></td><td><code>0.06em</code></td><td>Uppercase overlines and "kind" labels.</td></tr><tr><td><code>--text-display</code></td><td><span data-token="--text-display"></span></td><td><code>var(--font-weight-bold) var(--font-size-5xl) / var(--line-height-tight) var(--font-family-sans)</code></td><td>Caterer name on the caterer page; 48px phones, 64px from 62rem.</td></tr><tr><td><code>--text-h1</code></td><td><span data-token="--text-h1"></span></td><td><code>var(--font-weight-bold) var(--font-size-4xl) / var(--line-height-tight) var(--font-family-sans)</code></td><td>Page titles ("Caterers", "Inbox"); 36px phones, 44px from 62rem.</td></tr><tr><td><code>--text-h2</code></td><td><span data-token="--text-h2"></span></td><td><code>var(--font-weight-bold) var(--font-size-3xl) / var(--line-height-tight) var(--font-family-sans)</code></td><td>Section titles ("Menu", "Reviews"), dialog headings in operator flows.</td></tr><tr><td><code>--text-h3</code></td><td><span data-token="--text-h3"></span></td><td><code>var(--font-weight-semibold) var(--font-size-2xl) / var(--line-height-snug) var(--font-family-sans)</code></td><td>Dialog titles, sub-sections, rating summary, prose headings.</td></tr><tr><td><code>--text-h4</code></td><td><span data-token="--text-h4"></span></td><td><code>var(--font-weight-semibold) var(--font-size-xl) / var(--line-height-snug) var(--font-family-sans)</code></td><td>Card titles and form group headings.</td></tr><tr><td><code>--text-wordmark</code></td><td><span data-token="--text-wordmark"></span></td><td><code>var(--font-weight-bold) var(--font-size-2xl) / 1 var(--font-family-sans)</code></td><td>The Sweet Hand wordmark only (line height 1).</td></tr><tr><td><code>--text-card-title</code></td><td><span data-token="--text-card-title"></span></td><td><code>var(--font-weight-medium) var(--font-size-xl) / var(--line-height-snug) var(--font-family-sans)</code></td><td>Caterer name under the round photo.</td></tr><tr><td><code>--text-body-lg</code></td><td><span data-token="--text-body-lg"></span></td><td><code>var(--font-weight-regular) var(--font-size-lg) / var(--line-height-normal) var(--font-family-sans)</code></td><td>Lead text, filter list, caterer facts, long reviews.</td></tr><tr><td><code>--text-body</code></td><td><span data-token="--text-body"></span></td><td><code>var(--font-weight-regular) var(--font-size-md) / var(--line-height-normal) var(--font-family-sans)</code></td><td>Default body text, inputs, button labels.</td></tr><tr><td><code>--text-body-sm</code></td><td><span data-token="--text-body-sm"></span></td><td><code>var(--font-weight-regular) var(--font-size-sm) / var(--line-height-normal) var(--font-family-sans)</code></td><td>Card meta line, help text, table cells, timestamps.</td></tr><tr><td><code>--text-caption</code></td><td><span data-token="--text-caption"></span></td><td><code>var(--font-weight-regular) var(--font-size-xs) / var(--line-height-normal) var(--font-family-sans)</code></td><td>Captions, counts, tags, badges. The smallest size (12px).</td></tr><tr><td><code>--text-label</code></td><td><span data-token="--text-label"></span></td><td><code>var(--font-weight-medium) var(--font-size-sm) / var(--line-height-normal) var(--font-family-sans)</code></td><td>Form labels, buttons, status labels, nav items.</td></tr><tr><td><code>--text-nav</code></td><td><span data-token="--text-nav"></span></td><td><code>var(--font-weight-regular) var(--font-size-md) / var(--line-height-normal) var(--font-family-sans)</code></td><td>Site header links.</td></tr><tr><td><code>--text-overline</code></td><td><span data-token="--text-overline"></span></td><td><code>var(--font-weight-semibold) var(--font-size-xs) / var(--line-height-normal) var(--font-family-sans)</code></td><td>Uppercase "kind" labels with <code>--letter-spacing-wide</code>.</td></tr><tr><td><code>--text-code</code></td><td><span data-token="--text-code"></span></td><td><code>var(--font-weight-regular) var(--font-size-sm) / var(--line-height-normal) var(--font-family-mono)</code></td><td>Inline code and code blocks.</td></tr><tr><td><code>--text-prose</code></td><td><span data-token="--text-prose"></span></td><td><code>var(--font-weight-regular) var(--font-size-lg) / var(--line-height-relaxed) var(--font-family-sans)</code></td><td>Long-form pages: About, Privacy, Terms (line height 1.65).</td></tr></tbody></table></div>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

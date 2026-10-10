@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Popover — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand popover: the generic .popover, the tablet filter dropdown and the account menu, anchoring, states, keyboard and both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Containers and overlays</p>
+      <h1>Popover</h1>
+      <p class="ds-lead">A popover is a small raised panel anchored to the control that opened it. It does not block the page: Sweet Hand's filter dropdowns and account menu are popovers.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Non-modal</span><span class="ds-pill"><code>.popover</code></span><span class="ds-pill"><code>.filter-dropdown</code></span><span class="ds-pill"><code>.account-menu</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use a popover for a few related controls or a short explanation that belongs to one trigger and should leave the page usable: ticking a cuisine updates the results behind the dropdown within a second. Three shapes share the same surface and behaviour:</p>
+      <ul>
+        <li><b><code>.popover</code></b>: the generic panel, with an optional <code>.popover__title</code> and <code>.popover__actions</code>. Up to 20rem wide, sized to its content. No current screen uses it; it is kept for short help next to a control (illustrated below with a metric definition).</li>
+        <li><b><code>.filter-dropdown</code></b>: the listing filters on tablets (48–62rem), opened by a <a href="filter-trigger.html">filter trigger</a> ("Cuisine", "Area"). A fixed 20rem panel with a filter group, Clear and the live count.</li>
+        <li><b><code>.account-menu</code></b>: opened by the avatar in the header. It shows who is signed in, then a <a href="menu.html">menu</a> of Inbox, Account and Sign out.</li>
+      </ul>
+      <p>Use something else when:</p>
+      <ul>
+        <li>The person must decide before carrying on, or the content is a form: a <a href="dialog.html">dialog</a>.</li>
+        <li>The list is long or the screen is a phone: a <a href="sheet.html">sheet</a> (the same filters become a full-screen sheet below 48rem).</li>
+        <li>It is a plain list of actions for one object: a <a href="menu.html">menu</a>.</li>
+        <li>It is a one-line name for an icon: a <a href="tooltip.html">tooltip</a>, or better, a visible label.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="menu-anchor" style="display: block; width: 100%; max-width: 20rem;">
+            <button class="btn btn--sm" type="button" aria-expanded="true" aria-controls="pa-pop">Replied within 48 hours</button>
+            <div class="popover" id="pa-pop" role="dialog" aria-labelledby="pa-title" style="position: relative; margin-top: var(--space-2); animation: none; width: auto; max-width: none;">
+              <p class="popover__title" id="pa-title">How this is counted</p>
+              <p class="text-muted">Enquiries a caterer answered within 48 hours of receiving them, by the week each enquiry arrived.</p>
+              <div class="popover__actions"><button class="btn btn--sm" type="button">Got it</button></div>
+            </div>
+          </div>
+          <span class="ds-callout" style="left: 18%; top: 14%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 18%; top: 34%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 80%; top: 50%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 80%; top: 76%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 84%; top: 32%;" aria-hidden="true">5</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Trigger</b><small>A button with <code>aria-expanded</code> and <code>aria-controls</code>, wrapped with the panel in <code>.menu-anchor</code> so the panel can be placed under it.</small></div></li>
+          <li><div><b>Title (optional)</b><small><code>.popover__title</code>: <code>--text-label</code> at <code>--font-size-md</code>; labels the panel.</small></div></li>
+          <li><div><b>Content</b><small>One or two sentences, or one filter group. Muted body text.</small></div></li>
+          <li><div><b>Actions (optional)</b><small><code>.popover__actions</code>: small buttons, right-aligned, <code>--space-2</code> apart.</small></div></li>
+          <li><div><b>Panel</b><small><code>--color-bg-surface-raised</code>, 1px <code>--color-border-default</code>, <code>--radius-md</code> (<code>--radius-lg</code> for the dropdown and account menu), <code>--shadow-3</code>, <code>--z-popover</code>.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Generic popover</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas" style="align-items: flex-start;">
+          <div class="popover popover--static" role="dialog" aria-label="Note"><p class="text-muted">Visits are counted on our own servers, with no third-party analytics.</p></div>
+          <div class="popover popover--static" role="dialog" aria-labelledby="pv2-t"><p class="popover__title" id="pv2-t">How this is counted</p><p class="text-muted">Enquiries answered within 48 hours, by the week each arrived.</p></div>
+          <div class="popover popover--static" role="dialog" aria-labelledby="pv3-t"><p class="popover__title" id="pv3-t">Figures lag by up to 60 minutes</p><p class="text-muted">Refresh later to see this morning's visits.</p><div class="popover__actions"><button class="btn btn--sm btn--ghost" type="button">Dismiss</button><button class="btn btn--sm" type="button">Refresh</button></div></div>
+        </div>
+        <div class="ds-example__caption"><span>Text only, with a title, with actions. <code>.popover--static</code> drops the absolute positioning for documentation. Copy from the operator metrics notes; illustrative.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="menu-anchor"&gt;
+  &lt;button class="btn btn--sm" type="button" aria-expanded="true" aria-controls="lag-note"&gt;About these figures&lt;/button&gt;
+  &lt;div class="popover" id="lag-note" role="dialog" aria-labelledby="lag-title"&gt;
+    &lt;p class="popover__title" id="lag-title"&gt;Figures lag by up to 60 minutes&lt;/p&gt;
+    &lt;p class="text-muted"&gt;Refresh later to see this morning's visits.&lt;/p&gt;
+    &lt;div class="popover__actions"&gt;&lt;button class="btn btn--sm" type="button"&gt;Refresh&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Filter dropdown (tablet listing)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas" style="align-items: flex-start; min-height: 30rem;">
+          <div class="filter-bar">
+            <div class="menu-anchor">
+              <button class="filter-trigger" type="button" aria-expanded="true" aria-controls="pv-cuisine">Cuisine <span class="filter-trigger__count" aria-label="1 selected">1</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+              <div class="filter-dropdown" id="pv-cuisine" role="dialog" aria-labelledby="pv-cuisine-t">
+                <h3 class="filter-group__title" id="pv-cuisine-t">Cuisine</h3>
+                <fieldset><legend class="visually-hidden">Cuisines</legend>
+                  <label class="choice"><input type="checkbox" name="pv-c" value="Jamaican" checked><span class="choice__text">Jamaican <small>14 caterers</small></span></label>
+                  <label class="choice"><input type="checkbox" name="pv-c" value="Trinidadian &amp; Tobagonian"><span class="choice__text">Trinidadian &amp; Tobagonian <small>11 caterers</small></span></label>
+                  <label class="choice"><input type="checkbox" name="pv-c" value="Guyanese"><span class="choice__text">Guyanese <small>9 caterers</small></span></label>
+                  <label class="choice"><input type="checkbox" name="pv-c" value="Kittitian &amp; Nevisian" disabled><span class="choice__text">Kittitian &amp; Nevisian <small>0 caterers</small></span></label>
+                </fieldset>
+                <div class="cluster cluster--between" style="margin-top: var(--space-4);"><button class="btn btn--link btn--sm" type="button">Clear</button><span class="result-count" role="status">14 caterers</span></div>
+              </div>
+            </div>
+            <div class="menu-anchor"><button class="filter-trigger" type="button" aria-expanded="false" aria-controls="pv-area">Area <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>From <code>dialogs/filter-menu/default</code>. Non-modal: results behind update as you tick. The count on the trigger is ink, the ticked box pepper.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="menu-anchor"&gt;
+  &lt;button class="filter-trigger" type="button" aria-expanded="true" aria-controls="menu-cuisine"&gt;Cuisine …&lt;/button&gt;
+  &lt;div class="filter-dropdown" id="menu-cuisine" role="dialog" aria-labelledby="cuisine-title"&gt;
+    &lt;h2 class="filter-group__title" id="cuisine-title"&gt;Cuisine&lt;/h2&gt;
+    &lt;fieldset&gt;&lt;legend class="visually-hidden"&gt;Cuisines&lt;/legend&gt;…&lt;/fieldset&gt;
+    &lt;div class="cluster cluster--between"&gt;
+      &lt;button class="btn btn--link btn--sm" type="button"&gt;Clear&lt;/button&gt;
+      &lt;span class="result-count" role="status"&gt;60 caterers&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Account menu</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="ds-frame">
+            <header class="site-header"><span class="wordmark">Sweet Hand</span><span class="site-nav"><button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="dialog" aria-expanded="true" aria-controls="pv-acct">MT</button></span></header>
+            <div class="menu account-menu" id="pv-acct" role="dialog" aria-labelledby="pv-acct-name">
+              <div class="account-menu__who"><span class="avatar" aria-hidden="true">MT</span><div><h3 class="account-menu__name" id="pv-acct-name">Marcia Thompson</h3><p class="account-menu__email">marcia.t@example.com</p></div></div>
+              <div class="menu__divider"></div>
+              <ul class="account-menu__list" role="menu" aria-label="Account">
+                <li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/inbox/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Inbox</a></li>
+                <li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/account/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Account</a></li>
+                <li role="none"><button class="menu__item" role="menuitem" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/></svg>Sign out</button></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>From <code>dialogs/account-menu/default</code>. Fixed under the header's right edge, 18rem wide, 44px rows. Caterers get "Dashboard" in place of Inbox; operators see their role and sign-in method under their name ("Admin · signed in with a security key").</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Popover</th><th scope="col">Width</th><th scope="col">Padding</th><th scope="col">Radius</th></tr></thead>
+        <tbody>
+          <tr><td><code>.popover</code></td><td>Content width, at most <code>min(20rem, 90vw)</code></td><td><code>--space-4</code></td><td><code>--radius-md</code></td></tr>
+          <tr><td><code>.filter-dropdown</code></td><td><code>min(20rem, 100vw − 2 × page margin)</code></td><td><code>--space-4</code> <code>--space-5</code></td><td><code>--radius-lg</code></td></tr>
+          <tr><td><code>.account-menu</code></td><td><code>min(18rem, 100vw − 2 × page margin)</code></td><td><code>--space-2</code></td><td><code>--radius-lg</code></td></tr>
+        </tbody>
+      </table></div>
+      <p>The cuisine list is long (18 options), so the dropdown's fieldset scrolls inside <code>min(50dvh, 20rem)</code> rather than growing past the fold.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>The trigger carries the state: <code>aria-expanded="true"</code> while open, which also gives the filter trigger its 2px ink outline. Hover and focus are forced with <code>data-state</code>.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Popover states by variant</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Closed</th><th scope="col">Trigger hover</th><th scope="col">Trigger focus</th><th scope="col">Open</th><th scope="col">Open, with selection</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Popover</th>
+            <td><button class="btn btn--sm" type="button" aria-expanded="false">About these figures</button></td>
+            <td><button class="btn btn--sm" type="button" aria-expanded="false" data-state="hover">About these figures</button></td>
+            <td><button class="btn btn--sm" type="button" aria-expanded="false" data-state="focus">About these figures</button></td>
+            <td><div class="stack stack--sm"><button class="btn btn--sm" type="button" aria-expanded="true">About these figures</button><div class="popover popover--static" role="dialog" aria-label="About these figures"><p class="text-muted">Figures lag by up to 60 minutes.</p></div></div></td>
+            <td><span class="text-subtle">—</span></td></tr>
+          <tr><th scope="row">Filter dropdown</th>
+            <td><button class="filter-trigger" type="button" aria-expanded="false">Cuisine <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><button class="filter-trigger" type="button" aria-expanded="false" data-state="hover">Cuisine <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><button class="filter-trigger" type="button" aria-expanded="false" data-state="focus">Cuisine <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><div class="stack stack--sm"><button class="filter-trigger" type="button" aria-expanded="true">Cuisine <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="filter-dropdown" role="dialog" aria-label="Cuisine" style="position: static; width: 15rem;"><label class="choice"><input type="checkbox" name="pst1" value="Haitian"><span class="choice__text">Haitian <small>5 caterers</small></span></label></div></div></td>
+            <td><div class="stack stack--sm"><button class="filter-trigger" type="button" aria-expanded="true">Cuisine <span class="filter-trigger__count" aria-label="1 selected">1</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="filter-dropdown" role="dialog" aria-label="Cuisine" style="position: static; width: 15rem;"><label class="choice"><input type="checkbox" name="pst2" value="Haitian" checked><span class="choice__text">Haitian <small>5 caterers</small></span></label></div></div></td></tr>
+          <tr><th scope="row">Account menu</th>
+            <td><button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-expanded="false">MT</button></td>
+            <td><button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-expanded="false" data-state="hover">MT</button></td>
+            <td><button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-expanded="false" data-state="focus">MT</button></td>
+            <td><div class="menu account-menu" role="dialog" aria-label="Marcia Thompson" style="position: static; width: 15rem; animation: none;"><ul class="account-menu__list" role="menu" aria-label="Account"><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/inbox/default.html" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Inbox</a></li><li role="none"><button class="menu__item" role="menuitem" type="button" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/></svg>Sign out</button></li></ul></div></td>
+            <td><span class="text-subtle">—</span></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="filter-dropdown" role="dialog" aria-label="Area" style="position: static; width: auto;"><p class="filter-group__title">Area</p><label class="choice"><input type="checkbox" name="pth-l" value="Durham" checked><span class="choice__text">Durham <small>7 caterers</small></span></label><label class="choice"><input type="checkbox" name="pth-l" value="Halton"><span class="choice__text">Halton <small>3 caterers</small></span></label></div></div>
+        <div data-theme="dark"><div class="filter-dropdown" role="dialog" aria-label="Area" style="position: static; width: auto;"><p class="filter-group__title">Area</p><label class="choice"><input type="checkbox" name="pth-d" value="Durham" checked><span class="choice__text">Durham <small>7 caterers</small></span></label><label class="choice"><input type="checkbox" name="pth-d" value="Halton"><span class="choice__text">Halton <small>3 caterers</small></span></label></div></div>
+      </div>
+      <ul>
+        <li><b>Open</b>: the panel scales in from its anchor corner (top left for dropdowns, top right for the account menu).</li>
+        <li><b>With selection</b>: ticked boxes are pepper; the trigger shows the ink count bubble and keeps it after the dropdown closes.</li>
+        <li><b>Updating</b>: the live count in the panel ("14 caterers") is a <code>role="status"</code> region; there is no busy overlay because the panel never blocks.</li>
+        <li><b>Disabled options</b> (0 caterers) stay in place so the list does not jump.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>XS and SM (below 48rem)</b>: no filter dropdowns; the "Filters" button opens the <a href="sheet.html">sheet</a>. When a popover is used this narrow, the filter bar becomes the positioning parent, so the panel starts at the bar's left edge instead of under a trigger near the right that would push it off screen; widths never exceed the screen less the page margins.</li>
+        <li><b>MD (48–62rem)</b>: filter dropdowns open under their trigger in the filter bar.</li>
+        <li><b>LG and up (62rem+)</b>: filters live in the left column as a <a href="filter-list.html">filter list</a>; no dropdowns.</li>
+        <li><b>Account menu</b>: from 48rem, under the avatar. Below 48rem the avatar is hidden with the other header extras and the site menu sheet lists the same links.</li>
+      </ul>
+      <div class="ds-iframes"><iframe class="ds-iframe ds-iframe--wide" src="../../mocks/dialogs/filter-menu/area.html?chrome=0&amp;theme=light" title="Area filter dropdown on the tablet listing" loading="lazy"></iframe></div>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>All three read <code>--color-bg-surface-raised</code>, <code>--color-border-default</code>, <code>--shadow-3</code> and <code>--radius-md</code>/<code>--radius-lg</code>; they stack at <code>--z-popover</code> (generic) or <code>--z-dropdown</code> (filter dropdown, account menu), both below dialogs. In dark, the raised surface steps up to stone-850 and the shadow deepens, so the panel still separates from the stone-950 page. Never tint a popover; selection colour belongs to the controls inside it.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>A popover is a <b>non-modal</b> dialog: <code>role="dialog"</code> without <code>aria-modal</code>, labelled by its title, opened by a button that follows the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/">APG Disclosure</a> pattern (<code>aria-expanded</code>, <code>aria-controls</code>). The account menu's list follows <a href="https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/">APG Menu Button</a> inside the panel. The native <code>popover</code> attribute with <code>popovertarget</code> gives top-layer rendering and light dismiss for free and is the preferred implementation.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd> on the trigger</td><td>Opens or closes the panel.</td></tr>
+        <tr><td><kbd>Tab</kbd></td><td>Moves into the panel's controls, then on to the next control on the page, which closes the panel. Focus is never trapped.</td></tr>
+        <tr><td><kbd>↓</kbd> / <kbd>↑</kbd></td><td>Account menu only: move between menu items; <kbd>Home</kbd>/<kbd>End</kbd> jump to first and last.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Closes and returns focus to the trigger.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>Focus moves in only when the panel has controls: the Area dropdown focuses its search field, the Cuisine dropdown its first checkbox, the account menu its first item. A text-only popover leaves focus on the trigger. Clicking outside closes without moving focus.</p>
+      <h3>Labelling</h3>
+      <p>The trigger names the panel ("Cuisine", "Account menu for Marcia Thompson"); its count bubble says "1 selected". The panel is labelled by its heading. The avatar trigger should say <code>aria-haspopup="dialog"</code>, matching what opens.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Text in a popover</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Counts and help text</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Group title</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Ticked box edge</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface-raised" data-min="3"></span></div>
+        <div class="ds-pair"><span>Trigger count bubble</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-action|--color-action" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Hovered menu item</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring in a popover</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p><code>scale-in</code> over <code>--duration-fast</code> (120ms) with <code>--ease-enter</code>; closing is instant. Reduced motion zeroes the duration.</p>
+      <h3>Touch</h3>
+      <p>Filter triggers are 44px pills; account menu items are 44px rows at every width; the avatar is 40px with the header's spacing around it. Checkbox rows in the dropdown are compact (at least 24px) because dropdowns exist only from 48rem; below 48rem the sheet takes over and every row and small button grows to 44px (L2-065.1). Tapping outside closes the panel and keeps whatever was ticked.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Popover titles are short statements, not questions: "How this is counted", "Figures lag by up to 60 minutes".</li>
+        <li>Two sentences at most. If you need a list or a link to more, use a page.</li>
+        <li>Filter dropdowns reuse the filter vocabulary exactly: full cuisine names, counts as "14 caterers", Clear, and the result count instead of an Apply button.</li>
+        <li>The account menu shows the person's name and email first, so a shared device makes it obvious who is signed in.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="filter-dropdown" role="dialog" aria-label="Cuisine" style="position: static; width: 100%;"><label class="choice"><input type="checkbox" name="pdd1" value="Haitian" checked><span class="choice__text">Haitian <small>5 caterers</small></span></label><div class="cluster cluster--between"><button class="btn btn--link btn--sm" type="button">Clear</button><span class="result-count">5 caterers</span></div></div></div><figcaption>Apply each tick as it happens and show the count.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="filter-dropdown" role="dialog" aria-label="Cuisine" style="position: static; width: 100%;"><label class="choice"><input type="checkbox" name="pdd2" value="Haitian" checked><span class="choice__text">Haitian <small>5 caterers</small></span></label><div class="popover__actions"><button class="btn btn--sm" type="button">Cancel</button><button class="btn btn--primary btn--sm" type="button">Apply</button></div></div></div><figcaption>An ink Apply button inside a dropdown competes with the page's one primary and makes a non-modal panel behave like a dialog.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="dialog" aria-expanded="true">MT</button></div><figcaption><code>aria-haspopup</code> names what opens, and <code>aria-expanded</code> says it is open.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu">MT</button></div><figcaption>The mocks announced a menu but opened a dialog, and never set <code>aria-expanded</code>.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Panel</td><td><code>--color-bg-surface-raised</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td></tr>
+          <tr><td>Panel edge, menu divider</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Help text, counts</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Menu item hover</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Trigger count bubble</td><td><code>--color-action</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-action" data-swatch></i><span data-token="--color-action"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-action" data-swatch></i><span data-token="--color-action"></span></span></td></tr>
+          <tr><td>Shadow</td><td><code>--shadow-3</code></td><td colspan="2"><span data-token="--shadow-3"></span></td></tr>
+          <tr><td>Radius (popover / dropdown and account menu)</td><td><code>--radius-md</code> / <code>--radius-lg</code></td><td colspan="2"><span data-token="--radius-md"></span> / <span data-token="--radius-lg"></span></td></tr>
+          <tr><td>Padding</td><td><code>--space-4</code></td><td colspan="2"><span data-token="--space-4"></span></td></tr>
+          <tr><td>Layers (popover / dropdown)</td><td><code>--z-popover</code> / <code>--z-dropdown</code></td><td colspan="2"><span data-token="--z-popover"></span> / <span data-token="--z-dropdown"></span></td></tr>
+          <tr><td>Entrance</td><td><code>--duration-fast</code>, <code>--ease-enter</code></td><td colspan="2"><span data-token="--duration-fast"></span> / <span data-token="--ease-enter"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="menu-anchor"&gt;
+  &lt;button class="filter-trigger" type="button" popovertarget="menu-area" aria-expanded="false" aria-controls="menu-area"&gt;Area …&lt;/button&gt;
+  &lt;div class="filter-dropdown" id="menu-area" popover role="dialog" aria-labelledby="area-title"&gt;
+    &lt;h2 class="filter-group__title" id="area-title"&gt;Area&lt;/h2&gt;
+    &lt;div class="search-field"&gt;&lt;label class="visually-hidden" for="m-area"&gt;Area or postal code&lt;/label&gt;…&lt;/div&gt;
+    …
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.popover</code></td><td>Absolute raised panel, content width up to 20rem.</td></tr>
+        <tr><td><code>.popover--static</code></td><td>In-flow, no animation (documentation and mocks).</td></tr>
+        <tr><td><code>.popover__title</code>, <code>.popover__actions</code></td><td>Optional title and right-aligned actions.</td></tr>
+        <tr><td><code>.menu-anchor</code></td><td>Positioning parent for the trigger and its panel.</td></tr>
+        <tr><td><code>.filter-dropdown</code></td><td>20rem filter panel under a <code>.filter-trigger</code>.</td></tr>
+        <tr><td><code>.account-menu</code>, <code>__who</code>, <code>__name</code>, <code>__email</code>, <code>__list</code></td><td>Fixed account panel under the header's right edge.</td></tr>
+        <tr><td><code>aria-expanded</code> on the trigger</td><td>Open state; also styles the filter trigger.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <ul>
+        <li><a href="../../mocks/dialogs/filter-menu/default.html">dialogs/filter-menu/default</a>, <a href="../../mocks/dialogs/filter-menu/area.html">dialogs/filter-menu/area</a> (filter dropdowns)</li>
+        <li><a href="../../mocks/dialogs/account-menu/default.html">dialogs/account-menu/default</a>, <a href="../../mocks/dialogs/account-menu/caterer.html">caterer</a>, <a href="../../mocks/dialogs/account-menu/operator.html">operator</a></li>
+        <li><a href="../../mocks/pages/admin-metrics/default.html">pages/admin-metrics/default</a> (copy for the generic popover examples)</li>
+      </ul>
+      <p>Drift fixed during extraction: every avatar trigger said <code>aria-haspopup="menu"</code> but opened a non-modal dialog and never set <code>aria-expanded</code>; the system uses <code>aria-haspopup="dialog"</code> with <code>aria-expanded</code>. The cuisine dropdown capped its list with an inline style; that height is documented here and should become part of <code>.filter-dropdown</code> (CSS change requested). The generic <code>.popover</code> has no mock yet.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

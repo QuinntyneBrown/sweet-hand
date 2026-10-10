@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Toast — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand toasts: info, success, warning and danger on the inverse surface, with actions, dismiss, timer bar, stacking, live regions and timing rules.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Feedback</p>
+      <h1>Toast</h1>
+      <p class="ds-lead">A toast confirms what just happened, out of the way, on the dark inverse surface: "Reply sent", "Photo removed", "Auntie Bev’s Kitchen is published". Errors stay until someone deals with them.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.toast</code></span><span class="ds-pill"><code>.toast-region</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A toast is a short message that appears in a fixed region at the bottom of the screen after an action or a background event, then leaves on its own. It never blocks the page and never holds the only copy of important information: the thing it reports is always visible somewhere else too (the sent reply in the thread, the "Processing" label on the photo tile, the "Published" status in the queue).</p>
+      <p>Use a toast for:</p>
+      <ul>
+        <li><b>Confirmation of an action</b>: "Reply sent", "Caption saved", "Auntie Bev’s Kitchen is published".</li>
+        <li><b>Reversible actions</b>, with Undo for the life of the toast: "Photo removed · Undo".</li>
+        <li><b>Background events</b> while someone is busy elsewhere: "New message from Pelau House", "New in the queue".</li>
+        <li><b>Failures of something just attempted</b> that leave the page usable: "Your reply wasn’t sent · Try again", "Upload failed · Retry".</li>
+      </ul>
+      <p>Use something else when:</p>
+      <ul>
+        <li>The message describes a condition that lasts (email unverified, profile suspended): a <a href="alert.html">banner or alert</a>.</li>
+        <li>A form field is wrong: an <a href="inline-message.html">inline message</a> beside the field.</li>
+        <li>The result needs reading or a decision (an enquiry was sent and here is what happens next): the dialog's success state, see <a href="dialog.html">dialog</a>.</li>
+        <li>The page or list failed to load: an <a href="empty-state.html">empty state</a> in place of the content.</li>
+      </ul>
+      <p>All tones share one dark inverse surface. Tone is carried by the icon shape and the words, not by colour; this keeps every toast at full contrast in both themes and keeps pepper red free for "selected".</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="toast-region toast-region--static" style="max-width: 24rem;">
+            <div class="toast toast--success">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+              <div class="toast__body">
+                <div class="toast__title">Photo removed</div>
+                <div class="toast__text">“Curry chicken with rice and buss up shut” is off your page.</div>
+                <div class="toast__actions"><button class="toast__action" type="button">Undo</button></div>
+              </div>
+              <button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              <span class="toast__progress" aria-hidden="true"></span>
+            </div>
+          </div>
+          <span class="ds-callout" style="left: 8%; top: 14%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 14%; top: 42%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 48%; top: 22%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 70%; top: 50%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 30%; top: 72%;" aria-hidden="true">5</span>
+          <span class="ds-callout" style="left: 88%; top: 22%;" aria-hidden="true">6</span>
+          <span class="ds-callout" style="left: 54%; top: 84%;" aria-hidden="true">7</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Container</b><small><code>--color-bg-inverse</code>, <code>--radius-md</code>, padding <code>--space-4</code>, <code>--shadow-3</code> (a toast floats, so it may lift).</small></div></li>
+          <li><div><b>Tone icon</b><small>20px, <code>currentColor</code> on the inverse surface; the shape (tick, triangle, circle-i, circle-!) carries the tone.</small></div></li>
+          <li><div><b>Title</b><small><code>.toast__title</code>: what happened, label weight.</small></div></li>
+          <li><div><b>Text (optional)</b><small><code>.toast__text</code>: one sentence of detail, <code>--text-body-sm</code> at 90% opacity.</small></div></li>
+          <li><div><b>Action (optional)</b><small><code>.toast__action</code> inside <code>.toast__actions</code>: an underlined text button or link, at most one per toast.</small></div></li>
+          <li><div><b>Dismiss</b><small><code>.close</code>: always present; 44px below 48rem, 24px from 48rem.</small></div></li>
+          <li><div><b>Timer bar</b><small><code>.toast__progress</code>: 2px <code>currentColor</code> at 40% along the bottom edge, decorative and <code>aria-hidden</code>. Only on toasts that auto-dismiss.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Tones</h3>
+      <p>Tone modifiers (<code>.toast--info</code>, <code>--success</code>, <code>--warning</code>, <code>--danger</code>) pick the icon and the live-region role; they add no colour. Danger is the only tone that changes behaviour: it never auto-dismisses and uses <code>role="alert"</code>.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="toast-region toast-region--static" style="max-width: 24rem;">
+            <div class="toast toast--info">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+              <div class="toast__body"><div class="toast__title">Emails are running late</div><div class="toast__text">Your reply is saved. Pelau House will get the email as soon as our mail service catches up.</div></div>
+              <button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              <span class="toast__progress" aria-hidden="true"></span>
+            </div>
+            <div class="toast toast--success">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+              <div class="toast__body"><div class="toast__title">Reply sent</div><div class="toast__text">Pelau House will get an email.</div></div>
+              <button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              <span class="toast__progress" aria-hidden="true"></span>
+            </div>
+            <div class="toast toast--warning">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg>
+              <div class="toast__body"><div class="toast__title">Still processing</div><div class="toast__text">IMG_2077.heic is taking longer than usual. It will appear on your page by itself when it’s ready.</div></div>
+              <button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              <span class="toast__progress" aria-hidden="true"></span>
+            </div>
+            <div class="toast toast--danger">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+              <div class="toast__body"><div class="toast__title">Your reply wasn’t sent</div><div class="toast__text">Check your connection, then try again. Your message is still in the box.</div><div class="toast__actions"><button class="toast__action" type="button">Try again</button></div></div>
+              <button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Info, success, warning (with timer bar) and danger (no timer bar: it stays). Copy from the thread and photo manager mocks. Roles are omitted on this page so nothing is announced on load.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="toast toast--success"&gt;
+  &lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;&lt;circle cx="12" cy="12" r="9"/&gt;&lt;path d="m8 12 3 3 5-6"/&gt;&lt;/svg&gt;
+  &lt;div class="toast__body"&gt;
+    &lt;div class="toast__title"&gt;Reply sent&lt;/div&gt;
+    &lt;div class="toast__text"&gt;Pelau House will get an email.&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button class="close" type="button" aria-label="Dismiss"&gt;…&lt;/button&gt;
+  &lt;span class="toast__progress" aria-hidden="true"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>With an action</h3>
+      <p>One action at most: Undo, Retry or Try again, or a link that goes to the thing reported ("Show message", "View your page", "Open report", "Download CSV"). The action is a <code>&lt;button&gt;</code> when it does something and an <code>&lt;a href&gt;</code> when it goes somewhere.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="toast-region toast-region--static" style="max-width: 24rem;">
+            <div class="toast toast--info">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+              <div class="toast__body"><div class="toast__title">New message from Pelau House</div><div class="toast__text">“I’ll call this afternoon to confirm the menu.”</div><div class="toast__actions"><button class="toast__action" type="button">Show message</button></div></div>
+              <button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              <span class="toast__progress" aria-hidden="true"></span>
+            </div>
+            <div class="toast toast--success">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+              <div class="toast__body"><div class="toast__title">Auntie Bev’s Kitchen is published</div><div class="toast__text">It appears in the listing within a minute. Beverley Campbell has been emailed.</div><div class="toast__actions"><a class="toast__action" href="../../mocks/pages/caterer/default.html">View page</a></div></div>
+              <button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              <span class="toast__progress" aria-hidden="true"></span>
+            </div>
+            <div class="toast toast--warning">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg>
+              <div class="toast__body"><div class="toast__title">Your session ends in 5 minutes</div><div class="toast__text">Operator sessions end after 30 minutes without activity. Unsaved reasons are kept.</div><div class="toast__actions"><button class="toast__action" type="button">Stay signed in</button></div></div>
+              <button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Show message (button), View page (link), Stay signed in (time-critical, so no timer bar: it stays until acted on).</span></div>
+      </div>
+
+      <h3>Stacked</h3>
+      <p>At most three toasts show at once, 12px apart (<code>--space-3</code>), newest at the bottom, nearest the thumb. A fourth replaces the oldest auto-dismissing toast; a danger toast is never pushed out. Each toast keeps its own timer.</p>
+      <div class="ds-example">
+        <div class="ds-frame">
+          <div class="ds-frame__page"><p>Photos · Pelau House</p></div>
+          <div class="toast-region">
+            <div class="toast toast--info">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+              <div class="toast__body"><div class="toast__title">Photo order saved</div><div class="toast__text">Your page shows the new order within a minute.</div></div>
+              <button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              <span class="toast__progress" aria-hidden="true"></span>
+            </div>
+            <div class="toast toast--success">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+              <div class="toast__body"><div class="toast__title">Caption saved</div><div class="toast__text">Photo 3 has a new caption.</div></div>
+              <button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              <span class="toast__progress" aria-hidden="true"></span>
+            </div>
+            <div class="toast toast--danger">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+              <div class="toast__body"><div class="toast__title">Upload failed</div><div class="toast__text">IMG_2077.heic didn’t upload. Check your connection and try again.</div><div class="toast__actions"><button class="toast__action" type="button">Retry</button></div></div>
+              <button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>The real fixed <code>.toast-region</code>, contained by <code>.ds-frame</code>: bottom right, 24rem wide from 36rem. Stacked dashboard toasts.</span></div>
+      </div>
+
+      <h3>Region placement</h3>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Class</th><th scope="col">Where</th><th scope="col">Use</th></tr></thead>
+        <tbody>
+          <tr><td><code>.toast-region</code></td><td>Fixed, bottom; full width minus 16px below 36rem, 24rem at the bottom right from 36rem; above the safe-area inset.</td><td>Every screen by default.</td></tr>
+          <tr><td><code>.toast-region--top</code></td><td>Fixed, top.</td><td>Screens whose bottom edge is taken by a persistent bar, such as the <a href="sticky-cta.html">sticky enquiry bar</a> on a caterer page below 62rem, so a toast never covers "Send an enquiry". No mock uses it yet.</td></tr>
+          <tr><td><code>.toast-region--static</code></td><td>In the flow, pointer events on.</td><td>Documentation and mocks only.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="Toasts have one size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Toasts have one size: 24rem wide from 36rem, the full region width below it, height from content. A long title wraps; it is never truncated. The dismiss button and the action are 44px tall below 48rem and compact (24px) from 48rem (see Responsive).</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>The toast itself is not interactive; its action and dismiss button are. Hover and focus are forced with <code>data-state</code>; on the inverse surface the focus ring switches to <code>--color-fg-inverse</code> so it shows against the dark (light-theme) or pale (dark-theme) toast.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Toast states by tone</caption>
+        <thead><tr><th scope="col">Tone</th><th scope="col">Default</th><th scope="col">Action hover</th><th scope="col">Action focus</th><th scope="col">Close hover</th><th scope="col">Close focus</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Info</th>
+            <td><div class="toast toast--info"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div class="toast__body"><div class="toast__title">New in the queue</div><div class="toast__actions"><button class="toast__action" type="button">Open report</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div></td>
+            <td><div class="toast toast--info"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div class="toast__body"><div class="toast__title">New in the queue</div><div class="toast__actions"><button class="toast__action" type="button" data-state="hover">Open report</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div></td>
+            <td><div class="toast toast--info"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div class="toast__body"><div class="toast__title">New in the queue</div><div class="toast__actions"><button class="toast__action" type="button" data-state="focus">Open report</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div></td>
+            <td><div class="toast toast--info"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div class="toast__body"><div class="toast__title">New in the queue</div><div class="toast__actions"><button class="toast__action" type="button">Open report</button></div></div><button class="close" type="button" aria-label="Dismiss" data-state="hover"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div></td>
+            <td><div class="toast toast--info"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div class="toast__body"><div class="toast__title">New in the queue</div><div class="toast__actions"><button class="toast__action" type="button">Open report</button></div></div><button class="close" type="button" aria-label="Dismiss" data-state="focus"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div></td>
+          </tr>
+          <tr><th scope="row">Success</th>
+            <td><div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Photo removed</div><div class="toast__actions"><button class="toast__action" type="button">Undo</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div></td>
+            <td><div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Photo removed</div><div class="toast__actions"><button class="toast__action" type="button" data-state="hover">Undo</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div></td>
+            <td><div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Photo removed</div><div class="toast__actions"><button class="toast__action" type="button" data-state="focus">Undo</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div></td>
+            <td><div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Photo removed</div><div class="toast__actions"><button class="toast__action" type="button">Undo</button></div></div><button class="close" type="button" aria-label="Dismiss" data-state="hover"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div></td>
+            <td><div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Photo removed</div><div class="toast__actions"><button class="toast__action" type="button">Undo</button></div></div><button class="close" type="button" aria-label="Dismiss" data-state="focus"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div></td>
+          </tr>
+          <tr><th scope="row">Warning</th>
+            <td><div class="toast toast--warning"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg><div class="toast__body"><div class="toast__title">Session ends in 5 minutes</div><div class="toast__actions"><button class="toast__action" type="button">Stay signed in</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div></td>
+            <td><div class="toast toast--warning"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg><div class="toast__body"><div class="toast__title">Session ends in 5 minutes</div><div class="toast__actions"><button class="toast__action" type="button" data-state="hover">Stay signed in</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div></td>
+            <td><div class="toast toast--warning"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg><div class="toast__body"><div class="toast__title">Session ends in 5 minutes</div><div class="toast__actions"><button class="toast__action" type="button" data-state="focus">Stay signed in</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div></td>
+            <td><div class="toast toast--warning"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg><div class="toast__body"><div class="toast__title">Session ends in 5 minutes</div><div class="toast__actions"><button class="toast__action" type="button">Stay signed in</button></div></div><button class="close" type="button" aria-label="Dismiss" data-state="hover"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div></td>
+            <td><div class="toast toast--warning"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg><div class="toast__body"><div class="toast__title">Session ends in 5 minutes</div><div class="toast__actions"><button class="toast__action" type="button">Stay signed in</button></div></div><button class="close" type="button" aria-label="Dismiss" data-state="focus"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div></td>
+          </tr>
+          <tr><th scope="row">Danger</th>
+            <td><div class="toast toast--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="toast__body"><div class="toast__title">Upload failed</div><div class="toast__actions"><button class="toast__action" type="button">Retry</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div></td>
+            <td><div class="toast toast--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="toast__body"><div class="toast__title">Upload failed</div><div class="toast__actions"><button class="toast__action" type="button" data-state="hover">Retry</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div></td>
+            <td><div class="toast toast--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="toast__body"><div class="toast__title">Upload failed</div><div class="toast__actions"><button class="toast__action" type="button" data-state="focus">Retry</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div></td>
+            <td><div class="toast toast--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="toast__body"><div class="toast__title">Upload failed</div><div class="toast__actions"><button class="toast__action" type="button">Retry</button></div></div><button class="close" type="button" aria-label="Dismiss" data-state="hover"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div></td>
+            <td><div class="toast toast--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="toast__body"><div class="toast__title">Upload failed</div><div class="toast__actions"><button class="toast__action" type="button">Retry</button></div></div><button class="close" type="button" aria-label="Dismiss" data-state="focus"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div></td>
+          </tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="toast-region toast-region--static">
+          <div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Reply sent</div><div class="toast__text">Pelau House will get an email.</div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div>
+          <div class="toast toast--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="toast__body"><div class="toast__title">Couldn’t suspend Flying Fish Kitchen</div><div class="toast__text">Nothing was changed and the caterer wasn’t emailed.</div><div class="toast__actions"><button class="toast__action" type="button">Try again</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+        </div></div>
+        <div data-theme="dark"><div class="toast-region toast-region--static">
+          <div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Reply sent</div><div class="toast__text">Pelau House will get an email.</div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div>
+          <div class="toast toast--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="toast__body"><div class="toast__title">Couldn’t suspend Flying Fish Kitchen</div><div class="toast__text">Nothing was changed and the caterer wasn’t emailed.</div><div class="toast__actions"><button class="toast__action" type="button">Try again</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+        </div></div>
+      </div>
+      <h3>Lifecycle and timing</h3>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">State</th><th scope="col">What happens</th></tr></thead>
+        <tbody>
+          <tr><td>Entering</td><td>Slides up 16px and fades in over <code>--duration-base</code> with <code>--ease-enter</code> (<code>slide-up</code>).</td></tr>
+          <tr><td>Showing</td><td>Info, success and warning auto-dismiss after <b>8 seconds</b> (the minimum; a toast with a long caption may get longer, never shorter). The timer bar shrinks over that time.</td></tr>
+          <tr><td>Paused</td><td>The timer stops while the pointer is over the toast, while anything in it has focus, and while the window is hidden; it restarts from where it stopped. The timer bar freezes.</td></tr>
+          <tr><td>Persistent</td><td>Danger toasts and time-critical warnings ("Your session ends in 5 minutes") never auto-dismiss and have no timer bar. They go when dismissed, when the action succeeds, or when the situation ends (the person stays signed in).</td></tr>
+          <tr><td>Leaving (<code>data-state="leaving"</code>)</td><td>Fades out and drops 8px over <code>--duration-base</code> with <code>--ease-exit</code>, then is removed from the DOM. Not shown statically here because it ends invisible.</td></tr>
+          <tr><td>Replaced</td><td>When a fourth toast arrives, the oldest auto-dismissing toast leaves first; danger toasts stay.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Below 36rem (xs):</b> the region spans the screen with a 16px gutter (<code>left/right: --space-4</code>) and sits 16px above the bottom plus <code>env(safe-area-inset-bottom)</code>, clear of the home indicator.</li>
+        <li><b>Below 48rem (xs, sm):</b> the dismiss button is 44px square (<code>--target-comfortable</code>) and pulls into the corner with a negative margin so the text column keeps its width, and <code>.toast__action</code> is at least 44px tall (L2-065.1). Compact sizes apply only from 48rem.</li>
+        <li><b>From 36rem (sm):</b> the region is 24rem wide at the bottom right, 24px from both edges.</li>
+        <li><b>Caterer page below 62rem:</b> use <code>.toast-region--top</code> so toasts never cover the sticky enquiry bar; from 62rem the enquiry panel is in the sidebar and the default bottom region is fine.</li>
+        <li>The region never covers a focused element (WCAG 2.4.11): toasts are short and sit in a corner; when a persistent toast is open and focus moves to something underneath it, the page scrolls that element clear.</li>
+      </ul>
+      <div class="ds-iframes">
+        <iframe class="ds-iframe" src="../../mocks/notifications/toast/with-action.html?chrome=0&amp;theme=light" title="Toast with action at phone width" loading="lazy"></iframe>
+        <iframe class="ds-iframe" src="../../mocks/notifications/dashboard-toast/stacked.html?chrome=0&amp;theme=dark" title="Stacked dashboard toasts at phone width, dark theme" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The toast reads <code>--color-bg-inverse</code>, <code>--color-fg-inverse</code> and <code>--shadow-3</code>. Icons, text, action and timer bar all use <code>currentColor</code>, so a theme only has to keep the inverse pair at 4.5:1. The tone modifiers set <code>--toast-tone</code> to the text colour; it exists so a future theme could tint the icon, provided every tone still reaches 3:1 on the inverse surface in both themes (the mock kit's tinted icons did not, which is why they were removed).</p>
+      <p>In dark the inverse flips: the toast becomes pale stone (<code>--palette-stone-50</code>) with near-black text, so it still stands apart from the dark page. The shadow deepens (<code>--shadow-3</code> uses higher opacity in dark) to keep the lift visible.</p>
+      <pre><code>/* A campaign re-skin keeps contrast by changing the pair, not the parts */
+[data-theme="carnival"] .toast { background: var(--color-action); color: var(--color-fg-on-action); }</code></pre>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Live regions, following the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/alert/">APG Alert pattern</a> and WCAG 4.1.3 Status Messages. The <code>.toast-region</code> is rendered empty with the page as <code>role="status" aria-live="polite"</code>; info, success and warning toasts are inserted into it and announced politely. A danger toast carries <code>role="alert"</code> (assertive). Because a live region nested in another can be read twice, test with NVDA and VoiceOver; if a danger toast is announced twice, render danger toasts into a sibling <code>role="alert"</code> container placed in the same stack.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Toasts sit at the end of the DOM (after <code>&lt;footer&gt;</code>), so they are reached last; within a toast, the action comes before the dismiss button.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Activates the action or dismisses.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>While focus is inside a toast, dismisses it and returns focus to where it was before. Does nothing otherwise, so it never fights a dialog.</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>A toast never takes focus when it appears. "Show message" scrolls to the new message and moves focus there; Undo restores the photo and moves focus to its tile; after a toast is dismissed with focus inside, focus returns to the element that had it before. Focused, the toast's timer pauses. The ring is <code>--color-fg-inverse</code> on the inverse surface.</p>
+      <h3>Labelling</h3>
+      <p>The announced text is the title followed by the text; keep the title meaningful on its own ("Upload failed", not "Oops"). Icons are <code>aria-hidden</code>. The dismiss button is named "Dismiss"; the action names its result ("Undo", "Retry", "Show message"). Never put essential information only in a toast: the thread shows the sent reply, the tile shows "Processing".</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Toast text, icon and focus ring on inverse surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-inverse|--color-bg-inverse" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Toast divider (decorative, exempt)</span><span class="ds-pair__ratio" data-contrast="--color-border-inverse|--color-bg-inverse" data-min="1"></span></div>
+      </div>
+      <p>Secondary text renders at 90% opacity, which keeps it well above 4.5:1 because the base pair is over 15:1 in both themes. The timer bar is decorative (40% <code>currentColor</code>) and carries no information that is not also announced.</p>
+      <h3>Motion</h3>
+      <p>Entry and exit read <code>--duration-base</code>, which reduced motion zeroes, so toasts appear and disappear instantly. The timer bar's shrink is a width change that stops under reduced motion; the timer still runs.</p>
+      <h3>Timing</h3>
+      <p>WCAG 2.2.1: auto-dismiss is at least 8 seconds, pauses on hover and focus, and nothing that cannot be found elsewhere disappears on a timer. Undo is a convenience on top of the confirmation dialog the person already answered ("Remove photo?"), so missing it loses nothing they did not choose.</p>
+      <h3>Touch</h3>
+      <p>Below 48rem the dismiss button is 44px square and the action at least 44px tall; from 48rem both are compact (24px minimum, WCAG 2.5.8) with 16px between action and dismiss. A toast cannot be swiped away; swipe would be the only way to dismiss with one gesture, and the button already does that (WCAG 2.5.7).</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Title: the result, in the past tense, in four words or fewer</b>: "Reply sent", "Caption saved", "Photo removed", "Contact details shared".</li>
+        <li><b>Name the thing</b> when there could be doubt: "Couldn’t suspend Flying Fish Kitchen", "Auntie Bev’s Kitchen is published".</li>
+        <li><b>Text: one sentence of consequence</b>: "Pelau House will get an email.", "It appears in the listing within a minute."</li>
+        <li><b>Failures say what didn’t happen and what is safe</b>: "Nothing was changed and the caterer wasn’t emailed.", "Your message is still in the box."</li>
+        <li><b>Quote file names and captions exactly</b>, in curly quotes for captions: "IMG_2077.heic didn’t upload."; "“Doubles with tamarind and cucumber chutney” is now on your page."</li>
+        <li><b>Actions</b>: one or two words, a verb: "Undo", "Retry", "Try again", "Show message", "View your page". No "OK" or "Got it"; the dismiss button does that.</li>
+        <li>No Undo for things that cannot be undone ("Reply sent": a sent reply cannot be unsent; an approval is reversed by suspending, not from a toast).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="toast-region toast-region--static"><div class="toast toast--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="toast__body"><div class="toast__title">Upload failed</div><div class="toast__actions"><button class="toast__action" type="button">Retry</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div></div></div><figcaption>A failure stays until it is retried or dismissed: no timer bar.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="toast-region toast-region--static"><div class="toast toast--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="toast__body"><div class="toast__title">Upload failed</div><div class="toast__actions"><button class="toast__action" type="button">Retry</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div></div></div><figcaption>Don't put a timer on an error; a missed Retry means a lost photo.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="toast-region toast-region--static"><div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Photo removed</div><div class="toast__actions"><button class="toast__action" type="button">Undo</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div></div></div><figcaption>Icons take the text colour; the tick says "success".</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="toast-region toast-region--static"><div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" style="color: var(--color-success-icon);"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Photo removed</div><div class="toast__actions"><button class="toast__action" type="button">Undo</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div></div></div><figcaption>Don't tint toast icons with tone colours (the mock kit did); dark green on near-black fails 3:1.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="toast-region toast-region--static"><div class="toast toast--info"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div class="toast__body"><div class="toast__title">Metrics export ready</div><div class="toast__actions"><a class="toast__action" href="../../mocks/pages/admin-metrics/default.html">Download CSV</a></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div></div></div><figcaption>One action, inside <code>.toast__actions</code>.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="toast-region toast-region--static"><div class="toast toast--info"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div class="toast__body"><div class="toast__title">Metrics export ready</div><div class="toast__actions"><a class="toast__action" href="../../mocks/pages/admin-metrics/default.html">Download CSV</a><a class="toast__action" href="../../mocks/pages/admin-metrics/default.html">Open metrics</a><button class="toast__action" type="button">Email it</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="toast__progress" aria-hidden="true"></span></div></div></div><figcaption>Don't turn a toast into a menu. More than one choice belongs on the page or in a dialog.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Surface</td><td><code>--color-bg-inverse</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-inverse" data-swatch></i><span data-token="--color-bg-inverse"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-inverse" data-swatch></i><span data-token="--color-bg-inverse"></span></span></td></tr>
+          <tr><td>Text, icon, action, timer bar, focus ring</td><td><code>--color-fg-inverse</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-inverse" data-swatch></i><span data-token="--color-fg-inverse"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-inverse" data-swatch></i><span data-token="--color-fg-inverse"></span></span></td></tr>
+          <tr><td>Divider (between stacked parts, if any)</td><td><code>--color-border-inverse</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-inverse" data-swatch></i><span data-token="--color-border-inverse"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-inverse" data-swatch></i><span data-token="--color-border-inverse"></span></span></td></tr>
+          <tr><td>Shadow</td><td><code>--shadow-3</code></td><td><span data-token="--shadow-3"></span></td><td><span data-theme="dark" data-token="--shadow-3"></span></td></tr>
+          <tr><td>Layer</td><td><code>--z-toast</code></td><td colspan="2"><span data-token="--z-toast"></span> (above dialogs and popovers, below tooltips)</td></tr>
+          <tr><td>Padding / gap / stack gap</td><td><code>--space-4</code> / <code>--space-3</code> / <code>--space-3</code></td><td colspan="2"><span data-token="--space-4"></span> / <span data-token="--space-3"></span></td></tr>
+          <tr><td>Region inset (xs / sm+)</td><td><code>--space-4</code> / <code>--space-6</code></td><td colspan="2"><span data-token="--space-4"></span> / <span data-token="--space-6"></span></td></tr>
+          <tr><td>Radius</td><td><code>--radius-md</code></td><td colspan="2"><span data-token="--radius-md"></span></td></tr>
+          <tr><td>Title / text font</td><td><code>--text-label</code> at <code>--font-size-md</code> / <code>--text-body-sm</code></td><td colspan="2"><span data-token="--text-label"></span> / <span data-token="--text-body-sm"></span></td></tr>
+          <tr><td>Timer bar height</td><td><code>--border-width-thick</code></td><td colspan="2"><span data-token="--border-width-thick"></span></td></tr>
+          <tr><td>Dismiss and action size (from 48rem / below 48rem)</td><td><code>--target-min</code> / <code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-min"></span> / <span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Enter / exit</td><td><code>--duration-base</code>, <code>--ease-enter</code>, <code>--ease-exit</code></td><td colspan="2"><span data-token="--duration-base"></span> · <span data-token="--ease-enter"></span> · <span data-token="--ease-exit"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;!-- Rendered empty with every page, last in &lt;body&gt; --&gt;
+&lt;div class="toast-region" role="status" aria-live="polite"&gt;
+  &lt;div class="toast toast--danger" role="alert"&gt;
+    &lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;&lt;circle cx="12" cy="12" r="9"/&gt;&lt;path d="M12 7v6M12 16.5v.5"/&gt;&lt;/svg&gt;
+    &lt;div class="toast__body"&gt;
+      &lt;div class="toast__title"&gt;Your reply wasn’t sent&lt;/div&gt;
+      &lt;div class="toast__text"&gt;Check your connection, then try again. Your message is still in the box.&lt;/div&gt;
+      &lt;div class="toast__actions"&gt;&lt;button class="toast__action" type="button"&gt;Try again&lt;/button&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button class="close" type="button" aria-label="Dismiss"&gt;…&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.toast-region</code></td><td>Fixed stack at the bottom (full width on xs, 24rem bottom right from 36rem), above the safe area, <code>--z-toast</code>.</td></tr>
+        <tr><td><code>.toast-region--top</code></td><td>Stack at the top, for screens with a sticky bottom bar.</td></tr>
+        <tr><td><code>.toast-region--static</code></td><td>In-flow region for documentation and mocks.</td></tr>
+        <tr><td><code>.toast</code></td><td>Inverse surface card with slide-up entry.</td></tr>
+        <tr><td><code>.toast--info</code> <code>--success</code> <code>--warning</code> <code>--danger</code></td><td>Tone: icon choice and role; no colour change. Danger: <code>role="alert"</code>, no timer.</td></tr>
+        <tr><td><code>.toast__body</code> <code>.toast__title</code> <code>.toast__text</code></td><td>Content column, title, one-sentence detail.</td></tr>
+        <tr><td><code>.toast__actions</code> / <code>.toast__action</code></td><td>Action row / underlined text button or link; 44px minimum height below 48rem, 24px from 48rem.</td></tr>
+        <tr><td><code>.close</code></td><td>Dismiss, always present; 44px below 48rem.</td></tr>
+        <tr><td><code>.toast__progress</code></td><td>Decorative timer bar; only on auto-dismissing toasts. Script sets its width as time passes.</td></tr>
+        <tr><td><code>data-state="leaving"</code></td><td>Exit animation; remove the node on <code>animationend</code>.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code> on action or close</td><td>Documentation and mocks only.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/notifications/toast/info.html">notifications/toast/info</a>, <a href="../../mocks/notifications/toast/success.html">success</a>, <a href="../../mocks/notifications/toast/warning.html">warning</a>, <a href="../../mocks/notifications/toast/danger.html">danger</a>, <a href="../../mocks/notifications/toast/with-action.html">with-action</a>, <a href="../../mocks/notifications/toast/stacked.html">stacked</a></li>
+        <li><a href="../../mocks/notifications/dashboard-toast/info.html">notifications/dashboard-toast/info</a>, <a href="../../mocks/notifications/dashboard-toast/success.html">success</a>, <a href="../../mocks/notifications/dashboard-toast/warning.html">warning</a>, <a href="../../mocks/notifications/dashboard-toast/danger.html">danger</a>, <a href="../../mocks/notifications/dashboard-toast/with-action.html">with-action</a>, <a href="../../mocks/notifications/dashboard-toast/stacked.html">stacked</a></li>
+        <li><a href="../../mocks/notifications/admin-toast/info.html">notifications/admin-toast/info</a>, <a href="../../mocks/notifications/admin-toast/success.html">success</a>, <a href="../../mocks/notifications/admin-toast/warning.html">warning</a>, <a href="../../mocks/notifications/admin-toast/danger.html">danger</a>, <a href="../../mocks/notifications/admin-toast/stacked.html">stacked</a></li>
+      </ul>
+      <p>Drift fixed during extraction: the mock kit tinted toast icons by tone (<code>--color-*-icon</code>) and then overrode them with <code>currentColor</code> inside the region; tinted icons failed 3:1 on the inverse surface in dark, so icons always take the text colour. The customer toasts wrapped the action in <code>.toast__actions</code> but the dashboard and operator toasts put <code>.toast__action</code> straight in the body; the wrapper is now required. The region breakpoint moved from 40rem to the system's 36rem (sm) and gained the safe-area inset. The operator session warning showed no timer bar but the rule was unwritten; time-critical warnings are now persistent by rule. Danger toasts carried <code>role="alert"</code> inside the polite region; kept, with the double-announcement test above.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

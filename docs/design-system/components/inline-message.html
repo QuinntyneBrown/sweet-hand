@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inline message — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand inline messages: field help, error and warning, inline status and autosave status with the pulsing dot; order, aria-describedby wiring and live regions, both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Feedback</p>
+      <h1>Inline message</h1>
+      <p class="ds-lead">The small lines of text that sit right next to what they are about: help under a field, an error that says how to fix it, a warning that does not block, and the quiet "Saving…" / "Saved" beside a caterer's profile. Each is tied to its control with aria-describedby or announced through a live region.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.field__error</code></span><span class="ds-pill"><code>.field__warning</code></span><span class="ds-pill"><code>.save-status</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Inline messages are the lowest-level feedback on Sweet Hand: one line of small text, a glyph or dot, and a colour that is never the only signal. They live inside the layout, never over it.</p>
+      <ul>
+        <li><b>Help</b> (<code>.field__help</code>): what the field needs before anyone types. "2–80 characters. A new name goes live after our team checks it."</li>
+        <li><b>Error</b> (<code>.field__error</code>): what is wrong and how to fix it, after a submit. "Enter a business name of 2 to 80 characters". Blocks the save.</li>
+        <li><b>Warning</b> (<code>.field__warning</code>): something worth knowing that does not block. "Sweet Hand currently serves Toronto and the GTA", "This caterer usually serves 20–300 guests".</li>
+        <li><b>Inline status</b> (<code>.inline-status</code>, <code>--success</code>, <code>--danger</code>): the result of an action, beside the action. "Contact details shared".</li>
+        <li><b>Save status</b> (<code>.save-status</code>, <code>--saved</code>, <code>--error</code>): the autosave indicator in a dashboard page intro: "Saving…" with a pulsing <code>.dot</code>, "Saved", "Not saved: fix 2 things below".</li>
+      </ul>
+      <p>When the message is about the whole page or needs an action, use an <a href="alert.html">alert or banner</a>. When it confirms something that happened elsewhere or will disappear, use a <a href="toast.html">toast</a>. A list of every error on submit is the error summary (<code>.form-summary</code>, see <a href="form-layout.html">Form layout</a>); inline errors repeat each item next to its field. The character counter (<code>.field__counter</code>) belongs to the <a href="form-field.html">form field</a> but follows the same rules.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="stack" style="width: 100%; max-width: 26rem;">
+            <p class="save-status save-status--error" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>Not saved: fix 2 things below</p>
+            <label class="field" for="anat-name"><span class="field__label">Business name</span>
+              <input class="input" id="anat-name" type="text" value="" aria-invalid="true" aria-describedby="anat-name-error anat-name-help">
+              <span class="field__error" id="anat-name-error">Enter a business name of 2 to 80 characters</span>
+              <span class="field__help" id="anat-name-help">2–80 characters. A new name goes live after our team checks it.</span>
+            </label>
+          </div>
+          <span class="ds-callout" style="left: 4%; top: 18%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 90%; top: 50%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 4%; top: 66%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 4%; top: 84%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Save status</b><small><code>.save-status</code>: 16px icon or 8px <code>.dot</code> + text, <code>--text-body-sm</code>, 44px tall so it never shifts the intro. Always present, with <code>role="status"</code>.</small></div></li>
+          <li><div><b>Invalid control</b><small><code>aria-invalid="true"</code> gives the field a 2px danger edge; <code>aria-describedby</code> lists the error first, then help, then counter.</small></div></li>
+          <li><div><b>Error</b><small><code>.field__error</code>: warning-sign glyph + text in <code>--color-danger-fg</code>, directly under the control.</small></div></li>
+          <li><div><b>Help</b><small><code>.field__help</code>: muted, stays visible while there is an error, so the rule is still on screen.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Field messages</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 32rem;">
+          <label class="field" for="v-desc"><span class="field__label">Description</span>
+            <textarea class="textarea" id="v-desc" rows="3" maxlength="2000" aria-describedby="v-desc-help v-desc-count"></textarea>
+            <span class="cluster cluster--between"><span class="field__help" id="v-desc-help">50–2,000 characters. Leave a blank line between paragraphs.</span><span class="field__counter" id="v-desc-count">0 / 2,000</span></span>
+          </label>
+          <label class="field" for="v-guests"><span class="field__label">Guests</span>
+            <input class="input" id="v-guests" type="text" inputmode="numeric" value="500" aria-describedby="v-guests-warn">
+            <span class="field__warning" id="v-guests-warn" role="status">Pelau House usually serves 20–300 guests</span>
+          </label>
+          <label class="field" for="v-caption"><span class="field__label">Caption</span>
+            <textarea class="textarea" id="v-caption" rows="2" maxlength="125" aria-invalid="true" aria-describedby="v-caption-error v-caption-count">Roti</textarea>
+            <span class="field__error" id="v-caption-error">Captions describe the photo in 5–125 characters</span>
+            <span class="field__counter" id="v-caption-count">4 / 125</span>
+          </label>
+        </div>
+        <div class="ds-example__caption"><span>Help with counter; warning (does not block sending the enquiry); error with counter. From <code>profile-details</code>, <code>dialogs/enquiry/warning</code>, <code>dialogs/photo-details/invalid</code>.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;label class="field" for="caption"&gt;&lt;span class="field__label"&gt;Caption&lt;/span&gt;
+  &lt;textarea class="textarea" id="caption" maxlength="125" aria-invalid="true" aria-describedby="caption-error caption-count"&gt;Roti&lt;/textarea&gt;
+  &lt;span class="field__error" id="caption-error"&gt;Captions describe the photo in 5–125 characters&lt;/span&gt;
+  &lt;span class="field__counter" id="caption-count"&gt;4 / 125&lt;/span&gt;
+&lt;/label&gt;</code></pre></details>
+      </div>
+
+      <h3>Inline status</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <span class="inline-status" role="status"><span class="dot dot--pulse" aria-hidden="true"></span>Checking M1B 2K3…</span>
+          <span class="inline-status inline-status--success" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Contact details shared</span>
+          <span class="inline-status inline-status--danger" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>Couldn’t share your details</span>
+        </div>
+        <div class="ds-example__caption"><span>Neutral (in progress), success, danger. Short, beside the control that caused it; replaces that control when the action cannot be repeated ("Share my contact details" → "Contact details shared").</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;span class="inline-status inline-status--success" role="status"&gt;&lt;svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;Contact details shared&lt;/span&gt;</code></pre></details>
+      </div>
+
+      <h3>Save status</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p class="save-status" role="status"><span class="dot dot--pulse" aria-hidden="true"></span>Saving…</p>
+          <p class="save-status save-status--saved" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Saved at 10:14 a.m. · live on your page within a minute</p>
+          <p class="save-status save-status--error" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>Not saved: fix 2 things below</p>
+          <p class="save-status" role="status"><span class="dot dot--pulse" aria-hidden="true"></span>Uploading 2 photos…</p>
+        </div>
+        <div class="ds-example__caption"><span>Saving, saved, error, uploading. One element per page, in the page intro beside the status label; its text changes, the element stays.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;p class="save-status" role="status"&gt;&lt;span class="dot dot--pulse" aria-hidden="true"&gt;&lt;/span&gt;Saving…&lt;/p&gt;
+&lt;p class="save-status save-status--saved" role="status"&gt;&lt;svg class="icon icon--sm" aria-hidden="true" …&gt;…&lt;/svg&gt;Saved&lt;/p&gt;
+&lt;p class="save-status save-status--error" role="status"&gt;&lt;svg class="icon icon--sm" aria-hidden="true" …&gt;…&lt;/svg&gt;Not saved: fix 2 things below&lt;/p&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="Inline messages have one size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Inline messages have one size: <code>--text-body-sm</code> with a 16px icon or 8px dot. They follow the field, whatever its size.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <h3>A field through its messages</h3>
+      <div class="ds-matrix" style="position: relative;"><table>
+        <caption class="visually-hidden">Field message states</caption>
+        <thead><tr><th scope="col">Field</th><th scope="col">Help only</th><th scope="col">Warning</th><th scope="col">Invalid</th><th scope="col">Over limit</th><th scope="col">Read-only</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Text field</th>
+            <td><label class="field" style="min-width: 14rem;" for="m1"><span class="field__label">Postal code</span><input class="input" id="m1" type="text" value="M1B 2K3" aria-describedby="m1-help"><span class="field__help" id="m1-help">We use it to find caterers near you</span></label></td>
+            <td><label class="field" style="min-width: 14rem;" for="m2"><span class="field__label">Postal code</span><input class="input" id="m2" type="text" value="K1A 0B1" aria-describedby="m2-warn"><span class="field__warning" id="m2-warn" role="status">Sweet Hand currently serves Toronto and the GTA</span></label></td>
+            <td><label class="field" style="min-width: 14rem;" for="m3"><span class="field__label">Business name</span><input class="input" id="m3" type="text" value="" aria-invalid="true" aria-describedby="m3-error m3-help"><span class="field__error" id="m3-error">Enter a business name of 2 to 80 characters</span><span class="field__help" id="m3-help">2–80 characters</span></label></td>
+            <td><span class="text-subtle">Not applicable: <code>maxlength</code> stops typing</span></td>
+            <td><label class="field" style="min-width: 14rem;" for="m5"><span class="field__label">Business name</span><input class="input" id="m5" type="text" value="Pelau House" readonly aria-describedby="m5-help"><span class="field__help" id="m5-help">Editing is paused while we review your profile</span></label></td></tr>
+          <tr><th scope="row">Textarea</th>
+            <td><label class="field" style="min-width: 14rem;" for="m6"><span class="field__label">Your reply</span><textarea class="textarea" id="m6" rows="2" aria-describedby="m6-help m6-count"></textarea><span class="cluster cluster--between"><span class="field__help" id="m6-help">Pelau House gets an email.</span><span class="field__counter" id="m6-count">0 / 2,000</span></span></label></td>
+            <td><span class="text-subtle">Not used</span></td>
+            <td><label class="field" style="min-width: 14rem;" for="m8"><span class="field__label">Your review</span><textarea class="textarea" id="m8" rows="2" aria-invalid="true" aria-describedby="m8-error m8-help m8-count">Great food!!</textarea><span class="field__error" id="m8-error">Write at least 20 characters</span><span class="cluster cluster--between"><span class="field__help" id="m8-help">20 to 2,000 characters</span><span class="field__counter" id="m8-count">12 / 2,000</span></span></label></td>
+            <td><label class="field" style="min-width: 14rem;" for="m9"><span class="field__label">Your reply</span><textarea class="textarea" id="m9" rows="2" aria-invalid="true" aria-describedby="m9-error m9-count">Hi Kendra, yes please hold the date! A few details for the day…</textarea><span class="field__error" id="m9-error">Keep your reply under 2,000 characters. It’s 2,143 now.</span><span class="field__counter" id="m9-count" data-over>2,143 / 2,000</span></label></td>
+            <td><label class="field" style="min-width: 14rem;" for="m10"><span class="field__label">Your review</span><textarea class="textarea" id="m10" rows="2" readonly aria-describedby="m10-help">We had Pelau House for my mother’s thanksgiving service.</textarea><span class="field__help" id="m10-help">Posting your review…</span></label></td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Save status lifecycle</h3>
+      <div class="ds-matrix" style="position: relative;"><table>
+        <caption class="visually-hidden">Save status states</caption>
+        <thead><tr><th scope="col">Indicator</th><th scope="col">Saved (on load)</th><th scope="col">Saving</th><th scope="col">Saved (after a change)</th><th scope="col">Error</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Save status</th>
+            <td><span class="save-status save-status--saved"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Saved</span></td>
+            <td><span class="save-status" role="status"><span class="dot dot--pulse" aria-hidden="true"></span>Saving…</span></td>
+            <td><span class="save-status save-status--saved" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Saved at 10:14 a.m.</span></td>
+            <td><span class="save-status save-status--error" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>Not saved: fix 2 things below</span></td></tr>
+          <tr><th scope="row">Inline status</th>
+            <td><span class="text-subtle">Absent until an action</span></td>
+            <td><span class="inline-status" role="status"><span class="dot dot--pulse" aria-hidden="true"></span>Sharing…</span></td>
+            <td><span class="inline-status inline-status--success" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Contact details shared</span></td>
+            <td><span class="inline-status inline-status--danger" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>Couldn’t share your details</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="stack stack--sm"><span class="field__help">2–80 characters</span><span class="field__error">Enter a business name of 2 to 80 characters</span><span class="field__warning">Sweet Hand currently serves Toronto and the GTA</span><span class="save-status save-status--saved"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Saved</span><span class="save-status"><span class="dot dot--pulse" aria-hidden="true"></span>Saving…</span></div></div>
+        <div data-theme="dark"><div class="stack stack--sm"><span class="field__help">2–80 characters</span><span class="field__error">Enter a business name of 2 to 80 characters</span><span class="field__warning">Sweet Hand currently serves Toronto and the GTA</span><span class="save-status save-status--saved"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Saved</span><span class="save-status"><span class="dot dot--pulse" aria-hidden="true"></span>Saving…</span></div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Messages take the field's width and wrap; the glyph stays aligned with the first line (<code>align-items: flex-start</code>).</li>
+        <li>Help and counter share a row (<code>.cluster--between</code>); below about 20rem the counter wraps under the help, right-aligned.</li>
+        <li>The save status keeps a 44px minimum height so "Saving…" → "Saved" never moves the page; in the dashboard intro it wraps under the status label on phones.</li>
+        <li>No breakpoint hides a message or moves it away from its control.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Each message reads one foreground role: <code>--color-fg-muted</code> (help, neutral status), <code>--color-danger-fg</code> (error, failed), <code>--color-warning-fg</code> (warning), <code>--color-success-fg</code> (saved, done), <code>--color-fg-subtle</code> (counter). There are no backgrounds: inline messages sit on whatever surface the field is on (canvas, card, dialog), so every foreground is checked against canvas, surface and raised surface. Dark lightens each foreground to keep 4.5:1. The pulsing dot uses <code>currentColor</code>.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Field messages are plain text tied to their control with <code>aria-describedby</code> (WCAG 1.3.1, 3.3.1, 3.3.3). The order in the attribute is the reading order: error, help, counter. Status lines that change after load are live regions (<code>role="status"</code>, polite) that exist in the DOM before their text changes. See the <a href="https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/">APG names and descriptions</a> practice.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Messages are never focusable; focusing the control reads its label, then the described-by messages.</td></tr>
+        <tr><td><kbd>Enter</kbd> on a summary link</td><td>Moves focus to the field, whose error is read next.</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>After an invalid submit, focus goes to the error summary (<code>role="alert"</code>, <code>tabindex="-1"</code>), not to an inline error. Fixing a field removes its error and <code>aria-invalid</code> as the person types (re-validate on input), silently.</p>
+      <h3>Labelling and live regions</h3>
+      <ul>
+        <li><b>Errors</b> start with a glyph and are coloured, but the words carry the meaning; the control also gets <code>aria-invalid="true"</code>. They are not live regions themselves: the summary announces them.</li>
+        <li><b>Warnings</b> that appear while typing (postal code out of area) use <code>role="status"</code>; warnings present on load are plain text.</li>
+        <li><b>Save status</b> has <code>role="status"</code> so "Saving…", "Saved" and "Not saved" are each announced once. It is not repeated in a toast.</li>
+        <li><b>Inline status</b> replaces the button it reports on when the action is one-way, and returns focus to the nearest remaining control.</li>
+      </ul>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Error on canvas</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Error on a card</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Error in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Warning on canvas</span><span class="ds-pair__ratio" data-contrast="--color-warning-fg|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Warning on a card</span><span class="ds-pair__ratio" data-contrast="--color-warning-fg|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Saved</span><span class="ds-pair__ratio" data-contrast="--color-success-fg|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Help in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Counter</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-surface" data-min="4.5"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>The <code>.dot--pulse</code> fades between full and 35% opacity over <code>--duration-loop</code>. It is decorative (the text says "Saving…"), so reduced motion stops it and leaves a solid dot.</p>
+      <h3>Touch</h3>
+      <p>Not interactive. Inline messages never contain the only route to an action; links inside them ("Try again") meet the 24px minimum with spacing.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Errors</b> say what to do, in the imperative, with the limit: "Enter a business name of 2 to 80 characters", "Write at least 50 characters (35 so far)", "Keep your reply under 2,000 characters. It’s 2,143 now." Never "Invalid input" or "Error". No trailing period on single-clause errors.</li>
+        <li><b>Help</b> states the rule and who sees what: "2–80 characters. A new name goes live after our team checks it.", "Pelau House gets an email. Links show as plain text."</li>
+        <li><b>Warnings</b> describe the fact, not a fault, and address the reader correctly: to a customer, "Pelau House usually serves 20–300 guests"; to the caterer, "You don’t list Downtown Toronto as an area you serve".</li>
+        <li><b>Save status</b>: "Saving…", "Saved", "Saved at 10:14 a.m. · live on your page within a minute", "Not saved: fix 2 things below". Times lowercase with periods.</li>
+        <li>Use the ellipsis character (…) for in-progress text.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><label class="field" for="dd1"><span class="field__label">Description</span><textarea class="textarea" id="dd1" rows="2" aria-invalid="true" aria-describedby="dd1-e dd1-h">Pelau, curry goat and macaroni pie.</textarea><span class="field__error" id="dd1-e">Write at least 50 characters (35 so far)</span><span class="field__help" id="dd1-h">50–2,000 characters.</span></label></div><figcaption>Error directly under the control, help after it, both in <code>aria-describedby</code>.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><label class="field" for="dd2"><span class="field__label">Description</span><textarea class="textarea" id="dd2" rows="2" aria-invalid="true" aria-describedby="dd2-h">Pelau, curry goat and macaroni pie.</textarea><span class="field__help" id="dd2-h">50–2,000 characters.</span><span class="field__error">Too short</span></label></div><figcaption>Don't put the error last or leave it out of <code>aria-describedby</code>, and don't write "Too short". The mocks used three different orders.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><p class="field__warning">You don’t list Downtown Toronto as an area you serve</p></div><figcaption>Address the caterer as "you" on their own dashboard.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><p class="field__warning">This caterer doesn’t list Downtown Toronto as an area they serve</p></div><figcaption>Don't reuse the customer wording on the caterer's side (<code>dashboard-enquiry</code> did).</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><span class="save-status save-status--saved"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Saved</span></div><figcaption>One wording, one modifier: "Saved" with <code>--saved</code>.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><span class="save-status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>All changes saved</span></div><figcaption>Don't mix "All changes saved" in neutral grey with "Saved" in green for the same state.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Help, neutral status</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Error, danger status</td><td><code>--color-danger-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td></tr>
+          <tr><td>Warning</td><td><code>--color-warning-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-warning-fg" data-swatch></i><span data-token="--color-warning-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-warning-fg" data-swatch></i><span data-token="--color-warning-fg"></span></span></td></tr>
+          <tr><td>Saved, success status</td><td><code>--color-success-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-success-fg" data-swatch></i><span data-token="--color-success-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-success-fg" data-swatch></i><span data-token="--color-success-fg"></span></span></td></tr>
+          <tr><td>Counter</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Invalid control edge</td><td><code>--color-danger-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td></tr>
+          <tr><td>Type</td><td><code>--text-body-sm</code> (counter <code>--text-caption</code>)</td><td colspan="2"><span data-token="--text-body-sm"></span></td></tr>
+          <tr><td>Glyph gap error / warning</td><td><code>--space-1</code> / <code>--space-2</code></td><td colspan="2"><span data-token="--space-1"></span> / <span data-token="--space-2"></span></td></tr>
+          <tr><td>Dot size</td><td><code>--space-2</code></td><td colspan="2"><span data-token="--space-2"></span></td></tr>
+          <tr><td>Save status height</td><td><code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Pulse</td><td><code>--duration-loop</code>, <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-loop"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;label class="field" for="name"&gt;&lt;span class="field__label"&gt;Business name&lt;/span&gt;
+  &lt;input class="input" id="name" type="text" maxlength="80" required aria-invalid="true" aria-describedby="name-error name-help"&gt;
+  &lt;span class="field__error" id="name-error"&gt;Enter a business name of 2 to 80 characters&lt;/span&gt;
+  &lt;span class="field__help" id="name-help"&gt;2–80 characters. A new name goes live after our team checks it.&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;p class="save-status save-status--error" role="status"&gt;&lt;svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;Not saved: fix 2 things below&lt;/p&gt;</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.field__help</code></td><td>Muted help text.</td></tr>
+        <tr><td><code>.field__error</code></td><td>Danger text with a leading warning-sign glyph (CSS <code>::before</code>).</td></tr>
+        <tr><td><code>.field__warning</code></td><td>Warning text with a ringed "!" glyph.</td></tr>
+        <tr><td><code>.field__counter</code> + <code>data-over</code></td><td>Character count; danger and semibold when over the limit.</td></tr>
+        <tr><td><code>.inline-status</code>, <code>--success</code>, <code>--danger</code></td><td>Small status beside an action.</td></tr>
+        <tr><td><code>.save-status</code>, <code>--saved</code>, <code>--error</code></td><td>Autosave indicator, 44px tall.</td></tr>
+        <tr><td><code>.dot</code>, <code>.dot--pulse</code></td><td>8px current-colour dot; pulsing while in progress.</td></tr>
+        <tr><td><code>aria-describedby="error help counter"</code></td><td>Ties messages to the control in reading order.</td></tr>
+        <tr><td><code>role="status"</code></td><td>Polite live region for statuses and typed-in warnings.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/profile-details/default.html">pages/profile-details/default</a>, <a href="../../mocks/pages/profile-details/saving.html">saving</a>, <a href="../../mocks/pages/profile-details/invalid.html">invalid</a>; <a href="../../mocks/pages/profile-cuisines/invalid.html">pages/profile-cuisines/invalid</a></li>
+        <li><a href="../../mocks/pages/profile-photos/uploading.html">pages/profile-photos/uploading</a>, <a href="../../mocks/pages/profile-menu/full.html">pages/profile-menu/full</a></li>
+        <li><a href="../../mocks/dialogs/enquiry/warning.html">dialogs/enquiry/warning</a>, <a href="../../mocks/dialogs/search/out-of-area.html">dialogs/search/out-of-area</a>, <a href="../../mocks/pages/caterers/postal-invalid.html">pages/caterers/postal-invalid</a></li>
+        <li><a href="../../mocks/dialogs/review/invalid.html">dialogs/review/invalid</a>, <a href="../../mocks/dialogs/photo-details/invalid.html">dialogs/photo-details/invalid</a>, <a href="../../mocks/pages/thread/invalid.html">pages/thread/invalid</a>, <a href="../../mocks/pages/thread/shared.html">pages/thread/shared</a>, <a href="../../mocks/pages/dashboard-enquiry/default.html">pages/dashboard-enquiry/default</a></li>
+      </ul>
+      <p>Drift fixed during extraction:</p>
+      <ul>
+        <li>Error placement varied: before help (<code>profile-details/invalid</code>), after help and counter (<code>dialogs/review/invalid</code>), replacing help (<code>thread/invalid</code>). The order is now control → error → help → counter.</li>
+        <li>Four mocks showed "All changes saved" without <code>--saved</code> (neutral grey), 27 showed "Saved" in green; it is "Saved" with <code>--saved</code> everywhere.</li>
+        <li><code>dashboard-enquiry</code> showed the caterer "This caterer doesn’t list Downtown Toronto…"; the caterer-side wording is "You don’t list…". The enquiry warning "This caterer usually serves 20–300 guests" duplicated the help "Pelau House serves 20–300" beside it; one line, naming the caterer, remains.</li>
+        <li>"Contact details shared" used <code>.private-note</code> with a success icon; it is an <code>.inline-status--success</code>. <code>.inline-status</code> was otherwise unused.</li>
+        <li>An over-limit counter was coloured with an inline style; it uses <code>data-over</code>.</li>
+        <li>The <code>.field__error</code> glyph is generated text ("⚠") that some screen readers announce and some platforms draw as a colour emoji; an alt-text-empty, text-presentation form is proposed.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

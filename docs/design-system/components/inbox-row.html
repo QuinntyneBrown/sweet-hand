@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inbox row — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand inbox row: customer and caterer rows, unread and current states, statuses, the loading skeleton, list-beside-thread layout and both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Data display</p>
+      <h1>Inbox row</h1>
+      <p class="ds-lead">One row per enquiry: who it is with, when it last moved, the event in a few words and where it stands. Customers see the caterer's food photo; caterers see the customer's initials.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Link row</span><span class="ds-pill"><code>.inbox-row</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The inbox row is how both sides of Sweet Hand find a conversation. Each row is one link to the enquiry's thread, laid out on a two-line grid: picture, name and time on the first line, event summary and status on the second. Rows stack in <code>.inbox-list</code> with hairline rules between them.</p>
+      <ul>
+        <li><b>Customer row</b> (<code>pages/inbox</code>): the caterer's round food photo and name; Marcia sees Pelau House, Sugar Dumplin, Demerara Kitchen, Ti Kay.</li>
+        <li><b>Caterer row</b> (<code>pages/dashboard-enquiries</code>): the customer's initials in an <a href="avatar.html">avatar</a>, plus the occasion in the summary; a customer who deleted their account shows a person icon and "Former Sweet Hand user".</li>
+        <li><b>Unread</b> (<code>.inbox-row--unread</code>): pepper dot, bold name, darker summary, and a hidden "Unread." for screen readers.</li>
+        <li><b>Current</b> (<code>aria-current</code>): the row whose thread is open beside the list from 62rem.</li>
+      </ul>
+      <p>Use a <a href="queue-item.html">queue item</a> for operator review work (it shows wait time), a <a href="list.html">list row</a> for settings, and a <a href="message.html">message</a> for the conversation itself.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="padding-inline: var(--space-3);">
+          <ul class="inbox-list" aria-label="Enquiries, example" style="width: 100%;">
+            <li><a class="inbox-row inbox-row--unread" href="../../mocks/pages/thread/default.html"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="48" height="48"></span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Pelau House</span><span class="inbox-row__time">9:42 a.m.</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--replied">Replied</span></a></li>
+          </ul>
+          <span class="ds-callout" style="left: 4%; top: 30%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 22%; top: 30%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 34%; top: 30%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 88%; top: 26%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 34%; top: 66%;" aria-hidden="true">5</span>
+          <span class="ds-callout" style="left: 82%; top: 66%;" aria-hidden="true">6</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Picture</b><small>48px round <a href="photo.html">photo</a> (customer view) or <a href="avatar.html">avatar</a> (caterer view), spanning both lines. Empty <code>alt</code>: the name follows.</small></div></li>
+          <li><div><b>Unread dot</b><small><code>.unread-dot</code>: 10px pepper circle, <code>aria-hidden</code>, with a visually hidden "Unread." after it.</small></div></li>
+          <li><div><b>Name</b><small><code>.inbox-row__name</code>: <code>--text-body</code> medium (bold when unread), one line with an ellipsis.</small></div></li>
+          <li><div><b>Time</b><small><code>.inbox-row__time</code>: last activity in <code>--text-caption</code>, <code>--color-fg-subtle</code>, right-aligned.</small></div></li>
+          <li><div><b>Summary</b><small><code>.inbox-row__meta</code>: event date, guests and (caterer view) occasion, joined by middle dots; one line.</small></div></li>
+          <li><div><b>Status</b><small><code>.inbox-row__status</code> plus a <a href="status.html">status label</a>: Open, Replied, Declined, Closed. Word and shape, never colour alone.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Customer inbox</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ul class="inbox-list" aria-label="Your enquiries">
+            <li><a class="inbox-row inbox-row--unread" href="../../mocks/pages/thread/default.html"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Pelau House</span><span class="inbox-row__time">9:42 a.m.</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--replied">Replied</span></a></li>
+            <li><a class="inbox-row" href="../../mocks/pages/thread/open.html"><span class="photo"><img src="../../mocks/assets/img/sugar-dumplin.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Sugar Dumplin</span><span class="inbox-row__time">Thu</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--open">Open</span></a></li>
+            <li><a class="inbox-row" href="../../mocks/pages/thread/declined.html"><span class="photo"><img src="../../mocks/assets/img/demerara-kitchen.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Demerara Kitchen</span><span class="inbox-row__time">Tue</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--declined">Declined</span></a></li>
+            <li><a class="inbox-row" href="../../mocks/pages/thread/closed.html"><span class="photo"><img src="../../mocks/assets/img/ti-kay.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Ti Kay</span><span class="inbox-row__time">Sat 5 Sep</span><span class="inbox-row__meta">Sun 23 Aug · 45 guests</span><span class="inbox-row__status status status--closed">Closed</span></a></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>Marcia's inbox, from <code>pages/inbox/default</code>: one row per status. The whole row is the link.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;ul class="inbox-list" aria-label="Your enquiries"&gt;
+  &lt;li&gt;&lt;a class="inbox-row inbox-row--unread" href="/inbox/enq_51c2"&gt;
+    &lt;span class="photo"&gt;&lt;img src="pelau-house.jpg" alt="" width="48" height="48" loading="lazy"&gt;&lt;/span&gt;
+    &lt;span class="inbox-row__name"&gt;&lt;span class="unread-dot" aria-hidden="true"&gt;&lt;/span&gt;&lt;span class="visually-hidden"&gt;Unread. &lt;/span&gt;Pelau House&lt;/span&gt;
+    &lt;span class="inbox-row__time"&gt;9:42 a.m.&lt;/span&gt;
+    &lt;span class="inbox-row__meta"&gt;Sat 21 Nov · 120 guests&lt;/span&gt;
+    &lt;span class="inbox-row__status status status--replied"&gt;Replied&lt;/span&gt;
+  &lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre></details>
+      </div>
+      <h3>Caterer enquiries</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ul class="inbox-list" aria-label="Pelau House enquiries">
+            <li><a class="inbox-row inbox-row--unread" href="../../mocks/pages/dashboard-enquiry/default.html" aria-current="true"><span class="avatar" aria-hidden="true">PR</span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Priya Ramdial</span><span class="inbox-row__time">Yesterday</span><span class="inbox-row__meta">Thu 5 Nov · 60 guests · Corporate events</span><span class="inbox-row__status status status--open">Open</span></a></li>
+            <li><a class="inbox-row inbox-row--unread" href="../../mocks/pages/dashboard-enquiry/default.html"><span class="avatar" aria-hidden="true">AC</span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Andre Clarke</span><span class="inbox-row__time">Thu</span><span class="inbox-row__meta">Sat 12 Jun 2027 · 250 guests · Weddings</span><span class="inbox-row__status status status--open">Open</span></a></li>
+            <li><a class="inbox-row" href="../../mocks/pages/dashboard-enquiry/former-user.html"><span class="avatar" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><span class="inbox-row__name">Former Sweet Hand user</span><span class="inbox-row__time">Tue 22 Sep</span><span class="inbox-row__meta">Sat 26 Sep · 35 guests · Birthdays</span><span class="inbox-row__status status status--replied">Replied</span></a></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>From <code>pages/dashboard-enquiries/default</code>. Initials, never a customer photo; the first row is current because its thread is open beside the list. Dates outside 2026 carry the year.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="The inbox row has one size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">The inbox row has one size: a 48px picture, <code>--space-4</code> vertical padding and two text lines, about 81px tall, at every breakpoint. The operator <a href="queue-item.html">queue item</a> is the larger cousin (56px picture).</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover and focus are forced with <code>data-state</code>; unread and current use the real class and attribute.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Inbox row states by variant</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Unread</th><th scope="col">Current</th><th scope="col">Loading</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Customer</th>
+            <td><ul class="inbox-list" style="min-width: 17rem;" aria-label="Default"><li><a class="inbox-row" href="../../mocks/pages/thread/open.html"><span class="photo"><img src="../../mocks/assets/img/sugar-dumplin.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Sugar Dumplin</span><span class="inbox-row__time">Thu</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--open">Open</span></a></li></ul></td>
+            <td><ul class="inbox-list" style="min-width: 17rem;" aria-label="Hover"><li><a class="inbox-row" href="../../mocks/pages/thread/open.html" data-state="hover"><span class="photo"><img src="../../mocks/assets/img/sugar-dumplin.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Sugar Dumplin</span><span class="inbox-row__time">Thu</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--open">Open</span></a></li></ul></td>
+            <td><ul class="inbox-list" style="min-width: 17rem;" aria-label="Focus"><li><a class="inbox-row" href="../../mocks/pages/thread/open.html" data-state="focus"><span class="photo"><img src="../../mocks/assets/img/sugar-dumplin.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Sugar Dumplin</span><span class="inbox-row__time">Thu</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--open">Open</span></a></li></ul></td>
+            <td><ul class="inbox-list" style="min-width: 17rem;" aria-label="Unread"><li><a class="inbox-row inbox-row--unread" href="../../mocks/pages/thread/default.html"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Pelau House</span><span class="inbox-row__time">9:42 a.m.</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--replied">Replied</span></a></li></ul></td>
+            <td><ul class="inbox-list" style="min-width: 17rem;" aria-label="Current"><li><a class="inbox-row" href="../../mocks/pages/thread/default.html" aria-current="page"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Pelau House</span><span class="inbox-row__time">9:42 a.m.</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--replied">Replied</span></a></li></ul></td>
+            <td><ul class="inbox-list" style="min-width: 17rem;" aria-hidden="true"><li class="inbox-skeleton-row"><span class="skeleton skeleton--circle"></span><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 3rem;"></span><span class="skeleton skeleton--text" style="width: 70%;"></span><span class="skeleton skeleton--text" style="width: 4rem;"></span></li></ul></td></tr>
+          <tr><th scope="row">Caterer</th>
+            <td><ul class="inbox-list" style="min-width: 17rem;" aria-label="Caterer default"><li><a class="inbox-row" href="../../mocks/pages/dashboard-enquiry/closed.html"><span class="avatar" aria-hidden="true">JP</span><span class="inbox-row__name">Jean-Robert Pierre</span><span class="inbox-row__time">Tue 6 Oct</span><span class="inbox-row__meta">Sun 6 Sep · 80 guests</span><span class="inbox-row__status status status--closed">Closed</span></a></li></ul></td>
+            <td><ul class="inbox-list" style="min-width: 17rem;" aria-label="Caterer hover"><li><a class="inbox-row" href="../../mocks/pages/dashboard-enquiry/closed.html" data-state="hover"><span class="avatar" aria-hidden="true">JP</span><span class="inbox-row__name">Jean-Robert Pierre</span><span class="inbox-row__time">Tue 6 Oct</span><span class="inbox-row__meta">Sun 6 Sep · 80 guests</span><span class="inbox-row__status status status--closed">Closed</span></a></li></ul></td>
+            <td><ul class="inbox-list" style="min-width: 17rem;" aria-label="Caterer focus"><li><a class="inbox-row" href="../../mocks/pages/dashboard-enquiry/closed.html" data-state="focus"><span class="avatar" aria-hidden="true">JP</span><span class="inbox-row__name">Jean-Robert Pierre</span><span class="inbox-row__time">Tue 6 Oct</span><span class="inbox-row__meta">Sun 6 Sep · 80 guests</span><span class="inbox-row__status status status--closed">Closed</span></a></li></ul></td>
+            <td><ul class="inbox-list" style="min-width: 17rem;" aria-label="Caterer unread"><li><a class="inbox-row inbox-row--unread" href="../../mocks/pages/dashboard-enquiry/default.html"><span class="avatar" aria-hidden="true">AC</span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Andre Clarke</span><span class="inbox-row__time">Thu</span><span class="inbox-row__meta">Sat 12 Jun 2027 · 250 guests</span><span class="inbox-row__status status status--open">Open</span></a></li></ul></td>
+            <td><ul class="inbox-list" style="min-width: 17rem;" aria-label="Caterer current"><li><a class="inbox-row inbox-row--unread" href="../../mocks/pages/dashboard-enquiry/default.html" aria-current="true"><span class="avatar" aria-hidden="true">PR</span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Priya Ramdial</span><span class="inbox-row__time">Yesterday</span><span class="inbox-row__meta">Thu 5 Nov · 60 guests</span><span class="inbox-row__status status status--open">Open</span></a></li></ul></td>
+            <td><ul class="inbox-list" style="min-width: 17rem;" aria-hidden="true"><li class="inbox-skeleton-row"><span class="skeleton skeleton--circle"></span><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 3rem;"></span><span class="skeleton skeleton--text" style="width: 70%;"></span><span class="skeleton skeleton--text" style="width: 4rem;"></span></li></ul></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><ul class="inbox-list" aria-label="Light theme example"><li><a class="inbox-row inbox-row--unread" href="../../mocks/pages/thread/default.html"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Pelau House</span><span class="inbox-row__time">9:42 a.m.</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--replied">Replied</span></a></li><li><a class="inbox-row" href="../../mocks/pages/thread/declined.html" aria-current="page"><span class="photo"><img src="../../mocks/assets/img/demerara-kitchen.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Demerara Kitchen</span><span class="inbox-row__time">Tue</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--declined">Declined</span></a></li></ul></div>
+        <div data-theme="dark"><ul class="inbox-list" aria-label="Dark theme example"><li><a class="inbox-row inbox-row--unread" href="../../mocks/pages/thread/default.html"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Pelau House</span><span class="inbox-row__time">9:42 a.m.</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--replied">Replied</span></a></li><li><a class="inbox-row" href="../../mocks/pages/thread/declined.html" aria-current="page"><span class="photo"><img src="../../mocks/assets/img/demerara-kitchen.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Demerara Kitchen</span><span class="inbox-row__time">Tue</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--declined">Declined</span></a></li></ul></div>
+      </div>
+      <ul>
+        <li><b>Unread</b> is three signals at once (dot, bold name, darker summary) plus hidden text, so it never relies on the pepper dot alone (WCAG 1.4.1).</li>
+        <li><b>Current</b> uses a neutral <code>--color-bg-subtle</code> fill, not pepper: the dot and the Open status already use pepper, and a third pepper signal in one row would compete. <code>aria-current="page"</code> when the row's link is the page you are on (the customer thread pages), <code>aria-current="true"</code> when the thread is open in the pane beside a list page (caterer enquiries at 62rem+).</li>
+        <li><b>Loading</b>: <code>.inbox-skeleton-row</code>s, each <code>aria-hidden</code>, with a hidden "Loading your enquiries" status.</li>
+        <li><b>Empty, no results, error, offline</b> replace or top the list: "No enquiries yet", "No open enquiries", "We couldn't load your enquiries. Your messages are safe.", and an offline banner over the cached list.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Below 62rem</b>: the inbox shows the list or one thread, never both (<code>.inbox-layout</code>); opening a row navigates to its thread, and the thread's back link returns to the list.</li>
+        <li><b>LG and up (62rem+)</b>: the list sits in a 20–26rem column beside the open thread; the current row is marked.</li>
+        <li><b>All widths</b>: name and summary truncate to one line with an ellipsis so rows keep an even rhythm; the full text is in the thread heading and is still read in full by screen readers. Time and status never truncate or wrap.</li>
+        <li>At 320px a long name such as "Auntie Euphemia's Kittitian &amp; Nevisian Sunday Kitchen…" truncates; the status stays on the second line.</li>
+        <li>Long inboxes paginate: "Showing 1–20 of 25" with <a href="pagination.html">pagination</a> under the list.</li>
+      </ul>
+      <div class="ds-iframes">
+        <iframe class="ds-iframe" src="../../mocks/pages/inbox/default.html?chrome=0&amp;theme=light" title="Customer inbox at phone width" loading="lazy"></iframe>
+        <iframe class="ds-iframe" src="../../mocks/pages/inbox/loading.html?chrome=0&amp;theme=dark" title="Customer inbox loading at phone width, dark theme" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The row reads <code>--color-border-default</code> (rules), <code>--color-bg-surface-sunken</code> (hover), <code>--color-bg-subtle</code> (current), <code>--color-fg-default</code>, <code>--color-fg-muted</code> and <code>--color-fg-subtle</code> (name, summary, time) and <code>--color-accent</code> (unread dot). Status labels bring their own tokens. In dark, hover is stone-900 and current stone-800 on the stone-950 page, so the open row still stands out; the dot becomes the lighter pepper-300.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>A list of links: <code>&lt;ul aria-label&gt;</code>, each <code>&lt;li&gt;</code> holding one <code>&lt;a class="inbox-row"&gt;</code>. The link's accessible name is its whole text, read in order: "Unread. Pelau House, 9:42 a.m., Sat 21 Nov · 120 guests, Replied". Nothing inside the row is separately interactive. The filter above (All, Open, Replied, Declined, Closed) is a <a href="button-group.html">segmented control</a> with <code>aria-current</code>.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves from row to row.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Opens the thread (navigates, or loads it into the pane at 62rem+ and moves focus to its heading).</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The shared ring draws around the whole row. Returning from a thread on phones puts focus back on the row you opened, so long inboxes don't make people start over.</p>
+      <h3>Labelling</h3>
+      <p>The picture has empty <code>alt</code> (the name follows); the avatar is <code>aria-hidden</code>. "Unread." is visually hidden text inside the name, not an <code>aria-label</code>, so the rest of the row is still read. The inbox count in the header says "1 unread enquiry".</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Name and unread summary</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Summary</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Time</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Name on hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-sunken" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Name on the current row</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Unread dot</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Open status</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Replied status</span><span class="ds-pair__ratio" data-contrast="--color-success-fg|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Hover fill over <code>--duration-fast</code>; nothing else. Skeleton shimmer stops under reduced motion.</p>
+      <h3>Touch</h3>
+      <p>Each row is a full-width target about 81px tall, well over 44px, with no inner targets to miss.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Name</b>: the caterer's business name for customers; the customer's full name for caterers ("Priya Ramdial"), or "Former Sweet Hand user" after deletion. Never an email address.</li>
+        <li><b>Time</b> of last activity, in Toronto time: today as a time ("9:42 a.m."), yesterday as "Yesterday", the last 6 days as the weekday ("Thu"), older as "Tue 6 Oct", other years with the year.</li>
+        <li><b>Summary</b>: event date, guests, then (caterer view) occasion: "Thu 5 Nov · 60 guests · Corporate events". The event date gets the year when it isn't 2026: "Sat 12 Jun 2027".</li>
+        <li><b>Status</b>: one word from the fixed set Open, Replied, Declined, Closed.</li>
+        <li>No message preview: messages are private, and the row stays scannable.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="inbox-list" aria-label="Do example"><li><a class="inbox-row" href="../../mocks/pages/thread/closed.html"><span class="photo"><img src="../../mocks/assets/img/ti-kay.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Ti Kay</span><span class="inbox-row__time">Sat 5 Sep</span><span class="inbox-row__meta">Sun 23 Aug · 45 guests</span><span class="inbox-row__status status status--closed">Closed</span></a></li></ul></div><figcaption>Older activity gets weekday and date: "Sat 5 Sep".</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="inbox-list" aria-label="Don't example"><li><a class="inbox-row" href="../../mocks/pages/thread/closed.html"><span class="photo"><img src="../../mocks/assets/img/ti-kay.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Ti Kay</span><span class="inbox-row__time">5 Sep</span><span class="inbox-row__meta">Sun 23 Aug · 45 guests</span><span class="inbox-row__status status status--closed">Closed</span></a></li></ul></div><figcaption>The customer inbox wrote "5 Sep" while the caterer list wrote "Tue 6 Oct"; one format everywhere.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="inbox-list" aria-label="Do example 2"><li><a class="inbox-row inbox-row--unread" href="../../mocks/pages/dashboard-enquiry/default.html"><span class="avatar" aria-hidden="true">AC</span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Andre Clarke</span><span class="inbox-row__time">Thu</span><span class="inbox-row__meta">Sat 12 Jun 2027 · 250 guests</span><span class="inbox-row__status status status--open">Open</span></a></li></ul></div><figcaption>Caterers see initials; customers never upload a photo.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="inbox-list" aria-label="Don't example 2"><li><a class="inbox-row" href="../../mocks/pages/dashboard-enquiry/default.html"><span class="avatar" aria-hidden="true">AC</span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span>Andre Clarke</span><span class="inbox-row__time">Thu</span><span class="inbox-row__meta">Hi Kendra, we're planning a wedding for 250 at a hall in Brampton…</span></a></li></ul></div><figcaption>Don't show unread by colour alone or preview the private message instead of the event facts and status.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Row rule</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Hover</td><td><code>--color-bg-surface-sunken</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-sunken" data-swatch></i><span data-token="--color-bg-surface-sunken"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-sunken" data-swatch></i><span data-token="--color-bg-surface-sunken"></span></span></td></tr>
+          <tr><td>Current</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Name, unread summary</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Summary</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Time</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Unread dot</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Row padding</td><td><code>--space-4</code> <code>--space-2</code></td><td colspan="2"><span data-token="--space-4"></span> / <span data-token="--space-2"></span></td></tr>
+          <tr><td>Column gap</td><td><code>--space-4</code></td><td colspan="2"><span data-token="--space-4"></span></td></tr>
+          <tr><td>Fonts (name / summary / time)</td><td><code>--text-body</code> / <code>--text-body-sm</code> / <code>--text-caption</code></td><td colspan="2"><span data-token="--text-body"></span> / <span data-token="--text-body-sm"></span> / <span data-token="--text-caption"></span></td></tr>
+          <tr><td>Weights (read / unread)</td><td><code>--font-weight-medium</code> / <code>--font-weight-bold</code></td><td colspan="2"><span data-token="--font-weight-medium"></span> / <span data-token="--font-weight-bold"></span></td></tr>
+          <tr><td>Hover transition</td><td><code>--duration-fast</code></td><td colspan="2"><span data-token="--duration-fast"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;ul class="inbox-list" aria-label="Pelau House enquiries"&gt;
+  &lt;li&gt;&lt;a class="inbox-row inbox-row--unread" href="/dashboard/enquiries/enq_7a10" aria-current="true"&gt;
+    &lt;span class="avatar" aria-hidden="true"&gt;PR&lt;/span&gt;
+    &lt;span class="inbox-row__name"&gt;&lt;span class="unread-dot" aria-hidden="true"&gt;&lt;/span&gt;&lt;span class="visually-hidden"&gt;Unread. &lt;/span&gt;Priya Ramdial&lt;/span&gt;
+    &lt;span class="inbox-row__time"&gt;Yesterday&lt;/span&gt;
+    &lt;span class="inbox-row__meta"&gt;Thu 5 Nov · 60 guests · Corporate events&lt;/span&gt;
+    &lt;span class="inbox-row__status status status--open"&gt;Open&lt;/span&gt;
+  &lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ul class="inbox-list" aria-busy="true" aria-label="Loading your enquiries"&gt;
+  &lt;li class="inbox-skeleton-row" aria-hidden="true"&gt;…&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.inbox-list</code></td><td>Unstyled list with a top rule.</td></tr>
+        <tr><td><code>.inbox-row</code></td><td>Three-column, two-line grid link; picture spans both lines.</td></tr>
+        <tr><td><code>__name</code> <code>__time</code> <code>__meta</code> <code>__status</code></td><td>Grid cells in reading order.</td></tr>
+        <tr><td><code>.inbox-row--unread</code>, <code>.unread-dot</code></td><td>Bold name, darker summary, pepper dot.</td></tr>
+        <tr><td><code>aria-current="page|true"</code></td><td>Current row fill.</td></tr>
+        <tr><td><code>.inbox-skeleton-row</code></td><td>Loading placeholder with the same grid.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation and mocks only.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <ul>
+        <li><a href="../../mocks/pages/inbox/default.html">pages/inbox/default</a>, <a href="../../mocks/pages/inbox/loading.html">loading</a>, <a href="../../mocks/pages/inbox/empty.html">empty</a>, <a href="../../mocks/pages/inbox/no-results.html">no-results</a>, <a href="../../mocks/pages/inbox/error.html">error</a>, <a href="../../mocks/pages/inbox/offline.html">offline</a>, <a href="../../mocks/pages/inbox/long.html">long</a></li>
+        <li><a href="../../mocks/pages/thread/default.html">pages/thread/default</a> (<code>aria-current="page"</code> beside the thread)</li>
+        <li><a href="../../mocks/pages/dashboard-enquiries/default.html">pages/dashboard-enquiries/default</a>, <a href="../../mocks/pages/dashboard-enquiries/loading.html">loading</a>; <a href="../../mocks/pages/dashboard-enquiry/former-user.html">pages/dashboard-enquiry/former-user</a></li>
+      </ul>
+      <p>Drift fixed during extraction: the customer inbox dated Ti Kay's last activity "5 Sep" while the caterer list used "Tue 6 Oct"; older dates now always carry the weekday. The loading inboxes announce "Loading your enquiries" but the list itself had no <code>aria-busy</code>; it is added. The current row uses <code>aria-current="page"</code> on thread pages and <code>"true"</code> on list pages with the thread pane; both are kept, with the rule above.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

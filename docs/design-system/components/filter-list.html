@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Filter list — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand filter list: cuisine and area groups, counts, the selected pepper state, disabled zero-count options, More cuisines, active filter chips, states in both themes, accessibility and tokens.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Navigation</p>
+      <h1>Filter list</h1>
+      <p class="ds-lead">The vertical cuisine column from the reference design: a plain text list where the one you picked turns pepper red. It is the most recognisable piece of Sweet Hand after the round photos.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Signature component</span><span class="ds-pill"><code>.filter-list</code></span><span class="ds-pill"><code>.active-filters</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>On the caterer listing at 62rem and wider, a 15rem column to the left of the grid lists cuisines and areas as large, quiet text. Choosing "Jamaican" turns it pepper red and semibold, recounts every other option, and puts a removable "Jamaican" chip above the results. Nothing is boxed, ticked or highlighted: the colour of the word is the whole state. That restraint is the reference design's signature.</p>
+      <ul>
+        <li><b>Use it</b> for filtering a public listing where options are few enough to read (19 cuisines, 5 regions) and each option has a count.</li>
+        <li><b>Below 62rem</b> the column is gone; the same choices move behind a <a href="filter-trigger.html">filter trigger</a> (a dropdown bar on tablets, a Filters sheet on phones) and use <a href="checkbox.html">checkboxes</a>, because a 44px text row with no box is hard to read as a toggle on a small screen.</li>
+        <li><b>Don't use it</b> inside a form (use a <a href="checkbox.html">checkbox</a> or <a href="radio-group.html">radio group</a>), for a handful of mutually exclusive views (use <a href="tabs.html">tabs</a> or a <a href="button-group.html">segmented control</a>), or for long free-text lists such as 200 areas (use the area <a href="combobox.html">combobox</a>).</li>
+        <li>The <a href="side-nav.html">side navigation</a> in the dashboard and operator console reuses <code>.filter-list</code> with <code>aria-current="page"</code>, so "you are here" looks the same in every part of the product.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="filter-group" role="group" aria-labelledby="anat-cuisine" style="width: 15rem;">
+            <h2 class="filter-group__title" id="anat-cuisine">Cuisine</h2>
+            <ul class="filter-list">
+              <li><a class="filter-list__item" href="../../mocks/pages/caterers/default.html">All</a></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="true">Jamaican <span class="filter-list__count">2</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false">Guyanese <span class="filter-list__count">1</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Haitian <span class="filter-list__count">0</span></button></li>
+            </ul>
+            <button class="filter-more" type="button" aria-expanded="false">More cuisines (11)</button>
+          </div>
+          <span class="ds-callout" style="left: 24%; top: 9%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 24%; top: 24%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 24%; top: 40%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 48%; top: 36%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 24%; top: 71%;" aria-hidden="true">5</span>
+          <span class="ds-callout" style="left: 55%; top: 86%;" aria-hidden="true">6</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Group title</b><small><code>.filter-group__title</code>, an <code>h2</code> (or <code>legend</code> in a sheet) in <code>--text-label</code>, subtle. Names the group for <code>aria-labelledby</code>.</small></div></li>
+          <li><div><b>"All" reset</b><small>A link back to the unfiltered listing. <code>aria-current="true"</code> when no option in the group is chosen.</small></div></li>
+          <li><div><b>Option</b><small><code>.filter-list__item</code>: a toggle <code>&lt;button aria-pressed&gt;</code>, <code>--text-body-lg</code>, muted, a full-width 44px row.</small></div></li>
+          <li><div><b>Count</b><small><code>.filter-list__count</code>: caterers that would match with the other filters applied (L2-008.3), caption size, tabular numerals.</small></div></li>
+          <li><div><b>Disabled option</b><small>Count 0: shown but disabled, in <code>--color-fg-disabled</code>.</small></div></li>
+          <li><div><b>More toggle</b><small><code>.filter-more</code>: an underlined text button with <code>aria-expanded</code> that reveals the rest of the group.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Cuisine group, nothing chosen</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas" style="align-items: flex-start;">
+          <div class="filter-group" role="group" aria-labelledby="v1-cuisine" style="width: 15rem;">
+            <h2 class="filter-group__title" id="v1-cuisine">Cuisine</h2>
+            <ul class="filter-list">
+              <li><a class="filter-list__item" href="../../mocks/pages/caterers/default.html" aria-current="true">All</a></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false">Jamaican <span class="filter-list__count">14</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false">Trinidadian &amp; Tobagonian <span class="filter-list__count">11</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false">Guyanese <span class="filter-list__count">9</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false">Barbadian (Bajan) <span class="filter-list__count">6</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false">Haitian <span class="filter-list__count">5</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false">Grenadian <span class="filter-list__count">4</span></button></li>
+            </ul>
+            <button class="filter-more" type="button" aria-expanded="false">More cuisines (11)</button>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>The listing's default: "All" is current, six cuisines by count, eleven more behind the toggle. Names are the L2-007 names, never shortened.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="filter-group" role="group" aria-labelledby="f-cuisine"&gt;
+  &lt;h2 class="filter-group__title" id="f-cuisine"&gt;Cuisine&lt;/h2&gt;
+  &lt;ul class="filter-list"&gt;
+    &lt;li&gt;&lt;a class="filter-list__item" href="/caterers" aria-current="true"&gt;All&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;button class="filter-list__item" type="button" aria-pressed="false"&gt;
+      Jamaican &lt;span class="filter-list__count"&gt;14&lt;span class="visually-hidden"&gt; caterers&lt;/span&gt;&lt;/span&gt;
+    &lt;/button&gt;&lt;/li&gt;
+    …
+  &lt;/ul&gt;
+  &lt;button class="filter-more" type="button" aria-expanded="false"&gt;More cuisines (11)&lt;/button&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>Chosen: Jamaican in Scarborough</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas" style="align-items: flex-start; gap: var(--space-10);">
+          <div class="filter-group" role="group" aria-labelledby="v2-cuisine" style="width: 15rem;">
+            <h2 class="filter-group__title" id="v2-cuisine">Cuisine</h2>
+            <ul class="filter-list">
+              <li><a class="filter-list__item" href="../../mocks/pages/caterers/default.html">All</a></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="true">Jamaican <span class="filter-list__count">2</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false">Trinidadian &amp; Tobagonian <span class="filter-list__count">1</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false">Guyanese <span class="filter-list__count">1</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Barbadian (Bajan) <span class="filter-list__count">0</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Haitian <span class="filter-list__count">0</span></button></li>
+            </ul>
+          </div>
+          <div class="filter-group" role="group" aria-labelledby="v2-area" style="width: 15rem;">
+            <h2 class="filter-group__title" id="v2-area">Area</h2>
+            <div class="search-field">
+              <label class="visually-hidden" for="v2-area-q">Area or postal code</label>
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+              <input class="input" id="v2-area-q" type="search" placeholder="Area or postal code" autocomplete="postal-code" autocapitalize="characters">
+            </div>
+            <ul class="filter-list">
+              <li><button class="filter-list__item" type="button" aria-pressed="true">Scarborough <span class="filter-list__count">2</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false">York Region <span class="filter-list__count">1</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Peel <span class="filter-list__count">0</span></button></li>
+              <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Durham <span class="filter-list__count">0</span></button></li>
+            </ul>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>From <code>pages/caterers/filtered</code>: chosen options in pepper, every count recomputed against the other group, zero counts disabled but still listed. The area group adds the postal code search.</span></div>
+      </div>
+      <h3>Active filters</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <div class="active-filters" role="group" aria-label="Active filters">
+            <span class="chip chip--filter">Jamaican<button class="remove" type="button" aria-label="Remove Jamaican filter"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></span>
+            <span class="chip chip--filter">Scarborough<button class="remove" type="button" aria-label="Remove Scarborough filter"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></span>
+            <a class="btn btn--link btn--sm" href="../../mocks/pages/caterers/default.html">Clear filters</a>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span><code>.active-filters</code> above the results at every width (L2-009.4). Each <code>.chip--filter</code> repeats a choice in pepper with a remove button; "Clear filters" resets both groups (L2-008.5).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="active-filters" role="group" aria-label="Active filters"&gt;
+  &lt;span class="chip chip--filter"&gt;Jamaican&lt;button class="remove" type="button" aria-label="Remove Jamaican filter"&gt;&lt;svg class="icon icon--sm" …/&gt;&lt;/button&gt;&lt;/span&gt;
+  &lt;a class="btn btn--link btn--sm" href="/caterers"&gt;Clear filters&lt;/a&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>As navigation</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas" style="align-items: flex-start;">
+          <nav aria-label="Dashboard (example)" style="width: 15rem;">
+            <ul class="filter-list">
+              <li><a class="filter-list__item" href="../../mocks/pages/dashboard/default.html">Overview</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/profile-photos/default.html">Photos</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/profile-certificate/default.html" aria-current="page">Food safety</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/dashboard-enquiries/default.html">Enquiries <span class="filter-list__count">2 unread</span></a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="ds-example__caption"><span>The dashboard side nav: links with <code>aria-current="page"</code> instead of toggle buttons. Same look, different semantics; see <a href="side-nav.html">side navigation</a>.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="One size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Options are always <code>--text-body-lg</code> in a 44px row. The large type is the design: it is what lets a column of plain words read as the main way to browse. A compact list would be a different component.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Real attributes wherever they exist: <code>aria-pressed</code> for chosen options, <code>aria-current</code> for "All" and navigation, <code>disabled</code> for zero counts, <code>aria-expanded</code> for the More toggle. Hover and focus are forced with <code>data-state</code>.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Filter list states by item type</caption>
+        <thead><tr><th scope="col">Item</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Active</th><th scope="col">Disabled</th><th scope="col">Selected</th><th scope="col">Current</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Option</th>
+            <td><button class="filter-list__item" type="button" aria-pressed="false">Guyanese <span class="filter-list__count">9</span></button></td>
+            <td><button class="filter-list__item" type="button" aria-pressed="false" data-state="hover">Guyanese <span class="filter-list__count">9</span></button></td>
+            <td><button class="filter-list__item" type="button" aria-pressed="false" data-state="focus">Guyanese <span class="filter-list__count">9</span></button></td>
+            <td><span class="text-subtle">Becomes selected</span></td>
+            <td><button class="filter-list__item" type="button" aria-pressed="false" disabled>Cuban <span class="filter-list__count">0</span></button></td>
+            <td><button class="filter-list__item" type="button" aria-pressed="true">Guyanese <span class="filter-list__count">9</span></button></td>
+            <td><span class="text-subtle">n/a</span></td></tr>
+          <tr><th scope="row">"All"</th>
+            <td><a class="filter-list__item" href="../../mocks/pages/caterers/default.html">All</a></td>
+            <td><a class="filter-list__item" href="../../mocks/pages/caterers/default.html" data-state="hover">All</a></td>
+            <td><a class="filter-list__item" href="../../mocks/pages/caterers/default.html" data-state="focus">All</a></td>
+            <td><span class="text-subtle">Same as hover</span></td>
+            <td><span class="text-subtle">Never</span></td>
+            <td><span class="text-subtle">n/a</span></td>
+            <td><a class="filter-list__item" href="../../mocks/pages/caterers/default.html" aria-current="true">All</a></td></tr>
+          <tr><th scope="row">Nav link</th>
+            <td><a class="filter-list__item" href="../../mocks/pages/profile-photos/default.html">Photos</a></td>
+            <td><a class="filter-list__item" href="../../mocks/pages/profile-photos/default.html" data-state="hover">Photos</a></td>
+            <td><a class="filter-list__item" href="../../mocks/pages/profile-photos/default.html" data-state="focus">Photos</a></td>
+            <td><span class="text-subtle">Same as hover</span></td>
+            <td><span class="text-subtle">Never</span></td>
+            <td><span class="text-subtle">n/a</span></td>
+            <td><a class="filter-list__item" href="../../mocks/pages/profile-photos/default.html" aria-current="page">Photos</a></td></tr>
+          <tr><th scope="row">More toggle</th>
+            <td><button class="filter-more" type="button" aria-expanded="false">More cuisines (11)</button></td>
+            <td><button class="filter-more" type="button" aria-expanded="false" data-state="hover">More cuisines (11)</button></td>
+            <td><button class="filter-more" type="button" aria-expanded="false" data-state="focus">More cuisines (11)</button></td>
+            <td><span class="text-subtle">Same as hover</span></td>
+            <td><button class="filter-more" type="button" aria-expanded="false" disabled>More cuisines (11)</button></td>
+            <td><span class="text-subtle">n/a</span></td>
+            <td><button class="filter-more" type="button" aria-expanded="true">Fewer cuisines</button></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="filter-group"><p class="filter-group__title">Cuisine</p><ul class="filter-list"><li><a class="filter-list__item" href="../../mocks/pages/caterers/default.html">All</a></li><li><button class="filter-list__item" type="button" aria-pressed="true">Jamaican <span class="filter-list__count">2</span></button></li><li><button class="filter-list__item" type="button" aria-pressed="false" data-state="hover">Guyanese <span class="filter-list__count">1</span></button></li><li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Haitian <span class="filter-list__count">0</span></button></li></ul></div></div>
+        <div data-theme="dark"><div class="filter-group"><p class="filter-group__title">Cuisine</p><ul class="filter-list"><li><a class="filter-list__item" href="../../mocks/pages/caterers/default.html">All</a></li><li><button class="filter-list__item" type="button" aria-pressed="true">Jamaican <span class="filter-list__count">2</span></button></li><li><button class="filter-list__item" type="button" aria-pressed="false" data-state="hover">Guyanese <span class="filter-list__count">1</span></button></li><li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Haitian <span class="filter-list__count">0</span></button></li></ul></div></div>
+      </div>
+      <ul>
+        <li><b>Selected</b> keeps the count in pepper too (<code>color: inherit</code>), so the whole row reads as one choice.</li>
+        <li><b>Disabled</b> appears when an option would return nothing with the current filters (<a href="../../mocks/pages/caterers/filtered.html">filtered</a>), when there are no caterers at all (<a href="../../mocks/pages/caterers/empty.html">empty</a>) and while offline (<a href="../../mocks/pages/caterers/offline.html">offline</a>, counts kept, every option disabled). A chosen option with a zero count stays enabled so it can be unchosen (<a href="../../mocks/pages/caterers/no-results.html">no-results</a>: Haitian in Durham).</li>
+        <li><b>Loading</b>: options stay interactive while results refresh; the counts update with the results and the top <code>.result-count</code> announces the new total. No skeleton replaces the list.</li>
+        <li><b>More toggle, disabled</b>: the stylesheet has no disabled rule for <code>.filter-more</code> yet, so it looks active (see Sources).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>LG and XL (62rem and wider)</b>: <code>.browse__aside</code> shows the groups in a <code>--layout-sidebar-width</code> (15rem) column, <code>--space-10</code> between groups, beside a 3-column grid.</li>
+        <li><b>MD (48–62rem)</b>: the column hides. A <a href="filter-trigger.html">filter bar</a> of "Cuisine" and "Area" dropdowns sits above the grid (L2-009.2); inside each dropdown the options are checkboxes with "14 caterers" under the name.</li>
+        <li><b>XS and SM</b>: a "Filters" button opens a full-height sheet with the same groups as checkbox lists (L2-009.1).</li>
+        <li><b>Every width</b>: <code>.active-filters</code> sits above the results whenever something is chosen (L2-009.4). Chips wrap; "Clear filters" stays last.</li>
+        <li>Long names ("Dominican (Dominican Republic)", "Kittitian &amp; Nevisian") wrap inside the 15rem column; the count follows the last word.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>No component tokens; the list reads text roles only. Options are <code>--color-fg-muted</code>, hover <code>--color-fg-default</code>, chosen and current <code>--color-fg-accent</code>, disabled <code>--color-fg-disabled</code>, titles and counts <code>--color-fg-subtle</code>. Filter chips use <code>--color-accent-subtle</code> with an <code>--color-accent</code> edge. In dark, pepper lightens to <code>--palette-pepper-300</code> so the chosen word still reads at 4.5:1 on near-black. In forced-colours mode colour disappears, so the chosen option is underlined instead.</p>
+      <p>To re-skin, change the semantic roles. Never add a background, tick or bar to the chosen row: if pepper text is not enough, the theme's accent is wrong, not the list.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Each group is <code>role="group"</code> labelled by its title (or a <code>fieldset</code>/<code>legend</code> in a sheet). Options are toggle buttons with <code>aria-pressed</code> (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/button/">APG Button, toggle</a>); "All" is a link with <code>aria-current="true"</code>. The More toggle uses <code>aria-expanded</code> (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/">APG Disclosure</a>). Chips sit in <code>role="group" aria-label="Active filters"</code>.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves option by option; disabled options are skipped.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Toggles the option. Results update in place (L2-008.6) and focus stays on the option.</td></tr>
+        <tr><td><kbd>Enter</kbd> on More</td><td>Reveals the remaining options after the last visible one; focus stays on the toggle, which now reads "Fewer cuisines".</td></tr>
+        <tr><td><kbd>Enter</kbd> on a chip's remove</td><td>Removes that filter; focus moves to the next chip, or to the results heading if none are left.</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>The shared pepper ring wraps the full-width row. It is offset 3px, so on a chosen (pepper) option the ring is still distinct from the word.</p>
+      <h3>Labelling</h3>
+      <p>The option's name includes its count. Add a visually hidden noun so it reads "Jamaican, 14 caterers" rather than "Jamaican 14". Chip removes are named "Remove Jamaican filter". The result count above the grid is <code>role="status" aria-live="polite"</code>, so each change is announced ("2 caterers", L2-067.5).</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Option on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Hovered option</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Chosen option, current item</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Title and count</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Chosen option in a sheet or dropdown</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Filter chip label</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Filter chip edge</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring on page</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+      </div>
+      <p>Disabled options are exempt from contrast (WCAG 1.4.3) and also say "0" in text, so colour is never the only signal (L2-069.5).</p>
+      <h3>Motion</h3>
+      <p>Colour changes over <code>--duration-fast</code>; reduced motion makes it instant. Revealing more cuisines does not animate.</p>
+      <h3>Touch</h3>
+      <p>Rows are 44px tall and full width. The list only appears at 62rem and wider, where pointer input is the norm; phones get the sheet with checkbox rows instead. Filter chips sit above the results at every width: below 48rem the chip and its remove button both grow to 44px (L2-065.1); from 48rem the remove button is 24px (<code>--target-min</code>) inside a 36px chip, meeting WCAG 2.5.8.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Use the L2-007 names exactly: "Trinidadian &amp; Tobagonian", "Barbadian (Bajan)", "Antiguan &amp; Barbudan", "St. Lucian". Never "Trini", "Bajan" alone, or a generic "Caribbean". "Pan-Caribbean" appears only because caterers choose it.</li>
+        <li>Order: "All" first, then by count (most first), ties A to Z. Show six, then "More cuisines (11)" where the number is how many are hidden.</li>
+        <li>Group titles are one word: "Cuisine", "Area". Areas list the five regions: City of Toronto, Peel, York Region, Durham, Halton.</li>
+        <li>Counts are bare numerals in the list ("14"); in checkbox lists they read "14 caterers", "1 caterer".</li>
+        <li>The reset is "All" in the list and "Clear filters" beside the chips.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><ul class="filter-list" style="width: 15rem;"><li><button class="filter-list__item" type="button" aria-pressed="true">Haitian <span class="filter-list__count">5</span></button></li><li><button class="filter-list__item" type="button" aria-pressed="false">Grenadian <span class="filter-list__count">4</span></button></li></ul></div><figcaption>The word turns pepper. That is the entire selected state.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="chip" data-state="selected">Haitian</span><span class="chip">Grenadian</span></div><figcaption>Don't turn the column into pills or tick boxes on desktop; it loses the reference's calm and doubles the chips above the results.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><ul class="filter-list" style="width: 15rem;"><li><button class="filter-list__item" type="button" aria-pressed="false">Guyanese <span class="filter-list__count">1</span></button></li><li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Barbadian (Bajan) <span class="filter-list__count">0</span></button></li></ul></div><figcaption>Keep zero-count options in place, disabled (L2-008.3), so the list does not jump.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="chip chip--filter">Scarborough<button class="remove" type="button" aria-label="Remove Scarborough"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></span></div><figcaption>Don't vary the remove label ("Remove Scarborough" in the sheet, "Remove Scarborough filter" on the page). Always "Remove … filter".</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Option</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Hovered option</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Chosen, current</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+          <tr><td>Disabled option</td><td><code>--color-fg-disabled</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td></tr>
+          <tr><td>Title, count</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Filter chip fill</td><td><code>--color-accent-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td></tr>
+          <tr><td>Filter chip edge</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Chip remove hover</td><td><code>--color-accent-subtle-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-subtle-hover" data-swatch></i><span data-token="--color-accent-subtle-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-subtle-hover" data-swatch></i><span data-token="--color-accent-subtle-hover"></span></span></td></tr>
+          <tr><td>Option text, title, count</td><td><code>--text-body-lg</code> <code>--text-label</code> <code>--text-caption</code></td><td colspan="2"><span data-token="--text-body-lg"></span> / <span data-token="--text-label"></span> / <span data-token="--text-caption"></span></td></tr>
+          <tr><td>Chosen weight</td><td><code>--font-weight-semibold</code></td><td colspan="2"><span data-token="--font-weight-semibold"></span></td></tr>
+          <tr><td>Row height; chip remove from 48rem</td><td><code>--target-comfortable</code> <code>--target-min</code></td><td colspan="2"><span data-token="--target-comfortable"></span> / <span data-token="--target-min"></span></td></tr>
+          <tr><td>Column width, gap between groups</td><td><code>--layout-sidebar-width</code> <code>--space-10</code></td><td colspan="2"><span data-token="--layout-sidebar-width"></span> / <span data-token="--space-10"></span></td></tr>
+          <tr><td>Colour transition</td><td><code>--duration-fast</code></td><td colspan="2"><span data-token="--duration-fast"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;aside class="browse__aside" aria-label="Filters"&gt;
+  &lt;div class="filter-group" role="group" aria-labelledby="f-cuisine"&gt;
+    &lt;h2 class="filter-group__title" id="f-cuisine"&gt;Cuisine&lt;/h2&gt;
+    &lt;ul class="filter-list"&gt;
+      &lt;li&gt;&lt;a class="filter-list__item" href="/caterers"&gt;All&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;button class="filter-list__item" type="button" aria-pressed="true"&gt;Jamaican &lt;span class="filter-list__count"&gt;2&lt;span class="visually-hidden"&gt; caterers&lt;/span&gt;&lt;/span&gt;&lt;/button&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;button class="filter-list__item" type="button" aria-pressed="false" disabled&gt;Haitian &lt;span class="filter-list__count"&gt;0&lt;span class="visually-hidden"&gt; caterers&lt;/span&gt;&lt;/span&gt;&lt;/button&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;button class="filter-more" type="button" aria-expanded="false" aria-controls="more-cuisines"&gt;More cuisines (11)&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/aside&gt;</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.filter-group</code></td><td>Column wrapper; also resets <code>fieldset</code> styling in sheets.</td></tr>
+        <tr><td><code>.filter-group__title</code></td><td>Small subtle title; an <code>h2</code> on the page, a <code>legend</code> in a sheet.</td></tr>
+        <tr><td><code>.filter-list</code> / <code>.filter-list__item</code></td><td>The list and its 44px text rows (button or link).</td></tr>
+        <tr><td><code>.filter-list__count</code></td><td>Caption-size tabular count; inherits pepper when chosen.</td></tr>
+        <tr><td><code>aria-pressed="true"</code></td><td>Chosen option: pepper, semibold.</td></tr>
+        <tr><td><code>aria-current="true|page"</code></td><td>"All" with nothing chosen, or the current page in a side nav.</td></tr>
+        <tr><td><code>disabled</code> / <code>aria-disabled="true"</code></td><td>Zero count or offline: disabled colour, not-allowed cursor.</td></tr>
+        <tr><td><code>.filter-more</code> + <code>aria-expanded</code></td><td>Underlined text toggle for the rest of the group.</td></tr>
+        <tr><td><code>.active-filters</code> + <code>.chip--filter</code></td><td>Row of pepper chips with remove buttons above the results.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation and mocks only.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/caterers/default.html">pages/caterers/default</a> (the column, "All" current, "More cuisines (11)")</li>
+        <li><a href="../../mocks/pages/caterers/filtered.html">pages/caterers/filtered</a> (Jamaican + Scarborough chosen, recounts, disabled zeros, chips)</li>
+        <li><a href="../../mocks/pages/caterers/no-results.html">pages/caterers/no-results</a> (chosen options with a zero count)</li>
+        <li><a href="../../mocks/pages/caterers/empty.html">pages/caterers/empty</a> and <a href="../../mocks/pages/caterers/offline.html">pages/caterers/offline</a> (everything disabled)</li>
+        <li><a href="../../mocks/dialogs/filters/selected.html">dialogs/filters/selected</a> (the same groups as checkboxes in the phone sheet)</li>
+        <li><a href="../../mocks/pages/profile-certificate/default.html">pages/profile-certificate/default</a> (the list as side navigation)</li>
+      </ul>
+      <p>Drift fixed during extraction: the Scarborough chip's remove button was "Remove Scarborough filter" on the page but "Remove Scarborough" in the Filters sheet; the system uses "Remove … filter" everywhere. Counts were bare numbers in the accessible name ("Jamaican 14"); the system adds a visually hidden " caterers". <code>.filter-more</code> is disabled in the empty and offline mocks but has no disabled style; <code>.filter-more:disabled { color: var(--color-fg-disabled); cursor: not-allowed; text-decoration: none; }</code> is proposed.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

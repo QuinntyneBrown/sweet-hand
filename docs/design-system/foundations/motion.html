@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Motion — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand motion: duration and easing tokens with replayable demos, loop timings, choreography for dialogs, sheets, toasts and photo zoom, and reduced-motion behaviour.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Motion</h1>
+      <p class="ds-lead">Motion in Sweet Hand is quiet and quick: things fade and settle, overlays rise into place, photos lean in a little when you point at them. It explains where something came from and never makes anyone wait.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">8 durations</span><span class="ds-pill">4 easings</span><span class="ds-pill">Reduced motion built into the tokens</span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#durations">Durations</a></li><li><a href="#easing">Easing</a></li><li><a href="#loops">Loops and delays</a></li><li><a href="#choreography">Choreography</a></li><li><a href="#usage">Usage</a></li><li><a href="#accessibility">Accessibility: reduced motion</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Every transition and animation in <code>components.css</code> reads a <code>--duration-*</code> and an <code>--ease-*</code> token. Nothing hard-codes a time. That one rule gives the product a consistent rhythm, and it makes reduced motion a token change: <code>prefers-reduced-motion: reduce</code> zeroes the transition durations in <code>tokens.css</code>, so components need no media queries of their own.</p>
+      <ul>
+        <li><b>Short.</b> Hover and press colour changes take 120ms; menus and toasts 200ms; dialogs, sheets and the photo zoom 320ms. Nothing that blocks input runs longer than 320ms.</li>
+        <li><b>Purposeful.</b> Motion shows where something came from: a phone sheet rises from the bottom edge, a side sheet slides in from the right, a dialog scales up from the centre. There is no decorative motion.</li>
+        <li><b>Calm.</b> No bounce, no parallax, no auto-advancing carousel. The gallery moves only when someone swipes it.</li>
+      </ul>
+      <p>Each button below replays a demo. With reduced motion turned on in your operating system, the dots jump straight to the end, which is exactly what the product does.</p>
+    </section>
+
+    <section class="ds-section" id="durations"><h2><a href="#durations">Durations</a></h2>
+      <p>Five transition durations cover every state change. Pick by distance and size: small, local changes are fast; big surfaces that enter the screen are slow.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="ds-motion-demo"><div class="ds-motion-demo" style="align-items: center; --demo-duration: var(--duration-instant);"><button class="btn btn--sm" type="button" data-motion-run>Play instant · 0ms</button><span class="dot" aria-hidden="true"></span></div></div>
+          <div class="ds-motion-demo"><div class="ds-motion-demo" style="align-items: center; --demo-duration: var(--duration-fast);"><button class="btn btn--sm" type="button" data-motion-run>Play fast · 120ms</button><span class="dot" aria-hidden="true"></span></div></div>
+          <div class="ds-motion-demo"><div class="ds-motion-demo" style="align-items: center; --demo-duration: var(--duration-base);"><button class="btn btn--sm" type="button" data-motion-run>Play base · 200ms</button><span class="dot" aria-hidden="true"></span></div></div>
+          <div class="ds-motion-demo"><div class="ds-motion-demo" style="align-items: center; --demo-duration: var(--duration-slow);"><button class="btn btn--sm" type="button" data-motion-run>Play slow · 320ms</button><span class="dot" aria-hidden="true"></span></div></div>
+          <div class="ds-motion-demo"><div class="ds-motion-demo" style="align-items: center; --demo-duration: var(--duration-deliberate);"><button class="btn btn--sm" type="button" data-motion-run>Play deliberate · 500ms</button><span class="dot" aria-hidden="true"></span></div></div>
+        </div>
+        <div class="ds-example__caption"><span>All five use <code>--ease-standard</code>. Each demo sets <code>--demo-duration</code> to the token it names.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="ds-motion-demo" style="--demo-duration: var(--duration-slow);"&gt;
+  &lt;button class="btn btn--sm" type="button" data-motion-run&gt;Play slow · 320ms&lt;/button&gt;
+  &lt;span class="dot" aria-hidden="true"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Token</th><th scope="col">Use it for</th><th scope="col">In the product</th></tr></thead>
+        <tbody>
+          <tr><td><code>--duration-instant</code></td><td>Changes that must not animate</td><td>Tooltip hide; a forced <code>data-state</code> in the docs</td></tr>
+          <tr><td><code>--duration-fast</code></td><td>Colour, border, shadow and opacity on hover, press and focus; small popups</td><td>Buttons, links, filter list items, chips, inbox rows, menus and popovers scaling in, the skip link sliding down</td></tr>
+          <tr><td><code>--duration-base</code></td><td>Small things appearing or changing shape</td><td>Switch thumb, toast enter and leave, backdrop fade, gallery dot widening, accordion "+" turning, photo viewer fade</td></tr>
+          <tr><td><code>--duration-slow</code></td><td>Large surfaces entering the screen; photo zoom</td><td>Dialogs, phone sheets, side sheets and drawers; the round photo leaning in on hover</td></tr>
+          <tr><td><code>--duration-deliberate</code></td><td>Progress people should be able to follow</td><td>The progress bar filling (upload, setup meter)</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="easing"><h2><a href="#easing">Easing</a></h2>
+      <p>Things that arrive decelerate into place (<code>--ease-enter</code>); things that leave accelerate away (<code>--ease-exit</code>); things that change in place use <code>--ease-standard</code>. The demos run at 500ms so the curves are easy to see; in the product each easing pairs with the duration in the table above.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="ds-motion-demo"><div class="ds-motion-demo" style="align-items: center; --demo-duration: var(--duration-deliberate); --demo-ease: var(--ease-standard);"><button class="btn btn--sm" type="button" data-motion-run>Play standard</button><span class="dot" aria-hidden="true"></span></div></div>
+          <div class="ds-motion-demo"><div class="ds-motion-demo" style="align-items: center; --demo-duration: var(--duration-deliberate); --demo-ease: var(--ease-enter);"><button class="btn btn--sm" type="button" data-motion-run>Play enter</button><span class="dot" aria-hidden="true"></span></div></div>
+          <div class="ds-motion-demo"><div class="ds-motion-demo" style="align-items: center; --demo-duration: var(--duration-deliberate); --demo-ease: var(--ease-exit);"><button class="btn btn--sm" type="button" data-motion-run>Play exit</button><span class="dot" aria-hidden="true"></span></div></div>
+          <div class="ds-motion-demo"><div class="ds-motion-demo" style="align-items: center; --demo-duration: var(--duration-deliberate); --demo-ease: var(--ease-spring);"><button class="btn btn--sm" type="button" data-motion-run>Play spring</button><span class="dot" aria-hidden="true"></span></div></div>
+        </div>
+        <div class="ds-example__caption"><span>Standard, enter, exit and spring, each over <code>--duration-deliberate</code>.</span></div>
+      </div>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Token</th><th scope="col">Curve</th><th scope="col">Use it for</th></tr></thead>
+        <tbody>
+          <tr><td><code>--ease-standard</code></td><td>Quick start, long gentle settle</td><td>Hover, press, colour, switch thumb, photo zoom, progress fill, loops</td></tr>
+          <tr><td><code>--ease-enter</code></td><td>Starts at full speed, decelerates</td><td>Dialogs, sheets, drawers, menus, popovers, toasts and backdrops arriving</td></tr>
+          <tr><td><code>--ease-exit</code></td><td>Starts slowly, accelerates away</td><td>A toast leaving (<code>data-state="leaving"</code>)</td></tr>
+          <tr><td><code>--ease-spring</code></td><td>Overshoots slightly, then settles</td><td>Reserved. No component uses it today; it stays in the scale for a future "added" confirmation and needs a design review before use</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="loops"><h2><a href="#loops">Loops and delays</a></h2>
+      <p>Three tokens are not transitions. Two time repeating animations; one is a wait before a tooltip appears.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <span class="spinner" role="status" aria-label="Loading"></span>
+          <span class="spinner spinner--lg" aria-hidden="true"></span>
+          <span class="skeleton skeleton--text" style="width: 10rem;" aria-hidden="true"></span>
+          <div class="progress progress--indeterminate" style="max-width: 12rem;" role="progressbar" aria-label="Uploading IMG_2077.heic"><div class="progress__bar"></div></div>
+          <span class="inline-status"><span class="dot dot--pulse" aria-hidden="true"></span>Processing</span>
+          <span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Report this review" aria-describedby="motion-tip"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 21V4m0 0h11l-2 4 2 4H5"/></svg></button><span class="tooltip" role="tooltip" id="motion-tip">Report</span></span>
+        </div>
+        <div class="ds-example__caption"><span>Spinner: one turn per <code>--duration-loop-fast</code>. Skeleton shimmer, indeterminate bar and pulse: <code>--duration-loop</code>. Point at or focus the flag: the tooltip waits <code>--duration-hover-delay</code>.</span></div>
+      </div>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Token</th><th scope="col">Drives</th><th scope="col">Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>--duration-loop-fast</code></td><td>One spinner revolution, linear</td><td>Inside busy buttons (<code>aria-busy="true"</code>) and the photo viewer while a photo loads.</td></tr>
+          <tr><td><code>--duration-loop</code></td><td>Skeleton shimmer, indeterminate progress, pulse dot</td><td>Slow enough to read as "still working", never as flashing. Well under 3 flashes per second (WCAG 2.3.1).</td></tr>
+          <tr><td><code>--duration-hover-delay</code></td><td>How long a pointer rests before a tooltip shows</td><td>Hide is instant. It is a delay, not motion, so reduced motion keeps it. Keyboard focus shows the tooltip after the same delay.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="choreography"><h2><a href="#choreography">Choreography</a></h2>
+      <p>Each overlay enters one way and always the same way. The keyframes live once at the end of <code>components.css</code> (<code>fade-in</code>, <code>fade-out</code>, <code>slide-up</code>, <code>scale-in</code>, <code>slide-in-right</code>, <code>slide-in-left</code>, <code>spin</code>, <code>shimmer</code>, <code>indeterminate</code>, <code>pulse</code>) and components only pick a name, a duration and an easing.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Element</th><th scope="col">Enters</th><th scope="col">Leaves</th><th scope="col">Duration · easing</th></tr></thead>
+        <tbody>
+          <tr><td><a href="../components/dialog.html">Dialog</a> from 36rem</td><td><code>scale-in</code>: from 96% and transparent, centred</td><td>Removed</td><td>slow · enter</td></tr>
+          <tr><td>Dialog below 36rem (bottom sheet)</td><td><code>slide-up</code>: rises 16px and fades in from the bottom edge</td><td>Removed</td><td>slow · enter</td></tr>
+          <tr><td>Backdrop</td><td><code>fade-in</code></td><td>Removed with its dialog</td><td>base · enter</td></tr>
+          <tr><td><a href="../components/sheet.html">Sheet</a> below 48rem (Filters, site menu)</td><td><code>slide-up</code>, full screen</td><td>Removed</td><td>slow · enter</td></tr>
+          <tr><td>Sheet from 48rem, drawer</td><td><code>slide-in-right</code> from the right edge (<code>.drawer--left</code>: <code>slide-in-left</code>)</td><td>Removed</td><td>slow · enter</td></tr>
+          <tr><td><a href="../components/menu.html">Menu</a>, <a href="../components/popover.html">popover</a></td><td><code>scale-in</code> from the trigger corner</td><td>Removed</td><td>fast · enter</td></tr>
+          <tr><td><a href="../components/toast.html">Toast</a></td><td><code>slide-up</code></td><td><code>fade-out</code>, drifting 8px down (<code>data-state="leaving"</code>)</td><td>base · enter / exit</td></tr>
+          <tr><td><a href="../components/gallery.html">Photo viewer</a></td><td><code>fade-in</code>, full screen</td><td>Removed</td><td>base · enter</td></tr>
+          <tr><td><a href="../components/tooltip.html">Tooltip</a></td><td>Opacity after the hover delay</td><td>Instant</td><td>fast · standard</td></tr>
+          <tr><td><a href="../components/photo.html">Round photo</a> on hover</td><td>Rests at <code>scale: 1.03</code> (hides the crop edge) and leans in to <code>1.08</code> when its caterer card is hovered</td><td>Settles back to 1.03</td><td>slow · standard</td></tr>
+          <tr><td><a href="../components/skip-link.html">Skip link</a></td><td>Slides down from above the viewport on focus</td><td>Slides back up</td><td>fast · standard</td></tr>
+        </tbody>
+      </table></div>
+      <p>Leaving is quicker than arriving, or instant: once someone has decided to close a dialog, nothing should hold them up. Stacked toasts each slide up on their own; they never animate as a group.</p>
+      <h3>Replay the real components</h3>
+      <p>Each panel below holds the real component CSS. Opening a panel shows the element again, which restarts its entrance animation. What you see depends on your window: below 36rem the dialog arrives as a bottom sheet, and below 48rem the sheet rises instead of sliding in.</p>
+      <details class="ds-example__code">
+        <summary>Play: dialog</summary>
+        <div class="ds-frame">
+          <div class="ds-frame__page">Pelau House</div>
+          <div class="backdrop" aria-hidden="true"></div>
+          <div class="dialog">
+            <div class="dialog__panel dialog__panel--sm" role="dialog" aria-modal="true" aria-labelledby="motion-dialog-title">
+              <div class="dialog__header"><h2 class="dialog__title" id="motion-dialog-title">Remove “Curry goat”?</h2></div>
+              <div class="dialog__body"><p>It comes off your page straight away.</p></div>
+              <div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="button">Remove dish</button></div>
+            </div>
+          </div>
+        </div>
+      </details>
+      <details class="ds-example__code">
+        <summary>Play: sheet</summary>
+        <div class="ds-frame">
+          <div class="ds-frame__page">60 caterers</div>
+          <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="motion-sheet-title">
+            <div class="sheet__header"><h2 class="sheet__title" id="motion-sheet-title">Filters</h2><button class="icon-btn" type="button" aria-label="Close filters"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+            <div class="sheet__body"><p>Cuisine, area and guests.</p></div>
+            <div class="sheet__footer"><button class="btn" type="button">Clear</button><button class="btn btn--primary" type="button">Show 60 caterers</button></div>
+          </div>
+        </div>
+      </details>
+      <details class="ds-example__code">
+        <summary>Play: toast</summary>
+        <div class="ds-frame ds-frame--short">
+          <div class="ds-frame__page">Enquiry thread</div>
+          <div class="toast-region" role="status">
+            <div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><p class="toast__title">Reply sent</p><p class="toast__text">Pelau House will get an email.</p></div></div>
+          </div>
+        </div>
+      </details>
+      <details class="ds-example__code">
+        <summary>Play: phone sheet in a phone-width mock</summary>
+        <div class="ds-iframes"><iframe class="ds-iframe" src="../../mocks/dialogs/filters/default.html?chrome=0&amp;theme=light" title="Filters sheet rising on a phone" loading="lazy"></iframe><iframe class="ds-iframe" src="../../mocks/dialogs/enquiry/default.html?chrome=0&amp;theme=light" title="Enquiry dialog filling a phone screen" loading="lazy"></iframe></div>
+      </details>
+      <h3>Photo zoom</h3>
+      <p>Point at a caterer card: the round photo leans in from 1.03 to 1.08 over 320ms. The card itself never moves, gains a shadow or a border; only the food does.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <a class="caterer-card" href="../../mocks/pages/caterer/default.html" style="width: 11rem;"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="Chicken pelau in a steel pot with lime and cucumber chutney" width="176" height="176"></span><span class="caterer-card__name">Pelau House</span><span class="caterer-card__meta">Trinidadian &amp; Tobagonian · Scarborough</span></a>
+          <a class="caterer-card" href="../../mocks/pages/caterer/default.html" style="width: 11rem;" data-state="hover"><span class="photo"><img src="../../mocks/assets/img/ti-kay.jpg" alt="Shrimp arranged in a heart on a mound of tomato rice" width="176" height="176"></span><span class="caterer-card__name">Ti Kay</span><span class="caterer-card__meta">Haitian · Etobicoke</span></a>
+        </div>
+        <div class="ds-example__caption"><span>Left: live, hover it. Right: forced hover with <code>data-state="hover"</code>.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+      <ul>
+        <li>Always write <code>transition: &lt;property&gt; var(--duration-*) var(--ease-*)</code>. Never a literal time, never <code>all</code>: list the properties that change.</li>
+        <li>Animate <code>opacity</code>, <code>translate</code>, <code>scale</code> and colours. Never animate <code>width</code>, <code>height</code>, <code>top</code> or <code>margin</code> on large elements; the only exceptions are the progress bar width and the small gallery dot.</li>
+        <li>Use a CSS animation for entrances (it plays when the element appears) and a transition for state changes (it follows the state both ways).</li>
+        <li>New loops need a reason a person cares about ("still loading", "still processing") and must stop under reduced motion unless they report status.</li>
+        <li>Nothing moves on its own: no auto-advancing gallery, no ticker, no attention-seeking wiggle on the enquiry button.</li>
+        <li>Never delay content to show an animation. Pages render straight away; skeletons replace content only while it is genuinely loading.</li>
+      </ul>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="btn btn--primary" type="button">Send an enquiry</button></div><figcaption>Let the ink button change colour in 120ms on hover and settle. The food photos do the attention-getting.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="dot dot--pulse" aria-hidden="true"></span><button class="btn btn--primary" type="button">Send an enquiry</button></div><figcaption>Pulse, bounce or shake a call to action to draw the eye. It reads as an error and distracts people with attention or vestibular conditions.</figcaption></figure>
+      </div>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><code>transition: scale var(--duration-slow) var(--ease-standard);</code></div><figcaption>Read both timing values from tokens so reduced motion and future retiming apply everywhere.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>transition: all 0.3s ease;</code></div><figcaption>Hard-code a time or animate <code>all</code>. Reduced motion cannot reach it and it animates layout by accident.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility: reduced motion</a></h2>
+      <p>L2-069.4 asks that with <code>prefers-reduced-motion: reduce</code>, "animations are turned off or limited to an opacity fade of 200ms or less" (WCAG 2.3.3). The system meets it in two layers.</p>
+      <ol>
+        <li><b>Tokens.</b> <code>tokens.css</code> sets <code>--duration-fast</code>, <code>--duration-base</code>, <code>--duration-slow</code> and <code>--duration-deliberate</code> to 0.01ms. Every transition and every entrance animation that reads them becomes instant. (0.01ms rather than 0, so <code>animationend</code> and <code>transitionend</code> still fire for scripts that wait for them.)</li>
+        <li><b>Components.</b> The motion block in <code>components.css</code> stops what the tokens cannot reach because loops keep their own durations.</li>
+      </ol>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Motion</th><th scope="col">With reduced motion</th><th scope="col">Why</th></tr></thead>
+        <tbody>
+          <tr><td>Hover, press and colour transitions</td><td>Instant</td><td>Durations zeroed in tokens</td></tr>
+          <tr><td>Dialog, sheet, drawer, menu, popover, toast and viewer entrances</td><td>Appear in place, no slide or scale</td><td>Durations zeroed in tokens</td></tr>
+          <tr><td>Round photo zoom (1.03 to 1.08)</td><td>Off: <code>.photo img { transition: none; }</code></td><td>Scaling imagery is a common vestibular trigger</td></tr>
+          <tr><td>Button press nudge, interactive card lift</td><td>Off: <code>transform: none</code></td><td>Movement that adds nothing</td></tr>
+          <tr><td>Skeleton shimmer, pulse dot</td><td>Stop: <code>animation: none</code>; the grey shapes stay</td><td>Decorative loops</td></tr>
+          <tr><td>Indeterminate progress</td><td>Stops as a full bar at 60% opacity</td><td>Still says "working" without movement</td></tr>
+          <tr><td>Spinner</td><td>Keeps turning</td><td>It is status: a frozen spinner looks like a hang</td></tr>
+          <tr><td>Tooltip hover delay</td><td>Unchanged, 300ms</td><td>A delay is not motion; it stops tooltips flashing up as the pointer crosses the page</td></tr>
+          <tr><td>Smooth scrolling to anchors</td><td><code>scroll-behavior: auto</code></td><td>Jump instead of glide</td></tr>
+        </tbody>
+      </table></div>
+      <p>Test it: in Chrome DevTools open Rendering and set "Emulate CSS media feature prefers-reduced-motion" to <code>reduce</code>, then open a dialog, the Filters sheet and a toast, and hover a caterer card. Nothing should slide, scale or shimmer, and the busy button spinner should still turn.</p>
+      <p>Other motion rules: nothing flashes more than three times a second (2.3.1); nothing moves for more than five seconds on its own except loading indicators, which end when loading ends (2.2.2); motion never carries meaning alone, so a toast is also announced by its live region and a loading region carries <code>aria-busy="true"</code>.</p>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <p>Values below are resolved live, so with reduced motion on you will see the zeroed durations.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Token</th><th scope="col">Value</th><th scope="col">Reduced motion</th><th scope="col">Use</th></tr></thead>
+        <tbody>
+          <tr><td><code>--duration-instant</code></td><td data-token="--duration-instant"></td><td>0ms</td><td>No animation</td></tr>
+          <tr><td><code>--duration-fast</code></td><td data-token="--duration-fast"></td><td>0.01ms</td><td>Hover, colour, press, menus, popovers</td></tr>
+          <tr><td><code>--duration-base</code></td><td data-token="--duration-base"></td><td>0.01ms</td><td>Fades, switches, toasts, backdrop</td></tr>
+          <tr><td><code>--duration-slow</code></td><td data-token="--duration-slow"></td><td>0.01ms</td><td>Dialogs, sheets, drawers, photo zoom</td></tr>
+          <tr><td><code>--duration-deliberate</code></td><td data-token="--duration-deliberate"></td><td>0.01ms</td><td>Progress fill</td></tr>
+          <tr><td><code>--duration-loop-fast</code></td><td data-token="--duration-loop-fast"></td><td>Unchanged (spinner keeps turning)</td><td>One spinner revolution</td></tr>
+          <tr><td><code>--duration-loop</code></td><td data-token="--duration-loop"></td><td>Unchanged; loops stopped in components</td><td>Shimmer, indeterminate bar, pulse</td></tr>
+          <tr><td><code>--duration-hover-delay</code></td><td data-token="--duration-hover-delay"></td><td>Unchanged (not motion)</td><td>Tooltip show delay</td></tr>
+          <tr><td><code>--ease-standard</code></td><td data-token="--ease-standard"></td><td>–</td><td>State changes in place</td></tr>
+          <tr><td><code>--ease-enter</code></td><td data-token="--ease-enter"></td><td>–</td><td>Arrivals</td></tr>
+          <tr><td><code>--ease-exit</code></td><td data-token="--ease-exit"></td><td>–</td><td>Departures</td></tr>
+          <tr><td><code>--ease-spring</code></td><td data-token="--ease-spring"></td><td>–</td><td>Reserved, unused</td></tr>
+        </tbody>
+      </table></div>
+      <p>Drift fixed during extraction: the mocks' <code>ui.css</code> hard-coded <code>0.8s</code> (spinner), <code>1.4s</code> (shimmer, indeterminate bar) and <code>1.6s</code> (pulse). They are now <code>--duration-loop-fast</code> and <code>--duration-loop</code>; the pulse moved from 1.6s to 1.4s so all decorative loops share one rhythm. The tooltip delay was implicit and is now <code>--duration-hover-delay</code>.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>
