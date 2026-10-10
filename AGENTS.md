@@ -24,18 +24,47 @@ keep it accurate:
 - `docs/design-system/` — design system extracted from the mocks (`extracting-design-systems` skill)
 - `docs/adr/` — architecture decisions; read relevant ADRs before changing the areas they cover
 - `docs/videos/` — narrated walkthroughs (`creating-videos` skill)
+- `frontend/` — Angular workspace (ADR 0001); see `frontend/README.md`
+  - `frontend/projects/components/` — `sh-*` design-system component library,
+    one folder per CRD under `src/lib/<component>/`
+  - `frontend/projects/web/` — the product application: `core/` (API
+    contracts, session, formatting, form helpers), `shell/` (header, footer,
+    menus, system pages), `features/<area>/` (pages, routes, providers)
+  - `frontend/fake-backend/` — in-memory implementation of the HTTP API for
+    development and acceptance tests (ADR 0004)
+  - `frontend/e2e/` — Playwright: `support/` (fixtures, cast, ports),
+    `pages/` (page objects), `specs/<area>/`
 
-See `README.md` for setup and development commands once they exist.
+See `README.md` and `frontend/README.md` for setup and development commands.
 
 ## Architecture
 
-The technology stack has not been chosen yet. Record each stack decision as an
-ADR in `docs/adr/` and then summarize it here: layers and their dependency
-direction, where business rules live, how persistence, migrations, and
-authentication work, and any non-obvious rules a contributor would otherwise
-trip over.
+Record each stack decision as an ADR in `docs/adr/` and summarize it here.
 
-Until then, these rules hold whatever the stack:
+Frontend (ADRs 0001–0005):
+
+- Angular 21 (standalone components, signals, zoneless) in `frontend/`. The
+  web app imports the component library from source as
+  `@sweet-hand/components`. The library knows nothing about the API and holds
+  no user-facing strings; pages pass every label in.
+- Dependency direction: `features/<area>` → `core` → library. Pages depend on
+  abstract API contracts in `core/api/` (each its own DI token), registered
+  per area in `features/<area>/providers.ts`; `Http…` classes implement them.
+- Frontend business rules (validation messages, eligibility, view models,
+  URL state) live in plain TypeScript beside the page, never in templates or
+  library components. The server remains the authority for every rule.
+- Global CSS is the design system itself (`docs/design-system/tokens/tokens.css`
+  and `assets/components.css`, ADR 0002); product code adds no global rules.
+- Sessions are HttpOnly cookies set by the API; Angular sends the CSRF token
+  from the `XSRF-TOKEN` cookie. Guards in `core/session/guards.ts` send
+  visitors to sign in and show "No access" for the wrong role; they are a
+  convenience, not security.
+- All user-facing text is marked for Angular i18n (ADR 0005); lint fails on
+  unmarked template text.
+- The backend is not built yet. The fake backend implements the same HTTP
+  contract, with wire types shared from `core/api/*.models.ts`.
+
+These rules hold whatever the stack:
 
 - Business rules live in the domain/application layer, not in controllers,
   route handlers, or UI components.
@@ -77,8 +106,14 @@ Until then, these rules hold whatever the stack:
 
 ## Frontend conventions
 
-Record frontend conventions here as the stack is chosen. Until then:
+Detailed conventions are in `frontend/README.md`. In short:
 
+- Library components follow their CRD's API and Markup exactly; wrapper hosts
+  use `host: { style: 'display: contents' }`.
+- Routes live in `features/<area>/routes.ts`; `data.mainClass` gives `<main>`
+  the mock's classes, `data.chrome: 'minimal'` the wordmark-only header.
+- Dates and times are always shown in `America/Toronto` through
+  `core/format/format.ts`.
 - Components preserve the mock design's class names and accessible state
   semantics; e2e locators depend on that parity.
 - Keep component styles encapsulated and global styles limited to shared
