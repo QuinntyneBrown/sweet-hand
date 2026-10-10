@@ -120,7 +120,7 @@
 
   --color-fg-default: var(--palette-stone-950);
   --color-fg-muted: var(--palette-stone-700);
-  --color-fg-subtle: var(--palette-stone-500);
+  --color-fg-subtle: var(--palette-stone-600); /* stone-500 was 4.06:1 on stone-100 rows; 600 is 4.71:1 */
   --color-fg-disabled: var(--palette-stone-300);
   --color-fg-inverse: var(--palette-white);
   --color-fg-link: var(--palette-stone-950);

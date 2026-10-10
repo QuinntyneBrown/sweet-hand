@@ -46,7 +46,9 @@ def shoot_with_python(jobs: list[tuple[Path, str, str, Path]], full_page: bool) 
         browser = p.chromium.launch()
         for file, viewport, theme, out in jobs:
             width, height = (int(v) for v in viewport.split("x"))
-            page = browser.new_page(viewport={"width": width, "height": height}, color_scheme=theme)
+            # Reduced motion makes entrance animations (dialogs, sheets, toasts) render
+            # their final frame, so a capture never catches a half-faded overlay.
+            page = browser.new_page(viewport={"width": width, "height": height}, color_scheme=theme, reduced_motion="reduce")
             page.goto(f"{file.resolve().as_uri()}?theme={theme}&chrome=0")
             page.wait_for_timeout(150)
             page.screenshot(path=str(out), full_page=full_page)
@@ -61,7 +63,7 @@ def shoot_with_cli(jobs: list[tuple[Path, str, str, Path]], full_page: bool) -> 
         raise RuntimeError("Neither the Python 'playwright' package nor 'npx' is available; install one to take screenshots.")
     for file, viewport, theme, out in jobs:
         width, height = viewport.split("x")
-        command = [npx, "--yes", "playwright", "screenshot", "--browser=chromium", f"--viewport-size={width},{height}", f"--color-scheme={theme}", "--wait-for-timeout=150"]
+        command = [npx, "--yes", "playwright", "screenshot", "--browser=chromium", f"--viewport-size={width},{height}", f"--color-scheme={theme}", "--wait-for-timeout=500"]
         if full_page:
             command.append("--full-page")
         command += [f"{file.resolve().as_uri()}?theme={theme}&chrome=0", str(out)]
