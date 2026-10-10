@@ -132,6 +132,31 @@ export class ListingPage extends BasePage {
     await this.areaSearch.press('Enter');
   }
 
+  // Filter bar at MD and the phone bar (docs/specs/components/filter-trigger.md)
+
+  /** Switch to a tablet-sized viewport (MD). */
+  async useTablet() {
+    await this.page.setViewportSize({ width: 800, height: 900 });
+  }
+
+  get cuisineTrigger() {
+    return this.page.locator('.filter-bar').getByRole('button', { name: /^Cuisine/ });
+  }
+
+  get areaTrigger() {
+    return this.page.locator('.filter-bar').getByRole('button', { name: /^Area/ });
+  }
+
+  /** The phone "Filters" button. */
+  get filtersButton() {
+    return this.page.locator('.mobile-browse-bar').getByRole('button', { name: /^Filters/ });
+  }
+
+  /** An open filter dropdown at MD, named by its title. */
+  dropdown(title: 'Cuisine' | 'Area') {
+    return new FilterDropdown(this.page.locator('.filter-dropdown').filter({ has: this.page.getByRole('heading', { name: title, exact: true }) }));
+  }
+
   // Active filters above the results (docs/specs/components/chip.md)
 
   get activeFilters() {
@@ -185,5 +210,34 @@ export class ListingPage extends BasePage {
 
   get nextPage() {
     return this.pagination.getByRole('link', { name: 'Next page' });
+  }
+}
+
+/** A filter dropdown (`.filter-dropdown[role=dialog]`): checkboxes with counts, Clear and the live total. */
+export class FilterDropdown {
+  constructor(readonly panel: Locator) {}
+
+  get choices() {
+    return this.panel.getByRole('checkbox');
+  }
+
+  choice(name: string) {
+    return this.panel.getByRole('checkbox', { name: optionName(name) });
+  }
+
+  get status() {
+    return this.panel.locator('.result-count[role="status"]');
+  }
+
+  get clear() {
+    return this.panel.getByRole('button', { name: 'Clear', exact: true });
+  }
+
+  get search() {
+    return this.panel.getByRole('combobox', { name: 'Area or postal code' });
+  }
+
+  get suggestions() {
+    return this.panel.getByRole('listbox', { name: 'Matching areas' }).getByRole('option');
   }
 }

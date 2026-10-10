@@ -33,6 +33,18 @@
   <section class="browse__results" aria-labelledby="results-title">
     <h2 #resultsHeading class="visually-hidden" id="results-title" tabindex="-1" i18n="@@listing.results">Results</h2>
     <div class="browse__head" [class.until-lg]="!chips().length">
+      <app-listing-filter-bar
+        [cuisines]="cuisines()"
+        [areas]="areas()"
+        [serviceAreas]="serviceAreas()"
+        [total]="shown()?.total ?? null"
+        [disabled]="firstRun()"
+        (cuisineToggled)="toggleCuisine($event)"
+        (areaToggled)="toggleArea($event)"
+        (areaChosen)="addArea($event)"
+        (cuisinesCleared)="clearCuisines()"
+        (areasCleared)="clearAreas()"
+      />
       <sh-active-filters
         label="Active filters"
         i18n-label="@@filters.active"

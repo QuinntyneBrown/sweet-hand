@@ -30,3 +30,6 @@ export * from './lib/chip/chip';
 export * from './lib/filter-list/active-filters';
 export * from './lib/empty-state/empty-state';
 export * from './lib/skeleton/skeleton';
+export * from './lib/filter-trigger/filter-trigger';
+export * from './lib/filter-trigger/filter-dropdown';
+export * from './lib/popover/popover';

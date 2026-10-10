@@ -19,6 +19,7 @@ import { DiscoveryApi } from '../../../core/api/discovery-api';
 import type { ListingPageView, ListingQuery } from '../../../core/api/discovery.models';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { AreaField } from '../search/area-field';
+import { ListingFilterBar } from './listing-filter-bar';
 import {
   activeChips,
   areaOptions,
@@ -38,7 +39,7 @@ import { knownQuery, readListingQuery, toQueryParams, withArea, withCuisine, wit
 /** The caterer listing, /caterers (docs/detailed-designs/discovery/browse-listing). */
 @Component({
   selector: 'app-listing-page',
-  imports: [ActiveFilters, AreaField, Button, ButtonAnchor, CatererCard, CatererGrid, EmptyState, FilterGroup, Icon, Pagination, Skeleton],
+  imports: [ActiveFilters, AreaField, ListingFilterBar, Button, ButtonAnchor, CatererCard, CatererGrid, EmptyState, FilterGroup, Icon, Pagination, Skeleton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './listing.page.html',
 })
@@ -130,6 +131,14 @@ export class ListingPage {
 
   protected addArea(id: string): void {
     this.go(withArea(this.known(), id, true));
+  }
+
+  protected clearCuisines(): void {
+    this.go(withoutCuisines(this.known()));
+  }
+
+  protected clearAreas(): void {
+    this.go({ ...this.known(), regions: [], areas: [], page: 1 });
   }
 
   protected removeChip(value: string): void {
