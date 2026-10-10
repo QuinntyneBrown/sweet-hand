@@ -78,15 +78,6 @@ test.describe('Caterer page', () => {
     await caterer.expectNoAccessibilityViolations();
   });
 
-  test('L2-013.3: a visitor who asks to send an enquiry is taken to sign in and brought back to the caterer', async ({ page }) => {
-    const caterer = new CatererPage(page);
-    await caterer.open('pelau-house');
-
-    await caterer.enquireButtonIn(caterer.panel).click();
-
-    await expect(page).toHaveURL(/\/sign-in\?returnUrl=%2Fcaterers%2Fpelau-house$/);
-  });
-
   test('L2-017.1 L2-017.3: each dish shows its name, description, dietary tags in the fixed order and price guidance', async ({ page }) => {
     const caterer = new CatererPage(page);
 

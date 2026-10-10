@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, computed, effect, inject, input, signal, untracked, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, Injector, afterNextRender, computed, effect, inject, input, signal, untracked, viewChild } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
@@ -21,8 +21,8 @@ import {
   type RowPhoto,
 } from '@sweet-hand/components';
 import { CatererPageApi } from '../../../core/api/caterer-page-api';
-import type { CatererGoneView } from '../../../core/api/caterer-page.models';
-import { EnquiryLauncher } from '../../../core/enquiry/enquiry-launcher';
+import type { CatererGoneView, CatererPageView } from '../../../core/api/caterer-page.models';
+import { EnquiryLauncher, type EnquiryTarget } from '../../../core/enquiry/enquiry-launcher';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { ReviewsSection } from '../../reviews/reviews-section/reviews-section';
 import { reviewCount } from '../../reviews/reviews-section/review-labels';
@@ -35,6 +35,11 @@ import { ReportDialog } from './report-dialog/report-dialog';
 import { Connectivity } from './connectivity';
 
 type PageState = 'loading' | 'ready' | 'gone' | 'not-found' | 'error';
+
+/** What the enquiry form needs to know about the caterer (L2-024, L2-026.2). */
+function enquiryTarget(v: CatererPageView): EnquiryTarget {
+  return { slug: v.slug, name: v.name, photo: v.photos[0]?.src ?? '', minGuests: v.minGuests, maxGuests: v.maxGuests, areas: v.regions.flatMap((r) => r.areas) };
+}
 
 /** The decorative photos above "We couldn't load …" (docs/mocks/pages/caterer/error.html); the middle one is a placeholder. */
 const ERROR_PHOTOS: RowPhoto[] = [
@@ -80,6 +85,8 @@ export class CatererPage {
   private readonly launcher = inject(EnquiryLauncher);
   private readonly router = inject(Router);
   private readonly title = inject(Title);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+  private readonly injector = inject(Injector);
   protected readonly connection = inject(Connectivity);
   /** Sending needs a connection; the page itself stays readable (L2-091). */
   protected readonly offline = computed(() => !this.connection.online());
@@ -135,6 +142,7 @@ export class CatererPage {
         return;
       }
       this.metadata.write(v);
+      untracked(() => afterNextRender(() => this.resumeEnquiry(v), { injector: this.injector }));
     });
     effect(() => {
       const state = this.state();
@@ -164,6 +172,13 @@ export class CatererPage {
   protected enquire(event: MouseEvent): void {
     const v = this.view();
     const trigger = (event.target as HTMLElement).closest('button');
-    if (v && trigger) this.launcher.open({ slug: v.slug, name: v.name }, trigger);
+    if (v && trigger) this.launcher.open(enquiryTarget(v), trigger);
+  }
+
+  /** Back from signing in with an enquiry under way: the form reopens with what was typed (L2-023.1). */
+  private resumeEnquiry(v: CatererPageView): void {
+    // The visible "Send an enquiry": the side panel from LG, the bar below it.
+    const buttons = Array.from(this.host.querySelectorAll<HTMLElement>('[aria-haspopup="dialog"].btn--primary'));
+    this.launcher.resume(enquiryTarget(v), buttons.find((b) => b.getClientRects().length > 0) ?? null);
   }
 }

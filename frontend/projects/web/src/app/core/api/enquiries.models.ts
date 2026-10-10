@@ -105,3 +105,53 @@ export interface ReplyResult {
   /** The notification email is queued behind a slow mail service (L2-030.1). */
   emailDelayed: boolean;
 }
+
+// ---------- Sending an enquiry (send-enquiry and limit-enquiry-abuse designs) ----------
+
+/** What the enquiry form holds, as typed; also the shape of a saved draft (L2-023.1). */
+export interface EnquiryFormValues {
+  /** YYYY-MM-DD, or '' when not chosen. */
+  eventDate: string;
+  /** As typed, so "fifty" survives a round trip and is reported (L2-022.4). */
+  guests: string;
+  /** Service area id (L2-010). */
+  area: string;
+  postalCode: string;
+  /** Occasion id (L2-021). */
+  occasion: string;
+  message: string;
+}
+
+/** `POST /api/enquiries`. The server checks every field again (L2-022.6). */
+export interface SendEnquiryRequest extends EnquiryFormValues {
+  catererSlug: string;
+  /** Bot protection (L2-025.4, L2-082.2). */
+  challengeToken: string;
+}
+
+/** 201 body: what the confirmation shows (L2-022.1). */
+export interface SentEnquiryView {
+  id: string;
+  caterer: { name: string; slug: string };
+  /** Who reads it at the caterer: the owner's first name, or the business name. */
+  contactName: string;
+  eventDate: string;
+  guests: number;
+  /** Area and occasion names. */
+  area: string;
+  occasion: string;
+  /** The email provider is down; the notification is queued (L2-030.1). */
+  emailQueued: boolean;
+}
+
+/**
+ * Why a send was refused, carried as `code` in the problem body. The form words
+ * each one; the server's `title` is for logs. A duplicate also carries `enquiryId`.
+ */
+export type EnquiryRefusal = 'customer-only' | 'email-unverified' | 'challenge-failed' | 'daily-limit' | 'new-account-limit' | 'duplicate';
+
+/** `GET /api/enquiries/drafts/:caterer`: the signed-in customer's unsent values, kept for 24 hours (L2-023.3). */
+export interface EnquiryDraftView {
+  values: EnquiryFormValues;
+  savedAt: string;
+}

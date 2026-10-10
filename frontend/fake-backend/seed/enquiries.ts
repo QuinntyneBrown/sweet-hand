@@ -4,7 +4,7 @@
  * for every store, so tests look them up instead of hard-coding them.
  */
 import { randomUUID } from 'node:crypto';
-import type { EnquiryStatus, Party } from '../../projects/web/src/app/core/api/enquiries.models.ts';
+import type { EnquiryStatus, FitWarning, Party } from '../../projects/web/src/app/core/api/enquiries.models.ts';
 
 export interface EnquiryEvent {
   id: string;
@@ -34,6 +34,8 @@ export interface Enquiry {
   events: EnquiryEvent[];
   /** When each party last opened the thread (show-unread-indicators design). */
   readAt: Partial<Record<Party, string>>;
+  /** Fit warnings worked out when it was sent, so the caterer sees what the customer saw (L2-024.3). */
+  fitWarnings?: FitWarning[];
 }
 
 const t = (local: string) => new Date(local).toISOString();

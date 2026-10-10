@@ -9,6 +9,9 @@ import type { Enquiry, EnquiryEvent } from '../seed/enquiries.ts';
 import type { User } from '../seed/users.ts';
 import type {
   ContactDetails,
+  EnquiryDraftView,
+  EnquiryFormValues,
+  EnquiryRefusal,
   EnquiryStatus,
   FitWarning,
   InboxFilter,
@@ -17,6 +20,8 @@ import type {
   OtherParty,
   Party,
   ReplyResult,
+  SendEnquiryRequest,
+  SentEnquiryView,
   ThreadEntryView,
   ThreadView,
 } from '../../projects/web/src/app/core/api/enquiries.models.ts';
@@ -28,6 +33,17 @@ const FILTERS: Record<InboxFilter, EnquiryStatus> = { open: 'Open', replied: 'Re
 
 /** Extra state the enquiries area keeps per store, beside the seeded enquiries. */
 const delayedEmails = new WeakSet<Store>();
+/** The email provider is down: enquiries are still created and the email is queued (L2-030.1, L2-091.1). */
+const emailDown = new WeakSet<Store>();
+/** Saved drafts per store, keyed `userId caterer-slug` (send-enquiry design, `EnquiryDraft`). */
+const drafts = new WeakMap<Store, Map<string, EnquiryDraftView>>();
+
+/** The token the default invisible bot check hands the form (core/api/bot-challenge.ts). */
+const CHALLENGE_PASSED = 'invisible-challenge-passed';
+const HOUR_MS = 3_600_000;
+const DAY_MS = 24 * HOUR_MS;
+const DAILY_LIMIT = 10;
+const NEW_ACCOUNT_LIMIT = 3;
 
 // ---------- Rules ------------------------------------------------------------
 
@@ -164,7 +180,7 @@ function threadView(store: Store, e: Enquiry, viewer: Party): ThreadView {
     occasion: occasionName(e.occasion),
     message: e.message,
     sentAt: e.createdAt,
-    fitWarnings: viewer === 'caterer' ? fitWarnings(store, e) : [],
+    fitWarnings: viewer === 'caterer' ? (e.fitWarnings ?? fitWarnings(store, e)) : [],
     entries: e.events.map((ev) => entryView(store, e, ev)),
     myContact: contactOf(store, e, viewer) ?? { name: '', email: '', phone: null },
     sharedByMe: e.events.some((ev) => ev.kind === 'shared' && ev.by === viewer),
@@ -175,6 +191,176 @@ function threadView(store: Store, e: Enquiry, viewer: Party): ThreadView {
 /** Plain text as given, minus control characters other than tab and newline (L2-080.4). */
 const clean = (s: unknown) => (typeof s === 'string' ? s.replace(/[\u0000-\u0008\u000B-\u001F\u007F]/g, '') : '');
 const length = (s: string) => [...s].length;
+
+// ---------- Sending (send-enquiry, limit-enquiry-abuse) ------------------------
+
+function addMonths(date: string, months: number): string {
+  const d = new Date(`${date}T12:00:00Z`);
+  d.setUTCMonth(d.getUTCMonth() + months);
+  return d.toISOString().slice(0, 10);
+}
+
+/** A Canadian postal code, or just its forward sortation area. */
+const POSTAL = /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z](?:[ -]?\d[ABCEGHJ-NPRSTV-Z]\d)?$/i;
+
+type FormBody = Partial<Record<keyof EnquiryFormValues, unknown>>;
+
+/** The field rules of L2-022, one message per failing field, keyed by request field. */
+function enquiryErrors(store: Store, body: FormBody): Record<string, string[]> {
+  const errors: Record<string, string[]> = {};
+  const today = torontoDate(store.now);
+  const date = typeof body.eventDate === 'string' ? body.eventDate : '';
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || Number.isNaN(Date.parse(`${date}T12:00:00Z`))) errors['eventDate'] = ['Choose a date for your event'];
+  else if (date < addDays(today, 2)) errors['eventDate'] = ['Choose a date at least 2 days from today'];
+  else if (date > addMonths(today, 24)) errors['eventDate'] = ['Choose a date within the next 24 months'];
+  const guests = String(body.guests ?? '').trim();
+  if (!/^\d+$/.test(guests) || Number(guests) < 1 || Number(guests) > 5000) errors['guests'] = ['Enter a whole number of guests from 1 to 5,000'];
+  if (typeof body.area !== 'string' || !store.regions.some((r) => r.areas.some((a) => a.id === body.area))) errors['area'] = ['Choose an area'];
+  const postal = typeof body.postalCode === 'string' ? body.postalCode.trim() : '';
+  if (postal && !POSTAL.test(postal)) errors['postalCode'] = ['Enter a valid postal code, like M1E 4R8'];
+  if (typeof body.occasion !== 'string' || !OCCASIONS.some((o) => o.id === body.occasion)) errors['occasion'] = ['Choose an occasion'];
+  const message = clean(body.message).trim();
+  if (length(message) < 20) errors['message'] = ['Tell the caterer a little more (at least 20 characters)'];
+  else if (length(message) > 2000) errors['message'] = ['Keep your message under 2,000 characters'];
+  return errors;
+}
+
+function refuse(status: number, code: EnquiryRefusal, title: string, extra: Record<string, unknown> = {}, headers?: Record<string, string>): Reply {
+  return { status, body: { title, code, ...extra }, headers };
+}
+
+/** The customer's enquiries sent at or after `since` (ms). */
+function sentSince(store: Store, user: User, since: number): Enquiry[] {
+  return store.enquiries.filter((e) => e.customerId === user.id && new Date(e.createdAt).getTime() >= since);
+}
+
+/** New-account, daily and duplicate limits, in that order (limit-enquiry-abuse, `EnquiryLimitPolicy`). */
+function limitRefusal(store: Store, user: User, catererId: string, eventDate: string): Reply | null {
+  const now = store.now.getTime();
+  const created = new Date(user.createdAt).getTime();
+  if (now - created < HOUR_MS && sentSince(store, user, created).length >= NEW_ACCOUNT_LIMIT) {
+    const retry = String(Math.ceil((created + HOUR_MS - now) / 1000));
+    return refuse(429, 'new-account-limit', 'New accounts can send 3 enquiries in their first hour', {}, { 'retry-after': retry });
+  }
+  const lastDay = sentSince(store, user, now - DAY_MS);
+  if (lastDay.length >= DAILY_LIMIT) {
+    const oldest = Math.min(...lastDay.map((e) => new Date(e.createdAt).getTime()));
+    const retry = String(Math.ceil((oldest + DAY_MS - now) / 1000));
+    return refuse(429, 'daily-limit', 'You’ve reached today’s enquiry limit. Try again tomorrow.', {}, { 'retry-after': retry });
+  }
+  const existing = store.enquiries.find(
+    (e) => e.customerId === user.id && e.catererId === catererId && e.eventDate === eventDate && (e.status === 'Open' || e.status === 'Replied'),
+  );
+  if (existing) return refuse(409, 'duplicate', 'You already have an open enquiry with this caterer for that date', { enquiryId: existing.id });
+  return null;
+}
+
+function draftsOf(store: Store): Map<string, EnquiryDraftView> {
+  let map = drafts.get(store);
+  if (!map) drafts.set(store, (map = new Map()));
+  return map;
+}
+
+const text = (v: unknown) => (typeof v === 'string' ? v : '');
+
+const formValues = (body: FormBody): EnquiryFormValues => ({
+  eventDate: text(body.eventDate),
+  guests: body.guests === undefined || body.guests === null ? '' : String(body.guests),
+  area: text(body.area),
+  postalCode: text(body.postalCode),
+  occasion: text(body.occasion),
+  message: clean(body.message),
+});
+
+/** The signed-in customer, or the reply that ends the request (send-enquiry, `RequestPipeline`). */
+function customer(ctx: Ctx<Store>): User | Reply {
+  const user = currentUser(ctx.store, ctx.cookies);
+  if (!user) return unauthorized();
+  if (user.role !== 'Customer') return refuse(403, 'customer-only', 'Sign in with a customer account to send enquiries');
+  return user;
+}
+
+const isUser = (x: User | Reply): x is User => 'role' in x;
+
+function registerSending(r: Router<Store>): void {
+  /** Creates an Open enquiry (L2-022, L2-023, L2-024, L2-025). */
+  r.post('/api/enquiries', (ctx) => {
+    const user = customer(ctx);
+    if (!isUser(user)) return user;
+    if (!user.emailVerified) return refuse(403, 'email-unverified', 'Verify your email to send enquiries');
+    const body = (ctx.body ?? {}) as Partial<SendEnquiryRequest>;
+    if (body.challengeToken !== CHALLENGE_PASSED) return refuse(400, 'challenge-failed', 'The bot check failed');
+    const c = ctx.store.caterers.find((x) => x.slug === body.catererSlug && x.status === 'Published');
+    if (!c) return notFound();
+    const errors = enquiryErrors(ctx.store, body);
+    if (Object.keys(errors).length) return invalid(errors);
+    const values = formValues(body);
+    const limit = limitRefusal(ctx.store, user, c.id, values.eventDate);
+    if (limit) return limit;
+
+    const now = ctx.store.now.toISOString();
+    const postal = values.postalCode.trim().toUpperCase();
+    const e: Enquiry = {
+      id: randomUUID(),
+      customerId: user.id,
+      catererId: c.id,
+      eventDate: values.eventDate,
+      guests: Number(values.guests.trim()),
+      area: values.area,
+      // Only the forward sortation area is kept (L2-022).
+      fsa: postal ? postal.slice(0, 3) : null,
+      occasion: values.occasion,
+      message: values.message.trim(),
+      createdAt: now,
+      status: 'Open',
+      events: [],
+      readAt: { customer: now },
+    };
+    e.fitWarnings = fitWarnings(ctx.store, e);
+    ctx.store.enquiries.push(e);
+    draftsOf(ctx.store).delete(`${user.id} ${c.slug}`);
+    const owner = ctx.store.users.find((u) => u.catererId === c.id && !u.deleted);
+    const view: SentEnquiryView = {
+      id: e.id,
+      caterer: { name: c.name, slug: c.slug },
+      contactName: owner ? owner.displayName.split(/\s+/)[0] : c.name,
+      eventDate: e.eventDate,
+      guests: e.guests,
+      area: areaName(ctx.store, e.area),
+      occasion: occasionName(e.occasion),
+      emailQueued: emailDown.has(ctx.store),
+    };
+    return ok(view, 201);
+  });
+
+  /** The customer's unsent values for one caterer, kept for 24 hours (L2-023.3); 204 when there are none. */
+  r.get('/api/enquiries/drafts/:caterer', (ctx) => {
+    const user = customer(ctx);
+    if (!isUser(user)) return user;
+    const draft = draftsOf(ctx.store).get(`${user.id} ${ctx.params['caterer']}`);
+    if (!draft || ctx.store.now.getTime() - new Date(draft.savedAt).getTime() > DAY_MS) return { status: 204 };
+    return ok(draft);
+  });
+
+  r.put('/api/enquiries/drafts/:caterer', (ctx) => {
+    const user = customer(ctx);
+    if (!isUser(user)) return user;
+    const c = ctx.store.caterers.find((x) => x.slug === ctx.params['caterer'] && x.status === 'Published');
+    if (!c) return notFound();
+    draftsOf(ctx.store).set(`${user.id} ${c.slug}`, { values: formValues(ctx.body ?? {}), savedAt: ctx.store.now.toISOString() });
+    return { status: 204 };
+  });
+
+  /**
+   * A fresh verification link for the signed-in account. Identity owns this
+   * endpoint (verify-email-and-reset-password design); it is registered here
+   * until that area's routes provide it, and theirs win (they register first).
+   */
+  r.post('/api/identity/email-verifications/resend', (ctx) => {
+    if (!currentUser(ctx.store, ctx.cookies)) return unauthorized();
+    return { status: 204 };
+  });
+}
 
 // ---------- Endpoints --------------------------------------------------------
 
@@ -205,6 +391,8 @@ function push(store: Store, e: Enquiry, ev: Omit<EnquiryEvent, 'id' | 'at'>): En
 }
 
 export function registerEnquiries(r: Router<Store>): void {
+  registerSending(r);
+
   /** One page of the caller's inbox (browse-inbox design). */
   r.get('/api/enquiries', (ctx) => {
     const user = currentUser(ctx.store, ctx.cookies);
@@ -390,6 +578,51 @@ export const enquiriesScenarios: Record<string, (store: Store, args: any) => unk
   /** The mail service is slow: replies still save, and say so (L2-030.1). */
   'emails-running-late': (store) => {
     delayedEmails.add(store);
+  },
+
+  /** The email provider is down: sending still works and the email waits in the queue (L2-030.1, L2-091.1). */
+  'email-provider-down': (store) => {
+    emailDown.add(store);
+  },
+
+  /** A customer who registered but has not verified their email yet (L2-023.2). */
+  'unverified-customer': (store, { email }: { email: string }) => {
+    userByEmail(store, email).emailVerified = false;
+  },
+
+  /** The customer follows the verification link (verify-email design). */
+  'verify-email': (store, { email }: { email: string }) => {
+    userByEmail(store, email).emailVerified = true;
+  },
+
+  /** The customer has sent 10 enquiries in the past 24 hours (L2-025.1). */
+  'daily-enquiry-limit-reached': (store, { email }: { email: string }) => {
+    const user = userByEmail(store, email);
+    const others = store.caterers.filter((c) => c.status === 'Published' && c.id !== 'cat-001').slice(0, DAILY_LIMIT);
+    others.forEach((c, i) => {
+      const at = new Date(store.now.getTime() - (i + 1) * HOUR_MS).toISOString();
+      store.enquiries.push({
+        id: randomUUID(),
+        customerId: user.id,
+        catererId: c.id,
+        eventDate: '2026-12-05',
+        guests: 40,
+        area: c.areas[0],
+        fsa: null,
+        occasion: 'birthdays',
+        message: 'Could you cater a birthday lunch for 40 people?',
+        createdAt: at,
+        status: 'Open',
+        events: [],
+        readAt: { customer: at },
+      });
+    });
+  },
+
+  /** The customer's account was created 20 minutes ago (L2-025.3). */
+  'new-account': (store, { email }: { email: string }) => {
+    const user = userByEmail(store, email);
+    user.createdAt = new Date(store.now.getTime() - 20 * 60_000).toISOString();
   },
 
   /** The user has never sent or received an enquiry. */
