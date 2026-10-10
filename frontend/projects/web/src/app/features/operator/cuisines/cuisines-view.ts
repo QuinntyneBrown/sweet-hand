@@ -1,6 +1,24 @@
 import type { OperatorCuisine } from '../../../core/api/operator-settings.models';
 import { shortDate, torontoToday } from '../../../core/format/format';
 
+/** Case- and accent-insensitive, so "HAÏTIAN" is the same cuisine as "Haitian" (docs/mocks/dialogs/add-cuisine/invalid.html). */
+const fold = (s: string) =>
+  s
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLocaleLowerCase('en-CA')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+/** A new cuisine's name: 2 to 40 characters and not already on the list. The server applies the same rules. */
+export function cuisineNameError(name: string, existing: readonly string[]): string | null {
+  const n = name.replace(/\s+/g, ' ').trim();
+  if (!n) return $localize`:@@addCuisine.nameRequired:Enter a cuisine name`;
+  if (n.length < 2 || n.length > 40) return $localize`:@@addCuisine.nameLength:Use 2 to 40 characters`;
+  const duplicate = existing.find((e) => fold(e) === fold(n));
+  return duplicate ? $localize`:@@addCuisine.duplicate:${duplicate}:name: is already on the list` : null;
+}
+
 /** "19 cuisines · shown in filters and caterer profiles": active cuisines only. */
 export function cuisinesSubtitle(cuisines: OperatorCuisine[]): string {
   const active = cuisines.filter((c) => !c.retired).length;

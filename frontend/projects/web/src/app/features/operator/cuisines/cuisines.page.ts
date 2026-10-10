@@ -1,22 +1,24 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { AdminRow, Button, EmptyState, Icon, List } from '@sweet-hand/components';
+import { AdminRow, Button, EmptyState, Icon, List, ToastNotifier } from '@sweet-hand/components';
 import { OperatorSettingsApi } from '../../../core/api/operator-settings-api';
-import type { OperatorCuisine } from '../../../core/api/operator-settings.models';
+import type { CuisineUsage, OperatorCuisine } from '../../../core/api/operator-settings.models';
 import { problemOf, reference } from '../../../core/forms/problem';
+import { AddCuisineDialog } from './add-cuisine.dialog';
 import { cuisineMeta, cuisinesSubtitle, isNew } from './cuisines-view';
+import { RetireCuisineDialog } from './retire-cuisine.dialog';
 
 /** The cuisine catalogue, /admin/cuisines (docs/mocks/pages/admin-cuisines; manage-cuisine-list, L2-007). */
 @Component({
   selector: 'app-cuisines-page',
-  imports: [RouterLink, AdminRow, Button, EmptyState, Icon, List],
+  imports: [RouterLink, AddCuisineDialog, AdminRow, Button, EmptyState, Icon, List, RetireCuisineDialog],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page-intro" [attr.aria-busy]="loading() ? 'true' : null">
       <div class="page-intro__row">
         <div>
-          <h1 i18n="@@cuisines.title">Cuisines</h1>
+          <h1 id="cuisines-title" tabindex="-1" i18n="@@cuisines.title">Cuisines</h1>
           @if (loading()) {
             <p class="subtitle"><span class="skeleton skeleton--text" style="width: 60%" aria-hidden="true"></span></p>
           } @else if (cuisines()) {
@@ -66,14 +68,24 @@ import { cuisineMeta, cuisinesSubtitle, isNew } from './cuisines-view';
         <p class="text-caption" style="margin-top: var(--space-6)" i18n="@@cuisines.note">Retired cuisines leave the filter and new profile choices. Caterers who already use one keep it on their page.</p>
       }
     }
+    <app-add-cuisine-dialog [open]="adding()" [existing]="names()" [returnFocus]="opener()" (closed)="adding.set(false)" (added)="added($event)" />
+    @if (retiring(); as r) {
+      <app-retire-cuisine-dialog [open]="retireOpen()" [cuisine]="r" [returnFocus]="opener()" (closed)="retireOpen.set(false)" (retired)="retired($event)" />
+    }
   `,
 })
 export class CuisinesPage {
   private readonly api = inject(OperatorSettingsApi);
+  private readonly toasts = inject(ToastNotifier);
 
   protected readonly cuisines = signal<OperatorCuisine[] | null>(null);
   protected readonly failure = signal<{ reference: string | null } | null>(null);
   protected readonly loading = computed(() => !this.cuisines() && !this.failure());
+  protected readonly adding = signal(false);
+  protected readonly retiring = signal<OperatorCuisine | null>(null);
+  protected readonly retireOpen = signal(false);
+  protected readonly opener = signal<HTMLElement | null>(null);
+  protected readonly names = computed(() => (this.cuisines() ?? []).map((c) => c.name));
   protected readonly subtitle = computed(() => cuisinesSubtitle(this.cuisines() ?? []));
   protected readonly rows = computed(() =>
     (this.cuisines() ?? []).map((c) => ({
@@ -99,11 +111,39 @@ export class CuisinesPage {
   }
 
   protected openAdd(event: MouseEvent): void {
-    void event;
+    this.opener.set(event.currentTarget as HTMLElement);
+    this.adding.set(true);
   }
 
   protected openRetire(cuisine: OperatorCuisine, event: MouseEvent): void {
-    void cuisine;
-    void event;
+    this.opener.set(event.currentTarget as HTMLElement);
+    this.retiring.set(cuisine);
+    this.retireOpen.set(true);
+  }
+
+  protected added(cuisine: OperatorCuisine): void {
+    this.adding.set(false);
+    this.cuisines.update((all) => [...(all ?? []), cuisine].sort((a, b) => a.name.localeCompare(b.name, 'en-CA')));
+    this.toasts.show({
+      tone: 'success',
+      title: $localize`:@@cuisines.added:${cuisine.name}:name: added`,
+      text: $localize`:@@addCuisine.note:Caterers can choose it straight away, and the listing filter offers it.`,
+    });
+  }
+
+  /** L2-007.5: the operator sees which caterers keep the retired cuisine. */
+  protected retired(usage: CuisineUsage): void {
+    // The Retire button is gone; focus goes to the page heading (list D-6).
+    this.opener.set(document.getElementById('cuisines-title'));
+    this.retireOpen.set(false);
+    this.cuisines.update((all) => (all ?? []).map((c) => (c.id === usage.cuisine.id ? usage.cuisine : c)));
+    const names = usage.caterers.map((c) => c.name);
+    this.toasts.show({
+      tone: 'success',
+      title: $localize`:@@cuisines.retiredTitle:${usage.cuisine.name}:name: is retired`,
+      text: names.length
+        ? $localize`:@@cuisines.retiredKeep:${new Intl.ListFormat('en-CA', { style: 'long', type: 'conjunction' }).format(names)}:caterers: keep it on their pages.`
+        : $localize`:@@cuisines.retiredUnused:It’s no longer offered in filters or profiles.`,
+    });
   }
 }
