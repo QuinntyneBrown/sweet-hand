@@ -8,6 +8,7 @@ import { requireRole } from '../../core/session/guards';
 export const operatorPages: Routes = [
   { path: 'cuisines', loadComponent: () => import('./cuisines/cuisines.page').then((m) => m.CuisinesPage), title: $localize`:@@cuisines.documentTitle:Cuisines · Sweet Hand` },
   { path: 'breaches', loadComponent: () => import('./breaches/breaches.page').then((m) => m.BreachesPage), title: $localize`:@@breaches.documentTitle:Breach register · Sweet Hand` },
+  { path: 'operators', loadComponent: () => import('./operators/operators.page').then((m) => m.OperatorsPage), title: $localize`:@@operators.documentTitle:Operators · Sweet Hand` },
 ];
 
 /** Routes of the operator area; every page needs the role (L2-079). */
