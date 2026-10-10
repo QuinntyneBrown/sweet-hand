@@ -4,7 +4,7 @@ import { newId, startSession, type Store } from '../lib/store.ts';
 import type { User } from '../seed/users.ts';
 import type { AccountToken } from '../seed/account.ts';
 import { slugify } from '../seed/taxonomy.ts';
-import type { RegisterCatererRequest, RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/web/src/app/core/api/identity.models.ts';
+import type { PasswordResetRequest, RegisterCatererRequest, RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/web/src/app/core/api/identity.models.ts';
 
 const MINUTE = 60_000;
 /** 5 failed sign-ins for one account within 15 minutes pause it for 15 minutes (L2-076.4). */
@@ -223,7 +223,28 @@ export function registerIdentity(r: Router<Store>): void {
     sendVerification(ctx.store, user);
     return { status: 202, body: {}, headers: { 'set-cookie': sessionCookie(startSession(ctx.store, user)) } };
   });
+
+  /** The same 202 whether or not the email has an account (L2-077.1). */
+  r.post('/api/identity/password-reset-requests', (ctx): Reply => {
+    const now = ctx.store.now.getTime();
+    const recentResets = ctx.store.account.resetRequests.filter((t) => now - Date.parse(t) < HOUR);
+    if (recentResets.length >= RESETS_PER_HOUR) {
+      const retryAfter = Math.ceil((Date.parse(recentResets[0]) + HOUR - now) / 1000);
+      return { status: 429, body: { title: 'Too many reset requests' }, headers: { 'retry-after': String(retryAfter) } };
+    }
+    const body = (ctx.body ?? {}) as Partial<PasswordResetRequest>;
+    if (!validChallenge(body.challengeToken, 'password-reset')) return invalid({ challengeToken: ['Confirm you’re a person'] });
+    if (!EMAIL.test(text(body.email))) return invalid({ email: ['Enter an email address like name@example.com'] });
+    ctx.store.account.resetRequests = [...recentResets, ctx.store.now.toISOString()];
+    const user = findUser(ctx.store, body.email);
+    if (user) sendEmail(ctx.store, user.email, 'password-reset', `/reset-password/${issueToken(ctx.store, user, 'reset')}`);
+    return { status: 202, body: {} };
+  });
 }
+
+const HOUR = 60 * MINUTE;
+/** More than 5 password resets from one network in an hour get 429 (L2-082.3). */
+const RESETS_PER_HOUR = 5;
 
 /** "+14165550199" from any 10-digit North American form (L2-037.2). */
 export function normalisePhone(value: string): string | null {

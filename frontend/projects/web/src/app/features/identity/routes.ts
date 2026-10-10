@@ -16,4 +16,9 @@ export const identityRoutes: Routes = [
     loadComponent: () => import('./register-caterer/register-caterer.page').then((m) => m.RegisterCatererPage),
     title: $localize`:@@registerCaterer.documentTitle:Cater with Sweet Hand`,
   },
+  {
+    path: 'forgot-password',
+    loadComponent: () => import('./forgot-password/forgot-password.page').then((m) => m.ForgotPasswordPage),
+    title: $localize`:@@forgot.documentTitle:Forgot password · Sweet Hand`,
+  },
 ];
