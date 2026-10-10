@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Button group — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand button groups: the .btn-group segmented control with aria-pressed and the .segmented text filter used on inbox, enquiry and operator lists, every state in both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Actions</p>
+      <h1>Button group</h1>
+      <p class="ds-lead">Two ways to pick one option from a short row: the segmented button group, and the quiet text filter above every inbox and operator list.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.btn-group</code></span><span class="ds-pill"><code>.segmented</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Both variants show every option at once, and exactly one is on. They differ in weight.</p>
+      <ul>
+        <li><b>Segmented text filter</b> (<code>.segmented</code>) is the one the product uses everywhere: a wrapping row of words with counts above a list. Marcia's inbox has "All 4 · Open 1 · Replied 1 · Declined 1 · Closed 1"; Kendra's enquiries and every operator list have one too. It is quiet like the filter list in the reference design: muted words, the current one in pepper and semibold. Items are links with <code>aria-current="page"</code> when the filter is in the URL, or buttons with <code>aria-pressed</code> when it filters in place.</li>
+        <li><b>Button group</b> (<code>.btn-group</code>) joins outlined <a href="button.html">buttons</a> into one pill; the pressed segment is pepper on a pepper tint. Use it for 2 to 4 short, mutually exclusive view options in a toolbar, such as the operator metrics "Show by: Day · Week · Month", which a native select handles today. No mock uses it yet; this is the approved shape.</li>
+      </ul>
+      <p>When not to use them: to choose one value inside a form, use a <a href="radio-group.html">radio group</a>. To filter by several values at once (cuisines, areas), use the <a href="filter-list.html">filter list</a> or <a href="checkbox.html">checkboxes</a>. To switch between panels on one page, use <a href="tabs.html">tabs</a>. With more than about seven options, or options that may grow (operators, cuisines), use a <a href="select.html">select</a>.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="stack" style="gap: var(--space-8); justify-items: start;">
+            <div class="btn-group" role="group" aria-label="Show by"><button class="btn" type="button" aria-pressed="false">Day</button><button class="btn" type="button" aria-pressed="true">Week</button><button class="btn" type="button" aria-pressed="false">Month</button></div>
+            <ul class="segmented" aria-label="Filter by status" style="margin-bottom: 0;"><li><a href="../../mocks/pages/inbox/default.html" aria-current="page">All <span class="filter-list__count">4</span></a></li><li><a href="../../mocks/pages/inbox/filtered.html">Open <span class="filter-list__count">1</span></a></li><li><a href="../../mocks/pages/inbox/filtered.html">Replied <span class="filter-list__count">1</span></a></li></ul>
+          </div>
+          <span class="ds-callout" style="left: 24%; top: 27%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 37%; top: 10%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 51%; top: 10%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 26%; top: 62%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 60%; top: 52%;" aria-hidden="true">5</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Group</b><small><code>.btn-group</code> with <code>role="group"</code> and an <code>aria-label</code> naming the choice ("Show by"). Outer ends keep the pill radius; inner edges are square and overlap by 1px.</small></div></li>
+          <li><div><b>Segment</b><small>A secondary <code>.btn</code> with <code>aria-pressed="false"</code>; 44px tall, label in sentence case.</small></div></li>
+          <li><div><b>Pressed segment</b><small><code>aria-pressed="true"</code>: <code>--color-accent-subtle</code> fill, <code>--color-fg-accent</code> label, <code>--color-accent</code> border, raised one layer so its border shows on both sides.</small></div></li>
+          <li><div><b>Current filter</b><small>A <code>.segmented</code> item with <code>aria-current="page"</code> (or <code>aria-pressed="true"</code>): pepper and semibold, so it does not rely on colour alone.</small></div></li>
+          <li><div><b>Item and count</b><small>Muted body text, 44px tall, <code>--space-5</code> between items. The count is a <code>.filter-list__count</code> caption after the word.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Segmented text filter: links</h3>
+      <p>When the filter is part of the URL (<code>/inbox?status=open</code>), each item is a link and the current one carries <code>aria-current="page"</code>. Back and Forward work, and a filtered view can be shared or bookmarked.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ul class="segmented" aria-label="Filter by status"><li><a href="../../mocks/pages/inbox/default.html" aria-current="page">All <span class="filter-list__count">4</span></a></li><li><a href="../../mocks/pages/inbox/filtered.html">Open <span class="filter-list__count">1</span></a></li><li><a href="../../mocks/pages/inbox/filtered.html">Replied <span class="filter-list__count">1</span></a></li><li><a href="../../mocks/pages/inbox/filtered.html">Declined <span class="filter-list__count">1</span></a></li><li><a href="../../mocks/pages/inbox/filtered.html">Closed <span class="filter-list__count">1</span></a></li></ul>
+          <ul class="segmented" aria-label="Filter caterers by status"><li><a href="../../mocks/pages/admin-caterers/default.html" aria-current="page">All <span class="filter-list__count">68</span></a></li><li><a href="../../mocks/pages/admin-caterers/no-results.html">Draft <span class="filter-list__count">3</span></a></li><li><a href="../../mocks/pages/admin-caterers/no-results.html">Pending review <span class="filter-list__count">2</span></a></li><li><a href="../../mocks/pages/admin-caterers/no-results.html">Changes requested <span class="filter-list__count">1</span></a></li><li><a href="../../mocks/pages/admin-caterers/no-results.html">Published <span class="filter-list__count">60</span></a></li><li><a href="../../mocks/pages/admin-caterers/no-results.html">Suspended <span class="filter-list__count">1</span></a></li><li><a href="../../mocks/pages/admin-caterers/no-results.html">Removed <span class="filter-list__count">1</span></a></li></ul>
+        </div>
+        <div class="ds-example__caption"><span>Marcia's inbox (5 statuses) and Leah's caterer list (7 lifecycle states, which wrap on a phone).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;ul class="segmented" aria-label="Filter by status"&gt;
+  &lt;li&gt;&lt;a href="/inbox" aria-current="page"&gt;All &lt;span class="filter-list__count"&gt;4&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/inbox?status=open"&gt;Open &lt;span class="filter-list__count"&gt;1&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+  …
+&lt;/ul&gt;</code></pre></details>
+      </div>
+      <h3>Segmented text filter: toggle buttons</h3>
+      <p>When the list filters in place without changing the URL, items are buttons with <code>aria-pressed</code>, and the result count below updates in a <code>role="status"</code> region. A filter with no matches stays enabled; disable it only when it can never match.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <ul class="segmented" aria-label="Review status" style="margin-bottom: 0;"><li><button type="button" aria-pressed="true">Held <span class="filter-list__count">2</span></button></li><li><button type="button" aria-pressed="false">Hidden <span class="filter-list__count">2</span></button></li><li><button type="button" aria-pressed="false" disabled>Removed <span class="filter-list__count">0</span></button></li></ul>
+        </div>
+        <div class="ds-example__caption"><span>Buttons with <code>aria-pressed</code>; a disabled option drops to <code>--color-fg-disabled</code>.</span></div>
+      </div>
+      <h3>Button group</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <div class="btn-group" role="group" aria-label="Show by"><button class="btn" type="button" aria-pressed="false">Day</button><button class="btn" type="button" aria-pressed="true">Week</button><button class="btn" type="button" aria-pressed="false">Month</button></div>
+          <div class="btn-group" role="group" aria-label="Period"><button class="btn btn--sm" type="button" aria-pressed="true">30 days</button><button class="btn btn--sm" type="button" aria-pressed="false">90 days</button></div>
+        </div>
+        <div class="ds-example__caption"><span>Three segments at 44px; two compact segments at 36px for a dense operator toolbar.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="btn-group" role="group" aria-label="Show by"&gt;
+  &lt;button class="btn" type="button" aria-pressed="false"&gt;Day&lt;/button&gt;
+  &lt;button class="btn" type="button" aria-pressed="true"&gt;Week&lt;/button&gt;
+  &lt;button class="btn" type="button" aria-pressed="false"&gt;Month&lt;/button&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>Loading</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <ul class="segmented" aria-hidden="true" style="margin-bottom: 0;"><li><span class="skeleton skeleton--text" style="width: 4rem;"></span></li><li><span class="skeleton skeleton--text" style="width: 4rem;"></span></li><li><span class="skeleton skeleton--text" style="width: 4rem;"></span></li><li><span class="skeleton skeleton--text" style="width: 4rem;"></span></li></ul>
+        </div>
+        <div class="ds-example__caption"><span>While counts load, the row is skeleton bars, <code>aria-hidden</code>; the page's loading status speaks for it.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>The segmented filter has one size: body text in 44px rows. The button group takes its segments' size: medium (44px) by default, small (36px, <code>.btn--sm</code> on every segment) only in a desktop operator toolbar. Never mix sizes within a group.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <div class="btn-group" role="group" aria-label="Show by, small"><button class="btn btn--sm" type="button" aria-pressed="false">Day</button><button class="btn btn--sm" type="button" aria-pressed="true">Week</button><button class="btn btn--sm" type="button" aria-pressed="false">Month</button></div>
+          <div class="btn-group" role="group" aria-label="Show by, medium"><button class="btn" type="button" aria-pressed="false">Day</button><button class="btn" type="button" aria-pressed="true">Week</button><button class="btn" type="button" aria-pressed="false">Month</button></div>
+        </div>
+        <div class="ds-example__caption"><span>Small · 36px (<code>--control-height-sm</code>) and medium · 44px (<code>--control-height-md</code>).</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Pointer and focus states are forced with <code>data-state</code>; selected uses the real attribute (<code>aria-pressed</code> or <code>aria-current</code>).</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Button group and segmented filter states</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Active</th><th scope="col">Disabled</th><th scope="col">Selected</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Group segment</th>
+            <td><div class="btn-group"><button class="btn" type="button" aria-pressed="false">Week</button></div></td>
+            <td><div class="btn-group"><button class="btn" type="button" aria-pressed="false" data-state="hover">Week</button></div></td>
+            <td><div class="btn-group"><button class="btn" type="button" aria-pressed="false" data-state="focus">Week</button></div></td>
+            <td><div class="btn-group"><button class="btn" type="button" aria-pressed="false" data-state="active">Week</button></div></td>
+            <td><div class="btn-group"><button class="btn" type="button" aria-pressed="false" disabled>Week</button></div></td>
+            <td><div class="btn-group"><button class="btn" type="button" aria-pressed="true">Week</button></div></td></tr>
+          <tr><th scope="row">Segmented link</th>
+            <td><ul class="segmented" style="margin-bottom: 0;"><li><a href="../../mocks/pages/dashboard-enquiries/filtered.html">Open <span class="filter-list__count">2</span></a></li></ul></td>
+            <td><ul class="segmented" style="margin-bottom: 0;"><li><a href="../../mocks/pages/dashboard-enquiries/filtered.html" data-state="hover">Open <span class="filter-list__count">2</span></a></li></ul></td>
+            <td><ul class="segmented" style="margin-bottom: 0;"><li><a href="../../mocks/pages/dashboard-enquiries/filtered.html" data-state="focus">Open <span class="filter-list__count">2</span></a></li></ul></td>
+            <td><ul class="segmented" style="margin-bottom: 0;"><li><a href="../../mocks/pages/dashboard-enquiries/filtered.html" data-state="hover">Open <span class="filter-list__count">2</span></a></li></ul></td>
+            <td><span class="ds-na">Links are never disabled</span></td>
+            <td><ul class="segmented" style="margin-bottom: 0;"><li><a href="../../mocks/pages/dashboard-enquiries/filtered.html" aria-current="page">Open <span class="filter-list__count">2</span></a></li></ul></td></tr>
+          <tr><th scope="row">Segmented button</th>
+            <td><ul class="segmented" style="margin-bottom: 0;"><li><button type="button" aria-pressed="false">Hidden <span class="filter-list__count">2</span></button></li></ul></td>
+            <td><ul class="segmented" style="margin-bottom: 0;"><li><button type="button" aria-pressed="false" data-state="hover">Hidden <span class="filter-list__count">2</span></button></li></ul></td>
+            <td><ul class="segmented" style="margin-bottom: 0;"><li><button type="button" aria-pressed="false" data-state="focus">Hidden <span class="filter-list__count">2</span></button></li></ul></td>
+            <td><ul class="segmented" style="margin-bottom: 0;"><li><button type="button" aria-pressed="false" data-state="hover">Hidden <span class="filter-list__count">2</span></button></li></ul></td>
+            <td><ul class="segmented" style="margin-bottom: 0;"><li><button type="button" aria-pressed="false" disabled>Removed <span class="filter-list__count">0</span></button></li></ul></td>
+            <td><ul class="segmented" style="margin-bottom: 0;"><li><button type="button" aria-pressed="true">Hidden <span class="filter-list__count">2</span></button></li></ul></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="btn-group" role="group" aria-label="Show by, light"><button class="btn" type="button" aria-pressed="false">Day</button><button class="btn" type="button" aria-pressed="true">Week</button><button class="btn" type="button" aria-pressed="false">Month</button></div><ul class="segmented" aria-label="Filter by status, light" style="margin-bottom: 0;"><li><a href="../../mocks/pages/inbox/default.html" aria-current="page">All <span class="filter-list__count">4</span></a></li><li><a href="../../mocks/pages/inbox/filtered.html">Open <span class="filter-list__count">1</span></a></li><li><a href="../../mocks/pages/inbox/filtered.html">Replied <span class="filter-list__count">1</span></a></li></ul></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="btn-group" role="group" aria-label="Show by, dark"><button class="btn" type="button" aria-pressed="false">Day</button><button class="btn" type="button" aria-pressed="true">Week</button><button class="btn" type="button" aria-pressed="false">Month</button></div><ul class="segmented" aria-label="Filter by status, dark" style="margin-bottom: 0;"><li><a href="../../mocks/pages/inbox/default.html" aria-current="page">All <span class="filter-list__count">4</span></a></li><li><a href="../../mocks/pages/inbox/filtered.html">Open <span class="filter-list__count">1</span></a></li><li><a href="../../mocks/pages/inbox/filtered.html">Replied <span class="filter-list__count">1</span></a></li></ul></div></div>
+      </div>
+      <ul>
+        <li><b>Selected</b> is always exactly one. Pressing the selected segment again does nothing; it does not unselect.</li>
+        <li><b>Active</b>: the segmented filter has no pressed look of its own, so the hover colour shows until the list updates. Group segments nudge down 1px like every <code>.btn</code>.</li>
+        <li><b>Loading</b>: after a choice, the list below shows its skeleton or keeps the old rows with <code>aria-busy="true"</code>. The filter itself stays interactive.</li>
+        <li><b>Disabled</b> only for an option that cannot apply at all. A status with 0 items stays enabled and leads to the list's empty state ("No open enquiries").</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Segmented</b> wraps (<code>flex-wrap</code>, no row gap, <code>--space-5</code> between items) and never scrolls sideways. At 320px Marcia's five statuses take two lines; Leah's seven caterer states take three. Don't truncate a label or hide statuses behind "More".</li>
+        <li>From 62rem (LG) the inbox list and the open thread sit side by side, and the segmented filter wraps inside the list column, not the page.</li>
+        <li><b>Button group</b> does not wrap: segments stay joined. Keep it to 4 segments of one or two words (about 280px at medium). If a group cannot fit at 320px, use a <a href="select.html">select</a> below 36rem.</li>
+        <li>Neither variant changes size by breakpoint; the 44px rows already suit touch.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The pressed segment reads <code>--color-accent-subtle</code> (fill), <code>--color-fg-accent</code> (label) and <code>--color-accent</code> (border) on top of the button's own tokens. The segmented filter reads <code>--color-fg-muted</code> at rest, <code>--color-fg-default</code> on hover, <code>--color-fg-accent</code> when selected and <code>--color-fg-disabled</code> when disabled. Pepper here means "selected", which is the only job the accent has.</p>
+      <p>In dark, the tint becomes pepper-950 with a pepper-300 label and border, and muted text becomes stone-350. To re-skin, override the button tokens on the group (<code>.btn-group { --btn-bg: …; }</code>) or <code>color</code> on <code>.segmented</code>. Never swap the selected colour for ink: an ink segment would read as a primary action.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>The button group is a set of toggle buttons (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/button/">APG Button, toggle</a>) in <code>role="group"</code> with an <code>aria-label</code>. The segmented filter is a list of links (<code>&lt;ul aria-label="Filter by status"&gt;</code> with <code>aria-current="page"</code>) or of toggle buttons. Both are deliberately not tabs: they filter one list, they don't swap panels.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through each segment or item in order. Every option is a tab stop, so the selection is never hidden behind arrow keys.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Follows a filter link, or presses a toggle button.</td></tr>
+        <tr><td><kbd>Space</kbd></td><td>Presses a toggle button (group segment or segmented button).</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The shared pepper ring with a 3px offset. On a link filter focus lands on the new page's <code>&lt;h1&gt;</code>, or stays on the filter if the update is in place. A pressed segment is raised one layer (<code>--z-raised</code>) so the ring and pepper border are not clipped by the neighbouring segment.</p>
+      <h3>Labelling</h3>
+      <p>The group's <code>aria-label</code> names the choice ("Show by", "Filter by status"). Each item's text is its name, count included: "Open 1". Where a count alone is unclear, add hidden context: <code>Open 1&lt;span class="visually-hidden"&gt; enquiry&lt;/span&gt;</code>. The result count below ("4 enquiries · 1 unread") is the live region; the filter does not announce itself.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Pressed label on tint</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Pressed border on surface</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Segment border on surface</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Filter item on canvas</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Selected filter on canvas</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Count caption on canvas</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-canvas" data-min="4.5"></span></div>
+      </div>
+      <p>The selected state never relies on hue alone. The segmented filter adds semibold weight; the group adds a fill and border change and, as corrected below, semibold weight.</p>
+      <h3>Motion</h3>
+      <p>Colour transitions over <code>--duration-fast</code>; group segments nudge 1px when pressed. Reduced motion zeroes both.</p>
+      <h3>Touch</h3>
+      <p>Every segmented item is at least 44px tall and as wide as its words, with 20px between items. Group segments are 44px (36px only in desktop toolbars), with no gap but no overlap of targets.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Labels are the status nouns used everywhere else, in lifecycle order, "All" first: All · Open · Replied · Declined · Closed; All · Draft · Pending review · Changes requested · Published · Suspended · Removed.</li>
+        <li>Counts follow the word after a space, as figures with thousands separators ("Published 1,204"). Show 0 rather than hiding the option.</li>
+        <li>One or two words per segment in a button group: "Day", "Week", "30 days". Sentence case, no icons.</li>
+        <li>A filter only filters. "Held reviews 1" in the queue's kind filter leaves the queue for another page, which is a near-miss: prefer a plain link below the list.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><ul class="segmented" aria-label="Do: counts as captions" style="margin-bottom: 0;"><li><a href="../../mocks/pages/inbox/default.html" aria-current="page">All <span class="filter-list__count">4</span></a></li><li><a href="../../mocks/pages/inbox/filtered.html">Open <span class="filter-list__count">1</span></a></li></ul></div><figcaption>Counts are quiet captions after the word, on the customer and the operator side alike.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><ul class="segmented" aria-label="Don't: counts in the label" style="margin-bottom: 0;"><li><a href="../../mocks/pages/dashboard-enquiries/default.html" aria-current="page">All 6</a></li><li><a href="../../mocks/pages/dashboard-enquiries/filtered.html">Open 2</a></li></ul></div><figcaption>Counts typed into the label (the caterer and operator mocks) compete with the word and turn pepper with it.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="btn-group" role="group" aria-label="Do: one pressed"><button class="btn" type="button" aria-pressed="false">Day</button><button class="btn" type="button" aria-pressed="true">Week</button><button class="btn" type="button" aria-pressed="false">Month</button></div></div><figcaption>Exactly one segment pressed, in pepper.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="btn-group" role="group" aria-label="Don't: primary as selected"><button class="btn" type="button">Day</button><button class="btn btn--primary" type="button">Week</button><button class="btn" type="button">Month</button></div></div><figcaption>An ink primary segment reads as the screen's main action, and without <code>aria-pressed</code> the choice is invisible to screen readers.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Pressed fill</td><td><code>--color-accent-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td></tr>
+          <tr><td>Pressed label, selected filter</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+          <tr><td>Pressed border</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Segment border</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Filter item</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Filter item, hover</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Count caption</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Disabled item</td><td><code>--color-fg-disabled</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td></tr>
+          <tr><td>Item gap / list gap</td><td><code>--space-5</code> / <code>--space-4</code></td><td colspan="2"><span data-token="--space-5"></span> / <span data-token="--space-4"></span></td></tr>
+          <tr><td>Item height</td><td><code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Selected weight</td><td><code>--font-weight-semibold</code></td><td colspan="2"><span data-token="--font-weight-semibold"></span></td></tr>
+          <tr><td>Pressed layer</td><td><code>--z-raised</code></td><td colspan="2"><span data-token="--z-raised"></span></td></tr>
+          <tr><td>Group radius</td><td><code>--radius-full</code> (outer ends only)</td><td colspan="2"><span data-token="--radius-full"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;ul class="segmented" aria-label="Filter by status"&gt;
+  &lt;li&gt;&lt;a href="/dashboard/enquiries" aria-current="page"&gt;All &lt;span class="filter-list__count"&gt;6&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/dashboard/enquiries?status=open"&gt;Open &lt;span class="filter-list__count"&gt;2&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p class="result-count" role="status"&gt;6 enquiries · 2 unread&lt;/p&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.segmented</code></td><td>Wrapping row of text filters on a <code>&lt;ul&gt;</code>; items are <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code>.</td></tr>
+        <tr><td><code>aria-current="page"</code> / <code>aria-pressed="true"</code></td><td>Selected item: pepper, semibold.</td></tr>
+        <tr><td><code>.filter-list__count</code> (child)</td><td>Count caption after the word.</td></tr>
+        <tr><td><code>.btn-group</code> + <code>role="group"</code> + <code>aria-label</code></td><td>Joins child <code>.btn</code>s into one pill.</td></tr>
+        <tr><td><code>.btn[aria-pressed]</code> inside <code>.btn-group</code></td><td>Segment; <code>true</code> = pepper tint, label and border.</td></tr>
+        <tr><td><code>.btn--sm</code> on every segment</td><td>Compact group for desktop toolbars.</td></tr>
+        <tr><td><code>data-state="hover|focus|active|selected"</code></td><td>Documentation and mocks only.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/inbox/default.html">pages/inbox/default</a> (customer status filter with count captions)</li>
+        <li><a href="../../mocks/pages/thread/default.html">pages/thread/default</a> (the same filter beside an open thread)</li>
+        <li><a href="../../mocks/pages/dashboard-enquiries/default.html">pages/dashboard-enquiries/default</a> and <a href="../../mocks/pages/dashboard-enquiries/loading.html">loading</a> (caterer filter, skeleton row)</li>
+        <li><a href="../../mocks/pages/admin-caterers/default.html">pages/admin-caterers/default</a> (seven lifecycle states)</li>
+        <li><a href="../../mocks/pages/admin-queue/default.html">pages/admin-queue/default</a> ("Filter by kind")</li>
+        <li><a href="../../mocks/pages/admin-reviews/default.html">pages/admin-reviews/default</a> ("Held 2 · Hidden 2")</li>
+        <li><a href="../../mocks/pages/admin-metrics/default.html">pages/admin-metrics/default</a> ("Show by" select, the button-group candidate)</li>
+      </ul>
+      <p>Drift fixed during extraction: 25 customer-side mocks (inbox, thread, account-menu, close-enquiry, share-contact) wrap counts in <code>.filter-list__count</code>; the 50 caterer and operator mocks type them into the label ("Open 2"). The system uses the caption everywhere, and a selected item's count inherits pepper like the filter list. The kit's pressed segment changed colour only; it now adds semibold like the segmented filter. <code>.btn-group</code> is unused in the mocks and is kept as the approved toolbar control.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

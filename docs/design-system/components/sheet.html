@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sheet and drawer — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand sheet and drawer: the phone filters and site menu sheets, right and left drawers, states, phone and side-sheet layouts, both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Containers and overlays</p>
+      <h1>Sheet and drawer</h1>
+      <p class="ds-lead">A sheet is a full-height panel for long lists of choices or links: the phone filters and the site menu. It fills the screen on phones and becomes a 28rem side sheet from tablets up.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">APG Dialog (Modal)</span><span class="ds-pill"><code>.sheet</code></span><span class="ds-pill"><code>.drawer</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A sheet is a modal <a href="dialog.html">dialog</a> shaped for content that is tall rather than wide. Sweet Hand uses two, both on phones and small tablets where there is no room for the content on the page itself:</p>
+      <ul>
+        <li><b>Filters</b> (<code>dialogs/filters</code>): the listing's cuisine and area choices, which sit in the left column from 62rem and in <a href="popover.html">popovers</a> at 48–62rem. The footer holds "Clear" and a live "Show 60 caterers".</li>
+        <li><b>Site menu</b> (<code>dialogs/site-menu</code>): the header links that do not fit below 48rem, as a <a href="filter-list.html">filter list</a> with the current page in pepper, then who is signed in and "Sign out". Customers, caterers and operators each get their own list.</li>
+      </ul>
+      <p>A <b>drawer</b> (<code>.drawer</code>) is the same panel pinned to the right or left edge at every width. No current screen needs one; it is kept for a future side panel, and <code>.drawer--left</code> for navigation that should slide in from the side it lives on.</p>
+      <p>Use something else when the content is a decision or a short form (a <a href="dialog.html">dialog</a>), a handful of choices that should not cover the page (a <a href="popover.html">popover</a>), or an action list for one object (a <a href="menu.html">menu</a>).</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="padding: var(--space-6) var(--space-3);">
+          <div class="ds-frame ds-frame--phone" style="width: 100%; min-height: 24rem; --layout-margin: var(--space-4);">
+            <div class="sheet" role="dialog" aria-labelledby="sa-title" style="animation: none;">
+              <div class="sheet__header"><h3 class="sheet__title" id="sa-title">Filters</h3><button class="icon-btn" type="button" aria-label="Close filters"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+              <div class="sheet__body">
+                <fieldset class="filter-group"><legend class="filter-group__title">Cuisine</legend>
+                  <label class="choice"><input type="checkbox" name="sa-c" value="Jamaican"><span class="choice__text">Jamaican <small>14 caterers</small></span></label>
+                  <label class="choice"><input type="checkbox" name="sa-c" value="Guyanese"><span class="choice__text">Guyanese <small>9 caterers</small></span></label>
+                </fieldset>
+              </div>
+              <div class="sheet__footer"><button class="btn" type="button">Clear</button><button class="btn btn--primary" type="button">Show 60 caterers</button></div>
+            </div>
+          </div>
+          <span class="ds-callout" style="left: 12%; top: 12%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 34%; top: 12%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 84%; top: 12%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 12%; top: 42%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 12%; top: 84%;" aria-hidden="true">5</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Header</b><small><code>.sheet__header</code>: 1px bottom rule, padding <code>--space-3</code> by the page margin, plus the top safe area.</small></div></li>
+          <li><div><b>Title</b><small><code>.sheet__title</code> in <code>--text-h4</code>, an <code>&lt;h2&gt;</code> that names the dialog.</small></div></li>
+          <li><div><b>Close</b><small>44px icon button named for the sheet: "Close filters", "Close menu".</small></div></li>
+          <li><div><b>Body</b><small><code>.sheet__body</code>: scrolls on its own; groups stacked <code>--space-8</code> apart. A <code>&lt;form&gt;</code> for filters, a <code>&lt;nav&gt;</code> for the menu.</small></div></li>
+          <li><div><b>Footer (optional)</b><small><code>.sheet__footer</code>: 1px top rule, buttons share the width equally, bottom safe area added.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>Live sheets inside a frame. At this window width they show as they would on the same device: full frame below 48rem, a 28rem side sheet over a backdrop above. Live examples leave out <code>aria-modal</code>; the code shows it.</p>
+      <h3>Filters sheet</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="ds-frame ds-frame--tall">
+            <div class="ds-frame__page"><p>Caterers · 60 caterers</p></div>
+            <div class="backdrop"></div>
+            <div class="sheet" role="dialog" aria-labelledby="sv1-title">
+              <div class="sheet__header"><h3 class="sheet__title" id="sv1-title">Filters</h3><button class="icon-btn" type="button" aria-label="Close filters"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+              <form class="sheet__body" id="sv1-form" action="#variants">
+                <fieldset class="filter-group"><legend class="filter-group__title">Cuisine</legend>
+                  <label class="choice"><input type="checkbox" name="sv1-c" value="Jamaican"><span class="choice__text">Jamaican <small>14 caterers</small></span></label>
+                  <label class="choice"><input type="checkbox" name="sv1-c" value="Trinidadian &amp; Tobagonian"><span class="choice__text">Trinidadian &amp; Tobagonian <small>11 caterers</small></span></label>
+                  <label class="choice"><input type="checkbox" name="sv1-c" value="Guyanese"><span class="choice__text">Guyanese <small>9 caterers</small></span></label>
+                  <label class="choice"><input type="checkbox" name="sv1-c" value="Barbadian (Bajan)"><span class="choice__text">Barbadian (Bajan) <small>6 caterers</small></span></label>
+                  <label class="choice"><input type="checkbox" name="sv1-c" value="Haitian"><span class="choice__text">Haitian <small>5 caterers</small></span></label>
+                  <label class="choice"><input type="checkbox" name="sv1-c" value="Bahamian" disabled><span class="choice__text">Bahamian <small>0 caterers</small></span></label>
+                </fieldset>
+                <fieldset class="filter-group"><legend class="filter-group__title">Area</legend>
+                  <div class="search-field"><label class="visually-hidden" for="sv1-area">Area or postal code</label><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="sv1-area" type="search" placeholder="Area or postal code" autocomplete="postal-code"></div>
+                  <label class="choice"><input type="checkbox" name="sv1-r" value="City of Toronto"><span class="choice__text">City of Toronto <small>31 caterers</small></span></label>
+                  <label class="choice"><input type="checkbox" name="sv1-r" value="Peel"><span class="choice__text">Peel <small>13 caterers</small></span></label>
+                </fieldset>
+              </form>
+              <div class="sheet__footer"><button class="btn" type="reset" form="sv1-form">Clear</button><button class="btn btn--primary" type="submit" form="sv1-form">Show 60 caterers</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>From <code>dialogs/filters/default</code> (shortened). Zero-count options stay visible but disabled. The primary carries the live result count.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dlg-title"&gt;
+  &lt;div class="sheet__header"&gt;
+    &lt;h2 class="sheet__title" id="dlg-title"&gt;Filters&lt;/h2&gt;
+    &lt;button class="icon-btn" type="button" aria-label="Close filters" autofocus&gt;…&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;form class="sheet__body" id="filters-form" action="/caterers"&gt;
+    &lt;fieldset class="filter-group"&gt;&lt;legend class="filter-group__title"&gt;Cuisine&lt;/legend&gt;
+      &lt;label class="choice"&gt;&lt;input type="checkbox" name="cuisine" value="Jamaican"&gt;
+        &lt;span class="choice__text"&gt;Jamaican &lt;small&gt;14 caterers&lt;/small&gt;&lt;/span&gt;&lt;/label&gt;
+      …
+    &lt;/fieldset&gt;
+  &lt;/form&gt;
+  &lt;div class="sheet__footer"&gt;
+    &lt;button class="btn" type="reset" form="filters-form"&gt;Clear&lt;/button&gt;
+    &lt;button class="btn btn--primary" type="submit" form="filters-form"&gt;Show 60 caterers&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Site menu sheet</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="ds-frame">
+            <div class="ds-frame__page"><p>Caterers</p></div>
+            <div class="backdrop"></div>
+            <div class="sheet" role="dialog" aria-labelledby="sv2-title">
+              <div class="sheet__header"><h3 class="sheet__title" id="sv2-title">Menu</h3><button class="icon-btn" type="button" aria-label="Close menu"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+              <nav class="sheet__body" aria-labelledby="sv2-title">
+                <ul class="filter-list">
+                  <li><a class="filter-list__item" href="../../mocks/pages/caterers/default.html" aria-current="page">Caterers</a></li>
+                  <li><a class="filter-list__item" href="../../mocks/pages/occasions/default.html">Occasions</a></li>
+                  <li><a class="filter-list__item" href="../../mocks/pages/inbox/default.html">Inbox <span class="badge badge--count" aria-label="1 unread enquiry">1</span></a></li>
+                  <li><a class="filter-list__item" href="../../mocks/pages/account/default.html">Account</a></li>
+                </ul>
+                <div class="stack stack--sm"><p class="text-muted">Signed in as Marcia Thompson</p><button class="btn" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/></svg>Sign out</button></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>From <code>dialogs/site-menu/signed-in</code>. No footer: the body is navigation. Caterers see their dashboard sections and operators the console sections in the same shape.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dlg-title"&gt;
+  &lt;div class="sheet__header"&gt;&lt;h2 class="sheet__title" id="dlg-title"&gt;Menu&lt;/h2&gt;
+    &lt;button class="icon-btn" type="button" aria-label="Close menu" autofocus&gt;…&lt;/button&gt;&lt;/div&gt;
+  &lt;nav class="sheet__body" aria-labelledby="dlg-title"&gt;
+    &lt;ul class="filter-list"&gt;
+      &lt;li&gt;&lt;a class="filter-list__item" href="/caterers" aria-current="page"&gt;Caterers&lt;/a&gt;&lt;/li&gt;
+      …
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Drawer, right and left</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="ds-frame">
+            <div class="ds-frame__page"><p>Review queue · 7 waiting</p></div>
+            <div class="backdrop"></div>
+            <div class="drawer" role="dialog" aria-labelledby="sv3-title">
+              <div class="drawer__header"><h3 class="drawer__title" id="sv3-title">Report R-2047</h3><button class="icon-btn" type="button" aria-label="Close report"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+              <div class="drawer__body"><dl class="kv"><dt>Caterer</dt><dd>Island Pot</dd><dt>Type</dt><dd>Food safety</dd><dt>Received</dt><dd>Thu 8 Oct, 7:15 p.m.</dd></dl></div>
+              <div class="drawer__footer"><button class="btn" type="button">Close</button><button class="btn btn--primary" type="button">Open report</button></div>
+            </div>
+          </div>
+          <div class="ds-frame ds-frame--short">
+            <div class="ds-frame__page" style="text-align: right;"><p>Operator console</p></div>
+            <div class="drawer drawer--left" role="dialog" aria-labelledby="sv4-title" style="width: min(100%, 18rem);">
+              <div class="drawer__header"><h3 class="drawer__title" id="sv4-title">Operator</h3><button class="icon-btn" type="button" aria-label="Close menu"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+              <nav class="drawer__body" aria-labelledby="sv4-title"><ul class="filter-list"><li><a class="filter-list__item" href="../../mocks/pages/admin-queue/default.html" aria-current="page">Review queue <span class="filter-list__count">7</span></a></li><li><a class="filter-list__item" href="../../mocks/pages/admin-changes/default.html">Recent changes</a></li></ul></nav>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Illustrative: no mock uses a drawer yet. <code>.drawer</code> is always a side panel, <code>min(100%, 28rem)</code> wide, with its own padding (<code>--space-6</code>) instead of the page margin.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>One width: the full screen below 48rem and <code>--layout-sheet-width</code> (28rem, 448px) from 48rem. A drawer is 28rem at every width, capped at the screen. Height is always the full viewport; content scrolls inside the body.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Panel</th><th scope="col">Below 48rem</th><th scope="col">48rem and up</th><th scope="col">Inner padding</th></tr></thead>
+        <tbody>
+          <tr><td><code>.sheet</code></td><td>Full screen, slides up</td><td>28rem from the right, slides in, <code>--shadow-4</code></td><td>Page margin (<code>--layout-margin</code>)</td></tr>
+          <tr><td><code>.drawer</code></td><td>Full width (28rem cap), slides in from the right</td><td>28rem from the right</td><td><code>--space-6</code></td></tr>
+          <tr><td><code>.drawer--left</code></td><td>As drawer, from the left</td><td>28rem from the left</td><td><code>--space-6</code></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>The panel's states mirror the dialog's: open, with selections, and busy while results load. Hover and focus belong to the controls inside; the Close button's focus ring is shown below. The small frames set <code>--layout-margin</code> to 16px so the phone padding shows at any window width.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Sheet states by variant</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default (open)</th><th scope="col">Selected / current</th><th scope="col">Focus on Close</th><th scope="col">Busy</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Filters</th>
+            <td><div class="ds-frame ds-frame--short" style="width: 17rem; --layout-margin: var(--space-4);"><div class="sheet" style="animation: none;" role="dialog" aria-labelledby="ss1-t"><div class="sheet__header"><h3 class="sheet__title" id="ss1-t">Filters</h3><button class="icon-btn" type="button" aria-label="Close filters"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="sheet__body"><label class="choice"><input type="checkbox" name="ss1" value="Jamaican"><span class="choice__text">Jamaican <small>14 caterers</small></span></label></div><div class="sheet__footer"><button class="btn btn--sm" type="button">Clear</button><button class="btn btn--primary btn--sm" type="button">Show 60</button></div></div></div></td>
+            <td><div class="ds-frame ds-frame--short" style="width: 17rem; --layout-margin: var(--space-4);"><div class="sheet" style="animation: none;" role="dialog" aria-labelledby="ss2-t"><div class="sheet__header"><h3 class="sheet__title" id="ss2-t">Filters <span class="filter-trigger__count" aria-label="2 active">2</span></h3><button class="icon-btn" type="button" aria-label="Close filters"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="sheet__body"><label class="choice"><input type="checkbox" name="ss2" value="Jamaican" checked><span class="choice__text">Jamaican <small>2 caterers</small></span></label></div><div class="sheet__footer"><button class="btn btn--sm" type="button">Clear</button><button class="btn btn--primary btn--sm" type="button">Show 2</button></div></div></div></td>
+            <td><div class="ds-frame ds-frame--short" style="width: 17rem; --layout-margin: var(--space-4);"><div class="sheet" style="animation: none;" role="dialog" aria-labelledby="ss3-t"><div class="sheet__header"><h3 class="sheet__title" id="ss3-t">Filters</h3><button class="icon-btn" type="button" aria-label="Close filters" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="sheet__body"><label class="choice"><input type="checkbox" name="ss3" value="Jamaican"><span class="choice__text">Jamaican <small>14 caterers</small></span></label></div></div></div></td>
+            <td><div class="ds-frame ds-frame--short" style="width: 17rem; --layout-margin: var(--space-4);"><div class="sheet" style="animation: none;" role="dialog" aria-labelledby="ss4-t" aria-busy="true"><div class="sheet__header"><h3 class="sheet__title" id="ss4-t">Filters</h3><button class="icon-btn" type="button" aria-label="Close filters"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="sheet__body"><label class="choice"><input type="checkbox" name="ss4" value="Jamaican" checked disabled><span class="choice__text">Jamaican <small>2 caterers</small></span></label></div><div class="sheet__footer"><button class="btn btn--sm" type="button" disabled>Clear</button><button class="btn btn--primary btn--sm" type="button" aria-busy="true" aria-disabled="true">Show 2</button></div></div></div></td></tr>
+          <tr><th scope="row">Site menu</th>
+            <td><div class="ds-frame ds-frame--short" style="width: 17rem; --layout-margin: var(--space-4);"><div class="sheet" style="animation: none;" role="dialog" aria-labelledby="ss5-t"><div class="sheet__header"><h3 class="sheet__title" id="ss5-t">Menu</h3><button class="icon-btn" type="button" aria-label="Close menu"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><nav class="sheet__body" aria-labelledby="ss5-t"><ul class="filter-list"><li><a class="filter-list__item" href="../../mocks/pages/occasions/default.html">Occasions</a></li></ul></nav></div></div></td>
+            <td><div class="ds-frame ds-frame--short" style="width: 17rem; --layout-margin: var(--space-4);"><div class="sheet" style="animation: none;" role="dialog" aria-labelledby="ss6-t"><div class="sheet__header"><h3 class="sheet__title" id="ss6-t">Menu</h3><button class="icon-btn" type="button" aria-label="Close menu"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><nav class="sheet__body" aria-labelledby="ss6-t"><ul class="filter-list"><li><a class="filter-list__item" href="../../mocks/pages/caterers/default.html" aria-current="page">Caterers</a></li></ul></nav></div></div></td>
+            <td><div class="ds-frame ds-frame--short" style="width: 17rem; --layout-margin: var(--space-4);"><div class="sheet" style="animation: none;" role="dialog" aria-labelledby="ss7-t"><div class="sheet__header"><h3 class="sheet__title" id="ss7-t">Menu</h3><button class="icon-btn" type="button" aria-label="Close menu" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><nav class="sheet__body" aria-labelledby="ss7-t"><ul class="filter-list"><li><a class="filter-list__item" href="../../mocks/pages/caterers/default.html" aria-current="page">Caterers</a></li></ul></nav></div></div></td>
+            <td><span class="text-subtle">Links navigate; no busy state</span></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-frame ds-frame--short" style="--layout-margin: var(--space-4);"><div class="sheet" style="animation: none;" role="dialog" aria-labelledby="st-l"><div class="sheet__header"><h3 class="sheet__title" id="st-l">Filters</h3><button class="icon-btn" type="button" aria-label="Close filters"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="sheet__body"><label class="choice"><input type="checkbox" name="stl" value="Jamaican" checked><span class="choice__text">Jamaican <small>2 caterers</small></span></label></div><div class="sheet__footer"><button class="btn" type="button">Clear</button><button class="btn btn--primary" type="button">Show 2 caterers</button></div></div></div></div>
+        <div data-theme="dark"><div class="ds-frame ds-frame--short" style="--layout-margin: var(--space-4);"><div class="sheet" style="animation: none;" role="dialog" aria-labelledby="st-d"><div class="sheet__header"><h3 class="sheet__title" id="st-d">Filters</h3><button class="icon-btn" type="button" aria-label="Close filters"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="sheet__body"><label class="choice"><input type="checkbox" name="std" value="Jamaican" checked><span class="choice__text">Jamaican <small>2 caterers</small></span></label></div><div class="sheet__footer"><button class="btn" type="button">Clear</button><button class="btn btn--primary" type="button">Show 2 caterers</button></div></div></div></div>
+      </div>
+      <ul>
+        <li><b>Selected</b> (<code>dialogs/filters/selected</code>): the title gains the ink count bubble ("Filters 2", announced "2 active"), counts recalculate, options that would give no results become disabled, and the primary reads "Show 2 caterers". Area choices show as removable <a href="chip.html">chips</a>.</li>
+        <li><b>Busy</b> (<code>dialogs/filters/busy</code>): while the count updates, inputs are disabled, Clear is disabled and the primary is busy with its label kept. Close stays enabled: leaving the sheet just keeps the previous results.</li>
+        <li><b>Current</b> (site menu): the link for the page you are on uses <code>aria-current="page"</code> in pepper, Sweet Hand's "you are here".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>XS and SM (below 48rem)</b>: the sheet fills the screen and slides up. The header pads by <code>env(safe-area-inset-top)</code> so Close clears the notch; the footer pads by <code>env(safe-area-inset-bottom)</code>. No backdrop is visible because nothing shows behind it.</li>
+        <li><b>MD and up (48rem+)</b>: the sheet becomes a 28rem side sheet on the right with <code>--shadow-4</code> and slides in from the right. Pair it with a <code>.backdrop</code> so the page behind reads as inactive.</li>
+        <li><b>Where each is used</b>: the filters sheet exists only below 48rem (48–62rem uses filter popovers, 62rem+ the left column). The site menu exists only below 48rem (from 48rem the links fit in the header).</li>
+        <li>Filter choices keep one column at every width; long cuisine names such as "Dominican (Dominican Republic)" wrap under their checkbox.</li>
+      </ul>
+      <div class="ds-iframes">
+        <iframe class="ds-iframe" src="../../mocks/dialogs/filters/selected.html?chrome=0&amp;theme=light" title="Filters sheet with 2 active filters at phone width" loading="lazy"></iframe>
+        <iframe class="ds-iframe" src="../../mocks/dialogs/site-menu/caterer.html?chrome=0&amp;theme=dark" title="Caterer site menu sheet at phone width, dark theme" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Sheets and drawers read <code>--color-bg-surface-raised</code> for the panel, <code>--color-border-default</code> for the header and footer rules, <code>--shadow-4</code> for the side sheet, and <code>--layout-sheet-width</code> and <code>--layout-margin</code> for size and padding. There are no component tokens.</p>
+      <p>In light, the raised surface is white like the page, so on phones the header rule is what separates chrome from content. In dark it is stone-850, a step above the canvas, which also lifts the side sheet off the page. The selected count bubble and the primary stay ink (light stone in dark); selected checkboxes are pepper.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>A sheet is a modal dialog: <a href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/">APG Dialog (Modal)</a>, <code>role="dialog"</code>, <code>aria-modal="true"</code>, <code>aria-labelledby</code> on the title, page behind <code>inert</code>. The menu's body is a <code>&lt;nav&gt;</code> labelled by the same title, so it is also a navigation landmark. The trigger has <code>aria-haspopup="dialog"</code> and an accessible name ("Menu", "Filters").</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through Close, the body and the footer; wraps inside the sheet.</td></tr>
+        <tr><td><kbd>Space</kbd></td><td>Toggles the focused checkbox.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Follows a menu link, or submits the filters form ("Show 60 caterers").</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Closes the sheet without applying unsubmitted filter changes.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>On open, focus goes to Close: the body is long, and starting at the top lets screen-reader users hear the title first. On close it returns to the trigger ("Filters" or the menu button). After applying filters, focus lands on the result count, which is a live region on the listing.</p>
+      <h3>Labelling</h3>
+      <p>Close names the sheet ("Close filters", "Close menu"). The count bubble in the title has <code>aria-label="2 active"</code>. Badges in the menu carry their meaning ("1 unread enquiry", "7 items waiting"). Each filter group is a <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code>.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Title and choices on panel</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Counts and signed-in line on panel</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Group legend on panel</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Current menu item on panel</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Count bubble</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-action|--color-action" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on panel</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Slide up (phones) or in from the edge (side sheet, drawer) over <code>--duration-slow</code> with <code>--ease-enter</code>. Reduced motion removes the movement; the panel simply appears.</p>
+      <h3>Touch</h3>
+      <p>Close and footer buttons are 44px; the footer buttons split the width so each is a large thumb target. Menu links are 44px rows. Checkbox rows use the whole label as the target; they are at least 24px tall today, and the system asks for 44px rows inside sheets (CSS change requested).</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Titles are one word: "Filters", "Menu". The count goes in the bubble, not the words.</li>
+        <li>The primary says what will happen with the live number: "Show 60 caterers", "Show 2 caterers", "Show 1 caterer". Never "Apply".</li>
+        <li>"Clear" empties every choice; it does not close the sheet.</li>
+        <li>Option counts use the noun: "14 caterers", "1 caterer", "0 caterers". Cuisine names use the full L2 names ("Trinidadian &amp; Tobagonian", "Barbadian (Bajan)"), never flattened to "Caribbean".</li>
+        <li>The menu says who is signed in, with role where it matters: "Signed in as Leah Mohammed, Admin", "Signed in as Kendra Baptiste, Pelau House".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="sheet__footer" style="padding: 0; border: 0;"><button class="btn" type="button">Clear</button><button class="btn btn--primary" type="button">Show 2 caterers</button></div></div><figcaption>Put the live result count on the primary so people know before they commit.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="sheet__footer" style="padding: 0; border: 0;"><button class="btn" type="button">Reset</button><button class="btn btn--primary" type="button">Apply</button></div></div><figcaption>"Apply" hides the outcome; "Show 0 caterers" would have warned them.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="sheet__footer" style="padding: 0; border: 0;"><button class="btn" type="reset">Clear</button></div></div><figcaption>Clear is a button (<code>type="reset"</code> or a script action) that can be disabled while busy.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="sheet__footer" style="padding: 0; border: 0;"><a class="btn" href="#do-dont" aria-disabled="true">Clear</a></div></div><figcaption>The mocks made Clear a link; <code>aria-disabled</code> on a link does not stop it working while busy.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Panel</td><td><code>--color-bg-surface-raised</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td></tr>
+          <tr><td>Header and footer rules</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Backdrop (side sheet)</td><td><code>--color-bg-backdrop</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-backdrop" data-swatch></i><span data-token="--color-bg-backdrop"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-backdrop" data-swatch></i><span data-token="--color-bg-backdrop"></span></span></td></tr>
+          <tr><td>Group legend</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Current menu item</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+          <tr><td>Side sheet and drawer width</td><td><code>--layout-sheet-width</code></td><td colspan="2"><span data-token="--layout-sheet-width"></span></td></tr>
+          <tr><td>Sheet inner padding (phone / tablet)</td><td><code>--layout-margin</code></td><td colspan="2"><span data-token="--layout-margin"></span></td></tr>
+          <tr><td>Drawer inner padding</td><td><code>--space-6</code></td><td colspan="2"><span data-token="--space-6"></span></td></tr>
+          <tr><td>Body group gap</td><td><code>--space-8</code></td><td colspan="2"><span data-token="--space-8"></span></td></tr>
+          <tr><td>Shadow (side sheet, drawer)</td><td><code>--shadow-4</code></td><td colspan="2"><span data-token="--shadow-4"></span></td></tr>
+          <tr><td>Layer</td><td><code>--z-modal</code></td><td colspan="2"><span data-token="--z-modal"></span></td></tr>
+          <tr><td>Entrance</td><td><code>--duration-slow</code>, <code>--ease-enter</code></td><td colspan="2"><span data-token="--duration-slow"></span> / <span data-token="--ease-enter"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog"&gt;…&lt;/button&gt;
+
+&lt;div class="backdrop"&gt;&lt;/div&gt;
+&lt;div class="sheet" role="dialog" aria-modal="true" aria-labelledby="menu-title"&gt;
+  &lt;div class="sheet__header"&gt;
+    &lt;h2 class="sheet__title" id="menu-title"&gt;Menu&lt;/h2&gt;
+    &lt;button class="icon-btn" type="button" aria-label="Close menu" autofocus&gt;…&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;nav class="sheet__body" aria-labelledby="menu-title"&gt;…&lt;/nav&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.sheet</code></td><td>Fixed full-screen panel; a 28rem right side sheet from 48rem.</td></tr>
+        <tr><td><code>.sheet__header</code> <code>.sheet__title</code> <code>.sheet__body</code> <code>.sheet__footer</code></td><td>Regions; the body scrolls; footer buttons share the width.</td></tr>
+        <tr><td><code>.drawer</code>, <code>.drawer--left</code></td><td>Side panel at every width, right or left.</td></tr>
+        <tr><td><code>.drawer__header</code> <code>.drawer__title</code> <code>.drawer__body</code> <code>.drawer__footer</code></td><td>Drawer regions; footer right-aligned.</td></tr>
+        <tr><td><code>.backdrop</code></td><td>Dims the page behind a side sheet or drawer.</td></tr>
+        <tr><td><code>aria-busy="true"</code></td><td>On the sheet while the result count reloads.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <ul>
+        <li><a href="../../mocks/dialogs/filters/default.html">dialogs/filters/default</a>, <a href="../../mocks/dialogs/filters/selected.html">selected</a>, <a href="../../mocks/dialogs/filters/busy.html">busy</a></li>
+        <li><a href="../../mocks/dialogs/site-menu/default.html">dialogs/site-menu/default</a>, <a href="../../mocks/dialogs/site-menu/signed-in.html">signed-in</a>, <a href="../../mocks/dialogs/site-menu/caterer.html">caterer</a>, <a href="../../mocks/dialogs/site-menu/operator.html">operator</a></li>
+        <li><a href="../../mocks/pages/caterers/default.html">pages/caterers/default</a> (the triggers: "Filters" on phones, the menu button in the header)</li>
+      </ul>
+      <p>Drift fixed during extraction:</p>
+      <ul>
+        <li>The filters sheet's note says focus starts on Close, but only the site-menu mocks set <code>autofocus</code> on it; both sheets now start on Close.</li>
+        <li>"Clear" was an <code>&lt;a class="btn"&gt;</code> and, while busy, only <code>aria-disabled</code>; it is a button so it can really be disabled.</li>
+        <li>Region counts in the filters sheet (Durham 6, Halton 2) disagree with the catalogue (Durham 7, Halton 3); the catalogue numbers are correct.</li>
+        <li>No drawer or side-sheet mock exists; their layout comes from <code>components.css</code> and should get a mock before any screen uses them.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

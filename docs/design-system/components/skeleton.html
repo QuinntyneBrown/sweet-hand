@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Skeleton — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand skeletons: text, title, circle and rect shapes composed into caterer card, inbox row, queue and admin row skeletons, with aria-busy and reduced motion.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Feedback</p>
+      <h1>Skeleton</h1>
+      <p class="ds-lead">Skeletons draw the shape of what is coming — round photos, names, rows — in quiet stone, so a page that is loading already looks like itself and nothing jumps when the content arrives.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.skeleton</code></span><span class="ds-pill"><code>aria-busy</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A skeleton is a block of <code>--color-bg-subtle</code> with a slow shimmer, cut to the size of the content it stands in for. Sweet Hand pages load as skeletons of themselves: the listing shows grey circles in the same grid as the caterer photos, the inbox shows rows with a circle and two lines, the operator queue shows its rows.</p>
+      <p>Rules that make skeletons work here:</p>
+      <ul>
+        <li><b>Same box, same place.</b> The skeleton occupies exactly the space of the final content: a 17.5rem circle where the round caterer photo goes, a 48px circle where the inbox photo goes. When content arrives, nothing moves (WCAG-friendly and no layout shift).</li>
+        <li><b>Only what is unknown.</b> The header, the page title, the filter names and the tabs are known before the data, so they render for real. Only counts, names and photos are skeletons ("filter names are known, counts are not yet").</li>
+        <li><b>Only after 300ms.</b> Fast loads go straight from blank to content; skeletons appear only if the wait passes 300ms.</li>
+      </ul>
+      <p>Choose something else when:</p>
+      <ul>
+        <li>There is no layout to preview (the next photo in the viewer, a postal code lookup): a <a href="spinner.html">spinner</a>.</li>
+        <li>The amount is measurable (an upload): a <a href="progress.html">progress bar</a>.</li>
+        <li>An action is running on existing content (saving, sending): the button's busy state; do not turn content back into skeletons.</li>
+        <li>The load failed or returned nothing: an <a href="empty-state.html">empty state</a>.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <ul class="caterer-grid" aria-busy="true" style="width: min(100%, 14rem); grid-template-columns: minmax(0, 1fr);">
+            <li class="caterer-card caterer-card--skeleton" aria-hidden="true"><span class="photo"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></li>
+          </ul>
+          <span class="ds-callout" style="left: 8%; top: 8%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 50%; top: 30%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 74%; top: 78%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 64%; top: 90%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Busy container</b><small>The real list (<code>&lt;ul class="caterer-grid"&gt;</code>) with <code>aria-busy="true"</code>; a nearby <code>role="status"</code> says "Loading caterers".</small></div></li>
+          <li><div><b>Circle</b><small><code>.skeleton--circle</code> filling the real <code>.photo</code> box, so the round photo lands in exactly the same place.</small></div></li>
+          <li><div><b>Name line</b><small><code>.skeleton--text</code>, 0.9em high with 0.3em above and below, so it matches one line of text; 9rem wide on cards.</small></div></li>
+          <li><div><b>Meta line</b><small>A second, shorter <code>.skeleton--text</code> (6rem): the "Jamaican · Pickering" line. Last lines are shorter so the block reads as text.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Shapes</h3>
+      <p>Four primitives. Width comes from the context (a modifier on the composed row, or the column); height and radius from the shape.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" aria-hidden="true" style="max-width: 28rem;">
+          <span class="skeleton skeleton--title"></span>
+          <div><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></div>
+          <div class="cluster"><span class="skeleton skeleton--circle" style="width: 3rem; height: 3rem;"></span><span class="skeleton skeleton--rect" style="width: var(--space-20); height: var(--control-height-sm);"></span><span class="skeleton skeleton--rect" style="flex: 1; height: var(--control-height-lg);"></span></div>
+        </div>
+        <div class="ds-example__caption"><span><code>--title</code> (1.5em, 40%), <code>--text</code> (0.9em; the last in a group is 60%), <code>--circle</code> (photos, avatars), <code>--rect</code> (buttons, inputs, charts; <code>--radius-md</code>).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;span class="skeleton skeleton--title"&gt;&lt;/span&gt;
+&lt;span class="skeleton skeleton--text"&gt;&lt;/span&gt;
+&lt;span class="skeleton skeleton--circle" style="width: 3rem; height: 3rem;"&gt;&lt;/span&gt;
+&lt;span class="skeleton skeleton--rect" style="height: var(--control-height-lg);"&gt;&lt;/span&gt;</code></pre></details>
+      </div>
+
+      <h3>Caterer card grid</h3>
+      <p>The listing's first load: the real <code>.caterer-grid</code> with <code>.caterer-card--skeleton</code> items. Circles keep the 17.5rem card size and the grid keeps its 1 / 2 / 3 columns, so nothing shifts when photos arrive.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p class="text-muted" role="status"><span class="visually-hidden">Loading caterers</span><span class="skeleton skeleton--text" style="width: var(--space-24);" aria-hidden="true"></span></p>
+          <ul class="caterer-grid" aria-busy="true">
+            <li class="caterer-card caterer-card--skeleton" aria-hidden="true"><span class="photo"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></li>
+            <li class="caterer-card caterer-card--skeleton" aria-hidden="true"><span class="photo"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></li>
+            <li class="caterer-card caterer-card--skeleton" aria-hidden="true"><span class="photo"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>The result count ("60 caterers") is a skeleton too, inside the live region that later announces it.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;p class="result-count" role="status" aria-live="polite"&gt;
+  &lt;span class="visually-hidden"&gt;Loading caterers&lt;/span&gt;
+  &lt;span class="skeleton skeleton--text" style="width: var(--space-24);" aria-hidden="true"&gt;&lt;/span&gt;
+&lt;/p&gt;
+&lt;ul class="caterer-grid" aria-busy="true"&gt;
+  &lt;li class="caterer-card caterer-card--skeleton" aria-hidden="true"&gt;
+    &lt;span class="photo"&gt;&lt;span class="skeleton skeleton--circle"&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class="skeleton skeleton--text"&gt;&lt;/span&gt;&lt;span class="skeleton skeleton--text"&gt;&lt;/span&gt;
+  &lt;/li&gt;
+  …
+&lt;/ul&gt;</code></pre></details>
+      </div>
+
+      <h3>Inbox rows</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p class="visually-hidden" role="status">Loading your enquiries</p>
+          <ul class="inbox-list" aria-busy="true">
+            <li class="inbox-skeleton-row" aria-hidden="true"><span class="skeleton skeleton--circle"></span><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 3rem;"></span><span class="skeleton skeleton--text" style="width: 70%;"></span><span class="skeleton skeleton--text" style="width: 4rem;"></span></li>
+            <li class="inbox-skeleton-row" aria-hidden="true"><span class="skeleton skeleton--circle"></span><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 3rem;"></span><span class="skeleton skeleton--text" style="width: 70%;"></span><span class="skeleton skeleton--text" style="width: 4rem;"></span></li>
+            <li class="inbox-skeleton-row" aria-hidden="true"><span class="skeleton skeleton--circle"></span><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 3rem;"></span><span class="skeleton skeleton--text" style="width: 70%;"></span><span class="skeleton skeleton--text" style="width: 4rem;"></span></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span><code>.inbox-skeleton-row</code> uses the inbox row grid: 48px circle spanning two lines, name and time, meta and status.</span></div>
+      </div>
+
+      <h3>Operator rows</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p class="visually-hidden" role="status">Loading cuisines</p>
+          <ul class="admin-list" aria-busy="true">
+            <li class="admin-row admin-row--skeleton" aria-hidden="true"><span class="admin-row__body"><span class="skeleton skeleton--title"></span><span class="skeleton skeleton--text"></span></span><span class="admin-row__actions"><span class="skeleton skeleton--rect" style="width: var(--space-20); height: var(--control-height-sm);"></span></span></li>
+            <li class="admin-row admin-row--skeleton" aria-hidden="true"><span class="admin-row__body"><span class="skeleton skeleton--title"></span><span class="skeleton skeleton--text"></span></span><span class="admin-row__actions"><span class="skeleton skeleton--rect" style="width: var(--space-20); height: var(--control-height-sm);"></span></span></li>
+          </ul>
+          <p class="visually-hidden" role="status">Loading audit entries</p>
+          <div class="table-wrap" aria-busy="true">
+            <table class="table">
+              <caption class="visually-hidden">Audit entries, loading</caption>
+              <thead><tr><th scope="col">When</th><th scope="col">Operator</th><th scope="col">Action</th><th scope="col">Target</th></tr></thead>
+              <tbody>
+                <tr aria-hidden="true"><td><span class="skeleton skeleton--text"></span></td><td><span class="skeleton skeleton--text"></span></td><td><span class="skeleton skeleton--text"></span></td><td><span class="skeleton skeleton--text"></span></td></tr>
+                <tr aria-hidden="true"><td><span class="skeleton skeleton--text"></span></td><td><span class="skeleton skeleton--text"></span></td><td><span class="skeleton skeleton--text"></span></td><td><span class="skeleton skeleton--text"></span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Settings rows (<code>.admin-row--skeleton</code>: title 40%, meta 25%, a small rect where the action button goes) and the audit log table (real headers, skeleton cells).</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="Skeletons take their size from the content they replace."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Skeletons have no size scale. Each one copies the box of the content it stands in for: <code>--text</code> scales with the surrounding font size (it is in <code>em</code>), circles fill the <code>.photo</code> or avatar box they sit in, and rects take the control height they replace (<code>--control-height-sm/lg</code>).</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Skeletons are not interactive. Their states are about the loading lifecycle, and the real attribute is <code>aria-busy</code> on the container.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Skeleton lifecycle by composition</caption>
+        <thead><tr><th scope="col">Composition</th><th scope="col">Loading (<code>aria-busy="true"</code>)</th><th scope="col">Loading, reduced motion</th><th scope="col">Loaded</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Caterer card</th>
+            <td><div class="caterer-card caterer-card--skeleton" aria-hidden="true" style="width: 9rem;"><span class="photo"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text" style="width: 7rem;"></span><span class="skeleton skeleton--text" style="width: 5rem;"></span></div></td>
+            <td><div class="caterer-card caterer-card--skeleton" aria-hidden="true" style="width: 9rem;"><span class="photo"><span class="skeleton skeleton--circle" style="animation: none;"></span></span><span class="skeleton skeleton--text" style="width: 7rem; animation: none;"></span><span class="skeleton skeleton--text" style="width: 5rem; animation: none;"></span></div></td>
+            <td><a class="caterer-card" href="../../mocks/pages/caterer/default.html" style="width: 9rem;"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="Chicken pelau in a steel pot with lime and cucumber chutney" width="144" height="144"></span><span class="caterer-card__name">Pelau House</span><span class="caterer-card__meta">Trinidadian &amp; Tobagonian · Scarborough</span></a></td>
+          </tr>
+          <tr><th scope="row">Inbox row</th>
+            <td><ul class="inbox-list" style="width: 18rem;"><li class="inbox-skeleton-row" aria-hidden="true"><span class="skeleton skeleton--circle"></span><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 3rem;"></span><span class="skeleton skeleton--text" style="width: 70%;"></span><span class="skeleton skeleton--text" style="width: 4rem;"></span></li></ul></td>
+            <td><ul class="inbox-list" style="width: 18rem;"><li class="inbox-skeleton-row" aria-hidden="true"><span class="skeleton skeleton--circle" style="animation: none;"></span><span class="skeleton skeleton--text" style="width: 50%; animation: none;"></span><span class="skeleton skeleton--text" style="width: 3rem; animation: none;"></span><span class="skeleton skeleton--text" style="width: 70%; animation: none;"></span><span class="skeleton skeleton--text" style="width: 4rem; animation: none;"></span></li></ul></td>
+            <td><ul class="inbox-list" style="width: 18rem;"><li><a class="inbox-row" href="../../mocks/pages/thread/default.html"><span class="photo"><img src="../../mocks/assets/img/sugar-dumplin.jpg" alt="" width="48" height="48"></span><span class="inbox-row__name">Sugar Dumplin</span><span class="inbox-row__time">Thu</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--open">Open</span></a></li></ul></td>
+          </tr>
+          <tr><th scope="row">Admin row</th>
+            <td><ul class="admin-list" style="width: 18rem;"><li class="admin-row admin-row--skeleton" aria-hidden="true"><span class="admin-row__body"><span class="skeleton skeleton--title"></span><span class="skeleton skeleton--text"></span></span><span class="admin-row__actions"><span class="skeleton skeleton--rect" style="width: var(--space-20); height: var(--control-height-sm);"></span></span></li></ul></td>
+            <td><ul class="admin-list" style="width: 18rem;"><li class="admin-row admin-row--skeleton" aria-hidden="true"><span class="admin-row__body"><span class="skeleton skeleton--title" style="animation: none;"></span><span class="skeleton skeleton--text" style="animation: none;"></span></span><span class="admin-row__actions"><span class="skeleton skeleton--rect" style="width: var(--space-20); height: var(--control-height-sm); animation: none;"></span></span></li></ul></td>
+            <td><ul class="admin-list" style="width: 18rem;"><li class="admin-row"><span class="admin-row__body"><span class="admin-row__title">Haitian</span><span class="admin-row__meta">5 published caterers</span></span><span class="admin-row__actions"><button class="btn btn--sm btn--ghost" type="button" aria-label="Retire Haitian">Retire</button></span></li></ul></td>
+          </tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><ul class="inbox-list" aria-hidden="true"><li class="inbox-skeleton-row"><span class="skeleton skeleton--circle"></span><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 3rem;"></span><span class="skeleton skeleton--text" style="width: 70%;"></span><span class="skeleton skeleton--text" style="width: 4rem;"></span></li><li class="inbox-skeleton-row"><span class="skeleton skeleton--circle"></span><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 3rem;"></span><span class="skeleton skeleton--text" style="width: 70%;"></span><span class="skeleton skeleton--text" style="width: 4rem;"></span></li></ul></div>
+        <div data-theme="dark"><ul class="inbox-list" aria-hidden="true"><li class="inbox-skeleton-row"><span class="skeleton skeleton--circle"></span><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 3rem;"></span><span class="skeleton skeleton--text" style="width: 70%;"></span><span class="skeleton skeleton--text" style="width: 4rem;"></span></li><li class="inbox-skeleton-row"><span class="skeleton skeleton--circle"></span><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 3rem;"></span><span class="skeleton skeleton--text" style="width: 70%;"></span><span class="skeleton skeleton--text" style="width: 4rem;"></span></li></ul></div>
+      </div>
+      <ul>
+        <li><b>Delayed</b>: nothing (or the known parts only) for the first 300ms; then skeletons.</li>
+        <li><b>Loaded</b>: skeletons are replaced in one swap, <code>aria-busy</code> is removed, and the status text changes to the result ("60 caterers", "4 enquiries · 1 unread"). Photos may keep loading inside their round boxes, showing <code>--color-bg-photo</code> until they arrive.</li>
+        <li><b>Failed</b>: skeletons are replaced by an <a href="empty-state.html">empty state</a> in error tone in the same region; the page header, title and filters stay.</li>
+        <li><b>Paging</b> (Load more, next page): existing rows stay; skeletons are appended below them only, never replacing what is already read.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Skeletons live inside the real layout, so they follow it: the caterer grid is 1 column on xs, 2 from 36rem, 3 from 62rem; render enough skeleton cards to fill the first screen at each (3 on xs, 6 on sm and md, 9 from lg), not a fixed 24.</li>
+        <li>The inbox shows 4 skeleton rows on every size; from 62rem the thread column shows a large circle and one line where "Choose an enquiry to read it here" will be.</li>
+        <li>Operator queue rows use <code>.queue-item--stack</code> below 36rem, and so do their skeletons, so the stacked phone layout is previewed too.</li>
+        <li>Widths are percentages or <code>min(…, 100%)</code>, never fixed widths wider than a 320px screen.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The skeleton reads <code>--color-bg-subtle</code> for its base and <code>--color-bg-subtle-hover</code> for the shimmer highlight, as a 90° gradient moved across a 400% background. In dark both are dark stone steps, one lighter than the other, so the sweep stays subtle. No component tokens; no pepper, no ink. A skeleton should be the quietest thing on the screen.</p>
+      <pre><code>.skeleton { background: linear-gradient(90deg, var(--color-bg-subtle) 25%, var(--color-bg-subtle-hover) 37%, var(--color-bg-subtle) 63%);
+            background-size: 400% 100%; animation: shimmer var(--duration-loop) var(--ease-standard) infinite; }</code></pre>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Skeleton items are <code>aria-hidden="true"</code>; they mean nothing to a screen reader. The container being loaded keeps its real element and role (the <code>&lt;ul&gt;</code>, the <code>&lt;table&gt;</code> with its caption and column headers) and carries <code>aria-busy="true"</code>. A <code>role="status"</code> element names what is loading ("Loading caterers", "Loading the review queue") and later announces the result. This follows the <a href="https://www.w3.org/TR/wai-aria-1.2/#aria-busy">aria-busy</a> definition and WCAG 4.1.3; the APG has no skeleton pattern.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Skips skeletons; nothing in them is focusable. Real controls on the page (filters, tabs, header links) work while the content loads.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>Focus is never placed on a skeleton and never moved when content arrives. If focus was on a control that the loaded content replaces (a page link in pagination), it moves to the first result's heading or link.</p>
+      <h3>Labelling</h3>
+      <p>One status message per loading region, specific to it: "Loading your enquiries", "Loading audit entries". Do not label each skeleton item. Tables keep their real column headers and a caption ending in ", loading".</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Text on the shimmer highlight (if text ever sits on it)</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle-hover" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Text on the skeleton base</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+      </div>
+      <p>Skeleton shapes are decorative and exempt from 1.4.11: they carry no information, and the status text says what is happening. They should be visible but faint; the base against the canvas is intentionally low contrast.</p>
+      <h3>Motion</h3>
+      <p>The shimmer is a decorative loop (<code>--duration-loop</code>, 1.4s). Under <code>prefers-reduced-motion</code> it stops and the skeleton is a flat <code>--color-bg-subtle</code> block (the reduced-motion column above). Status still comes through the live region, so nothing is lost. The shimmer never flashes: it is a soft brightness change well under the three-flashes threshold.</p>
+      <h3>Touch</h3>
+      <p>Nothing to touch. Skeleton rows are not links; the rows become tappable only when they are real.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Skeletons carry no words. The status message does: "Loading caterers", "Loading your enquiries", "Loading the review queue", "Verifying your email…".</li>
+        <li>Render real text for everything known in advance: page titles ("Inbox"), filter names (Jamaican, Trinidadian &amp; Tobagonian…), table headers, tab labels. Only counts and records are skeletons.</li>
+        <li>Never put "Loading…" in place of a caterer name or a count; use a text skeleton of the right width.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas" style="justify-content: center;"><div class="caterer-card caterer-card--skeleton" aria-hidden="true" style="width: 9rem;"><span class="photo"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text" style="width: 7rem;"></span><span class="skeleton skeleton--text" style="width: 5rem;"></span></div></div><figcaption>A circle where the round photo will be, two lines where name and cuisine will be.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas" style="justify-content: center;"><span class="skeleton skeleton--rect" aria-hidden="true" style="width: 9rem; height: 7rem;"></span></div><figcaption>Don't use a generic rectangle for a round photo; the page reshapes when content lands.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><p class="visually-hidden" role="status">Loading cuisines</p><ul class="admin-list" aria-busy="true"><li class="admin-row admin-row--skeleton" aria-hidden="true"><span class="admin-row__body"><span class="skeleton skeleton--title"></span><span class="skeleton skeleton--text"></span></span></li></ul></div><figcaption>Hide each skeleton row; one status message names the load.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="admin-list" aria-busy="true" aria-label="Loading cuisines"><li class="admin-row admin-row--skeleton"><span class="admin-row__body"><span class="skeleton skeleton--title"></span><span class="skeleton skeleton--text"></span></span></li></ul></div><figcaption>Don't leave skeleton rows exposed as empty list items (the cuisines and operators mocks did); screen readers count them as real rows.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Base</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Shimmer highlight</td><td><code>--color-bg-subtle-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td></tr>
+          <tr><td>Radius text / rect / circle</td><td><code>--radius-sm</code> / <code>--radius-md</code> / 50%</td><td colspan="2"><span data-token="--radius-sm"></span> / <span data-token="--radius-md"></span></td></tr>
+          <tr><td>Card circle</td><td><code>--photo-card-size</code></td><td colspan="2"><span data-token="--photo-card-size"></span></td></tr>
+          <tr><td>Rect heights</td><td><code>--control-height-sm</code> / <code>--control-height-lg</code></td><td colspan="2"><span data-token="--control-height-sm"></span> / <span data-token="--control-height-lg"></span></td></tr>
+          <tr><td>Shimmer loop</td><td><code>--duration-loop</code>, <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-loop"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;p class="visually-hidden" role="status"&gt;Loading the review queue&lt;/p&gt;
+&lt;ul class="queue" aria-busy="true"&gt;
+  &lt;li class="queue-item queue-item--stack" aria-hidden="true"&gt;
+    &lt;span class="photo"&gt;&lt;span class="skeleton skeleton--circle"&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class="skeleton skeleton--text" style="width: 60%;"&gt;&lt;/span&gt;
+    &lt;span class="skeleton skeleton--text" style="width: 30%;"&gt;&lt;/span&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.skeleton</code></td><td>Base block with shimmer; at least 1em high.</td></tr>
+        <tr><td><code>.skeleton--text</code> <code>--title</code> <code>--circle</code> <code>--rect</code></td><td>Shape: one text line, a heading line, a circle, a rounded block.</td></tr>
+        <tr><td><code>.photo &gt; .skeleton</code></td><td>Fills the round photo box exactly.</td></tr>
+        <tr><td><code>.caterer-card--skeleton</code></td><td>Listing card: circle at card size, 9rem and 6rem lines, centred.</td></tr>
+        <tr><td><code>.inbox-skeleton-row</code></td><td>Inbox row grid with a 48px circle.</td></tr>
+        <tr><td><code>.admin-row--skeleton</code> / <code>.edit-row--skeleton</code> / <code>.photo-tile--skeleton</code></td><td>Settings row, menu row and photo tile line widths.</td></tr>
+        <tr><td><code>aria-hidden="true"</code></td><td>Required on every skeleton item or row.</td></tr>
+        <tr><td><code>aria-busy="true"</code> + <code>role="status"</code> text</td><td>Required on the loading container / beside it.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/caterers/loading.html">pages/caterers/loading</a> (card grid, result count, 300ms rule)</li>
+        <li><a href="../../mocks/pages/inbox/loading.html">pages/inbox/loading</a> (inbox rows, thread placeholder)</li>
+        <li><a href="../../mocks/pages/admin-queue/loading.html">pages/admin-queue/loading</a> and <a href="../../mocks/pages/admin-caterers/loading.html">pages/admin-caterers/loading</a> (queue rows)</li>
+        <li><a href="../../mocks/pages/admin-cuisines/loading.html">pages/admin-cuisines/loading</a> and <a href="../../mocks/pages/admin-operators/loading.html">pages/admin-operators/loading</a> (admin rows)</li>
+        <li><a href="../../mocks/pages/admin-audit/loading.html">pages/admin-audit/loading</a> (table)</li>
+        <li><a href="../../mocks/pages/verify-email/loading.html">pages/verify-email/loading</a> and <a href="../../mocks/pages/profile-photos/loading.html">pages/profile-photos/loading</a></li>
+      </ul>
+      <p>Drift fixed during extraction: the cuisines, operators and breach-record loading mocks put <code>aria-label="Loading …"</code> on the busy list and left the skeleton rows exposed; rows are now <code>aria-hidden</code> with one status message. The admin-caterers subtitle skeleton lacked <code>aria-hidden</code>. Several mocks stretched circles with inline <code>width: 100%; height: 100%</code>; <code>.photo &gt; .skeleton</code> now does that. Status messages varied between a visible subtitle, a hidden paragraph and a hidden span inside the subtitle; one hidden <code>role="status"</code> paragraph per region is the pattern (the listing keeps its result-count live region). The kit's shimmer used a literal 1.4s; it reads <code>--duration-loop</code>.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

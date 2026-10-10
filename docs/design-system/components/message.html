@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Message thread — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand message thread: thread head, mine/theirs/system messages, pending and failed sends, the reply box, closed notes and the inbox placeholder, in both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Data display</p>
+      <h1>Message thread</h1>
+      <p class="ds-lead">The enquiry conversation between a customer and a caterer: who it is with and where it stands, the messages, and a reply box pinned to the bottom. It is the only place on Sweet Hand where contact details are ever exchanged, and only when someone chooses to share them.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.thread</code></span><span class="ds-pill"><code>.message</code></span><span class="ds-pill"><code>.reply-box</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A thread is one enquiry: a customer asked a caterer about an event, and the two of them talk it through. The same component serves both sides. The customer reads it at <code>/inbox/:id</code> (<a href="../../mocks/pages/thread/default.html">pages/thread</a>); the caterer reads it in the dashboard (<a href="../../mocks/pages/dashboard-enquiry/default.html">pages/dashboard-enquiry</a>). "Mine" and "theirs" flip with the viewer; the markup does not.</p>
+      <ul>
+        <li><b>Thread head</b> (<code>.thread__head</code>) names the other party with their round photo (customer view) or initials (caterer view), the enquiry status and the thread actions: "Share my contact details", "Close enquiry", "Decline".</li>
+        <li><b>Messages</b> (<code>.messages</code>, an ordered list) hold three kinds of item: <b>theirs</b> (light bubble, left), <b>mine</b> (ink bubble, right) and <b>system</b> events (centred text: declined, closed, contact shared).</li>
+        <li><b>Reply box</b> (<code>.reply-box</code>) is a labelled textarea with a send button, sticky to the bottom of the viewport. When nobody can reply any more it is replaced by a <b>closed note</b> (<code>.closed-note</code>).</li>
+        <li><b>Placeholder</b> (<code>.thread-placeholder</code>) fills the thread column on large screens before an enquiry is chosen.</li>
+      </ul>
+      <p>Use it only for enquiry conversations. A caterer's public answer to a review is a <a href="review.html">review response</a>, not a message. A history of who did what (operator actions, profile changes) is a <a href="timeline.html">timeline</a>. A one-off confirmation such as "Enquiry sent" is a <a href="toast.html">toast</a>. The list of threads is made of <a href="inbox-row.html">inbox rows</a>.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <article class="thread" aria-labelledby="anat-title" style="width: 100%; max-width: 32rem;">
+            <div class="thread__head">
+              <span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="56" height="56"></span>
+              <div class="thread__title">
+                <h3 style="margin: 0;" id="anat-title">Pelau House</h3>
+                <p class="thread__status"><span class="status status--replied">Replied</span><a href="../../mocks/pages/caterer/default.html">View caterer</a></p>
+              </div>
+            </div>
+            <ol class="messages" aria-label="Messages">
+              <li class="message message--theirs"><span class="visually-hidden">Pelau House:</span><p class="message__bubble">Yes, chafing dishes and serving spoons are included. Shall I hold the date?</p><span class="message__meta">Pelau House · Today, 9:42 a.m.</span></li>
+              <li class="message message--mine"><span class="visually-hidden">You:</span><p class="message__bubble">Yes please!</p><span class="message__meta">You · Today, 10:02 a.m.</span></li>
+            </ol>
+            <form class="reply-box" action="#anatomy" novalidate>
+              <label class="reply-box__label" for="anat-reply">Your reply</label>
+              <div class="reply-box__row">
+                <textarea class="textarea" id="anat-reply" name="reply" rows="2" maxlength="2000"></textarea>
+                <button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button>
+              </div>
+            </form>
+          </article>
+          <span class="ds-callout" style="left: 9%; top: 9%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 62%; top: 7%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 6%; top: 34%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 72%; top: 43%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 92%; top: 53%;" aria-hidden="true">5</span>
+          <span class="ds-callout" style="left: 6%; top: 71%;" aria-hidden="true">6</span>
+          <span class="ds-callout" style="left: 92%; top: 82%;" aria-hidden="true">7</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Party photo or initials</b><small>3.5rem round <a href="photo.html">photo</a> (customer view) or <a href="avatar.html">avatar</a> with initials (caterer view). Decorative: <code>alt=""</code>, the name follows.</small></div></li>
+          <li><div><b>Title and status line</b><small><code>.thread__title</code> holds the heading (the page's <code>h1</code>, styled <code>--text-h3</code>) and <code>.thread__status</code>: a <a href="status.html">status label</a> plus "View caterer" or "Sent yesterday at 4:15 p.m.".</small></div></li>
+          <li><div><b>Their bubble</b><small><code>.message--theirs</code>: <code>--color-bg-subtle</code>, <code>--radius-lg</code> with a squared bottom-left corner pointing at the sender.</small></div></li>
+          <li><div><b>Meta</b><small><code>.message__meta</code>: sender and time in <code>--text-caption</code>, <code>--color-fg-subtle</code>. Carries "Sending…" and "Not sent" too.</small></div></li>
+          <li><div><b>My bubble</b><small><code>.message--mine</code>: ink (<code>--color-action</code>) with <code>--color-fg-on-action</code> text, right-aligned, squared bottom-right corner.</small></div></li>
+          <li><div><b>Reply label and field</b><small><code>.reply-box__label</code> + a <a href="textarea.html">textarea</a> at <code>--control-height-lg</code> with <code>--radius-lg</code>. Help and counter sit underneath.</small></div></li>
+          <li><div><b>Send</b><small>The screen's one ink primary. Icon-only "Send reply" on the customer side; "Send" with an icon on the caterer side.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Message kinds</h3>
+      <p>Three kinds, told apart by position and colour <em>and</em> by a visually hidden sender prefix, so the difference never depends on colour alone.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ol class="messages" aria-label="Message kinds">
+            <li class="message message--theirs"><span class="visually-hidden">Ti Kay:</span><p class="message__bubble">Bonswa Marcia! Yes, we can. Griot for 45 with pikliz and djon djon rice is $1,150.</p><span class="message__meta">Ti Kay · Mon 3 Aug, 9:30 p.m.</span></li>
+            <li class="message message--mine"><span class="visually-hidden">You:</span><p class="message__bubble">Wonderful, let’s book it.</p><span class="message__meta">You · Tue 4 Aug, 7:12 a.m.</span></li>
+            <li class="message message--system">Marcia Thompson closed this enquiry<span class="message__meta">Sat 5 Sep, 8:00 a.m.</span></li>
+          </ol>
+        </div>
+        <div class="ds-example__caption"><span>Theirs (left, light), mine (right, ink), system (centred, no bubble). From <code>pages/thread/closed</code>.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;ol class="messages" aria-label="Messages"&gt;
+  &lt;li class="message message--theirs"&gt;&lt;span class="visually-hidden"&gt;Ti Kay:&lt;/span&gt;&lt;p class="message__bubble"&gt;Bonswa Marcia! …&lt;/p&gt;&lt;span class="message__meta"&gt;Ti Kay · Mon 3 Aug, 9:30 p.m.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="message message--mine"&gt;&lt;span class="visually-hidden"&gt;You:&lt;/span&gt;&lt;p class="message__bubble"&gt;Wonderful, let’s book it.&lt;/p&gt;&lt;span class="message__meta"&gt;You · Tue 4 Aug, 7:12 a.m.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="message message--system"&gt;Marcia Thompson closed this enquiry&lt;span class="message__meta"&gt;Sat 5 Sep, 8:00 a.m.&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;</code></pre></details>
+      </div>
+
+      <h3>Shared contact details</h3>
+      <p>Contact details only appear after someone presses "Share my contact details" and confirms in <a href="../../mocks/dialogs/share-contact/default.html">dialogs/share-contact</a>. The event is a system message followed by a <code>.contact-card</code>, visible only to the two people in this enquiry.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ol class="messages" aria-label="Messages with shared contact details">
+            <li class="message message--system">You shared your contact details with Pelau House<span class="message__meta">Today, 10:05 a.m.</span></li>
+            <li class="message message--system"><div class="contact-card" style="text-align: left;"><strong>Your details, visible to Pelau House in this enquiry</strong><span>marcia.t@example.com</span><span>+1 647 555 0187</span></div></li>
+            <li class="message message--system">Pelau House shared their contact details<span class="message__meta">Today, 10:20 a.m.</span></li>
+            <li class="message message--system"><div class="contact-card" style="text-align: left;"><strong>Pelau House</strong><span>hello@pelauhouse.example</span><span>+1 416 555 0142</span></div></li>
+          </ol>
+        </div>
+        <div class="ds-example__caption"><span>From <code>pages/thread/shared</code>. Each side shares separately; neither sees the other's details by default.</span></div>
+      </div>
+
+      <h3>Thread head: customer and caterer views</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="thread__head">
+            <span class="photo"><img src="../../mocks/assets/img/sugar-dumplin.jpg" alt="" width="56" height="56"></span>
+            <div class="thread__title">
+              <h3 style="margin: 0;">Sugar Dumplin</h3>
+              <p class="thread__status"><span class="status status--open">Open</span><a href="../../mocks/pages/caterer/default.html">View caterer</a></p>
+            </div>
+          </div>
+          <div class="thread__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog">Share my contact details</button><button class="btn btn--sm btn--ghost" type="button" aria-haspopup="dialog">Close enquiry</button></div>
+          <hr class="divider">
+          <div class="thread__head">
+            <span class="avatar" aria-hidden="true">PR</span>
+            <div class="thread__title">
+              <h3 style="margin: 0;">Priya Ramdial</h3>
+              <p class="thread__status"><span class="status status--open">Open</span><span>Sent yesterday at 4:15 p.m.</span></p>
+            </div>
+          </div>
+          <div class="thread__actions"><button class="btn btn--sm btn--link" type="button" aria-haspopup="dialog">Share my contact details</button><button class="btn btn--sm" type="button" aria-haspopup="dialog">Decline</button></div>
+          <hr class="divider">
+          <div class="thread__head">
+            <span class="avatar" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+            <div class="thread__title">
+              <h3 style="margin: 0;">Former Sweet Hand user</h3>
+              <p class="thread__status"><span class="status status--replied">Replied</span><span>Sent Fri 11 Sep</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Customer (photo, "View caterer"), caterer (initials, sent time, Decline), former user (person glyph, no actions).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="thread__head"&gt;
+  &lt;span class="avatar" aria-hidden="true"&gt;PR&lt;/span&gt;
+  &lt;div class="thread__title"&gt;
+    &lt;h1 id="thread-title"&gt;Priya Ramdial&lt;/h1&gt;
+    &lt;p class="thread__status"&gt;&lt;span class="status status--open"&gt;Open&lt;/span&gt;&lt;span&gt;Sent yesterday at 4:15 p.m.&lt;/span&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="thread__actions"&gt;…&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Endings: reply box or closed note</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p class="closed-note">This enquiry is closed</p>
+          <p class="closed-note">Sugar Dumplin hasn’t replied yet. We’ll email you when they do.</p>
+          <p class="closed-note">This person has left Sweet Hand, so replies can’t be delivered.</p>
+        </div>
+        <div class="ds-example__caption"><span>Closed and declined threads end with "This enquiry is closed"; an unanswered enquiry adds a waiting note <em>above</em> the reply box; a deleted account ends the thread for good.</span></div>
+      </div>
+
+      <h3>Placeholder</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="thread-placeholder">
+            <div class="photo-row" aria-hidden="true"><span class="photo"><img src="../../mocks/assets/img/sugar-dumplin.jpg" alt="" width="72" height="72"></span><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="104" height="104"></span><span class="photo"><img src="../../mocks/assets/img/ti-kay.jpg" alt="" width="72" height="72"></span></div>
+            <p>Choose an enquiry to read it here.</p>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>LG and up only, beside the inbox list (<code>pages/inbox/default</code>). Three round photos from the customer's own threads, one line of text.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="The thread has one size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">The thread has one size. Bubbles are capped at <code>min(36rem, 88%)</code> of the column so lines stay readable; density never changes with the viewport.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <h3>Message states</h3>
+      <p>Only messages you send have delivery states. A message is <b>pending</b> while the request is in flight and <b>failed</b> if it did not arrive; it never disappears.</p>
+      <div class="ds-matrix" style="position: relative;"><table>
+        <caption class="visually-hidden">Message states by kind</caption>
+        <thead><tr><th scope="col">Kind</th><th scope="col">Default</th><th scope="col">Pending</th><th scope="col">Failed</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Mine</th>
+            <td><ol class="messages" style="min-width: 14rem;" aria-label="Mine, default"><li class="message message--mine"><span class="visually-hidden">You:</span><p class="message__bubble">Could we add doubles as a starter?</p><span class="message__meta">You · Fri 9 Oct, 6:48 p.m.</span></li></ol></td>
+            <td><ol class="messages" style="min-width: 14rem;" aria-label="Mine, pending"><li class="message message--mine message--pending"><span class="visually-hidden">You:</span><p class="message__bubble">Could we add doubles as a starter?</p><span class="message__meta" role="status">You · Sending…</span></li></ol></td>
+            <td><ol class="messages" style="min-width: 14rem;" aria-label="Mine, failed"><li class="message message--mine message--failed"><span class="visually-hidden">You:</span><p class="message__bubble">Could we add doubles as a starter?</p><span class="message__meta">Not sent · <button class="btn btn--link btn--sm" type="button">Try again</button></span></li></ol></td></tr>
+          <tr><th scope="row">Theirs</th>
+            <td><ol class="messages" style="min-width: 14rem;" aria-label="Theirs, default"><li class="message message--theirs"><span class="visually-hidden">Pelau House:</span><p class="message__bubble">Yes, doubles are $3 each with a 40 minimum.</p><span class="message__meta">Pelau House · Fri 9 Oct, 7:20 p.m.</span></li></ol></td>
+            <td><span class="text-subtle">Not applicable: received messages are already delivered</span></td>
+            <td><span class="text-subtle">Not applicable</span></td></tr>
+          <tr><th scope="row">System</th>
+            <td><ol class="messages" style="min-width: 14rem;" aria-label="System, default"><li class="message message--system">Demerara Kitchen can’t take on this event<span class="message__meta">Tue 6 Oct, 11:20 a.m.</span></li></ol></td>
+            <td><span class="text-subtle">Not applicable</span></td>
+            <td><span class="text-subtle">Not applicable</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Reply box states</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <form class="reply-box" action="#states" novalidate>
+            <label class="reply-box__label" for="st-reply-1">Your reply <span class="text-subtle">· default</span></label>
+            <div class="reply-box__row">
+              <textarea class="textarea" id="st-reply-1" name="reply" rows="2" maxlength="2000" aria-describedby="st-help-1 st-count-1"></textarea>
+              <button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button>
+            </div>
+            <span class="cluster cluster--between"><span class="field__help" id="st-help-1">Pelau House gets an email. Links show as plain text.</span><span class="field__counter" id="st-count-1">0 / 2,000</span></span>
+          </form>
+          <form class="reply-box" action="#states" novalidate>
+            <label class="reply-box__label" for="st-reply-2">Your reply <span class="text-subtle">· focus</span></label>
+            <div class="reply-box__row">
+              <textarea class="textarea" id="st-reply-2" name="reply" rows="2" maxlength="2000" data-state="focus" aria-describedby="st-help-2">Yes please hold the date!</textarea>
+              <button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button>
+            </div>
+            <span class="field__help" id="st-help-2">Pelau House gets an email. Links show as plain text.</span>
+          </form>
+          <form class="reply-box" action="#states" novalidate>
+            <div class="form-summary" role="alert" tabindex="-1"><h3 style="margin: 0;">Your reply wasn’t sent</h3><ul><li><a href="#st-reply-3">Keep your reply under 2,000 characters</a></li></ul></div>
+            <label class="reply-box__label" for="st-reply-3">Your reply <span class="text-subtle">· invalid</span></label>
+            <div class="reply-box__row">
+              <textarea class="textarea" id="st-reply-3" name="reply" rows="2" aria-invalid="true" aria-describedby="st-error-3 st-count-3">Hi Kendra, yes please hold the date! A few details for the day: the hall opens at 4 p.m. and the side door on Ellesmere is the easiest for unloading…</textarea>
+              <button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button>
+            </div>
+            <span class="cluster cluster--between"><span class="field__error" id="st-error-3">Keep your reply under 2,000 characters. It’s 2,143 now.</span><span class="field__counter" id="st-count-3" data-over>2,143 / 2,000</span></span>
+          </form>
+          <form class="reply-box" action="#states" novalidate aria-busy="true">
+            <label class="reply-box__label" for="st-reply-4">Your reply <span class="text-subtle">· submitting</span></label>
+            <div class="reply-box__row">
+              <textarea class="textarea" id="st-reply-4" name="reply" rows="2" maxlength="2000" readonly aria-describedby="st-help-4"></textarea>
+              <button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply" aria-busy="true" aria-disabled="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button>
+            </div>
+            <span class="field__help" id="st-help-4">Pelau House gets an email. Links show as plain text.</span>
+          </form>
+        </div>
+        <div class="ds-example__caption"><span>Default, focus, invalid (summary + inline error + over-limit counter), submitting (field read-only and emptied into a pending message, send busy).</span></div>
+      </div>
+
+      <h3>Thread states</h3>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">State</th><th scope="col">Status label</th><th scope="col">Actions</th><th scope="col">Ending</th><th scope="col">Mocks</th></tr></thead>
+        <tbody>
+          <tr><td>Open, no reply yet</td><td><span class="status status--open">Open</span></td><td>Share, Close (customer) · Share, Decline (caterer)</td><td>Waiting note, then reply box</td><td><a href="../../mocks/pages/thread/open.html">thread/open</a>, <a href="../../mocks/pages/dashboard-enquiry/default.html">dashboard-enquiry/default</a></td></tr>
+          <tr><td>Replied</td><td><span class="status status--replied">Replied</span></td><td>Share, Close</td><td>Reply box</td><td><a href="../../mocks/pages/thread/default.html">thread/default</a>, <a href="../../mocks/pages/dashboard-enquiry/replied.html">dashboard-enquiry/replied</a></td></tr>
+          <tr><td>Submitting</td><td>unchanged</td><td>unchanged</td><td>Pending message; reply box read-only, send busy</td><td><a href="../../mocks/pages/thread/submitting.html">thread/submitting</a>, <a href="../../mocks/pages/dashboard-enquiry/submitting.html">dashboard-enquiry/submitting</a></td></tr>
+          <tr><td>Invalid</td><td>unchanged</td><td>unchanged</td><td>Summary, inline error, counter over limit; text kept</td><td><a href="../../mocks/pages/thread/invalid.html">thread/invalid</a>, <a href="../../mocks/pages/dashboard-enquiry/invalid.html">dashboard-enquiry/invalid</a></td></tr>
+          <tr><td>Contact shared</td><td>unchanged</td><td>"Contact details shared" note replaces Share</td><td>System message + contact card; reply box</td><td><a href="../../mocks/pages/thread/shared.html">thread/shared</a>, <a href="../../mocks/pages/dashboard-enquiry/shared.html">dashboard-enquiry/shared</a></td></tr>
+          <tr><td>Declined</td><td><span class="status status--declined">Declined</span></td><td>none</td><td>System message with the reason; "This enquiry is closed"</td><td><a href="../../mocks/pages/thread/declined.html">thread/declined</a>, <a href="../../mocks/pages/dashboard-enquiry/declined.html">dashboard-enquiry/declined</a></td></tr>
+          <tr><td>Closed</td><td><span class="status status--closed">Closed</span></td><td>none</td><td>System message (by a person, or automatically 30 days after the event); "This enquiry is closed"</td><td><a href="../../mocks/pages/thread/closed.html">thread/closed</a>, <a href="../../mocks/pages/dashboard-enquiry/closed.html">dashboard-enquiry/closed</a></td></tr>
+          <tr><td>Former user</td><td>last status kept</td><td>none</td><td>"This person has left Sweet Hand, so replies can’t be delivered."</td><td><a href="../../mocks/pages/dashboard-enquiry/former-user.html">dashboard-enquiry/former-user</a></td></tr>
+          <tr><td>Loading</td><td colspan="3">Thread sets <code>aria-busy="true"</code>; skeleton circle, title, summary block and one bubble-shaped rectangle, all <code>aria-hidden</code>; the <code>h1</code> reads "Loading enquiry".</td><td><a href="../../mocks/pages/thread/loading.html">thread/loading</a></td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><ol class="messages" aria-label="Light theme messages"><li class="message message--theirs"><span class="visually-hidden">Pelau House:</span><p class="message__bubble">Any allergies in the group?</p><span class="message__meta">Pelau House · Fri 9 Oct, 9:12 a.m.</span></li><li class="message message--mine"><span class="visually-hidden">You:</span><p class="message__bubble">Two guests can’t have nuts.</p><span class="message__meta">You · Fri 9 Oct, 12:30 p.m.</span></li><li class="message message--system">You shared your contact details<span class="message__meta">Today, 10:05 a.m.</span></li></ol></div>
+        <div data-theme="dark"><ol class="messages" aria-label="Dark theme messages"><li class="message message--theirs"><span class="visually-hidden">Pelau House:</span><p class="message__bubble">Any allergies in the group?</p><span class="message__meta">Pelau House · Fri 9 Oct, 9:12 a.m.</span></li><li class="message message--mine"><span class="visually-hidden">You:</span><p class="message__bubble">Two guests can’t have nuts.</p><span class="message__meta">You · Fri 9 Oct, 12:30 p.m.</span></li><li class="message message--system">You shared your contact details<span class="message__meta">Today, 10:05 a.m.</span></li></ol></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Below 62rem</b> the inbox shows the list <em>or</em> the thread, never both (<code>.inbox-layout--thread</code> hides the list). A "Back to inbox" eyebrow (<code>.until-lg</code>) sits above the head.</li>
+        <li><b>62rem and up</b> the list (20–26rem) sits beside the thread; with nothing selected the thread column shows <code>.thread-placeholder</code>. The caterer's copy lives in the dashboard <code>.work-layout</code>, beside the side navigation.</li>
+        <li>Bubbles take at most <code>min(36rem, 88%)</code>; at 360px that is about 290px, so "mine" and "theirs" still read as two sides. Text uses <code>white-space: pre-wrap</code> (keeps the sender's line breaks) and <code>overflow-wrap: anywhere</code> so a pasted URL wraps at 320px (<a href="../../mocks/pages/thread/edge.html">thread/edge</a>).</li>
+        <li>The head wraps: on phones the actions drop below the title. The reply box is <code>position: sticky; bottom: 0</code> with <code>env(safe-area-inset-bottom)</code> padding, so the send button clears the home indicator; the textarea grows, the 44px send button stays beside it.</li>
+        <li>No breakpoint changes the order of messages or hides any of them; a long thread (<a href="../../mocks/pages/thread/long.html">thread/long</a>) simply scrolls.</li>
+      </ul>
+      <div class="ds-iframes">
+        <iframe class="ds-iframe" src="../../mocks/pages/thread/default.html?chrome=0&amp;theme=light" title="Customer thread with Pelau House at phone width" loading="lazy"></iframe>
+        <iframe class="ds-iframe" src="../../mocks/pages/dashboard-enquiry/default.html?chrome=0&amp;theme=dark" title="Caterer view of Priya Ramdial's enquiry at phone width, dark theme" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The thread has no component tokens; it reads semantic tokens directly. "Mine" deliberately reuses the action pair (<code>--color-action</code> / <code>--color-fg-on-action</code>) so your own words read as yours, in ink, like the wordmark. Pepper red never appears in a bubble: it would read as "selected".</p>
+      <ul>
+        <li>Their bubble: <code>--color-bg-subtle</code> with <code>--color-fg-default</code>. Meta: <code>--color-fg-subtle</code>. Failed meta: <code>--color-danger-fg</code>.</li>
+        <li>Closed note: <code>--color-bg-surface-sunken</code> with <code>--color-fg-muted</code>. Reply box: <code>--color-bg-canvas</code> with a <code>--color-border-default</code> top rule so text never shows through when it is stuck.</li>
+        <li>In dark, the ink bubble flips to light stone with near-black text (as the primary button does) and their bubble becomes a lifted dark stone; both keep at least 4.5:1.</li>
+      </ul>
+      <p>To re-skin, override the bubble on a theme scope, never per message: <code>[data-theme="x"] .message--mine .message__bubble { background: var(--color-action); }</code>.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>An <code>&lt;article aria-labelledby&gt;</code> named by the party's name; messages are an <code>&lt;ol aria-label="Messages"&gt;</code> because order matters. This follows the spirit of the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/feed/">APG Feed pattern</a> without its keyboard model: the list is short and static, so plain reading order is enough. The reply is a native <code>&lt;form&gt;</code>.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Back to inbox → View caterer → thread actions → any link or "Try again" in the messages → reply field → Send.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>In the reply field, a new line (messages are multi-line). It never sends.</td></tr>
+        <tr><td><kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>Enter</kbd></td><td>Sends from the reply field, same as the Send button.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>On Send or "Try again", sends.</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>After sending, focus stays in the (now empty) reply field. After an invalid send, focus moves to the error summary (<code>tabindex="-1"</code>), whose link returns to the field. Opening a thread from the inbox moves focus to the thread <code>h1</code>.</p>
+      <h3>Labelling</h3>
+      <ul>
+        <li>Each message starts with a visually hidden sender ("Pelau House:", "You:") so a screen reader never relies on bubble side or colour. The meta line repeats the sender for sighted users.</li>
+        <li>The reply field has a visible label ("Your reply", "Reply to Priya") and <code>aria-describedby</code> pointing at the help ("Pelau House gets an email. Links show as plain text."), the counter, and the error when there is one.</li>
+        <li>Icon-only send is <code>aria-label="Send reply"</code>. "Try again" on a failed message is a real button.</li>
+        <li>"Sending…" lives in a <code>role="status"</code> meta so it is announced once; a failure is announced by the <a href="toast.html">danger toast</a> (<code>role="alert"</code>, <a href="../../mocks/notifications/toast/danger.html">notifications/toast/danger</a>).</li>
+      </ul>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>My bubble text</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-action|--color-action" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Their bubble text</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Meta (sender and time)</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>System message</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Closed note</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-sunken" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>"Not sent" meta</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Reply field border</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-canvas" data-min="3"></span></div>
+      </div>
+      <p>A pending bubble sits at 60% opacity; its label and the "Sending…" text carry the state, and the composite stays above 4.5:1 in both themes (about 4.8:1 in light).</p>
+      <h3>Motion</h3>
+      <p>New messages appear in place without sliding. The send button's busy spinner turns (it reports status) and keeps turning under reduced motion. Scrolling to the newest message on open uses <code>scroll-behavior</code>, which reduced motion sets to <code>auto</code>.</p>
+      <h3>Touch</h3>
+      <p>Send is 44px. Thread actions are small buttons (36px) separated by 8px. "View caterer" and "Back to inbox" (an eyebrow at 44px tall) are text links with comfortable line height. Text in bubbles is selectable, so a customer can copy an address the caterer shared.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Meta</b> is "Sender · When": "Pelau House · Today, 9:42 a.m.", "Ti Kay · Mon 3 Aug, 9:30 p.m.". Use "Today" and weekday dates in the current week, "Sat 21 Nov" style otherwise, and lowercase "a.m./p.m." with periods.</li>
+        <li><b>System messages</b> are one plain sentence naming who did what: "Demerara Kitchen can’t take on this event", "Marcia Thompson closed this enquiry", "Closed automatically 30 days after the event." A decline quotes the caterer's reason: “Fully booked that weekend.”</li>
+        <li><b>Help text</b> says who sees what: "Pelau House gets an email. Links show as plain text." / "Priya sees Pelau House, not your email or phone."</li>
+        <li><b>Privacy notes</b> stay short and concrete: "Pelau House sees your name, not your email or phone."</li>
+        <li>Messages are shown exactly as written, with emoji, Kreyòl, French and Spanish intact ("Ou se yon bon kizinyè. ¡Gracias!"). Links and markup show as plain text, never as live links or HTML.</li>
+        <li>Errors give the limit and the current count: "Keep your reply under 2,000 characters. It’s 2,143 now."</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><ol class="messages" aria-label="Do: hidden sender"><li class="message message--theirs"><span class="visually-hidden">Priya Ramdial:</span><p class="message__bubble">A few people avoid gluten.</p><span class="message__meta">Priya Ramdial · Fri 9 Oct, 4:15 p.m.</span></li></ol></div><figcaption>Start every message with a visually hidden sender, on both sides of the product.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><ol class="messages" aria-label="Don't: no sender"><li class="message message--theirs"><p class="message__bubble">A few people avoid gluten.</p><span class="message__meta">Fri 9 Oct, 4:15 p.m.</span></li></ol></div><figcaption>Don't rely on bubble side to say who spoke (the caterer-side mocks did). A screen reader hears an anonymous paragraph.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><ol class="messages" aria-label="Do: failed with retry"><li class="message message--mine message--failed"><span class="visually-hidden">You:</span><p class="message__bubble">I’ll confirm the final count by 7 November.</p><span class="message__meta">Not sent · <button class="btn btn--link btn--sm" type="button">Try again</button></span></li></ol></div><figcaption>Keep a failed message in place with a real "Try again" button. The words are never lost.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><p class="closed-note">Message failed</p></div><figcaption>Don't replace the message with a generic error, or make "Try again" plain text.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><ol class="messages" aria-label="Do: shared by choice"><li class="message message--system">You shared your contact details with Pelau House<span class="message__meta">Today, 10:05 a.m.</span></li></ol></div><figcaption>Show contact details only after the person shares them, as a dated system event.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="thread__head"><span class="avatar" aria-hidden="true">MT</span><div class="thread__title"><h3 style="margin: 0;">Marcia Thompson</h3><p class="thread__status">marcia.t@example.com · +1 647 555 0187</p></div></div></div><figcaption>Never put an email or phone number in the head. Contact details are private until shared.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>My bubble</td><td><code>--color-action</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-action" data-swatch></i><span data-token="--color-action"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-action" data-swatch></i><span data-token="--color-action"></span></span></td></tr>
+          <tr><td>My bubble text</td><td><code>--color-fg-on-action</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-on-action" data-swatch></i><span data-token="--color-fg-on-action"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-on-action" data-swatch></i><span data-token="--color-fg-on-action"></span></span></td></tr>
+          <tr><td>Their bubble</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Bubble text</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Meta</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>System message</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Failed meta</td><td><code>--color-danger-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td></tr>
+          <tr><td>Closed note background</td><td><code>--color-bg-surface-sunken</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-sunken" data-swatch></i><span data-token="--color-bg-surface-sunken"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-sunken" data-swatch></i><span data-token="--color-bg-surface-sunken"></span></span></td></tr>
+          <tr><td>Reply box background / rule</td><td><code>--color-bg-canvas</code> / <code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-canvas" data-swatch></i><span data-token="--color-bg-canvas"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-canvas" data-swatch></i><span data-token="--color-bg-canvas"></span></span></td></tr>
+          <tr><td>Bubble radius / tail</td><td><code>--radius-lg</code> / <code>--radius-xs</code></td><td colspan="2"><span data-token="--radius-lg"></span> / <span data-token="--radius-xs"></span></td></tr>
+          <tr><td>Bubble padding</td><td><code>--space-3</code> <code>--space-4</code></td><td colspan="2"><span data-token="--space-3"></span> <span data-token="--space-4"></span></td></tr>
+          <tr><td>Gap between messages / sections</td><td><code>--space-5</code> / <code>--space-6</code></td><td colspan="2"><span data-token="--space-5"></span> / <span data-token="--space-6"></span></td></tr>
+          <tr><td>Meta type / title type</td><td><code>--text-caption</code> / <code>--text-h3</code></td><td colspan="2"><span data-token="--text-caption"></span></td></tr>
+          <tr><td>Reply field height</td><td><code>--control-height-lg</code></td><td colspan="2"><span data-token="--control-height-lg"></span></td></tr>
+          <tr><td>Reply box layer</td><td><code>--z-raised</code></td><td colspan="2"><span data-token="--z-raised"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;article class="thread" aria-labelledby="thread-title"&gt;
+  &lt;div class="thread__head"&gt;
+    &lt;span class="photo"&gt;&lt;img src="pelau-house.jpg" alt="" width="56" height="56"&gt;&lt;/span&gt;
+    &lt;div class="thread__title"&gt;
+      &lt;h1 id="thread-title"&gt;Pelau House&lt;/h1&gt;
+      &lt;p class="thread__status"&gt;&lt;span class="status status--replied"&gt;Replied&lt;/span&gt;&lt;a href="/caterers/pelau-house"&gt;View caterer&lt;/a&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="thread__actions"&gt;…&lt;/div&gt;
+  &lt;ol class="messages" aria-label="Messages"&gt;
+    &lt;li class="message message--theirs"&gt;&lt;span class="visually-hidden"&gt;Pelau House:&lt;/span&gt;&lt;p class="message__bubble"&gt;…&lt;/p&gt;&lt;span class="message__meta"&gt;Pelau House · Today, 9:42 a.m.&lt;/span&gt;&lt;/li&gt;
+    &lt;li class="message message--mine message--pending"&gt;&lt;span class="visually-hidden"&gt;You:&lt;/span&gt;&lt;p class="message__bubble"&gt;…&lt;/p&gt;&lt;span class="message__meta" role="status"&gt;You · Sending…&lt;/span&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;form class="reply-box" novalidate&gt;
+    &lt;label class="reply-box__label" for="reply"&gt;Your reply&lt;/label&gt;
+    &lt;div class="reply-box__row"&gt;
+      &lt;textarea class="textarea" id="reply" rows="2" maxlength="2000" aria-describedby="reply-help reply-count"&gt;&lt;/textarea&gt;
+      &lt;button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply"&gt;…&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;span class="cluster cluster--between"&gt;&lt;span class="field__help" id="reply-help"&gt;…&lt;/span&gt;&lt;span class="field__counter" id="reply-count"&gt;0 / 2,000&lt;/span&gt;&lt;/span&gt;
+  &lt;/form&gt;
+&lt;/article&gt;</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.thread</code></td><td>Column of head, actions, summary, messages and ending, 24px apart.</td></tr>
+        <tr><td><code>.thread__head</code> <code>.thread__title</code> <code>.thread__status</code> <code>.thread__actions</code></td><td>Head row (photo 3.5rem), title stack, status line, wrapping action row.</td></tr>
+        <tr><td><code>.messages</code> &gt; <code>.message</code></td><td>Ordered list of messages, 20px apart.</td></tr>
+        <tr><td><code>.message--mine</code> <code>.message--theirs</code> <code>.message--system</code></td><td>Side, colour and tail; system has no bubble.</td></tr>
+        <tr><td><code>.message--pending</code> <code>.message--failed</code></td><td>Delivery state: bubble at 60%; meta in danger colour.</td></tr>
+        <tr><td><code>.message__bubble</code> <code>.message__meta</code></td><td>Text (pre-wrap, wraps anywhere) and sender · time line.</td></tr>
+        <tr><td><code>.reply-box</code> <code>.reply-box__label</code> <code>.reply-box__row</code></td><td>Sticky reply form, its label, and the field + send row.</td></tr>
+        <tr><td><code>.closed-note</code></td><td>Sunken centred note that ends or pauses a thread.</td></tr>
+        <tr><td><code>.thread-placeholder</code></td><td>LG empty thread column with a <code>.photo-row</code>.</td></tr>
+        <tr><td><code>aria-busy="true"</code> on <code>.thread</code></td><td>Loading skeleton; on the send button, submitting.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/thread/default.html">pages/thread/default</a>, <a href="../../mocks/pages/thread/open.html">open</a>, <a href="../../mocks/pages/thread/declined.html">declined</a>, <a href="../../mocks/pages/thread/closed.html">closed</a>, <a href="../../mocks/pages/thread/invalid.html">invalid</a>, <a href="../../mocks/pages/thread/submitting.html">submitting</a>, <a href="../../mocks/pages/thread/shared.html">shared</a>, <a href="../../mocks/pages/thread/long.html">long</a>, <a href="../../mocks/pages/thread/edge.html">edge</a>, <a href="../../mocks/pages/thread/loading.html">loading</a></li>
+        <li><a href="../../mocks/pages/dashboard-enquiry/default.html">pages/dashboard-enquiry/default</a>, <a href="../../mocks/pages/dashboard-enquiry/replied.html">replied</a>, <a href="../../mocks/pages/dashboard-enquiry/declined.html">declined</a>, <a href="../../mocks/pages/dashboard-enquiry/closed.html">closed</a>, <a href="../../mocks/pages/dashboard-enquiry/invalid.html">invalid</a>, <a href="../../mocks/pages/dashboard-enquiry/submitting.html">submitting</a>, <a href="../../mocks/pages/dashboard-enquiry/shared.html">shared</a>, <a href="../../mocks/pages/dashboard-enquiry/former-user.html">former-user</a></li>
+        <li><a href="../../mocks/pages/inbox/default.html">pages/inbox/default</a> (placeholder), <a href="../../mocks/notifications/toast/danger.html">notifications/toast/danger</a> (failed message)</li>
+      </ul>
+      <p>Drift fixed during extraction:</p>
+      <ul>
+        <li>Caterer-side messages had no visually hidden sender prefix; the customer side did. The system requires it on both.</li>
+        <li>The caterer side labelled the reply with <code>.field__label</code>, put the status outside <code>.thread__title</code> and the actions in an ad hoc <code>.cluster</code> with an inline gap; the system uses <code>.reply-box__label</code>, <code>.thread__status</code> and <code>.thread__actions</code>.</li>
+        <li>The failed message had no sender prefix and "Try again" was plain text; it is now a button.</li>
+        <li>The over-limit counter was coloured with an inline <code>style</code> in <code>thread/invalid</code>; it now uses <code>data-over</code>. The caterer-side invalid state dropped <code>maxlength</code> and the help text, and put the error after the counter; the system keeps the order error → help → counter.</li>
+        <li>"Sending…" was a live region on the caterer side only; it is <code>role="status"</code> on both. The caterer send button was both <code>disabled</code> and <code>aria-busy</code>; busy buttons use <code>aria-disabled</code> so focus is not lost.</li>
+        <li>Send was icon-only for customers but "Send" with text for caterers. Both are allowed; the icon-only form must keep <code>aria-label="Send reply"</code>.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

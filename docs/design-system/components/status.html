@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Status label — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand status labels: every modifier (open, replied, published, declined, suspended, changes, closed, removed, draft, pending, held, hidden), the dot, square and ring shapes of L2-069.5, the word list, states and both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Data display</p>
+      <h1>Status label</h1>
+      <p class="ds-lead">A status label says where a record stands — an enquiry is Open or Replied, a caterer is Published or Suspended, a review is Held. It is always a word plus a shape, never colour alone.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">L2-069.5</span><span class="ds-pill"><code>.status</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Status labels are the most repeated element in Sweet Hand's working screens: every inbox row, caterer record, review, certificate and account detail ends in one. They carry no fill and no border — a small shape and a medium-weight word in the tone's text colour — so a list of 40 rows stays calm.</p>
+      <ul>
+        <li><b>Use a status label</b> for the state of a record that changes over its life: enquiry, caterer profile, review, report, certificate, email address, device session.</li>
+        <li><b>Use a <a href="badge.html">badge</a></b> for a count or a one-word marker that is not a state ("You", "New").</li>
+        <li><b>Use an <a href="alert.html">alert</a> or <a href="inline-message.html">inline message</a></b> when the state needs an explanation or an action ("Your food handler certificate expired on 30 Sep 2026. Upload a current certificate…").</li>
+        <li><b>Use the save status</b> (<code>.save-status</code>, see <a href="../patterns/forms.html">forms</a>) for "Saved Tue 2 Sep" after autosave.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <span class="status status--changes" style="font-size: var(--font-size-xl);">Changes requested</span>
+          <span class="ds-callout" style="left: 14%; top: 26%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 50%; top: 26%;" aria-hidden="true">2</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Shape</b><small>8px (<code>--space-2</code>) <code>::before</code> in the text colour: a filled dot, a square (<code>--radius-xs</code>) or a 2px ring. Decorative; the word carries the meaning.</small></div></li>
+          <li><div><b>Word</b><small><code>--text-label</code> (14px medium), sentence case, never wraps. It may add a reason after a middot: "Held · contains a phone number".</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>Twelve modifiers, grouped by what the shape says (L2-069.5). A person who cannot tell sorrel from callaloo still sees dot, square or ring, and reads the word.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p class="overline">Dot — live or moving</p>
+          <div class="cluster"><span class="status status--open">Open</span><span class="status status--replied">Replied</span><span class="status status--published">Published</span><span class="status status--pending">Pending review</span><span class="status status--held">Held · contains a link</span><span class="status status--hidden">Hidden automatically</span></div>
+          <p class="overline">Square — stopped by someone</p>
+          <div class="cluster"><span class="status status--declined">Declined</span><span class="status status--suspended">Suspended</span><span class="status status--changes">Changes requested</span></div>
+          <p class="overline">Ring — not live</p>
+          <div class="cluster"><span class="status status--closed">Closed</span><span class="status status--removed">Removed</span><span class="status status--draft">Draft</span></div>
+        </div>
+        <div class="ds-example__caption"><span>Every modifier, with the exact words the mocks use.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;span class="status status--open"&gt;Open&lt;/span&gt;
+&lt;span class="status status--replied"&gt;Replied&lt;/span&gt;
+&lt;span class="status status--published"&gt;Published&lt;/span&gt;
+&lt;span class="status status--pending"&gt;Pending review&lt;/span&gt;
+&lt;span class="status status--held"&gt;Held · contains a link&lt;/span&gt;
+&lt;span class="status status--hidden"&gt;Hidden automatically&lt;/span&gt;
+&lt;span class="status status--declined"&gt;Declined&lt;/span&gt;
+&lt;span class="status status--suspended"&gt;Suspended&lt;/span&gt;
+&lt;span class="status status--changes"&gt;Changes requested&lt;/span&gt;
+&lt;span class="status status--closed"&gt;Closed&lt;/span&gt;
+&lt;span class="status status--removed"&gt;Removed&lt;/span&gt;
+&lt;span class="status status--draft"&gt;Draft&lt;/span&gt;</code></pre></details>
+      </div>
+      <h3>Which modifier for which record</h3>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Modifier</th><th scope="col">Shape and tone</th><th scope="col">Words in use</th><th scope="col">Where</th></tr></thead>
+        <tbody>
+          <tr><td><code>--open</code></td><td>Dot, pepper (<code>--color-fg-accent</code>)</td><td>Open</td><td>Enquiries waiting for a reply: the live conversation. The only status in pepper, matching the unread dot.</td></tr>
+          <tr><td><code>--replied</code></td><td>Dot, callaloo</td><td>Replied</td><td>Enquiries the caterer has answered.</td></tr>
+          <tr><td><code>--published</code></td><td>Dot, callaloo</td><td>Published; also Verified, Valid, Current, Showing on Maracas Bay’s page</td><td>Caterer profiles; reused for any good, live state: a verified email, a certificate not yet expired, this device, a visible review.</td></tr>
+          <tr><td><code>--pending</code></td><td>Dot, mango</td><td>Pending review, No response yet, Not verified, Processing</td><td>Waiting on someone: an operator, a customer, the email, the data export.</td></tr>
+          <tr><td><code>--held</code></td><td>Dot, mango</td><td>Held · contains a phone number / a link</td><td>Reviews held for moderation, always with the reason.</td></tr>
+          <tr><td><code>--hidden</code></td><td>Dot, muted</td><td>Hidden automatically, Hidden by Tomas Reyes</td><td>Reviews taken off the page, with who or why.</td></tr>
+          <tr><td><code>--declined</code></td><td>Square, sorrel</td><td>Declined; also Emails bouncing</td><td>Enquiries a caterer turned down; an address that can't receive mail.</td></tr>
+          <tr><td><code>--suspended</code></td><td>Square, sorrel</td><td>Suspended; also Expired</td><td>Caterer profiles stopped by an operator; an expired certificate.</td></tr>
+          <tr><td><code>--changes</code></td><td>Square, mango</td><td>Changes requested</td><td>Profiles sent back to the caterer.</td></tr>
+          <tr><td><code>--closed</code></td><td>Ring, subtle</td><td>Closed, Resolved, Reverted by Leah Mohammed · Tue 6 Oct</td><td>Enquiries, reports and changes that are finished.</td></tr>
+          <tr><td><code>--removed</code></td><td>Ring, subtle</td><td>Removed</td><td>Caterers removed from Sweet Hand.</td></tr>
+          <tr><td><code>--draft</code></td><td>Ring, muted</td><td>Draft</td><td>Profiles not yet submitted.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>In context</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ul class="inbox-list">
+            <li><a class="inbox-row inbox-row--unread" href="../../mocks/pages/dashboard-enquiry/default.html"><span class="avatar" aria-hidden="true">PR</span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Priya Ramdial</span><span class="inbox-row__time">Yesterday</span><span class="inbox-row__meta">Thu 5 Nov · 60 guests · Corporate events</span><span class="inbox-row__status status status--open">Open</span></a></li>
+            <li><a class="inbox-row" href="../../mocks/pages/dashboard-enquiry/default.html"><span class="avatar" aria-hidden="true">NJ</span><span class="inbox-row__name">Nadia Joseph</span><span class="inbox-row__time">Tue</span><span class="inbox-row__meta">Sat 17 Oct · 40 guests · Birthdays</span><span class="inbox-row__status status status--declined">Declined</span></a></li>
+            <li><a class="inbox-row" href="../../mocks/pages/dashboard-enquiry/default.html"><span class="avatar" aria-hidden="true">JP</span><span class="inbox-row__name">Jean-Robert Pierre</span><span class="inbox-row__time">Sun 6 Sep</span><span class="inbox-row__meta">Sun 6 Sep · 80 guests · Family gatherings</span><span class="inbox-row__status status status--closed">Closed</span></a></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>Kendra's enquiries: Open (dot, pepper), Declined (square), Closed (ring).</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="Status labels have one size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Status labels have one size: the 14px label with an 8px shape. They inherit nothing from surrounding text, so a status in a page intro and one in an inbox row match.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Status labels are not interactive: no hover, focus or disabled. They sit on rows that are, so each modifier must hold up on the row's hover fill (<code>--color-bg-surface-sunken</code>) and on the current inbox row (<code>--color-bg-subtle</code>), and in dialogs.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Status labels on each surface they appear on</caption>
+        <thead><tr><th scope="col">Modifier</th><th scope="col">Default (page)</th><th scope="col">On hovered row</th><th scope="col">On current row</th><th scope="col">In a dialog</th><th scope="col">Loading</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Open</th><td><span class="status status--open">Open</span></td><td><span class="queue-item" data-state="hover" style="display: inline-flex;"><span class="status status--open">Open</span></span></td><td><span class="inbox-row" aria-current="true" style="display: inline-flex;"><span class="status status--open">Open</span></span></td><td><span class="menu menu--static" style="display: inline-flex; min-width: 0; margin: 0; padding: var(--space-2);"><span class="status status--open">Open</span></span></td><td><span class="skeleton skeleton--text" style="width: 4rem;" aria-hidden="true"></span></td></tr>
+          <tr><th scope="row">Replied</th><td><span class="status status--replied">Replied</span></td><td><span class="queue-item" data-state="hover" style="display: inline-flex;"><span class="status status--replied">Replied</span></span></td><td><span class="inbox-row" aria-current="true" style="display: inline-flex;"><span class="status status--replied">Replied</span></span></td><td><span class="menu menu--static" style="display: inline-flex; min-width: 0; margin: 0; padding: var(--space-2);"><span class="status status--replied">Replied</span></span></td><td><span class="skeleton skeleton--text" style="width: 4rem;" aria-hidden="true"></span></td></tr>
+          <tr><th scope="row">Published</th><td><span class="status status--published">Published</span></td><td><span class="queue-item" data-state="hover" style="display: inline-flex;"><span class="status status--published">Published</span></span></td><td><span class="inbox-row" aria-current="true" style="display: inline-flex;"><span class="status status--published">Published</span></span></td><td><span class="menu menu--static" style="display: inline-flex; min-width: 0; margin: 0; padding: var(--space-2);"><span class="status status--published">Published</span></span></td><td><span class="skeleton skeleton--text" style="width: 4rem;" aria-hidden="true"></span></td></tr>
+          <tr><th scope="row">Pending</th><td><span class="status status--pending">Pending review</span></td><td><span class="queue-item" data-state="hover" style="display: inline-flex;"><span class="status status--pending">Pending review</span></span></td><td><span class="inbox-row" aria-current="true" style="display: inline-flex;"><span class="status status--pending">Pending review</span></span></td><td><span class="menu menu--static" style="display: inline-flex; min-width: 0; margin: 0; padding: var(--space-2);"><span class="status status--pending">Pending review</span></span></td><td><span class="skeleton skeleton--text" style="width: 4rem;" aria-hidden="true"></span></td></tr>
+          <tr><th scope="row">Held</th><td><span class="status status--held">Held</span></td><td><span class="queue-item" data-state="hover" style="display: inline-flex;"><span class="status status--held">Held</span></span></td><td><span class="inbox-row" aria-current="true" style="display: inline-flex;"><span class="status status--held">Held</span></span></td><td><span class="menu menu--static" style="display: inline-flex; min-width: 0; margin: 0; padding: var(--space-2);"><span class="status status--held">Held</span></span></td><td><span class="skeleton skeleton--text" style="width: 4rem;" aria-hidden="true"></span></td></tr>
+          <tr><th scope="row">Hidden</th><td><span class="status status--hidden">Hidden</span></td><td><span class="queue-item" data-state="hover" style="display: inline-flex;"><span class="status status--hidden">Hidden</span></span></td><td><span class="inbox-row" aria-current="true" style="display: inline-flex;"><span class="status status--hidden">Hidden</span></span></td><td><span class="menu menu--static" style="display: inline-flex; min-width: 0; margin: 0; padding: var(--space-2);"><span class="status status--hidden">Hidden</span></span></td><td><span class="skeleton skeleton--text" style="width: 4rem;" aria-hidden="true"></span></td></tr>
+          <tr><th scope="row">Declined</th><td><span class="status status--declined">Declined</span></td><td><span class="queue-item" data-state="hover" style="display: inline-flex;"><span class="status status--declined">Declined</span></span></td><td><span class="inbox-row" aria-current="true" style="display: inline-flex;"><span class="status status--declined">Declined</span></span></td><td><span class="menu menu--static" style="display: inline-flex; min-width: 0; margin: 0; padding: var(--space-2);"><span class="status status--declined">Declined</span></span></td><td><span class="skeleton skeleton--text" style="width: 4rem;" aria-hidden="true"></span></td></tr>
+          <tr><th scope="row">Suspended</th><td><span class="status status--suspended">Suspended</span></td><td><span class="queue-item" data-state="hover" style="display: inline-flex;"><span class="status status--suspended">Suspended</span></span></td><td><span class="inbox-row" aria-current="true" style="display: inline-flex;"><span class="status status--suspended">Suspended</span></span></td><td><span class="menu menu--static" style="display: inline-flex; min-width: 0; margin: 0; padding: var(--space-2);"><span class="status status--suspended">Suspended</span></span></td><td><span class="skeleton skeleton--text" style="width: 4rem;" aria-hidden="true"></span></td></tr>
+          <tr><th scope="row">Changes</th><td><span class="status status--changes">Changes requested</span></td><td><span class="queue-item" data-state="hover" style="display: inline-flex;"><span class="status status--changes">Changes requested</span></span></td><td><span class="inbox-row" aria-current="true" style="display: inline-flex;"><span class="status status--changes">Changes requested</span></span></td><td><span class="menu menu--static" style="display: inline-flex; min-width: 0; margin: 0; padding: var(--space-2);"><span class="status status--changes">Changes requested</span></span></td><td><span class="skeleton skeleton--text" style="width: 4rem;" aria-hidden="true"></span></td></tr>
+          <tr><th scope="row">Closed</th><td><span class="status status--closed">Closed</span></td><td><span class="queue-item" data-state="hover" style="display: inline-flex;"><span class="status status--closed">Closed</span></span></td><td><span class="inbox-row" aria-current="true" style="display: inline-flex;"><span class="status status--closed">Closed</span></span></td><td><span class="menu menu--static" style="display: inline-flex; min-width: 0; margin: 0; padding: var(--space-2);"><span class="status status--closed">Closed</span></span></td><td><span class="skeleton skeleton--text" style="width: 4rem;" aria-hidden="true"></span></td></tr>
+          <tr><th scope="row">Removed</th><td><span class="status status--removed">Removed</span></td><td><span class="queue-item" data-state="hover" style="display: inline-flex;"><span class="status status--removed">Removed</span></span></td><td><span class="inbox-row" aria-current="true" style="display: inline-flex;"><span class="status status--removed">Removed</span></span></td><td><span class="menu menu--static" style="display: inline-flex; min-width: 0; margin: 0; padding: var(--space-2);"><span class="status status--removed">Removed</span></span></td><td><span class="skeleton skeleton--text" style="width: 4rem;" aria-hidden="true"></span></td></tr>
+          <tr><th scope="row">Draft</th><td><span class="status status--draft">Draft</span></td><td><span class="queue-item" data-state="hover" style="display: inline-flex;"><span class="status status--draft">Draft</span></span></td><td><span class="inbox-row" aria-current="true" style="display: inline-flex;"><span class="status status--draft">Draft</span></span></td><td><span class="menu menu--static" style="display: inline-flex; min-width: 0; margin: 0; padding: var(--space-2);"><span class="status status--draft">Draft</span></span></td><td><span class="skeleton skeleton--text" style="width: 4rem;" aria-hidden="true"></span></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas" style="padding: 0;"><span class="status status--open">Open</span><span class="status status--replied">Replied</span><span class="status status--published">Published</span><span class="status status--pending">Pending review</span><span class="status status--held">Held</span><span class="status status--hidden">Hidden</span><span class="status status--declined">Declined</span><span class="status status--suspended">Suspended</span><span class="status status--changes">Changes requested</span><span class="status status--closed">Closed</span><span class="status status--removed">Removed</span><span class="status status--draft">Draft</span></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas" style="padding: 0;"><span class="status status--open">Open</span><span class="status status--replied">Replied</span><span class="status status--published">Published</span><span class="status status--pending">Pending review</span><span class="status status--held">Held</span><span class="status status--hidden">Hidden</span><span class="status status--declined">Declined</span><span class="status status--suspended">Suspended</span><span class="status status--changes">Changes requested</span><span class="status status--closed">Closed</span><span class="status status--removed">Removed</span><span class="status status--draft">Draft</span></div></div>
+      </div>
+      <ul>
+        <li><b>Changing state</b> (a caterer declines, an operator suspends) updates the label in place. The change is announced by the action's <a href="toast.html">toast</a> or the dialog's live region, not by the label.</li>
+        <li><b>Loading</b>: a short text skeleton the width of a typical word; it never guesses a state.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Labels never wrap (<code>white-space: nowrap</code>). Containers make room instead: inbox rows put the status on the second line at the right; caterer record rows (<code>.queue-item--stack</code>) move it under the meta below 36rem so "Changes requested" never squeezes a name.</li>
+        <li>In <code>.kv</code> values the status follows the value and drops below it when the row is narrow (the value is a wrapping flex row).</li>
+        <li>Nothing changes at md, lg or xl; the label is the same 14px everywhere.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The label sets <code>color</code> from a semantic text token and the shape uses <code>currentColor</code>, so one token per modifier drives both: <code>--color-fg-accent</code> (open), <code>--color-success-fg</code> (replied, published), <code>--color-warning-fg</code> (pending, held, changes), <code>--color-danger-fg</code> (declined, suspended), <code>--color-fg-subtle</code> (closed, removed) and <code>--color-fg-muted</code> (draft, hidden, default). In dark each token moves to its light step (pepper-300, callaloo, mango and sorrel tints) to keep 4.5:1 on the stone canvas; shapes don't change. In forced-colours mode the colours drop out and dot, square and ring carry on in CanvasText.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Plain text in a <code>&lt;span&gt;</code>; no role, no live region. The shape is generated content with no text, so nothing extra is read. This is what <a href="https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html">WCAG 1.4.1 Use of Color</a> asks for: the word carries the state, the shape repeats it for sighted people who can't separate the hues.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Never stops on a status label; it is read as part of its row link or record.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>None of its own; it sits inside focusable rows whose ring encloses it.</p>
+      <h3>Labelling</h3>
+      <p>The word is the accessible text. Inside a row link it is read in DOM order after the name and meta: "Priya Ramdial, Yesterday, Thu 5 Nov · 60 guests · Corporate events, Open". Never use the shape or colour without the word.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Open</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Replied, published</span><span class="ds-pair__ratio" data-contrast="--color-success-fg|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Pending, held, changes requested</span><span class="ds-pair__ratio" data-contrast="--color-warning-fg|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Declined, suspended</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Closed, removed</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Draft, hidden</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Open in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Declined or suspended in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface-raised" data-min="4.5"></span></div>
+      </div>
+      <p>The shapes are 8px and drawn in the same colour as the word, so they meet 3:1 wherever the word meets 4.5:1.</p>
+      <h3>Motion</h3>
+      <p>None. Statuses never pulse or blink.</p>
+      <h3>Touch</h3>
+      <p>Not a target.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>One to three words, sentence case, past participle or adjective: "Replied", "Pending review", "Changes requested". Don't write "Status: Open".</li>
+        <li>Use the same word for the same state on every screen: the customer and the caterer both see "Declined", never "Rejected" on one side.</li>
+        <li>Add the reason or actor after a middot only when the operator needs it: "Held · contains a phone number", "Hidden by Tomas Reyes", "Reverted by Leah Mohammed · Tue 6 Oct".</li>
+        <li>Certificates: "Valid" means not expired; "Expires Mon 9 Nov"; "Expired". Never "Certified" or "Approved" — the certificate is the caterer's own statement.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><span class="status status--declined">Declined</span><span class="status status--closed">Closed</span></div><figcaption>Word plus shape: square for stopped, ring for finished.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="unread-dot" aria-hidden="true"></span><span class="unread-dot" aria-hidden="true"></span></div><figcaption>A coloured dot alone tells nobody anything, and fails WCAG 1.4.1.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><span class="status status--suspended">Expired</span></div><figcaption>Reuse a modifier for its shape and tone, with the right word ("Expired" uses the suspended look).</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="status status--open">Selected</span></div><figcaption>Don't use pepper statuses for anything but Open; pepper is reserved for "selected / you are here".</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Open</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+          <tr><td>Replied, published</td><td><code>--color-success-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-success-fg" data-swatch></i><span data-token="--color-success-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-success-fg" data-swatch></i><span data-token="--color-success-fg"></span></span></td></tr>
+          <tr><td>Pending, held, changes</td><td><code>--color-warning-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-warning-fg" data-swatch></i><span data-token="--color-warning-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-warning-fg" data-swatch></i><span data-token="--color-warning-fg"></span></span></td></tr>
+          <tr><td>Declined, suspended</td><td><code>--color-danger-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td></tr>
+          <tr><td>Closed, removed</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Draft, hidden, default</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Word</td><td><code>--text-label</code></td><td colspan="2"><span data-token="--font-size-sm"></span></td></tr>
+          <tr><td>Shape size / gap</td><td><code>--space-2</code></td><td colspan="2"><span data-token="--space-2"></span></td></tr>
+          <tr><td>Square corner / ring width</td><td><code>--radius-xs</code>, <code>--border-width-thick</code></td><td colspan="2"><span data-token="--radius-xs"></span> · <span data-token="--border-width-thick"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="caterer-section__head"&gt;
+  &lt;h2 id="cert-title"&gt;Food handler certificate&lt;/h2&gt;
+  &lt;span class="status status--suspended"&gt;Expired&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class</th><th scope="col">Shape</th><th scope="col">Tone</th></tr></thead><tbody>
+        <tr><td><code>.status</code></td><td>Dot</td><td>Muted (base)</td></tr>
+        <tr><td><code>--open</code></td><td>Dot</td><td>Accent</td></tr>
+        <tr><td><code>--replied</code> <code>--published</code></td><td>Dot</td><td>Success</td></tr>
+        <tr><td><code>--pending</code> <code>--held</code></td><td>Dot</td><td>Warning</td></tr>
+        <tr><td><code>--hidden</code></td><td>Dot</td><td>Muted</td></tr>
+        <tr><td><code>--changes</code></td><td>Square</td><td>Warning</td></tr>
+        <tr><td><code>--declined</code> <code>--suspended</code></td><td>Square</td><td>Danger</td></tr>
+        <tr><td><code>--closed</code> <code>--removed</code></td><td>Ring</td><td>Subtle</td></tr>
+        <tr><td><code>--draft</code></td><td>Ring</td><td>Muted</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <ul>
+        <li><a href="../../mocks/pages/inbox/default.html">pages/inbox/default</a> and <a href="../../mocks/pages/dashboard-enquiries/default.html">pages/dashboard-enquiries/default</a> (open, replied, declined, closed)</li>
+        <li><a href="../../mocks/pages/admin-caterers/default.html">pages/admin-caterers/default</a> (published, pending, changes, suspended, draft, removed)</li>
+        <li><a href="../../mocks/pages/admin-reviews/default.html">pages/admin-reviews/default</a> (held, hidden)</li>
+        <li><a href="../../mocks/pages/admin-caterer/certificate-expired.html">pages/admin-caterer/certificate-expired</a> (Expired)</li>
+        <li><a href="../../mocks/pages/account/default.html">pages/account/default</a> and <a href="../../mocks/pages/account/bounced.html">bounced</a> (Verified, Current, Emails bouncing)</li>
+        <li><a href="../../mocks/pages/admin-changes/default.html">pages/admin-changes/default</a> (Reverted by …)</li>
+      </ul>
+      <p>Drift fixed during extraction: modifiers were reused for words outside their record type (Valid, Verified and Current on <code>--published</code>; Expired on <code>--suspended</code>; Emails bouncing on <code>--declined</code>). The system keeps this, because the modifier names a shape and tone, and documents the mapping above. In the caterer inbox the current row sits on <code>--color-bg-subtle</code>, a background none of the status text pairs had been checked on; those pairs are listed for checking.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

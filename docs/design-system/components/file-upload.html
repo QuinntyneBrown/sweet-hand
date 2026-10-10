@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>File upload — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand file upload: label-as-button trigger, file row with replace and remove, round drop tile; uploading, processing, invalid, failed, full and dragging states in both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Inputs</p>
+      <h1>File upload</h1>
+      <p class="ds-lead">Caterers upload two kinds of file: photos of their food and a copy of their food handler certificate. The native file input does the work; a button-styled label, a file row and an optional drop tile make it look like Sweet Hand.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;input type="file"&gt;</code></span><span class="ds-pill"><code>.file-input</code></span><span class="ds-pill"><code>.file-row</code></span><span class="ds-pill"><code>.upload-tile</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The control is always a real <code>&lt;input type="file" class="file-input visually-hidden"&gt;</code>. It is hidden visually but stays in the tab order, and the visible part is the <code>&lt;label for&gt;</code> right after it, styled as a <a href="button.html">button</a>. Clicking, tapping or pressing Space on the focused input opens the device picker: on a phone that offers the camera and the photo library (L2-045.1).</p>
+      <ul>
+        <li><b>Photos</b> (<code>pages/profile-photos</code>): "Add photos" is the screen's one primary button. Several files at once (<code>multiple</code>), JPEG, PNG, WebP or HEIC, under 15 MB, at least 800 pixels on the shorter side (L2-041). Each file becomes a <a href="photo-tile.html">photo tile</a> that shows its own progress.</li>
+        <li><b>Certificate</b> (<code>pages/profile-certificate</code>): one optional file, PDF, JPEG or PNG up to 10 MB, shown as a <code>.file-row</code> with Replace and Remove once uploaded. Only the caterer and operators ever see it.</li>
+        <li><b>Drop tile</b> (<code>.upload-tile</code>): a round dashed target that also accepts dragged files. It is in the kit but in no mock yet; when used it is an extra way in, beside the button, never the only one.</li>
+      </ul>
+      <p>Don't use a file upload to collect a business licence, ID or anything the platform would appear to certify. Food handler details are the caterer's own statement (AGENTS.md); the certificate copy is optional.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="field" style="width: 100%; max-width: 30rem;">
+            <span class="field__label" id="fu-anat-label">Copy of certificate <span class="optional">(optional)</span></span>
+            <div class="file-row" role="group" aria-labelledby="fu-anat-label">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>
+              <span class="file-row__name"><span>food-handler-certificate.pdf</span><span class="file-row__meta">PDF · 1.2 MB · uploaded Tue 2 Sep</span></span>
+              <span class="cluster"><input class="file-input visually-hidden" id="fu-anat-file" type="file" accept="application/pdf,image/jpeg,image/png"><label class="btn btn--sm" for="fu-anat-file">Replace<span class="visually-hidden"> food-handler-certificate.pdf</span></label><button class="btn btn--sm btn--ghost" type="button">Remove<span class="visually-hidden"> food-handler-certificate.pdf</span></button></span>
+            </div>
+            <span class="field__help">PDF, JPEG or PNG, up to 10 MB</span>
+          </div>
+          <span class="ds-callout" style="left: 10%; top: 40%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 30%; top: 30%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 34%; top: 60%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 70%; top: 34%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 12%; top: 84%;" aria-hidden="true">5</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>File icon</b><small>24-unit outline document icon, decorative.</small></div></li>
+          <li><div><b>File name</b><small>As uploaded, wraps anywhere (<code>overflow-wrap: anywhere</code>) so a long camera name never overflows.</small></div></li>
+          <li><div><b>Meta</b><small>Type · size · when, in <code>--text-body-sm</code> <code>--color-fg-muted</code>; the error in a failed row.</small></div></li>
+          <li><div><b>Actions</b><small>"Replace" is a small label-button for a hidden file input; "Remove" is a small ghost button. Both name the file for screen readers.</small></div></li>
+          <li><div><b>Help</b><small>Accepted types and limits, always visible before choosing a file.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Button trigger</h3>
+      <p>The input comes first, then its label with the button classes. The <code>.file-input:focus-visible + label</code> rule moves the focus ring onto the visible label. Pick the button variant by importance: primary on the photo manager, secondary with an upload icon for the optional certificate, small inside a file row.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <input class="file-input visually-hidden" id="fu-v-photos" type="file" accept="image/jpeg,image/png,image/webp,image/heic" multiple aria-describedby="fu-v-photos-help"><label class="btn btn--primary" for="fu-v-photos"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add photos</label>
+          <input class="file-input visually-hidden" id="fu-v-cert" type="file" accept="application/pdf,image/jpeg,image/png" aria-describedby="fu-v-cert-help"><label class="btn" for="fu-v-cert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 16v4h16v-4"/></svg>Upload a copy</label>
+        </div>
+        <div class="ds-example__caption"><span id="fu-v-photos-help">Photos: JPEG, PNG, WebP or HEIC · under 15 MB · at least 800 pixels on the shorter side</span><span id="fu-v-cert-help">Certificate: PDF, JPEG or PNG, up to 10 MB</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;input class="file-input visually-hidden" id="photo-upload" type="file"
+       accept="image/jpeg,image/png,image/webp,image/heic" multiple aria-describedby="upload-help"&gt;
+&lt;label class="btn btn--primary" for="photo-upload"&gt;&lt;svg class="icon" aria-hidden="true" …&gt;…&lt;/svg&gt;Add photos&lt;/label&gt;
+&lt;p class="field__help" id="upload-help"&gt;JPEG, PNG, WebP or HEIC · under 15 MB · at least 800 pixels on the shorter side&lt;/p&gt;</code></pre></details>
+      </div>
+
+      <h3>File row</h3>
+      <p>Once a single file is attached it is shown as a row, not as the input's native "No file chosen" text. The row is a labelled group so the actions are read in context.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="file-row" role="group" aria-label="Copy of certificate">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>
+            <span class="file-row__name"><span>certificate-2021.pdf</span><span class="file-row__meta">PDF · 0.8 MB · uploaded 14 Jan 2022</span></span>
+            <span class="cluster"><input class="file-input visually-hidden" id="fu-row-file" type="file" accept="application/pdf,image/jpeg,image/png"><label class="btn btn--sm" for="fu-row-file">Replace<span class="visually-hidden"> certificate-2021.pdf</span></label><button class="btn btn--sm btn--ghost" type="button">Remove<span class="visually-hidden"> certificate-2021.pdf</span></button></span>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>From <code>pages/profile-certificate/expiring</code> (Desmond Greaves, Cou-Cou).</span></div>
+      </div>
+
+      <h3>Upload tile (drop target)</h3>
+      <p>A round dashed tile the size of a photo, meant as the last cell of the photo grid on large screens: it echoes the round food photos it will become. It is a label for its own hidden input, so it works by click, tap and keyboard as well as by dropping files on it.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <input class="file-input visually-hidden" id="fu-tile" type="file" accept="image/jpeg,image/png,image/webp,image/heic" multiple><label class="upload-tile" for="fu-tile"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add photos</label>
+          <span class="upload-tile" data-state="dragging" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 16v4h16v-4"/></svg>Drop to upload</span>
+        </div>
+        <div class="ds-example__caption"><span>Default and dragging (<code>data-state="dragging"</code>, set while files are over it). Not in the mocks yet.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;input class="file-input visually-hidden" id="photo-drop" type="file" accept="image/jpeg,image/png,image/webp,image/heic" multiple&gt;
+&lt;label class="upload-tile" for="photo-drop"&gt;&lt;svg class="icon" aria-hidden="true" …&gt;…&lt;/svg&gt;Add photos&lt;/label&gt;
+&lt;!-- script: on dragenter set data-state="dragging"; on dragleave/drop remove it --&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>The trigger takes the <a href="button.html">button</a> sizes: large (52px) in the photos empty state, medium (44px) in the toolbar and the certificate form, small (36px) inside a file row. The tile is up to 10rem across, the same as a photo tile.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <input class="file-input visually-hidden" id="fu-s-sm" type="file"><label class="btn btn--sm" for="fu-s-sm">Replace</label>
+          <input class="file-input visually-hidden" id="fu-s-md" type="file"><label class="btn btn--primary" for="fu-s-md"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add photos</label>
+          <input class="file-input visually-hidden" id="fu-s-lg" type="file"><label class="btn btn--primary btn--lg" for="fu-s-lg"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add photos</label>
+        </div>
+        <div class="ds-example__caption"><span>Small · 36px (row), medium · 44px (toolbar), large · 52px (empty state).</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover, focus and dragging are forced with <code>data-state</code>; disabled uses the input's real <code>disabled</code> (the <code>.file-input:disabled + .btn</code> rule dims the label).</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">File upload states</caption>
+        <thead><tr><th scope="col">Part</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Disabled</th><th scope="col">Dragging / failed</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Button trigger</th>
+            <td><input class="file-input visually-hidden" id="fu-m1" type="file"><label class="btn btn--primary" for="fu-m1">Add photos</label></td>
+            <td><input class="file-input visually-hidden" id="fu-m2" type="file"><label class="btn btn--primary" for="fu-m2" data-state="hover">Add photos</label></td>
+            <td><input class="file-input visually-hidden" id="fu-m3" type="file"><label class="btn btn--primary" for="fu-m3" data-state="focus">Add photos</label></td>
+            <td><input class="file-input visually-hidden" id="fu-m4" type="file" disabled><label class="btn btn--primary" for="fu-m4">Add photos</label></td>
+            <td><small class="text-muted">Not used</small></td></tr>
+          <tr><th scope="row">Upload tile</th>
+            <td><span class="upload-tile" style="width: 7rem;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add</span></td>
+            <td><span class="upload-tile" style="width: 7rem;" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add</span></td>
+            <td><span class="upload-tile" style="width: 7rem;" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add</span></td>
+            <td><span class="upload-tile" style="width: 7rem;" data-state="disabled"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add</span></td>
+            <td><span class="upload-tile" style="width: 7rem;" data-state="dragging"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 16v4h16v-4"/></svg>Drop</span></td></tr>
+          <tr><th scope="row">File row</th>
+            <td colspan="3"><div class="file-row" style="min-width: 18rem;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg><span class="file-row__name"><span>bev-certificate.jpg</span><span class="file-row__meta">JPEG · 2.4 MB</span></span></div></td>
+            <td><small class="text-muted">Actions disabled while saving</small></td>
+            <td><div class="file-row" data-state="failed" style="min-width: 18rem;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><span class="file-row__name"><span>scan-0412.tiff</span><span class="file-row__meta">This file isn’t a PDF, JPEG or PNG, so nothing was saved</span></span></div></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><span class="cluster"><span class="upload-tile" style="width: 7rem;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add</span><span class="upload-tile" style="width: 7rem;" data-state="dragging"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 16v4h16v-4"/></svg>Drop</span></span><div class="file-row"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg><span class="file-row__name"><span>food-handler-certificate.pdf</span><span class="file-row__meta">PDF · 1.2 MB</span></span></div><div class="file-row" data-state="failed"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><span class="file-row__name"><span>scan-0412.tiff</span><span class="file-row__meta">Not a PDF, JPEG or PNG</span></span></div></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><span class="cluster"><span class="upload-tile" style="width: 7rem;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add</span><span class="upload-tile" style="width: 7rem;" data-state="dragging"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 16v4h16v-4"/></svg>Drop</span></span><div class="file-row"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg><span class="file-row__name"><span>food-handler-certificate.pdf</span><span class="file-row__meta">PDF · 1.2 MB</span></span></div><div class="file-row" data-state="failed"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><span class="file-row__name"><span>scan-0412.tiff</span><span class="file-row__meta">Not a PDF, JPEG or PNG</span></span></div></div></div>
+      </div>
+
+      <h3>The upload journey (photos)</h3>
+      <p>These are page-level states of the photo manager; each has a mock.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">State</th><th scope="col">What shows</th><th scope="col">Mock</th></tr></thead>
+        <tbody>
+          <tr><td>Empty</td><td>Empty state with placeholder plates and a large primary "Add photos"; help line under it.</td><td><a href="../../mocks/pages/profile-photos/empty.html">empty</a></td></tr>
+          <tr><td>Uploading</td><td>A tile per file with the photo under a scrim showing "64%", a labelled progress bar ("Uploading IMG_2076.heic") and "Cancel upload of IMG_2076.heic". The page status reads "Uploading 2 photos…" with a pulsing dot. The button stays enabled so more can be added.</td><td><a href="../../mocks/pages/profile-photos/uploading.html">uploading</a></td></tr>
+          <tr><td>Processing</td><td>Upload done, server still checking and resizing (L2-041): a placeholder plate with a clock, "Processing", and an info alert if it takes long: "Your new photo is saved. It will appear on your page by itself as soon as it’s ready."</td><td><a href="../../mocks/pages/profile-photos/processing.html">processing</a></td></tr>
+          <tr><td>Invalid</td><td>A form summary "2 photos weren’t added" lists each file in bold with its reason; good files in the same batch are kept.</td><td><a href="../../mocks/pages/profile-photos/invalid.html">invalid</a></td></tr>
+          <tr><td>Failed</td><td>A network failure is a danger toast that stays until dismissed: "IMG_2077.heic didn’t upload. Check your connection and try again." with Retry.</td><td><a href="../../mocks/notifications/dashboard-toast/danger.html">dashboard-toast/danger</a></td></tr>
+          <tr><td>Full</td><td>30 of 30: the input is <code>disabled</code>, the label dims, and the help line changes to "You can have up to 30 photos. Remove one to add another."</td><td><a href="../../mocks/pages/profile-photos/full.html">full</a></td></tr>
+        </tbody>
+      </table></div>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="form-summary">
+            <h3>2 photos weren’t added</h3>
+            <ul>
+              <li><strong>IMG_2041.jpg</strong>: Photos must be under 15 MB and at least 800 pixels on the shorter side</li>
+              <li><strong>menu-scan.jpg</strong>: This file isn’t a JPEG, PNG, WebP or HEIC photo, so nothing was saved</li>
+            </ul>
+          </div>
+          <div class="stack stack--sm">
+            <span class="cluster"><input class="file-input visually-hidden" id="fu-full" type="file" accept="image/jpeg,image/png,image/webp,image/heic" multiple aria-describedby="fu-full-help" disabled><label class="btn btn--primary" for="fu-full"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add photos</label></span>
+            <p class="field__help" id="fu-full-help">You can have up to 30 photos. Remove one to add another.</p>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Invalid summary (static here; on the page it takes focus) and the full state.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Phones</b>: the picker is the operating system's: camera, photo library or files. Never add <code>capture</code>, which would force the camera and hide the library. Uploading, reordering and choosing a cover all work without horizontal scrolling (L2-045.1).</li>
+        <li>The file row wraps: below about 24rem the actions drop under the name, left-aligned (<code>flex-wrap</code>, <code>--space-2</code> row gap). Names break anywhere rather than overflow.</li>
+        <li>Photo tiles are 2 per row on phones, growing with the photo manager grid; the drop tile, when used, is the last cell and only from 62rem, where dragging files from a desktop is realistic.</li>
+        <li>The toolbar trigger keeps its natural width; it does not become full width, because the photo grid below already fills the screen.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The trigger is a button and inherits its tokens. The tile reads <code>--color-border-strong</code> (dashed, 2px), <code>--color-fg-muted</code> text, <code>--color-fg-default</code> on hover, and pepper while dragging: <code>--color-accent</code> solid border, <code>--color-accent-subtle</code> fill, <code>--color-fg-accent</code> text, because dragging over it is a "you are here" moment. The file row is a hairline <code>--color-border-default</code> box (a list item edge, not a card shadow); failed swaps to <code>--color-danger-border</code> and <code>--color-danger-fg</code> meta.</p>
+      <p>In dark the dashed border keeps 3:1 on the near-black canvas and the dragging fill becomes the deep pepper <code>--palette-pepper-950</code>. Nothing on this page has component tokens; re-skin through the semantic ones.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>The native file input is the control; there is no APG pattern for it. The label is its accessible name ("Add photos", "Replace food-handler-certificate.pdf"); <code>aria-describedby</code> points at the accepted types and limits. Drag and drop is an enhancement: every drop target is also a label that opens the picker (WCAG 2.5.7).</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Focuses the hidden input; the ring shows on its label.</td></tr>
+        <tr><td><kbd>Space</kbd> / <kbd>Enter</kbd></td><td>Opens the system file picker.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Closes the picker (system behaviour); focus returns to the input.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>Never use <code>display: none</code> or <code>hidden</code> on the input: it would leave the tab order and the label would become an unreachable click target. After files are chosen focus stays on the input; after "Remove" focus moves to the trigger that replaces the row.</p>
+      <h3>Labelling and announcements</h3>
+      <ul>
+        <li>Repeated actions name their file: "Replace food-handler-certificate.pdf" (the file name is visually hidden), "Cancel upload of IMG_2076.heic", "Move photo 2 up".</li>
+        <li>Each progress bar has <code>role="progressbar"</code>, <code>aria-label</code> and <code>aria-valuenow</code>; the percentage drawn over the photo is <code>aria-hidden</code> so it is not read twice.</li>
+        <li>The page status ("Uploading 2 photos…", then "Saved") is a polite <code>role="status"</code>; per-percent changes are not announced.</li>
+        <li>Rejected files are listed in a summary with <code>role="alert"</code> that receives focus; a network failure is a <code>role="alert"</code> toast that does not auto-dismiss.</li>
+      </ul>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Primary trigger label</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-action|--color-action" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Tile dashed border on page</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Tile text on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Dragging text on pepper tint</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Dragging border on page</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>File meta</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Failed meta</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Upload percentage on scrim</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-scrim|--color-bg-scrim" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Rejected files summary</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-danger-bg" data-min="4.5"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>The tile's border and text colours change over <code>--duration-fast</code>; progress bars fill over <code>--duration-deliberate</code>; the status dot pulses. Reduced motion stops the pulse and makes the fill instant; the percentages still update.</p>
+      <h3>Touch</h3>
+      <p>Medium and large triggers meet 44px. The small Replace and Remove buttons (36px) sit in a row with <code>--space-3</code> between them, clearing the 24px minimum with spacing; the tile is far larger than any minimum.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Triggers are verb phrases: "Add photos", "Upload a copy", "Replace photo", "Replace". Not "Browse…" or "Choose file".</li>
+        <li>State the limits before the choice, with middle dots between them: "JPEG, PNG, WebP or HEIC · under 15 MB · at least 800 pixels on the shorter side".</li>
+        <li>Rejection messages use L2-041's words and say what happened to the file: "Photos must be under 15 MB and at least 800 pixels on the shorter side", "This file isn’t a JPEG, PNG, WebP or HEIC photo, so nothing was saved".</li>
+        <li>Name files exactly as uploaded; sizes in MB with one decimal ("1.2 MB"); dates like "uploaded Tue 2 Sep".</li>
+        <li>Counts are "6 of 30"; the full message tells people how to make room: "Remove one to add another."</li>
+        <li>Reassure when processing is slow: "You don’t need to upload it again."</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><input class="file-input visually-hidden" id="fu-dd1" type="file" disabled><label class="btn btn--primary" for="fu-dd1">Add photos</label><small class="text-muted">You can have up to 30 photos. Remove one to add another.</small></div><figcaption>At the limit, disable the input and say how to make room.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><input class="file-input visually-hidden" id="fu-dd2" type="file" disabled><label class="btn btn--primary" for="fu-dd2">Add photos</label></div><figcaption>Don't put <code>aria-disabled</code> on the label (as <code>profile-photos/full</code> did): a label has no disabled state, and with no reason shown the dimmed button is a dead end.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="form-summary"><p><strong>menu-scan.jpg</strong>: This file isn’t a JPEG, PNG, WebP or HEIC photo, so nothing was saved</p></div></div><figcaption>Name the rejected file and the rule; keep the good files from the same batch.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="upload-tile" style="width: 8rem;" data-state="dragging"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 16v4h16v-4"/></svg>Drop files</span></div><figcaption>Don't make dragging the only way in, or label a target "Drop files" with no button: phones and keyboards cannot drag.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Tile border</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Tile text</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Tile hover border and text</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Dragging border</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Dragging fill</td><td><code>--color-accent-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td></tr>
+          <tr><td>Dragging text</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+          <tr><td>Disabled tile</td><td><code>--color-fg-disabled</code>, border <code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td></tr>
+          <tr><td>File row border</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>File meta</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Failed row border</td><td><code>--color-danger-border</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-border" data-swatch></i><span data-token="--color-danger-border"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-border" data-swatch></i><span data-token="--color-danger-border"></span></span></td></tr>
+          <tr><td>Failed meta</td><td><code>--color-danger-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td></tr>
+          <tr><td>Progress overlay</td><td><code>--color-bg-scrim</code> / <code>--color-fg-on-scrim</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-scrim" data-swatch></i><span data-token="--color-bg-scrim"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-scrim" data-swatch></i><span data-token="--color-bg-scrim"></span></span></td></tr>
+          <tr><td>Tile size / border</td><td><code>min(100%, 10rem)</code>, <code>--border-width-thick</code> dashed, <code>--radius-full</code></td><td colspan="2"><span data-token="--border-width-thick"></span></td></tr>
+          <tr><td>File row padding / radius / gap</td><td><code>--space-4</code> / <code>--radius-md</code> / <code>--space-2 --space-4</code></td><td colspan="2"><span data-token="--space-4"></span> / <span data-token="--radius-md"></span></td></tr>
+          <tr><td>Trigger heights</td><td><code>--control-height-sm/md/lg</code></td><td colspan="2"><span data-token="--control-height-sm"></span> / <span data-token="--control-height-md"></span> / <span data-token="--control-height-lg"></span></td></tr>
+          <tr><td>Motion</td><td><code>--duration-fast</code>, <code>--duration-deliberate</code>, <code>--duration-loop</code></td><td colspan="2"><span data-token="--duration-fast"></span> · <span data-token="--duration-deliberate"></span> · <span data-token="--duration-loop"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="field"&gt;
+  &lt;span class="field__label" id="file-label"&gt;Copy of certificate &lt;span class="optional"&gt;(optional)&lt;/span&gt;&lt;/span&gt;
+  &lt;div class="file-row" role="group" aria-labelledby="file-label"&gt;
+    &lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;
+    &lt;span class="file-row__name"&gt;&lt;span&gt;food-handler-certificate.pdf&lt;/span&gt;&lt;span class="file-row__meta"&gt;PDF · 1.2 MB · uploaded Tue 2 Sep&lt;/span&gt;&lt;/span&gt;
+    &lt;span class="cluster"&gt;
+      &lt;input class="file-input visually-hidden" id="cert-file" type="file" accept="application/pdf,image/jpeg,image/png"&gt;
+      &lt;label class="btn btn--sm" for="cert-file"&gt;Replace&lt;span class="visually-hidden"&gt; food-handler-certificate.pdf&lt;/span&gt;&lt;/label&gt;
+      &lt;button class="btn btn--sm btn--ghost" type="button"&gt;Remove&lt;span class="visually-hidden"&gt; food-handler-certificate.pdf&lt;/span&gt;&lt;/button&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;span class="field__help"&gt;PDF, JPEG or PNG, up to 10 MB&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>input.file-input.visually-hidden</code></td><td>The real control, hidden but focusable. Must come immediately before its label.</td></tr>
+        <tr><td><code>label.btn</code> (any variant) after it</td><td>Visible trigger; gets the focus ring and the disabled look from the input.</td></tr>
+        <tr><td><code>.upload-tile</code></td><td>Round dashed drop target; <code>data-state="dragging"</code> while files are over it.</td></tr>
+        <tr><td><code>.file-row</code>, <code>__name</code>, <code>__meta</code></td><td>One attached file with actions; <code>data-state="failed"</code> for a rejected one.</td></tr>
+        <tr><td><code>accept</code>, <code>multiple</code></td><td>Filter the picker (the server checks the real content, L2-041.3); allow several photos.</td></tr>
+        <tr><td><code>disabled</code> on the input</td><td>Full or saving; dims the label.</td></tr>
+        <tr><td><code>data-state="hover|focus|disabled|dragging|failed"</code></td><td>Documentation and mocks only (except <code>dragging</code>, which script sets).</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/profile-photos/default.html">pages/profile-photos/default</a> (primary label trigger in the toolbar)</li>
+        <li><a href="../../mocks/pages/profile-photos/empty.html">pages/profile-photos/empty</a>, <a href="../../mocks/pages/profile-photos/uploading.html">uploading</a>, <a href="../../mocks/pages/profile-photos/processing.html">processing</a>, <a href="../../mocks/pages/profile-photos/invalid.html">invalid</a>, <a href="../../mocks/pages/profile-photos/full.html">full</a></li>
+        <li><a href="../../mocks/pages/profile-certificate/default.html">pages/profile-certificate/default</a> (file row), <a href="../../mocks/pages/profile-certificate/empty.html">empty</a> (secondary trigger), <a href="../../mocks/pages/profile-certificate/saving.html">saving</a> (disabled actions)</li>
+        <li><a href="../../mocks/dialogs/photo-details/default.html">dialogs/photo-details/default</a> ("Replace photo")</li>
+        <li><a href="../../mocks/notifications/dashboard-toast/danger.html">notifications/dashboard-toast/danger</a> (failed upload)</li>
+      </ul>
+      <p>Drift fixed during extraction: <code>profile-photos/full</code> put <code>aria-disabled="true"</code> on the label; the input's <code>disabled</code> is the only state needed. <code>profile-certificate/saving</code> swapped the save button's label to "Saving…" (see <a href="button.html">button</a>). <code>.upload-tile</code> and <code>.file-row[data-state="failed"]</code> exist in the kit but no mock shows them; both are documented here with copy taken from L2-041 and the certificate help text. The tile had no hover or dragging styles in the kit; both were added with tokens.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

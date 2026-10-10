@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Checkbox — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand checkboxes: single, with description, grouped in a fieldset and option grid, nested regions with indeterminate parents; checked, indeterminate, invalid and disabled in both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Inputs</p>
+      <h1>Checkbox</h1>
+      <p class="ds-lead">Checkboxes let people pick any number of options: the islands a caterer cooks from, the areas they serve, the dietary tags on a dish. A single checkbox records one agreement, like the privacy notice.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;input type="checkbox"&gt;</code></span><span class="ds-pill"><code>.choice</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A checkbox is a native <code>&lt;input type="checkbox"&gt;</code> wrapped in a <code>&lt;label class="choice"&gt;</code>, so the whole row (box, label and description) is one click target. Each box is independent: ticking Guyanese does not untick Trinidadian &amp; Tobagonian.</p>
+      <ul>
+        <li><b>Use it</b> for "pick any" lists that are short enough to show in full (18 cuisines, 8 occasions, 8 dietary tags, the areas in one region), and for one agreement that must be ticked before submitting ("I agree to the privacy notice", "I understand this review can't be restored").</li>
+        <li><b>Use a <a href="radio-group.html">radio group</a></b> when exactly one option must be chosen (primary cuisine, report reason, operator role).</li>
+        <li><b>Use a <a href="switch.html">switch</a></b> only for a setting that takes effect the moment it changes. A checkbox inside a form waits for the form to save (or autosave).</li>
+        <li><b>Use the <a href="filter-list.html">filter list</a></b> for the listing's cuisine and area filters on large screens; the same choices become checkboxes inside the phone filter sheet (<code>dialogs/filters</code>) and the tablet filter dropdowns.</li>
+        <li><b>Use a <a href="combobox.html">combobox</a></b> when the list is too long to scan, such as postal codes.</li>
+      </ul>
+      <p>The checked box fills with pepper red (<code>--color-accent</code>). That is the brand's one meaning for pepper: "selected". Never colour a checkbox ink or green to make it look like an action or a success.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <label class="choice" style="max-width: 20rem;"><input type="checkbox" name="anat-cover" checked><span class="choice__text">Use as cover photo<small>Shown on your listing card and when your page is shared</small></span></label>
+          <span class="ds-callout" style="left: 9%; top: 26%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 32%; top: 14%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 52%; top: 58%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 88%; top: 18%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Box</b><small>20px square (<code>--icon-size-md</code>), <code>--radius-xs</code> corners, 1px <code>--color-border-strong</code>. Checked: pepper fill with a clipped white tick; indeterminate: a 2px bar.</small></div></li>
+          <li><div><b>Label</b><small>Body text in <code>.choice__text</code>. It is the accessible name; keep it to the option itself ("Halal", "Scarborough").</small></div></li>
+          <li><div><b>Description (optional)</b><small>A <code>&lt;small&gt;</code> inside <code>.choice__text</code>, in <code>--color-fg-muted</code>: a consequence or a count ("14 caterers").</small></div></li>
+          <li><div><b>Hit area</b><small>The whole <code>&lt;label class="choice"&gt;</code> row, <code>--space-3</code> between box and text; clicking anywhere toggles.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Single, with a consent summary</h3>
+      <p>A required agreement is one checkbox whose label links to the full text. <code>.consent-summary</code> sits under it, indented to the label, and says in plain words what the person agrees to. It is tied to the box with <code>aria-describedby</code>.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="field"><label class="choice"><input type="checkbox" id="cb-consent" name="consent" required aria-describedby="cb-consent-summary"><span class="choice__text"><span>I agree to the <a href="../../mocks/pages/privacy/default.html">privacy notice</a></span></span></label><p class="consent-summary" id="cb-consent-summary">We use your name and email to run your account and pass your enquiries to caterers. Caterers see your name, never your email or phone unless you share them. Everything is stored in Canada.</p></div>
+        </div>
+        <div class="ds-example__caption"><span>From <code>pages/register</code>. The link inside the label is its own focus stop; clicking the label text outside the link toggles the box.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="field"&gt;
+  &lt;label class="choice"&gt;&lt;input type="checkbox" id="consent" name="consent" required aria-describedby="consent-summary"&gt;
+    &lt;span class="choice__text"&gt;&lt;span&gt;I agree to the &lt;a href="/privacy"&gt;privacy notice&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;p class="consent-summary" id="consent-summary"&gt;We use your name and email to run your account…&lt;/p&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>With a description or a count</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <label class="choice"><input type="checkbox" name="desc-cover"><span class="choice__text">Use as cover photo<small>Shown on your listing card and when your page is shared</small></span></label>
+          <label class="choice"><input type="checkbox" name="desc-cuisine" value="Jamaican" checked><span class="choice__text">Jamaican <small>14 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="desc-cuisine" value="Bahamian" disabled><span class="choice__text">Bahamian <small>0 caterers</small></span></label>
+        </div>
+        <div class="ds-example__caption"><span>Description from <code>dialogs/photo-details</code>; counts from the phone filter sheet, where a zero-count cuisine is disabled rather than hidden so the list never jumps.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;label class="choice"&gt;&lt;input type="checkbox" name="cover"&gt;
+  &lt;span class="choice__text"&gt;Use as cover photo&lt;small&gt;Shown on your listing card and when your page is shared&lt;/small&gt;&lt;/span&gt;&lt;/label&gt;
+&lt;label class="choice"&gt;&lt;input type="checkbox" name="cuisine" value="Bahamian" disabled&gt;
+  &lt;span class="choice__text"&gt;Bahamian &lt;small&gt;0 caterers&lt;/small&gt;&lt;/span&gt;&lt;/label&gt;</code></pre></details>
+      </div>
+
+      <h3>Group in a fieldset, laid out with <code>.option-grid</code></h3>
+      <p>Related boxes share a <code>&lt;fieldset&gt;</code> whose <code>&lt;legend&gt;</code> is the question. <code>.option-grid</code> puts them in one column on phones and two from 36rem. Dietary and allergen tags are structured data, so they are always checkboxes, never free text in the description.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <fieldset>
+            <legend>Dietary tags <span class="text-muted">(optional)</span></legend>
+            <div class="option-grid">
+              <label class="choice"><input type="checkbox" name="tags" value="Vegetarian"><span class="choice__text">Vegetarian</span></label>
+              <label class="choice"><input type="checkbox" name="tags" value="Vegan" checked><span class="choice__text">Vegan</span></label>
+              <label class="choice"><input type="checkbox" name="tags" value="Gluten-free" checked><span class="choice__text">Gluten-free</span></label>
+              <label class="choice"><input type="checkbox" name="tags" value="Dairy-free"><span class="choice__text">Dairy-free</span></label>
+              <label class="choice"><input type="checkbox" name="tags" value="Halal"><span class="choice__text">Halal</span></label>
+              <label class="choice"><input type="checkbox" name="tags" value="Contains nuts"><span class="choice__text">Contains nuts</span></label>
+              <label class="choice"><input type="checkbox" name="tags" value="Contains shellfish"><span class="choice__text">Contains shellfish</span></label>
+              <label class="choice"><input type="checkbox" name="tags" value="Spicy" checked><span class="choice__text">Spicy</span></label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="ds-example__caption"><span>The "Paw paw chow" dish from <code>dialogs/dish</code>: Vegan, Gluten-free, Spicy.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;fieldset&gt;
+  &lt;legend&gt;Dietary tags &lt;span class="text-muted"&gt;(optional)&lt;/span&gt;&lt;/legend&gt;
+  &lt;div class="option-grid"&gt;
+    &lt;label class="choice"&gt;&lt;input type="checkbox" name="tags" value="Vegan"&gt;&lt;span class="choice__text"&gt;Vegan&lt;/span&gt;&lt;/label&gt;
+    …
+  &lt;/div&gt;
+&lt;/fieldset&gt;</code></pre></details>
+      </div>
+
+      <h3>Nested: a region with its areas</h3>
+      <p>In <code>pages/profile-cuisines</code> each region has an "All of …" parent above its areas. The parent is checked when every area is, unchecked when none is, and <b>indeterminate</b> (mixed) when some are. Ticking the parent ticks every area; unticking it clears them.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <fieldset class="stack stack--sm">
+            <legend>Durham</legend>
+            <label class="choice"><input type="checkbox" name="region" value="Durham" data-state="indeterminate" aria-describedby="cb-durham-count"><span class="choice__text">All of Durham<small id="cb-durham-count">2 of 8 areas</small></span></label>
+            <div class="option-grid" style="padding-left: var(--space-8);">
+              <label class="choice"><input type="checkbox" name="area" value="Ajax" checked><span class="choice__text">Ajax</span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Brock"><span class="choice__text">Brock</span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Clarington"><span class="choice__text">Clarington</span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Oshawa"><span class="choice__text">Oshawa</span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Pickering" checked><span class="choice__text">Pickering</span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Scugog"><span class="choice__text">Scugog</span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Uxbridge"><span class="choice__text">Uxbridge</span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Whitby"><span class="choice__text">Whitby</span></label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="ds-example__caption"><span>Pelau House serves Ajax and Pickering, so "All of Durham" is mixed. In the product set <code>input.indeterminate = true</code> from script; <code>data-state="indeterminate"</code> only draws it here.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;fieldset class="stack stack--sm"&gt;
+  &lt;legend&gt;Durham&lt;/legend&gt;
+  &lt;label class="choice"&gt;&lt;input type="checkbox" name="region" value="Durham" aria-describedby="durham-count"&gt;
+    &lt;span class="choice__text"&gt;All of Durham&lt;small id="durham-count"&gt;2 of 8 areas&lt;/small&gt;&lt;/span&gt;&lt;/label&gt;
+  &lt;div class="option-grid" style="padding-left: var(--space-8);"&gt; …areas… &lt;/div&gt;
+&lt;/fieldset&gt;
+&lt;script&gt;regionBox.indeterminate = checkedAreas &gt; 0 &amp;&amp; checkedAreas &lt; totalAreas;&lt;/script&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="Checkboxes have one size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Checkboxes have one size: a 20px box beside body text. The row, not the box, is the touch target, so there is no reason for a larger box; density comes from <code>.option-grid</code> columns, never from a smaller box.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover and focus are forced with <code>data-state</code>; checked, disabled and invalid use the real <code>checked</code>, <code>disabled</code> and <code>aria-invalid</code> attributes. Indeterminate is a DOM property (<code>indeterminate</code>) with no attribute, so docs draw it with <code>data-state="indeterminate"</code>.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Checkbox states</caption>
+        <thead><tr><th scope="col">Value</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Disabled</th><th scope="col">Invalid</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Unchecked</th>
+            <td><label class="choice"><input type="checkbox" name="m-u1"><span class="choice__text">Halal</span></label></td>
+            <td><label class="choice"><input type="checkbox" name="m-u2" data-state="hover"><span class="choice__text">Halal</span></label></td>
+            <td><label class="choice"><input type="checkbox" name="m-u3" data-state="focus"><span class="choice__text">Halal</span></label></td>
+            <td><label class="choice"><input type="checkbox" name="m-u4" disabled><span class="choice__text">Halal</span></label></td>
+            <td><label class="choice"><input type="checkbox" name="m-u5" aria-invalid="true"><span class="choice__text">Halal</span></label></td></tr>
+          <tr><th scope="row">Checked</th>
+            <td><label class="choice"><input type="checkbox" name="m-c1" checked><span class="choice__text">Vegan</span></label></td>
+            <td><label class="choice"><input type="checkbox" name="m-c2" checked data-state="hover"><span class="choice__text">Vegan</span></label></td>
+            <td><label class="choice"><input type="checkbox" name="m-c3" checked data-state="focus"><span class="choice__text">Vegan</span></label></td>
+            <td><label class="choice"><input type="checkbox" name="m-c4" checked disabled><span class="choice__text">Vegan</span></label></td>
+            <td><label class="choice"><input type="checkbox" name="m-c5" checked aria-invalid="true"><span class="choice__text">Vegan</span></label></td></tr>
+          <tr><th scope="row">Indeterminate</th>
+            <td><label class="choice"><input type="checkbox" name="m-i1" data-state="indeterminate"><span class="choice__text">All of Peel</span></label></td>
+            <td><small class="text-muted">As checked</small></td>
+            <td><small class="text-muted">As checked, plus ring</small></td>
+            <td><small class="text-muted">As checked disabled</small></td>
+            <td><small class="text-muted">Not used: the error sits on the group</small></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><label class="choice"><input type="checkbox" name="t-l1" checked><span class="choice__text">Weddings</span></label><label class="choice"><input type="checkbox" name="t-l2"><span class="choice__text">Private dinners</span></label><label class="choice"><input type="checkbox" name="t-l3" data-state="indeterminate"><span class="choice__text">All of York Region</span></label><label class="choice"><input type="checkbox" name="t-l4" aria-invalid="true"><span class="choice__text">I’m a person, not a bot</span></label><label class="choice"><input type="checkbox" name="t-l5" disabled><span class="choice__text">Cuban <small>0 caterers</small></span></label></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><label class="choice"><input type="checkbox" name="t-d1" checked><span class="choice__text">Weddings</span></label><label class="choice"><input type="checkbox" name="t-d2"><span class="choice__text">Private dinners</span></label><label class="choice"><input type="checkbox" name="t-d3" data-state="indeterminate"><span class="choice__text">All of York Region</span></label><label class="choice"><input type="checkbox" name="t-d4" aria-invalid="true"><span class="choice__text">I’m a person, not a bot</span></label><label class="choice"><input type="checkbox" name="t-d5" disabled><span class="choice__text">Cuban <small>0 caterers</small></span></label></div></div>
+      </div>
+      <h3>Group error</h3>
+      <p>When a rule applies to the whole group ("Choose between 1 and 5 cuisines"), the error goes under the legend and help, the fieldset lists it in <code>aria-describedby</code>, and only the boxes that break the rule get <code>aria-invalid="true"</code> (in <code>pages/profile-cuisines/invalid</code>, the six ticked cuisines). The <a href="form-layout.html">form summary</a> links to the first offending box.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <fieldset class="stack stack--sm" aria-describedby="cb-cuisine-error cb-cuisine-help">
+            <legend>Cuisines</legend>
+            <p class="field__help" id="cb-cuisine-help">Choose 1 to 5 islands or traditions you cook from.</p>
+            <p class="field__error" id="cb-cuisine-error">Choose between 1 and 5 cuisines</p>
+            <div class="option-grid">
+              <label class="choice"><input type="checkbox" name="g-cuisine" id="cb-c-grenadian" checked aria-invalid="true"><span class="choice__text">Grenadian</span></label>
+              <label class="choice"><input type="checkbox" name="g-cuisine" checked aria-invalid="true"><span class="choice__text">Guyanese</span></label>
+              <label class="choice"><input type="checkbox" name="g-cuisine"><span class="choice__text">Haitian</span></label>
+              <label class="choice"><input type="checkbox" name="g-cuisine" checked aria-invalid="true"><span class="choice__text">Jamaican</span></label>
+              <label class="choice"><input type="checkbox" name="g-cuisine" checked aria-invalid="true"><span class="choice__text">St. Lucian</span></label>
+              <label class="choice"><input type="checkbox" name="g-cuisine" checked aria-invalid="true"><span class="choice__text">Trinidadian &amp; Tobagonian</span></label>
+              <label class="choice"><input type="checkbox" name="g-cuisine" checked aria-invalid="true"><span class="choice__text">Vincentian</span></label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="ds-example__caption"><span>Six ticked, five allowed. The error names the rule, not the person's mistake.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Below 36rem</b> <code>.option-grid</code> is one column; long labels such as "Dominican (Dominican Republic)" or "Religious and cultural celebrations" wrap under themselves, never under the box.</li>
+        <li><b>From 36rem</b> the grid is two equal columns with <code>--space-6</code> between them. It never goes to three: in dialogs and the 40rem form column, three columns would truncate cuisine names.</li>
+        <li><b>Phones (XS/SM)</b>: L2-065 asks for 44px targets with 8px between them. A <code>.choice</code> row is about 32px today, so components.css needs a phone rule that raises the row to <code>--target-comfortable</code> and the grid row gap to <code>--space-2</code> (listed in the extraction report). Until then, do not pack checkboxes tighter than the option grid.</li>
+        <li><b>Filters</b>: from 62rem the listing uses the <a href="filter-list.html">filter list</a>; at 48–62rem the same options are checkboxes in a <a href="filter-trigger.html">filter dropdown</a>; below 48rem they are checkboxes in the full-screen filter <a href="sheet.html">sheet</a>.</li>
+        <li>Nested areas keep their <code>--space-8</code> indent at every width; the indent is the only thing that shows they belong to the region.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The checkbox reads semantic tokens directly; it has no component tokens. The box is <code>--color-bg-surface</code> with a <code>--color-border-strong</code> edge; checked and indeterminate fill with <code>--color-accent</code> and draw the mark in <code>--color-fg-on-accent</code>; invalid adds a 1px <code>--color-danger-solid</code> ring outside the border.</p>
+      <p>In dark the box takes the near-black surface (<code>--palette-stone-950</code>), the border stays <code>--palette-stone-500</code> (above 3:1 on both themes), and pepper lifts to <code>--palette-pepper-300</code> with a near-black tick, so the checked box stays the brightest thing in the row. Re-skin by overriding <code>--color-accent</code> on a wrapper, never by restyling <code>.choice input</code>; the same token drives the selected filter, the current tab and the focus ring, which must stay in step.</p>
+      <pre><code>/* Forced colours: the box keeps a system border and the tick uses the system highlight. */
+@media (forced-colors: active) { .choice input:checked { background: Highlight; border-color: Highlight; } }</code></pre>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native checkbox (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/">APG Checkbox</a>). <code>appearance: none</code> only restyles it; the role, the checked and mixed states, form submission and <code>required</code> all stay native. Groups are a <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code>, which screen readers announce on entering the group ("Cuisines, group").</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves to the next or previous checkbox. Every box is its own tab stop (unlike radios).</td></tr>
+        <tr><td><kbd>Space</kbd></td><td>Toggles. On an indeterminate parent, Space checks it and all its children.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Does not toggle; inside a form it submits, which is why autosaved profile forms have no implicit submit.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The shared ring (2px <code>--color-focus-ring</code>, 3px offset) draws around the box only, not the whole row, so it does not collide with neighbouring rows in the grid. Focus is never moved programmatically to a checkbox except from an error-summary link.</p>
+      <h3>Labelling</h3>
+      <ul>
+        <li>The wrapping label gives the name; no <code>for</code>/<code>id</code> is needed unless the error summary links to the box, which then needs an <code>id</code> (<code>#c-grenadian</code>).</li>
+        <li>Descriptions in <code>&lt;small&gt;</code> are part of the label, so they are read with the name. Use <code>aria-describedby</code> for anything outside the label: the consent summary, the group help, the error.</li>
+        <li>A label with a link ("I agree to the privacy notice") keeps the link short and the rest of the label clickable.</li>
+      </ul>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Box border on surface</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Checked fill on surface</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Checked fill in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface-raised" data-min="3"></span></div>
+        <div class="ds-pair"><span>Tick on checked fill</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Description text</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Invalid ring on surface</span><span class="ds-pair__ratio" data-contrast="--color-danger-solid|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Group error text</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on surface</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+      </div>
+      <p>Disabled boxes and labels (<code>--color-fg-disabled</code>) are exempt from contrast minimums (WCAG 1.4.3); they are only used for zero-count filter options, where the "0 caterers" description explains why.</p>
+      <h3>Motion</h3>
+      <p>Background and border colours transition over <code>--duration-fast</code>; the tick appears without animation. Reduced motion zeroes the duration.</p>
+      <h3>Touch</h3>
+      <p>The full label row is the target, so a tap on "Trinidadian &amp; Tobagonian" anywhere toggles it. See Responsive for the 44px phone row height that components.css still needs to meet L2-065 in full.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Labels are the option, in the form people use: cuisine names exactly as L2-007 lists them ("Trinidadian &amp; Tobagonian", "Barbadian (Bajan)", "St. Lucian"), area names from L2-010 ("East York", "Whitchurch-Stouffville").</li>
+        <li>The legend asks the question or names the set: "Cuisines", "Occasions", "Dietary tags", "Information involved". The help line says the rule: "Choose 1 to 5 islands or traditions you cook from."</li>
+        <li>An agreement label starts with "I": "I agree to the privacy notice", "I understand this review can't be restored", "I sell Caribbean food in Toronto or the GTA".</li>
+        <li>Descriptions are one short line: a consequence ("Shown on your listing card…") or a count ("14 caterers", "1 caterer", "0 caterers"; singular for one).</li>
+        <li>Errors state what to do: "Tick the box to agree to the privacy notice", "Choose between 1 and 5 cuisines". Never "Required" or "Invalid".</li>
+        <li>Parents read "All of Durham", not "Select all".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><label class="choice"><input type="checkbox" name="dd-1" data-state="indeterminate"><span class="choice__text">All of City of Toronto<small>3 of 6 areas</small></span></label></div><figcaption>Show the parent as mixed when only some of its areas are ticked.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><label class="choice"><input type="checkbox" name="dd-2"><span class="choice__text">All of City of Toronto</span></label></div><figcaption>An empty parent above ticked East York, North York and Scarborough (as <code>profile-cuisines</code> did) tells people they serve nothing in Toronto.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><label class="choice"><input type="checkbox" name="dd-3" disabled><span class="choice__text">Cuban <small>0 caterers</small></span></label></div><figcaption>Keep zero-count options in place, disabled, with the count that explains why.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><label class="choice"><input type="checkbox" name="dd-4"><span class="choice__text">Caribbean</span></label></div><figcaption>Don't flatten traditions into one "Caribbean" option or invent short names; use the L2-007 list.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><label class="choice"><input type="checkbox" name="dd-5" checked><span class="choice__text">Contains shellfish</span></label></div><figcaption>Allergens are checkboxes, so they become tags customers can filter and trust.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><label class="choice"><input type="checkbox" name="dd-6"><span class="choice__text">Pause new enquiries</span></label></div><figcaption>A setting that applies instantly, with no Save, is a switch, not a checkbox.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Box background</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Box border</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Box border, hover</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Checked / indeterminate fill</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Tick and bar</td><td><code>--color-fg-on-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span></td></tr>
+          <tr><td>Disabled box</td><td><code>--color-bg-subtle</code>, border <code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Disabled label</td><td><code>--color-fg-disabled</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td></tr>
+          <tr><td>Invalid ring</td><td><code>--color-danger-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td></tr>
+          <tr><td>Description, consent summary</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Focus ring</td><td><code>--color-focus-ring</code>, <code>--focus-ring-width</code>, <code>--focus-ring-offset</code></td><td><span data-token="--color-focus-ring"></span></td><td><span data-theme="dark" data-token="--color-focus-ring"></span></td></tr>
+          <tr><td>Box size / radius</td><td><code>--icon-size-md</code> / <code>--radius-xs</code></td><td colspan="2"><span data-token="--icon-size-md"></span> / <span data-token="--radius-xs"></span></td></tr>
+          <tr><td>Box to label / row padding</td><td><code>--space-3</code> / <code>--space-1</code></td><td colspan="2"><span data-token="--space-3"></span> / <span data-token="--space-1"></span></td></tr>
+          <tr><td>Row min height</td><td><code>--target-min</code> (phones: <code>--target-comfortable</code>, pending)</td><td colspan="2"><span data-token="--target-min"></span></td></tr>
+          <tr><td>Option grid gaps (row / column)</td><td><code>--space-1</code> / <code>--space-6</code></td><td colspan="2"><span data-token="--space-1"></span> / <span data-token="--space-6"></span></td></tr>
+          <tr><td>Nested indent</td><td><code>--space-8</code></td><td colspan="2"><span data-token="--space-8"></span></td></tr>
+          <tr><td>Transition</td><td><code>--duration-fast</code>, <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-fast"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;fieldset class="stack" aria-describedby="occ-help"&gt;
+  &lt;legend&gt;Occasions&lt;/legend&gt;
+  &lt;p class="field__help" id="occ-help"&gt;Choose every kind of event you take on.&lt;/p&gt;
+  &lt;div class="option-grid"&gt;
+    &lt;label class="choice"&gt;&lt;input type="checkbox" name="occasion" value="Weddings" checked&gt;&lt;span class="choice__text"&gt;Weddings&lt;/span&gt;&lt;/label&gt;
+    &lt;label class="choice"&gt;&lt;input type="checkbox" name="occasion" value="Funerals and repasts"&gt;&lt;span class="choice__text"&gt;Funerals and repasts&lt;/span&gt;&lt;/label&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>label.choice</code></td><td>Row: box and text side by side, whole row clickable. Shared with <a href="radio-group.html">radio</a>.</td></tr>
+        <tr><td><code>.choice__text</code></td><td>Label column; a <code>&lt;small&gt;</code> inside becomes the muted description line.</td></tr>
+        <tr><td><code>.option-grid</code></td><td>One column, two from 36rem.</td></tr>
+        <tr><td><code>.consent-summary</code></td><td>Muted paragraph under a single checkbox, indented to the label.</td></tr>
+        <tr><td><code>checked</code> / <code>disabled</code> / <code>required</code></td><td>Native states.</td></tr>
+        <tr><td><code>input.indeterminate = true</code></td><td>Mixed parent (set from script; no attribute exists).</td></tr>
+        <tr><td><code>aria-invalid="true"</code></td><td>Danger ring on the box; pair with an error in <code>aria-describedby</code> on the fieldset or box.</td></tr>
+        <tr><td><code>data-state="hover|focus|checked|indeterminate|disabled|invalid"</code></td><td>Documentation and mocks only: forces a state statically.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/profile-cuisines/default.html">pages/profile-cuisines/default</a> (18 cuisines in an option grid, nested regions and areas)</li>
+        <li><a href="../../mocks/pages/profile-cuisines/invalid.html">pages/profile-cuisines/invalid</a> (group error, <code>aria-invalid</code> on six boxes)</li>
+        <li><a href="../../mocks/pages/profile-events/default.html">pages/profile-events/default</a> (occasions)</li>
+        <li><a href="../../mocks/dialogs/dish/default.html">dialogs/dish/default</a> (dietary and allergen tags)</li>
+        <li><a href="../../mocks/dialogs/filters/default.html">dialogs/filters/default</a> (counts, disabled zero-count cuisines)</li>
+        <li><a href="../../mocks/pages/register/invalid.html">pages/register/invalid</a> (consent with summary and error)</li>
+        <li><a href="../../mocks/dialogs/photo-details/default.html">dialogs/photo-details/default</a> (with description)</li>
+        <li><a href="../../mocks/dialogs/moderate-review/remove.html">dialogs/moderate-review/remove</a> (confirmation agreement)</li>
+        <li><a href="../../mocks/pages/sign-in/challenge.html">pages/sign-in/challenge</a> (bot check)</li>
+      </ul>
+      <p>Drift fixed during extraction: region parents ("All of City of Toronto") stayed unchecked while some of their areas were ticked; the system makes them indeterminate. Legends that hold a section heading carried <code>style="font: var(--text-h3)"</code> inline on the <code>&lt;h2&gt;</code> in four profile mocks; a <code>legend &gt; h2</code> rule replaces it. The dish dialog marked "(optional)" with <code>.text-muted</code> where fields use <code>.optional</code>. The filter sheet and area dropdown counted Durham 6 and Halton 2 while the listing's filter list says 7 and 3; the listing counts are canonical. <code>.choice</code> rows measured about 32px, short of the 44px phone target in L2-065.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

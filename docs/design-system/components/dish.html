@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dish — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand dish: name, CAD price, description and dietary/allergen tags in the public menu list and the caterer&#x27;s menu manager, every state, both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Data display</p>
+      <h1>Dish</h1>
+      <p class="ds-lead">One item on a caterer's menu: the dish name as the caterer spells it, an optional price in Canadian dollars, a short line about it, and dietary and allergen tags as structured data. No photo, no card, just a quiet ruled list.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.dish</code></span><span class="ds-pill"><code>.dish-list</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The menu is how a customer decides whether a caterer cooks what they want: curry goat, buss up shut, black cake. A dish is a row of text under the caterer's round photos, never a card. Only the name is required; price, description and tags are each optional, and a dish without them still reads cleanly (<a href="../../mocks/pages/caterer/edge.html">caterer/edge</a> lists "Goat water" and "Conkies" with nothing else).</p>
+      <ul>
+        <li><b>Public menu</b> (<code>.dish-list</code> of <code>.dish</code>): the caterer page's Menu section. The first 12 dishes show; "Show all 18 dishes" expands the list in place.</li>
+        <li><b>Menu manager</b> (<code>.edit-list</code> of <code>.edit-row</code> holding the same <code>.dish__*</code> parts): the caterer's dashboard, with move up, move down, edit and remove beside each dish. Editing opens <a href="../../mocks/dialogs/dish/default.html">dialogs/dish</a>; there are no inline forms.</li>
+      </ul>
+      <p>Use a dish for menu items only. Food <em>photos</em> are <a href="photo.html">photos</a> and <a href="photo-tile.html">photo tiles</a>; a caterer's cuisines and service areas are <a href="tag.html">tags</a> and <a href="description-list.html">description lists</a>; the dietary and allergen labels inside a dish are <a href="tag.html">tags</a>, documented there in full.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <ul class="dish-list" style="width: 100%; max-width: 24rem;">
+            <li class="dish"><div class="dish__top"><h3 class="dish__name" style="margin: 0;">Curry goat</h3><span class="dish__price">From $18 per person</span></div><p class="dish__desc">Slow-cooked with scotch bonnet.</p><ul class="tags" aria-label="Dietary information"><li class="tag">Halal</li><li class="tag">Gluten-free</li><li class="tag">Spicy</li><li class="tag tag--allergen">Contains nuts</li></ul></li>
+          </ul>
+          <span class="ds-callout" style="left: 8%; top: 22%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 88%; top: 22%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 8%; top: 46%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 8%; top: 70%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 88%; top: 70%;" aria-hidden="true">5</span>
+          <span class="ds-callout" style="left: 50%; top: 88%;" aria-hidden="true">6</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Name</b><small><code>.dish__name</code>, an <code>h3</code> under the Menu <code>h2</code>; <code>--text-h4</code> at <code>--font-size-lg</code>. Wraps anywhere; never truncates.</small></div></li>
+          <li><div><b>Price (optional)</b><small><code>.dish__price</code>: CAD, <code>--text-body-sm</code>, muted, tabular figures, never wraps inside itself.</small></div></li>
+          <li><div><b>Description (optional)</b><small><code>.dish__desc</code>: one short line, <code>--text-body-sm</code>, muted.</small></div></li>
+          <li><div><b>Dietary tags</b><small><code>.tags</code> of <code>.tag</code>: Vegan, Vegetarian, Halal, Gluten-free, Dairy-free, Spicy.</small></div></li>
+          <li><div><b>Allergen tag</b><small><code>.tag--allergen</code>: "Contains nuts", "Contains shellfish" in the warning pair, so allergens stand out from preferences.</small></div></li>
+          <li><div><b>Rule</b><small>1px <code>--color-border-default</code> under each dish; <code>--space-5</code> above and below. No card, no shadow.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Content combinations</h3>
+      <p>Every combination of the optional parts must look intentional. The name always leads; the price sits on the name's line when there is room.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ul class="dish-list">
+            <li class="dish"><div class="dish__top"><h3 class="dish__name" style="margin: 0;">Chicken pelau</h3><span class="dish__price">From $16 per person</span></div><p class="dish__desc">Browned in burnt sugar, cooked down with pigeon peas, rice and coconut milk.</p><ul class="tags"><li class="tag">Gluten-free</li><li class="tag">Dairy-free</li></ul></li>
+            <li class="dish"><div class="dish__top"><h3 class="dish__name" style="margin: 0;">Doubles</h3><span class="dish__price">$3 each, 40 minimum</span></div><p class="dish__desc">Bara and curry channa with tamarind and cucumber chutney.</p><ul class="tags"><li class="tag">Vegan</li><li class="tag">Spicy</li></ul></li>
+            <li class="dish"><div class="dish__top"><h3 class="dish__name" style="margin: 0;">Callaloo</h3></div><p class="dish__desc">Dasheen bush, okra and coconut, swizzled smooth.</p><ul class="tags"><li class="tag">Vegan</li><li class="tag">Gluten-free</li></ul></li>
+            <li class="dish"><div class="dish__top"><h3 class="dish__name" style="margin: 0;">Shrimp fried rice</h3></div><ul class="tags"><li class="tag tag--allergen">Contains shellfish</li></ul></li>
+            <li class="dish"><div class="dish__top"><h3 class="dish__name" style="margin: 0;">Black cake</h3><span class="dish__price">$65 per cake</span></div><p class="dish__desc">Fruit soaked since last Christmas.</p><ul class="tags"><li class="tag tag--allergen">Contains nuts</li></ul></li>
+            <li class="dish"><div class="dish__top"><h3 class="dish__name" style="margin: 0;">Goat water</h3></div></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>Full; per-item price; no price; tags only with an allergen; allergen with price; name only. Two columns from 48rem.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;ul class="dish-list"&gt;
+  &lt;li class="dish"&gt;
+    &lt;div class="dish__top"&gt;&lt;h3 class="dish__name"&gt;Chicken pelau&lt;/h3&gt;&lt;span class="dish__price"&gt;From $16 per person&lt;/span&gt;&lt;/div&gt;
+    &lt;p class="dish__desc"&gt;Browned in burnt sugar, cooked down with pigeon peas, rice and coconut milk.&lt;/p&gt;
+    &lt;ul class="tags"&gt;&lt;li class="tag"&gt;Gluten-free&lt;/li&gt;&lt;li class="tag"&gt;Dairy-free&lt;/li&gt;&lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li class="dish"&gt;&lt;div class="dish__top"&gt;&lt;h3 class="dish__name"&gt;Goat water&lt;/h3&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre></details>
+      </div>
+
+      <h3>Long name: the price wraps below</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 24rem;">
+          <ul class="dish-list">
+            <li class="dish"><div class="dish__top"><h3 class="dish__name" style="margin: 0;">Stewed saltfish, spicy plantain, coconut dumplings and seasoned breadfruit platter</h3><span class="dish__price">From $1,250 per 50 guests</span></div><p class="dish__desc">A whole Saturday of cooking on one platter, enough for the full fifty with seconds for the uncles who say they are not hungry and then are.</p><ul class="tags"><li class="tag">Vegetarian</li><li class="tag">Vegan</li><li class="tag">Gluten-free</li><li class="tag">Dairy-free</li><li class="tag">Halal</li><li class="tag">Spicy</li><li class="tag tag--allergen">Contains nuts</li><li class="tag tag--allergen">Contains shellfish</li></ul></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>The name takes <code>flex: 1 1 12rem</code>; when it and the price cannot share a line, <code>.dish__top</code> wraps and the price drops underneath, left-aligned. Eight tags wrap onto as many lines as they need (<code>caterer/edge</code>).</span></div>
+      </div>
+
+      <h3>In the menu manager</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ol class="edit-list" aria-label="Dishes, in the order they appear on your page">
+            <li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name" style="flex: none;">Chicken pelau</span><span class="dish__price">From $16 per person</span></div><p class="dish__desc">Browned in burnt sugar, cooked down with pigeon peas, rice and coconut milk.</p><ul class="tags"><li class="tag">Gluten-free</li><li class="tag">Dairy-free</li></ul></div><div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Move Chicken pelau up" aria-disabled="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Move Chicken pelau down"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button><button class="icon-btn" type="button" aria-label="Edit Chicken pelau" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><button class="icon-btn" type="button" aria-label="Remove Chicken pelau" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li>
+            <li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name" style="flex: none;">Doubles</span><span class="dish__price">$3 each, 40 minimum</span></div><p class="dish__desc">Bara and curry channa with tamarind and cucumber chutney.</p><ul class="tags"><li class="tag">Vegan</li><li class="tag">Spicy</li></ul></div><div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Move Doubles up"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Move Doubles down"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button><button class="icon-btn" type="button" aria-label="Edit Doubles" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><button class="icon-btn" type="button" aria-label="Remove Doubles" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li>
+            <li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name" style="flex: none;">Paw paw chow</span></div><ul class="tags"><li class="tag">Vegan</li><li class="tag">Gluten-free</li><li class="tag">Spicy</li></ul></div><div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Move Paw paw chow up"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Move Paw paw chow down" aria-disabled="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button><button class="icon-btn" type="button" aria-label="Edit Paw paw chow" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><button class="icon-btn" type="button" aria-label="Remove Paw paw chow" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li>
+          </ol>
+        </div>
+        <div class="ds-example__caption"><span>Inside <code>.edit-row</code> the price always sits under the name; actions sit to the right from 36rem and below the dish on phones. First dish cannot move up, last cannot move down.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;ol class="edit-list" aria-label="Dishes, in the order they appear on your page"&gt;
+  &lt;li class="edit-row"&gt;
+    &lt;div class="edit-row__body"&gt;
+      &lt;div class="dish__top"&gt;&lt;span class="dish__name"&gt;Doubles&lt;/span&gt;&lt;span class="dish__price"&gt;$3 each, 40 minimum&lt;/span&gt;&lt;/div&gt;
+      &lt;p class="dish__desc"&gt;…&lt;/p&gt;&lt;ul class="tags"&gt;…&lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class="edit-row__actions"&gt;
+      &lt;button class="icon-btn" type="button" aria-label="Move Doubles up"&gt;…&lt;/button&gt;
+      &lt;button class="icon-btn" type="button" aria-label="Move Doubles down"&gt;…&lt;/button&gt;
+      &lt;button class="icon-btn" type="button" aria-label="Edit Doubles" aria-haspopup="dialog"&gt;…&lt;/button&gt;
+      &lt;button class="icon-btn" type="button" aria-label="Remove Doubles" aria-haspopup="dialog"&gt;…&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="A dish has one size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">A dish has one size. The list changes columns by breakpoint (see Responsive) but the type, spacing and tags never shrink.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>A dish itself is static text. Its states come from where it lives: loading, the manager's row actions, and the read-only lock while a profile is in review.</p>
+      <div class="ds-matrix" style="position: relative;"><table>
+        <caption class="visually-hidden">Dish states by context</caption>
+        <thead><tr><th scope="col">Context</th><th scope="col">Default</th><th scope="col">Loading</th><th scope="col">Action hover</th><th scope="col">Action focus</th><th scope="col">Move unavailable</th><th scope="col">Read-only</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Public menu</th>
+            <td><ul class="dish-list" style="min-width: 13rem;"><li class="dish"><div class="dish__top"><h3 class="dish__name" style="margin: 0;">Macaroni pie</h3><span class="dish__price">From $6 per person</span></div><ul class="tags"><li class="tag">Vegetarian</li></ul></li></ul></td>
+            <td><ul class="dish-list" style="min-width: 13rem;" aria-hidden="true"><li class="dish"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></li></ul></td>
+            <td><span class="text-subtle">Not applicable: no actions</span></td>
+            <td><span class="text-subtle">Not applicable</span></td>
+            <td><span class="text-subtle">Not applicable</span></td>
+            <td><span class="text-subtle">Always read-only</span></td></tr>
+          <tr><th scope="row">Menu manager</th>
+            <td><ol class="edit-list" style="min-width: 15rem;" aria-label="Default"><li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name" style="flex: none;">Buss up shut</span><span class="dish__price">$4 each</span></div></div><div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Edit Buss up shut" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><button class="icon-btn" type="button" aria-label="Remove Buss up shut" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ol></td>
+            <td><ol class="edit-list" style="min-width: 15rem;" aria-hidden="true"><li class="edit-row edit-row--skeleton"><div class="edit-row__body"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></div></li></ol></td>
+            <td><ol class="edit-list" style="min-width: 15rem;" aria-label="Hover"><li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name" style="flex: none;">Buss up shut</span><span class="dish__price">$4 each</span></div></div><div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Edit Buss up shut" aria-haspopup="dialog" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><button class="icon-btn" type="button" aria-label="Remove Buss up shut" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ol></td>
+            <td><ol class="edit-list" style="min-width: 15rem;" aria-label="Focus"><li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name" style="flex: none;">Buss up shut</span><span class="dish__price">$4 each</span></div></div><div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Edit Buss up shut" aria-haspopup="dialog" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><button class="icon-btn" type="button" aria-label="Remove Buss up shut" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ol></td>
+            <td><ol class="edit-list" style="min-width: 15rem;" aria-label="Move unavailable"><li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name" style="flex: none;">Chicken pelau</span></div></div><div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Move Chicken pelau up" aria-disabled="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Move Chicken pelau down"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button></div></li></ol></td>
+            <td><ol class="edit-list" style="min-width: 15rem;" aria-label="Read-only"><li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name" style="flex: none;">Festival</span><span class="dish__price">$2 each</span></div><ul class="tags"><li class="tag">Vegetarian</li></ul></div></li></ol></td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>List states</h3>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">State</th><th scope="col">What shows</th><th scope="col">Mock</th></tr></thead>
+        <tbody>
+          <tr><td>Collapsed</td><td>First 12 dishes, "18 dishes" count in the section head, <code>&lt;button aria-expanded="false" aria-controls="dish-list"&gt;Show all 18 dishes&lt;/button&gt;</code>.</td><td><a href="../../mocks/pages/caterer/default.html">caterer/default</a></td></tr>
+          <tr><td>Expanded</td><td>All dishes in place, no reload; the toggle reads "Show fewer dishes" with <code>aria-expanded="true"</code>, focus stays on it and "18 dishes shown" is announced.</td><td><a href="../../mocks/pages/caterer/more-dishes.html">caterer/more-dishes</a></td></tr>
+          <tr><td>Loading</td><td>Six skeleton dishes (two text bars each), <code>aria-hidden</code>.</td><td><a href="../../mocks/pages/caterer/loading.html">caterer/loading</a>, <a href="../../mocks/pages/profile-menu/loading.html">profile-menu/loading</a></td></tr>
+          <tr><td>Empty (manager)</td><td><a href="empty-state.html">Empty state</a>: "What do you cook best?" with "Add your first dish". Public pages always have at least 3 dishes.</td><td><a href="../../mocks/pages/profile-menu/empty.html">profile-menu/empty</a></td></tr>
+          <tr><td>Full (manager)</td><td>"50 of 50 dishes"; "Add dish" disabled with help "You can list up to 50 dishes. Remove one to add another."</td><td><a href="../../mocks/pages/profile-menu/full.html">profile-menu/full</a></td></tr>
+          <tr><td>Read-only (manager)</td><td>Info alert "Waiting for review"; rows without actions.</td><td><a href="../../mocks/pages/profile-menu/read-only.html">profile-menu/read-only</a></td></tr>
+          <tr><td>Error (manager)</td><td>Error empty state "We couldn’t load your menu" with Try again and a reference.</td><td><a href="../../mocks/pages/profile-menu/error.html">profile-menu/error</a></td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><ul class="dish-list"><li class="dish"><div class="dish__top"><h3 class="dish__name" style="margin: 0;">Stewed oxtail</h3><span class="dish__price">From $22 per person</span></div><p class="dish__desc">With butter beans.</p><ul class="tags"><li class="tag">Gluten-free</li><li class="tag tag--allergen">Contains nuts</li></ul></li></ul></div>
+        <div data-theme="dark"><ul class="dish-list"><li class="dish"><div class="dish__top"><h3 class="dish__name" style="margin: 0;">Stewed oxtail</h3><span class="dish__price">From $22 per person</span></div><p class="dish__desc">With butter beans.</p><ul class="tags"><li class="tag">Gluten-free</li><li class="tag tag--allergen">Contains nuts</li></ul></li></ul></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Below 48rem</b>: one column, with a rule above the first dish (<code>border-top</code> on the list) so the menu reads as a ruled list under the "Menu" heading.</li>
+        <li><b>48rem and up</b>: two equal columns with a <code>--space-12</code> gutter; the top rule goes, each dish keeps its bottom rule. Order runs left to right, then down.</li>
+        <li>Name and price share a line while the name has at least 12rem; otherwise the price wraps below. At 320px "From $1,250 per 50 guests" sits under the name, never squeezed beside it.</li>
+        <li>Menu manager: actions below the dish on phones, to the right from 36rem (<code>.edit-row</code> grid). Each action is 44px, so four fit in 11rem with 4px gaps.</li>
+        <li>The dashboard's listing-card preview (<code>.preview-pane</code>) only appears from 75rem; it never shows dishes.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>No component tokens. The name reads <code>--color-fg-default</code>; price and description read <code>--color-fg-muted</code>; the rule is <code>--color-border-default</code>. Dietary tags use the neutral tag look; allergen tags use the warning trio (<code>--color-warning-bg</code>, <code>--color-warning-fg</code>, <code>--color-warning-border</code>). In dark the warning pair becomes a deep amber surface with light amber text, and still clears 4.5:1.</p>
+      <p>Pepper red never marks a dish, a price or a "spicy" tag: red means "selected" on Sweet Hand, and a red dish would look chosen. Spice is a word, not a colour.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>A plain list (<code>&lt;ul class="dish-list"&gt;</code>) of list items; on the public page each name is an <code>h3</code> under the "Menu" <code>h2</code>, so screen-reader users can jump dish to dish. Tags are a nested <code>&lt;ul&gt;</code>. In the manager the list is an <code>&lt;ol aria-label="Dishes, in the order they appear on your page"&gt;</code> because order is the point. The expand toggle follows the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/">APG Disclosure pattern</a>.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Public: dishes are not focusable; Tab goes to "Show all 18 dishes". Manager: move up, move down, edit, remove for each dish in order.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>On a move button, moves the dish one place; focus follows the dish to its new row and stays on the same button. On edit/remove, opens the dialog.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>In the dish or remove dialog, closes it and returns focus to the button that opened it.</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>The shared 2px pepper ring on each 44px icon button. A move that reaches the top or bottom keeps focus on the now-unavailable button, which is why it uses <code>aria-disabled="true"</code> rather than <code>disabled</code> (a disabled button drops focus to the page).</p>
+      <h3>Labelling</h3>
+      <p>Every action names the dish: "Move Doubles up", "Edit Doubles", "Remove Doubles". After a move a polite live region says "Doubles moved to position 4 of 18". Allergen tags are self-describing ("Contains shellfish"); never shorten to an icon or "Shellfish".</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Dish name</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Price, description and dietary tag text</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Allergen tag text</span><span class="ds-pair__ratio" data-contrast="--color-warning-fg|--color-warning-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Allergen tag edge (decorative)</span><span class="ds-pair__ratio" data-contrast="--color-warning-border|--color-bg-canvas" data-min="1"></span></div>
+        <div class="ds-pair"><span>Focus ring on canvas</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Expanding the list and moving a dish are instant; no animation reorders rows. Skeletons shimmer and stop under reduced motion.</p>
+      <h3>Touch</h3>
+      <p>Manager actions are 44px icon buttons with 4px between them; the targets do not overlap and clear WCAG 2.5.8. Public dishes have no targets of their own.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Names are the caterer's.</b> Spell dishes as the caterer and their community do: "Buss up shut", "Pholourie", "Paw paw chow", "Saltfish buljol", "Curry channa and aloo". Sentence case, no translation, no "Caribbean" catch-all.</li>
+        <li><b>Prices are CAD with a unit.</b> "From $16 per person", "$3 each, 40 minimum", "$65 per cake", "$14 per litre", "From $1,250 per 50 guests". Use "From" when the price depends on the order; no cents unless they matter; no "CAD" suffix (the whole site is Canadian dollars); no tax.</li>
+        <li><b>Descriptions are one line</b> of what is in it or how it is made: "Slow-cooked with scotch bonnet." Not a story, not a sales pitch.</li>
+        <li><b>Tags are fixed words</b> from the dietary list (Vegan, Vegetarian, Halal, Gluten-free, Dairy-free, Spicy) and allergen list ("Contains nuts", "Contains shellfish"). They are the caterer's own statement; never write "certified", "safe for" or "allergen-free".</li>
+        <li>The section head gives the total: "18 dishes"; the toggle names it: "Show all 18 dishes" / "Show fewer dishes".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="dish-list"><li class="dish"><div class="dish__top"><h3 class="dish__name" style="margin: 0;">Black cake</h3><span class="dish__price">$65 per cake</span></div><ul class="tags"><li class="tag tag--allergen">Contains nuts</li></ul></li></ul></div><figcaption>Allergens as structured tags in the warning style, worded "Contains …".</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="dish-list"><li class="dish"><div class="dish__top"><h3 class="dish__name" style="margin: 0;">Black cake</h3><span class="dish__price">$65</span></div><p class="dish__desc">Fruit soaked since last Christmas (has almonds!).</p></li></ul></div><figcaption>Don't bury an allergen in the description, or drop the unit from a price.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><button class="btn" type="button" aria-expanded="false" aria-controls="dd-dish-list">Show all 18 dishes</button></div><figcaption>The expand toggle carries <code>aria-expanded</code> and <code>aria-controls</code> pointing at the list.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><button class="btn" type="button">Show all 18 dishes</button></div><figcaption>Don't leave the toggle without <code>aria-controls</code>, as <code>caterer/default</code> did.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="dish-list" id="dd-dish-list"><li class="dish"><div class="dish__top"><h3 class="dish__name" style="margin: 0;">Curry goat</h3><span class="dish__price">From $18 per person</span></div><ul class="tags"><li class="tag">Spicy</li></ul></li></ul></div><figcaption>Spice is a neutral tag.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="card"><p class="card__title">Curry goat</p><p class="primary-pick">Spicy</p></div></div><figcaption>Don't put dishes in bordered cards or colour "spicy" pepper red; red is for "selected".</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Name</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Price, description</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Rule</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Allergen tag background</td><td><code>--color-warning-bg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-warning-bg" data-swatch></i><span data-token="--color-warning-bg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-warning-bg" data-swatch></i><span data-token="--color-warning-bg"></span></span></td></tr>
+          <tr><td>Allergen tag text</td><td><code>--color-warning-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-warning-fg" data-swatch></i><span data-token="--color-warning-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-warning-fg" data-swatch></i><span data-token="--color-warning-fg"></span></span></td></tr>
+          <tr><td>Allergen tag edge</td><td><code>--color-warning-border</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-warning-border" data-swatch></i><span data-token="--color-warning-border"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-warning-border" data-swatch></i><span data-token="--color-warning-border"></span></span></td></tr>
+          <tr><td>Name type</td><td><code>--text-h4</code> at <code>--font-size-lg</code></td><td colspan="2"><span data-token="--text-h4"></span> · <span data-token="--font-size-lg"></span></td></tr>
+          <tr><td>Price / description type</td><td><code>--text-body-sm</code></td><td colspan="2"><span data-token="--text-body-sm"></span></td></tr>
+          <tr><td>Dish padding / column gutter</td><td><code>--space-5</code> / <code>--space-12</code></td><td colspan="2"><span data-token="--space-5"></span> / <span data-token="--space-12"></span></td></tr>
+          <tr><td>Name–price gap / part gap</td><td><code>--space-4</code> / <code>--space-1</code></td><td colspan="2"><span data-token="--space-4"></span> / <span data-token="--space-1"></span></td></tr>
+          <tr><td>Manager action size</td><td><code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-comfortable"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;section class="caterer-section" id="menu" aria-labelledby="menu-title"&gt;
+  &lt;div class="caterer-section__head"&gt;&lt;h2 id="menu-title"&gt;Menu&lt;/h2&gt;&lt;span class="result-count"&gt;18 dishes&lt;/span&gt;&lt;/div&gt;
+  &lt;ul class="dish-list" id="dish-list"&gt;
+    &lt;li class="dish"&gt;
+      &lt;div class="dish__top"&gt;&lt;h3 class="dish__name"&gt;Curry goat&lt;/h3&gt;&lt;span class="dish__price"&gt;From $18 per person&lt;/span&gt;&lt;/div&gt;
+      &lt;p class="dish__desc"&gt;Slow-cooked with scotch bonnet.&lt;/p&gt;
+      &lt;ul class="tags"&gt;&lt;li class="tag"&gt;Halal&lt;/li&gt;&lt;li class="tag tag--allergen"&gt;Contains nuts&lt;/li&gt;&lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;button class="btn" type="button" aria-expanded="false" aria-controls="dish-list"&gt;Show all 18 dishes&lt;/button&gt;
+&lt;/section&gt;</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.dish-list</code></td><td>Ruled list; one column, two from 48rem.</td></tr>
+        <tr><td><code>.dish</code></td><td>One dish: column with <code>--space-5</code> padding and a bottom rule.</td></tr>
+        <tr><td><code>.dish__top</code></td><td>Name + price row that wraps the price below a long name.</td></tr>
+        <tr><td><code>.dish__name</code> <code>.dish__price</code> <code>.dish__desc</code></td><td>Name (h4/lg), price (small, muted, tabular, no wrap), description (small, muted).</td></tr>
+        <tr><td><code>.tags</code> &gt; <code>.tag</code>, <code>.tag--allergen</code></td><td>Dietary and allergen labels; see <a href="tag.html">Tag</a>.</td></tr>
+        <tr><td><code>.edit-list</code> &gt; <code>.edit-row</code> (<code>__body</code>, <code>__actions</code>, <code>--skeleton</code>)</td><td>Menu manager row; inside it the price always stacks under the name.</td></tr>
+        <tr><td><code>aria-disabled="true"</code> on a move button</td><td>First/last dish: unavailable but still focusable.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/caterer/default.html">pages/caterer/default</a>, <a href="../../mocks/pages/caterer/more-dishes.html">more-dishes</a>, <a href="../../mocks/pages/caterer/edge.html">edge</a> (long name, eight tags, name-only dishes), <a href="../../mocks/pages/caterer/loading.html">loading</a></li>
+        <li><a href="../../mocks/pages/profile-menu/default.html">pages/profile-menu/default</a>, <a href="../../mocks/pages/profile-menu/empty.html">empty</a>, <a href="../../mocks/pages/profile-menu/full.html">full</a>, <a href="../../mocks/pages/profile-menu/read-only.html">read-only</a>, <a href="../../mocks/pages/profile-menu/loading.html">loading</a>, <a href="../../mocks/pages/profile-menu/error.html">error</a></li>
+        <li><a href="../../mocks/dialogs/dish/default.html">dialogs/dish/default</a>, <a href="../../mocks/dialogs/remove-dish/default.html">dialogs/remove-dish/default</a></li>
+      </ul>
+      <p>Drift fixed during extraction:</p>
+      <ul>
+        <li>"Show all 18 dishes" had no <code>aria-controls</code> in <code>caterer/default</code> (it did in <code>more-dishes</code>); both now point at <code>#dish-list</code>.</li>
+        <li>First/last move buttons used <code>disabled</code>, which drops focus after a move to the end; they now use <code>aria-disabled="true"</code>.</li>
+        <li>Extraction regression: <code>.dish__name { flex: 1 1 12rem }</code> is global in <code>components.css</code>, but inside <code>.edit-row</code> the row is a column, so the basis becomes a 12rem <em>height</em> and opens a gap under every name in the menu manager. The mocks scoped it to <code>.dish-list .dish__name</code>. Fix proposed (<code>.edit-row .dish__name { flex: none; }</code>); the manager examples on this page carry it inline until then.</li>
+        <li>Public loading skeletons sized their bars with inline <code>style="width: 50%"</code>/<code>80%</code>, while the manager had <code>.edit-row--skeleton</code>; a matching <code>.dish--skeleton</code> is proposed so the public list drops the inline widths.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Responsive — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand responsive rules: mobile first at 360px with 320px reflow, the L2 viewport classes, per-component breakpoint behaviour, visibility utilities, touch and safe areas, and the testing matrix.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Responsive</h1>
+      <p class="ds-lead">Most people find a caterer on a phone. Every screen is designed at 360px first and then given room, columns and side panels as the viewport grows, without ever scrolling sideways down to 320px.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">XS · SM · MD · LG · XL</span><span class="ds-pill">Mobile first</span><span class="ds-pill">320px to 2560px</span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#viewports">Viewport classes</a></li><li><a href="#utilities">Visibility utilities</a></li><li><a href="#behaviours">Component behaviour by breakpoint</a></li><li><a href="#phone-views">Phone views</a></li><li><a href="#touch">Touch, pointer and the device</a></li><li><a href="#usage">Usage</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#testing">Testing matrix</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Base styles are the phone layout. Breakpoints only add: a second and third column, a filter bar, then a filter column; a side panel on the caterer page; the inbox list beside its thread. Nothing is designed at desktop width and squeezed down.</p>
+      <ul>
+        <li><b>360px is the design width.</b> Every mock is drawn there first. 320px must still work: no horizontal scrolling, no clipped text, nothing overlapping (L2-064.2, L2-019.4).</li>
+        <li><b>Breakpoints are in <code>rem</code></b> and use <code>min-width</code>, so they follow the person's text size. "Hide below" rules use the breakpoint minus 0.01rem.</li>
+        <li><b>Tokens change, components follow.</b> <code>--layout-columns</code>, <code>--layout-gutter</code>, <code>--layout-margin</code>, <code>--layout-topbar-height</code> and the display type sizes change at 48rem and 62rem in <code>tokens.css</code>; components read them instead of writing their own queries where they can (see <a href="layout.html">Layout</a> for the values).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="viewports"><h2><a href="#viewports">Viewport classes</a></h2>
+      <p>The breakpoints are the viewport classes in L2. "Phone" means XS, "tablet" SM–MD, "desktop" LG–XL.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Class</th><th scope="col">From</th><th scope="col">Token</th><th scope="col">Typical device</th><th scope="col">Columns · gutter · margin</th></tr></thead>
+        <tbody>
+          <tr><td>XS</td><td>0 (designed at 360px, works from 320px)</td><td>(base)</td><td>Phones in portrait</td><td>4 · 24px · 16px</td></tr>
+          <tr><td>SM</td><td>36rem (576px)</td><td><code>--layout-breakpoint-sm</code></td><td>Large phones in landscape, small tablets</td><td>4 · 24px · 16px</td></tr>
+          <tr><td>MD</td><td>48rem (768px)</td><td><code>--layout-breakpoint-md</code></td><td>Tablets in portrait</td><td>8 · 32px · 32px</td></tr>
+          <tr><td>LG</td><td>62rem (992px)</td><td><code>--layout-breakpoint-lg</code></td><td>Laptops, tablets in landscape</td><td>12 · 40px · 48px</td></tr>
+          <tr><td>XL</td><td>75rem (1200px)</td><td><code>--layout-breakpoint-xl</code></td><td>Desktops</td><td>12 · 40px · 80px</td></tr>
+          <tr><td>(2XL)</td><td>90rem (1440px)</td><td><code>--layout-breakpoint-2xl</code></td><td>Wide screens: content stops growing at the 90rem container</td><td>12 · 40px · auto</td></tr>
+        </tbody>
+      </table></div>
+      <p>Media queries cannot read custom properties, so <code>components.css</code> repeats these four values literally (36rem, 48rem, 62rem, 75rem) and no others. One exception sits below the scale: under 22.5rem (360px) the "for caterers" and "Operator" tags beside the wordmark hide so the header fits at 320px.</p>
+      <h3>Which class am I in?</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <span class="badge badge--solid only-xs-sm">XS or SM: below 48rem</span>
+          <span class="badge badge--solid only-md">MD: 48rem to 62rem</span>
+          <span class="badge badge--solid only-lg">LG or XL: 62rem and up</span>
+          <span class="badge until-lg">Below LG</span>
+        </div>
+        <div class="ds-example__caption"><span>Live: resize the window. Each badge uses the visibility utility it names.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="utilities"><h2><a href="#utilities">Visibility utilities</a></h2>
+      <p>When a component has two genuinely different forms (a filter bar and a filter column, a sticky bar and a side panel), render both and show one with these classes, rather than rearranging one element with many queries. Both forms must hold the same content and the same accessible names.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Class</th><th scope="col">Visible</th><th scope="col">Used for</th></tr></thead>
+        <tbody>
+          <tr><td><code>.only-xs-sm</code></td><td>Below 48rem</td><td>The phone browse bar (Filters button, area search)</td></tr>
+          <tr><td><code>.only-md</code></td><td>48rem to 62rem</td><td>The horizontal filter bar of dropdowns (L2-009.2)</td></tr>
+          <tr><td><code>.only-lg</code></td><td>62rem and up</td><td>The sticky enquiry side panel on the caterer page</td></tr>
+          <tr><td><code>.until-lg</code></td><td>Below 62rem</td><td>The caterer page's guests and occasions facts in the main column, the listing heading above the bar</td></tr>
+        </tbody>
+      </table></div>
+      <p>They use <code>display: none !important</code>, so hidden content is also hidden from screen readers; never hide something at one size that has no equivalent at the other.</p>
+    </section>
+
+    <section class="ds-section" id="behaviours"><h2><a href="#behaviours">Component behaviour by breakpoint</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Component</th><th scope="col">XS</th><th scope="col">SM 36rem</th><th scope="col">MD 48rem</th><th scope="col">LG 62rem</th><th scope="col">XL 75rem</th></tr></thead>
+        <tbody>
+          <tr><td><a href="../components/site-header.html">Site header</a></td><td colspan="2">Wordmark, search and avatar; other links move into the site menu (menu button opens a full-screen sheet). 64px tall.</td><td colspan="3">All links inline; menu button hidden. 80px tall at MD, 96px from LG.</td></tr>
+          <tr><td>Listing filters (<a href="../components/filter-list.html">filter list</a>, <a href="../components/filter-trigger.html">filter trigger</a>)</td><td colspan="2">"Filters" button with a count opens a full-height sheet with Clear and "Show 60 caterers" (L2-009.1)</td><td>Horizontal bar of dropdown triggers above the grid (L2-009.2)</td><td colspan="2">Filter column, 15rem, always visible left of the grid (L2-009.3)</td></tr>
+          <tr><td><a href="../components/caterer-card.html">Caterer grid</a></td><td>1 column</td><td colspan="2">2 columns</td><td colspan="2">3 columns, wider gaps</td></tr>
+          <tr><td>Occasion tiles</td><td colspan="2">2 columns</td><td>3 columns</td><td colspan="2">4 columns</td></tr>
+          <tr><td><a href="../components/gallery.html">Gallery</a></td><td>Swipeable carousel, 80% slides, dots (L2-019.1)</td><td colspan="2">Lead photo with a strip of up to 5 thumbnails (L2-019.2)</td><td colspan="2">Lead photo plus a grid of up to 4 thumbnails (L2-019.3)</td></tr>
+          <tr><td>Caterer page layout</td><td colspan="3">One column; facts in the main column</td><td colspan="2">Main column plus a 22rem sticky side panel with guests, occasions and "Send an enquiry"</td></tr>
+          <tr><td><a href="../components/sticky-cta.html">Sticky call to action</a></td><td colspan="3">Fixed bottom bar with name, guest range and "Send an enquiry", above the safe area (L2-015.4)</td><td colspan="2">Hidden; the side panel takes over</td></tr>
+          <tr><td><a href="../components/dialog.html">Dialog</a></td><td>Bottom sheet: full width, top corners <code>--radius-xl</code>, rises from the bottom</td><td colspan="4">Centred panel, 32rem by default, scales in</td></tr>
+          <tr><td>Enquiry dialog (<code>.dialog--full</code>)</td><td colspan="2">Fills the screen, 100dvh, single column, submit pinned at the bottom (L2-026.1)</td><td colspan="3">Centred form dialog, at most 40rem, caterer name and photo at the top (L2-026.2)</td></tr>
+          <tr><td><a href="../components/sheet.html">Sheet</a></td><td colspan="2">Full screen, rises from the bottom</td><td colspan="3">28rem side sheet from the right edge, with a shadow</td></tr>
+          <tr><td><a href="../components/toast.html">Toast</a></td><td>Full width at the bottom, 16px from each edge; 44px close</td><td>24rem, bottom right; 44px close</td><td colspan="3">24rem, bottom right; 24px close</td></tr>
+          <tr><td>Inbox and thread (<a href="../components/inbox-row.html">inbox row</a>, <a href="../components/message.html">message thread</a>)</td><td colspan="3">List only; opening an enquiry shows the thread full width with "Back to inbox"; the reply box sticks to the bottom (L2-036.2, L2-036.3)</td><td colspan="2">List and selected thread side by side (L2-036.1)</td></tr>
+          <tr><td><a href="../components/side-nav.html">Dashboard navigation</a></td><td colspan="3">No side nav; the overview lists sections as full-width rows, each linking to its screen</td><td>Sticky side nav, 15rem</td><td>Side nav, plus a preview pane showing the listing card</td></tr>
+          <tr><td>Photo manager</td><td colspan="2">2 columns</td><td colspan="2">3 columns</td><td>4 columns</td></tr>
+          <tr><td><a href="../components/dish.html">Dish list</a></td><td colspan="2">1 column with dividers</td><td colspan="3">2 columns</td></tr>
+          <tr><td>Form rows, option grids, <a href="../components/description-list.html">key–value lists</a></td><td>Stacked</td><td colspan="4">Two columns for short related fields; labels beside values</td></tr>
+          <tr><td><a href="../components/breadcrumb.html">Breadcrumb</a> (<code>.breadcrumb--collapse</code>)</td><td colspan="2">Parent only, with a back chevron</td><td colspan="3">Full trail</td></tr>
+          <tr><td><a href="../components/table.html">Table</a></td><td colspan="5">Scrolls sideways inside <code>.table-wrap</code>, never the page; row actions always visible on touch screens</td></tr>
+          <tr><td><a href="../components/queue-item.html">Queue item</a> (<code>--stack</code>)</td><td>Waiting time moves under the title</td><td colspan="4">Waiting time on the right</td></tr>
+          <tr><td>Stats and charts</td><td colspan="3">Stats 2 across; charts stacked</td><td colspan="2">4 stats across; charts 2 across</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="phone-views"><h2><a href="#phone-views">Phone views</a></h2>
+      <p>The mocks below render at 360px inside these frames, so their own media queries apply: this is exactly what a phone shows.</p>
+      <div class="ds-iframes">
+        <iframe class="ds-iframe" src="../../mocks/pages/caterers/default.html?chrome=0&amp;theme=light" title="Caterer listing on a phone: one column and a Filters button" loading="lazy"></iframe>
+        <iframe class="ds-iframe" src="../../mocks/pages/caterer/default.html?chrome=0&amp;theme=light" title="Pelau House on a phone: gallery carousel and sticky enquiry bar" loading="lazy"></iframe>
+        <iframe class="ds-iframe" src="../../mocks/dialogs/site-menu/default.html?chrome=0&amp;theme=light" title="Site menu as a full-screen sheet on a phone" loading="lazy"></iframe>
+        <iframe class="ds-iframe" src="../../mocks/pages/inbox/default.html?chrome=0&amp;theme=dark" title="Inbox on a phone in the dark theme: list only" loading="lazy"></iframe>
+      </div>
+      <h3>The same listing at the width of this column</h3>
+      <iframe class="ds-iframe ds-iframe--wide" src="../../mocks/pages/caterers/default.html?chrome=0&amp;theme=light" title="Caterer listing at the width of this content column" loading="lazy"></iframe>
+    </section>
+
+    <section class="ds-section" id="touch"><h2><a href="#touch">Touch, pointer and the device</a></h2>
+      <ul>
+        <li><b>Targets.</b> Below 48rem every target is at least 44 × 44px with 8px between neighbours (L2-065.1). The default control is already 44px; see <a href="accessibility.html#targets">target sizes</a>.</li>
+        <li><b>No hover dependency.</b> Anything revealed on hover is also revealed on focus, and on touch screens (<code>@media (hover: none)</code>) it is simply visible, as with table row actions. Tooltips repeat information that is also available by tap (L2-065.3).</li>
+        <li><b><code>(pointer: coarse)</code> is not used to grow targets.</b> They are already large enough; growing them per device makes layouts shift unpredictably.</li>
+        <li><b>Safe areas.</b> Pages set <code>viewport-fit=cover</code>. Fixed and sticky bottom elements add <code>env(safe-area-inset-bottom)</code> to their padding: the sticky enquiry bar, dialog panels, sheet footers, the phone reply box, sticky form actions, toasts and the footer. The site header, sheet headers and the photo viewer bar add <code>env(safe-area-inset-top)</code>.</li>
+        <li><b>Dynamic viewport height.</b> Full-height layouts use <code>100dvh</code> (page shell, auth layout, full-screen enquiry dialog, dialog max height) so mobile browser chrome never hides the submit button.</li>
+        <li><b>On-screen keyboard.</b> The focused field must stay visible above the keyboard (L2-026.4); the phone reply box stays pinned above it (L2-036.3). Fields use input types that bring up the right keyboard: <code>type="email"</code>, <code>type="tel"</code>, <code>inputmode="numeric"</code> for guests, <code>autocapitalize="characters"</code> for postal codes, <code>type="date"</code> (L2-065.2).</li>
+        <li><b>Rotation.</b> Turning the device keeps typed input and the scroll position (L2-064.3). No layout locks orientation.</li>
+        <li><b>Swipe is never the only way.</b> The gallery carousel can also be stepped with buttons and opened in the viewer, which has Previous and Next.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+      <ul>
+        <li>Write the phone layout as the base rule, then add <code>@media (min-width: 36rem | 48rem | 62rem | 75rem)</code>. Use <code>max-width</code> only for "hide below" rules, as <code>47.99rem</code> and so on.</li>
+        <li>Prefer intrinsic layouts (<code>flex-wrap</code>, <code>minmax(0, 1fr)</code>, <code>min(100%, …)</code>) to a new breakpoint.</li>
+        <li>Never add a breakpoint value outside the scale. If a component breaks between two breakpoints, fix the component.</li>
+        <li>Long names wrap: caterer names clamp to two lines on cards with the full name in the link; buttons may use <code>.btn--wrap</code>. Never truncate an error message or a price.</li>
+        <li>Keep DOM order equal to visual order at every size. Don't reorder with <code>order</code> or grid placement in a way that changes reading order.</li>
+        <li>Spacing never scales with viewport width; the token changes at a breakpoint.</li>
+      </ul>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><code>.caterer-grid { grid-template-columns: minmax(0, 1fr); }<br>@media (min-width: 36rem) { … repeat(2, minmax(0, 1fr)) }</code></div><figcaption>Start from one column and add columns as space allows.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }</code></div><figcaption>Design at desktop and patch down with pixel <code>max-width</code> queries off the scale.</figcaption></figure>
+      </div>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="mobile-browse-bar"><button class="filter-trigger" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filters</button></div></div><figcaption>On phones, collapse a long control set into one clearly named button that opens a sheet.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="filter-bar"><button class="filter-trigger" type="button">Cuisine</button><button class="filter-trigger" type="button">Area</button><button class="filter-trigger" type="button">Guests</button></div></div><figcaption>Squeeze the tablet filter bar onto a 360px screen, where it wraps into a wall of triggers above the results.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <ul>
+        <li><b>Reflow (1.4.10).</b> Content reflows at 320px CSS width, which is also what 400% zoom on a 1280px window produces. Only data tables scroll sideways, inside their wrapper.</li>
+        <li><b>Resize text (1.4.4).</b> Because breakpoints are in <code>rem</code>, doubling the text size moves layouts to their narrower form instead of overflowing. At 200% zoom on a 1280px window nothing is lost (L2-069.3).</li>
+        <li><b>Orientation (1.3.4).</b> Both orientations work everywhere.</li>
+        <li><b>Focus not obscured (2.4.11).</b> The sticky enquiry bar and reply box reserve space with bottom padding (<code>.has-sticky-cta</code>) so focused content is never hidden behind them.</li>
+        <li><b>Same content, same names.</b> The phone and desktop forms of a component (Filters sheet and filter column; sticky bar and side panel) expose the same options with the same accessible names.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="testing"><h2><a href="#testing">Testing matrix</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Width</th><th scope="col">Class</th><th scope="col">Check</th></tr></thead>
+        <tbody>
+          <tr><td>320px</td><td>XS</td><td>Sweep every page: no horizontal scroll, header fits, long caterer names wrap, dialogs and sheets fit</td></tr>
+          <tr><td>360 × 800</td><td>XS</td><td>Primary design width: screenshots of every mock and component page; 44px targets; sticky bar and Filters sheet</td></tr>
+          <tr><td>575 / 576</td><td>XS / SM edge</td><td>Grid goes to 2 columns, dialog stops being a bottom sheet, gallery switches to lead and strip</td></tr>
+          <tr><td>767 / 768 × 1024</td><td>SM / MD edge</td><td>Filter bar replaces the Filters button, header links appear, sheets become side sheets, enquiry dialog stops filling the screen</td></tr>
+          <tr><td>991 / 992</td><td>MD / LG edge</td><td>Filter column, 3 columns, caterer side panel, sticky bar gone, inbox side by side, dashboard side nav</td></tr>
+          <tr><td>1199 / 1200</td><td>LG / XL edge</td><td>Wider margins, dashboard preview pane, 4-column photo manager</td></tr>
+          <tr><td>1280 × 800</td><td>XL</td><td>Desktop screenshots; 200% zoom check</td></tr>
+          <tr><td>2560</td><td>Beyond 2XL</td><td>Content stays within the 90rem container; nothing stretches</td></tr>
+        </tbody>
+      </table></div>
+      <p>The edge widths are the ones L2-064.2 requires for every page template. Screenshot the design system and the mocks with <code>.claude/skills/writing-html-mocks/scripts/screenshot_mocks.py</code> at <code>--viewport 360x800</code>, <code>768x1024</code> and <code>1280x800</code>. Playwright end-to-end tests run in Chromium only, at XS and XL.</p>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <p>Responsive behaviour has no tokens of its own. The breakpoint, column, gutter, margin, container, sidebar, panel, dialog and sheet width tokens (<code>--layout-*</code>) are documented on <a href="layout.html">Layout</a>; the target sizes on <a href="accessibility.html#tokens">Accessibility</a>; the display type sizes that grow at 62rem on <a href="typography.html">Typography</a>.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

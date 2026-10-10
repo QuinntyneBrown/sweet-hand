@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Icon button — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand icon buttons: ghost and outline, with a count badge, as a link, pressed and expanded, every state in both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Actions</p>
+      <h1>Icon button</h1>
+      <p class="ds-lead">A 44px round button that holds one outline icon and no visible text: the header search, the phone menu, Close, and the move arrows under each photo.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code></span><span class="ds-pill"><code>.icon-btn</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use an icon button where space is tight and the icon is understood without a word: the site header, a dialog's Close, the photo viewer, and the repeated actions on rows and photo tiles. Every icon button still has a name, given by <code>aria-label</code>.</p>
+      <ul>
+        <li><b>Ghost</b> (<code>.icon-btn</code>) has no border and no fill at rest. It is the header search ("Search by area or postal code"), the phone menu, dialog Close, and "Move photo 2 up" on a photo tile.</li>
+        <li><b>Outline</b> (<code>.icon-btn--outline</code>) adds a hairline ring so the target shows against a large photo. The photo viewer gets it automatically (<code>.viewer .icon-btn</code>) for Previous, Next and Close.</li>
+        <li><b>With a count</b> puts a <code>.badge--count</code> on the corner: the phone inbox link, "Inbox, 1 unread", or the caterer's "Enquiries, 2 unread".</li>
+        <li><b>As a link</b> (<code>&lt;a class="icon-btn"&gt;</code>) goes somewhere instead of doing something, like the phone inbox link. Link semantics stay.</li>
+      </ul>
+      <p>Don't use an icon button when there is room for a word. The phone browse bar says "Area or postal code" on a <a href="button.html">ghost button</a> with an icon, because a pin alone is ambiguous. An icon button is never the screen's main action. The thread's Send button is the exception: it is a primary <code>.btn.btn--icon</code>, documented on the <a href="button.html">button</a> page. When one trigger offers several actions, use a <a href="menu.html">menu</a>.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <a class="icon-btn icon-btn--outline" href="../../mocks/pages/inbox/default.html" aria-label="Inbox, 1 unread"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">1</span></a>
+          <span class="ds-callout" style="left: 36%; top: 70%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 40%; top: 22%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 60%; top: 14%;" aria-hidden="true">3</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Container</b><small>44px circle (<code>--target-comfortable</code>, <code>--radius-full</code>). Transparent at rest; <code>--color-bg-subtle</code> on hover. The outline variant adds a 1px <code>--color-border-default</code> ring.</small></div></li>
+          <li><div><b>Icon</b><small>24-unit outline icon at 20px (<code>--icon-size-md</code>), 2px stroke, <code>currentColor</code>, <code>aria-hidden="true"</code>.</small></div></li>
+          <li><div><b>Count badge (optional)</b><small><code>.badge--count</code> pinned top right, at least 20px, sorrel with white figures. It is <code>aria-hidden</code>; the count is in the button's name.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>The site header, as signed-in Marcia Thompson sees it on a phone: search, inbox link with count, and menu. All three are ghost icon buttons in a row with a 4px gap.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+          <a class="icon-btn" href="../../mocks/pages/inbox/default.html" aria-label="Inbox, 1 unread"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">1</span></a>
+          <button class="icon-btn" type="button" aria-label="Menu" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+        </div>
+        <div class="ds-example__caption"><span>Ghost: search opens <code>dialogs/search</code>; the inbox is a link with the count in its name; Menu opens the site menu sheet.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog"&gt;
+  &lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;&lt;circle cx="11" cy="11" r="7"/&gt;&lt;path d="m20 20-3.5-3.5"/&gt;&lt;/svg&gt;
+&lt;/button&gt;
+&lt;a class="icon-btn" href="/inbox" aria-label="Inbox, 1 unread"&gt;
+  &lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;
+  &lt;span class="badge badge--count" aria-hidden="true"&gt;1&lt;/span&gt;
+&lt;/a&gt;
+&lt;button class="icon-btn" type="button" aria-label="Menu" aria-haspopup="dialog"&gt;…&lt;/button&gt;</code></pre></details>
+      </div>
+      <h3>Outline, in the photo viewer</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <button class="icon-btn icon-btn--outline" type="button" aria-label="Previous photo"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="photo photo--xs"><img src="../../mocks/assets/img/maracas-bay.jpg" alt="Curry chicken with rice and buss up shut in a steel karahi" width="40" height="40"></span>
+          <button class="icon-btn icon-btn--outline" type="button" aria-label="Next photo"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+          <button class="icon-btn icon-btn--outline" type="button" aria-label="Close photo viewer"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        </div>
+        <div class="ds-example__caption"><span>The ring is decorative (the glyph identifies the control); it shows where the 44px target is next to a large round photo.</span></div>
+      </div>
+      <h3>Row and tile actions</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <div class="photo-tile__move">
+            <button class="icon-btn" type="button" aria-label="Move photo 1 up" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button>
+            <button class="icon-btn" type="button" aria-label="Move photo 1 down"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button>
+          </div>
+          <button class="icon-btn" type="button" aria-label="Edit Sorrel" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button>
+          <button class="icon-btn" type="button" aria-label="Remove Sorrel" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+        </div>
+        <div class="ds-example__caption"><span>The first photo cannot move up, so that button is disabled rather than hidden and the arrows stay in place. Each name says which photo or dish it acts on.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>One size: 44 × 44px with a 20px icon, so every icon button meets the phone target (L2-065) without exceptions. Where a row needs a denser 36px square, use <code>.btn.btn--icon.btn--sm</code> from <a href="button.html">button</a>. It has the button's border and variants and still clears the 24px minimum.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <button class="icon-btn icon-btn--outline" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+          <button class="btn btn--icon btn--sm" type="button" aria-label="Move Doubles up"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button>
+        </div>
+        <div class="ds-example__caption"><span><code>.icon-btn</code> · 44px (<code>--target-comfortable</code>) beside <code>.btn--icon.btn--sm</code> · 36px (<code>--control-height-sm</code>).</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover, focus and active are forced here with <code>data-state</code>. Real pages get them from <code>:hover</code>, <code>:focus-visible</code> and <code>:active</code>. Disabled, pressed and expanded use the real attributes.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Icon button states by variant</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Active</th><th scope="col">Disabled</th><th scope="col">Pressed</th><th scope="col">Expanded</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Ghost</th>
+            <td><button class="icon-btn" type="button" aria-label="Search by area or postal code"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button></td>
+            <td><button class="icon-btn" type="button" aria-label="Search by area or postal code" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button></td>
+            <td><button class="icon-btn" type="button" aria-label="Search by area or postal code" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button></td>
+            <td><button class="icon-btn" type="button" aria-label="Search by area or postal code" data-state="active"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button></td>
+            <td><button class="icon-btn" type="button" aria-label="Search by area or postal code" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button></td>
+            <td><button class="icon-btn" type="button" aria-label="Show photo captions" aria-pressed="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg></button></td>
+            <td><button class="icon-btn" type="button" aria-label="More actions for Pelau House" aria-haspopup="menu" aria-expanded="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button></td></tr>
+          <tr><th scope="row">Outline</th>
+            <td><button class="icon-btn icon-btn--outline" type="button" aria-label="Next photo"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+            <td><button class="icon-btn icon-btn--outline" type="button" aria-label="Next photo" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+            <td><button class="icon-btn icon-btn--outline" type="button" aria-label="Next photo" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+            <td><button class="icon-btn icon-btn--outline" type="button" aria-label="Next photo" data-state="active"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+            <td><button class="icon-btn icon-btn--outline" type="button" aria-label="Next photo" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+            <td><button class="icon-btn icon-btn--outline" type="button" aria-label="Show photo captions" aria-pressed="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg></button></td>
+            <td><button class="icon-btn icon-btn--outline" type="button" aria-label="More actions for Pelau House" aria-haspopup="menu" aria-expanded="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button></td></tr>
+          <tr><th scope="row">With count</th>
+            <td><a class="icon-btn" href="../../mocks/pages/dashboard-enquiries/default.html" aria-label="Enquiries, 2 unread"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">2</span></a></td>
+            <td><a class="icon-btn" href="../../mocks/pages/dashboard-enquiries/default.html" aria-label="Enquiries, 2 unread" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">2</span></a></td>
+            <td><a class="icon-btn" href="../../mocks/pages/dashboard-enquiries/default.html" aria-label="Enquiries, 2 unread" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">2</span></a></td>
+            <td><a class="icon-btn" href="../../mocks/pages/dashboard-enquiries/default.html" aria-label="Enquiries, 2 unread" data-state="active"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">2</span></a></td>
+            <td><span class="ds-na">Links are never disabled</span></td>
+            <td><span class="ds-na">Not a toggle</span></td>
+            <td><span class="ds-na">Not a trigger</span></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas" style="padding: 0;"><button class="icon-btn" type="button" aria-label="Search by area or postal code"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button><a class="icon-btn" href="../../mocks/pages/inbox/default.html" aria-label="Inbox, 1 unread"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">1</span></a><button class="icon-btn" type="button" aria-label="Menu" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button><button class="icon-btn icon-btn--outline" type="button" aria-label="Close photo viewer"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><button class="icon-btn" type="button" aria-label="Move photo 1 up" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas" style="padding: 0;"><button class="icon-btn" type="button" aria-label="Search by area or postal code"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button><a class="icon-btn" href="../../mocks/pages/inbox/default.html" aria-label="Inbox, 1 unread"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">1</span></a><button class="icon-btn" type="button" aria-label="Menu" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button><button class="icon-btn icon-btn--outline" type="button" aria-label="Close photo viewer"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><button class="icon-btn" type="button" aria-label="Move photo 1 up" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button></div></div>
+      </div>
+      <ul>
+        <li><b>Disabled</b> uses the native attribute at 50% opacity with no hover fill. Use it at the ends of a list ("Move photo 1 up", "Move photo 6 down") and for a dialog's Close while it is busy ("Suspending Pelau House" keeps Close disabled until the server answers).</li>
+        <li><b>Pressed</b> (<code>aria-pressed="true"</code>) and <b>expanded</b> (<code>aria-expanded="true"</code>) keep the hover fill while on. This is for toggles and for the trigger of an open <a href="menu.html">menu</a> or <a href="popover.html">popover</a>. No current mock uses an icon toggle, and a background-only pressed state is too faint (see Sources), so a pressed icon button also turns its glyph pepper.</li>
+        <li><b>Current page</b>: the phone inbox link carries <code>aria-current="page"</code> on the inbox and its threads. It shows the glyph in <code>--color-fg-accent</code>, pepper for "you are here", matching the text link in the wide header.</li>
+        <li><b>Busy</b> is not an icon-button state. A busy action belongs to a <code>.btn</code> (<code>aria-busy</code>); the thread's Send reply is <code>.btn--primary.btn--icon</code> for that reason.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Below 48rem (XS, SM)</b> the header swaps text links for icon buttons. <code>.site-nav__extra</code> links (Caterers, Occasions, Inbox, the avatar) hide; <code>.site-nav__menu</code> icon buttons (inbox link with count, Menu) show. Search shows at every width. At 320px the row is wordmark + 3 × 44px + 2 × 4px gaps, and the "for caterers" tag drops below 22.5rem, so the header never scrolls sideways.</li>
+        <li><b>From 48rem (MD up)</b> the phone-only icon buttons hide and the text links return. Search stays an icon button: there is no free-text search box in the header (mocks README, open question 8).</li>
+        <li><b>Photo viewer</b>: Previous and Next flank the photo at every width. From 48rem the gap between control and photo grows from <code>--space-2</code> to <code>--space-8</code>.</li>
+        <li><b>Photo tiles</b> (2 / 3 / 4 columns at XS / MD / XL) centre their move arrows under the caption and wrap if a tile is narrower than 92px.</li>
+        <li>An icon button never shrinks with the viewport. If a row cannot fit its icon buttons, the row wraps.</li>
+      </ul>
+      <div class="ds-iframes">
+        <iframe class="ds-iframe" src="../../mocks/pages/inbox/default.html?chrome=0&amp;theme=light" title="Inbox mock at phone width: search, inbox and menu icon buttons in the header" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The icon button has no component tokens: the glyph is <code>currentColor</code> from <code>--color-fg-default</code>, the hover and pressed fill is <code>--color-bg-subtle</code>, active is <code>--color-bg-subtle-hover</code>, and the outline ring is <code>--color-border-default</code>. The count badge brings its own <code>--color-danger-solid</code> and <code>--color-fg-on-danger</code>.</p>
+      <p>In dark the glyph flips to stone-100 and the fill to stone-800; the badge becomes sorrel-300 with near-black figures. To re-skin one context, set <code>color</code> on the container (the glyph follows) rather than editing <code>.icon-btn</code>:</p>
+      <pre><code>/* Icon buttons on an inverse surface inherit its text colour */
+.ds-example__canvas--inverse .icon-btn { color: var(--color-fg-inverse); }</code></pre>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native <code>&lt;button type="button"&gt;</code> (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/button/">APG Button</a>), or <code>&lt;a href&gt;</code> when it navigates (the inbox link). Toggles add <code>aria-pressed</code>. Triggers add <code>aria-haspopup="dialog"</code> or <code>"menu"</code>, and a menu trigger also carries <code>aria-expanded</code> and <code>aria-controls</code>.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves to and from the icon button in DOM order (header: search, inbox, menu).</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Activates a button or follows a link.</td></tr>
+        <tr><td><kbd>Space</kbd></td><td>Activates a button (not a link).</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Closes the dialog, sheet or menu the button opened and returns focus to it.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The shared 2px pepper ring with a 3px offset follows the circle, because <code>.icon-btn</code> keeps <code>--radius-full</code> on focus. When a dialog, sheet or the viewer closes, focus returns to the icon button that opened it ("Escape or Close returns focus to the search icon").</p>
+      <h3>Labelling</h3>
+      <p><code>aria-label</code> names the action and, in a list, the object: "Move photo 3 up", "Edit Sorrel", "Remove Black cake". Inside a named dialog "Close" is enough; the viewer says "Close photo viewer" because it has no visible title. A count goes in the label ("Inbox, 1 unread") and the badge is <code>aria-hidden</code>. Keep the label when pressed. Don't rely on <code>title</code>; add a <a href="tooltip.html">tooltip</a> only where sighted pointer users need the word as well.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Glyph on canvas</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Glyph on hover / pressed fill</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="3"></span></div>
+        <div class="ds-pair"><span>Glyph in a dialog or viewer</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="3"></span></div>
+        <div class="ds-pair"><span>Current-page glyph (pepper)</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Count on badge</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-danger|--color-danger-solid" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on canvas</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+      </div>
+      <p>The outline ring (<code>--color-border-default</code>) is decorative: the glyph alone identifies the control at 3:1 or more. Disabled icon buttons are exempt (WCAG 1.4.11).</p>
+      <h3>Motion</h3>
+      <p>Only the background colour transitions, over <code>--duration-fast</code> (120ms). Reduced motion zeroes it. Nothing moves or scales.</p>
+      <h3>Touch</h3>
+      <p>Every icon button is 44 × 44px, so adjacent targets (the header row, a tile's up and down arrows 4px apart) need no extra spacing under WCAG 2.5.8. Nothing depends on hover: there are no hover-only reveals on rows or tiles.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Names are verb phrases in sentence case, Canadian English: "Search by area or postal code", "Close photo viewer", "Previous photo", "Move photo 2 down".</li>
+        <li>Name the object in repeated rows: "Remove Curry channa and aloo", spelled as the caterer spells the dish.</li>
+        <li>Counts read as "Inbox, 1 unread" or "Enquiries, 2 unread": noun, comma, number, state. Over 99 the badge shows "99+"; the name keeps the real number.</li>
+        <li>One icon, one meaning, everywhere: the pin means area, the envelope means inbox or enquiries, the two-line icon means the site menu. Never reuse the search icon for filters.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="icon-btn" type="button" aria-label="Remove Doubles"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button><button class="icon-btn" type="button" aria-label="Remove Aloo pie"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div><figcaption>Each name says which dish: "Remove Doubles", "Remove Aloo pie".</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="icon-btn" type="button" aria-label="Remove"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button><button class="icon-btn" type="button" aria-label="Remove"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div><figcaption>Eighteen buttons all called "Remove" are indistinguishable in a screen reader's button list.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><a class="icon-btn" href="../../mocks/pages/inbox/default.html" aria-label="Inbox, 1 unread"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">1</span></a></div><figcaption>The count is in the name, and the badge is hidden from assistive technology.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="icon-btn" type="button" aria-label="Send enquiry"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button></div><figcaption>The screen's main action is never a ghost icon. "Send an enquiry" is a primary button with words.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Glyph</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Hover, pressed, expanded fill</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Active fill</td><td><code>--color-bg-subtle-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td></tr>
+          <tr><td>Outline ring</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Current / pressed glyph</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+          <tr><td>Count badge</td><td><code>--color-danger-solid</code> / <code>--color-fg-on-danger</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td></tr>
+          <tr><td>Focus ring</td><td><code>--color-focus-ring</code>, <code>--focus-ring-width</code>, <code>--focus-ring-offset</code></td><td><span data-token="--color-focus-ring"></span></td><td><span data-theme="dark" data-token="--color-focus-ring"></span></td></tr>
+          <tr><td>Size</td><td><code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Icon</td><td><code>--icon-size-md</code>, <code>--icon-stroke</code></td><td colspan="2"><span data-token="--icon-size-md"></span> · stroke <span data-token="--icon-stroke"></span></td></tr>
+          <tr><td>Badge minimum</td><td><code>--icon-size-md</code></td><td colspan="2"><span data-token="--icon-size-md"></span></td></tr>
+          <tr><td>Radius</td><td><code>--radius-full</code></td><td colspan="2"><span data-token="--radius-full"></span></td></tr>
+          <tr><td>Transition</td><td><code>--duration-fast</code>, <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-fast"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="photo-tile__move"&gt;
+  &lt;button class="icon-btn" type="button" aria-label="Move photo 1 up" disabled&gt;…&lt;/button&gt;
+  &lt;button class="icon-btn" type="button" aria-label="Move photo 1 down"&gt;…&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;a class="icon-btn site-nav__menu" href="/inbox" aria-label="Inbox, 1 unread" aria-current="page"&gt;
+  &lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;&lt;span class="badge badge--count" aria-hidden="true"&gt;1&lt;/span&gt;
+&lt;/a&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.icon-btn</code></td><td>Ghost, 44px round, no border; one <code>.icon</code> child.</td></tr>
+        <tr><td><code>.icon-btn--outline</code></td><td>Adds a 1px <code>--color-border-default</code> ring. Applied automatically inside <code>.viewer</code>.</td></tr>
+        <tr><td><code>.badge.badge--count</code> (child)</td><td>Count pinned top right; always <code>aria-hidden="true"</code>.</td></tr>
+        <tr><td><code>aria-label</code></td><td>Required: the accessible name.</td></tr>
+        <tr><td><code>aria-pressed="true|false"</code></td><td>Toggle; on state keeps the fill and turns the glyph pepper.</td></tr>
+        <tr><td><code>aria-haspopup</code> + <code>aria-expanded</code></td><td>Trigger for a menu or popover; expanded keeps the fill.</td></tr>
+        <tr><td><code>aria-current="page"</code></td><td>Link to the current page; glyph in <code>--color-fg-accent</code>.</td></tr>
+        <tr><td><code>disabled</code></td><td>50% opacity, no fill, not focusable.</td></tr>
+        <tr><td><code>data-state="hover|focus|active|disabled"</code></td><td>Documentation and mocks only.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/inbox/default.html">pages/inbox/default</a> (header search, phone inbox link with count and <code>aria-current</code>, Menu)</li>
+        <li><a href="../../mocks/pages/dashboard/default.html">pages/dashboard/default</a> ("Enquiries, 2 unread")</li>
+        <li><a href="../../mocks/dialogs/search/default.html">dialogs/search/default</a> (dialog Close)</li>
+        <li><a href="../../mocks/dialogs/suspend-caterer/busy.html">dialogs/suspend-caterer/busy</a> (Close disabled while busy)</li>
+        <li><a href="../../mocks/dialogs/photo-viewer/default.html">dialogs/photo-viewer/default</a> (outlined Previous, Next, Close)</li>
+        <li><a href="../../mocks/pages/profile-photos/default.html">pages/profile-photos/default</a> (move arrows, disabled at the ends)</li>
+        <li><a href="../../mocks/pages/profile-menu/default.html">pages/profile-menu/default</a> (Edit, Remove, Move per dish)</li>
+      </ul>
+      <p>Drift fixed during extraction: the phone inbox link has <code>aria-current="page"</code> in 24 mocks but looked the same as on every other page; it now turns pepper. A pressed or expanded icon button changed only its fill (stone-100 on white, about 1.1:1), too faint to identify the state; a pressed one now turns its glyph pepper too. The kit's <code>.icon-btn--outline</code> was unused; the viewer's own outline rule is the same treatment and is now documented as that variant.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

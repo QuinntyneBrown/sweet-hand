@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Filter trigger — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand filter trigger and filter bar: dropdown triggers with aria-expanded, the phone Filters button and sheet, count bubble, dropdown panel, states in both themes, accessibility and tokens.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Navigation</p>
+      <h1>Filter trigger</h1>
+      <p class="ds-lead">Below 62rem the cuisine column has no room, so filters fold into buttons: a bar of Cuisine and Area dropdowns on tablets, and one Filters button that opens a full-height sheet on phones. Each shows how many filters are on.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.filter-trigger</code></span><span class="ds-pill"><code>.filter-bar</code></span><span class="ds-pill"><code>.filter-dropdown</code></span><span class="ds-pill"><code>.mobile-browse-bar</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A filter trigger is an outlined pill button that opens filter choices. It is how the <a href="filter-list.html">filter list</a> travels to smaller screens (L2-009):</p>
+      <ul>
+        <li><b>MD, 48–62rem</b>: a <code>.filter-bar</code> above the grid with one trigger per group, "Cuisine" and "Area". Each opens a <code>.filter-dropdown</code> anchored under it: a short checkbox list, "Clear" and a live count. Choices apply as you tick.</li>
+        <li><b>XS and SM, below 48rem</b>: a <code>.mobile-browse-bar</code> with one "Filters" trigger and a ghost "Area or postal code" button. Filters opens the full-height <a href="sheet.html">sheet</a> (<code>dialogs/filters</code>) with both groups, "Clear" and "Show 60 caterers".</li>
+        <li><b>LG and up</b>: no triggers. The column is always visible.</li>
+      </ul>
+      <p>When filters are on, the trigger carries an ink count bubble ("Filters 2", "Cuisine 1"). Use a plain <a href="button.html">button</a> for actions, a <a href="menu.html">menu</a> for a list of commands and a <a href="select.html">select</a> for one choice inside a form. A filter trigger is only for opening filter choices.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="filter-bar">
+            <button class="filter-trigger" type="button" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filters <span class="filter-trigger__count"><span class="visually-hidden">, </span>2<span class="visually-hidden"> active</span></span></button>
+            <button class="filter-trigger" type="button" aria-expanded="false">Cuisine <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+          </div>
+          <span class="ds-callout" style="left: 18%; top: 22%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 32%; top: 22%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 46%; top: 22%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 76%; top: 22%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 62%; top: 76%;" aria-hidden="true">5</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Filters icon</b><small>Phone trigger only: the sliders icon, <code>aria-hidden="true"</code>.</small></div></li>
+          <li><div><b>Label</b><small>"Filters", or the group name ("Cuisine", "Area"), in <code>--text-label</code> at <code>--font-size-md</code>.</small></div></li>
+          <li><div><b>Count bubble</b><small><code>.filter-trigger__count</code>: ink (<code>--color-action</code>), 22px round, caption semibold. Only when filters are on.</small></div></li>
+          <li><div><b>Chevron</b><small>Dropdown triggers only: tells people a panel opens beneath.</small></div></li>
+          <li><div><b>Container</b><small>Pill, 1px <code>--color-border-strong</code> edge on <code>--color-bg-surface</code>, 44px tall, <code>--space-4</code> side padding.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Phone browse bar</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 22.5rem;">
+          <div class="mobile-browse-bar">
+            <button class="filter-trigger" type="button" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filters</button>
+            <button class="btn btn--ghost" type="button" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Area or postal code</button>
+          </div>
+          <div class="mobile-browse-bar">
+            <button class="filter-trigger" type="button" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filters <span class="filter-trigger__count"><span class="visually-hidden">, </span>2<span class="visually-hidden"> active</span></span></button>
+            <button class="btn btn--ghost" type="button" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Area or postal code</button>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>XS and SM: Filters (with "2" when Jamaican and Scarborough are on) and the area search. The bar wraps rather than squeezing at 320px.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="mobile-browse-bar only-xs-sm"&gt;
+  &lt;button class="filter-trigger" type="button" aria-haspopup="dialog"&gt;
+    &lt;svg class="icon" aria-hidden="true" …/&gt;Filters
+    &lt;span class="filter-trigger__count"&gt;&lt;span class="visually-hidden"&gt;, &lt;/span&gt;2&lt;span class="visually-hidden"&gt; active&lt;/span&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button class="btn btn--ghost" type="button" aria-haspopup="dialog"&gt;…Area or postal code&lt;/button&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>Tablet filter bar with an open dropdown</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas" style="align-items: flex-start; min-height: 30rem;">
+          <div class="filter-bar">
+            <div class="menu-anchor">
+              <button class="filter-trigger" type="button" aria-expanded="true" aria-controls="ft-menu-cuisine">Cuisine <span class="filter-trigger__count"><span class="visually-hidden">, </span>1<span class="visually-hidden"> selected</span></span> <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+              <div class="filter-dropdown" id="ft-menu-cuisine" role="dialog" aria-labelledby="ft-menu-title">
+                <p class="filter-group__title" id="ft-menu-title">Cuisine</p>
+                <fieldset class="filter-group">
+                  <legend class="visually-hidden">Cuisines</legend>
+                  <label class="choice"><input type="checkbox" name="ft-cuisine" value="Jamaican" checked><span class="choice__text">Jamaican <small>2 caterers</small></span></label>
+                  <label class="choice"><input type="checkbox" name="ft-cuisine" value="Trinidadian &amp; Tobagonian"><span class="choice__text">Trinidadian &amp; Tobagonian <small>1 caterer</small></span></label>
+                  <label class="choice"><input type="checkbox" name="ft-cuisine" value="Guyanese"><span class="choice__text">Guyanese <small>1 caterer</small></span></label>
+                  <label class="choice"><input type="checkbox" name="ft-cuisine" value="Haitian" disabled><span class="choice__text">Haitian <small>0 caterers</small></span></label>
+                </fieldset>
+                <div class="cluster cluster--between" style="margin-top: var(--space-4);"><button class="btn btn--link btn--sm" type="button">Clear</button><span class="result-count" role="status">2 caterers</span></div>
+              </div>
+            </div>
+            <div class="menu-anchor">
+              <button class="filter-trigger" type="button" aria-expanded="false" aria-controls="ft-menu-area">Area <span class="filter-trigger__count"><span class="visually-hidden">, </span>1<span class="visually-hidden"> selected</span></span> <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>MD: "Cuisine" is open (<code>aria-expanded="true"</code>, a 2px ink edge). The panel applies each tick at once and shows the live total; zero-count cuisines are disabled.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="filter-bar only-md"&gt;
+  &lt;div class="menu-anchor"&gt;
+    &lt;button class="filter-trigger" type="button" aria-expanded="true" aria-controls="menu-cuisine"&gt;Cuisine …&lt;/button&gt;
+    &lt;div class="filter-dropdown" id="menu-cuisine" role="dialog" aria-labelledby="menu-cuisine-title"&gt;
+      &lt;p class="filter-group__title" id="menu-cuisine-title"&gt;Cuisine&lt;/p&gt;
+      &lt;fieldset class="filter-group"&gt;&lt;legend class="visually-hidden"&gt;Cuisines&lt;/legend&gt;
+        &lt;label class="choice"&gt;&lt;input type="checkbox" name="cuisine" value="Jamaican" checked&gt;&lt;span class="choice__text"&gt;Jamaican &lt;small&gt;2 caterers&lt;/small&gt;&lt;/span&gt;&lt;/label&gt;
+        …
+      &lt;/fieldset&gt;
+      &lt;div class="cluster cluster--between"&gt;&lt;button class="btn btn--link btn--sm" type="button"&gt;Clear&lt;/button&gt;&lt;span class="result-count" role="status"&gt;2 caterers&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  …
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>Phone Filters sheet</h3>
+      <div class="ds-iframes">
+        <iframe class="ds-iframe" src="../../mocks/dialogs/filters/default.html?chrome=0&amp;theme=light" title="Filters sheet on a phone, nothing chosen" loading="lazy"></iframe>
+        <iframe class="ds-iframe" src="../../mocks/dialogs/filters/selected.html?chrome=0&amp;theme=dark" title="Filters sheet on a phone, two filters on, dark theme" loading="lazy"></iframe>
+      </div>
+      <p>The sheet covers the screen (a side sheet from 48rem), lists both groups as checkboxes with "14 caterers" under each name, and ends with "Clear" and a primary that states the outcome: "Show 60 caterers", then "Show 2 caterers" as you choose.</p>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="One size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Triggers are 44px at every width (<code>--control-height-md</code>) and only appear below 62rem, where that size is the phone target (L2-065.1). There is no small or large trigger.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p><code>aria-expanded</code> drives the open look on dropdown triggers; the phone trigger opens a modal, so it uses <code>aria-haspopup="dialog"</code> and has no open look. Pointer and focus states are forced with <code>data-state</code>.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Filter trigger states by variant</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Active</th><th scope="col">Disabled</th><th scope="col">Open</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Filters (phone)</th>
+            <td><button class="filter-trigger" type="button" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filters</button></td>
+            <td><button class="filter-trigger" type="button" aria-haspopup="dialog" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filters</button></td>
+            <td><button class="filter-trigger" type="button" aria-haspopup="dialog" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filters</button></td>
+            <td><button class="filter-trigger" type="button" aria-haspopup="dialog" data-state="active"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filters</button></td>
+            <td><button class="filter-trigger" type="button" aria-haspopup="dialog" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filters</button></td>
+            <td><span class="text-subtle">Covered by the sheet</span></td></tr>
+          <tr><th scope="row">Dropdown</th>
+            <td><button class="filter-trigger" type="button" aria-expanded="false">Area <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><button class="filter-trigger" type="button" aria-expanded="false" data-state="hover">Area <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><button class="filter-trigger" type="button" aria-expanded="false" data-state="focus">Area <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><button class="filter-trigger" type="button" aria-expanded="false" data-state="active">Area <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><button class="filter-trigger" type="button" aria-expanded="false" disabled>Area <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><button class="filter-trigger" type="button" aria-expanded="true">Area <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td></tr>
+          <tr><th scope="row">With count</th>
+            <td><button class="filter-trigger" type="button" aria-expanded="false">Cuisine <span class="filter-trigger__count"><span class="visually-hidden">, </span>1<span class="visually-hidden"> selected</span></span> <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><button class="filter-trigger" type="button" aria-expanded="false" data-state="hover">Cuisine <span class="filter-trigger__count"><span class="visually-hidden">, </span>1<span class="visually-hidden"> selected</span></span> <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><button class="filter-trigger" type="button" aria-expanded="false" data-state="focus">Cuisine <span class="filter-trigger__count"><span class="visually-hidden">, </span>1<span class="visually-hidden"> selected</span></span> <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><button class="filter-trigger" type="button" aria-expanded="false" data-state="active">Cuisine <span class="filter-trigger__count"><span class="visually-hidden">, </span>1<span class="visually-hidden"> selected</span></span> <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><button class="filter-trigger" type="button" aria-expanded="false" disabled>Cuisine <span class="filter-trigger__count"><span class="visually-hidden">, </span>1<span class="visually-hidden"> selected</span></span> <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td>
+            <td><button class="filter-trigger" type="button" aria-expanded="true">Cuisine <span class="filter-trigger__count"><span class="visually-hidden">, </span>1<span class="visually-hidden"> selected</span></span> <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="filter-bar"><button class="filter-trigger" type="button" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filters <span class="filter-trigger__count"><span class="visually-hidden">, </span>2<span class="visually-hidden"> active</span></span></button><button class="filter-trigger" type="button" aria-expanded="true">Area <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></div></div>
+        <div data-theme="dark"><div class="filter-bar"><button class="filter-trigger" type="button" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filters <span class="filter-trigger__count"><span class="visually-hidden">, </span>2<span class="visually-hidden"> active</span></span></button><button class="filter-trigger" type="button" aria-expanded="true">Area <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></div></div>
+      </div>
+      <ul>
+        <li><b>Open</b> is ink, not pepper: a 1px ink border plus a 1px inset ink shadow make a 2px edge. Opening a panel is not a selection; the count bubble says what is selected.</li>
+        <li><b>Disabled</b> appears offline (<a href="../../mocks/pages/caterers/offline.html">pages/caterers/offline</a>): 50% opacity, with the offline banner saying why.</li>
+        <li><b>Busy</b> lives in the sheet, not the trigger: "Show 2 caterers" takes <code>aria-busy</code> while results load (<a href="../../mocks/dialogs/filters/busy.html">dialogs/filters/busy</a>).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <caption class="visually-hidden">Filter controls by viewport class</caption>
+        <thead><tr><th scope="col">Viewport</th><th scope="col">Control</th><th scope="col">Opens</th></tr></thead>
+        <tbody>
+          <tr><td>XS, SM (below 48rem)</td><td><code>.mobile-browse-bar.only-xs-sm</code>: Filters + "Area or postal code"</td><td>Full-height sheet, both groups; the search dialog</td></tr>
+          <tr><td>MD (48–62rem)</td><td><code>.filter-bar.only-md</code>: Cuisine, Area</td><td><code>.filter-dropdown</code>, 20rem wide, under its trigger</td></tr>
+          <tr><td>LG, XL (62rem and wider)</td><td>None; <code>.browse__head.until-lg</code> hides unless chips are showing</td><td>The <a href="filter-list.html">filter list</a> column</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li>Below 48rem the dropdown is positioned against the whole bar (<code>.filter-bar</code> becomes the containing block), so a panel opened from "Area" still starts at the left margin and never runs off screen; its width is <code>min(20rem, 100vw − 2 × margin)</code>.</li>
+        <li>The browse bar wraps: at 320px "Area or postal code" drops under "Filters" rather than truncating.</li>
+        <li>The sheet respects the top and bottom safe areas in its header and footer padding.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>No component tokens. The trigger reads <code>--color-bg-surface</code>, <code>--color-border-strong</code> and <code>--color-fg-default</code>; hover and press use <code>--color-bg-subtle</code> and <code>--color-bg-subtle-hover</code>; open uses <code>--color-fg-default</code> as a 2px edge. The count bubble is <code>--color-action</code> with <code>--color-fg-on-action</code>, the same ink as the primary button, so in dark it flips to light stone with near-black digits. The dropdown is an overlay, so it is one of the few places with a border and shadow: <code>--color-bg-surface-raised</code>, <code>--color-border-default</code>, <code>--shadow-3</code>, <code>--radius-lg</code>.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Dropdown triggers are buttons with <code>aria-expanded</code> and <code>aria-controls</code>; the panel is a non-modal <code>role="dialog"</code> labelled by its title, holding a <code>fieldset</code> of checkboxes (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/">APG Disclosure</a> behaviour with dialog semantics, because the panel holds form controls, not commands). The phone trigger has <code>aria-haspopup="dialog"</code> and opens a modal sheet (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/">APG Dialog (Modal)</a>) over an inert page.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>On a dropdown trigger: opens the panel and moves focus to the first enabled checkbox. On Filters: opens the sheet and focuses its title.</td></tr>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Dropdown: moves through checkboxes, Clear, then out; leaving the panel closes it. Sheet: focus is trapped until it closes (L2-067.1).</td></tr>
+        <tr><td><kbd>Space</kbd></td><td>Ticks a checkbox; results and the live count update.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Closes the dropdown or sheet and returns focus to the trigger (L2-067.4).</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The shared pepper ring sits outside the pill. When a panel closes, focus returns to the trigger that opened it, whose count bubble now reflects the new state.</p>
+      <h3>Labelling</h3>
+      <p>The count is part of the button's name through visually hidden text: "Filters, 2 active", "Cuisine, 1 selected". Do not put <code>aria-label</code> on the bubble <code>span</code>; a generic element's label is ignored by most screen readers. The sheet title repeats the count the same way.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Label on trigger</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Trigger edge</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Label on hovered trigger</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Count bubble</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-action|--color-action" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Text in the dropdown</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Counts in the dropdown</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on page</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>The trigger's fill transitions over <code>--duration-fast</code>. The dropdown appears without animation; the sheet slides up (or in from the right from 48rem) over <code>--duration-slow</code>. Reduced motion zeroes both.</p>
+      <h3>Touch</h3>
+      <p>44px tall, 8px apart in the bar (<code>--space-2</code>), which meets L2-065.1. Checkbox rows in the sheet are at least 24px tall with label text widening the target; the whole label is clickable.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>The phone trigger is "Filters". Dropdown triggers are the group names, "Cuisine" and "Area", never "Filter by cuisine".</li>
+        <li>The bubble is a bare number: how many values are on in that group (or in total for Filters).</li>
+        <li>The sheet's primary states the result: "Show 60 caterers", "Show 2 caterers", "Show 1 caterer". The secondary is "Clear". L2-009.1 names these "Apply" and "Clear"; the mocks chose the outcome wording, which needs the requirement updated.</li>
+        <li>Dropdown footers say "Clear" and the live total ("2 caterers").</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="filter-trigger" type="button" aria-haspopup="dialog">Filters <span class="filter-trigger__count"><span class="visually-hidden">, </span>2<span class="visually-hidden"> active</span></span></button></div><figcaption>Ink bubble, with the count spoken as part of the button's name.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="filter-trigger" type="button" aria-haspopup="dialog">Filters <span class="filter-trigger__count" aria-label="2 active">2</span></button></div><figcaption>Don't hang the count on <code>aria-label</code> on a span (every mock did); it is not announced reliably.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="filter-trigger" type="button" aria-expanded="true">Cuisine <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></div><figcaption>Open is a heavier ink edge.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="chip" data-state="selected">Cuisine <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></div><figcaption>Don't paint an open or active trigger pepper; pepper is for chosen values, and it would look like "Cuisine" itself is a filter.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Trigger fill</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Trigger edge</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Label, open edge</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Hover fill</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Pressed fill</td><td><code>--color-bg-subtle-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td></tr>
+          <tr><td>Count bubble</td><td><code>--color-action</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-action" data-swatch></i><span data-token="--color-action"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-action" data-swatch></i><span data-token="--color-action"></span></span></td></tr>
+          <tr><td>Count digits</td><td><code>--color-fg-on-action</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-on-action" data-swatch></i><span data-token="--color-fg-on-action"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-on-action" data-swatch></i><span data-token="--color-fg-on-action"></span></span></td></tr>
+          <tr><td>Dropdown surface</td><td><code>--color-bg-surface-raised</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td></tr>
+          <tr><td>Dropdown edge</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Height, side padding</td><td><code>--control-height-md</code> <code>--space-4</code></td><td colspan="2"><span data-token="--control-height-md"></span> / <span data-token="--space-4"></span></td></tr>
+          <tr><td>Label</td><td><code>--text-label</code> <code>--font-size-md</code></td><td colspan="2"><span data-token="--text-label"></span> / <span data-token="--font-size-md"></span></td></tr>
+          <tr><td>Dropdown shadow, radius, layer</td><td><code>--shadow-3</code> <code>--radius-lg</code> <code>--z-dropdown</code></td><td colspan="2"><span data-token="--shadow-3"></span> / <span data-token="--radius-lg"></span> / <span data-token="--z-dropdown"></span></td></tr>
+          <tr><td>Dropdown padding</td><td><code>--space-4</code> <code>--space-5</code></td><td colspan="2"><span data-token="--space-4"></span> / <span data-token="--space-5"></span></td></tr>
+          <tr><td>Transition</td><td><code>--duration-fast</code> <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-fast"></span> / <span data-token="--ease-standard"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="browse__head until-lg"&gt;
+  &lt;div class="mobile-browse-bar only-xs-sm"&gt;
+    &lt;button class="filter-trigger" type="button" aria-haspopup="dialog"&gt;…Filters&lt;/button&gt;
+    &lt;button class="btn btn--ghost" type="button" aria-haspopup="dialog"&gt;…Area or postal code&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="filter-bar only-md"&gt;
+    &lt;div class="menu-anchor"&gt;&lt;button class="filter-trigger" type="button" aria-expanded="false" aria-controls="menu-cuisine"&gt;Cuisine …&lt;/button&gt;&lt;/div&gt;
+    &lt;div class="menu-anchor"&gt;&lt;button class="filter-trigger" type="button" aria-expanded="false" aria-controls="menu-area"&gt;Area …&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.filter-trigger</code></td><td>Outlined pill button, 44px.</td></tr>
+        <tr><td><code>.filter-trigger__count</code></td><td>Ink count bubble; put the spoken words in visually hidden text.</td></tr>
+        <tr><td><code>aria-expanded="true"</code> / <code>data-state="open"</code></td><td>Open dropdown: 2px ink edge.</td></tr>
+        <tr><td><code>aria-haspopup="dialog"</code></td><td>Phone trigger that opens the Filters sheet.</td></tr>
+        <tr><td><code>.filter-bar</code></td><td>Wrapping row of triggers (MD); the dropdown's containing block on phones.</td></tr>
+        <tr><td><code>.menu-anchor</code></td><td>Positions a dropdown under its trigger.</td></tr>
+        <tr><td><code>.filter-dropdown</code></td><td>Raised panel, 20rem, <code>--z-dropdown</code>.</td></tr>
+        <tr><td><code>.mobile-browse-bar</code></td><td>Phone row: Filters and area search, spaced apart, wrapping.</td></tr>
+        <tr><td><code>disabled</code></td><td>Offline: 50% opacity, not-allowed cursor.</td></tr>
+        <tr><td><code>data-state="hover|focus|active"</code></td><td>Documentation and mocks only.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/caterers/default.html">pages/caterers/default</a> (browse bar and filter bar, nothing on)</li>
+        <li><a href="../../mocks/pages/caterers/filtered.html">pages/caterers/filtered</a> and <a href="../../mocks/pages/caterers/occasion.html">pages/caterers/occasion</a> (count bubbles)</li>
+        <li><a href="../../mocks/pages/caterers/offline.html">pages/caterers/offline</a> (disabled)</li>
+        <li><a href="../../mocks/dialogs/filter-menu/default.html">dialogs/filter-menu/default</a> and <a href="../../mocks/dialogs/filter-menu/area.html">dialogs/filter-menu/area</a> (open dropdowns)</li>
+        <li><a href="../../mocks/dialogs/filters/default.html">dialogs/filters/default</a>, <a href="../../mocks/dialogs/filters/selected.html">selected</a> and <a href="../../mocks/dialogs/filters/busy.html">busy</a> (phone sheet)</li>
+      </ul>
+      <p>Drift fixed during extraction: every count bubble used <code>aria-label</code> on a plain <code>span</code> ("2 active"), which is not reliably announced; the system uses visually hidden text inside the button. The dropdown's scroll limit and footer spacing were inline styles (<code>max-height: min(50dvh, …)</code>, <code>margin-top: var(--space-4)</code>); <code>.filter-dropdown fieldset { max-height: min(50dvh, 20rem); overflow: auto; }</code> and <code>.filter-dropdown .cluster { margin-top: var(--space-4); }</code> are proposed. Open: L2-009.1 says "Apply"; the mocks say "Show 2 caterers".</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

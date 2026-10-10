@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Empty and error states — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand empty and error states: first-run, no results with filters, failed loads, offline, forbidden, not found, removed caterer and system pages, with copy formulas.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Pattern</p>
+      <h1>Empty and error states</h1>
+      <p class="ds-lead">When there is nothing to show, Sweet Hand says why in a line, says what happens next in another, and offers one way forward. Errors own the problem, say what is safe, and give a Try again.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.empty</code> · <code>.system-page</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#when">When to use which state</a></li><li><a href="#structure">Structure</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>An empty or failed screen is still a screen people have to act on. Sweet Hand uses two components for them: the <a href="../components/empty-state.html">empty state</a> (<code>.empty</code>, inside the page shell, in place of the list or region that has nothing) and the <a href="../components/error-page.html">error page</a> (<code>.system-page</code>, a whole page for 403, 404, 410, 429, 500, 503 and offline). Both are centred, short, and carry at most two actions: one ink primary and one quiet alternative.</p>
+      <ul>
+        <li><b>Keep the frame.</b> The header, filters and side navigation stay, so people can change course without the Back button. Only the region that has nothing changes.</li>
+        <li><b>One reason, one next step.</b> The title says what is (or isn't) there; the line under it says why or what will happen; the action moves them on.</li>
+        <li><b>Food, not illustrations.</b> System pages use the round food photos (<code>.photo-row</code>); in-page empty states use a 24-unit outline icon in a stone circle. No mascots, no cartoons.</li>
+        <li><b>Errors say what is safe.</b> "Your filters are kept", "Your messages are safe", "Nothing you saved is lost".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="when"><h2><a href="#when">When to use which state</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Situation</th><th scope="col">Component</th><th scope="col">Primary action</th><th scope="col">Mock</th></tr></thead>
+        <tbody>
+          <tr><td><b>First run</b>: nothing exists yet (new inbox, new caterer, empty queue)</td><td><code>.empty</code> in the region</td><td>The action that creates the first item ("Browse caterers", "Add photos", "Add your first dish")</td><td><a href="../../mocks/pages/inbox/empty.html">inbox/empty</a>, <a href="../../mocks/pages/profile-photos/empty.html">profile-photos/empty</a>, <a href="../../mocks/pages/admin-queue/empty.html">admin-queue/empty</a></td></tr>
+          <tr><td><b>Platform empty</b>: no caterers published yet</td><td><code>.empty</code> in the results</td><td>The other audience's door ("Cater with Sweet Hand")</td><td><a href="../../mocks/pages/caterers/empty.html">caterers/empty</a></td></tr>
+          <tr><td><b>No results</b> for chosen filters</td><td><code>.empty</code> under the active filter chips</td><td>"Clear filters"; the filter list stays usable with counts</td><td><a href="../../mocks/pages/caterers/no-results.html">caterers/no-results</a>, <a href="../../mocks/pages/admin-audit/no-results.html">admin-audit/no-results</a>, <a href="../../mocks/pages/admin-caterers/no-results.html">admin-caterers/no-results</a></td></tr>
+          <tr><td><b>Empty segment</b> of a status filter</td><td><code>.empty--compact</code></td><td>"Show all enquiries"</td><td><a href="../../mocks/pages/inbox/no-results.html">inbox/no-results</a></td></tr>
+          <tr><td><b>Failed load</b> of a page or region</td><td><code>.empty.empty--error</code> with <code>role="alert"</code> and a reference</td><td>"Try again"; secondary goes somewhere that works</td><td><a href="../../mocks/pages/inbox/error.html">inbox/error</a>, <a href="../../mocks/pages/caterers/error.html">caterers/error</a>, <a href="../../mocks/pages/admin-audit/error.html">admin-audit/error</a></td></tr>
+          <tr><td><b>Partial failure</b>: one panel failed</td><td>Danger <a href="../components/alert.html">alert</a> in that panel only</td><td>"Try again" for that panel</td><td><a href="../../mocks/pages/admin-metrics/partial.html">admin-metrics/partial</a></td></tr>
+          <tr><td><b>Offline</b> with a cached copy</td><td>Warning banner over cached content</td><td>None needed; network actions disabled with a reason</td><td><a href="../../mocks/pages/inbox/offline.html">inbox/offline</a>, <a href="../../mocks/pages/caterer/offline.html">caterer/offline</a></td></tr>
+          <tr><td><b>Offline</b> with nothing cached</td><td><code>.system-page</code></td><td>"Try again", plus links to saved pages</td><td><a href="../../mocks/pages/offline/default.html">offline/default</a></td></tr>
+          <tr><td><b>Forbidden</b> inside a work area (operator without Admin)</td><td><code>.empty</code> in the shell, naming who to ask</td><td>"Back to the queue"</td><td><a href="../../mocks/pages/admin-audit/forbidden.html">admin-audit/forbidden</a>, <a href="../../mocks/pages/admin-operators/forbidden.html">admin-operators/forbidden</a></td></tr>
+          <tr><td><b>Forbidden</b> area for the wrong kind of account</td><td><code>.system-page</code> 403</td><td>"Go to Sweet Hand"; secondary "Sign in with another account"</td><td><a href="../../mocks/pages/forbidden/default.html">forbidden/default</a></td></tr>
+          <tr><td><b>Not found</b>, or exists but not yours (same body)</td><td><code>.system-page</code> 404, or <code>.empty</code> inside the inbox</td><td>"Browse caterers" / "Back to inbox"</td><td><a href="../../mocks/pages/not-found/default.html">not-found/default</a>, <a href="../../mocks/pages/thread/not-found.html">thread/not-found</a></td></tr>
+          <tr><td><b>Removed caterer</b></td><td><code>.system-page</code> 410</td><td>"Browse caterers"; secondary "Browse by occasion"</td><td><a href="../../mocks/pages/caterer/removed.html">caterer/removed</a></td></tr>
+          <tr><td>Server error, rate limit, maintenance</td><td><code>.system-page</code> 500 / 429 / 503</td><td>"Try again", "Try again in 1 minute", "Check again"</td><td><a href="../../mocks/pages/server-error/default.html">server-error</a>, <a href="../../mocks/pages/rate-limited/default.html">rate-limited</a>, <a href="../../mocks/pages/maintenance/default.html">maintenance</a></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="structure"><h2><a href="#structure">Structure</a></h2>
+      <h3>First run, no results, failed load</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas" style="align-items: stretch; gap: var(--space-6);">
+          <div class="empty empty--compact" style="flex: 1 1 14rem;">
+            <span class="empty__icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+            <h3 class="empty__title">No enquiries yet</h3>
+            <p class="empty__text">When you send an enquiry to a caterer, the conversation lives here.</p>
+            <div class="empty__actions"><a class="btn btn--primary" href="../../mocks/pages/caterers/default.html">Browse caterers</a></div>
+          </div>
+          <div class="empty empty--compact" style="flex: 1 1 14rem;">
+            <span class="empty__icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+            <h3 class="empty__title">No caterers match these filters</h3>
+            <p class="empty__text">No Haitian caterers list Durham yet. Try a nearby area, or clear the filters.</p>
+            <div class="empty__actions"><button class="btn btn--primary" type="button">Clear filters</button></div>
+          </div>
+          <div class="empty empty--compact empty--error" style="flex: 1 1 14rem;">
+            <span class="empty__icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg></span>
+            <h3 class="empty__title">We couldn’t load your enquiries</h3>
+            <p class="empty__text">Your messages are safe. Check your connection and try again.</p>
+            <div class="empty__actions"><button class="btn btn--primary" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>Try again</button><a class="btn btn--ghost" href="../../mocks/pages/caterers/default.html">Browse caterers</a></div>
+            <p class="text-caption">Reference 7f3c-91ad</p>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Icon in a stone circle (danger tint for errors), title, one line, then actions. The reference goes last, small.</span><span>Sources: inbox/empty, caterers/no-results, inbox/error</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="empty empty--error" role="alert"&gt;
+  &lt;span class="empty__icon"&gt;&lt;svg class="icon" aria-hidden="true" …&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;h2 class="empty__title"&gt;We couldn’t load your enquiries&lt;/h2&gt;
+  &lt;p class="empty__text"&gt;Your messages are safe. Check your connection and try again.&lt;/p&gt;
+  &lt;div class="empty__actions"&gt;
+    &lt;button class="btn btn--primary" type="button"&gt;Try again&lt;/button&gt;
+    &lt;a class="btn btn--ghost" href="/caterers"&gt;Browse caterers&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;p class="text-caption"&gt;Reference 7f3c-91ad&lt;/p&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>No results keeps the filters in view</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p class="result-count">0 caterers</p>
+          <div class="active-filters"><span class="chip chip--filter">Haitian<button class="remove" type="button" aria-label="Remove Haitian"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></span><span class="chip chip--filter">Durham<button class="remove" type="button" aria-label="Remove Durham"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></span><button class="btn btn--link" type="button">Clear filters</button></div>
+          <div class="empty">
+            <h3 class="empty__title">No caterers match these filters</h3>
+            <p class="empty__text">No Haitian caterers list Durham yet. Try a nearby area, or clear the filters.</p>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Each filter can be removed on its own; the counts in the filter list (Haitian 0, Durham 0) show which choice emptied the list.</span><span>Source: pages/caterers/no-results</span></div>
+      </div>
+
+      <h3>System page</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas" style="justify-content: center;">
+          <div class="system-page" style="padding-block: var(--space-8);">
+            <div class="photo-row"><span class="photo"><img src="../../mocks/assets/img/ti-kay.jpg" alt="" width="72" height="72"></span><span class="photo"><img src="../../mocks/assets/img/demerara-kitchen.jpg" alt="" width="104" height="104"></span><span class="photo"><img src="../../mocks/assets/img/black-cake-co.jpg" alt="" width="72" height="72"></span></div>
+            <h3 style="font: var(--text-display);">This caterer has left Sweet Hand</h3>
+            <p>The page you followed is no longer available. There are 60 other caterers cooking across Toronto and the GTA.</p>
+            <div class="system-page__actions"><a class="btn btn--primary btn--lg" href="../../mocks/pages/caterers/default.html">Browse caterers</a><a class="btn btn--lg" href="../../mocks/pages/occasions/default.html">Browse by occasion</a></div>
+            <p class="system-page__code">410 · Gone</p>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Decorative photos (<code>alt=""</code>), display-size heading (the page's <code>&lt;h1&gt;</code> in the product), large actions, status code last.</span><span>Source: pages/caterer/removed</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Each kind has a fixed recipe. Use the copy formula, fill in the specifics, and keep to the actions listed.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Kind</th><th scope="col">Title formula</th><th scope="col">Line formula</th><th scope="col">Actions</th><th scope="col">Shown</th></tr></thead>
+        <tbody>
+          <tr><td>First run</td><td>"No <i>things</i> yet" / an inviting question</td><td>"When <i>trigger</i>, <i>what happens</i> here."</td><td>Create the first one</td><td>Icon or photo</td></tr>
+          <tr><td>No results</td><td>"No <i>things</i> match these filters"</td><td>"No <i>specific</i> … yet. Try <i>nearby</i>, or clear the filters."</td><td>Clear filters</td><td>Search icon, active chips</td></tr>
+          <tr><td>Empty segment</td><td>"No <i>status</i> <i>things</i>"</td><td>What would appear here</td><td>Show all</td><td>Compact</td></tr>
+          <tr><td>Failed load</td><td>"We couldn’t load <i>thing</i>"</td><td>What is safe + "Try again"</td><td>Try again · a place that works</td><td>Danger icon, reference</td></tr>
+          <tr><td>Forbidden (in shell)</td><td>"Only <i>role</i> can <i>do this</i>"</td><td>Who you are signed in as + who to ask, by name</td><td>Back to the work area</td><td>No code</td></tr>
+          <tr><td>Not found</td><td>"We can’t find that <i>thing</i>" / "Page not found"</td><td>"The link may be old, or it belongs to a different account."</td><td>Back to the list</td><td>Error 404</td></tr>
+          <tr><td>Removed</td><td>"This caterer has left Sweet Hand"</td><td>Count of others still cooking</td><td>Browse caterers · Browse by occasion</td><td>410 · Gone</td></tr>
+          <tr><td>Server error</td><td>"Something went wrong"</td><td>"That one’s on us, not you." + support email + reference</td><td>Try again · Browse caterers</td><td>Reference with Copy</td></tr>
+          <tr><td>Offline</td><td>"You’re offline"</td><td>What still works</td><td>Try again</td><td>Saved pages</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="empty empty--compact empty--error"><span class="empty__icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg></span><p class="empty__title">We couldn’t load caterers</p><p class="empty__text">Your filters are kept.</p><div class="empty__actions"><button class="btn btn--primary" type="button">Try again</button></div></div></div>
+        <div data-theme="dark"><div class="empty empty--compact empty--error"><span class="empty__icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg></span><p class="empty__title">We couldn’t load caterers</p><p class="empty__text">Your filters are kept.</p><div class="empty__actions"><button class="btn btn--primary" type="button">Try again</button></div></div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Empty states are centred in their region at every width; the text is held to 36 characters per line so it stays two or three lines on a phone.</li>
+        <li>Actions wrap and stay centred; on phones the primary comes first and both stay full size (44px).</li>
+        <li>On phones the browse page shows no-results under the "Filters 2" trigger and the active chips, so the way out is one tap away.</li>
+        <li>System pages hold to 34rem; the photo row (72 / 104 / 72px, 280px in all) fits inside 320px without scrolling sideways.</li>
+        <li>In the inbox, a not-found thread replaces only the thread column on large screens; below 62rem it is the whole view with "Back to inbox".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>An empty region is plain content with a heading at the region's level (<code>h2</code> in a page, <code>h3</code> inside a section). A load failure that replaces content after the person acted gets <code>role="alert"</code>; a first-run state does not. System pages put the title in the page's only <code>&lt;h1&gt;</code> and return the matching HTTP status (404, 410, 403, 429 with Retry-After, 503).</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Reaches the primary, then the secondary, then the reference's Copy button.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Try again reloads the region and moves focus to its heading when content arrives.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>After "Clear filters" focus moves to the result count, which announces "60 caterers". After a failed "Try again" focus returns to Try again. Navigating to a system page puts focus at the top as on any page load.</p>
+      <h3>Labelling</h3>
+      <p>Icons are decorative (<code>aria-hidden="true"</code>) and photos on system pages have <code>alt=""</code>; the title carries the meaning. Chip remove buttons name the filter ("Remove Haitian").</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Empty line text</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Icon in its stone circle</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="3"></span></div>
+        <div class="ds-pair"><span>Error icon on its tint</span><span class="ds-pair__ratio" data-contrast="--color-danger-icon|--color-danger-bg" data-min="3"></span></div>
+        <div class="ds-pair"><span>Status code</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-canvas" data-min="4.5"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>No animation. A region that is retrying shows the skeleton again (shimmer stops under reduced motion).</p>
+      <h3>Touch</h3>
+      <p>Actions are 44px (52px on system pages) with 12px between them.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Be specific.</b> "No Haitian caterers list Durham yet" beats "No results". "Tomas Reyes hasn’t removed anything between 3 Oct and 10 Oct 2026" tells an operator exactly what was searched.</li>
+        <li><b>"Yet" for first runs.</b> It promises things will arrive: "No enquiries yet", "Your first review is on its way", "The first caterers are on their way".</li>
+        <li><b>Own errors plainly.</b> "Something went wrong on our side." "That one’s on us, not you." Never blame the person or show raw codes as the message.</li>
+        <li><b>Name a person to ask</b> on forbidden screens: "Ask Leah Mohammed, an Admin, to add or deactivate an operator."</li>
+        <li><b>Not found never confirms existence.</b> "The link may be old, or it belongs to a different account." The same body is used for missing and not-yours.</li>
+        <li><b>References</b> are labelled "Reference" and copyable; they go last, in small text.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="empty empty--compact"><p class="empty__title">No open enquiries</p><p class="empty__text">Enquiries waiting for a caterer’s first reply show here.</p><div class="empty__actions"><button class="btn" type="button">Show all enquiries</button></div></div></div><figcaption>Explain what would be here and offer the way back to everything.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="empty empty--compact"><p class="empty__title">Nothing here</p></div></div><figcaption>A bare "Nothing here" leaves people guessing whether it is broken.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="empty empty--compact"><p class="empty__title">Only Admins can see the audit log</p><p class="empty__text">Ask Leah Mohammed, an Admin, if you need an entry checked.</p></div></div><figcaption>Forbidden in the shell: say who can, and who to ask.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="empty empty--compact empty--error"><p class="empty__title">Error 403: Forbidden</p></div></div><figcaption>Don't lead with the status code or the HTTP phrase.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="btn btn--primary" type="button">Clear filters</button></div><figcaption>One primary per empty state.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="btn btn--primary" type="button">Clear filters</button><button class="btn btn--primary" type="button">Browse occasions</button></div><figcaption>Two ink buttons compete; make the second ghost or secondary.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <ul>
+        <li>First run: <a href="../../mocks/pages/inbox/empty.html">inbox/empty</a>, <a href="../../mocks/pages/caterers/empty.html">caterers/empty</a>, <a href="../../mocks/pages/dashboard/empty.html">dashboard/empty</a>, <a href="../../mocks/pages/profile-photos/empty.html">profile-photos/empty</a>, <a href="../../mocks/pages/profile-menu/empty.html">profile-menu/empty</a>, <a href="../../mocks/pages/dashboard-enquiries/empty.html">dashboard-enquiries/empty</a>, <a href="../../mocks/pages/dashboard-reviews/empty.html">dashboard-reviews/empty</a>, <a href="../../mocks/pages/admin-queue/empty.html">admin-queue/empty</a>, <a href="../../mocks/pages/admin-audit/empty.html">admin-audit/empty</a></li>
+        <li>No results: <a href="../../mocks/pages/caterers/no-results.html">caterers/no-results</a>, <a href="../../mocks/pages/inbox/no-results.html">inbox/no-results</a>, <a href="../../mocks/pages/admin-audit/no-results.html">admin-audit/no-results</a>, <a href="../../mocks/pages/admin-caterers/no-results.html">admin-caterers/no-results</a></li>
+        <li>Failures: <a href="../../mocks/pages/caterers/error.html">caterers/error</a>, <a href="../../mocks/pages/inbox/error.html">inbox/error</a>, <a href="../../mocks/pages/caterer/error.html">caterer/error</a>, <a href="../../mocks/pages/profile-details/error.html">profile-details/error</a>, <a href="../../mocks/pages/admin-audit/error.html">admin-audit/error</a>, <a href="../../mocks/pages/admin-metrics/partial.html">admin-metrics/partial</a></li>
+        <li>System: <a href="../../mocks/pages/not-found/default.html">not-found</a>, <a href="../../mocks/pages/forbidden/default.html">forbidden</a>, <a href="../../mocks/pages/server-error/default.html">server-error</a>, <a href="../../mocks/pages/offline/default.html">offline</a>, <a href="../../mocks/pages/rate-limited/default.html">rate-limited</a>, <a href="../../mocks/pages/maintenance/default.html">maintenance</a>, <a href="../../mocks/pages/caterer/removed.html">caterer/removed</a>, <a href="../../mocks/pages/thread/not-found.html">thread/not-found</a>, <a href="../../mocks/pages/admin-audit/forbidden.html">admin-audit/forbidden</a>, <a href="../../mocks/pages/admin-operators/forbidden.html">admin-operators/forbidden</a></li>
+      </ul>
+      <p>Drift fixed during extraction: reference labels varied ("Reference 7F3K-92QD.", "Reference: 51cd-88e3-0a19", references inside the body sentence); the system puts "Reference <i>id</i>" on its own caption line. The two in-shell forbidden screens used different back labels ("Back to review queue", "Back to the queue"); use "Back to the queue". <a href="../../mocks/pages/caterers/error.html">caterers/error</a> paired "Try again" with "Browse occasions" while every other public error offers "Browse caterers"; on the listing itself the secondary is "Browse occasions" by design, elsewhere "Browse caterers".</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

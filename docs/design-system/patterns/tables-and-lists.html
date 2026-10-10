@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Data tables and lists — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand data tables and lists: row types over tables, when a real table is right, density, filtering with segmented links and the toolbar, sorting, pagination vs show more, loading, empty and error rows, responsive strategy.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Pattern</p>
+      <h1>Data tables and lists</h1>
+      <p class="ds-lead">Sweet Hand shows collections as rows, not grids of cells: a photo or initials, a name, one quiet line, a status word. Real tables are kept for records people compare across columns, like the audit log and metrics.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.inbox-row</code> · <code>.queue-item</code> · <code>.admin-row</code> · <code>.edit-row</code> · <code>.table</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#when">When to use which</a></li><li><a href="#structure">Structure</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The brand is minimal text and round photos, so collections are lists of rows separated by hairlines, with no card borders, no zebra stripes and no column headers unless the data truly needs them. Each row type is a component: <a href="../components/inbox-row.html">inbox row</a>, <a href="../components/queue-item.html">queue item</a>, <a href="../components/list.html">list rows</a> (<code>.list__item</code>, <code>.admin-row</code>, <code>.edit-row</code>), <a href="../components/review.html">review</a>, <a href="../components/dish.html">dish</a> and the <a href="../components/description-list.html">description list</a>. The <a href="../components/table.html">table</a> exists for the two places where people scan down a column and compare: the audit log and the metrics figures.</p>
+      <ul>
+        <li><b>A row is one thing</b>: one enquiry, one caterer waiting for review, one cuisine. Its name comes first and is the link.</li>
+        <li><b>Rows read on a phone without change.</b> A table needs sideways scrolling at 360px; a row does not.</li>
+        <li><b>Status is a word plus a shape</b> (<a href="../components/status.html">status label</a>), never colour alone.</li>
+        <li><b>Order is stated, not chosen.</b> Lists have one sensible order and say so: "newest first", "oldest first", "A to Z".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="when"><h2><a href="#when">When to use which</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Pattern</th><th scope="col">Use for</th><th scope="col">Row shows</th><th scope="col">Mock</th></tr></thead>
+        <tbody>
+          <tr><td><code>.inbox-row</code> in <code>.inbox-list</code></td><td>Conversations: customer inbox, caterer enquiries</td><td>Photo or initials, name (bold when unread), time, "Sat 21 Nov · 120 guests", status</td><td><a href="../../mocks/pages/inbox/default.html">inbox/default</a>, <a href="../../mocks/pages/dashboard-enquiries/default.html">dashboard-enquiries/default</a></td></tr>
+          <tr><td><code>.queue-item</code> in <code>.queue</code></td><td>Work waiting for an operator, and the operator caterer list</td><td>Photo or icon, title, kind · details, wait time ("Waiting 3 days", bold amber when late)</td><td><a href="../../mocks/pages/admin-queue/default.html">admin-queue/default</a>, <a href="../../mocks/pages/admin-caterers/default.html">admin-caterers/default</a></td></tr>
+          <tr><td><code>.admin-row</code> in <code>.admin-list</code></td><td>Settings records with row actions: cuisines, operators</td><td>Title, meta, actions on the right ("Retire", "Deactivate")</td><td><a href="../../mocks/pages/admin-cuisines/default.html">admin-cuisines/default</a>, <a href="../../mocks/pages/admin-operators/default.html">admin-operators/default</a></td></tr>
+          <tr><td><code>.edit-row</code> in <code>.edit-list</code></td><td>Items a caterer orders and edits: dishes</td><td>Dish name, price, description, tags; Move up, Move down, Edit, Remove</td><td><a href="../../mocks/pages/profile-menu/default.html">profile-menu/default</a></td></tr>
+          <tr><td><code>.list</code> / <code>.device-list</code></td><td>Short, simple lists: signed-in devices</td><td>Title, meta, one action or status</td><td><a href="../../mocks/pages/account/default.html">account/default</a></td></tr>
+          <tr><td><code>.kv</code>, <code>.facts</code>, <code>.enquiry-summary</code></td><td>One record's fields</td><td>Label above or beside value</td><td><a href="../../mocks/pages/admin-caterer/default.html">admin-caterer/default</a>, <a href="../../mocks/pages/thread/default.html">thread/default</a></td></tr>
+          <tr><td><code>.table</code> in <code>.table-wrap</code></td><td>Records compared across several attributes: who did what, when, why, before → after; figures by week</td><td>Header row, one record per row</td><td><a href="../../mocks/pages/admin-audit/default.html">admin-audit/default</a>, <a href="../../mocks/pages/admin-metrics/default.html">admin-metrics/default</a></td></tr>
+        </tbody>
+      </table></div>
+      <p>Choose a table only when the person will read down a column (dates, actors, numbers) or compare two columns. If each record has one name and one line of detail, it is a row.</p>
+    </section>
+
+    <section class="ds-section" id="structure"><h2><a href="#structure">Structure</a></h2>
+      <h3>A filtered row list</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ul class="segmented" aria-label="Filter by kind, example">
+            <li><a href="../../mocks/pages/admin-queue/default.html" aria-current="page">All <span class="filter-list__count">7</span></a></li>
+            <li><a href="../../mocks/pages/admin-queue/filtered.html">Profiles <span class="filter-list__count">2</span></a></li>
+            <li><a href="../../mocks/pages/admin-queue/filtered.html">Name changes <span class="filter-list__count">1</span></a></li>
+            <li><a href="../../mocks/pages/admin-queue/filtered.html">Reports <span class="filter-list__count">2</span></a></li>
+          </ul>
+          <ul class="queue" aria-label="Waiting for review, oldest first">
+            <li><a class="queue-item" href="../../mocks/pages/admin-profile-review/default.html"><span class="photo"><img src="../../mocks/assets/img/green-fig-catering.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Auntie Bev’s Kitchen</span><span class="queue-item__wait queue-item__wait--late">Waiting 3 days</span><span class="queue-item__meta"><span class="kind">New profile</span> · Jamaican · Oshawa</span></a></li>
+            <li><a class="queue-item" href="../../mocks/pages/admin-profile-review/resubmitted.html"><span class="photo"><img src="../../mocks/assets/img/auntie-merles-table.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Breadfruit &amp; Butter</span><span class="queue-item__wait">Waiting 2 days</span><span class="queue-item__meta"><span class="kind">Resubmitted</span> · Vincentian · Brampton</span></a></li>
+            <li><a class="queue-item" href="../../mocks/pages/admin-report/default.html"><span class="avatar" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 21V4m0 0h11l-2 4 2 4H5"/></svg></span><span class="queue-item__title">Review of Maracas Bay by Devon W.</span><span class="queue-item__wait">Waiting 2 days</span><span class="queue-item__meta"><span class="kind">2 reports</span> · Fake or spam · Inappropriate content</span></a></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>Segmented status links with counts above a queue; each whole row is one link; the late wait is bold amber, not just amber.</span><span>Source: pages/admin-queue/default</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;ul class="segmented" aria-label="Filter by kind"&gt;
+  &lt;li&gt;&lt;a href="?kind=all" aria-current="page"&gt;All &lt;span class="filter-list__count"&gt;7&lt;/span&gt;&lt;/a&gt;&lt;/li&gt; …
+&lt;/ul&gt;
+&lt;ul class="queue" aria-label="Waiting for review, oldest first"&gt;
+  &lt;li&gt;&lt;a class="queue-item" href="/admin/profiles/auntie-bevs-kitchen"&gt;
+    &lt;span class="photo"&gt;&lt;img src="…" alt=""&gt;&lt;/span&gt;
+    &lt;span class="queue-item__title"&gt;Auntie Bev’s Kitchen&lt;/span&gt;
+    &lt;span class="queue-item__wait queue-item__wait--late"&gt;Waiting 3 days&lt;/span&gt;
+    &lt;span class="queue-item__meta"&gt;&lt;span class="kind"&gt;New profile&lt;/span&gt; · Jamaican · Oshawa&lt;/span&gt;
+  &lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre></details>
+      </div>
+
+      <h3>Rows with actions</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ul class="edit-list" aria-label="Dishes, in the order they appear on your page">
+            <li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name">Chicken pelau</span><span class="dish__price">From $16 per person</span></div><p class="dish__desc">Browned in burnt sugar, cooked down with pigeon peas, rice and coconut milk.</p><ul class="tags"><li class="tag">Gluten-free</li><li class="tag">Dairy-free</li></ul></div><div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Move Chicken pelau up" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Move Chicken pelau down"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button><button class="icon-btn" type="button" aria-label="Edit Chicken pelau" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><button class="icon-btn" type="button" aria-label="Remove Chicken pelau" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li>
+            <li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name">Black cake</span><span class="dish__price">$65 per cake</span></div><p class="dish__desc">Fruit soaked since last Christmas.</p><ul class="tags"><li class="tag tag--allergen">Contains nuts</li></ul></div><div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Move Black cake up"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Move Black cake down" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button><button class="icon-btn" type="button" aria-label="Edit Black cake" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><button class="icon-btn" type="button" aria-label="Remove Black cake" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li>
+          </ul>
+          <ul class="admin-list" aria-label="Cuisines, A to Z">
+            <li class="admin-row"><span class="admin-row__body"><span class="admin-row__title">Antiguan &amp; Barbudan</span><span class="admin-row__meta">2 published caterers</span></span><span class="admin-row__actions"><button class="btn btn--sm btn--ghost" type="button" aria-haspopup="dialog" aria-label="Retire Antiguan &amp; Barbudan">Retire</button></span></li>
+            <li class="admin-row"><span class="admin-row__body"><span class="admin-row__title">Bahamian</span><span class="admin-row__meta">No published caterers</span></span><span class="admin-row__actions"><button class="btn btn--sm btn--ghost" type="button" aria-haspopup="dialog" aria-label="Retire Bahamian">Retire</button></span></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>Edit rows: ordering by Move up / Move down (drag is an extra for mice), each action named with the dish. Admin rows: one ghost action, named with the record.</span><span>Sources: pages/profile-menu/default, pages/admin-cuisines/default</span></div>
+      </div>
+
+      <h3>A real table: the audit log</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <form class="toolbar" aria-label="Filter the audit log, example">
+            <div class="field"><label class="field__label" for="tl-op">Operator</label><select class="select" id="tl-op"><option selected>All operators</option><option>Leah Mohammed</option><option>Tomas Reyes</option></select></div>
+            <div class="field"><label class="field__label" for="tl-act">Action</label><select class="select" id="tl-act"><option selected>All actions</option><option>Approve</option><option>Suspend</option><option>Hide review</option></select></div>
+            <div class="field"><label class="field__label" for="tl-from">From</label><input class="input" id="tl-from" type="date" value="2026-10-03"></div>
+            <button class="btn btn--primary" type="button">Apply</button>
+          </form>
+          <div class="table-wrap" tabindex="0" role="region" aria-labelledby="tl-cap">
+            <table class="table">
+              <caption class="visually-hidden" id="tl-cap">Audit entries, newest first</caption>
+              <thead><tr><th scope="col">When</th><th scope="col">Operator</th><th scope="col">Action</th><th scope="col">Target</th><th scope="col">Before → after</th></tr></thead>
+              <tbody>
+                <tr><td><time datetime="2026-10-10T13:12:00Z">Today, 9:12 a.m.</time></td><td>Tomas Reyes</td><td><strong>Hide review</strong></td><td>Review of Maracas Bay by Devon W.<div class="list__meta">rev_7f3c9a</div></td><td>Published → Hidden</td></tr>
+                <tr><td><time datetime="2026-10-09T20:30:00Z">Fri 9 Oct, 4:30 p.m.</time></td><td>Leah Mohammed</td><td><strong>Suspend</strong></td><td>Flying Fish Kitchen<div class="list__meta">cat_0e6d21</div></td><td>Published → Suspended</td></tr>
+                <tr><td><time datetime="2026-10-09T15:05:00Z">Fri 9 Oct, 11:05 a.m.</time></td><td>Tomas Reyes</td><td><strong>Approve</strong></td><td>Coconut Drops Bakery<div class="list__meta">cat_a4c719</div></td><td>Pending review → Published</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <nav class="load-more" aria-label="Pagination, example" style="margin-top: var(--space-6);">
+            <p class="result-count">Showing 1–20 of 68</p>
+            <ul class="pagination">
+              <li><a href="../../mocks/pages/admin-audit/default.html" aria-current="page" aria-label="Page 1">1</a></li>
+              <li><a href="../../mocks/pages/admin-audit/long.html" aria-label="Page 2">2</a></li>
+              <li><a href="../../mocks/pages/admin-audit/long.html" aria-label="Page 3">3</a></li>
+              <li><a href="../../mocks/pages/admin-audit/long.html" aria-label="Next page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="ds-example__caption"><span>Toolbar filters with Apply, a focusable scrolling region labelled by the caption, Toronto times with the UTC value in <code>datetime</code>, numbered pages under a count.</span><span>Source: pages/admin-audit/default</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">State</th><th scope="col">Rows</th><th scope="col">Table</th><th scope="col">Mock</th></tr></thead>
+        <tbody>
+          <tr><td>Loading</td><td>Skeleton rows with the same parts (<code>.inbox-skeleton-row</code>, <code>.admin-row--skeleton</code>, <code>.edit-row--skeleton</code>); list <code>aria-busy="true"</code>; filters stay usable</td><td>Header row, then skeleton cells; region <code>aria-busy="true"</code> and "Loading audit entries"</td><td><a href="../../mocks/pages/inbox/loading.html">inbox/loading</a>, <a href="../../mocks/pages/admin-audit/loading.html">admin-audit/loading</a></td></tr>
+          <tr><td>Empty</td><td>First-run empty state in place of the list</td><td>Table hidden; empty state</td><td><a href="../../mocks/pages/admin-audit/empty.html">admin-audit/empty</a></td></tr>
+          <tr><td>No results</td><td>"No entries match these filters" + Clear filters; filters stay set</td><td>Same</td><td><a href="../../mocks/pages/admin-audit/no-results.html">admin-audit/no-results</a></td></tr>
+          <tr><td>Error</td><td>Error empty state with Try again; "Your filters are kept"</td><td>Same; a chart that fails shows its own alert and offers its data as a table when it loads</td><td><a href="../../mocks/pages/admin-audit/error.html">admin-audit/error</a>, <a href="../../mocks/pages/admin-metrics/partial.html">admin-metrics/partial</a></td></tr>
+          <tr><td>Long</td><td>Names truncate with an ellipsis in rows (full name stays in the link text); meta truncates; pages continue</td><td>Cells wrap; the table scrolls sideways inside its region</td><td><a href="../../mocks/pages/dashboard-enquiries/long.html">dashboard-enquiries/long</a>, <a href="../../mocks/pages/admin-audit/long.html">admin-audit/long</a></td></tr>
+          <tr><td>Unread</td><td>Bold name, ink meta, pepper dot, hidden "Unread." prefix</td><td>—</td><td><a href="../../mocks/pages/dashboard-enquiries/default.html">dashboard-enquiries/default</a></td></tr>
+          <tr><td>Current</td><td>The open thread's row has <code>aria-current="page"</code> and a stone background</td><td>—</td><td><a href="../../mocks/pages/thread/default.html">thread/default</a></td></tr>
+          <tr><td>Late</td><td>"Waiting 3 days" bold amber</td><td>—</td><td><a href="../../mocks/pages/admin-queue/long.html">admin-queue/long</a></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Loading and unread, both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><ul class="inbox-list" aria-label="Inbox, light example"><li class="inbox-skeleton-row" aria-hidden="true"><span class="skeleton skeleton--circle"></span><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 3rem;"></span><span class="skeleton skeleton--text" style="width: 70%;"></span><span class="skeleton skeleton--text" style="width: 4rem;"></span></li><li><a class="inbox-row inbox-row--unread" href="../../mocks/pages/dashboard-enquiry/default.html"><span class="avatar" aria-hidden="true">PR</span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Priya Ramdial</span><span class="inbox-row__time">Yesterday</span><span class="inbox-row__meta">Thu 5 Nov · 60 guests</span><span class="inbox-row__status status status--open">Open</span></a></li></ul></div>
+        <div data-theme="dark"><ul class="inbox-list" aria-label="Inbox, dark example"><li class="inbox-skeleton-row" aria-hidden="true"><span class="skeleton skeleton--circle"></span><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 3rem;"></span><span class="skeleton skeleton--text" style="width: 70%;"></span><span class="skeleton skeleton--text" style="width: 4rem;"></span></li><li><a class="inbox-row inbox-row--unread" href="../../mocks/pages/dashboard-enquiry/default.html"><span class="avatar" aria-hidden="true">PR</span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Priya Ramdial</span><span class="inbox-row__time">Yesterday</span><span class="inbox-row__meta">Thu 5 Nov · 60 guests</span><span class="inbox-row__status status status--open">Open</span></a></li></ul></div>
+      </div>
+      <h3>Density</h3>
+      <ul>
+        <li>One density for rows: 16px vertical padding (20px for queue items, 24px for reviews) and at least a 44px target, because most people use a phone.</li>
+        <li>Tables have default (16px cells) and <code>.table--dense</code> (8px) for operator figures on large screens; dense tables keep 44px tall controls inside.</li>
+      </ul>
+      <h3>Filtering</h3>
+      <ul>
+        <li><b>Status segments</b> (<code>.segmented</code>) filter one list by a single attribute; each is a link with a count, the current one in pepper; the choice lives in the URL so Back restores it.</li>
+        <li><b>Toolbar</b> (<code>.toolbar</code>) holds several operator filters (operator, action, target, dates) applied together with Apply. Changing a field does nothing until Apply, so a half-set range never loads.</li>
+        <li><b>Search field</b> narrows by name ("Business or owner name"); combined with a segment, the empty state names both: "No suspended caterers match “Pelau”".</li>
+        <li>The public listing uses the <a href="../components/filter-list.html">filter list</a> with instant results instead (see <a href="navigation.html">Navigation</a>).</li>
+      </ul>
+      <h3>Sorting</h3>
+      <p>No mock lets people re-sort. Every list has one fixed order, stated in its accessible name or subtitle: inbox and enquiries by latest activity, newest first; the queue oldest first; cuisines A to Z; the audit log newest first. If a table ever needs sorting, the header cell gets <code>aria-sort</code> and a button (<code>.table th[aria-sort] button</code>), and only one column sorts at a time.</p>
+      <h3>Pagination or show more</h3>
+      <ul>
+        <li><b>Numbered pages</b> for long, open-ended lists (24 caterers or 20 enquiries per page): "Showing 1–24 of 60" above the page links; the page number is in the URL; an impossible page number shows page 1.</li>
+        <li><b>Show all</b> in place for short, bounded lists on one record: "Show all 18 dishes" expands without a reload, keeps focus on the toggle and announces "18 dishes shown".</li>
+        <li><b>No infinite scroll</b>: the footer must stay reachable, Back must return to the same place, and screen-reader users need a count.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Rows</b> keep their layout at every width: long names truncate, meta wraps. <code>.queue-item--stack</code> moves the wait time under the title below 36rem; <code>.edit-row</code> moves its actions under the dish below 36rem; <code>.admin-row</code> wraps its actions to a new line.</li>
+        <li><b>Inbox</b>: below 62rem only the list shows and a row opens the thread full width; from 62rem the list sits beside the thread.</li>
+        <li><b>Tables</b> scroll sideways inside <code>.table-wrap</code> (a focusable region), never the page; the first column carries the most important value (When). Metrics show charts and offer "Show as a table" per chart.</li>
+        <li><b>Toolbars</b> wrap; each field keeps a 10rem minimum; Apply stays last.</li>
+        <li><b>Pagination</b> keeps Previous, the current page, neighbours and Next at 320px.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Row lists are <code>&lt;ul&gt;</code> with an <code>aria-label</code> that includes the order ("Dishes, in the order they appear on your page"). A whole-row link puts the name first so the link's name starts with it; decorative photos have <code>alt=""</code>. Tables use <code>&lt;caption&gt;</code>, <code>&lt;th scope="col"&gt;</code>, and sit in <code>role="region" tabindex="0"</code> labelled by the caption so keyboard users can scroll them (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/table/">APG Table</a>). Pagination is a <code>&lt;nav aria-label="Pagination"&gt;</code> with <code>aria-current="page"</code>.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>One stop per row link; then each row action in order (Move up, Move down, Edit, Remove).</td></tr>
+        <tr><td><kbd>←</kbd> <kbd>→</kbd> in a focused table region</td><td>Scrolls the table sideways.</td></tr>
+        <tr><td><kbd>Enter</kbd> on Move up / Move down</td><td>Moves the row; focus stays on the same button of the moved row and the new position is announced.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>Row links draw the focus ring around the whole row. After Remove is confirmed, focus moves to the next row (or the previous one at the end). After Apply, focus moves to the result count.</p>
+      <h3>Labelling</h3>
+      <p>Row actions name their object ("Remove Chicken pelau", "Retire Bahamian"). Unread rows start with a visually hidden "Unread.". Counts in segments are read as part of the link ("Open 1").</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Row meta</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Row time and table header</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Late wait</span><span class="ds-pair__ratio" data-contrast="--color-warning-fg|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Current segment</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Hover row text</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-sunken" data-min="4.5"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Only background colour changes on hover (120 ms). Reordered rows move without animation under reduced motion.</p>
+      <h3>Touch</h3>
+      <p>Rows are at least 72px tall on phones; icon actions are 44px and never closer than 8px; row actions are always visible on touch screens (<code>@media (hover: none)</code>).</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Row meta joins facts with a middle dot: "Sat 21 Nov · 120 guests", "Jamaican · Oshawa", "Admin · Authenticator app · Active now".</li>
+        <li>Row times are relative and short: "9:42 a.m." today, "Yesterday", "Thu" this week, "5 Sep" earlier, "Sat 12 Jun 2027" in another year. Tables write the full Toronto time: "Fri 9 Oct, 4:30 p.m.".</li>
+        <li>Waits count days: "Waiting 2 days". Counts read as phrases: "2 published caterers", "No published caterers", "23 reviews · 1 without a response".</li>
+        <li>Column headers are one or two words in sentence case: "When", "Operator", "Before → after".</li>
+        <li>Missing values in tables show an em dash (—), with <code>.na</code> styling, never "N/A" or blank.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="inbox-list" aria-label="Do example"><li><a class="inbox-row" href="../../mocks/pages/thread/default.html"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="48" height="48"></span><span class="inbox-row__name">Pelau House</span><span class="inbox-row__time">9:42 a.m.</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--replied">Replied</span></a></li></ul></div><figcaption>A conversation is a row: photo, name, one line, status.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="table-wrap" tabindex="0" role="region" aria-label="Don't example"><table class="table"><thead><tr><th scope="col">Caterer</th><th scope="col">Event</th><th scope="col">Guests</th><th scope="col">Status</th></tr></thead><tbody><tr><td>Pelau House</td><td>Sat 21 Nov</td><td>120</td><td>Replied</td></tr></tbody></table></div></div><figcaption>Don't put an inbox in a table; it scrolls sideways on a phone and loses the photo.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="icon-btn" type="button" aria-label="Remove Black cake"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button><span class="text-muted">aria-label="Remove Black cake"</span></div><figcaption>Name the object in every row action.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="icon-btn" type="button" aria-label="Remove"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button><span class="text-muted">aria-label="Remove"</span></div><figcaption>Fifty "Remove" buttons are indistinguishable in a screen reader's list.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <ul>
+        <li><a href="../../mocks/pages/inbox/default.html">pages/inbox/default</a>, <a href="../../mocks/pages/inbox/loading.html">loading</a>, <a href="../../mocks/pages/dashboard-enquiries/default.html">pages/dashboard-enquiries/default</a>, <a href="../../mocks/pages/dashboard-enquiries/long.html">long</a></li>
+        <li><a href="../../mocks/pages/admin-queue/default.html">pages/admin-queue/default</a>, <a href="../../mocks/pages/admin-queue/long.html">long</a>, <a href="../../mocks/pages/admin-caterers/default.html">pages/admin-caterers/default</a>, <a href="../../mocks/pages/admin-caterers/no-results.html">no-results</a></li>
+        <li><a href="../../mocks/pages/admin-cuisines/default.html">pages/admin-cuisines/default</a>, <a href="../../mocks/pages/admin-operators/default.html">pages/admin-operators/default</a>, <a href="../../mocks/pages/profile-menu/default.html">pages/profile-menu/default</a>, <a href="../../mocks/pages/account/default.html">pages/account/default</a></li>
+        <li><a href="../../mocks/pages/admin-audit/default.html">pages/admin-audit/default</a>, <a href="../../mocks/pages/admin-audit/loading.html">loading</a>, <a href="../../mocks/pages/admin-audit/no-results.html">no-results</a>, <a href="../../mocks/pages/admin-metrics/default.html">pages/admin-metrics/default</a></li>
+      </ul>
+      <p>Drift fixed during extraction: the queue's and operator caterer list's segments typed counts into the label ("All 7", "All 68") where the inbox used <code>.filter-list__count</code>; all use the count span. The operator caterer list reuses <code>.queue-item--stack</code> rows and puts a status label in the <code>.queue-item__wait</code> slot; that is accepted (same anatomy) rather than adding a new row type. No mock defines user sorting; the fixed orders above are the rule until one does.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

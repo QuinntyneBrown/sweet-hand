@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Accessibility — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand accessibility: WCAG 2.2 AA commitments by principle, the focus ring, 44px touch targets, the testing procedure and the contract every component page answers.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Accessibility</h1>
+      <p class="ds-lead">Sweet Hand meets WCAG 2.2 AA by construction: the tokens, components and checks below make the accessible choice the default one, so a page built from the system starts compliant.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">L2-064 to L2-069</span><span class="ds-pill">44px targets</span><span class="ds-pill">One focus ring</span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#perceivable">Perceivable</a></li><li><a href="#operable">Operable</a></li><li><a href="#understandable">Understandable</a></li><li><a href="#robust">Robust</a></li><li><a href="#focus">Focus</a></li><li><a href="#targets">Target sizes</a></li><li><a href="#testing">Testing procedure</a></li><li><a href="#contract">The component contract</a></li><li><a href="#usage">Usage</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>People find caterers for weddings, funerals and family Sundays on whatever device is in their hand, often a phone, sometimes with a screen reader, magnification, a switch or a keyboard. The target is <b>WCAG 2.2 AA</b> (<code>AGENTS.md</code>). L1-019 and L2-066 to L2-069 name WCAG 2.1 AA; 2.2 adds focus not obscured, target size, dragging alternatives, redundant entry and accessible authentication, and the mocks already meet them, so the system commits to 2.2.</p>
+      <ul>
+        <li><b>Built in, not bolted on.</b> Contrast is solved in the tokens (every pair is checked in both themes), focus is one shared ring, the default control is 44px tall, and reduced motion is a token change.</li>
+        <li><b>Native first.</b> Real <code>&lt;button&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;label&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;details&gt;</code>; ARIA only fills gaps, following the WAI-ARIA Authoring Practices pattern named on each component page.</li>
+        <li><b>Every component page answers the same seven questions</b> (see <a href="#contract">the contract</a>), so nothing is left to the implementer's memory.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="perceivable"><h2><a href="#perceivable">Perceivable</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Requirement</th><th scope="col">SC</th><th scope="col">Sweet Hand commitment</th></tr></thead>
+        <tbody>
+          <tr><td>Text contrast</td><td>1.4.3</td><td>Body, label, metadata and placeholder text are at least 4.5:1 on every surface they sit on, in both themes; large text (24px, or 18.66px bold) at least 3:1. Every pair is declared in <code>tokens/contrast-pairs.json</code> and checked. Text on food photos sits on <code>--color-bg-scrim</code> so it stays at 4.5:1 whatever the photo (L2-069.2).</td></tr>
+          <tr><td>Non-text contrast</td><td>1.4.11</td><td>Input and secondary button edges (<code>--color-border-strong</code>), the focus ring, the switch track, meaningful icons, empty rating stars and chart bars are at least 3:1. Hairline dividers and card edges are decorative and documented as exempt.</td></tr>
+          <tr><td>Use of colour</td><td>1.4.1</td><td>Pepper red marks "selected", and selection is also shown by weight, a check or <code>aria-pressed</code>/<code>aria-current</code>. Statuses (Open, Replied, Declined, Published) are words in a label, not dots. Links in text are underlined. Optional fields say "(optional)" after the label.</td></tr>
+          <tr><td>Resize and reflow</td><td>1.4.4, 1.4.10</td><td>All sizes in <code>rem</code>. Every page reflows to 320px CSS width with no horizontal scrolling, and works at 200% zoom in a 1280px window (L2-064.2, L2-069.3). Only data tables scroll sideways, inside their own wrapper.</td></tr>
+          <tr><td>Text spacing</td><td>1.4.12</td><td>Nothing clips at 1.5 line height, 2× paragraph spacing, 0.12em letter and 0.16em word spacing: no fixed heights on text containers, long caterer names wrap and clamp to two lines with the full name available.</td></tr>
+          <tr><td>Images</td><td>1.1.1</td><td>Food photos use the caterer's own caption as <code>alt</code> (L2-068.1), e.g. "Chicken pelau in a steel pot with lime and cucumber chutney". Thumbnails that repeat a nearby caption get <code>alt=""</code>. Icons are <code>aria-hidden="true"</code>; icon-only controls carry <code>aria-label</code>.</td></tr>
+          <tr><td>Orientation; animation</td><td>1.3.4, 2.3.3</td><td>No orientation lock; rotating keeps form input and scroll position (L2-064.3). Motion follows <a href="motion.html#accessibility">reduced motion</a>.</td></tr>
+          <tr><td>Input purpose</td><td>1.3.5</td><td><code>autocomplete</code> on name, email, phone, postal code and new and current passwords. Postal codes use <code>autocapitalize="characters"</code>, guest counts <code>inputmode="numeric"</code>, dates <code>type="date"</code> (L2-065.2).</td></tr>
+          <tr><td>Info and relationships</td><td>1.3.1</td><td>Headings in order, lists as lists, facts as <code>&lt;dl&gt;</code>, tables with <code>&lt;th scope&gt;</code>, groups of choices in <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code>.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="operable"><h2><a href="#operable">Operable</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Requirement</th><th scope="col">SC</th><th scope="col">Sweet Hand commitment</th></tr></thead>
+        <tbody>
+          <tr><td>Keyboard</td><td>2.1.1, 2.1.2</td><td>Everything works with Tab, Shift+Tab, Enter, Space, Escape and arrows where a pattern calls for them. Only open dialogs and sheets trap focus, and Escape releases them (L2-067.1).</td></tr>
+          <tr><td>Skip link and landmarks</td><td>2.4.1</td><td>"Skip to main content" is the first focusable element on every page (L2-067.3). Pages use <code>header</code>, <code>nav</code> (named when there are several), <code>main</code> and <code>footer</code>.</td></tr>
+          <tr><td>Focus visible</td><td>2.4.7</td><td>One ring for everything: a 2px <code>--color-focus-ring</code> outline, offset 3px, on <code>:focus-visible</code>. At least 3:1 against what surrounds it, in both themes (L2-067.2). See <a href="#focus">Focus</a>.</td></tr>
+          <tr><td>Focus not obscured</td><td>2.4.11</td><td><code>scroll-padding-top</code> matches the header height; the sticky enquiry bar and phone reply box reserve space at the bottom; toasts sit in a corner and never cover the focused field.</td></tr>
+          <tr><td>Focus order</td><td>2.4.3</td><td>DOM order is visual order at every breakpoint; no positive <code>tabindex</code>. Dialogs, sheets and the photo viewer move focus in when they open and back to their trigger when they close (L2-067.4).</td></tr>
+          <tr><td>Target size</td><td>2.5.8</td><td>Every target is at least 24 × 24px. On phones and small tablets (below 48rem) every target is at least 44 × 44px with 8px between neighbours (L2-065.1). See <a href="#targets">Target sizes</a>.</td></tr>
+          <tr><td>Dragging</td><td>2.5.7</td><td>Photo and dish order can be changed with "Move up" and "Move down" buttons; nothing requires a drag. The gallery carousel can be swiped or stepped with Previous and Next.</td></tr>
+          <tr><td>Timing</td><td>2.2.1, 2.2.2</td><td>Success toasts stay at least 8 seconds and pause on hover and focus; error toasts never auto-dismiss. Operator sessions warn 5 minutes before they end and keep unsaved reasons. Nothing auto-advances.</td></tr>
+          <tr><td>Titles and headings</td><td>2.4.2, 2.4.6</td><td>A unique <code>&lt;title&gt;</code> per page that names the caterer, thread or screen, one <code>&lt;h1&gt;</code>, headings in order.</td></tr>
+          <tr><td>Link purpose</td><td>2.4.4</td><td>Link text makes sense alone: "View Pelau House", not "click here". Repeated "Edit" actions add the object in <code>aria-label</code> or a visually hidden span.</td></tr>
+          <tr><td>Pointer cancellation</td><td>2.5.2</td><td>Actions fire on click, never on pointer down.</td></tr>
+          <tr><td>Hover and focus content</td><td>1.4.13</td><td>Tooltips appear on hover and focus, stay while hovered, and close with Escape; on touch the same information is available by tap (L2-065.3).</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="understandable"><h2><a href="#understandable">Understandable</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Requirement</th><th scope="col">SC</th><th scope="col">Sweet Hand commitment</th></tr></thead>
+        <tbody>
+          <tr><td>Labels</td><td>3.3.2</td><td>A visible <code>&lt;label&gt;</code> for every field, programmatically linked; placeholders are examples, never labels (L2-068.2).</td></tr>
+          <tr><td>Error identification and suggestion</td><td>3.3.1, 3.3.3</td><td>Error text names the problem and the fix ("Enter a whole number of guests from 1 to 5,000"). Fields get <code>aria-invalid="true"</code> and <code>aria-describedby</code> pointing at the error; a summary at the top links each error to its field and receives focus on submit (L2-068.3). See <a href="content.html#errors">error messages</a>.</td></tr>
+          <tr><td>Error prevention</td><td>3.3.4</td><td>Removing a dish or photo, declining an enquiry, deleting an account, and suspending or removing a caterer are confirmed in a dialog; removals offer Undo where possible; removing a caterer asks for the business name to be typed.</td></tr>
+          <tr><td>Redundant entry</td><td>3.3.7</td><td>A restored enquiry draft keeps everything that was typed ("Welcome back, Marcia"); details already on the account are never asked for again in the same flow.</td></tr>
+          <tr><td>Accessible authentication</td><td>3.3.8</td><td>No puzzles or cognitive tests. Paste and password managers work; two-step verification accepts an authenticator code or a security key.</td></tr>
+          <tr><td>Consistent navigation and help</td><td>3.2.3, 3.2.4, 3.2.6</td><td>The same header, side navigation and footer, in the same order, with the same names on every page of an area. Help and privacy links sit in the footer everywhere.</td></tr>
+          <tr><td>On input</td><td>3.2.2</td><td>Choosing a filter updates results in place and announces the count; nothing navigates or submits on change alone. Phone filters apply only when "Show 60 caterers" is pressed.</td></tr>
+          <tr><td>Language</td><td>3.1.1, 3.1.2</td><td><code>&lt;html lang="en-CA"&gt;</code>. Phrases in another language carry their own <code>lang</code>, for example Haitian Creole <code>lang="ht"</code> in a Ti Kay dish description.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="robust"><h2><a href="#robust">Robust</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Requirement</th><th scope="col">SC</th><th scope="col">Sweet Hand commitment</th></tr></thead>
+        <tbody>
+          <tr><td>Name, role, value</td><td>4.1.2</td><td>Filter list items are buttons with <code>aria-pressed</code>; the current page and section use <code>aria-current</code>; disclosure triggers use <code>aria-expanded</code>; busy buttons use <code>aria-busy="true"</code> and keep their label; dialogs use <code>role="dialog"</code>, <code>aria-modal="true"</code> and <code>aria-labelledby</code>.</td></tr>
+          <tr><td>Status messages</td><td>4.1.3</td><td>The result count ("2 caterers") is in an <code>aria-live="polite"</code> region (L2-067.5). Success and info toasts use <code>role="status"</code>; error toasts and form errors use <code>role="alert"</code>. "Saved" indicators are polite live regions.</td></tr>
+          <tr><td>Valid markup</td><td>4.1.1 (obsolete) </td><td>No duplicate ids, no interactive element inside another, no block content inside a button.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Checklist for every screen</h3>
+      <ul class="ds-checklist">
+        <li><span>One <code>&lt;h1&gt;</code>, a unique title and a working skip link.</span></li>
+        <li><span>Every photo has the caterer's caption as <code>alt</code>, or <code>alt=""</code> if it repeats nearby text.</span></li>
+        <li><span>Every control has a visible label or an <code>aria-label</code> naming its object.</span></li>
+        <li><span>Tab order follows reading order at 360px and at 1280px.</span></li>
+        <li><span>Every status is in words, not only colour.</span></li>
+        <li><span>No horizontal scroll at 320px; nothing lost at 200% zoom.</span></li>
+        <li><span>Dialogs move focus in, trap it, close on Escape and return focus.</span></li>
+        <li><span>Errors are summarised, linked and announced.</span></li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="focus"><h2><a href="#focus">Focus</a></h2>
+      <p>One focus ring serves every interactive element: a 2px outline in <code>--color-focus-ring</code> (pepper red, the "you are here" colour), drawn 3px outside the element so it never touches the fill. Inputs draw it at 0 offset and colour their border to match; menu items draw it inset; on the inverse toast it switches to the toast's text colour. It appears only for keyboard focus (<code>:focus-visible</code>), never on mouse click.</p>
+      <div class="ds-themes">
+        <div data-theme="light">
+          <div class="stack">
+            <div class="cluster"><button class="btn btn--primary" type="button" data-state="focus">Send an enquiry</button><button class="icon-btn" type="button" aria-label="Close dialog" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+            <label class="field" for="focus-postal-light"><span class="field__label">Postal code</span><input class="input" id="focus-postal-light" type="text" value="M1B 2K3" autocomplete="postal-code" autocapitalize="characters" data-state="focus"></label>
+            <div class="ds-pair">Ring on the page<span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+            <div class="ds-pair">Ring in a dialog<span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+            <div class="ds-pair">Ring on a chip or hover row<span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-subtle" data-min="3"></span></div>
+          </div>
+        </div>
+        <div data-theme="dark">
+          <div class="stack">
+            <div class="cluster"><button class="btn btn--primary" type="button" data-state="focus">Send an enquiry</button><button class="icon-btn" type="button" aria-label="Close dialog" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+            <label class="field" for="focus-postal-dark"><span class="field__label">Postal code</span><input class="input" id="focus-postal-dark" type="text" value="M1B 2K3" autocomplete="postal-code" autocapitalize="characters" data-state="focus"></label>
+            <div class="ds-pair">Ring on the page<span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+            <div class="ds-pair">Ring in a dialog<span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+            <div class="ds-pair">Ring on a chip or hover row<span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-subtle" data-min="3"></span></div>
+          </div>
+        </div>
+      </div>
+      <h3>Where focus goes</h3>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Moment</th><th scope="col">Focus moves to</th></tr></thead>
+        <tbody>
+          <tr><td>First Tab on any page</td><td>"Skip to main content", then <code>#main</code></td></tr>
+          <tr><td>A dialog or sheet opens</td><td>The first field, or the dialog heading when there is no field (confirmations); never the destructive button</td></tr>
+          <tr><td>A dialog, sheet or the photo viewer closes</td><td>The control that opened it (L2-067.4)</td></tr>
+          <tr><td>A form is submitted with errors</td><td>The error summary (<code>tabindex="-1"</code>, <code>role="alert"</code>), whose links move to each field</td></tr>
+          <tr><td>Filters change the results</td><td>Stays on the filter; the new count is announced politely</td></tr>
+          <tr><td>An item is removed from a list</td><td>The next item's matching control, or the list heading if it was the last</td></tr>
+          <tr><td>A thread opens on a phone</td><td>The thread heading; "Back to inbox" returns to the row that was opened</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="targets"><h2><a href="#targets">Target sizes</a></h2>
+      <p>The default control is 44px tall (<code>--control-height-md</code>), so every button, field, filter item and icon button already meets the phone target. Two tokens set the floor and the comfortable size.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas" style="align-items: flex-end;">
+          <span style="display: grid; place-items: center; width: var(--target-min); height: var(--target-min); border: var(--border-width-hairline) dashed var(--color-accent); background: var(--color-accent-subtle); border-radius: var(--radius-xs);" aria-hidden="true"></span>
+          <span style="display: grid; place-items: center; width: var(--target-comfortable); height: var(--target-comfortable); border: var(--border-width-hairline) dashed var(--color-accent); background: var(--color-accent-subtle); border-radius: var(--radius-xs);" aria-hidden="true"></span>
+          <button class="icon-btn icon-btn--outline" type="button" aria-label="Next photo"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+          <button class="btn" type="button">Show more reviews</button>
+        </div>
+        <div class="ds-example__caption"><span>24px floor (<code>--target-min</code>) · 44px comfortable (<code>--target-comfortable</code>) · a 44px icon button · a 44px button</span></div>
+      </div>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Where</th><th scope="col">Minimum target</th><th scope="col">Spacing</th></tr></thead>
+        <tbody>
+          <tr><td>Below 48rem (XS, SM: phones and small tablets)</td><td>44 × 44px for every control, including toast and banner close buttons, chip remove buttons, small buttons and menu items (L2-065.1)</td><td>8px between neighbouring targets</td></tr>
+          <tr><td>48rem and up</td><td>44px by default; 36px (<code>--control-height-sm</code>) allowed for row actions, chips and menu items; 24px for inline close and dismiss buttons</td><td>Small targets keep 8px between them; a 24px target has no other target within its 24px circle (WCAG 2.5.8)</td></tr>
+          <tr><td>Text links in a paragraph</td><td>Exempt (inline, WCAG 2.5.8)</td><td>–</td></tr>
+        </tbody>
+      </table></div>
+      <p>The visible glyph can be smaller than the target: a 20px icon sits centred in a 44px <code>.icon-btn</code>, and a checkbox's whole label row is its target. Never shrink padding to fit more controls in a row on a phone; wrap or move secondary actions into a menu instead.</p>
+    </section>
+
+    <section class="ds-section" id="testing"><h2><a href="#testing">Testing procedure</a></h2>
+      <h3>Automated</h3>
+      <ol>
+        <li><b>Contrast.</b> <code>check_contrast.py</code> checks every pair in <code>tokens/contrast-pairs.json</code> against <code>tokens.css</code> in light and dark. Both must exit 0. Add a pair whenever a component puts a new foreground on a new background.</li>
+        <li><b>Structure.</b> <code>check_design_system.py</code> checks every page for <code>lang</code>, one <code>&lt;h1&gt;</code>, a <code>main</code> landmark, labels on every field, names on every button and link, <code>alt</code> on every image, resolving links and no raw colours.</li>
+        <li><b>Product pages.</b> axe-core with WCAG A and AA rules on every page template at XS and XL, in every state the acceptance tests cover, including open dialogs, errors and empty states; any violation fails CI (L2-066). Playwright runs in Chromium only.</li>
+      </ol>
+      <pre><code>python3 .claude/skills/extracting-design-systems/scripts/check_contrast.py
+python3 .claude/skills/extracting-design-systems/scripts/check_design_system.py docs/design-system</code></pre>
+      <h3>Manual, for every new component or screen</h3>
+      <ol>
+        <li><b>Keyboard.</b> Unplug the mouse. Tab through every example: is the ring always visible and the order sensible? Open and close each dialog with Enter and Escape; does focus come back?</li>
+        <li><b>Screen reader.</b> NVDA with Firefox or Chrome on Windows and VoiceOver on iOS Safari (L2-066.3). Check one dialog, one form with errors, the filter list and one table: names, roles, states and announcements.</li>
+        <li><b>Zoom.</b> 200% in a 1280px window (nothing lost, L2-069.3) and 400% (equivalent to 320px: reflow, no sideways scroll except tables).</li>
+        <li><b>Reduced motion.</b> Emulate <code>prefers-reduced-motion: reduce</code>; nothing slides, scales or shimmers, and the busy spinner still turns.</li>
+        <li><b>Forced colours.</b> Emulate <code>forced-colors: active</code>; controls keep visible edges, the focus ring uses <code>Highlight</code>, and the selected filter is underlined.</li>
+        <li><b>Touch.</b> On a real phone at 360px, check every target is 44px and nothing depends on hover.</li>
+        <li><b>Text spacing.</b> Apply the 1.4.12 bookmarklet; nothing clips or overlaps.</li>
+      </ol>
+    </section>
+
+    <section class="ds-section" id="contract"><h2><a href="#contract">The component contract</a></h2>
+      <p>Every component page has an <code>#accessibility</code> section with the same seven parts, in this order. A component is not "stable" until all seven are written and true.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">What it answers</th></tr></thead>
+        <tbody>
+          <tr><td>1. Role and pattern</td><td>The native element or ARIA pattern used, linked to the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/">WAI-ARIA Authoring Practices</a> pattern.</td></tr>
+          <tr><td>2. Keyboard</td><td>A key map: Tab, Shift+Tab, Enter, Space, Escape, arrows, Home and End, type-ahead, with the effect of each.</td></tr>
+          <tr><td>3. Focus</td><td>Where focus starts, where it goes on close or removal, and how the ring is drawn.</td></tr>
+          <tr><td>4. Labelling</td><td>What must be labelled, how, and what a screen reader announces.</td></tr>
+          <tr><td>5. Contrast</td><td>The token pairs involved with live ratios in both themes; every pair exists in <code>contrast-pairs.json</code>.</td></tr>
+          <tr><td>6. Motion</td><td>What animates, with which tokens, and what happens with reduced motion.</td></tr>
+          <tr><td>7. Touch</td><td>Target sizes at each breakpoint, spacing, and the alternative to any hover-only behaviour.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+      <ul>
+        <li>Never remove the focus outline, and never replace it with a colour change alone.</li>
+        <li>Never use <code>tabindex</code> above 0; use <code>tabindex="-1"</code> only on things that receive focus by script (error summary, dialog heading, thread heading).</li>
+        <li>Never put information only in a tooltip, a placeholder or a colour.</li>
+        <li>Never auto-dismiss an error, and never move focus without a reason the person caused.</li>
+        <li>When in doubt, use the native element and the component's existing markup; it already passes.</li>
+      </ul>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><label class="field" for="dodont-guests-a"><span class="field__label">Guests</span><input class="input" id="dodont-guests-a" type="text" inputmode="numeric" placeholder="120"></label></div><figcaption>Give every field a visible label; a placeholder may show an example.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><input class="input" type="text" inputmode="numeric" placeholder="Guests" aria-label="Guests"></div><figcaption>Use the placeholder as the label. It disappears as soon as someone types and fails contrast as a label.</figcaption></figure>
+      </div>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><span class="status status--declined">Declined</span></div><figcaption>Say the status in words; colour supports it.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="dot" style="color: var(--color-danger-solid); width: var(--space-3); height: var(--space-3);" role="img" aria-label="Declined"></span></div><figcaption>Rely on a coloured dot. People who can't tell red from green, and everyone in bright sunlight, lose the meaning.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Token</th><th scope="col">Value</th><th scope="col">Use</th></tr></thead>
+        <tbody>
+          <tr><td><code>--target-min</code></td><td data-token="--target-min"></td><td>The 24px floor for any target (WCAG 2.5.8); inline dismiss buttons from 48rem, choice rows, tags</td></tr>
+          <tr><td><code>--target-comfortable</code></td><td data-token="--target-comfortable"></td><td>Every target below 48rem (L2-065.1); icon buttons, nav links, filter items</td></tr>
+          <tr><td><code>--focus-ring-width</code></td><td data-token="--focus-ring-width"></td><td>Outline width of the shared focus ring</td></tr>
+          <tr><td><code>--focus-ring-offset</code></td><td data-token="--focus-ring-offset"></td><td>Gap between the element and the ring (inputs use 0)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Related tokens are listed with their own categories: the ring colour <code>--color-focus-ring</code> on <a href="color.html">Color</a>, <code>--shadow-focus</code> on <a href="elevation.html">Elevation</a>, and the control heights <code>--control-height-*</code> that make 44px the default.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

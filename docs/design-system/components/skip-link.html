@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Skip link — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand skip link: hidden until focused, first focusable element, jumps to main; anatomy, focus state in both themes, rules and the dialog-mock drift.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Navigation</p>
+      <h1>Skip link</h1>
+      <p class="ds-lead">The skip link is the first thing a keyboard user reaches on every Sweet Hand page. It stays out of sight until focused, then jumps straight past the header to the main content.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">WCAG 2.4.1 Bypass blocks</span><span class="ds-pill"><code>.skip-link</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Every page starts with <code>&lt;a class="skip-link" href="#main"&gt;Skip to main content&lt;/a&gt;</code> as the first element in <code>&lt;body&gt;</code>. It sits above the top of the viewport until it receives keyboard focus, then slides into view at the top left, over the <a href="site-header.html">site header</a>. Activating it moves focus to <code>&lt;main id="main"&gt;</code>, so the next Tab lands on the first link or field of the page rather than the wordmark, three nav links, search and the avatar again.</p>
+      <ul>
+        <li><b>Use it</b> on every page template: public pages, the caterer dashboard, the operator console, auth and system pages (404, offline, maintenance).</li>
+        <li><b>Don't</b> add a second skip link ("Skip to filters", "Skip to footer"). Landmarks and headings already let screen-reader users jump; one link is enough for sighted keyboard users.</li>
+        <li><b>Don't</b> use it as a substitute for focus management: opening a <a href="dialog.html">dialog</a> moves focus into the dialog by itself.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="padding: 0; place-items: stretch;">
+          <div class="ds-frame ds-frame--short" style="width: 100%; border: 0;">
+            <a class="skip-link" data-state="focus" href="#skip-anat-main">Skip to main content</a>
+            <header class="site-header" style="padding-top: var(--space-16);"><a class="wordmark" href="#skip-anat-main">Sweet Hand</a></header>
+            <div class="ds-frame__page" id="skip-anat-main"><p>Main content starts here.</p></div>
+          </div>
+          <span class="ds-callout" style="left: 4%; top: 12%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 46%; top: 12%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 4%; top: 72%;" aria-hidden="true">3</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Container</b><small>Raised surface (<code>--color-bg-surface-raised</code>), <code>--radius-md</code>, <code>--shadow-3</code>, padding <code>--space-2</code> <code>--space-4</code>; layer <code>--z-tooltip</code>, above everything.</small></div></li>
+          <li><div><b>Label</b><small>"Skip to main content" in body text, <code>--color-fg-default</code>, no underline; it is the accessible name.</small></div></li>
+          <li><div><b>Target</b><small><code>&lt;main id="main"&gt;</code>, the page's one main landmark.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>One variant in the product. The dialog mocks use a second form that the product does not need:</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;">
+          <div class="ds-frame ds-frame--short" style="min-height: 7rem; border: 0;">
+            <a class="skip-link" data-state="focus" href="#skip-v-main">Skip to main content</a>
+            <div class="ds-frame__page" id="skip-v-main" style="padding-top: var(--space-16);"><p>Every page: target <code>#main</code>.</p></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Product: the only skip link.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;body&gt;
+  &lt;a class="skip-link" href="#main"&gt;Skip to main content&lt;/a&gt;
+  &lt;div class="page"&gt;
+    &lt;header class="site-header"&gt;…&lt;/header&gt;
+    &lt;main id="main" class="container"&gt;…&lt;/main&gt;</code></pre></details>
+      </div>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;">
+          <div class="ds-frame ds-frame--short" style="min-height: 7rem; border: 0;">
+            <a class="skip-link" data-state="focus" href="#skip-v-dlg">Skip to the enquiry form</a>
+            <div class="ds-frame__page" id="skip-v-dlg" style="padding-top: var(--space-16);"><p>Mock only: target <code>#dlg-title</code>.</p></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>165 dialog mocks open on "Skip to the dialog", "Skip to the enquiry form", "Skip to the menu" or "Skip to the photo viewer". In the product the dialog takes focus when it opens and the page behind is inert, so this link is dropped.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="The skip link has one size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">The skip link has one size: body text with <code>--space-2</code> by <code>--space-4</code> padding, about 40px tall. It appears only on keyboard focus, so it does not need size variants.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>The only state change is focus: <code>:focus-visible</code> in the product, <code>data-state="focus"</code> here. Hover, active and visited look the same as focused.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Skip link states</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Focus</th><th scope="col">Hover / active</th><th scope="col">Print</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Skip link</th>
+            <td><small class="text-muted">Above the viewport (<code>top: −6rem</code>); not visible, still in the tab order</small></td>
+            <td><div style="position: relative; height: 4.5rem; min-width: 14rem;"><a class="skip-link" data-state="focus" href="#main">Skip to main content</a></div></td>
+            <td><small class="text-muted">Same as focus (it only shows while focused)</small></td>
+            <td><small class="text-muted">Hidden (<code>display: none</code> in print)</small></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div style="position: relative; height: 4.5rem;"><a class="skip-link" data-state="focus" href="#main">Skip to main content</a></div></div>
+        <div data-theme="dark"><div style="position: relative; height: 4.5rem;"><a class="skip-link" data-state="focus" href="#main">Skip to main content</a></div></div>
+      </div>
+      <p>The links above are real: Tab to one and press Enter to jump to this page's own main content.</p>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Identical at every breakpoint: <code>left: var(--space-4)</code>, <code>top: var(--space-4)</code> when focused. At 320px the label fits on one line with room to spare.</li>
+        <li>It overlaps the site header while focused; that is intended and lasts only until focus moves on. The header's height (<code>--layout-topbar-height</code>, 4/5/6rem) does not affect it.</li>
+        <li>On phones with a hardware keyboard or switch access it works the same; it never appears on touch alone because touch does not trigger <code>:focus-visible</code>.</li>
+        <li>Page scroll padding (<code>scroll-padding-top: var(--layout-topbar-height)</code>) keeps the target's first line from sitting under anything after the jump.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The skip link reads <code>--color-bg-surface-raised</code>, <code>--color-fg-default</code> and <code>--shadow-3</code>, like a menu or popover, because it floats over the header. In dark the raised surface is <code>--palette-stone-850</code>, a step lighter than the canvas, and the stronger dark shadow keeps it separate from the header. No component tokens.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>A plain in-page link (<code>&lt;a href="#main"&gt;</code>), the standard technique for <a href="https://www.w3.org/WAI/WCAG22/Understanding/bypass-blocks.html">WCAG 2.4.1 Bypass Blocks</a>. Browsers move the sequential focus starting point to the target, so <code>&lt;main&gt;</code> needs no <code>tabindex</code>.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> (first press on a page)</td><td>Focuses the skip link and shows it.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Jumps to <code>#main</code>; the next <kbd>Tab</kbd> reaches the first control in the main content.</td></tr>
+        <tr><td><kbd>Tab</kbd> again without Enter</td><td>Hides it and continues to the wordmark.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>It must be the first focusable element: nothing (not even a cookie or site banner) comes before it in the DOM. Its own focus ring is the shared 2px pepper ring with a 3px offset.</p>
+      <h3>Labelling</h3>
+      <p>The visible text is the name. Don't add <code>aria-label</code> or <code>title</code>.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Label on raised surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on raised surface</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring on the header (canvas)</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>It slides down over <code>--duration-fast</code> (120ms). Reduced motion makes it appear in place.</p>
+      <h3>Touch</h3>
+      <p>Not a touch feature. It is about 40px tall; raising it to <code>--target-comfortable</code> (44px) is proposed so it matches every other control.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Exactly "Skip to main content", in sentence case, on every product page. The design-system site uses "Skip to content"; that is the docs chrome, not the product.</li>
+        <li>No arrows, icons or "Click here".</li>
+        <li>Translate it with the page when other languages arrive; it is real copy, not a technical string.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas" style="position: relative; min-height: 5rem;"><a class="skip-link" data-state="focus" href="#main">Skip to main content</a></div><figcaption>One link, first in the body, pointing at <code>#main</code>.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas" style="position: relative; min-height: 5rem;"><a class="skip-link" data-state="focus" href="#overview">Skip to the dialog</a></div><figcaption>Don't skip to a dialog title (as the dialog mocks do). Opening a dialog moves focus into it; a link outside an <code>aria-modal</code> dialog is outside what assistive tech presents.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><small>Hide it with an off-screen position, so it stays focusable.</small></div><figcaption><code>top: calc(-1 * var(--space-24))</code> until <code>:focus-visible</code>.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><small><code>display: none</code>, <code>visibility: hidden</code> or <code>.visually-hidden</code> without a focus override.</small></div><figcaption>Any of these removes it from the tab order or keeps it invisible when focused.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Background</td><td><code>--color-bg-surface-raised</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td></tr>
+          <tr><td>Label</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+          <tr><td>Shadow</td><td><code>--shadow-3</code></td><td colspan="2"><span data-token="--shadow-3"></span></td></tr>
+          <tr><td>Padding</td><td><code>--space-2</code> <code>--space-4</code></td><td colspan="2"><span data-token="--space-2"></span> / <span data-token="--space-4"></span></td></tr>
+          <tr><td>Hidden offset / shown offset</td><td><code>calc(-1 * --space-24)</code> / <code>--space-4</code></td><td colspan="2"><span data-token="--space-24"></span> / <span data-token="--space-4"></span></td></tr>
+          <tr><td>Radius</td><td><code>--radius-md</code></td><td colspan="2"><span data-token="--radius-md"></span></td></tr>
+          <tr><td>Layer</td><td><code>--z-tooltip</code></td><td colspan="2"><span data-token="--z-tooltip"></span></td></tr>
+          <tr><td>Motion</td><td><code>--duration-fast</code>, <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-fast"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;body&gt;
+  &lt;a class="skip-link" href="#main"&gt;Skip to main content&lt;/a&gt;
+  …
+  &lt;main id="main"&gt;…&lt;/main&gt;
+&lt;/body&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.skip-link</code></td><td>Absolutely positioned above the viewport; slides to <code>--space-4</code> on <code>:focus-visible</code>.</td></tr>
+        <tr><td><code>href="#main"</code></td><td>Must match the one <code>&lt;main id="main"&gt;</code>.</td></tr>
+        <tr><td><code>data-state="focus"</code></td><td>Documentation only: shows it statically.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks (every page has the same link):</p>
+      <ul>
+        <li><a href="../../mocks/pages/caterers/default.html">pages/caterers/default</a> (public)</li>
+        <li><a href="../../mocks/pages/dashboard/default.html">pages/dashboard/default</a> (caterer)</li>
+        <li><a href="../../mocks/pages/admin-queue/default.html">pages/admin-queue/default</a> (operator)</li>
+        <li><a href="../../mocks/pages/sign-in/default.html">pages/sign-in/default</a> (auth)</li>
+        <li><a href="../../mocks/dialogs/enquiry/default.html">dialogs/enquiry/default</a> ("Skip to the enquiry form", mock only)</li>
+      </ul>
+      <p>Drift fixed during extraction: 271 page mocks use "Skip to main content" → <code>#main</code> and every one has a matching <code>&lt;main id="main"&gt;</code>; 165 dialog and viewer mocks instead skip to <code>#dlg-title</code> or <code>#viewer-title</code> from outside the modal. The system keeps only the page link and relies on the dialog's own focus handling. The link itself had no drift. (The design-system site's own skip link in <code>ds.css</code> hides with a literal <code>-100px</code>; that is docs chrome, not product.)</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

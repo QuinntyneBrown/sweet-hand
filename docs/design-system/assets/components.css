@@ -557,7 +557,7 @@ legend { font: var(--text-label); padding: 0; margin-bottom: var(--space-2); }
 .gallery__track { display: flex; gap: var(--space-4); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0 var(--layout-margin); margin: 0 calc(-1 * var(--layout-margin)); list-style: none; }
 .gallery__track > li { scroll-snap-align: center; flex: 0 0 80%; position: relative; }
 .gallery__btn { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: var(--radius-full); position: relative; }
-.gallery__btn:hover .photo img, .gallery__btn[data-state="hover"] .photo img { scale: 1.07; }
+.gallery__btn:hover .photo img, .gallery__btn[data-state="hover"] .photo img { scale: 1.08; }
 .gallery__btn:focus-visible, .gallery__btn[data-state="focus"] { border-radius: var(--radius-full); }
 .gallery__dots { display: flex; justify-content: center; gap: var(--space-2); }
 .gallery__dots span { width: var(--space-2); height: var(--space-2); border-radius: var(--radius-full); background: var(--color-border-strong); transition: width var(--duration-base) var(--ease-standard); }
@@ -1089,4 +1089,11 @@ button.avatar:hover, button.avatar[data-state="hover"] { background: var(--color
   .btn--primary { background: Highlight; color: HighlightText; }
   .filter-list__item[aria-pressed="true"], .filter-list__item[aria-current="true"], .tab[aria-selected="true"] { text-decoration: underline; }
 }
+/* ---------- Phone targets (L2-065.1: 44 × 44 at XS and SM) ------------------
+   Compact controls keep their desktop size from 48rem; below it every target grows. */
+@media (max-width: 47.99rem) {
+  .btn--sm, .chip, .menu__item, .input--sm, .choice, .toast__action, .breadcrumb a, .alert .close { min-height: var(--target-comfortable); }
+  .btn--icon.btn--sm, .chip--filter .remove, .chip .remove, .alert .close { width: var(--target-comfortable); height: var(--target-comfortable); }
+}
+
 @media print { .site-header, .sticky-cta, .topbar, .sidebar, .toast-region, .skip-link { display: none !important; } }

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spacing — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand spacing: the 4px scale, inside versus between rules, padding by component size and the three control heights.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Spacing</h1>
+      <p class="ds-lead">White space is Sweet Hand's main divider. A 4px scale, tight inside components and generous between them, keeps screens calm enough for the food photos to lead.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">4px base</span><span class="ds-pill">15 steps</span><span class="ds-pill">44px controls</span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#scale">The scale</a></li><li><a href="#inside-between">Inside versus between</a></li><li><a href="#component-padding">Padding by component size</a></li><li><a href="#control-heights">Control heights</a></li><li><a href="#usage">Usage</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The reference design separates things with space, not lines: a wide gap between the filter column and the photo grid, big rows between caterer cards, and a short gap between a caterer's name and its "cuisine · area" line. The spacing scale encodes that rhythm so every screen in the 436 mocks uses the same handful of distances.</p>
+      <p>The scale is built on 4px (0.25rem). Token names are multiples of the base: <code>--space-4</code> is 4 × 4px = 16px. Small steps are dense (2, 4, 8, 12, 16, 20, 24px) for component internals; large steps jump (32, 40, 48, 64, 80, 96, 128px) for layout. All values are <code>rem</code>, so spacing grows with the reader's text size.</p>
+      <p>Spacing tokens are fixed; what changes with the viewport is the layout tier built on them (<code>--layout-gutter</code>, <code>--layout-margin</code>, <code>--layout-section-gap</code>), documented on <a href="layout.html">Layout</a>.</p>
+    </section>
+
+    <section class="ds-section" id="scale"><h2><a href="#scale">The scale</a></h2>
+      <div class="ds-scale">
+        <div class="ds-scale__row"><code>--space-0</code><span data-token="--space-0"></span><span class="ds-scale__bar" style="--size: var(--space-0);"></span></div>
+        <div class="ds-scale__row"><code>--space-0-5</code><span data-token="--space-0-5"></span><span class="ds-scale__bar" style="--size: var(--space-0-5);"></span></div>
+        <div class="ds-scale__row"><code>--space-1</code><span data-token="--space-1"></span><span class="ds-scale__bar" style="--size: var(--space-1);"></span></div>
+        <div class="ds-scale__row"><code>--space-2</code><span data-token="--space-2"></span><span class="ds-scale__bar" style="--size: var(--space-2);"></span></div>
+        <div class="ds-scale__row"><code>--space-3</code><span data-token="--space-3"></span><span class="ds-scale__bar" style="--size: var(--space-3);"></span></div>
+        <div class="ds-scale__row"><code>--space-4</code><span data-token="--space-4"></span><span class="ds-scale__bar" style="--size: var(--space-4);"></span></div>
+        <div class="ds-scale__row"><code>--space-5</code><span data-token="--space-5"></span><span class="ds-scale__bar" style="--size: var(--space-5);"></span></div>
+        <div class="ds-scale__row"><code>--space-6</code><span data-token="--space-6"></span><span class="ds-scale__bar" style="--size: var(--space-6);"></span></div>
+        <div class="ds-scale__row"><code>--space-8</code><span data-token="--space-8"></span><span class="ds-scale__bar" style="--size: var(--space-8);"></span></div>
+        <div class="ds-scale__row"><code>--space-10</code><span data-token="--space-10"></span><span class="ds-scale__bar" style="--size: var(--space-10);"></span></div>
+        <div class="ds-scale__row"><code>--space-12</code><span data-token="--space-12"></span><span class="ds-scale__bar" style="--size: var(--space-12);"></span></div>
+        <div class="ds-scale__row"><code>--space-16</code><span data-token="--space-16"></span><span class="ds-scale__bar" style="--size: var(--space-16);"></span></div>
+        <div class="ds-scale__row"><code>--space-20</code><span data-token="--space-20"></span><span class="ds-scale__bar" style="--size: var(--space-20);"></span></div>
+        <div class="ds-scale__row"><code>--space-24</code><span data-token="--space-24"></span><span class="ds-scale__bar" style="--size: var(--space-24);"></span></div>
+        <div class="ds-scale__row"><code>--space-32</code><span data-token="--space-32"></span><span class="ds-scale__bar" style="--size: var(--space-32);"></span></div>
+      </div>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Resolved value</th><th scope="col">Declared as</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code>--space-0</code></td><td><span data-token="--space-0"></span></td><td><code>0</code></td><td></td></tr><tr><td><code>--space-0-5</code></td><td><span data-token="--space-0-5"></span></td><td><code>0.125rem</code></td><td>2px · hairline gaps, star spacing.</td></tr><tr><td><code>--space-1</code></td><td><span data-token="--space-1"></span></td><td><code>0.25rem</code></td><td>4px · icon-to-label, label-to-control.</td></tr><tr><td><code>--space-2</code></td><td><span data-token="--space-2"></span></td><td><code>0.5rem</code></td><td>8px · inside chips and tags, between inline items.</td></tr><tr><td><code>--space-3</code></td><td><span data-token="--space-3"></span></td><td><code>0.75rem</code></td><td>12px · compact padding, between buttons.</td></tr><tr><td><code>--space-4</code></td><td><span data-token="--space-4"></span></td><td><code>1rem</code></td><td>16px · default padding, stack gap, phone margin.</td></tr><tr><td><code>--space-5</code></td><td><span data-token="--space-5"></span></td><td><code>1.25rem</code></td><td>20px · dish row padding.</td></tr><tr><td><code>--space-6</code></td><td><span data-token="--space-6"></span></td><td><code>1.5rem</code></td><td>24px · card and dialog padding, form gap.</td></tr><tr><td><code>--space-8</code></td><td><span data-token="--space-8"></span></td><td><code>2rem</code></td><td>32px · section gap, tablet margin.</td></tr><tr><td><code>--space-10</code></td><td><span data-token="--space-10"></span></td><td><code>2.5rem</code></td><td>40px · laptop gutter.</td></tr><tr><td><code>--space-12</code></td><td><span data-token="--space-12"></span></td><td><code>3rem</code></td><td>48px · page section spacing, desktop margin.</td></tr><tr><td><code>--space-16</code></td><td><span data-token="--space-16"></span></td><td><code>4rem</code></td><td>64px · section gap on phones, caterer sections.</td></tr><tr><td><code>--space-20</code></td><td><span data-token="--space-20"></span></td><td><code>5rem</code></td><td>80px · wide-desktop margin.</td></tr><tr><td><code>--space-24</code></td><td><span data-token="--space-24"></span></td><td><code>6rem</code></td><td>96px · section gap from 62rem, footer offset.</td></tr><tr><td><code>--space-32</code></td><td><span data-token="--space-32"></span></td><td><code>8rem</code></td><td>128px admin row body basis.</td></tr></tbody></table></div>
+      <p><b>Where these came from.</b> The scale is the mocks' draft unchanged. The style harvest found every spacing value in <code>ui.css</code> on the 4px grid except sub-pixel optical nudges inside text (0.1em code padding, the 1px negative margin that tucks a tab's bar under the border) and the 2px <code>--space-0-5</code> step, which exists for hairline gaps such as star spacing and the switch thumb inset. Off-scale values in individual mocks (9rem, 11rem, 16rem, 22rem) are mock-only positioning of notes and toasts, not product spacing.</p>
+    </section>
+
+    <section class="ds-section" id="inside-between"><h2><a href="#inside-between">Inside versus between</a></h2>
+      <p>One rule decides almost every gap: <b>space inside a group is smaller than the space between groups.</b> A caterer's name sits 4px above its meta line, the photo sits 20px above the name, and the next card starts 48–64px away. The eye groups by proximity, so no border or card is needed.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas" style="align-items: flex-start;">
+          <a class="caterer-card" href="../../mocks/pages/caterer/default.html" style="width: 11rem;"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="Chicken pelau in a steel pot with lime and cucumber chutney"></span><span class="caterer-card__name">Pelau House</span><span class="caterer-card__meta">Trinidadian &amp; Tobagonian · Scarborough</span></a>
+          <a class="caterer-card" href="../../mocks/pages/caterers/default.html" style="width: 11rem;"><span class="photo"><img src="../../mocks/assets/img/cou-cou.jpg" alt="Sesame chicken with sweet peppers and broccoli over brown rice"></span><span class="caterer-card__name">Cou-Cou</span><span class="caterer-card__meta">Barbadian (Bajan) · North York</span></a>
+        </div>
+        <div class="ds-example__caption"><span>Inside a card: 4px name-to-meta (<code>--space-1</code>), 20px photo-to-name (<code>--space-5</code>). Between cards: 32–40px across, 48–64px down. No borders.</span></div>
+      </div>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Relationship</th><th scope="col">Token</th><th scope="col">Example from the mocks</th></tr></thead>
+        <tbody>
+          <tr><td>Icon to its label</td><td><code>--space-1</code>–<code>--space-2</code></td><td>Pin icon and "Scarborough"; chip and tag icons</td></tr>
+          <tr><td>Label to its control; title to its line</td><td><code>--space-1</code></td><td>"Event date" above the date input; caterer name above "Jamaican · Pickering"</td></tr>
+          <tr><td>Items in a cluster</td><td><code>--space-2</code>–<code>--space-3</code></td><td>Dietary tags; active filter chips; buttons in a dialog footer</td></tr>
+          <tr><td>Fields in a form</td><td><code>--space-6</code></td><td>The enquiry form; profile details</td></tr>
+          <tr><td>Fields side by side</td><td><code>--space-4</code></td><td>Guests and area in one row from 36rem</td></tr>
+          <tr><td>Section heading to its content</td><td><code>--space-6</code></td><td>"Menu" heading above the dish list</td></tr>
+          <tr><td>Cards in a grid</td><td><code>--space-6</code>–<code>--space-10</code> across, <code>--space-12</code>–<code>--space-16</code> down</td><td>The listing grid grows its gaps at 36rem and 62rem</td></tr>
+          <tr><td>Sections of a page</td><td><code>--space-16</code> (<code>--layout-section-gap</code>, 96px from 62rem)</td><td>Gallery, about, menu, areas and reviews on the caterer page</td></tr>
+        </tbody>
+      </table></div>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack" style="gap: var(--space-1);"><p style="font: var(--text-card-title);">Ti Kay</p><p class="text-muted" style="font: var(--text-body-sm);">Haitian · Etobicoke</p></div><figcaption>Keep a name and its supporting line 4px apart so they read as one thing.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack" style="gap: var(--space-8);"><p style="font: var(--text-card-title);">Ti Kay</p><p class="text-muted" style="font: var(--text-body-sm);">Haitian · Etobicoke</p></div><figcaption>Space a label from its own detail as far as from the next card; the grouping falls apart.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="component-padding"><h2><a href="#component-padding">Padding by component size</a></h2>
+      <p>Padding scales with the component. Controls have a fixed height (see <a href="#control-heights">Control heights</a>) and only horizontal padding; containers have equal padding on all sides that steps up with their size.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Component and size</th><th scope="col">Height</th><th scope="col">Padding</th><th scope="col">Gap inside</th></tr></thead>
+        <tbody>
+          <tr><td>Tag, badge</td><td>24px (min)</td><td><code>0 --space-2</code></td><td><code>--space-1</code></td></tr>
+          <tr><td>Chip, menu item, small button</td><td><code>--control-height-sm</code></td><td><code>0 --space-3</code></td><td><code>--space-1</code>–<code>--space-3</code></td></tr>
+          <tr><td>Button (default), filter trigger</td><td><code>--control-height-md</code></td><td><code>0 --space-4</code></td><td><code>--space-2</code></td></tr>
+          <tr><td>Input, select</td><td><code>--control-height-md</code></td><td><code>--space-2 --space-3</code></td><td>n/a</td></tr>
+          <tr><td>Large button, large input, search field</td><td><code>--control-height-lg</code></td><td><code>0 --space-6</code> (button)</td><td><code>--space-2</code></td></tr>
+          <tr><td>Well, toast, alert, menu panel</td><td>content</td><td><code>--space-4</code> (menu panel <code>--space-1</code>)</td><td><code>--space-3</code></td></tr>
+          <tr><td>Dish row</td><td>content</td><td><code>--space-5</code> block</td><td><code>--space-1</code></td></tr>
+          <tr><td>Card, dialog</td><td>content</td><td><code>--space-6</code></td><td><code>--space-4</code></td></tr>
+          <tr><td>Enquiry panel (LG and up)</td><td>content</td><td><code>--space-8</code></td><td><code>--space-6</code></td></tr>
+        </tbody>
+      </table></div>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <span class="tag">Vegan</span>
+          <button class="chip" type="button" aria-pressed="false">Birthdays</button>
+          <button class="btn btn--sm" type="button">Edit</button>
+          <button class="btn" type="button">Cancel</button>
+          <button class="btn btn--primary btn--lg" type="button">Send an enquiry</button>
+        </div>
+        <div class="ds-example__caption"><span>Tag 8px, chip and small button 12px, button 16px, large button 24px horizontal padding.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="control-heights"><h2><a href="#control-heights">Control heights</a></h2>
+      <p>Three heights for everything you can press or type into, so a button, an input and a select line up in one row. Medium (44px) is the default because it already meets the phone touch target (L2-065), so nothing needs a "mobile size".</p>
+      <div class="ds-scale">
+        <div class="ds-scale__row"><code>--control-height-sm</code><span data-token="--control-height-sm"></span><span class="ds-scale__bar" style="--size: var(--control-height-sm);"></span></div>
+        <div class="ds-scale__row"><code>--control-height-md</code><span data-token="--control-height-md"></span><span class="ds-scale__bar" style="--size: var(--control-height-md);"></span></div>
+        <div class="ds-scale__row"><code>--control-height-lg</code><span data-token="--control-height-lg"></span><span class="ds-scale__bar" style="--size: var(--control-height-lg);"></span></div>
+      </div>
+      <div class="ds-example">
+        <div class="ds-example__canvas" style="align-items: flex-end;">
+          <label class="field" style="width: 12rem;"><span class="field__label">Guests</span><input class="input" type="number" inputmode="numeric" value="120"></label>
+          <button class="btn" type="button">Check availability</button>
+          <button class="btn btn--sm" type="button">Clear</button>
+        </div>
+        <div class="ds-example__caption"><span>A 44px input and a 44px button share a baseline; the 36px small button is for dense rows.</span></div>
+      </div>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Resolved value</th><th scope="col">Declared as</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code>--control-height-sm</code></td><td><span data-token="--control-height-sm"></span></td><td><code>2.25rem</code></td><td>36px · row actions, chips.</td></tr><tr><td><code>--control-height-md</code></td><td><span data-token="--control-height-md"></span></td><td><code>2.75rem</code></td><td>44px · default: every control meets L2-065.</td></tr><tr><td><code>--control-height-lg</code></td><td><span data-token="--control-height-lg"></span></td><td><code>3.25rem</code></td><td>52px · hero search, auth, enquiry CTA.</td></tr></tbody></table></div>
+      <ul>
+        <li><b>Small, 36px:</b> chips, menu items, row actions (edit, remove, move up), small inputs in operator toolbars.</li>
+        <li><b>Medium, 44px:</b> every other button, input, select, pagination link and filter trigger.</li>
+        <li><b>Large, 52px:</b> the hero area and postal code search, sign-in and registration buttons, the enquiry call to action, device rows in account security.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+      <ul>
+        <li><b>Use the tokens.</b> Every margin, padding and gap is a <code>--space-*</code> token. If a design needs 14px, it needs 12 or 16.</li>
+        <li><b>Use gap, not margins, inside components.</b> <code>.stack</code> (16px), <code>.stack--sm</code> (8px), <code>.stack--lg</code> (32px) and <code>.cluster</code> (12px) set rhythm without margin collapse surprises.</li>
+        <li><b>Separate with space before lines.</b> Reach for a bigger gap first; add a hairline divider only where space alone is ambiguous (dish rows, table rows, list rows).</li>
+        <li><b>Grow between, not inside.</b> On larger screens the layout gaps grow (gutters, margins, section gaps); component padding stays the same.</li>
+        <li><b>Keep controls on the height scale.</b> Do not stretch a button with padding; choose sm, md or lg.</li>
+        <li><b>Respect safe areas.</b> Fixed bars add <code>env(safe-area-inset-bottom)</code> to their bottom padding (sticky enquiry bar, reply box, sticky form actions).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <ul>
+        <li><b>Touch targets (2.5.8, L2-065).</b> On XS and SM every interactive control is at least 44 × 44px with at least 8px (<code>--space-2</code>) between neighbouring targets. Medium controls meet this by height. Small (36px) controls are only used where the next target is at least 8px away, which satisfies WCAG 2.5.8 (24px minimum) but not the stricter L2-065.1. Extending their hit area to 44px on XS and SM is an open item in the design-system README.</li>
+        <li><b>Spacing survives text resizing.</b> Because every value is <code>rem</code>, a reader who sets 20px text gets proportionally larger gaps and taller controls, and nothing overlaps.</li>
+        <li><b>Text spacing (1.4.12).</b> No component uses fixed heights for text, only <code>min-height</code>, so overriding line, word and letter spacing never clips content.</li>
+        <li><b>Focus has room.</b> The focus ring sits 3px outside the element; gaps of at least <code>--space-2</code> between controls keep neighbouring rings from overlapping.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <p>Spacing does not change between themes or viewports.</p>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Resolved value</th><th scope="col">Declared as</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code>--space-0</code></td><td><span data-token="--space-0"></span></td><td><code>0</code></td><td></td></tr><tr><td><code>--space-0-5</code></td><td><span data-token="--space-0-5"></span></td><td><code>0.125rem</code></td><td>2px · hairline gaps, star spacing.</td></tr><tr><td><code>--space-1</code></td><td><span data-token="--space-1"></span></td><td><code>0.25rem</code></td><td>4px · icon-to-label, label-to-control.</td></tr><tr><td><code>--space-2</code></td><td><span data-token="--space-2"></span></td><td><code>0.5rem</code></td><td>8px · inside chips and tags, between inline items.</td></tr><tr><td><code>--space-3</code></td><td><span data-token="--space-3"></span></td><td><code>0.75rem</code></td><td>12px · compact padding, between buttons.</td></tr><tr><td><code>--space-4</code></td><td><span data-token="--space-4"></span></td><td><code>1rem</code></td><td>16px · default padding, stack gap, phone margin.</td></tr><tr><td><code>--space-5</code></td><td><span data-token="--space-5"></span></td><td><code>1.25rem</code></td><td>20px · dish row padding.</td></tr><tr><td><code>--space-6</code></td><td><span data-token="--space-6"></span></td><td><code>1.5rem</code></td><td>24px · card and dialog padding, form gap.</td></tr><tr><td><code>--space-8</code></td><td><span data-token="--space-8"></span></td><td><code>2rem</code></td><td>32px · section gap, tablet margin.</td></tr><tr><td><code>--space-10</code></td><td><span data-token="--space-10"></span></td><td><code>2.5rem</code></td><td>40px · laptop gutter.</td></tr><tr><td><code>--space-12</code></td><td><span data-token="--space-12"></span></td><td><code>3rem</code></td><td>48px · page section spacing, desktop margin.</td></tr><tr><td><code>--space-16</code></td><td><span data-token="--space-16"></span></td><td><code>4rem</code></td><td>64px · section gap on phones, caterer sections.</td></tr><tr><td><code>--space-20</code></td><td><span data-token="--space-20"></span></td><td><code>5rem</code></td><td>80px · wide-desktop margin.</td></tr><tr><td><code>--space-24</code></td><td><span data-token="--space-24"></span></td><td><code>6rem</code></td><td>96px · section gap from 62rem, footer offset.</td></tr><tr><td><code>--space-32</code></td><td><span data-token="--space-32"></span></td><td><code>8rem</code></td><td>128px admin row body basis.</td></tr><tr><td><code>--control-height-sm</code></td><td><span data-token="--control-height-sm"></span></td><td><code>2.25rem</code></td><td>36px · row actions, chips.</td></tr><tr><td><code>--control-height-md</code></td><td><span data-token="--control-height-md"></span></td><td><code>2.75rem</code></td><td>44px · default: every control meets L2-065.</td></tr><tr><td><code>--control-height-lg</code></td><td><span data-token="--control-height-lg"></span></td><td><code>3.25rem</code></td><td>52px · hero search, auth, enquiry CTA.</td></tr></tbody></table></div>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

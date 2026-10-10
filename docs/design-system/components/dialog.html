@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dialog — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand modal dialog: default, destructive, form and success variants, four widths, phone bottom sheet and full-screen enquiry, every state, both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Containers and overlays</p>
+      <h1>Dialog</h1>
+      <p class="ds-lead">A dialog stops the page for one decision or one short form: send an enquiry, suspend a caterer, remove a photo. On phones it rises from the bottom; the enquiry form fills the screen.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">APG Dialog (Modal)</span><span class="ds-pill"><code>.dialog</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use a dialog when the person must finish or abandon one focused task before carrying on, and the task is short enough to fit on one panel: a confirmation, a form of up to about six fields, or the result of either. The page behind becomes <code>inert</code> and is dimmed by a backdrop.</p>
+      <ul>
+        <li><b>Default</b>: a confirmation that changes something but is easy to undo. "Approve Auntie Bev's Kitchen?", "Sign out of Safari on iPhone?". The primary is ink.</li>
+        <li><b>Destructive</b>: removes, suspends or deletes. A danger icon in the header and a danger button that names the loss: "Suspend caterer", "Remove photo", "Delete my account".</li>
+        <li><b>Form</b>: collects input. Wider panel (<code>.dialog__panel--form</code>), fields in the body, a submit button in the footer: "Send an enquiry", "Add a dish", "Report this review".</li>
+        <li><b>Success</b>: confirms a task that has a follow-up worth reading. A success icon, one or two sentences and a single "Done" or a next step ("Go to your inbox").</li>
+      </ul>
+      <p>Use something else when:</p>
+      <ul>
+        <li>The panel is a long list of choices or links, such as phone filters or the site menu: use a <a href="sheet.html">sheet</a>.</li>
+        <li>The choice is small and should not block the page, such as the cuisine filter on tablets or the account menu: use a <a href="popover.html">popover</a>.</li>
+        <li>Nothing needs deciding, only confirming that something happened ("Photo removed. Undo"): use a <a href="toast.html">toast</a>.</li>
+        <li>The task has steps, sections or more than about six fields, such as registering as a caterer or setting up a profile: use a page with a <a href="form-layout.html">form layout</a>.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="background: var(--color-bg-backdrop);">
+          <div class="dialog__panel" style="animation: none;">
+            <div class="dialog__header">
+              <div class="dialog__icon dialog__icon--danger" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg></div>
+              <div style="flex: 1;">
+                <h3 class="dialog__title">Suspend Pelau House?</h3>
+                <p class="text-muted" style="margin-top: var(--space-1);">It leaves the listing within a minute. You can reinstate it later.</p>
+              </div>
+              <button class="icon-btn" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+            </div>
+            <div class="dialog__body"><label class="field" for="anat-reason"><span class="field__label">Reason (sent to Kendra)</span><textarea class="textarea" id="anat-reason" rows="2"></textarea></label></div>
+            <div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="button">Suspend caterer</button></div>
+          </div>
+          <span class="ds-callout" style="left: 3%; top: 4%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 14%; top: 13%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 26%; top: 13%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 26%; top: 30%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 86%; top: 13%;" aria-hidden="true">5</span>
+          <span class="ds-callout" style="left: 14%; top: 55%;" aria-hidden="true">6</span>
+          <span class="ds-callout" style="left: 50%; top: 82%;" aria-hidden="true">7</span>
+          <span class="ds-callout" style="left: 92%; top: 92%;" aria-hidden="true">8</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Backdrop</b><small><code>.backdrop</code>: <code>--color-bg-backdrop</code> over the inert page, at <code>--z-overlay</code>. Clicking it does nothing; Escape and Cancel close.</small></div></li>
+          <li><div><b>Header icon (optional)</b><small><code>.dialog__icon--danger|info|success|warning</code>: a 40px tinted circle. Decorative; the title says the same thing.</small></div></li>
+          <li><div><b>Title</b><small><code>.dialog__title</code> in <code>--text-h3</code>, an <code>&lt;h2&gt;</code> referenced by <code>aria-labelledby</code>.</small></div></li>
+          <li><div><b>Description</b><small>One sentence of consequence in <code>.text-muted</code>, referenced by <code>aria-describedby</code>.</small></div></li>
+          <li><div><b>Close</b><small>A 44px <a href="icon-button.html">icon button</a> named "Close". Same as Cancel.</small></div></li>
+          <li><div><b>Body</b><small><code>.dialog__body</code>: fields, checklists, alerts, photos. Padding <code>--space-4 --space-6</code>; scrolls when tall.</small></div></li>
+          <li><div><b>Footer</b><small><code>.dialog__footer</code>: right-aligned, wraps, sticky to the panel bottom. Cancel first, primary last.</small></div></li>
+          <li><div><b>Panel</b><small><code>.dialog__panel</code>: <code>--color-bg-surface-raised</code>, <code>--radius-lg</code> (<code>--radius-xl</code> top corners on phones), <code>--shadow-4</code>, 32rem by default.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>The examples below are live dialogs inside a frame, so they lay out exactly as on a page of this width (narrow your window below 36rem to see the bottom sheet). They leave out <code>aria-modal</code> and <code>autofocus</code> so this documentation page stays readable; the code shows the real attributes.</p>
+      <h3>Default</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="ds-frame">
+            <div class="ds-frame__page"><p>Profile review · Auntie Bev's Kitchen</p></div>
+            <div class="backdrop"></div>
+            <div class="dialog" role="dialog" aria-labelledby="dv1-title" aria-describedby="dv1-desc">
+              <div class="dialog__panel">
+                <div class="dialog__header">
+                  <div class="dialog__caterer" style="flex: 1; align-items: flex-start;">
+                    <span class="photo"><img src="../../mocks/assets/img/green-fig-catering.jpg" alt="" width="56" height="56"></span>
+                    <div><h3 class="dialog__title" id="dv1-title">Approve Auntie Bev's Kitchen?</h3><p class="text-muted" id="dv1-desc" style="margin-top: var(--space-1);">The profile appears in the listing within a minute, and Beverley Campbell gets an email.</p></div>
+                  </div>
+                  <button class="icon-btn" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                </div>
+                <div class="dialog__body"><ul class="checklist"><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>All submission rules pass</li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>Certificate valid until 22 Jan 2030</li></ul></div>
+                <div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--primary" type="button">Approve and publish</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>From <code>dialogs/approve-profile/default</code>. <code>.dialog__caterer</code> puts the caterer's round photo beside the title instead of an icon. Initial focus: the primary.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="backdrop"&gt;&lt;/div&gt;
+&lt;div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc"&gt;
+  &lt;form class="dialog__panel" novalidate&gt;
+    &lt;div class="dialog__header"&gt;
+      &lt;div class="dialog__caterer"&gt;&lt;span class="photo"&gt;&lt;img src="green-fig-catering.jpg" alt=""&gt;&lt;/span&gt;
+        &lt;div&gt;&lt;h2 class="dialog__title" id="dlg-title"&gt;Approve Auntie Bev's Kitchen?&lt;/h2&gt;
+          &lt;p class="text-muted" id="dlg-desc"&gt;The profile appears in the listing within a minute…&lt;/p&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;button class="icon-btn" type="button" aria-label="Close"&gt;…&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="dialog__body"&gt;…&lt;/div&gt;
+    &lt;div class="dialog__footer"&gt;
+      &lt;button class="btn" type="button"&gt;Cancel&lt;/button&gt;
+      &lt;button class="btn btn--primary" type="submit" autofocus&gt;Approve and publish&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Destructive</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="ds-frame ds-frame--tall">
+            <div class="ds-frame__page"><p>Your photos · 6 of 30</p></div>
+            <div class="backdrop"></div>
+            <div class="dialog" role="dialog" aria-labelledby="dv2-title" aria-describedby="dv2-desc">
+              <div class="dialog__panel dialog__panel--sm">
+                <div class="dialog__header">
+                  <div style="flex: 1;"><h3 class="dialog__title" id="dv2-title">Remove this photo?</h3><p class="text-muted" id="dv2-desc" style="margin-top: var(--space-1);">"Curry chicken with rice and buss up shut in a steel karahi" leaves your page within a minute.</p></div>
+                  <button class="icon-btn" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                </div>
+                <div class="dialog__body"><div class="dialog__photo"><span class="photo"><img src="../../mocks/assets/img/maracas-bay.jpg" alt="" width="160" height="160"></span></div></div>
+                <div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="button">Remove photo</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>From <code>dialogs/remove-photo/default</code>: small panel, the photo itself as <code>.dialog__photo</code>. Initial focus: Cancel, the safe action. Bigger consequences add <code>.dialog__icon--danger</code> (see Anatomy).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc"&gt;
+  &lt;div class="dialog__panel dialog__panel--sm"&gt;
+    &lt;div class="dialog__header"&gt;…title "Remove this photo?"…&lt;/div&gt;
+    &lt;div class="dialog__body"&gt;&lt;div class="dialog__photo"&gt;&lt;span class="photo"&gt;&lt;img src="maracas-bay.jpg" alt=""&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="dialog__footer"&gt;
+      &lt;button class="btn" type="button" autofocus&gt;Cancel&lt;/button&gt;
+      &lt;button class="btn btn--danger" type="button"&gt;Remove photo&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Form</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="ds-frame ds-frame--tall">
+            <div class="ds-frame__page"><p>Pelau House · Trinidadian &amp; Tobagonian, Guyanese</p></div>
+            <div class="backdrop"></div>
+            <div class="dialog" role="dialog" aria-labelledby="dv3-title" aria-describedby="dv3-desc">
+              <form class="dialog__panel dialog__panel--form" action="#variants" novalidate>
+                <div class="dialog__header">
+                  <div class="dialog__caterer" style="flex: 1;"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="56" height="56"></span><div><h3 class="dialog__title" id="dv3-title">Send an enquiry</h3><p class="dialog__caterer-name" id="dv3-desc">to Pelau House</p></div></div>
+                  <button class="icon-btn" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                </div>
+                <div class="dialog__body stack">
+                  <div class="field-row">
+                    <label class="field" for="dv3-date"><span class="field__label">Event date</span><input class="input" id="dv3-date" type="date" aria-describedby="dv3-date-help"><span class="field__help" id="dv3-date-help">At least 2 days from today</span></label>
+                    <label class="field" for="dv3-guests"><span class="field__label">Guests</span><input class="input" id="dv3-guests" type="text" inputmode="numeric" aria-describedby="dv3-guests-help"><span class="field__help" id="dv3-guests-help">Pelau House serves 20–300</span></label>
+                  </div>
+                  <label class="field" for="dv3-message"><span class="field__label">Message</span><textarea class="textarea" id="dv3-message" rows="3" aria-describedby="dv3-message-help"></textarea><span class="field__help" id="dv3-message-help">What you'd like to eat, serving style, timing</span></label>
+                  <p class="private-note"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Pelau House sees your name, not your email or phone.</p>
+                </div>
+                <div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--primary" type="submit">Send enquiry</button></div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>From <code>dialogs/enquiry/default</code> (shortened). <code>.dialog__panel--form</code> is 40rem; <code>.field-row</code> pairs fields from 36rem. Initial focus: the first field.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="dialog dialog--full" role="dialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc"&gt;
+  &lt;form class="dialog__panel dialog__panel--form" novalidate&gt;
+    &lt;div class="dialog__header"&gt;
+      &lt;div class="dialog__caterer"&gt;&lt;span class="photo"&gt;…&lt;/span&gt;
+        &lt;div&gt;&lt;h2 class="dialog__title" id="dlg-title"&gt;Send an enquiry&lt;/h2&gt;&lt;p class="dialog__caterer-name" id="dlg-desc"&gt;to Pelau House&lt;/p&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;button class="icon-btn" type="button" aria-label="Close"&gt;…&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="dialog__body stack"&gt;…fields, first one autofocus…&lt;/div&gt;
+    &lt;div class="dialog__footer"&gt;&lt;button class="btn" type="button"&gt;Cancel&lt;/button&gt;&lt;button class="btn btn--primary" type="submit"&gt;Send enquiry&lt;/button&gt;&lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Success</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="ds-frame">
+            <div class="ds-frame__page"><p>Account · Your data</p></div>
+            <div class="backdrop"></div>
+            <div class="dialog" role="dialog" aria-labelledby="dv4-title" aria-describedby="dv4-desc">
+              <div class="dialog__panel dialog__panel--sm">
+                <div class="dialog__header">
+                  <div class="dialog__icon dialog__icon--success" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></div>
+                  <div style="flex: 1;"><h3 class="dialog__title" id="dv4-title">Export requested</h3><p class="text-muted" id="dv4-desc" style="margin-top: var(--space-1);">Nothing else to do for now.</p></div>
+                  <button class="icon-btn" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                </div>
+                <div class="dialog__body"><p>We'll email a download link to <strong>marcia.t@example.com</strong> within 24 hours.</p></div>
+                <div class="dialog__footer"><button class="btn btn--primary" type="button">Done</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>From <code>dialogs/download-data/success</code>. One button. Initial focus: Done. When there is nothing to read, use a toast instead.</span></div>
+      </div>
+
+      <h3>Widths and parts</h3>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Modifier</th><th scope="col">Max width</th><th scope="col">Used for</th></tr></thead>
+        <tbody>
+          <tr><td><code>.dialog__panel--sm</code></td><td>24rem</td><td>One-line confirmations with no fields: remove photo, remove dish, delete review, close enquiry.</td></tr>
+          <tr><td>(default)</td><td>32rem (<code>--layout-dialog-width</code>)</td><td>Confirmations with a reason field or a checklist: suspend, approve, retire cuisine.</td></tr>
+          <tr><td><code>.dialog__panel--form</code></td><td>40rem</td><td>Forms: enquiry, dish, review, report, change password, delete account.</td></tr>
+          <tr><td><code>.dialog__panel--lg</code></td><td>48rem</td><td>Reserved for side-by-side comparison; no current mock uses it.</td></tr>
+          <tr><td><code>.dialog__icon--info|warning|danger|success</code></td><td>40px circle</td><td>Header tone. Warning is for "can't do that yet" (<code>remove-dish/blocked</code>: "Keep at least 3 dishes").</td></tr>
+          <tr><td><code>.dialog-people</code></td><td>8rem per person</td><td>Round photos of the caterers affected (<code>retire-cuisine</code>: Mauby &amp; Co., Sea Moss &amp; Spice).</td></tr>
+          <tr><td><code>.push-start</code></td><td>—</td><td>On a footer button: pushes it to the start, away from Cancel and the primary ("Delete response" in <code>review-response/edit</code>).</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>Size is width only; height follows the content up to the viewport less 48px, then the body scrolls and the footer stays pinned. Pick the narrowest width that keeps fields on one line.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="dialog__panel dialog__panel--sm" style="animation: none;"><div class="dialog__header"><h3 class="dialog__title">Small · 24rem</h3></div><div class="dialog__body"><p class="text-muted">Remove this photo?</p></div></div>
+          <div class="dialog__panel" style="animation: none;"><div class="dialog__header"><h3 class="dialog__title">Default · 32rem</h3></div><div class="dialog__body"><p class="text-muted">Suspend Pelau House?</p></div></div>
+          <div class="dialog__panel dialog__panel--form" style="animation: none;"><div class="dialog__header"><h3 class="dialog__title">Form · 40rem</h3></div><div class="dialog__body"><p class="text-muted">Send an enquiry</p></div></div>
+          <div class="dialog__panel dialog__panel--lg" style="animation: none;"><div class="dialog__header"><h3 class="dialog__title">Large · 48rem</h3></div><div class="dialog__body"><p class="text-muted">Reserved</p></div></div>
+        </div>
+        <div class="ds-example__caption"><span>Bare panels, shown without the overlay so the widths line up. All share padding <code>--space-6</code>.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>The dialog's own states are about the task; hover, focus and pressed belong to its <a href="button.html">buttons</a> and fields. Every form and destructive dialog in the mocks has default, invalid, busy and failed; forms that end with something to read have success.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Dialog states by variant</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Invalid</th><th scope="col">Busy</th><th scope="col">Failed</th><th scope="col">Success</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Default</th>
+            <td><div class="dialog__panel dialog__panel--sm" style="animation: none; min-width: 16rem;"><div class="dialog__header"><h3 class="dialog__title">Sign out of Safari on iPhone?</h3></div><div class="dialog__footer"><button class="btn btn--sm" type="button">Cancel</button><button class="btn btn--primary btn--sm" type="button">Sign out device</button></div></div></td>
+            <td><span class="text-subtle">No fields</span></td>
+            <td><div class="dialog__panel dialog__panel--sm" style="animation: none; min-width: 16rem;" aria-busy="true"><div class="dialog__header"><h3 class="dialog__title">Sign out of Safari on iPhone?</h3></div><div class="dialog__body"><p class="visually-hidden" role="status">Signing out the device</p></div><div class="dialog__footer"><button class="btn btn--sm" type="button" disabled>Cancel</button><button class="btn btn--primary btn--sm" type="button" aria-busy="true" aria-disabled="true">Sign out device</button></div></div></td>
+            <td><div class="dialog__panel dialog__panel--sm" style="animation: none; min-width: 16rem;"><div class="dialog__header"><h3 class="dialog__title">Sign out of Safari on iPhone?</h3></div><div class="dialog__body"><div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><p class="alert__title">We couldn't sign out that device</p></div></div></div><div class="dialog__footer"><button class="btn btn--sm" type="button">Cancel</button><button class="btn btn--primary btn--sm" type="button">Sign out device</button></div></div></td>
+            <td><span class="text-subtle">A toast confirms</span></td></tr>
+          <tr><th scope="row">Destructive</th>
+            <td><div class="dialog__panel dialog__panel--sm" style="animation: none; min-width: 16rem;"><div class="dialog__header"><div class="dialog__icon dialog__icon--danger" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg></div><h3 class="dialog__title">Suspend Pelau House?</h3></div><div class="dialog__body"><label class="field" for="st-d1"><span class="field__label">Reason</span><textarea class="textarea" id="st-d1" rows="2"></textarea></label></div><div class="dialog__footer"><button class="btn btn--sm" type="button">Cancel</button><button class="btn btn--danger btn--sm" type="button">Suspend caterer</button></div></div></td>
+            <td><div class="dialog__panel dialog__panel--sm" style="animation: none; min-width: 16rem;"><div class="dialog__header"><div class="dialog__icon dialog__icon--danger" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg></div><h3 class="dialog__title">Suspend Pelau House?</h3></div><div class="dialog__body stack stack--sm"><div class="form-summary" role="alert"><h4>Fix 1 thing before you continue</h4><ul><li><a href="#st-d2">Add a reason for this change</a></li></ul></div><label class="field" for="st-d2"><span class="field__label">Reason</span><textarea class="textarea" id="st-d2" rows="2" aria-invalid="true" aria-describedby="st-d2-err"></textarea><span class="field__error" id="st-d2-err">Add a reason for this change</span></label></div><div class="dialog__footer"><button class="btn btn--sm" type="button">Cancel</button><button class="btn btn--danger btn--sm" type="button">Suspend caterer</button></div></div></td>
+            <td><div class="dialog__panel dialog__panel--sm" style="animation: none; min-width: 16rem;" aria-busy="true"><div class="dialog__header"><div class="dialog__icon dialog__icon--danger" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg></div><h3 class="dialog__title">Suspend Pelau House?</h3></div><div class="dialog__body"><label class="field" for="st-d3"><span class="field__label">Reason</span><textarea class="textarea" id="st-d3" rows="2" readonly>Food safety concern after report R-2047.</textarea></label><p class="visually-hidden" role="status">Suspending Pelau House</p></div><div class="dialog__footer"><button class="btn btn--sm" type="button" disabled>Cancel</button><button class="btn btn--danger btn--sm" type="button" aria-busy="true" aria-disabled="true">Suspend caterer</button></div></div></td>
+            <td><div class="dialog__panel dialog__panel--sm" style="animation: none; min-width: 16rem;"><div class="dialog__header"><div class="dialog__icon dialog__icon--danger" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg></div><h3 class="dialog__title">Suspend Pelau House?</h3></div><div class="dialog__body"><div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><p class="alert__title">We couldn't suspend Pelau House</p><p>Nothing has changed; your reason is kept.</p></div></div></div><div class="dialog__footer"><button class="btn btn--sm" type="button">Cancel</button><button class="btn btn--danger btn--sm" type="button">Suspend caterer</button></div></div></td>
+            <td><span class="text-subtle">Page updates and a toast confirms</span></td></tr>
+          <tr><th scope="row">Form</th>
+            <td><div class="dialog__panel dialog__panel--sm" style="animation: none; min-width: 16rem;"><div class="dialog__header"><h3 class="dialog__title">Add a cuisine</h3></div><div class="dialog__body"><label class="field" for="st-f1"><span class="field__label">Name</span><input class="input" id="st-f1" type="text"></label></div><div class="dialog__footer"><button class="btn btn--sm" type="button">Cancel</button><button class="btn btn--primary btn--sm" type="button">Add cuisine</button></div></div></td>
+            <td><div class="dialog__panel dialog__panel--sm" style="animation: none; min-width: 16rem;"><div class="dialog__header"><h3 class="dialog__title">Add a cuisine</h3></div><div class="dialog__body"><label class="field" for="st-f2"><span class="field__label">Name</span><input class="input" id="st-f2" type="text" value="Jamaican" aria-invalid="true" aria-describedby="st-f2-err"><span class="field__error" id="st-f2-err">Jamaican is already a cuisine</span></label></div><div class="dialog__footer"><button class="btn btn--sm" type="button">Cancel</button><button class="btn btn--primary btn--sm" type="button">Add cuisine</button></div></div></td>
+            <td><div class="dialog__panel dialog__panel--sm" style="animation: none; min-width: 16rem;" aria-busy="true"><div class="dialog__header"><h3 class="dialog__title">Add a cuisine</h3></div><div class="dialog__body"><label class="field" for="st-f3"><span class="field__label">Name</span><input class="input" id="st-f3" type="text" value="Caymanian" readonly></label><p class="visually-hidden" role="status">Adding Caymanian</p></div><div class="dialog__footer"><button class="btn btn--sm" type="button" disabled>Cancel</button><button class="btn btn--primary btn--sm" type="button" aria-busy="true" aria-disabled="true">Add cuisine</button></div></div></td>
+            <td><div class="dialog__panel dialog__panel--sm" style="animation: none; min-width: 16rem;"><div class="dialog__header"><h3 class="dialog__title">Add a cuisine</h3></div><div class="dialog__body"><div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><p class="alert__title">We couldn't add Caymanian</p><p>Try again; what you typed is kept.</p></div></div></div><div class="dialog__footer"><button class="btn btn--sm" type="button">Cancel</button><button class="btn btn--primary btn--sm" type="button">Add cuisine</button></div></div></td>
+            <td><div class="dialog__panel dialog__panel--sm" style="animation: none; min-width: 16rem;"><div class="dialog__header"><div class="dialog__icon dialog__icon--success" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></div><h3 class="dialog__title">Enquiry sent to Pelau House</h3></div><div class="dialog__footer"><button class="btn btn--sm" type="button">Back to Pelau House</button><button class="btn btn--primary btn--sm" type="button">Go to your inbox</button></div></div></td></tr>
+          <tr><th scope="row">Success</th>
+            <td><div class="dialog__panel dialog__panel--sm" style="animation: none; min-width: 16rem;"><div class="dialog__header"><div class="dialog__icon dialog__icon--success" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></div><h3 class="dialog__title">Export requested</h3></div><div class="dialog__footer"><button class="btn btn--primary btn--sm" type="button">Done</button></div></div></td>
+            <td><span class="text-subtle">—</span></td><td><span class="text-subtle">—</span></td><td><span class="text-subtle">—</span></td><td><span class="text-subtle">—</span></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="dialog__panel" style="animation: none;"><div class="dialog__header"><div class="dialog__icon dialog__icon--danger" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg></div><div style="flex: 1;"><h3 class="dialog__title">Retire Pan-Caribbean?</h3><p class="text-muted" style="margin-top: var(--space-1);">It leaves the listing filter.</p></div></div><div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="button">Retire cuisine</button></div></div></div>
+        <div data-theme="dark"><div class="dialog__panel" style="animation: none;"><div class="dialog__header"><div class="dialog__icon dialog__icon--danger" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg></div><div style="flex: 1;"><h3 class="dialog__title">Retire Pan-Caribbean?</h3><p class="text-muted" style="margin-top: var(--space-1);">It leaves the listing filter.</p></div></div><div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="button">Retire cuisine</button></div></div></div>
+      </div>
+      <ul>
+        <li><b>Invalid</b>: on submit, an error summary (<code>.form-summary</code>, <code>role="alert"</code>, focused) lists each problem as a link to its field; each field gets <code>aria-invalid="true"</code> and a <code>.field__error</code> joined by <code>aria-describedby</code>. The dialog never closes on invalid input.</li>
+        <li><b>Busy</b>: <code>aria-busy="true"</code> on the panel; fields become read-only (not disabled, so their values stay legible); Cancel and Close are disabled together and Escape is ignored; the primary shows its spinner and keeps its label; a visually hidden <code>role="status"</code> line says what is happening ("Suspending Pelau House").</li>
+        <li><b>Failed</b>: an <code>.alert--danger</code> with <code>role="alert"</code> at the top of the body says what failed, that nothing changed and that input is kept. Buttons return to normal for a retry.</li>
+        <li><b>Success</b>: either the dialog closes and a toast confirms (most actions), or the panel swaps to the success layout in place, keeping the title as the label (enquiry, report, review, export, submit profile).</li>
+        <li>Rarer mock states reuse these: <b>conflict</b> (<code>decline-enquiry/conflict</code>: someone replied first) and <b>blocked</b> (<code>remove-photo/blocked</code>: keep at least 3) are warning-toned default dialogs; <b>duplicate</b> and <b>limit</b> in the enquiry and report forms are failed states with their own copy.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>XS (below 36rem)</b>: every dialog is a <b>bottom sheet</b>. The panel spans the width, sits on the bottom edge with <code>--radius-xl</code> top corners only, slides up, and pads its bottom by <code>env(safe-area-inset-bottom)</code> so the footer clears the home indicator. Footer buttons wrap; the primary stays last.</li>
+        <li><b>SM and up (36rem+)</b>: the panel is centred with <code>--space-6</code> around it, rounded on all corners (<code>--radius-lg</code>), and scales in.</li>
+        <li><b>Enquiry below 48rem</b>: <code>.dialog--full</code> makes the panel fill the screen (<code>100dvh</code>, no radius) because the form is long and typed on a phone keyboard; the sticky footer keeps "Send enquiry" above the keyboard (L2-026.1). From 48rem it is a normal 40rem form dialog.</li>
+        <li><b>Height</b>: the panel never exceeds the viewport less 48px (<code>100dvh</code>, so mobile browser bars are respected). Long bodies scroll inside the panel; header and footer stay put.</li>
+      </ul>
+      <div class="ds-iframes">
+        <iframe class="ds-iframe" src="../../mocks/dialogs/suspend-caterer/default.html?chrome=0&amp;theme=light" title="Suspend Pelau House dialog as a bottom sheet at phone width" loading="lazy"></iframe>
+        <iframe class="ds-iframe" src="../../mocks/dialogs/enquiry/default.html?chrome=0&amp;theme=light" title="Send an enquiry dialog filling the screen at phone width" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The dialog reads semantic tokens directly: <code>--color-bg-surface-raised</code> for the panel and the sticky footer, <code>--color-bg-backdrop</code>, <code>--shadow-4</code>, <code>--radius-lg</code>/<code>--radius-xl</code>, and the status <code>-bg</code>/<code>-icon</code> pairs for header icons. Width comes from <code>--layout-dialog-width</code>; the other widths are fixed rems in the component.</p>
+      <p>This is the one place Sweet Hand lifts a surface: the panel has a shadow because it floats over the page. In dark, the raised surface is stone-850, a step lighter than the stone-950 canvas, and the backdrop deepens from 50% to 66% black so the panel separates without a border. Icon tints switch to their 950-step backgrounds with 300-step glyphs. Re-skin by overriding those semantic tokens on a theme scope; never give a dialog a pepper header or a coloured panel.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p><a href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/">APG Dialog (Modal)</a>: <code>role="dialog"</code> and <code>aria-modal="true"</code> on <code>.dialog</code>, <code>aria-labelledby</code> on the title, <code>aria-describedby</code> on the consequence sentence. Everything outside gets <code>inert</code>, so focus, find-in-page and screen-reader browsing cannot reach it. Use the native <code>&lt;dialog&gt;</code> element with <code>showModal()</code>, or the UI framework's accessible dialog primitive, to get this behaviour; don't hand-roll it. Destructive confirmations stay <code>role="dialog"</code>: the person asked for them. <code>role="alertdialog"</code> is reserved for interruptions the system starts.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through the panel's controls and wraps from the last to the first; focus never leaves the dialog.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Closes, same as Cancel and Close. Ignored while busy.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>In a field, submits the form (the footer primary is <code>type="submit"</code>). In a textarea it adds a line.</td></tr>
+        <tr><td><kbd>Space</kbd>, <kbd>Enter</kbd> on a button</td><td>Activates it.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <ul>
+        <li><b>On open</b>: the first field in a form; Cancel in a destructive dialog without fields; the primary in a default confirmation; Done or the next step in a success panel.</li>
+        <li><b>On close</b>: back to the button that opened it. When that button is gone (the photo was removed), to the next item in the list, or the list heading.</li>
+        <li><b>On invalid submit</b>: to the error summary, which links to each field.</li>
+        <li>The sticky footer must not cover a focused field (WCAG 2.4.11): the body scrolls the field into view above it.</li>
+      </ul>
+      <h3>Labelling</h3>
+      <p>Close is an icon button named "Close" (the dialog's name gives context; "Close filters" and "Close menu" are used on sheets). Header icons are <code>aria-hidden</code>. Photos in the header and in <code>.dialog-people</code> have empty <code>alt</code> because the names beside them say the same; <code>.dialog-people</code> itself is a list with an <code>aria-label</code> ("Caterers using Pan-Caribbean").</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Title and body on panel</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Description on panel</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Field error in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Invalid field edge in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-danger-solid|--color-bg-surface-raised" data-min="3"></span></div>
+        <div class="ds-pair"><span>Primary edge on panel</span><span class="ds-pair__ratio" data-contrast="--color-action|--color-bg-surface-raised" data-min="3"></span></div>
+        <div class="ds-pair"><span>Danger icon on its circle</span><span class="ds-pair__ratio" data-contrast="--color-danger-icon|--color-danger-bg" data-min="3"></span></div>
+        <div class="ds-pair"><span>Success icon on its circle</span><span class="ds-pair__ratio" data-contrast="--color-success-icon|--color-success-bg" data-min="3"></span></div>
+        <div class="ds-pair"><span>Warning icon on its circle</span><span class="ds-pair__ratio" data-contrast="--color-warning-icon|--color-warning-bg" data-min="3"></span></div>
+        <div class="ds-pair"><span>Info icon on its circle</span><span class="ds-pair__ratio" data-contrast="--color-info-icon|--color-info-bg" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring on panel</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>The backdrop fades in over <code>--duration-base</code>; the panel scales in (SM+) or slides up (XS) over <code>--duration-slow</code> (320ms) with <code>--ease-enter</code>. Closing is instant. Reduced motion removes both animations; the busy spinner keeps turning because it reports status.</p>
+      <h3>Touch</h3>
+      <p>Close and every footer button are at least 44px. The bottom sheet keeps the actions in the thumb zone on phones, and the safe-area padding keeps them clear of the home indicator. Tapping the backdrop does not close a dialog, so a stray tap never loses a typed enquiry.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Titles</b>: confirmations are questions that name the thing: "Suspend Pelau House?", "Remove this photo?", "Sign out of Safari on iPhone?". Forms are the task as a verb phrase: "Send an enquiry", "Add a dish". Success is a statement: "Export requested", "Enquiry sent to Pelau House". Never "Are you sure?" or "Confirm".</li>
+        <li><b>Description</b>: one sentence of consequence, in plain words: "It leaves the listing within a minute and its page returns 'not found'. You can reinstate it later."</li>
+        <li><b>Buttons</b>: the primary repeats the title's verb ("Suspend caterer", "Retire cuisine", "Approve and publish"). The other is always "Cancel"; a success panel's only button is "Done" unless there is a next step.</li>
+        <li><b>Failure copy</b>: what failed, that nothing changed, what is kept: "We couldn't suspend Pelau House. Nothing has changed. Check your connection and try again; your reason is kept."</li>
+        <li><b>Field help in dialogs</b> names the caterer and the limit: "Pelau House serves 20–300", "We keep only the first 3 characters".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="dialog__panel dialog__panel--sm" style="animation: none;"><div class="dialog__header"><h3 class="dialog__title">Retire Pan-Caribbean?</h3></div><div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="button">Retire cuisine</button></div></div></div><figcaption>Name the thing in the title and the verb on the button.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="dialog__panel dialog__panel--sm" style="animation: none;"><div class="dialog__header"><h3 class="dialog__title">Are you sure?</h3></div><div class="dialog__footer"><button class="btn" type="button">No</button><button class="btn btn--primary" type="button">Yes</button></div></div></div><figcaption>"Are you sure?" with Yes and No makes people reread the page to know what they agreed to.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="dialog__panel dialog__panel--sm" style="animation: none;" aria-busy="true"><div class="dialog__header"><h3 class="dialog__title">Approve Auntie Bev's Kitchen?</h3><button class="icon-btn" type="button" aria-label="Close" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="dialog__footer"><button class="btn" type="button" disabled>Cancel</button><button class="btn btn--primary" type="button" aria-busy="true" aria-disabled="true">Approve and publish</button></div></div></div><figcaption>While busy, disable Close and Cancel together, and keep the label.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="dialog__panel dialog__panel--sm" style="animation: none;" aria-busy="true"><div class="dialog__header"><h3 class="dialog__title">Approve Auntie Bev's Kitchen?</h3><button class="icon-btn" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="dialog__footer"><button class="btn" type="button" disabled>Cancel</button><button class="btn btn--primary" type="button" aria-busy="true" aria-disabled="true">Approve and publish</button></div></div></div><figcaption>Ten busy mocks disabled Cancel but left Close working, so the request could be abandoned halfway.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="dialog__panel dialog__panel--sm" style="animation: none;"><div class="dialog__header"><h3 class="dialog__title">Edit your response</h3></div><div class="dialog__footer"><button class="btn btn--ghost push-start" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Delete response</button><button class="btn" type="button">Cancel</button><button class="btn btn--primary" type="button">Save response</button></div></div></div><figcaption>A secondary destructive action goes to the start with <code>.push-start</code>, away from the primary.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="dialog__panel dialog__panel--sm" style="animation: none;"><div class="dialog__header"><h3 class="dialog__title">Filters</h3></div><div class="dialog__body"><p class="text-muted">Cuisine: 18 checkboxes… Area: 5 regions…</p></div></div></div><figcaption>Don't put long lists of choices in a dialog. Phone filters are a full-height <a href="sheet.html">sheet</a>.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Panel and sticky footer</td><td><code>--color-bg-surface-raised</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td></tr>
+          <tr><td>Backdrop</td><td><code>--color-bg-backdrop</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-backdrop" data-swatch></i><span data-token="--color-bg-backdrop"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-backdrop" data-swatch></i><span data-token="--color-bg-backdrop"></span></span></td></tr>
+          <tr><td>Title and body text</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Description</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Danger icon circle</td><td><code>--color-danger-bg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-bg" data-swatch></i><span data-token="--color-danger-bg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-bg" data-swatch></i><span data-token="--color-danger-bg"></span></span></td></tr>
+          <tr><td>Danger icon</td><td><code>--color-danger-icon</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-icon" data-swatch></i><span data-token="--color-danger-icon"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-icon" data-swatch></i><span data-token="--color-danger-icon"></span></span></td></tr>
+          <tr><td>Success icon circle</td><td><code>--color-success-bg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-success-bg" data-swatch></i><span data-token="--color-success-bg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-success-bg" data-swatch></i><span data-token="--color-success-bg"></span></span></td></tr>
+          <tr><td>Success icon</td><td><code>--color-success-icon</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-success-icon" data-swatch></i><span data-token="--color-success-icon"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-success-icon" data-swatch></i><span data-token="--color-success-icon"></span></span></td></tr>
+          <tr><td>Warning icon circle</td><td><code>--color-warning-bg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-warning-bg" data-swatch></i><span data-token="--color-warning-bg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-warning-bg" data-swatch></i><span data-token="--color-warning-bg"></span></span></td></tr>
+          <tr><td>Info icon circle</td><td><code>--color-info-bg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-info-bg" data-swatch></i><span data-token="--color-info-bg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-info-bg" data-swatch></i><span data-token="--color-info-bg"></span></span></td></tr>
+          <tr><td>Shadow</td><td><code>--shadow-4</code></td><td colspan="2"><span data-token="--shadow-4"></span></td></tr>
+          <tr><td>Radius (SM+ / phone top corners)</td><td><code>--radius-lg</code> / <code>--radius-xl</code></td><td colspan="2"><span data-token="--radius-lg"></span> / <span data-token="--radius-xl"></span></td></tr>
+          <tr><td>Default width</td><td><code>--layout-dialog-width</code></td><td colspan="2"><span data-token="--layout-dialog-width"></span></td></tr>
+          <tr><td>Padding / footer gap</td><td><code>--space-6</code> / <code>--space-3</code></td><td colspan="2"><span data-token="--space-6"></span> / <span data-token="--space-3"></span></td></tr>
+          <tr><td>Header icon size</td><td><code>--space-10</code></td><td colspan="2"><span data-token="--space-10"></span></td></tr>
+          <tr><td>Layers (backdrop / dialog)</td><td><code>--z-overlay</code> / <code>--z-modal</code></td><td colspan="2"><span data-token="--z-overlay"></span> / <span data-token="--z-modal"></span></td></tr>
+          <tr><td>Panel / backdrop entrance</td><td><code>--duration-slow</code> / <code>--duration-base</code>, <code>--ease-enter</code></td><td colspan="2"><span data-token="--duration-slow"></span> / <span data-token="--duration-base"></span> / <span data-token="--ease-enter"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="page" inert&gt;…&lt;/div&gt;
+&lt;div class="backdrop"&gt;&lt;/div&gt;
+&lt;div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc"&gt;
+  &lt;form class="dialog__panel" novalidate aria-busy="true"&gt;
+    &lt;div class="dialog__header"&gt;
+      &lt;div class="dialog__icon dialog__icon--danger" aria-hidden="true"&gt;&lt;svg class="icon" …&gt;&lt;/svg&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;h2 class="dialog__title" id="dlg-title"&gt;Suspend Pelau House?&lt;/h2&gt;
+        &lt;p class="text-muted" id="dlg-desc"&gt;It leaves the listing within a minute…&lt;/p&gt;&lt;/div&gt;
+      &lt;button class="icon-btn" type="button" aria-label="Close" disabled&gt;…&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="dialog__body stack"&gt;
+      &lt;label class="field" for="reason"&gt;…&lt;textarea class="textarea" id="reason" readonly&gt;…&lt;/textarea&gt;&lt;/label&gt;
+      &lt;p class="visually-hidden" role="status"&gt;Suspending Pelau House&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="dialog__footer"&gt;
+      &lt;button class="btn" type="button" disabled&gt;Cancel&lt;/button&gt;
+      &lt;button class="btn btn--danger" type="submit" aria-busy="true" aria-disabled="true"&gt;Suspend caterer&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.backdrop</code></td><td>Fixed dimmer at <code>--z-overlay</code>, fades in.</td></tr>
+        <tr><td><code>.dialog</code></td><td>Fixed full-viewport grid at <code>--z-modal</code>; bottom-aligned below 36rem, centred above.</td></tr>
+        <tr><td><code>.dialog--full</code></td><td>Below 48rem the panel fills the screen (enquiry only).</td></tr>
+        <tr><td><code>.dialog__panel</code> + <code>--sm</code> <code>--form</code> <code>--lg</code></td><td>The surface; 32rem by default, or 24 / 40 / 48rem.</td></tr>
+        <tr><td><code>.dialog__header</code> <code>.dialog__title</code> <code>.dialog__body</code> <code>.dialog__footer</code></td><td>Regions; the footer is sticky to the panel bottom.</td></tr>
+        <tr><td><code>.dialog__icon--danger|info|success|warning</code></td><td>40px tinted icon circle in the header.</td></tr>
+        <tr><td><code>.dialog__caterer</code>, <code>.dialog__caterer-name</code></td><td>Caterer photo (3.5rem) beside the title, with "to Pelau House" under it.</td></tr>
+        <tr><td><code>.dialog__photo</code></td><td>Centres one large round photo in the body.</td></tr>
+        <tr><td><code>.dialog-people</code></td><td>Centred list of round photos with names.</td></tr>
+        <tr><td><code>.push-start</code></td><td>On a footer button: moves it to the start.</td></tr>
+        <tr><td><code>aria-busy="true"</code> on the panel</td><td>Busy: pair with read-only fields, disabled Cancel and Close, a busy primary and a status line.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from 40 dialog mocks; the main references:</p>
+      <ul>
+        <li><a href="../../mocks/dialogs/enquiry/default.html">dialogs/enquiry/default</a>, <a href="../../mocks/dialogs/enquiry/busy.html">busy</a>, <a href="../../mocks/dialogs/enquiry/success.html">success</a> (form, full screen on phones)</li>
+        <li><a href="../../mocks/dialogs/suspend-caterer/default.html">dialogs/suspend-caterer/default</a>, <a href="../../mocks/dialogs/suspend-caterer/invalid.html">invalid</a>, <a href="../../mocks/dialogs/suspend-caterer/busy.html">busy</a>, <a href="../../mocks/dialogs/suspend-caterer/failed.html">failed</a> (destructive with a reason)</li>
+        <li><a href="../../mocks/dialogs/approve-profile/default.html">dialogs/approve-profile/default</a> (default with <code>.dialog__caterer</code>)</li>
+        <li><a href="../../mocks/dialogs/remove-photo/default.html">dialogs/remove-photo/default</a> (small, <code>.dialog__photo</code>), <a href="../../mocks/dialogs/remove-dish/blocked.html">dialogs/remove-dish/blocked</a> (warning)</li>
+        <li><a href="../../mocks/dialogs/retire-cuisine/default.html">dialogs/retire-cuisine/default</a> (<code>.dialog-people</code>)</li>
+        <li><a href="../../mocks/dialogs/download-data/success.html">dialogs/download-data/success</a> (success), <a href="../../mocks/dialogs/add-cuisine/invalid.html">dialogs/add-cuisine/invalid</a> (form invalid)</li>
+        <li><a href="../../mocks/dialogs/review-response/edit.html">dialogs/review-response/edit</a> (start-aligned footer action), <a href="../../mocks/dialogs/delete-review/default.html">dialogs/delete-review/default</a></li>
+      </ul>
+      <p>Drift fixed during extraction:</p>
+      <ul>
+        <li>Busy dialogs put <code>aria-busy</code> on <code>.dialog</code> (3 mocks), on <code>.dialog__panel</code> (4) or nowhere (30). The system puts it on the panel.</li>
+        <li>10 busy mocks (approve-profile, change-password, decline-enquiry, delete-account, download-data, edit-details, end-session, request-changes, review-response, search) disabled Cancel but left Close enabled. Both are disabled while busy.</li>
+        <li>No busy dialog announced progress; the system adds a visually hidden <code>role="status"</code> line. Busy labels that changed ("Suspending…", "Sending…") keep their label (see <a href="button.html">button</a>).</li>
+        <li><code>delete-review</code> used <code>role="alertdialog"</code>, had no Close button and labelled Cancel "Keep review"; it now matches every other destructive dialog.</li>
+        <li><code>review-response/edit</code> pushed "Delete response" aside with an inline <code>margin-right: auto</code>; it uses <code>.push-start</code>.</li>
+        <li>Every dialog wrapped its title in <code>&lt;div style="flex: 1;"&gt;</code> and gave the description an inline top margin; dedicated classes are requested (see the CSS notes for <code>.dialog__heading</code> and <code>.dialog__desc</code>).</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

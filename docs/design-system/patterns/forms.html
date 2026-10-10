@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Forms — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand form pattern: one-column layout, label placement, required and optional fields, validation timing, the error summary, submit busy states, autosave and destructive confirmations.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Pattern</p>
+      <h1>Forms</h1>
+      <p class="ds-lead">Sweet Hand forms ask for as little as possible, say what each field is for, check on submit, keep everything people typed, and tell them exactly what to fix. Short tasks open in a dialog; long editing lives on its own screen and saves as you go.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.form</code> · <code>.field</code> · <code>.form-summary</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#when">When to use which composition</a></li><li><a href="#structure">Structure</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Forms are where Sweet Hand asks people for something: an enquiry to a caterer, a review, a report, a sign-in, a caterer's business details, an operator's reason for suspending a profile. They are built from the <a href="../components/form-field.html">form field</a> (label, control, help, error), the controls (<a href="../components/text-field.html">text field</a>, <a href="../components/textarea.html">textarea</a>, <a href="../components/select.html">select</a>, <a href="../components/checkbox.html">checkbox</a>, <a href="../components/radio-group.html">radio group</a>, <a href="../components/file-upload.html">file upload</a>), the <a href="../components/form-layout.html">form layout</a> (<code>.form</code>, <code>.field-row</code>, <code>.form-actions</code>, <code>.form-summary</code>), <a href="../components/inline-message.html">inline messages</a> and one ink <a href="../components/button.html">button</a>.</p>
+      <ul>
+        <li><b>No inline forms on pages.</b> A button that starts editing opens a <a href="../components/dialog.html">dialog</a> ("Edit details", "Add a dish", "Write a review") or goes to a screen. The exceptions are screens whose whole job is the form: the profile editor sections, sign-in and registration, and the reply box under a thread.</li>
+        <li><b>One column, few fields.</b> The enquiry form has six fields, and the postal code is optional. Ask only for what the caterer or the platform needs.</li>
+        <li><b>Check on submit, then help while fixing.</b> Nothing turns red while someone is still typing their first answer.</li>
+        <li><b>Never lose input.</b> Errors, failures, sign-in detours and timeouts keep every value (drafts last 24 hours).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="when"><h2><a href="#when">When to use which composition</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Situation</th><th scope="col">Composition</th><th scope="col">Submit model</th><th scope="col">Example</th></tr></thead>
+        <tbody>
+          <tr><td>A short task started from a button (2–7 fields)</td><td>Form in a <a href="../components/dialog.html">dialog</a> (<code>.dialog__panel--form</code>); full screen below 48rem</td><td>Primary button in the footer, error summary on submit</td><td><a href="../../mocks/dialogs/enquiry/default.html">Send an enquiry</a>, <a href="../../mocks/dialogs/review/default.html">Write a review</a>, <a href="../../mocks/dialogs/edit-details/default.html">Edit your details</a></td></tr>
+          <tr><td>Long, sectioned editing that people return to</td><td>Form is the page (<code>.form</code> in <code>.work-main</code>) with a <code>.save-status</code> line under the heading</td><td>Autosave 2 s after typing stops or on blur</td><td><a href="../../mocks/pages/profile-details/default.html">Business details</a>, <a href="../../mocks/pages/profile-events/default.html">Guests and occasions</a></td></tr>
+          <tr><td>One field that sends a message</td><td>Reply box (<code>.reply-box</code>) pinned under the thread</td><td>Icon Send button; error sits under the field</td><td><a href="../../mocks/pages/thread/default.html">Enquiry thread</a>, <a href="../../mocks/pages/dashboard-enquiry/invalid.html">caterer reply</a></td></tr>
+          <tr><td>Account entry and recovery</td><td>Auth layout (<code>.auth</code>), large primary button</td><td>Submit, summary, busy</td><td><a href="../../mocks/pages/sign-in/invalid.html">Sign in</a>, <a href="../../mocks/pages/register/invalid.html">Create an account</a></td></tr>
+          <tr><td>Destructive or punitive action</td><td>Small confirmation dialog with consequences, then a reason field, a tick or a typed name</td><td>Danger button, never the default focus</td><td><a href="../../mocks/dialogs/suspend-caterer/default.html">Suspend caterer</a>, <a href="../../mocks/dialogs/remove-caterer/confirm.html">Remove caterer</a>, <a href="../../mocks/dialogs/delete-account/default.html">Delete account</a></td></tr>
+          <tr><td>Narrowing a list</td><td>Not a form submit: <a href="../components/filter-list.html">filter list</a> buttons update results in place; the phone <a href="../components/sheet.html">filter sheet</a> has Apply; operator lists use <code>.toolbar</code> with Apply</td><td>Instant, or Apply</td><td><a href="../../mocks/pages/caterers/filtered.html">Caterers filtered</a>, <a href="../../mocks/pages/admin-audit/default.html">Audit log</a></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="structure"><h2><a href="#structure">Structure</a></h2>
+      <p>The enquiry form is the reference composition. Below it is in its <b>invalid</b> state, as <a href="../../mocks/dialogs/enquiry/invalid.html">dialogs/enquiry/invalid</a> shows it after Send was pressed: the summary leads, each wrong field is marked, every value is kept, and the privacy note stays at the end.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas" style="justify-content: center;">
+          <form class="dialog__panel dialog__panel--form" aria-labelledby="fx-title" novalidate>
+            <div class="dialog__header">
+              <div class="dialog__caterer" style="flex: 1;">
+                <span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="56" height="56"></span>
+                <div>
+                  <h3 class="dialog__title" id="fx-title">Send an enquiry</h3>
+                  <p class="dialog__caterer-name">to Pelau House</p>
+                </div>
+              </div>
+              <button class="icon-btn" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+            </div>
+            <div class="dialog__body stack" style="gap: var(--space-5);">
+              <div class="form-summary" tabindex="-1" id="fx-summary" aria-labelledby="fx-summary-title">
+                <h4 id="fx-summary-title">Fix 4 things to send your enquiry</h4>
+                <ul>
+                  <li><a href="#fx-date">Choose a date at least 2 days from today</a></li>
+                  <li><a href="#fx-guests">Enter a whole number of guests from 1 to 5,000</a></li>
+                  <li><a href="#fx-occasion">Choose an occasion</a></li>
+                  <li><a href="#fx-message">Tell the caterer a little more (at least 20 characters)</a></li>
+                </ul>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="fx-date">Event date</label>
+                  <input class="input" id="fx-date" type="date" min="2026-10-12" value="2026-10-11" aria-invalid="true" aria-describedby="fx-date-error fx-date-help">
+                  <span class="field__help" id="fx-date-help">At least 2 days from today</span>
+                  <span class="field__error" id="fx-date-error">Choose a date at least 2 days from today</span>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="fx-guests">Guests</label>
+                  <input class="input" id="fx-guests" type="text" inputmode="numeric" value="fifty" aria-invalid="true" aria-describedby="fx-guests-error fx-guests-help">
+                  <span class="field__help" id="fx-guests-help">Pelau House serves 20–300</span>
+                  <span class="field__error" id="fx-guests-error">Enter a whole number of guests from 1 to 5,000</span>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label class="field__label" for="fx-area">Event area</label>
+                  <select class="select" id="fx-area">
+                    <option value="">Choose an area</option>
+                    <optgroup label="City of Toronto"><option>East York</option><option>North York</option><option selected>Scarborough</option></optgroup>
+                    <optgroup label="Durham"><option>Ajax</option><option>Pickering</option></optgroup>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="fx-postal">Postal code <span class="optional">(optional)</span></label>
+                  <input class="input" id="fx-postal" type="text" autocomplete="postal-code" autocapitalize="characters" maxlength="7" aria-describedby="fx-postal-help">
+                  <span class="field__help" id="fx-postal-help">We keep only the first 3 characters</span>
+                </div>
+              </div>
+              <div class="field">
+                <label class="field__label" for="fx-occasion">Occasion</label>
+                <select class="select" id="fx-occasion" aria-invalid="true" aria-describedby="fx-occasion-error">
+                  <option value="">Choose an occasion</option>
+                  <option>Weddings</option><option>Birthdays</option><option>Family gatherings</option><option>Corporate events</option>
+                </select>
+                <span class="field__error" id="fx-occasion-error">Choose an occasion</span>
+              </div>
+              <div class="field">
+                <label class="field__label" for="fx-message">Message</label>
+                <textarea class="textarea" id="fx-message" rows="4" maxlength="2000" aria-invalid="true" aria-describedby="fx-message-error fx-message-help fx-message-count">Food for 120 please</textarea>
+                <span class="cluster cluster--between"><span class="field__help" id="fx-message-help">What you’d like to eat, serving style, timing</span><span class="field__counter" id="fx-message-count">19 / 2,000</span></span>
+                <span class="field__error" id="fx-message-error">Tell the caterer a little more (at least 20 characters)</span>
+              </div>
+              <p class="private-note"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Pelau House sees your name, not your email or phone.</p>
+            </div>
+            <div class="dialog__footer">
+              <button class="btn" type="button">Cancel</button>
+              <button class="btn btn--primary" type="button">Send enquiry</button>
+            </div>
+          </form>
+        </div>
+        <div class="ds-example__caption"><span>The enquiry form's panel, invalid. In the product it sits in <code>.dialog.dialog--full</code> over an inert page; here it is shown flat so the whole form is visible.</span><span>Source: dialogs/enquiry/invalid</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;form class="dialog__panel dialog__panel--form" novalidate&gt;
+  &lt;div class="dialog__body stack"&gt;
+    &lt;div class="form-summary" role="alert" tabindex="-1" id="error-summary" aria-labelledby="error-summary-title"&gt;
+      &lt;h3 id="error-summary-title"&gt;Fix 4 things to send your enquiry&lt;/h3&gt;
+      &lt;ul&gt;&lt;li&gt;&lt;a href="#date"&gt;Choose a date at least 2 days from today&lt;/a&gt;&lt;/li&gt; …&lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class="field-row"&gt;
+      &lt;div class="field"&gt;
+        &lt;label class="field__label" for="date"&gt;Event date&lt;/label&gt;
+        &lt;input class="input" id="date" type="date" required aria-invalid="true" aria-describedby="date-error date-help"&gt;
+        &lt;span class="field__help" id="date-help"&gt;At least 2 days from today&lt;/span&gt;
+        &lt;span class="field__error" id="date-error"&gt;Choose a date at least 2 days from today&lt;/span&gt;
+      &lt;/div&gt;
+      …
+    &lt;/div&gt;
+    &lt;label class="field__label" for="postal"&gt;Postal code &lt;span class="optional"&gt;(optional)&lt;/span&gt;&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class="dialog__footer"&gt;
+    &lt;button class="btn" type="button"&gt;Cancel&lt;/button&gt;
+    &lt;button class="btn btn--primary" type="submit"&gt;Send enquiry&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre></details>
+      </div>
+
+      <h3>Layout</h3>
+      <ul>
+        <li><b>One column</b>, at most 40rem wide (<code>.form</code>, <code>.dialog__panel--form</code>), fields stacked with <code>--space-5</code> to <code>--space-6</code> between them.</li>
+        <li><b>Pairs only for short, related fields</b>, with <code>.field-row</code>: Event date + Guests, Event area + Postal code, Smallest + Largest guests. The pair becomes two columns from 36rem and stacks below it. Never pair unrelated fields to save height.</li>
+        <li><b>Order follows the conversation</b>: when, how many, where, why, then the free-text message. The privacy note sits at the end, next to Send.</li>
+        <li><b>Actions</b> close the form: Cancel then the one primary, right-aligned (<code>.dialog__footer</code>, <code>.form-actions</code>). Autosaving pages have no Save button.</li>
+      </ul>
+      <h3>Labels, help and required fields</h3>
+      <ul>
+        <li>The label sits <b>above</b> the control in <code>--text-label</code>; help sits under the control in <code>--text-body-sm</code> muted; the error sits under the help. Placeholders are examples only ("Name or ID"), never the label.</li>
+        <li><b>Required is the default and is not marked.</b> Optional fields add <code>&lt;span class="optional"&gt;(optional)&lt;/span&gt;</code> to the label. No asterisks.</li>
+        <li>Help states the rule before anyone breaks it: "At least 2 days from today", "Pelau House serves 20–300", "20 to 2,000 characters. Shown as Jean-Robert P., event in September 2026."</li>
+        <li>Groups of choices use <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> (the rating stars, cuisines, occasions).</li>
+      </ul>
+      <h3>Autosave on screens</h3>
+      <p>Profile editor screens save each field 2 s after typing stops or when it loses focus, and report it in a <code>.save-status</code> line under the page heading (a polite <code>role="status"</code>):</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p class="save-status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>All changes saved</p>
+          <p class="save-status"><span class="dot dot--pulse" aria-hidden="true"></span>Saving…</p>
+          <p class="save-status save-status--saved"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>Saved at 10:14 a.m. · live on your page within a minute</p>
+          <p class="save-status save-status--error"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>Not saved: fix 2 things below</p>
+        </div>
+        <div class="ds-example__caption"><span>Idle, saving, saved, refused. A refused save also shows the error summary and keeps the public page on the last saved values.</span><span>Source: pages/profile-details/*</span></div>
+      </div>
+      <p><b>Open question 16</b> (<a href="../../mocks/README.md">docs/mocks README</a>): L2-038 autosaves during setup, but L2-044 says published edits apply "when they save". The mocks autosave everywhere. Until it is decided, keep autosave and the save-status line on every editor screen, and do not add a Save button beside it; if the decision goes to Save for published profiles, the screen gets <code>.form-actions--sticky</code> with "Save changes" and the status line reports "Unsaved changes".</p>
+      <h3>Destructive confirmations</h3>
+      <p>Destructive and punitive actions are a short form in a small dialog: a question title, the consequences as a list, then one friction step matched to the stakes.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Stakes</th><th scope="col">Friction</th><th scope="col">Example</th></tr></thead>
+        <tbody>
+          <tr><td>Reversible or own content</td><td>Question and danger button; focus on the safe button</td><td>"Delete your review?" · Keep review / Delete review</td></tr>
+          <tr><td>Affects someone else</td><td>A required reason that is emailed to them</td><td>"Suspend Pelau House?" · Reason (sent to Kendra)</td></tr>
+          <tr><td>Permanent, affects someone else</td><td>Reason, plus typing the name or ticking "I understand this review can’t be restored"</td><td>"Remove Pelau House permanently?" · Type Pelau House to confirm</td></tr>
+          <tr><td>Your own account</td><td>Your password</td><td>"Delete your account?" · Enter your password for marcia.t@example.com</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">State</th><th scope="col">What people see</th><th scope="col">Markup</th><th scope="col">Mock</th></tr></thead>
+        <tbody>
+          <tr><td>Default</td><td>Empty or prefilled fields, help visible, primary enabled</td><td>—</td><td><a href="../../mocks/dialogs/enquiry/default.html">enquiry/default</a></td></tr>
+          <tr><td>Restored</td><td>Values typed before sign-in are back</td><td>Draft kept 24 h</td><td><a href="../../mocks/dialogs/enquiry/restored.html">enquiry/restored</a></td></tr>
+          <tr><td>Invalid (after submit)</td><td>Summary at the top with links; each field marked; focus on the summary</td><td><code>.form-summary[tabindex="-1"]</code>, <code>aria-invalid="true"</code>, <code>.field__error</code></td><td><a href="../../mocks/dialogs/enquiry/invalid.html">enquiry/invalid</a></td></tr>
+          <tr><td>Fixing</td><td>A touched field re-checks on input and blur; its error clears the moment it is valid; the summary updates on the next submit</td><td>Remove <code>aria-invalid</code> and the error id from <code>aria-describedby</code></td><td><a href="../../mocks/dialogs/dish/invalid.html">dish/invalid</a></td></tr>
+          <tr><td>Warning</td><td>Amber hint under the field, no summary, Send stays enabled</td><td><code>.field__warning</code></td><td><a href="../../mocks/dialogs/enquiry/warning.html">enquiry/warning</a></td></tr>
+          <tr><td>Busy</td><td>Fields read-only, Cancel and Close disabled, Escape ignored, primary shows a spinner; no second submit</td><td><code>aria-busy="true"</code> on the primary, <code>readonly</code> on fields</td><td><a href="../../mocks/dialogs/enquiry/busy.html">enquiry/busy</a></td></tr>
+          <tr><td>Failed</td><td>A danger alert at the top of the body with a reference; everything typed is still there; primary becomes "Try again"</td><td><code>.alert.alert--danger[role="alert"]</code></td><td><a href="../../mocks/dialogs/enquiry/failed.html">enquiry/failed</a></td></tr>
+          <tr><td>Conflict</td><td>Explains what changed elsewhere and offers the action that still works</td><td>Alert + alternative primary</td><td><a href="../../mocks/dialogs/decline-enquiry/conflict.html">decline-enquiry/conflict</a></td></tr>
+          <tr><td>Success</td><td>The dialog's content becomes the confirmation; focus on its first action</td><td><code>role="status"</code></td><td><a href="../../mocks/dialogs/enquiry/success.html">enquiry/success</a></td></tr>
+          <tr><td>Read-only</td><td>Values shown, editing explained by a banner ("Your profile is waiting for review")</td><td><code>readonly</code>, <code>.read-only-value</code></td><td><a href="../../mocks/pages/profile-details/read-only.html">profile-details/read-only</a></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Validation timing</h3>
+      <ol>
+        <li><b>While typing the first time:</b> nothing. Counters and format hints ("19 / 2,000") update; errors do not appear.</li>
+        <li><b>On submit:</b> the client checks every field, renders the summary and the field errors together, and moves focus to the summary. The same rules run on the server; server errors render the same way.</li>
+        <li><b>After a field has been touched or submitted:</b> it re-validates on input and on blur, so the error disappears as soon as the value is right and reappears only if it becomes wrong again.</li>
+        <li><b>Single-field forms</b> (reply box, decline note) skip the summary: the error sits under the field and focus moves to the field.</li>
+        <li><b>Warnings</b> ("This caterer usually serves 20–300 guests") are advisory: they show after blur, never block, and the caterer sees the same warning on the enquiry.</li>
+      </ol>
+      <h3>Busy footer, both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas" style="padding: 0; justify-content: flex-end;"><button class="btn" type="button" disabled>Cancel</button><button class="btn btn--primary" type="button" aria-busy="true">Send enquiry</button></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas" style="padding: 0; justify-content: flex-end;"><button class="btn" type="button" disabled>Cancel</button><button class="btn btn--primary" type="button" aria-busy="true">Send enquiry</button></div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Below 36rem:</b> <code>.field-row</code> stacks; small dialogs become bottom sheets; footer buttons wrap with the primary last.</li>
+        <li><b>Below 48rem:</b> the enquiry form fills the screen (<code>.dialog--full</code>) and its footer stays pinned above the keyboard, so Send is always reachable. Long operator forms (<a href="../../mocks/dialogs/record-breach/default.html">Record a breach</a>) become full-height sheets with the title and footer in view.</li>
+        <li><b>Editor screens</b> keep the save-status line under the heading at every width; on phones the eyebrow "Overview" back link sits above it.</li>
+        <li>Numeric fields use <code>inputmode="numeric"</code> (guests, guest range); postal codes use <code>autocomplete="postal-code"</code> and <code>autocapitalize="characters"</code>; dates use the native picker.</li>
+        <li>Controls are 44px tall at every width and text is at least 16px, so phones do not zoom into a field.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native <code>&lt;form&gt;</code> with <code>novalidate</code> (the product's own messages replace browser bubbles), native inputs, <code>&lt;fieldset&gt;</code>/<code>&lt;legend&gt;</code> for groups, and the star rating as a radio group (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/radio/">APG Radio Group</a>). Errors meet WCAG 3.3.1 (identified in text), 3.3.3 (say how to fix), 3.3.7 (no re-entry: values and drafts are kept) and 3.3.8 (password fields allow paste and password managers).</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through fields in visual order, then Cancel, then the primary.</td></tr>
+        <tr><td><kbd>Enter</kbd> in a text field</td><td>Submits the form, except in a textarea and in a confirmation's reason field, where it never submits a destructive action.</td></tr>
+        <tr><td><kbd>Enter</kbd> on a summary link</td><td>Moves focus into the field it names.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Closes a form dialog (same as Cancel) unless it is busy.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>On a refused submit focus moves to the summary (<code>tabindex="-1"</code>), which is announced with its heading and list. Each link targets the control's id. Focus never moves on blur validation. After success in a dialog, focus goes to the first action of the success view; after a page save, focus stays where it was.</p>
+      <h3>Labelling</h3>
+      <p>Every control has a <code>&lt;label for&gt;</code>. Help and error are connected with <code>aria-describedby</code>, error id first. Keep help and error <b>outside</b> the <code>&lt;label&gt;</code> element (use <code>div.field</code> with <code>label.field__label</code>); a label that wraps them makes the help and error part of the field's name.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Error text on the page</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Summary text on its tint</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-danger-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Invalid field border</span><span class="ds-pair__ratio" data-contrast="--color-danger-solid|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Field border</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>"(optional)" and counter text</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Warning text</span><span class="ds-pair__ratio" data-contrast="--color-warning-fg|--color-bg-surface" data-min="4.5"></span></div>
+      </div>
+      <p>Errors never rely on colour: each has the ⚠ glyph, text, and a thicker border.</p>
+      <h3>Motion</h3>
+      <p>Errors appear without animation. The busy spinner keeps turning under reduced motion; the save-status pulse stops.</p>
+      <h3>Touch</h3>
+      <p>Controls are 44px; choice rows are at least 24px with the label as part of the target; summary links are in a list with space between them.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Labels</b> are short nouns in sentence case: "Event date", "Guests", "Event area", "Your review", "Reason (sent to Kendra)".</li>
+        <li><b>Field errors</b> say what to do and the rule, in one sentence without "please" or "invalid": "Choose a date at least 2 days from today", "Enter a whole number of guests from 1 to 5,000", "Write at least 50 characters (35 so far)".</li>
+        <li><b>Summary heading</b>: "Fix <i>N</i> thing(s) to <i>goal</i>": "Fix 4 things to send your enquiry", "Fix 2 things to post your review", "Fix 1 thing to save". The links repeat the field errors word for word.</li>
+        <li><b>Submit buttons</b> name the outcome: "Send enquiry", "Post review", "Save certificate", "Approve and publish". Cancel is always "Cancel".</li>
+        <li><b>Privacy notes</b> sit where the data is asked for: "We keep only the first 3 characters", "Pelau House sees your name, not your email or phone."</li>
+        <li><b>Failure</b> owns the problem and reassures: "Your enquiry wasn’t sent. Something went wrong on our side. Everything you typed is still here. Reference 7F3K-92QD."</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="form-summary"><p class="alert__title">Fix 2 things to post your review</p><ul><li><a href="#fx-date">Choose a rating from 1 to 5 stars</a></li><li><a href="#fx-message">Write at least 20 characters</a></li></ul></div></div><figcaption>Name the count and the goal, and link each error to its field.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="form-summary"><p class="alert__title">There is a problem</p></div></div><figcaption>Generic headings ("There is a problem", "There are 3 problems") appeared in 9 mocks. They say nothing about what to do.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><label class="field__label" for="dd-postal">Postal code <span class="optional">(optional)</span></label><input class="input" id="dd-postal" type="text" autocomplete="postal-code"></div></div><figcaption>Mark the exception: optional fields say so; required ones are plain.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><label class="field__label" for="dd-guests">Guests *</label><input class="input" id="dd-guests" type="text" aria-invalid="true" aria-describedby="dd-guests-error"><span class="field__error" id="dd-guests-error">Invalid input</span></div></div><figcaption>No asterisks, no "Invalid input". Say what to enter.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field-row"><div class="field"><label class="field__label" for="dd-min">Smallest event</label><input class="input" id="dd-min" type="text" inputmode="numeric" value="20"></div><div class="field"><label class="field__label" for="dd-max">Largest event</label><input class="input" id="dd-max" type="text" inputmode="numeric" value="300"></div></div></div><figcaption>Pair two short fields that are read together.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field-row"><div class="field"><label class="field__label" for="dd-name">Business name</label><input class="input" id="dd-name" type="text" value="Pelau House"></div><div class="field"><label class="field__label" for="dd-desc">Description</label><input class="input" id="dd-desc" type="text"></div></div></div><figcaption>Don't put unrelated or long fields side by side to save height.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <ul>
+        <li><a href="../../mocks/dialogs/enquiry/default.html">dialogs/enquiry/default</a>, <a href="../../mocks/dialogs/enquiry/invalid.html">invalid</a>, <a href="../../mocks/dialogs/enquiry/warning.html">warning</a>, <a href="../../mocks/dialogs/enquiry/busy.html">busy</a>, <a href="../../mocks/dialogs/enquiry/failed.html">failed</a>, <a href="../../mocks/dialogs/enquiry/restored.html">restored</a>, <a href="../../mocks/dialogs/enquiry/success.html">success</a></li>
+        <li><a href="../../mocks/pages/profile-details/default.html">pages/profile-details/default</a>, <a href="../../mocks/pages/profile-details/saving.html">saving</a>, <a href="../../mocks/pages/profile-details/saved.html">saved</a>, <a href="../../mocks/pages/profile-details/invalid.html">invalid</a></li>
+        <li><a href="../../mocks/dialogs/dish/invalid.html">dialogs/dish/invalid</a>, <a href="../../mocks/dialogs/review/invalid.html">dialogs/review/invalid</a>, <a href="../../mocks/pages/sign-in/invalid.html">pages/sign-in/invalid</a>, <a href="../../mocks/pages/thread/invalid.html">pages/thread/invalid</a>, <a href="../../mocks/pages/dashboard-enquiry/invalid.html">pages/dashboard-enquiry/invalid</a></li>
+        <li><a href="../../mocks/dialogs/suspend-caterer/default.html">dialogs/suspend-caterer/default</a>, <a href="../../mocks/dialogs/remove-caterer/confirm.html">dialogs/remove-caterer/confirm</a>, <a href="../../mocks/dialogs/delete-account/default.html">dialogs/delete-account/default</a>, <a href="../../mocks/dialogs/moderate-review/remove.html">dialogs/moderate-review/remove</a></li>
+      </ul>
+      <p>Drift fixed during extraction: error-summary headings used eight different formulas ("There is a problem", "There are 3 problems", "Fix 1 problem", "Fix 2 things to continue"…); the system uses "Fix <i>N</i> thing(s) to <i>goal</i>". 124 mocks wrap help and error text inside <code>&lt;label class="field"&gt;</code>, which folds them into the field's accessible name; the system uses <code>div.field</code> with <code>label.field__label</code>. Single-field forms disagreed (<a href="../../mocks/pages/thread/invalid.html">thread/invalid</a> uses a summary and "Write a message before sending"; <a href="../../mocks/pages/dashboard-enquiry/invalid.html">dashboard-enquiry/invalid</a> puts the error under the field with "Write a reply before sending"); the system follows the second. Busy primaries swapped their label ("Sending…", "Suspending…"); the label is kept and progress is announced instead.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

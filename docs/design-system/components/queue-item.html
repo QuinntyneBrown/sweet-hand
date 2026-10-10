@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Queue item — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand queue items: operator review queue rows and caterer record rows, with photo or icon, kind, wait time, late and stacked variants, every state, both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Data display</p>
+      <h1>Queue item</h1>
+      <p class="ds-lead">A queue item is one thing waiting for an operator: a new profile, a name change, an expired certificate, a report or a held review. It shows what it is, who it is about and how long it has waited, and opens the record where the decision is made.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Link row</span><span class="ds-pill"><code>.queue-item</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The operator console is built from two lists of queue items: the <b>review queue</b> (oldest first, everything that needs a decision) and the <b>caterer records</b> list (all 68 caterers, sorted by last change). Every row is one link to one record. The decision itself — approve, request changes, suspend — happens on the record page, never in the row.</p>
+      <ul>
+        <li><b>Use a queue item</b> when each row stands for a record an operator opens to act on, and the row's job is triage: what kind of thing, about whom, waiting how long.</li>
+        <li><b>Use an <a href="inbox-row.html">inbox row</a></b> for conversations (customer and caterer enquiries): it adds unread weight and a time stamp instead of a wait.</li>
+        <li><b>Use <a href="list.html">list rows</a></b> (<code>.admin-row</code>) when the row itself carries actions, such as cuisines and operators in settings.</li>
+        <li><b>Use a <a href="table.html">table</a></b> when operators compare columns, such as the audit log with operator, action, reason and before → after.</li>
+      </ul>
+      <p>Queue items are flat, like everything on Sweet Hand: a hairline between rows, no card, no shadow. Pepper red does not appear in a queue; the one "you are here" mark belongs to the current filter in the side navigation and segmented control above it.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="padding: var(--space-8) var(--space-2);">
+          <ul class="queue" style="width: 100%; max-width: 34rem;">
+            <li><a class="queue-item" href="../../mocks/pages/admin-profile-review/default.html"><span class="photo"><img src="../../mocks/assets/img/green-fig-catering.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Auntie Bev’s Kitchen</span><span class="queue-item__wait queue-item__wait--late">Waiting 3 days</span><span class="queue-item__meta"><span class="kind">New profile</span> · Jamaican · Oshawa</span></a></li>
+          </ul>
+          <span class="ds-callout" style="left: 9%; top: 22%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 32%; top: 24%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 86%; top: 30%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 30%; top: 72%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 54%; top: 72%;" aria-hidden="true">5</span>
+          <span class="ds-callout" style="left: 94%; top: 78%;" aria-hidden="true">6</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Media</b><small>The caterer's round cover photo (<code>.photo</code>, 3.5rem) or, for things that are not a caterer, an icon in an <code>.avatar</code> (flag for reports, star for held reviews). Always decorative: <code>alt=""</code> or <code>aria-hidden="true"</code>.</small></div></li>
+          <li><div><b>Title</b><small><code>.queue-item__title</code>: the record's name, <code>--text-body-lg</code> medium. Wraps; never truncates.</small></div></li>
+          <li><div><b>Wait or status</b><small><code>.queue-item__wait</code>: "Waiting 3 days" in tabular numbers, or a <a href="status.html">status label</a> on record rows. Spans both text lines on the right.</small></div></li>
+          <li><div><b>Kind</b><small><code>.kind</code>: what the item is ("New profile", "2 reports"), caption size, semibold, uppercase by CSS.</small></div></li>
+          <li><div><b>Meta</b><small><code>.queue-item__meta</code>: cuisine · area, or the report reasons, separated by middots, <code>--color-fg-muted</code>.</small></div></li>
+          <li><div><b>Row</b><small>The <code>&lt;a&gt;</code> itself: a three-column grid, <code>--space-5</code> block padding, hairline <code>--color-border-default</code> below. The <code>.queue</code> list adds the hairline above the first row.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Review queue: waiting, late, and items that are not a caterer</h3>
+      <p>Rows are sorted oldest first. When an item has waited 3 days or more — the "within 3 business days" Sweet Hand promises caterers — the wait turns <code>.queue-item__wait--late</code>: semibold in <code>--color-warning-fg</code>. Reports and held reviews are about a review or a complaint, not a caterer's food, so they show an icon instead of a photo.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="padding: var(--space-4) var(--space-2);">
+          <ul class="queue">
+            <li><a class="queue-item" href="../../mocks/pages/admin-profile-review/default.html"><span class="photo"><img src="../../mocks/assets/img/green-fig-catering.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Auntie Bev’s Kitchen</span><span class="queue-item__wait queue-item__wait--late">Waiting 3 days</span><span class="queue-item__meta"><span class="kind">New profile</span> · Jamaican · Oshawa</span></a></li>
+            <li><a class="queue-item" href="../../mocks/pages/admin-profile-review/resubmitted.html"><span class="photo"><img src="../../mocks/assets/img/auntie-merles-table.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Breadfruit &amp; Butter</span><span class="queue-item__wait">Waiting 2 days</span><span class="queue-item__meta"><span class="kind">Resubmitted</span> · Vincentian · Brampton</span></a></li>
+            <li><a class="queue-item" href="../../mocks/pages/admin-report/default.html"><span class="avatar" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 21V4m0 0h11l-2 4 2 4H5"/></svg></span><span class="queue-item__title">Review of Maracas Bay by Devon W.</span><span class="queue-item__wait">Waiting 2 days</span><span class="queue-item__meta"><span class="kind">2 reports</span> · Fake or spam · Inappropriate content</span></a></li>
+            <li><a class="queue-item" href="../../mocks/pages/admin-profile-review/name-change.html"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Pelau House <span aria-hidden="true">→</span><span class="visually-hidden">renamed to</span> Pelau House by Kendra</span><span class="queue-item__wait">Waiting 1 day</span><span class="queue-item__meta"><span class="kind">Name change</span> · Published</span></a></li>
+            <li><a class="queue-item" href="../../mocks/pages/admin-caterer/certificate-expired.html"><span class="photo"><img src="../../mocks/assets/img/flying-fish-kitchen.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Flying Fish Kitchen</span><span class="queue-item__wait">Waiting 1 day</span><span class="queue-item__meta"><span class="kind">Certificate expired</span> · 30 Sep 2026 · still published</span></a></li>
+            <li><a class="queue-item" href="../../mocks/pages/admin-reviews/default.html"><span class="avatar" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span><span class="queue-item__title">Review of Sugar Dumplin by Priya R.</span><span class="queue-item__wait">Waiting 2 hours</span><span class="queue-item__meta"><span class="kind">Held review</span> · contains a phone number</span></a></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>The review queue in <code>pages/admin-queue/default</code>: 7 waiting, oldest first; the first row is past the 3-day promise.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;ul class="queue"&gt;
+  &lt;li&gt;&lt;a class="queue-item" href="/operator/profiles/auntie-bevs-kitchen"&gt;
+    &lt;span class="photo"&gt;&lt;img src="green-fig-catering.jpg" alt="" width="56" height="56"&gt;&lt;/span&gt;
+    &lt;span class="queue-item__title"&gt;Auntie Bev’s Kitchen&lt;/span&gt;
+    &lt;span class="queue-item__wait queue-item__wait--late"&gt;Waiting 3 days&lt;/span&gt;
+    &lt;span class="queue-item__meta"&gt;&lt;span class="kind"&gt;New profile&lt;/span&gt; · Jamaican · Oshawa&lt;/span&gt;
+  &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a class="queue-item" href="/operator/reports/R-2041"&gt;
+    &lt;span class="avatar" aria-hidden="true"&gt;&lt;svg class="icon" viewBox="0 0 24 24"&gt;…flag…&lt;/svg&gt;&lt;/span&gt;
+    &lt;span class="queue-item__title"&gt;Review of Maracas Bay by Devon W.&lt;/span&gt;
+    &lt;span class="queue-item__wait"&gt;Waiting 2 days&lt;/span&gt;
+    &lt;span class="queue-item__meta"&gt;&lt;span class="kind"&gt;2 reports&lt;/span&gt; · Fake or spam · Inappropriate content&lt;/span&gt;
+  &lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre></details>
+      </div>
+      <h3>Caterer record (stacked)</h3>
+      <p>On <code>pages/admin-caterers</code> the right-hand slot holds the record's <a href="status.html">status label</a> instead of a wait, the meta adds the owner and "updated …", and a <code>.changed-flag</code> calls out anything an operator should look at. <code>.queue-item--stack</code> moves the status under the meta below 36rem so long words such as "Changes requested" never squeeze the name. Caterers with no photos yet get the plate placeholder.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="padding: var(--space-4) var(--space-2);">
+          <ul class="queue">
+            <li><a class="queue-item queue-item--stack" href="../../mocks/pages/admin-caterer/default.html"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Pelau House</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Trinidadian &amp; Tobagonian · Scarborough · Kendra Baptiste · updated today · <span class="changed-flag">Name change waiting</span></span></a></li>
+            <li><a class="queue-item queue-item--stack" href="../../mocks/pages/admin-profile-review/resubmitted.html"><span class="photo"><img src="../../mocks/assets/img/auntie-merles-table.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Breadfruit &amp; Butter</span><span class="queue-item__wait"><span class="status status--pending">Pending review</span></span><span class="queue-item__meta">Vincentian · Brampton · Jolene Ollivierre · updated Thu 8 Oct · <span class="changed-flag">Resubmitted</span></span></a></li>
+            <li><a class="queue-item queue-item--stack" href="../../mocks/pages/admin-caterer/suspended.html"><span class="photo photo--placeholder"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg></span><span class="queue-item__title">Hibiscus Hut</span><span class="queue-item__wait"><span class="status status--suspended">Suspended</span></span><span class="queue-item__meta">Jamaican · Brampton · Sharon Bailey · updated Tue 6 Oct</span></a></li>
+            <li><a class="queue-item queue-item--stack" href="../../mocks/pages/admin-caterer/default.html"><span class="photo photo--placeholder"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg></span><span class="queue-item__title">Tamarind Tree</span><span class="queue-item__wait"><span class="status status--changes">Changes requested</span></span><span class="queue-item__meta">Trinidadian &amp; Tobagonian · Whitby · Anil Maharaj · updated Mon 5 Oct</span></a></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>Caterer records, sorted by last change. Resize below 36rem to see the status move under the meta.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;li&gt;&lt;a class="queue-item queue-item--stack" href="/operator/caterers/pelau-house"&gt;
+  &lt;span class="photo"&gt;&lt;img src="pelau-house.jpg" alt="" width="56" height="56"&gt;&lt;/span&gt;
+  &lt;span class="queue-item__title"&gt;Pelau House&lt;/span&gt;
+  &lt;span class="queue-item__wait"&gt;&lt;span class="status status--published"&gt;Published&lt;/span&gt;&lt;/span&gt;
+  &lt;span class="queue-item__meta"&gt;Trinidadian &amp;amp; Tobagonian · Scarborough · Kendra Baptiste · updated today ·
+    &lt;span class="changed-flag"&gt;Name change waiting&lt;/span&gt;&lt;/span&gt;
+&lt;/a&gt;&lt;/li&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="Queue items have one density."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Queue items have one density: 3.5rem media, <code>--space-5</code> block padding and a body-large title. Operators scan dozens of rows on a laptop, and the same rows must stay comfortable to tap on a phone, so there is no compact size. For denser data use a <a href="table.html">table</a>.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>A queue item is a link, so its states are a link's: default, hover (the row fills with <code>--color-bg-surface-sunken</code>), focus (the shared ring around the whole row) and loading. There is no disabled, selected or pressed row: an item an operator cannot act on is not in their queue. Forced here with <code>data-state</code>.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Queue item states by variant</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Loading</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Waiting</th>
+            <td><ul class="queue" style="width: 17rem;"><li><a class="queue-item" href="../../mocks/pages/admin-report/caterer-report.html"><span class="avatar" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 21V4m0 0h11l-2 4 2 4H5"/></svg></span><span class="queue-item__title">Island Pot</span><span class="queue-item__wait">Waiting 6 hours</span><span class="queue-item__meta"><span class="kind">1 report</span> · Food safety</span></a></li></ul></td>
+            <td><ul class="queue" style="width: 17rem;"><li><a class="queue-item" href="../../mocks/pages/admin-report/caterer-report.html" data-state="hover"><span class="avatar" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 21V4m0 0h11l-2 4 2 4H5"/></svg></span><span class="queue-item__title">Island Pot</span><span class="queue-item__wait">Waiting 6 hours</span><span class="queue-item__meta"><span class="kind">1 report</span> · Food safety</span></a></li></ul></td>
+            <td><ul class="queue" style="width: 17rem;"><li><a class="queue-item" href="../../mocks/pages/admin-report/caterer-report.html" data-state="focus"><span class="avatar" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 21V4m0 0h11l-2 4 2 4H5"/></svg></span><span class="queue-item__title">Island Pot</span><span class="queue-item__wait">Waiting 6 hours</span><span class="queue-item__meta"><span class="kind">1 report</span> · Food safety</span></a></li></ul></td>
+            <td><ul class="queue" style="width: 17rem;" aria-hidden="true"><li class="queue-item"><span class="skeleton skeleton--circle" style="width: 3.5rem; height: 3.5rem; grid-row: span 2;"></span><span class="skeleton skeleton--text" style="width: 8rem;"></span><span class="skeleton skeleton--text" style="width: 4rem; grid-row: span 2;"></span><span class="skeleton skeleton--text" style="width: 10rem;"></span></li></ul></td></tr>
+          <tr><th scope="row">Late</th>
+            <td><ul class="queue" style="width: 17rem;"><li><a class="queue-item" href="../../mocks/pages/admin-profile-review/default.html"><span class="photo"><img src="../../mocks/assets/img/sea-moss-and-spice.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Sea Moss &amp; Spice</span><span class="queue-item__wait queue-item__wait--late">Waiting 9 days</span><span class="queue-item__meta"><span class="kind">New profile</span> · Whitby</span></a></li></ul></td>
+            <td><ul class="queue" style="width: 17rem;"><li><a class="queue-item" href="../../mocks/pages/admin-profile-review/default.html" data-state="hover"><span class="photo"><img src="../../mocks/assets/img/sea-moss-and-spice.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Sea Moss &amp; Spice</span><span class="queue-item__wait queue-item__wait--late">Waiting 9 days</span><span class="queue-item__meta"><span class="kind">New profile</span> · Whitby</span></a></li></ul></td>
+            <td><ul class="queue" style="width: 17rem;"><li><a class="queue-item" href="../../mocks/pages/admin-profile-review/default.html" data-state="focus"><span class="photo"><img src="../../mocks/assets/img/sea-moss-and-spice.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Sea Moss &amp; Spice</span><span class="queue-item__wait queue-item__wait--late">Waiting 9 days</span><span class="queue-item__meta"><span class="kind">New profile</span> · Whitby</span></a></li></ul></td>
+            <td><span class="ds-na">Same skeleton as waiting</span></td></tr>
+          <tr><th scope="row">Record</th>
+            <td><ul class="queue" style="width: 17rem;"><li><a class="queue-item queue-item--stack" href="../../mocks/pages/admin-caterer/default.html"><span class="photo"><img src="../../mocks/assets/img/cou-cou.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Cou-Cou</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Barbadian (Bajan) · North York</span></a></li></ul></td>
+            <td><ul class="queue" style="width: 17rem;"><li><a class="queue-item queue-item--stack" href="../../mocks/pages/admin-caterer/default.html" data-state="hover"><span class="photo"><img src="../../mocks/assets/img/cou-cou.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Cou-Cou</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Barbadian (Bajan) · North York</span></a></li></ul></td>
+            <td><ul class="queue" style="width: 17rem;"><li><a class="queue-item queue-item--stack" href="../../mocks/pages/admin-caterer/default.html" data-state="focus"><span class="photo"><img src="../../mocks/assets/img/cou-cou.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Cou-Cou</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Barbadian (Bajan) · North York</span></a></li></ul></td>
+            <td><span class="ds-na">Same skeleton as waiting</span></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><ul class="queue"><li><a class="queue-item" href="../../mocks/pages/admin-profile-review/default.html"><span class="photo"><img src="../../mocks/assets/img/green-fig-catering.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Auntie Bev’s Kitchen</span><span class="queue-item__wait queue-item__wait--late">Waiting 3 days</span><span class="queue-item__meta"><span class="kind">New profile</span> · Oshawa</span></a></li><li><a class="queue-item" href="../../mocks/pages/admin-report/default.html" data-state="hover"><span class="avatar" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 21V4m0 0h11l-2 4 2 4H5"/></svg></span><span class="queue-item__title">Review of Maracas Bay</span><span class="queue-item__wait">Waiting 2 days</span><span class="queue-item__meta"><span class="kind">2 reports</span> · Fake or spam</span></a></li></ul></div>
+        <div data-theme="dark"><ul class="queue"><li><a class="queue-item" href="../../mocks/pages/admin-profile-review/default.html"><span class="photo"><img src="../../mocks/assets/img/green-fig-catering.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Auntie Bev’s Kitchen</span><span class="queue-item__wait queue-item__wait--late">Waiting 3 days</span><span class="queue-item__meta"><span class="kind">New profile</span> · Oshawa</span></a></li><li><a class="queue-item" href="../../mocks/pages/admin-report/default.html" data-state="hover"><span class="avatar" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 21V4m0 0h11l-2 4 2 4H5"/></svg></span><span class="queue-item__title">Review of Maracas Bay</span><span class="queue-item__wait">Waiting 2 days</span><span class="queue-item__meta"><span class="kind">2 reports</span> · Fake or spam</span></a></li></ul></div>
+      </div>
+      <ul>
+        <li><b>Loading</b> keeps the row grid and swaps each part for a skeleton (circle, title, wait, meta) so nothing jumps when data arrives. The skeleton rows are <code>aria-hidden="true"</code>; a visually hidden <code>role="status"</code> says "Loading the review queue" once.</li>
+        <li><b>Empty</b> is not a row state: the whole list is replaced by the <a href="empty-state.html">empty state</a> "All caught up — New profiles, name changes, expired certificates, reports and held reviews appear here, oldest first."</li>
+        <li><b>No results</b> on the records list (a search plus a status filter) shows the active filters as removable <a href="chip.html">chips</a> above an empty state that says why: "No suspended caterers match “Pelau”".</li>
+        <li><b>Long</b> queues (34 waiting, 5,214 records) stay one list; the page subtitle carries the summary ("34 waiting · oldest first · 9 waiting over 3 days") and <a href="pagination.html">pagination</a> follows the list.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>All widths:</b> a three-column grid (media · text · wait). The text column is <code>minmax(0, 1fr)</code> and the title wraps with <code>overflow-wrap: anywhere</code>, so "Pelau House → Pelau House by Kendra" wraps at 320px instead of pushing the wait off-screen. The wait never wraps (<code>white-space: nowrap</code>).</li>
+        <li><b>Below sm (36rem), <code>--stack</code> rows:</b> the grid drops to two columns, the media spans three rows and the status label moves under the meta, left-aligned. Use <code>--stack</code> whenever the right slot holds a status label; plain waits are short enough to stay on the right.</li>
+        <li><b>md (48rem):</b> the operator side navigation is a stacked list above the content; rows keep the full width of the container with <code>--layout-margin</code> either side.</li>
+        <li><b>lg (62rem) and up:</b> the side navigation sits beside the list in the work layout; rows fill the main column. Nothing about the row itself changes.</li>
+        <li><b>Narrowest phones (320px):</b> the title column is about 8rem once the photo and "Waiting 2 days" take their share, so titles wrap to two or three lines. That is acceptable; a business name is never truncated. If operators find it cramped, apply the <code>--stack</code> layout to every row below 22.5rem (proposed rule).</li>
+        <li><b>xl (75rem):</b> the container stops growing, so rows never get wide enough to lose the eye between title and wait.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Queue items read semantic tokens directly; there are no component tokens because the row has no variant colours. A theme changes <code>--color-border-default</code>, <code>--color-bg-surface-sunken</code>, <code>--color-fg-muted</code> and <code>--color-warning-fg</code>; the row picks them up.</p>
+      <p>In dark the hover fill is <code>--palette-stone-900</code> on a <code>--palette-stone-950</code> canvas — a quieter step than light, but hover is never the only cue (the cursor and the link target are). Late waits switch to the lighter mango step so they keep 4.5:1 on the dark canvas. Photos sit on <code>--color-bg-photo</code> until they load, in both themes.</p>
+      <pre><code>/* A denser operator theme could tighten rows without touching .queue-item */
+[data-density="compact"] .queue-item { padding-block: var(--space-3); }</code></pre>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>A list of links: <code>&lt;ul class="queue"&gt;</code>, one <code>&lt;li&gt;</code> per item, one <code>&lt;a class="queue-item"&gt;</code> per row (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/link/">APG Link</a>). Screen readers announce "list, 7 items", which matches the subtitle. The row is not a grid or listbox: there is no selection, and arrow keys stay with the screen reader.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves row by row, oldest first. Each row is a single tab stop because it holds no other controls.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Opens the record. Returning with the browser's Back puts focus back on the same row.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The shared ring (2px <code>--color-focus-ring</code>, 3px offset) outlines the whole row with <code>--radius-sm</code> corners. Because the offset sits outside the row, the hairlines above and below stay visible and the ring is never clipped by the list.</p>
+      <h3>Labelling</h3>
+      <p>The link's name is its text in DOM order: title, wait, kind, meta — "Auntie Bev’s Kitchen, Waiting 3 days, New profile · Jamaican · Oshawa". Keep that DOM order even though the grid places the wait on the right. Media is decorative (<code>alt=""</code>, <code>aria-hidden="true"</code>) because the title already names the caterer. Write the arrow in name changes as <code>&lt;span aria-hidden="true"&gt;→&lt;/span&gt;&lt;span class="visually-hidden"&gt;renamed to&lt;/span&gt;</code>; a bare "→" is read as "right arrow".</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Title on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Meta, kind and wait on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Late wait on page</span><span class="ds-pair__ratio" data-contrast="--color-warning-fg|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Title on hovered row</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-sunken" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Meta on hovered row</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-sunken" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on page</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+      </div>
+      <p>Late is not carried by colour: the number of days is the information, and the semibold weight plus the page subtitle ("9 waiting over 3 days") repeat it.</p>
+      <h3>Motion</h3>
+      <p>Only the hover fill animates, over <code>--duration-fast</code> with <code>--ease-standard</code>. Reduced motion zeroes the duration. Loading skeletons stop shimmering under reduced motion and stay as static blocks.</p>
+      <h3>Touch</h3>
+      <p>Each row is the full width of the list and at least 96px tall (56px media plus 2 × 20px padding), far above the 44px target. Rows touch each other, but each is one target, so there is no ambiguity between neighbours.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Title</b> is the thing's own name: the business name exactly as the caterer wrote it ("Auntie Bev’s Kitchen", "Breadfruit &amp; Butter"); for name changes "Old → New"; for reports and held reviews "Review of Maracas Bay by Devon W." (reviewers are first name and initial, as on the public page).</li>
+        <li><b>Kind</b> is a short noun phrase in sentence case — the CSS uppercases it: "New profile", "Resubmitted", "Name change", "Certificate expired", "2 reports", "1 report", "Held review". Count reports with a numeral.</li>
+        <li><b>Meta</b> gives the specific tradition and the primary area — "Vincentian · Brampton", never "Caribbean · GTA" — or the report reasons as the reporter chose them ("Fake or spam · Inappropriate content"), or why a review was held ("contains a phone number").</li>
+        <li><b>Wait</b> is relative and coarse: "Waiting 2 hours", "Waiting 1 day", "Waiting 9 days". Record rows say "updated today", "updated Thu 8 Oct" (dates as "Thu 8 Oct", the year only when it isn't 2026).</li>
+        <li>Never put a caterer's email, phone or home address in a row; the record page shows contact details to operators only.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="queue"><li><a class="queue-item" href="../../mocks/pages/admin-profile-review/default.html"><span class="photo"><img src="../../mocks/assets/img/cassava-pone-co.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Cassava Pone Co.</span><span class="queue-item__wait queue-item__wait--late">Waiting 5 days</span><span class="queue-item__meta"><span class="kind">New profile</span> · Guyanese · Richmond Hill</span></a></li></ul></div><figcaption>One link per row; the decision happens on the record, where the operator sees the photos, menu and certificate.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="queue-item"><span class="photo"><img src="../../mocks/assets/img/cassava-pone-co.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Cassava Pone Co.</span><span class="queue-item__wait"><button class="btn btn--sm btn--primary" type="button">Approve</button></span><span class="queue-item__meta"><span class="kind">New profile</span></span></div></div><figcaption>Don't approve from the row. It invites decisions without looking, and a button inside a link row is a nested control.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="queue"><li><a class="queue-item" href="../../mocks/pages/admin-reviews/default.html"><span class="avatar" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span><span class="queue-item__title">Review of Griot &amp; Pikliz by Chantal D.</span><span class="queue-item__wait">Waiting 3 days</span><span class="queue-item__meta"><span class="kind">Held review</span> · contains a web address</span></a></li></ul></div><figcaption>Say the kind in words and the reason in the meta; an icon only hints at it.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="queue"><li><a class="queue-item" href="../../mocks/pages/admin-profile-review/default.html"><span class="photo"><img src="../../mocks/assets/img/accra-and-floats.jpg" alt="Spiced rice from a blue pot" width="56" height="56"></span><span class="queue-item__title">Accra &amp; Floats</span><span class="queue-item__wait">5 d</span><span class="queue-item__meta">Caribbean</span></a></li></ul></div><figcaption>Don't give the photo alt text in a row (it lengthens every link name), abbreviate the wait, or flatten "Trinidadian &amp; Tobagonian" to "Caribbean".</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Row and list hairlines</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Row hover</td><td><code>--color-bg-surface-sunken</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-sunken" data-swatch></i><span data-token="--color-bg-surface-sunken"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-sunken" data-swatch></i><span data-token="--color-bg-surface-sunken"></span></span></td></tr>
+          <tr><td>Title</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Meta, kind, wait</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Late wait</td><td><code>--color-warning-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-warning-fg" data-swatch></i><span data-token="--color-warning-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-warning-fg" data-swatch></i><span data-token="--color-warning-fg"></span></span></td></tr>
+          <tr><td>Photo before it loads</td><td><code>--color-bg-photo</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-photo" data-swatch></i><span data-token="--color-bg-photo"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-photo" data-swatch></i><span data-token="--color-bg-photo"></span></span></td></tr>
+          <tr><td>Icon media (avatar) background</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Title / meta / kind fonts</td><td><code>--text-body-lg</code> medium, <code>--text-body-sm</code>, <code>--text-caption</code> semibold</td><td colspan="2"><span data-token="--font-size-lg"></span> / <span data-token="--font-size-sm"></span> / <span data-token="--font-size-xs"></span></td></tr>
+          <tr><td>Kind letter spacing</td><td><code>--letter-spacing-wide</code></td><td colspan="2"><span data-token="--letter-spacing-wide"></span></td></tr>
+          <tr><td>Row padding / gaps</td><td><code>--space-5</code> block, <code>--space-2</code> inline; gap <code>--space-1</code> / <code>--space-4</code></td><td colspan="2"><span data-token="--space-5"></span> · <span data-token="--space-2"></span> · <span data-token="--space-1"></span> / <span data-token="--space-4"></span></td></tr>
+          <tr><td>Hairline</td><td><code>--border-width-hairline</code></td><td colspan="2"><span data-token="--border-width-hairline"></span></td></tr>
+          <tr><td>Hover transition</td><td><code>--duration-fast</code>, <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-fast"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;p class="subtitle"&gt;7 waiting · oldest first&lt;/p&gt;
+&lt;ul class="queue"&gt;
+  &lt;li&gt;&lt;a class="queue-item" href="/operator/caterers/flying-fish-kitchen"&gt;
+    &lt;span class="photo"&gt;&lt;img src="flying-fish-kitchen.jpg" alt="" width="56" height="56"&gt;&lt;/span&gt;
+    &lt;span class="queue-item__title"&gt;Flying Fish Kitchen&lt;/span&gt;
+    &lt;span class="queue-item__wait"&gt;Waiting 1 day&lt;/span&gt;
+    &lt;span class="queue-item__meta"&gt;&lt;span class="kind"&gt;Certificate expired&lt;/span&gt; · 30 Sep 2026 · still published&lt;/span&gt;
+  &lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.queue</code></td><td>The <code>&lt;ul&gt;</code>: no bullets, hairline above the first row.</td></tr>
+        <tr><td><code>.queue-item</code></td><td>The row link: three-column grid, padding, hairline below, hover fill.</td></tr>
+        <tr><td><code>.queue-item &gt; .photo</code> / <code>&gt; .avatar</code></td><td>Media, sized to 3.5rem and spanning both text lines.</td></tr>
+        <tr><td><code>.queue-item__title</code></td><td>Name; body-large medium; wraps anywhere.</td></tr>
+        <tr><td><code>.queue-item__meta</code></td><td>Second line; small, muted.</td></tr>
+        <tr><td><code>.queue-item__wait</code></td><td>Right slot: wait time (tabular numbers) or a <code>.status</code>.</td></tr>
+        <tr><td><code>.queue-item__wait--late</code></td><td>Waited 3 days or more: semibold, <code>--color-warning-fg</code>.</td></tr>
+        <tr><td><code>.queue-item--stack</code></td><td>Below 36rem the right slot moves under the meta. Use on record rows with a status.</td></tr>
+        <tr><td><code>.kind</code></td><td>Uppercase caption naming what the item is; also used in admin toasts and record headers.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation and mocks only: forces a state.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/admin-queue/default.html">pages/admin-queue/default</a> (the review queue, every kind)</li>
+        <li><a href="../../mocks/pages/admin-queue/long.html">pages/admin-queue/long</a> (34 waiting, 9 late)</li>
+        <li><a href="../../mocks/pages/admin-queue/filtered.html">pages/admin-queue/filtered</a> (reports only)</li>
+        <li><a href="../../mocks/pages/admin-queue/loading.html">pages/admin-queue/loading</a> (skeleton rows)</li>
+        <li><a href="../../mocks/pages/admin-queue/empty.html">pages/admin-queue/empty</a> ("All caught up")</li>
+        <li><a href="../../mocks/pages/admin-caterers/default.html">pages/admin-caterers/default</a> (record rows, <code>--stack</code>, status, changed flag, placeholder photos)</li>
+        <li><a href="../../mocks/pages/admin-caterers/long.html">pages/admin-caterers/long</a> (5,214 records)</li>
+        <li><a href="../../mocks/notifications/admin-toast/success.html">notifications/admin-toast/success</a> (the queue behind a toast)</li>
+      </ul>
+      <p>Drift fixed during extraction: the loading rows placed skeletons with inline <code>grid-row</code> and size styles (kept here; a <code>.queue-item--skeleton</code> rule is proposed); <code>pages/admin-queue/long</code> repeated <code>aria-hidden</code> on icons already inside an <code>aria-hidden</code> avatar; name-change titles used a bare "→" that screen readers read as "right arrow" — the system adds a visually hidden "renamed to"; <code>pages/admin-queue/long</code> listed held reviews without the "Held reviews" filter the default state has.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

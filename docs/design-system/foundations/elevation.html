@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Elevation — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand elevation: four shadow levels for overlays, the focus shadow, surface hierarchy in light and dark, and the z-order scale.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation</p>
+      <h1>Elevation</h1>
+      <p class="ds-lead">Sweet Hand is flat. White space separates things on the page; shadows exist only to lift what floats above it: menus, toasts, dialogs and sheets.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Flat by default</span><span class="ds-pill">4 shadows</span><span class="ds-pill">9 layers</span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#shadows">Shadow levels</a></li><li><a href="#surfaces">Surface hierarchy</a></li><li><a href="#dark">Elevation in dark theme</a></li><li><a href="#z-order">Z-order</a></li><li><a href="#usage">Usage</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#tokens">Tokens</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The reference design has no card borders and no drop shadows: round photos sit straight on the white canvas. The system keeps that. Page content is flat at every viewport, and depth appears only when something genuinely sits above the page and must be told apart from it.</p>
+      <ul>
+        <li><b>On the page:</b> no shadow. Caterer cards have neither border nor shadow; data cards and the enquiry panel have a 1px <code>--color-border-default</code> hairline at most.</li>
+        <li><b>On hover:</b> a soft level-2 lift on the primary button and interactive cards, as feedback, not structure.</li>
+        <li><b>Floating:</b> menus, the area suggestions list, the filter dropdown, popovers and toasts use level 3.</li>
+        <li><b>Modal:</b> dialogs, side sheets and drawers use level 4 over a backdrop.</li>
+      </ul>
+      <p>Elevation has two parts: <b>shadows</b> (<code>--shadow-*</code>) say how far a surface floats, and <b>z-order</b> (<code>--z-*</code>) decides what covers what. They are separate scales because a toast (low shadow) must still sit above a dialog (high shadow).</p>
+    </section>
+
+    <section class="ds-section" id="shadows"><h2><a href="#shadows">Shadow levels</a></h2>
+      <p>Four levels, each softer and wider than a typical material shadow so they read as lift rather than outline. All are tinted with <code>--shadow-color</code>, a warm stone (28 24 20) in light theme so shadows never look blue-grey against warm type.</p>
+      <div class="ds-shadow-grid">
+        <div style="--shadow: var(--shadow-1);">--shadow-1</div>
+        <div style="--shadow: var(--shadow-2);">--shadow-2</div>
+        <div style="--shadow: var(--shadow-3);">--shadow-3</div>
+        <div style="--shadow: var(--shadow-4);">--shadow-4</div>
+        <div style="--shadow: var(--shadow-focus);">--shadow-focus</div>
+      </div>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Level</th><th scope="col">Token</th><th scope="col">Used by</th></tr></thead>
+        <tbody>
+          <tr><td>1 · contact</td><td><code>--shadow-1</code></td><td>Small moving parts that sit on a track: the switch thumb.</td></tr>
+          <tr><td>2 · hover lift</td><td><code>--shadow-2</code></td><td>Primary button on hover, interactive card on hover (with a 1px rise), tooltip.</td></tr>
+          <tr><td>3 · floating</td><td><code>--shadow-3</code></td><td>Menus and the account menu, area suggestions, filter dropdown, popover, toast, focused skip link.</td></tr>
+          <tr><td>4 · modal</td><td><code>--shadow-4</code></td><td>Dialog panel, side sheet, drawer.</td></tr>
+          <tr><td>Focus</td><td><code>--shadow-focus</code></td><td>A 2px offset ring plus 2px pepper ring, for places where an outline would be clipped by <code>overflow: hidden</code>. Components use the outline focus ring by default.</td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Where these came from.</b> The four shadows and their dark variants are the mocks' draft unchanged. The harvest found every shadow in <code>ui.css</code> already reading a token, plus four 1px inset or spread "rings" (the selected card edge, the invalid field edge) that are borders drawn with <code>box-shadow</code>, not elevation; they read <code>--border-width-*</code> and colour tokens and are documented on <a href="shape.html#borders">Shape</a>.</p>
+    </section>
+
+    <section class="ds-section" id="surfaces"><h2><a href="#surfaces">Surface hierarchy</a></h2>
+      <p>Four surfaces, from back to front. In light theme canvas, surface and raised are all white: separation comes from space, a hairline or a shadow. Sunken is the one tinted surface, for wells and summaries that sit <em>into</em> the page.</p>
+      <div class="ds-themes">
+        <div data-theme="light">
+          <div class="stack">
+            <p class="text-caption">Canvas · <code>--color-bg-canvas</code></p>
+            <div style="background: var(--color-bg-surface); border: var(--border-width-hairline) solid var(--color-border-default); border-radius: var(--radius-lg); padding: var(--space-4);">
+              <p class="text-caption">Surface · card with hairline</p>
+              <div style="background: var(--color-bg-surface-sunken); border-radius: var(--radius-md); padding: var(--space-3); margin-top: var(--space-3);"><p class="text-caption">Sunken · enquiry summary</p></div>
+            </div>
+            <div style="background: var(--color-bg-surface-raised); border-radius: var(--radius-md); padding: var(--space-4); box-shadow: var(--shadow-3);"><p class="text-caption">Raised · menu with <code>--shadow-3</code></p></div>
+          </div>
+        </div>
+        <div data-theme="dark">
+          <div class="stack">
+            <p class="text-caption">Canvas · <code>--color-bg-canvas</code></p>
+            <div style="background: var(--color-bg-surface); border: var(--border-width-hairline) solid var(--color-border-default); border-radius: var(--radius-lg); padding: var(--space-4);">
+              <p class="text-caption">Surface · card with hairline</p>
+              <div style="background: var(--color-bg-surface-sunken); border-radius: var(--radius-md); padding: var(--space-3); margin-top: var(--space-3);"><p class="text-caption">Sunken · enquiry summary</p></div>
+            </div>
+            <div style="background: var(--color-bg-surface-raised); border-radius: var(--radius-md); padding: var(--space-4); box-shadow: var(--shadow-3);"><p class="text-caption">Raised · menu with <code>--shadow-3</code></p></div>
+          </div>
+        </div>
+      </div>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Surface</th><th scope="col">Role</th><th scope="col">Light</th><th scope="col">Dark</th><th scope="col">Separated by</th></tr></thead>
+        <tbody>
+          <tr><td>Canvas</td><td><code>--color-bg-canvas</code></td><td>white</td><td>stone-950</td><td>n/a</td></tr>
+          <tr><td>Surface</td><td><code>--color-bg-surface</code></td><td>white</td><td>stone-950</td><td>Space, or a hairline border</td></tr>
+          <tr><td>Sunken</td><td><code>--color-bg-surface-sunken</code></td><td>stone-50</td><td>stone-900</td><td>Its tint</td></tr>
+          <tr><td>Raised</td><td><code>--color-bg-surface-raised</code></td><td>white</td><td>stone-850</td><td>Shadow (light), lighter surface plus shadow (dark)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Swatches and contrast for these roles are on <a href="color.html#roles">Color</a>.</p>
+    </section>
+
+    <section class="ds-section" id="dark"><h2><a href="#dark">Elevation in dark theme</a></h2>
+      <p>A shadow is a darker area around a surface; on a near-black canvas there is almost nothing darker to show. Dark theme therefore does two things at once:</p>
+      <ol>
+        <li><b>Raised surfaces get lighter.</b> Dialogs, sheets, menus and popovers use stone-850 against the stone-950 canvas, so the panel edge is visible without any shadow.</li>
+        <li><b>Shadows turn black and stronger.</b> <code>--shadow-color</code> becomes pure black (0 0 0) and opacities rise from 6–18% to 35–65%, enough to darken the area around a panel.</li>
+      </ol>
+      <p>The backdrop also darkens from ink at 50% to black at 66%, so a dialog never floats over a page that looks the same as itself.</p>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-shadow-grid"><div style="--shadow: var(--shadow-2);">2</div><div style="--shadow: var(--shadow-3);">3</div><div style="--shadow: var(--shadow-4);">4</div></div></div>
+        <div data-theme="dark"><div class="ds-shadow-grid"><div style="--shadow: var(--shadow-2); background: var(--color-bg-surface-raised);">2</div><div style="--shadow: var(--shadow-3); background: var(--color-bg-surface-raised);">3</div><div style="--shadow: var(--shadow-4); background: var(--color-bg-surface-raised);">4</div></div></div>
+      </div>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code>--shadow-color</code></td><td><span data-theme="light" data-token="--shadow-color"></span></td><td><span data-theme="dark" data-token="--shadow-color"></span></td><td>RGB channels every shadow is tinted with: warm stone light, black dark.</td></tr><tr><td><code>--shadow-1</code></td><td><span data-theme="light" data-token="--shadow-1"></span></td><td><span data-theme="dark" data-token="--shadow-1"></span></td><td>Contact: the switch thumb.</td></tr><tr><td><code>--shadow-2</code></td><td><span data-theme="light" data-token="--shadow-2"></span></td><td><span data-theme="dark" data-token="--shadow-2"></span></td><td>Hover lift: primary button, interactive card; tooltip.</td></tr><tr><td><code>--shadow-3</code></td><td><span data-theme="light" data-token="--shadow-3"></span></td><td><span data-theme="dark" data-token="--shadow-3"></span></td><td>Floating: menus, suggestions, filter dropdown, popover, toast, skip link.</td></tr><tr><td><code>--shadow-4</code></td><td><span data-theme="light" data-token="--shadow-4"></span></td><td><span data-theme="dark" data-token="--shadow-4"></span></td><td>Modal: dialog panel, side sheet, drawer.</td></tr><tr><td><code>--shadow-focus</code></td><td><span data-theme="light" data-token="--shadow-focus"></span></td><td><span data-theme="dark" data-token="--shadow-focus"></span></td><td>Ring for clipped contexts: offset colour then focus colour.</td></tr></tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="z-order"><h2><a href="#z-order">Z-order</a></h2>
+      <p>Nine named layers with wide gaps between them. Components read the token; nobody writes <code>z-index: 9999</code>. A layer may use <code>calc(var(--z-…) + 1)</code> for a child that must sit above its own parent, never to jump to another layer.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Token</th><th scope="col">Value</th><th scope="col">What sits there</th></tr></thead>
+        <tbody>
+          <tr><td><code>--z-base</code></td><td><span data-token="--z-base"></span></td><td>Page content.</td></tr>
+          <tr><td><code>--z-raised</code></td><td><span data-token="--z-raised"></span></td><td>A selected segment in a button group, so its pepper edge covers its neighbours' borders; positioned decorations inside a component.</td></tr>
+          <tr><td><code>--z-sticky</code></td><td><span data-token="--z-sticky"></span></td><td>The sticky top bar and the sticky enquiry bar on phones.</td></tr>
+          <tr><td><code>--z-dropdown</code></td><td><span data-token="--z-dropdown"></span></td><td>Menus, the account menu, the filter dropdown.</td></tr>
+          <tr><td><code>--z-overlay</code></td><td><span data-token="--z-overlay"></span></td><td>The backdrop behind a dialog or sheet.</td></tr>
+          <tr><td><code>--z-modal</code></td><td><span data-token="--z-modal"></span></td><td>Dialogs, sheets, drawers and the full-screen photo viewer.</td></tr>
+          <tr><td><code>--z-popover</code></td><td><span data-token="--z-popover"></span></td><td>Popovers, which may open from inside a dialog.</td></tr>
+          <tr><td><code>--z-toast</code></td><td><span data-token="--z-toast"></span></td><td>The toast region: a confirmation must stay visible over a dialog that triggered it.</td></tr>
+          <tr><td><code>--z-tooltip</code></td><td><span data-token="--z-tooltip"></span></td><td>Tooltips and the focused skip link: always on top.</td></tr>
+        </tbody>
+      </table></div>
+      <p>The example below is a real stack in a frame: the page and its sticky enquiry bar (100), the backdrop (1200) covering them, a confirmation dialog (1300) and a toast (1500) above it all.</p>
+      <div class="ds-frame">
+        <div class="ds-frame__page"><p><b>Pelau House</b></p><p>Trinidadian &amp; Tobagonian · Scarborough</p><p>Serves 20–300 guests.</p></div>
+        <div class="sticky-cta" role="region" aria-label="Enquire"><div class="sticky-cta__text"><strong>Pelau House</strong><span>Serves 20–300 guests</span></div><button class="btn btn--primary" type="button">Send an enquiry</button></div>
+        <div class="backdrop"></div>
+        <div class="dialog" role="dialog" aria-modal="false" aria-labelledby="z-dlg-title">
+          <div class="dialog__panel dialog__panel--sm">
+            <div class="dialog__header"><div style="flex: 1;"><h3 class="dialog__title" id="z-dlg-title">Remove “Curry goat”?</h3><p class="text-muted" style="margin-top: var(--space-1);">It comes off your page within a minute. You can add it again later.</p></div></div>
+            <div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="button">Remove dish</button></div>
+          </div>
+        </div>
+        <div class="toast-region toast-region--top" role="status" aria-live="off"><div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Reply sent</div><div class="toast__text">Pelau House will get an email.</div></div></div></div>
+      </div>
+      <p><b>Where these came from.</b> The layer names and values are the mocks' draft. The only literal found in the harvest was <code>calc(var(--z-tooltip) + 10)</code> for the mock bar in <code>mock.css</code>, which is mock tooling and not product UI.</p>
+    </section>
+
+    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+      <ul>
+        <li><b>No shadow on the page.</b> If something is in the page flow, it does not get a shadow. Use space first, a hairline second.</li>
+        <li><b>Shadow follows the layer.</b> Floating panels use level 3, modal panels level 4. Do not give a menu level 4 to make it "pop".</li>
+        <li><b>Raised surfaces read the raised role.</b> Every floating panel uses <code>--color-bg-surface-raised</code>, never <code>--color-bg-surface</code>, so dark theme can lift it.</li>
+        <li><b>Hover lift is feedback.</b> Level 2 appears on hover only, and only on things that are clickable as a whole.</li>
+        <li><b>One modal at a time.</b> Do not stack a dialog on a dialog; replace the content or move to a screen. Popovers and toasts may sit above a dialog; that is what their layers are for.</li>
+        <li><b>Use the z tokens.</b> No raw <code>z-index</code> numbers in component CSS.</li>
+      </ul>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><a class="caterer-card" href="../../mocks/pages/caterer/default.html" style="width: 9rem;"><span class="photo"><img src="../../mocks/assets/img/sunday-pot.jpg" alt="Spiced rice with chicken lifted from a blue cast-iron pot"></span><span class="caterer-card__name">Sunday Pot</span><span class="caterer-card__meta">St. Lucian · Mississauga</span></a></div><figcaption>Let a caterer card sit flat on the canvas: the round photo is the shape.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div style="box-shadow: var(--shadow-3); border-radius: var(--radius-lg); padding: var(--space-4); width: 11rem;"><span class="photo" style="width: 6rem; margin-inline: auto;"><img src="../../mocks/assets/img/sunday-pot.jpg" alt="Spiced rice with chicken lifted from a blue cast-iron pot"></span><p style="font: var(--text-card-title); text-align: center; margin-top: var(--space-3);">Sunday Pot</p></div></div><figcaption>Box a caterer in a shadowed card. The flat, photo-led grid turns into a stack of boxes.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <ul>
+        <li><b>Shadows are never the only edge.</b> Dialog panels sit on a backdrop; menus, popovers and suggestions also have a 1px border. In forced-colours mode shadows disappear, and those borders become <code>CanvasText</code>, so every floating panel keeps a visible edge.</li>
+        <li><b>Focus not obscured (2.4.11).</b> Sticky layers (100) never hide the focused element: the page reserves space for the sticky enquiry bar and scroll padding for the top bar. A focused element inside a dialog is never under the sticky dialog footer, because the footer is part of the scroll container.</li>
+        <li><b>Modal means inert.</b> Content under the backdrop is inert and hidden from assistive technology while a dialog is open; z-order alone does not make something modal.</li>
+        <li><b>Toasts above dialogs</b> must still not steal focus; they announce through a live region.</li>
+        <li><b>Hover lift moves 1px</b> and is a transition that respects <code>prefers-reduced-motion</code> through the motion tokens.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <h3>Shadows</h3>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code>--shadow-color</code></td><td><span data-theme="light" data-token="--shadow-color"></span></td><td><span data-theme="dark" data-token="--shadow-color"></span></td><td>RGB channels every shadow is tinted with: warm stone light, black dark.</td></tr><tr><td><code>--shadow-1</code></td><td><span data-theme="light" data-token="--shadow-1"></span></td><td><span data-theme="dark" data-token="--shadow-1"></span></td><td>Contact: the switch thumb.</td></tr><tr><td><code>--shadow-2</code></td><td><span data-theme="light" data-token="--shadow-2"></span></td><td><span data-theme="dark" data-token="--shadow-2"></span></td><td>Hover lift: primary button, interactive card; tooltip.</td></tr><tr><td><code>--shadow-3</code></td><td><span data-theme="light" data-token="--shadow-3"></span></td><td><span data-theme="dark" data-token="--shadow-3"></span></td><td>Floating: menus, suggestions, filter dropdown, popover, toast, skip link.</td></tr><tr><td><code>--shadow-4</code></td><td><span data-theme="light" data-token="--shadow-4"></span></td><td><span data-theme="dark" data-token="--shadow-4"></span></td><td>Modal: dialog panel, side sheet, drawer.</td></tr><tr><td><code>--shadow-focus</code></td><td><span data-theme="light" data-token="--shadow-focus"></span></td><td><span data-theme="dark" data-token="--shadow-focus"></span></td><td>Ring for clipped contexts: offset colour then focus colour.</td></tr></tbody></table></div>
+      <h3>Z-order</h3>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Resolved value</th><th scope="col">Declared as</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code>--z-base</code></td><td><span data-token="--z-base"></span></td><td><code>0</code></td><td>Page content.</td></tr><tr><td><code>--z-raised</code></td><td><span data-token="--z-raised"></span></td><td><code>1</code></td><td>Selected segment over its neighbours.</td></tr><tr><td><code>--z-sticky</code></td><td><span data-token="--z-sticky"></span></td><td><code>100</code></td><td>Sticky top bar, sticky enquiry bar.</td></tr><tr><td><code>--z-dropdown</code></td><td><span data-token="--z-dropdown"></span></td><td><code>1000</code></td><td>Menus, account menu, filter dropdown.</td></tr><tr><td><code>--z-overlay</code></td><td><span data-token="--z-overlay"></span></td><td><code>1200</code></td><td>Dialog and sheet backdrop.</td></tr><tr><td><code>--z-modal</code></td><td><span data-token="--z-modal"></span></td><td><code>1300</code></td><td>Dialog, sheet, drawer, photo viewer.</td></tr><tr><td><code>--z-popover</code></td><td><span data-token="--z-popover"></span></td><td><code>1400</code></td><td>Popovers (may open inside a dialog).</td></tr><tr><td><code>--z-toast</code></td><td><span data-token="--z-toast"></span></td><td><code>1500</code></td><td>Toast region.</td></tr><tr><td><code>--z-tooltip</code></td><td><span data-token="--z-tooltip"></span></td><td><code>1600</code></td><td>Tooltips, focused skip link.</td></tr></tbody></table></div>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>
