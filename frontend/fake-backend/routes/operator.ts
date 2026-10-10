@@ -9,7 +9,6 @@ import type { Report } from '../seed/reports.ts';
 import { ownerFor, type StatusChange } from '../seed/operator.ts';
 import { OCCASIONS, slugify } from '../seed/taxonomy.ts';
 import type {
-  CertificateLink,
   CertificateView,
   NameChangeReviewView,
   OwnerView,
@@ -366,7 +365,7 @@ function registerProfileReview(r: Router<Store>): void {
     return notFound();
   });
 
-  /** A signed link that stops working after 5 minutes (L2-040.4). */
+  /** Redirects to a signed link that stops working after 5 minutes (L2-040.4). */
   r.get('/api/operator/profiles/:id/certificate-file', (ctx) => {
     const who = operator(ctx);
     if (isReply(who)) return who;
@@ -375,8 +374,7 @@ function registerProfileReview(r: Router<Store>): void {
     const token = randomUUID().replace(/-/g, '');
     const expiresAt = new Date(ctx.store.now.getTime() + LINK_LIFETIME_MS).toISOString();
     ctx.store.operator.moderation.certificateLinks[token] = { catererId: c.id, expiresAt };
-    const link: CertificateLink = { url: `/api/operator/certificate-files/${token}?expires=${encodeURIComponent(expiresAt)}`, expiresAt };
-    return ok(link);
+    return { status: 302, headers: { location: `/api/operator/certificate-files/${token}?expires=${encodeURIComponent(expiresAt)}`, 'cache-control': 'no-store' } };
   });
 
   /** The link itself is the authorisation; anything else gets 404 (L2-040.4). */

@@ -39,6 +39,16 @@ export function waitingFor(since: string, now: Date = new Date()): string {
   return hours === 1 ? $localize`:@@queue.waitingHour:Waiting 1 hour` : $localize`:@@queue.waitingHours:Waiting ${hours}:count: hours`;
 }
 
+/** "waiting 3 days", "waiting 6 hours": the same, inside a sentence. */
+export function waitingInSentence(since: string, now: Date = new Date()): string {
+  const days = daysSince(since, now);
+  if (days >= 1) return days === 1 ? $localize`:@@moderation.waitingDay:waiting 1 day` : $localize`:@@moderation.waitingDays:waiting ${days}:count: days`;
+  const minutes = Math.max(1, Math.round((now.getTime() - Date.parse(since)) / 60_000));
+  if (minutes < 60) return $localize`:@@moderation.waitingMinutes:waiting ${minutes}:count: min`;
+  const hours = Math.round(minutes / 60);
+  return hours === 1 ? $localize`:@@moderation.waitingHour:waiting 1 hour` : $localize`:@@moderation.waitingHours:waiting ${hours}:count: hours`;
+}
+
 /** "today", "Thu 8 Oct" for record rows: "updated today". */
 export function updatedOn(iso: string, now: Date = new Date()): string {
   return daysSince(iso, now) === 0 ? $localize`:@@caterers.updatedToday:updated today` : $localize`:@@caterers.updatedOn:updated ${shortDate(iso, now)}:date:`;

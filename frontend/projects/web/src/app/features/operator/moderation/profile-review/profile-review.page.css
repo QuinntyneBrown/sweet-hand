@@ -1,0 +1,63 @@
+.review-first {
+  margin-top: var(--space-8);
+}
+.review-error {
+  margin-top: var(--space-8);
+}
+.review-head {
+  margin-top: var(--space-10);
+}
+.review-head__name {
+  font: var(--text-h2);
+}
+.review-description {
+  margin-top: var(--space-6);
+}
+.review-facts {
+  margin-top: var(--space-8);
+}
+.review-subhead {
+  margin-top: var(--space-10);
+  margin-bottom: var(--space-2);
+}
+.review-subhead--areas {
+  margin-bottom: var(--space-4);
+}
+.review-file {
+  margin-top: var(--space-4);
+}
+.review-note {
+  margin-top: var(--space-4);
+}
+.review-card-title {
+  margin-bottom: var(--space-6);
+}
+.review-card {
+  max-width: 18rem;
+}
+.review-history-title {
+  margin-bottom: var(--space-4);
+}
+.review-skeleton {
+  margin-top: var(--space-8);
+}
+.review-skeleton__photo {
+  background: none;
+}
+.review-skeleton__caption {
+  width: 8rem;
+}
+.review-skeleton__line {
+  display: inline-block;
+  width: 18rem;
+  max-width: 100%;
+}
+.review-skeleton__text {
+  margin-top: var(--space-10);
+  max-width: 40rem;
+}
+.review-skeleton__block {
+  display: block;
+  margin-top: var(--space-10);
+  height: 10rem;
+}

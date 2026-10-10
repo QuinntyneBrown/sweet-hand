@@ -79,12 +79,6 @@ export interface CertificateView {
   fileSize: number | null;
 }
 
-/** A time-limited link to the certificate copy (L2-040.4): it stops working after 5 minutes or less. */
-export interface CertificateLink {
-  url: string;
-  expiresAt: string;
-}
-
 export interface OwnerView {
   name: string;
   email: string;

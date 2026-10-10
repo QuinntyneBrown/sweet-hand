@@ -1,0 +1,225 @@
+<sh-back-link href="/admin/queue" i18n="@@nav.reviewQueue">Review queue</sh-back-link>
+
+@if (failed()) {
+  <div class="page-intro">
+    <h1 i18n="@@review.errorHeading">Profile review</h1>
+    <p class="subtitle" i18n="@@review.didNotLoad">Didn’t load</p>
+  </div>
+  <div class="review-error">
+    <sh-alert tone="danger" live="assertive" title="We couldn’t load this profile" i18n-title="@@review.errorTitle">
+      <ng-container i18n="@@review.errorText">No decision has been recorded. Try again, or go back to the queue.</ng-container>
+      <div slot="actions" class="alert__actions">
+        <button class="btn btn--sm" type="button" (click)="review.reload()" i18n="@@common.retry">Retry</button>
+        <a routerLink="/admin/queue" i18n="@@review.backToQueue">Back to review queue</a>
+      </div>
+    </sh-alert>
+  </div>
+} @else if (!view()) {
+  <div class="page-intro">
+    <div class="page-intro__row">
+      <div>
+        <h1><span class="visually-hidden" i18n="@@review.loadingHeading">Loading profile</span><span class="skeleton skeleton--text" aria-hidden="true"></span></h1>
+        <p class="subtitle"><span class="skeleton skeleton--text review-skeleton__line" aria-hidden="true"></span></p>
+      </div>
+      <span class="cluster">
+        <sh-button [disabled]="true"><ng-container i18n="@@review.requestChanges">Request changes</ng-container></sh-button>
+        <sh-button variant="primary" [disabled]="true"><ng-container i18n="@@review.approve">Approve and publish</ng-container></sh-button>
+      </span>
+    </div>
+  </div>
+  <p class="visually-hidden" role="status" i18n="@@review.loading">Loading the profile</p>
+  <div aria-hidden="true">
+    <ul class="photo-manager review-skeleton">
+      @for (i of [1, 2, 3, 4, 5]; track i) {
+        <li class="photo-tile"><span class="photo review-skeleton__photo"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text review-skeleton__caption"></span></li>
+      }
+    </ul>
+    <div class="review-skeleton__text">
+      <span class="skeleton skeleton--title"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span>
+    </div>
+    <span class="skeleton skeleton--rect review-skeleton__block"></span>
+  </div>
+} @else if (submission(); as s) {
+  <div class="page-intro">
+    <div class="page-intro__row">
+      <div>
+        <h1>{{ s.name }}</h1>
+        <p class="subtitle"><sh-status [tone]="statusTone(s.status)" [label]="statusLabel(s.status)" /> · {{ subline() }}</p>
+      </div>
+      <span class="cluster">
+        <sh-button haspopup="dialog" (activated)="dialog.set('request-changes')"><ng-container i18n="@@review.requestChanges">Request changes</ng-container></sh-button>
+        <sh-button variant="primary" haspopup="dialog" (activated)="dialog.set('approve')"><ng-container i18n="@@review.approve">Approve and publish</ng-container></sh-button>
+      </span>
+    </div>
+  </div>
+
+  @if (s.resubmitted && s.changesRequested) {
+    <sh-alert tone="info" title="Resubmitted after changes were requested" i18n-title="@@review.resubmittedTitle">{{ resubmittedText() }}</sh-alert>
+  }
+
+  <section class="caterer-section review-first" aria-labelledby="pub-title">
+    <div class="caterer-section__head">
+      <h2 id="pub-title" i18n="@@review.asItWillAppear">As it will appear</h2>
+      <span class="result-count" i18n="@@review.publicOnly">Public fields only</span>
+    </div>
+    <ul class="photo-manager">
+      @for (p of s.profile.photos; track p.id) {
+        <li class="photo-tile">
+          <span class="photo"
+            ><img [src]="p.src" alt="" width="160" height="160" loading="lazy" />@if (p.cover) {<span class="photo-tile__cover" i18n="@@review.cover">Cover</span>}</span
+          >
+          <p class="photo-tile__caption">{{ p.caption }}</p>
+          @if (p.isNew) {
+            <sh-changed-flag><ng-container i18n="@@review.newPhoto">New photo</ng-container></sh-changed-flag>
+          }
+        </li>
+      }
+    </ul>
+    <div class="caterer-head review-head">
+      <h3 class="review-head__name">{{ s.profile.name }}</h3>
+      <ul class="caterer-head__meta">
+        @for (c of s.profile.cuisines; track c) {
+          <li>{{ c }}</li>
+        }
+      </ul>
+    </div>
+    <div class="prose measure review-description">
+      @if (s.descriptionChanged) {
+        <sh-changed-flag [icon]="true"><ng-container i18n="@@review.changedSince">Changed since changes were requested</ng-container></sh-changed-flag>
+      }
+      @for (p of s.profile.removedParagraphs; track $index) {
+        <p><del class="diff-old">{{ p }}</del></p>
+      }
+      @for (p of s.profile.description; track $index) {
+        <p>{{ p }}</p>
+      }
+    </div>
+    <sh-description-list layout="facts" class="review-facts">
+      <sh-description term="Guests" i18n-term="@@caterer.guests">{{ guests() }}</sh-description>
+      <sh-description term="Occasions" i18n-term="@@caterer.occasions"><sh-inline-list [items]="s.profile.occasions" /></sh-description>
+    </sh-description-list>
+    <h3 class="review-subhead" i18n="@@caterer.menu">Menu</h3>
+    <sh-dish-list listId="review-dishes" [collapsedCount]="null">
+      @for (d of s.profile.dishes; track $index) {
+        <sh-dish [name]="d.name" [price]="d.price" [description]="d.description" [tags]="d.tags" [tagLabels]="tagLabels" [headingLevel]="4" />
+      }
+    </sh-dish-list>
+    <h3 class="review-subhead review-subhead--areas" i18n="@@caterer.areasServed">Areas served</h3>
+    <sh-description-list layout="regions">
+      @for (r of s.profile.regions; track r.name) {
+        <sh-description [term]="r.name">{{ r.areas.join(', ') }}</sh-description>
+      }
+    </sh-description-list>
+  </section>
+
+  <section class="caterer-section" aria-labelledby="private-title">
+    <div class="caterer-section__head">
+      <h2 id="private-title" i18n="@@review.privateDetails">Private details</h2>
+      <span class="private-note"><svg class="icon--sm" shIcon="lock"></svg><ng-container i18n="@@review.privateNote">Only operators and the caterer see these</ng-container></span>
+    </div>
+    <dl class="kv">
+      <dt i18n="@@review.contact">Contact</dt>
+      <dd>{{ s.contact.name }}</dd>
+      <dt i18n="@@review.email">Email</dt>
+      <dd
+        >{{ s.contact.email }}@if (s.contact.emailVerified) {&ngsp;<sh-status tone="published" label="Verified" i18n-label="@@review.verified" />} @else {&ngsp;<sh-status
+            tone="pending"
+            label="Not verified"
+            i18n-label="@@review.notVerified"
+          />}</dd
+      >
+      @if (s.contact.phone) {
+        <dt i18n="@@review.phone">Phone</dt>
+        <dd>{{ s.contact.phone }}</dd>
+      }
+    </dl>
+    <h3 class="review-subhead review-subhead--areas" i18n="@@review.certificate">Food handler certificate</h3>
+    @if (s.certificate; as c) {
+      <dl class="certificate">
+        <dt i18n="@@review.holder">Holder</dt>
+        <dd>{{ c.holder }}</dd>
+        <dt i18n="@@review.issuedBy">Issued by</dt>
+        <dd>{{ c.issuer }}</dd>
+        <dt i18n="@@review.number">Number</dt>
+        <dd>{{ c.number }}</dd>
+        <dt i18n="@@review.expires">Expires</dt>
+        <dd><time [attr.datetime]="c.expires">{{ fullDate(c.expires) }}</time></dd>
+      </dl>
+      @if (c.fileName) {
+        <p class="review-file">
+          <sh-button size="sm" [wrap]="true" (activated)="openCertificate()"><svg shIcon="download"></svg>{{ fileLabel() }}</sh-button>
+        </p>
+      }
+    } @else {
+      <p class="text-muted" i18n="@@review.noCertificate">No certificate given.</p>
+    }
+  </section>
+
+  <section class="caterer-section" aria-labelledby="rules-title">
+    <h2 id="rules-title" i18n="@@review.rules">Submission rules</h2>
+    <sh-checklist ariaLabelledby="rules-title" [statusLabels]="checkLabels">
+      @for (rule of rules(); track $index) {
+        <li sh-checklist-item [status]="rule.status">{{ rule.text }}</li>
+      }
+    </sh-checklist>
+  </section>
+
+  <section class="caterer-section" aria-labelledby="hist-title">
+    <h2 id="hist-title" class="review-history-title" i18n="@@review.history">History</h2>
+    <ol class="timeline" aria-label="History, newest first" i18n-aria-label="@@review.historyLabel">
+      @for (h of s.history; track $index) {
+        <li>
+          <time class="timeline__when" [attr.datetime]="h.at">{{ dayTime(h.at) }}</time><span>{{ historyLine(h) }}</span>
+        </li>
+      }
+    </ol>
+  </section>
+} @else if (nameChange(); as n) {
+  <div class="page-intro">
+    <div class="page-intro__row">
+      <div>
+        <h1>{{ n.name }} <span aria-hidden="true">→</span><span class="visually-hidden" i18n="@@queue.renamedTo">renamed to</span> {{ n.newName }}</h1>
+        <p class="subtitle"><sh-status [tone]="statusTone(n.status)" [label]="statusLabel(n.status)" /> · {{ nameLine() }}</p>
+      </div>
+      <span class="cluster">
+        <sh-button haspopup="dialog" (activated)="dialog.set('request-changes')"><ng-container i18n="@@review.requestChanges">Request changes</ng-container></sh-button>
+        <sh-button variant="primary" haspopup="dialog" (activated)="dialog.set('approve')"><ng-container i18n="@@review.approveName">Approve name</ng-container></sh-button>
+      </span>
+    </div>
+  </div>
+
+  <section class="caterer-section review-first" aria-labelledby="nc-title">
+    <h2 id="nc-title" class="visually-hidden" i18n="@@review.requestedChange">Requested change</h2>
+    <dl class="kv">
+      <dt i18n="@@review.currentName">Current name</dt>
+      <dd><del class="diff-old">{{ n.name }}</del></dd>
+      <dt i18n="@@review.requestedName">Requested name</dt>
+      <dd><ins class="diff-new">{{ n.newName }}</ins></dd>
+      <dt i18n="@@review.pageAddress">Page address</dt>
+      <dd>
+        <span
+          ><code>{{ path(n.slug) }}</code> → <code>{{ path(n.newSlug) }}</code></span
+        ><span class="result-count" i18n="@@review.oldRedirects">The old address redirects</span>
+      </dd>
+      <dt i18n="@@review.requestedBy">Requested by</dt>
+      <dd>{{ requestedBy() }}</dd>
+    </dl>
+    <p class="result-count review-note">{{ keepsShowing() }}</p>
+  </section>
+  <section class="caterer-section" aria-labelledby="nc-prev">
+    <h2 id="nc-prev" class="review-card-title" i18n="@@review.cardAfter">Listing card after approval</h2>
+    <div class="review-card">
+      <sh-caterer-card [href]="'/caterers/' + n.slug" [name]="n.newName" [cuisine]="n.card.cuisine" [area]="n.card.area" [photo]="cardPhoto(n)" />
+    </div>
+  </section>
+  <section class="caterer-section" aria-labelledby="nc-hist">
+    <h2 id="nc-hist" class="review-history-title" i18n="@@review.history">History</h2>
+    <ol class="timeline" aria-label="History, newest first" i18n-aria-label="@@review.historyLabel">
+      @for (h of n.history; track $index) {
+        <li>
+          <time class="timeline__when" [attr.datetime]="h.at">{{ dayTime(h.at) }}</time><span>{{ historyLine(h) }}</span>
+        </li>
+      }
+    </ol>
+  </section>
+}

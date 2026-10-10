@@ -5,7 +5,6 @@ import type {
   CatererRecordView,
   CaterersPageView,
   CatererStatusFilter,
-  CertificateLink,
   DecisionResult,
   OperatorEditRequest,
   ProfileReviewView,
@@ -27,7 +26,8 @@ import type {
 export abstract class ModerationApi {
   abstract queue(query: { kind: QueueFilter | null; page: number }): Observable<QueuePageView>;
   abstract profileReview(catererId: string): Observable<ProfileReviewView>;
-  abstract certificateLink(catererId: string): Observable<CertificateLink>;
+  /** Opens the certificate copy: the server answers with a redirect to a link that expires within 5 minutes (L2-040.4). */
+  abstract certificateUrl(catererId: string): string;
   abstract approve(catererId: string): Observable<DecisionResult>;
   abstract requestChanges(catererId: string, reason: string): Observable<DecisionResult>;
   abstract approveName(catererId: string): Observable<DecisionResult>;
@@ -61,8 +61,8 @@ export class HttpModerationApi extends ModerationApi {
     return this.http.get<ProfileReviewView>(`/api/operator/queue/profiles/${encodeURIComponent(catererId)}`);
   }
 
-  certificateLink(catererId: string): Observable<CertificateLink> {
-    return this.http.get<CertificateLink>(`/api/operator/profiles/${encodeURIComponent(catererId)}/certificate-file`);
+  certificateUrl(catererId: string): string {
+    return `/api/operator/profiles/${encodeURIComponent(catererId)}/certificate-file`;
   }
 
   approve(catererId: string): Observable<DecisionResult> {
