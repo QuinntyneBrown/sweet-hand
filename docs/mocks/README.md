@@ -109,7 +109,7 @@ Guyanese 9, Barbadian (Bajan) 6, Haitian 5, Grenadian 4, St. Lucian 3,
 Antiguan & Barbudan 2, Pan-Caribbean 2, Vincentian 2, Belizean 1, Surinamese 1,
 Cuban 0, Bahamian 0, Dominican (Dominica) 0, Dominican (Dominican Republic) 0,
 Kittitian & Nevisian 0, Puerto Rican 0 (zero-count options show disabled).
-Regions: City of Toronto 31, Peel 13, York Region 8, Durham 6, Halton 2.
+Regions (caterers serving at least one area there): City of Toronto 31, Peel 13, York Region 8, Durham 7, Halton 3.
 **Jamaican + Scarborough** (the `filtered` state) = 2 caterers: *Island Pot*
 (Jamaican, Scarborough) and *Auntie Merle's Table* (Jamaican, Markham, also serves
 Scarborough). Result count "2 caterers".
@@ -167,14 +167,39 @@ Nadia Joseph (Declined, "Fully booked that weekend"), Jean-Robert Pierre
 
 ### Other caterer accounts
 
-- **Beverley Campbell — Auntie Bev's Kitchen** (BC), Jamaican, Oshawa. A new
-  draft in setup (`empty`, `draft`), then `pending`, then `changes-requested`
-  with the reason "Photos 2 and 5 look like stock images. Please upload photos of
-  your own food."
-- **Flying Fish Kitchen** — the suspended example: "Your food handler certificate
-  expired on 30 Sep 2026. Upload a current certificate and we'll review it within
-  3 business days."
-- **Breadfruit & Butter** — Vincentian, Brampton; resubmitted after changes.
+- **Beverley Campbell — Auntie Bev's Kitchen** (BC), Jamaican, Oshawa,
+  beverley@auntiebevs.example, +1 905 555 0164, 10–150 guests. A new draft in
+  setup (`empty`, `draft`: 8 of 10 checklist items, 2 photos, 5 dishes), then
+  `pending`, then `changes-requested` with the reason "Photos 2 and 5 look like
+  stock images. Please upload photos of your own food." Cover photo
+  `green-fig-catering.jpg`. Certificate: Durham Region Health Department,
+  FH-2025-204517, expires 22 Jan 2030 (an expired one, FH-2021-076412, expired
+  30 Jun 2026, drives the certificate `invalid` state).
+- **Sharon Best — Flying Fish Kitchen** (SB): the suspended example and the expired
+  certificate in the queue (FH-2021-337102, Durham Region Health, expired 30 Sep 2026):
+  "Your food handler certificate expired on 30 Sep 2026. Upload a current
+  certificate and we'll review it within 3 business days."
+- **Jolene Ollivierre — Breadfruit & Butter**, Vincentian, Brampton; resubmitted after
+  Tomas Reyes asked for changes ("The description lists a phone number, and photo 3
+  is a stock image").
+- **Winston Daley — Coal Pot Kitchen** (WD), Jamaican, Brampton: the removed example,
+  removed Mon 28 Sep for "Repeated food safety concerns from customers, confirmed by our team."
+- **Marie-Claire Augustin — Green Fig Catering**, St. Lucian, Pickering, 15–120 guests,
+  3 photos, 8 dishes, no reviews yet (`caterer/no-reviews`).
+- **Vishnu Ramlogan — Maracas Bay** (VR): the "full" example, 30 photos and 50 dishes.
+- **Paulette Morgan — Black Cake Co.** (PM): exactly 3 photos and 3 dishes, for the
+  "keep at least 3" blocked dialogs.
+- **Desmond Greaves — Cou-Cou** (DG): certificate FH-2021-093317 expires Mon 9 Nov 2026
+  (the `expiring` state).
+- **Garfield Brown — Island Pot**: certificate FH-2023-552019, Toronto Public Health,
+  expires 2 Feb 2027; subject of food safety report R-2047.
+- Operator-only totals: 68 caterers, 60 published, plus Hibiscus Hut (Suspended),
+  Tamarind Tree (Changes requested), Callaloo Corner, Doubles Duo, Plantain Plate
+  (Drafts) and Rum Shop Catering (Removed).
+
+Other fixed details: Marcia's phone +1 647 555 0187; Pelau House business email
+hello@pelauhouse.example; report R-2041 is about Devon W.'s review of Maracas Bay;
+help address help@sweethand.example; privacy officer privacy@sweethand.example.
 
 ### Operators
 
@@ -282,6 +307,35 @@ the mock changed.
     inbox is the notification centre. Emails are out of scope for these mocks.
 15. **Accessibility target.** L1-019 says WCAG 2.1 AA; `AGENTS.md` says 2.2 AA. The
     mocks meet 2.2 AA (target size, focus not obscured, accessible authentication).
+
+16. **Published edits: autosave or Save?** L2-038 autosaves during setup; L2-044 says
+    published edits apply "when they save". The mocks autosave everywhere. *Decision needed.*
+17. **Offline replies.** L2 doesn't say whether a reply typed offline is queued or blocked.
+    The mocks block it with an explanation.
+18. **Customer deleted their account mid-enquiry.** The caterer sees "This person has left
+    Sweet Hand, so replies can't be delivered". Should such enquiries close automatically?
+19. **Operator view of a linked enquiry.** "Open linked enquiry" (L2-034.3) assumes the
+    thread layout, read-only. It may need its own page.
+20. **Reporter identity for operators.** Operators see only "Signed-in customer" or
+    "Visitor, not signed in". Confirm operators should not see the reporter's name.
+21. **Admin-only nav items.** Non-Admin operators still see Audit log and Operators in the
+    side nav and get `forbidden`. Hide them instead?
+22. **Retiring a cuisine** is treated as permanent; breach records are read-only once
+    saved; operator invites expire after 24 hours. All three are assumptions.
+23. **Copy written where L2 gives none:** "This file isn't a JPEG, PNG, WebP or HEIC photo,
+    so nothing was saved" (L2-041.3); "Choose a rating from 1 to 5 stars"; "Too many reports
+    from this connection"; "Write a reply before sending". Adopt or replace in L2.
+24. **Locked accounts.** L2-076.4 only emails the owner; the mock doesn't offer a support
+    route. Should it?
+25. **Very long caterer names on phones** wrap to many lines at display size. Step the
+    heading down a size below 36rem?
+26. **Invented placeholders to replace:** the email processor ("Northbound Mail Inc.",
+    Canada), privacy notice version 1.0 dated Thu 1 Oct 2026, cookie lifetimes, the metrics
+    start date (3 Aug 2026) and the occasion counts (Weddings 23, Birthdays 41, Corporate
+    events 28, Funerals and repasts 17, Religious and cultural celebrations 26, Family
+    gatherings 47, Private dinners 12, Community events 19).
+27. **Mock-only shortcuts:** every caterer card links to the Pelau House page and operator
+    dialogs always name Pelau House, because only one caterer page is mocked.
 
 ## Coverage
 
