@@ -20,7 +20,7 @@ Tiles also show an upload in progress (percentage, progress bar, "Cancel"), a
 photo still processing, a missing caption, and the read-only view while a
 profile is in review or when an operator reviews it. Photos lead a caterer's
 listing: the first becomes the round photo on their card, so order matters and
-is set with buttons, never by dragging alone.
+is set with buttons only, never by dragging.
 
 `sh-photo-manager` is the grid: two to four columns of tiles in the order they
 appear on the public page, its loading skeletons, and the polite announcement
@@ -413,10 +413,10 @@ The progress bar eases its width over `--duration-deliberate`; under
 ## Decisions
 
 - **D-1** *Which framework does this API target?* Framework-neutral inputs, outputs and slots with the `sh-` prefix, because no stack ADR exists yet. The class names and attributes in *Markup* are the binding contract whatever the stack (AGENTS.md: BEM parity with the mocks).
-- **D-2** *How is the cover chosen?* The first photo is the cover, as the mocks, the subtitle "the first photo is your cover" and the move announcement say. "Use as cover photo" in the details dialog moves the photo to position 1. The tile has no separate `isCover` input, so order and cover can never disagree.
+- **D-2** *How is the cover chosen?* The first photo is the cover, as the mocks, the subtitle "the first photo is your cover" and the move announcement say. "Use as cover photo" in the details dialog moves the photo to position 1, per the user's decision of 10 Oct 2026. The tile has no separate `isCover` input, so order and cover can never disagree.
 - **D-3** *Does the manager image repeat the caption as alt?* No, `alt=""`: the caption is visible text right beside it (design system, drift fixed). The operator review grid follows the same rule.
 - **D-4** *Is the tile square or round?* Round, as `components.css`, the mocks and the photo-tile page show. The photo page's overview mentions square tiles "so the crop can be judged"; the round tile shows exactly the crop the public page uses, which serves the same purpose.
 - **D-5** *Does the manager own the move announcement?* Yes, as an input it renders in its own polite region, because the page knows when the new order is saved and the announcement must not fire for a failed save.
-- **D-6** *Is dragging supported?* No. Buttons work the same for touch, mouse, keyboard and switch access (WCAG 2.5.7); L2-042.1's "drag … (or use the Move up and Move down controls)" is satisfied by the buttons.
+- **D-6** *Is dragging supported?* No. Buttons work the same for touch, mouse, keyboard and switch access (WCAG 2.5.7), per the user's decision of 10 Oct 2026. L2-042.1's "drag … (or use the Move up and Move down controls)" will be amended through engineering-requirements to name the buttons only.
 - **D-7** *What does the edit button say when the caption is missing?* "Add caption" with the hidden object " to photo 2", so the visible word says what is needed and the accessible name stays unique.
 - **D-8** *How far apart are the move buttons?* At least 8 px (`--space-2`), and at least 8 px between the move row and Edit, on every width. The design system shows `--space-1` (4 px), but the user's decision of 10 Oct 2026 makes L2-065.1's 8 px win for neighbouring 44 px targets on phones; the design system will be updated. The rendering applies it with a specimen-only style.

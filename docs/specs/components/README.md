@@ -47,6 +47,8 @@ every component it affects.
   - The fit warning keeps L2-024's "This caterer usually serves 20–300 guests".
   - Metrics charts draw every bar for long ranges (366 bars, no gap).
   - A current inbox icon in the header is pepper, as `components.css` draws it.
+  - Non-Admin operators do not see the Admin-only side-nav items ("Audit log",
+    "Operators"); the app shell passes only what the role can use.
 
 ## Index
 

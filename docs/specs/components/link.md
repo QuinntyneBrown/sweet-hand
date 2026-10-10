@@ -397,3 +397,4 @@ None; `scroll-behavior` falls back to `auto` under reduced motion.
 - **D-7** *Do external links open a new tab?* No. Sweet Hand does not open new tabs; there is no `target` input, so "(opens in a new tab)" is never needed.
 - **D-8** *Can a link take an `aria-label`?* No; the design system forbids names that differ from the visible words, so there is no input for it.
 - **D-9** *Is there a disabled link?* No. A destination that is not available is rendered as plain text by the consumer.
+- **D-10** *What does the caterer editor's back link to the dashboard say?* "Overview", the side nav's name for the dashboard, per the user's decision of 10 Oct 2026, wherever a mock says "Dashboard".
