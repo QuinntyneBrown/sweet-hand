@@ -43,7 +43,7 @@ class PublicMenuItemView {
 }
 class PublicPhotoView {
   +string Caption
-  +bool IsCover
+  +int Position
   +List<ImageSource> Sources
 }
 class RegionAreasView {

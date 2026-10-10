@@ -7,8 +7,8 @@ Person(visitor, "Visitor", "Browses caterers")
 Container_Boundary(web, "Sweet Hand web application") {
   Component(page, "ListingPage", "Page", "Renders count, grid, pager and empty state")
   Component(state, "ListingQueryState", "URL state", "Reads and writes filters and page in the query string")
-  Component(grid, "ListingGrid", "Component", "1 to 4 columns by viewport class")
-  Component(card, "ListingCard", "Component", "Cover photo, name, primary cuisine, primary area")
+  Component(grid, "ListingGrid", "Component", "1 to 3 columns by viewport class; 3 at LG and XL")
+  Component(card, "ListingCard", "Component", "Round 1:1 cover photo, name, primary cuisine, primary area")
   Component(client, "ListingClient", "API client contract", "GET /api/public/caterers")
 }
 Container_Boundary(api, "Sweet Hand API") {

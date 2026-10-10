@@ -12,7 +12,7 @@ Every enquiry on Sweet Hand has two parties: the customer who sent it and the ca
 
 Each inbox row shows the other party, the event date, the guest count, the status and the time of the latest activity. Rows are sorted by latest activity, newest first, 20 to a page. A status filter narrows the list to one status, such as `Open`. The inbox holds every enquiry the user has ever been part of, except enquiries removed by the retention rules (`L2-073`).
 
-The layout depends on the viewport class. On LG and XL the list and the selected thread sit side by side. On XS, SM and MD only the list shows, and opening an enquiry shows the thread full width with a "Back to inbox" control. The thread view itself belongs to feature `enquiries/reply-in-thread`. Unread highlighting belongs to feature `enquiries/show-unread-indicators`.
+The layout depends on the viewport class. On LG and XL the list and the selected thread sit side by side. On XS, SM and MD only the list shows, and opening an enquiry shows the thread full width with a back link to the inbox labelled with the destination only, "Inbox". The thread view itself belongs to feature `enquiries/reply-in-thread`. Unread highlighting belongs to feature `enquiries/show-unread-indicators`.
 
 ## Description
 
@@ -21,7 +21,7 @@ Technology choices for every component are `<TO SUPPLY>`, pending architecture d
 **Frontend — Sweet Hand web application**
 
 - **`InboxPage`** — screen at `/inbox`. It keeps the status filter, the page number and the selected enquiry in the URL so that Back and refresh restore the same view. The exact query parameter names are `<TO SUPPLY>`.
-- **`InboxLayout`** — chooses the arrangement for the viewport class. On LG and XL it renders `InboxList` and `ThreadPane` side by side. On XS, SM and MD it renders `InboxList` alone, and selecting a row navigates to `/inbox/{id}`, which renders `ThreadPane` full width with a "Back to inbox" control (`L2-036 AC1`, `L2-036 AC2`).
+- **`InboxLayout`** — chooses the arrangement for the viewport class. On LG and XL it renders `InboxList` and `ThreadPane` side by side. On XS, SM and MD it renders `InboxList` alone, and selecting a row navigates to `/inbox/{id}`, which renders `ThreadPane` full width with a back link labelled "Inbox" (`L2-036 AC1`, `L2-036 AC2`).
 - **`InboxList`** — renders the rows and the pagination control.
 - **`InboxRow`** — one enquiry: other party's name, event date, guest count, status (shown as text, not colour alone, per `L2-069 AC5`), latest activity time in `America/Toronto`, and an unread highlight.
 - **`InboxStatusFilter`** — filter control with "All", "Open", "Replied", "Declined" and "Closed".
@@ -86,6 +86,6 @@ The handler scopes the query to the caller, filters by status when one is chosen
 
 ### Behaviour — open a thread from the inbox
 
-The same action shows the thread beside the list on LG and XL, and full width with "Back to inbox" on XS, SM and MD.
+The same action shows the thread beside the list on LG and XL, and full width with the "Inbox" back link on XS, SM and MD.
 
 ![Sequence diagram for opening a thread from the inbox](diagrams/sequence-open-thread-from-inbox.png)

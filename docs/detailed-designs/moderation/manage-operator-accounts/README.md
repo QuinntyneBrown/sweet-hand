@@ -27,6 +27,7 @@ database and session store. Technology choices for every container are
 **Frontend — Sweet Hand web application**
 
 - **`OperatorAccountsPage`** — Admin-only screen listing operator accounts with status and permissions.
+- **`OperatorNavigation`** — the operator console's side navigation. The app shell builds its items from the signed-in operator's permissions and passes only what that operator can use: an operator without the `Admin` permission does not see the Admin-only items "Audit log" and "Operators" (`L2-056` AC5). Hiding them is a convenience only; `AdminPolicy` still checks the `Admin` permission on those routes and returns HTTP 403 without it.
 - **`CreateOperatorDialog`** — dialog for display name, email and the optional `Admin` permission.
 - **`DeactivateOperatorDialog`** — confirmation dialog with a reason.
 - **`MfaEnrolmentScreen`** — screen where a new operator registers a TOTP secret or a WebAuthn credential.
@@ -89,7 +90,7 @@ The web application calls account, MFA and operator endpoints on the API. The AP
 
 ### Components
 
-`RequestPipeline` applies `OperatorPolicy` and `AdminPolicy` before any operator endpoint runs. Three handlers create, deactivate and verify; the session store holds the second-factor state.
+`RequestPipeline` applies `OperatorPolicy` and `AdminPolicy` before any operator endpoint runs. Three handlers create, deactivate and verify; the session store holds the second-factor state. `OperatorNavigation` shows the Admin-only items only to Admin operators.
 
 ![C4 component view for manage operator accounts](diagrams/c4-component.png)
 

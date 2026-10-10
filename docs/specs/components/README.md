@@ -21,34 +21,37 @@ every component it affects.
   The class names and attributes in each *Markup* section are the binding
   contract whatever the stack. Status is `planned` for every component.
 - **Decisions the user made on 10 Oct 2026** where L2 and the design system
-  disagreed (each is cited in the CRDs that depend on it). Where L2 loses, it is
-  to be amended through `engineering-requirements`; where the design system
-  loses, its page catches up:
+  disagreed (each is cited in the CRDs that depend on it). Where L2 lost, it
+  was amended on 10 Oct 2026 to match; where the design system loses, its page
+  catches up:
   - Caterer listing keeps 3 columns at XL and the round 1:1 photo (L2-005.4,
-    L2-005.5 to be amended); eager images follow the first viewport (XS 2,
+    L2-005.5 amended); eager images follow the first viewport (XS 2,
     SM–MD 4, LG+ 6); grid skeletons XS 3, SM–MD 6, LG+ 9.
   - The phone Enquiries link is named "Enquiries, 2 unread" with the badge
-    hidden (L2-029.1 to be amended).
+    hidden (L2-029.1 amended).
   - The account menu is `role="menu"` with `aria-haspopup="menu"`.
   - Neighbouring touch targets are at least 8 px apart on phones, stacked
     full-row links included (L2-065.1; the design system catches up).
-  - Back links name only the destination ("Inbox", "Overview").
-  - The dashboard's listing-card preview shows only from XL (L2-045.3 to be
+  - Back links name only the destination ("Inbox", "Overview"; L2-036.2
     amended).
-  - A failed submit moves focus to the error summary (L2-022.7 to be amended).
-  - The primary-area error reads "Choose your primary area" (L2-010.4 to be
+  - The dashboard's listing-card preview shows only from XL (L2-045.3 and
+    L2-045.4 amended).
+  - A failed submit moves focus to the error summary (L2-022.7 amended).
+  - The primary-area error reads "Choose your primary area" (L2-010.4
     amended).
   - Photos are reordered with buttons only, and the first photo is the cover
-    (L2-042.1 to be amended).
+    (L2-042.1 and L2-042.6
+    amended).
   - A deleted customer's reviews are removed (L2-072.3; the design-system
     specimen is dropped).
-  - The phone filter sheet's button reads "Show 2 caterers" (L2-009.1 to be
+  - The phone filter sheet's button reads "Show 2 caterers" (L2-009.1
     amended).
   - The fit warning keeps L2-024's "This caterer usually serves 20–300 guests".
   - Metrics charts draw every bar for long ranges (366 bars, no gap).
   - A current inbox icon in the header is pepper, as `components.css` draws it.
   - Non-Admin operators do not see the Admin-only side-nav items ("Audit log",
-    "Operators"); the app shell passes only what the role can use.
+    "Operators"); the app shell passes only what the role can use (L2-056.5
+    added).
 
 ## Index
 
@@ -63,12 +66,12 @@ every component it affects.
 | Button | `sh-button`, `sh-button-anchor` | planned | 30 | L2-001, L2-015, L2-017, L2-018, L2-025, L2-043, L2-054, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-072, L2-085 | [button.md](button.md) · [button.html](button.html) | [button](../../design-system/components/button.html) |
 | Button group | `sh-segmented`, `sh-button-group` | planned | 23 | L2-031, L2-036, L2-047, L2-059, L2-061, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085 | [button-group.md](button-group.md) · [button-group.html](button-group.html) | [button-group](../../design-system/components/button-group.html) |
 | Card | `sh-card`, `sh-well`, `sh-closed-note`, `sh-contact-card`, `sh-private-note`, `sh-enquiry-panel` | planned | 27 | L2-015, L2-019, L2-032, L2-033, L2-035, L2-040, L2-052, L2-054, L2-059, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-072 | [card.md](card.md) · [card.html](card.html) | [card](../../design-system/components/card.html) |
-| Caterer card | `sh-caterer-card`, `sh-caterer-grid` | planned | 30 | L2-004, L2-005, L2-006, L2-042, L2-045, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085 | [caterer-card.md](caterer-card.md) · [caterer-card.html](caterer-card.html) | [caterer-card](../../design-system/components/caterer-card.html) |
+| Caterer card | `sh-caterer-card`, `sh-caterer-grid` | planned | 32 | L2-004, L2-005, L2-006, L2-042, L2-045, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085 | [caterer-card.md](caterer-card.md) · [caterer-card.html](caterer-card.html) | [caterer-card](../../design-system/components/caterer-card.html) |
 | Checkbox | `sh-checkbox`, `sh-checkbox-group` | planned | 29 | L2-007, L2-008, L2-009, L2-010, L2-017, L2-021, L2-037, L2-042, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-070, L2-076, L2-085 | [checkbox.md](checkbox.md) · [checkbox.html](checkbox.html) | [checkbox](../../design-system/components/checkbox.html) |
 | Checklist | `sh-check`, `sh-checklist`, `sh-checklist-item` | planned | 18 | L2-037, L2-038, L2-039, L2-040, L2-048, L2-058, L2-064, L2-066, L2-067, L2-068, L2-069, L2-071, L2-085 | [checklist.md](checklist.md) · [checklist.html](checklist.html) | [checklist](../../design-system/components/checklist.html) |
 | Chip | `sh-chip`, `sh-filter-chip`, `sh-chip-group` | planned | 21 | L2-008, L2-009, L2-011, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085 | [chip.md](chip.md) · [chip.html](chip.html) | [chip](../../design-system/components/chip.html) |
 | Combobox | `sh-combobox` | planned | 24 | L2-009, L2-011, L2-012, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085, L2-091 | [combobox.md](combobox.md) · [combobox.html](combobox.html) | [combobox](../../design-system/components/combobox.html) |
-| Container and layout | `sh-container`, `sh-page`, `sh-page-intro`, `sh-browse-layout`, `sh-caterer-layout`, `sh-work-layout`, `sh-inbox-layout`, `sh-auth-layout` | planned | 27 | L2-009, L2-019, L2-036, L2-045, L2-064, L2-066, L2-067, L2-069, L2-085 | [container.md](container.md) · [container.html](container.html) | [container](../../design-system/components/container.html) |
+| Container and layout | `sh-container`, `sh-page`, `sh-page-intro`, `sh-browse-layout`, `sh-caterer-layout`, `sh-work-layout`, `sh-inbox-layout`, `sh-auth-layout` | planned | 28 | L2-009, L2-019, L2-036, L2-045, L2-064, L2-066, L2-067, L2-069, L2-085 | [container.md](container.md) · [container.html](container.html) | [container](../../design-system/components/container.html) |
 | Description list | `sh-description-list`, `sh-description`, `sh-inline-list`, `sh-change-value`, `sh-changed-flag` | planned | 24 | L2-014, L2-015, L2-019, L2-020, L2-021, L2-032, L2-035, L2-040, L2-044, L2-047, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069 | [description-list.md](description-list.md) · [description-list.html](description-list.html) | [description-list](../../design-system/components/description-list.html) |
 | Dialog | `sh-dialog`, `sh-dialog-photo`, `sh-dialog-people` | planned | 30 | L2-022, L2-025, L2-026, L2-042, L2-054, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-072, L2-085 | [dialog.md](dialog.md) · [dialog.html](dialog.html) | [dialog](../../design-system/components/dialog.html) |
 | Dish | `sh-dish`, `sh-dish-list` | planned | 23 | L2-015, L2-017, L2-043, L2-045, L2-047, L2-064, L2-066, L2-067, L2-068, L2-069, L2-080, L2-085 | [dish.md](dish.md) · [dish.html](dish.html) | [dish](../../design-system/components/dish.html) |
@@ -82,7 +85,7 @@ every component it affects.
 | Form field | `sh-form-field` | planned | 27 | L2-022, L2-024, L2-039, L2-050, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-076, L2-085 | [form-field.md](form-field.md) · [form-field.html](form-field.html) | [form-field](../../design-system/components/form-field.html) |
 | Form layout | `sh-form`, `sh-fieldset`, `sh-form-row`, `sh-form-summary`, `sh-form-actions`, `sh-save-status` | planned | 23 | L2-022, L2-026, L2-038, L2-039, L2-060, L2-061, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085 | [form-layout.md](form-layout.md) · [form-layout.html](form-layout.html) | [form-layout](../../design-system/components/form-layout.html) |
 | Gallery and viewer | `sh-gallery`, `sh-photo-viewer` | planned | 23 | L2-015, L2-016, L2-019, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085 | [gallery.md](gallery.md) · [gallery.html](gallery.html) | [gallery](../../design-system/components/gallery.html) |
-| Icon button | `sh-icon-button`, `sh-icon-button-anchor` | planned | 26 | L2-016, L2-029, L2-042, L2-043, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085 | [icon-button.md](icon-button.md) · [icon-button.html](icon-button.html) | [icon-button](../../design-system/components/icon-button.html) |
+| Icon button | `sh-icon-button`, `sh-icon-button-anchor` | planned | 27 | L2-016, L2-029, L2-042, L2-043, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085 | [icon-button.md](icon-button.md) · [icon-button.html](icon-button.html) | [icon-button](../../design-system/components/icon-button.html) |
 | Inbox row | `sh-inbox-row`, `sh-inbox-list` | planned | 21 | L2-029, L2-031, L2-036, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-072, L2-085 | [inbox-row.md](inbox-row.md) · [inbox-row.html](inbox-row.html) | [inbox-row](../../design-system/components/inbox-row.html) |
 | Inline message | `sh-field-message`, `sh-inline-status`, `sh-save-status` | planned | 15 | L2-012, L2-022, L2-024, L2-035, L2-038, L2-042, L2-064, L2-066, L2-068, L2-069 | [inline-message.md](inline-message.md) · [inline-message.html](inline-message.html) | [inline-message](../../design-system/components/inline-message.html) |
 | Link | `sh-link`, `sh-back-link` | planned | 22 | L2-018, L2-036, L2-045, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-070, L2-085 | [link.md](link.md) · [link.html](link.html) | [link](../../design-system/components/link.html) |
@@ -91,7 +94,7 @@ every component it affects.
 | Message thread | `sh-thread`, `sh-message-list`, `sh-message`, `sh-reply-box`, `sh-thread-placeholder` | planned | 29 | L2-032, L2-033, L2-035, L2-036, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-072, L2-080, L2-085 | [message.md](message.md) · [message.html](message.html) | [message](../../design-system/components/message.html) |
 | Pagination | `sh-pagination` | planned | 22 | L2-002, L2-003, L2-031, L2-036, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085, L2-091 | [pagination.md](pagination.md) · [pagination.html](pagination.html) | [pagination](../../design-system/components/pagination.html) |
 | Photo | `sh-photo`, `sh-photo-row` | planned | 19 | L2-006, L2-016, L2-042, L2-064, L2-066, L2-068, L2-069, L2-085, L2-091 | [photo.md](photo.md) · [photo.html](photo.html) | [photo](../../design-system/components/photo.html) |
-| Photo tile | `sh-photo-tile`, `sh-photo-manager` | planned | 21 | L2-039, L2-041, L2-042, L2-045, L2-047, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-091 | [photo-tile.md](photo-tile.md) · [photo-tile.html](photo-tile.html) | [photo-tile](../../design-system/components/photo-tile.html) |
+| Photo tile | `sh-photo-tile`, `sh-photo-manager` | planned | 23 | L2-039, L2-041, L2-042, L2-045, L2-047, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-091 | [photo-tile.md](photo-tile.md) · [photo-tile.html](photo-tile.html) | [photo-tile](../../design-system/components/photo-tile.html) |
 | Popover | `sh-popover` | planned | 17 | L2-008, L2-009, L2-011, L2-061, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085 | [popover.md](popover.md) · [popover.html](popover.html) | [popover](../../design-system/components/popover.html) |
 | Progress | `sh-progress`, `sh-meter` | planned | 19 | L2-038, L2-039, L2-041, L2-045, L2-064, L2-066, L2-067, L2-068, L2-069, L2-085, L2-091 | [progress.md](progress.md) · [progress.html](progress.html) | [progress](../../design-system/components/progress.html) |
 | Queue item | `sh-queue`, `sh-queue-item` | planned | 20 | L2-040, L2-044, L2-046, L2-047, L2-050, L2-055, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069 | [queue-item.md](queue-item.md) · [queue-item.html](queue-item.html) | [queue-item](../../design-system/components/queue-item.html) |
@@ -100,8 +103,8 @@ every component it affects.
 | Review | `sh-review`, `sh-review-list` | planned | 24 | L2-050, L2-051, L2-052, L2-053, L2-055, L2-059, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-080, L2-085 | [review.md](review.md) · [review.html](review.html) | [review](../../design-system/components/review.html) |
 | Select | `sh-select` | planned | 15 | L2-021, L2-022, L2-024, L2-060, L2-061, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085 | [select.md](select.md) · [select.html](select.html) | [select](../../design-system/components/select.html) |
 | Sheet | `sh-sheet` | planned | 20 | L2-009, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085 | [sheet.md](sheet.md) · [sheet.html](sheet.html) | [sheet](../../design-system/components/sheet.html) |
-| Side navigation | `sh-side-nav`, `sh-section-list` | planned | 23 | L2-038, L2-039, L2-045, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085 | [side-nav.md](side-nav.md) · [side-nav.html](side-nav.html) | [side-nav](../../design-system/components/side-nav.html) |
-| Site header | `sh-site-header` | planned | 25 | L2-013, L2-029, L2-046, L2-056, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085 | [site-header.md](site-header.md) · [site-header.html](site-header.html) | [site-header](../../design-system/components/site-header.html) |
+| Side navigation | `sh-side-nav`, `sh-section-list` | planned | 24 | L2-038, L2-039, L2-045, L2-056, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085 | [side-nav.md](side-nav.md) · [side-nav.html](side-nav.html) | [side-nav](../../design-system/components/side-nav.html) |
+| Site header | `sh-site-header` | planned | 26 | L2-013, L2-029, L2-046, L2-056, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085 | [site-header.md](site-header.md) · [site-header.html](site-header.html) | [site-header](../../design-system/components/site-header.html) |
 | Skeleton | `sh-skeleton`, `sh-loading-status` | planned | 17 | L2-005, L2-051, L2-061, L2-064, L2-066, L2-067, L2-068, L2-069, L2-085 | [skeleton.md](skeleton.md) · [skeleton.html](skeleton.html) | [skeleton](../../design-system/components/skeleton.html) |
 | Skip link | `sh-skip-link` | planned | 19 | L2-003, L2-064, L2-065, L2-066, L2-067, L2-069, L2-085 | [skip-link.md](skip-link.md) · [skip-link.html](skip-link.html) | [skip-link](../../design-system/components/skip-link.html) |
 | Spinner | `sh-spinner` | planned | 17 | L2-012, L2-016, L2-064, L2-066, L2-067, L2-068, L2-069, L2-077, L2-085 | [spinner.md](spinner.md) · [spinner.html](spinner.html) | [spinner](../../design-system/components/spinner.html) |

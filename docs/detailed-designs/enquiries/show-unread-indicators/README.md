@@ -12,7 +12,7 @@ Customers and caterers on Sweet Hand talk about events in enquiry threads. Email
 
 For a caterer, a newly received enquiry counts as an unread thread until the caterer opens it, because the original enquiry is an item from the other party. For a customer, a thread becomes unread when the caterer replies, declines, or shares contact details. This reading of "threads with unread messages" in `L2-029 AC1` is the design's interpretation of the specification.
 
-The badge appears on every page while the user is signed in. It shows the number, such as "2", and its accessible name reads "2 unread enquiries". When the count is zero no badge appears. The badge refreshes without a page reload so that a new message shows up within 60 seconds (`L2-029 AC3`).
+The badge appears on every page while the user is signed in. It shows the number, such as "2". The badge itself is hidden from assistive technology; the count is announced once, as part of the enquiries link's accessible name, "Enquiries, 2 unread" (`L2-029 AC1`). When the count is zero no badge appears. The badge refreshes without a page reload so that a new message shows up within 60 seconds (`L2-029 AC3`).
 
 ## Description
 
@@ -20,8 +20,8 @@ Technology choices for every component are `<TO SUPPLY>`, pending architecture d
 
 **Frontend — Sweet Hand web application**
 
-- **`SiteHeader`** — shared header. For a signed-in customer or caterer it renders `UnreadBadge` beside the inbox link.
-- **`UnreadBadge`** — renders the count. Its accessible name comes from the externalised string "{count} unread enquiries" (`L2-068 AC4`). It renders nothing when the count is zero (`L2-029 AC4`).
+- **`SiteHeader`** — shared header. For a signed-in customer or caterer it renders `UnreadBadge` inside the enquiries (or inbox) link and names the link with the count, for example "Enquiries, 2 unread" (`L2-029 AC1`).
+- **`UnreadBadge`** — renders the visible count with `aria-hidden="true"` and adds the link's spoken suffix from the externalised string ", {count} unread" (`L2-068 AC4`), so the link reads "Enquiries, 2 unread" and the number is not read twice. It renders nothing when the count is zero (`L2-029 AC4`).
 - **`UnreadCountPoller`** — asks for the count when a page loads and again at a fixed interval of 60 seconds or less. The exact interval, and whether a server push channel replaces polling, are `<TO SUPPLY>`. Polling pauses while the browser tab is hidden and resumes with an immediate request when it becomes visible.
 - **`InboxRow`** — row in the inbox (feature `enquiries/browse-inbox`). It shows the unread state with both a visual highlight and text, so colour is not the only signal (`L2-069 AC5`).
 - **`EnquiriesClient`** — API client contract: `getUnreadCount()`.

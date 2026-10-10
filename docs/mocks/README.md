@@ -265,13 +265,13 @@ everywhere else. Where the two disagree, the mock follows the design and the
 conflict is listed here for a decision; the affected L2 should be revised or
 the mock changed.
 
-1. **Round photos vs 4:3 (L2-005.5).** The design crops every listing photo to a
-   circle; L2-005.5 asks for a 4:3 photo filling ≥60% of the card. The mocks use
-   circles (the photo still fills well over 60% of the card height). *Decision
-   needed: amend L2-005.5 to "a 1:1 photo shown as a circle".*
-2. **Three columns at XL (L2-005.4).** The design shows 3 columns beside the filter
-   column at 1440px; L2-005.4 asks for 4 at XL. The mocks use 1 / 2 / 2 / 3 / 3
-   columns across XS / SM / MD / LG / XL. *Decision needed.*
+1. **Round photos (L2-005.5).** *Decided 10 Oct 2026:* listing photos are a 1:1
+   circle that fills at least 60% of the card height, as the design and the mocks
+   show. L2-005.5 was amended to match.
+2. **Three columns at XL (L2-005.4).** *Decided 10 Oct 2026:* the grid keeps 3
+   columns at XL beside the filter column, with the extra width going to white
+   space. The mocks use 1 / 2 / 2 / 3 / 3 columns across XS / SM / MD / LG / XL.
+   L2-005.4 was amended to match.
 3. **Cuisine on the card (L2-004).** The design shows name and area only; L2-004
    requires name, primary cuisine and primary area. The mocks follow L2-004 with one
    quiet line, "Jamaican · Pickering".
@@ -318,8 +318,10 @@ the mock changed.
     thread layout, read-only. It may need its own page.
 20. **Reporter identity for operators.** Operators see only "Signed-in customer" or
     "Visitor, not signed in". Confirm operators should not see the reporter's name.
-21. **Admin-only nav items.** Non-Admin operators still see Audit log and Operators in the
-    side nav and get `forbidden`. Hide them instead?
+21. **Admin-only nav items.** *Decided 10 Oct 2026:* non-Admin operators do not see
+    "Audit log" and "Operators" in the side nav; the server still returns `forbidden`
+    (HTTP 403) if they reach those routes. L2-056.5 was added to match. Any mock that
+    shows those items to a non-Admin operator is drift.
 22. **Retiring a cuisine** is treated as permanent; breach records are read-only once
     saved; operator invites expire after 24 hours. All three are assumptions.
 23. **Copy written where L2 gives none:** "This file isn't a JPEG, PNG, WebP or HEIC photo,

@@ -9,7 +9,7 @@ touch and keyboard.
 
 > **gallery** — photo area at the top of a caterer page, showing the caterer's photos with the cover photo first
 >
-> **cover photo** — the photo a caterer marks to represent the business on the listing card, as `og:image`, and first in the gallery
+> **cover photo** — the first photo in the caterer's order, which represents the business on the listing card, as `og:image`, and first in the gallery
 >
 > **caption** — 5 to 125 character description of a photo, written by the caterer and used as its text alternative
 >
@@ -57,15 +57,15 @@ Technology choices are `<TO SUPPLY>` pending architecture decision records in
   and the next and previous buttons to the next and previous photo
   (`L2-016 AC3`). Behaviour at the first and last photo (stop or wrap) is
   `<TO SUPPLY>`.
-- **`PhotoOrder`** — places the cover photo first and keeps the caterer's order
-  for the rest. With a caterer whose cover is already in position 1, the result
-  equals the stored order.
+- **`PhotoOrder`** — sorts photos by their stored position. The cover is
+  always the photo at position 1 (`L2-042 AC6`), so the result starts with the
+  cover and keeps the caterer's order for the rest.
 
 **Backend**
 
 - The gallery has no endpoint of its own. `GetCatererPageHandler` (see
   `view-caterer-page`) returns photos inside `PublicCatererView`, ordered by
-  position, each with caption, cover flag, and image sources at widths 400, 800,
+  position, each with caption, position, and image sources at widths 400, 800,
   1200 and 2000 built by `ImageUrlBuilder`. Processed derivatives are served from
   object storage through the CDN.
 

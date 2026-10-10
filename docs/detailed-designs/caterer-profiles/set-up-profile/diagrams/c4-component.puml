@@ -5,7 +5,7 @@ title Components — Set up a caterer profile
 
 Person(caterer, "Caterer", "Builds their profile")
 Container_Boundary(web, "Sweet Hand web application") {
-  Component(page, "ProfileEditorPage", "Page component", "Stacked sections on XS/SM, sidebar and preview on LG/XL")
+  Component(page, "ProfileEditorPage", "Page component", "Stacked sections on XS/SM, sidebar on LG/XL, card preview on XL only")
   Component(section, "ProfileSectionView", "Component", "Fields, labels, inline errors, Saved indicator")
   Component(autosave, "DraftAutosave", "Component", "Saves 2 s after typing stops or on blur")
   Component(checklist, "SetupChecklist", "Component", "Shows L2-039 rules as done or not done")

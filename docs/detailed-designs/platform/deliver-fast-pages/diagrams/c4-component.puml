@@ -9,7 +9,7 @@ System_Ext(obs, "Observability platform", "Metrics")
 Container_Boundary(web, "Sweet Hand web application") {
   Component(pages, "Listing and caterer pages", "<TO SUPPLY>", "Public page templates")
   Component(cache, "CachePolicy", "<TO SUPPLY>", "Cache-Control per asset kind")
-  Component(imgs, "ImageLoadingPolicy", "<TO SUPPLY>", "Eager first viewport, lazy below")
+  Component(imgs, "ImageLoadingPolicy", "<TO SUPPLY>", "Eager first viewport (2, 4 or 6 by viewport class), lazy below")
   Component(vitals, "WebVitalsReporter", "<TO SUPPLY>", "First-party LCP, INP, CLS beacon")
 }
 Container_Boundary(api, "Sweet Hand API") {

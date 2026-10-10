@@ -89,7 +89,6 @@ class Photo {
   +Guid Id
   +string Caption
   +int Position
-  +bool IsCover
 }
 
 class MenuItem {

@@ -37,9 +37,11 @@ Frontend (Sweet Hand web application):
 
 - **`ProfileEditorPage`** — the profile editor screen. On viewport XS and SM it
   shows sections as a stacked list that opens one section at a time (L2-045
-  AC2). On LG and XL it shows section navigation in a sidebar, the selected
-  section in the main area and a live `ListingCardPreview` (L2-045 AC3). It has
-  no horizontal scrolling at any viewport class.
+  AC2). On LG and XL it shows section navigation in a sidebar and the selected
+  section in the main area (L2-045 AC3). Only on XL does it add a live
+  `ListingCardPreview` beside the selected section (L2-045 AC4); at LG there
+  is no room for a third column. It has no horizontal scrolling at any
+  viewport class.
 - **`ProfileSectionView`** — renders one section's fields with visible labels,
   inline errors and the shared "Saved" indicator. Sections: business details
   (business name, description), cuisines, service areas, guest range,
@@ -77,7 +79,7 @@ Backend (Sweet Hand API):
   - `SetServiceAreas(selections)` — at least 1 area, exactly one primary
     (L2-010). A whole-region selection expands to every area in that region
     before storage (L2-010 AC3). Messages: "Choose at least one area you
-    serve", "Mark one area as primary".
+    serve", "Choose your primary area".
   - `SetGuestRange(min, max)` — through `GuestRange` (L2-020).
   - `SetOccasions(occasions)` — at least 1 value from `Occasion`
     (L2-021). Message: "Choose at least one occasion".

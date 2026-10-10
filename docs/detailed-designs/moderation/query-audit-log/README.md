@@ -27,7 +27,7 @@ in `docs/adr/`.
 
 **Frontend — Sweet Hand web application**
 
-- **`AuditLogPage`** — Admin-only screen. It shows filters for operator, action type, target and date range, and lists matching entries newest first (`L2-060` AC3). Times display in `America/Toronto`.
+- **`AuditLogPage`** — Admin-only screen. The operator navigation offers its "Audit log" item only to Admin operators (`L2-056` AC5; see `manage-operator-accounts`). It shows filters for operator, action type, target and date range, and lists matching entries newest first (`L2-060` AC3). Times display in `America/Toronto`.
 - **`AuditEntryDialog`** — dialog that shows one entry's reason and the values before and after.
 - **`AuditLogClient`** — API client contract the page depends on.
 

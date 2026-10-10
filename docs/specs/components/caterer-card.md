@@ -452,6 +452,8 @@ shimmer stops under reduced motion ([skeleton](skeleton.md)).
 - **AC-24** Given a 320 px viewport, when the edge-case listing renders, including "Trinidadian & Tobagonian · Whitchurch-Stouffville", then the line wraps, nothing is cut off except the clamped name, and the page does not scroll horizontally. (L2-064)
 - **AC-25** Given a 1280 px window at 200 % zoom, when listing page 1 renders, then every card's photo, name and line are visible and the page does not scroll horizontally. (L2-069)
 - **AC-26** Given a 360 px viewport, when Pelau House's card is measured, then its link's tap target is at least 44 × 44 CSS px and at least 8 px from the next card. (L2-065)
+- **AC-31** Given a viewport of 1440 px (XL), when listing page 1 renders, then cards appear in 3 columns, as at LG, and the extra width goes to white space around the grid rather than to a fourth column. (L2-005)
+- **AC-32** Given any viewport class, when a listing card renders, then its photo is a 1:1 circle: the `.photo` box has equal rendered width and height, a `--radius-full` border radius, and the image fills it with `object-fit: cover`. (L2-005)
 
 ### Motion
 
@@ -484,11 +486,9 @@ shimmer stops under reduced motion ([skeleton](skeleton.md)).
   viewport class (D-8); a card's own
   `loading` input wins.
 - No CDK primitive is needed.
-- Upstream follow-ups decided by the user (D-3, D-4): L2-005.4 (4 columns at
-  XL) and L2-005.5 (4:3 photo) are to be amended through
-  `engineering-requirements`, and the browse-listing detailed design (4:3
-  photo box, 4 columns at XL, its `sizes` attribute) follows. When they land,
-  add criteria for 3 columns at XL and the 1:1 photo here.
+- L2-005.4 (3 columns at XL) and L2-005.5 (round 1:1 photo) were amended on
+  10 Oct 2026 to match D-3 and D-4, and the browse-listing detailed design
+  follows them; AC-31 and AC-32 cover them.
 - Server rendering: the app may pass `viewport` from a viewport client hint
   (`Sec-CH-Viewport-Width`); without one the grid renders the XS eager count,
   which keeps every eager image inside the first viewport at any width.
@@ -497,8 +497,8 @@ shimmer stops under reduced motion ([skeleton](skeleton.md)).
 
 - **D-1** *Which framework does this API target?* Framework-neutral inputs, outputs and slots with the `sh-` prefix, because no stack ADR exists yet. The class names and attributes in *Markup* are the binding contract whatever the stack (AGENTS.md: BEM parity with the mocks).
 - **D-2** *Does this component own the grid?* Yes, as `sh-caterer-grid`. The design-system page defines `.caterer-grid` and `.occasion-grid` with the card, the skeleton class sits on the grid's `li`, and L2-005 governs columns and photo size together, so splitting them would put one requirement in two places.
-- **D-3** *How many columns at XL?* Three, as at LG. L2-005.4 asks for 4, but the reference design, the mocks and the design system show 3 beside the filter column at 1440 px (mocks README, question 2). The user decided on 10 October 2026 to keep 3 columns at XL, as in the design system; L2-005.4 will be amended later through `engineering-requirements`. Until it is, this CRD has no criterion for XL columns, so no criterion contradicts the current L2 text.
-- **D-4** *4:3 photo or circle?* The 1:1 circle. L2-005.5 asks for a 4:3 photo filling at least 60 % of the card; the design, the mocks and [photo](photo.md) use a circle, which still fills well over 60 % (mocks README, question 1). The user decided on 10 October 2026 to keep the round 1:1 photo; L2-005.5 and the browse-listing design will be amended later. The rule that the photo fills at least 60 % of the card's height stays (AC-23).
+- **D-3** *How many columns at XL?* Three, as at LG. L2-005.4 asked for 4, but the reference design, the mocks and the design system show 3 beside the filter column at 1440 px (mocks README, question 2). The user decided on 10 October 2026 to keep 3 columns at XL, as in the design system, and L2-005.4 was amended on 10 Oct 2026 to match (AC-31).
+- **D-4** *4:3 photo or circle?* The 1:1 circle. L2-005.5 asked for a 4:3 photo filling at least 60 % of the card; the design, the mocks and [photo](photo.md) use a circle, which still fills well over 60 % (mocks README, question 1). The user decided on 10 October 2026 to keep the round 1:1 photo, and L2-005.5 was amended on 10 Oct 2026 to match (AC-32). The rule that the photo fills at least 60 % of the card's height stays (AC-23).
 - **D-5** *How many images load eagerly?* As many as the first viewport holds, per viewport class: 2 on XS, 4 on SM and MD, 6 from LG; every other image is lazy. The user decided this on 10 October 2026. It meets L2-006.3 (only first-viewport images are eager) at every width and L2-085.3 (at most 6 images before `load`); the design system's fixed "first six" applied only to the 3-column layout.
 - **D-6** *When is a card not a link?* When it previews something a visitor cannot see yet: a draft (Auntie Bev's Kitchen) or the "Live preview" of unsaved edits. Linking would open a page that does not match the card. The dashboard's preview of a published, saved profile links to the caterer's own public page, as the mocks do.
 - **D-7** *What is in the link's accessible name when the image fails?* The failed label, then the name and line ("Photo unavailable, Salt Pond Provisions, …"). The photo component's rule is that inside a link the parent's name carries it, and the label is visible text, so it stays in the name rather than being hidden.

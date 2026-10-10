@@ -9,7 +9,7 @@ photo, from a phone as easily as from a desktop.
 
 **photo manager** — screen in which a caterer manages their photos
 
-**cover photo** — the one photo shown on the listing card and used as the `og:image` link preview
+**cover photo** — the first photo in the caterer's order, shown on the listing card and used as the `og:image` link preview
 
 **caption** — caterer-written description of a photo, 5 to 125 characters, used as the image's text alternative
 
@@ -37,17 +37,19 @@ architecture decision records in `docs/adr/`.
 Frontend (Sweet Hand web application):
 
 - **`PhotoManagerPage`** — screen listing the caterer's photos in order with
-  their captions and processing state. On viewport XS it offers upload from the
-  device camera or photo library, "Move up" and "Move down" controls and a
-  "Set as cover" control, with no horizontal scrolling (L2-045 AC1). Wider
-  viewports add drag-and-drop reordering alongside the same controls
-  (L2-042 AC1). At 30 photos the upload control is disabled with "You can have
-  up to 30 photos" (L2-042 AC5).
+  their captions and processing state. The first photo carries the "Cover"
+  tag. On every viewport it offers upload from the device camera or photo
+  library and "Move up" and "Move down" controls, with no horizontal scrolling
+  (L2-045 AC1). Reordering uses those buttons only and never depends on
+  dragging; no viewport offers drag-and-drop (L2-042 AC1). Moving a photo to
+  position 1 makes it the cover. At 30 photos the upload control is disabled
+  with "You can have up to 30 photos" (L2-042 AC5).
 - **`PhotoDetailsDialog`** — accessible dialog opened from a photo, with the
-  caption field and the "Replace", "Remove" and "Set as cover" actions.
-  Editing never happens inline on the page.
+  caption field, the "Use as cover photo" option and the "Replace" and
+  "Remove" actions. Saving with "Use as cover photo" ticked moves that photo
+  to position 1 (L2-042 AC6). Editing never happens inline on the page.
 - **`PhotosClient`** — API client contract: `upload(file)`,
-  `replace(photoId, file)`, `update(photoId, caption, isCover)`,
+  `replace(photoId, file)`, `update(photoId, caption, useAsCover)`,
   `reorder(photoIds)`, `remove(photoId)`, `list()`.
 
 Backend (Sweet Hand API):
@@ -66,18 +68,22 @@ Backend (Sweet Hand API):
   `Photo` as a pending replacement and queues processing. The photo keeps its
   position and caption (L2-042 AC2).
 - **`UpdatePhotoHandler`** — sets the caption ("Captions describe the photo in
-  5–125 characters", L2-042 AC3) or the cover flag. Exactly one photo is the
-  cover.
+  5–125 characters", L2-042 AC3). With `useAsCover` it moves the photo to
+  position 1 and shifts the photos before it down one place, keeping their
+  order (L2-042 AC6). There is no separate cover flag: the cover is always the
+  photo at position 1, so order and cover cannot disagree.
 - **`ReorderPhotosHandler`** — saves a full ordering of the profile's photo ids
   (L2-042 AC1).
 - **`RemovePhotoHandler`** — removes a photo and deletes its files. A
   `Published` profile with exactly 3 photos blocks removal with "Published
   profiles need at least 3 photos" (L2-042 AC4).
 - **`CatererProfile`** (photo methods) — `AddPhoto`, `ReplacePhoto`,
-  `SetCaption`, `SetCover`, `Reorder`, `RemovePhoto`. The aggregate enforces the
-  30-photo maximum, the single cover and the published minimum.
-- **`Photo`** — entity: `id`, `position`, `caption`, `isCover`,
-  `processingState`, `originalKey`, `derivativeKeys`, `pendingReplacementKey`.
+  `SetCaption`, `SetCover` (moves a photo to position 1), `Reorder`,
+  `RemovePhoto`, and the derived `Cover` (the photo at position 1). The
+  aggregate enforces the 30-photo maximum, contiguous positions and the
+  published minimum.
+- **`Photo`** — entity: `id`, `position`, `caption`, `processingState`,
+  `originalKey`, `derivativeKeys`, `pendingReplacementKey`.
 
 Background worker:
 
@@ -100,7 +106,8 @@ Background worker:
   retried. The photo stays `Processing` and becomes `Ready` automatically once
   processing recovers (L2-091 AC2). The image processing queue depth is a
   monitored metric (L2-089 AC2).
-- A cover change, replacement or removal on a `Published` profile purges the
+- A cover change (by "Use as cover photo" or by a reorder that changes
+  position 1), replacement or removal on a `Published` profile purges the
   affected public pages from the CDN. The listing card and `og:image` show the
   new cover within 60 seconds (L2-042 AC6).
 
@@ -110,8 +117,6 @@ Open points:
   submission (L2-039) and for the published minimum (L2-042 AC4) is
   `<TO SUPPLY>`.
 - The retry schedule for `ProcessPhotoJob` while image processing is down is
-  `<TO SUPPLY>`.
-- Which photo becomes the cover when the caterer removes the current cover is
   `<TO SUPPLY>`.
 - Whether the image processor runs inside the background worker or as a
   separate service is `<TO SUPPLY>` pending an ADR.
@@ -175,9 +180,10 @@ down, the photo waits in `Processing` and is published once it recovers.
 
 ### Behaviour — caption, reorder and set the cover
 
-Caption, order and cover changes are small owner-scoped updates. A cover change
-on a published profile reaches the listing card and `og:image` within 60
-seconds.
+Caption, order and cover changes are small owner-scoped updates. Reordering
+uses "Move up" and "Move down" only. "Use as cover photo" moves the photo to
+position 1, and a cover change on a published profile reaches the listing card
+and `og:image` within 60 seconds.
 
 ![Sequence diagram for captioning, reordering and setting the cover](diagrams/sequence-arrange-photos.png)
 

@@ -5,7 +5,7 @@ title Components — Show unread indicators
 
 Container_Boundary(web, "Sweet Hand web application") {
   Component(header, "SiteHeader", "<TO SUPPLY>", "Shared header")
-  Component(badge, "UnreadBadge", "<TO SUPPLY>", "Count with accessible name")
+  Component(badge, "UnreadBadge", "<TO SUPPLY>", "Visible count, hidden from assistive tech; names the link 'Enquiries, n unread'")
   Component(poller, "UnreadCountPoller", "<TO SUPPLY>", "Refreshes count")
   Component(row, "InboxRow", "<TO SUPPLY>", "Highlights unread threads")
   Component(client, "EnquiriesClient", "<TO SUPPLY>", "API client contract")

@@ -30,8 +30,8 @@ architecture decision records in `docs/adr/`.
 Frontend (Sweet Hand web application):
 
 - **`MenuManagerPage`** — screen listing the caterer's dishes in order, with
-  "Move up" and "Move down" controls on every viewport and drag-and-drop on
-  wider viewports. It works at viewport XS without horizontal scrolling
+  "Move up" and "Move down" controls on every viewport; reordering never
+  depends on dragging, the same rule as photos (L2-042 AC1). It works at viewport XS without horizontal scrolling
   (L2-045). At 50 dishes the "Add dish" control is disabled with "You can list
   up to 50 dishes" (L2-043 AC3).
 - **`MenuItemDialog`** — accessible dialog for adding or editing a dish: name,

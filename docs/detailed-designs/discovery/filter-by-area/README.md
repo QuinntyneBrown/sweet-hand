@@ -76,7 +76,7 @@ explicit command:
   `ServiceArea` with an `isPrimary` flag.
 - **`ServiceAreaRules`** — domain rules the profile editor calls on save. At
   least one area is required ("Choose at least one area you serve",
-  `L2-010 AC2`). Exactly one area is primary ("Mark one area as primary",
+  `L2-010 AC2`). Exactly one area is primary ("Choose your primary area",
   `L2-010 AC4`). A region selection expands to every area in that region before
   it is stored (`L2-010 AC3`).
 - **`ListingFilter`** — expands each selected region into its areas, unions

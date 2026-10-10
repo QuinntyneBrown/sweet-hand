@@ -38,7 +38,7 @@ Out of scope:
 - The error summary at the top of a form (`.form-summary`) and moving focus to
   it: [form layout](form-layout.md). The checkbox only exposes `inputId` so a
   summary link can reach a box.
-- The phone filter sheet, the tablet filter dropdown and their "Apply" /
+- The phone filter sheet, the tablet filter dropdown and their "Show 2 caterers" /
   "Clear" buttons: [sheet](sheet.md) and [filter trigger](filter-trigger.md)
   host checkbox groups; result counts and their live announcement belong to
   the page.

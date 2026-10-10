@@ -13,7 +13,7 @@ Container_Boundary(web, "Sweet Hand web application") {
   Component(grid, "GalleryLeadWithGrid", "Layout (LG-XL)", "Lead photo and up to 4 thumbnails")
   Component(viewer, "PhotoViewerDialog", "Dialog", "Full screen, caption, position, focus trap")
   Component(nav, "ViewerNavigation", "Component", "Arrow keys, swipes, buttons")
-  Component(order, "PhotoOrder", "Component", "Cover first, then caterer order")
+  Component(order, "PhotoOrder", "Component", "Caterer order by position; position 1 is the cover")
 }
 Container_Boundary(api, "Sweet Hand API") {
   Component(handler, "GetCatererPageHandler", "Query handler", "Returns ordered PublicPhotoView list")

@@ -27,7 +27,7 @@ handler --> endpoints : PublicCatererView with photos by position
 endpoints --> client : HTTP 200 JSON
 client --> page : View
 page -> gallery : Render photos
-gallery -> order : Cover first, then caterer order (L2-016 AC1)
+gallery -> order : Caterer order by position; position 1 is the cover (L2-016 AC1)
 order --> gallery : Ordered photos
 gallery -> gallery : Choose layout by viewport class (L2-019 AC1-AC3)
 gallery --> actor : Gallery shown

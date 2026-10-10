@@ -6,6 +6,7 @@ title Components — Manage operator accounts
 Person(admin, "Admin operator", "Manages operators")
 Person(operator, "Operator", "Signs in with a second factor")
 Container_Boundary(web, "Sweet Hand web application") {
+  Component(nav, "OperatorNavigation", "App shell navigation", "Shows Audit log and Operators to Admin operators only")
   Component(accountsPage, "OperatorAccountsPage", "Page", "Operator list")
   Component(dialogs, "CreateOperatorDialog / DeactivateOperatorDialog", "Dialogs", "Create and deactivate")
   Component(mfaScreens, "MfaEnrolmentScreen / MfaChallengeScreen", "Pages", "Enrol and verify factors")
@@ -25,6 +26,8 @@ Container_Boundary(api, "Sweet Hand API") {
 ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, sessions, audit log")
 
 Rel(admin, accountsPage, "Uses", "HTTPS")
+Rel(operator, nav, "Sees items for their permissions")
+Rel(nav, accountsPage, "Links, for Admin operators only")
 Rel(operator, mfaScreens, "Uses", "HTTPS")
 Rel(accountsPage, dialogs, "Opens")
 Rel(dialogs, clients, "create / deactivate")

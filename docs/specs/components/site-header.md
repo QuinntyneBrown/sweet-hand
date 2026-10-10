@@ -506,6 +506,7 @@ Colour and fill transitions use `--duration-fast`, which
 ### Screen readers
 
 - **AC-17** Given Kendra at 360 px with 2 unread enquiries, when the enquiries shortcut is inspected, then it is a link named "Enquiries, 2 unread", its icon and its visual badge are `aria-hidden="true"`, and the Menu button is named "Menu". (L2-068)
+- **AC-26** Given Kendra has 2 threads with unread messages, when any page loads at 360 px while she is signed in, then the header's enquiries shortcut shows a badge reading "2" that is hidden from assistive technology, and the link's accessible name is "Enquiries, 2 unread". (L2-029)
 - **AC-18** Given the visitor, customer, caterer, operator and minimal headers at XS and XL, with and without an open account menu, when axe-core runs, then it reports 0 violations. (L2-066)
 
 ### Theming
@@ -544,8 +545,8 @@ Colour and fill transitions use `--duration-fast`, which
   `@media (max-width: 47.99rem) { .site-nav { gap: var(--space-2); } }`.
 - Design-system catch-up for D-7: change the tag's breakpoint from
   `max-width: 22.49rem` to `max-width: 23.99rem`.
-- L2 catch-up for D-3: L2-029.1 is to be amended (the user's decision of
-  10 Oct 2026) so the phone shortcut's name "Enquiries, 2 unread" satisfies it.
+- L2-029.1 was amended on 10 Oct 2026 to match D-3: the phone shortcut is
+  named "Enquiries, 2 unread" with the badge hidden (AC-26).
 - Design-system catch-up for D-13: add `a.icon-btn:not([aria-current="page"]):hover
   { color: var(--color-fg-default); }` to the icon-button rules, so the
   generic `a:hover` link colour does not turn the envelope pepper.
@@ -559,7 +560,7 @@ Colour and fill transitions use `--duration-fast`, which
 
 - **D-1** *Which framework does this API target?* Framework-neutral inputs, outputs and slots with the `sh-` prefix, because no stack ADR exists yet. The class names and attributes in *Markup* are the binding contract whatever the stack (AGENTS.md: BEM parity with the mocks).
 - **D-2** *How far apart are the header's targets on a phone?* At least 8 px (`--space-2`) below 48rem, the user's decision of 10 Oct 2026: L2-065.1 wins over the design system's 4 px (`--space-1`), and the design system will be updated. The widest row still fits at 320 px (308 px with the left margin). From 48rem the 4 px gap stays; L2-065.1 does not apply there.
-- **D-3** *What is the phone inbox shortcut called?* "Inbox, 1 unread" / "Enquiries, 2 unread", with the visual badge `aria-hidden`, as the design system names it: the user's decision of 10 Oct 2026. L2-029.1 (badge named "2 unread enquiries") is to be amended. The text link from 48rem follows [badge](badge.md) D-3 and D-4 (D-15).
+- **D-3** *What is the phone inbox shortcut called?* "Inbox, 1 unread" / "Enquiries, 2 unread", with the visual badge `aria-hidden`, as the design system names it: the user's decision of 10 Oct 2026. L2-029.1 was amended on 10 Oct 2026 to match (AC-26). The text link from 48rem follows [badge](badge.md) D-3 and D-4 (D-15).
 - **D-4** *Is the wordmark-only header a variant?* Yes, `minimal`. Eight mocks (two-factor, privacy update, expired session) show only the wordmark: these are mid-authentication steps where offering Queue, Inbox or Dashboard would lead to a page the person cannot open yet (L2-056.2).
 - **D-5** *Where does a customer's unread count go on a phone?* On the envelope shortcut, not on the Menu button. One mock (`caterers/signed-in`) put it on Menu; the design system gives customers and caterers the shortcut so the inbox is one tap away, and the caterer header gains the Menu button it lacked so "My page" is reachable below 48rem.
 - **D-6** *When does a caterer's header show "My page"?* Only when the profile is Published. The mocks show it for Beverley's draft on some pages and not others; a draft has no public page (L2-046), so the link would lead to "not found". The shell leaves it out of `links`.

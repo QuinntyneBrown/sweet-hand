@@ -54,7 +54,7 @@ alt Remove
     client --> page : Dish removed, positions closed up
   end
 else Reorder
-  actor -> page : Move up, Move down, or drag
+  actor -> page : Move up or Move down
   page -> client : reorder(orderedIds)
   client -> endpoints : PUT /caterer/profile/menu-items/order
   endpoints -> handler : ReorderMenuItemsCommand
