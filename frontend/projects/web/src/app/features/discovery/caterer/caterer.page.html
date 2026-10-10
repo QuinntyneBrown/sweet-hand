@@ -3,6 +3,18 @@
 @if (view(); as c) {
   <div class="caterer-layout">
     <div>
+      <sh-gallery
+        [photos]="c.photos"
+        label="Photos"
+        i18n-label="@@gallery.label"
+        [openLabel]="openPhotoLabel"
+        [moreLabel]="morePhotosLabel"
+        failedSuffix=" (did not load)"
+        i18n-failedSuffix="@@gallery.failedSuffix"
+        failedLabel="Photo unavailable"
+        i18n-failedLabel="@@photo.unavailable"
+      />
+
       <div class="caterer-head">
         <h1>{{ c.name }}</h1>
         <ul class="caterer-head__meta">

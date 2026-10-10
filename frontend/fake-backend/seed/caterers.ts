@@ -230,5 +230,27 @@ export function seedCaterers(): Caterer[] {
     businessEmail: 'hello@pelauhouse.example',
     businessPhone: '+1 416 555 0142',
   });
+  applyCatererPageCast(all);
   return all;
+}
+
+// ---------------------------------------------------------------------------
+// Caterer page cast (docs/mocks/README.md, "Other caterer accounts")
+// ---------------------------------------------------------------------------
+
+const MARACAS_DISHES = [
+  'Curry duck', 'Curry crab and dumpling', 'Buss up shut', 'Dhalpuri roti', 'Curry channa and aloo', 'Pumpkin talkari', 'Bodi and aloo', 'Curry mango',
+  'Kurma', 'Sahina', 'Pholourie', 'Aloo pie', 'Doubles', 'Corn soup', 'Callaloo', 'Macaroni pie', 'Stewed chicken', 'Pelau', 'Bake and shark',
+  'Accra', 'Fried bake', 'Saltfish buljol', 'Smoked herring', 'Coconut bake', 'Sada roti', 'Baigan choka', 'Tomato choka', 'Curry goat',
+  'Oil down', 'Stewed oxtail', 'Geera pork', 'Geera chicken', 'Chow mein', 'Fried rice', 'Paw paw chow', 'Mango chow', 'Pineapple chow',
+  'Kuchela', 'Tamarind sauce', 'Pepper sauce', 'Sorrel', 'Mauby', 'Peanut punch', 'Sweet bread', 'Black cake', 'Coconut drops', 'Tamarind balls',
+  'Toolum', 'Pone', 'Red mango',
+];
+
+function applyCatererPageCast(all: Caterer[]): void {
+  // Vishnu Ramlogan's Maracas Bay: the "full" example, 30 photos and 50 dishes.
+  const maracas = all.find((c) => c.slug === 'maracas-bay')!;
+  const files = [maracas.photos[0], ...CATALOG.filter(([, file]) => file !== 'maracas-bay').map(([, file, , , caption]) => ({ file: `${file}.jpg`, caption }))].slice(0, 30);
+  maracas.photos = files.map((p, j) => ({ id: `maracas-bay-photo-${j + 1}`, file: p.file, caption: p.caption }));
+  maracas.dishes = MARACAS_DISHES.map((name, j) => ({ id: `maracas-bay-dish-${j + 1}`, name, tags: j % 3 === 0 ? ['vegan'] : [], price: j % 4 === 0 ? 'From $14 per person' : undefined }));
 }

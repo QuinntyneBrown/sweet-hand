@@ -149,4 +149,60 @@ test.describe('Caterer page', () => {
     await expect(caterer.areasIn('City of Toronto')).toHaveText('Scarborough, East York, North York');
     await expect(caterer.areasIn('Durham')).toHaveText('Pickering, Ajax');
   });
+
+  test('L2-016.1 L2-019.3: on a desktop the gallery shows the cover as the lead beside a grid of four, in the caterer\'s order', async ({ page }) => {
+    const caterer = new CatererPage(page);
+
+    await caterer.open('pelau-house');
+
+    await expect(caterer.galleryButtons).toHaveCount(6);
+    await expect(caterer.galleryPhoto(1)).toHaveAccessibleName('Open photo 1 of 6: Chicken pelau in a steel pot with lime and cucumber chutney');
+    await expect(caterer.galleryPhoto(2)).toHaveAccessibleName('Open photo 2 of 6: Curry chicken with rice and buss up shut in a steel karahi');
+    await expect(caterer.galleryPhoto(3)).toHaveAccessibleName('Open photo 3 of 6: Spiced rice lifted from a blue cast-iron pot');
+    await expect(caterer.galleryPhoto(2)).toHaveAttribute('aria-haspopup', 'dialog');
+    await expect(caterer.galleryImage(2)).toHaveAttribute('alt', '');
+    await expect(caterer.galleryImage(1)).not.toHaveAttribute('loading');
+    await expect(caterer.galleryImage(6)).toHaveAttribute('loading', 'lazy');
+    expect(await caterer.galleryLayout()).toBe('lead-grid');
+    await expect(caterer.visibleGalleryButtons).toHaveCount(5);
+    await expect(caterer.galleryMore).toHaveText('+1 photo');
+    await expect(caterer.galleryPhoto(5)).toHaveAccessibleName('Open photo 5 of 6: Rum-soaked black cake dusted with icing sugar, 1 more photo in the viewer');
+    await caterer.expectNoAccessibilityViolations();
+  });
+
+  test('L2-019.1: on a phone the gallery is a swipeable carousel with a dot per photo and the page does not scroll sideways', async ({ page }) => {
+    const caterer = new CatererPage(page);
+    await caterer.usePhone();
+
+    await caterer.open('pelau-house');
+
+    expect(await caterer.galleryLayout()).toBe('carousel');
+    expect(await caterer.galleryScrollsSideways()).toBe(true);
+    await expect(caterer.galleryDots).toHaveCount(6);
+    await expect(caterer.currentGalleryDot).toHaveCount(1);
+    await expect(caterer.galleryDots.first()).toHaveAttribute('aria-current', 'true');
+    await caterer.expectNoHorizontalScroll();
+  });
+
+  test('L2-019.2: on a tablet the gallery is a lead photo above a strip of thumbnails', async ({ page }) => {
+    const caterer = new CatererPage(page);
+    await caterer.useTablet();
+
+    await caterer.open('pelau-house');
+
+    expect(await caterer.galleryLayout()).toBe('lead-strip');
+    expect(await caterer.leadPhotoWidth()).toBeLessThanOrEqual(384);
+    await expect(caterer.visibleGalleryButtons).toHaveCount(6);
+    await expect(caterer.galleryDots.first()).toBeHidden();
+  });
+
+  test('gallery AC-4: with 30 photos the last visible thumbnail says how many more there are', async ({ page }) => {
+    const caterer = new CatererPage(page);
+
+    await caterer.open('maracas-bay');
+
+    await expect(caterer.galleryButtons).toHaveCount(30);
+    await expect(caterer.galleryMore).toHaveText('+25 photos');
+    await expect(caterer.galleryPhoto(5)).toHaveAccessibleName(/^Open photo 5 of 30: .+, 25 more photos in the viewer$/);
+  });
 });

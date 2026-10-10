@@ -107,6 +107,68 @@ export class CatererPage extends BasePage {
     return this.fact(this.areasServed.locator('dl.regions'), region);
   }
 
+  /** Switch to a tablet-sized viewport (MD). */
+  async useTablet() {
+    await this.page.setViewportSize({ width: 800, height: 900 });
+  }
+
+  get gallery() {
+    return this.main.getByRole('region', { name: 'Photos' });
+  }
+
+  /** Every photo button, in order, including any the layout hides. */
+  get galleryButtons() {
+    return this.main.locator('.gallery .gallery__btn');
+  }
+
+  get visibleGalleryButtons() {
+    return this.galleryButtons.filter({ visible: true });
+  }
+
+  galleryPhoto(n: number) {
+    return this.galleryButtons.nth(n - 1);
+  }
+
+  galleryImage(n: number) {
+    return this.galleryPhoto(n).locator('img');
+  }
+
+  galleryPhotoLabel(n: number) {
+    return this.galleryPhoto(n).locator('.photo__label');
+  }
+
+  /** The "+25 photos" scrim the layout shows on its last visible thumbnail. */
+  get galleryMore() {
+    return this.main.locator('.gallery .gallery__more').filter({ visible: true });
+  }
+
+  get galleryDots() {
+    return this.main.locator('.gallery__dots > span');
+  }
+
+  get currentGalleryDot() {
+    return this.main.locator('.gallery__dots > span[aria-current="true"]');
+  }
+
+  /** Which of the three gallery layouts is showing: carousel (XS), lead + strip (SM–MD) or lead + grid (LG–XL). */
+  async galleryLayout(): Promise<'carousel' | 'lead-strip' | 'lead-grid'> {
+    return this.main.locator('.gallery__track').evaluate((track) => {
+      const style = getComputedStyle(track);
+      if (style.display === 'flex') return 'carousel';
+      return style.gridTemplateColumns.split(' ').length === 5 ? 'lead-strip' : 'lead-grid';
+    });
+  }
+
+  /** Width in CSS pixels of the lead photo. */
+  async leadPhotoWidth(): Promise<number> {
+    return (await this.galleryPhoto(1).boundingBox())?.width ?? 0;
+  }
+
+  /** The carousel scrolls sideways inside itself. */
+  async galleryScrollsSideways(): Promise<boolean> {
+    return this.main.locator('.gallery__track').evaluate((track) => track.scrollWidth > track.clientWidth && getComputedStyle(track).overflowX === 'auto');
+  }
+
   metaContent(name: string) {
     return this.page.locator(`head meta[name="${name}"], head meta[property="${name}"]`);
   }
