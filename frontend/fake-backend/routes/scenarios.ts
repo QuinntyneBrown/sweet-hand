@@ -4,6 +4,7 @@ import { catererProfileScenarios } from './caterer-profile.ts';
 import { catererPageScenarios } from './discovery.ts';
 import { enquiriesScenarios } from './enquiries.ts';
 import { operatorScenarios } from './operator.ts';
+import { operatorSettingsScenarios } from './operator-settings.ts';
 import { reportsScenarios } from './reports.ts';
 import { reviewsScenarios } from './reviews.ts';
 
@@ -29,6 +30,7 @@ const ALL: Record<string, (store: Store, args: any) => unknown> = {
   ...catererPageScenarios,
   ...enquiriesScenarios,
   ...operatorScenarios,
+  ...operatorSettingsScenarios,
   ...reportsScenarios,
   ...reviewsScenarios,
 };

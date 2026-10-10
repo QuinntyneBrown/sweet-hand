@@ -6,6 +6,7 @@ import { registerDiscovery } from './discovery.ts';
 import { registerEnquiries } from './enquiries.ts';
 import { registerIdentity } from './identity.ts';
 import { registerOperator } from './operator.ts';
+import { registerOperatorSettings } from './operator-settings.ts';
 import { registerReports } from './reports.ts';
 import { registerReviews } from './reviews.ts';
 import { registerSession } from './session.ts';
@@ -21,4 +22,5 @@ export function registerRoutes(r: Router<Store>): void {
   registerReports(r);
   registerCatererProfile(r);
   registerOperator(r);
+  registerOperatorSettings(r);
 }
