@@ -108,6 +108,41 @@ export function catererFilteredSubtitle(filter: InboxFilter, total: number, unre
   return `${status} · ${$localize`:@@inbox.unreadCount:${count(unread)}:count: unread`}`;
 }
 
+/** The no-results state for a status filter (inbox and enquiries mocks, `no-results`). */
+export function noResults(filter: InboxFilter, viewer: Party): { heading: string; text: string } {
+  const customer = viewer === 'customer';
+  switch (filter) {
+    case 'open':
+      return {
+        heading: $localize`:@@inbox.noOpen:No open enquiries`,
+        text: customer
+          ? $localize`:@@inbox.noOpenText:Enquiries waiting for a caterer’s first reply show here.`
+          : $localize`:@@enquiries.noOpenText:New enquiries waiting for your first reply show here.`,
+      };
+    case 'replied':
+      return {
+        heading: $localize`:@@inbox.noReplied:No replied enquiries`,
+        text: customer
+          ? $localize`:@@inbox.noRepliedText:Enquiries a caterer has answered show here.`
+          : $localize`:@@enquiries.noRepliedText:Enquiries you’ve answered show here.`,
+      };
+    case 'declined':
+      return {
+        heading: $localize`:@@inbox.noDeclined:No declined enquiries`,
+        text: customer
+          ? $localize`:@@inbox.noDeclinedText:Enquiries a caterer couldn’t take on show here.`
+          : $localize`:@@enquiries.noDeclinedText:Enquiries you couldn’t take on show here.`,
+      };
+    default:
+      return {
+        heading: $localize`:@@inbox.noClosed:No closed enquiries`,
+        text: customer
+          ? $localize`:@@inbox.noClosedText:Enquiries close when you or the caterer close them, or 30 days after the event.`
+          : $localize`:@@enquiries.noClosedText:Enquiries close when you or the customer close them, or 30 days after the event.`,
+      };
+  }
+}
+
 /** "Showing 1–20 of 25" */
 export function pageSummary(page: number, pageSize: number, total: number): string {
   const from = count((page - 1) * pageSize + 1);

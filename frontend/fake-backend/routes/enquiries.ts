@@ -349,6 +349,15 @@ export const enquiriesScenarios: Record<string, (store: Store, args: any) => unk
     if (args.from === 'caterer' && e.status === 'Open') e.status = 'Replied';
   },
 
+  /** Moves an enquiry to a status as if it happened elsewhere (another tab, the other party, the daily job). */
+  'set-status': (store, args: { customer?: string; caterer: string; status: EnquiryStatus }) => {
+    const e = find(store, args);
+    if (args.status === 'Closed') push(store, e, { kind: 'closed', by: 'customer' });
+    if (args.status === 'Declined') push(store, e, { kind: 'declined', by: 'caterer', note: null });
+    if (args.status === 'Replied') push(store, e, { kind: 'reply', by: 'caterer', text: 'Thanks for asking! Yes, we can do that.' });
+    e.status = args.status;
+  },
+
   'set-event-date': (store, args: { customer?: string; caterer: string; date: string }) => {
     find(store, args).eventDate = args.date;
   },

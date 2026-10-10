@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, input, viewChildren } from '@angular/core';
-import { InboxList, InboxRow, Segmented, type InboxRowPicture, type SegmentedItem } from '@sweet-hand/components';
+import { RouterLink } from '@angular/router';
+import { EMPTY_STATE, Icon, InboxList, InboxRow, Pagination, Segmented, type InboxRowPicture, type SegmentedItem } from '@sweet-hand/components';
 import type { InboxFilter, InboxPageView, InboxRowView, Party } from '../../../core/api/enquiries.models';
-import { FILTERS, activityTime, rowName, rowSummary, statusLabel, statusTone } from '../enquiry-text';
+import { FILTERS, activityTime, noResults, pageSummary, rowName, rowSummary, statusLabel, statusTone } from '../enquiry-text';
 
 /**
  * The status filter and rows of an inbox, for customers (/inbox) and caterers
@@ -9,11 +10,19 @@ import { FILTERS, activityTime, rowName, rowSummary, statusLabel, statusTone } f
  */
 @Component({
   selector: 'app-enquiry-list',
-  imports: [InboxList, InboxRow, Segmented],
+  imports: [RouterLink, EMPTY_STATE, Icon, InboxList, InboxRow, Pagination, Segmented],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
   template: `
     <sh-segmented ariaLabel="Filter by status" i18n-ariaLabel="@@inbox.filterLabel" [items]="filterItems()" [selected]="filter() ?? 'all'" [loading]="!view() && viewer() === 'caterer'" />
+    @if (empty(); as e) {
+      <sh-empty-state size="compact" [heading]="e.heading" [text]="e.text">
+        @if (viewer() === 'caterer') {
+          <svg slot="icon" shIcon="mail"></svg>
+        }
+        <a slot="actions" class="btn" [routerLink]="basePath()" i18n="@@inbox.showAll">Show all enquiries</a>
+      </sh-empty-state>
+    } @else {
     <sh-inbox-list [label]="label()" [busy]="!view()" loadingLabel="Loading your enquiries" i18n-loadingLabel="@@inbox.loading" [skeletonCount]="viewer() === 'caterer' ? 6 : 4">
       @for (row of rows(); track row.id) {
         <sh-inbox-row
@@ -32,6 +41,23 @@ import { FILTERS, activityTime, rowName, rowSummary, statusLabel, statusTone } f
         />
       }
     </sh-inbox-list>
+    }
+    @if (view(); as v) {
+      <sh-pagination
+        [page]="v.page"
+        [pageCount]="v.pageCount"
+        [hrefFor]="hrefFor"
+        label="Pagination"
+        i18n-label="@@pagination.label"
+        [summary]="summary()"
+        previousLabel="Previous page"
+        i18n-previousLabel="@@pagination.previous"
+        nextLabel="Next page"
+        i18n-nextLabel="@@pagination.next"
+        [pageLabel]="pageName"
+        [compact]="true"
+      />
+    }
   `,
 })
 export class EnquiryList {
@@ -44,6 +70,22 @@ export class EnquiryList {
   readonly currentKind = input<'page' | 'true'>('page');
 
   private readonly rowComponents = viewChildren(InboxRow);
+
+  protected readonly empty = computed(() => {
+    const v = this.view();
+    const f = this.filter();
+    return v && f && v.total === 0 ? noResults(f, this.viewer()) : null;
+  });
+  protected readonly summary = computed(() => {
+    const v = this.view();
+    return v ? pageSummary(v.page, v.pageSize, v.total) : null;
+  });
+  protected readonly hrefFor = (page: number): string => {
+    const f = this.filter();
+    const params = [f && `status=${f}`, page > 1 && `page=${page}`].filter(Boolean).join('&');
+    return params ? `${this.basePath()}?${params}` : this.basePath();
+  };
+  protected readonly pageName = (page: number): string => $localize`:@@pagination.page:Page ${page}:page:`;
 
   protected readonly filterItems = computed<SegmentedItem[]>(() => {
     const counts = this.view()?.counts;
