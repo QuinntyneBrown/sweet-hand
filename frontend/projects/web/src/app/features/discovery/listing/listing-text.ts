@@ -1,4 +1,9 @@
-import { count } from '../../../core/format/format';
+import { count, shortDate, time } from '../../../core/format/format';
+
+/** " · saved Sat 10 Oct, 8:15 a.m." after the count of a saved copy (caterers offline mock). */
+export function savedAt(at: Date): string {
+  return $localize`:@@listing.savedAt: · saved ${shortDate(at)}:date:, ${time(at)}:time:`;
+}
 
 /** Wording of the listing that depends on numbers (pagination and filter CRDs). */
 

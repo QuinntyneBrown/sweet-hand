@@ -1,3 +1,12 @@
+@if (!online()) {
+  <div class="alert alert--warning banner" role="status">
+    <svg shIcon="offline"></svg>
+    <div class="alert__body">
+      <span class="alert__title" i18n="@@offline.title">You’re offline</span>
+      <span i18n="@@listing.offline.text">Showing caterers from your last visit. Filters work again when you reconnect.</span>
+    </div>
+  </div>
+}
 <div class="browse">
   <div class="browse__title">
     @if (occasion(); as o) {
@@ -15,6 +24,7 @@
         } @else {
           <ng-container i18n="@@listing.resultCount">{v.total, plural, =1 {1 caterer} other {{{ formatCount(v.total) }} caterers}}</ng-container>
         }
+        @if (savedText(); as saved) {<span>{{ saved }}</span>}
       }
     </p>
   </div>
@@ -31,11 +41,11 @@
       fewerLabel="Fewer cuisines"
       i18n-fewerLabel="@@filters.fewerCuisines"
       [countNoun]="caterersNoun"
-      [disabled]="firstRun()"
+      [disabled]="filtersDisabled()"
       (toggled)="toggleCuisine($event)"
     />
-    <sh-filter-group title="Area" i18n-title="@@filters.area" [options]="areas()" [countNoun]="caterersNoun" [disabled]="firstRun()" (toggled)="toggleArea($event)">
-      <app-area-field slot="before-list" [areas]="serviceAreas()" [disabled]="firstRun()" (areaChosen)="addArea($event)" />
+    <sh-filter-group title="Area" i18n-title="@@filters.area" [options]="areas()" [countNoun]="caterersNoun" [disabled]="filtersDisabled()" (toggled)="toggleArea($event)">
+      <app-area-field slot="before-list" [areas]="serviceAreas()" [disabled]="filtersDisabled()" (areaChosen)="addArea($event)" />
     </sh-filter-group>
   </aside>
 
@@ -50,12 +60,12 @@
           [count]="activeCount()"
           countLabel="active"
           i18n-countLabel="@@filters.activeCount"
-          [disabled]="firstRun()"
+          [disabled]="filtersDisabled()"
           (activated)="sheetOpen.set(true)"
         >
           <svg slot="icon" shIcon="filters"></svg>
         </sh-filter-trigger>
-        <sh-button #areaButton variant="ghost" haspopup="dialog" [disabled]="firstRun()" (activated)="searchOpen.set(true)"
+        <sh-button #areaButton variant="ghost" haspopup="dialog" [disabled]="filtersDisabled()" (activated)="searchOpen.set(true)"
           ><svg shIcon="pin"></svg
           >@if (activeCount()) {
             <ng-container i18n="@@filters.area">Area</ng-container>
@@ -69,7 +79,7 @@
         [areas]="areas()"
         [serviceAreas]="serviceAreas()"
         [total]="shown()?.total ?? null"
-        [disabled]="firstRun()"
+        [disabled]="filtersDisabled()"
         (cuisineToggled)="toggleCuisine($event)"
         (areaToggled)="toggleArea($event)"
         (areaChosen)="addArea($event)"
@@ -84,6 +94,7 @@
         clearLabel="Clear filters"
         i18n-clearLabel="@@filters.clear"
         clearHref="/caterers"
+        [disabled]="!online()"
         (removed)="removeChip($event)"
         (emptied)="focusResults()"
       />
@@ -151,6 +162,7 @@
           nextLabel="Next page"
           i18n-nextLabel="@@pagination.next"
           [pageLabel]="pageLabel"
+          [unavailablePages]="unavailablePages()"
         />
       }
     }

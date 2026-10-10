@@ -17,6 +17,19 @@ export class ListingPage extends BasePage {
     return this.page.locator('.browse__title .result-count');
   }
 
+  /** Drop the network: requests fail and the browser reports itself offline. */
+  async goOffline() {
+    await this.page.context().setOffline(true);
+  }
+
+  async goOnline() {
+    await this.page.context().setOffline(false);
+  }
+
+  get offlineBanner() {
+    return this.page.locator('.alert.banner').filter({ hasText: 'You’re offline' });
+  }
+
   /** The "Occasions" link above an occasion's heading. */
   get backToOccasions() {
     return this.page.locator('.browse__title a.eyebrow');

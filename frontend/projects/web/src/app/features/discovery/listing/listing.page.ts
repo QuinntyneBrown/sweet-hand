@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, inject, linkedSignal, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, inject, linkedSignal, signal, untracked, viewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { catchError, map, of, throwError } from 'rxjs';
 import {
   ActiveFilters,
   Button,
@@ -37,7 +38,8 @@ import {
   uncountedCuisineOptions,
   withoutChip,
 } from './listing-filters';
-import { pageLabel, pageSummary } from './listing-text';
+import { pageLabel, pageSummary, savedAt } from './listing-text';
+import { Connectivity, ListingCache } from './listing-cache';
 import { activeFilterCount, knownQuery, readListingQuery, toQueryParams, withArea, withCuisine, withRegion, withoutCuisines } from './listing-query';
 
 /** The caterer listing, /caterers (docs/detailed-designs/discovery/browse-listing). */
@@ -54,8 +56,33 @@ export class ListingPage {
 
   private readonly params = toSignal(this.route.queryParamMap, { requireSync: true });
   protected readonly query = computed(() => readListingQuery(this.params()));
-  protected readonly listing = rxResource({ params: () => this.query(), stream: ({ params }) => this.api.listing(params) });
-  private readonly view = computed(() => (this.listing.hasValue() ? this.listing.value() : undefined));
+  private readonly cache = inject(ListingCache);
+  protected readonly online = inject(Connectivity).online;
+  /** Each page that arrives is saved; without a connection a saved copy is shown instead (L2-091). */
+  protected readonly listing = rxResource({
+    params: () => this.query(),
+    stream: ({ params }) =>
+      this.api.listing(params).pipe(
+        map((view) => this.cache.save(params, view)),
+        catchError((error: unknown) => {
+          const saved = this.cache.get(params);
+          return problemOf(error).status === 0 && saved ? of({ ...saved, cached: true }) : throwError(() => error);
+        }),
+      ),
+  });
+  private readonly result = computed(() => (this.listing.hasValue() ? this.listing.value() : undefined));
+  private readonly view = computed(() => this.result()?.view);
+  /** Offline, the results say when they were saved: "60 caterers · saved Sat 10 Oct, 8:15 a.m.". */
+  protected readonly savedText = computed(() => {
+    const r = this.result();
+    return !this.online() && r ? savedAt(r.savedAt) : null;
+  });
+  /** Offline, pages of these filters not seen in this visit cannot open. */
+  protected readonly unavailablePages = computed(() => {
+    const v = this.current();
+    if (this.online() || !v) return [];
+    return Array.from({ length: v.pageCount }, (_, i) => i + 1).filter((page) => page !== v.page && !this.cache.has({ ...this.known(), page }));
+  });
   /** The last results that arrived, kept while the next ones load so the filters do not flash. */
   protected readonly shown = linkedSignal<ListingPageView | undefined, ListingPageView | undefined>({
     source: this.view,
@@ -84,7 +111,9 @@ export class ListingPage {
     const o = this.shown()?.occasions.find((x) => x.id === this.known().occasion);
     return o ? { name: o.name, lowerName: o.name.toLocaleLowerCase('en-CA') } : null;
   });
-  protected readonly activeCount =computed(() => (this.shown() ? activeFilterCount(this.known()) : 0));
+  protected readonly activeCount = computed(() => (this.shown() ? activeFilterCount(this.known()) : 0));
+  /** Filters wait while there are no caterers yet, or no connection (empty and offline mocks). */
+  protected readonly filtersDisabled = computed(() => this.firstRun() || !this.online());
   protected readonly sheetOpen = signal(false);
   protected readonly searchOpen = signal(false);
   protected readonly filtersTrigger = viewChild(FilterTrigger);
@@ -134,6 +163,15 @@ export class ListingPage {
       if (this.shownPage !== null && this.shownPage !== v.page) this.resultsHeading().nativeElement.focus();
       this.shownPage = v.page;
     });
+    // Back online, a saved copy is replaced by fresh results.
+    effect(() => {
+      if (this.online() && untracked(() => this.cachedResult())) untracked(() => this.listing.reload());
+    });
+  }
+
+  private cachedResult(): boolean {
+    const r = this.result();
+    return !!r && 'cached' in r && r.cached === true;
   }
 
   protected toggleCuisine(e: { value: string; pressed: boolean }): void {
