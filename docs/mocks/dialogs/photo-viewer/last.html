@@ -8,7 +8,7 @@
 <meta name="mock:screen" content="photo-viewer">
 <meta name="mock:state" content="last">
 <meta name="mock:requirements" content="L2-016 L2-067 L2-069">
-<meta name="description" content="Viewer on the last photo, 6 of 6: Next is disabled; Previous and Close remain.">
+<meta name="description" content="Viewer on the last photo, 6 of 6: Next is unavailable (aria-disabled, still focusable); Previous and Close remain.">
 <link rel="stylesheet" href="../../assets/tokens.css">
 <link rel="stylesheet" href="../../assets/ui.css">
 <link rel="stylesheet" href="../../assets/mock.css">
@@ -48,7 +48,7 @@
   <div class="viewer__stage">
     <button class="icon-btn" type="button" aria-label="Previous photo" data-mock-href="default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
     <span class="photo"><img src="../../assets/img/cook-up.jpg" alt="Macaroni pie and rice with peas in a red serving pot" width="560" height="560"></span>
-    <button class="icon-btn" type="button" aria-label="Next photo" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+    <button class="icon-btn" type="button" aria-label="Next photo" aria-disabled="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
   </div>
   <p class="viewer__caption" id="viewer-caption">Macaroni pie and rice with peas in a red serving pot</p>
 </div>

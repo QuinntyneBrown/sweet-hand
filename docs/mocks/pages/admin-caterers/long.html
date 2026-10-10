@@ -50,19 +50,23 @@
         <h1>Caterers</h1>
         <p class="subtitle">5,214 caterers · 4,870 published · sorted by last change</p>
       </div>
-      <form class="search-field" role="search" action="no-results.html" style="max-width: 28rem; margin-bottom: var(--space-4);">
-        <label class="visually-hidden" for="cat-q">Search caterers</label>
-        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input class="input" id="cat-q" name="q" type="search" placeholder="Business or owner name" autocomplete="off">
+      <form role="search" action="no-results.html" style="max-width: 28rem; margin-bottom: var(--space-4);">
+        <div class="field">
+          <label class="visually-hidden" for="cat-q">Search caterers by business or owner name</label>
+          <div class="search-field">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input class="input" id="cat-q" name="q" type="search" placeholder="Business or owner name" autocomplete="off">
+          </div>
+        </div>
       </form>
       <ul class="segmented" aria-label="Filter by status">
-        <li><a href="default.html">All 5,214</a></li>
-        <li><a href="no-results.html">Draft 211</a></li>
-        <li><a href="no-results.html">Pending review 48</a></li>
-        <li><a href="no-results.html">Changes requested 17</a></li>
-        <li><a href="no-results.html" aria-current="page">Published 4,870</a></li>
-        <li><a href="no-results.html">Suspended 39</a></li>
-        <li><a href="no-results.html">Removed 29</a></li>
+        <li><a href="default.html">All <span class="filter-list__count">5,214</span></a></li>
+        <li><a href="no-results.html">Draft <span class="filter-list__count">211</span></a></li>
+        <li><a href="no-results.html">Pending review <span class="filter-list__count">48</span></a></li>
+        <li><a href="no-results.html">Changes requested <span class="filter-list__count">17</span></a></li>
+        <li><a href="no-results.html" aria-current="page">Published <span class="filter-list__count">4,870</span></a></li>
+        <li><a href="no-results.html">Suspended <span class="filter-list__count">39</span></a></li>
+        <li><a href="no-results.html">Removed <span class="filter-list__count">29</span></a></li>
       </ul>
       <ul class="queue">
         <li><a class="queue-item queue-item--stack" href="../../pages/admin-caterer/default.html"><span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="" width="56" height="56"></span><span class="queue-item__title">Pelau House</span><span class="queue-item__wait"><span class="status status--published">Published</span></span><span class="queue-item__meta">Trinidadian &amp; Tobagonian · Scarborough · Kendra Baptiste · updated Mon 3 Aug</span></a></li>

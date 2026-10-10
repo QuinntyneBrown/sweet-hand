@@ -52,11 +52,11 @@
       <div class="page-intro">
         <h1 id="page-title">Cuisines and areas</h1>
         <p class="subtitle">2 cuisines · 5 areas</p>
-        <p class="save-status" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>All changes saved</p>
+        <p class="save-status save-status--saved" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>Saved</p>
       </div>
       <form class="form" aria-labelledby="page-title" novalidate>
         <fieldset class="stack" aria-describedby="cuisine-help">
-          <legend><h2 style="font: var(--text-h3);">Cuisines</h2></legend>
+          <legend><h2>Cuisines</h2></legend>
           <span class="field__help" id="cuisine-help">Choose 1 to 5 islands or traditions you cook from.</span>
           <div class="option-grid">
             <label class="choice"><input type="checkbox" name="cuisine" id="c-antiguan--barbudan" value="Antiguan &amp; Barbudan"><span class="choice__text">Antiguan &amp; Barbudan</span></label>
@@ -87,11 +87,11 @@
         </fieldset>
 
         <fieldset class="stack" style="margin-top: var(--space-8);" aria-describedby="area-help">
-          <legend><h2 style="font: var(--text-h3);">Areas you serve</h2></legend>
+          <legend><h2>Areas you serve</h2></legend>
           <span class="field__help" id="area-help">Tick a whole region or single areas. Customers outside these areas can still ask; they’ll see a note.</span>
           <fieldset class="stack stack--sm">
             <legend>City of Toronto</legend>
-            <label class="choice"><input type="checkbox" name="region" value="City of Toronto"><span class="choice__text">All of City of Toronto</span></label>
+            <label class="choice"><input type="checkbox" value="City of Toronto" aria-describedby="region-toronto-parent"><span class="choice__text"><span>All of City of Toronto</span><small id="region-toronto-parent">3 of 6 areas</small></span></label>
             <div class="option-grid" style="padding-left: var(--space-8);">
               <label class="choice"><input type="checkbox" name="area" value="Downtown Toronto"><span class="choice__text">Downtown Toronto</span></label>
               <label class="choice"><input type="checkbox" name="area" value="East York" checked><span class="choice__text">East York</span></label>
@@ -103,7 +103,7 @@
           </fieldset>
           <fieldset class="stack stack--sm">
             <legend>Peel</legend>
-            <label class="choice"><input type="checkbox" name="region" value="Peel"><span class="choice__text">All of Peel</span></label>
+            <label class="choice"><input type="checkbox" value="Peel" aria-describedby="region-peel-parent"><span class="choice__text"><span>All of Peel</span><small id="region-peel-parent">0 of 3 areas</small></span></label>
             <div class="option-grid" style="padding-left: var(--space-8);">
               <label class="choice"><input type="checkbox" name="area" value="Brampton"><span class="choice__text">Brampton</span></label>
               <label class="choice"><input type="checkbox" name="area" value="Caledon"><span class="choice__text">Caledon</span></label>
@@ -112,7 +112,7 @@
           </fieldset>
           <fieldset class="stack stack--sm">
             <legend>York Region</legend>
-            <label class="choice"><input type="checkbox" name="region" value="York Region"><span class="choice__text">All of York Region</span></label>
+            <label class="choice"><input type="checkbox" value="York Region" aria-describedby="region-york-parent"><span class="choice__text"><span>All of York Region</span><small id="region-york-parent">0 of 9 areas</small></span></label>
             <div class="option-grid" style="padding-left: var(--space-8);">
               <label class="choice"><input type="checkbox" name="area" value="Aurora"><span class="choice__text">Aurora</span></label>
               <label class="choice"><input type="checkbox" name="area" value="East Gwillimbury"><span class="choice__text">East Gwillimbury</span></label>
@@ -127,7 +127,7 @@
           </fieldset>
           <fieldset class="stack stack--sm">
             <legend>Durham</legend>
-            <label class="choice"><input type="checkbox" name="region" value="Durham"><span class="choice__text">All of Durham</span></label>
+            <label class="choice"><input type="checkbox" value="Durham" aria-describedby="region-durham-parent"><span class="choice__text"><span>All of Durham</span><small id="region-durham-parent">2 of 8 areas</small></span></label>
             <div class="option-grid" style="padding-left: var(--space-8);">
               <label class="choice"><input type="checkbox" name="area" value="Ajax" checked><span class="choice__text">Ajax</span></label>
               <label class="choice"><input type="checkbox" name="area" value="Brock"><span class="choice__text">Brock</span></label>
@@ -141,7 +141,7 @@
           </fieldset>
           <fieldset class="stack stack--sm">
             <legend>Halton</legend>
-            <label class="choice"><input type="checkbox" name="region" value="Halton"><span class="choice__text">All of Halton</span></label>
+            <label class="choice"><input type="checkbox" value="Halton" aria-describedby="region-halton-parent"><span class="choice__text"><span>All of Halton</span><small id="region-halton-parent">0 of 4 areas</small></span></label>
             <div class="option-grid" style="padding-left: var(--space-8);">
               <label class="choice"><input type="checkbox" name="area" value="Burlington"><span class="choice__text">Burlington</span></label>
               <label class="choice"><input type="checkbox" name="area" value="Halton Hills"><span class="choice__text">Halton Hills</span></label>

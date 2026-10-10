@@ -52,11 +52,11 @@
       <div class="page-intro">
         <h1 id="page-title">Guests and occasions</h1>
         <p class="subtitle">20–300 guests · 5 occasions</p>
-        <p class="save-status" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>All changes saved</p>
+        <p class="save-status save-status--saved" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>Saved</p>
       </div>
       <form class="form" aria-labelledby="page-title" novalidate>
         <fieldset class="stack">
-          <legend><h2 style="font: var(--text-h3);">Guests</h2></legend>
+          <legend><h2>Guests</h2></legend>
           <div class="field-row">
           <div class="field"><label class="field__label" for="min-guests">Smallest event</label>
             <input class="input" id="min-guests" name="min-guests" type="text" inputmode="numeric" pattern="[0-9]*" value="20" required aria-describedby="guests-help">
@@ -70,7 +70,7 @@
           <span class="field__help" id="guests-help">Whole numbers from 1 to 5,000. Your page says “Serves 20–300 guests”.</span>
         </fieldset>
         <fieldset class="stack" style="margin-top: var(--space-8);" aria-describedby="occ-help">
-          <legend><h2 style="font: var(--text-h3);">Occasions</h2></legend>
+          <legend><h2>Occasions</h2></legend>
           <span class="field__help" id="occ-help">Choose every kind of event you take on.</span>
           <div class="option-grid">
             <label class="choice"><input type="checkbox" name="occasion" id="o-weddings" value="Weddings" checked><span class="choice__text">Weddings</span></label>

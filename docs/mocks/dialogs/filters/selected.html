@@ -35,8 +35,8 @@
 </div>
 <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dlg-title" data-dismiss-on-escape>
   <div class="sheet__header">
-    <h2 class="sheet__title" id="dlg-title">Filters <span class="filter-trigger__count" aria-label="2 active">2</span></h2>
-    <button class="icon-btn" type="button" aria-label="Close filters" data-mock-href="../../pages/caterers/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <h2 class="sheet__title" id="dlg-title">Filters <span class="filter-trigger__count"><span class="visually-hidden">, </span>2<span class="visually-hidden"> active</span></span></h2>
+    <button class="icon-btn" type="button" aria-label="Close filters" data-mock-href="../../pages/caterers/default.html" autofocus><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
   </div>
   <form class="sheet__body" id="filters-form" action="../../pages/caterers/filtered.html">
     <fieldset class="filter-group">
@@ -62,12 +62,17 @@
     </fieldset>
     <fieldset class="filter-group">
       <legend class="filter-group__title">Area</legend>
-      <div class="search-field" style="margin-bottom: var(--space-3);">
+      <div class="field">
         <label class="visually-hidden" for="f-area">Area or postal code</label>
-        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-        <input class="input" id="f-area" type="search" placeholder="Area or postal code" autocomplete="postal-code" autocapitalize="characters">
+        <div class="search-field">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <input class="input" id="f-area" name="area" type="search" placeholder="Area or postal code" autocomplete="postal-code" autocapitalize="characters" enterkeyhint="search" spellcheck="false" role="combobox" aria-autocomplete="list" aria-controls="f-area-list" aria-expanded="false">
+        </div>
+        <ul class="suggestions suggestions--inline" id="f-area-list" role="listbox" aria-label="Matching areas" hidden></ul>
+        <span class="visually-hidden" role="status"></span>
+        <span class="visually-hidden" role="status"></span>
       </div>
-        <div class="active-filters"><span class="chip chip--filter">Scarborough<button class="remove" type="button" aria-label="Remove Scarborough"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></span></div>
+        <div class="active-filters" role="group" aria-label="Selected areas"><span class="chip chip--filter">Scarborough<button class="remove" type="button" aria-label="Remove Scarborough filter"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></span></div>
           <label class="choice"><input type="checkbox" name="region" value="City of Toronto"><span class="choice__text">City of Toronto <small>2 caterers</small></span></label>
           <label class="choice"><input type="checkbox" name="region" value="Peel" disabled><span class="choice__text">Peel <small>0 caterers</small></span></label>
           <label class="choice"><input type="checkbox" name="region" value="York Region"><span class="choice__text">York Region <small>1 caterer</small></span></label>
@@ -76,7 +81,7 @@
     </fieldset>
   </form>
   <div class="sheet__footer">
-    <a class="btn" href="../../dialogs/filters/default.html">Clear</a>
+    <button class="btn" type="reset" form="filters-form" data-mock-href="default.html">Clear</button>
     <button class="btn btn--primary" type="submit" form="filters-form">Show 2 caterers</button>
   </div>
 </div>

@@ -58,12 +58,12 @@
         <h2 id="summary-title">Fix 2 things so we can save</h2>
         <ul>
           <li><a href="#c-grenadian">Choose between 1 and 5 cuisines</a></li>
-          <li><a href="#primary-area">Mark one area as primary</a></li>
+          <li><a href="#primary-area">Choose your primary area</a></li>
         </ul>
       </div>
       <form class="form" style="margin-top: var(--space-6);" aria-labelledby="page-title" novalidate>
         <fieldset class="stack" aria-describedby="cuisine-error cuisine-help">
-          <legend><h2 style="font: var(--text-h3);">Cuisines</h2></legend>
+          <legend><h2>Cuisines</h2></legend>
           <span class="field__error" id="cuisine-error">Choose between 1 and 5 cuisines</span>
           <span class="field__help" id="cuisine-help">Choose 1 to 5 islands or traditions you cook from.</span>
           <div class="option-grid">
@@ -99,11 +99,11 @@
         </fieldset>
 
         <fieldset class="stack" style="margin-top: var(--space-8);" aria-describedby="area-help">
-          <legend><h2 style="font: var(--text-h3);">Areas you serve</h2></legend>
+          <legend><h2>Areas you serve</h2></legend>
           <span class="field__help" id="area-help">Tick a whole region or single areas. Customers outside these areas can still ask; they’ll see a note.</span>
           <fieldset class="stack stack--sm">
             <legend>City of Toronto</legend>
-            <label class="choice"><input type="checkbox" name="region" value="City of Toronto"><span class="choice__text">All of City of Toronto</span></label>
+            <label class="choice"><input type="checkbox" value="City of Toronto" aria-describedby="region-toronto-parent"><span class="choice__text"><span>All of City of Toronto</span><small id="region-toronto-parent">3 of 6 areas</small></span></label>
             <div class="option-grid" style="padding-left: var(--space-8);">
               <label class="choice"><input type="checkbox" name="area" value="Downtown Toronto"><span class="choice__text">Downtown Toronto</span></label>
               <label class="choice"><input type="checkbox" name="area" value="East York" checked><span class="choice__text">East York</span></label>
@@ -115,7 +115,7 @@
           </fieldset>
           <fieldset class="stack stack--sm">
             <legend>Peel</legend>
-            <label class="choice"><input type="checkbox" name="region" value="Peel"><span class="choice__text">All of Peel</span></label>
+            <label class="choice"><input type="checkbox" value="Peel" aria-describedby="region-peel-parent"><span class="choice__text"><span>All of Peel</span><small id="region-peel-parent">0 of 3 areas</small></span></label>
             <div class="option-grid" style="padding-left: var(--space-8);">
               <label class="choice"><input type="checkbox" name="area" value="Brampton"><span class="choice__text">Brampton</span></label>
               <label class="choice"><input type="checkbox" name="area" value="Caledon"><span class="choice__text">Caledon</span></label>
@@ -124,7 +124,7 @@
           </fieldset>
           <fieldset class="stack stack--sm">
             <legend>York Region</legend>
-            <label class="choice"><input type="checkbox" name="region" value="York Region"><span class="choice__text">All of York Region</span></label>
+            <label class="choice"><input type="checkbox" value="York Region" aria-describedby="region-york-parent"><span class="choice__text"><span>All of York Region</span><small id="region-york-parent">0 of 9 areas</small></span></label>
             <div class="option-grid" style="padding-left: var(--space-8);">
               <label class="choice"><input type="checkbox" name="area" value="Aurora"><span class="choice__text">Aurora</span></label>
               <label class="choice"><input type="checkbox" name="area" value="East Gwillimbury"><span class="choice__text">East Gwillimbury</span></label>
@@ -139,7 +139,7 @@
           </fieldset>
           <fieldset class="stack stack--sm">
             <legend>Durham</legend>
-            <label class="choice"><input type="checkbox" name="region" value="Durham"><span class="choice__text">All of Durham</span></label>
+            <label class="choice"><input type="checkbox" value="Durham" aria-describedby="region-durham-parent"><span class="choice__text"><span>All of Durham</span><small id="region-durham-parent">2 of 8 areas</small></span></label>
             <div class="option-grid" style="padding-left: var(--space-8);">
               <label class="choice"><input type="checkbox" name="area" value="Ajax" checked><span class="choice__text">Ajax</span></label>
               <label class="choice"><input type="checkbox" name="area" value="Brock"><span class="choice__text">Brock</span></label>
@@ -153,7 +153,7 @@
           </fieldset>
           <fieldset class="stack stack--sm">
             <legend>Halton</legend>
-            <label class="choice"><input type="checkbox" name="region" value="Halton"><span class="choice__text">All of Halton</span></label>
+            <label class="choice"><input type="checkbox" value="Halton" aria-describedby="region-halton-parent"><span class="choice__text"><span>All of Halton</span><small id="region-halton-parent">0 of 4 areas</small></span></label>
             <div class="option-grid" style="padding-left: var(--space-8);">
               <label class="choice"><input type="checkbox" name="area" value="Burlington"><span class="choice__text">Burlington</span></label>
               <label class="choice"><input type="checkbox" name="area" value="Halton Hills"><span class="choice__text">Halton Hills</span></label>
@@ -164,7 +164,7 @@
         </fieldset>
         <div class="field"><label class="field__label" for="primary-area">Primary area</label>
           <select class="select" id="primary-area" name="primary_area" aria-invalid="true" aria-describedby="primary-area-error primary-area-help"><option value="">Choose your primary area</option><option>East York</option><option>North York</option><option>Scarborough</option><option>Ajax</option><option>Pickering</option></select>
-          <span class="field__error" id="primary-area-error">Mark one area as primary</span>
+          <span class="field__error" id="primary-area-error">Choose your primary area</span>
           <span class="field__help" id="primary-area-help">Shown on your listing card. Pick the area closest to your kitchen; we never show your address.</span>
           <span class="visually-hidden" role="status"></span>
         </div>

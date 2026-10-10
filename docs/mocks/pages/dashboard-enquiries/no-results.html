@@ -33,9 +33,9 @@
     <p class="subtitle">5 enquiries · 2 unread</p>
   </div>
   
-  <div class="inbox-layout" style="grid-template-columns: minmax(0, 1fr);">
-    <section aria-label="Enquiry list">
-        <ul class="segmented" aria-label="Filter by status"><li><a href="../dashboard-enquiries/default.html">All 5</a></li><li><a href="../dashboard-enquiries/filtered.html">Open 2</a></li><li><a href="../dashboard-enquiries/default.html">Replied 2</a></li><li><a href="../dashboard-enquiries/default.html">Declined 1</a></li><li><a href="../dashboard-enquiries/no-results.html" aria-current="page">Closed 0</a></li></ul>
+  <div class="inbox-layout inbox-layout--solo">
+    <section class="inbox-layout__list" aria-label="Enquiry list">
+        <ul class="segmented" aria-label="Filter by status"><li><a href="../dashboard-enquiries/default.html">All <span class="filter-list__count">5</span></a></li><li><a href="../dashboard-enquiries/filtered.html">Open <span class="filter-list__count">2</span></a></li><li><a href="../dashboard-enquiries/default.html">Replied <span class="filter-list__count">2</span></a></li><li><a href="../dashboard-enquiries/default.html">Declined <span class="filter-list__count">1</span></a></li><li><a href="../dashboard-enquiries/no-results.html" aria-current="page">Closed <span class="filter-list__count">0</span></a></li></ul>
         <div class="empty empty--compact">
           <div class="empty__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
           <h2 class="empty__title">No closed enquiries</h2>

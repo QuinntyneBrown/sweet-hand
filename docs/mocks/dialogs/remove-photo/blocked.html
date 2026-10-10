@@ -16,7 +16,7 @@
 <body>
 <!-- The page underneath is inert while the dialog is open. -->
 <div inert aria-hidden="true">
-<div class="page">
+<div class="page" inert aria-hidden="true">
 <a class="skip-link" href="#main">Skip to main content</a>
 <header class="site-header">
   <a class="wordmark" href="../../pages/dashboard/default.html">Sweet Hand <span class="wordmark__tag">for caterers</span></a>
@@ -50,7 +50,7 @@
     </nav>
 
     <div class="work-main">
-      <a class="eyebrow until-lg" href="../../pages/dashboard/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Dashboard</a>
+      <a class="eyebrow until-lg" href="../../pages/dashboard/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Overview</a>
       <div class="page-intro">
         <h1>Photos</h1>
         <p class="subtitle">3 of 30 · the first photo is your cover</p>
@@ -64,21 +64,21 @@
       </div>
       <ul class="photo-manager" aria-label="Photos, in the order they appear on your page">
         <li class="photo-tile">
-          <span class="photo"><img src="../../assets/img/black-cake-co.jpg" alt="Dark rum cake dusted with icing sugar and topped with a raspberry" width="160" height="160"><span class="photo-tile__cover">Cover</span></span>
+          <span class="photo"><img src="../../assets/img/black-cake-co.jpg" alt="" width="160" height="160"><span class="photo-tile__cover">Cover</span></span>
           <p class="photo-tile__caption">Dark rum cake dusted with icing sugar and topped with a raspberry</p>
-          <div class="photo-tile__move"><button class="icon-btn" type="button" aria-label="Move photo 1 up" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Move photo 1 down"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button></div>
+          <div class="photo-tile__move"><button class="icon-btn" type="button" aria-label="Move photo 1 up" aria-disabled="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Move photo 1 down"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button></div>
           <button class="btn btn--link btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/photo-details/default.html">Edit<span class="visually-hidden"> photo 1</span></button>
         </li>
         <li class="photo-tile">
-          <span class="photo"><img src="../../assets/img/lambie-lane.jpg" alt="Black cake sliced for a wedding table" width="160" height="160"></span>
+          <span class="photo"><img src="../../assets/img/lambie-lane.jpg" alt="" width="160" height="160"></span>
           <p class="photo-tile__caption">Black cake sliced for a wedding table</p>
           <div class="photo-tile__move"><button class="icon-btn" type="button" aria-label="Move photo 2 up"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Move photo 2 down"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button></div>
           <button class="btn btn--link btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/photo-details/default.html">Edit<span class="visually-hidden"> photo 2</span></button>
         </li>
         <li class="photo-tile">
-          <span class="photo"><img src="../../assets/img/bajan-breeze.jpg" alt="Chocolate rum cake dusted with icing sugar" width="160" height="160"></span>
+          <span class="photo"><img src="../../assets/img/bajan-breeze.jpg" alt="" width="160" height="160"></span>
           <p class="photo-tile__caption">Chocolate rum cake dusted with icing sugar</p>
-          <div class="photo-tile__move"><button class="icon-btn" type="button" aria-label="Move photo 3 up"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Move photo 3 down" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button></div>
+          <div class="photo-tile__move"><button class="icon-btn" type="button" aria-label="Move photo 3 up"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Move photo 3 down" aria-disabled="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button></div>
           <button class="btn btn--link btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/photo-details/default.html">Edit<span class="visually-hidden"> photo 3</span></button>
         </li>
       </ul>

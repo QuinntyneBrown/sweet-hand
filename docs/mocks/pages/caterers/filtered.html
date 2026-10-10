@@ -39,31 +39,38 @@
         <h2 class="filter-group__title" id="f-cuisine">Cuisine</h2>
         <ul class="filter-list">
           <li><a class="filter-list__item" href="default.html">All</a></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="true">Jamaican <span class="filter-list__count">2</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false">Trinidadian &amp; Tobagonian <span class="filter-list__count">1</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false">Guyanese <span class="filter-list__count">1</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Barbadian (Bajan) <span class="filter-list__count">0</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Haitian <span class="filter-list__count">0</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Grenadian <span class="filter-list__count">0</span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="true">Jamaican <span class="filter-list__count">2<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false">Trinidadian &amp; Tobagonian <span class="filter-list__count">1<span class="visually-hidden"> caterer</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false">Guyanese <span class="filter-list__count">1<span class="visually-hidden"> caterer</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Barbadian (Bajan) <span class="filter-list__count">0<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Haitian <span class="filter-list__count">0<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Grenadian <span class="filter-list__count">0<span class="visually-hidden"> caterers</span></span></button></li>
         </ul>
         <button class="filter-more" type="button" aria-expanded="false">More cuisines (11)</button>
       </div>
 
       <div class="filter-group" role="group" aria-labelledby="f-area">
         <h2 class="filter-group__title" id="f-area">Area</h2>
-        <form class="search-field" role="search" action="filtered.html">
-          <label class="visually-hidden" for="area-q">Area or postal code</label>
-          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-          <input class="input" id="area-q" name="area" type="search" placeholder="Area or postal code" autocomplete="postal-code" autocapitalize="characters" aria-describedby="area-help">
-          <p class="visually-hidden" id="area-help">Type an area like Scarborough or a postal code like M1B 2K3.</p>
+        <form role="search" action="filtered.html">
+          <div class="field">
+            <label class="visually-hidden" for="area-q">Area or postal code</label>
+            <div class="search-field">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+              <input class="input" id="area-q" name="area" type="search" placeholder="Area or postal code" autocomplete="postal-code" autocapitalize="characters" enterkeyhint="search" spellcheck="false" role="combobox" aria-autocomplete="list" aria-controls="area-q-list" aria-expanded="false" aria-describedby="area-help">
+            </div>
+            <span class="field__help visually-hidden" id="area-help">Type an area like Scarborough or a postal code like M1B 2K3.</span>
+            <ul class="suggestions suggestions--inline" id="area-q-list" role="listbox" aria-label="Matching areas" hidden></ul>
+            <span class="visually-hidden" role="status"></span>
+            <span class="visually-hidden" role="status"></span>
+          </div>
         </form>
         <ul class="filter-list">
-          <li><button class="filter-list__item" type="button" aria-pressed="true">Scarborough <span class="filter-list__count">2</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false">City of Toronto <span class="filter-list__count">2</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Peel <span class="filter-list__count">0</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false">York Region <span class="filter-list__count">1</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Durham <span class="filter-list__count">0</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Halton <span class="filter-list__count">0</span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="true">Scarborough <span class="filter-list__count">2<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false">City of Toronto <span class="filter-list__count">2<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Peel <span class="filter-list__count">0<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false">York Region <span class="filter-list__count">1<span class="visually-hidden"> caterer</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Durham <span class="filter-list__count">0<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false" disabled>Halton <span class="filter-list__count">0<span class="visually-hidden"> caterers</span></span></button></li>
         </ul>
       </div>
     </aside>
@@ -72,12 +79,12 @@
       <h2 class="visually-hidden" id="results-title">Results</h2>
       <div class="browse__head">
         <div class="mobile-browse-bar only-xs-sm">
-          <button class="filter-trigger" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/filters/selected.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filters <span class="filter-trigger__count" aria-label="2 active">2</span></button>
+          <button class="filter-trigger" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/filters/selected.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filters <span class="filter-trigger__count"><span class="visually-hidden">, </span>2<span class="visually-hidden"> active</span></span></button>
           <button class="btn btn--ghost" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Area</button>
         </div>
         <div class="filter-bar only-md">
-          <button class="filter-trigger" type="button" aria-expanded="false" data-mock-href="../../dialogs/filter-menu/default.html">Cuisine <span class="filter-trigger__count" aria-label="1 selected">1</span> <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
-          <button class="filter-trigger" type="button" aria-expanded="false" data-mock-href="../../dialogs/filter-menu/area.html">Area <span class="filter-trigger__count" aria-label="1 selected">1</span> <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+          <button class="filter-trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-cuisine" data-mock-href="../../dialogs/filter-menu/default.html">Cuisine <span class="filter-trigger__count"><span class="visually-hidden">, </span>1<span class="visually-hidden"> selected</span></span> <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+          <button class="filter-trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-area" data-mock-href="../../dialogs/filter-menu/area.html">Area <span class="filter-trigger__count"><span class="visually-hidden">, </span>1<span class="visually-hidden"> selected</span></span> <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
         </div>
         <div class="active-filters" aria-label="Active filters" role="group"><span class="chip chip--filter">Jamaican<button class="remove" type="button" aria-label="Remove Jamaican filter"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></span><span class="chip chip--filter">Scarborough<button class="remove" type="button" aria-label="Remove Scarborough filter"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></span><a class="btn btn--link btn--sm" href="default.html">Clear filters</a></div>
       </div>

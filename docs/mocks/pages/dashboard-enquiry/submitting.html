@@ -28,11 +28,11 @@
   </nav>
 </header>
 <main id="main" class="container">
-  <a class="eyebrow until-lg" href="../dashboard-enquiries/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Back to enquiries</a>
+  <a class="eyebrow until-lg" href="../dashboard-enquiries/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Enquiries</a>
   <div class="inbox-layout" style="margin-top: var(--space-6);">
-    <section class="only-lg" aria-label="Enquiry list">
-        <ul class="segmented" aria-label="Filter by status"><li><a href="../dashboard-enquiries/default.html" aria-current="page">All 6</a></li><li><a href="../dashboard-enquiries/filtered.html">Open 2</a></li><li><a href="../dashboard-enquiries/default.html">Replied 2</a></li><li><a href="../dashboard-enquiries/default.html">Declined 1</a></li><li><a href="../dashboard-enquiries/default.html">Closed 1</a></li></ul>
-        <ul class="inbox-list">
+    <section class="inbox-layout__list only-lg" aria-label="Enquiry list">
+        <ul class="segmented" aria-label="Filter by status"><li><a href="../dashboard-enquiries/default.html" aria-current="page">All <span class="filter-list__count">6</span></a></li><li><a href="../dashboard-enquiries/filtered.html">Open <span class="filter-list__count">2</span></a></li><li><a href="../dashboard-enquiries/default.html">Replied <span class="filter-list__count">2</span></a></li><li><a href="../dashboard-enquiries/default.html">Declined <span class="filter-list__count">1</span></a></li><li><a href="../dashboard-enquiries/default.html">Closed <span class="filter-list__count">1</span></a></li></ul>
+        <ul class="inbox-list" aria-label="Pelau House enquiries">
           <li><a class="inbox-row" href="../dashboard-enquiry/replied.html"><span class="avatar" aria-hidden="true">MT</span><span class="inbox-row__name">Marcia Thompson</span><span class="inbox-row__time">9:42 a.m.</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests · Family gatherings</span><span class="inbox-row__status status status--replied">Replied</span></a></li>
           <li><a class="inbox-row inbox-row--unread" href="../dashboard-enquiry/default.html" aria-current="true"><span class="avatar" aria-hidden="true">PR</span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Priya Ramdial</span><span class="inbox-row__time">Yesterday</span><span class="inbox-row__meta">Thu 5 Nov · 60 guests · Corporate events</span><span class="inbox-row__status status status--open">Open</span></a></li>
           <li><a class="inbox-row inbox-row--unread" href="../dashboard-enquiry/default.html"><span class="avatar" aria-hidden="true">AC</span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Andre Clarke</span><span class="inbox-row__time">Thu</span><span class="inbox-row__meta">Sat 12 Jun 2027 · 250 guests · Weddings</span><span class="inbox-row__status status status--open">Open</span></a></li>
@@ -45,15 +45,14 @@
       <article class="thread" aria-labelledby="thread-title">
         <div class="thread__head">
           <span class="avatar" aria-hidden="true">PR</span>
-          <div class="thread__title"><h1 id="thread-title">Priya Ramdial</h1><p class="result-count" id="thread-sub">Sent yesterday at 4:15 p.m.</p></div>
-          <span class="status status--open">Open</span>
+          <div class="thread__title"><h1 id="thread-title" tabindex="-1">Priya Ramdial</h1><p class="thread__status"><span class="status status--open">Open</span><span>Sent yesterday at 4:15 p.m.</span></p></div>
         </div>
         <div class="cluster" style="gap: var(--space-2);"><button class="btn btn--link btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/share-contact/default.html">Share my contact details</button><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/decline-enquiry/default.html">Decline</button></div>
-        <dl class="enquiry-summary"><div><dt>Event date</dt><dd>Thu 5 Nov 2026</dd></div><div><dt>Guests</dt><dd>60</dd></div><div><dt>Area</dt><dd>Downtown Toronto · M5V</dd></div><div><dt>Occasion</dt><dd>Corporate events</dd></div></dl>
-        <span class="field__warning">This caterer doesn’t list Downtown Toronto as an area they serve</span>
-        <ol class="messages" aria-label="Messages"><li class="message message--theirs"><p class="message__bubble">Hello! We’re hosting a lunch for our team of 60 near King and Spadina on Thursday 5 November, around noon. Could you do doubles, aloo pie, curry channa and one more vegan dish? A few people avoid gluten.</p><span class="message__meta">Priya Ramdial · Fri 9 Oct, 4:15 p.m.</span></li><li class="message message--mine message--pending"><p class="message__bubble">Hi Priya, thanks for thinking of us! Downtown is outside our usual area, but for 60 we can make it work with a small delivery fee. I’ll send a full menu by Monday.</p><span class="message__meta" role="status">Sending…</span></li></ol>
+        <dl class="enquiry-summary"><div><dt>Event date</dt><dd>Thursday 5 November 2026</dd></div><div><dt>Guests</dt><dd>60</dd></div><div><dt>Area</dt><dd>Downtown Toronto · M5V</dd></div><div><dt>Occasion</dt><dd>Corporate events</dd></div></dl>
+        <span class="field__warning">You don’t list Downtown Toronto as an area you serve</span>
+        <ol class="messages" aria-label="Messages"><li class="message message--theirs"><span class="visually-hidden">Priya Ramdial:</span><p class="message__bubble">Hello! We’re hosting a lunch for our team of 60 near King and Spadina on Thursday 5 November, around noon. Could you do doubles, aloo pie, curry channa and one more vegan dish? A few people avoid gluten.</p><span class="message__meta">Priya Ramdial · <time datetime="2026-10-09T16:15-04:00">Fri 9 Oct, 4:15 p.m.</time></span></li><li class="message message--mine message--pending"><span class="visually-hidden">You:</span><p class="message__bubble">Hi Priya, thanks for thinking of us! Downtown is outside our usual area, but for 60 we can make it work with a small delivery fee. I’ll send a full menu by Monday.</p><span class="message__meta" role="status">You · Sending…</span></li></ol>
         <form class="reply-box" action="submitting.html" novalidate>
-          <label class="field__label" for="reply">Reply to Priya</label>
+          <label class="reply-box__label" for="reply">Reply to Priya</label>
           <div class="reply-box__row"><textarea class="textarea" id="reply" name="reply" rows="2" aria-describedby="reply-help" readonly></textarea>
           <button class="btn btn--primary" type="submit" aria-busy="true" aria-disabled="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg>Send</button></div>
           <span class="field__help" id="reply-help">Priya sees Pelau House, not your email or phone.</span>

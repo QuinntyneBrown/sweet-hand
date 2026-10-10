@@ -51,7 +51,7 @@
         <span class="photo photo--md"><img src="../../assets/img/pelau-house.jpg" alt="" width="96" height="96"></span>
         <div class="thread__title">
           <h1 style="font: var(--text-h1);">Pelau House</h1>
-          <p class="cluster"><span class="status status--published">Published</span><a href="../../pages/caterer/default.html">Public page</a></p>
+          <p class="cluster"><span class="status status--published">Published</span><a class="link--standalone" href="../../pages/caterer/default.html">Public page</a></p>
         </div>
       </div>
         <div class="cluster">
@@ -59,7 +59,7 @@
           <button class="btn" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/suspend-caterer/default.html">Suspend</button>
           <button class="btn btn--ghost" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/remove-caterer/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Remove</button>
         </div>
-      <div style="margin-top: var(--space-6);"><div class="alert alert--info"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div class="alert__body"><p class="alert__title">Name change waiting for review</p><p>Pelau House → Pelau House by Kendra. The current name stays live until it’s approved.</p><div class="alert__actions"><a href="../../pages/admin-profile-review/name-change.html">Review the name change</a></div></div></div></div>
+      <div style="margin-top: var(--space-6);"><div class="alert alert--info"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div class="alert__body"><p class="alert__title">Name change waiting for review</p><p>Pelau House → Pelau House by Kendra. The current name stays live until it’s approved.</p><div class="alert__actions"><a class="link--standalone" href="../../pages/admin-profile-review/name-change.html">Review the name change</a></div></div></div></div>
 
       <section class="caterer-section" aria-labelledby="owner-title">
         <h2 id="owner-title">Owner</h2>
@@ -92,7 +92,7 @@
           <dt>Issued by</dt><dd>Toronto Public Health</dd>
           <dt>Number</dt><dd>FH-2024-118734</dd>
           <dt>Expires</dt><dd>14 Mar 2029</dd>
-          <dt>Copy</dt><dd><button class="btn btn--link btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>certificate.pdf (412 KB)</button></dd>
+          <dt>Copy</dt><dd><button class="btn btn--link btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>food-handler-certificate.pdf (1.2 MB)</button></dd>
         </dl>
         <p class="text-caption" style="margin-top: var(--space-3);">The file opens through a link that expires after 5 minutes. Kendra’s own statement; Sweet Hand doesn’t certify kitchens.</p>
       </section>
@@ -107,13 +107,13 @@
       </section>
 
       <section class="caterer-section" aria-labelledby="hist-title">
-        <div class="caterer-section__head"><h2 id="hist-title">Status history</h2><a href="../../pages/admin-audit/default.html">Audit log</a></div>
-        <ol class="timeline">
-          <li><span class="timeline__when">Fri 14 Mar 2025, 11:20 a.m.</span><span><strong>Published</strong> · Tomas Reyes</span><span class="text-muted text-sm">Approved</span></li>
-          <li><span class="timeline__when">Wed 12 Mar 2025, 8:05 p.m.</span><span><strong>Pending review</strong> · Kendra Baptiste</span><span class="text-muted text-sm">Resubmitted</span></li>
-          <li><span class="timeline__when">Mon 10 Mar 2025, 2:40 p.m.</span><span><strong>Changes requested</strong> · Leah Mohammed</span><span class="text-muted text-sm">“Photo 4 is blurry. Please replace it with a sharper one.”</span></li>
-          <li><span class="timeline__when">Sat 8 Mar 2025, 9:12 a.m.</span><span><strong>Pending review</strong> · Kendra Baptiste</span><span class="text-muted text-sm">Submitted</span></li>
-          <li><span class="timeline__when">Tue 4 Mar 2025, 7:30 p.m.</span><span><strong>Draft</strong> · Kendra Baptiste</span><span class="text-muted text-sm">Account created</span></li>
+        <div class="caterer-section__head"><h2 id="hist-title">Status history</h2><a class="link--standalone" href="../../pages/admin-audit/default.html">Audit log</a></div>
+        <ol class="timeline" aria-label="Status history, newest first">
+          <li><time class="timeline__when" datetime="2025-03-14T15:20:00Z">Fri 14 Mar 2025, 11:20 a.m.</time><span><strong>Published</strong> · Tomas Reyes</span><span class="text-muted text-sm">Approved</span></li>
+          <li><time class="timeline__when" datetime="2025-03-13T00:05:00Z">Wed 12 Mar 2025, 8:05 p.m.</time><span><strong>Pending review</strong> · Kendra Baptiste</span><span class="text-muted text-sm">Resubmitted</span></li>
+          <li><time class="timeline__when" datetime="2025-03-10T18:40:00Z">Mon 10 Mar 2025, 2:40 p.m.</time><span><strong>Changes requested</strong> · Leah Mohammed</span><span class="text-muted text-sm">“Photo 4 is blurry. Please replace it with a sharper one.”</span></li>
+          <li><time class="timeline__when" datetime="2025-03-08T14:12:00Z">Sat 8 Mar 2025, 9:12 a.m.</time><span><strong>Pending review</strong> · Kendra Baptiste</span><span class="text-muted text-sm">Submitted</span></li>
+          <li><time class="timeline__when" datetime="2025-03-05T00:30:00Z">Tue 4 Mar 2025, 7:30 p.m.</time><span><strong>Draft</strong> · Kendra Baptiste</span><span class="text-muted text-sm">Account created</span></li>
         </ol>
         <p class="text-caption" style="margin-top: var(--space-4);">History entries can’t be edited.</p>
       </section>

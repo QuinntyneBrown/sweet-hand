@@ -41,12 +41,17 @@
       <button class="icon-btn" type="button" aria-label="Close" data-mock-href="../../pages/caterers/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>
     <div class="dialog__body stack">
-      <div class="search-field">
+      <div class="field">
         <label class="visually-hidden" for="q">Area or postal code</label>
-        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-        <input class="input" id="q" name="area" type="search" placeholder="Area or postal code" autocomplete="postal-code" autocapitalize="characters" autofocus aria-describedby="q-msg q-help" role="combobox" aria-expanded="false" aria-controls="q-list" aria-autocomplete="list" value="K1A 0B1">
-        <span class="field__warning" id="q-msg" role="status">Sweet Hand currently serves Toronto and the GTA</span>
-        <span class="field__help" id="q-help" style="margin-top: var(--space-2);">An area like Scarborough, or a postal code like M1B 2K3.</span>
+        <div class="search-field">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <input class="input" id="q" name="area" type="search" placeholder="Area or postal code" autocomplete="postal-code" autocapitalize="characters" enterkeyhint="search" spellcheck="false" autofocus aria-describedby="q-msg q-help" role="combobox" aria-expanded="false" aria-controls="q-list" aria-autocomplete="list" value="K1A 0B1">
+        </div>
+        <span class="field__warning" id="q-msg">Sweet Hand currently serves Toronto and the GTA</span>
+        <span class="field__help" id="q-help">An area like Scarborough, or a postal code like M1B 2K3.</span>
+        <ul class="suggestions" id="q-list" role="listbox" aria-label="Matching areas" hidden></ul>
+        <span class="visually-hidden" role="status"></span>
+        <span class="visually-hidden" role="status">Sweet Hand currently serves Toronto and the GTA</span>
       </div>
       <div class="filter-group" role="group" aria-labelledby="q-regions">
         <h3 class="filter-group__title" id="q-regions">Or choose a whole region</h3>
