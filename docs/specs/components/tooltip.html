@@ -31,7 +31,7 @@
 /* Specimen only, not product CSS: tooltip D-5 (clamped inside the viewport at the right edge; arrow stays over the control). */
 .crd-clamp-end .tooltip { left: auto; right: 0; translate: 0 0; }
 .crd-clamp-end .tooltip::after { left: auto; right: calc(var(--target-comfortable) / 2); translate: 50% 0; }
-/* Specimen only, not product CSS: tooltip D-7 (forced-colours border, simulated). */
+/* Documentation only: forced colours simulated for tooltip D-7; components.css draws the border under @media (forced-colors: active). */
 .crd-fc .tooltip { forced-color-adjust: none; background: Canvas; color: CanvasText; border: var(--border-width-hairline) solid CanvasText; }
 .crd-fc .tooltip::after { border-top-color: CanvasText; }
 .crd-tip-row { display: flex; flex-wrap: wrap; gap: var(--space-12); align-items: flex-end; padding-top: var(--space-12); padding-inline: var(--space-8); }
@@ -75,7 +75,7 @@
     <span class="crd-ac">AC-4, AC-6, AC-7, AC-13</span>
     <h3>Forced colours: required (D-7)</h3>
     <div class="ds-example"><div class="ds-example__canvas crd-tip-row crd-fc"><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Close" aria-describedby="crd-tip-22"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="tooltip" id="crd-tip-22" role="tooltip" data-state="visible">Close <kbd>Esc</kbd></span></span><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Edit Chicken pelau"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><span class="tooltip" role="tooltip" aria-hidden="true" data-state="visible">Edit</span></span></div>
-    <div class="ds-example__caption"><span>Required (D-7): boxed with a <code>CanvasText</code> border when the inverse fill is removed. Simulated with a specimen-only style.</span></div></div>
+    <div class="ds-example__caption"><span>Required (D-7): boxed with a <code>CanvasText</code> border when the inverse fill is removed. Simulated here without forced colours.</span></div></div>
   </section>
 
   <section class="ds-section" id="themes"><h2>Both themes</h2>

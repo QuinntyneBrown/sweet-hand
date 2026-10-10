@@ -149,7 +149,7 @@
           <span class="ds-callout" style="left: 62%; top: 70%;" aria-hidden="true">3</span>
         </figure>
         <ol class="ds-anatomy__list">
-          <li><div><b>Track</b><small>Full circle, <code>--border-width-thick</code> (3px at large) in <code>--color-border-default</code>. Decorative.</small></div></li>
+          <li><div><b>Track</b><small>Full circle, <code>--border-width-thick</code> (2px) in <code>--color-border-default</code>. Decorative.</small></div></li>
           <li><div><b>Arc</b><small>The top quarter in <code>--color-fg-default</code> (ink), turning linearly every <code>--duration-loop-fast</code>.</small></div></li>
           <li><div><b>Status text</b><small>A <code>role="status"</code> wrapper with visible or visually hidden words ("Loading photo 3 of 6"). The ring itself is <code>aria-hidden</code>.</small></div></li>
         </ol>
@@ -199,7 +199,7 @@
           <span class="inline-status" role="status"><span class="spinner" aria-hidden="true"></span>Medium · 20px</span>
           <span class="inline-status" role="status"><span class="spinner spinner--lg" aria-hidden="true"></span>Large · 40px</span>
         </div>
-        <div class="ds-example__caption"><span>Small (<code>--icon-size-sm</code>) beside <code>--text-body-sm</code>; medium (<code>--icon-size-md</code>) beside body text; large (<code>--space-10</code>, 3px ring) inside photo placeholders and empty regions.</span></div>
+        <div class="ds-example__caption"><span>Small (<code>--icon-size-sm</code>) beside <code>--text-body-sm</code>; medium (<code>--icon-size-md</code>) beside body text; large (<code>--space-10</code>, 2px ring) inside photo placeholders and empty regions.</span></div>
       </div>
     </section>
 
@@ -275,7 +275,7 @@
         <div class="ds-pair"><span>Arc on sunken well</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-sunken" data-min="3"></span></div>
         <div class="ds-pair"><span>Inline status text on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
       </div>
-      <p>The arc is a graphical object that conveys "working", so it needs 3:1 against the surface (WCAG 1.4.11); the track is decorative. The arc on the photo placeholder background (<code>--color-bg-photo</code>) is not yet a checked pair and is listed for addition.</p>
+      <p>The arc is a graphical object that conveys "working", so it needs 3:1 against the surface (WCAG 1.4.11); the track is decorative. The arc on the photo placeholder background (<code>--color-bg-photo</code>) is a checked pair too.</p>
       <h3>Motion</h3>
       <p>The spinner keeps turning under <code>prefers-reduced-motion</code>. It is not decoration: a still ring would read as frozen, and the turn is slow, linear, small and stops as soon as the content arrives (WCAG 2.3.3 covers motion triggered by interaction; this is a status indicator). Loop durations are deliberately not zeroed in <code>tokens.css</code>. Skeleton shimmer and the indeterminate progress sweep, which are decorative, do stop.</p>
       <h3>Touch</h3>
@@ -307,7 +307,7 @@
           <tr><td>Track</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
           <tr><td>Placeholder behind (viewer)</td><td><code>--color-bg-photo</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-photo" data-swatch></i><span data-token="--color-bg-photo"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-photo" data-swatch></i><span data-token="--color-bg-photo"></span></span></td></tr>
           <tr><td>Size sm / md / lg</td><td><code>--icon-size-sm</code> / <code>--icon-size-md</code> / <code>--space-10</code></td><td colspan="2"><span data-token="--icon-size-sm"></span> / <span data-token="--icon-size-md"></span> / <span data-token="--space-10"></span></td></tr>
-          <tr><td>Ring width</td><td><code>--border-width-thick</code> (3px at large)</td><td colspan="2"><span data-token="--border-width-thick"></span></td></tr>
+          <tr><td>Ring width</td><td><code>--border-width-thick</code> (2px)</td><td colspan="2"><span data-token="--border-width-thick"></span></td></tr>
           <tr><td>One revolution</td><td><code>--duration-loop-fast</code>, linear</td><td colspan="2"><span data-token="--duration-loop-fast"></span></td></tr>
         </tbody>
       </table></div>
@@ -322,7 +322,7 @@
 &lt;/div&gt;</code></pre>
       <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
         <tr><td><code>.spinner</code></td><td>20px ring, ink arc, 800ms linear turn.</td></tr>
-        <tr><td><code>.spinner--sm</code> <code>.spinner--lg</code></td><td>16px / 40px with a 3px ring.</td></tr>
+        <tr><td><code>.spinner--sm</code> <code>.spinner--lg</code></td><td>16px / 40px with a 2px ring.</td></tr>
         <tr><td><code>aria-hidden="true"</code></td><td>Required on the ring.</td></tr>
         <tr><td><code>role="status"</code> + text (or <code>.visually-hidden</code> text)</td><td>Required wrapper; announces what is loading.</td></tr>
         <tr><td><code>aria-busy="true"</code></td><td>On the region being loaded; remove when done.</td></tr>

@@ -152,7 +152,7 @@
     </section>
 
     <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
-      <p>The site header, as signed-in Marcia Thompson sees it on a phone: search, inbox link with count, and menu. All three are ghost icon buttons in a row with a 4px gap.</p>
+      <p>The site header, as signed-in Marcia Thompson sees it on a phone: search, inbox link with count, and menu. All three are ghost icon buttons in a row, 8px apart on phones (4px from 48rem).</p>
       <div class="ds-example">
         <div class="ds-example__canvas">
           <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
@@ -251,7 +251,7 @@
 
     <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
       <ul>
-        <li><b>Below 48rem (XS, SM)</b> the header swaps text links for icon buttons. <code>.site-nav__extra</code> links (Caterers, Occasions, Inbox, the avatar) hide; <code>.site-nav__menu</code> icon buttons (inbox link with count, Menu) show. Search shows at every width. At 320px the row is wordmark + 3 × 44px + 2 × 4px gaps, and the "for caterers" tag drops below 22.5rem, so the header never scrolls sideways.</li>
+        <li><b>Below 48rem (XS, SM)</b> the header swaps text links for icon buttons. <code>.site-nav__extra</code> links (Caterers, Occasions, Inbox, the avatar) hide; <code>.site-nav__menu</code> icon buttons (inbox link with count, Menu) show. Search shows at every width. At 320px the row is wordmark + 3 × 44px + 2 × 8px gaps, and the "for caterers" tag drops below 24rem, so the header never scrolls sideways.</li>
         <li><b>From 48rem (MD up)</b> the phone-only icon buttons hide and the text links return. Search stays an icon button: there is no free-text search box in the header (mocks README, open question 8).</li>
         <li><b>Photo viewer</b>: Previous and Next flank the photo at every width. From 48rem the gap between control and photo grows from <code>--space-2</code> to <code>--space-8</code>.</li>
         <li><b>Photo tiles</b> (2 / 3 / 4 columns at XS / MD / XL) centre their move arrows under the caption and wrap if a tile is narrower than 92px.</li>
@@ -296,7 +296,7 @@
       <h3>Motion</h3>
       <p>Only the background colour transitions, over <code>--duration-fast</code> (120ms). Reduced motion zeroes it. Nothing moves or scales.</p>
       <h3>Touch</h3>
-      <p>Every icon button is 44 × 44px, so adjacent targets (the header row, a tile's up and down arrows 4px apart) need no extra spacing under WCAG 2.5.8. Nothing depends on hover: there are no hover-only reveals on rows or tiles.</p>
+      <p>Every icon button is 44 × 44px, and below 48rem adjacent icon buttons (the header row, a tile's up and down arrows, menu-row actions) sit at least 8px apart (L2-065.1). Nothing depends on hover: there are no hover-only reveals on rows or tiles.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>

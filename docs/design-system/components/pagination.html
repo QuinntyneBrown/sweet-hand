@@ -271,7 +271,7 @@
         <li><b>XS (below 36rem)</b>: up to seven items fit at 320px (‹ 1 … 6 … 54 ›). Show the current page only, plus first and last. Three pages need no gaps (‹ 1 2 3 › is 5 items).</li>
         <li><b>SM and up</b>: add one neighbour either side of the current page.</li>
         <li><b>Inbox at LG</b>: the list column is 20–26rem wide, so it keeps the XS arrangement.</li>
-        <li>The row is a single line today; a long sequence must not scroll sideways, so <code>flex-wrap</code> and centring are proposed (see Sources).</li>
+        <li>A long sequence never scrolls sideways: the row wraps and stays centred.</li>
       </ul>
     </section>
 
@@ -302,7 +302,7 @@
       <h3>Motion</h3>
       <p>Only the hover fill transitions (<code>--duration-fast</code>), and reduced motion zeroes it. Moving to a new page does not animate or smooth-scroll.</p>
       <h3>Touch</h3>
-      <p>Every link is 44 × 44px. The links sit only 4px apart (<code>--space-1</code>), short of the 8px L2-065.1 asks for on phones, so the gap should grow to <code>--space-2</code> (see Sources).</p>
+      <p>Every link is 44 × 44px. The links sit 8px apart (<code>--space-2</code>), as L2-065.1 asks on phones; gap markers are narrow and are not targets.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
@@ -336,7 +336,7 @@
           <tr><td>Link size</td><td><code>--control-height-md</code></td><td colspan="2"><span data-token="--control-height-md"></span></td></tr>
           <tr><td>Radius</td><td><code>--radius-full</code></td><td colspan="2"><span data-token="--radius-full"></span></td></tr>
           <tr><td>Label, count</td><td><code>--text-label</code> <code>--text-body-sm</code></td><td colspan="2"><span data-token="--text-label"></span> / <span data-token="--text-body-sm"></span></td></tr>
-          <tr><td>Gap between links, above row</td><td><code>--space-1</code> <code>--space-16</code></td><td colspan="2"><span data-token="--space-1"></span> / <span data-token="--space-16"></span></td></tr>
+          <tr><td>Gap between links, above row</td><td><code>--space-2</code> <code>--space-16</code></td><td colspan="2"><span data-token="--space-2"></span> / <span data-token="--space-16"></span></td></tr>
           <tr><td>Hover transition</td><td><code>--duration-fast</code></td><td colspan="2"><span data-token="--duration-fast"></span></td></tr>
         </tbody>
       </table></div>
@@ -372,7 +372,7 @@
         <li><a href="../../mocks/pages/inbox/long.html">pages/inbox/long</a> and <a href="../../mocks/pages/admin-audit/long.html">pages/admin-audit/long</a> (20 per page)</li>
         <li><a href="../../mocks/pages/caterers/filtered.html">pages/caterers/filtered</a> (one page, no pagination)</li>
       </ul>
-      <p>Drift fixed during extraction: page 1 omitted the previous arrow and the last page omitted next (caterers, inbox, audit), so the numbers moved between pages; the system always renders both, disabled at the ends. The 1,284-caterer and 1,284-event mocks still showed only pages 1–3; the system adds first, last and gap markers. Open CSS proposals: <code>.pagination</code> gap is 4px (L2-065.1 wants 8px on phones) and the row cannot wrap; <code>gap: var(--space-2); flex-wrap: wrap; justify-content: center</code> is proposed.</p>
+      <p>Drift fixed during extraction: page 1 omitted the previous arrow and the last page omitted next (caterers, inbox, audit), so the numbers moved between pages; the system always renders both, disabled at the ends. The 1,284-caterer and 1,284-event mocks still showed only pages 1–3; the system adds first, last and gap markers.</p>
     </section>
 
     <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>

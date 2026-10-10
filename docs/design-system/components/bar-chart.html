@@ -263,7 +263,7 @@
       <ul>
         <li><b>Below lg (62rem):</b> one chart per row, full width of the work area. Six weekly bars are about 2.5rem wide each at 320px.</li>
         <li><b>lg (62rem) and up:</b> <code>.chart-grid</code> is two columns with a <code>--space-12</code> gap; card heads stay on one line (title left, total right) and wrap only if the title is very long.</li>
-        <li><b>Many periods:</b> with "Show by: Day" a six-week range is 41 bars, and 40 gaps of 8px don't fit a phone. Up to 14 bars per chart on phones and 31 on wider screens; beyond that, aggregate (week or month) or open the table by default. A tighter-gap rule for dense charts is proposed.</li>
+        <li><b>Many periods:</b> with "Show by: Day" a six-week range is 41 bars, and 40 gaps of 8px don't fit a phone. From 32 bars a <code>.bar-chart--dense</code> chart draws every bar with no gap (up to 366), with at most 7 axis labels and the exact values in the table.</li>
         <li>Axis labels never wrap; a label that doesn't fit its bar's width is clipped, which is why every value is also in the image label and the table.</li>
       </ul>
     </section>
