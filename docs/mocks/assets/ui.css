@@ -942,8 +942,8 @@ legend { font: var(--text-label); padding: 0; margin-bottom: var(--space-2); }
 .device-list .list__item { padding-inline: 0; min-height: var(--control-height-lg); }
 
 /* --- caterer-page: long dish names wrap the price below --- */
-.dish__top { flex-wrap: wrap; }
-.dish__name { flex: 1 1 12rem; min-width: 0; overflow-wrap: anywhere; }
+.dish-list .dish__top { flex-wrap: wrap; }
+.dish-list .dish__name { flex: 1 1 12rem; min-width: 0; overflow-wrap: anywhere; }
 
 /* --- public listing: filter trigger disabled (offline) --- */
 .filter-trigger:disabled, .filter-trigger[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
@@ -954,3 +954,23 @@ legend { font: var(--text-label); padding: 0; margin-bottom: var(--space-2); }
 
 /* --- caterer profile: setup meter (ink, not accent: progress is not a selection) --- */
 .meter .progress__bar { background: var(--color-fg-default); }
+
+/* --- customer inbox: dismiss buttons on banners and toasts reach 44px on phones (L2-065.1) --- */
+@media (max-width: 47.99rem) {
+  .banner .close, .toast-region .toast .close { width: var(--target-comfortable); height: var(--target-comfortable); margin: calc(-1 * var(--space-3)) calc(-1 * var(--space-3)) 0 0; }
+}
+
+/* --- caterer-page: viewer text spans the full width --- */
+.viewer__count, .viewer__caption { max-width: none; }
+
+
+/* --- operator caterers: the area tag beside the wordmark gives way on the narrowest phones so the header never scrolls sideways (320px) --- */
+@media (max-width: 22.49rem) { .site-header .wordmark__tag { display: none; } }
+
+/* --- final pass: narrow-phone fixes found by the 320px sweep --- */
+.mobile-browse-bar { flex-wrap: wrap; }
+.btn { max-width: 100%; }
+.btn--wrap, .btn[data-wrap] { white-space: normal; text-align: left; line-height: var(--line-height-snug); padding-block: var(--space-2); }
+.skeleton { max-width: 100%; }
+.filter-dropdown { width: min(20rem, calc(100vw - 2 * var(--layout-margin))); }
+@media (max-width: 47.99rem) { .filter-bar { position: relative; } .filter-bar .menu-anchor { position: static; } .filter-bar .filter-dropdown { left: 0; } }

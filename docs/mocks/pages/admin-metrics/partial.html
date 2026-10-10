@@ -57,7 +57,7 @@
         <button class="btn btn--primary" type="submit">Apply</button>
         <button class="btn" type="button" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>Export CSV</button>
       </form>
-      <dl class="stat-grid">
+      <dl class="stat-grid" style="margin-bottom: var(--space-10);">
         <div class="stat"><dt class="stat__label">Published caterers</dt><dd class="stat__value">60</dd><dd class="stat__delta stat__delta--up">+4 in this range</dd></div>
         <div class="stat"><dt class="stat__label">Enquiries</dt><dd class="stat__value">–</dd><dd class="text-caption">Not loaded</dd></div>
         <div class="stat"><dt class="stat__label">Replied within 48 h</dt><dd class="stat__value">–</dd><dd class="text-caption">Not loaded</dd></div>
@@ -67,11 +67,11 @@
       <div class="chart-grid">
         <section class="chart-card" aria-labelledby="c-enquiries">
           <div class="chart-card__head"><h3 id="c-enquiries">Enquiries</h3></div>
-          <div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><p class="alert__title">This chart didn’t load</p><p>The other figures are up to date.</p><div class="alert__actions"><button type="button" data-mock-href="default.html">Try again</button></div></div></div>
+          <div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><p class="alert__title">This chart didn’t load</p><p>The other figures are up to date.</p><div class="alert__actions"><button class="btn btn--sm" type="button" data-mock-href="default.html">Try again</button></div></div></div>
         </section>
         <section class="chart-card" aria-labelledby="c-replied">
           <div class="chart-card__head"><h3 id="c-replied">Replied within 48 hours</h3></div>
-          <div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><p class="alert__title">This chart didn’t load</p><p>The other figures are up to date.</p><div class="alert__actions"><button type="button" data-mock-href="default.html">Try again</button></div></div></div>
+          <div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><p class="alert__title">This chart didn’t load</p><p>The other figures are up to date.</p><div class="alert__actions"><button class="btn btn--sm" type="button" data-mock-href="default.html">Try again</button></div></div></div>
         </section>
         <section class="chart-card" aria-labelledby="c-listing">
           <div class="chart-card__head"><h3 id="c-listing">Listing page visits</h3><span class="chart-card__total">22,670</span></div>
@@ -104,7 +104,7 @@
           </details>
         </section>
         <section class="chart-card" aria-labelledby="c-unique">
-          <div class="chart-card__head"><h3 id="c-unique">Unique visitors</h3><span class="chart-card__total">2,578 a week on average</span></div>
+          <div class="chart-card__head"><h3 id="c-unique">Unique visitors</h3><span class="chart-card__total">2,578 avg</span></div>
           <div class="bar-chart" role="img" aria-label="Unique visitors by week. 31 Aug: 2,210, 7 Sep: 2,390, 14 Sep: 2,760, 21 Sep: 2,640, 28 Sep: 2,890, 5 Oct: 2,580."><span class="bar-chart__bar" style="--value: 76%;"></span><span class="bar-chart__bar" style="--value: 83%;"></span><span class="bar-chart__bar" style="--value: 96%;"></span><span class="bar-chart__bar" style="--value: 91%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 89%;"></span></div>
           <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
           <details>
