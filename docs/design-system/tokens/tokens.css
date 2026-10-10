@@ -1,0 +1,519 @@
+/* ==========================================================================
+   Sweet Hand design system — tokens. The single source of truth for colour,
+   type, space, shape, elevation, motion, layout, z-order and interaction.
+
+   Extracted from docs/mocks (assets/tokens.css, assets/ui.css and 436 mocks)
+   on 10 October 2026. Every value traces to a mock or to a correction logged
+   in docs/design-system/README.md ("Drift found in the mocks").
+
+   The look: a white canvas, near-black ink, one warm scotch-bonnet red
+   ("pepper") for "selected / you are here", round food photos and generous
+   white space. Text is short; the food does the talking.
+
+   Three tiers:
+     1. Primitives  (--palette-*, --font-*, --line-height-*, --letter-spacing-*)
+                    raw values; components never use them.
+     2. Semantic    (--color-*, --text-*, --space-*, --radius-*, --shadow-*,
+                    --duration-*, --ease-*, --z-*, --layout-*, --target-*,
+                    --control-height-*) consumed by components. Themes
+                    override this tier only.
+     3. Component   (--btn-*, --field-*, --alert-* …) declared in
+                    assets/components.css, always aliasing tier 2.
+
+   Themes: light is the default (:root). Dark applies with [data-theme="dark"],
+   or when the OS prefers dark and the page has not forced
+   [data-theme="light"]. The two dark blocks are identical; edit both.
+   Verify with scripts/check_contrast.py (both themes must exit 0).
+   ========================================================================== */
+
+:root {
+  /* ---------- Primitives: colour --------------------------------------- */
+  --palette-white: #ffffff;
+  --palette-black: #000000;
+
+  /* Stone: warm greys sampled from the reference's type. */
+  --palette-stone-25: #fcfbf9;
+  --palette-stone-50: #f7f5f2;
+  --palette-stone-100: #efece7;   /* also dark-theme ink (was #f3efe8) */
+  --palette-stone-200: #e2ded7;
+  --palette-stone-300: #ccc6bd;
+  --palette-stone-350: #b8b2a8;   /* dark-theme muted text */
+  --palette-stone-400: #9a948a;   /* dark-theme subtle text */
+  --palette-stone-500: #8c877f;   /* control edges (3:1) */
+  --palette-stone-600: #6b6863;   /* light-theme subtle text (4.5:1 on sunken and subtle) */
+  --palette-stone-700: #4d4b48;
+  --palette-stone-750: #2e2b28;   /* dark-theme dividers */
+  --palette-stone-800: #2a2826;
+  --palette-stone-850: #1f1d1b;
+  --palette-stone-900: #1a1917;
+  --palette-stone-950: #141312;
+
+  /* Pepper: the brand red (the active "All" filter in the reference). */
+  --palette-pepper-50: #fbeee9;
+  --palette-pepper-100: #f7dbd2;
+  --palette-pepper-200: #f0b8a8;
+  --palette-pepper-300: #ff8f73;
+  --palette-pepper-400: #e0664a;
+  --palette-pepper-500: #c94a2f;
+  --palette-pepper-600: #b5381f;
+  --palette-pepper-700: #962d19;
+  --palette-pepper-800: #7a2414;
+  --palette-pepper-900: #4a170d;
+  --palette-pepper-950: #2b0f09;
+
+  /* Callaloo: success. */
+  --palette-callaloo-50: #ebf6ef;
+  --palette-callaloo-300: #7fd3a0;
+  --palette-callaloo-500: #2e8f57;
+  --palette-callaloo-700: #1f7a46;
+  --palette-callaloo-900: #12452a;
+  --palette-callaloo-950: #0c2a1a;
+
+  /* Mango: warning, and allergen tags. */
+  --palette-mango-50: #fdf4e2;
+  --palette-mango-300: #f2c062;
+  --palette-mango-500: #b37a00;
+  --palette-mango-700: #946200;
+  --palette-mango-900: #4d3300;
+  --palette-mango-950: #2b1d05;
+
+  /* Sorrel: danger. Deeper and cooler than pepper so an error never reads as "selected". */
+  --palette-sorrel-50: #fcecef;
+  --palette-sorrel-100: #f8d5dc;
+  --palette-sorrel-300: #f4899d;
+  --palette-sorrel-500: #c8304f;
+  --palette-sorrel-600: #a51d3a;
+  --palette-sorrel-700: #861530;
+  --palette-sorrel-900: #4d0c1c;
+  --palette-sorrel-950: #2e0711;
+
+  /* ---------- Primitives: typography ----------------------------------- */
+  --font-family-sans: "Figtree", "Instrument Sans", "Avenir Next", "Avenir", "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-mono: ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --font-size-xs: 0.75rem;    /* 12px  captions, badges, tags */
+  --font-size-sm: 0.875rem;   /* 14px  area under a caterer name, metadata */
+  --font-size-md: 1rem;       /* 16px  body, button labels */
+  --font-size-lg: 1.125rem;   /* 18px  filter list, facts, lead text */
+  --font-size-xl: 1.3125rem;  /* 21px  caterer name on a card, h4 */
+  --font-size-2xl: 1.5rem;    /* 24px  h3, wordmark */
+  --font-size-3xl: 1.875rem;  /* 30px  h2 */
+  --font-size-4xl: 2.25rem;   /* 36px  h1 on phones; 44px from 62rem */
+  --font-size-5xl: 3rem;      /* 48px  display on phones; 64px from 62rem */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.1;   /* display, h1, h2 */
+  --line-height-snug: 1.3;    /* h3, h4, card titles, wrapped buttons */
+  --line-height-normal: 1.5;  /* body */
+  --line-height-relaxed: 1.65;/* long-form reading (about, privacy, terms) */
+
+  --letter-spacing-tight: -0.02em; /* headings, wordmark */
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.06em;   /* uppercase overlines and "kind" labels */
+
+  /* ---------- Semantic: colour (light) --------------------------------- */
+  --color-bg-canvas: var(--palette-white);
+  --color-bg-surface: var(--palette-white);
+  --color-bg-surface-raised: var(--palette-white);
+  --color-bg-surface-sunken: var(--palette-stone-50);
+  --color-bg-subtle: var(--palette-stone-100);
+  --color-bg-subtle-hover: var(--palette-stone-200);
+  --color-bg-inverse: var(--palette-stone-950);
+  --color-bg-backdrop: rgb(20 19 18 / 0.5);
+  --color-bg-photo: var(--palette-stone-100);       /* behind a photo that has not loaded */
+  --color-bg-scrim: rgb(20 19 18 / 0.72);           /* text over photos (L2-069.2) */
+
+  --color-fg-default: var(--palette-stone-950);
+  --color-fg-muted: var(--palette-stone-700);
+  --color-fg-subtle: var(--palette-stone-600);
+  --color-fg-disabled: var(--palette-stone-300);
+  --color-fg-inverse: var(--palette-white);
+  --color-fg-on-scrim: var(--palette-white);
+  --color-fg-link: var(--palette-stone-950);
+  --color-fg-link-hover: var(--palette-pepper-600);
+
+  --color-border-default: var(--palette-stone-200);
+  --color-border-strong: var(--palette-stone-500);
+  --color-border-inverse: var(--palette-stone-700);
+
+  /* Accent = "selected / you are here": active filter, current tab, focus. */
+  --color-accent: var(--palette-pepper-600);
+  --color-accent-hover: var(--palette-pepper-700);
+  --color-accent-active: var(--palette-pepper-800);
+  --color-accent-subtle: var(--palette-pepper-50);
+  --color-accent-subtle-hover: var(--palette-pepper-100);
+  --color-fg-on-accent: var(--palette-white);
+  --color-fg-accent: var(--palette-pepper-600);
+
+  /* Action = the one primary button on a screen: solid ink, like the wordmark. */
+  --color-action: var(--palette-stone-950);
+  --color-action-hover: var(--palette-stone-800);
+  --color-action-active: var(--palette-stone-700);
+  --color-fg-on-action: var(--palette-white);
+
+  --color-focus-ring: var(--palette-pepper-600);
+  --color-focus-ring-offset: var(--color-bg-surface);
+
+  /* Info is quiet stone, not blue: the brand has one hue and it means "selected". */
+  --color-info-bg: var(--palette-stone-50);
+  --color-info-fg: var(--palette-stone-800);
+  --color-info-border: var(--palette-stone-300);
+  --color-info-icon: var(--palette-stone-700);
+  --color-info-solid: var(--palette-stone-800);
+
+  --color-success-bg: var(--palette-callaloo-50);
+  --color-success-fg: var(--palette-callaloo-700);
+  --color-success-border: var(--palette-callaloo-300);
+  --color-success-icon: var(--palette-callaloo-500);
+  --color-success-solid: var(--palette-callaloo-700);
+
+  --color-warning-bg: var(--palette-mango-50);
+  --color-warning-fg: var(--palette-mango-700);
+  --color-warning-border: var(--palette-mango-300);
+  --color-warning-icon: var(--palette-mango-500);
+  --color-warning-solid: var(--palette-mango-700);
+
+  --color-danger-bg: var(--palette-sorrel-50);
+  --color-danger-fg: var(--palette-sorrel-600);
+  --color-danger-border: var(--palette-sorrel-300);
+  --color-danger-icon: var(--palette-sorrel-500);
+  --color-danger-solid: var(--palette-sorrel-600);
+  --color-danger-solid-hover: var(--palette-sorrel-700);
+  --color-fg-on-danger: var(--palette-white);
+
+  /* Rating stars: an empty star still reads as a control (3:1). */
+  --color-star: var(--palette-stone-950);
+  --color-star-empty: var(--palette-stone-500);
+
+  /* ---------- Semantic: typography roles ------------------------------- */
+  --text-display: var(--font-weight-bold) var(--font-size-5xl) / var(--line-height-tight) var(--font-family-sans);
+  --text-h1: var(--font-weight-bold) var(--font-size-4xl) / var(--line-height-tight) var(--font-family-sans);
+  --text-h2: var(--font-weight-bold) var(--font-size-3xl) / var(--line-height-tight) var(--font-family-sans);
+  --text-h3: var(--font-weight-semibold) var(--font-size-2xl) / var(--line-height-snug) var(--font-family-sans);
+  --text-h4: var(--font-weight-semibold) var(--font-size-xl) / var(--line-height-snug) var(--font-family-sans);
+  --text-wordmark: var(--font-weight-bold) var(--font-size-2xl) / 1 var(--font-family-sans);
+  --text-card-title: var(--font-weight-medium) var(--font-size-xl) / var(--line-height-snug) var(--font-family-sans);
+  --text-body-lg: var(--font-weight-regular) var(--font-size-lg) / var(--line-height-normal) var(--font-family-sans);
+  --text-body: var(--font-weight-regular) var(--font-size-md) / var(--line-height-normal) var(--font-family-sans);
+  --text-body-sm: var(--font-weight-regular) var(--font-size-sm) / var(--line-height-normal) var(--font-family-sans);
+  --text-caption: var(--font-weight-regular) var(--font-size-xs) / var(--line-height-normal) var(--font-family-sans);
+  --text-label: var(--font-weight-medium) var(--font-size-sm) / var(--line-height-normal) var(--font-family-sans);
+  --text-nav: var(--font-weight-regular) var(--font-size-md) / var(--line-height-normal) var(--font-family-sans);
+  --text-overline: var(--font-weight-semibold) var(--font-size-xs) / var(--line-height-normal) var(--font-family-sans);
+  --text-code: var(--font-weight-regular) var(--font-size-sm) / var(--line-height-normal) var(--font-family-mono);
+  --text-prose: var(--font-weight-regular) var(--font-size-lg) / var(--line-height-relaxed) var(--font-family-sans);
+
+  /* ---------- Semantic: spacing (4px base) ----------------------------- */
+  --space-0: 0;
+  --space-0-5: 0.125rem; /* 2px   hairline gaps, star spacing */
+  --space-1: 0.25rem;    /* 4px   icon-to-label, label-to-control */
+  --space-2: 0.5rem;     /* 8px   inside chips and tags, between inline items */
+  --space-3: 0.75rem;    /* 12px  compact padding, between buttons */
+  --space-4: 1rem;       /* 16px  default padding, stack gap, phone margin */
+  --space-5: 1.25rem;    /* 20px  dish row padding */
+  --space-6: 1.5rem;     /* 24px  card and dialog padding, form gap */
+  --space-8: 2rem;       /* 32px  section gap, tablet margin */
+  --space-10: 2.5rem;    /* 40px  laptop gutter */
+  --space-12: 3rem;      /* 48px  page section spacing, desktop margin */
+  --space-16: 4rem;      /* 64px  section gap on phones, caterer sections */
+  --space-20: 5rem;      /* 80px  wide-desktop margin */
+  --space-24: 6rem;      /* 96px  section gap from 62rem, footer offset */
+  --space-32: 8rem;      /* 128px admin row body basis */
+
+  /* ---------- Semantic: layout ----------------------------------------- */
+  /* Viewport classes from docs/specs/L2.md: XS <36rem, SM 36rem, MD 48rem,
+     LG 62rem, XL 75rem; 2XL 90rem is where content stops growing.
+     Media queries cannot read custom properties, so components repeat these
+     values literally (and only these values). */
+  --layout-breakpoint-sm: 36rem;   /* 576px  large phones, landscape */
+  --layout-breakpoint-md: 48rem;   /* 768px  tablets */
+  --layout-breakpoint-lg: 62rem;   /* 992px  laptops: sidebars appear */
+  --layout-breakpoint-xl: 75rem;   /* 1200px desktops: preview pane, wide margin */
+  --layout-breakpoint-2xl: 90rem;  /* 1440px container max; margins grow beyond */
+
+  --layout-columns: 4;
+  --layout-gutter: var(--space-6);
+  --layout-margin: var(--space-4);
+  --layout-container-max: 90rem;    /* 1440px incl. margins, like the reference */
+  --layout-measure: 62ch;
+  --layout-sidebar-width: 15rem;    /* filter column, dashboard side nav */
+  --layout-panel-width: 22rem;      /* sticky enquiry panel on the caterer page */
+  --layout-dialog-width: 32rem;     /* default dialog panel */
+  --layout-sheet-width: 28rem;      /* side sheet from 48rem */
+  --layout-topbar-height: 4rem;
+  --layout-section-gap: var(--space-16);
+  --photo-card-size: 17.5rem;       /* circle diameter on listing cards (280px) */
+
+  /* ---------- Semantic: shape ------------------------------------------ */
+  --radius-xs: 0.25rem;   /* 4px   checkbox, message tail, bar tops */
+  --radius-sm: 0.375rem;  /* 6px   tooltip, inline code, focus ring */
+  --radius-md: 0.75rem;   /* 12px  inputs, menus, alerts, toasts */
+  --radius-lg: 1.25rem;   /* 20px  dialogs, panels, message bubbles */
+  --radius-xl: 1.75rem;   /* 28px  phone bottom sheets */
+  --radius-full: 9999px;  /* buttons, chips, tags, photos, avatars */
+
+  --border-width-hairline: 1px;
+  --border-width-thick: 2px;
+
+  /* ---------- Semantic: elevation -------------------------------------- */
+  /* Flat by default: white space separates things, shadows only lift overlays. */
+  --shadow-color: 28 24 20;
+  --shadow-1: 0 1px 2px rgb(var(--shadow-color) / 0.06);
+  --shadow-2: 0 4px 14px rgb(var(--shadow-color) / 0.08);
+  --shadow-3: 0 12px 32px rgb(var(--shadow-color) / 0.12), 0 2px 6px rgb(var(--shadow-color) / 0.06);
+  --shadow-4: 0 24px 64px rgb(var(--shadow-color) / 0.18), 0 4px 12px rgb(var(--shadow-color) / 0.08);
+  --shadow-focus: 0 0 0 2px var(--color-focus-ring-offset), 0 0 0 4px var(--color-focus-ring);
+
+  /* ---------- Semantic: motion ----------------------------------------- */
+  --duration-instant: 0ms;
+  --duration-fast: 120ms;      /* hover, colour, press */
+  --duration-base: 200ms;      /* fades, switches, toasts, menus */
+  --duration-slow: 320ms;      /* dialogs, sheets, photo zoom */
+  --duration-deliberate: 500ms;/* progress fill */
+  --duration-loop-fast: 800ms; /* one spinner revolution */
+  --duration-loop: 1400ms;     /* skeleton shimmer, indeterminate bar, pulse */
+  --duration-hover-delay: 300ms; /* tooltip show delay (hide is instant); not motion, so reduced motion keeps it */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0, 0, 0, 1);
+  --ease-exit: cubic-bezier(0.3, 0, 1, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---------- Semantic: z-order ---------------------------------------- */
+  --z-base: 0;
+  --z-raised: 1;
+  --z-sticky: 100;
+  --z-dropdown: 1000;
+  --z-overlay: 1200;
+  --z-modal: 1300;
+  --z-popover: 1400;
+  --z-toast: 1500;
+  --z-tooltip: 1600;
+
+  /* ---------- Semantic: interaction ------------------------------------ */
+  --target-min: 1.5rem;          /* 24px  WCAG 2.5.8 minimum */
+  --target-comfortable: 2.75rem; /* 44px  every phone target (L2-065) */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 3px;
+  --control-height-sm: 2.25rem;  /* 36px  row actions, chips */
+  --control-height-md: 2.75rem;  /* 44px  default: every control meets L2-065 */
+  --control-height-lg: 3.25rem;  /* 52px  hero search, auth, enquiry CTA */
+
+  /* ---------- Semantic: iconography ------------------------------------ */
+  --icon-size-xs: 0.875rem;  /* 14px  inside tags */
+  --icon-size-sm: 1rem;      /* 16px  inline with small text, stars */
+  --icon-size-md: 1.25rem;   /* 20px  default: buttons, nav, alerts */
+  --icon-size-lg: 1.5rem;    /* 24px  standalone */
+  --icon-size-xl: 1.75rem;   /* 28px  empty states, star input */
+  --icon-size-2xl: 2rem;     /* 32px  photo placeholders */
+  --icon-stroke: 2;          /* 24-unit grid, 2px stroke */
+
+  color-scheme: light;
+}
+
+/* Responsive layout tokens: columns, gutters, margins and display type grow with the viewport. */
+@media (min-width: 48rem) {
+  :root {
+    --layout-columns: 8;
+    --layout-gutter: var(--space-8);
+    --layout-margin: var(--space-8);
+    --layout-topbar-height: 5rem;
+  }
+}
+
+@media (min-width: 62rem) {
+  :root {
+    --layout-columns: 12;
+    --layout-gutter: var(--space-10);
+    --layout-margin: var(--space-12);
+    --layout-topbar-height: 6rem;
+    --font-size-4xl: 2.75rem;
+    --font-size-5xl: 4rem;
+    --layout-section-gap: var(--space-24);
+  }
+}
+
+@media (min-width: 75rem) {
+  :root { --layout-margin: var(--space-20); }
+}
+
+/* ---------- Dark theme ----------------------------------------------------- */
+[data-theme="dark"] {
+  --color-bg-canvas: var(--palette-stone-950);
+  --color-bg-surface: var(--palette-stone-950);
+  --color-bg-surface-raised: var(--palette-stone-850);
+  --color-bg-surface-sunken: var(--palette-stone-900);
+  --color-bg-subtle: var(--palette-stone-800);
+  --color-bg-subtle-hover: var(--palette-stone-700);
+  --color-bg-inverse: var(--palette-stone-50);
+  --color-bg-backdrop: rgb(0 0 0 / 0.66);
+  --color-bg-photo: var(--palette-stone-800);
+  --color-bg-scrim: rgb(0 0 0 / 0.72);
+
+  --color-fg-default: var(--palette-stone-100);
+  --color-fg-muted: var(--palette-stone-350);
+  --color-fg-subtle: var(--palette-stone-400);
+  --color-fg-disabled: var(--palette-stone-700);
+  --color-fg-inverse: var(--palette-stone-950);
+  --color-fg-on-scrim: var(--palette-white);
+  --color-fg-link: var(--palette-stone-100);
+  --color-fg-link-hover: var(--palette-pepper-300);
+
+  --color-border-default: var(--palette-stone-750);
+  --color-border-strong: var(--palette-stone-500);
+  --color-border-inverse: var(--palette-stone-300);
+
+  --color-accent: var(--palette-pepper-300);
+  --color-accent-hover: var(--palette-pepper-200);
+  --color-accent-active: var(--palette-pepper-100);
+  --color-accent-subtle: var(--palette-pepper-950);
+  --color-accent-subtle-hover: var(--palette-pepper-900);
+  --color-fg-on-accent: var(--palette-stone-950);
+  --color-fg-accent: var(--palette-pepper-300);
+
+  --color-action: var(--palette-stone-100);
+  --color-action-hover: var(--palette-white);
+  --color-action-active: var(--palette-stone-200);
+  --color-fg-on-action: var(--palette-stone-950);
+
+  --color-focus-ring: var(--palette-pepper-300);
+
+  --color-info-bg: var(--palette-stone-900);
+  --color-info-fg: var(--palette-stone-200);
+  --color-info-border: var(--palette-stone-700);
+  --color-info-icon: var(--palette-stone-350);
+  --color-info-solid: var(--palette-stone-200);
+
+  --color-success-bg: var(--palette-callaloo-950);
+  --color-success-fg: var(--palette-callaloo-300);
+  --color-success-border: var(--palette-callaloo-700);
+  --color-success-icon: var(--palette-callaloo-300);
+  --color-success-solid: var(--palette-callaloo-300);
+
+  --color-warning-bg: var(--palette-mango-950);
+  --color-warning-fg: var(--palette-mango-300);
+  --color-warning-border: var(--palette-mango-700);
+  --color-warning-icon: var(--palette-mango-300);
+  --color-warning-solid: var(--palette-mango-300);
+
+  --color-danger-bg: var(--palette-sorrel-950);
+  --color-danger-fg: var(--palette-sorrel-300);
+  --color-danger-border: var(--palette-sorrel-700);
+  --color-danger-icon: var(--palette-sorrel-300);
+  --color-danger-solid: var(--palette-sorrel-300);
+  --color-danger-solid-hover: var(--palette-sorrel-100);
+  --color-fg-on-danger: var(--palette-sorrel-950);
+
+  --color-star: var(--palette-stone-100);
+  --color-star-empty: var(--palette-stone-600);
+
+  --shadow-color: 0 0 0;
+  --shadow-1: 0 1px 2px rgb(var(--shadow-color) / 0.4);
+  --shadow-2: 0 4px 14px rgb(var(--shadow-color) / 0.45);
+  --shadow-3: 0 12px 32px rgb(var(--shadow-color) / 0.55), 0 2px 6px rgb(var(--shadow-color) / 0.35);
+  --shadow-4: 0 24px 64px rgb(var(--shadow-color) / 0.65), 0 4px 12px rgb(var(--shadow-color) / 0.4);
+
+  color-scheme: dark;
+}
+
+/* Follow the OS preference unless the page has explicitly chosen light. Keep identical to the block above. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg-canvas: var(--palette-stone-950);
+    --color-bg-surface: var(--palette-stone-950);
+    --color-bg-surface-raised: var(--palette-stone-850);
+    --color-bg-surface-sunken: var(--palette-stone-900);
+    --color-bg-subtle: var(--palette-stone-800);
+    --color-bg-subtle-hover: var(--palette-stone-700);
+    --color-bg-inverse: var(--palette-stone-50);
+    --color-bg-backdrop: rgb(0 0 0 / 0.66);
+    --color-bg-photo: var(--palette-stone-800);
+    --color-bg-scrim: rgb(0 0 0 / 0.72);
+    --color-fg-default: var(--palette-stone-100);
+    --color-fg-muted: var(--palette-stone-350);
+    --color-fg-subtle: var(--palette-stone-400);
+    --color-fg-disabled: var(--palette-stone-700);
+    --color-fg-inverse: var(--palette-stone-950);
+    --color-fg-on-scrim: var(--palette-white);
+    --color-fg-link: var(--palette-stone-100);
+    --color-fg-link-hover: var(--palette-pepper-300);
+    --color-border-default: var(--palette-stone-750);
+    --color-border-strong: var(--palette-stone-500);
+    --color-border-inverse: var(--palette-stone-300);
+    --color-accent: var(--palette-pepper-300);
+    --color-accent-hover: var(--palette-pepper-200);
+    --color-accent-active: var(--palette-pepper-100);
+    --color-accent-subtle: var(--palette-pepper-950);
+    --color-accent-subtle-hover: var(--palette-pepper-900);
+    --color-fg-on-accent: var(--palette-stone-950);
+    --color-fg-accent: var(--palette-pepper-300);
+    --color-action: var(--palette-stone-100);
+    --color-action-hover: var(--palette-white);
+    --color-action-active: var(--palette-stone-200);
+    --color-fg-on-action: var(--palette-stone-950);
+    --color-focus-ring: var(--palette-pepper-300);
+    --color-info-bg: var(--palette-stone-900);
+    --color-info-fg: var(--palette-stone-200);
+    --color-info-border: var(--palette-stone-700);
+    --color-info-icon: var(--palette-stone-350);
+    --color-info-solid: var(--palette-stone-200);
+    --color-success-bg: var(--palette-callaloo-950);
+    --color-success-fg: var(--palette-callaloo-300);
+    --color-success-border: var(--palette-callaloo-700);
+    --color-success-icon: var(--palette-callaloo-300);
+    --color-success-solid: var(--palette-callaloo-300);
+    --color-warning-bg: var(--palette-mango-950);
+    --color-warning-fg: var(--palette-mango-300);
+    --color-warning-border: var(--palette-mango-700);
+    --color-warning-icon: var(--palette-mango-300);
+    --color-warning-solid: var(--palette-mango-300);
+    --color-danger-bg: var(--palette-sorrel-950);
+    --color-danger-fg: var(--palette-sorrel-300);
+    --color-danger-border: var(--palette-sorrel-700);
+    --color-danger-icon: var(--palette-sorrel-300);
+    --color-danger-solid: var(--palette-sorrel-300);
+    --color-danger-solid-hover: var(--palette-sorrel-100);
+    --color-fg-on-danger: var(--palette-sorrel-950);
+    --color-star: var(--palette-stone-100);
+    --color-star-empty: var(--palette-stone-600);
+    --shadow-color: 0 0 0;
+    --shadow-1: 0 1px 2px rgb(var(--shadow-color) / 0.4);
+    --shadow-2: 0 4px 14px rgb(var(--shadow-color) / 0.45);
+    --shadow-3: 0 12px 32px rgb(var(--shadow-color) / 0.55), 0 2px 6px rgb(var(--shadow-color) / 0.35);
+    --shadow-4: 0 24px 64px rgb(var(--shadow-color) / 0.65), 0 4px 12px rgb(var(--shadow-color) / 0.4);
+    color-scheme: dark;
+  }
+}
+
+/* ---------- Preference overrides ------------------------------------------ */
+/* Reduced motion zeroes every transition duration, so components need no extra
+   media queries. Loop durations stay: components stop decorative loops
+   (shimmer, pulse) themselves; the spinner keeps turning because it is status. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0.01ms;
+    --duration-base: 0.01ms;
+    --duration-slow: 0.01ms;
+    --duration-deliberate: 0.01ms;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --color-border-default: var(--color-border-strong);
+    --color-fg-muted: var(--color-fg-default);
+    --color-fg-subtle: var(--color-fg-muted);
+  }
+}
+
+/* Windows High Contrast / forced colours: hand focus and edges to system colours. */
+@media (forced-colors: active) {
+  :root {
+    --color-focus-ring: Highlight;
+    --color-border-default: CanvasText;
+    --color-border-strong: CanvasText;
+  }
+}
