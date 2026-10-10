@@ -34,6 +34,14 @@ export class SignInPage extends BasePage {
     return this.page.locator('.auth .alert');
   }
 
+  get alertTitle() {
+    return this.alert.locator('.alert__title');
+  }
+
+  alertLink(name: string) {
+    return this.alert.getByRole('link', { name });
+  }
+
   get status() {
     return this.page.locator('form [role="status"]').last();
   }

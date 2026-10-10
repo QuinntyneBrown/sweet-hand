@@ -10,29 +10,36 @@
   </div>
 
   @if (failure(); as f) {
-    <sh-alert tone="danger" live="assertive" title="We couldn’t sign you in just now" i18n-title="@@signIn.serverErrorTitle">
-      {{ serverText(f.reference) }}
-      <div slot="actions" class="alert__actions">
-        <sh-button size="sm" (activated)="submit()"><ng-container i18n="@@common.tryAgain">Try again</ng-container></sh-button>
-        <a routerLink="/caterers" i18n="@@signIn.keepBrowsing">Keep browsing</a>
-      </div>
-    </sh-alert>
+    @if (f.kind === 'locked') {
+      <sh-alert tone="warning" live="polite" title="Sign-in is paused for this account" i18n-title="@@signIn.lockedTitle">
+        {{ lockedText(f.until) }}
+        <div slot="actions" class="alert__actions"><a routerLink="/forgot-password" i18n="@@signIn.resetPassword">Reset your password</a></div>
+      </sh-alert>
+    } @else {
+      <sh-alert tone="danger" live="assertive" title="We couldn’t sign you in just now" i18n-title="@@signIn.serverErrorTitle">
+        {{ serverText(f.reference) }}
+        <div slot="actions" class="alert__actions">
+          <sh-button size="sm" (activated)="submit()"><ng-container i18n="@@common.tryAgain">Try again</ng-container></sh-button>
+          <a routerLink="/caterers" i18n="@@signIn.keepBrowsing">Keep browsing</a>
+        </div>
+      </sh-alert>
+    }
   }
 
   <sh-form-summary [heading]="summaryTitle()" [items]="summary()" [attempt]="attempt()" />
 
   <form class="form form--compact" novalidate [formGroup]="form" (ngSubmit)="submit()">
     <sh-form-field label="Email" i18n-label="@@field.email" controlId="email" [error]="errors().email">
-      <sh-text-field formControlName="email" type="email" size="lg" name="email" autocomplete="email" [spellcheck]="false" [required]="true" [autofocus]="true" [readonly]="busy()" />
+      <sh-text-field formControlName="email" type="email" size="lg" name="email" autocomplete="email" [spellcheck]="false" [required]="true" [autofocus]="true" [readonly]="busy() || locked()" />
     </sh-form-field>
     <sh-form-field label="Password" i18n-label="@@field.password" controlId="password" [error]="errors().password">
       <sh-button slot="labelAction" variant="link" size="sm" [pressed]="revealed()" controls="password" (activated)="revealed.set(!revealed())"
         ><ng-container i18n="@@field.showPassword">Show</ng-container></sh-button
       >
-      <sh-text-field formControlName="password" type="password" size="lg" name="password" autocomplete="current-password" [required]="true" [revealed]="revealed()" [readonly]="busy()" />
+      <sh-text-field formControlName="password" type="password" size="lg" name="password" autocomplete="current-password" [required]="true" [revealed]="revealed()" [readonly]="busy() || locked()" />
     </sh-form-field>
 
-    <sh-button type="submit" variant="primary" size="lg" [block]="true" [busy]="busy()"><ng-container i18n="@@signIn.submit">Sign in</ng-container></sh-button>
+    <sh-button type="submit" variant="primary" size="lg" [block]="true" [busy]="busy()" [disabled]="locked()"><ng-container i18n="@@signIn.submit">Sign in</ng-container></sh-button>
     <p class="visually-hidden" role="status">{{ busy() ? signingIn : '' }}</p>
     <p><a class="link--standalone" routerLink="/forgot-password" i18n="@@signIn.forgot">Forgot your password?</a></p>
   </form>

@@ -150,6 +150,49 @@ test.describe('Sign in', () => {
   });
 });
 
+test.describe('Sign-in protection', () => {
+  test('L2-076.4: after 5 failed sign-ins the account is paused for 15 minutes whatever the password, and the owner is emailed', async ({ page, backend }) => {
+    const signIn = new SignInPage(page);
+    await signIn.open();
+    for (let i = 0; i < 5; i++) {
+      await signIn.signIn(cast.marcia.email, 'not-the-right-password');
+      await expect(signIn.errorFor('password')).toHaveText('Email or password is incorrect');
+    }
+
+    await signIn.signIn(cast.marcia.email, SEED_PASSWORD);
+
+    await expect(signIn.alert).toHaveClass(/alert--warning/);
+    await expect(signIn.alertTitle).toHaveText('Sign-in is paused for this account');
+    await expect(signIn.alert).toContainText(
+      'After 5 attempts that didn’t match, we pause sign-in for 15 minutes to keep the account safe. Try again at 10:15 a.m. We’ve emailed the account owner.',
+    );
+    await expect(signIn.alertLink('Reset your password')).toHaveAttribute('href', '/forgot-password');
+    await expect(signIn.email).toHaveAttribute('readonly', '');
+    await expect(signIn.password).toHaveAttribute('readonly', '');
+    await expect(signIn.submit).toBeDisabled();
+    await expect(page).toHaveURL(/\/sign-in$/);
+    const { account } = await backend.state();
+    expect(account.outbox).toContainEqual(expect.objectContaining({ to: cast.marcia.email, kind: 'sign-in-paused' }));
+    await signIn.expectNoAccessibilityViolations();
+  });
+
+  test('L2-076.4: once the 15 minutes are up the form works again', async ({ page, backend }) => {
+    await backend.scenario('pause-sign-in', { email: cast.marcia.email });
+    const signIn = new SignInPage(page);
+    await signIn.open();
+    await signIn.signIn(cast.marcia.email, SEED_PASSWORD);
+    await expect(signIn.submit).toBeDisabled();
+
+    await backend.setNow('2026-10-10T14:16:00Z');
+    await page.clock.runFor(16 * 60_000);
+
+    await expect(signIn.submit).toBeEnabled();
+    await expect(signIn.alert).toHaveCount(0);
+    await signIn.signIn(cast.marcia.email, SEED_PASSWORD);
+    await expect(page).toHaveURL(/\/inbox$/);
+  });
+});
+
 test.describe('Pages that need an account', () => {
   test('L2-013: opening an account page while signed out asks the visitor to sign in, then returns them', async ({ page }) => {
     const signIn = new SignInPage(page);

@@ -1,15 +1,17 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject, input, signal, viewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Button, FormField, FormSummary, LabelAction, TextField, type SummaryItem } from '@sweet-hand/components';
 import { IdentityApi } from '../../../core/api/identity-api';
+import type { SignInLocked } from '../../../core/api/identity.models';
+import { time } from '../../../core/format/format';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { emailError, summaryHeading } from '../../../core/forms/validation';
 import { landingFor, safeReturnUrl } from '../../../core/session/guards';
 import { Session } from '../../../core/session/session';
 
-type Failure = { kind: 'server'; reference: string | null } | null;
+type Failure = { kind: 'server'; reference: string | null } | { kind: 'locked'; until: string } | null;
 
 /** Sign in, /sign-in (docs/detailed-designs/identity-and-security/sign-in). */
 @Component({
@@ -36,6 +38,14 @@ export class SignInPage {
   protected readonly failure = signal<Failure>(null);
   protected readonly signingIn = $localize`:@@signIn.busy:Signing in`;
   private readonly alert = viewChild(Alert);
+  private unlockTimer: ReturnType<typeof setTimeout> | undefined;
+
+  /** Sign-in is paused for the account (L2-076.4): the form stays read-only until the time given. */
+  protected readonly locked = computed(() => this.failure()?.kind === 'locked');
+
+  constructor() {
+    inject(DestroyRef).onDestroy(() => clearTimeout(this.unlockTimer));
+  }
 
   protected readonly summary = computed<SummaryItem[]>(() => {
     const e = this.errors();
@@ -47,7 +57,7 @@ export class SignInPage {
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@signIn.action:sign in`));
 
   protected async submit(): Promise<void> {
-    if (this.busy()) return;
+    if (this.busy() || this.locked()) return;
     const { email, password } = this.form.getRawValue();
     const errors = {
       email: emailError(email),
@@ -74,7 +84,9 @@ export class SignInPage {
       }
     } catch (error) {
       const { status, problem } = problemOf(error);
-      if (status === 401 || status === 400) {
+      if (status === 423) {
+        this.pause((problem as Partial<SignInLocked>).lockedUntil ?? new Date().toISOString());
+      } else if (status === 401 || status === 400) {
         // The same message whatever was wrong, so the form never reveals who has an account (L2-076.3).
         this.form.controls.password.setValue('');
         this.errors.set({ email: null, password: $localize`:@@signIn.incorrect:Email or password is incorrect` });
@@ -86,6 +98,18 @@ export class SignInPage {
     } finally {
       this.busy.set(false);
     }
+  }
+
+  private pause(until: string): void {
+    this.form.controls.password.setValue('');
+    this.errors.set({ email: null, password: null });
+    this.failure.set({ kind: 'locked', until });
+    clearTimeout(this.unlockTimer);
+    this.unlockTimer = setTimeout(() => this.failure.set(null), Math.max(0, Date.parse(until) - Date.now()));
+  }
+
+  protected lockedText(until: string): string {
+    return $localize`:@@signIn.lockedText:After 5 attempts that didn’t match, we pause sign-in for 15 minutes to keep the account safe. Try again at ${time(until)}:time: We’ve emailed the account owner.`;
   }
 
   protected serverText(ref: string | null): string {

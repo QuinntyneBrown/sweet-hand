@@ -21,6 +21,8 @@ export interface User {
   /** Privacy notice version the user accepted (L2-070). */
   acceptedPrivacyVersion: string;
   failedSignIns?: number;
+  /** When each recent failed sign-in happened (L2-076.4). */
+  failedSignInsAt?: string[];
   lockedUntil?: string;
 }
 
