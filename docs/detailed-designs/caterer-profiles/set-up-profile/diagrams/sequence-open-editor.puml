@@ -53,8 +53,10 @@ alt status is Pending review or Suspended
 else status is Draft or Changes requested
   alt viewport XS or SM
     page --> actor : Stacked section list, one section open (L2-045 AC2)
-  else viewport LG or XL
-    page --> actor : Sidebar navigation, main section, live card preview (L2-045 AC3)
+  else viewport LG
+    page --> actor : Sidebar navigation and main section, no card preview (L2-045 AC3)
+  else viewport XL
+    page --> actor : Sidebar navigation, main section, live card preview (L2-045 AC3, AC4)
   end
   page -> checklist : Render items
   checklist --> actor : Each rule shown as done or not done (L2-038 AC3)

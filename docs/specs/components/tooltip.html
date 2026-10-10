@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tooltip — Component requirements rendering</title>
+<meta name="description" content="Every variant, size and state of tooltip, in light and dark, keyed to the acceptance criteria in tooltip.md.">
+<meta name="crd:component" content="tooltip">
+<!-- The real design-system styles: what renders here is the component, not a picture of it. -->
+<link rel="stylesheet" href="../../design-system/tokens/tokens.css">
+<link rel="stylesheet" href="../../design-system/assets/components.css">
+<link rel="stylesheet" href="../../design-system/assets/ds.css">
+<style>
+/* CRD page chrome only. Never restyle the component here. */
+.crd-shell { max-width: 80rem; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+.crd-bar { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; justify-content: space-between; }
+.crd-ac { font: var(--text-overline); color: var(--color-fg-muted); display: block; margin-top: var(--space-2); }
+.crd-frames { display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: flex-start; }
+.crd-frame { margin: 0; border: var(--border-width-hairline) dashed var(--color-border-default); padding: var(--space-3); max-width: 100%; overflow: auto; }
+.crd-frame iframe { display: block; border: 0; max-width: none; }
+.crd-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.crd-row + .crd-row { margin-top: var(--space-4); }
+.crd-raised { background: var(--color-bg-surface-raised); border-radius: var(--radius-md); padding: var(--space-4); box-shadow: var(--shadow-3); }
+.crd-label { font: var(--text-caption); color: var(--color-fg-muted); }
+.crd-help { font: var(--text-body-sm); color: var(--color-fg-muted); }
+.crd-label-list { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+.crd-label-list > div { display: flex; flex-direction: column; gap: var(--space-2); align-items: flex-start; min-width: 0; }
+.crd-plain { padding: var(--space-6); display: grid; gap: var(--space-6); }
+.ds-matrix td { padding: var(--space-3); vertical-align: top; }
+
+/* Specimen only, not product CSS: tooltip D-5 (clamped inside the viewport at the right edge; arrow stays over the control). */
+.crd-clamp-end .tooltip { left: auto; right: 0; translate: 0 0; }
+.crd-clamp-end .tooltip::after { left: auto; right: calc(var(--target-comfortable) / 2); translate: 50% 0; }
+/* Documentation only: forced colours simulated for tooltip D-7; components.css draws the border under @media (forced-colors: active). */
+.crd-fc .tooltip { forced-color-adjust: none; background: Canvas; color: CanvasText; border: var(--border-width-hairline) solid CanvasText; }
+.crd-fc .tooltip::after { border-top-color: CanvasText; }
+.crd-tip-row { display: flex; flex-wrap: wrap; gap: var(--space-12); align-items: flex-end; padding-top: var(--space-12); padding-inline: var(--space-8); }
+</style>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main" class="crd-shell">
+  <header class="ds-header">
+    <div class="crd-bar">
+      <p class="ds-kicker">Component requirements · rendering</p>
+      <button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button>
+    </div>
+    <h1>Tooltip</h1>
+    <p class="ds-lead">Every variant and state of <code>sh-tooltip</code> around an icon button, with the real <code>.has-tooltip</code> and <code>.tooltip</code> classes. Requirements: <a href="tooltip.md">tooltip.md</a>. Design system: <a href="../../design-system/components/tooltip.html">tooltip</a>.</p>
+    <div class="ds-meta"><span class="ds-pill">Selector <code>sh-tooltip</code></span><span class="ds-pill">Status: planned</span><span class="ds-pill">Traces to L2-043, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-085</span></div>
+    <ul class="ds-toc"><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#themes">Both themes</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#contrast">Contrast</a></li><li><a href="#tokens">Tokens</a></li></ul>
+  </header>
+
+  <section class="ds-section" id="variants"><h2>Variants</h2>
+    <div class="ds-example"><div class="ds-example__canvas crd-tip-row"><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Edit Chicken pelau" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><span class="tooltip" role="tooltip" aria-hidden="true" data-state="visible">Edit</span></span> <span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Move Chicken pelau up"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><span class="tooltip" role="tooltip" aria-hidden="true" data-state="visible">Move up</span></span> <span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Close" aria-describedby="crd-tip-11"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="tooltip" id="crd-tip-11" role="tooltip" data-state="visible">Close <kbd>Esc</kbd></span></span></div>
+    <div class="ds-example__caption"><span>Shown forced visible with <code>data-state="visible"</code>. "Edit" and "Move up" repeat the name (<code>aria-hidden</code>); "Close Esc" adds information and is the button's description. <span class="crd-ac">AC-1, AC-2, AC-3</span></span></div></div>
+    <div class="ds-example"><div class="crd-plain"><div class="edit-row"><div class="edit-row__body"><span class="dish__name">Chicken pelau</span></div><div class="edit-row__actions"><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Move Chicken pelau up"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><span class="tooltip" role="tooltip" aria-hidden="true">Move up</span></span><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Move Chicken pelau down"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button><span class="tooltip" role="tooltip" aria-hidden="true">Move down</span></span><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Edit Chicken pelau" aria-haspopup="dialog" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><span class="tooltip" role="tooltip" aria-hidden="true" data-state="visible">Edit</span></span><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Remove Chicken pelau" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button><span class="tooltip" role="tooltip" aria-hidden="true">Remove</span></span></div></div><span class="crd-ac">AC-4, AC-5, AC-6, AC-8, AC-9, AC-14</span></div>
+    <div class="ds-example__caption"><span>Kendra's "Chicken pelau" row from 48rem: hovering the pencil shows "Edit"; the other tooltips stay hidden until hovered or focused.</span></div></div>
+  </section>
+
+  <section class="ds-section" id="sizes"><h2>Sizes</h2>
+    <p>One size: caption text on one line, sized to the label (at most three words). One placement: above, centred.</p>
+  </section>
+
+  <section class="ds-section" id="states"><h2>States</h2>
+    <p>Hover and focus are forced with <code>data-state</code> on the anchor (no delay); <code>data-dismissed</code> is the real Esc state.</p>
+    <div class="ds-matrix"><table>
+      <caption class="visually-hidden">Tooltip states by variant</caption>
+      <thead><tr><th scope="col">Variant</th><th scope="col">Hidden</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Visible (forced)</th><th scope="col">Dismissed (Esc)</th></tr></thead>
+      <tbody>
+<tr><th scope="row">Text (label)</th><td style="padding-top: var(--space-12);"><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Remove Chicken pelau"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button><span class="tooltip" role="tooltip" aria-hidden="true">Remove</span></span></td><td style="padding-top: var(--space-12);"><span class="has-tooltip" data-state="hover"><button class="icon-btn" type="button" aria-label="Remove Chicken pelau" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button><span class="tooltip" role="tooltip" aria-hidden="true">Remove</span></span></td><td style="padding-top: var(--space-12);"><span class="has-tooltip" data-state="hover"><button class="icon-btn" type="button" aria-label="Remove Chicken pelau" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button><span class="tooltip" role="tooltip" aria-hidden="true">Remove</span></span></td><td style="padding-top: var(--space-12);"><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Remove Chicken pelau"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button><span class="tooltip" role="tooltip" aria-hidden="true" data-state="visible">Remove</span></span></td><td style="padding-top: var(--space-12);"><span class="has-tooltip" data-dismissed><button class="icon-btn" type="button" aria-label="Remove Chicken pelau" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button><span class="tooltip" role="tooltip" aria-hidden="true">Remove</span></span></td></tr>
+<tr><th scope="row">With shortcut (description)</th><td style="padding-top: var(--space-12);"><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Close" aria-describedby="crd-tip-17"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="tooltip" id="crd-tip-17" role="tooltip">Close <kbd>Esc</kbd></span></span></td><td style="padding-top: var(--space-12);"><span class="has-tooltip" data-state="hover"><button class="icon-btn" type="button" aria-label="Close" aria-describedby="crd-tip-18" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="tooltip" id="crd-tip-18" role="tooltip">Close <kbd>Esc</kbd></span></span></td><td style="padding-top: var(--space-12);"><span class="has-tooltip" data-state="hover"><button class="icon-btn" type="button" aria-label="Close" aria-describedby="crd-tip-19" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="tooltip" id="crd-tip-19" role="tooltip">Close <kbd>Esc</kbd></span></span></td><td style="padding-top: var(--space-12);"><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Close" aria-describedby="crd-tip-20"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="tooltip" id="crd-tip-20" role="tooltip" data-state="visible">Close <kbd>Esc</kbd></span></span></td><td style="padding-top: var(--space-12);"><span class="has-tooltip" data-dismissed><button class="icon-btn" type="button" aria-label="Close" aria-describedby="crd-tip-21" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="tooltip" id="crd-tip-21" role="tooltip">Close <kbd>Esc</kbd></span></span></td></tr>
+      </tbody>
+    </table></div>
+    <span class="crd-ac">AC-4, AC-6, AC-7, AC-13</span>
+    <h3>Forced colours: required (D-7)</h3>
+    <div class="ds-example"><div class="ds-example__canvas crd-tip-row crd-fc"><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Close" aria-describedby="crd-tip-22"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="tooltip" id="crd-tip-22" role="tooltip" data-state="visible">Close <kbd>Esc</kbd></span></span><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Edit Chicken pelau"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><span class="tooltip" role="tooltip" aria-hidden="true" data-state="visible">Edit</span></span></div>
+    <div class="ds-example__caption"><span>Required (D-7): boxed with a <code>CanvasText</code> border when the inverse fill is removed. Simulated here without forced colours.</span></div></div>
+  </section>
+
+  <section class="ds-section" id="themes"><h2>Both themes</h2>
+    <div class="ds-themes">
+      <div data-theme="light"><div class="crd-tip-row"><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Close" aria-describedby="crd-tip-5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="tooltip" id="crd-tip-5" role="tooltip" data-state="visible">Close <kbd>Esc</kbd></span></span><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Edit Curry goat"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><span class="tooltip" role="tooltip" aria-hidden="true" data-state="visible">Edit</span></span></div></div>
+      <div data-theme="dark"><div class="crd-tip-row"><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Close" aria-describedby="crd-tip-5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><span class="tooltip" id="crd-tip-5" role="tooltip" data-state="visible">Close <kbd>Esc</kbd></span></span><span class="has-tooltip"><button class="icon-btn" type="button" aria-label="Edit Curry goat"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><span class="tooltip" role="tooltip" aria-hidden="true" data-state="visible">Edit</span></span></div></div>
+    </div>
+    <span class="crd-ac">AC-10</span>
+  </section>
+
+  <section class="ds-section" id="responsive"><h2>Responsive</h2>
+    <p>Required (D-5): a tooltip on a control at the screen edge shifts inward instead of being cut off; the arrow stays over the control. The right-hand "Close Esc" uses a specimen-only style for the clamp. <span class="crd-ac">AC-11, AC-12</span></p>
+    <div class="crd-frames">
+<figure class="crd-frame"><span class="crd-ac">320 px · light · AC-11 · required (D-5)</span><iframe title="320 pixel wide frame, light theme" width="320" height="160" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en-CA&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;/* Specimen only, not product CSS: tooltip D-5 */ .crd-clamp-end .tooltip { left: auto; right: 0; translate: 0 0; } .crd-clamp-end .tooltip::after { left: auto; right: calc(var(--target-comfortable) / 2); translate: 50% 0; } body{padding:var(--space-4);background:var(--color-bg-canvas);color:var(--color-fg-default);} .stack{display:flex;flex-direction:column;gap:var(--space-3);align-items:flex-start;} .row{display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:center;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div style=&quot;display:flex;justify-content:space-between;align-items:flex-end;padding-top:var(--space-12);&quot;&gt;&lt;span class=&quot;has-tooltip&quot;&gt;&lt;button class=&quot;icon-btn&quot; type=&quot;button&quot; aria-label=&quot;Move photo 1 down&quot;&gt;&lt;svg class=&quot;icon&quot; aria-hidden=&quot;true&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 5v14m-6-6 6 6 6-6&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;span class=&quot;tooltip&quot; role=&quot;tooltip&quot; aria-hidden=&quot;true&quot; data-state=&quot;visible&quot;&gt;Move down&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;has-tooltip crd-clamp-end&quot;&gt;&lt;button class=&quot;icon-btn&quot; type=&quot;button&quot; aria-label=&quot;Close&quot; aria-describedby=&quot;crd-tip-8&quot;&gt;&lt;svg class=&quot;icon&quot; aria-hidden=&quot;true&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M6 6l12 12M18 6 6 18&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;span class=&quot;tooltip&quot; id=&quot;crd-tip-8&quot; role=&quot;tooltip&quot; data-state=&quot;visible&quot;&gt;Close &lt;kbd&gt;Esc&lt;/kbd&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure><figure class="crd-frame"><span class="crd-ac">360 px · light · required (D-5)</span><iframe title="360 pixel wide frame, light theme" width="360" height="160" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en-CA&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;/* Specimen only, not product CSS: tooltip D-5 */ .crd-clamp-end .tooltip { left: auto; right: 0; translate: 0 0; } .crd-clamp-end .tooltip::after { left: auto; right: calc(var(--target-comfortable) / 2); translate: 50% 0; } body{padding:var(--space-4);background:var(--color-bg-canvas);color:var(--color-fg-default);} .stack{display:flex;flex-direction:column;gap:var(--space-3);align-items:flex-start;} .row{display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:center;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div style=&quot;display:flex;justify-content:space-between;align-items:flex-end;padding-top:var(--space-12);&quot;&gt;&lt;span class=&quot;has-tooltip&quot;&gt;&lt;button class=&quot;icon-btn&quot; type=&quot;button&quot; aria-label=&quot;Move photo 1 down&quot;&gt;&lt;svg class=&quot;icon&quot; aria-hidden=&quot;true&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 5v14m-6-6 6 6 6-6&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;span class=&quot;tooltip&quot; role=&quot;tooltip&quot; aria-hidden=&quot;true&quot; data-state=&quot;visible&quot;&gt;Move down&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;has-tooltip crd-clamp-end&quot;&gt;&lt;button class=&quot;icon-btn&quot; type=&quot;button&quot; aria-label=&quot;Close&quot; aria-describedby=&quot;crd-tip-8&quot;&gt;&lt;svg class=&quot;icon&quot; aria-hidden=&quot;true&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M6 6l12 12M18 6 6 18&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;span class=&quot;tooltip&quot; id=&quot;crd-tip-8&quot; role=&quot;tooltip&quot; data-state=&quot;visible&quot;&gt;Close &lt;kbd&gt;Esc&lt;/kbd&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure><figure class="crd-frame"><span class="crd-ac">360 px · dark · AC-10 · required (D-5)</span><iframe title="360 pixel wide frame, dark theme" width="360" height="160" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en-CA&quot; data-theme=&quot;dark&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;/* Specimen only, not product CSS: tooltip D-5 */ .crd-clamp-end .tooltip { left: auto; right: 0; translate: 0 0; } .crd-clamp-end .tooltip::after { left: auto; right: calc(var(--target-comfortable) / 2); translate: 50% 0; } body{padding:var(--space-4);background:var(--color-bg-canvas);color:var(--color-fg-default);} .stack{display:flex;flex-direction:column;gap:var(--space-3);align-items:flex-start;} .row{display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:center;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div style=&quot;display:flex;justify-content:space-between;align-items:flex-end;padding-top:var(--space-12);&quot;&gt;&lt;span class=&quot;has-tooltip&quot;&gt;&lt;button class=&quot;icon-btn&quot; type=&quot;button&quot; aria-label=&quot;Move photo 1 down&quot;&gt;&lt;svg class=&quot;icon&quot; aria-hidden=&quot;true&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 5v14m-6-6 6 6 6-6&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;span class=&quot;tooltip&quot; role=&quot;tooltip&quot; aria-hidden=&quot;true&quot; data-state=&quot;visible&quot;&gt;Move down&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;has-tooltip crd-clamp-end&quot;&gt;&lt;button class=&quot;icon-btn&quot; type=&quot;button&quot; aria-label=&quot;Close&quot; aria-describedby=&quot;crd-tip-8&quot;&gt;&lt;svg class=&quot;icon&quot; aria-hidden=&quot;true&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M6 6l12 12M18 6 6 18&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;span class=&quot;tooltip&quot; id=&quot;crd-tip-8&quot; role=&quot;tooltip&quot; data-state=&quot;visible&quot;&gt;Close &lt;kbd&gt;Esc&lt;/kbd&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+    </div>
+  </section>
+
+  <section class="ds-section" id="contrast"><h2>Contrast</h2>
+    <div class="ds-example__canvas ds-example__canvas--stack">
+<div class="ds-pair" data-theme="light"><span>Light: Tooltip text</span><span class="ds-pair__ratio" data-contrast="--color-fg-inverse|--color-bg-inverse" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Tooltip text</span><span class="ds-pair__ratio" data-contrast="--color-fg-inverse|--color-bg-inverse" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Shortcut outline (decorative)</span><span class="ds-pair__ratio" data-contrast="--color-border-inverse|--color-bg-inverse" data-min="1"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Shortcut outline (decorative)</span><span class="ds-pair__ratio" data-contrast="--color-border-inverse|--color-bg-inverse" data-min="1"></span></div>
+    </div>
+    <span class="crd-ac">AC-10</span>
+  </section>
+
+  <section class="ds-section" id="tokens"><h2>Tokens</h2>
+    <div class="ds-table-wrap"><table class="ds-table">
+      <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+      <tbody>
+<tr><td>Fill and arrow</td><td><code>--color-bg-inverse</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-inverse" data-swatch></i><span data-token="--color-bg-inverse"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-inverse" data-swatch></i><span data-token="--color-bg-inverse"></span></span></td></tr>
+<tr><td>Text</td><td><code>--color-fg-inverse</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-inverse" data-swatch></i><span data-token="--color-fg-inverse"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-inverse" data-swatch></i><span data-token="--color-fg-inverse"></span></span></td></tr>
+<tr><td>Shortcut outline</td><td><code>--color-border-inverse</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-inverse" data-swatch></i><span data-token="--color-border-inverse"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-inverse" data-swatch></i><span data-token="--color-border-inverse"></span></span></td></tr>
+<tr><td>Padding</td><td><code>--space-1</code> <code>--space-2</code></td><td colspan="2"><span data-token="--space-1"></span> / <span data-token="--space-2"></span></td></tr>
+<tr><td>Gap above the control</td><td><code>--space-2</code></td><td colspan="2"><span data-token="--space-2"></span></td></tr>
+<tr><td>Radius</td><td><code>--radius-sm</code></td><td colspan="2"><span data-token="--radius-sm"></span></td></tr>
+<tr><td>Shadow</td><td><code>--shadow-2</code></td><td colspan="2"><span data-token="--shadow-2"></span></td></tr>
+<tr><td>Font</td><td><code>--text-caption</code></td><td colspan="2"><span data-token="--text-caption"></span></td></tr>
+<tr><td>Show delay / fade / hide</td><td><code>--duration-hover-delay</code> <code>--duration-fast</code> <code>--duration-instant</code></td><td colspan="2"><span data-token="--duration-hover-delay"></span> / <span data-token="--duration-fast"></span> / <span data-token="--duration-instant"></span></td></tr>
+<tr><td>Layer</td><td><code>--z-tooltip</code></td><td colspan="2"><span data-token="--z-tooltip"></span></td></tr>
+<tr><td>Edge margin</td><td><code>--layout-margin</code></td><td colspan="2"><span data-token="--layout-margin"></span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer class="ds-footer"><span>Sweet Hand component requirements · <a href="README.md">index</a></span><a href="#top">Back to top</a></footer>
+</main>
+<script src="../../design-system/assets/ds.js"></script>
+</body>
+</html>

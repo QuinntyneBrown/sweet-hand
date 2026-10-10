@@ -33,7 +33,7 @@ alt viewport LG or XL (L2-036 AC1)
   layout -> pane : Render beside the list
 else viewport XS, SM or MD (L2-036 AC2)
   layout -> layout : Navigate to /inbox/{id}
-  layout -> pane : Render full width with "Back to inbox"
+  layout -> pane : Render full width with back link "Inbox"
 end
 pane -> client : getThread(id)
 client -> ep : GET /enquiries/{id}
@@ -43,7 +43,7 @@ ep --> client : 200 or 404
 client --> pane : Thread
 pane --> actor : Enquiry details and messages
 opt XS, SM or MD
-  actor -> pane : Activate "Back to inbox"
+  actor -> pane : Activate back link "Inbox"
   pane -> page : Return to /inbox with previous filter and page
 end
 @enduml

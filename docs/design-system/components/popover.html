@@ -224,11 +224,11 @@
       <div class="ds-example">
         <div class="ds-example__canvas ds-example__canvas--stack">
           <div class="ds-frame">
-            <header class="site-header"><span class="wordmark">Sweet Hand</span><span class="site-nav"><button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="dialog" aria-expanded="true" aria-controls="pv-acct">MT</button></span></header>
-            <div class="menu account-menu" id="pv-acct" role="dialog" aria-labelledby="pv-acct-name">
-              <div class="account-menu__who"><span class="avatar" aria-hidden="true">MT</span><div><h3 class="account-menu__name" id="pv-acct-name">Marcia Thompson</h3><p class="account-menu__email">marcia.t@example.com</p></div></div>
+            <header class="site-header"><span class="wordmark">Sweet Hand</span><span class="site-nav"><button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu" aria-expanded="true" aria-controls="pv-acct-list">MT</button></span></header>
+            <div class="menu account-menu" id="pv-acct">
+              <div class="account-menu__who"><span class="avatar" aria-hidden="true">MT</span><div><p class="account-menu__name" id="pv-acct-name">Marcia Thompson</p><p class="account-menu__email">marcia.t@example.com</p></div></div>
               <div class="menu__divider"></div>
-              <ul class="account-menu__list" role="menu" aria-label="Account">
+              <ul class="account-menu__list" id="pv-acct-list" role="menu" aria-labelledby="pv-acct-name">
                 <li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/inbox/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Inbox</a></li>
                 <li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/account/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Account</a></li>
                 <li role="none"><button class="menu__item" role="menuitem" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/></svg>Sign out</button></li>
@@ -274,7 +274,7 @@
             <td><button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-expanded="false">MT</button></td>
             <td><button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-expanded="false" data-state="hover">MT</button></td>
             <td><button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-expanded="false" data-state="focus">MT</button></td>
-            <td><div class="menu account-menu" role="dialog" aria-label="Marcia Thompson" style="position: static; width: 15rem; animation: none;"><ul class="account-menu__list" role="menu" aria-label="Account"><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/inbox/default.html" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Inbox</a></li><li role="none"><button class="menu__item" role="menuitem" type="button" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/></svg>Sign out</button></li></ul></div></td>
+            <td><div class="menu account-menu" style="position: static; width: 15rem; animation: none;"><ul class="account-menu__list" role="menu" aria-label="Account menu for Marcia Thompson"><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/inbox/default.html" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Inbox</a></li><li role="none"><button class="menu__item" role="menuitem" type="button" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/></svg>Sign out</button></li></ul></div></td>
             <td><span class="text-subtle">—</span></td></tr>
         </tbody>
       </table></div>
@@ -318,7 +318,7 @@
       <h3>Focus</h3>
       <p>Focus moves in only when the panel has controls: the Area dropdown focuses its search field, the Cuisine dropdown its first checkbox, the account menu its first item. A text-only popover leaves focus on the trigger. Clicking outside closes without moving focus.</p>
       <h3>Labelling</h3>
-      <p>The trigger names the panel ("Cuisine", "Account menu for Marcia Thompson"); its count bubble says "1 selected". The panel is labelled by its heading. The avatar trigger should say <code>aria-haspopup="dialog"</code>, matching what opens.</p>
+      <p>The trigger names the panel ("Cuisine", "Account menu for Marcia Thompson"); its count bubble says "1 selected". The panel is labelled by its heading. The account menu is a menu (<code>role="menu"</code>), so the avatar trigger says <code>aria-haspopup="menu"</code> with <code>aria-expanded</code>.</p>
       <h3>Contrast</h3>
       <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
         <div class="ds-pair"><span>Text in a popover</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="4.5"></span></div>
@@ -348,8 +348,8 @@
       <div class="ds-dodont">
         <figure class="ds-do"><div class="ds-example__canvas"><div class="filter-dropdown" role="dialog" aria-label="Cuisine" style="position: static; width: 100%;"><label class="choice"><input type="checkbox" name="pdd1" value="Haitian" checked><span class="choice__text">Haitian <small>5 caterers</small></span></label><div class="cluster cluster--between"><button class="btn btn--link btn--sm" type="button">Clear</button><span class="result-count">5 caterers</span></div></div></div><figcaption>Apply each tick as it happens and show the count.</figcaption></figure>
         <figure class="ds-dont"><div class="ds-example__canvas"><div class="filter-dropdown" role="dialog" aria-label="Cuisine" style="position: static; width: 100%;"><label class="choice"><input type="checkbox" name="pdd2" value="Haitian" checked><span class="choice__text">Haitian <small>5 caterers</small></span></label><div class="popover__actions"><button class="btn btn--sm" type="button">Cancel</button><button class="btn btn--primary btn--sm" type="button">Apply</button></div></div></div><figcaption>An ink Apply button inside a dropdown competes with the page's one primary and makes a non-modal panel behave like a dialog.</figcaption></figure>
-        <figure class="ds-do"><div class="ds-example__canvas"><button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="dialog" aria-expanded="true">MT</button></div><figcaption><code>aria-haspopup</code> names what opens, and <code>aria-expanded</code> says it is open.</figcaption></figure>
-        <figure class="ds-dont"><div class="ds-example__canvas"><button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu">MT</button></div><figcaption>The mocks announced a menu but opened a dialog, and never set <code>aria-expanded</code>.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu" aria-expanded="true">MT</button></div><figcaption><code>aria-haspopup</code> names what opens, and <code>aria-expanded</code> says it is open.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu">MT</button></div><figcaption>The mocks never set <code>aria-expanded</code>, so the open state was not announced.</figcaption></figure>
       </div>
     </section>
 

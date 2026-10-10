@@ -14,10 +14,10 @@
 <link rel="stylesheet" href="../../assets/mock.css">
 </head>
 <body>
-<a class="skip-link" href="#dlg-title">Skip to the enquiry form</a>
 
 <!-- The caterer page underneath is inert while the dialog is open. -->
 <div class="page" inert aria-hidden="true">
+<a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header">
     <span class="wordmark">Sweet Hand</span>
     <span class="site-nav"><span class="site-nav__link site-nav__extra">Caterers</span><span class="site-nav__link site-nav__extra">Occasions</span><span class="site-nav__link site-nav__extra">Inbox</span><span class="avatar">MT</span></span>
@@ -45,7 +45,7 @@
     <div class="dialog__header">
       <div class="dialog__caterer" style="flex: 1;">
         <span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="" width="56" height="56"></span>
-        <div>
+        <div class="dialog__heading">
           <h2 class="dialog__title" id="dlg-title">Send an enquiry</h2>
           <p class="dialog__caterer-name" id="dlg-desc">to Pelau House</p>
         </div>
@@ -56,38 +56,45 @@
     <div class="dialog__body stack" style="gap: var(--space-5);">
       <div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><p class="alert__title">You’ve reached today’s enquiry limit. Try again tomorrow.</p><p>Limits keep caterers’ inboxes free of spam. Your message is still here if you’d like to copy it.</p></div></div>
       <div class="field-row">
-        <label class="field" for="date"><span class="field__label">Event date</span>
+        <div class="field"><label class="field__label" for="date">Event date</label>
           <input class="input" id="date" name="date" type="date" min="2026-10-12" max="2028-10-10" required value="2026-11-21" aria-describedby="date-help">
           <span class="field__help" id="date-help">At least 2 days from today</span>
-        </label>
-        <label class="field" for="guests"><span class="field__label">Guests</span>
+          <span class="visually-hidden" role="status"></span>
+        </div>
+        <div class="field"><label class="field__label" for="guests">Guests</label>
           <input class="input" id="guests" name="guests" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" required value="120" aria-describedby="guests-help">
           <span class="field__help" id="guests-help">Pelau House serves 20–300</span>
-        </label>
+          <span class="visually-hidden" role="status"></span>
+        </div>
       </div>
       <div class="field-row">
-        <label class="field" for="area"><span class="field__label">Event area</span>
+        <div class="field"><label class="field__label" for="area">Event area</label>
           <select class="select" id="area" name="area" required>
             <option value="">Choose an area</option>
             <optgroup label="City of Toronto"><option>Downtown Toronto</option><option>East York</option><option>Etobicoke</option><option>North York</option><option selected>Scarborough</option><option>York</option></optgroup><optgroup label="Peel"><option>Brampton</option><option>Caledon</option><option>Mississauga</option></optgroup><optgroup label="York Region"><option>Aurora</option><option>East Gwillimbury</option><option>Georgina</option><option>King</option><option>Markham</option><option>Newmarket</option><option>Richmond Hill</option><option>Vaughan</option><option>Whitchurch-Stouffville</option></optgroup><optgroup label="Durham"><option>Ajax</option><option>Brock</option><option>Clarington</option><option>Oshawa</option><option>Pickering</option><option>Scugog</option><option>Uxbridge</option><option>Whitby</option></optgroup><optgroup label="Halton"><option>Burlington</option><option>Halton Hills</option><option>Milton</option><option>Oakville</option></optgroup>
           </select>
-        </label>
-        <label class="field" for="postal"><span class="field__label">Postal code <span class="optional">(optional)</span></span>
+          <span class="visually-hidden" role="status"></span>
+        </div>
+        <div class="field"><label class="field__label" for="postal">Postal code <span class="optional">(optional)</span></label>
           <input class="input" id="postal" name="postal" type="text" autocomplete="postal-code" autocapitalize="characters" maxlength="7" value="M1E 4R8" aria-describedby="postal-help">
           <span class="field__help" id="postal-help">We keep only the first 3 characters</span>
-        </label>
+          <span class="visually-hidden" role="status"></span>
+        </div>
       </div>
-      <label class="field" for="occasion"><span class="field__label">Occasion</span>
+      <div class="field"><label class="field__label" for="occasion">Occasion</label>
         <select class="select" id="occasion" name="occasion" required>
           <option value="">Choose an occasion</option>
           <option>Weddings</option><option>Birthdays</option><option>Corporate events</option><option>Funerals and repasts</option><option>Religious and cultural celebrations</option><option selected>Family gatherings</option><option>Private dinners</option><option>Community events</option>
         </select>
-      </label>
-      <label class="field" for="message"><span class="field__label">Message</span>
-        <textarea class="textarea" id="message" name="message" rows="5" maxlength="2000" required aria-describedby="message-help message-count">Hi Kendra, we’re planning my parents’ 40th anniversary at a hall on Ellesmere Road. We’d love pelau, curry goat, macaroni pie and callaloo for about 120 people, served buffet style around 6 p.m. Do you bring chafing dishes?</textarea>
+        <span class="visually-hidden" role="status"></span>
+      </div>
+      <div class="field"><label class="field__label" for="message">Message</label>
+        <textarea class="textarea" id="message" name="message" rows="5" required aria-describedby="message-help message-count">Hi Kendra, we’re planning my parents’ 40th anniversary at a hall on Ellesmere Road. We’d love pelau, curry goat, macaroni pie and callaloo for about 120 people, served buffet style around 6 p.m. Do you bring chafing dishes?</textarea>
         <span class="cluster cluster--between"><span class="field__help" id="message-help">What you’d like to eat, serving style, timing</span><span class="field__counter" id="message-count">223 / 2,000</span></span>
-      </label>
+        <span class="visually-hidden" role="status"></span>
+      </div>
       <p class="private-note"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Pelau House sees your name, not your email or phone.</p>
+      <p class="visually-hidden" role="status"></p>
     </div>
 
     <div class="dialog__footer">

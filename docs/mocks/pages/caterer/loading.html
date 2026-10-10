@@ -22,8 +22,8 @@
     <a class="site-nav__link site-nav__extra" href="../caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../occasions/default.html">Occasions</a>
     <a class="site-nav__link site-nav__extra" href="../sign-in/default.html">Sign in</a>
-    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
   </nav>
 </header>
 
@@ -42,7 +42,7 @@
         </ul>
       </section>
       <div class="caterer-head">
-        <h1><span class="visually-hidden">Loading caterer</span><span class="skeleton skeleton--title" aria-hidden="true" style="width: 60%; height: 0.9em;"></span></h1>
+        <h1><span class="visually-hidden">Loading caterer</span><span class="skeleton skeleton--text" aria-hidden="true" style="width: 60%;"></span></h1>
         <span class="skeleton skeleton--text" aria-hidden="true" style="width: 18rem; max-width: 100%;"></span>
       </div>
       <div class="measure" style="margin-top: var(--space-8);" aria-hidden="true">
@@ -51,19 +51,19 @@
       <section class="caterer-section" aria-hidden="true">
         <span class="skeleton skeleton--title" style="width: 8rem;"></span>
         <ul class="dish-list" style="margin-top: var(--space-6);">
-          <li class="dish"><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 80%;"></span></li>
-          <li class="dish"><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 80%;"></span></li>
-          <li class="dish"><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 80%;"></span></li>
-          <li class="dish"><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 80%;"></span></li>
-          <li class="dish"><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 80%;"></span></li>
-          <li class="dish"><span class="skeleton skeleton--text" style="width: 50%;"></span><span class="skeleton skeleton--text" style="width: 80%;"></span></li>
+          <li class="dish dish--skeleton" aria-hidden="true"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></li>
+          <li class="dish dish--skeleton" aria-hidden="true"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></li>
+          <li class="dish dish--skeleton" aria-hidden="true"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></li>
+          <li class="dish dish--skeleton" aria-hidden="true"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></li>
+          <li class="dish dish--skeleton" aria-hidden="true"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></li>
+          <li class="dish dish--skeleton" aria-hidden="true"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></li>
         </ul>
       </section>
     </div>
     <aside class="enquiry-panel only-lg" aria-hidden="true">
       <span class="skeleton skeleton--text" style="width: 5rem;"></span><span class="skeleton skeleton--text" style="width: 12rem;"></span>
       <span class="skeleton skeleton--text" style="width: 6rem;"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text" style="width: 70%;"></span>
-      <span class="skeleton skeleton--rect" style="height: var(--control-height-lg); border-radius: var(--radius-full);"></span>
+      <span class="skeleton skeleton--rect skeleton--pill" style="height: var(--control-height-lg);"></span>
     </aside>
   </div>
   <p class="visually-hidden" role="status">Loading Pelau House</p>

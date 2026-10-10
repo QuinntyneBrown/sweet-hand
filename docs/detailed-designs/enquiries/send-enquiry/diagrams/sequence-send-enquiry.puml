@@ -53,7 +53,7 @@ else field rules broken (L2-022 AC6)
   val --> handler : One FieldError per failing field
   handler --> ep : Rejected: validation errors
   ep --> client : 400 with field errors
-  client --> page : Show error summary, focus first error (L2-022 AC7)
+  client --> page : Show error summary and move focus to it (L2-022 AC7)
 else valid
   handler -> limits : Check daily, new-account and duplicate limits (L2-025)
   limits --> handler : Allowed

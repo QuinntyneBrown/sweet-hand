@@ -29,7 +29,8 @@ class CatererProfile {
   +AddPhoto(originalKey: string): Photo
   +ReplacePhoto(photoId: Guid, originalKey: string): void
   +SetCaption(photoId: Guid, caption: Caption): void
-  +SetCover(photoId: Guid): void
+  +SetCover(photoId: Guid): void «moves the photo to position 1»
+  +Cover(): Photo «the photo at position 1»
   +Reorder(photoIds: List<Guid>): void
   +RemovePhoto(photoId: Guid): void
 }
@@ -38,7 +39,6 @@ class Photo {
   +Guid id
   +int position
   +Caption caption
-  +bool isCover
   +PhotoProcessingState processingState
   +string originalKey
   +string pendingReplacementKey

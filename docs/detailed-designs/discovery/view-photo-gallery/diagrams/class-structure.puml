@@ -22,7 +22,7 @@ enum GalleryLayout {
   LeadWithGrid
 }
 class PhotoOrder {
-  +{static} CoverFirst(photos: List<PublicPhotoView>): List<PublicPhotoView>
+  +{static} ByPosition(photos: List<PublicPhotoView>): List<PublicPhotoView>
 }
 class PhotoViewerDialog {
   +int CurrentIndex
@@ -40,7 +40,6 @@ class ViewerNavigation {
 }
 class PublicPhotoView {
   +string Caption
-  +bool IsCover
   +int Position
   +List<ImageSource> Sources
 }

@@ -22,17 +22,18 @@
     <a class="site-nav__link site-nav__extra" href="../caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../occasions/default.html">Occasions</a>
     <a class="site-nav__link site-nav__extra" href="../sign-in/default.html">Sign in</a>
-    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
   </nav>
 </header>
 
 <main id="main">
 <div class="container"><div class="system-page">
-  <div class="photo-row"><span class="photo"><img src="../../assets/img/cou-cou.jpg" alt="" width="104" height="104"></span><span class="photo"><img src="../../assets/img/maracas-bay.jpg" alt="" width="104" height="104"></span><span class="photo"><img src="../../assets/img/cook-up.jpg" alt="" width="104" height="104"></span></div>
-  <h1>You’re offline</h1>
+  <div class="photo-row" aria-hidden="true"><span class="photo"><img src="../../assets/img/cou-cou.jpg" alt="" width="72" height="72"></span><span class="photo"><img src="../../assets/img/maracas-bay.jpg" alt="" width="104" height="104"></span><span class="photo"><img src="../../assets/img/cook-up.jpg" alt="" width="72" height="72"></span></div>
+  <h1 tabindex="-1">You’re offline</h1>
   <p class="prose">Check your connection. Caterer pages you opened recently still work; enquiries can be sent once you’re back online.</p>
   <div class="system-page__actions"><button class="btn btn--primary btn--lg" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>Try again</button><a class="btn btn--lg" href="../caterer/offline.html">Pelau House (saved)</a></div>
+  <p class="visually-hidden" role="status"></p>
   
 </div></div>
 </main>

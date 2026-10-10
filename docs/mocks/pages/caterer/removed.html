@@ -22,8 +22,8 @@
     <a class="site-nav__link site-nav__extra" href="../caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../occasions/default.html">Occasions</a>
     <a class="site-nav__link site-nav__extra" href="../sign-in/default.html">Sign in</a>
-    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
   </nav>
 </header>
 
@@ -35,13 +35,14 @@
       <span class="photo"><img src="../../assets/img/ti-kay.jpg" alt="" width="104" height="104"></span>
       <span class="photo"><img src="../../assets/img/sugar-dumplin.jpg" alt="" width="72" height="72"></span>
     </div>
-    <h1>This caterer has left Sweet Hand</h1>
+    <h1 tabindex="-1">This caterer has left Sweet Hand</h1>
     <p class="text-muted">The page you followed is no longer available. There are 60 other caterers cooking across Toronto and the GTA.</p>
     <div class="system-page__actions">
       <a class="btn btn--primary btn--lg" href="../caterers/default.html">Browse caterers</a>
       <a class="btn btn--lg" href="../occasions/default.html">Browse by occasion</a>
     </div>
-    <p class="system-page__code">410 · Gone</p>
+    <p class="visually-hidden" role="status"></p>
+    <p class="system-page__code">Error 410</p>
   </div>
 </main>
 

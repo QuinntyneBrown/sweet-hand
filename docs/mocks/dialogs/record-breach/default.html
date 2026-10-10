@@ -14,18 +14,18 @@
 <link rel="stylesheet" href="../../assets/mock.css">
 </head>
 <body>
-<a class="skip-link" href="#dlg-title">Skip to the dialog</a>
 
 <!-- The page underneath is inert while the dialog is open. -->
 <div class="page" inert aria-hidden="true">
+<a class="skip-link" href="#main">Skip to main content</a>
 <header class="site-header">
   <a class="wordmark" href="../../pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
   <nav class="site-nav" aria-label="Primary">
-    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
     <a class="site-nav__link site-nav__extra" href="../../pages/admin-caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/admin-metrics/default.html">Metrics</a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
   </nav>
 </header>
 
@@ -33,7 +33,7 @@
   <div class="work-layout">
     <nav class="side-nav" aria-label="Operator">
       <ul class="filter-list">
-        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count">7</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
         <li><a class="filter-list__item" href="../../pages/admin-changes/default.html">Recent changes</a></li>
         <li><a class="filter-list__item" href="../../pages/admin-caterers/default.html">Caterers</a></li>
         <li><a class="filter-list__item" href="../../pages/admin-reviews/default.html">Reviews</a></li>
@@ -93,39 +93,44 @@
 <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc" data-dismiss-on-escape>
   <form class="dialog__panel dialog__panel--form" action="../../pages/admin-breaches/default.html" novalidate>
     <div class="dialog__header">
-      <div style="flex: 1;">
+      <div class="dialog__heading">
         <h2 class="dialog__title" id="dlg-title">Record a breach</h2>
-        <p id="dlg-desc" class="text-muted" style="margin-top: var(--space-1);">Kept for at least 24 months. You can’t edit or delete a record later.</p>
+        <p class="dialog__desc" id="dlg-desc">Kept for at least 24 months. You can’t edit or delete a record later.</p>
       </div>
       <button class="icon-btn" type="button" aria-label="Close" data-mock-href="../../pages/admin-breaches/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>
     <div class="dialog__body stack" style="gap: var(--space-5);">
-      <label class="field" for="br-date"><span class="field__label">Date confirmed</span>
+      <div class="field"><label class="field__label" for="br-date">Date confirmed</label>
           <input class="input" id="br-date" name="date" type="date" value="" max="2026-10-10" required autofocus>
-        </label>
-      <label class="field" for="br-what"><span class="field__label">What happened</span>
+          <span class="visually-hidden" role="status"></span>
+        </div>
+      <div class="field"><label class="field__label" for="br-what">What happened</label>
           <textarea class="textarea" id="br-what" name="what" rows="3" required></textarea>
-        </label>
+          <span class="visually-hidden" role="status"></span>
+        </div>
       <fieldset>
         <legend>Information involved</legend>
-        <div class="option-grid"><label class="choice"><input type="checkbox" name="info"><span class="choice__text">Names</span></label><label class="choice"><input type="checkbox" name="info"><span class="choice__text">Email addresses</span></label><label class="choice"><input type="checkbox" name="info"><span class="choice__text">Phone numbers</span></label><label class="choice"><input type="checkbox" name="info"><span class="choice__text">Event details</span></label><label class="choice"><input type="checkbox" name="info"><span class="choice__text">Messages</span></label><label class="choice"><input type="checkbox" name="info"><span class="choice__text">Food handler certificates</span></label></div>
+        <div class="option-grid"><label class="choice"><input type="checkbox" name="info"><span class="choice__text"><span>Names</span></span></label><label class="choice"><input type="checkbox" name="info"><span class="choice__text"><span>Email addresses</span></span></label><label class="choice"><input type="checkbox" name="info"><span class="choice__text"><span>Phone numbers</span></span></label><label class="choice"><input type="checkbox" name="info"><span class="choice__text"><span>Event details</span></span></label><label class="choice"><input type="checkbox" name="info"><span class="choice__text"><span>Messages</span></span></label><label class="choice"><input type="checkbox" name="info"><span class="choice__text"><span>Food handler certificates</span></span></label></div>
       </fieldset>
-      <label class="field" for="br-people"><span class="field__label">People affected</span>
+      <div class="field"><label class="field__label" for="br-people">People affected</label>
           <input class="input" id="br-people" name="people" type="text" inputmode="numeric" value="" autocomplete="off" required>
-        </label>
-      <fieldset>
+          <span class="visually-hidden" role="status"></span>
+        </div>
+      <fieldset class="stack stack--sm">
         <legend>Risk of significant harm</legend>
         <label class="choice"><input type="radio" name="risk" value="low"><span class="choice__text">Low</span></label>
         <label class="choice"><input type="radio" name="risk" value="real"><span class="choice__text">Real risk of significant harm</span></label>
       </fieldset>
-      <label class="field" for="br-risk"><span class="field__label">Risk assessment</span>
+      <div class="field"><label class="field__label" for="br-risk">Risk assessment</label>
           <textarea class="textarea" id="br-risk" name="risk_notes" rows="2"></textarea>
-        </label>
-      <fieldset>
+          <span class="visually-hidden" role="status"></span>
+        </div>
+      <fieldset class="stack stack--sm">
         <legend>Notification decision</legend>
         <label class="choice"><input type="radio" name="decision" id="decision-report" value="report"><span class="choice__text">Report to the Privacy Commissioner and notify the people affected</span></label>
         <label class="choice"><input type="radio" name="decision" id="decision-not" value="not"><span class="choice__text">Not reportable: no real risk of significant harm</span></label>
       </fieldset>
+      <p class="visually-hidden" role="status"></p>
     </div>
     <div class="dialog__footer">
       <button class="btn" type="button" data-mock-href="../../pages/admin-breaches/default.html">Cancel</button>

@@ -54,7 +54,7 @@ group Caption
 end
 
 group Reorder
-  actor -> page : Move up, Move down, or drag photo 7 to position 2
+  actor -> page : Move up or Move down until photo 7 is at position 2 (buttons only, no dragging)
   page -> client : reorder(orderedIds)
   client -> endpoints : PUT /caterer/profile/photos/order
   endpoints -> handler : ReorderPhotosCommand
@@ -64,11 +64,11 @@ group Reorder
 end
 
 group Set cover
-  actor -> dialog : Set as cover
-  dialog -> client : update(photoId, isCover = true)
+  actor -> dialog : Tick "Use as cover photo" and save
+  dialog -> client : update(photoId, caption, useAsCover = true)
   client -> endpoints : PATCH /caterer/profile/photos/{id}
   endpoints -> handler : UpdatePhotoCommand
-  handler -> profile : SetCover(photoId) — previous cover cleared
+  handler -> profile : SetCover(photoId) — photo moves to position 1, others shift down
   handler -> repo : Save
   opt profile is Published
     handler -> cdn : Purge listing pages and caterer page

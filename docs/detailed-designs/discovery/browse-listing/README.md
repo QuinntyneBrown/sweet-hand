@@ -46,22 +46,26 @@ Technology choices are `<TO SUPPLY>` pending architecture decision records in
   dropped before the request is built (`L2-003 AC3`). Each change pushes a
   browser history entry, so the Back button restores the previous state
   (`L2-003 AC2`).
-- **`ListingGrid`** — lays out cards in 1 column at XS, 2 at SM and MD, 3 at LG
-  and 4 at XL (`L2-005`). The grid causes no horizontal scrolling at 320 px.
+- **`ListingGrid`** — lays out cards in 1 column at XS, 2 at SM and MD, and 3
+  at LG and XL (`L2-005`). At XL the grid keeps 3 columns and the extra width
+  goes to white space around it (`L2-005 AC4`). The grid causes no horizontal
+  scrolling at 320 px.
 - **`ListingCard`** — a single link to `/caterers/{slug}` that shows exactly the
   cover photo, business name, primary cuisine and primary service area
   (`L2-004`). The name truncates with an ellipsis after 2 lines; the full name
-  stays in the link's accessible name. The photo box keeps a 4:3 aspect ratio
-  and fills at least 60% of the card height. A neutral placeholder of the same
-  ratio holds the space before the photo loads or when it fails
+  stays in the link's accessible name. The photo is a 1:1 circle that fills at
+  least 60% of the card height (`L2-005 AC5`). A neutral circular placeholder
+  of the same size holds the space before the photo loads or when it fails
   (`L2-006 AC5`).
 - **`ResponsiveCardImage`** — emits `srcset` widths 400, 800 and 1200, a `sizes`
-  attribute that matches the grid
-  (`(min-width: 1200px) 25vw, (min-width: 992px) 33vw, (min-width: 576px) 50vw, 100vw`),
-  AVIF and WebP sources with a JPEG fallback, and `alt` set to the caterer's
-  caption for that photo (`L2-006`). Cards in the first viewport load eagerly;
-  all others use `loading="lazy"`. The number of eager cards per viewport class
-  is `<TO SUPPLY>`.
+  attribute that matches the 3-column grid and its capped circle
+  (`(min-width: 62rem) 17.5rem, (min-width: 36rem) 45vw, 90vw`, the value the
+  caterer-card component requirements fix), AVIF and WebP sources with a JPEG
+  fallback, and `alt` set to the caterer's caption for that photo (`L2-006`).
+  Cards in the first viewport load eagerly; all others use `loading="lazy"`.
+  The eager count follows the viewport class: the first 2 cards at XS, 4 at SM
+  and MD, and 6 at LG and XL (`L2-006 AC3`). Without a known viewport the
+  server renders the XS count.
 - **`ListingEmptyState`** — shows "No caterers match these filters" with a
   "Clear filters" control when a page has no results (`L2-001 AC4`).
 - **`ListingClient`** — API client contract for `GET /api/public/caterers`. The
@@ -119,7 +123,7 @@ Requirement text is quoted from the specification, with *must* rendered as
 | `L2-002` | `L1-001` | The listing shall show 24 caterers per page. With no sort chosen by the user, caterers shall appear in a pseudo-random order seeded by the current date, so that no caterer is permanently favoured and the order stays stable within a day. |
 | `L2-003` | `L1-001` | The active filters, search terms and page number shall be stored in the URL query string. A listing URL shall be shareable and bookmarkable, and shall work with the browser Back button. |
 | `L2-004` | `L1-002` | Each listing card shall show exactly four things: the caterer's cover photo, business name, primary cuisine and primary service area. It shall show nothing else, including ratings, prices and contact details. The whole card shall be a single link to the caterer page. |
-| `L2-005` | `L1-002` | The listing shall use a grid of cards whose column count depends on the viewport class. Photos shall take up at least 60% of each card's height. |
+| `L2-005` | `L1-002` | The listing shall use a grid of cards whose column count depends on the viewport class. Photos are round (1:1) and shall take up at least 60% of each card's height. |
 | `L2-006` | `L1-002` | Listing photos shall be delivered in sizes matched to the viewport and in modern formats. Photos below the fold shall load lazily. Every image shall have a text alternative. |
 | `L2-013` | `L1-005` | The listing, all filters and searches, and all caterer pages, including reviews, shall be fully usable without signing in. The platform shall ask a visitor to sign in only when they try to send an enquiry, leave a review, or open their account pages. |
 

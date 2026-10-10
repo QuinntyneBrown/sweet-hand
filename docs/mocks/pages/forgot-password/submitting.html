@@ -22,8 +22,8 @@
     <a class="site-nav__link site-nav__extra" href="../caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../occasions/default.html">Occasions</a>
     <a class="site-nav__link site-nav__extra" href="../sign-in/default.html">Sign in</a>
-    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
   </nav>
 </header>
 
@@ -34,9 +34,9 @@
     <h1>Forgot password</h1>
     <p class="subtitle">Enter the email you signed up with and we’ll send a link to choose a new password.</p>
   </div>
-  <form class="stack" style="gap: var(--space-5);" action="success.html" method="post" novalidate>
-    <div class="field"><label class="field__label" for="email">Email</label><input class="input input--lg" id="email" name="email" type="email" autocomplete="email" spellcheck="false" required value="marcia.t@example.com" readonly></div>
-    <button class="btn btn--primary btn--lg btn--block" type="submit" aria-busy="true" aria-disabled="true">Sending…</button>
+  <form class="form form--compact" action="success.html" method="post" novalidate>
+    <div class="field"><label class="field__label" for="email">Email</label><input class="input input--lg" id="email" name="email" type="email" autocomplete="email" spellcheck="false" required value="marcia.t@example.com" readonly><span class="visually-hidden" role="status"></span></div>
+    <button class="btn btn--primary btn--lg btn--block" type="submit" aria-busy="true" aria-disabled="true">Send reset link</button><p class="visually-hidden" role="status">Sending the reset link</p>
   </form>
   <p class="auth__alt">Remembered it? <a href="../sign-in/default.html">Sign in</a></p>
 </div>

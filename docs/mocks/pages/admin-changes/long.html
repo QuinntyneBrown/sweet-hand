@@ -19,11 +19,11 @@
 <header class="site-header">
   <a class="wordmark" href="../admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
   <nav class="site-nav" aria-label="Primary">
-    <a class="site-nav__link site-nav__extra" href="../admin-queue/default.html">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a>
+    <a class="site-nav__link site-nav__extra" href="../admin-queue/default.html">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
     <a class="site-nav__link site-nav__extra" href="../admin-caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../admin-metrics/default.html">Metrics</a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
   </nav>
 </header>
 
@@ -31,7 +31,7 @@
   <div class="work-layout">
     <nav class="side-nav" aria-label="Operator">
       <ul class="filter-list">
-        <li><a class="filter-list__item" href="../admin-queue/default.html">Review queue <span class="filter-list__count">7</span></a></li>
+        <li><a class="filter-list__item" href="../admin-queue/default.html">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
         <li><a class="filter-list__item" href="../admin-changes/default.html" aria-current="page">Recent changes</a></li>
         <li><a class="filter-list__item" href="../admin-caterers/default.html">Caterers</a></li>
         <li><a class="filter-list__item" href="../admin-reviews/default.html">Reviews <span class="filter-list__count">2 held</span></a></li>
@@ -53,110 +53,92 @@
       <ul class="review-list">
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/green-fig-catering.jpg" alt="" width="40" height="40"></span><span class="review__author">Green Fig Catering · Description</span><span class="review__date">Lloyd Henry · Mon 21 Sep, 4:10 p.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="diff-old">Cooked to order, every time.</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Cooked to order for every event, small or large.</span></p>
+          <dl class="dl"><dt>Was</dt><dd><del class="diff-old">Cooked to order, every time.</del></dd><dt>Now</dt><dd><ins class="diff-new">Cooked to order for every event, small or large.</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Green Fig Catering description</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/coconut-drops-bakery.jpg" alt="" width="40" height="40"></span><span class="review__author">Coconut Drops Bakery · Guests</span><span class="review__date">Ondine Samuel · Mon 21 Sep, 10:45 a.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="diff-old">Serves 20–120 guests</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Serves 20–180 guests</span></p>
+          <dl class="dl"><dt>Was</dt><dd><del class="diff-old">Serves 20–120 guests</del></dd><dt>Now</dt><dd><ins class="diff-new">Serves 20–180 guests</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Coconut Drops Bakery guests</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/bammy-bros.jpg" alt="" width="40" height="40"></span><span class="review__author">Bammy Bros. · Menu</span><span class="review__date">Shondelle Adams · Sun 20 Sep, 8:30 p.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="text-muted">Nothing</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Pepperpot · From $21 per person · Gluten-free</span></p>
+          <dl class="dl"><dt>Was</dt><dd><span class="text-muted">Nothing</span></dd><dt>Now</dt><dd><ins class="diff-new">Pepperpot · From $21 per person · Gluten-free</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Bammy Bros. menu</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/sea-moss-and-spice.jpg" alt="" width="40" height="40"></span><span class="review__author">Sea Moss & Spice · Areas</span><span class="review__date">Celestine Charles · Sat 19 Sep, 1:15 p.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="diff-old">Scarborough</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Scarborough, Pickering</span></p>
+          <dl class="dl"><dt>Was</dt><dd><del class="diff-old">Scarborough</del></dd><dt>Now</dt><dd><ins class="diff-new">Scarborough, Pickering</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Sea Moss & Spice areas</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/black-cake-co.jpg" alt="" width="40" height="40"></span><span class="review__author">Black Cake Co. · Occasions</span><span class="review__date">Marcus Alexander · Sat 19 Sep, 9:05 a.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="diff-old">Weddings, Birthdays</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Weddings, Birthdays, Funerals and repasts</span></p>
+          <dl class="dl"><dt>Was</dt><dd><del class="diff-old">Weddings, Birthdays</del></dd><dt>Now</dt><dd><ins class="diff-new">Weddings, Birthdays, Funerals and repasts</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Black Cake Co. occasions</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/sunday-pot.jpg" alt="" width="40" height="40"></span><span class="review__author">Sunday Pot · Description</span><span class="review__date">Lloyd Henry · Fri 18 Sep, 4:10 p.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="diff-old">Cooked to order, every time.</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Cooked to order for every event, small or large.</span></p>
+          <dl class="dl"><dt>Was</dt><dd><del class="diff-old">Cooked to order, every time.</del></dd><dt>Now</dt><dd><ins class="diff-new">Cooked to order for every event, small or large.</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Sunday Pot description</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/belmopan-kitchen.jpg" alt="" width="40" height="40"></span><span class="review__author">Belmopan Kitchen · Guests</span><span class="review__date">Ondine Samuel · Thu 17 Sep, 10:45 a.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="diff-old">Serves 20–120 guests</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Serves 20–180 guests</span></p>
+          <dl class="dl"><dt>Was</dt><dd><del class="diff-old">Serves 20–120 guests</del></dd><dt>Now</dt><dd><ins class="diff-new">Serves 20–180 guests</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Belmopan Kitchen guests</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/fungee-and-pepperpot.jpg" alt="" width="40" height="40"></span><span class="review__author">Fungee & Pepperpot · Menu</span><span class="review__date">Shondelle Adams · Thu 17 Sep, 8:30 p.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="text-muted">Nothing</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Pepperpot · From $21 per person · Gluten-free</span></p>
+          <dl class="dl"><dt>Was</dt><dd><span class="text-muted">Nothing</span></dd><dt>Now</dt><dd><ins class="diff-new">Pepperpot · From $21 per person · Gluten-free</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Fungee & Pepperpot menu</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/souse-and-sorrel.jpg" alt="" width="40" height="40"></span><span class="review__author">Souse & Sorrel · Areas</span><span class="review__date">Celestine Charles · Wed 16 Sep, 1:15 p.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="diff-old">Scarborough</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Scarborough, Pickering</span></p>
+          <dl class="dl"><dt>Was</dt><dd><del class="diff-old">Scarborough</del></dd><dt>Now</dt><dd><ins class="diff-new">Scarborough, Pickering</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Souse & Sorrel areas</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/ti-kay.jpg" alt="" width="40" height="40"></span><span class="review__author">Ti Kay · Occasions</span><span class="review__date">Marcus Alexander · Tue 15 Sep, 9:05 a.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="diff-old">Weddings, Birthdays</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Weddings, Birthdays, Funerals and repasts</span></p>
+          <dl class="dl"><dt>Was</dt><dd><del class="diff-old">Weddings, Birthdays</del></dd><dt>Now</dt><dd><ins class="diff-new">Weddings, Birthdays, Funerals and repasts</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Ti Kay occasions</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/sorrel-and-spice.jpg" alt="" width="40" height="40"></span><span class="review__author">Sorrel & Spice · Description</span><span class="review__date">Lloyd Henry · Tue 15 Sep, 4:10 p.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="diff-old">Cooked to order, every time.</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Cooked to order for every event, small or large.</span></p>
+          <dl class="dl"><dt>Was</dt><dd><del class="diff-old">Cooked to order, every time.</del></dd><dt>Now</dt><dd><ins class="diff-new">Cooked to order for every event, small or large.</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Sorrel & Spice description</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/island-pot.jpg" alt="" width="40" height="40"></span><span class="review__author">Island Pot · Guests</span><span class="review__date">Ondine Samuel · Mon 14 Sep, 10:45 a.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="diff-old">Serves 20–120 guests</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Serves 20–180 guests</span></p>
+          <dl class="dl"><dt>Was</dt><dd><del class="diff-old">Serves 20–120 guests</del></dd><dt>Now</dt><dd><ins class="diff-new">Serves 20–180 guests</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Island Pot guests</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/brown-stew-kitchen.jpg" alt="" width="40" height="40"></span><span class="review__author">Brown Stew Kitchen · Menu</span><span class="review__date">Shondelle Adams · Sun 13 Sep, 8:30 p.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="text-muted">Nothing</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Pepperpot · From $21 per person · Gluten-free</span></p>
+          <dl class="dl"><dt>Was</dt><dd><span class="text-muted">Nothing</span></dd><dt>Now</dt><dd><ins class="diff-new">Pepperpot · From $21 per person · Gluten-free</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Brown Stew Kitchen menu</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/paramaribo-pot.jpg" alt="" width="40" height="40"></span><span class="review__author">Paramaribo Pot · Areas</span><span class="review__date">Celestine Charles · Sat 12 Sep, 1:15 p.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="diff-old">Scarborough</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Scarborough, Pickering</span></p>
+          <dl class="dl"><dt>Was</dt><dd><del class="diff-old">Scarborough</del></dd><dt>Now</dt><dd><ins class="diff-new">Scarborough, Pickering</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Paramaribo Pot areas</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/scotch-bonnet-social.jpg" alt="" width="40" height="40"></span><span class="review__author">Scotch Bonnet Social · Occasions</span><span class="review__date">Marcus Alexander · Sat 12 Sep, 9:05 a.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="diff-old">Weddings, Birthdays</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Weddings, Birthdays, Funerals and repasts</span></p>
+          <dl class="dl"><dt>Was</dt><dd><del class="diff-old">Weddings, Birthdays</del></dd><dt>Now</dt><dd><ins class="diff-new">Weddings, Birthdays, Funerals and repasts</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Scotch Bonnet Social occasions</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/cook-up.jpg" alt="" width="40" height="40"></span><span class="review__author">Cook-Up · Description</span><span class="review__date">Lloyd Henry · Fri 11 Sep, 4:10 p.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="diff-old">Cooked to order, every time.</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Cooked to order for every event, small or large.</span></p>
+          <dl class="dl"><dt>Was</dt><dd><del class="diff-old">Cooked to order, every time.</del></dd><dt>Now</dt><dd><ins class="diff-new">Cooked to order for every event, small or large.</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Cook-Up description</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/bajan-breeze.jpg" alt="" width="40" height="40"></span><span class="review__author">Bajan Breeze · Guests</span><span class="review__date">Ondine Samuel · Thu 10 Sep, 10:45 a.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="diff-old">Serves 20–120 guests</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Serves 20–180 guests</span></p>
+          <dl class="dl"><dt>Was</dt><dd><del class="diff-old">Serves 20–120 guests</del></dd><dt>Now</dt><dd><ins class="diff-new">Serves 20–180 guests</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Bajan Breeze guests</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/flying-fish-kitchen.jpg" alt="" width="40" height="40"></span><span class="review__author">Flying Fish Kitchen · Menu</span><span class="review__date">Shondelle Adams · Thu 10 Sep, 8:30 p.m.</span></div>
-          <p class="review__body"><span class="text-caption">Was</span><br><span class="text-muted">Nothing</span></p>
-          <p class="review__body"><span class="text-caption">Now</span><br><span class="diff-new">Pepperpot · From $21 per person · Gluten-free</span></p>
+          <dl class="dl"><dt>Was</dt><dd><span class="text-muted">Nothing</span></dd><dt>Now</dt><dd><ins class="diff-new">Pepperpot · From $21 per person · Gluten-free</ins></dd></dl>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/revert-change/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Revert<span class="visually-hidden"> Flying Fish Kitchen menu</span></button></div>
         </li>
       </ul>
@@ -165,10 +147,10 @@
         <ul class="pagination">
           <li><a href="long.html" aria-label="Previous page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></a></li>
           <li><a href="default.html" aria-label="Page 1">1</a></li>
-          <li><a href="long.html" aria-label="Page 2">2</a></li>
-          <li><span aria-hidden="true">…</span></li>
-          <li><a href="long.html" aria-label="Page 5">5</a></li>
+          <li><span class="pagination__gap" aria-hidden="true">…</span></li>
+          <li class="pagination__wide"><a href="long.html" aria-label="Page 5">5</a></li>
           <li><a href="long.html" aria-current="page" aria-label="Page 6">6</a></li>
+          <li><a role="link" aria-disabled="true" aria-label="Next page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li>
         </ul>
       </nav>
 

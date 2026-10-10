@@ -21,10 +21,10 @@
   <nav class="site-nav" aria-label="Primary">
     <a class="site-nav__link site-nav__extra" href="../caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../occasions/default.html">Occasions</a>
-    <a class="site-nav__link site-nav__extra" href="../inbox/default.html">Inbox <span class="badge badge--count" aria-label="1 unread enquiry">1</span></a>
-    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/signed-in.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/default.html">MT</button>
+    <a class="site-nav__link site-nav__extra" href="../inbox/default.html">Inbox <span class="badge badge--count" aria-hidden="true">1</span><span class="visually-hidden">, 1 unread enquiry</span></a>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/signed-in.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/default.html">MT</button>
   </nav>
 </header>
 
@@ -47,8 +47,8 @@
         <h2 id="devices-title">Signed-in devices</h2>
         <ul class="list device-list">
           <li class="list__item"><div class="list__body"><div class="list__title">Chrome on Windows</div><div class="list__meta">This device · active now</div></div><span class="status status--published">Current</span></li>
-          <li class="list__item"><div class="list__body"><div class="list__title">Safari on iPhone</div><div class="list__meta">Last active today, 8:15 a.m.</div></div><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/end-session/default.html">Sign out</button></li>
-          <li class="list__item"><div class="list__body"><div class="list__title">Samsung Internet on Android</div><div class="list__meta">Last active Mon 28 Sep</div></div><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/end-session/default.html">Sign out</button></li>
+          <li class="list__item"><div class="list__body"><div class="list__title">Safari on iPhone</div><div class="list__meta">Last active today, 8:15 a.m.</div></div><button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Sign out Safari on iPhone" data-mock-href="../../dialogs/end-session/default.html">Sign out</button></li>
+          <li class="list__item"><div class="list__body"><div class="list__title">Samsung Internet on Android</div><div class="list__meta">Last active Mon 28 Sep</div></div><button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Sign out Samsung Internet on Android" data-mock-href="../../dialogs/end-session/default.html">Sign out</button></li>
         </ul>
       </section>
 

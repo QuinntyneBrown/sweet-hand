@@ -22,8 +22,8 @@
     <a class="site-nav__link site-nav__extra" href="../caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../occasions/default.html">Occasions</a>
     <a class="site-nav__link site-nav__extra" href="../sign-in/default.html">Sign in</a>
-    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
   </nav>
 </header>
 
@@ -34,10 +34,10 @@
     <div>
       <section class="gallery" aria-label="Photos">
         <ul class="gallery__track">
-          <li><button class="gallery__btn" type="button" aria-label="Open photo 1 of 4" data-mock-href="../../dialogs/photo-viewer/default.html"><span class="photo"><img src="../../assets/img/souse-and-sorrel.jpg" alt="Goat water stew with dumplings in a steel pot" width="280" height="280"></span></button></li>
-          <li><button class="gallery__btn" type="button" aria-label="Open photo 2 of 4: Stewed saltfish with peppers over rice (did not load)" data-mock-href="../../dialogs/photo-viewer/failed.html"><span class="photo photo--failed"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg><span class="photo__label">Photo unavailable</span></span></button></li>
-          <li><button class="gallery__btn" type="button" aria-label="Open photo 3 of 4" data-mock-href="../../dialogs/photo-viewer/default.html"><span class="photo"><img src="../../assets/img/sea-moss-and-spice.jpg" alt="Coconut dumplings and spiced rice" width="280" height="280"></span></button></li>
-          <li><button class="gallery__btn" type="button" aria-label="Open photo 4 of 4" data-mock-href="../../dialogs/photo-viewer/default.html"><span class="photo"><img src="../../assets/img/lambie-lane.jpg" alt="Rum cake topped with a single raspberry" width="280" height="280" loading="lazy"></span></button></li>
+          <li><button class="gallery__btn" type="button" aria-haspopup="dialog" aria-label="Open photo 1 of 4: Goat water stew with dumplings in a steel pot" data-mock-href="../../dialogs/photo-viewer/default.html"><span class="photo"><img src="../../assets/img/souse-and-sorrel.jpg" alt="" width="280" height="280"></span></button></li>
+          <li><button class="gallery__btn" type="button" aria-haspopup="dialog" aria-label="Open photo 2 of 4: Stewed saltfish with peppers over rice (did not load)" data-mock-href="../../dialogs/photo-viewer/failed.html"><span class="photo photo--failed"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg><span class="photo__label">Photo unavailable</span></span></button></li>
+          <li><button class="gallery__btn" type="button" aria-haspopup="dialog" aria-label="Open photo 3 of 4: Coconut dumplings and spiced rice" data-mock-href="../../dialogs/photo-viewer/default.html"><span class="photo"><img src="../../assets/img/sea-moss-and-spice.jpg" alt="" width="280" height="280"></span></button></li>
+          <li><button class="gallery__btn" type="button" aria-haspopup="dialog" aria-label="Open photo 4 of 4: Rum cake topped with a single raspberry" data-mock-href="../../dialogs/photo-viewer/default.html"><span class="photo"><img src="../../assets/img/lambie-lane.jpg" alt="" width="280" height="280" loading="lazy"></span></button></li>
         </ul>
         <div class="gallery__dots" aria-hidden="true"><span aria-current="true"></span><span></span><span></span><span></span></div>
       </section>
@@ -61,7 +61,7 @@
         <div class="caterer-section__head"><h2 id="menu-title">Menu</h2><span class="result-count">3 dishes</span></div>
         <ul class="dish-list" id="dish-list">
           <li class="dish"><div class="dish__top"><h3 class="dish__name">Goat water</h3></div></li>
-          <li class="dish"><div class="dish__top"><h3 class="dish__name">Stewed saltfish, spicy plantain, coconut dumplings and seasoned breadfruit platter</h3><span class="dish__price">From $1,250 per 50 guests</span></div><p class="dish__desc">A whole Saturday of cooking on one platter, enough for the full fifty with seconds for the uncles who say they are not hungry and then are.</p><ul class="tags"><li class="tag">Vegetarian</li><li class="tag">Vegan</li><li class="tag">Gluten-free</li><li class="tag">Dairy-free</li><li class="tag">Halal</li><li class="tag tag--allergen">Contains nuts</li><li class="tag tag--allergen">Contains shellfish</li><li class="tag">Spicy</li></ul></li>
+          <li class="dish"><div class="dish__top"><h3 class="dish__name">Stewed saltfish, spicy plantain, coconut dumplings and seasoned breadfruit platter</h3><span class="dish__price">From $1,250 per 50 guests</span></div><p class="dish__desc">A whole Saturday of cooking on one platter, enough for the full fifty with seconds for the uncles who say they are not hungry and then are.</p><ul class="tags"><li class="tag">Vegetarian</li><li class="tag">Vegan</li><li class="tag">Gluten-free</li><li class="tag">Dairy-free</li><li class="tag">Halal</li><li class="tag tag--allergen"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg>Contains nuts</li><li class="tag tag--allergen"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg>Contains shellfish</li><li class="tag">Spicy</li></ul></li>
           <li class="dish"><div class="dish__top"><h3 class="dish__name">Conkies</h3></div></li>
         </ul>
       </section>

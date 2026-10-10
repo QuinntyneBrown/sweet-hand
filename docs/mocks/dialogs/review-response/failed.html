@@ -14,10 +14,10 @@
 <link rel="stylesheet" href="../../assets/mock.css">
 </head>
 <body>
-<a class="skip-link" href="#dlg-title">Skip to the dialog</a>
 
 <!-- The page underneath is inert while the dialog is open. -->
 <div class="page" inert aria-hidden="true">
+<a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header">
     <span class="wordmark">Sweet Hand <span class="wordmark__tag">for caterers</span></span>
     <span class="site-nav"><span class="site-nav__link site-nav__extra">Dashboard</span><span class="site-nav__link site-nav__extra">Enquiries</span><span class="site-nav__link site-nav__extra">My page</span><span class="avatar">KB</span></span>
@@ -94,9 +94,9 @@
 <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc" data-dismiss-on-escape>
   <form class="dialog__panel dialog__panel--form" novalidate>
     <div class="dialog__header">
-      <div style="flex: 1;">
+      <div class="dialog__heading">
         <h2 class="dialog__title" id="dlg-title">Respond to Andre C.</h2>
-        <p id="dlg-desc" class="text-muted" style="margin-top: var(--space-1);">One public response per review.</p>
+        <p class="dialog__desc" id="dlg-desc">One public response per review.</p>
       </div>
       <button class="icon-btn" type="button" aria-label="Close" data-mock-href="../../pages/dashboard-reviews/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>
@@ -106,10 +106,12 @@
           <div class="review__head"><span class="review__author">Andre C.</span><span class="review__date">Event in July 2026</span><span class="stars" role="img" aria-label="5 out of 5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span></div>
           <blockquote class="review__body" style="margin: var(--space-2) 0 0;">Doubles for 60 at the office, hot and on time. Kendra answered every question the same day.</blockquote>
         </figure>
-        <label class="field" for="response"><span class="field__label">Your response</span>
-          <textarea class="textarea" id="response" name="response" rows="4" maxlength="1000" required aria-describedby="response-help response-count">Thanks, Andre! Feeding your team was a pleasure. Doubles anytime.</textarea>
+        <div class="field"><label class="field__label" for="response">Your response</label>
+          <textarea class="textarea" id="response" name="response" rows="4" required aria-describedby="response-help response-count">Thanks, Andre! Feeding your team was a pleasure. Doubles anytime.</textarea>
           <span class="cluster cluster--between"><span class="field__help" id="response-help">Public on your page as “Response from Pelau House”. Andre gets an email.</span><span class="field__counter" id="response-count">65 / 1,000</span></span>
-        </label>
+          <span class="visually-hidden" role="status"></span>
+        </div>
+      <p class="visually-hidden" role="status"></p>
     </div>
     <div class="dialog__footer">
       <button class="btn" type="button" data-mock-href="../../pages/dashboard-reviews/default.html">Cancel</button>

@@ -20,10 +20,11 @@
   <a class="wordmark" href="../../pages/dashboard/default.html">Sweet Hand <span class="wordmark__tag">for caterers</span></a>
   <nav class="site-nav" aria-label="Primary">
     <a class="site-nav__link site-nav__extra" href="../../pages/dashboard/default.html">Dashboard</a>
-    <a class="site-nav__link site-nav__extra" href="../../pages/dashboard-enquiries/default.html">Enquiries <span class="badge badge--count" aria-label="2 unread enquiries">2</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/dashboard-enquiries/default.html">Enquiries <span class="badge badge--count" aria-hidden="true">2</span><span class="visually-hidden">, 2 unread</span></a>
     <a class="site-nav__link site-nav__extra" href="../../pages/caterer/default.html">My page</a>
     <a class="icon-btn site-nav__menu" href="../../pages/dashboard-enquiries/default.html" aria-label="Enquiries, 2 unread"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">2</span></a>
-    <button class="avatar" type="button" aria-label="Account menu for Kendra Baptiste" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/caterer.html">KB</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/caterer.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Kendra Baptiste" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/caterer.html">KB</button>
   </nav>
 </header>
 
@@ -42,7 +43,7 @@
       <ul class="filter-list">
         <li><a class="filter-list__item" href="../../pages/dashboard-enquiries/default.html">Enquiries <span class="filter-list__count">2 unread</span></a></li>
         <li><a class="filter-list__item" href="../../pages/dashboard-reviews/default.html">Reviews</a></li>
-        <li><a class="filter-list__item" href="../../pages/account/default.html">Account</a></li>
+        <li><a class="filter-list__item" href="../../pages/account/caterer.html">Account</a></li>
       </ul>
     </nav>
 
@@ -55,29 +56,31 @@
       </div>
       <form class="form" aria-labelledby="page-title" novalidate>
         <fieldset class="stack">
-          <legend><h2 style="font: var(--text-h3);">Guests</h2></legend>
+          <legend><h2>Guests</h2></legend>
           <div class="field-row">
-          <label class="field" for="min-guests"><span class="field__label">Smallest event</span>
+          <div class="field"><label class="field__label" for="min-guests">Smallest event</label>
             <input class="input" id="min-guests" name="min-guests" type="text" inputmode="numeric" pattern="[0-9]*" value="20" required aria-describedby="guests-help">
-          </label>
-          <label class="field" for="max-guests"><span class="field__label">Largest event</span>
-            <input class="input" id="max-guests" name="max-guests" type="text" inputmode="numeric" pattern="[0-9]*" value="300" required aria-describedby="guests-help">
-          </label>
+            <span class="visually-hidden" role="status"></span>
           </div>
-          <p class="field__help" id="guests-help">Whole numbers from 1 to 5,000. Your page says “Serves 20–300 guests”.</p>
+          <div class="field"><label class="field__label" for="max-guests">Largest event</label>
+            <input class="input" id="max-guests" name="max-guests" type="text" inputmode="numeric" pattern="[0-9]*" value="300" required aria-describedby="guests-help">
+            <span class="visually-hidden" role="status"></span>
+          </div>
+          </div>
+          <span class="field__help" id="guests-help">Whole numbers from 1 to 5,000. Your page says “Serves 20–300 guests”.</span>
         </fieldset>
         <fieldset class="stack" style="margin-top: var(--space-8);" aria-describedby="occ-help">
-          <legend><h2 style="font: var(--text-h3);">Occasions</h2></legend>
-          <p class="field__help" id="occ-help">Choose every kind of event you take on.</p>
+          <legend><h2>Occasions</h2></legend>
+          <span class="field__help" id="occ-help">Choose every kind of event you take on.</span>
           <div class="option-grid">
-            <label class="choice"><input type="checkbox" name="occasion" id="o-weddings" value="Weddings" checked><span class="choice__text">Weddings</span></label>
-            <label class="choice"><input type="checkbox" name="occasion" id="o-birthdays" value="Birthdays" checked><span class="choice__text">Birthdays</span></label>
-            <label class="choice"><input type="checkbox" name="occasion" id="o-corporate-events" value="Corporate events" checked><span class="choice__text">Corporate events</span></label>
-            <label class="choice"><input type="checkbox" name="occasion" id="o-funerals-and-repasts" value="Funerals and repasts"><span class="choice__text">Funerals and repasts</span></label>
-            <label class="choice"><input type="checkbox" name="occasion" id="o-religious-and-cultural-celebrations" value="Religious and cultural celebrations" checked><span class="choice__text">Religious and cultural celebrations</span></label>
-            <label class="choice"><input type="checkbox" name="occasion" id="o-family-gatherings" value="Family gatherings" checked><span class="choice__text">Family gatherings</span></label>
-            <label class="choice"><input type="checkbox" name="occasion" id="o-private-dinners" value="Private dinners"><span class="choice__text">Private dinners</span></label>
-            <label class="choice"><input type="checkbox" name="occasion" id="o-community-events" value="Community events" checked><span class="choice__text">Community events</span></label>
+            <label class="choice"><input type="checkbox" name="occasion" id="o-weddings" value="Weddings" checked><span class="choice__text"><span>Weddings</span></span></label>
+            <label class="choice"><input type="checkbox" name="occasion" id="o-birthdays" value="Birthdays" checked><span class="choice__text"><span>Birthdays</span></span></label>
+            <label class="choice"><input type="checkbox" name="occasion" id="o-corporate-events" value="Corporate events" checked><span class="choice__text"><span>Corporate events</span></span></label>
+            <label class="choice"><input type="checkbox" name="occasion" id="o-funerals-and-repasts" value="Funerals and repasts"><span class="choice__text"><span>Funerals and repasts</span></span></label>
+            <label class="choice"><input type="checkbox" name="occasion" id="o-religious-and-cultural-celebrations" value="Religious and cultural celebrations" checked><span class="choice__text"><span>Religious and cultural celebrations</span></span></label>
+            <label class="choice"><input type="checkbox" name="occasion" id="o-family-gatherings" value="Family gatherings" checked><span class="choice__text"><span>Family gatherings</span></span></label>
+            <label class="choice"><input type="checkbox" name="occasion" id="o-private-dinners" value="Private dinners"><span class="choice__text"><span>Private dinners</span></span></label>
+            <label class="choice"><input type="checkbox" name="occasion" id="o-community-events" value="Community events" checked><span class="choice__text"><span>Community events</span></span></label>
           </div>
         </fieldset>
       </form>

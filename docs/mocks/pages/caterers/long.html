@@ -22,8 +22,8 @@
     <a class="site-nav__link site-nav__extra" href="../../pages/caterers/default.html" aria-current="page">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/occasions/default.html">Occasions</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/sign-in/default.html">Sign in</a>
-    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
   </nav>
 </header>
 
@@ -39,30 +39,37 @@
         <h2 class="filter-group__title" id="f-cuisine">Cuisine</h2>
         <ul class="filter-list">
           <li><a class="filter-list__item" href="default.html" aria-current="true">All</a></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false">Jamaican <span class="filter-list__count">14</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false">Trinidadian &amp; Tobagonian <span class="filter-list__count">11</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false">Guyanese <span class="filter-list__count">9</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false">Barbadian (Bajan) <span class="filter-list__count">6</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false">Haitian <span class="filter-list__count">5</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false">Grenadian <span class="filter-list__count">4</span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false">Jamaican <span class="filter-list__count">14<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false">Trinidadian &amp; Tobagonian <span class="filter-list__count">11<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false">Guyanese <span class="filter-list__count">9<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false">Barbadian (Bajan) <span class="filter-list__count">6<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false">Haitian <span class="filter-list__count">5<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false">Grenadian <span class="filter-list__count">4<span class="visually-hidden"> caterers</span></span></button></li>
         </ul>
         <button class="filter-more" type="button" aria-expanded="false">More cuisines (11)</button>
       </div>
 
       <div class="filter-group" role="group" aria-labelledby="f-area">
         <h2 class="filter-group__title" id="f-area">Area</h2>
-        <form class="search-field" role="search" action="filtered.html">
-          <label class="visually-hidden" for="area-q">Area or postal code</label>
-          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-          <input class="input" id="area-q" name="area" type="search" placeholder="Area or postal code" autocomplete="postal-code" autocapitalize="characters" aria-describedby="area-help">
-          <p class="visually-hidden" id="area-help">Type an area like Scarborough or a postal code like M1B 2K3.</p>
+        <form role="search" action="filtered.html">
+          <div class="field">
+            <label class="visually-hidden" for="area-q">Area or postal code</label>
+            <div class="search-field">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+              <input class="input" id="area-q" name="area" type="search" placeholder="Area or postal code" autocomplete="postal-code" autocapitalize="characters" enterkeyhint="search" spellcheck="false" role="combobox" aria-autocomplete="list" aria-controls="area-q-list" aria-expanded="false" aria-describedby="area-help">
+            </div>
+            <span class="field__help visually-hidden" id="area-help">Type an area like Scarborough or a postal code like M1B 2K3.</span>
+            <ul class="suggestions suggestions--inline" id="area-q-list" role="listbox" aria-label="Matching areas" hidden></ul>
+            <span class="visually-hidden" role="status"></span>
+            <span class="visually-hidden" role="status"></span>
+          </div>
         </form>
         <ul class="filter-list">
-          <li><button class="filter-list__item" type="button" aria-pressed="false">City of Toronto <span class="filter-list__count">31</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false">Peel <span class="filter-list__count">13</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false">York Region <span class="filter-list__count">8</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false">Durham <span class="filter-list__count">7</span></button></li>
-          <li><button class="filter-list__item" type="button" aria-pressed="false">Halton <span class="filter-list__count">3</span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false">City of Toronto <span class="filter-list__count">31<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false">Peel <span class="filter-list__count">13<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false">York Region <span class="filter-list__count">8<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false">Durham <span class="filter-list__count">7<span class="visually-hidden"> caterers</span></span></button></li>
+          <li><button class="filter-list__item" type="button" aria-pressed="false">Halton <span class="filter-list__count">3<span class="visually-hidden"> caterers</span></span></button></li>
         </ul>
       </div>
     </aside>
@@ -75,8 +82,8 @@
           <button class="btn btn--ghost" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Area or postal code</button>
         </div>
         <div class="filter-bar only-md">
-          <button class="filter-trigger" type="button" aria-expanded="false" data-mock-href="../../dialogs/filter-menu/default.html">Cuisine <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
-          <button class="filter-trigger" type="button" aria-expanded="false" data-mock-href="../../dialogs/filter-menu/area.html">Area <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+          <button class="filter-trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-cuisine" data-mock-href="../../dialogs/filter-menu/default.html">Cuisine <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+          <button class="filter-trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-area" data-mock-href="../../dialogs/filter-menu/area.html">Area <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
         </div>
       </div>
       <ul class="caterer-grid">
@@ -100,6 +107,7 @@
           <li><a href="default.html" aria-label="Page 1">1</a></li>
           <li><a href="long.html" aria-label="Page 2">2</a></li>
           <li><a href="long.html" aria-current="page" aria-label="Page 3">3</a></li>
+          <li><a role="link" aria-disabled="true" aria-label="Next page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li>
         </ul>
       </nav>
     </section>

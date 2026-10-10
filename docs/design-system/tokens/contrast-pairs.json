@@ -227,7 +227,7 @@
       "fg": "--color-success-icon",
       "bg": "--color-success-bg",
       "min": 3,
-      "note": "success alert icon"
+      "note": "success alert icon; success dialog and empty-state icon circle"
     },
     {
       "fg": "--color-warning-fg",

@@ -40,8 +40,12 @@ Technology choices are `<TO SUPPLY>` pending architecture decision records in
   the cuisine and area controls.
   - **`FilterPanelDialog`** (XS, SM) — opened by a "Filters" button that shows
     the number of active filters. It is a full-height panel built on the UI
-    framework's accessible dialog primitive, with "Apply" and "Clear" buttons.
-    Selections inside the panel take effect on "Apply".
+    framework's accessible dialog primitive, with a "Clear" button (it clears every pending choice and keeps the panel
+    open) and a
+    primary button that applies the filters and names the result count
+    ("Show 2 caterers", `L2-009 AC1`). Selections inside the panel are pending
+    until the primary is activated; each change fetches only the count for the
+    pending selection, so the primary always states the outcome.
   - **`FilterBar`** (MD) — horizontal bar of dropdown controls above the grid.
   - **`FilterSidebar`** (LG, XL) — sidebar that stays visible to the left of
     the grid.
@@ -145,8 +149,9 @@ and replaces the grid without a page reload (`L2-008`).
 
 ### Behaviour — apply filters on a phone
 
-At XS and SM, the "Filters" button opens a full-height panel. Selections take
-effect on "Apply", and focus returns to the button when the panel closes
-(`L2-009 AC1`).
+At XS and SM, the "Filters" button opens a full-height panel. Each pending
+selection updates the primary button's result count ("Show 2 caterers").
+Selections take effect when the visitor activates it, and focus returns to the
+"Filters" button when the panel closes (`L2-009 AC1`).
 
 ![Sequence diagram for applying filters on a phone](diagrams/sequence-apply-filters-on-phone.png)

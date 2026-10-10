@@ -20,15 +20,16 @@
   <a class="wordmark" href="../../pages/dashboard/default.html">Sweet Hand <span class="wordmark__tag">for caterers</span></a>
   <nav class="site-nav" aria-label="Primary">
     <a class="site-nav__link site-nav__extra" href="../../pages/dashboard/default.html" aria-current="page">Dashboard</a>
-    <a class="site-nav__link site-nav__extra" href="../../pages/dashboard-enquiries/default.html">Enquiries <span class="badge badge--count" aria-label="2 unread enquiries">2</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/dashboard-enquiries/default.html">Enquiries <span class="badge badge--count" aria-hidden="true">2</span><span class="visually-hidden">, 2 unread</span></a>
     <a class="site-nav__link site-nav__extra" href="../../pages/caterer/default.html">My page</a>
     <a class="icon-btn site-nav__menu" href="../../pages/dashboard-enquiries/default.html" aria-label="Enquiries, 2 unread"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">2</span></a>
-    <button class="avatar" type="button" aria-label="Account menu for Kendra Baptiste" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/caterer.html">KB</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/caterer.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Kendra Baptiste" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/caterer.html">KB</button>
   </nav>
 </header>
 <div class="alert banner" role="status">
   <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
-  <div class="alert__body"><p><strong>Name change waiting for review.</strong> Your page shows “Pelau House” until “Pelau House by Kendra” is approved.</p><span class="alert__actions"><a href="../../pages/profile-details/name-pending.html">See the change</a></span></div>
+  <div class="alert__body"><p class="alert__title">Name change waiting for review</p><p>Your page shows “Pelau House” until “Pelau House by Kendra” is approved.</p><span class="alert__actions"><a class="link--standalone" href="../../pages/profile-details/name-pending.html">See the change</a></span></div>
 </div>
 <main id="main" class="container">
   <div class="work-layout work-layout--preview">
@@ -45,7 +46,7 @@
       <ul class="filter-list">
         <li><a class="filter-list__item" href="../../pages/dashboard-enquiries/default.html">Enquiries <span class="filter-list__count">2 unread</span></a></li>
         <li><a class="filter-list__item" href="../../pages/dashboard-reviews/default.html">Reviews</a></li>
-        <li><a class="filter-list__item" href="../../pages/account/default.html">Account</a></li>
+        <li><a class="filter-list__item" href="../../pages/account/caterer.html">Account</a></li>
       </ul>
     </nav>
     <div class="work-main">
@@ -53,13 +54,13 @@
       <dl class="stat-grid">
         <div class="stat"><dt class="stat__label">Unread enquiries</dt><dd class="stat__value">2</dd></div>
         <div class="stat"><dt class="stat__label">Open enquiries</dt><dd class="stat__value">3</dd></div>
-        <div class="stat"><dt class="stat__label">Rating</dt><dd class="stat__value">4.7</dd></div>
+        <div class="stat"><dt class="stat__label">Rating</dt><dd class="stat__value">4.7<span class="visually-hidden"> out of 5</span></dd></div>
         <div class="stat"><dt class="stat__label">Reviews</dt><dd class="stat__value">23</dd></div>
       </dl>
 
       <section class="caterer-section" aria-labelledby="latest-title">
-        <div class="caterer-section__head"><h2 id="latest-title">Latest enquiries</h2><a href="../../pages/dashboard-enquiries/default.html">All enquiries</a></div>
-        <ul class="inbox-list">
+        <div class="caterer-section__head"><h2 id="latest-title">Latest enquiries</h2><a class="link--standalone" href="../../pages/dashboard-enquiries/default.html">All enquiries<svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></div>
+        <ul class="inbox-list" aria-label="Pelau House enquiries">
           <li><a class="inbox-row inbox-row--unread" href="../../pages/dashboard-enquiry/default.html"><span class="avatar" aria-hidden="true">PR</span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Priya Ramdial</span><span class="inbox-row__time">Yesterday</span><span class="inbox-row__meta">Thu 5 Nov · 60 guests · Corporate events</span><span class="inbox-row__status status status--open">Open</span></a></li>
           <li><a class="inbox-row inbox-row--unread" href="../../pages/dashboard-enquiry/default.html"><span class="avatar" aria-hidden="true">AC</span><span class="inbox-row__name"><span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">Unread. </span>Andre Clarke</span><span class="inbox-row__time">Thu</span><span class="inbox-row__meta">Sat 12 Jun 2027 · 250 guests · Weddings</span><span class="inbox-row__status status status--open">Open</span></a></li>
           <li><a class="inbox-row" href="../../pages/dashboard-enquiry/replied.html"><span class="avatar" aria-hidden="true">MT</span><span class="inbox-row__name">Marcia Thompson</span><span class="inbox-row__time">9:42 a.m.</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests · Family gatherings</span><span class="inbox-row__status status status--replied">Replied</span></a></li>

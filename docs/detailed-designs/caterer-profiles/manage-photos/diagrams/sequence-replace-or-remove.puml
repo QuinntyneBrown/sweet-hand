@@ -67,7 +67,7 @@ else Remove
     endpoints --> client : HTTP 409
     client --> dialog : Message shown, photo kept
   else removal allowed
-    handler -> db : Save; next photo becomes cover if the cover was removed <TO SUPPLY>
+    handler -> db : Save; positions close up, so the next photo becomes the cover if photo 1 was removed
     handler -> store : Delete original and derivatives
     handler -> cdn : Purge image paths and public pages
     endpoints --> client : HTTP 200

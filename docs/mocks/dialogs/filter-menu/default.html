@@ -22,8 +22,8 @@
     <a class="site-nav__link site-nav__extra" href="../../pages/caterers/default.html" aria-current="page">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/occasions/default.html">Occasions</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/sign-in/default.html">Sign in</a>
-    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
   </nav>
 </header>
 
@@ -34,35 +34,35 @@
       <div class="browse__head">
         <div class="filter-bar">
           <div class="menu-anchor">
-            <button class="filter-trigger" type="button" aria-expanded="true" aria-controls="menu-cuisine">Cuisine <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+            <button class="filter-trigger" type="button" aria-haspopup="dialog" aria-expanded="true" aria-controls="menu-cuisine">Cuisine <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
           <div class="filter-dropdown" id="menu-cuisine" role="dialog" aria-labelledby="dlg-title">
             <h2 class="filter-group__title" id="dlg-title">Cuisine</h2>
-            <fieldset style="max-height: min(50dvh, calc(var(--space-32) * 2.5)); overflow: auto;">
+            <fieldset class="filter-group">
               <legend class="visually-hidden">Cuisines</legend>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Jamaican"><span class="choice__text">Jamaican <small>14 caterers</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Trinidadian &amp; Tobagonian"><span class="choice__text">Trinidadian &amp; Tobagonian <small>11 caterers</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Guyanese"><span class="choice__text">Guyanese <small>9 caterers</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Barbadian (Bajan)"><span class="choice__text">Barbadian (Bajan) <small>6 caterers</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Haitian"><span class="choice__text">Haitian <small>5 caterers</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Grenadian"><span class="choice__text">Grenadian <small>4 caterers</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="St. Lucian"><span class="choice__text">St. Lucian <small>3 caterers</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Antiguan &amp; Barbudan"><span class="choice__text">Antiguan &amp; Barbudan <small>2 caterers</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Pan-Caribbean"><span class="choice__text">Pan-Caribbean <small>2 caterers</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Vincentian"><span class="choice__text">Vincentian <small>2 caterers</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Belizean"><span class="choice__text">Belizean <small>1 caterer</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Surinamese"><span class="choice__text">Surinamese <small>1 caterer</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Bahamian" disabled><span class="choice__text">Bahamian <small>0 caterers</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Cuban" disabled><span class="choice__text">Cuban <small>0 caterers</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Dominican (Dominica)" disabled><span class="choice__text">Dominican (Dominica) <small>0 caterers</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Dominican (Dominican Republic)" disabled><span class="choice__text">Dominican (Dominican Republic) <small>0 caterers</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Kittitian &amp; Nevisian" disabled><span class="choice__text">Kittitian &amp; Nevisian <small>0 caterers</small></span></label>
-          <label class="choice"><input type="checkbox" name="cuisine" value="Puerto Rican" disabled><span class="choice__text">Puerto Rican <small>0 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Jamaican"><span class="choice__text"><span>Jamaican</span><small>14 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Trinidadian &amp; Tobagonian"><span class="choice__text"><span>Trinidadian &amp; Tobagonian</span><small>11 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Guyanese"><span class="choice__text"><span>Guyanese</span><small>9 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Barbadian (Bajan)"><span class="choice__text"><span>Barbadian (Bajan)</span><small>6 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Haitian"><span class="choice__text"><span>Haitian</span><small>5 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Grenadian"><span class="choice__text"><span>Grenadian</span><small>4 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="St. Lucian"><span class="choice__text"><span>St. Lucian</span><small>3 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Antiguan &amp; Barbudan"><span class="choice__text"><span>Antiguan &amp; Barbudan</span><small>2 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Pan-Caribbean"><span class="choice__text"><span>Pan-Caribbean</span><small>2 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Vincentian"><span class="choice__text"><span>Vincentian</span><small>2 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Belizean"><span class="choice__text"><span>Belizean</span><small>1 caterer</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Surinamese"><span class="choice__text"><span>Surinamese</span><small>1 caterer</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Bahamian" disabled><span class="choice__text"><span>Bahamian</span><small>0 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Cuban" disabled><span class="choice__text"><span>Cuban</span><small>0 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Dominican (Dominica)" disabled><span class="choice__text"><span>Dominican (Dominica)</span><small>0 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Dominican (Dominican Republic)" disabled><span class="choice__text"><span>Dominican (Dominican Republic)</span><small>0 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Kittitian &amp; Nevisian" disabled><span class="choice__text"><span>Kittitian &amp; Nevisian</span><small>0 caterers</small></span></label>
+          <label class="choice"><input type="checkbox" name="cuisine" value="Puerto Rican" disabled><span class="choice__text"><span>Puerto Rican</span><small>0 caterers</small></span></label>
             </fieldset>
-            <div class="cluster cluster--between" style="margin-top: var(--space-4);"><button class="btn btn--link btn--sm" type="button">Clear</button><span class="result-count" role="status">60 caterers</span></div>
+            <div class="cluster cluster--between"><button class="btn btn--link btn--sm" type="button">Clear</button><span class="result-count" role="status">60 caterers</span></div>
           </div>
           </div>
           <div class="menu-anchor">
-            <button class="filter-trigger" type="button" aria-expanded="false" aria-controls="menu-area" data-mock-href="area.html">Area <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+            <button class="filter-trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-area" data-mock-href="area.html">Area <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
           </div>
         </div>
       </div>

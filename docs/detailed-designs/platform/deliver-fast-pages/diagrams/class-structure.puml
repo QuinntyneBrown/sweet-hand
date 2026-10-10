@@ -29,6 +29,10 @@ class CachePolicy {
 
 class ImageLoadingPolicy {
   +maxImagesBeforeLoad: int = 6
+  +eagerCountXs: int = 2
+  +eagerCountSmMd: int = 4
+  +eagerCountLgXl: int = 6
+  +eagerCountFor(viewportClass: ViewportClass): int
   +loadingFor(position: int, firstViewportCount: int): string
 }
 

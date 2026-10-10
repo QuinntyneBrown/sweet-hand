@@ -14,18 +14,18 @@
 <link rel="stylesheet" href="../../assets/mock.css">
 </head>
 <body>
-<a class="skip-link" href="#dlg-title">Skip to the dialog</a>
 
 <!-- The page underneath is inert while the dialog is open. -->
 <div class="page" inert aria-hidden="true">
+<a class="skip-link" href="#main">Skip to main content</a>
 <header class="site-header">
   <a class="wordmark" href="../../pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
   <nav class="site-nav" aria-label="Primary">
-    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
     <a class="site-nav__link site-nav__extra" href="../../pages/admin-caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/admin-metrics/default.html">Metrics</a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
   </nav>
 </header>
 
@@ -33,7 +33,7 @@
   <div class="work-layout">
     <nav class="side-nav" aria-label="Operator">
       <ul class="filter-list">
-        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count">7</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
         <li><a class="filter-list__item" href="../../pages/admin-changes/default.html">Recent changes</a></li>
         <li><a class="filter-list__item" href="../../pages/admin-caterers/default.html">Caterers</a></li>
         <li><a class="filter-list__item" href="../../pages/admin-reviews/default.html" aria-current="page">Reviews <span class="filter-list__count">2 held</span></a></li>
@@ -52,22 +52,26 @@
         <h1>Reviews</h1>
         <p class="subtitle">2 held for a check · 2 hidden</p>
       </div>
-      <ul class="segmented" aria-label="Review status"><li><a href="../../pages/admin-reviews/default.html">Held 2</a></li><li><a href="../../pages/admin-reviews/hidden.html" aria-current="page">Hidden 2</a></li></ul>
-      <form class="search-field" role="search" action="../../pages/admin-reviews/no-results.html" style="max-width: var(--layout-panel-width); margin-bottom: var(--space-6);">
-        <label class="visually-hidden" for="rq">Caterer or reviewer</label>
-        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input class="input" id="rq" name="q" type="search" placeholder="Caterer or reviewer" value="">
+      <ul class="segmented" aria-label="Review status"><li><a href="../../pages/admin-reviews/default.html">Held <span class="filter-list__count">2</span></a></li><li><a href="../../pages/admin-reviews/hidden.html" aria-current="page">Hidden <span class="filter-list__count">2</span></a></li></ul>
+      <form role="search" action="../../pages/admin-reviews/no-results.html" style="max-width: var(--layout-panel-width); margin-bottom: var(--space-6);">
+        <div class="field">
+          <label class="visually-hidden" for="rq">Caterer or reviewer</label>
+          <div class="search-field">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input class="input" id="rq" name="q" type="search" placeholder="Caterer or reviewer" value="" autocomplete="off">
+          </div>
+        </div>
       </form>
       <ul class="review-list">
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/maracas-bay.jpg" alt="" width="40" height="40"></span><span class="review__author">Maracas Bay</span><span class="review__date">by Devon W. · Event in July 2026</span><span class="stars" role="img" aria-label="1 out of 5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span></div>
-          <p class="cluster" style="gap: var(--space-3);"><span class="status status--hidden">Hidden automatically · 3 reports</span><span class="text-caption">Thu 8 Oct, 4:12 p.m.</span></p>
+          <p class="cluster"><span class="status status--hidden">Hidden automatically · 3 reports</span><span class="text-caption">Thu 8 Oct, 4:12 p.m.</span></p>
           <p class="review__body">Worst bake and shark I’ve had. The guy serving was rude and clearly didn’t want to be there.</p>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/moderate-review/approve.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Restore<span class="visually-hidden"> review by Devon W. of Maracas Bay</span></button><button class="btn btn--sm btn--ghost" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/moderate-review/remove.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Remove<span class="visually-hidden"> review by Devon W. of Maracas Bay</span></button></div>
         </li>
         <li class="review">
           <div class="review__head"><span class="photo photo--xs"><img src="../../assets/img/island-pot.jpg" alt="" width="40" height="40"></span><span class="review__author">Island Pot</span><span class="review__date">by Kwame O. · Event in June 2026</span><span class="stars" role="img" aria-label="2 out of 5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span></div>
-          <p class="cluster" style="gap: var(--space-3);"><span class="status status--hidden">Hidden by Tomas Reyes</span><span class="text-caption">Personal details about staff · Mon 5 Oct, 10:30 a.m.</span></p>
+          <p class="cluster"><span class="status status--hidden">Hidden by Tomas Reyes</span><span class="text-caption">Personal details about staff · Mon 5 Oct, 10:30 a.m.</span></p>
           <p class="review__body">Food was fine but I won’t name names, the cook’s husband was arguing on the phone the whole time.</p>
           <div class="review__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/moderate-review/approve.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Restore<span class="visually-hidden"> review by Kwame O. of Island Pot</span></button><button class="btn btn--sm btn--ghost" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/moderate-review/remove.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Remove<span class="visually-hidden"> review by Kwame O. of Island Pot</span></button></div>
         </li>
@@ -93,9 +97,9 @@
   <form class="dialog__panel" action="../../pages/admin-reviews/default.html" novalidate>
     <div class="dialog__header">
       <div class="dialog__icon dialog__icon--danger" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></div>
-      <div style="flex: 1;">
+      <div class="dialog__heading">
         <h2 class="dialog__title" id="dlg-title">Remove Devon W.’s review permanently?</h2>
-        <p id="dlg-desc" class="text-muted" style="margin-top: var(--space-1);">It can’t be restored. Only the audit entry is kept. Devon W. is emailed your reason.</p>
+        <p class="dialog__desc" id="dlg-desc">It can’t be restored. Only the audit entry is kept. Devon W. is emailed your reason.</p>
       </div>
       <button class="icon-btn" type="button" aria-label="Close" data-mock-href="../../pages/admin-reviews/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>
@@ -104,12 +108,14 @@
         <figcaption class="review__head"><span class="photo photo--xs"><img src="../../assets/img/maracas-bay.jpg" alt="" width="40" height="40"></span><span class="review__author">Maracas Bay</span><span class="review__date">by Devon W.</span><span class="stars" role="img" aria-label="1 out of 5"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg><svg class="icon icon--empty" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg></span></figcaption>
         <blockquote class="review__body">Worst bake and shark I’ve had. The guy serving was rude and clearly didn’t want to be there.</blockquote>
       </figure>
-      <label class="field" for="reason"><span class="field__label">Reason</span>
-        <textarea class="textarea" id="reason" name="reason" rows="3" maxlength="500" required aria-describedby="reason-help" autofocus>Personal attack on a named member of staff, confirmed by 3 reports.</textarea>
+      <div class="field"><label class="field__label" for="reason">Reason</label>
+        <textarea class="textarea" id="reason" name="reason" rows="3" required aria-describedby="reason-help" autofocus>Personal attack on a named member of staff, confirmed by 3 reports.</textarea>
         <span class="field__help" id="reason-help">Emailed to the reviewer and kept in the audit log.</span>
         
-      </label>
-      <label class="choice"><input type="checkbox" name="understand" required><span class="choice__text">I understand this review can’t be restored</span></label>
+        <span class="visually-hidden" role="status"></span>
+      </div>
+      <label class="choice"><input type="checkbox" name="understand" required><span class="choice__text"><span>I understand this review can’t be restored</span></span></label>
+      <p class="visually-hidden" role="status"></p>
     </div>
     <div class="dialog__footer">
       <button class="btn" type="button" data-mock-href="../../pages/admin-reviews/default.html">Cancel</button>

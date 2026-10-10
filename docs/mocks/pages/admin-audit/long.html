@@ -19,11 +19,11 @@
 <header class="site-header">
   <a class="wordmark" href="../admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
   <nav class="site-nav" aria-label="Primary">
-    <a class="site-nav__link site-nav__extra" href="../admin-queue/default.html">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a>
+    <a class="site-nav__link site-nav__extra" href="../admin-queue/default.html">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
     <a class="site-nav__link site-nav__extra" href="../admin-caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../admin-metrics/default.html">Metrics</a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
   </nav>
 </header>
 
@@ -31,7 +31,7 @@
   <div class="work-layout">
     <nav class="side-nav" aria-label="Operator">
       <ul class="filter-list">
-        <li><a class="filter-list__item" href="../admin-queue/default.html">Review queue <span class="filter-list__count">7</span></a></li>
+        <li><a class="filter-list__item" href="../admin-queue/default.html">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
         <li><a class="filter-list__item" href="../admin-changes/default.html">Recent changes</a></li>
         <li><a class="filter-list__item" href="../admin-caterers/default.html">Caterers</a></li>
         <li><a class="filter-list__item" href="../admin-reviews/default.html">Reviews <span class="filter-list__count">2 held</span></a></li>
@@ -51,11 +51,11 @@
         <p class="subtitle">Append-only · newest first · kept for 7 years</p>
       </div>
       <form class="toolbar" action="no-results.html" aria-label="Filter the audit log">
-        <label class="field" for="op"><span class="field__label">Operator</span><select class="select" id="op" name="operator"><option selected>All operators</option><option>Leah Mohammed</option><option>Tomas Reyes</option></select></label>
-        <label class="field" for="act"><span class="field__label">Action</span><select class="select" id="act" name="action"><option selected>All actions</option><option>Approve</option><option>Request changes</option><option>Edit</option><option>Revert</option><option>Suspend</option><option>Reinstate</option><option>Remove</option><option>Approve review</option><option>Hide review</option><option>Restore review</option><option>Remove review</option><option>Resolve report</option><option>Open enquiry</option><option>Operator account</option></select></label>
-        <label class="field" for="target"><span class="field__label">Target</span><input class="input" id="target" name="target" type="search" value="" placeholder="Name or ID"></label>
-        <label class="field" for="from"><span class="field__label">From</span><input class="input" id="from" name="from" type="date" value="2025-10-10"></label>
-        <label class="field" for="to"><span class="field__label">To</span><input class="input" id="to" name="to" type="date" value="2026-10-10"></label>
+        <div class="field"><label class="field__label" for="op">Operator</label><select class="select" id="op" name="operator"><option selected>All operators</option><option>Leah Mohammed</option><option>Tomas Reyes</option></select><span class="visually-hidden" role="status"></span></div>
+        <div class="field"><label class="field__label" for="act">Action</label><select class="select" id="act" name="action"><option selected>All actions</option><option>Approve</option><option>Request changes</option><option>Edit</option><option>Revert</option><option>Suspend</option><option>Reinstate</option><option>Remove</option><option>Approve review</option><option>Hide review</option><option>Restore review</option><option>Remove review</option><option>Resolve report</option><option>Open enquiry</option><option>Operator account</option></select><span class="visually-hidden" role="status"></span></div>
+        <div class="field"><label class="field__label" for="target">Target</label><input class="input" id="target" name="target" type="search" value="" placeholder="Name or ID"><span class="visually-hidden" role="status"></span></div>
+        <div class="field"><label class="field__label" for="from">From</label><input class="input" id="from" name="from" type="date" value="2025-10-10"><span class="visually-hidden" role="status"></span></div>
+        <div class="field"><label class="field__label" for="to">To</label><input class="input" id="to" name="to" type="date" value="2026-10-10"><span class="visually-hidden" role="status"></span></div>
         <button class="btn btn--primary" type="submit">Apply</button>
       </form>
       <p class="result-count" role="status" style="margin-bottom: var(--space-4);">1,284 entries from 10 Oct 2025 to 10 Oct 2026 · times in Toronto</p>
@@ -89,7 +89,7 @@
       </div>
       <nav class="load-more" aria-label="Pagination">
         <p class="result-count">Showing 41–60 of 1,284</p>
-        <ul class="pagination"><li><a href="default.html" aria-label="Page 1">1</a></li><li><a href="long.html" aria-label="Page 2">2</a></li><li><a href="long.html" aria-current="page" aria-label="Page 3">3</a></li><li><a href="long.html" aria-label="Page 4">4</a></li><li><span aria-hidden="true">…</span></li><li><a href="long.html" aria-label="Page 65">65</a></li><li><a href="long.html" aria-label="Next page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li></ul>
+        <ul class="pagination"><li><a href="long.html" aria-label="Previous page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></a></li><li><a href="default.html" aria-label="Page 1">1</a></li><li class="pagination__narrow"><span class="pagination__gap" aria-hidden="true">…</span></li><li class="pagination__wide"><a href="long.html" aria-label="Page 2">2</a></li><li><a href="long.html" aria-current="page" aria-label="Page 3">3</a></li><li class="pagination__narrow"><span class="pagination__gap" aria-hidden="true">…</span></li><li class="pagination__wide"><a href="long.html" aria-label="Page 4">4</a></li><li class="pagination__wide"><span class="pagination__gap" aria-hidden="true">…</span></li><li><a href="long.html" aria-label="Page 65">65</a></li><li><a href="long.html" aria-label="Next page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li></ul>
       </nav>
 
     </div>

@@ -5,8 +5,8 @@ title Components — Manage photos
 
 Person(caterer, "Caterer", "Manages photos")
 Container_Boundary(web, "Sweet Hand web application") {
-  Component(page, "PhotoManagerPage", "Page component", "Ordered photos, upload, Move up and Move down, drag to reorder")
-  Component(dialog, "PhotoDetailsDialog", "Dialog component", "Caption, Replace, Remove, Set as cover")
+  Component(page, "PhotoManagerPage", "Page component", "Ordered photos, upload, Move up and Move down (no dragging); first photo is the cover")
+  Component(dialog, "PhotoDetailsDialog", "Dialog component", "Caption, Use as cover photo, Replace, Remove")
   Component(client, "PhotosClient", "API client contract", "upload, replace, update, reorder, remove, list")
 }
 Container_Boundary(api, "Sweet Hand API") {
@@ -15,7 +15,7 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(replace, "ReplacePhotoHandler", "Command handler", "Pending replacement")
   Component(update, "UpdatePhotoHandler / ReorderPhotosHandler", "Command handlers", "Caption, cover, order")
   Component(remove, "RemovePhotoHandler", "Command handler", "Removal with published minimum")
-  Component(profile, "CatererProfile", "Domain aggregate", "Photo rules: max 30, single cover, min 3 when published")
+  Component(profile, "CatererProfile", "Domain aggregate", "Photo rules: max 30, cover is position 1, min 3 when published")
   Component(store, "ObjectStore", "Infrastructure", "Private and public areas")
   Component(jobs, "JobQueue", "Infrastructure", "Enqueues ProcessPhotoJob")
 }

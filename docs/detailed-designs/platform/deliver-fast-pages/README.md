@@ -37,8 +37,11 @@ architecture decision records in `docs/adr/`.
   visitors over any 28 days meets LCP 2.5 s or less, INP 200 ms or less and CLS
   0.1 or less (`L2-085 AC1`).
 - **`ImageLoadingPolicy`** — marks only the images in the first viewport as
-  eager and every other image `loading="lazy"`. A 24-card listing page requests
-  no more than 6 images before the `load` event (`L2-085 AC3`). Responsive
+  eager and every other image `loading="lazy"` (`L2-006 AC3`). The eager count
+  follows the viewport class, not a fixed number: the first 2 card images at
+  XS, 4 at SM and MD, and 6 at LG and XL; with no known viewport the server
+  renders the XS count. A 24-card listing page therefore requests no more than
+  6 images before the `load` event (`L2-085 AC3`). Responsive
   `srcset` and `sizes` come from the listing feature (`L2-006`).
 - **`CachePolicy`** — sets `Cache-Control` per asset kind (`L2-087 AC2`,
   `L2-087 AC4`):
@@ -134,7 +137,7 @@ holds the numeric thresholds that the CI steps and the load test suite check.
 
 The CDN answers from cache when it holds a fresh copy. On a miss, the web
 application renders the page, applies `CachePolicy`, and marks only
-first-viewport images as eager.
+first-viewport images as eager: 2, 4 or 6 by viewport class.
 
 ![Sequence diagram for serving a listing page](diagrams/sequence-serve-listing-page.png)
 

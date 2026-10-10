@@ -19,11 +19,11 @@
 <header class="site-header">
   <a class="wordmark" href="../../pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
   <nav class="site-nav" aria-label="Primary">
-    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
     <a class="site-nav__link site-nav__extra" href="../../pages/admin-caterers/default.html" aria-current="page">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/admin-metrics/default.html">Metrics</a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
   </nav>
 </header>
 
@@ -31,7 +31,7 @@
   <div class="work-layout">
     <nav class="side-nav" aria-label="Operator">
       <ul class="filter-list">
-        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count">7</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
         <li><a class="filter-list__item" href="../../pages/admin-changes/default.html">Recent changes</a></li>
         <li><a class="filter-list__item" href="../../pages/admin-caterers/default.html" aria-current="page">Caterers</a></li>
         <li><a class="filter-list__item" href="../../pages/admin-reviews/default.html">Reviews</a></li>
@@ -50,19 +50,23 @@
         <h1>Caterers</h1>
         <p class="subtitle">No caterers yet</p>
       </div>
-      <form class="search-field" role="search" action="no-results.html" style="max-width: 28rem; margin-bottom: var(--space-4);">
-        <label class="visually-hidden" for="cat-q">Search caterers</label>
-        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input class="input" id="cat-q" name="q" type="search" placeholder="Business or owner name" autocomplete="off" disabled>
+      <form role="search" action="no-results.html" style="max-width: 28rem; margin-bottom: var(--space-4);">
+        <div class="field">
+          <label class="visually-hidden" for="cat-q">Search caterers by business or owner name</label>
+          <div class="search-field">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input class="input" id="cat-q" name="q" type="search" placeholder="Business or owner name" autocomplete="off" disabled>
+          </div>
+        </div>
       </form>
       <ul class="segmented" aria-label="Filter by status">
-        <li><a href="default.html" aria-current="page">All 0</a></li>
-        <li><a href="no-results.html">Draft 0</a></li>
-        <li><a href="no-results.html">Pending review 0</a></li>
-        <li><a href="no-results.html">Changes requested 0</a></li>
-        <li><a href="no-results.html">Published 0</a></li>
-        <li><a href="no-results.html">Suspended 0</a></li>
-        <li><a href="no-results.html">Removed 0</a></li>
+        <li><a href="default.html" aria-current="page">All <span class="filter-list__count">0</span></a></li>
+        <li><a href="no-results.html">Draft <span class="filter-list__count">0</span></a></li>
+        <li><a href="no-results.html">Pending review <span class="filter-list__count">0</span></a></li>
+        <li><a href="no-results.html">Changes requested <span class="filter-list__count">0</span></a></li>
+        <li><a href="no-results.html">Published <span class="filter-list__count">0</span></a></li>
+        <li><a href="no-results.html">Suspended <span class="filter-list__count">0</span></a></li>
+        <li><a href="no-results.html">Removed <span class="filter-list__count">0</span></a></li>
       </ul>
       <div class="empty">
         <div class="empty__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg></div>

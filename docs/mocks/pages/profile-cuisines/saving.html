@@ -20,10 +20,11 @@
   <a class="wordmark" href="../../pages/dashboard/default.html">Sweet Hand <span class="wordmark__tag">for caterers</span></a>
   <nav class="site-nav" aria-label="Primary">
     <a class="site-nav__link site-nav__extra" href="../../pages/dashboard/default.html">Dashboard</a>
-    <a class="site-nav__link site-nav__extra" href="../../pages/dashboard-enquiries/default.html">Enquiries <span class="badge badge--count" aria-label="2 unread enquiries">2</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/dashboard-enquiries/default.html">Enquiries <span class="badge badge--count" aria-hidden="true">2</span><span class="visually-hidden">, 2 unread</span></a>
     <a class="site-nav__link site-nav__extra" href="../../pages/caterer/default.html">My page</a>
     <a class="icon-btn site-nav__menu" href="../../pages/dashboard-enquiries/default.html" aria-label="Enquiries, 2 unread"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">2</span></a>
-    <button class="avatar" type="button" aria-label="Account menu for Kendra Baptiste" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/caterer.html">KB</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/caterer.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Kendra Baptiste" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/caterer.html">KB</button>
   </nav>
 </header>
 
@@ -42,7 +43,7 @@
       <ul class="filter-list">
         <li><a class="filter-list__item" href="../../pages/dashboard-enquiries/default.html">Enquiries <span class="filter-list__count">2 unread</span></a></li>
         <li><a class="filter-list__item" href="../../pages/dashboard-reviews/default.html">Reviews</a></li>
-        <li><a class="filter-list__item" href="../../pages/account/default.html">Account</a></li>
+        <li><a class="filter-list__item" href="../../pages/account/caterer.html">Account</a></li>
       </ul>
     </nav>
 
@@ -55,104 +56,105 @@
       </div>
       <form class="form" aria-labelledby="page-title" novalidate>
         <fieldset class="stack" aria-describedby="cuisine-help">
-          <legend><h2 style="font: var(--text-h3);">Cuisines</h2></legend>
-          <p class="field__help" id="cuisine-help">Choose 1 to 5 islands or traditions you cook from.</p>
+          <legend><h2>Cuisines</h2></legend>
+          <span class="field__help" id="cuisine-help">Choose 1 to 5 islands or traditions you cook from.</span>
           <div class="option-grid">
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-antiguan--barbudan" value="Antiguan &amp; Barbudan"><span class="choice__text">Antiguan &amp; Barbudan</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-bahamian" value="Bahamian"><span class="choice__text">Bahamian</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-barbadian-bajan" value="Barbadian (Bajan)"><span class="choice__text">Barbadian (Bajan)</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-belizean" value="Belizean"><span class="choice__text">Belizean</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-cuban" value="Cuban"><span class="choice__text">Cuban</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-dominican-dominica" value="Dominican (Dominica)"><span class="choice__text">Dominican (Dominica)</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-dominican-dominican-republic" value="Dominican (Dominican Republic)"><span class="choice__text">Dominican (Dominican Republic)</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-grenadian" value="Grenadian"><span class="choice__text">Grenadian</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-guyanese" value="Guyanese" checked><span class="choice__text">Guyanese</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-haitian" value="Haitian"><span class="choice__text">Haitian</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-jamaican" value="Jamaican"><span class="choice__text">Jamaican</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-kittitian--nevisian" value="Kittitian &amp; Nevisian"><span class="choice__text">Kittitian &amp; Nevisian</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-pan-caribbean" value="Pan-Caribbean"><span class="choice__text">Pan-Caribbean</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-puerto-rican" value="Puerto Rican"><span class="choice__text">Puerto Rican</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-st-lucian" value="St. Lucian"><span class="choice__text">St. Lucian</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-surinamese" value="Surinamese"><span class="choice__text">Surinamese</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-trinidadian--tobagonian" value="Trinidadian &amp; Tobagonian" checked><span class="choice__text">Trinidadian &amp; Tobagonian</span></label>
-            <label class="choice"><input type="checkbox" name="cuisine" id="c-vincentian" value="Vincentian"><span class="choice__text">Vincentian</span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-antiguan--barbudan" value="Antiguan &amp; Barbudan"><span class="choice__text"><span>Antiguan &amp; Barbudan</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-bahamian" value="Bahamian"><span class="choice__text"><span>Bahamian</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-barbadian-bajan" value="Barbadian (Bajan)"><span class="choice__text"><span>Barbadian (Bajan)</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-belizean" value="Belizean"><span class="choice__text"><span>Belizean</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-cuban" value="Cuban"><span class="choice__text"><span>Cuban</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-dominican-dominica" value="Dominican (Dominica)"><span class="choice__text"><span>Dominican (Dominica)</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-dominican-dominican-republic" value="Dominican (Dominican Republic)"><span class="choice__text"><span>Dominican (Dominican Republic)</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-grenadian" value="Grenadian"><span class="choice__text"><span>Grenadian</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-guyanese" value="Guyanese" checked><span class="choice__text"><span>Guyanese</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-haitian" value="Haitian"><span class="choice__text"><span>Haitian</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-jamaican" value="Jamaican"><span class="choice__text"><span>Jamaican</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-kittitian--nevisian" value="Kittitian &amp; Nevisian"><span class="choice__text"><span>Kittitian &amp; Nevisian</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-pan-caribbean" value="Pan-Caribbean"><span class="choice__text"><span>Pan-Caribbean</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-puerto-rican" value="Puerto Rican"><span class="choice__text"><span>Puerto Rican</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-st-lucian" value="St. Lucian"><span class="choice__text"><span>St. Lucian</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-surinamese" value="Surinamese"><span class="choice__text"><span>Surinamese</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-trinidadian--tobagonian" value="Trinidadian &amp; Tobagonian" checked><span class="choice__text"><span>Trinidadian &amp; Tobagonian</span></span></label>
+            <label class="choice"><input type="checkbox" name="cuisine" id="c-vincentian" value="Vincentian"><span class="choice__text"><span>Vincentian</span></span></label>
           </div>
         </fieldset>
         <fieldset class="stack stack--sm" aria-describedby="primary-cuisine-help">
           <legend>Primary cuisine</legend>
-          <p class="field__help" id="primary-cuisine-help">Shown on your listing card.</p>
+          <span class="field__help" id="primary-cuisine-help">Shown on your listing card.</span>
             <label class="choice"><input type="radio" name="primary_cuisine" value="Guyanese"><span class="choice__text">Guyanese</span></label>
             <label class="choice"><input type="radio" name="primary_cuisine" value="Trinidadian &amp; Tobagonian" checked><span class="choice__text">Trinidadian &amp; Tobagonian</span></label>
         </fieldset>
 
         <fieldset class="stack" style="margin-top: var(--space-8);" aria-describedby="area-help">
-          <legend><h2 style="font: var(--text-h3);">Areas you serve</h2></legend>
-          <p class="field__help" id="area-help">Tick a whole region or single areas. Customers outside these areas can still ask; they’ll see a note.</p>
+          <legend><h2>Areas you serve</h2></legend>
+          <span class="field__help" id="area-help">Tick a whole region or single areas. Customers outside these areas can still ask; they’ll see a note.</span>
           <fieldset class="stack stack--sm">
             <legend>City of Toronto</legend>
-            <label class="choice"><input type="checkbox" name="region" value="City of Toronto"><span class="choice__text">All of City of Toronto</span></label>
+            <label class="choice"><input type="checkbox" value="City of Toronto" aria-describedby="region-toronto-parent"><span class="choice__text"><span>All of City of Toronto</span><small id="region-toronto-parent">3 of 6 areas</small></span></label>
             <div class="option-grid" style="padding-left: var(--space-8);">
-              <label class="choice"><input type="checkbox" name="area" value="Downtown Toronto"><span class="choice__text">Downtown Toronto</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="East York" checked><span class="choice__text">East York</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Etobicoke"><span class="choice__text">Etobicoke</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="North York" checked><span class="choice__text">North York</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Scarborough" checked><span class="choice__text">Scarborough</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="York"><span class="choice__text">York</span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Downtown Toronto"><span class="choice__text"><span>Downtown Toronto</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="East York" checked><span class="choice__text"><span>East York</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Etobicoke"><span class="choice__text"><span>Etobicoke</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="North York" checked><span class="choice__text"><span>North York</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Scarborough" checked><span class="choice__text"><span>Scarborough</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="York"><span class="choice__text"><span>York</span></span></label>
             </div>
           </fieldset>
           <fieldset class="stack stack--sm">
             <legend>Peel</legend>
-            <label class="choice"><input type="checkbox" name="region" value="Peel"><span class="choice__text">All of Peel</span></label>
+            <label class="choice"><input type="checkbox" value="Peel" aria-describedby="region-peel-parent"><span class="choice__text"><span>All of Peel</span><small id="region-peel-parent">0 of 3 areas</small></span></label>
             <div class="option-grid" style="padding-left: var(--space-8);">
-              <label class="choice"><input type="checkbox" name="area" value="Brampton"><span class="choice__text">Brampton</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Caledon"><span class="choice__text">Caledon</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Mississauga"><span class="choice__text">Mississauga</span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Brampton"><span class="choice__text"><span>Brampton</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Caledon"><span class="choice__text"><span>Caledon</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Mississauga"><span class="choice__text"><span>Mississauga</span></span></label>
             </div>
           </fieldset>
           <fieldset class="stack stack--sm">
             <legend>York Region</legend>
-            <label class="choice"><input type="checkbox" name="region" value="York Region"><span class="choice__text">All of York Region</span></label>
+            <label class="choice"><input type="checkbox" value="York Region" aria-describedby="region-york-parent"><span class="choice__text"><span>All of York Region</span><small id="region-york-parent">0 of 9 areas</small></span></label>
             <div class="option-grid" style="padding-left: var(--space-8);">
-              <label class="choice"><input type="checkbox" name="area" value="Aurora"><span class="choice__text">Aurora</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="East Gwillimbury"><span class="choice__text">East Gwillimbury</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Georgina"><span class="choice__text">Georgina</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="King"><span class="choice__text">King</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Markham"><span class="choice__text">Markham</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Newmarket"><span class="choice__text">Newmarket</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Richmond Hill"><span class="choice__text">Richmond Hill</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Vaughan"><span class="choice__text">Vaughan</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Whitchurch-Stouffville"><span class="choice__text">Whitchurch-Stouffville</span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Aurora"><span class="choice__text"><span>Aurora</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="East Gwillimbury"><span class="choice__text"><span>East Gwillimbury</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Georgina"><span class="choice__text"><span>Georgina</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="King"><span class="choice__text"><span>King</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Markham"><span class="choice__text"><span>Markham</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Newmarket"><span class="choice__text"><span>Newmarket</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Richmond Hill"><span class="choice__text"><span>Richmond Hill</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Vaughan"><span class="choice__text"><span>Vaughan</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Whitchurch-Stouffville"><span class="choice__text"><span>Whitchurch-Stouffville</span></span></label>
             </div>
           </fieldset>
           <fieldset class="stack stack--sm">
             <legend>Durham</legend>
-            <label class="choice"><input type="checkbox" name="region" value="Durham"><span class="choice__text">All of Durham</span></label>
+            <label class="choice"><input type="checkbox" value="Durham" aria-describedby="region-durham-parent"><span class="choice__text"><span>All of Durham</span><small id="region-durham-parent">3 of 8 areas</small></span></label>
             <div class="option-grid" style="padding-left: var(--space-8);">
-              <label class="choice"><input type="checkbox" name="area" value="Ajax" checked><span class="choice__text">Ajax</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Brock"><span class="choice__text">Brock</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Clarington"><span class="choice__text">Clarington</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Oshawa"><span class="choice__text">Oshawa</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Pickering" checked><span class="choice__text">Pickering</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Scugog"><span class="choice__text">Scugog</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Uxbridge"><span class="choice__text">Uxbridge</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Whitby" checked><span class="choice__text">Whitby</span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Ajax" checked><span class="choice__text"><span>Ajax</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Brock"><span class="choice__text"><span>Brock</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Clarington"><span class="choice__text"><span>Clarington</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Oshawa"><span class="choice__text"><span>Oshawa</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Pickering" checked><span class="choice__text"><span>Pickering</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Scugog"><span class="choice__text"><span>Scugog</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Uxbridge"><span class="choice__text"><span>Uxbridge</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Whitby" checked><span class="choice__text"><span>Whitby</span></span></label>
             </div>
           </fieldset>
           <fieldset class="stack stack--sm">
             <legend>Halton</legend>
-            <label class="choice"><input type="checkbox" name="region" value="Halton"><span class="choice__text">All of Halton</span></label>
+            <label class="choice"><input type="checkbox" value="Halton" aria-describedby="region-halton-parent"><span class="choice__text"><span>All of Halton</span><small id="region-halton-parent">0 of 4 areas</small></span></label>
             <div class="option-grid" style="padding-left: var(--space-8);">
-              <label class="choice"><input type="checkbox" name="area" value="Burlington"><span class="choice__text">Burlington</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Halton Hills"><span class="choice__text">Halton Hills</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Milton"><span class="choice__text">Milton</span></label>
-              <label class="choice"><input type="checkbox" name="area" value="Oakville"><span class="choice__text">Oakville</span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Burlington"><span class="choice__text"><span>Burlington</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Halton Hills"><span class="choice__text"><span>Halton Hills</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Milton"><span class="choice__text"><span>Milton</span></span></label>
+              <label class="choice"><input type="checkbox" name="area" value="Oakville"><span class="choice__text"><span>Oakville</span></span></label>
             </div>
           </fieldset>
         </fieldset>
-        <label class="field" for="primary-area"><span class="field__label">Primary area</span>
+        <div class="field"><label class="field__label" for="primary-area">Primary area</label>
           <select class="select" id="primary-area" name="primary_area" aria-describedby="primary-area-help"><option value="">Choose your primary area</option><option>East York</option><option>North York</option><option selected>Scarborough</option><option>Ajax</option><option>Pickering</option><option>Whitby</option></select>
           <span class="field__help" id="primary-area-help">Shown on your listing card. Pick the area closest to your kitchen; we never show your address.</span>
-        </label>
+          <span class="visually-hidden" role="status"></span>
+        </div>
       </form>
       <p style="margin-top: var(--space-8);"><a class="btn" href="../dashboard/default.html">Done</a></p>
     </div>

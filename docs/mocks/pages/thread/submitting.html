@@ -8,7 +8,7 @@
 <meta name="mock:screen" content="thread">
 <meta name="mock:state" content="submitting">
 <meta name="mock:requirements" content="L2-022 L2-028 L2-032 L2-033 L2-034 L2-035 L2-036 L2-080">
-<meta name="description" content="Marcia's reply is sending: it appears at the end straight away, faded, and the send button is busy.">
+<meta name="description" content="Marcia's reply is sending: it appears at the end straight away, at full contrast with a “You · Sending…” line, and the send button is busy.">
 <link rel="stylesheet" href="../../assets/tokens.css">
 <link rel="stylesheet" href="../../assets/ui.css">
 <link rel="stylesheet" href="../../assets/mock.css">
@@ -22,10 +22,10 @@
     <a class="site-nav__link site-nav__extra" href="../caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../occasions/default.html">Occasions</a>
     <a class="site-nav__link site-nav__extra" href="../inbox/default.html" aria-current="page">Inbox</a>
-    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
     <a class="icon-btn site-nav__menu" href="../inbox/default.html" aria-label="Inbox" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/signed-in.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/default.html">MT</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/signed-in.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/default.html">MT</button>
   </nav>
 </header>
 <main id="main" class="container">
@@ -39,20 +39,20 @@
       <li><a href="../inbox/filtered.html">Declined <span class="filter-list__count">1</span></a></li>
       <li><a href="../inbox/filtered.html">Closed <span class="filter-list__count">1</span></a></li>
     </ul>
-    <ul class="inbox-list">
+    <ul class="inbox-list" aria-label="Your enquiries">
       <li><a class="inbox-row" href="../thread/default.html" aria-current="page"><span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Pelau House</span><span class="inbox-row__time">9:42 a.m.</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--replied">Replied</span></a></li>
       <li><a class="inbox-row" href="../thread/open.html"><span class="photo"><img src="../../assets/img/sugar-dumplin.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Sugar Dumplin</span><span class="inbox-row__time">Thu</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--open">Open</span></a></li>
       <li><a class="inbox-row" href="../thread/declined.html"><span class="photo"><img src="../../assets/img/demerara-kitchen.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Demerara Kitchen</span><span class="inbox-row__time">Tue</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--declined">Declined</span></a></li>
-      <li><a class="inbox-row" href="../thread/closed.html"><span class="photo"><img src="../../assets/img/ti-kay.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Ti Kay</span><span class="inbox-row__time">5 Sep</span><span class="inbox-row__meta">Sun 23 Aug · 45 guests</span><span class="inbox-row__status status status--closed">Closed</span></a></li>
+      <li><a class="inbox-row" href="../thread/closed.html"><span class="photo"><img src="../../assets/img/ti-kay.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Ti Kay</span><span class="inbox-row__time"><time datetime="2026-09-05">Sat 5 Sep</time></span><span class="inbox-row__meta">Sun 23 Aug · 45 guests</span><span class="inbox-row__status status status--closed">Closed</span></a></li>
     </ul>
     </section>
     <article class="inbox-layout__thread thread" aria-labelledby="thread-title">
-      <a class="eyebrow until-lg" href="../inbox/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Back to inbox</a>
+      <a class="eyebrow until-lg" href="../inbox/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Inbox</a>
       <div class="thread__head">
         <span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="" width="56" height="56"></span>
         <div class="thread__title">
-          <h1 id="thread-title">Pelau House</h1>
-          <p class="thread__status"><span class="status status--replied">Replied</span><a href="../caterer/default.html">View caterer</a></p>
+          <h1 id="thread-title" tabindex="-1">Pelau House</h1>
+          <p class="thread__status"><span class="status status--replied">Replied</span><a class="link--standalone" href="../caterer/default.html">View caterer</a></p>
         </div>
       </div>
       <div class="thread__actions"><button class="btn btn--sm" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/share-contact/default.html">Share my contact details</button><button class="btn btn--sm btn--ghost" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/close-enquiry/default.html">Close enquiry</button></div>
@@ -61,18 +61,18 @@
         <div><dt>Guests</dt><dd>120</dd></div>
         <div><dt>Area</dt><dd>Scarborough</dd></div>
         <div><dt>Occasion</dt><dd>Family gatherings</dd></div>
-        <div class="enquiry-summary__message"><dt>Your enquiry</dt><dd><p class="measure" style="white-space: pre-wrap; overflow-wrap: anywhere;">Hi Kendra, we’re planning my parents’ 40th anniversary at a hall on Ellesmere Road. We’d love pelau, curry goat, macaroni pie and callaloo for about 120 people, served buffet style around 6 p.m. Do you bring chafing dishes?</p><p class="enquiry-summary__by">Marcia Thompson · Thu 8 Oct, 7:15 p.m.</p></dd></div>
+        <div class="enquiry-summary__message"><dt>Your enquiry</dt><dd><p class="measure">Hi Kendra, we’re planning my parents’ 40th anniversary at a hall on Ellesmere Road. We’d love pelau, curry goat, macaroni pie and callaloo for about 120 people, served buffet style around 6 p.m. Do you bring chafing dishes?</p><p class="enquiry-summary__by">Marcia Thompson · Thu 8 Oct, 7:15 p.m.</p></dd></div>
       </dl>
       <ol class="messages" aria-label="Messages">
-        <li class="message message--theirs"><span class="visually-hidden">Pelau House:</span><p class="message__bubble">Hi Marcia, congratulations to your parents! Yes, chafing dishes and serving spoons are included. For 120 the four dishes come to about $2,600 before tax. Shall I hold the date?</p><span class="message__meta">Pelau House · Today, 9:42 a.m.</span></li>
-        <li class="message message--mine message--pending"><span class="visually-hidden">You:</span><p class="message__bubble">Hi Kendra, yes please hold the date! The hall opens at 4 p.m. — the side door on Ellesmere is easiest for unloading.</p><span class="message__meta">You · Sending…</span></li>
+        <li class="message message--theirs"><span class="visually-hidden">Pelau House:</span><p class="message__bubble">Hi Marcia, congratulations to your parents! Yes, chafing dishes and serving spoons are included. For 120 the four dishes come to about $2,600 before tax. Shall I hold the date?</p><span class="message__meta">Pelau House · <time datetime="2026-10-10T09:42-04:00">Today, 9:42 a.m.</time></span></li>
+        <li class="message message--mine message--pending"><span class="visually-hidden">You:</span><p class="message__bubble">Hi Kendra, yes please hold the date! The hall opens at 4 p.m. — the side door on Ellesmere is easiest for unloading.</p><span class="message__meta" role="status">You · Sending…</span></li>
       </ol>
       <p class="private-note"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Pelau House sees your name, not your email or phone.</p>
       <form class="reply-box" action="../thread/submitting.html" novalidate>
         <label class="reply-box__label" for="reply">Your reply</label>
         <div class="reply-box__row">
-          <textarea class="textarea" id="reply" name="reply" rows="2" maxlength="2000" aria-describedby="reply-help reply-count" readonly></textarea>
-          <button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply" aria-busy="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button>
+          <textarea class="textarea" id="reply" name="reply" rows="2" aria-describedby="reply-help reply-count" readonly></textarea>
+          <button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply" aria-busy="true" aria-disabled="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button>
         </div>
         <span class="cluster cluster--between"><span class="field__help" id="reply-help">Pelau House gets an email. Links show as plain text.</span><span class="field__counter" id="reply-count">0 / 2,000</span></span>
       </form>
@@ -92,7 +92,7 @@
 </footer>
 </div>
 
-<p class="mock-note" style="bottom: 12rem; right: 1rem;">The thread scrolls to the newest message: the faded “Sending…” bubble sits at the end, above the reply box. The box is read-only and Send is busy until the server confirms.</p>
+<p class="mock-note" style="bottom: 12rem; right: 1rem;">The thread scrolls to the newest message: the pending bubble sits at the end, above the reply box, at full contrast; its “You · Sending…” line carries the state and is announced once. The box is read-only and Send is busy until the server confirms.</p>
 
 <nav class="mock-bar" aria-label="Mock navigation">
   <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>

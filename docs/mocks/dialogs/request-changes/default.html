@@ -14,24 +14,23 @@
 <link rel="stylesheet" href="../../assets/mock.css">
 </head>
 <body>
-<a class="skip-link" href="#dlg-title">Skip to the dialog</a>
-<div inert aria-hidden="true">
-<div class="page">
+<div class="page" inert aria-hidden="true">
+<a class="skip-link" href="#main">Skip to main content</a>
 <header class="site-header">
   <a class="wordmark" href="../../pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
   <nav class="site-nav" aria-label="Primary">
-    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html" aria-current="page">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html" aria-current="page">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
     <a class="site-nav__link site-nav__extra" href="../../pages/admin-caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/admin-metrics/default.html">Metrics</a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
   </nav>
 </header>
 <main id="main" class="container">
   <div class="work-layout">
     <nav class="side-nav" aria-label="Operator">
       <ul class="filter-list">
-        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html" aria-current="page">Review queue <span class="filter-list__count">7</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html" aria-current="page">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
         <li><a class="filter-list__item" href="../../pages/admin-changes/default.html">Recent changes</a></li>
         <li><a class="filter-list__item" href="../../pages/admin-caterers/default.html">Caterers</a></li>
         <li><a class="filter-list__item" href="../../pages/admin-reviews/default.html">Reviews</a></li>
@@ -47,17 +46,19 @@
 
     <div class="work-main">
       <a class="eyebrow" href="../../pages/admin-queue/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Review queue</a>
-      <div class="page-header" style="margin-top: var(--space-2);">
-        <div class="stack stack--sm">
-          <h1>Auntie Bev’s Kitchen</h1>
-          <p class="subtitle"><span class="status status--pending">Pending review</span> · Submitted Wed 7 Oct at 2:10 p.m. · waiting 3 days</p>
+      <div class="page-intro">
+        <div class="page-intro__row">
+          <div>
+            <h1>Auntie Bev’s Kitchen</h1>
+            <p class="subtitle"><span class="status status--pending">Pending review</span> · Submitted Wed 7 Oct at 2:10 p.m. · waiting 3 days</p>
+          </div>
+          <span class="cluster"><button class="btn" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/request-changes/default.html">Request changes</button><button class="btn btn--primary" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/approve-profile/default.html">Approve and publish</button></span>
         </div>
-        <div class="cluster"><button class="btn" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/request-changes/default.html">Request changes</button><button class="btn btn--primary" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/approve-profile/default.html">Approve and publish</button></div>
       </div>
       
       <section class="caterer-section" style="margin-top: var(--space-8);" aria-labelledby="pub-title">
         <div class="caterer-section__head"><h2 id="pub-title">As it will appear</h2><span class="result-count">Public fields only</span></div>
-        <ul class="photo-manager"><li class="photo-tile"><span class="photo"><img src="../../assets/img/green-fig-catering.jpg" alt="Brown stew chicken with rice and peas in a steel pot" width="160" height="160"><span class="photo-tile__cover">Cover</span></span><span class="photo-tile__caption">Brown stew chicken with rice and peas in a steel pot</span></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/oil-down-kitchen.jpg" alt="Rice and peas with stewed chicken in a red pot" width="160" height="160"></span><span class="photo-tile__caption">Rice and peas with stewed chicken in a red pot</span></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/bammy-bros.jpg" alt="Curry goat over white rice" width="160" height="160"></span><span class="photo-tile__caption">Curry goat over white rice</span></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/coconut-drops-bakery.jpg" alt="Fried dumplings dusted with sugar" width="160" height="160"></span><span class="photo-tile__caption">Fried dumplings dusted with sugar</span></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/auntie-merles-table.jpg" alt="Escovitch-style peppers over rice" width="160" height="160"></span><span class="photo-tile__caption">Escovitch-style peppers over rice</span></li></ul>
+        <ul class="photo-manager"><li class="photo-tile"><span class="photo"><img src="../../assets/img/green-fig-catering.jpg" alt="" width="160" height="160"><span class="photo-tile__cover">Cover</span></span><p class="photo-tile__caption">Brown stew chicken with rice and peas in a steel pot</p></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/oil-down-kitchen.jpg" alt="" width="160" height="160"></span><p class="photo-tile__caption">Rice and peas with stewed chicken in a red pot</p></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/bammy-bros.jpg" alt="" width="160" height="160"></span><p class="photo-tile__caption">Curry goat over white rice</p></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/coconut-drops-bakery.jpg" alt="" width="160" height="160"></span><p class="photo-tile__caption">Fried dumplings dusted with sugar</p></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/auntie-merles-table.jpg" alt="" width="160" height="160"></span><p class="photo-tile__caption">Escovitch-style peppers over rice</p></li></ul>
         <div class="caterer-head" style="margin-top: var(--space-10);">
           <h3 style="font: var(--text-h2);">Auntie Bev’s Kitchen</h3>
           <ul class="caterer-head__meta"><li>Jamaican</li></ul>
@@ -68,7 +69,7 @@
           <div><dt>Occasions</dt><dd><ul class="inline-list"><li>Birthdays</li><li>Funerals and repasts</li><li>Family gatherings</li><li>Community events</li></ul></dd></div>
         </dl>
         <h3 style="margin-top: var(--space-10); margin-bottom: var(--space-2);">Menu</h3>
-        <ul class="dish-list"><li class="dish"><div class="dish__top"><h4 class="dish__name">Brown stew chicken</h4><span class="dish__price">From $15 per person</span></div><p class="dish__desc">Browned, then simmered with thyme and pimento.</p><ul class="tags"><li class="tag">Gluten-free</li><li class="tag">Dairy-free</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Curry goat</h4><span class="dish__price">From $18 per person</span></div><ul class="tags"><li class="tag">Halal</li><li class="tag">Spicy</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Rice and peas</h4><span class="dish__price">From $4 per person</span></div><p class="dish__desc">Kidney beans, coconut milk, scallion.</p><ul class="tags"><li class="tag">Vegan</li><li class="tag">Gluten-free</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Escovitch fish</h4><span class="dish__price">From $16 per person</span></div><p class="dish__desc">Fried snapper with pickled peppers and onions.</p><ul class="tags"><li class="tag">Spicy</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Fried dumplings</h4><span class="dish__price">$1.50 each</span></div><ul class="tags"><li class="tag">Vegetarian</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Gizzada</h4><span class="dish__price">$3 each</span></div><p class="dish__desc">Coconut tarts with nutmeg.</p><ul class="tags"><li class="tag">Vegetarian</li><li class="tag tag--allergen">Contains nuts</li></ul></li></ul>
+        <ul class="dish-list"><li class="dish"><div class="dish__top"><h4 class="dish__name">Brown stew chicken</h4><span class="dish__price">From $15 per person</span></div><p class="dish__desc">Browned, then simmered with thyme and pimento.</p><ul class="tags"><li class="tag">Gluten-free</li><li class="tag">Dairy-free</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Curry goat</h4><span class="dish__price">From $18 per person</span></div><ul class="tags"><li class="tag">Halal</li><li class="tag">Spicy</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Rice and peas</h4><span class="dish__price">From $4 per person</span></div><p class="dish__desc">Kidney beans, coconut milk, scallion.</p><ul class="tags"><li class="tag">Vegan</li><li class="tag">Gluten-free</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Escovitch fish</h4><span class="dish__price">From $16 per person</span></div><p class="dish__desc">Fried snapper with pickled peppers and onions.</p><ul class="tags"><li class="tag">Spicy</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Fried dumplings</h4><span class="dish__price">$1.50 each</span></div><ul class="tags"><li class="tag">Vegetarian</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Gizzada</h4><span class="dish__price">$3 each</span></div><p class="dish__desc">Coconut tarts with nutmeg.</p><ul class="tags"><li class="tag">Vegetarian</li><li class="tag tag--allergen"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg>Contains nuts</li></ul></li></ul>
         <h3 style="margin-top: var(--space-10); margin-bottom: var(--space-4);">Areas served</h3>
         <dl class="regions"><div><dt>Durham</dt><dd>Oshawa, Whitby, Clarington, Ajax</dd></div></dl>
       </section>
@@ -81,18 +82,18 @@
           <dt>Phone</dt><dd>+1 905 555 0164</dd>
         </dl>
         <h3 style="margin-top: var(--space-10); margin-bottom: var(--space-4);">Food handler certificate</h3>
-        <dl class="certificate"><div><dt>Holder</dt><dd>Beverley Campbell</dd></div><div><dt>Issued by</dt><dd>Durham Region Health Department</dd></div><div><dt>Number</dt><dd>FH-2025-204517</dd></div><div><dt>Expires</dt><dd>22 Jan 2030</dd></div></dl>
+        <dl class="certificate"><dt>Holder</dt><dd>Beverley Campbell</dd><dt>Issued by</dt><dd>Durham Region Health Department</dd><dt>Number</dt><dd>FH-2025-204517</dd><dt>Expires</dt><dd><time datetime="2030-01-22">22 Jan 2030</time></dd></dl>
         <p style="margin-top: var(--space-4);"><button class="btn btn--sm btn--wrap" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>Open food-handler-certificate.pdf · 1.2 MB</button></p>
       </section>
 
       <section class="caterer-section" aria-labelledby="rules-title">
         <h2 id="rules-title">Submission rules</h2>
-        <ul class="checklist" style="margin-top: var(--space-4);"><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>Email verified</li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>5 photos, each with a caption, cover chosen</li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>6 dishes</li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>Description, cuisines, areas, guests and occasions</li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>Food handler certificate valid</li></ul>
+        <ul class="checklist" aria-labelledby="rules-title"><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span>Email verified</span></li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span>5 photos, each with a caption, cover chosen</span></li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span>6 dishes</span></li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span>Description, cuisines, areas, guests and occasions</span></li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span>Food handler certificate valid</span></li></ul>
       </section>
 
       <section class="caterer-section" aria-labelledby="hist-title">
         <h2 id="hist-title" style="margin-bottom: var(--space-4);">History</h2>
-        <ol class="timeline"><li><span class="timeline__when">Wed 7 Oct, 2:10 p.m.</span><span>Submitted for review by Beverley Campbell</span></li><li><span class="timeline__when">Mon 28 Sep, 8:47 p.m.</span><span>Draft created</span></li></ol>
+        <ol class="timeline" aria-label="History, newest first"><li><time class="timeline__when" datetime="2026-10-07T18:10:00Z">Wed 7 Oct, 2:10 p.m.</time><span>Submitted for review by Beverley Campbell</span></li><li><time class="timeline__when" datetime="2026-09-29T00:47:00Z">Mon 28 Sep, 8:47 p.m.</time><span>Draft created</span></li></ol>
       </section>
     </div>
   </div>
@@ -107,16 +108,15 @@
   </nav>
 </footer>
 </div>
-</div>
 <div class="backdrop"></div>
 <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc" data-dismiss-on-escape>
   <form class="dialog__panel" action="../../pages/admin-profile-review/default.html" novalidate>
     <div class="dialog__header">
       <div class="dialog__caterer" style="flex: 1; align-items: flex-start;">
         <span class="photo"><img src="../../assets/img/green-fig-catering.jpg" alt="" width="56" height="56"></span>
-        <div>
+        <div class="dialog__heading">
           <h2 class="dialog__title" id="dlg-title">Request changes to Auntie Bev’s Kitchen</h2>
-          <p id="dlg-desc" class="text-muted" style="margin-top: var(--space-1);">Beverley Campbell gets your reason by email and sees it as a banner in the profile editor.</p>
+          <p class="dialog__desc" id="dlg-desc">Beverley Campbell gets your reason by email and sees it as a banner in the profile editor.</p>
         </div>
       </div>
       <button class="icon-btn" type="button" aria-label="Close" data-mock-href="../../pages/admin-profile-review/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
@@ -126,7 +126,9 @@
         <label class="field__label" for="reason">What needs to change</label>
         <textarea class="textarea" id="reason" name="reason" rows="4" required minlength="10" aria-describedby="reason-help" autofocus></textarea>
         <span class="field__help" id="reason-help">Be specific: which photo, field or sentence, and what to do</span>
+        <span class="visually-hidden" role="status"></span>
       </div>
+      <p class="visually-hidden" role="status"></p>
     </div>
     <div class="dialog__footer">
       <button class="btn" type="button" data-mock-href="../../pages/admin-profile-review/default.html">Cancel</button><button class="btn btn--primary" type="submit">Request changes</button>

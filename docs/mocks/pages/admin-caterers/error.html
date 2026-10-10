@@ -19,11 +19,11 @@
 <header class="site-header">
   <a class="wordmark" href="../../pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
   <nav class="site-nav" aria-label="Primary">
-    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
     <a class="site-nav__link site-nav__extra" href="../../pages/admin-caterers/default.html" aria-current="page">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/admin-metrics/default.html">Metrics</a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
   </nav>
 </header>
 
@@ -31,7 +31,7 @@
   <div class="work-layout">
     <nav class="side-nav" aria-label="Operator">
       <ul class="filter-list">
-        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count">7</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
         <li><a class="filter-list__item" href="../../pages/admin-changes/default.html">Recent changes</a></li>
         <li><a class="filter-list__item" href="../../pages/admin-caterers/default.html" aria-current="page">Caterers</a></li>
         <li><a class="filter-list__item" href="../../pages/admin-reviews/default.html">Reviews</a></li>
@@ -50,26 +50,30 @@
         <h1>Caterers</h1>
         <p class="subtitle">68 caterers · 60 published</p>
       </div>
-      <form class="search-field" role="search" action="no-results.html" style="max-width: 28rem; margin-bottom: var(--space-4);">
-        <label class="visually-hidden" for="cat-q">Search caterers</label>
-        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input class="input" id="cat-q" name="q" type="search" placeholder="Business or owner name" autocomplete="off" disabled>
+      <form role="search" action="no-results.html" style="max-width: 28rem; margin-bottom: var(--space-4);">
+        <div class="field">
+          <label class="visually-hidden" for="cat-q">Search caterers by business or owner name</label>
+          <div class="search-field">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input class="input" id="cat-q" name="q" type="search" placeholder="Business or owner name" autocomplete="off" disabled>
+          </div>
+        </div>
       </form>
       <ul class="segmented" aria-label="Filter by status">
-        <li><a href="default.html" aria-current="page">All 68</a></li>
-        <li><a href="no-results.html">Draft 3</a></li>
-        <li><a href="no-results.html">Pending review 2</a></li>
-        <li><a href="no-results.html">Changes requested 1</a></li>
-        <li><a href="no-results.html">Published 60</a></li>
-        <li><a href="no-results.html">Suspended 1</a></li>
-        <li><a href="no-results.html">Removed 1</a></li>
+        <li><a href="default.html" aria-current="page">All <span class="filter-list__count">68</span></a></li>
+        <li><a href="no-results.html">Draft <span class="filter-list__count">3</span></a></li>
+        <li><a href="no-results.html">Pending review <span class="filter-list__count">2</span></a></li>
+        <li><a href="no-results.html">Changes requested <span class="filter-list__count">1</span></a></li>
+        <li><a href="no-results.html">Published <span class="filter-list__count">60</span></a></li>
+        <li><a href="no-results.html">Suspended <span class="filter-list__count">1</span></a></li>
+        <li><a href="no-results.html">Removed <span class="filter-list__count">1</span></a></li>
       </ul>
       <div class="empty empty--error" role="alert">
         <div class="empty__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg></div>
         <h2 class="empty__title">We couldn’t load caterers</h2>
         <p class="empty__text">The list didn’t come back from the server. Nothing has changed. Try again, or work from the review queue meanwhile.</p>
         <div class="empty__actions"><a class="btn btn--primary" href="default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>Try again</a><a class="btn" href="../../pages/admin-queue/default.html">Go to the review queue</a></div>
-        <p class="system-page__code">Reference 7f3c9a21-4e0b</p>
+        <p class="text-caption">Reference <code>7f3c9a21-4e0b</code></p>
       </div>
     </div>
   </div>

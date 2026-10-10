@@ -19,11 +19,11 @@
 <header class="site-header">
   <a class="wordmark" href="../../pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
   <nav class="site-nav" aria-label="Primary">
-    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
     <a class="site-nav__link site-nav__extra" href="../../pages/admin-caterers/default.html" aria-current="page">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/admin-metrics/default.html">Metrics</a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
   </nav>
 </header>
 
@@ -31,7 +31,7 @@
   <div class="work-layout">
     <nav class="side-nav" aria-label="Operator">
       <ul class="filter-list">
-        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count">7</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
         <li><a class="filter-list__item" href="../../pages/admin-changes/default.html">Recent changes</a></li>
         <li><a class="filter-list__item" href="../../pages/admin-caterers/default.html" aria-current="page">Caterers</a></li>
         <li><a class="filter-list__item" href="../../pages/admin-reviews/default.html">Reviews</a></li>
@@ -70,15 +70,17 @@
 
       <section class="caterer-section" aria-labelledby="profile-title">
         <h2 id="profile-title">Profile</h2>
-        <div class="photo-row" style="justify-content: flex-start; flex-wrap: wrap; margin-bottom: var(--space-6);"><span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="" width="56" height="56"></span><span class="photo"><img src="../../assets/img/maracas-bay.jpg" alt="" width="56" height="56"></span><span class="photo"><img src="../../assets/img/sunday-pot.jpg" alt="" width="56" height="56"></span><span class="photo"><img src="../../assets/img/scotch-bonnet-social.jpg" alt="" width="56" height="56"></span><span class="photo"><img src="../../assets/img/black-cake-co.jpg" alt="" width="56" height="56"></span><span class="photo"><img src="../../assets/img/cook-up.jpg" alt="" width="56" height="56"></span></div>
-        <dl class="kv">
-          <dt>Cuisines</dt><dd>Trinidadian &amp; Tobagonian (primary), Guyanese</dd>
-          <dt>Areas</dt><dd>Scarborough (primary), East York, North York, Pickering, Ajax</dd>
-          <dt>Guests</dt><dd>Serves 20–300 guests</dd>
-          <dt>Occasions</dt><dd>Weddings, Birthdays, Family gatherings, Corporate events, Religious and cultural celebrations</dd>
-          <dt>Menu</dt><dd>18 dishes</dd>
-          <dt>Address</dt><dd>/caterers/pelau-house</dd>
-        </dl>
+        <div class="stack">
+          <div class="photo-row photo-row--strip"><span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="Chicken pelau in a steel pot with lime and cucumber chutney" width="72" height="72"></span><span class="photo"><img src="../../assets/img/maracas-bay.jpg" alt="Curry chicken with rice and buss up shut in a steel karahi" width="72" height="72"></span><span class="photo"><img src="../../assets/img/sunday-pot.jpg" alt="Spiced rice lifted from a blue cast-iron pot" width="72" height="72"></span><span class="photo"><img src="../../assets/img/scotch-bonnet-social.jpg" alt="Curry chicken scattered with shado beni over white rice" width="72" height="72"></span><span class="photo"><img src="../../assets/img/black-cake-co.jpg" alt="Rum-soaked black cake dusted with icing sugar" width="72" height="72"></span><span class="photo"><img src="../../assets/img/cook-up.jpg" alt="Macaroni pie and rice with peas in a red serving pot" width="72" height="72"></span></div>
+          <dl class="kv">
+            <dt>Cuisines</dt><dd>Trinidadian &amp; Tobagonian (primary), Guyanese</dd>
+            <dt>Areas</dt><dd>Scarborough (primary), East York, North York, Pickering, Ajax</dd>
+            <dt>Guests</dt><dd>Serves 20–300 guests</dd>
+            <dt>Occasions</dt><dd>Weddings, Birthdays, Family gatherings, Corporate events, Religious and cultural celebrations</dd>
+            <dt>Menu</dt><dd>18 dishes</dd>
+            <dt>Address</dt><dd>/caterers/pelau-house</dd>
+          </dl>
+        </div>
       </section>
 
       <section class="caterer-section" aria-labelledby="cert-title">
@@ -87,8 +89,8 @@
           <dt>Holder</dt><dd>Kendra Baptiste</dd>
           <dt>Issued by</dt><dd>Toronto Public Health</dd>
           <dt>Number</dt><dd>FH-2024-118734</dd>
-          <dt>Expires</dt><dd>14 Mar 2029</dd>
-          <dt>Copy</dt><dd><button class="btn btn--link btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>certificate.pdf (412 KB)</button></dd>
+          <dt>Expires</dt><dd><time datetime="2029-03-14">14 Mar 2029</time></dd>
+          <dt>Copy</dt><dd><button class="btn btn--link btn--sm btn--wrap" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>food-handler-certificate.pdf (1.2 MB)</button></dd>
         </dl>
         <p class="text-caption" style="margin-top: var(--space-3);">The file opens through a link that expires after 5 minutes. Kendra’s own statement; Sweet Hand doesn’t certify kitchens.</p>
       </section>
@@ -103,14 +105,14 @@
       </section>
 
       <section class="caterer-section" aria-labelledby="hist-title">
-        <div class="caterer-section__head"><h2 id="hist-title">Status history</h2><a href="../../pages/admin-audit/default.html">Audit log</a></div>
-        <ol class="timeline">
-          <li><span class="timeline__when">Sat 10 Oct 2026, 10:48 a.m.</span><span><strong>Removed</strong> · Leah Mohammed</span><span class="text-muted text-sm">“Repeated stock photos after two warnings; owner confirmed the business has closed.”</span></li>
-          <li><span class="timeline__when">Fri 14 Mar 2025, 11:20 a.m.</span><span><strong>Published</strong> · Tomas Reyes</span><span class="text-muted text-sm">Approved</span></li>
-          <li><span class="timeline__when">Wed 12 Mar 2025, 8:05 p.m.</span><span><strong>Pending review</strong> · Kendra Baptiste</span><span class="text-muted text-sm">Resubmitted</span></li>
-          <li><span class="timeline__when">Mon 10 Mar 2025, 2:40 p.m.</span><span><strong>Changes requested</strong> · Leah Mohammed</span><span class="text-muted text-sm">“Photo 4 is blurry. Please replace it with a sharper one.”</span></li>
-          <li><span class="timeline__when">Sat 8 Mar 2025, 9:12 a.m.</span><span><strong>Pending review</strong> · Kendra Baptiste</span><span class="text-muted text-sm">Submitted</span></li>
-          <li><span class="timeline__when">Tue 4 Mar 2025, 7:30 p.m.</span><span><strong>Draft</strong> · Kendra Baptiste</span><span class="text-muted text-sm">Account created</span></li>
+        <div class="caterer-section__head"><h2 id="hist-title">Status history</h2><a class="link--standalone" href="../../pages/admin-audit/default.html">Audit log</a></div>
+        <ol class="timeline" aria-label="Status history, newest first">
+          <li><time class="timeline__when" datetime="2026-10-10T14:48:00Z">Sat 10 Oct, 10:48 a.m.</time><span><strong>Removed</strong> · Leah Mohammed</span><span class="text-muted text-sm">“Repeated stock photos after two warnings; owner confirmed the business has closed.”</span></li>
+          <li><time class="timeline__when" datetime="2025-03-14T15:20:00Z">Fri 14 Mar 2025, 11:20 a.m.</time><span><strong>Published</strong> · Tomas Reyes</span><span class="text-muted text-sm">Approved</span></li>
+          <li><time class="timeline__when" datetime="2025-03-13T00:05:00Z">Wed 12 Mar 2025, 8:05 p.m.</time><span><strong>Pending review</strong> · Kendra Baptiste</span><span class="text-muted text-sm">Resubmitted</span></li>
+          <li><time class="timeline__when" datetime="2025-03-10T18:40:00Z">Mon 10 Mar 2025, 2:40 p.m.</time><span><strong>Changes requested</strong> · Leah Mohammed</span><span class="text-muted text-sm">“Photo 4 is blurry. Please replace it with a sharper one.”</span></li>
+          <li><time class="timeline__when" datetime="2025-03-08T14:12:00Z">Sat 8 Mar 2025, 9:12 a.m.</time><span><strong>Pending review</strong> · Kendra Baptiste</span><span class="text-muted text-sm">Submitted</span></li>
+          <li><time class="timeline__when" datetime="2025-03-05T00:30:00Z">Tue 4 Mar 2025, 7:30 p.m.</time><span><strong>Draft</strong> · Kendra Baptiste</span><span class="text-muted text-sm">Account created</span></li>
         </ol>
         <p class="text-caption" style="margin-top: var(--space-4);">History entries can’t be edited.</p>
       </section>

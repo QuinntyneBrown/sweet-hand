@@ -132,7 +132,7 @@
         <li><b>Inside a work area</b> (dashboard, operator console) section navigation lives in the <a href="side-nav.html">side navigation</a>, not in the header; the header keeps only 2 to 3 top-level destinations.</li>
         <li>Page-level tasks never go in the header. "Send an enquiry" is on the caterer page and its <a href="sticky-cta.html">sticky bar</a>; filters are on the listing.</li>
       </ul>
-      <p>The header uses no pepper red. The current page is marked by ink and weight only; pepper is kept for selections in the content below (filters, the side nav, tabs).</p>
+      <p>The header uses no pepper red, except on a current icon shortcut (the inbox envelope on the inbox page), which is pepper like every current icon button; it keeps its ink on hover otherwise. The current text link is marked by ink and weight only; pepper is kept for selections in the content below (filters, the side nav, tabs).</p>
     </section>
 
     <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
@@ -154,7 +154,7 @@
         </figure>
         <ol class="ds-anatomy__list">
           <li><div><b>Wordmark</b><small><code>.wordmark</code>: "Sweet Hand" in <code>--text-wordmark</code>, a link to the audience's home (listing, dashboard or queue). 44px tall.</small></div></li>
-          <li><div><b>Area tag (optional)</b><small><code>.wordmark__tag</code>: "for caterers" or "Operator", a hairline pill in label type. Part of the link's name. Hidden below 22.5rem.</small></div></li>
+          <li><div><b>Area tag (optional)</b><small><code>.wordmark__tag</code>: "for caterers" or "Operator", a hairline pill in label type. Part of the link's name. Hidden below 24rem.</small></div></li>
           <li><div><b>Nav link</b><small><code>.site-nav__link</code>: muted text, 44px tall; current page in ink, semibold, <code>aria-current="page"</code>.</small></div></li>
           <li><div><b>Unread badge</b><small><code>.badge--count</code> with an <code>aria-label</code> that says what is counted ("2 unread enquiries").</small></div></li>
           <li><div><b>Account trigger</b><small><code>button.avatar</code>, 44px, initials, opens the account menu. Search and Menu are <a href="icon-button.html">icon buttons</a> in the same slot.</small></div></li>
@@ -297,7 +297,7 @@
     <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
       <ul>
         <li><b>Below 48rem</b> every <code>.site-nav__extra</code> item is hidden and every <code>.site-nav__menu</code> item appears: a Menu icon button that opens the full-screen site menu <a href="sheet.html">sheet</a> (<code>dialogs/site-menu</code>), plus an envelope icon with the unread count for customers and caterers, so the inbox stays one tap away. Search stays visible for visitors and customers. At most three icons sit beside the wordmark.</li>
-        <li><b>Below 22.5rem</b> (narrow 320px phones) the area tag ("for caterers", "Operator") hides so the header never scrolls sideways; the wordmark alone still links home.</li>
+        <li><b>Below 24rem</b> (phones narrower than 384px) the area tag ("for caterers", "Operator") hides so the header never scrolls sideways; the wordmark alone still links home.</li>
         <li><b>From 48rem</b> the text links show and the phone-only items hide. Height grows to 80px.</li>
         <li><b>From 62rem</b> height is 96px; inside work areas the <a href="side-nav.html">side navigation</a> appears below the header.</li>
         <li>The header spans the container (<code>--layout-container-max</code>, 90rem) with <code>--layout-margin</code> side padding and respects the top safe area (<code>env(safe-area-inset-top)</code>).</li>
@@ -345,7 +345,7 @@
       <h3>Motion</h3>
       <p>Link colour changes over <code>--duration-fast</code>; the menu sheet slides in over <code>--duration-slow</code>. Reduced motion removes both.</p>
       <h3>Touch</h3>
-      <p>Every item is 44 × 44px or larger (<code>--target-comfortable</code>) with at least <code>--space-1</code> between items; icon buttons are circles of 44px, so their visual gaps exceed 8px.</p>
+      <p>Every item is 44 × 44px or larger (<code>--target-comfortable</code>) with at least <code>--space-2</code> (8px) between items below 48rem and <code>--space-1</code> from 48rem; icon buttons are circles of 44px, so their visual gaps exceed 8px.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
@@ -383,7 +383,7 @@
           <tr><td>Nav type / current weight</td><td><code>--text-nav</code> / <code>--font-weight-semibold</code></td><td colspan="2"><span data-token="--text-nav"></span></td></tr>
           <tr><td>Height</td><td><code>--layout-topbar-height</code> (4 / 5 / 6rem)</td><td colspan="2"><span data-token="--layout-topbar-height"></span> at this width</td></tr>
           <tr><td>Item size</td><td><code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-comfortable"></span></td></tr>
-          <tr><td>Gaps (header / nav) and link padding</td><td><code>--space-2</code> / <code>--space-1</code>, <code>--space-3</code></td><td colspan="2"><span data-token="--space-2"></span> / <span data-token="--space-1"></span> / <span data-token="--space-3"></span></td></tr>
+          <tr><td>Gaps (header / nav) and link padding</td><td><code>--space-2</code> / <code>--space-1</code> (<code>--space-2</code> below 48rem), <code>--space-3</code></td><td colspan="2"><span data-token="--space-2"></span> / <span data-token="--space-1"></span> / <span data-token="--space-3"></span></td></tr>
           <tr><td>Side padding / maximum width</td><td><code>--layout-margin</code> / <code>--layout-container-max</code></td><td colspan="2"><span data-token="--layout-margin"></span> / <span data-token="--layout-container-max"></span></td></tr>
           <tr><td>Motion</td><td><code>--duration-fast</code></td><td colspan="2"><span data-token="--duration-fast"></span></td></tr>
         </tbody>

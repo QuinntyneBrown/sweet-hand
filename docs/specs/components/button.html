@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Button — Component requirements rendering</title>
+<meta name="description" content="Every variant, size and state of button, in light and dark, keyed to the acceptance criteria in button.md.">
+<meta name="crd:component" content="button">
+<!-- The real design-system styles: what renders here is the component, not a picture of it. -->
+<link rel="stylesheet" href="../../design-system/tokens/tokens.css">
+<link rel="stylesheet" href="../../design-system/assets/components.css">
+<link rel="stylesheet" href="../../design-system/assets/ds.css">
+<style>
+/* CRD page chrome only. Never restyle the component here. */
+.crd-shell { max-width: 80rem; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+.crd-bar { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; justify-content: space-between; }
+.crd-ac { font: var(--text-overline); color: var(--color-fg-muted); display: block; margin-top: var(--space-2); }
+.crd-frames { display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: flex-start; }
+.crd-frame { margin: 0; border: var(--border-width-hairline) dashed var(--color-border-default); padding: var(--space-3); max-width: 100%; overflow: auto; }
+.crd-frame iframe { display: block; border: 0; max-width: none; }
+.crd-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.crd-row + .crd-row { margin-top: var(--space-4); }
+.crd-raised { background: var(--color-bg-surface-raised); border-radius: var(--radius-md); padding: var(--space-4); box-shadow: var(--shadow-3); }
+.crd-label { font: var(--text-caption); color: var(--color-fg-muted); }
+.crd-help { font: var(--text-body-sm); color: var(--color-fg-muted); }
+.crd-label-list { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+.crd-label-list > div { display: flex; flex-direction: column; gap: var(--space-2); align-items: flex-start; }
+.crd-plain { padding: var(--space-6); display: grid; gap: var(--space-6); }
+.ds-matrix td { padding: var(--space-3); }
+</style>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main" class="crd-shell">
+  <header class="ds-header">
+    <div class="crd-bar">
+      <p class="ds-kicker">Component requirements · rendering</p>
+      <button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button>
+    </div>
+    <h1>Button</h1>
+    <p class="ds-lead">Every variant, size and state of <code>sh-button</code> and <code>sh-button-anchor</code>, with the real <code>.btn</code> classes. Requirements: <a href="button.md">button.md</a>. Design system: <a href="../../design-system/components/button.html">button</a>.</p>
+    <div class="ds-meta"><span class="ds-pill">Selector <code>sh-button</code>, <code>sh-button-anchor</code></span><span class="ds-pill">Status: planned</span><span class="ds-pill">Traces to L2-001, L2-015, L2-017, L2-018, L2-025, L2-043, L2-054, L2-064, L2-065, L2-066, L2-067, L2-068, L2-069, L2-072, L2-085</span></div>
+    <ul class="ds-toc">
+      <li><a href="#variants">Variants</a></li><li><a href="#configurations">Configurations</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#busy">Busy (D-5)</a></li><li><a href="#themes">Both themes</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#contrast">Contrast</a></li><li><a href="#tokens">Tokens</a></li>
+    </ul>
+  </header>
+
+  <section class="ds-section" id="variants"><h2>Variants</h2>
+    <div class="ds-example"><div class="ds-example__canvas">
+      <button class="btn btn--primary" type="button" aria-haspopup="dialog">Send an enquiry</button>
+      <button class="btn" type="button">Cancel</button>
+      <button class="btn btn--ghost" type="button">Edit</button>
+      <button class="btn btn--link" type="button">Show more reviews</button>
+      <button class="btn btn--danger" type="submit">Suspend caterer</button>
+    </div><div class="ds-example__caption"><span>Primary, secondary (no modifier, the default), ghost, link, danger. Danger appears only inside a confirmation dialog. <span class="crd-ac">AC-1, AC-6, AC-11</span></span></div></div>
+
+    <div class="ds-example"><div class="ds-example__canvas">
+      <a class="btn btn--primary btn--lg" href="#variants">Browse caterers</a>
+      <a class="btn btn--lg" href="#variants">Browse by occasion</a>
+      <a class="btn btn--link btn--sm" href="#variants">Clear filters</a>
+      <a class="btn" href="#variants" aria-disabled="true">Clear</a>
+    </div><div class="ds-example__caption"><span><code>sh-button-anchor</code>: a real <code>&lt;a href&gt;</code> with the same classes; disabled keeps <code>href</code> and sets <code>aria-disabled</code> (D-6). <span class="crd-ac">AC-3, AC-4</span></span></div></div>
+  </section>
+
+  <section class="ds-section" id="configurations"><h2>Configurations from the usage inventory</h2>
+    <div class="ds-example"><div class="crd-plain">
+      <div class="crd-label-list">
+        <div><span class="crd-label">Caterer page call to action (lg, block, opens a dialog)</span><button class="btn btn--primary btn--lg btn--block" type="button" aria-haspopup="dialog">Send an enquiry</button><span class="crd-ac">AC-2, AC-22</span></div>
+        <div><span class="crd-label">Leading icon, ghost, listing toolbar</span><button class="btn btn--ghost" type="button" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Area or postal code</button><span class="crd-ac">AC-7</span></div>
+        <div><span class="crd-label">Link, sm, icon, opens report dialog</span><button class="btn btn--link btn--sm" type="button" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 21V4h11l-1.5 4L16 12H5"/></svg>Report this listing</button><span class="crd-ac">AC-5</span></div>
+        <div><span class="crd-label">Icon-only submit, thread reply</span><button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button><span class="crd-ac">AC-8</span></div>
+        <div><span class="crd-label">Visible "Retire", name "Retire Jamaican"</span><button class="btn btn--ghost btn--sm" type="button" aria-haspopup="dialog" aria-label="Retire Jamaican">Retire</button><span class="crd-ac">AC-9</span></div>
+        <div><span class="crd-label">Visually hidden object</span><button class="btn btn--link btn--sm" type="button" aria-haspopup="dialog">Edit<span class="visually-hidden"> photo 1</span></button></div>
+        <div><span class="crd-label">Disclosure (12 of 18 dishes)</span><button class="btn" type="button" aria-expanded="false" aria-controls="dish-list">Show all 18 dishes</button><button class="btn" type="button" aria-expanded="true" aria-controls="dish-list">Show fewer dishes</button><span class="crd-ac">AC-19</span></div>
+        <div><span class="crd-label">Toggle, password field</span><span class="crd-row"><button class="btn btn--link btn--sm" type="button" aria-pressed="false" aria-controls="password">Show</button><button class="btn btn--link btn--sm" type="button" aria-pressed="true" aria-controls="password">Show</button></span><span class="crd-ac">AC-20</span></div>
+        <div><span class="crd-label">Disabled with its reason</span><button class="btn btn--primary" type="button" disabled aria-describedby="crd-dish-limit">Add dish</button><span class="crd-help" id="crd-dish-limit">You can list up to 50 dishes. Remove one to add another.</span><span class="crd-ac">AC-17</span></div>
+        <div><span class="crd-label">Wrap, sm, long data label</span><button class="btn btn--sm btn--wrap" type="button" style="max-width: 14rem;">Open food-handler-certificate.pdf · 1.2 MB</button><span class="crd-ac">AC-27</span></div>
+      </div>
+      <div class="crd-raised">
+        <span class="crd-label">Dialog footer on the raised surface: Cancel + submit, then the danger confirmation, disabled but focusable until "Pelau House" is typed</span>
+        <div class="crd-row" style="margin-top: var(--space-3); justify-content: flex-end;"><button class="btn" type="button">Cancel</button><button class="btn btn--primary" type="submit">Send enquiry</button></div>
+        <div class="crd-row" style="margin-top: var(--space-3); justify-content: flex-end;"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="submit" aria-disabled="true">Remove permanently</button></div>
+        <div class="crd-row" style="margin-top: var(--space-3); justify-content: flex-end;"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="submit">Delete my account</button></div>
+        <span class="crd-ac">AC-6, AC-18, AC-26, AC-28</span>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="ds-section" id="sizes"><h2>Sizes</h2>
+    <div class="ds-example"><div class="ds-example__canvas">
+      <button class="btn btn--sm" type="button">Deactivate</button>
+      <button class="btn btn--primary" type="button">Save details</button>
+      <button class="btn btn--primary btn--lg" type="button">Send an enquiry</button>
+      <button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Move Doubles up"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></button>
+      <button class="btn btn--icon" type="button" aria-label="Add a dish"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+    </div><div class="ds-example__caption"><span>sm 36 px (44 px below 48rem, see Responsive), md 44 px, lg 52 px; icon-only buttons are square. <span class="crd-ac">AC-1, AC-2, AC-10</span></span></div></div>
+  </section>
+
+  <section class="ds-section" id="states"><h2>States</h2>
+    <p>Hover, focus and active are forced with <code>data-state</code> (documentation only); the rest use the real attributes the component renders.</p>
+    <div class="ds-matrix"><table>
+      <caption class="visually-hidden">Button states by variant</caption>
+      <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Active</th><th scope="col">Disabled</th><th scope="col">Disabled, focusable</th><th scope="col">Busy</th></tr></thead>
+      <tbody>
+<tr><th scope="row">Primary</th><td><button class="btn btn--primary" type="button">Save</button></td><td><button class="btn btn--primary" type="button" data-state="hover">Save</button></td><td><button class="btn btn--primary" type="button" data-state="focus">Save</button></td><td><button class="btn btn--primary" type="button" data-state="active">Save</button></td><td><button class="btn btn--primary" type="button" disabled>Save</button></td><td><button class="btn btn--primary" type="button" aria-disabled="true">Save</button></td><td><button class="btn btn--primary" type="button" aria-busy="true" aria-disabled="true">Save</button></td></tr>
+<tr><th scope="row">Secondary</th><td><button class="btn" type="button">Cancel</button></td><td><button class="btn" type="button" data-state="hover">Cancel</button></td><td><button class="btn" type="button" data-state="focus">Cancel</button></td><td><button class="btn" type="button" data-state="active">Cancel</button></td><td><button class="btn" type="button" disabled>Cancel</button></td><td><button class="btn" type="button" aria-disabled="true">Cancel</button></td><td><button class="btn" type="button" aria-busy="true" aria-disabled="true">Cancel</button></td></tr>
+<tr><th scope="row">Ghost</th><td><button class="btn btn--ghost" type="button">Edit</button></td><td><button class="btn btn--ghost" type="button" data-state="hover">Edit</button></td><td><button class="btn btn--ghost" type="button" data-state="focus">Edit</button></td><td><button class="btn btn--ghost" type="button" data-state="active">Edit</button></td><td><button class="btn btn--ghost" type="button" disabled>Edit</button></td><td><button class="btn btn--ghost" type="button" aria-disabled="true">Edit</button></td><td><button class="btn btn--ghost" type="button" aria-busy="true" aria-disabled="true">Edit</button></td></tr>
+<tr><th scope="row">Link</th><td><button class="btn btn--link" type="button">Clear filters</button></td><td><button class="btn btn--link" type="button" data-state="hover">Clear filters</button></td><td><button class="btn btn--link" type="button" data-state="focus">Clear filters</button></td><td><button class="btn btn--link" type="button" data-state="active">Clear filters</button></td><td><button class="btn btn--link" type="button" disabled>Clear filters</button></td><td><button class="btn btn--link" type="button" aria-disabled="true">Clear filters</button></td><td><button class="btn btn--link" type="button" aria-busy="true" aria-disabled="true">Clear filters</button></td></tr>
+<tr><th scope="row">Danger</th><td><button class="btn btn--danger" type="button">Remove</button></td><td><button class="btn btn--danger" type="button" data-state="hover">Remove</button></td><td><button class="btn btn--danger" type="button" data-state="focus">Remove</button></td><td><button class="btn btn--danger" type="button" data-state="active">Remove</button></td><td><button class="btn btn--danger" type="button" disabled>Remove</button></td><td><button class="btn btn--danger" type="button" aria-disabled="true">Remove</button></td><td><button class="btn btn--danger" type="button" aria-busy="true" aria-disabled="true">Remove</button></td></tr>
+      </tbody>
+    </table></div>
+    <span class="crd-ac">AC-11, AC-12, AC-17, AC-18, AC-21, AC-23</span>
+  </section>
+
+  <section class="ds-section" id="busy"><h2>Busy: required (D-5)</h2>
+    <p>Busy sets <code>aria-busy="true"</code> and <code>aria-disabled="true"</code>, keeps the label (transparent) so the width is unchanged, and is never dimmed. <code>components.css</code> keeps them at full opacity (D-5).</p>
+    <div class="ds-example"><div class="ds-example__canvas">
+      <button class="btn btn--primary" type="submit">Send enquiry</button>
+      <button class="btn btn--primary" type="submit" aria-busy="true" aria-disabled="true">Send enquiry</button>
+      <button class="btn" type="button" aria-busy="true" aria-disabled="true">Show more reviews</button>
+      <button class="btn btn--danger" type="submit" aria-busy="true" aria-disabled="true">Remove permanently</button>
+      <button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply" aria-busy="true" aria-disabled="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button>
+      <button class="btn btn--primary btn--lg btn--block" type="submit" aria-busy="true" aria-disabled="true" style="max-width: 20rem;">Sign in</button>
+    </div><div class="ds-example__caption"><span>Required (D-5): resting and busy "Send enquiry" are the same size; the spinner is in the label colour at full opacity. <span class="crd-ac">AC-12, AC-13, AC-14, AC-15, AC-16, AC-29, AC-30</span></span></div></div>
+  </section>
+
+  <section class="ds-section" id="themes"><h2>Both themes</h2>
+    <div class="ds-themes">
+      <div data-theme="light"><div class="crd-row"><button class="btn btn--primary" type="button">Send an enquiry</button><button class="btn" type="button">Cancel</button><button class="btn btn--ghost" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Area or postal code</button><button class="btn btn--link btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 21V4h11l-1.5 4L16 12H5"/></svg>Report this listing</button></div><div class="crd-row"><button class="btn btn--primary" type="button" data-state="hover">Hover</button><button class="btn btn--primary" type="button" data-state="focus">Focus</button><button class="btn btn--primary" type="submit" aria-busy="true" aria-disabled="true">Send enquiry</button><button class="btn btn--primary" type="button" disabled>Add dish</button></div><div class="crd-row crd-raised"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="submit">Suspend caterer</button><button class="btn btn--danger" type="submit" data-state="focus">Delete my account</button><button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button></div></div>
+      <div data-theme="dark"><div class="crd-row"><button class="btn btn--primary" type="button">Send an enquiry</button><button class="btn" type="button">Cancel</button><button class="btn btn--ghost" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Area or postal code</button><button class="btn btn--link btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 21V4h11l-1.5 4L16 12H5"/></svg>Report this listing</button></div><div class="crd-row"><button class="btn btn--primary" type="button" data-state="hover">Hover</button><button class="btn btn--primary" type="button" data-state="focus">Focus</button><button class="btn btn--primary" type="submit" aria-busy="true" aria-disabled="true">Send enquiry</button><button class="btn btn--primary" type="button" disabled>Add dish</button></div><div class="crd-row crd-raised"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="submit">Suspend caterer</button><button class="btn btn--danger" type="submit" data-state="focus">Delete my account</button><button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button></div></div>
+    </div>
+    <span class="crd-ac">AC-16, AC-23, AC-24, AC-25, AC-26</span>
+  </section>
+
+  <section class="ds-section" id="responsive"><h2>Responsive</h2>
+    <p>Each frame is a real viewport. Below 48rem the small "Deactivate", the small icon-only "Move Doubles up" and the small "Show" grow to 44 px; at 768 px they are 36 px. The wrapping label wraps at 320 px and nothing scrolls sideways.</p>
+    <div class="crd-frames">
+<figure class="crd-frame"><span class="crd-ac">320 px · light · AC-10, AC-27</span><iframe title="320 pixel wide frame, light theme" width="320" height="380" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt; body{padding:var(--space-4);} .stack{display:flex;flex-direction:column;gap:var(--space-3);align-items:flex-start;} .row{display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:center;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;stack&quot;&gt;&lt;button class=&quot;btn btn--primary btn--lg btn--block&quot; type=&quot;button&quot; aria-haspopup=&quot;dialog&quot;&gt;Send an enquiry&lt;/button&gt;&lt;div class=&quot;row&quot;&gt;&lt;button class=&quot;btn btn--sm&quot; type=&quot;button&quot; aria-label=&quot;Deactivate Tomas Reyes&quot;&gt;Deactivate&lt;/button&gt;&lt;button class=&quot;btn btn--ghost btn--sm btn--icon&quot; type=&quot;button&quot; aria-label=&quot;Move Doubles up&quot;&gt;&lt;svg class=&quot;icon&quot; aria-hidden=&quot;true&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;m6 15 6-6 6 6&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;button class=&quot;btn btn--link btn--sm&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot; aria-controls=&quot;password&quot;&gt;Show&lt;/button&gt;&lt;/div&gt;&lt;button class=&quot;btn btn--sm btn--wrap&quot; type=&quot;button&quot;&gt;Open food-handler-certificate.pdf · 1.2 MB&lt;/button&gt;&lt;div class=&quot;row&quot;&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn btn--primary&quot; type=&quot;submit&quot; aria-busy=&quot;true&quot; aria-disabled=&quot;true&quot;&gt;Send enquiry&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure><figure class="crd-frame"><span class="crd-ac">360 px · light · AC-2, AC-10</span><iframe title="360 pixel wide frame, light theme" width="360" height="380" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt; body{padding:var(--space-4);} .stack{display:flex;flex-direction:column;gap:var(--space-3);align-items:flex-start;} .row{display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:center;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;stack&quot;&gt;&lt;button class=&quot;btn btn--primary btn--lg btn--block&quot; type=&quot;button&quot; aria-haspopup=&quot;dialog&quot;&gt;Send an enquiry&lt;/button&gt;&lt;div class=&quot;row&quot;&gt;&lt;button class=&quot;btn btn--sm&quot; type=&quot;button&quot; aria-label=&quot;Deactivate Tomas Reyes&quot;&gt;Deactivate&lt;/button&gt;&lt;button class=&quot;btn btn--ghost btn--sm btn--icon&quot; type=&quot;button&quot; aria-label=&quot;Move Doubles up&quot;&gt;&lt;svg class=&quot;icon&quot; aria-hidden=&quot;true&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;m6 15 6-6 6 6&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;button class=&quot;btn btn--link btn--sm&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot; aria-controls=&quot;password&quot;&gt;Show&lt;/button&gt;&lt;/div&gt;&lt;button class=&quot;btn btn--sm btn--wrap&quot; type=&quot;button&quot;&gt;Open food-handler-certificate.pdf · 1.2 MB&lt;/button&gt;&lt;div class=&quot;row&quot;&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn btn--primary&quot; type=&quot;submit&quot; aria-busy=&quot;true&quot; aria-disabled=&quot;true&quot;&gt;Send enquiry&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure><figure class="crd-frame"><span class="crd-ac">360 px · dark · AC-2, AC-24</span><iframe title="360 pixel wide frame, dark theme" width="360" height="380" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;dark&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt; body{padding:var(--space-4);} .stack{display:flex;flex-direction:column;gap:var(--space-3);align-items:flex-start;} .row{display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:center;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;stack&quot;&gt;&lt;button class=&quot;btn btn--primary btn--lg btn--block&quot; type=&quot;button&quot; aria-haspopup=&quot;dialog&quot;&gt;Send an enquiry&lt;/button&gt;&lt;div class=&quot;row&quot;&gt;&lt;button class=&quot;btn btn--sm&quot; type=&quot;button&quot; aria-label=&quot;Deactivate Tomas Reyes&quot;&gt;Deactivate&lt;/button&gt;&lt;button class=&quot;btn btn--ghost btn--sm btn--icon&quot; type=&quot;button&quot; aria-label=&quot;Move Doubles up&quot;&gt;&lt;svg class=&quot;icon&quot; aria-hidden=&quot;true&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;m6 15 6-6 6 6&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;button class=&quot;btn btn--link btn--sm&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot; aria-controls=&quot;password&quot;&gt;Show&lt;/button&gt;&lt;/div&gt;&lt;button class=&quot;btn btn--sm btn--wrap&quot; type=&quot;button&quot;&gt;Open food-handler-certificate.pdf · 1.2 MB&lt;/button&gt;&lt;div class=&quot;row&quot;&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn btn--primary&quot; type=&quot;submit&quot; aria-busy=&quot;true&quot; aria-disabled=&quot;true&quot;&gt;Send enquiry&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure><figure class="crd-frame"><span class="crd-ac">768 px · light · AC-10 (sm is 36 px from 48rem)</span><iframe title="768 pixel wide frame, light theme" width="768" height="300" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt; body{padding:var(--space-4);} .stack{display:flex;flex-direction:column;gap:var(--space-3);align-items:flex-start;} .row{display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:center;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;stack&quot;&gt;&lt;button class=&quot;btn btn--primary btn--lg btn--block&quot; type=&quot;button&quot; aria-haspopup=&quot;dialog&quot;&gt;Send an enquiry&lt;/button&gt;&lt;div class=&quot;row&quot;&gt;&lt;button class=&quot;btn btn--sm&quot; type=&quot;button&quot; aria-label=&quot;Deactivate Tomas Reyes&quot;&gt;Deactivate&lt;/button&gt;&lt;button class=&quot;btn btn--ghost btn--sm btn--icon&quot; type=&quot;button&quot; aria-label=&quot;Move Doubles up&quot;&gt;&lt;svg class=&quot;icon&quot; aria-hidden=&quot;true&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;m6 15 6-6 6 6&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;button class=&quot;btn btn--link btn--sm&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot; aria-controls=&quot;password&quot;&gt;Show&lt;/button&gt;&lt;/div&gt;&lt;button class=&quot;btn btn--sm btn--wrap&quot; type=&quot;button&quot;&gt;Open food-handler-certificate.pdf · 1.2 MB&lt;/button&gt;&lt;div class=&quot;row&quot;&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn btn--primary&quot; type=&quot;submit&quot; aria-busy=&quot;true&quot; aria-disabled=&quot;true&quot;&gt;Send enquiry&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure>
+    </div>
+  </section>
+
+  <section class="ds-section" id="contrast"><h2>Contrast</h2>
+    <div class="ds-example__canvas ds-example__canvas--stack">
+<div class="ds-pair" data-theme="light"><span>Light: Primary label</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-action|--color-action" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Primary label</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-action|--color-action" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Primary label, hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-action|--color-action-hover" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Primary label, hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-action|--color-action-hover" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Primary label, active</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-action|--color-action-active" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Primary label, active</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-action|--color-action-active" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Primary edge on page</span><span class="ds-pair__ratio" data-contrast="--color-action|--color-bg-canvas" data-min="3"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Primary edge on page</span><span class="ds-pair__ratio" data-contrast="--color-action|--color-bg-canvas" data-min="3"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Primary edge in dialog</span><span class="ds-pair__ratio" data-contrast="--color-action|--color-bg-surface-raised" data-min="3"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Primary edge in dialog</span><span class="ds-pair__ratio" data-contrast="--color-action|--color-bg-surface-raised" data-min="3"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Danger label</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-danger|--color-danger-solid" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Danger label</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-danger|--color-danger-solid" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Danger label, hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-danger|--color-danger-solid-hover" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Danger label, hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-danger|--color-danger-solid-hover" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Danger edge</span><span class="ds-pair__ratio" data-contrast="--color-danger-solid|--color-bg-surface" data-min="3"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Danger edge</span><span class="ds-pair__ratio" data-contrast="--color-danger-solid|--color-bg-surface" data-min="3"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Secondary edge on page</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-canvas" data-min="3"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Secondary edge on page</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-canvas" data-min="3"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Secondary edge in dialog</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface-raised" data-min="3"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Secondary edge in dialog</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface-raised" data-min="3"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Label on hover fill</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Label on hover fill</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Link label</span><span class="ds-pair__ratio" data-contrast="--color-fg-link|--color-bg-canvas" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Link label</span><span class="ds-pair__ratio" data-contrast="--color-fg-link|--color-bg-canvas" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Link label, hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-link-hover|--color-bg-canvas" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Link label, hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-link-hover|--color-bg-canvas" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Focus ring on page</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Focus ring on page</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Focus ring in dialog</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Focus ring in dialog</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+    </div>
+    <span class="crd-ac">AC-6, AC-11, AC-23, AC-24, AC-25, AC-26</span>
+  </section>
+
+  <section class="ds-section" id="tokens"><h2>Tokens</h2>
+    <div class="ds-table-wrap"><table class="ds-table">
+      <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+      <tbody>
+<tr><td>Primary fill</td><td><code>--color-action</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-action" data-swatch></i><span data-token="--color-action"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-action" data-swatch></i><span data-token="--color-action"></span></span></td></tr>
+<tr><td>Primary fill, hover</td><td><code>--color-action-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-action-hover" data-swatch></i><span data-token="--color-action-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-action-hover" data-swatch></i><span data-token="--color-action-hover"></span></span></td></tr>
+<tr><td>Primary fill, active</td><td><code>--color-action-active</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-action-active" data-swatch></i><span data-token="--color-action-active"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-action-active" data-swatch></i><span data-token="--color-action-active"></span></span></td></tr>
+<tr><td>Primary label</td><td><code>--color-fg-on-action</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-on-action" data-swatch></i><span data-token="--color-fg-on-action"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-on-action" data-swatch></i><span data-token="--color-fg-on-action"></span></span></td></tr>
+<tr><td>Secondary fill</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+<tr><td>Secondary and ghost label</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+<tr><td>Secondary border</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+<tr><td>Hover fill</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+<tr><td>Active fill</td><td><code>--color-bg-subtle-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle-hover" data-swatch></i><span data-token="--color-bg-subtle-hover"></span></span></td></tr>
+<tr><td>Link label</td><td><code>--color-fg-link</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-link" data-swatch></i><span data-token="--color-fg-link"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-link" data-swatch></i><span data-token="--color-fg-link"></span></span></td></tr>
+<tr><td>Link label, hover</td><td><code>--color-fg-link-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-link-hover" data-swatch></i><span data-token="--color-fg-link-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-link-hover" data-swatch></i><span data-token="--color-fg-link-hover"></span></span></td></tr>
+<tr><td>Danger fill</td><td><code>--color-danger-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td></tr>
+<tr><td>Danger fill, hover</td><td><code>--color-danger-solid-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid-hover" data-swatch></i><span data-token="--color-danger-solid-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid-hover" data-swatch></i><span data-token="--color-danger-solid-hover"></span></span></td></tr>
+<tr><td>Danger label</td><td><code>--color-fg-on-danger</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-on-danger" data-swatch></i><span data-token="--color-fg-on-danger"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-on-danger" data-swatch></i><span data-token="--color-fg-on-danger"></span></span></td></tr>
+<tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+<tr><td>Height sm / md / lg</td><td><code>--control-height-sm</code> <code>--control-height-md</code> <code>--control-height-lg</code></td><td colspan="2"><span data-token="--control-height-sm"></span> / <span data-token="--control-height-md"></span> / <span data-token="--control-height-lg"></span></td></tr>
+<tr><td>Phone target (sm below 48rem)</td><td><code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-comfortable"></span></td></tr>
+<tr><td>Padding sm / md / lg / link</td><td><code>--space-3</code> <code>--space-4</code> <code>--space-6</code> <code>--space-1</code></td><td colspan="2"><span data-token="--space-3"></span> / <span data-token="--space-4"></span> / <span data-token="--space-6"></span> / <span data-token="--space-1"></span></td></tr>
+<tr><td>Icon gap</td><td><code>--space-2</code></td><td colspan="2"><span data-token="--space-2"></span></td></tr>
+<tr><td>Radius</td><td><code>--radius-full</code></td><td colspan="2"><span data-token="--radius-full"></span></td></tr>
+<tr><td>Border</td><td><code>--border-width-hairline</code></td><td colspan="2"><span data-token="--border-width-hairline"></span></td></tr>
+<tr><td>Label</td><td><code>--text-label</code></td><td colspan="2"><span data-token="--text-label"></span></td></tr>
+<tr><td>Label size sm / md / lg</td><td><code>--font-size-sm</code> <code>--font-size-md</code> <code>--font-size-lg</code></td><td colspan="2"><span data-token="--font-size-sm"></span> / <span data-token="--font-size-md"></span> / <span data-token="--font-size-lg"></span></td></tr>
+<tr><td>Focus ring width / offset</td><td><code>--focus-ring-width</code> <code>--focus-ring-offset</code></td><td colspan="2"><span data-token="--focus-ring-width"></span> / <span data-token="--focus-ring-offset"></span></td></tr>
+<tr><td>Transition / spinner</td><td><code>--duration-fast</code> <code>--ease-standard</code> <code>--duration-loop-fast</code></td><td colspan="2"><span data-token="--duration-fast"></span> / <span data-token="--ease-standard"></span> / <span data-token="--duration-loop-fast"></span></td></tr>
+<tr><td>Primary hover shadow</td><td><code>--shadow-2</code></td><td colspan="2"><span data-token="--shadow-2"></span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer class="ds-footer"><span>Sweet Hand component requirements · <a href="README.md">index</a></span><a href="#top">Back to top</a></footer>
+</main>
+<script src="../../design-system/assets/ds.js"></script>
+</body>
+</html>

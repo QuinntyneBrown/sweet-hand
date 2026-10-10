@@ -53,9 +53,9 @@ use the UI framework's own primitives, as AGENTS.md requires.
   Placeholder text never serves as the only label (`L2-068 AC2`). In error it
   sets `aria-invalid="true"` and `aria-describedby` pointing at its error text.
 - **`ErrorSummary`** — box at the top of a form that lists each error as a link
-  to its field. Focus moves to it when a submission fails (`L2-068 AC3`). Some
-  features also move focus to the first field in error (`L2-022 AC7`); the
-  rule for reconciling the two focus targets is `<TO SUPPLY>`.
+  to its field. Focus moves to it when a submission fails (`L2-068 AC3`), on every
+  form, the enquiry form included (`L2-022 AC7`). Activating a link in the
+  summary moves focus to that field.
 - **`ImageAltPolicy`** — food photos use the caterer's caption as `alt` text.
   Decorative images and icons use `alt=""` or `aria-hidden="true"`
   (`L2-068 AC1`).

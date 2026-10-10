@@ -42,7 +42,7 @@ else Cache miss
   qh --> ep : Listing page result
   ep --> page : JSON (p95 300 ms or less, L2-086 AC1)
   page -> imgs : loadingFor each card
-  imgs --> page : Eager in first viewport, lazy below (L2-085 AC3)
+  imgs --> page : Eager first 2 (XS), 4 (SM, MD) or 6 (LG, XL); lazy below (L2-085 AC3)
   page -> cache : directiveFor(PublicHtml)
   cache --> page : CDN max age of 60 s or less
   page --> cdn : HTML with Cache-Control

@@ -22,17 +22,18 @@
     <a class="site-nav__link site-nav__extra" href="../caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../occasions/default.html">Occasions</a>
     <a class="site-nav__link site-nav__extra" href="../sign-in/default.html">Sign in</a>
-    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
   </nav>
 </header>
 
 <main id="main">
 <div class="container"><div class="system-page">
-  <div class="photo-row"><span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="" width="104" height="104"></span><span class="photo"><img src="../../assets/img/black-cake-co.jpg" alt="" width="104" height="104"></span><span class="photo"><img src="../../assets/img/ti-kay.jpg" alt="" width="104" height="104"></span></div>
-  <h1>Back soon</h1>
+  <div class="photo-row" aria-hidden="true"><span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="" width="72" height="72"></span><span class="photo"><img src="../../assets/img/black-cake-co.jpg" alt="" width="104" height="104"></span><span class="photo"><img src="../../assets/img/ti-kay.jpg" alt="" width="72" height="72"></span></div>
+  <h1 tabindex="-1">Back soon</h1>
   <p class="prose">Sweet Hand is down for planned maintenance until 3:00 a.m. Toronto time. Your enquiries and messages are safe.</p>
   <div class="system-page__actions"><button class="btn btn--primary btn--lg" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>Check again</button></div>
+  <p class="visually-hidden" role="status"></p>
   <p class="system-page__code">Sunday 11 October 2026 · 1:00 to 3:00 a.m.</p>
 </div></div>
 </main>

@@ -383,7 +383,7 @@
       <ul>
         <li>"Show all 18 dishes" had no <code>aria-controls</code> in <code>caterer/default</code> (it did in <code>more-dishes</code>); both now point at <code>#dish-list</code>.</li>
         <li>First/last move buttons used <code>disabled</code>, which drops focus after a move to the end; they now use <code>aria-disabled="true"</code>.</li>
-        <li>Extraction regression: <code>.dish__name { flex: 1 1 12rem }</code> is global in <code>components.css</code>, but inside <code>.edit-row</code> the row is a column, so the basis becomes a 12rem <em>height</em> and opens a gap under every name in the menu manager. The mocks scoped it to <code>.dish-list .dish__name</code>. Fix proposed (<code>.edit-row .dish__name { flex: none; }</code>); the manager examples on this page carry it inline until then.</li>
+        <li>Extraction regression: <code>.dish__name { flex: 1 1 12rem }</code> is global in <code>components.css</code>, but inside <code>.edit-row</code> the row is a column, so the basis becomes a 12rem <em>height</em> and opens a gap under every name in the menu manager. The mocks scoped it to <code>.dish-list .dish__name</code>. Fixed with <code>.edit-row .dish__name { flex: none; }</code>.</li>
         <li>Public loading skeletons sized their bars with inline <code>style="width: 50%"</code>/<code>80%</code>, while the manager had <code>.edit-row--skeleton</code>; a matching <code>.dish--skeleton</code> is proposed so the public list drops the inline widths.</li>
       </ul>
     </section>

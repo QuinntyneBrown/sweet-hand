@@ -171,7 +171,7 @@
           </label>
           <label class="field" for="v-guests"><span class="field__label">Guests</span>
             <input class="input" id="v-guests" type="text" inputmode="numeric" value="500" aria-describedby="v-guests-warn">
-            <span class="field__warning" id="v-guests-warn" role="status">Pelau House usually serves 20–300 guests</span>
+            <span class="field__warning" id="v-guests-warn" role="status">This caterer usually serves 20–300 guests</span>
           </label>
           <label class="field" for="v-caption"><span class="field__label">Caption</span>
             <textarea class="textarea" id="v-caption" rows="2" maxlength="125" aria-invalid="true" aria-describedby="v-caption-error v-caption-count">Roti</textarea>
@@ -314,7 +314,7 @@
       <ul>
         <li><b>Errors</b> say what to do, in the imperative, with the limit: "Enter a business name of 2 to 80 characters", "Write at least 50 characters (35 so far)", "Keep your reply under 2,000 characters. It’s 2,143 now." Never "Invalid input" or "Error". No trailing period on single-clause errors.</li>
         <li><b>Help</b> states the rule and who sees what: "2–80 characters. A new name goes live after our team checks it.", "Pelau House gets an email. Links show as plain text."</li>
-        <li><b>Warnings</b> describe the fact, not a fault, and address the reader correctly: to a customer, "Pelau House usually serves 20–300 guests"; to the caterer, "You don’t list Downtown Toronto as an area you serve".</li>
+        <li><b>Warnings</b> describe the fact, not a fault, and address the reader correctly: to a customer, "This caterer usually serves 20–300 guests" (L2-024); to the caterer, "You don’t list Downtown Toronto as an area you serve".</li>
         <li><b>Save status</b>: "Saving…", "Saved", "Saved at 10:14 a.m. · live on your page within a minute", "Not saved: fix 2 things below". Times lowercase with periods.</li>
         <li>Use the ellipsis character (…) for in-progress text.</li>
       </ul>
@@ -383,7 +383,7 @@
       <ul>
         <li>Error placement varied: before help (<code>profile-details/invalid</code>), after help and counter (<code>dialogs/review/invalid</code>), replacing help (<code>thread/invalid</code>). The order is now control → error → help → counter.</li>
         <li>Four mocks showed "All changes saved" without <code>--saved</code> (neutral grey), 27 showed "Saved" in green; it is "Saved" with <code>--saved</code> everywhere.</li>
-        <li><code>dashboard-enquiry</code> showed the caterer "This caterer doesn’t list Downtown Toronto…"; the caterer-side wording is "You don’t list…". The enquiry warning "This caterer usually serves 20–300 guests" duplicated the help "Pelau House serves 20–300" beside it; one line, naming the caterer, remains.</li>
+        <li><code>dashboard-enquiry</code> showed the caterer "This caterer doesn’t list Downtown Toronto…"; the caterer-side wording is "You don’t list…". The enquiry warning "This caterer usually serves 20–300 guests" duplicated the help "Pelau House serves 20–300" beside it; one line, in L2-024's wording, remains.</li>
         <li>"Contact details shared" used <code>.private-note</code> with a success icon; it is an <code>.inline-status--success</code>. <code>.inline-status</code> was otherwise unused.</li>
         <li>An over-limit counter was coloured with an inline style; it uses <code>data-over</code>.</li>
         <li>The <code>.field__error</code> glyph is generated text ("⚠") that some screen readers announce and some platforms draw as a colour emoji; an alt-text-empty, text-presentation form is proposed.</li>

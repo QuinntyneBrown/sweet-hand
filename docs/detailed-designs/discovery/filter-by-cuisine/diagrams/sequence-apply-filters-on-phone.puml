@@ -20,9 +20,14 @@ actor -> filters : Activate "Filters (1)" button at XS (L2-009 AC1)
 filters -> panel : Open full-height panel (dialog primitive)
 panel --> actor : Focus moves into panel
 actor -> cuisine : Tick "Jamaican"
-cuisine -> panel : Pending selection (no request yet)
-alt Visitor activates "Apply"
-  actor -> panel : Apply
+cuisine -> panel : Pending selection
+panel -> client : Get result count for pending selection
+client -> endpoints : GET /api/public/caterers?cuisine=jamaican
+endpoints --> client : HTTP 200 JSON with total
+client --> panel : 2 caterers
+panel --> actor : Primary button reads "Show 2 caterers" (L2-009 AC1)
+alt Visitor activates "Show 2 caterers"
+  actor -> panel : Show 2 caterers
   panel -> page : Commit pending selection
   page -> client : Get filtered listing
   client -> endpoints : GET /api/public/caterers?cuisine=jamaican

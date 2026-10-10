@@ -22,10 +22,10 @@
     <a class="site-nav__link site-nav__extra" href="../caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../occasions/default.html">Occasions</a>
     <a class="site-nav__link site-nav__extra" href="../inbox/default.html" aria-current="page">Inbox</a>
-    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
     <a class="icon-btn site-nav__menu" href="../inbox/default.html" aria-label="Inbox" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/signed-in.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/default.html">MT</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/signed-in.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/default.html">MT</button>
   </nav>
 </header>
 <main id="main" class="container">
@@ -39,20 +39,20 @@
       <li><a href="../inbox/filtered.html">Declined <span class="filter-list__count">1</span></a></li>
       <li><a href="../inbox/filtered.html">Closed <span class="filter-list__count">1</span></a></li>
     </ul>
-    <ul class="inbox-list">
+    <ul class="inbox-list" aria-label="Your enquiries">
       <li><a class="inbox-row" href="../thread/default.html"><span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Pelau House</span><span class="inbox-row__time">9:42 a.m.</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--replied">Replied</span></a></li>
       <li><a class="inbox-row" href="../thread/open.html"><span class="photo"><img src="../../assets/img/sugar-dumplin.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Sugar Dumplin</span><span class="inbox-row__time">Thu</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--open">Open</span></a></li>
       <li><a class="inbox-row" href="../thread/declined.html" aria-current="page"><span class="photo"><img src="../../assets/img/demerara-kitchen.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Demerara Kitchen</span><span class="inbox-row__time">Tue</span><span class="inbox-row__meta">Sat 21 Nov · 120 guests</span><span class="inbox-row__status status status--declined">Declined</span></a></li>
-      <li><a class="inbox-row" href="../thread/closed.html"><span class="photo"><img src="../../assets/img/ti-kay.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Ti Kay</span><span class="inbox-row__time">5 Sep</span><span class="inbox-row__meta">Sun 23 Aug · 45 guests</span><span class="inbox-row__status status status--closed">Closed</span></a></li>
+      <li><a class="inbox-row" href="../thread/closed.html"><span class="photo"><img src="../../assets/img/ti-kay.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="inbox-row__name">Ti Kay</span><span class="inbox-row__time"><time datetime="2026-09-05">Sat 5 Sep</time></span><span class="inbox-row__meta">Sun 23 Aug · 45 guests</span><span class="inbox-row__status status status--closed">Closed</span></a></li>
     </ul>
     </section>
     <article class="inbox-layout__thread thread" aria-labelledby="thread-title">
-      <a class="eyebrow until-lg" href="../inbox/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Back to inbox</a>
+      <a class="eyebrow until-lg" href="../inbox/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Inbox</a>
       <div class="thread__head">
         <span class="photo"><img src="../../assets/img/demerara-kitchen.jpg" alt="" width="56" height="56"></span>
         <div class="thread__title">
-          <h1 id="thread-title">Demerara Kitchen</h1>
-          <p class="thread__status"><span class="status status--declined">Declined</span><a href="../caterer/default.html">View caterer</a></p>
+          <h1 id="thread-title" tabindex="-1">Demerara Kitchen</h1>
+          <p class="thread__status"><span class="status status--declined">Declined</span><a class="link--standalone" href="../caterer/default.html">View caterer</a></p>
         </div>
       </div>
       <dl class="enquiry-summary">
@@ -60,13 +60,13 @@
         <div><dt>Guests</dt><dd>120</dd></div>
         <div><dt>Area</dt><dd>Scarborough</dd></div>
         <div><dt>Occasion</dt><dd>Family gatherings</dd></div>
-        <div class="enquiry-summary__message"><dt>Your enquiry</dt><dd><p class="measure" style="white-space: pre-wrap; overflow-wrap: anywhere;">Hello, we’d love pepperpot, cook-up rice and chow mein for 120 on 21 November in Scarborough. Are you free that evening?</p><p class="enquiry-summary__by">Marcia Thompson · Mon 5 Oct, 8:10 p.m.</p></dd></div>
+        <div class="enquiry-summary__message"><dt>Your enquiry</dt><dd><p class="measure">Hello, we’d love pepperpot, cook-up rice and chow mein for 120 on 21 November in Scarborough. Are you free that evening?</p><p class="enquiry-summary__by">Marcia Thompson · Mon 5 Oct, 8:10 p.m.</p></dd></div>
       </dl>
       <ol class="messages" aria-label="Messages">
-        <li class="message message--system">Demerara Kitchen can’t take on this event<span class="message__meta">Tue 6 Oct, 11:20 a.m.</span></li>
-        <li class="message message--theirs"><span class="visually-hidden">Demerara Kitchen:</span><p class="message__bubble">Fully booked that weekend. Sorry, and congratulations to your parents.</p><span class="message__meta">Demerara Kitchen · Tue 6 Oct, 11:20 a.m.</span></li>
+        <li class="message message--system">Demerara Kitchen can’t take on this event<span class="message__meta"><time datetime="2026-10-06T11:20-04:00">Tue 6 Oct, 11:20 a.m.</time></span></li>
+        <li class="message message--theirs"><span class="visually-hidden">Demerara Kitchen:</span><p class="message__bubble">Fully booked that weekend. Sorry, and congratulations to your parents.</p><span class="message__meta">Demerara Kitchen · <time datetime="2026-10-06T11:20-04:00">Tue 6 Oct, 11:20 a.m.</time></span></li>
       </ol>
-      <p class="closed-note">This enquiry is closed</p>
+      <p class="closed-note">This enquiry is closed.</p>
     </article>
   </div>
 </main>

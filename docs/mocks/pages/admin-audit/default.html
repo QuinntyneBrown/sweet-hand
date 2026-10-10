@@ -19,11 +19,11 @@
 <header class="site-header">
   <a class="wordmark" href="../admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
   <nav class="site-nav" aria-label="Primary">
-    <a class="site-nav__link site-nav__extra" href="../admin-queue/default.html">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a>
+    <a class="site-nav__link site-nav__extra" href="../admin-queue/default.html">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
     <a class="site-nav__link site-nav__extra" href="../admin-caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../admin-metrics/default.html">Metrics</a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
   </nav>
 </header>
 
@@ -31,7 +31,7 @@
   <div class="work-layout">
     <nav class="side-nav" aria-label="Operator">
       <ul class="filter-list">
-        <li><a class="filter-list__item" href="../admin-queue/default.html">Review queue <span class="filter-list__count">7</span></a></li>
+        <li><a class="filter-list__item" href="../admin-queue/default.html">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
         <li><a class="filter-list__item" href="../admin-changes/default.html">Recent changes</a></li>
         <li><a class="filter-list__item" href="../admin-caterers/default.html">Caterers</a></li>
         <li><a class="filter-list__item" href="../admin-reviews/default.html">Reviews <span class="filter-list__count">2 held</span></a></li>
@@ -51,11 +51,11 @@
         <p class="subtitle">Append-only · newest first · kept for 7 years</p>
       </div>
       <form class="toolbar" action="no-results.html" aria-label="Filter the audit log">
-        <label class="field" for="op"><span class="field__label">Operator</span><select class="select" id="op" name="operator"><option selected>All operators</option><option>Leah Mohammed</option><option>Tomas Reyes</option></select></label>
-        <label class="field" for="act"><span class="field__label">Action</span><select class="select" id="act" name="action"><option selected>All actions</option><option>Approve</option><option>Request changes</option><option>Edit</option><option>Revert</option><option>Suspend</option><option>Reinstate</option><option>Remove</option><option>Approve review</option><option>Hide review</option><option>Restore review</option><option>Remove review</option><option>Resolve report</option><option>Open enquiry</option><option>Operator account</option></select></label>
-        <label class="field" for="target"><span class="field__label">Target</span><input class="input" id="target" name="target" type="search" value="" placeholder="Name or ID"></label>
-        <label class="field" for="from"><span class="field__label">From</span><input class="input" id="from" name="from" type="date" value="2026-10-03"></label>
-        <label class="field" for="to"><span class="field__label">To</span><input class="input" id="to" name="to" type="date" value="2026-10-10"></label>
+        <div class="field"><label class="field__label" for="op">Operator</label><select class="select" id="op" name="operator"><option selected>All operators</option><option>Leah Mohammed</option><option>Tomas Reyes</option></select><span class="visually-hidden" role="status"></span></div>
+        <div class="field"><label class="field__label" for="act">Action</label><select class="select" id="act" name="action"><option selected>All actions</option><option>Approve</option><option>Request changes</option><option>Edit</option><option>Revert</option><option>Suspend</option><option>Reinstate</option><option>Remove</option><option>Approve review</option><option>Hide review</option><option>Restore review</option><option>Remove review</option><option>Resolve report</option><option>Open enquiry</option><option>Operator account</option></select><span class="visually-hidden" role="status"></span></div>
+        <div class="field"><label class="field__label" for="target">Target</label><input class="input" id="target" name="target" type="search" value="" placeholder="Name or ID"><span class="visually-hidden" role="status"></span></div>
+        <div class="field"><label class="field__label" for="from">From</label><input class="input" id="from" name="from" type="date" value="2026-10-03"><span class="visually-hidden" role="status"></span></div>
+        <div class="field"><label class="field__label" for="to">To</label><input class="input" id="to" name="to" type="date" value="2026-10-10"><span class="visually-hidden" role="status"></span></div>
         <button class="btn btn--primary" type="submit">Apply</button>
       </form>
       <p class="result-count" role="status" style="margin-bottom: var(--space-4);">9 entries from 3 Oct to 10 Oct 2026 · times in Toronto</p>
@@ -65,7 +65,7 @@
           <thead><tr><th scope="col">When</th><th scope="col">Operator</th><th scope="col">Action</th><th scope="col">Target</th><th scope="col">Reason</th><th scope="col">Before → after</th></tr></thead>
           <tbody>
               <tr><td><time datetime="2026-10-10T13:12:00Z">Today, 9:12 a.m.</time></td><td>Tomas Reyes</td><td><strong>Hide review</strong></td><td>Review of Maracas Bay by Devon W.<div class="list__meta">rev_7f3c9a</div></td><td>Personal attack on staff, 3 reports</td><td>Published → Hidden</td></tr>
-              <tr><td><time datetime="2026-10-10T12:47:00Z">Today, 8:47 a.m.</time></td><td>Leah Mohammed</td><td><strong>Open enquiry</strong></td><td>Enquiry with Island Pot<div class="list__meta">enq_3b9e0c41 · report rpt_51a0</div></td><td>Checking a reported request for off-platform payment</td><td>—</td></tr>
+              <tr><td><time datetime="2026-10-10T12:47:00Z">Today, 8:47 a.m.</time></td><td>Leah Mohammed</td><td><strong>Open enquiry</strong></td><td>Enquiry with Island Pot<div class="list__meta">enq_3b9e0c41 · report rpt_51a0</div></td><td>Checking a reported request for off-platform payment</td><td><span class="na" aria-hidden="true">—</span><span class="visually-hidden">No change</span></td></tr>
               <tr><td><time datetime="2026-10-09T20:30:00Z">Fri 9 Oct, 4:30 p.m.</time></td><td>Leah Mohammed</td><td><strong>Suspend</strong></td><td>Flying Fish Kitchen<div class="list__meta">cat_0e6d21</div></td><td>Food handler certificate expired on 30 Sep 2026</td><td>Published → Suspended</td></tr>
               <tr><td><time datetime="2026-10-09T15:05:00Z">Fri 9 Oct, 11:05 a.m.</time></td><td>Tomas Reyes</td><td><strong>Approve</strong></td><td>Coconut Drops Bakery<div class="list__meta">cat_a4c719</div></td><td>Meets every check; certificate verified</td><td>Pending review → Published</td></tr>
               <tr><td><time datetime="2026-10-07T14:00:00Z">Wed 7 Oct, 10:00 a.m.</time></td><td>Leah Mohammed</td><td><strong>Edit</strong></td><td>Cou-Cou · description<div class="list__meta">cat_51f2b8</div></td><td>Removed phone number from description</td><td>“…call 416-555-0170…” → “…”</td></tr>

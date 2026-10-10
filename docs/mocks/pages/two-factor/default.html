@@ -27,12 +27,12 @@
     <h1>Two-step verification</h1>
     <p class="subtitle">Enter the 6-digit code from your authenticator app to open the operator console.</p>
   </div>
-  <form class="stack" style="gap: var(--space-5);" action="../admin-queue/default.html" method="post" novalidate>
-    <div class="field"><label class="field__label" for="code">6-digit code</label><input class="input input--lg" id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]*" maxlength="6" required autofocus></div>
+  <form class="form form--compact" action="../admin-queue/default.html" method="post" novalidate>
+    <div class="field"><label class="field__label" for="code">6-digit code</label><input class="input input--lg" id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]*" maxlength="6" required autofocus><span class="visually-hidden" role="status"></span></div>
     <button class="btn btn--primary btn--lg btn--block" type="submit">Continue</button>
     <button class="btn btn--lg btn--block" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/></svg>Use a security key instead</button>
   </form>
-  <p class="auth__alt">Signed in as leah.mohammed@sweethand.example · <a href="../sign-in/default.html">Not you?</a></p>
+  <p class="auth__alt">Signed in as leah.mohammed@sweethand.example · <a class="link--standalone" href="../sign-in/default.html">Not you?</a></p>
 </div>
 </main>
 

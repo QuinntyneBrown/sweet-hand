@@ -19,18 +19,18 @@
 <header class="site-header">
   <a class="wordmark" href="../admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
   <nav class="site-nav" aria-label="Primary">
-    <a class="site-nav__link site-nav__extra" href="../admin-queue/default.html" aria-current="page">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a>
+    <a class="site-nav__link site-nav__extra" href="../admin-queue/default.html" aria-current="page">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
     <a class="site-nav__link site-nav__extra" href="../admin-caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../admin-metrics/default.html">Metrics</a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
   </nav>
 </header>
 <main id="main" class="container">
   <div class="work-layout">
     <nav class="side-nav" aria-label="Operator">
       <ul class="filter-list">
-        <li><a class="filter-list__item" href="../admin-queue/default.html" aria-current="page">Review queue <span class="filter-list__count">7</span></a></li>
+        <li><a class="filter-list__item" href="../admin-queue/default.html" aria-current="page">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
         <li><a class="filter-list__item" href="../admin-changes/default.html">Recent changes</a></li>
         <li><a class="filter-list__item" href="../admin-caterers/default.html">Caterers</a></li>
         <li><a class="filter-list__item" href="../admin-reviews/default.html">Reviews</a></li>
@@ -46,28 +46,30 @@
 
     <div class="work-main">
       <a class="eyebrow" href="../admin-queue/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Review queue</a>
-      <div class="page-header" style="margin-top: var(--space-2);">
-        <div class="stack stack--sm">
-          <h1>Breadfruit &amp; Butter</h1>
-          <p class="subtitle"><span class="status status--pending">Pending review</span> · Resubmitted Thu 8 Oct at 9:15 a.m. · waiting 2 days</p>
+      <div class="page-intro">
+        <div class="page-intro__row">
+          <div>
+            <h1>Breadfruit &amp; Butter</h1>
+            <p class="subtitle"><span class="status status--pending">Pending review</span> · Resubmitted Thu 8 Oct at 9:15 a.m. · waiting 2 days</p>
+          </div>
+          <span class="cluster"><button class="btn" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/request-changes/default.html">Request changes</button><button class="btn btn--primary" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/approve-profile/default.html">Approve and publish</button></span>
         </div>
-        <div class="cluster"><button class="btn" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/request-changes/default.html">Request changes</button><button class="btn btn--primary" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/approve-profile/default.html">Approve and publish</button></div>
       </div>
       <div class="alert alert--info"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div class="alert__body"><p class="alert__title">Resubmitted after changes were requested</p><p>Tomas Reyes on Mon 5 Oct: “The description lists a phone number, and photo 3 is a stock image. Please remove the number and upload a photo of your own food.” 2 fields changed since.</p></div></div>
       <section class="caterer-section" style="margin-top: var(--space-8);" aria-labelledby="pub-title">
         <div class="caterer-section__head"><h2 id="pub-title">As it will appear</h2><span class="result-count">Public fields only</span></div>
-        <ul class="photo-manager"><li class="photo-tile"><span class="photo"><img src="../../assets/img/auntie-merles-table.jpg" alt="Roasted breadfruit and saltfish with peppers" width="160" height="160"><span class="photo-tile__cover">Cover</span></span><span class="photo-tile__caption">Roasted breadfruit and saltfish with peppers</span></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/mauby-and-co.jpg" alt="Coconut cake topped with berries" width="160" height="160"></span><span class="photo-tile__caption">Coconut cake topped with berries</span></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/oil-down-kitchen.jpg" alt="Pelau with pigeon peas in a red pot" width="160" height="160"></span><span class="photo-tile__caption">Pelau with pigeon peas in a red pot</span><span class="changed-flag">New photo</span></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/roti-road.jpg" alt="Curry chicken and rice beside folded roti" width="160" height="160"></span><span class="photo-tile__caption">Curry chicken and rice beside folded roti</span></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/sea-moss-and-spice.jpg" alt="Rice with peas and stewed chicken" width="160" height="160"></span><span class="photo-tile__caption">Rice with peas and stewed chicken</span></li></ul>
+        <ul class="photo-manager"><li class="photo-tile"><span class="photo"><img src="../../assets/img/auntie-merles-table.jpg" alt="" width="160" height="160"><span class="photo-tile__cover">Cover</span></span><p class="photo-tile__caption">Roasted breadfruit and saltfish with peppers</p></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/mauby-and-co.jpg" alt="" width="160" height="160"></span><p class="photo-tile__caption">Coconut cake topped with berries</p></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/oil-down-kitchen.jpg" alt="" width="160" height="160"></span><p class="photo-tile__caption">Pelau with pigeon peas in a red pot</p><span class="changed-flag">New photo</span></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/roti-road.jpg" alt="" width="160" height="160"></span><p class="photo-tile__caption">Curry chicken and rice beside folded roti</p></li><li class="photo-tile"><span class="photo"><img src="../../assets/img/sea-moss-and-spice.jpg" alt="" width="160" height="160"></span><p class="photo-tile__caption">Rice with peas and stewed chicken</p></li></ul>
         <div class="caterer-head" style="margin-top: var(--space-10);">
           <h3 style="font: var(--text-h2);">Breadfruit &amp; Butter</h3>
           <ul class="caterer-head__meta"><li>Vincentian</li></ul>
         </div>
-        <div class="prose measure" style="margin-top: var(--space-6);"><span class="changed-flag"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Changed since changes were requested</span><p><span class="diff-old">Call or text Jolene at 647-555-0119 to book.</span></p><p>Jolene Ollivierre roasts breadfruit over coals the way it’s done on Sundays in Kingstown, served with fried jackfish and saltfish butter.</p><p>Small parties, big flavour: from 15 to 80 guests across Peel and the west end.</p></div>
+        <div class="prose measure" style="margin-top: var(--space-6);"><span class="changed-flag"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Changed since changes were requested</span><p><del class="diff-old">Call or text Jolene at 647-555-0119 to book.</del></p><p>Jolene Ollivierre roasts breadfruit over coals the way it’s done on Sundays in Kingstown, served with fried jackfish and saltfish butter.</p><p>Small parties, big flavour: from 15 to 80 guests across Peel and the west end.</p></div>
         <dl class="facts" style="margin-top: var(--space-8);">
           <div><dt>Guests</dt><dd>Serves 15–80 guests</dd></div>
           <div><dt>Occasions</dt><dd><ul class="inline-list"><li>Birthdays</li><li>Private dinners</li><li>Family gatherings</li></ul></dd></div>
         </dl>
         <h3 style="margin-top: var(--space-10); margin-bottom: var(--space-2);">Menu</h3>
-        <ul class="dish-list"><li class="dish"><div class="dish__top"><h4 class="dish__name">Roasted breadfruit and fried jackfish</h4><span class="dish__price">From $19 per person</span></div><p class="dish__desc">The national dish of St. Vincent and the Grenadines.</p><ul class="tags"><li class="tag">Gluten-free</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Saltfish butter</h4></div><ul class="tags"><li class="tag">Dairy-free</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Buljol</h4></div><ul class="tags"><li class="tag">Gluten-free</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Callaloo soup</h4><span class="dish__price">From $6 per person</span></div><ul class="tags"><li class="tag">Vegan</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Coconut turnovers</h4><span class="dish__price">$3 each</span></div><ul class="tags"><li class="tag">Vegetarian</li><li class="tag tag--allergen">Contains nuts</li></ul></li></ul>
+        <ul class="dish-list"><li class="dish"><div class="dish__top"><h4 class="dish__name">Roasted breadfruit and fried jackfish</h4><span class="dish__price">From $19 per person</span></div><p class="dish__desc">The national dish of St. Vincent and the Grenadines.</p><ul class="tags"><li class="tag">Gluten-free</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Saltfish butter</h4></div><ul class="tags"><li class="tag">Dairy-free</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Buljol</h4></div><ul class="tags"><li class="tag">Gluten-free</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Callaloo soup</h4><span class="dish__price">From $6 per person</span></div><ul class="tags"><li class="tag">Vegan</li></ul></li><li class="dish"><div class="dish__top"><h4 class="dish__name">Coconut turnovers</h4><span class="dish__price">$3 each</span></div><ul class="tags"><li class="tag">Vegetarian</li><li class="tag tag--allergen"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg>Contains nuts</li></ul></li></ul>
         <h3 style="margin-top: var(--space-10); margin-bottom: var(--space-4);">Areas served</h3>
         <dl class="regions"><div><dt>Peel</dt><dd>Brampton, Mississauga</dd></div><div><dt>City of Toronto</dt><dd>Etobicoke</dd></div></dl>
       </section>
@@ -80,18 +82,18 @@
           <dt>Phone</dt><dd>+1 647 555 0119</dd>
         </dl>
         <h3 style="margin-top: var(--space-10); margin-bottom: var(--space-4);">Food handler certificate</h3>
-        <dl class="certificate"><div><dt>Holder</dt><dd>Jolene Ollivierre</dd></div><div><dt>Issued by</dt><dd>Peel Public Health</dd></div><div><dt>Number</dt><dd>FH-2026-031882</dd></div><div><dt>Expires</dt><dd>9 May 2031</dd></div></dl>
+        <dl class="certificate"><dt>Holder</dt><dd>Jolene Ollivierre</dd><dt>Issued by</dt><dd>Peel Public Health</dd><dt>Number</dt><dd>FH-2026-031882</dd><dt>Expires</dt><dd><time datetime="2031-05-09">9 May 2031</time></dd></dl>
         <p style="margin-top: var(--space-4);"><button class="btn btn--sm" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>Open certificate-scan.jpg · 2.4 MB</button></p>
       </section>
 
       <section class="caterer-section" aria-labelledby="rules-title">
         <h2 id="rules-title">Submission rules</h2>
-        <ul class="checklist" style="margin-top: var(--space-4);"><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>Email verified</li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>5 photos, each with a caption, cover chosen</li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>5 dishes</li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>Description, cuisines, areas, guests and occasions</li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>Food handler certificate valid</li></ul>
+        <ul class="checklist" aria-labelledby="rules-title"><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span>Email verified</span></li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span>5 photos, each with a caption, cover chosen</span></li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span>5 dishes</span></li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span>Description, cuisines, areas, guests and occasions</span></li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span>Food handler certificate valid</span></li></ul>
       </section>
 
       <section class="caterer-section" aria-labelledby="hist-title">
         <h2 id="hist-title" style="margin-bottom: var(--space-4);">History</h2>
-        <ol class="timeline"><li><span class="timeline__when">Thu 8 Oct, 9:15 a.m.</span><span>Resubmitted by Jolene Ollivierre</span></li><li><span class="timeline__when">Mon 5 Oct, 3:30 p.m.</span><span>Changes requested by Tomas Reyes: “The description lists a phone number, and photo 3 is a stock image. Please remove the number and upload a photo of your own food.”</span></li><li><span class="timeline__when">Fri 2 Oct, 7:02 p.m.</span><span>Submitted for review</span></li><li><span class="timeline__when">Tue 22 Sep, 6:15 p.m.</span><span>Draft created</span></li></ol>
+        <ol class="timeline" aria-label="History, newest first"><li><time class="timeline__when" datetime="2026-10-08T13:15:00Z">Thu 8 Oct, 9:15 a.m.</time><span>Resubmitted by Jolene Ollivierre</span></li><li><time class="timeline__when" datetime="2026-10-05T19:30:00Z">Mon 5 Oct, 3:30 p.m.</time><span>Changes requested by Tomas Reyes: “The description lists a phone number, and photo 3 is a stock image. Please remove the number and upload a photo of your own food.”</span></li><li><time class="timeline__when" datetime="2026-10-02T23:02:00Z">Fri 2 Oct, 7:02 p.m.</time><span>Submitted for review</span></li><li><time class="timeline__when" datetime="2026-09-22T22:15:00Z">Tue 22 Sep, 6:15 p.m.</time><span>Draft created</span></li></ol>
       </section>
     </div>
   </div>
