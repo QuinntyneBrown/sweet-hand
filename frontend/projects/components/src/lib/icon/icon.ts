@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, inject, input } from '@angular/core';
 
 /** The inline icon set from docs/mocks/README.md ("Icons"); every icon is decorative. */
 export const ICONS = {
@@ -51,10 +51,19 @@ export type IconName = keyof typeof ICONS;
     'aria-hidden': 'true',
     focusable: 'false',
     viewBox: '0 0 24 24',
-    '[innerHTML]': 'markup()',
   },
 })
 export class Icon {
   readonly shIcon = input.required<IconName>();
   protected readonly markup = computed(() => ICONS[this.shIcon()]);
+
+  constructor() {
+    // Binding [innerHTML] runs Angular's HTML sanitizer, which strips SVG shapes
+    // and left every icon empty. The markup is the constant set above, never
+    // user data, so it is written as is.
+    const svg = inject<ElementRef<SVGElement>>(ElementRef).nativeElement;
+    effect(() => {
+      svg.innerHTML = this.markup();
+    });
+  }
 }
