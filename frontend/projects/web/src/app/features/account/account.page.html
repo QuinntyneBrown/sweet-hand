@@ -77,6 +77,10 @@
           <li sh-list-item [title]="d.device" [meta]="d.meta">
             @if (d.current) {
               <span slot="end" class="status status--published" i18n="@@account.currentDevice">Current</span>
+            } @else {
+              <button slot="end" class="btn btn--sm" type="button" aria-haspopup="dialog" [attr.aria-label]="signOutLabel(d.device)" (click)="askToEnd(d, $event)" i18n="@@account.signOutDevice">
+                Sign out
+              </button>
             }
           </li>
         }
@@ -103,6 +107,7 @@
         <p class="text-muted measure account__lead">{{ deleteText() }}</p>
       </section>
     }
+    <app-end-session-dialog [open]="dialog() === 'session'" [session]="ending()" [returnFocus]="endOpener()" (closed)="dialog.set(null)" (signedOut)="sessionEnded($event)" />
     <app-change-password-dialog [open]="dialog() === 'password'" [lastChanged]="passwordChangedSentence()" [returnFocus]="passwordButton" (closed)="dialog.set(null)" (changed)="onPasswordChanged()" />
     <app-edit-details-dialog [open]="dialog() === 'details'" [account]="a" [returnFocus]="editButton" (closed)="dialog.set(null)" (saved)="detailsSaved($event)" />
     <p class="caterer-section">

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, afterNextRender, computed, inject, signal, viewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Icon, List, ListItem, PrivateNote, ToastNotifier } from '@sweet-hand/components';
@@ -10,13 +10,14 @@ import { Session } from '../../core/session/session';
 import { initials, memberLine, orderSessions, sessionMeta } from './account-view';
 import { ChangePasswordDialog } from './change-password/change-password.dialog';
 import { EditDetailsDialog } from './edit-details/edit-details.dialog';
+import { EndSessionDialog } from './end-session/end-session.dialog';
 
-type AccountDialog = 'details' | 'password' | null;
+type AccountDialog = 'details' | 'password' | 'session' | null;
 
 /** Account settings, /account (docs/mocks/pages/account; manage-sessions, export and delete-account designs). */
 @Component({
   selector: 'app-account-page',
-  imports: [RouterLink, ChangePasswordDialog, EditDetailsDialog, Icon, List, ListItem, PrivateNote],
+  imports: [RouterLink, ChangePasswordDialog, EditDetailsDialog, EndSessionDialog, Icon, List, ListItem, PrivateNote],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './account.page.html',
   styleUrl: './account.page.css',
@@ -26,12 +27,17 @@ export class AccountPage {
   private readonly session = inject(Session);
   private readonly router = inject(Router);
   private readonly toasts = inject(ToastNotifier);
+  private readonly injector = inject(Injector);
+  private readonly deviceList = viewChild(List);
 
   /** The one dialog open over the page (no inline forms: AGENTS.md). */
   protected readonly dialog = signal<AccountDialog>(null);
   protected readonly account = signal<AccountView | null>(null);
   protected readonly sessions = signal<ActiveSession[] | null>(null);
   protected readonly loadFailed = signal<{ reference: string | null } | null>(null);
+  /** The device being signed out, and the button that asked. */
+  protected readonly ending = signal<ActiveSession | null>(null);
+  protected readonly endOpener = signal<HTMLElement | null>(null);
 
   protected readonly initials = computed(() => initials(this.account()?.displayName ?? ''));
   protected readonly memberLine = computed(() => {
@@ -94,6 +100,26 @@ export class AccountPage {
     const [account, sessions] = await Promise.all([firstValueFrom(this.api.account()), firstValueFrom(this.api.sessions())]).catch(() => [null, null]);
     if (account) this.account.set(account);
     if (sessions) this.sessions.set(sessions);
+  }
+
+  protected signOutLabel(device: string): string {
+    return $localize`:@@account.signOutNamed:Sign out ${device}:device:`;
+  }
+
+  protected askToEnd(session: ActiveSession, event: Event): void {
+    this.ending.set(session);
+    this.endOpener.set(event.currentTarget as HTMLElement);
+    this.dialog.set('session');
+  }
+
+  /** The row goes; focus moves to the next row's button, or the heading (list CRD D-6). */
+  protected sessionEnded(session: ActiveSession): void {
+    const index = this.devices().findIndex((d) => d.id === session.id);
+    this.sessions.update((all) => (all ?? []).filter((s) => s.id !== session.id));
+    this.endOpener.set(null);
+    this.dialog.set(null);
+    this.toasts.show({ tone: 'success', title: $localize`:@@endSession.done:Device signed out`, text: $localize`:@@endSession.doneText:${session.device}:device: is signed out of Sweet Hand.` });
+    afterNextRender(() => this.deviceList()?.focusItem(index), { injector: this.injector });
   }
 
   protected async signOut(): Promise<void> {

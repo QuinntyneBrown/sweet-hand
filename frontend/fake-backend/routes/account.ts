@@ -1,10 +1,10 @@
 import type { Router } from '../lib/router.ts';
-import { invalid, ok, unauthorized, type Ctx, type Reply } from '../lib/http.ts';
+import { invalid, notFound, ok, unauthorized, type Ctx, type Reply } from '../lib/http.ts';
 import { currentUser, type Store } from '../lib/store.ts';
 import type { User } from '../seed/users.ts';
 import type { AccountView, ActiveSession, ChangePasswordRequest, UpdateDetailsRequest } from '../../projects/web/src/app/core/api/account.models.ts';
 import { findUser, identityScenarios, passwordProblem, sendEmail, sendVerification } from './identity.ts';
-import { endSessions, sessionRecord } from './session.ts';
+import { endSession, endSessions, sessionRecord } from './session.ts';
 
 const EMPTY_SUMMARY = { enquiries: 0, reviews: 0, reports: 0, photos: 0, dishes: 0, reviewResponses: 0, openEnquiriesWith: [] as string[] };
 
@@ -89,6 +89,16 @@ export function registerAccount(r: Router<Store>): void {
     me.user.passwordChangedAt = ctx.store.now.toISOString();
     endSessions(ctx.store, me.user.id, me.token);
     sendEmail(ctx.store, me.user.email, 'password-changed');
+    return { status: 204 };
+  });
+
+  /** Ends one of the caller's own sessions; anyone else's is not found (L2-078.4, L2-078.5). */
+  r.delete('/api/me/sessions/:id', (ctx): Reply => {
+    const me = signedIn(ctx);
+    if (isReply(me)) return me;
+    const record = ctx.store.account.sessions.find((s) => s.id === ctx.params['id'] && s.userId === me.user.id);
+    if (!record) return notFound();
+    endSession(ctx.store, record.token);
     return { status: 204 };
   });
 
