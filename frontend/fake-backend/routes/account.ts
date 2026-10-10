@@ -128,6 +128,9 @@ export function registerAccount(r: Router<Store>): void {
     return { status: 204, headers: { 'set-cookie': 'sh_session=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax' } };
   });
 
+  /** Site-wide notices; public by deliberate choice (L2-088, L2-091). */
+  r.get('/api/public/notices', (ctx): Reply => ok(ctx.store.account.notices));
+
   /** The caller's own sessions only (L2-078.5). */
   r.get('/api/me/sessions', (ctx): Reply => {
     const me = signedIn(ctx);
@@ -149,6 +152,19 @@ export const accountScenarios: Record<string, (store: Store, args: any) => unkno
     if (!user) throw new Error(`No account for ${email}`);
     user.emailVerified = false;
     user.verificationSentAt = sentAt ?? store.now.toISOString();
+  },
+  /** Planned maintenance in a window (L2-088). */
+  'schedule-maintenance': (store, { startsAt, endsAt }: { startsAt: string; endsAt: string }) => {
+    store.account.notices.push({ id: `maintenance-${startsAt}`, kind: 'maintenance', startsAt, endsAt });
+  },
+  /** A dependency is struggling (L2-091). */
+  'degrade-service': (store) => {
+    store.account.notices.push({ id: 'degraded', kind: 'degraded' });
+  },
+  /** The person opened their verification link somewhere else. */
+  'verify-email-now': (store, { email }: { email: string }) => {
+    const user = findUser(store, email);
+    if (user) user.emailVerified = true;
   },
   /** Mail to the address bounced permanently (L2-030.3). */
   'bounce-email': (store, { email }: { email: string }) => {

@@ -20,6 +20,8 @@
     (accountRequested)="accountOpen.set(!accountOpen())"
   />
 
+  <app-site-banner [quiet]="quietBanner()" />
+
   <main #main id="main" [class]="mainClass()" tabindex="-1">
     <router-outlet />
   </main>

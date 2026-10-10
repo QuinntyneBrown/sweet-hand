@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Injector, afterNextRender, computed, inject, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, afterNextRender, computed, inject, input, signal, viewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Icon, List, ListItem, PrivateNote, SideNav, ToastNotifier } from '@sweet-hand/components';
@@ -32,6 +32,9 @@ export class AccountPage {
   private readonly toasts = inject(ToastNotifier);
   private readonly injector = inject(Injector);
   private readonly deviceList = viewChild(List);
+
+  /** `?edit=details` opens the details dialog, from the bounced-email banner (L2-030.3). */
+  readonly edit = input<string>();
 
   /** The one dialog open over the page (no inline forms: AGENTS.md). */
   protected readonly dialog = signal<AccountDialog>(null);
@@ -93,6 +96,7 @@ export class AccountPage {
       const [account, sessions] = await Promise.all([firstValueFrom(this.api.account()), firstValueFrom(this.api.sessions())]);
       this.account.set(account);
       this.sessions.set(sessions);
+      if (this.edit() === 'details') this.dialog.set('details');
     } catch (error) {
       this.loadFailed.set({ reference: reference(problemOf(error).problem) });
     }

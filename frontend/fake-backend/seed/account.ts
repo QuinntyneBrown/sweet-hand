@@ -1,3 +1,5 @@
+import type { SiteNotice } from '../../projects/web/src/app/core/api/notices.models.ts';
+
 /** Account state: emails sent, sign-in attempts, sessions, tokens, privacy notice and data exports. */
 
 /** An email the platform would have sent; tests read it (and its link) instead of a mailbox. */
@@ -75,6 +77,7 @@ export interface AccountState {
   dataSummaries: Record<string, DataSummary>;
   /** Data exports being prepared, by user id (L2-071). */
   dataExports: Record<string, string>;
+  notices: SiteNotice[];
 }
 
 export function seedAccount(): AccountState {
@@ -97,5 +100,6 @@ export function seedAccount(): AccountState {
       'user-kendra': { enquiries: 5, reviews: 23, reports: 0, photos: 6, dishes: 18, reviewResponses: 1, openEnquiriesWith: ['Priya', 'Andre', 'Marcia'] },
     },
     dataExports: {},
+    notices: [],
   };
 }

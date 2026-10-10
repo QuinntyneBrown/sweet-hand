@@ -5,6 +5,7 @@ import { filter, map } from 'rxjs';
 import { AccountMenu, Footer, Icon, Sheet, SiteHeader, ToastRegion, type MenuItemEntry } from '@sweet-hand/components';
 import { Session } from './core/session/session';
 import { SearchDialog } from './features/discovery/search/search-dialog';
+import { SiteBanner } from './features/account/site-banner/site-banner';
 import {
   accountSecondLine,
   areaTag,
@@ -23,7 +24,7 @@ import {
 /** The application shell: skip link, header, the page's main landmark, footer and the shell's overlays. */
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, SiteHeader, Footer, Sheet, AccountMenu, Icon, SearchDialog, ToastRegion],
+  imports: [RouterOutlet, RouterLink, SiteHeader, Footer, Sheet, AccountMenu, Icon, SearchDialog, SiteBanner, ToastRegion],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
   styleUrl: './app.css',
@@ -52,6 +53,8 @@ export class App {
   protected readonly mainClass = computed(() => (this.leaf().data['mainClass'] as string | undefined) ?? '');
   /** Mid-authentication pages show only the wordmark (site-header D-4). */
   protected readonly minimal = computed(() => this.leaf().data['chrome'] === 'minimal');
+  /** Mid sign-in pages and the account page (which shows them itself) get no email banners. */
+  protected readonly quietBanner = computed(() => this.minimal() || this.leaf().url.split(/[?#]/)[0] === '/account');
 
   protected readonly user = this.session.user;
   protected readonly home = computed(() => homeHref(this.user()));

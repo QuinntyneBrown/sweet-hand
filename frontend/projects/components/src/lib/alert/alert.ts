@@ -26,10 +26,11 @@ import { Icon, type IconName } from '../icon/icon';
           <ng-content select="[slot=actions]" />
         </div>
         @if (dismissible() && tone() !== 'danger') {
-          <button class="icon-btn alert__dismiss" type="button" [attr.aria-label]="dismissLabel()" (click)="dismiss()"><svg shIcon="close"></svg></button>
+          <button class="close" type="button" [attr.aria-label]="dismissLabel()" (click)="dismiss()"><svg class="icon--sm" shIcon="close"></svg></button>
         }
       </div>
     }
+    <!-- One slot for the text, whichever layout renders it: a second <ng-content> would never receive it. -->
     <ng-template #text><ng-content /></ng-template>
   `,
 })
