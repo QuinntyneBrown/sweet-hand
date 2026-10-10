@@ -1,10 +1,10 @@
 import type { Router } from '../lib/router.ts';
-import { ok, type Reply } from '../lib/http.ts';
-import { startSession, type Store } from '../lib/store.ts';
+import { invalid, ok, type Reply } from '../lib/http.ts';
+import { newId, startSession, type Store } from '../lib/store.ts';
 import type { User } from '../seed/users.ts';
-import type { SignInLocked, SignInRequest, SignInResult } from '../../projects/web/src/app/core/api/identity.models.ts';
+import type { AccountToken } from '../seed/account.ts';
+import type { RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/web/src/app/core/api/identity.models.ts';
 
-const CURRENT_PRIVACY_VERSION = '1.0';
 const MINUTE = 60_000;
 /** 5 failed sign-ins for one account within 15 minutes pause it for 15 minutes (L2-076.4). */
 const ACCOUNT_FAILURES = 5;
@@ -15,9 +15,42 @@ const NETWORK_FAILURES = 20;
 export const sessionCookie = (token: string) => `sh_session=${token}; Path=/; HttpOnly; SameSite=Lax`;
 
 /** Records an email the platform would send, for tests to read through /__fake/state. */
-export function sendEmail(store: Store, to: string, kind: string): void {
-  store.account.outbox.push({ to, kind, at: store.now.toISOString() });
+export function sendEmail(store: Store, to: string, kind: string, link?: string): void {
+  store.account.outbox.push({ to, kind, at: store.now.toISOString(), ...(link ? { link } : {}) });
 }
+
+/** A stand-in for the 100,000 most common breached passwords (L2-076.1). */
+const BREACHED = new Set(['sunshine2026', 'sunshine2025', 'password1234', 'qwertyuiop12', 'iloveyou2026', '123456789012', 'letmein12345']);
+
+/** The rule the server applies to every new password; the client checks the length first (L2-076.1). */
+export function passwordProblem(password: unknown): string | null {
+  const p = typeof password === 'string' ? password : '';
+  if ([...p].length < 12 || [...p].length > 128) return 'Use 12 to 128 characters';
+  if (BREACHED.has(p.toLowerCase())) return 'This password is too common';
+  return null;
+}
+
+export function currentPrivacyVersion(store: Store): string {
+  return store.account.privacyNotice.version;
+}
+
+/** Issues a single-use link and invalidates earlier unused ones of the same kind (L2-077). */
+export function issueToken(store: Store, user: User, kind: AccountToken['kind']): string {
+  for (const t of store.account.tokens) if (t.userId === user.id && t.kind === kind && !t.consumedAt) t.consumedAt = store.now.toISOString();
+  const token = newId().replace(/-/g, '');
+  store.account.tokens.push({ kind, token, userId: user.id, issuedAt: store.now.toISOString() });
+  return token;
+}
+
+export function sendVerification(store: Store, user: User): void {
+  const token = issueToken(store, user, 'verify');
+  user.verificationSentAt = store.now.toISOString();
+  sendEmail(store, user.email, 'verify-email', `/verify-email/${token}`);
+}
+
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const text = (v: unknown) => (typeof v === 'string' ? v.trim() : '');
+const length = (v: string) => [...v].length;
 
 export function findUser(store: Store, email: unknown): User | undefined {
   const e = String(email ?? '').trim().toLowerCase();
@@ -74,9 +107,50 @@ export function registerIdentity(r: Router<Store>): void {
     const token = startSession(ctx.store, user);
     const result: SignInResult = {
       secondFactorRequired: user.role === 'Operator',
-      privacyUpdateRequired: user.acceptedPrivacyVersion !== CURRENT_PRIVACY_VERSION,
+      privacyUpdateRequired: user.acceptedPrivacyVersion !== currentPrivacyVersion(ctx.store),
     };
     return { ...ok(result), headers: { 'set-cookie': sessionCookie(token) } };
+  });
+
+  /**
+   * Customer registration (register-customer design). The role is never read
+   * from the body (L2-056.1). An email that already has an account gets the
+   * same 202, and its owner an email instead (L2-076).
+   */
+  r.post('/api/identity/registrations', (ctx): Reply => {
+    const body = (ctx.body ?? {}) as Partial<RegisterRequest>;
+    if (!validChallenge(body.challengeToken, 'register')) return invalid({ challengeToken: ['Confirm you’re a person'] });
+    const displayName = text(body.displayName);
+    const email = text(body.email);
+    const errors: Record<string, string[]> = {};
+    if (length(displayName) < 2 || length(displayName) > 50) errors['name'] = ['Enter a display name of 2 to 50 characters'];
+    if (!EMAIL.test(email)) errors['email'] = ['Enter an email address like name@example.com'];
+    const weak = passwordProblem(body.password);
+    if (weak) errors['password'] = [weak];
+    if (body.consent !== true) errors['consent'] = ['Tick the box to agree to the privacy notice'];
+    if (Object.keys(errors).length) return invalid(errors);
+
+    const existing = findUser(ctx.store, email);
+    if (existing) {
+      sendEmail(ctx.store, existing.email, 'registration-attempt');
+      return { status: 202, body: {} };
+    }
+    const now = ctx.store.now.toISOString();
+    const user: User = {
+      id: `user-${newId()}`,
+      role: 'Customer',
+      displayName,
+      email,
+      password: String(body.password),
+      passwordChangedAt: now,
+      emailVerified: false,
+      createdAt: now,
+      acceptedPrivacyVersion: currentPrivacyVersion(ctx.store),
+      acceptedPrivacyAt: now,
+    };
+    ctx.store.users.push(user);
+    sendVerification(ctx.store, user);
+    return { status: 202, body: {} };
   });
 }
 

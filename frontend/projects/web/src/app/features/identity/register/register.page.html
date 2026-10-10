@@ -1,0 +1,54 @@
+@if (sentTo(); as email) {
+  <div class="auth">
+    <div class="auth__head">
+      <app-auth-photos [photos]="['black-cake-co', 'sorrel-and-spice', 'sugar-dumplin']" />
+      <h1 i18n="@@register.success.title">Check your email</h1>
+      <p class="subtitle" i18n="@@register.success.subtitle">We sent a link to <strong>{{ email }}</strong>. Open it within 24 hours to verify your address.</p>
+    </div>
+    <div class="stack">
+      <p i18n="@@register.success.text">You can browse caterers now. You’ll need a verified email to send an enquiry.</p>
+      <a class="btn btn--primary btn--lg btn--block" routerLink="/caterers" i18n="@@register.success.browse">Browse caterers</a>
+      <sh-button size="lg" [block]="true" (activated)="resend()"><ng-container i18n="@@register.success.resend">Resend email</ng-container></sh-button>
+    </div>
+    <p class="auth__alt" i18n="@@register.success.alt">Wrong address? <a href="/register" (click)="startAgain($event)">Start again</a></p>
+  </div>
+} @else {
+  <div class="auth">
+    <div class="auth__head">
+      <app-auth-photos [photos]="['sorrel-and-spice', 'cou-cou', 'sugar-dumplin']" />
+      <h1 i18n="@@register.title">Create an account</h1>
+      <p class="subtitle" i18n="@@register.subtitle">Free. Send enquiries and keep every conversation in one inbox.</p>
+    </div>
+
+    @if (failure(); as f) {
+      <sh-alert tone="danger" live="assertive" title="We couldn’t create your account" i18n-title="@@register.serverErrorTitle">{{ serverText(f.reference) }}</sh-alert>
+    }
+
+    <sh-form-summary [heading]="summaryTitle()" [items]="summary()" [attempt]="attempt()" />
+
+    <form class="form form--compact" novalidate [formGroup]="form" (ngSubmit)="submit()">
+      <sh-form-field label="Your name" i18n-label="@@register.name" controlId="name" [error]="errors().name" help="Caterers see this name. 2 to 50 characters." i18n-help="@@register.nameHelp">
+        <sh-text-field formControlName="name" size="lg" name="name" autocomplete="name" [minlength]="2" [maxlength]="50" [required]="true" [autofocus]="true" [readonly]="busy()" />
+      </sh-form-field>
+      <sh-form-field label="Email" i18n-label="@@field.email" controlId="email" [error]="errors().email">
+        <sh-text-field formControlName="email" type="email" size="lg" name="email" autocomplete="email" [spellcheck]="false" [required]="true" [readonly]="busy()" />
+      </sh-form-field>
+      <sh-form-field label="Password" i18n-label="@@field.password" controlId="password" [error]="errors().password" help="At least 12 characters. Avoid common passwords." i18n-help="@@field.newPasswordHelp">
+        <sh-button slot="labelAction" variant="link" size="sm" [pressed]="revealed()" controls="password" (activated)="revealed.set(!revealed())"
+          ><ng-container i18n="@@field.showPassword">Show</ng-container></sh-button
+        >
+        <sh-text-field formControlName="password" type="password" size="lg" name="password" autocomplete="new-password" [minlength]="12" [maxlength]="128" [required]="true" [revealed]="revealed()" [readonly]="busy()" />
+      </sh-form-field>
+      <sh-form-field controlId="consent" [error]="errors().consent">
+        <sh-checkbox formControlName="consent" name="consent" [required]="true" [hasSummary]="true"
+          ><ng-container i18n="@@register.consent">I agree to the <a routerLink="/privacy">privacy notice</a></ng-container>
+          <p slot="summary" class="consent-summary" id="consent-summary" i18n="@@register.consentSummary">We use your name and email to run your account and pass your enquiries to caterers. Caterers see your name, never your email or phone unless you share them. Everything is stored in Canada.</p>
+        </sh-checkbox>
+      </sh-form-field>
+
+      <sh-button type="submit" variant="primary" size="lg" [block]="true" [busy]="busy()"><ng-container i18n="@@register.submit">Create account</ng-container></sh-button>
+      <p class="visually-hidden" role="status">{{ busy() ? creating : '' }}</p>
+    </form>
+    <p class="auth__alt" i18n="@@register.alt">Already have an account? <a routerLink="/sign-in">Sign in</a> · Caterers: <a routerLink="/join">list your business</a></p>
+  </div>
+}
