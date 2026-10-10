@@ -55,6 +55,40 @@ export class ListingPage extends BasePage {
     return card.locator('.caterer-card__meta');
   }
 
+  /** The round photo or its placeholder. */
+  cardPhotoFrame(card: Locator) {
+    return card.locator('.photo');
+  }
+
+  failedPhoto(card: Locator) {
+    return card.locator('.photo--failed');
+  }
+
+  /** Whether the card's name is cut off (two-line clamp, L2-004.4). */
+  async nameIsCut(card: Locator): Promise<boolean> {
+    return this.cardName(card).evaluate((el) => el.scrollHeight > el.clientHeight + 1);
+  }
+
+  /** The `loading` attribute of each card photo, in order (null means eager). */
+  async photoLoadingAttributes(): Promise<(string | null)[]> {
+    return this.cards.locator('img').evaluateAll((imgs) => imgs.map((i) => i.getAttribute('loading')));
+  }
+
+  /** Counts image requests made before the document's load event (L2-085.3). */
+  async imagesRequestedBeforeLoad(open: () => Promise<void>): Promise<number> {
+    let count = 0;
+    let loaded = false;
+    const onRequest = (r: { resourceType(): string }) => {
+      if (!loaded && r.resourceType() === 'image') count++;
+    };
+    this.page.on('request', onRequest);
+    this.page.once('load', () => (loaded = true));
+    await open();
+    await this.cards.first().waitFor();
+    this.page.off('request', onRequest);
+    return count;
+  }
+
   async cardNames(): Promise<string[]> {
     return this.cards.locator('.caterer-card__name').allTextContents();
   }
@@ -217,6 +251,11 @@ export class ListingPage extends BasePage {
   /** The numbered page links that are visible at the current width. */
   get pageLinks() {
     return this.pagination.locator('ul.pagination li:visible a[aria-label^="Page "]');
+  }
+
+  /** The "…" gaps visible at the current width. */
+  get paginationGaps() {
+    return this.pagination.locator('ul.pagination li:visible .pagination__gap');
   }
 
   get previousPage() {

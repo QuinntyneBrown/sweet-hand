@@ -18,6 +18,7 @@ import {
 } from '@sweet-hand/components';
 import { DiscoveryApi } from '../../../core/api/discovery-api';
 import type { ListingPageView, ListingQuery } from '../../../core/api/discovery.models';
+import { count } from '../../../core/format/format';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { AreaField } from '../search/area-field';
 import { ListingFilterBar } from './listing-filter-bar';
@@ -114,6 +115,8 @@ export class ListingPage {
   protected readonly moreCuisines = moreCuisines;
 
   protected readonly pageLabel = pageLabel;
+  /** "1,284" (core/format). */
+  protected readonly formatCount = count;
   protected readonly summary = computed(() => {
     const v = this.current();
     return v ? pageSummary(v.page, v.pageSize, v.total) : null;

@@ -11,9 +11,9 @@
         <span class="visually-hidden" i18n="@@listing.loading">Loading caterers</span><sh-skeleton width="var(--space-24)" />
       } @else if (current(); as v) {
         @if (occasion(); as o) {
-          <ng-container i18n="@@listing.occasionCount">{v.total, plural, =1 {1 caterer takes on {{ o.lowerName }}} other {{{v.total}} caterers take on {{ o.lowerName }}}}</ng-container>
+          <ng-container i18n="@@listing.occasionCount">{v.total, plural, =1 {1 caterer takes on {{ o.lowerName }}} other {{{ formatCount(v.total) }} caterers take on {{ o.lowerName }}}}</ng-container>
         } @else {
-          <ng-container i18n="@@listing.resultCount">{v.total, plural, =1 {1 caterer} other {{{v.total}} caterers}}</ng-container>
+          <ng-container i18n="@@listing.resultCount">{v.total, plural, =1 {1 caterer} other {{{ formatCount(v.total) }} caterers}}</ng-container>
         }
       }
     </p>

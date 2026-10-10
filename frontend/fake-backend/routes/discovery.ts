@@ -2,7 +2,7 @@ import type { Router } from '../lib/router.ts';
 import { ok, notFound } from '../lib/http.ts';
 import { torontoDate, type Store } from '../lib/store.ts';
 import { photoView } from '../lib/views.ts';
-import { FSA_TO_AREA, OCCASION_PHOTOS, OCCASIONS } from '../seed/taxonomy.ts';
+import { FSA_TO_AREA, OCCASION_PHOTOS, OCCASIONS, slugify } from '../seed/taxonomy.ts';
 import type { Caterer } from '../seed/caterers.ts';
 import type { ListingPageView, OccasionTile, ServiceArea } from '../../projects/web/src/app/core/api/discovery.models.ts';
 
@@ -116,7 +116,7 @@ export function registerDiscovery(r: Router<Store>): void {
     return ok(tiles);
   });
 
-  r.get('/api/public/cuisines',(ctx) => ok(ctx.store.cuisines.filter((c) => !c.retired).map(({ id, name }) => ({ id, name }))));
+  r.get('/api/public/cuisines', (ctx) => ok(ctx.store.cuisines.filter((c) => !c.retired).map(({ id, name }) => ({ id, name }))));
 
   /** Resolves a forward sortation area; only the FSA ever reaches the server (L2-012.6). */
   r.get('/api/public/fsa/:fsa', (ctx) => {
@@ -125,3 +125,48 @@ export function registerDiscovery(r: Router<Store>): void {
     return ok({ id, name: areaName(ctx.store, id) });
   });
 }
+
+/** The edge caterers of docs/mocks/pages/caterers/edge.html: long, accented and one-letter names; two photos that fail. */
+const EDGE: [string, string, string, string | null][] = [
+  ['The Original Auntie Philomena’s Roti, Doubles & Pholourie Kitchen', 'Trinidadian & Tobagonian', 'Whitchurch-Stouffville', 'pelau-house'],
+  ['Ça Gou Kreyòl Kitchen', 'Haitian', 'Richmond Hill', 'ti-kay'],
+  ['Salt Pond Provisions', 'Kittitian & Nevisian', 'East Gwillimbury', null],
+  ['Dominique’s', 'Dominican (Dominican Republic)', 'Halton Hills', 'sorrel-and-spice'],
+  ['O', 'Guyanese', 'York', 'cook-up'],
+  ['Mangú & Mofongo Co.', 'Puerto Rican', 'Clarington', null],
+];
+
+function fictionalCaterer(template: Caterer, n: number, name: string, cuisine: string, area: string, photo: string | null): Caterer {
+  const slug = slugify(name.replace(/[’']/g, ''));
+  return {
+    ...template,
+    id: `cat-x${n}`,
+    slug,
+    name,
+    ownerUserId: undefined,
+    cuisines: [slugify(cuisine)],
+    areas: [slugify(area)],
+    // A file the media server does not have stands for a photo that fails to load (L2-006.5).
+    photos: [{ id: `${slug}-photo-1`, file: photo ? `${photo}.jpg` : 'missing-photo.jpg', caption: `Food from ${name}` }],
+    previousSlugs: [],
+    certificate: undefined,
+    businessEmail: undefined,
+    businessPhone: undefined,
+  };
+}
+
+/** Named store changes for discovery tests (`backend.scenario(name, args)`). */
+export const discoveryScenarios: Record<string, (store: Store, args: any) => unknown> = {
+  /** 1,284 published caterers, the edge caterers first (caterers edge mock). */
+  'large-catalog': (store) => {
+    const template = store.caterers[1];
+    const edge = EDGE.map(([name, cuisine, area, photo], i) => fictionalCaterer(template, i + 1, name, cuisine, area, photo));
+    const published = store.caterers.filter((c) => c.status === 'Published').length;
+    const fillers = Array.from({ length: 1284 - published - edge.length }, (_, i) => {
+      const like = store.caterers[i % 36];
+      return fictionalCaterer(like, 100 + i, `Sample Kitchen ${i + 1}`, cuisineName(store, like.cuisines[0]), areaName(store, like.areas[0]), like.photos[0].file.replace('.jpg', ''));
+    });
+    store.caterers.unshift(...edge);
+    store.caterers.push(...fillers);
+  },
+};
