@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Divider — Component requirements rendering</title>
+<meta name="description" content="Every variant, size and state of divider, in light and dark, keyed to the acceptance criteria in divider.md.">
+<meta name="crd:component" content="divider">
+<!-- The real design-system styles: what renders here is the component, not a picture of it. -->
+<link rel="stylesheet" href="../../design-system/tokens/tokens.css">
+<link rel="stylesheet" href="../../design-system/assets/components.css">
+<link rel="stylesheet" href="../../design-system/assets/ds.css">
+<style>
+/* CRD page chrome only. Never restyle the component here. */
+.crd-shell { max-width: 80rem; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+.crd-bar { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; justify-content: space-between; }
+.crd-ac { font: var(--text-overline); color: var(--color-fg-muted); display: block; margin-top: var(--space-2); }
+.crd-frames { display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: flex-start; }
+.crd-frame { margin: 0; border: var(--border-width-hairline) dashed var(--color-border-default); padding: var(--space-3); max-width: 100%; overflow: auto; }
+.crd-frame iframe { display: block; border: 0; max-width: none; }
+.crd-label { font: var(--text-caption); color: var(--color-fg-muted); display: block; margin-bottom: var(--space-2); }
+.crd-grid { display: grid; gap: var(--space-6); grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); align-items: start; }
+.crd-plain { padding: var(--space-6); display: grid; gap: var(--space-6); }
+.ds-matrix td { padding: var(--space-3); vertical-align: top; }
+.ds-meta .ds-pill { display: inline-block; white-space: normal; max-width: 100%; height: auto; line-height: 1.6; }
+.crd-help { font: var(--text-body-sm); color: var(--color-fg-muted); }
+/* Specimen only, not product CSS: divider D-5 (vertical divider is not displayed below 36rem). */
+@media (max-width: 35.99rem) { .divider--vertical { display: none; } }
+</style>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main" class="crd-shell">
+  <header class="ds-header">
+    <div class="crd-bar">
+      <p class="ds-kicker">Component requirements · rendering</p>
+      <button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button>
+    </div>
+    <h1>Divider</h1>
+    <p class="ds-lead">Every rendering of <code>sh-divider</code> on every surface it appears on, in both themes. Requirements: <a href="divider.md">divider.md</a>. Design system: <a href="../../design-system/components/divider.html">divider</a>.</p>
+    <div class="ds-meta"><span class="ds-pill">Selector <code>sh-divider</code></span><span class="ds-pill">Status: planned</span><span class="ds-pill">Traces to L2-064, L2-066, L2-067, L2-068, L2-069</span></div>
+    <ul class="ds-toc"><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#themes">Both themes</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#contrast">Contrast</a></li><li><a href="#tokens">Tokens</a></li></ul>
+  </header>
+
+  <section class="ds-section" id="variants"><h2>Variants</h2>
+    <div class="ds-example"><div class="ds-example__canvas ds-example__canvas--stack">
+      <div><p>Your name and email run your account. The event details you put in an enquiry go to the caterer so they can reply.</p><hr><p>A caterer sees your name and your enquiry, not your email or phone, until you choose to share them.</p><span class="crd-ac">Horizontal, semantic &lt;hr&gt; · AC-1, AC-12</span></div>
+      <div><p>Listing and enquiring are free.</p><div class="divider" aria-hidden="true"></div><p>Every caterer is reviewed before going live.</p><span class="crd-ac">Horizontal, decorative · AC-2</span></div>
+      <div><div class="cluster" style="gap: 0;"><button class="btn btn--ghost btn--sm" type="button">Edit</button><span class="divider divider--vertical" aria-hidden="true"></span><button class="btn btn--ghost btn--sm" type="button">Preview my page</button></div><span class="crd-ac">Vertical between two ghost actions · AC-3, AC-6</span></div>
+      <div><div class="divider divider--label" role="separator" aria-label="Closed enquiries">Closed enquiries</div><span class="crd-ac">Labelled · AC-4, AC-5, AC-7</span></div>
+    </div><div class="ds-example__caption"><span>The four renderings of <code>sh-divider</code>: <code>&lt;hr&gt;</code>, <code>div.divider</code> with <code>aria-hidden</code>, <code>span.divider--vertical</code> with <code>aria-hidden</code>, and <code>div.divider--label</code> with <code>role="separator"</code>.</span></div></div>
+    <div class="ds-example"><div class="ds-example__canvas"><div class="menu menu--static account-menu" role="group" aria-label="Account menu example" style="position: static; animation: none;"><div class="account-menu__who"><span class="avatar" aria-hidden="true">KB</span><div><p class="account-menu__name">Kendra Baptiste</p><p class="account-menu__email">kendra@pelauhouse.example</p></div></div><div class="menu__divider"></div><ul class="account-menu__list"><li><a class="menu__item" href="#variants">Dashboard</a></li><li><a class="menu__item" href="#variants">Account</a></li></ul></div></div><div class="ds-example__caption"><span>Not this component: <code>.menu__divider</code> in the account menu is rendered by the menu (D-3), with <code>--space-1</code> around it.</span></div></div>
+  </section>
+
+  <section class="ds-section" id="sizes"><h2>Sizes</h2>
+    <p class="ds-na">One weight, 1 px (<code>--border-width-hairline</code>), at every size. Horizontal and labelled dividers span their container with <code>--space-6</code> above and below; the vertical divider stretches to its row with <code>--space-3</code> each side.</p>
+  </section>
+
+  <section class="ds-section" id="states"><h2>States</h2>
+    <p>Not interactive: no hover, focus or disabled state. Each variant on each surface it appears on.</p>
+    <div class="ds-matrix"><table>
+      <caption class="visually-hidden">Dividers on each surface</caption>
+      <thead><tr><th scope="col">Variant</th><th scope="col">On the page</th><th scope="col">On a raised surface</th><th scope="col">In a sunken well</th></tr></thead>
+      <tbody>
+<tr><th scope="row">Horizontal (hr)</th><td style="min-width: 14rem;"><hr></td><td style="min-width: 14rem;"><div class="dialog__panel" style="animation: none; padding: var(--space-4); position: static;"><hr></div></td><td style="min-width: 14rem;"><div class="well"><hr></div></td></tr>
+<tr><th scope="row">Horizontal, decorative</th><td style="min-width: 14rem;"><div class="divider" aria-hidden="true"></div></td><td style="min-width: 14rem;"><div class="dialog__panel" style="animation: none; padding: var(--space-4); position: static;"><div class="divider" aria-hidden="true"></div></div></td><td style="min-width: 14rem;"><div class="well"><div class="divider" aria-hidden="true"></div></div></td></tr>
+<tr><th scope="row">Vertical</th><td style="min-width: 14rem;"><div class="cluster" style="gap: 0;"><span>Edit</span><span class="divider divider--vertical" aria-hidden="true"></span><span>Preview</span></div></td><td style="min-width: 14rem;"><div class="dialog__panel" style="animation: none; padding: var(--space-4); position: static;"><div class="cluster" style="gap: 0;"><span>Edit</span><span class="divider divider--vertical" aria-hidden="true"></span><span>Preview</span></div></div></td><td style="min-width: 14rem;"><div class="well"><div class="cluster" style="gap: 0;"><span>Edit</span><span class="divider divider--vertical" aria-hidden="true"></span><span>Preview</span></div></div></td></tr>
+<tr><th scope="row">Labelled</th><td style="min-width: 14rem;"><div class="divider divider--label" role="separator" aria-label="Earlier">Earlier</div></td><td style="min-width: 14rem;"><div class="dialog__panel" style="animation: none; padding: var(--space-4); position: static;"><div class="divider divider--label" role="separator" aria-label="Earlier">Earlier</div></div></td><td style="min-width: 14rem;"><div class="well"><div class="divider divider--label" role="separator" aria-label="Earlier">Earlier</div></div></td></tr>
+      </tbody>
+    </table></div>
+    <span class="crd-ac">AC-8</span>
+  </section>
+
+  <section class="ds-section" id="themes"><h2>Both themes</h2>
+    <div class="ds-themes">
+      <div data-theme="light"><p>Who sees it</p><hr><div class="cluster" style="gap: 0;"><button class="btn btn--ghost btn--sm" type="button">Edit</button><span class="divider divider--vertical" aria-hidden="true"></span><button class="btn btn--ghost btn--sm" type="button">Preview my page</button></div><div class="divider divider--label" role="separator" aria-label="Closed enquiries">Closed enquiries</div><div class="well" style="margin-top: var(--space-4);"><div class="divider divider--label" role="separator" aria-label="Earlier">Earlier</div></div></div>
+      <div data-theme="dark"><p>Who sees it</p><hr><div class="cluster" style="gap: 0;"><button class="btn btn--ghost btn--sm" type="button">Edit</button><span class="divider divider--vertical" aria-hidden="true"></span><button class="btn btn--ghost btn--sm" type="button">Preview my page</button></div><div class="divider divider--label" role="separator" aria-label="Closed enquiries">Closed enquiries</div><div class="well" style="margin-top: var(--space-4);"><div class="divider divider--label" role="separator" aria-label="Earlier">Earlier</div></div></div>
+    </div>
+    <span class="crd-ac">AC-8, AC-9</span>
+  </section>
+
+  <section class="ds-section" id="responsive"><h2>Responsive</h2>
+    <p>Required (D-5): below 36rem the vertical divider is not displayed, so it never dangles at the end of a wrapped row; at 600 px it is. The French label "Demandes fermées" fits between its rules at 320 px.</p>
+    <div class="crd-frames"><figure class="crd-frame"><span class="crd-ac">320 px · light · AC-10, AC-11</span><iframe title="320 pixel wide frame, light theme" width="320" height="420" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en-CA&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;/* Specimen only, not product CSS: divider D-5 (vertical divider is not displayed below 36rem). */
+@media (max-width: 35.99rem) { .divider--vertical { display: none; } } body{padding:var(--space-4);} &lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;stack&quot;&gt;&lt;div class=&quot;cluster&quot; style=&quot;gap: 0;&quot;&gt;&lt;button class=&quot;btn btn--ghost btn--sm&quot; type=&quot;button&quot;&gt;Edit&lt;/button&gt;&lt;span class=&quot;divider divider--vertical&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;button class=&quot;btn btn--ghost btn--sm&quot; type=&quot;button&quot;&gt;Preview my page&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;divider divider--label&quot; role=&quot;separator&quot; aria-label=&quot;Demandes fermées&quot;&gt;Demandes fermées&lt;/div&gt;&lt;p&gt;Your name and email run your account. The event details you put in an enquiry go to the caterer so they can reply.&lt;/p&gt;&lt;hr&gt;&lt;p&gt;A caterer sees your name and your enquiry, not your email or phone, until you choose to share them.&lt;/p&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure><figure class="crd-frame"><span class="crd-ac">360 px · light · AC-10</span><iframe title="360 pixel wide frame, light theme" width="360" height="420" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en-CA&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;/* Specimen only, not product CSS: divider D-5 (vertical divider is not displayed below 36rem). */
+@media (max-width: 35.99rem) { .divider--vertical { display: none; } } body{padding:var(--space-4);} &lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;stack&quot;&gt;&lt;div class=&quot;cluster&quot; style=&quot;gap: 0;&quot;&gt;&lt;button class=&quot;btn btn--ghost btn--sm&quot; type=&quot;button&quot;&gt;Edit&lt;/button&gt;&lt;span class=&quot;divider divider--vertical&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;button class=&quot;btn btn--ghost btn--sm&quot; type=&quot;button&quot;&gt;Preview my page&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;divider divider--label&quot; role=&quot;separator&quot; aria-label=&quot;Demandes fermées&quot;&gt;Demandes fermées&lt;/div&gt;&lt;p&gt;Your name and email run your account. The event details you put in an enquiry go to the caterer so they can reply.&lt;/p&gt;&lt;hr&gt;&lt;p&gt;A caterer sees your name and your enquiry, not your email or phone, until you choose to share them.&lt;/p&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure><figure class="crd-frame"><span class="crd-ac">360 px · dark · AC-9</span><iframe title="360 pixel wide frame, dark theme" width="360" height="420" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en-CA&quot; data-theme=&quot;dark&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;/* Specimen only, not product CSS: divider D-5 (vertical divider is not displayed below 36rem). */
+@media (max-width: 35.99rem) { .divider--vertical { display: none; } } body{padding:var(--space-4);} &lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;stack&quot;&gt;&lt;div class=&quot;cluster&quot; style=&quot;gap: 0;&quot;&gt;&lt;button class=&quot;btn btn--ghost btn--sm&quot; type=&quot;button&quot;&gt;Edit&lt;/button&gt;&lt;span class=&quot;divider divider--vertical&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;button class=&quot;btn btn--ghost btn--sm&quot; type=&quot;button&quot;&gt;Preview my page&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;divider divider--label&quot; role=&quot;separator&quot; aria-label=&quot;Demandes fermées&quot;&gt;Demandes fermées&lt;/div&gt;&lt;p&gt;Your name and email run your account. The event details you put in an enquiry go to the caterer so they can reply.&lt;/p&gt;&lt;hr&gt;&lt;p&gt;A caterer sees your name and your enquiry, not your email or phone, until you choose to share them.&lt;/p&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure><figure class="crd-frame"><span class="crd-ac">600 px · light · AC-10 (shown from 36rem)</span><iframe title="600 pixel wide frame, light theme" width="600" height="360" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en-CA&quot; data-theme=&quot;light&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/tokens/tokens.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;../../design-system/assets/components.css&quot;&gt;&lt;style&gt;/* Specimen only, not product CSS: divider D-5 (vertical divider is not displayed below 36rem). */
+@media (max-width: 35.99rem) { .divider--vertical { display: none; } } body{padding:var(--space-4);} &lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;stack&quot;&gt;&lt;div class=&quot;cluster&quot; style=&quot;gap: 0;&quot;&gt;&lt;button class=&quot;btn btn--ghost btn--sm&quot; type=&quot;button&quot;&gt;Edit&lt;/button&gt;&lt;span class=&quot;divider divider--vertical&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;button class=&quot;btn btn--ghost btn--sm&quot; type=&quot;button&quot;&gt;Preview my page&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;divider divider--label&quot; role=&quot;separator&quot; aria-label=&quot;Demandes fermées&quot;&gt;Demandes fermées&lt;/div&gt;&lt;p&gt;Your name and email run your account. The event details you put in an enquiry go to the caterer so they can reply.&lt;/p&gt;&lt;hr&gt;&lt;p&gt;A caterer sees your name and your enquiry, not your email or phone, until you choose to share them.&lt;/p&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></figure></div>
+    <span class="crd-ac">AC-10, AC-11</span>
+  </section>
+
+  <section class="ds-section" id="contrast"><h2>Contrast</h2>
+    <p>The rule is decorative (no 3:1 minimum, D-7); the label is text.</p>
+    <div class="ds-example__canvas ds-example__canvas--stack">
+<div class="ds-pair" data-theme="light"><span>Light: Label on the page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Label on the page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Label on a raised surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Label on a raised surface</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="light"><span>Light: Label in a well</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-sunken" data-min="4.5"></span></div>
+<div class="ds-pair" data-theme="dark"><span>Dark: Label in a well</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-sunken" data-min="4.5"></span></div>
+    </div>
+    <span class="crd-ac">AC-8</span>
+  </section>
+
+  <section class="ds-section" id="tokens"><h2>Tokens</h2>
+    <div class="ds-table-wrap"><table class="ds-table">
+      <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+      <tbody>
+<tr><td>Rule</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+<tr><td>Label</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+<tr><td>Rule on inverse surfaces (owners only)</td><td><code>--color-border-inverse</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-inverse" data-swatch></i><span data-token="--color-border-inverse"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-inverse" data-swatch></i><span data-token="--color-border-inverse"></span></span></td></tr>
+<tr><td>Thickness</td><td><code>--border-width-hairline</code></td><td colspan="2"><span data-token="--border-width-hairline"></span></td></tr>
+<tr><td>Spacing horizontal / vertical / menu</td><td><code>--space-6</code> <code>--space-3</code> <code>--space-1</code></td><td colspan="2"><span data-token="--space-6"></span> / <span data-token="--space-3"></span> / <span data-token="--space-1"></span></td></tr>
+<tr><td>Label font</td><td><code>--text-body-sm</code></td><td colspan="2"><span data-token="--text-body-sm"></span></td></tr>
+<tr><td>Vertical minimum height</td><td><code>--icon-size-md</code></td><td colspan="2"><span data-token="--icon-size-md"></span></td></tr>
+<tr><td>Section gap (the usual alternative)</td><td><code>--layout-section-gap</code></td><td colspan="2"><span data-token="--layout-section-gap"></span></td></tr>
+      </tbody>
+    </table></div>
+    <span class="crd-ac">AC-9</span>
+  </section>
+
+  <footer class="ds-footer"><span>Sweet Hand component requirements · <a href="README.md">index</a></span><a href="#top">Back to top</a></footer>
+</main>
+<script src="../../design-system/assets/ds.js"></script>
+</body>
+</html>
