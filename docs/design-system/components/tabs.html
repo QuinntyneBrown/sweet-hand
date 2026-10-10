@@ -161,17 +161,17 @@
       <h3>Panel tabs (APG, automatic activation)</h3>
       <p>Buttons with <code>role="tab"</code> inside <code>role="tablist"</code>, each controlling a <code>role="tabpanel"</code>. Arrow keys move and select at once (automatic activation), which is right when panels are already loaded. This example works: click or use the arrow keys.</p>
       <div class="ds-example">
-        <div class="ds-example__canvas ds-example__canvas--stack" data-tabs-demo>
+        <div class="ds-example__canvas" data-tabs-demo style="display: block;">
           <div class="tabs" role="tablist" aria-label="Pelau House record">
             <button class="tab" type="button" role="tab" id="tb-1" aria-controls="tb-p1" aria-selected="true" tabindex="0">Profile</button>
             <button class="tab" type="button" role="tab" id="tb-2" aria-controls="tb-p2" aria-selected="false" tabindex="-1">Certificate</button>
             <button class="tab" type="button" role="tab" id="tb-3" aria-controls="tb-p3" aria-selected="false" tabindex="-1">Activity</button>
             <button class="tab" type="button" role="tab" id="tb-4" aria-controls="tb-p4" aria-selected="false" tabindex="-1">Status history</button>
           </div>
-          <div role="tabpanel" id="tb-p1" aria-labelledby="tb-1" tabindex="0"><p>Trinidadian &amp; Tobagonian (primary), Guyanese · Scarborough (primary), East York, North York, Pickering, Ajax · Serves 20–300 guests.</p></div>
-          <div role="tabpanel" id="tb-p2" aria-labelledby="tb-2" tabindex="0" hidden><p>Kendra Baptiste · Toronto Public Health · FH-2024-118734 · expires 14 Mar 2029.</p></div>
-          <div role="tabpanel" id="tb-p3" aria-labelledby="tb-3" tabindex="0" hidden><p>23 reviews · 4.7 · last enquiry reply today 9:42 a.m.</p></div>
-          <div role="tabpanel" id="tb-p4" aria-labelledby="tb-4" tabindex="0" hidden><p>Published · approved by Leah Mohammed.</p></div>
+          <div role="tabpanel" id="tb-p1" aria-labelledby="tb-1" tabindex="0" style="margin-top: var(--space-4);"><p>Trinidadian &amp; Tobagonian (primary), Guyanese · Scarborough (primary), East York, North York, Pickering, Ajax · Serves 20–300 guests.</p></div>
+          <div role="tabpanel" id="tb-p2" aria-labelledby="tb-2" tabindex="0" style="margin-top: var(--space-4);" hidden><p>Kendra Baptiste · Toronto Public Health · FH-2024-118734 · expires 14 Mar 2029.</p></div>
+          <div role="tabpanel" id="tb-p3" aria-labelledby="tb-3" tabindex="0" style="margin-top: var(--space-4);" hidden><p>23 reviews · 4.7 · last enquiry reply today 9:42 a.m.</p></div>
+          <div role="tabpanel" id="tb-p4" aria-labelledby="tb-4" tabindex="0" style="margin-top: var(--space-4);" hidden><p>Published · approved by Leah Mohammed.</p></div>
         </div>
         <div class="ds-example__caption"><span>Illustrative content from the Pelau House record. Only the selected tab is in the tab order (<code>tabindex="0"</code>); the panel follows it.</span></div>
         <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="tabs" role="tablist" aria-label="Pelau House record"&gt;

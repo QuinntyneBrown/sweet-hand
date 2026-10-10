@@ -168,7 +168,7 @@
       <h3>Default: the audit log</h3>
       <div class="ds-example">
         <div class="ds-example__canvas ds-example__canvas--stack">
-          <div class="table-wrap" tabindex="0" role="region" aria-labelledby="tv1-cap">
+          <div class="table-wrap" style="position: relative;" tabindex="0" role="region" aria-labelledby="tv1-cap">
             <table class="table">
               <caption class="visually-hidden" id="tv1-cap">Audit entries, newest first</caption>
               <thead><tr><th scope="col">When</th><th scope="col">Operator</th><th scope="col">Action</th><th scope="col">Target</th><th scope="col">Reason</th><th scope="col">Before → after</th></tr></thead>
@@ -217,7 +217,7 @@
       <h3>Sortable, with row actions</h3>
       <div class="ds-example">
         <div class="ds-example__canvas ds-example__canvas--stack">
-          <div class="table-wrap" tabindex="0" role="region" aria-labelledby="tv3-cap">
+          <div class="table-wrap" style="position: relative;" tabindex="0" role="region" aria-labelledby="tv3-cap">
             <table class="table">
               <caption class="visually-hidden" id="tv3-cap">Caterers, sorted by date published, newest first</caption>
               <thead><tr><th scope="col" aria-sort="none"><button type="button">Caterer</button></th><th scope="col">Cuisine</th><th scope="col" aria-sort="descending"><button type="button">Published</button></th><th scope="col" class="num" aria-sort="none"><button type="button">Reviews</button></th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
@@ -411,6 +411,7 @@
       <ul>
         <li>The audit log wrote empty "Before → after" cells as a bare "—", which screen readers read as "em dash"; the system uses <code>.na</code> with a hidden word.</li>
         <li><code>.table th</code> styles every <code>th</code> as a column header: row headers in the metrics and privacy tables become muted, sticky and unwrappable ("Food handler certificate files" forces sideways scrolling at 320px). A CSS change scopes those rules to <code>thead th</code>.</li>
+        <li>Visually hidden text inside a wide table (a hidden "Actions" header, "No change") is absolutely positioned against the page, not the scrolling wrapper, so it widened the whole page at 320px. The examples here set <code>position: relative</code> on <code>.table-wrap</code>; a CSS change makes that the default.</li>
         <li>Sortable headers, dense tables, row actions, selected rows and <code>.na</code> come from the kit; no mock uses them yet.</li>
       </ul>
     </section>

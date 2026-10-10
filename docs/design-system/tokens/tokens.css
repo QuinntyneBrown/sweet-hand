@@ -73,7 +73,7 @@
   --palette-mango-50: #fdf4e2;
   --palette-mango-300: #f2c062;
   --palette-mango-500: #b37a00;
-  --palette-mango-700: #946200;
+  --palette-mango-700: #8c5c00;   /* darkened from #946200: 4.45:1 on the current inbox row */
   --palette-mango-900: #4d3300;
   --palette-mango-950: #2b1d05;
 
@@ -340,6 +340,78 @@
   :root { --layout-margin: var(--space-20); }
 }
 
+/* ---------- Light theme, restated -----------------------------------------
+   Lets a [data-theme="light"] region sit inside a dark page (theme panels,
+   "Light" columns in the docs) without inheriting dark values. Keep in step
+   with the :root colour and shadow tokens above. */
+[data-theme="light"] {
+  --color-bg-canvas: var(--palette-white);
+  --color-bg-surface: var(--palette-white);
+  --color-bg-surface-raised: var(--palette-white);
+  --color-bg-surface-sunken: var(--palette-stone-50);
+  --color-bg-subtle: var(--palette-stone-100);
+  --color-bg-subtle-hover: var(--palette-stone-200);
+  --color-bg-inverse: var(--palette-stone-950);
+  --color-bg-backdrop: rgb(20 19 18 / 0.5);
+  --color-bg-photo: var(--palette-stone-100);
+  --color-bg-scrim: rgb(20 19 18 / 0.72);
+  --color-fg-default: var(--palette-stone-950);
+  --color-fg-muted: var(--palette-stone-700);
+  --color-fg-subtle: var(--palette-stone-600);
+  --color-fg-disabled: var(--palette-stone-300);
+  --color-fg-inverse: var(--palette-white);
+  --color-fg-on-scrim: var(--palette-white);
+  --color-fg-link: var(--palette-stone-950);
+  --color-fg-link-hover: var(--palette-pepper-600);
+  --color-border-default: var(--palette-stone-200);
+  --color-border-strong: var(--palette-stone-500);
+  --color-border-inverse: var(--palette-stone-700);
+  --color-accent: var(--palette-pepper-600);
+  --color-accent-hover: var(--palette-pepper-700);
+  --color-accent-active: var(--palette-pepper-800);
+  --color-accent-subtle: var(--palette-pepper-50);
+  --color-accent-subtle-hover: var(--palette-pepper-100);
+  --color-fg-on-accent: var(--palette-white);
+  --color-fg-accent: var(--palette-pepper-600);
+  --color-action: var(--palette-stone-950);
+  --color-action-hover: var(--palette-stone-800);
+  --color-action-active: var(--palette-stone-700);
+  --color-fg-on-action: var(--palette-white);
+  --color-focus-ring: var(--palette-pepper-600);
+  --color-focus-ring-offset: var(--color-bg-surface);
+  --color-info-bg: var(--palette-stone-50);
+  --color-info-fg: var(--palette-stone-800);
+  --color-info-border: var(--palette-stone-300);
+  --color-info-icon: var(--palette-stone-700);
+  --color-info-solid: var(--palette-stone-800);
+  --color-success-bg: var(--palette-callaloo-50);
+  --color-success-fg: var(--palette-callaloo-700);
+  --color-success-border: var(--palette-callaloo-300);
+  --color-success-icon: var(--palette-callaloo-500);
+  --color-success-solid: var(--palette-callaloo-700);
+  --color-warning-bg: var(--palette-mango-50);
+  --color-warning-fg: var(--palette-mango-700);
+  --color-warning-border: var(--palette-mango-300);
+  --color-warning-icon: var(--palette-mango-500);
+  --color-warning-solid: var(--palette-mango-700);
+  --color-danger-bg: var(--palette-sorrel-50);
+  --color-danger-fg: var(--palette-sorrel-600);
+  --color-danger-border: var(--palette-sorrel-300);
+  --color-danger-icon: var(--palette-sorrel-500);
+  --color-danger-solid: var(--palette-sorrel-600);
+  --color-danger-solid-hover: var(--palette-sorrel-700);
+  --color-fg-on-danger: var(--palette-white);
+  --color-star: var(--palette-stone-950);
+  --color-star-empty: var(--palette-stone-500);
+  --shadow-color: 28 24 20;
+  --shadow-1: 0 1px 2px rgb(var(--shadow-color) / 0.06);
+  --shadow-2: 0 4px 14px rgb(var(--shadow-color) / 0.08);
+  --shadow-3: 0 12px 32px rgb(var(--shadow-color) / 0.12), 0 2px 6px rgb(var(--shadow-color) / 0.06);
+  --shadow-4: 0 24px 64px rgb(var(--shadow-color) / 0.18), 0 4px 12px rgb(var(--shadow-color) / 0.08);
+  --shadow-focus: 0 0 0 2px var(--color-focus-ring-offset), 0 0 0 4px var(--color-focus-ring);
+  color-scheme: light;
+}
+
 /* ---------- Dark theme ----------------------------------------------------- */
 [data-theme="dark"] {
   --color-bg-canvas: var(--palette-stone-950);
@@ -380,6 +452,8 @@
   --color-fg-on-action: var(--palette-stone-950);
 
   --color-focus-ring: var(--palette-pepper-300);
+  --color-focus-ring-offset: var(--color-bg-surface);
+  --shadow-focus: 0 0 0 2px var(--color-focus-ring-offset), 0 0 0 4px var(--color-focus-ring);
 
   --color-info-bg: var(--palette-stone-900);
   --color-info-fg: var(--palette-stone-200);
@@ -408,7 +482,7 @@
   --color-fg-on-danger: var(--palette-sorrel-950);
 
   --color-star: var(--palette-stone-100);
-  --color-star-empty: var(--palette-stone-600);
+  --color-star-empty: var(--palette-stone-500);
 
   --shadow-color: 0 0 0;
   --shadow-1: 0 1px 2px rgb(var(--shadow-color) / 0.4);
@@ -455,6 +529,8 @@
     --color-action-active: var(--palette-stone-200);
     --color-fg-on-action: var(--palette-stone-950);
     --color-focus-ring: var(--palette-pepper-300);
+    --color-focus-ring-offset: var(--color-bg-surface);
+    --shadow-focus: 0 0 0 2px var(--color-focus-ring-offset), 0 0 0 4px var(--color-focus-ring);
     --color-info-bg: var(--palette-stone-900);
     --color-info-fg: var(--palette-stone-200);
     --color-info-border: var(--palette-stone-700);
@@ -478,7 +554,7 @@
     --color-danger-solid-hover: var(--palette-sorrel-100);
     --color-fg-on-danger: var(--palette-sorrel-950);
     --color-star: var(--palette-stone-100);
-    --color-star-empty: var(--palette-stone-600);
+    --color-star-empty: var(--palette-stone-500);
     --shadow-color: 0 0 0;
     --shadow-1: 0 1px 2px rgb(var(--shadow-color) / 0.4);
     --shadow-2: 0 4px 14px rgb(var(--shadow-color) / 0.45);

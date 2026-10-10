@@ -546,6 +546,102 @@
       "bg": "--color-bg-photo",
       "min": 3,
       "note": "spinner arc in a photo placeholder"
+    },
+    {
+      "fg": "--color-fg-accent",
+      "bg": "--color-bg-subtle",
+      "min": 4.5,
+      "note": "status label on the current inbox row"
+    },
+    {
+      "fg": "--color-success-fg",
+      "bg": "--color-bg-subtle",
+      "min": 4.5,
+      "note": "status label on the current inbox row"
+    },
+    {
+      "fg": "--color-warning-fg",
+      "bg": "--color-bg-subtle",
+      "min": 4.5,
+      "note": "status label on the current inbox row"
+    },
+    {
+      "fg": "--color-danger-fg",
+      "bg": "--color-bg-subtle",
+      "min": 4.5,
+      "note": "status label on the current inbox row"
+    },
+    {
+      "fg": "--color-warning-fg",
+      "bg": "--color-bg-surface-sunken",
+      "min": 4.5,
+      "note": "status or late wait on a hovered record row"
+    },
+    {
+      "fg": "--color-success-fg",
+      "bg": "--color-bg-surface-sunken",
+      "min": 4.5,
+      "note": "status or late wait on a hovered record row"
+    },
+    {
+      "fg": "--color-danger-fg",
+      "bg": "--color-bg-surface-sunken",
+      "min": 4.5,
+      "note": "status or late wait on a hovered record row"
+    },
+    {
+      "fg": "--color-star",
+      "bg": "--color-bg-surface-raised",
+      "min": 3,
+      "note": "filled star in the review dialog"
+    },
+    {
+      "fg": "--color-star-empty",
+      "bg": "--color-bg-surface-raised",
+      "min": 3,
+      "note": "empty star in the review dialog"
+    },
+    {
+      "fg": "--color-star-empty",
+      "bg": "--color-bg-subtle",
+      "min": 3,
+      "note": "hovered star label"
+    },
+    {
+      "fg": "--color-success-solid",
+      "bg": "--color-bg-surface-raised",
+      "min": 3,
+      "note": "done check in dialogs"
+    },
+    {
+      "fg": "--color-warning-fg",
+      "bg": "--color-bg-surface-raised",
+      "min": 4.5,
+      "note": "warning in the enquiry dialog"
+    },
+    {
+      "fg": "--color-fg-subtle",
+      "bg": "--color-bg-photo",
+      "min": 4.5,
+      "note": "placeholder label on a photo"
+    },
+    {
+      "fg": "--color-fg-muted",
+      "bg": "--color-bg-photo",
+      "min": 4.5,
+      "note": "muted label on a photo"
+    },
+    {
+      "fg": "--color-bg-surface",
+      "bg": "--color-accent",
+      "min": 3,
+      "note": "switch thumb on the on track"
+    },
+    {
+      "fg": "--color-bg-surface",
+      "bg": "--color-border-strong",
+      "min": 3,
+      "note": "switch thumb on the off track"
     }
   ]
 }

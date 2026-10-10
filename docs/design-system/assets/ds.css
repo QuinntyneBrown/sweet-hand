@@ -54,7 +54,7 @@ pre code { background: none; padding: 0; }
 .ds-section > p, .ds-section > ul, .ds-section > ol { max-width: var(--layout-measure); margin-bottom: var(--space-4); }
 .ds-section > ul, .ds-section > ol { padding-left: var(--space-6); }
 .ds-section li + li { margin-top: var(--space-1); }
-.ds-section h3 { font: var(--text-h4); margin: var(--space-6) 0 var(--space-3); }
+.ds-section > h3 { font: var(--text-h4); margin: var(--space-6) 0 var(--space-3); }
 .ds-section[data-na] > *:not(h2):not(.ds-na) { display: none; }
 .ds-na { padding: var(--space-3) var(--space-4); background: var(--color-bg-subtle); border-radius: var(--radius-md); color: var(--color-fg-muted); font: var(--text-body-sm); }
 .ds-na::before { content: "Not applicable: "; font-weight: var(--font-weight-semibold); }
@@ -75,7 +75,7 @@ pre code { background: none; padding: 0; }
 .ds-themes > [data-theme]::before { content: attr(data-theme) " theme"; display: block; font: var(--text-overline); letter-spacing: var(--letter-spacing-wide); text-transform: uppercase; color: var(--color-fg-subtle); margin-bottom: var(--space-4); }
 
 /* State matrix: variants down, states across */
-.ds-matrix { overflow-x: auto; margin-block: var(--space-4); }
+.ds-matrix { position: relative; overflow-x: auto; margin-block: var(--space-4); }
 .ds-matrix table { border-collapse: collapse; min-width: 100%; }
 .ds-matrix th { font: var(--text-overline); letter-spacing: var(--letter-spacing-wide); text-transform: uppercase; color: var(--color-fg-subtle); text-align: left; padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--color-border-default); white-space: nowrap; }
 .ds-matrix th[scope="row"] { font: var(--text-label); text-transform: none; letter-spacing: 0; color: var(--color-fg-default); border-bottom: 0; border-right: 1px solid var(--color-border-default); }
@@ -98,7 +98,7 @@ pre code { background: none; padding: 0; }
 .ds-table th, .ds-table td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--color-border-default); vertical-align: top; }
 .ds-table th { background: var(--color-bg-surface-sunken); font: var(--text-label); color: var(--color-fg-muted); }
 .ds-table tr:last-child td { border-bottom: 0; }
-.ds-table code { white-space: nowrap; }
+.ds-table code { white-space: normal; overflow-wrap: anywhere; }
 .ds-table-wrap { overflow-x: auto; }
 .ds-swatch-cell { display: inline-flex; align-items: center; gap: var(--space-2); }
 .ds-swatch-cell i { width: 1rem; height: 1rem; border-radius: var(--radius-xs); border: 1px solid var(--color-border-default); background: var(--swatch, transparent); flex: none; }

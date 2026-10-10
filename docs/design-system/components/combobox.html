@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Combobox — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand combobox: the .search-field with a .suggestions listbox for area and postal-code search in the search dialog and the listing aside; APG Combobox; empty, typing, no match, invalid postal code, out of area and busy states in both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Inputs</p>
+      <h1>Combobox</h1>
+      <p class="ds-lead">The area and postal code search: type “scar” or “M1B 2K3” and Sweet Hand suggests the GTA area it means. It is the one way to say where an event is.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">APG Combobox (list autocomplete)</span><span class="ds-pill"><code>.search-field</code></span><span class="ds-pill"><code>.suggestions</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The combobox answers "Where’s your event?" (L2-011, L2-012). People type an area name ("Scarborough", "Mississauga") or a Canadian postal code. Matching areas appear as suggestions; a valid GTA postal code resolves to its area, and only its first three characters ("M1B") are used and stored.</p>
+      <ul>
+        <li><b>Search dialog</b>: the header's search icon (and the phone browse bar's "Area or postal code" button) opens <code>dialogs/search</code>. The field autofocuses; suggestions float in a raised <code>.suggestions</code> panel below it; "Or choose a whole region" offers the five regions as a fallback.</li>
+        <li><b>Listing aside</b>: from 62rem the filter column on <code>/caterers</code> has the same field under "Area", above the region list. Its suggestions sit in flow (<code>.suggestions--inline</code>) so they push the region list down instead of covering it.</li>
+      </ul>
+      <p>When not to use it: for a plain search that doesn't suggest values (operator "Business or owner name"), use the pill search <a href="text-field.html">text field</a>. For a short fixed list, use a <a href="select.html">select</a>. To filter by several areas at once, use the region checkboxes in the <a href="filter-list.html">filter list</a>. There is no free-text search by caterer or dish name (mocks README, open question 8).</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="field" style="width: min(100%, 22rem);">
+            <label class="visually-hidden" for="an-q">Area or postal code</label>
+            <div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="an-q" type="search" value="scar" role="combobox" aria-expanded="true" aria-controls="an-q-list" aria-autocomplete="list" aria-activedescendant="an-q-o1"></div>
+            <ul class="suggestions" id="an-q-list" role="listbox" aria-label="Matching areas"><li class="suggestion" id="an-q-o1" role="option" aria-selected="true"><span><mark>Scar</mark>borough</span><span class="suggestion__hint">City of Toronto</span></li></ul>
+          </div>
+          <span class="ds-callout" style="left: 12%; top: 22%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 26%; top: 14%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 12%; top: 58%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 26%; top: 74%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 40%; top: 74%;" aria-hidden="true">5</span>
+          <span class="ds-callout" style="left: 80%; top: 74%;" aria-hidden="true">6</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Field</b><small><code>.search-field .input</code>: a 52px pill (<code>--control-height-lg</code>, <code>--radius-full</code>) with the <code>--field-*</code> tokens; <code>role="combobox"</code>.</small></div></li>
+          <li><div><b>Pin icon</b><small>20px area pin in <code>--color-fg-subtle</code>, decorative. The pin means "area" everywhere in Sweet Hand.</small></div></li>
+          <li><div><b>Listbox panel</b><small><code>.suggestions</code>: <code>--color-bg-surface-raised</code>, 1px <code>--color-border-default</code>, <code>--radius-lg</code>, <code>--shadow-3</code>, 8px below the field. The inline variant drops the border, shadow and padding.</small></div></li>
+          <li><div><b>Option</b><small><code>.suggestion</code>, 44px, <code>--radius-md</code>. The active option gets <code>--color-bg-subtle</code> and a 2px pepper bar at its start edge.</small></div></li>
+          <li><div><b>Match</b><small><code>&lt;mark&gt;</code> around the typed part, shown bold rather than highlighted, so the colour stays calm.</small></div></li>
+          <li><div><b>Hint</b><small><code>.suggestion__hint</code>: the region ("City of Toronto", "Peel"), caption size, <code>--color-fg-subtle</code>.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>In the search dialog (floating suggestions)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 30rem;">
+          <div class="field">
+            <label class="visually-hidden" for="v-q1">Area or postal code</label>
+            <div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="v-q1" name="area" type="search" placeholder="Area or postal code" autocomplete="postal-code" autocapitalize="characters" enterkeyhint="search" role="combobox" aria-expanded="true" aria-controls="v-q1-list" aria-autocomplete="list" aria-activedescendant="v-q1-o2" aria-describedby="v-q1-help" value="m"></div>
+            <p class="field__help" id="v-q1-help">An area like Scarborough, or a postal code like M1B 2K3.</p>
+            <ul class="suggestions" id="v-q1-list" role="listbox" aria-label="Matching areas">
+              <li class="suggestion" id="v-q1-o1" role="option" aria-selected="false"><span><mark>M</mark>arkham</span><span class="suggestion__hint">York Region</span></li>
+              <li class="suggestion" id="v-q1-o2" role="option" aria-selected="true"><span><mark>M</mark>ilton</span><span class="suggestion__hint">Halton</span></li>
+              <li class="suggestion" id="v-q1-o3" role="option" aria-selected="false"><span><mark>M</mark>ississauga</span><span class="suggestion__hint">Peel</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Areas whose names start with the typed text, alphabetical, with their region. Arrow keys move the pepper bar; Enter picks.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="field"&gt;
+  &lt;label class="visually-hidden" for="q"&gt;Area or postal code&lt;/label&gt;
+  &lt;div class="search-field"&gt;
+    &lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;…pin…&lt;/svg&gt;
+    &lt;input class="input" id="q" name="area" type="search" placeholder="Area or postal code"
+           autocomplete="postal-code" autocapitalize="characters" enterkeyhint="search"
+           role="combobox" aria-expanded="true" aria-controls="q-list" aria-autocomplete="list"
+           aria-activedescendant="opt-scarborough" aria-describedby="q-help" value="scar"&gt;
+  &lt;/div&gt;
+  &lt;p class="field__help" id="q-help"&gt;An area like Scarborough, or a postal code like M1B 2K3.&lt;/p&gt;
+  &lt;ul class="suggestions" id="q-list" role="listbox" aria-label="Matching areas"&gt;
+    &lt;li class="suggestion" id="opt-scarborough" role="option" aria-selected="true"&gt;
+      &lt;span&gt;&lt;mark&gt;Scar&lt;/mark&gt;borough&lt;/span&gt;&lt;span class="suggestion__hint"&gt;City of Toronto&lt;/span&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>In the listing aside (inline suggestions)</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 16rem;">
+          <div class="filter-group" role="group" aria-labelledby="v-f-area">
+            <h3 class="filter-group__title" id="v-f-area">Area</h3>
+            <form class="search-field" role="search" action="../../mocks/pages/caterers/filtered.html"><label class="visually-hidden" for="v-q2">Area or postal code</label><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="v-q2" name="area" type="search" placeholder="Area or postal code" autocomplete="postal-code" autocapitalize="characters" role="combobox" aria-expanded="true" aria-controls="v-q2-list" aria-autocomplete="list" aria-activedescendant="v-q2-o1" value="pick"></form>
+            <ul class="suggestions suggestions--inline" id="v-q2-list" role="listbox" aria-label="Matching areas"><li class="suggestion" id="v-q2-o1" role="option" aria-selected="true"><span><mark>Pick</mark>ering</span><span class="suggestion__hint">Durham</span></li></ul>
+            <ul class="filter-list"><li><button class="filter-list__item" type="button" aria-pressed="false">City of Toronto <span class="filter-list__count">31</span></button></li><li><button class="filter-list__item" type="button" aria-pressed="false">Peel <span class="filter-list__count">13</span></button></li><li><button class="filter-list__item" type="button" aria-pressed="false">Durham <span class="filter-list__count">7</span></button></li></ul>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Flat, in-flow suggestions push the region list down; nothing floats over the filter column.</span></div>
+      </div>
+      <h3>In context</h3>
+      <div class="ds-iframes">
+        <iframe class="ds-iframe" src="../../mocks/dialogs/search/suggestions.html?chrome=0&amp;theme=light" title="Search dialog mock at phone width with one suggestion, Scarborough" loading="lazy"></iframe>
+        <iframe class="ds-iframe" src="../../mocks/dialogs/search/out-of-area.html?chrome=0&amp;theme=dark" title="Search dialog mock in dark with the out-of-area warning for K1A 0B1" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>One size: the 52px pill (<code>--control-height-lg</code>) with 44px options, in the dialog and the aside alike. Area search is a primary task wherever it appears, so it gets the hero size. The width follows the container: the dialog body (up to 32rem) or the 15rem filter column. The panel is always exactly as wide as the field.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Every state from <code>dialogs/search</code> and the listing, with the real ARIA (<code>aria-expanded</code>, <code>aria-activedescendant</code>, <code>aria-invalid</code>, <code>readonly</code>, <code>disabled</code>). Focus is forced with <code>data-state</code>.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Combobox states</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Empty</th><th scope="col">Focus</th><th scope="col">Typing, suggestions</th><th scope="col">No match</th><th scope="col">Invalid postal code</th><th scope="col">Out of area</th><th scope="col">Busy</th><th scope="col">Disabled</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Search dialog</th><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-d-empty" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-d-empty-list" aria-autocomplete="list" aria-expanded="false"></div><ul id="cm-d-empty-list" role="listbox" aria-label="Matching areas" hidden></ul></div></td><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-d-focus" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-d-focus-list" aria-autocomplete="list" aria-expanded="false" data-state="focus"></div><ul id="cm-d-focus-list" role="listbox" aria-label="Matching areas" hidden></ul></div></td><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-d-typing" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-d-typing-list" aria-autocomplete="list" aria-expanded="true" aria-activedescendant="cm-d-typing-o1" value="scar"></div><ul class="suggestions" id="cm-d-typing-list" role="listbox" aria-label="Matching areas"><li class="suggestion" id="cm-d-typing-o1" role="option" aria-selected="true"><span><mark>Scar</mark>borough</span><span class="suggestion__hint">City of Toronto</span></li></ul></div></td><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-d-nomatch" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-d-nomatch-list" aria-autocomplete="list" aria-expanded="false" value="Barrie"></div><ul id="cm-d-nomatch-list" role="listbox" aria-label="Matching areas" hidden></ul><p class="suggestions suggestions__empty" role="status">No matching areas</p></div></td><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-d-invalid" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-d-invalid-list" aria-autocomplete="list" aria-expanded="false" aria-invalid="true" aria-describedby="cm-d-invalid-msg" value="12345"></div><p class="field__error" id="cm-d-invalid-msg">Enter a valid postal code, like M5V 2T6</p><ul id="cm-d-invalid-list" role="listbox" aria-label="Matching areas" hidden></ul></div></td><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-d-out" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-d-out-list" aria-autocomplete="list" aria-expanded="false" aria-describedby="cm-d-out-msg" value="K1A 0B1"></div><p class="field__warning" id="cm-d-out-msg">Sweet Hand currently serves Toronto and the GTA</p><ul id="cm-d-out-list" role="listbox" aria-label="Matching areas" hidden></ul></div></td><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-d-busy" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-d-busy-list" aria-autocomplete="list" aria-expanded="false" readonly aria-busy="true" value="M1B 2K3"></div><ul id="cm-d-busy-list" role="listbox" aria-label="Matching areas" hidden></ul></div></td><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-d-disabled" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-d-disabled-list" aria-autocomplete="list" aria-expanded="false" disabled></div><ul id="cm-d-disabled-list" role="listbox" aria-label="Matching areas" hidden></ul></div></td></tr>
+          <tr><th scope="row">Listing aside</th><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-a-empty" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-a-empty-list" aria-autocomplete="list" aria-expanded="false"></div><ul id="cm-a-empty-list" role="listbox" aria-label="Matching areas" hidden></ul></div></td><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-a-focus" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-a-focus-list" aria-autocomplete="list" aria-expanded="false" data-state="focus"></div><ul id="cm-a-focus-list" role="listbox" aria-label="Matching areas" hidden></ul></div></td><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-a-typing" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-a-typing-list" aria-autocomplete="list" aria-expanded="true" aria-activedescendant="cm-a-typing-o1" value="scar"></div><ul class="suggestions suggestions--inline" id="cm-a-typing-list" role="listbox" aria-label="Matching areas"><li class="suggestion" id="cm-a-typing-o1" role="option" aria-selected="true"><span><mark>Scar</mark>borough</span><span class="suggestion__hint">City of Toronto</span></li></ul></div></td><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-a-nomatch" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-a-nomatch-list" aria-autocomplete="list" aria-expanded="false" value="Barrie"></div><ul id="cm-a-nomatch-list" role="listbox" aria-label="Matching areas" hidden></ul><p class="suggestions suggestions--inline suggestions__empty" role="status">No matching areas</p></div></td><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-a-invalid" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-a-invalid-list" aria-autocomplete="list" aria-expanded="false" aria-invalid="true" aria-describedby="cm-a-invalid-msg" value="12345"></div><p class="field__error" id="cm-a-invalid-msg">Enter a valid postal code, like M5V 2T6</p><ul id="cm-a-invalid-list" role="listbox" aria-label="Matching areas" hidden></ul></div></td><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-a-out" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-a-out-list" aria-autocomplete="list" aria-expanded="false" aria-describedby="cm-a-out-msg" value="K1A 0B1"></div><p class="field__warning" id="cm-a-out-msg">Sweet Hand currently serves Toronto and the GTA</p><ul id="cm-a-out-list" role="listbox" aria-label="Matching areas" hidden></ul></div></td><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-a-busy" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-a-busy-list" aria-autocomplete="list" aria-expanded="false" readonly aria-busy="true" value="M1B 2K3"></div><ul id="cm-a-busy-list" role="listbox" aria-label="Matching areas" hidden></ul></div></td><td><div class="field" style="min-width: 15rem;"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="cm-a-disabled" type="search" aria-label="Area or postal code" placeholder="Area or postal code" role="combobox" aria-controls="cm-a-disabled-list" aria-autocomplete="list" aria-expanded="false" disabled></div><ul id="cm-a-disabled-list" role="listbox" aria-label="Matching areas" hidden></ul></div></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="field"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="th-l" type="search" aria-label="Area or postal code, light" role="combobox" aria-expanded="true" aria-controls="th-l-list" aria-autocomplete="list" aria-activedescendant="th-l-o1" value="scar"></div><ul class="suggestions" id="th-l-list" role="listbox" aria-label="Matching areas, light"><li class="suggestion" id="th-l-o1" role="option" aria-selected="true"><span><mark>Scar</mark>borough</span><span class="suggestion__hint">City of Toronto</span></li></ul></div><div class="field"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="th-l2" type="search" aria-label="Area or postal code, light, invalid" role="combobox" aria-expanded="false" aria-controls="th-l2-list" aria-autocomplete="list" aria-invalid="true" aria-describedby="th-l2-e" value="12345"></div><p class="field__error" id="th-l2-e">Enter a valid postal code, like M5V 2T6</p><ul id="th-l2-list" role="listbox" aria-label="Matching areas" hidden></ul></div></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="field"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="th-d" type="search" aria-label="Area or postal code, dark" role="combobox" aria-expanded="true" aria-controls="th-d-list" aria-autocomplete="list" aria-activedescendant="th-d-o1" value="scar"></div><ul class="suggestions" id="th-d-list" role="listbox" aria-label="Matching areas, dark"><li class="suggestion" id="th-d-o1" role="option" aria-selected="true"><span><mark>Scar</mark>borough</span><span class="suggestion__hint">City of Toronto</span></li></ul></div><div class="field"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="th-d2" type="search" aria-label="Area or postal code, dark, invalid" role="combobox" aria-expanded="false" aria-controls="th-d2-list" aria-autocomplete="list" aria-invalid="true" aria-describedby="th-d2-e" value="12345"></div><p class="field__error" id="th-d2-e">Enter a valid postal code, like M5V 2T6</p><ul id="th-d2-list" role="listbox" aria-label="Matching areas" hidden></ul></div></div></div>
+      </div>
+      <ul>
+        <li><b>Empty</b>: placeholder and help only; <code>aria-expanded="false"</code>. In the dialog the field has focus on open and the regions sit below.</li>
+        <li><b>Typing with suggestions</b>: after the first character, up to 8 areas whose names start with the text (case- and accent-insensitive), alphabetical. No option is active until an arrow key is pressed; the matched part is bold.</li>
+        <li><b>No match</b> ("Barrie"): the listbox closes and a <code>.suggestions__empty</code> status says "No matching areas". It is not an option, so arrow keys don't land on it. The regions stay available.</li>
+        <li><b>Invalid postal code</b> ("12345"): shown on submit, not while typing. <code>aria-invalid</code>, a <code>.field__error</code> "Enter a valid postal code, like M5V 2T6", and the value is kept.</li>
+        <li><b>Out of area</b> ("K1A 0B1", a real code outside the GTA): a <code>.field__warning</code> in a polite status, "Sweet Hand currently serves Toronto and the GTA", not an error. The region list stays as the way forward.</li>
+        <li><b>Busy</b> ("M1B 2K3" submitted): the field goes <code>readonly</code>, Show caterers shows <code>aria-busy</code>, Cancel is disabled. Results arrive in under a second, then the dialog closes on the filtered listing.</li>
+        <li><b>Disabled</b>: only when the listing itself can't load (offline, empty states), together with the region buttons.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Below 36rem</b> the search dialog is a bottom sheet (<code>--radius-xl</code> top corners), full width. The field autofocuses, so the keyboard opens with the sheet; floating suggestions stay above it because the panel follows the field in the dialog body.</li>
+        <li><b>From 36rem</b> the dialog is centred (32rem wide). The mock note said "from 640px"; the CSS and this system use the 36rem breakpoint.</li>
+        <li><b>Below 62rem</b> the listing has no filter column. The browse bar's "Area or postal code" button (<code>.btn--ghost</code> with the pin) opens the dialog. <b>From 62rem</b> the aside field is the combobox, with inline suggestions.</li>
+        <li>Phones get a capitals keyboard (<code>autocapitalize="characters"</code>) with a Search key (<code>enterkeyhint="search"</code>), and <code>autocomplete="postal-code"</code> offers the person's saved postal code.</li>
+        <li>With more than 8 matches the panel scrolls inside itself; the page never scrolls sideways at 320px.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The field uses the text field's <code>--field-bg</code>, <code>--field-border</code> and <code>--field-fg</code> with the pill radius. The panel reads <code>--color-bg-surface-raised</code>, <code>--color-border-default</code> and <code>--shadow-3</code>; options read <code>--color-fg-default</code> and <code>--color-bg-subtle</code>; the active bar <code>--color-accent</code>; hints <code>--color-fg-subtle</code>; the empty status <code>--color-fg-muted</code>. Pepper appears only as the bar on the active option ("you are here" in the list).</p>
+      <p>In dark the raised panel is stone-850 over a stone-850 dialog, so its border and deeper shadow carry the edge; the bar is pepper-300. The <code>&lt;mark&gt;</code> never gets a background in either theme.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p><a href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/">APG Combobox</a>, list autocomplete with manual selection. The <code>&lt;input&gt;</code> has <code>role="combobox"</code>, <code>aria-autocomplete="list"</code>, <code>aria-controls</code> pointing at the <code>role="listbox"</code>, <code>aria-expanded</code> true only while options show, and <code>aria-activedescendant</code> naming the active <code>role="option"</code> (which has <code>aria-selected="true"</code>). DOM focus stays in the input throughout. The dialog's <code>&lt;form role="search"&gt;</code> and the aside's search form are landmarks.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td>Typing</td><td>Filters suggestions; opens the listbox when there are matches.</td></tr>
+        <tr><td><kbd>↓</kbd> / <kbd>↑</kbd></td><td>Opens the listbox if closed; moves the active option, wrapping at the ends. The input text doesn't change until Enter.</td></tr>
+        <tr><td><kbd>Alt</kbd>+<kbd>↓</kbd></td><td>Opens the listbox without moving the active option.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>With an active option: fills the field with it and closes the list. With none: submits what was typed (a postal code, or an exact area name).</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Closes the listbox; a second Esc clears the field; in the dialog, a third closes the dialog and returns focus to the search icon.</td></tr>
+        <tr><td><kbd>←</kbd> / <kbd>→</kbd>, <kbd>Home</kbd> / <kbd>End</kbd></td><td>Move the text cursor in the input (not the options).</td></tr>
+        <tr><td><kbd>Tab</kbd></td><td>Closes the listbox without choosing and moves on (to the regions, then Cancel and Show caterers).</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>Real focus stays in the field, with the flush pepper ring. The active option is shown by the fill and the 2px pepper bar, and is scrolled into view. Picking an option keeps focus in the field. Submitting closes the dialog and moves focus to the result count on the listing.</p>
+      <h3>Labelling</h3>
+      <p>The field is named "Area or postal code" with a visually hidden label. The dialog title "Where’s your event?" and the visible help give the question and an example. The listbox is "Matching areas"; each option's name is the area, and its region hint is part of the option text ("Scarborough, City of Toronto"). A polite status announces the count as it changes ("3 areas match", "No matching areas"). Errors and warnings are referenced from <code>aria-describedby</code>.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Option on panel</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Active option on fill</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Region hint on panel</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>No-match status on panel</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Placeholder and pin on field</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Field edge on page</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring on field</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Error in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface-raised" data-min="4.5"></span></div>
+      </div>
+      <p>The active option is identified by its fill and bar together with <code>aria-selected</code>. The pepper bar against the fill and the field edge against the dialog surface still need their own entries in <code>contrast-pairs.json</code> (see the report).</p>
+      <h3>Motion</h3>
+      <p>Suggestions appear and update without animation, so fast typists never wait. The field edge transitions over <code>--duration-fast</code>. The dialog's sheet or scale entry follows <a href="dialog.html">dialog</a>, and reduced motion zeroes it.</p>
+      <h3>Touch</h3>
+      <p>The field is 52px and options are 44px, full width, with no gaps between them. A tap on an option picks it; a tap outside closes the list without picking.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Question as the dialog title: "Where’s your event?". Placeholder: "Area or postal code". Help: "An area like Scarborough, or a postal code like M1B 2K3."</li>
+        <li>Suggestions are L2-010 area names exactly ("Whitchurch-Stouffville", "Downtown Toronto") with their region as the hint. Neighbourhood names that aren't areas (Leslieville, Malton) don't appear (open question 4).</li>
+        <li>Postal codes are shown uppercase with a space ("M1B 2K3") whatever was typed. Only the first three characters are kept; say so where it matters ("We keep only the first 3 characters").</li>
+        <li>Error: "Enter a valid postal code, like M5V 2T6". Out of area: "Sweet Hand currently serves Toronto and the GTA". No match: "No matching areas". No exclamation marks, no blame.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="dd-1" type="search" aria-label="Area or postal code" role="combobox" aria-expanded="false" aria-controls="dd-1-list" aria-autocomplete="list" value="Barrie"></div><ul id="dd-1-list" role="listbox" aria-label="Matching areas" hidden></ul><p class="suggestions suggestions__empty" role="status">No matching areas</p></div></div><figcaption>"No matching areas" is a status message outside the listbox.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="dd-2" type="search" aria-label="Area or postal code" role="combobox" aria-expanded="true" aria-controls="dd-2-list" aria-autocomplete="list" value="Barrie"></div><ul class="suggestions" id="dd-2-list" role="listbox" aria-label="Matching areas"><li class="suggestions__empty" role="option" aria-disabled="true">No matching areas</li></ul></div></div><figcaption>As a disabled option (the no-match mock), the message reads as "1 of 1" and the list claims to be open.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="dd-3" type="search" aria-label="Area or postal code" role="combobox" aria-expanded="false" aria-controls="dd-3-list" aria-autocomplete="list" aria-describedby="dd-3-w" value="K1A 0B1"></div><p class="field__warning" id="dd-3-w" role="status">Sweet Hand currently serves Toronto and the GTA</p><ul id="dd-3-list" role="listbox" aria-label="Matching areas" hidden></ul></div></div><figcaption>A real postal code outside the GTA is a warning, with the regions offered below.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><div class="search-field"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="input" id="dd-4" type="search" aria-label="Area or postal code" role="combobox" aria-expanded="false" aria-controls="dd-4-list" aria-autocomplete="list" aria-invalid="true" aria-describedby="dd-4-e" value="K1A 0B1"></div><p class="field__error" id="dd-4-e">Enter a valid postal code, like M5V 2T6</p><ul id="dd-4-list" role="listbox" aria-label="Matching areas" hidden></ul></div></div><figcaption>Calling a valid Ottawa code "not valid" is wrong and leaves no way forward.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Field fill / edge</td><td><code>--field-bg</code> / <code>--field-border</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Pin, placeholder, hint</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Panel</td><td><code>--color-bg-surface-raised</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td></tr>
+          <tr><td>Panel border</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Option</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Active / hover option fill</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Active option bar</td><td><code>--color-accent</code>, <code>--border-width-thick</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>No-match status</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Field height / option height</td><td><code>--control-height-lg</code> / <code>--target-comfortable</code></td><td colspan="2"><span data-token="--control-height-lg"></span> / <span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Radius field / panel / option</td><td><code>--radius-full</code> / <code>--radius-lg</code> / <code>--radius-md</code></td><td colspan="2"><span data-token="--radius-full"></span> / <span data-token="--radius-lg"></span> / <span data-token="--radius-md"></span></td></tr>
+          <tr><td>Panel elevation</td><td><code>--shadow-3</code></td><td colspan="2">overlay shadow (none when inline)</td></tr>
+          <tr><td>Panel offset / padding</td><td><code>--space-2</code></td><td colspan="2"><span data-token="--space-2"></span></td></tr>
+          <tr><td>Field start padding</td><td><code>--space-4</code> + <code>--icon-size-md</code> + <code>--space-2</code></td><td colspan="2"><span data-token="--space-4"></span> + <span data-token="--icon-size-md"></span> + <span data-token="--space-2"></span></td></tr>
+          <tr><td>Match weight</td><td><code>--font-weight-bold</code></td><td colspan="2"><span data-token="--font-weight-bold"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;!-- No match: the listbox is hidden and a status says so --&gt;
+&lt;input … role="combobox" aria-expanded="false" aria-controls="q-list" aria-autocomplete="list" value="Barrie"&gt;
+&lt;ul id="q-list" role="listbox" aria-label="Matching areas" hidden&gt;&lt;/ul&gt;
+&lt;p class="suggestions suggestions__empty" role="status"&gt;No matching areas&lt;/p&gt;
+
+&lt;!-- Out of area --&gt;
+&lt;input … aria-describedby="q-help q-msg" value="K1A 0B1"&gt;
+&lt;p class="field__warning" id="q-msg" role="status"&gt;Sweet Hand currently serves Toronto and the GTA&lt;/p&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.search-field</code></td><td>Pill field wrapper; positions the pin icon.</td></tr>
+        <tr><td><code>.suggestions</code></td><td>Raised listbox panel under the field.</td></tr>
+        <tr><td><code>.suggestions--inline</code></td><td>Flat, in-flow panel (listing aside).</td></tr>
+        <tr><td><code>.suggestion</code> + <code>aria-selected="true"</code></td><td>Option; active fill and pepper bar.</td></tr>
+        <tr><td><code>mark</code> / <code>.suggestion__hint</code></td><td>Bold match / region caption.</td></tr>
+        <tr><td><code>.suggestions__empty</code></td><td>No-match status text; with <code>.suggestions</code>, also the panel.</td></tr>
+        <tr><td><code>role="combobox"</code>, <code>aria-expanded</code>, <code>aria-controls</code>, <code>aria-autocomplete="list"</code>, <code>aria-activedescendant</code></td><td>APG combobox wiring on the input.</td></tr>
+        <tr><td><code>autocomplete="postal-code"</code>, <code>autocapitalize="characters"</code>, <code>enterkeyhint="search"</code></td><td>Phone keyboard and autofill.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation and mocks only.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/dialogs/search/default.html">dialogs/search/default</a> (empty, regions fallback)</li>
+        <li><a href="../../mocks/dialogs/search/suggestions.html">dialogs/search/suggestions</a> ("scar" → Scarborough)</li>
+        <li><a href="../../mocks/dialogs/search/no-match.html">dialogs/search/no-match</a> ("Barrie")</li>
+        <li><a href="../../mocks/dialogs/search/invalid.html">dialogs/search/invalid</a> ("12345")</li>
+        <li><a href="../../mocks/dialogs/search/out-of-area.html">dialogs/search/out-of-area</a> ("K1A 0B1")</li>
+        <li><a href="../../mocks/dialogs/search/busy.html">dialogs/search/busy</a> ("M1B 2K3", only M1B stored)</li>
+        <li><a href="../../mocks/pages/caterers/default.html">pages/caterers/default</a>, <a href="../../mocks/pages/caterers/postal-invalid.html">postal-invalid</a>, <a href="../../mocks/pages/caterers/out-of-area.html">out-of-area</a> and <a href="../../mocks/pages/caterers/offline.html">offline</a> (listing aside)</li>
+      </ul>
+      <p>Drift fixed during extraction: the no-match message was a disabled <code>role="option"</code> inside an expanded listbox; it is now a status outside a hidden listbox. The listing aside's field had no combobox wiring while the dialog's did; both now share it, and the aside uses the previously unused <code>.suggestions--inline</code>. The help paragraph needed an inline <code>margin-top</code> because the field wasn't in a <code>.field</code>. The busy field was <code>readonly</code> with no busy signal on the input; Show caterers carries <code>aria-busy</code>, which is kept. The dialog's mock note says it centres "from 640px"; the CSS centres from 36rem.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>
