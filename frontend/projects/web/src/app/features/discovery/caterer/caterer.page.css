@@ -1,0 +1,4 @@
+/* Spacing the mock sets inline (docs/mocks/pages/caterer/default.html). */
+.description {
+  margin-top: var(--space-8);
+}

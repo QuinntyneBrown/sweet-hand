@@ -4,7 +4,9 @@ import { torontoDate, type Store } from '../lib/store.ts';
 import { photoView } from '../lib/views.ts';
 import { FSA_TO_AREA, OCCASION_PHOTOS, OCCASIONS, slugify } from '../seed/taxonomy.ts';
 import type { Caterer } from '../seed/caterers.ts';
-import type { ListingPageView, OccasionTile, ServiceArea } from '../../projects/web/src/app/core/api/discovery.models.ts';
+import type { ListingPageView, ServiceArea } from '../../projects/web/src/app/core/api/discovery.models.ts';
+import type { CatererGoneView, CatererPageView, CatererRegionView, DietaryTag } from '../../projects/web/src/app/core/api/caterer-page.models.ts';
+import { ratingSummary } from './reviews.ts';
 
 const PAGE_SIZE = 24;
 /** On the mocks' "today" the listing keeps catalog order so tests read like the mocks. */
@@ -123,6 +125,55 @@ export function registerDiscovery(r: Router<Store>): void {
     const id = FSA_TO_AREA[ctx.params['fsa'].toUpperCase()];
     if (!id) return notFound();
     return ok({ id, name: areaName(ctx.store, id) });
+  });
+
+  registerCatererPage(r);
+}
+
+// ---------------------------------------------------------------------------
+// Caterer page (docs/detailed-designs/discovery/view-caterer-page)
+// ---------------------------------------------------------------------------
+
+/** The allow-listed public view (L2-014): only approved display fields. */
+export function catererPageView(store: Store, c: Caterer): CatererPageView {
+  const regions: CatererRegionView[] = store.regions
+    .map((rg) => ({ name: rg.name, areas: c.areas.filter((id) => rg.areas.some((a) => a.id === id)).map((id) => areaName(store, id)) }))
+    .filter((rg) => rg.areas.length > 0);
+  return {
+    slug: c.slug,
+    name: c.name,
+    cuisines: c.cuisines.map((id) => cuisineName(store, id)),
+    description: c.description,
+    minGuests: c.minGuests,
+    maxGuests: c.maxGuests,
+    occasions: c.occasions.map((id) => OCCASIONS.find((o) => o.id === id)?.name ?? id),
+    photos: c.photos.map((p) => {
+      const view = photoView(p);
+      return { caption: p.caption, src: view.src, srcset: view.srcset, width: view.width, height: view.height, viewerSrc: `/media/${p.file}?w=1200&fm=jpeg` };
+    }),
+    dishes: c.dishes.map((d) => ({ name: d.name, description: d.description ?? null, price: d.price ?? null, tags: d.tags as DietaryTag[] })),
+    regions,
+    rating: ratingSummary(store, c.id),
+  };
+}
+
+function registerCatererPage(r: Router<Store>): void {
+  /** Anonymous by explicit choice (L2-013): public browsing. */
+  r.get('/api/public/caterers/:slug', (ctx) => {
+    const store = ctx.store;
+    const slug = ctx.params['slug'];
+    const renamed = store.caterers.find((c) => c.previousSlugs.includes(slug));
+    if (renamed && renamed.status === 'Published') {
+      return { status: 301, headers: { location: `/api/public/caterers/${renamed.slug}` } };
+    }
+    const c = store.caterers.find((x) => x.slug === slug);
+    if (c?.status === 'Removed') {
+      const gone: CatererGoneView = { title: 'Gone', publishedCount: store.caterers.filter((x) => x.status === 'Published').length };
+      return { status: 410, body: gone };
+    }
+    // One identical body for every other non-published status and unknown slugs (L2-014.2).
+    if (!c || c.status !== 'Published') return notFound();
+    return ok(catererPageView(store, c));
   });
 }
 

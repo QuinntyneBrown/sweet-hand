@@ -1,0 +1,22 @@
+<sh-back-link href="/caterers" i18n="@@caterer.back">Caterers</sh-back-link>
+
+@if (view(); as c) {
+  <div class="caterer-layout">
+    <div>
+      <div class="caterer-head">
+        <h1>{{ c.name }}</h1>
+        <ul class="caterer-head__meta">
+          @for (cuisine of c.cuisines; track cuisine) {
+            <li>{{ cuisine }}</li>
+          }
+        </ul>
+      </div>
+
+      <div class="prose measure description">
+        @for (p of paragraphs(); track $index) {
+          <p>{{ p }}</p>
+        }
+      </div>
+    </div>
+  </div>
+}
