@@ -1,7 +1,7 @@
 import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideHttpClient, withFetch, withInterceptors, withXsrfConfiguration } from '@angular/common/http';
 import { systemErrorsInterceptor } from './shell/system-errors.interceptor';
-import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 import { routes } from './app.routes';
 import { HttpSessionApi, SessionApi } from './core/session/session-api';
 import { Session } from './core/session/session';
@@ -16,7 +16,7 @@ import { reviewsProviders } from './features/reviews/providers';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes, withComponentInputBinding(), withInMemoryScrolling({ scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' })),
+    provideRouter(routes, withComponentInputBinding(), withInMemoryScrolling({ scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' }), withRouterConfig({ paramsInheritanceStrategy: 'always' })),
     provideHttpClient(withFetch(), withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }), withInterceptors([systemErrorsInterceptor])),
     { provide: SessionApi, useClass: HttpSessionApi },
     ...discoveryProviders,

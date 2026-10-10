@@ -1,11 +1,23 @@
 import type { Routes } from '@angular/router';
 import { requireRole } from '../../core/session/guards';
 
-/** Routes of the operator area; every page needs the role (L2-079). Pages are added as they are built. */
+/**
+ * Operator console pages, each a child of the console frame. Add a page as
+ * `{ path: 'queue', loadComponent: …, title: … }` (paths are relative to /admin).
+ */
+export const operatorPages: Routes = [];
+
+/** Routes of the operator area; every page needs the role (L2-079). */
 export const operatorRoutes: Routes = [
   {
     path: 'admin',
     canActivate: [requireRole('Operator')],
-    children: [{ path: '**', loadComponent: () => import('../../shell/system-page').then((m) => m.SystemPage), data: { kind: 'not-found' } }],
+    loadComponent: () => import('./layout/operator-layout').then((m) => m.OperatorLayout),
+    data: { mainClass: 'container' },
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'queue' },
+      ...operatorPages,
+      { path: '**', loadComponent: () => import('../../shell/system-page').then((m) => m.SystemPage), data: { kind: 'not-found' } },
+    ],
   },
 ];
