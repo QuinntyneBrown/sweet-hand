@@ -25,3 +25,5 @@ export * from './lib/toast/toast';
 export * from './lib/link/link';
 export * from './lib/description-list/description-list';
 export * from './lib/sticky-cta/sticky-cta';
+export * from './lib/tag/tag';
+export * from './lib/dish/dish';

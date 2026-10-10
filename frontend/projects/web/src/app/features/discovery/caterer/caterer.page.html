@@ -23,6 +23,18 @@
         <sh-description term="Occasions" i18n-term="@@caterer.occasions"><sh-inline-list [items]="c.occasions" /></sh-description>
       </sh-description-list>
 
+      <section class="caterer-section" aria-labelledby="menu-title">
+        <div class="caterer-section__head">
+          <h2 id="menu-title" i18n="@@caterer.menu">Menu</h2>
+          <span class="result-count" i18n="@@caterer.dishCount">{c.dishes.length, plural, =1 {1 dish} other {{{c.dishes.length}} dishes}}</span>
+        </div>
+        <sh-dish-list listId="dish-list" [(expanded)]="allDishes" [showAllLabel]="showAllDishes()" showFewerLabel="Show fewer dishes" i18n-showFewerLabel="@@caterer.showFewerDishes" [expandedAnnouncement]="dishesShown()">
+          @for (d of c.dishes; track $index) {
+            <sh-dish [name]="d.name" [price]="d.price" [description]="d.description" [tags]="d.tags" [tagLabels]="tagLabels" />
+          }
+        </sh-dish-list>
+      </section>
+
       <div class="caterer-section until-lg">
         <sh-button variant="primary" size="lg" [block]="true" haspopup="dialog" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>
       </div>

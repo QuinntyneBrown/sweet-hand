@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, computed, effect, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, computed, effect, inject, input, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { BackLink, Button, Description, DescriptionList, InlineList, StickyCta } from '@sweet-hand/components';
+import { BackLink, Button, Description, DescriptionList, Dish, DishList, InlineList, StickyCta } from '@sweet-hand/components';
+import { DIETARY_LABELS } from './dietary-labels';
 import { CatererPageApi } from '../../../core/api/caterer-page-api';
 import { EnquiryLauncher } from '../../../core/enquiry/enquiry-launcher';
 import { CatererPageMetadata } from './caterer-meta';
@@ -10,7 +11,7 @@ import { MainLandmark } from './main-landmark';
 /** A caterer's public page, /caterers/:slug (docs/detailed-designs/discovery/view-caterer-page). */
 @Component({
   selector: 'app-caterer-page',
-  imports: [BackLink, Button, Description, DescriptionList, InlineList, StickyCta],
+  imports: [BackLink, Button, Description, DescriptionList, Dish, DishList, InlineList, StickyCta],
   providers: [CatererPageMetadata, MainLandmark],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './caterer.page.html',
@@ -31,6 +32,11 @@ export class CatererPage {
     const v = this.view();
     return v ? guestRange(v.minGuests, v.maxGuests) : '';
   });
+
+  protected readonly allDishes = signal(false);
+  protected readonly showAllDishes = computed(() => $localize`:@@caterer.showAllDishes:Show all ${this.view()?.dishes.length ?? 0}:count: dishes`);
+  protected readonly dishesShown = computed(() => $localize`:@@caterer.dishesShown:${this.view()?.dishes.length ?? 0}:count: dishes shown`);
+  protected readonly tagLabels = DIETARY_LABELS;
 
   constructor() {
     effect(() => {

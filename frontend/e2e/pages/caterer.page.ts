@@ -53,6 +53,47 @@ export class CatererPage extends BasePage {
     return scope.getByRole('button', { name: 'Send an enquiry' });
   }
 
+  get menu() {
+    return this.main.getByRole('region', { name: 'Menu' });
+  }
+
+  get menuCount() {
+    return this.menu.locator('.caterer-section__head .result-count');
+  }
+
+  /** Dishes on show; dishes past the first 12 are hidden until the menu is expanded. */
+  get dishes() {
+    return this.menu.locator('.dish-list > li.dish').filter({ visible: true });
+  }
+
+  get dishNames() {
+    return this.dishes.locator('.dish__name');
+  }
+
+  dish(name: string) {
+    return this.menu.locator('li.dish').filter({ has: this.page.locator('.dish__name', { hasText: new RegExp(`^${name}$`) }) });
+  }
+
+  dishPart(dish: Locator, part: 'name' | 'price' | 'desc') {
+    return dish.locator(`.dish__${part}`);
+  }
+
+  dishTags(dish: Locator) {
+    return dish.locator('.tags > li.tag');
+  }
+
+  dishAllergens(dish: Locator) {
+    return dish.locator('.tags > li.tag--allergen');
+  }
+
+  get menuToggle() {
+    return this.menu.getByRole('button', { name: /^Show (all \d+|fewer) dishes$/ });
+  }
+
+  get menuStatus() {
+    return this.menu.getByRole('status');
+  }
+
   metaContent(name: string) {
     return this.page.locator(`head meta[name="${name}"], head meta[property="${name}"]`);
   }

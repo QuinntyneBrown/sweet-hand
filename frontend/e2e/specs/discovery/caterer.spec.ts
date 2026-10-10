@@ -86,4 +86,57 @@ test.describe('Caterer page', () => {
 
     await expect(page).toHaveURL(/\/sign-in\?returnUrl=%2Fcaterers%2Fpelau-house$/);
   });
+
+  test('L2-017.1 L2-017.3: each dish shows its name, description, dietary tags in the fixed order and price guidance', async ({ page }) => {
+    const caterer = new CatererPage(page);
+
+    await caterer.open('pelau-house');
+
+    await expect(caterer.menuCount).toHaveText('18 dishes');
+    const curryGoat = caterer.dish('Curry goat');
+    await expect(caterer.dishPart(curryGoat, 'name')).toHaveText('Curry goat');
+    await expect(caterer.dishPart(curryGoat, 'name')).toHaveRole('heading');
+    await expect(caterer.dishPart(curryGoat, 'desc')).toHaveText('Slow-cooked with scotch bonnet.');
+    await expect(caterer.dishTags(curryGoat)).toHaveText(['Gluten-free', 'Halal', 'Spicy']);
+    await expect(caterer.dishPart(curryGoat, 'price')).toHaveText('From $18 per person');
+    const blackCake = caterer.dish('Black cake');
+    await expect(caterer.dishAllergens(blackCake)).toHaveText(['Contains nuts']);
+  });
+
+  test('L2-017.2: a dish without a description, tags or price shows none of them and no empty labels', async ({ page }) => {
+    const caterer = new CatererPage(page);
+
+    await caterer.open('pelau-house');
+
+    const alooPie = caterer.dish('Aloo pie');
+    await expect(caterer.dishPart(alooPie, 'desc')).toHaveCount(0);
+    await expect(caterer.dishPart(alooPie, 'price')).toHaveCount(0);
+    await expect(alooPie).toHaveText('Aloo pieVegan');
+  });
+
+  test('L2-017.4: the first 12 of 18 dishes show and "Show all 18 dishes" expands the rest in place', async ({ page, backend }) => {
+    const caterer = new CatererPage(page);
+    await caterer.open('pelau-house');
+    await expect(caterer.dishes).toHaveCount(12);
+    await expect(caterer.dishNames.last()).toHaveText('Black cake');
+    await expect(caterer.menuToggle).toHaveText('Show all 18 dishes');
+    await expect(caterer.menuToggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(caterer.menuToggle).toHaveAttribute('aria-controls', 'dish-list');
+    const requestsBefore = (await backend.requests()).length;
+
+    await caterer.menuToggle.click();
+
+    await expect(caterer.dishes).toHaveCount(18);
+    await expect(caterer.dishNames.last()).toHaveText('Paw paw chow');
+    await expect(caterer.menuToggle).toHaveText('Show fewer dishes');
+    await expect(caterer.menuToggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(caterer.menuToggle).toBeFocused();
+    await expect(caterer.menuStatus).toHaveText('18 dishes shown');
+    expect((await backend.requests()).length).toBe(requestsBefore);
+    await caterer.expectNoAccessibilityViolations();
+
+    await caterer.menuToggle.click();
+    await expect(caterer.dishes).toHaveCount(12);
+    await expect(caterer.menuToggle).toHaveText('Show all 18 dishes');
+  });
 });
