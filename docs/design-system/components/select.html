@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Select — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand select: the native .select with a placeholder option and optgroups, filter selects with an All option, invalid, disabled and busy states in both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Inputs</p>
+      <h1>Select</h1>
+      <p class="ds-lead">A native dropdown for one answer from a known list: the event area grouped by region, the occasion, an operator filter. The phone's own picker does the hard work.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;select&gt;</code></span><span class="ds-pill"><code>.select</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use a select when there is exactly one answer from a list of about 5 to 50 known values, and seeing them all at once doesn't help. Sweet Hand always uses the native <code>&lt;select&gt;</code>: phones show their own wheel or sheet, screen readers know it, and it never needs a custom listbox.</p>
+      <ul>
+        <li><b>Form select with a placeholder option</b>: "Event area" in the enquiry (<code>&lt;option value=""&gt;Choose an area&lt;/option&gt;</code>, then the 30 areas in five <code>&lt;optgroup&gt;</code>s: City of Toronto, Peel, York Region, Durham, Halton), "Occasion" (8 occasions), "Primary area" in a caterer's settings.</li>
+        <li><b>Filter select</b>: a real first option meaning "everything" instead of a placeholder: "All operators", "All actions" in the audit log; "Show by: Week" on metrics.</li>
+      </ul>
+      <p>When not to use it: with 2 to 4 options, show them as a <a href="radio-group.html">radio group</a> or <a href="button-group.html">button group</a>. When several can apply (occasions a caterer serves, dietary tags), use <a href="checkbox.html">checkboxes</a>. When the list is long and people know what they want to type (an area or a postal code), use the <a href="combobox.html">combobox</a>. A select never navigates or submits on change.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="field" style="width: min(100%, 20rem);">
+            <label class="field__label" for="an-area">Event area</label>
+            <select class="select" id="an-area"><option value="">Choose an area</option><optgroup label="City of Toronto"><option>Scarborough</option></optgroup></select>
+          </div>
+          <span class="ds-callout" style="left: 14%; top: 62%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 34%; top: 46%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 78%; top: 46%;" aria-hidden="true">3</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Box</b><small>The text field's container: <code>--field-*</code> tokens, 44px, <code>--radius-md</code>, native appearance removed (<code>appearance: none</code>).</small></div></li>
+          <li><div><b>Selected value or placeholder option</b><small><code>--text-body</code>. The placeholder option ("Choose an area") has <code>value=""</code>, so <code>required</code> catches it.</small></div></li>
+          <li><div><b>Chevron</b><small>Two gradient triangles in <code>currentColor</code>, 5px, 12–18px from the end; <code>--space-10</code> end padding keeps text clear of it.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Form select with placeholder and groups</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 36rem;">
+          <div class="field-row">
+            <div class="field"><label class="field__label" for="v-area">Event area</label><select class="select" id="v-area" name="area" required><option value="">Choose an area</option><optgroup label="City of Toronto"><option>Downtown Toronto</option><option>East York</option><option>Etobicoke</option><option>North York</option><option selected>Scarborough</option><option>York</option></optgroup><optgroup label="Peel"><option>Brampton</option><option>Caledon</option><option>Mississauga</option></optgroup><optgroup label="York Region"><option>Aurora</option><option>East Gwillimbury</option><option>Georgina</option><option>King</option><option>Markham</option><option>Newmarket</option><option>Richmond Hill</option><option>Vaughan</option><option>Whitchurch-Stouffville</option></optgroup><optgroup label="Durham"><option>Ajax</option><option>Brock</option><option>Clarington</option><option>Oshawa</option><option>Pickering</option><option>Scugog</option><option>Uxbridge</option><option>Whitby</option></optgroup><optgroup label="Halton"><option>Burlington</option><option>Halton Hills</option><option>Milton</option><option>Oakville</option></optgroup></select></div>
+            <div class="field"><label class="field__label" for="v-occ">Occasion</label><select class="select" id="v-occ" name="occasion" required><option value="">Choose an occasion</option><option>Weddings</option><option>Birthdays</option><option>Corporate events</option><option>Funerals and repasts</option><option>Religious and cultural celebrations</option><option>Family gatherings</option><option>Private dinners</option><option>Community events</option></select></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Areas grouped by region in the same order as the filter list; occasions in the order the mocks use.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="field"&gt;
+  &lt;label class="field__label" for="area"&gt;Event area&lt;/label&gt;
+  &lt;select class="select" id="area" name="area" required&gt;
+    &lt;option value=""&gt;Choose an area&lt;/option&gt;
+    &lt;optgroup label="City of Toronto"&gt;&lt;option&gt;Downtown Toronto&lt;/option&gt;…&lt;/optgroup&gt;
+    &lt;optgroup label="Peel"&gt;…&lt;/optgroup&gt;
+  &lt;/select&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>Filter select</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <form class="toolbar" action="../../mocks/pages/admin-audit/no-results.html" aria-label="Filter the audit log (example)" style="margin-bottom: 0;">
+            <div class="field"><label class="field__label" for="v-op">Operator</label><select class="select" id="v-op" name="operator"><option selected>All operators</option><option>Leah Mohammed</option><option>Tomas Reyes</option></select></div>
+            <div class="field"><label class="field__label" for="v-by">Show by</label><select class="select" id="v-by" name="by"><option>Day</option><option selected>Week</option><option>Month</option></select></div>
+            <button class="btn btn--primary" type="submit">Apply</button>
+          </form>
+        </div>
+        <div class="ds-example__caption"><span>The first option is a real value ("All operators"); changes apply when Apply is pressed, never on change.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>One size: 44px (<code>--control-height-md</code>) with 16px text, in forms and toolbars alike. A select never sits on the large auth screens, and it has no small size: a compact select would shrink the native picker's trigger below the phone target. Width follows the field (full width in forms, at least 10rem in a toolbar).</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 20rem;">
+          <div class="field"><label class="field__label" for="z-act">Action</label><select class="select" id="z-act"><option selected>All actions</option><option>Approve</option><option>Request changes</option><option>Edit</option><option>Revert</option><option>Suspend</option><option>Reinstate</option><option>Remove</option></select></div>
+        </div>
+        <div class="ds-example__caption"><span>Medium · 44px; end padding <code>--space-10</code> for the chevron.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover and focus are forced with <code>data-state</code>; invalid and disabled use <code>aria-invalid</code> and <code>disabled</code>. A select has no read-only state in HTML: show a <a href="form-field.html">read-only value</a> instead.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Select states</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Invalid</th><th scope="col">Disabled</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Placeholder</th>
+            <td><select class="select" aria-label="Occasion, default" style="min-width: 12rem;"><option value="">Choose an occasion</option><option>Weddings</option></select></td>
+            <td><select class="select" aria-label="Occasion, hover" data-state="hover" style="min-width: 12rem;"><option value="">Choose an occasion</option><option>Weddings</option></select></td>
+            <td><select class="select" aria-label="Occasion, focus" data-state="focus" style="min-width: 12rem;"><option value="">Choose an occasion</option><option>Weddings</option></select></td>
+            <td><select class="select" aria-label="Occasion, invalid" aria-invalid="true" style="min-width: 12rem;"><option value="">Choose an occasion</option><option>Weddings</option></select></td>
+            <td><select class="select" aria-label="Occasion, disabled" disabled style="min-width: 12rem;"><option value="">Choose an occasion</option><option>Weddings</option></select></td></tr>
+          <tr><th scope="row">Chosen</th>
+            <td><select class="select" aria-label="Event area, default" style="min-width: 12rem;"><option>Scarborough</option></select></td>
+            <td><select class="select" aria-label="Event area, hover" data-state="hover" style="min-width: 12rem;"><option>Scarborough</option></select></td>
+            <td><select class="select" aria-label="Event area, focus" data-state="focus" style="min-width: 12rem;"><option>Scarborough</option></select></td>
+            <td><select class="select" aria-label="Primary area, invalid" aria-invalid="true" style="min-width: 12rem;"><option>Downtown Toronto</option></select></td>
+            <td><select class="select" aria-label="Event area, disabled" disabled style="min-width: 12rem;"><option>Scarborough</option></select></td></tr>
+          <tr><th scope="row">Filter</th>
+            <td><select class="select" aria-label="Operator, default" style="min-width: 12rem;"><option>All operators</option></select></td>
+            <td><select class="select" aria-label="Operator, hover" data-state="hover" style="min-width: 12rem;"><option>All operators</option></select></td>
+            <td><select class="select" aria-label="Operator, focus" data-state="focus" style="min-width: 12rem;"><option>All operators</option></select></td>
+            <td><span class="ds-na">An "All" filter is always valid</span></td>
+            <td><select class="select" aria-label="Operator, disabled" disabled style="min-width: 12rem;"><option>All operators</option></select></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="field"><label class="field__label" for="tl-1">Event area</label><select class="select" id="tl-1"><option>Scarborough</option></select></div><div class="field"><label class="field__label" for="tl-2">Primary area</label><select class="select" id="tl-2" aria-invalid="true" aria-describedby="tl-2-e"><option value="">Choose your primary area</option></select><span class="field__error" id="tl-2-e">Choose your primary area</span></div></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="field"><label class="field__label" for="td-1">Event area</label><select class="select" id="td-1"><option>Scarborough</option></select></div><div class="field"><label class="field__label" for="td-2">Primary area</label><select class="select" id="td-2" aria-invalid="true" aria-describedby="td-2-e"><option value="">Choose your primary area</option></select><span class="field__error" id="td-2-e">Choose your primary area</span></div></div></div>
+      </div>
+      <ul>
+        <li><b>Open</b> is drawn by the operating system (a wheel on iOS, a sheet on Android, a list on desktop). Sweet Hand doesn't style it, and the <code>color-scheme</code> token makes it follow light or dark.</li>
+        <li><b>Invalid</b>: the placeholder is still selected on submit, or the value no longer applies. The message says what to choose.</li>
+        <li><b>Busy</b>: while a form submits, a select is <code>disabled</code>, because it can't be read-only. Text fields in the same form go read-only. Restore it if sending fails.</li>
+        <li><b>Warning</b>: a valid choice the caterer doesn't usually cover ("This caterer doesn’t list Oshawa as an area they serve") keeps the default edge and adds a <code>.field__warning</code>.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Full width in forms; two selects share a <code>.field-row</code> from 36rem (Event area beside Postal code).</li>
+        <li>On phones the native picker opens over the keyboard area, with optgroup labels as section headers. This is the main reason Sweet Hand never replaces <code>&lt;select&gt;</code> with a custom dropdown.</li>
+        <li>The closed box shows the chosen option on one line; a long option ("Religious and cultural celebrations") is clipped by the browser at 320px, never wrapped. Keep options short and front-load the meaning.</li>
+        <li>In the operator toolbar each select is at least 10rem and wraps to a new line with the other filters.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The select shares the text field's component tokens (<code>--field-bg</code>, <code>--field-border</code>, <code>--field-fg</code>) and state overrides. The chevron is drawn in <code>currentColor</code>, so it follows <code>--field-fg</code>: ink in light, stone-100 in dark, faded when disabled. Native option lists follow <code>color-scheme</code> (set by the theme). Re-skin with the field tokens, never by replacing the chevron with an image.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native <code>&lt;select&gt;</code> (combobox role with a listbox popup, handled by the browser) with a <code>&lt;label for&gt;</code>. Groups use <code>&lt;optgroup label&gt;</code>, which screen readers announce. A custom listbox would need the full <a href="https://www.w3.org/WAI/ARIA/apg/patterns/listbox/">APG Listbox</a> pattern; Sweet Hand doesn't build one.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves into and out of the select.</td></tr>
+        <tr><td><kbd>Space</kbd>, <kbd>Enter</kbd>, <kbd>Alt</kbd>+<kbd>↓</kbd></td><td>Opens the list (platform-dependent).</td></tr>
+        <tr><td><kbd>↑</kbd> / <kbd>↓</kbd></td><td>Changes the option; on some platforms this changes the value without opening, which is why nothing may happen on change.</td></tr>
+        <tr><td>Letters</td><td>Type-ahead: "S" jumps to Scarborough, "Sc" stays there, "Sp" doesn't exist so it stays.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Closes the list without changing the value.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The flush pepper ring and pepper edge, like the text field. Choosing an option keeps focus on the select, and nothing else moves (WCAG 3.2.2).</p>
+      <h3>Labelling</h3>
+      <p>A visible label names the question ("Event area"); the placeholder option is an instruction ("Choose an area"), not a label. Errors and warnings are referenced from <code>aria-describedby</code>. In the busy state, don't remove the label or the value.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Value and chevron on field</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Edge on page</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Edge in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring on field</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Invalid edge on field</span><span class="ds-pair__ratio" data-contrast="--color-danger-solid|--color-bg-surface" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Edge colour transitions over <code>--duration-fast</code>; the native list opens with the platform's own motion, which honours the OS reduced-motion setting.</p>
+      <h3>Touch</h3>
+      <p>44px tall at every width, plus the label as an extra target. The native picker gives full-size touch rows on phones.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Placeholder options start with "Choose": "Choose an area", "Choose an occasion", "Choose your primary area".</li>
+        <li>Filter selects start with a real "All …" option: "All operators", "All actions".</li>
+        <li>Option names match the rest of the product exactly: GTA municipalities as in L2-010 ("Whitchurch-Stouffville"), occasions as on caterer pages ("Funerals and repasts").</li>
+        <li>Order by meaning, not alphabet, when there is one (Day, Week, Month); otherwise alphabetical within each group.</li>
+        <li>The error repeats the instruction: "Choose your primary area", not a different idea.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><label class="field__label" for="dd-1">Primary area</label><select class="select" id="dd-1" aria-invalid="true" aria-describedby="dd-1-e"><option value="">Choose your primary area</option></select><span class="field__error" id="dd-1-e">Choose your primary area</span></div></div><figcaption>The error repeats the instruction the select already gives.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><label class="field__label" for="dd-2">Primary area</label><select class="select" id="dd-2" aria-invalid="true" aria-describedby="dd-2-e"><option value="">Choose your primary area</option></select><span class="field__error" id="dd-2-e">Mark one area as primary</span></div></div><figcaption>"Mark one area as primary" (the cuisines mock) describes a different control.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><label class="field__label" for="dd-3">Show by</label><select class="select" id="dd-3"><option>Day</option><option selected>Week</option><option>Month</option></select></div><button class="btn btn--primary" type="button">Apply</button></div><figcaption>Changes apply when people press Apply.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><label class="field__label" for="dd-4">Go to</label><select class="select" id="dd-4"><option>Dashboard</option><option>Enquiries</option><option>Reviews</option></select></div></div><figcaption>A select that navigates on change moves people before they finish choosing with the arrow keys.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Fill</td><td><code>--field-bg</code> → <code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Edge</td><td><code>--field-border</code> → <code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Value and chevron</td><td><code>--field-fg</code> → <code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Hover edge</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Focus edge and ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+          <tr><td>Invalid edge</td><td><code>--color-danger-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td></tr>
+          <tr><td>Disabled fill / text</td><td><code>--color-bg-subtle</code> / <code>--color-fg-disabled</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-disabled" data-swatch></i><span data-token="--color-fg-disabled"></span></span></td></tr>
+          <tr><td>Height</td><td><code>--control-height-md</code></td><td colspan="2"><span data-token="--control-height-md"></span></td></tr>
+          <tr><td>Chevron clearance / offset</td><td><code>--space-10</code> / <code>--space-3</code>, <code>--space-4</code> + <code>--space-0-5</code></td><td colspan="2"><span data-token="--space-10"></span> / <span data-token="--space-3"></span></td></tr>
+          <tr><td>Radius</td><td><code>--radius-md</code></td><td colspan="2"><span data-token="--radius-md"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="field"&gt;
+  &lt;label class="field__label" for="primary-area"&gt;Primary area&lt;/label&gt;
+  &lt;select class="select" id="primary-area" name="primary_area" required
+          aria-invalid="true" aria-describedby="primary-area-error primary-area-help"&gt;
+    &lt;option value=""&gt;Choose your primary area&lt;/option&gt;
+    &lt;option&gt;East York&lt;/option&gt;&lt;option&gt;North York&lt;/option&gt;&lt;option&gt;Scarborough&lt;/option&gt;…
+  &lt;/select&gt;
+  &lt;span class="field__error" id="primary-area-error"&gt;Choose your primary area&lt;/span&gt;
+  &lt;span class="field__help" id="primary-area-help"&gt;Shown on your listing card. Pick the area closest to your kitchen; we never show your address.&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.select</code></td><td>Field look with a drawn chevron; native appearance removed.</td></tr>
+        <tr><td><code>&lt;option value=""&gt;</code> first</td><td>Placeholder option; fails <code>required</code>.</td></tr>
+        <tr><td><code>&lt;optgroup label&gt;</code></td><td>Region groups for areas.</td></tr>
+        <tr><td><code>aria-invalid="true"</code> / <code>disabled</code></td><td>Sorrel double edge / faded, out of tab order.</td></tr>
+        <tr><td><code>data-state="hover|focus|invalid|disabled"</code></td><td>Documentation and mocks only.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/dialogs/enquiry/default.html">dialogs/enquiry/default</a> (Event area with optgroups, Occasion)</li>
+        <li><a href="../../mocks/dialogs/enquiry/busy.html">dialogs/enquiry/busy</a> (selects disabled while sending)</li>
+        <li><a href="../../mocks/dialogs/enquiry/warning.html">dialogs/enquiry/warning</a> (area warning)</li>
+        <li><a href="../../mocks/pages/profile-cuisines/invalid.html">pages/profile-cuisines/invalid</a> (primary area, invalid)</li>
+        <li><a href="../../mocks/pages/admin-audit/default.html">pages/admin-audit/default</a> (filter selects with "All")</li>
+        <li><a href="../../mocks/pages/admin-metrics/default.html">pages/admin-metrics/default</a> ("Show by")</li>
+      </ul>
+      <p>Drift fixed during extraction: the primary-area error says "Mark one area as primary" under a select whose instruction is "Choose your primary area"; the error now repeats the instruction. Busy forms mixed read-only text fields with disabled selects without saying why; the reason (a select can't be read-only) is now the documented rule.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

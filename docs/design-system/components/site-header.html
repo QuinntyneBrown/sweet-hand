@@ -138,9 +138,9 @@
     <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
       <div class="ds-anatomy">
         <figure class="ds-anatomy__figure" style="padding: var(--space-10) var(--space-2);">
-          <header class="site-header" style="padding-inline: var(--space-2);">
+          <header class="site-header" style="padding-inline: var(--space-2); flex-wrap: wrap;">
             <a class="wordmark" href="../../mocks/pages/dashboard/default.html">Sweet Hand <span class="wordmark__tag">for caterers</span></a>
-            <nav class="site-nav" aria-label="Primary, anatomy example">
+            <nav class="site-nav" aria-label="Primary, anatomy example" style="flex-wrap: wrap;">
               <a class="site-nav__link" href="../../mocks/pages/dashboard/default.html" aria-current="page">Dashboard</a>
               <a class="site-nav__link" href="../../mocks/pages/dashboard-enquiries/default.html">Enquiries <span class="badge badge--count" aria-label="2 unread enquiries">2</span></a>
               <button class="avatar" type="button" aria-label="Account menu for Kendra Baptiste" aria-haspopup="dialog" aria-expanded="false">KB</button>
@@ -255,7 +255,7 @@
 
     <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
       <p>Hover and focus are forced with <code>data-state</code>; the current page uses <code>aria-current="page"</code>; an open menu uses <code>aria-expanded="true"</code>.</p>
-      <div class="ds-matrix"><table>
+      <div class="ds-matrix" style="position: relative;"><table>
         <caption class="visually-hidden">Site header item states</caption>
         <thead><tr><th scope="col">Item</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Current / open</th></tr></thead>
         <tbody>
@@ -288,8 +288,8 @@
       </table></div>
       <h3>Both themes</h3>
       <div class="ds-themes">
-        <div data-theme="light"><header class="site-header" style="padding-inline: 0;"><a class="wordmark" href="../../mocks/pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a><nav class="site-nav" aria-label="Primary, light theme example"><a class="site-nav__link" href="../../mocks/pages/admin-queue/default.html" aria-current="page">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a><button class="avatar" type="button" aria-label="Account menu for Leah Mohammed">LM</button></nav></header></div>
-        <div data-theme="dark"><header class="site-header" style="padding-inline: 0;"><a class="wordmark" href="../../mocks/pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a><nav class="site-nav" aria-label="Primary, dark theme example"><a class="site-nav__link" href="../../mocks/pages/admin-queue/default.html" aria-current="page">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a><button class="avatar" type="button" aria-label="Account menu for Leah Mohammed">LM</button></nav></header></div>
+        <div data-theme="light"><header class="site-header" style="padding-inline: 0; flex-wrap: wrap;"><a class="wordmark" href="../../mocks/pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a><nav class="site-nav" aria-label="Primary, light theme example"><a class="site-nav__link" href="../../mocks/pages/admin-queue/default.html" aria-current="page">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a><button class="avatar" type="button" aria-label="Account menu for Leah Mohammed">LM</button></nav></header></div>
+        <div data-theme="dark"><header class="site-header" style="padding-inline: 0; flex-wrap: wrap;"><a class="wordmark" href="../../mocks/pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a><nav class="site-nav" aria-label="Primary, dark theme example"><a class="site-nav__link" href="../../mocks/pages/admin-queue/default.html" aria-current="page">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a><button class="avatar" type="button" aria-label="Account menu for Leah Mohammed">LM</button></nav></header></div>
       </div>
       <p>Signed-in states change content, not style: the nav swaps links, the avatar appears, counts update. A count of zero removes the badge entirely.</p>
     </section>
