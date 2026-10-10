@@ -20,8 +20,11 @@ export interface Review {
   editedAt?: string;
   status: ReviewStatus;
   response?: { text: string; createdAt: string };
-  /** Hidden reviews: who hid it (an operator's user id, or null when hidden automatically after reports), why and when (L2-059). */
-  hidden?: { by: string | null; reports: number; reason: string; at: string };
+  /** Why a held review was held back (L2-050.3). */
+  holdReason?: 'phone' | 'email' | 'link';
+  /** Who hid a hidden review: three reports in 7 days (L2-055.2) or an operator; and when. */
+  hiddenBy?: 'reports' | 'operator';
+  hiddenAt?: string;
 }
 
 /**
@@ -144,8 +147,8 @@ export function seedReviews(): Review[] {
       authorUserId: 'user-devon',
       authorName: 'Devon Walters',
       rating: 1,
-      text: 'Cold roti and an hour late. Never again.',
-      eventDate: '2026-09-19',
+      text: 'Food was cold and the owner is a crook. Everybody knows that family can’t cook. Avoid.',
+      eventDate: '2026-09-12',
       createdAt: at('2026-09-26'),
       status: 'Published',
     },

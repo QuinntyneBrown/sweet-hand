@@ -246,7 +246,7 @@ export function seedCaterers(): Caterer[] {
     businessPhone: '+1 416 555 0142',
   });
   applyCatererPageCast(all);
-  applyDashboardCast(all);
+  applyModerationCast(all);
   return all;
 }
 
@@ -327,40 +327,157 @@ function applyCatererPageCast(all: Caterer[]): void {
 }
 
 // ---------------------------------------------------------------------------
-// Caterer accounts behind the dashboard (docs/mocks/README.md, "Other caterer
-// accounts"). Owners and certificates are private; the public data is unchanged.
+// Operator moderation cast (docs/mocks/README.md, "Other caterer accounts" and
+// "Operator-only totals"): profiles waiting for review, drafts, a suspended
+// and a removed caterer, an expired certificate, a pending name change and a
+// dish added this week. Owners' contact details and the moderation history
+// live in seed/operator.ts. Self-contained block, ids cat-910 to cat-917.
 // ---------------------------------------------------------------------------
 
-function applyDashboardCast(all: Caterer[]): void {
-  const bySlug = (slug: string) => all.find((c) => c.slug === slug)!;
-  const cert = (holder: string, issuer: string, number: string, expires: string, savedAt: string, file?: [string, number]): Certificate => ({
-    holder,
-    issuer,
-    number,
-    expires,
-    savedAt,
-    ...(file ? { fileName: file[0], fileSize: file[1], fileType: 'PDF' as const, fileUploadedAt: savedAt } : {}),
-  });
-  // Vishnu Ramlogan's Maracas Bay: the full example (30 photos, 50 dishes).
-  Object.assign(bySlug('maracas-bay'), {
-    ownerUserId: 'user-vishnu',
-    certificate: cert('Vishnu Ramlogan', 'Peel Public Health', 'FH-2023-410266', '2028-06-30', '2026-06-30T14:00:00Z'),
-  });
-  // Paulette Morgan's Black Cake Co.: exactly 3 photos and 3 dishes.
-  Object.assign(bySlug('black-cake-co'), {
-    ownerUserId: 'user-paulette',
-    certificate: cert('Paulette Morgan', 'Durham Region Health Department', 'FH-2024-301558', '2029-01-31', '2026-01-31T14:00:00Z'),
-  });
-  // Desmond Greaves's Cou-Cou: the certificate expires Mon 9 Nov 2026, 30 days from today.
-  Object.assign(bySlug('cou-cou'), {
-    ownerUserId: 'user-desmond',
-    certificate: cert('Desmond Greaves', 'Toronto Public Health', 'FH-2021-093317', '2026-11-09', '2022-01-14T15:00:00Z', ['certificate-2021.pdf', 838861]),
-  });
-  // Sharon Best's Flying Fish Kitchen: its certificate expired on 30 Sep 2026 (suspended by the 'flying-fish-suspended' scenario).
-  Object.assign(bySlug('flying-fish-kitchen'), {
-    ownerUserId: 'user-sharon',
-    certificate: cert('Sharon Best', 'Durham Region Health Department', 'FH-2021-337102', '2026-09-30', '2021-10-04T14:00:00Z'),
-  });
-  // Winston Daley's Coal Pot Kitchen: removed Mon 28 Sep.
-  Object.assign(bySlug('coal-pot-kitchen'), { ownerUserId: 'user-winston', statusChangedAt: '2026-09-28T14:00:00Z' });
+const dish = (name: string, tags: string[], price?: string, description?: string): Omit<Dish, 'id'> => ({ name, tags, price, description });
+
+type CastCaterer = Pick<Caterer, 'id' | 'name' | 'status' | 'cuisines' | 'areas' | 'createdAt'> &
+  Partial<Omit<Caterer, 'photos' | 'dishes'>> & { photos?: Omit<Photo, 'id'>[]; dishes?: Omit<Dish, 'id'>[] };
+
+function moderationCaterer(p: CastCaterer): Caterer {
+  const slug = slugify(p.name.replace(/[’']/g, ''));
+  return {
+    slug,
+    minGuests: 20,
+    maxGuests: 100,
+    occasions: ['family-gatherings'],
+    description: '',
+    previousSlugs: [],
+    ...p,
+    photos: (p.photos ?? []).map((ph, j) => ({ ...ph, id: `${slug}-photo-${j + 1}` })),
+    dishes: (p.dishes ?? []).map((x, j) => ({ ...x, id: `${slug}-dish-${j + 1}` })),
+  };
+}
+
+function applyModerationCast(all: Caterer[]): void {
+  // A published name change waiting for approval (L2-044.2).
+  all.find((c) => c.slug === 'pelau-house')!.pendingName = 'Pelau House by Kendra';
+  // Flying Fish Kitchen's certificate expired on Wed 30 Sep 2026; it stays published until an operator acts (L2-040.3).
+  all.find((c) => c.slug === 'flying-fish-kitchen')!.certificate = {
+    holder: 'Sharon Best',
+    issuer: 'Durham Region Health',
+    number: 'FH-2021-337102',
+    expires: '2026-09-30',
+    fileName: 'food-handler-certificate.pdf',
+    fileSize: 1258291,
+  };
+  // Island Pot, the subject of food safety report R-2047.
+  all.find((c) => c.slug === 'island-pot')!.certificate = {
+    holder: 'Garfield Brown',
+    issuer: 'Toronto Public Health',
+    number: 'FH-2023-552019',
+    expires: '2027-02-02',
+    fileName: 'food-handler-certificate.pdf',
+    fileSize: 1258291,
+  };
+  // Tanisha Reid added a dish on Thu 8 Oct (recent changes).
+  const scotch = all.find((c) => c.slug === 'scotch-bonnet-social')!;
+  scotch.dishes.push({ id: 'scotch-bonnet-social-dish-escovitch', name: 'Escovitch fish', tags: ['gluten-free'], price: 'From $19 per person' });
+
+  all.push(
+    moderationCaterer({
+      id: 'cat-910',
+      name: 'Auntie Bev’s Kitchen',
+      status: 'Pending review',
+      cuisines: ['jamaican'],
+      areas: ['oshawa', 'whitby', 'clarington', 'ajax'],
+      minGuests: 30,
+      maxGuests: 150,
+      occasions: ['birthdays', 'funerals-and-repasts', 'family-gatherings', 'community-events'],
+      description:
+        'Beverley Campbell has cooked for every christening, nine-night and graduation on her street in Oshawa for thirty years. Her brown stew chicken and curry goat are cooked low and slow, the way her mother did it in Mandeville.\n\nFood arrives hot in foil trays with serving spoons. For repasts, Bev can cook the day before and deliver by 10 a.m.',
+      photos: [
+        { file: 'green-fig-catering.jpg', caption: 'Brown stew chicken with rice and peas in a steel pot' },
+        { file: 'oil-down-kitchen.jpg', caption: 'Rice and peas with stewed chicken in a red pot' },
+        { file: 'bammy-bros.jpg', caption: 'Curry goat over white rice' },
+        { file: 'coconut-drops-bakery.jpg', caption: 'Fried dumplings dusted with sugar' },
+        { file: 'auntie-merles-table.jpg', caption: 'Escovitch-style peppers over rice' },
+      ],
+      dishes: [
+        dish('Brown stew chicken', ['gluten-free', 'dairy-free'], 'From $15 per person', 'Browned, then simmered with thyme and pimento.'),
+        dish('Curry goat', ['halal', 'spicy'], 'From $18 per person'),
+        dish('Rice and peas', ['vegan', 'gluten-free'], 'From $4 per person', 'Kidney beans, coconut milk, scallion.'),
+        dish('Escovitch fish', ['spicy'], 'From $16 per person', 'Fried snapper with pickled peppers and onions.'),
+        dish('Fried dumplings', ['vegetarian'], '$1.50 each'),
+        dish('Gizzada', ['vegetarian', 'contains-nuts'], '$3 each', 'Coconut tarts with nutmeg.'),
+      ],
+      certificate: {
+        holder: 'Beverley Campbell',
+        issuer: 'Durham Region Health Department',
+        number: 'FH-2025-204517',
+        expires: '2030-01-22',
+        fileName: 'food-handler-certificate.pdf',
+        fileSize: 1258291,
+      },
+      businessEmail: 'beverley@auntiebevs.example',
+      businessPhone: '+1 905 555 0164',
+      createdAt: '2026-09-29T00:47:00Z',
+    }),
+    moderationCaterer({
+      id: 'cat-911',
+      name: 'Breadfruit & Butter',
+      status: 'Pending review',
+      cuisines: ['vincentian'],
+      areas: ['brampton', 'mississauga', 'etobicoke'],
+      minGuests: 15,
+      maxGuests: 80,
+      occasions: ['birthdays', 'private-dinners', 'family-gatherings'],
+      description:
+        'Jolene Ollivierre roasts breadfruit over coals the way it’s done on Sundays in Kingstown, served with fried jackfish and saltfish butter.\n\nSmall parties, big flavour: from 15 to 80 guests across Peel and the west end.',
+      photos: [
+        { file: 'auntie-merles-table.jpg', caption: 'Roasted breadfruit and saltfish with peppers' },
+        { file: 'mauby-and-co.jpg', caption: 'Coconut cake topped with berries' },
+        { file: 'oil-down-kitchen.jpg', caption: 'Pelau with pigeon peas in a red pot' },
+        { file: 'roti-road.jpg', caption: 'Curry chicken and rice beside folded roti' },
+        { file: 'sea-moss-and-spice.jpg', caption: 'Rice with peas and stewed chicken' },
+      ],
+      dishes: [
+        dish('Roasted breadfruit and fried jackfish', ['gluten-free'], 'From $19 per person', 'The national dish of St. Vincent and the Grenadines.'),
+        dish('Saltfish butter', ['dairy-free']),
+        dish('Buljol', ['gluten-free']),
+        dish('Callaloo soup', ['vegan'], 'From $6 per person'),
+        dish('Coconut turnovers', ['vegetarian', 'contains-nuts'], '$3 each'),
+      ],
+      certificate: {
+        holder: 'Jolene Ollivierre',
+        issuer: 'Peel Public Health',
+        number: 'FH-2026-031882',
+        expires: '2031-05-09',
+        fileName: 'certificate-scan.jpg',
+        fileSize: 2516582,
+      },
+      businessEmail: 'jolene@breadfruitandbutter.example',
+      businessPhone: '+1 647 555 0119',
+      createdAt: '2026-09-22T22:15:00Z',
+    }),
+    moderationCaterer({ id: 'cat-912', name: 'Tamarind Tree', status: 'Changes requested', cuisines: ['trinidadian-and-tobagonian'], areas: ['whitby'], createdAt: '2026-09-20T15:00:00Z' }),
+    moderationCaterer({ id: 'cat-913', name: 'Callaloo Corner', status: 'Draft', cuisines: ['grenadian'], areas: ['markham'], createdAt: '2026-10-04T15:00:00Z' }),
+    moderationCaterer({ id: 'cat-914', name: 'Doubles Duo', status: 'Draft', cuisines: ['trinidadian-and-tobagonian'], areas: ['ajax'], createdAt: '2026-10-01T15:00:00Z' }),
+    moderationCaterer({ id: 'cat-915', name: 'Plantain Plate', status: 'Draft', cuisines: ['haitian'], areas: ['north-york'], createdAt: '2026-09-24T15:00:00Z' }),
+    moderationCaterer({
+      id: 'cat-916',
+      name: 'Hibiscus Hut',
+      status: 'Suspended',
+      cuisines: ['jamaican'],
+      areas: ['brampton'],
+      createdAt: '2026-08-12T15:00:00Z',
+      publishedAt: '2026-08-20T15:00:00Z',
+      statusReason: 'Photos copied from another caterer’s page. Upload photos of your own food and we’ll look again.',
+    }),
+    moderationCaterer({
+      id: 'cat-917',
+      name: 'Rum Shop Catering',
+      status: 'Removed',
+      cuisines: ['pan-caribbean'],
+      areas: ['oshawa'],
+      createdAt: '2026-08-04T15:00:00Z',
+      publishedAt: '2026-08-11T15:00:00Z',
+      statusReason: 'Owner confirmed the business has closed.',
+    }),
+  );
 }

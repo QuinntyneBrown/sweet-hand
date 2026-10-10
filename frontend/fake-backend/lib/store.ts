@@ -11,6 +11,19 @@ import { seedAccount, type AccountState } from '../seed/account.ts';
 import { seedAudit, seedOperatorSettings, type OperatorSettingsState } from '../seed/operator-settings.ts';
 import type { AuditEntry } from '../../projects/web/src/app/core/api/operator-settings.models.ts';
 
+/** One operator action (L2-060.1): who, what, on which record, when (UTC), why, and the values before and after. */
+export interface AuditEntry {
+  id: string;
+  at: string;
+  operatorId: string;
+  action: string;
+  targetType: string;
+  targetId: string;
+  reason: string | null;
+  before: unknown;
+  after: unknown;
+}
+
 /** Saturday 10 October 2026, 10:00 a.m. in Toronto (UTC−4): "today" in the mocks' cast. */
 export const DEFAULT_NOW = '2026-10-10T14:00:00.000Z';
 
@@ -29,9 +42,8 @@ export interface Store {
   reports: Report[];
   operator: OperatorState;
   account: AccountState;
-  /** Append-only operator audit log (L2-060), oldest first: { id, at, operatorId, action, targetType, targetId, reason, before, after }. */
+  /** Every operator action, append-only (L2-060): the moderation area writes it, the audit log page reads it. */
   audit: AuditEntry[];
-  operatorSettings: OperatorSettingsState;
   /** Items in the operator review queue until the moderation area computes them. */
   queueCount: number;
   /** Session cookie value → user id. */
@@ -53,8 +65,7 @@ export function createStore(): Store {
     reports: seedReports(),
     operator: seedOperator(),
     account: seedAccount(),
-    audit: seedAudit(),
-    operatorSettings: seedOperatorSettings(),
+    audit: [],
     queueCount: 7,
     sessions: new Map(),
     faults: [],

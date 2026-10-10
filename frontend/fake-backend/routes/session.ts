@@ -4,6 +4,8 @@ import { currentUser, newId, type Store } from '../lib/store.ts';
 import type { SessionUser, SessionView } from '../../projects/web/src/app/core/api/session.models.ts';
 import type { User } from '../seed/users.ts';
 import { privacyUpdateRequired } from './identity.ts';
+import { unreadThreads } from './enquiries.ts';
+import { queueItems } from './operator.ts';
 
 export function sessionUser(store: Store, user: User): SessionUser {
   const caterer = user.catererId ? store.caterers.find((c) => c.id === user.catererId) : undefined;
@@ -68,8 +70,9 @@ export function unreadCount(store: Store, user: User): number {
   return user.role === 'Customer' || user.role === 'Caterer' ? unreadThreads(store, user) : 0;
 }
 
+/** Items waiting in the operator review queue (L2-047). */
 export function queueCount(store: Store): number {
-  return store.queueCount;
+  return queueItems(store).length;
 }
 
 export function registerSession(r: Router<Store>): void {
