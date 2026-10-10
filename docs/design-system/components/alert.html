@@ -342,11 +342,11 @@
       </ul>
       <p>The live region must exist before its text is inserted; render the empty container with the page and fill it, or screen readers will not announce it.</p>
       <h3>Keyboard</h3>
-      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
         <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through the alert's actions, then its dismiss button, in reading order. The container itself is not focusable.</td></tr>
         <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Activates the focused action or dismisses.</td></tr>
         <tr><td><kbd>Esc</kbd></td><td>No effect. Alerts are not modal; Escape belongs to the dialog or sheet that has focus.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
       <h3>Focus</h3>
       <p>Alerts never take focus when they appear, with one exception: after a failed form submit, focus moves to the danger alert's title (given <code>tabindex="-1"</code>) so the explanation is read first. After dismissing, focus moves to the start of <code>#main</code>, never to the top of the document. The dismiss button shows the shared ring on <code>:focus-visible</code>.</p>
       <h3>Labelling</h3>
@@ -432,7 +432,7 @@
   …
   &lt;button class="close" type="button" aria-label="Dismiss maintenance notice"&gt;&lt;svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"&gt;&lt;path d="M6 6l12 12M18 6 6 18"/&gt;&lt;/svg&gt;&lt;/button&gt;
 &lt;/div&gt;</code></pre>
-      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
         <tr><td><code>.alert</code></td><td>Base: info tone, inline layout. The mocks also write <code>.alert--info</code>; treat it as an explicit alias for the default.</td></tr>
         <tr><td><code>.alert--success</code> <code>.alert--warning</code> <code>.alert--danger</code></td><td>Tone: swaps the four <code>--alert-*</code> tokens.</td></tr>
         <tr><td><code>.banner</code></td><td>Full-bleed page banner under the header: no radius or side borders, centred, one row from 48rem, 44px dismiss on phones.</td></tr>
@@ -442,7 +442,7 @@
         <tr><td><code>.close</code></td><td>Dismiss icon button; needs <code>aria-label</code>. Omit for persistent and danger messages.</td></tr>
         <tr><td><code>role="alert"</code> / <code>role="status"</code></td><td>Assertive (danger caused by an action or incident) or polite live region.</td></tr>
         <tr><td><code>data-state="hover|focus"</code></td><td>Documentation and mocks only: forces the dismiss or action state.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

@@ -367,7 +367,7 @@
         <li><b>Below 62rem</b> the inbox shows the list <em>or</em> the thread, never both (<code>.inbox-layout--thread</code> hides the list). A "Back to inbox" eyebrow (<code>.until-lg</code>) sits above the head.</li>
         <li><b>62rem and up</b> the list (20–26rem) sits beside the thread; with nothing selected the thread column shows <code>.thread-placeholder</code>. The caterer's copy lives in the dashboard <code>.work-layout</code>, beside the side navigation.</li>
         <li>Bubbles take at most <code>min(36rem, 88%)</code>; at 360px that is about 290px, so "mine" and "theirs" still read as two sides. Text uses <code>white-space: pre-wrap</code> (keeps the sender's line breaks) and <code>overflow-wrap: anywhere</code> so a pasted URL wraps at 320px (<a href="../../mocks/pages/thread/edge.html">thread/edge</a>).</li>
-        <li>The head wraps: on phones the actions drop below the title. The reply box is <code>position: sticky; bottom: 0</code> with <code>env(safe-area-inset-bottom)</code> padding, so the send button clears the home indicator; the textarea grows, the 44px send button stays beside it.</li>
+        <li>The head wraps: on phones the actions drop below the title, and the small action buttons grow to 44px below 48rem (L2-065.1); they return to 36px from 48rem. The reply box is <code>position: sticky; bottom: 0</code> with <code>env(safe-area-inset-bottom)</code> padding, so the send button clears the home indicator; the textarea grows, the 44px send button stays beside it.</li>
         <li>No breakpoint changes the order of messages or hides any of them; a long thread (<a href="../../mocks/pages/thread/long.html">thread/long</a>) simply scrolls.</li>
       </ul>
       <div class="ds-iframes">
@@ -419,7 +419,7 @@
       <h3>Motion</h3>
       <p>New messages appear in place without sliding. The send button's busy spinner turns (it reports status) and keeps turning under reduced motion. Scrolling to the newest message on open uses <code>scroll-behavior</code>, which reduced motion sets to <code>auto</code>.</p>
       <h3>Touch</h3>
-      <p>Send is 44px. Thread actions are small buttons (36px) separated by 8px. "View caterer" and "Back to inbox" (an eyebrow at 44px tall) are text links with comfortable line height. Text in bubbles is selectable, so a customer can copy an address the caterer shared.</p>
+      <p>Send is 44px. Thread actions are small buttons: 44px tall below 48rem (L2-065.1), 36px with 8px between them from 48rem. "View caterer" and "Back to inbox" (an eyebrow at 44px tall) are text links with comfortable line height. Text in bubbles is selectable, so a customer can copy an address the caterer shared.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>

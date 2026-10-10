@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stat — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand stats: label, value and delta, the stat grid on the caterer dashboard and admin metrics, tabular numbers, loading and not-loaded states, both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Data display</p>
+      <h1>Stat</h1>
+      <p class="ds-lead">A stat is one number with a short label: 2 unread enquiries, a 4.7 rating, 60 published caterers. Stats open the caterer dashboard and the operator metrics page, in a grid of two or four.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;dl&gt;</code></span><span class="ds-pill"><code>.stat</code> <code>.stat-grid</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Stats answer "how am I doing?" at a glance. They are flat: no card, no border, no icon — a quiet label above a large number, in a grid with generous gaps.</p>
+      <ul>
+        <li><b>Caterer dashboard</b>: four counts Kendra acts on — Unread enquiries 2, Open enquiries 3, Rating 4.7, Reviews 23.</li>
+        <li><b>Admin metrics</b>: four headline figures for the chosen range — Published caterers 60 (+4 in this range), Enquiries 71, Replied within 48 hours 82%, Caterer page visits 39,700 — above the <a href="bar-chart.html">bar charts</a>.</li>
+      </ul>
+      <p>Use a stat for a single figure that stands on its own. Use a <a href="bar-chart.html">bar chart</a> for change over time, a <a href="table.html">table</a> for many figures to compare, and a <a href="description-list.html">description list</a> for facts that aren't numbers ("Serves 20–300 guests"). A <a href="badge.html">count badge</a> is for unread counts on navigation, not for dashboards.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="stat"><span class="stat__label">Published caterers</span><span class="stat__value">60</span><span class="stat__delta stat__delta--up"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>+4 in this range</span></div>
+          <span class="ds-callout" style="left: 30%; top: 22%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 46%; top: 46%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 70%; top: 72%;" aria-hidden="true">3</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Label</b><small><code>.stat__label</code> (<code>&lt;dt&gt;</code>): what is counted, <code>--text-label</code>, <code>--color-fg-muted</code>.</small></div></li>
+          <li><div><b>Value</b><small><code>.stat__value</code> (<code>&lt;dd&gt;</code>): <code>--text-h2</code>, or <code>--text-h1</code> in a grid; tabular numerals so figures line up and don't jump when they update.</small></div></li>
+          <li><div><b>Delta (optional)</b><small><code>.stat__delta</code>: a signed change with its period, small text, an arrow for direction and callaloo or sorrel for good or bad.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Stat grid: caterer dashboard</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <dl class="stat-grid">
+            <div class="stat"><dt class="stat__label">Unread enquiries</dt><dd class="stat__value">2</dd></div>
+            <div class="stat"><dt class="stat__label">Open enquiries</dt><dd class="stat__value">3</dd></div>
+            <div class="stat"><dt class="stat__label">Rating</dt><dd class="stat__value">4.7<span class="visually-hidden"> out of 5</span></dd></div>
+            <div class="stat"><dt class="stat__label">Reviews</dt><dd class="stat__value">23</dd></div>
+          </dl>
+        </div>
+        <div class="ds-example__caption"><span>Pelau House in <code>pages/dashboard/default</code>: two columns on phones and tablets, four from 62rem.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;dl class="stat-grid"&gt;
+  &lt;div class="stat"&gt;&lt;dt class="stat__label"&gt;Unread enquiries&lt;/dt&gt;&lt;dd class="stat__value"&gt;2&lt;/dd&gt;&lt;/div&gt;
+  &lt;div class="stat"&gt;&lt;dt class="stat__label"&gt;Rating&lt;/dt&gt;&lt;dd class="stat__value"&gt;4.7&lt;span class="visually-hidden"&gt; out of 5&lt;/span&gt;&lt;/dd&gt;&lt;/div&gt;
+  …
+&lt;/dl&gt;</code></pre></details>
+      </div>
+      <h3>Stat grid with deltas: admin metrics</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <dl class="stat-grid">
+            <div class="stat"><dt class="stat__label">Published caterers</dt><dd class="stat__value">60</dd><dd class="stat__delta stat__delta--up"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>+4 in this range</dd></div>
+            <div class="stat"><dt class="stat__label">Enquiries</dt><dd class="stat__value">71</dd></div>
+            <div class="stat"><dt class="stat__label">Replied within 48 hours</dt><dd class="stat__value">82%</dd></div>
+            <div class="stat"><dt class="stat__label">Caterer page visits</dt><dd class="stat__value">39,700</dd></div>
+          </dl>
+        </div>
+        <div class="ds-example__caption"><span><code>pages/admin-metrics/default</code>, 31 Aug – 10 Oct 2026, Toronto time.</span></div>
+      </div>
+      <h3>Delta up and down</h3>
+      <p>The arrow shows direction; the colour shows whether that is good. More open reports is up but bad, so it takes <code>--down</code> styling with an up arrow. The sign and period are always in the text.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <div class="stat"><span class="stat__label">Published caterers</span><span class="stat__value">60</span><span class="stat__delta stat__delta--up"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>+4 in this range</span></div>
+          <div class="stat"><span class="stat__label">Replied within 48 hours</span><span class="stat__value">78%</span><span class="stat__delta stat__delta--down"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg>−4 points in this range</span></div>
+          <div class="stat"><span class="stat__label">Open reports</span><span class="stat__value">9</span><span class="stat__delta stat__delta--down"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>+3 in this range</span></div>
+        </div>
+        <div class="ds-example__caption"><span>Good rise, bad fall, bad rise. Percentages change in points.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <div class="stat"><span class="stat__label">Reviews</span><span class="stat__value">23</span></div>
+          <dl class="stat-grid" style="grid-template-columns: minmax(0, 1fr);"><div class="stat"><dt class="stat__label">Reviews</dt><dd class="stat__value">23</dd></div></dl>
+        </div>
+        <div class="ds-example__caption"><span>On its own a stat uses <code>--text-h2</code> (30px); inside <code>.stat-grid</code> the value steps up to <code>--text-h1</code> (36px on phones, 44px from 62rem). There is no small stat; for a figure in running text, write the number.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Stats aren't interactive. Their states are about the data: loaded, loading, not loaded (one figure failed while others loaded), zero, and large.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Stat data states</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Loading</th><th scope="col">Not loaded</th><th scope="col">Zero</th><th scope="col">Large</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Value</th>
+            <td><div class="stat"><span class="stat__label">Enquiries</span><span class="stat__value">71</span></div></td>
+            <td><div class="stat" aria-hidden="true" style="width: 8rem;"><span class="skeleton skeleton--text" style="width: 70%;"></span><span class="skeleton skeleton--title" style="width: 50%; height: var(--space-10);"></span></div></td>
+            <td><div class="stat"><span class="stat__label">Enquiries</span><span class="stat__value"><span aria-hidden="true">–</span><span class="visually-hidden">Not loaded</span></span><span class="text-caption" aria-hidden="true">Not loaded</span></div></td>
+            <td><div class="stat"><span class="stat__label">Unread enquiries</span><span class="stat__value">0</span></div></td>
+            <td><div class="stat"><span class="stat__label">Caterer page visits</span><span class="stat__value">39,700</span></div></td></tr>
+          <tr><th scope="row">With delta</th>
+            <td><div class="stat"><span class="stat__label">Published caterers</span><span class="stat__value">60</span><span class="stat__delta stat__delta--up"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>+4 in this range</span></div></td>
+            <td><div class="stat" aria-hidden="true" style="width: 8rem;"><span class="skeleton skeleton--text" style="width: 70%;"></span><span class="skeleton skeleton--title" style="width: 50%; height: var(--space-10);"></span><span class="skeleton skeleton--text" style="width: 60%;"></span></div></td>
+            <td><div class="stat"><span class="stat__label">Published caterers</span><span class="stat__value"><span aria-hidden="true">–</span><span class="visually-hidden">Not loaded</span></span><span class="text-caption" aria-hidden="true">Not loaded</span></div></td>
+            <td><div class="stat"><span class="stat__label">Published caterers</span><span class="stat__value">60</span><span class="stat__delta">No change in this range</span></div></td>
+            <td><div class="stat"><span class="stat__label">Published caterers</span><span class="stat__value">4,870</span><span class="stat__delta stat__delta--up"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>+212 in this range</span></div></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><dl class="stat-grid"><div class="stat"><dt class="stat__label">Published caterers</dt><dd class="stat__value">60</dd><dd class="stat__delta stat__delta--up"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>+4 in this range</dd></div><div class="stat"><dt class="stat__label">Replied within 48 hours</dt><dd class="stat__value">78%</dd><dd class="stat__delta stat__delta--down"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg>−4 points</dd></div></dl></div>
+        <div data-theme="dark"><dl class="stat-grid"><div class="stat"><dt class="stat__label">Published caterers</dt><dd class="stat__value">60</dd><dd class="stat__delta stat__delta--up"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>+4 in this range</dd></div><div class="stat"><dt class="stat__label">Replied within 48 hours</dt><dd class="stat__value">78%</dd><dd class="stat__delta stat__delta--down"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg>−4 points</dd></div></dl></div>
+      </div>
+      <ul>
+        <li><b>Loading</b>: the grid keeps its shape with a label skeleton and a value skeleton per stat; the grid is <code>aria-busy="true"</code>, skeletons <code>aria-hidden="true"</code>, and one visually hidden status says "Loading metrics".</li>
+        <li><b>Not loaded</b> (<code>pages/admin-metrics/partial</code>): the figure shows a dash and "Not loaded"; the chart below explains and offers "Try again". The dash is hidden from screen readers so it isn't read as "en dash".</li>
+        <li><b>Zero</b> is a real value: show "0", never a dash. A whole range with no data is an <a href="empty-state.html">empty state</a> ("No activity in this range").</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Below lg (62rem):</b> <code>.stat-grid</code> is two columns with <code>--space-8</code> row and <code>--space-6</code> column gaps. Labels wrap to two lines ("Replied within 48 hours"); values never wrap.</li>
+        <li><b>lg (62rem) and up:</b> four columns in one row, and the h1 value grows from 36px to 44px with the type scale.</li>
+        <li><b>At 320px</b> a column is about 8rem: "39,700" at 36px bold fits, a seven-character figure would not. Write full numbers (no "39.7k"); if a longer figure ever appears, step the value down to <code>--text-h2</code> below 22.5rem (proposed rule).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Stats read <code>--color-fg-muted</code> (label), <code>--color-fg-default</code> (value), <code>--color-success-fg</code> and <code>--color-danger-fg</code> (delta). No component tokens, no backgrounds. In dark the values become stone-100 on the stone-950 canvas and deltas use the light callaloo and sorrel steps. Never colour a value: a big green "60" says less than "+4 in this range".</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>A description list: <code>&lt;dl class="stat-grid"&gt;</code> with one <code>&lt;div class="stat"&gt;</code> per figure, holding <code>&lt;dt&gt;</code> label, <code>&lt;dd&gt;</code> value and optional <code>&lt;dd&gt;</code> delta. Screen readers read "Published caterers, 60, plus 4 in this range". It is not a heading structure; the page's h1 and section headings stay above it. A single stat outside a grid is a <code>&lt;div class="stat"&gt;</code> with <code>&lt;span&gt;</code> parts (the examples on this page), because a lone <code>&lt;dd&gt;</code> keeps the browser indent.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Never stops on a stat. If a stat should lead somewhere (Unread enquiries → inbox), the section heading's link does that, not the number.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>None.</p>
+      <h3>Labelling</h3>
+      <p>Labels say what and, where it matters, over what period: the page subtitle states the range ("31 Aug – 10 Oct 2026 · by week · Toronto time"), so labels don't repeat it. Add hidden context where the number alone is ambiguous: "4.7 out of 5". Deltas carry their sign and period in text; the arrow is <code>aria-hidden="true"</code>.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Label</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Value</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Delta, good</span><span class="ds-pair__ratio" data-contrast="--color-success-fg|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Delta, bad</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-canvas" data-min="4.5"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Values don't count up or animate. When a range changes, figures are replaced in place; tabular numerals stop the layout shifting.</p>
+      <h3>Touch</h3>
+      <p>Not a target.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Labels are short noun phrases in sentence case: "Unread enquiries", "Caterer page visits". Spell units out: "Replied within 48 hours", not "48 h".</li>
+        <li>Numbers in Canadian English: comma thousands ("39,700"), "%" without a space ("82%"), one decimal for ratings ("4.7"), CAD as "$2,600" where money appears.</li>
+        <li>Deltas: sign, number, unit, period: "+4 in this range", "−4 points in this range", "No change in this range". Never a bare "+4".</li>
+        <li>Averages say so: "2,578 avg".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="stat"><span class="stat__label">Open reports</span><span class="stat__value">9</span><span class="stat__delta stat__delta--down"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>+3 in this range</span></div></div><figcaption>Colour by meaning, arrow by direction: more reports is bad.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="stat"><span class="stat__label">Open reports</span><span class="stat__value">9</span><span class="stat__delta stat__delta--up">+3</span></div></div><figcaption>Green for a rise in reports, and no period or arrow.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="stat"><span class="stat__label">Enquiries</span><span class="stat__value"><span aria-hidden="true">–</span><span class="visually-hidden">Not loaded</span></span><span class="text-caption" aria-hidden="true">Not loaded</span></div></div><figcaption>Say "Not loaded" for screen readers too.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="stat"><span class="stat__label">Enquiries</span><span class="stat__value">0</span></div></div><figcaption>Never show 0 for a figure that failed to load; it reads as a real result.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Label</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Value</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Delta, good</td><td><code>--color-success-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-success-fg" data-swatch></i><span data-token="--color-success-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-success-fg" data-swatch></i><span data-token="--color-success-fg"></span></span></td></tr>
+          <tr><td>Delta, bad</td><td><code>--color-danger-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td></tr>
+          <tr><td>Value font</td><td><code>--text-h2</code>; <code>--text-h1</code> in a grid</td><td colspan="2"><span data-token="--font-size-3xl"></span> · <span data-token="--font-size-4xl"></span></td></tr>
+          <tr><td>Label / delta font</td><td><code>--text-label</code>, <code>--text-body-sm</code></td><td colspan="2"><span data-token="--font-size-sm"></span></td></tr>
+          <tr><td>Stack gap / grid gaps</td><td><code>--space-1</code>; <code>--space-8</code> rows, <code>--space-6</code> columns</td><td colspan="2"><span data-token="--space-1"></span> · <span data-token="--space-8"></span> · <span data-token="--space-6"></span></td></tr>
+          <tr><td>Delta arrow</td><td><code>--icon-size-sm</code></td><td colspan="2"><span data-token="--icon-size-sm"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;dl class="stat-grid"&gt;
+  &lt;div class="stat"&gt;
+    &lt;dt class="stat__label"&gt;Published caterers&lt;/dt&gt;
+    &lt;dd class="stat__value"&gt;60&lt;/dd&gt;
+    &lt;dd class="stat__delta stat__delta--up"&gt;&lt;svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"&gt;&lt;path d="M12 19V5m-6 6 6-6 6 6"/&gt;&lt;/svg&gt;+4 in this range&lt;/dd&gt;
+  &lt;/div&gt;
+&lt;/dl&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.stat</code></td><td>Vertical stack of label, value, delta.</td></tr>
+        <tr><td><code>.stat__label</code> / <code>.stat__value</code></td><td>Muted label / large tabular value.</td></tr>
+        <tr><td><code>.stat__delta</code> + <code>--up</code> / <code>--down</code></td><td>Small change line; good (callaloo) or bad (sorrel).</td></tr>
+        <tr><td><code>.stat-grid</code></td><td><code>&lt;dl&gt;</code> grid: 2 columns, 4 from 62rem; values at h1.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <ul>
+        <li><a href="../../mocks/pages/dashboard/default.html">pages/dashboard/default</a> and <a href="../../mocks/pages/dashboard/loading.html">loading</a></li>
+        <li><a href="../../mocks/pages/admin-metrics/default.html">pages/admin-metrics/default</a>, <a href="../../mocks/pages/admin-metrics/partial.html">partial</a>, <a href="../../mocks/pages/admin-metrics/loading.html">loading</a> and <a href="../../mocks/pages/admin-metrics/invalid.html">invalid</a></li>
+        <li><a href="../../mocks/notifications/profile-banner/success.html">notifications/profile-banner/success</a> (dashboard under a banner)</li>
+      </ul>
+      <p>Drift fixed during extraction: the label "Replied within 48 h" disagreed with the chart's "Replied within 48 hours"; the system spells it out. The not-loaded dash was exposed to screen readers. Deltas had a sign but no arrow; an arrow is added for direction. The dashboard loading grid was <code>aria-hidden</code> while the metrics one was <code>aria-busy</code> with skeleton heights of 2.75rem and 2.5rem; the system uses <code>aria-busy</code> on the grid and <code>--space-10</code> value skeletons. "Rating 4.7" lacked "out of 5".</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

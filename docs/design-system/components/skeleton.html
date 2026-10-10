@@ -298,9 +298,9 @@
       <h3>Role and pattern</h3>
       <p>Skeleton items are <code>aria-hidden="true"</code>; they mean nothing to a screen reader. The container being loaded keeps its real element and role (the <code>&lt;ul&gt;</code>, the <code>&lt;table&gt;</code> with its caption and column headers) and carries <code>aria-busy="true"</code>. A <code>role="status"</code> element names what is loading ("Loading caterers", "Loading the review queue") and later announces the result. This follows the <a href="https://www.w3.org/TR/wai-aria-1.2/#aria-busy">aria-busy</a> definition and WCAG 4.1.3; the APG has no skeleton pattern.</p>
       <h3>Keyboard</h3>
-      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
         <tr><td><kbd>Tab</kbd></td><td>Skips skeletons; nothing in them is focusable. Real controls on the page (filters, tabs, header links) work while the content loads.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
       <h3>Focus</h3>
       <p>Focus is never placed on a skeleton and never moved when content arrives. If focus was on a control that the loaded content replaces (a page link in pagination), it moves to the first result's heading or link.</p>
       <h3>Labelling</h3>
@@ -357,7 +357,7 @@
     &lt;span class="skeleton skeleton--text" style="width: 30%;"&gt;&lt;/span&gt;
   &lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
         <tr><td><code>.skeleton</code></td><td>Base block with shimmer; at least 1em high.</td></tr>
         <tr><td><code>.skeleton--text</code> <code>--title</code> <code>--circle</code> <code>--rect</code></td><td>Shape: one text line, a heading line, a circle, a rounded block.</td></tr>
         <tr><td><code>.photo &gt; .skeleton</code></td><td>Fills the round photo box exactly.</td></tr>
@@ -366,7 +366,7 @@
         <tr><td><code>.admin-row--skeleton</code> / <code>.edit-row--skeleton</code> / <code>.photo-tile--skeleton</code></td><td>Settings row, menu row and photo tile line widths.</td></tr>
         <tr><td><code>aria-hidden="true"</code></td><td>Required on every skeleton item or row.</td></tr>
         <tr><td><code>aria-busy="true"</code> + <code>role="status"</code> text</td><td>Required on the loading container / beside it.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
