@@ -2,9 +2,9 @@ import type { Router } from '../lib/router.ts';
 import { invalid, ok, unauthorized, type Ctx, type Reply } from '../lib/http.ts';
 import { currentUser, type Store } from '../lib/store.ts';
 import type { User } from '../seed/users.ts';
-import type { AccountView, ActiveSession, UpdateDetailsRequest } from '../../projects/web/src/app/core/api/account.models.ts';
-import { findUser, identityScenarios, sendVerification } from './identity.ts';
-import { sessionRecord } from './session.ts';
+import type { AccountView, ActiveSession, ChangePasswordRequest, UpdateDetailsRequest } from '../../projects/web/src/app/core/api/account.models.ts';
+import { findUser, identityScenarios, passwordProblem, sendEmail, sendVerification } from './identity.ts';
+import { endSessions, sessionRecord } from './session.ts';
 
 const EMPTY_SUMMARY = { enquiries: 0, reviews: 0, reports: 0, photos: 0, dishes: 0, reviewResponses: 0, openEnquiriesWith: [] as string[] };
 
@@ -75,6 +75,21 @@ export function registerAccount(r: Router<Store>): void {
       sendVerification(ctx.store, me.user);
     }
     return ok(accountView(ctx.store, me.user));
+  });
+
+  /** A new password ends every other session and is confirmed by email. */
+  r.post('/api/me/password', (ctx): Reply => {
+    const me = signedIn(ctx);
+    if (isReply(me)) return me;
+    const body = (ctx.body ?? {}) as Partial<ChangePasswordRequest>;
+    if (body.currentPassword !== me.user.password) return invalid({ currentPassword: ['That password isn’t right'] });
+    const weak = passwordProblem(body.newPassword);
+    if (weak) return invalid({ newPassword: [weak] });
+    me.user.password = String(body.newPassword);
+    me.user.passwordChangedAt = ctx.store.now.toISOString();
+    endSessions(ctx.store, me.user.id, me.token);
+    sendEmail(ctx.store, me.user.email, 'password-changed');
+    return { status: 204 };
   });
 
   /** The caller's own sessions only (L2-078.5). */

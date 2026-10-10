@@ -8,14 +8,15 @@ import { shortDate } from '../../core/format/format';
 import { problemOf, reference } from '../../core/forms/problem';
 import { Session } from '../../core/session/session';
 import { initials, memberLine, orderSessions, sessionMeta } from './account-view';
+import { ChangePasswordDialog } from './change-password/change-password.dialog';
 import { EditDetailsDialog } from './edit-details/edit-details.dialog';
 
-type AccountDialog = 'details' | null;
+type AccountDialog = 'details' | 'password' | null;
 
 /** Account settings, /account (docs/mocks/pages/account; manage-sessions, export and delete-account designs). */
 @Component({
   selector: 'app-account-page',
-  imports: [RouterLink, EditDetailsDialog, Icon, List, ListItem, PrivateNote],
+  imports: [RouterLink, ChangePasswordDialog, EditDetailsDialog, Icon, List, ListItem, PrivateNote],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './account.page.html',
   styleUrl: './account.page.css',
@@ -42,6 +43,10 @@ export class AccountPage {
   protected readonly passwordChanged = computed(() => {
     const a = this.account();
     return a ? $localize`:@@account.passwordChanged:Last changed ${shortDate(a.passwordChangedAt)}:date:` : '';
+  });
+  protected readonly passwordChangedSentence = computed(() => {
+    const a = this.account();
+    return a ? $localize`:@@changePassword.lastChanged:Last changed ${shortDate(a.passwordChangedAt)}:date:.` : '';
   });
   protected readonly privacyLine = computed(() => {
     const a = this.account();
@@ -80,6 +85,15 @@ export class AccountPage {
     this.dialog.set(null);
     this.toasts.show({ tone: 'success', title: $localize`:@@editDetails.saved:Details saved`, text: event.message });
     void this.session.refresh();
+  }
+
+  /** The other sessions ended: the device list shows only this one (L2-078). */
+  protected async onPasswordChanged(): Promise<void> {
+    this.dialog.set(null);
+    this.toasts.show({ tone: 'success', title: $localize`:@@changePassword.done:Password changed`, text: $localize`:@@changePassword.doneText:Your other devices were signed out.` });
+    const [account, sessions] = await Promise.all([firstValueFrom(this.api.account()), firstValueFrom(this.api.sessions())]).catch(() => [null, null]);
+    if (account) this.account.set(account);
+    if (sessions) this.sessions.set(sessions);
   }
 
   protected async signOut(): Promise<void> {
