@@ -1,0 +1,27 @@
+<div class="browse">
+  <div class="browse__title">
+    <h1 i18n="@@listing.title">Caterers</h1>
+    @if (view(); as v) {
+      <p class="result-count" role="status" aria-live="polite" i18n="@@listing.resultCount">{v.total, plural, =1 {1 caterer} other {{{v.total}} caterers}}</p>
+    }
+  </div>
+
+  <section class="browse__results" aria-labelledby="results-title">
+    <h2 class="visually-hidden" id="results-title" i18n="@@listing.results">Results</h2>
+    <sh-caterer-grid [busy]="listing.isLoading()">
+      @for (c of view()?.items ?? []; track c.slug) {
+        <li>
+          <sh-caterer-card
+            [href]="'/caterers/' + c.slug"
+            [name]="c.name"
+            [cuisine]="c.primaryCuisine"
+            [area]="c.primaryArea"
+            [photo]="c.cover"
+            failedLabel="Photo unavailable"
+            i18n-failedLabel="@@photo.unavailable"
+          />
+        </li>
+      }
+    </sh-caterer-grid>
+  </section>
+</div>

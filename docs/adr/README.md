@@ -1,0 +1,12 @@
+# Architecture decision records
+
+One file per decision, numbered in the order they were made. Read the ones that
+cover an area before changing it.
+
+| ADR | Decision | Status |
+|---|---|---|
+| [0001](0001-frontend-stack-angular.md) | Frontend stack: Angular workspace with a `sh-` component library | Accepted |
+| [0002](0002-design-system-stylesheet-as-global-foundation.md) | The design-system stylesheet is the frontend's global foundation | Accepted |
+| [0003](0003-frontend-api-contracts.md) | Pages depend on API contracts; HTTP clients implement them | Accepted |
+| [0004](0004-e2e-tests-against-a-fake-backend.md) | Frontend acceptance tests run in Playwright against a fake backend | Accepted |
+| [0005](0005-externalised-text-with-angular-i18n.md) | User-facing text is externalised with Angular i18n | Accepted |
