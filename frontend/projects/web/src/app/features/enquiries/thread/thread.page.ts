@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, afterRenderEffect, computed, effect, inject, input, untracked, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, afterRenderEffect, computed, effect, inject, input, linkedSignal, untracked, viewChild } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { EMPTY_STATE, Icon, Thread } from '@sweet-hand/components';
 import { EnquiriesApi } from '../../../core/api/enquiries-api';
+import type { ThreadView } from '../../../core/api/enquiries.models';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { Session } from '../../../core/session/session';
 import { EnquiryList } from '../shared/enquiry-list';
@@ -26,7 +27,8 @@ export class ThreadPage {
 
   protected readonly backLink = { href: '/inbox', label: $localize`:@@nav.inbox:Inbox` };
   protected readonly threadResource = rxResource({ params: () => this.id(), stream: ({ params }) => this.api.thread(params) });
-  protected readonly thread = computed(() => (this.threadResource.hasValue() ? this.threadResource.value() : undefined));
+  /** The thread as loaded, then as replies and actions change it. */
+  protected readonly thread = linkedSignal(() => (this.threadResource.hasValue() ? this.threadResource.value() : undefined));
   protected readonly failure = computed(() => {
     const error = this.threadResource.error();
     if (!error) return null;
@@ -35,7 +37,7 @@ export class ThreadPage {
   });
   /** The list loads once the thread has been opened (and so marked read). */
   protected readonly list = rxResource({
-    params: () => (this.thread() || this.failure() ? { status: null, page: 1 } : undefined),
+    params: () => (this.threadResource.hasValue() || this.failure() ? { status: null, page: 1 } : undefined),
     stream: ({ params }) => this.api.inbox(params),
   });
   protected readonly listView = computed(() => (this.list.hasValue() ? this.list.value() : undefined));
@@ -60,6 +62,12 @@ export class ThreadPage {
         view.focusTitle();
       }
     });
+  }
+
+  /** A reply or an action changed the thread: its row moves and changes in the list too (L2-031.3). */
+  protected changed(t: ThreadView): void {
+    this.thread.set(t);
+    this.list.reload();
   }
 
   protected retry(): void {

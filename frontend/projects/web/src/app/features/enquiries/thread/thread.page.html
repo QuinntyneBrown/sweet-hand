@@ -5,7 +5,7 @@
   </section>
   <div class="inbox-layout__thread">
     @if (thread(); as t) {
-      <app-enquiry-thread [thread]="t" [headingLevel]="1" [backLink]="backLink" />
+      <app-enquiry-thread [thread]="t" (threadChange)="changed($event)" [headingLevel]="1" [backLink]="backLink" />
     } @else if (failure(); as f) {
       <article class="thread" aria-labelledby="thread-title">
         <a class="eyebrow until-lg" routerLink="/inbox"><svg shIcon="chevron-left" class="icon--sm"></svg><ng-container i18n="@@nav.inbox">Inbox</ng-container></a>

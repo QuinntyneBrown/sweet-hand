@@ -44,7 +44,7 @@
     <span slot="summary" class="field__warning">{{ w }}</span>
   }
 
-  @if (entries().length) {
+  @if (hasMessages()) {
     <sh-message-list label="Messages" i18n-label="@@thread.messages">
       @for (m of entries(); track m.id) {
         <sh-message [kind]="m.kind" [sender]="m.sender" [text]="m.text" [time]="m.time" [datetime]="m.datetime">
@@ -58,6 +58,21 @@
           }
         </sh-message>
       }
+      @for (o of outbox(); track o.id) {
+        <sh-message
+          kind="mine"
+          [sender]="you"
+          [text]="o.text"
+          [delivery]="o.state"
+          sendingLabel="Sending…"
+          i18n-sendingLabel="@@thread.sending"
+          failedLabel="Not sent"
+          i18n-failedLabel="@@thread.notSent"
+          retryLabel="Try again"
+          i18n-retryLabel="@@common.tryAgain"
+          (retried)="retry(o.id)"
+        />
+      }
     </sh-message-list>
   }
 
@@ -68,7 +83,19 @@
     <p slot="ending" class="private-note"><svg shIcon="lock" class="icon--sm"></svg>{{ privateText() }}</p>
   }
   @if (canReply()) {
-    <sh-reply-box slot="ending" [label]="replyLabel()" [help]="replyHelp()" [(value)]="draft" [counterLabel]="counter()" [sendLabel]="sendLabel()" [sendStyle]="customerView() ? 'icon' : 'text'" />
+    <sh-reply-box
+      slot="ending"
+      [label]="replyLabel()"
+      [help]="replyHelp()"
+      [(value)]="draft"
+      [counterLabel]="counter()"
+      [error]="replyErrorText()"
+      [summaryTitle]="customerView() ? summaryTitle : null"
+      [sendLabel]="sendLabel()"
+      [sendStyle]="customerView() ? 'icon' : 'text'"
+      [busy]="sending()"
+      (submitted)="send($event)"
+    />
   } @else if (gone()) {
     <p slot="ending" class="closed-note" i18n="@@thread.gone">This person has left Sweet Hand, so replies can’t be delivered.</p>
   } @else {

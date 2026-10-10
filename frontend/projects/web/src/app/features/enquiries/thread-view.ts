@@ -3,7 +3,7 @@
  * which actions apply and how the thread ends (reply-in-thread,
  * decline-or-close-enquiry and share-contact-details designs; message CRD).
  */
-import type { ThreadParty } from '@sweet-hand/components';
+import { graphemeLength, type ThreadParty } from '@sweet-hand/components';
 import type { ContactDetails, FitWarning, ThreadEntryView, ThreadView } from '../../core/api/enquiries.models';
 import { count, longDate, shortDate, time, torontoToday } from '../../core/format/format';
 import { FORMER_USER, messageTime } from './enquiry-text';
@@ -19,6 +19,19 @@ export interface EntryVm {
   time: string;
   datetime: string;
   contact: { title: string; email: string; phone: string | null } | null;
+}
+
+/** A reply is 1 to 2,000 characters of plain text (L2-032.2); the message says by how much it is over. */
+export function replyError(text: string): string | null {
+  if (!text.trim()) return $localize`:@@thread.replyEmpty:Write a reply before sending`;
+  const n = graphemeLength(text);
+  if (n > REPLY_MAX) return $localize`:@@thread.replyTooLong:Keep your reply under 2,000 characters. It’s ${count(n)}:count: now.`;
+  return null;
+}
+
+/** The decline note is optional and at most 500 characters (L2-033). */
+export function noteError(text: string): string | null {
+  return graphemeLength(text.trim()) > NOTE_MAX ? $localize`:@@decline.noteTooLong:Keep your note under 500 characters` : null;
 }
 
 /** The other party's name: the business for a customer, the person (or "Former Sweet Hand user") for a caterer. */

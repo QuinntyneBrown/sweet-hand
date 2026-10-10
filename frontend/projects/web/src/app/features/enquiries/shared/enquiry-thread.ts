@@ -1,9 +1,33 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal, viewChild } from '@angular/core';
-import { Icon, Message, MessageList, ReplyBox, Thread, ThreadActionsSlot, graphemeLength } from '@sweet-hand/components';
+import { ChangeDetectionStrategy, Component, Injector, afterNextRender, computed, inject, input, model, signal, viewChild } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
+import { Icon, Message, MessageList, ReplyBox, Thread, ThreadActionsSlot, ToastNotifier, graphemeLength } from '@sweet-hand/components';
+import { EnquiriesApi } from '../../../core/api/enquiries-api';
 import type { ThreadView } from '../../../core/api/enquiries.models';
 import { count } from '../../../core/format/format';
+import { problemOf } from '../../../core/forms/problem';
 import { messageTime, statusLabel, statusTone } from '../enquiry-text';
-import { REPLY_MAX, actionsFor, canReply, fitWarningText, otherName, otherPartyGone, otherShortName, partyPicture, sentLine, summaryRows, threadEntries } from '../thread-view';
+import {
+  REPLY_MAX,
+  actionsFor,
+  canReply,
+  fitWarningText,
+  otherName,
+  otherPartyGone,
+  otherShortName,
+  partyPicture,
+  replyError,
+  sentLine,
+  summaryRows,
+  threadEntries,
+} from '../thread-view';
+
+interface Outgoing {
+  id: number;
+  text: string;
+  state: 'pending' | 'failed';
+}
+
+let nextOutgoing = 0;
 
 /**
  * One enquiry thread for either party: head, actions, summary, messages and
@@ -17,11 +41,17 @@ import { REPLY_MAX, actionsFor, canReply, fitWarningText, otherName, otherPartyG
   templateUrl: './enquiry-thread.html',
 })
 export class EnquiryThread {
-  readonly thread = input.required<ThreadView>();
+  private readonly api = inject(EnquiriesApi);
+  private readonly toasts = inject(ToastNotifier);
+  private readonly injector = inject(Injector);
+
+  /** The thread; replies and actions update it and emit `threadChange`. */
+  readonly thread = model.required<ThreadView>();
   readonly headingLevel = input<1 | 2>(1);
   readonly backLink = input<{ href: string; label: string } | null>(null);
 
   private readonly threadEl = viewChild.required(Thread);
+  private readonly replyBox = viewChild(ReplyBox);
 
   protected readonly customerView = computed(() => this.thread().viewer === 'customer');
   protected readonly title = computed(() => otherName(this.thread()));
@@ -33,12 +63,8 @@ export class EnquiryThread {
   );
   protected readonly subline = computed(() => (this.customerView() ? null : sentLine(this.thread())));
   protected readonly actions = computed(() => actionsFor(this.thread()));
-  protected readonly hasActions = computed(() => Object.values(this.actions()).some(Boolean));
   protected readonly summary = computed(() => summaryRows(this.thread()));
-  protected readonly enquiryBy = computed(() => {
-    const t = this.thread();
-    return `${t.customer?.name ?? ''} · ${messageTime(t.sentAt)}`;
-  });
+  protected readonly enquiryBy = computed(() => `${this.thread().customer?.name ?? ''} · ${messageTime(this.thread().sentAt)}`);
   protected readonly warnings = computed(() => this.thread().fitWarnings.map(fitWarningText));
   protected readonly entries = computed(() => threadEntries(this.thread()));
   protected readonly canReply = computed(() => canReply(this.thread()));
@@ -55,11 +81,95 @@ export class EnquiryThread {
       : $localize`:@@thread.replyHelpCaterer:${otherShortName(this.thread())}:name: sees ${this.thread().caterer.name}:business:, not your email or phone.`,
   );
   protected readonly sendLabel = computed(() => (this.customerView() ? $localize`:@@thread.sendReply:Send reply` : $localize`:@@thread.send:Send`));
+  protected readonly you = $localize`:@@thread.you:You`;
+  protected readonly summaryTitle = $localize`:@@thread.replyNotSent:Your reply wasn’t sent`;
 
   protected readonly draft = signal('');
   protected readonly counter = computed(() => `${count(graphemeLength(this.draft()))} / ${count(REPLY_MAX)}`);
+  protected readonly replyErrorText = signal<string | null>(null);
+  /** Replies on their way or that failed, shown after the thread's own entries. */
+  protected readonly outbox = signal<Outgoing[]>([]);
+  protected readonly sending = computed(() => this.outbox().some((o) => o.state === 'pending'));
+  protected readonly hasMessages = computed(() => this.entries().length > 0 || this.outbox().length > 0);
 
   focusTitle(): void {
     this.threadEl().focusTitle();
+  }
+
+  protected send(text: string): void {
+    if (this.sending()) return;
+    const error = replyError(text);
+    this.replyErrorText.set(error);
+    if (error) {
+      // The customer's form has a summary; the caterer's single field takes focus itself (mocks).
+      afterNextRender(() => (this.customerView() ? this.replyBox()?.focusSummary() : this.replyBox()?.focusField()), { injector: this.injector });
+      return;
+    }
+    const item: Outgoing = { id: ++nextOutgoing, text, state: 'pending' };
+    this.outbox.update((list) => [...list, item]);
+    this.draft.set('');
+    void this.deliver(item);
+  }
+
+  protected retry(id: number): void {
+    const item = this.outbox().find((o) => o.id === id);
+    if (!item || item.state !== 'failed' || this.sending()) return;
+    this.setState(id, 'pending');
+    afterNextRender(() => this.replyBox()?.focusField(), { injector: this.injector });
+    void this.deliver(item);
+  }
+
+  private setState(id: number, state: Outgoing['state']): void {
+    this.outbox.update((list) => list.map((o) => (o.id === id ? { ...o, state } : o)));
+  }
+
+  private drop(id: number): void {
+    this.outbox.update((list) => list.filter((o) => o.id !== id));
+  }
+
+  private async deliver(item: Outgoing): Promise<void> {
+    const t = this.thread();
+    try {
+      const result = await firstValueFrom(this.api.reply(t.id, item.text));
+      this.drop(item.id);
+      const current = this.thread();
+      this.thread.set({ ...current, status: result.status, entries: [...current.entries, result.entry] });
+      const name = otherShortName(current);
+      if (result.emailDelayed) {
+        this.toasts.show({
+          tone: 'info',
+          title: $localize`:@@toast.emailsLate:Emails are running late`,
+          text: $localize`:@@toast.emailsLateText:Your reply is saved. ${name}:name: will get the email as soon as our mail service catches up.`,
+        });
+      } else {
+        this.toasts.show({ tone: 'success', title: $localize`:@@toast.replySent:Reply sent`, text: $localize`:@@toast.replySentText:${name}:name: will get an email.` });
+      }
+      afterNextRender(() => this.replyBox()?.focusField(), { injector: this.injector });
+    } catch (error) {
+      const { status, problem } = problemOf(error);
+      if (status === 409) {
+        // Closed or declined meanwhile (L2-033.5): show the thread as it is now.
+        this.drop(item.id);
+        this.toasts.show({
+          tone: 'danger',
+          title: $localize`:@@toast.replyNotSent:Your reply wasn’t sent`,
+          text: $localize`:@@toast.replyClosed:This enquiry has closed, so no more messages can be sent.`,
+        });
+        const fresh = await firstValueFrom(this.api.thread(t.id, { markRead: false })).catch(() => null);
+        if (fresh) this.thread.set(fresh);
+      } else if (status === 400) {
+        this.drop(item.id);
+        this.draft.set(item.text);
+        this.replyErrorText.set(problem.errors?.['reply']?.[0] ?? replyError(item.text));
+      } else {
+        this.setState(item.id, 'failed');
+        this.toasts.show({
+          tone: 'danger',
+          title: $localize`:@@toast.replyNotSent:Your reply wasn’t sent`,
+          text: $localize`:@@toast.replyFailed:Check your connection, then try again. Your message is still in the box.`,
+          action: { label: $localize`:@@common.tryAgain:Try again`, run: () => this.retry(item.id) },
+        });
+      }
+    }
   }
 }
