@@ -3,6 +3,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
 import {
+  Alert,
   BackLink,
   Button,
   Description,
@@ -31,6 +32,7 @@ import { DIETARY_LABELS } from './dietary-labels';
 import { VIEWER_LABELS, morePhotosLabel, openPhotoLabel, photoCountLabel } from './gallery-labels';
 import { MainLandmark } from './main-landmark';
 import { ReportDialog } from './report-dialog/report-dialog';
+import { Connectivity } from './connectivity';
 
 type PageState = 'loading' | 'ready' | 'gone' | 'not-found' | 'error';
 
@@ -45,6 +47,7 @@ const ERROR_PHOTOS: RowPhoto[] = [
 @Component({
   selector: 'app-caterer-page',
   imports: [
+    Alert,
     RouterLink,
     BackLink,
     Button,
@@ -63,7 +66,7 @@ const ERROR_PHOTOS: RowPhoto[] = [
     ReviewsSection,
     ReportDialog,
   ],
-  providers: [CatererPageMetadata, MainLandmark],
+  providers: [CatererPageMetadata, MainLandmark, Connectivity],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './caterer.page.html',
   styleUrl: './caterer.page.css',
@@ -77,6 +80,9 @@ export class CatererPage {
   private readonly launcher = inject(EnquiryLauncher);
   private readonly router = inject(Router);
   private readonly title = inject(Title);
+  protected readonly connection = inject(Connectivity);
+  /** Sending needs a connection; the page itself stays readable (L2-091). */
+  protected readonly offline = computed(() => !this.connection.online());
 
   protected readonly caterer = rxResource({ params: () => this.slug(), stream: ({ params }) => this.api.caterer(params) });
   protected readonly view = computed(() => (this.caterer.hasValue() ? this.caterer.value() : undefined));

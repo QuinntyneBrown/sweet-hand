@@ -20,6 +20,18 @@
   <sh-back-link href="/caterers" i18n="@@caterer.back">Caterers</sh-back-link>
 }
 
+@if (view() && !connection.online()) {
+  <div id="offline-note">
+    <sh-alert tone="warning" live="polite" [banner]="true" title="You’re offline" i18n-title="@@caterer.offline.title"
+      ><ng-container i18n="@@caterer.offline.text">This is the copy saved from your last visit. Sending an enquiry or a report needs a connection.</ng-container></sh-alert
+    >
+  </div>
+} @else if (view() && connection.backOnline()) {
+  <sh-alert tone="success" live="polite" [banner]="true" title="Back online" i18n-title="@@caterer.online.title"
+    ><ng-container i18n="@@caterer.online.text">You can send enquiries and reports again.</ng-container></sh-alert
+  >
+}
+
 @if (state() === 'loading') {
   <div class="caterer-layout" aria-busy="true">
     <div>
@@ -125,10 +137,10 @@
       <app-reviews-section [slug]="c.slug" [catererName]="c.name" [rating]="c.rating" />
 
       <div class="caterer-section until-lg">
-        <sh-button variant="primary" size="lg" [block]="true" haspopup="dialog" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>
+        <sh-button variant="primary" size="lg" [block]="true" haspopup="dialog" [disabled]="offline()" [describedBy]="offline() ? 'offline-note' : null" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>
       </div>
       <p class="report-listing">
-        <sh-button variant="link" size="sm" haspopup="dialog" (activated)="openReport($event)"><svg shIcon="flag"></svg><ng-container i18n="@@caterer.report">Report this listing</ng-container></sh-button>
+        <sh-button variant="link" size="sm" haspopup="dialog" [disabled]="offline()" (activated)="openReport($event)"><svg shIcon="flag"></svg><ng-container i18n="@@caterer.report">Report this listing</ng-container></sh-button>
       </p>
     </div>
 
@@ -137,8 +149,12 @@
         <sh-description term="Guests" i18n-term="@@caterer.guests">{{ guests() }}</sh-description>
         <sh-description term="Occasions" i18n-term="@@caterer.occasions"><sh-inline-list [items]="c.occasions" /></sh-description>
       </sh-description-list>
-      <sh-button variant="primary" size="lg" [block]="true" haspopup="dialog" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>
-      <p class="enquiry-panel__note" i18n="@@caterer.enquireNote">Free to ask. Your email and phone stay private until you choose to share them.</p>
+      <sh-button variant="primary" size="lg" [block]="true" haspopup="dialog" [disabled]="offline()" [describedBy]="offline() ? 'offline-note' : null" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>
+      @if (offline()) {
+        <p class="enquiry-panel__note" i18n="@@caterer.enquireNoteOffline">You’re offline. Send an enquiry as soon as you’re back online.</p>
+      } @else {
+        <p class="enquiry-panel__note" i18n="@@caterer.enquireNote">Free to ask. Your email and phone stay private until you choose to share them.</p>
+      }
     </aside>
   </div>
 
@@ -149,6 +165,6 @@
   <app-report-dialog [open]="reportFrom() !== null" [target]="{ kind: 'CatererProfile', id: c.slug, name: c.name }" [returnFocus]="reportFrom()" (closed)="reportFrom.set(null)" />
 
   <div sh-sticky-cta regionLabel="Enquire" i18n-regionLabel="@@caterer.enquireRegion" [heading]="c.name" [detail]="guests()">
-    <sh-button variant="primary" haspopup="dialog" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>
+    <sh-button variant="primary" haspopup="dialog" [disabled]="offline()" [describedBy]="offline() ? 'offline-note' : null" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>
   </div>
 }

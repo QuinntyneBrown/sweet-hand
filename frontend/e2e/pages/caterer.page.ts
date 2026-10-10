@@ -344,6 +344,19 @@ export class CatererPage extends BasePage {
     return review.locator('.review__body *');
   }
 
+  /** Drop or restore the browser's connection. */
+  async setOnline(online: boolean) {
+    await this.page.context().setOffline(!online);
+  }
+
+  get connectionBanner() {
+    return this.page.locator('.alert.banner');
+  }
+
+  get panelNote() {
+    return this.panel.locator('.enquiry-panel__note');
+  }
+
   metaContent(name: string) {
     return this.page.locator(`head meta[name="${name}"], head meta[property="${name}"]`);
   }
