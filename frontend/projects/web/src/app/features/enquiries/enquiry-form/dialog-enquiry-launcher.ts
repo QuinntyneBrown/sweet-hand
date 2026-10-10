@@ -1,6 +1,7 @@
 import { ApplicationRef, EnvironmentInjector, Injectable, createComponent, inject, type ComponentRef } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { EnquiryDraftStore } from '../../../core/enquiry/enquiry-draft-store';
 import { EnquiryLauncher, RESUME_PARAM, RESUME_VALUE, type EnquiryTarget } from '../../../core/enquiry/enquiry-launcher';
 import type { EnquiryFormDialog, EnquiryFormRequest } from './enquiry-form-dialog';
 
@@ -14,6 +15,7 @@ export class DialogEnquiryLauncher extends EnquiryLauncher {
   private readonly appRef = inject(ApplicationRef);
   private readonly environment = inject(EnvironmentInjector);
   private readonly router = inject(Router);
+  private readonly drafts = inject(EnquiryDraftStore);
   private current: ComponentRef<EnquiryFormDialog> | null = null;
   /** Counts openings, so a navigation while the form is loading cancels it. */
   private opening = 0;
@@ -32,7 +34,8 @@ export class DialogEnquiryLauncher extends EnquiryLauncher {
     if (url.queryParams[RESUME_PARAM] !== RESUME_VALUE) return;
     // Drop the marker first, so a reload or Back does not reopen the form.
     delete url.queryParams[RESUME_PARAM];
-    void this.router.navigateByUrl(url, { replaceUrl: true }).then(() => this.show({ caterer, trigger }));
+    const restored = this.drafts.get(caterer.slug)?.values ?? null;
+    void this.router.navigateByUrl(url, { replaceUrl: true }).then(() => this.show({ caterer, trigger, restored }));
   }
 
   /** The form is loaded on first use, so caterer pages stay light (L2-086). */

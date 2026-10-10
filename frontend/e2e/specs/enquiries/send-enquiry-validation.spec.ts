@@ -68,6 +68,7 @@ test.describe('Checking the enquiry form', () => {
     await form.fill({ guests: '120' });
     await expect(form.errorFor('guests')).toHaveCount(0);
     await expect(form.guests).not.toHaveAttribute('aria-invalid', 'true');
+    await expect(form.summaryLinks).toHaveCount(4);
     await form.send.click();
 
     await expect(form.summary).toBeFocused();

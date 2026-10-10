@@ -194,6 +194,8 @@ export class EnquiryFormDialog {
 
   /** Sends a request straight to the API, skipping the form's checks (L2-022.6, L2-025.4). */
   async postDirectly(body: Record<string, unknown>) {
+    // Any API response sets the CSRF cookie; make sure there is one before echoing it.
+    await this.page.request.get('/api/session');
     const csrf = (await this.page.context().cookies()).find((c) => c.name === 'XSRF-TOKEN')?.value ?? '';
     const response = await this.page.request.post('/api/enquiries', { data: body, headers: { 'x-xsrf-token': csrf } });
     return { status: response.status(), body: await response.json().catch(() => null) };

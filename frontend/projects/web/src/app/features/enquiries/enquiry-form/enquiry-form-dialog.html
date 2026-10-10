@@ -18,6 +18,11 @@
   (submitted)="submit()"
 >
   @switch (mode()) {
+    @case ('wrong-account') {
+      <sh-empty-state size="compact" [headingLevel]="null" heading="Sign in with a customer account to send enquiries" i18n-heading="@@enquiryForm.wrongAccount" [text]="wrongAccountText()"
+        ><svg slot="icon" shIcon="lock"></svg
+      ></sh-empty-state>
+    }
     @case ('sent') {
       <sh-empty-state size="compact" tone="success" [headingLevel]="null" [heading]="sentTitle()" [text]="sentText()"><svg slot="icon" shIcon="success"></svg></sh-empty-state>
       @if (sent(); as s) {
@@ -30,6 +35,39 @@
       }
     }
     @default {
+      @switch (notice()?.kind) {
+        @case ('restored') {
+          <sh-alert tone="info" [title]="welcomeTitle()"><ng-container i18n="@@enquiryForm.welcomeText">We kept everything you typed before signing in.</ng-container></sh-alert>
+        }
+        @case ('unverified') {
+          <sh-alert tone="warning" live="polite" [title]="unverifiedTitle"
+            >{{ unverifiedText() }}
+            <div slot="actions" class="alert__actions">
+              <sh-button size="sm" (activated)="resend()"><ng-container i18n="@@enquiryForm.resend">Resend verification email</ng-container></sh-button>
+            </div>
+          </sh-alert>
+        }
+        @case ('duplicate') {
+          <sh-alert tone="danger" live="assertive" [title]="duplicateTitle">
+            <div slot="actions" class="alert__actions">
+              <a [routerLink]="['/inbox', duplicateId()]" i18n="@@enquiryForm.viewEnquiry">View your enquiry</a>
+            </div>
+          </sh-alert>
+        }
+        @case ('limit') {
+          <sh-alert tone="danger" live="assertive" [title]="limitTitle()"
+            ><ng-container i18n="@@enquiryForm.limitText">Limits keep caterers’ inboxes free of spam. Your message is still here if you’d like to copy it.</ng-container></sh-alert
+          >
+        }
+        @case ('failed') {
+          <sh-alert tone="danger" live="assertive" [title]="notSentTitle"
+            ><ng-container i18n="@@enquiryForm.failedText">Something went wrong on our side. Everything you typed is still here.</ng-container>
+            @if (failureReference(); as ref) {
+              <p slot="actions" class="text-caption"><ng-container i18n="@@system.reference">Reference</ng-container> <code>{{ ref }}</code></p>
+            }
+          </sh-alert>
+        }
+      }
       <sh-form-summary [heading]="summaryTitle()" [headingLevel]="3" [items]="summary()" [attempt]="attempt()" />
       <div class="field-row">
         <sh-form-field label="Event date" i18n-label="@@enquiryForm.date" controlId="date" help="At least 2 days from today" i18n-help="@@enquiryForm.dateHelp" [error]="errors().date ?? null">
@@ -77,6 +115,12 @@
   }
 
   @switch (mode()) {
+    @case ('wrong-account') {
+      <ng-container slot="footer">
+        <sh-button (activated)="close()"><ng-container i18n="@@common.close">Close</ng-container></sh-button>
+        <a class="btn btn--primary" routerLink="/sign-in" [queryParams]="{ returnUrl: catererUrl() }" i18n="@@enquiryForm.switchAccount">Switch account</a>
+      </ng-container>
+    }
     @case ('sent') {
       <ng-container slot="footer">
         <sh-button (activated)="close()">{{ backLabel() }}</sh-button>
@@ -84,7 +128,9 @@
       </ng-container>
     }
     @default {
-      <sh-button slot="footer" type="submit" variant="primary" [busy]="busy()"><ng-container i18n="@@enquiryForm.send">Send enquiry</ng-container></sh-button>
+      <sh-button slot="footer" type="submit" variant="primary" [busy]="busy()" [disabled]="limited()"
+        >@if (failed()) {<ng-container i18n="@@common.tryAgain">Try again</ng-container>} @else {<ng-container i18n="@@enquiryForm.send">Send enquiry</ng-container>}</sh-button
+      >
     }
   }
 </sh-dialog>
