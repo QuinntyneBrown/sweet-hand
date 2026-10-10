@@ -4,7 +4,8 @@ import { newId, startSession, type Store } from '../lib/store.ts';
 import type { User } from '../seed/users.ts';
 import type { AccountToken } from '../seed/account.ts';
 import { slugify } from '../seed/taxonomy.ts';
-import type { PasswordResetRequest, RegisterCatererRequest, RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/web/src/app/core/api/identity.models.ts';
+import { endSessions } from './session.ts';
+import type { PasswordResetLink, PasswordResetRequest, ResetPasswordRequest, RegisterCatererRequest, RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/web/src/app/core/api/identity.models.ts';
 
 const MINUTE = 60_000;
 /** 5 failed sign-ins for one account within 15 minutes pause it for 15 minutes (L2-076.4). */
@@ -240,9 +241,45 @@ export function registerIdentity(r: Router<Store>): void {
     if (user) sendEmail(ctx.store, user.email, 'password-reset', `/reset-password/${issueToken(ctx.store, user, 'reset')}`);
     return { status: 202, body: {} };
   });
+
+  r.get('/api/identity/password-resets/:token', (ctx): Reply => {
+    const t = liveToken(ctx.store, 'reset', ctx.params['token']);
+    const user = t && ctx.store.users.find((u) => u.id === t.userId && !u.deleted);
+    if (!user) return gone();
+    const body: PasswordResetLink = { email: user.email };
+    return ok(body);
+  });
+
+  /** A new password ends every session of the account and is confirmed by email (L2-077.4). */
+  r.post('/api/identity/password-resets', (ctx): Reply => {
+    const body = (ctx.body ?? {}) as Partial<ResetPasswordRequest>;
+    const t = liveToken(ctx.store, 'reset', body.token);
+    const user = t && ctx.store.users.find((u) => u.id === t.userId && !u.deleted);
+    if (!t || !user) return gone();
+    const weak = passwordProblem(body.password);
+    if (weak) return invalid({ password: [weak] });
+    user.password = String(body.password);
+    user.passwordChangedAt = ctx.store.now.toISOString();
+    user.lockedUntil = undefined;
+    t.consumedAt = ctx.store.now.toISOString();
+    endSessions(ctx.store, user.id);
+    sendEmail(ctx.store, user.email, 'password-changed');
+    return { status: 204, headers: { 'set-cookie': 'sh_session=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax' } };
+  });
 }
 
 const HOUR = 60 * MINUTE;
+/** Reset links work once, for 30 minutes (L2-077.2); verification links for 24 hours (L2-077.3). */
+const LIFETIME: Record<AccountToken['kind'], number> = { reset: 30 * MINUTE, verify: 24 * HOUR };
+
+/** The unused, unexpired token, or undefined. */
+export function liveToken(store: Store, kind: AccountToken['kind'], token: unknown): AccountToken | undefined {
+  const t = store.account.tokens.find((x) => x.kind === kind && x.token === token);
+  if (!t || t.consumedAt || store.now.getTime() - Date.parse(t.issuedAt) > LIFETIME[kind]) return undefined;
+  return t;
+}
+
+const gone = (): Reply => ({ status: 410, body: { title: 'This link has expired' } });
 /** More than 5 password resets from one network in an hour get 429 (L2-082.3). */
 const RESETS_PER_HOUR = 5;
 
@@ -261,6 +298,14 @@ export function normalisePhone(value: string): string | null {
 
 /** Named store changes for identity tests (`backend.scenario(name, args)`). */
 export const identityScenarios: Record<string, (store: Store, args: any) => unknown> = {
+  /** A reset link was emailed just now; returns its path. */
+  'issue-password-reset': (store, { email }: { email: string }) => {
+    const user = findUser(store, email);
+    if (!user) throw new Error(`No account for ${email}`);
+    const link = `/reset-password/${issueToken(store, user, 'reset')}`;
+    sendEmail(store, user.email, 'password-reset', link);
+    return { link };
+  },
   /** 20 failed sign-ins from the network in the last 15 minutes (L2-076.5). */
   'many-failed-sign-ins-from-network': (store) => {
     store.account.networkFailures = Array.from({ length: NETWORK_FAILURES }, () => store.now.toISOString());

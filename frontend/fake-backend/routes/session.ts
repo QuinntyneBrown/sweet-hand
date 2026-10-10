@@ -20,7 +20,12 @@ export function sessionUser(store: Store, user: User): SessionUser {
   };
 }
 
-/** Threads with something unread for a customer or caterer (L2-029). */
+/** Ends every session of the account, except `keep` (L2-077.4, L2-072.1, password change). */
+export function endSessions(store: Store, userId: string, keep?: string): void {
+  for (const [token, id] of [...store.sessions]) if (id === userId && token !== keep) store.sessions.delete(token);
+}
+
+/** Unread threads for a customer or caterer. The enquiries area derives this from its threads. */
 export function unreadCount(store: Store, user: User): number {
   return user.role === 'Customer' || user.role === 'Caterer' ? unreadThreads(store, user) : 0;
 }

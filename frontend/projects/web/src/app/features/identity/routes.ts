@@ -21,4 +21,9 @@ export const identityRoutes: Routes = [
     loadComponent: () => import('./forgot-password/forgot-password.page').then((m) => m.ForgotPasswordPage),
     title: $localize`:@@forgot.documentTitle:Forgot password · Sweet Hand`,
   },
+  {
+    path: 'reset-password/:token',
+    loadComponent: () => import('./reset-password/reset-password.page').then((m) => m.ResetPasswordPage),
+    title: $localize`:@@reset.documentTitle:Choose a new password · Sweet Hand`,
+  },
 ];
