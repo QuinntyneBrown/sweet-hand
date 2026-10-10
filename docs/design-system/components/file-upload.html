@@ -205,14 +205,14 @@
     </section>
 
     <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
-      <p>The trigger takes the <a href="button.html">button</a> sizes: large (52px) in the photos empty state, medium (44px) in the toolbar and the certificate form, small (36px) inside a file row. The tile is up to 10rem across, the same as a photo tile.</p>
+      <p>The trigger takes the <a href="button.html">button</a> sizes: large (52px) in the photos empty state, medium (44px) in the toolbar and the certificate form, small (36px from 48rem, 44px below) inside a file row. The tile is up to 10rem across, the same as a photo tile.</p>
       <div class="ds-example">
         <div class="ds-example__canvas">
           <input class="file-input visually-hidden" id="fu-s-sm" type="file"><label class="btn btn--sm" for="fu-s-sm">Replace</label>
           <input class="file-input visually-hidden" id="fu-s-md" type="file"><label class="btn btn--primary" for="fu-s-md"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add photos</label>
           <input class="file-input visually-hidden" id="fu-s-lg" type="file"><label class="btn btn--primary btn--lg" for="fu-s-lg"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add photos</label>
         </div>
-        <div class="ds-example__caption"><span>Small · 36px (row), medium · 44px (toolbar), large · 52px (empty state).</span></div>
+        <div class="ds-example__caption"><span>Small · 36px from 48rem, 44px below (row), medium · 44px (toolbar), large · 52px (empty state).</span></div>
       </div>
     </section>
 
@@ -324,7 +324,7 @@
       <h3>Motion</h3>
       <p>The tile's border and text colours change over <code>--duration-fast</code>; progress bars fill over <code>--duration-deliberate</code>; the status dot pulses. Reduced motion stops the pulse and makes the fill instant; the percentages still update.</p>
       <h3>Touch</h3>
-      <p>Medium and large triggers meet 44px. The small Replace and Remove buttons (36px) sit in a row with <code>--space-3</code> between them, clearing the 24px minimum with spacing; the tile is far larger than any minimum.</p>
+      <p>Medium and large triggers meet 44px. Below 48rem the small Replace and Remove buttons also grow to 44px (L2-065.1) and wrap under the file name if needed; from 48rem they are 36px with <code>--space-3</code> between them, clearing the 24px minimum. The tile is far larger than any minimum.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>

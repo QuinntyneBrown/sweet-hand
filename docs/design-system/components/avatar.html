@@ -207,7 +207,7 @@
 
     <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
       <p>Static avatars have no states. The account trigger is a button: default, hover (<code>--color-bg-subtle-hover</code>), focus, expanded while the menu is open. Every avatar has a loading skeleton.</p>
-      <div class="ds-matrix"><table>
+      <div class="ds-matrix" style="position: relative;"><table>
         <caption class="visually-hidden">Avatar states by variant</caption>
         <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Expanded</th><th scope="col">Loading</th></tr></thead>
         <tbody>
@@ -254,11 +254,11 @@
       <h3>Role and pattern</h3>
       <p>Static avatars are decorative: the person's name is always printed beside them, so they get <code>aria-hidden="true"</code> (an image inside gets <code>alt=""</code>). The trigger is a native <code>&lt;button&gt;</code> following the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/">APG Menu Button</a> pattern: <code>aria-haspopup="menu"</code> and <code>aria-expanded</code>. A group with no names beside it is <code>role="img"</code> with an <code>aria-label</code> naming everyone.</p>
       <h3>Keyboard</h3>
-      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
         <tr><td><kbd>Tab</kbd></td><td>Reaches the account trigger last in the header. Static avatars are skipped.</td></tr>
         <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd>, <kbd>↓</kbd></td><td>Open the account menu and move focus to its first item.</td></tr>
         <tr><td><kbd>Esc</kbd></td><td>Closes the menu and returns focus to the avatar.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
       <h3>Focus</h3>
       <p>The shared ring wraps the circle (2px <code>--color-focus-ring</code>, 3px offset); the offset keeps it clear of the stone fill.</p>
       <h3>Labelling</h3>
@@ -315,7 +315,7 @@
 
 &lt;button class="avatar" type="button" aria-label="Account menu for Marcia Thompson"
         aria-haspopup="menu" aria-expanded="false"&gt;MT&lt;/button&gt;</code></pre>
-      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
         <tr><td><code>.avatar</code></td><td>40px stone circle; initials, icon or image inside.</td></tr>
         <tr><td><code>.avatar--sm</code> <code>.avatar--lg</code></td><td>32px / 56px.</td></tr>
         <tr><td><code>button.avatar</code></td><td>Account trigger: no border, pointer, hover fill. 44px inside <code>.site-nav</code>.</td></tr>
@@ -323,7 +323,7 @@
         <tr><td><code>aria-hidden="true"</code></td><td>Required on static avatars; the name is beside them.</td></tr>
         <tr><td><code>aria-haspopup</code>, <code>aria-expanded</code></td><td>Required on the trigger.</td></tr>
         <tr><td><code>data-state="hover|focus"</code></td><td>Documentation only.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

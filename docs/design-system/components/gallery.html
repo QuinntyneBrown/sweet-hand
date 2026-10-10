@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gallery and viewer — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand caterer gallery and photo viewer: carousel, lead and thumbnails, more-photos overlay, viewer bar, stage and caption, states including loading and failed, both themes, accessibility and tokens.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Containers and overlays</p>
+      <h1>Gallery and viewer</h1>
+      <p class="ds-lead">The caterer page opens with their food: a swipeable carousel on phones, a lead photo with thumbnails on larger screens, and a full-screen viewer with captions that works by touch, mouse and keyboard.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.gallery</code></span><span class="ds-pill"><code>.viewer</code></span><span class="ds-pill">L2-016, L2-019</span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The gallery shows a caterer's photos in the order they chose, cover first (L2-016.1), as round <a href="photo.html">photos</a>. Every photo is a button that opens the viewer at that photo: a full-screen dialog with a "2 of 6" count, previous and next buttons, and the caterer's caption underneath (L2-016.2).</p>
+      <ul>
+        <li><b>XS (below 36rem)</b>: a horizontal carousel, one photo at 80% width with the next peeking in, snap scrolling and position dots (L2-019.1).</li>
+        <li><b>SM and MD</b>: a 24rem lead photo with a strip of up to five thumbnails beneath (L2-019.2).</li>
+        <li><b>LG and XL</b>: a large lead photo spanning two rows beside a 2 × 2 grid of thumbnails, up to four (L2-019.3). When more photos exist, the last visible thumbnail carries a "+N photos" scrim (<code>.gallery__more</code>).</li>
+      </ul>
+      <p>The gallery is only for a caterer's photos on their public page. Caterers manage photos with <a href="photo-tile.html">photo tiles</a>; the listing uses one cover photo per <a href="caterer-card.html">caterer card</a>. For anything else that needs a full-screen layer, use a <a href="dialog.html">dialog</a> or <a href="sheet.html">sheet</a>.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="padding: 0; overflow: hidden;">
+          <div class="ds-frame ds-frame--short" style="width: 100%; min-height: 22rem; border: 0;">
+            <div class="viewer" role="dialog" aria-labelledby="anat-viewer-title">
+              <div class="viewer__bar">
+                <p class="visually-hidden" id="anat-viewer-title">Pelau House photos (anatomy)</p>
+                <p class="viewer__count">2 of 6</p>
+                <button class="icon-btn" type="button" aria-label="Close photo viewer"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              </div>
+              <div class="viewer__stage">
+                <button class="icon-btn" type="button" aria-label="Previous photo"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+                <span class="photo" style="width: min(100%, 10rem);"><img src="../../mocks/assets/img/maracas-bay.jpg" alt="Curry chicken with rice and buss up shut in a steel karahi" width="160" height="160"></span>
+                <button class="icon-btn" type="button" aria-label="Next photo"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+              </div>
+              <p class="viewer__caption">Curry chicken with rice and buss up shut in a steel karahi</p>
+            </div>
+          </div>
+          <span class="ds-callout" style="left: 4%; top: 6%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 88%; top: 6%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 4%; top: 46%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 60%; top: 30%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 20%; top: 86%;" aria-hidden="true">5</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Count</b><small><code>.viewer__count</code> in the <code>.viewer__bar</code>: "2 of 6", a polite live region.</small></div></li>
+          <li><div><b>Close</b><small>Outlined 44px <a href="icon-button.html">icon button</a>, "Close photo viewer", focused on open.</small></div></li>
+          <li><div><b>Previous / next</b><small>Outlined icon buttons either side of the stage; disabled at the ends (no wrap-around).</small></div></li>
+          <li><div><b>Stage photo</b><small><code>.viewer__stage .photo</code>: <code>min(100%, 62dvh, 34rem)</code>, the 1200w image.</small></div></li>
+          <li><div><b>Caption</b><small><code>.viewer__caption</code>: the caterer's caption in <code>--text-body-lg</code>, the dialog's description.</small></div></li>
+        </ol>
+      </div>
+      <p>On the page, the gallery itself is <code>.gallery</code> (a labelled <code>section</code>) holding <code>.gallery__track</code> (a list), one <code>.gallery__btn</code> per photo, <code>.gallery__dots</code> on phones and <code>.gallery__more</code> on the last visible thumbnail when photos are hidden.</p>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Lead and thumbnails</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <section class="gallery" aria-label="Photos (example)" style="margin: 0;">
+            <ul class="gallery__track">
+              <li><button class="gallery__btn" type="button" aria-label="Open photo 1 of 6: Chicken pelau in a steel pot with lime and cucumber chutney"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="280" height="280"></span></button></li>
+              <li><button class="gallery__btn" type="button" aria-label="Open photo 2 of 6: Curry chicken with rice and buss up shut in a steel karahi"><span class="photo"><img src="../../mocks/assets/img/maracas-bay.jpg" alt="" width="280" height="280"></span></button></li>
+              <li><button class="gallery__btn" type="button" aria-label="Open photo 3 of 6: Spiced rice lifted from a blue cast-iron pot"><span class="photo"><img src="../../mocks/assets/img/sunday-pot.jpg" alt="" width="280" height="280"></span></button></li>
+              <li><button class="gallery__btn" type="button" aria-label="Open photo 4 of 6: Curry chicken scattered with shado beni over white rice"><span class="photo"><img src="../../mocks/assets/img/scotch-bonnet-social.jpg" alt="" width="280" height="280" loading="lazy"></span></button></li>
+              <li><button class="gallery__btn" type="button" aria-label="Open photo 5 of 6: Rum-soaked black cake dusted with icing sugar. 1 more photo in the viewer"><span class="photo"><img src="../../mocks/assets/img/black-cake-co.jpg" alt="" width="280" height="280" loading="lazy"></span></button><span class="gallery__more" aria-hidden="true">+1 photo</span></li>
+              <li><button class="gallery__btn" type="button" aria-label="Open photo 6 of 6: Macaroni pie and rice with peas in a red serving pot"><span class="photo"><img src="../../mocks/assets/img/cook-up.jpg" alt="" width="280" height="280" loading="lazy"></span></button></li>
+            </ul>
+            <div class="gallery__dots" aria-hidden="true"><span aria-current="true"></span><span></span><span></span><span></span><span></span><span></span></div>
+          </section>
+        </div>
+        <div class="ds-example__caption"><span>Pelau House's six photos, live: LG shows the lead plus four with "+1 photo" on the fifth; SM and MD show a lead and a strip of five; a phone shows the carousel and dots. The "+N" scrim is correct at LG only until the CSS fix in Sources lands.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;section class="gallery" aria-label="Photos"&gt;
+  &lt;ul class="gallery__track"&gt;
+    &lt;li&gt;&lt;button class="gallery__btn" type="button" aria-haspopup="dialog"
+        aria-label="Open photo 1 of 6: Chicken pelau in a steel pot with lime and cucumber chutney"&gt;
+      &lt;span class="photo"&gt;&lt;img src="…" srcset="…" sizes="…" alt="" width="280" height="280"&gt;&lt;/span&gt;
+    &lt;/button&gt;&lt;/li&gt;
+    …
+    &lt;li&gt;&lt;button class="gallery__btn" …&gt;…&lt;/button&gt;&lt;span class="gallery__more" aria-hidden="true"&gt;+25 photos&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;div class="gallery__dots" aria-hidden="true"&gt;&lt;span aria-current="true"&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;…&lt;/div&gt;
+&lt;/section&gt;</code></pre></details>
+      </div>
+      <h3>Carousel on a phone, and the viewer</h3>
+      <div class="ds-iframes">
+        <iframe class="ds-iframe" src="../../mocks/pages/caterer/default.html?chrome=0&amp;theme=light" title="Caterer page on a phone: photo carousel with dots" loading="lazy"></iframe>
+        <iframe class="ds-iframe" src="../../mocks/dialogs/photo-viewer/default.html?chrome=0&amp;theme=light" title="Photo viewer on a phone, photo 2 of 6" loading="lazy"></iframe>
+      </div>
+      <h3>Viewer, live</h3>
+      <div class="ds-frame ds-frame--tall">
+        <div class="viewer" role="dialog" aria-labelledby="live-viewer-title" aria-describedby="live-viewer-caption">
+          <div class="viewer__bar">
+            <p class="visually-hidden" id="live-viewer-title">Pelau House photos (example)</p>
+            <p class="viewer__count" aria-live="polite">3 of 6</p>
+            <button class="icon-btn" type="button" aria-label="Close photo viewer"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+          </div>
+          <div class="viewer__stage">
+            <button class="icon-btn" type="button" aria-label="Previous photo"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+            <span class="photo" style="width: min(100%, 22rem);"><img src="../../mocks/assets/img/sunday-pot.jpg" alt="Spiced rice lifted from a blue cast-iron pot" width="352" height="352"></span>
+            <button class="icon-btn" type="button" aria-label="Next photo"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+          </div>
+          <p class="viewer__caption" id="live-viewer-caption">Spiced rice lifted from a blue cast-iron pot</p>
+        </div>
+      </div>
+      <p>The viewer is the page colour, not a black lightbox: food reads truer on the same canvas it was browsed on, and the flat brand has no dark overlays outside dialogs. (Inside this frame the demo omits <code>aria-modal</code> so it does not hide the docs page.)</p>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="Layout-driven."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">The gallery fills the caterer page's content column and the viewer fills the screen; their arrangement changes by breakpoint (see Responsive), not by a size modifier.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Gallery buttons: hover zooms the photo to 1.08; focus draws a round ring. Hover and focus are forced with <code>data-state</code>.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Gallery button states</caption>
+        <thead><tr><th scope="col">Part</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Active</th><th scope="col">Disabled</th><th scope="col">Loading</th><th scope="col">Failed</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Thumbnail</th>
+            <td><button class="gallery__btn" type="button" style="width: 6rem;" aria-label="Open photo 4 of 6: Curry chicken scattered with shado beni over white rice"><span class="photo"><img src="../../mocks/assets/img/scotch-bonnet-social.jpg" alt="" width="96" height="96"></span></button></td>
+            <td><button class="gallery__btn" type="button" style="width: 6rem;" data-state="hover" aria-label="Open photo 4 of 6: Curry chicken scattered with shado beni over white rice"><span class="photo"><img src="../../mocks/assets/img/scotch-bonnet-social.jpg" alt="" width="96" height="96"></span></button></td>
+            <td><button class="gallery__btn" type="button" style="width: 6rem;" data-state="focus" aria-label="Open photo 4 of 6: Curry chicken scattered with shado beni over white rice"><span class="photo"><img src="../../mocks/assets/img/scotch-bonnet-social.jpg" alt="" width="96" height="96"></span></button></td>
+            <td><span class="text-subtle">Same as hover</span></td>
+            <td><span class="text-subtle">Never</span></td>
+            <td><span class="photo" style="width: 6rem;"><span class="skeleton skeleton--circle"></span></span></td>
+            <td><button class="gallery__btn" type="button" style="width: 6rem;" aria-label="Open photo 2 of 4: Stewed saltfish with peppers over rice (did not load)"><span class="photo photo--failed"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg></span></button></td></tr>
+          <tr><th scope="row">Viewer arrow</th>
+            <td><button class="icon-btn icon-btn--outline" type="button" aria-label="Next photo"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+            <td><button class="icon-btn icon-btn--outline" type="button" data-state="hover" aria-label="Next photo"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+            <td><button class="icon-btn icon-btn--outline" type="button" data-state="focus" aria-label="Next photo"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+            <td><button class="icon-btn icon-btn--outline" type="button" data-state="active" aria-label="Next photo"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+            <td><button class="icon-btn icon-btn--outline" type="button" disabled aria-label="Next photo"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></td>
+            <td><span class="text-subtle">Stays enabled</span></td>
+            <td><span class="text-subtle">Stays enabled</span></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Viewer states</h3>
+      <div class="ds-iframes">
+        <iframe class="ds-iframe" src="../../mocks/dialogs/photo-viewer/busy.html?chrome=0&amp;theme=light" title="Viewer loading photo 3 of 6" loading="lazy"></iframe>
+        <iframe class="ds-iframe" src="../../mocks/dialogs/photo-viewer/failed.html?chrome=0&amp;theme=dark" title="Viewer, photo 4 of 6 failed to load, dark theme" loading="lazy"></iframe>
+        <iframe class="ds-iframe" src="../../mocks/dialogs/photo-viewer/last.html?chrome=0&amp;theme=light" title="Viewer at photo 6 of 6, Next disabled" loading="lazy"></iframe>
+      </div>
+      <ul>
+        <li><b>Loading</b> (<code>aria-busy="true"</code> on the viewer): the stage shows a placeholder circle with a large spinner, labelled "Loading photo 3 of 6"; the caption is already there.</li>
+        <li><b>Failed</b>: a failed circle labelled "Photo 4 of 6 didn't load", the caption, "This photo didn't load." and a small "Try again" button. Arrows stay usable.</li>
+        <li><b>First and last</b>: Previous is disabled on photo 1, Next on the last. The viewer does not wrap around.</li>
+        <li><b>Gallery loading</b>: five skeleton circles in the final layout (<a href="../../mocks/pages/caterer/loading.html">pages/caterer/loading</a>).</li>
+      </ul>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="cluster"><button class="gallery__btn" type="button" style="width: 6rem;" aria-label="Open photo 1 of 6: Chicken pelau in a steel pot with lime and cucumber chutney"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="96" height="96"></span></button><div style="position: relative; width: 6rem;"><button class="gallery__btn" type="button" aria-label="Open photo 5 of 30: Rum-soaked black cake dusted with icing sugar. 25 more photos in the viewer"><span class="photo"><img src="../../mocks/assets/img/black-cake-co.jpg" alt="" width="96" height="96"></span></button><span class="gallery__more" aria-hidden="true">+25</span></div><p class="viewer__count">2 of 6</p></div></div>
+        <div data-theme="dark"><div class="cluster"><button class="gallery__btn" type="button" style="width: 6rem;" aria-label="Open photo 1 of 6: Chicken pelau in a steel pot with lime and cucumber chutney"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="" width="96" height="96"></span></button><div style="position: relative; width: 6rem;"><button class="gallery__btn" type="button" aria-label="Open photo 5 of 30: Rum-soaked black cake dusted with icing sugar. 25 more photos in the viewer"><span class="photo"><img src="../../mocks/assets/img/black-cake-co.jpg" alt="" width="96" height="96"></span></button><span class="gallery__more" aria-hidden="true">+25</span></div><p class="viewer__count">2 of 6</p></div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <caption class="visually-hidden">Gallery layout by viewport class</caption>
+        <thead><tr><th scope="col">Viewport</th><th scope="col">Gallery</th><th scope="col">Visible</th><th scope="col">"+N" scrim</th></tr></thead>
+        <tbody>
+          <tr><td>XS (below 36rem)</td><td>Carousel, 80% slides, snap to centre, edge-to-edge (negative margins), dots</td><td>All, by swiping</td><td>None</td></tr>
+          <tr><td>SM, MD (36–62rem)</td><td>24rem lead centred, 5-across strip</td><td>Lead + 5 (photos 1–6)</td><td>On photo 6 when there are more</td></tr>
+          <tr><td>LG, XL (62rem and wider)</td><td>Lead at 1.7fr spanning two rows, 2 × 2 thumbnails</td><td>Lead + 4 (photos 1–5)</td><td>On photo 5 when there are more</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li>Viewer: the stage gap grows from <code>--space-2</code> to <code>--space-8</code> at 48rem; the photo is <code>min(100%, 62dvh, 34rem)</code>; bar and caption pad for the top and bottom safe areas.</li>
+        <li>The carousel bleeds to the screen edges with <code>--layout-margin</code> padding, so the first photo lines up with the page text and the next one peeks in from the right as a swipe cue.</li>
+        <li>No layout scrolls sideways at 320px apart from the carousel track itself, which is the intended swipe (L2-019.4).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>No component tokens. The viewer is <code>--color-bg-canvas</code>, its count <code>--color-fg-muted</code>, its caption <code>--color-fg-default</code>, its icon buttons outlined in <code>--color-border-default</code>. Dots are <code>--color-border-strong</code>, the current dot <code>--color-fg-default</code> and wider. The "+N" scrim is <code>--color-bg-scrim</code> with <code>--color-fg-on-scrim</code>, the one place text sits on a photo (L2-069.2). In dark the canvas turns near-black, so the viewer becomes dark automatically; photos are never dimmed.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Gallery: a <code>section aria-label="Photos"</code> with a list of buttons, each <code>aria-haspopup="dialog"</code>. It is not an auto-rotating carousel; it never moves on its own (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/carousel/">APG Carousel</a> guidance on user control applies). Viewer: <code>role="dialog" aria-modal="true"</code>, labelled by a visually hidden heading ("Pelau House photos") and described by the caption, over an inert page (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/">APG Dialog (Modal)</a>).</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Gallery: one stop per photo, scrolling the carousel to the focused photo. Viewer: cycles Close, Previous, Next (and Try again) only (L2-016.5).</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Opens the viewer at that photo; focus moves to Close.</td></tr>
+        <tr><td><kbd>←</kbd> / <kbd>→</kbd></td><td>Viewer: previous or next photo (L2-016.3). The count updates and is announced.</td></tr>
+        <tr><td><kbd>Home</kbd> / <kbd>End</kbd></td><td>Viewer: first or last photo.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Closes the viewer and returns focus to the thumbnail of the photo that was showing (L2-016.4).</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>Gallery buttons keep <code>--radius-full</code> when focused, so the pepper ring is a circle around the photo. In the viewer the ring sits outside the outlined icon buttons.</p>
+      <h3>Labelling</h3>
+      <p>Each gallery button is named with its position and caption: "Open photo 2 of 6: Curry chicken with rice and buss up shut in a steel karahi". The image inside then takes <code>alt=""</code> so the caption is not read twice. When a "+N" scrim covers the last thumbnail, the name adds "25 more photos in the viewer"; the scrim itself is <code>aria-hidden</code>. Dots are decorative (<code>aria-hidden</code>): position is in the names. Viewer buttons: "Close photo viewer", "Previous photo", "Next photo".</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>"+N photos" on the scrim</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-scrim|--color-bg-scrim" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Viewer count</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Viewer caption</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Inactive dot on page</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring on page</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+      </div>
+      <p>The viewer's button outline (<code>--color-border-default</code>) is decorative; the icon in <code>--color-fg-default</code> is the meaningful part and passes at 4.5:1.</p>
+      <h3>Motion</h3>
+      <p>Thumbnails zoom over <code>--duration-slow</code>; the current dot widens over <code>--duration-base</code>; the viewer fades in over <code>--duration-base</code>. With reduced motion, zoom and slide transitions stop and the photo swap is an opacity fade of 200ms or less (L2-069.4); carousel snap scrolling becomes instant.</p>
+      <h3>Touch</h3>
+      <p>Swipe left or right in the viewer to change photo (L2-016.3). Viewer buttons are 44px. Thumbnails are at least 80px on an SM strip and much larger elsewhere.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Count: "2 of 6", no "Photo" prefix on screen.</li>
+        <li>Captions are the caterer's own words, 5 to 125 characters, describing the food ("Rum-soaked black cake dusted with icing sugar").</li>
+        <li>More scrim: "+1 photo", "+25 photos"; on small thumbnails "+25".</li>
+        <li>Failure: "This photo didn't load." with "Try again". Never an error code.</li>
+        <li>Order is the caterer's; the cover is always first.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="gallery__btn" type="button" style="width: 6rem;" aria-label="Open photo 2 of 6: Curry chicken with rice and buss up shut in a steel karahi"><span class="photo"><img src="../../mocks/assets/img/maracas-bay.jpg" alt="" width="96" height="96"></span></button><span class="text-muted">"Open photo 2 of 6: Curry chicken with rice and buss up shut…"</span></div><figcaption>Name the button with position and caption.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="gallery__btn" type="button" style="width: 6rem;" aria-label="Open photo 2 of 6"><span class="photo"><img src="../../mocks/assets/img/maracas-bay.jpg" alt="Curry chicken with rice and buss up shut in a steel karahi" width="96" height="96"></span></button><span class="text-muted">"Open photo 2 of 6"</span></div><figcaption>Don't let <code>aria-label</code> swallow the caption (the main caterer mock did); the alt is never read.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div style="position: relative; width: 6rem;"><button class="gallery__btn" type="button" aria-label="Open photo 5 of 30: Rum-soaked black cake dusted with icing sugar. 25 more photos in the viewer"><span class="photo"><img src="../../mocks/assets/img/black-cake-co.jpg" alt="" width="96" height="96"></span></button><span class="gallery__more" aria-hidden="true">+25</span></div></div><figcaption>Say how many photos are hidden on the last thumbnail.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="gallery__btn" type="button" style="width: 6rem;" aria-label="Open photo 5 of 30: Rum-soaked black cake dusted with icing sugar"><span class="photo"><img src="../../mocks/assets/img/black-cake-co.jpg" alt="" width="96" height="96"></span></button></div><figcaption>Don't silently drop photos 6 to 30 at LG (the mocks did); people assume there are only five.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Viewer background</td><td><code>--color-bg-canvas</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-canvas" data-swatch></i><span data-token="--color-bg-canvas"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-canvas" data-swatch></i><span data-token="--color-bg-canvas"></span></span></td></tr>
+          <tr><td>Viewer count</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Caption, current dot</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Viewer button outline</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Inactive dot</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>"+N" scrim</td><td><code>--color-bg-scrim</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-scrim" data-swatch></i><span data-token="--color-bg-scrim"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-scrim" data-swatch></i><span data-token="--color-bg-scrim"></span></span></td></tr>
+          <tr><td>"+N" text</td><td><code>--color-fg-on-scrim</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-on-scrim" data-swatch></i><span data-token="--color-fg-on-scrim"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-on-scrim" data-swatch></i><span data-token="--color-fg-on-scrim"></span></span></td></tr>
+          <tr><td>Track gap, LG gaps</td><td><code>--space-4</code> <code>--space-6</code> <code>--space-8</code></td><td colspan="2"><span data-token="--space-4"></span> / <span data-token="--space-6"></span> / <span data-token="--space-8"></span></td></tr>
+          <tr><td>Dot size, current dot width</td><td><code>--space-2</code> <code>--icon-size-md</code></td><td colspan="2"><span data-token="--space-2"></span> / <span data-token="--icon-size-md"></span></td></tr>
+          <tr><td>Viewer layer</td><td><code>--z-modal</code></td><td colspan="2"><span data-token="--z-modal"></span></td></tr>
+          <tr><td>Caption, count</td><td><code>--text-body-lg</code> <code>--text-label</code></td><td colspan="2"><span data-token="--text-body-lg"></span> / <span data-token="--text-label"></span></td></tr>
+          <tr><td>Zoom, dot, viewer fade</td><td><code>--duration-slow</code> <code>--duration-base</code> <code>--ease-enter</code></td><td colspan="2"><span data-token="--duration-slow"></span> / <span data-token="--duration-base"></span> / <span data-token="--ease-enter"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="viewer" role="dialog" aria-modal="true" aria-labelledby="viewer-title" aria-describedby="viewer-caption"&gt;
+  &lt;div class="viewer__bar"&gt;
+    &lt;h2 class="visually-hidden" id="viewer-title"&gt;Pelau House photos&lt;/h2&gt;
+    &lt;p class="viewer__count" aria-live="polite"&gt;2 of 6&lt;/p&gt;
+    &lt;button class="icon-btn" type="button" aria-label="Close photo viewer"&gt;…&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="viewer__stage"&gt;
+    &lt;button class="icon-btn" type="button" aria-label="Previous photo"&gt;…&lt;/button&gt;
+    &lt;span class="photo"&gt;&lt;img src="…-1200.jpg" alt="Curry chicken with rice and buss up shut in a steel karahi" width="560" height="560"&gt;&lt;/span&gt;
+    &lt;button class="icon-btn" type="button" aria-label="Next photo"&gt;…&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;p class="viewer__caption" id="viewer-caption"&gt;Curry chicken with rice and buss up shut in a steel karahi&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.gallery</code></td><td>Column with the track and dots.</td></tr>
+        <tr><td><code>.gallery__track</code></td><td>Carousel on XS, lead + strip on SM/MD, lead + 2 × 2 on LG.</td></tr>
+        <tr><td><code>.gallery__btn</code></td><td>Round zoom-in button around a photo; zooms it to 1.08 on hover.</td></tr>
+        <tr><td><code>.gallery__dots</code> + <code>aria-current="true"</code></td><td>Phone position dots; the current one is wider and ink.</td></tr>
+        <tr><td><code>.gallery__more</code></td><td>Scrim with "+N photos" over a thumbnail.</td></tr>
+        <tr><td><code>.viewer</code> <code>__bar</code> <code>__count</code> <code>__stage</code> <code>__caption</code></td><td>Full-screen viewer and its parts.</td></tr>
+        <tr><td><code>aria-busy="true"</code> on <code>.viewer</code></td><td>Photo loading; stage shows a spinner placeholder.</td></tr>
+        <tr><td><code>disabled</code> on an arrow</td><td>First or last photo.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation and mocks only.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/caterer/default.html">pages/caterer/default</a> (six photos, carousel and dots)</li>
+        <li><a href="../../mocks/pages/caterer/edge.html">pages/caterer/edge</a> (failed thumbnail with the caption in its name)</li>
+        <li><a href="../../mocks/pages/caterer/loading.html">pages/caterer/loading</a> (skeleton circles)</li>
+        <li><a href="../../mocks/dialogs/photo-viewer/default.html">dialogs/photo-viewer/default</a>, <a href="../../mocks/dialogs/photo-viewer/last.html">last</a>, <a href="../../mocks/dialogs/photo-viewer/busy.html">busy</a> and <a href="../../mocks/dialogs/photo-viewer/failed.html">failed</a></li>
+      </ul>
+      <p>Drift fixed during extraction: on the main caterer mock each gallery button's <code>aria-label</code> ("Open photo 2 of 6") overrode the photo's alt, so the caption was never announced, while the edge mock included it; the system names buttons "Open photo N of M: caption" with <code>alt=""</code> inside. <code>.gallery__more</code> exists in the CSS but no mock renders it, so at LG photo 6 of 6 vanished without a cue; the system shows it, and proposes <code>.gallery__more { display: none; }</code> plus <code>@media (min-width: 36rem) and (max-width: 61.99rem) { .gallery__track &gt; li:nth-child(6) .gallery__more { display: grid; } }</code> and <code>@media (min-width: 62rem) { .gallery__track &gt; li:nth-child(5) .gallery__more { display: grid; } }</code> so the scrim sits on the last visible thumbnail at each breakpoint. The failed viewer's "Try again" carried an inline top margin.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

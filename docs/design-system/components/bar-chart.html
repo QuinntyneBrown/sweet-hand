@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bar chart — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand bar charts: chart grid, chart card with head and total, CSS column bars sized by --value, accent bar for the current period, axis, the show-as-table alternative, and default, partial, empty, error and loading states.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Data display</p>
+      <h1>Bar chart</h1>
+      <p class="ds-lead">The operator metrics page shows each measure as a small column chart: one ink bar per week, a total beside the title, and the same numbers one tap away as a table. Pure CSS, no chart library.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">CSS only</span><span class="ds-pill"><code>.bar-chart</code> <code>.chart-card</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Bar charts live on one screen, <a href="../../mocks/pages/admin-metrics/default.html">admin metrics</a>, where Leah and Tomas check how Sweet Hand is doing over a date range: enquiries, the share replied within 48 hours, listing and caterer page visits, unique visitors. Each measure gets a <b>chart card</b> with its title, its total for the range, the bars, a date axis and a "Show as a table" disclosure.</p>
+      <ul>
+        <li><b>Use a bar chart</b> to show one measure changing over equal periods (days, weeks, months), where the shape matters more than exact values.</li>
+        <li><b>Use a <a href="stat.html">stat</a></b> for the single headline figure; the metrics page puts four stats above the charts.</li>
+        <li><b>Use a <a href="table.html">table</a></b> when people need exact values or compare several measures; every chart already contains one.</li>
+        <li><b>Don't</b> use a bar chart for parts of a whole, for more than one series, or on customer and caterer screens. Caterers see counts (stats), not charts.</li>
+      </ul>
+      <p>Bars are ink (<code>--color-fg-default</code>), like the primary button and the wordmark. Pepper (<code>.bar-chart__bar--accent</code>) marks one bar only: the current, still-running period — "you are here" on the time axis.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="padding: var(--space-8) var(--space-4); place-items: stretch;">
+          <section class="chart-card" aria-labelledby="an-title" style="width: 100%;">
+            <div class="chart-card__head"><h3 id="an-title">Enquiries</h3><span class="chart-card__total">71</span></div>
+            <div class="bar-chart" role="img" aria-label="Enquiries by week. 31 Aug: 8, 7 Sep: 11, 14 Sep: 15, 21 Sep: 13, 28 Sep: 12, 5 Oct so far: 12."><span class="bar-chart__bar" style="--value: 53%;"></span><span class="bar-chart__bar" style="--value: 73%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 87%;"></span><span class="bar-chart__bar" style="--value: 80%;"></span><span class="bar-chart__bar bar-chart__bar--accent" style="--value: 80%;"></span></div>
+            <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
+            <details><summary>Show as a table</summary><p class="text-caption">Table as below.</p></details>
+          </section>
+          <span class="ds-callout" style="left: 8%; top: 16%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 92%; top: 16%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 40%; top: 38%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 92%; top: 46%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 4%; top: 68%;" aria-hidden="true">5</span>
+          <span class="ds-callout" style="left: 50%; top: 76%;" aria-hidden="true">6</span>
+          <span class="ds-callout" style="left: 46%; top: 88%;" aria-hidden="true">7</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Title</b><small>An <code>&lt;h3&gt;</code> naming the measure; it labels the card (<code>aria-labelledby</code>).</small></div></li>
+          <li><div><b>Total</b><small><code>.chart-card__total</code>: the range total or average, <code>--text-h3</code>, tabular numerals.</small></div></li>
+          <li><div><b>Bar</b><small><code>.bar-chart__bar</code>: height <code>var(--value)</code> (a percentage of the plot), ink, rounded top corners (<code>--radius-xs</code>).</small></div></li>
+          <li><div><b>Current period (optional)</b><small><code>--accent</code>: the running week in pepper.</small></div></li>
+          <li><div><b>Baseline</b><small>The plot's bottom border, <code>--color-border-strong</code>; the plot is 10rem tall. Bars always start at zero.</small></div></li>
+          <li><div><b>Axis</b><small><code>.bar-chart__axis</code>: one caption per bar, <code>--color-fg-subtle</code>, hidden from assistive technology (the image label and table carry the dates).</small></div></li>
+          <li><div><b>Table alternative</b><small><code>&lt;details&gt;</code> "Show as a table" with a real <code>.table</code>: every value, exact.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Count by week</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <section class="chart-card" aria-labelledby="v1-title">
+            <div class="chart-card__head"><h3 id="v1-title">Enquiries</h3><span class="chart-card__total">71</span></div>
+            <div class="bar-chart" role="img" aria-label="Enquiries by week. 31 Aug: 8, 7 Sep: 11, 14 Sep: 15, 21 Sep: 13, 28 Sep: 12, 5 Oct: 12."><span class="bar-chart__bar" style="--value: 53%;"></span><span class="bar-chart__bar" style="--value: 73%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 87%;"></span><span class="bar-chart__bar" style="--value: 80%;"></span><span class="bar-chart__bar" style="--value: 80%;"></span></div>
+            <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
+            <details>
+              <summary>Show as a table</summary>
+              <div class="table-wrap"><table class="table">
+                <caption class="visually-hidden">Enquiries by week</caption>
+                <thead><tr><th scope="col">Week</th><th scope="col" class="num">Enquiries</th></tr></thead>
+                <tbody><tr><th scope="row">Week of 31 Aug</th><td class="num">8</td></tr><tr><th scope="row">Week of 7 Sep</th><td class="num">11</td></tr><tr><th scope="row">Week of 14 Sep</th><td class="num">15</td></tr><tr><th scope="row">Week of 21 Sep</th><td class="num">13</td></tr><tr><th scope="row">Week of 28 Sep</th><td class="num">12</td></tr><tr><th scope="row">Week of 5 Oct</th><td class="num">12</td></tr></tbody>
+              </table></div>
+            </details>
+          </section>
+        </div>
+        <div class="ds-example__caption"><span>Counts are scaled to the largest week (15 = 100%). The six weeks sum to the total, 71.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;section class="chart-card" aria-labelledby="c-enquiries"&gt;
+  &lt;div class="chart-card__head"&gt;&lt;h3 id="c-enquiries"&gt;Enquiries&lt;/h3&gt;&lt;span class="chart-card__total"&gt;71&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="bar-chart" role="img" aria-label="Enquiries by week. 31 Aug: 8, 7 Sep: 11, …"&gt;
+    &lt;span class="bar-chart__bar" style="--value: 53%;"&gt;&lt;/span&gt; …
+  &lt;/div&gt;
+  &lt;div class="bar-chart__axis" aria-hidden="true"&gt;&lt;span&gt;31 Aug&lt;/span&gt; …&lt;/div&gt;
+  &lt;details&gt;&lt;summary&gt;Show as a table&lt;/summary&gt;
+    &lt;div class="table-wrap"&gt;&lt;table class="table"&gt;…&lt;/table&gt;&lt;/div&gt;&lt;/details&gt;
+&lt;/section&gt;</code></pre></details>
+      </div>
+      <h3>Percentage, with the current week in pepper</h3>
+      <p>Shares are scaled to 100%, not to the best week, so 75% is drawn three quarters high. The last week (Mon 5 – Sat 10 Oct) is still running; the accent bar and the "so far" in its label say so.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <section class="chart-card" aria-labelledby="v2-title">
+            <div class="chart-card__head"><h3 id="v2-title">Replied within 48 hours</h3><span class="chart-card__total">82%</span></div>
+            <div class="bar-chart" role="img" aria-label="Replied within 48 hours by week. 31 Aug: 75%, 7 Sep: 82%, 14 Sep: 80%, 21 Sep: 85%, 28 Sep: 83%, 5 Oct so far: 88%."><span class="bar-chart__bar" style="--value: 75%;"></span><span class="bar-chart__bar" style="--value: 82%;"></span><span class="bar-chart__bar" style="--value: 80%;"></span><span class="bar-chart__bar" style="--value: 85%;"></span><span class="bar-chart__bar" style="--value: 83%;"></span><span class="bar-chart__bar bar-chart__bar--accent" style="--value: 88%;"></span></div>
+            <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
+          </section>
+        </div>
+        <div class="ds-example__caption"><span>The pepper bar is the running week, never the best or worst week.</span></div>
+      </div>
+      <h3>Chart grid</h3>
+      <p><code>.chart-grid</code> stacks chart cards in one column, two from 62rem. Cards are separated by a hairline above each, not by boxes.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="chart-grid">
+            <section class="chart-card" aria-labelledby="g1-title">
+              <div class="chart-card__head"><h3 id="g1-title">Listing page visits</h3><span class="chart-card__total">22,670</span></div>
+              <div class="bar-chart" role="img" aria-label="Listing page visits by week. 31 Aug: 3,120, 7 Sep: 3,480, 14 Sep: 4,050, 21 Sep: 3,910, 28 Sep: 4,240, 5 Oct: 3,870."><span class="bar-chart__bar" style="--value: 74%;"></span><span class="bar-chart__bar" style="--value: 82%;"></span><span class="bar-chart__bar" style="--value: 96%;"></span><span class="bar-chart__bar" style="--value: 92%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 91%;"></span></div>
+              <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
+            </section>
+            <section class="chart-card" aria-labelledby="g2-title">
+              <div class="chart-card__head"><h3 id="g2-title">Caterer page visits</h3><span class="chart-card__total">39,700</span></div>
+              <div class="bar-chart" role="img" aria-label="Caterer page visits by week. 31 Aug: 5,610, 7 Sep: 6,020, 14 Sep: 7,140, 21 Sep: 6,880, 28 Sep: 7,350, 5 Oct: 6,700."><span class="bar-chart__bar" style="--value: 76%;"></span><span class="bar-chart__bar" style="--value: 82%;"></span><span class="bar-chart__bar" style="--value: 97%;"></span><span class="bar-chart__bar" style="--value: 94%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 91%;"></span></div>
+              <div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div>
+            </section>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Two of the five cards on <code>pages/admin-metrics/default</code>.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="Bar charts have one size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Bar charts have one size: a 10rem plot that fills its card's width. Bar width follows from the number of periods (bars share the width with <code>--space-2</code> gaps), not from a size option.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>The chart itself isn't interactive; its <code>&lt;summary&gt;</code> is. The states that matter are the data states the metrics page mocks: default, partial (one chart failed), empty range, error, loading and invalid range.</p>
+      <div class="ds-matrix" style="position: relative;"><table>
+        <caption class="visually-hidden">Bar chart states</caption>
+        <thead><tr><th scope="col">Part</th><th scope="col">Default</th><th scope="col">Partial (failed)</th><th scope="col">Loading</th><th scope="col">Summary hover</th><th scope="col">Summary focus</th><th scope="col">Expanded</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Chart card</th>
+            <td><section class="chart-card" aria-label="Enquiries, default" style="width: 14rem;"><div class="chart-card__head"><h3>Enquiries</h3><span class="chart-card__total">71</span></div><div class="bar-chart" role="img" aria-label="Enquiries by week. 8, 11, 15, 13, 12, 12." style="height: 5rem;"><span class="bar-chart__bar" style="--value: 53%;"></span><span class="bar-chart__bar" style="--value: 73%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 87%;"></span><span class="bar-chart__bar" style="--value: 80%;"></span><span class="bar-chart__bar" style="--value: 80%;"></span></div></section></td>
+            <td><section class="chart-card" aria-label="Enquiries, failed" style="width: 16rem;"><div class="chart-card__head"><h3>Enquiries</h3></div><div class="alert alert--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><p class="alert__title">This chart didn’t load</p><p>The other figures are up to date.</p><div class="alert__actions"><button class="btn btn--sm" type="button">Try again</button></div></div></div></section></td>
+            <td><div class="chart-card" aria-hidden="true" style="width: 14rem;"><div class="chart-card__head"><span class="skeleton skeleton--text" style="width: 40%;"></span><span class="skeleton skeleton--text" style="width: 15%;"></span></div><span class="skeleton skeleton--rect" style="height: 5rem;"></span></div></td>
+            <td><details class="chart-card"><summary style="color: var(--color-fg-default);">Show as a table</summary><p class="text-caption">Table</p></details></td>
+            <td><details class="chart-card"><summary data-state="focus">Show as a table</summary><p class="text-caption">Table</p></details></td>
+            <td><details class="chart-card" open><summary>Show as a table</summary><div class="table-wrap"><table class="table"><caption class="visually-hidden">Enquiries, first two weeks</caption><thead><tr><th scope="col">Week</th><th scope="col" class="num">Enquiries</th></tr></thead><tbody><tr><th scope="row">Week of 31 Aug</th><td class="num">8</td></tr><tr><th scope="row">Week of 7 Sep</th><td class="num">11</td></tr></tbody></table></div></details></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><section class="chart-card" aria-label="Replied within 48 hours, light theme"><div class="chart-card__head"><h3>Replied within 48 hours</h3><span class="chart-card__total">82%</span></div><div class="bar-chart" role="img" aria-label="Replied within 48 hours by week. 75%, 82%, 80%, 85%, 83%, 88% so far."><span class="bar-chart__bar" style="--value: 75%;"></span><span class="bar-chart__bar" style="--value: 82%;"></span><span class="bar-chart__bar" style="--value: 80%;"></span><span class="bar-chart__bar" style="--value: 85%;"></span><span class="bar-chart__bar" style="--value: 83%;"></span><span class="bar-chart__bar bar-chart__bar--accent" style="--value: 88%;"></span></div><div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div></section></div>
+        <div data-theme="dark"><section class="chart-card" aria-label="Replied within 48 hours, dark theme"><div class="chart-card__head"><h3>Replied within 48 hours</h3><span class="chart-card__total">82%</span></div><div class="bar-chart" role="img" aria-label="Replied within 48 hours by week. 75%, 82%, 80%, 85%, 83%, 88% so far."><span class="bar-chart__bar" style="--value: 75%;"></span><span class="bar-chart__bar" style="--value: 82%;"></span><span class="bar-chart__bar" style="--value: 80%;"></span><span class="bar-chart__bar" style="--value: 85%;"></span><span class="bar-chart__bar" style="--value: 83%;"></span><span class="bar-chart__bar bar-chart__bar--accent" style="--value: 88%;"></span></div><div class="bar-chart__axis" aria-hidden="true"><span>31 Aug</span><span>7 Sep</span><span>14 Sep</span><span>21 Sep</span><span>28 Sep</span><span>5 Oct</span></div></section></div>
+      </div>
+      <ul>
+        <li><b>Partial</b> (<code>pages/admin-metrics/partial</code>): a chart whose data failed keeps its title and drops its total; a danger <a href="alert.html">alert</a> ("This chart didn’t load · The other figures are up to date") with "Try again" replaces the bars. The matching stat shows "Not loaded", and "Export CSV" is disabled until everything has loaded.</li>
+        <li><b>Empty</b> (<code>pages/admin-metrics/empty</code>): a range with no data replaces all charts with one <a href="empty-state.html">empty state</a> — "No activity in this range · Sweet Hand started counting visits and enquiries on 3 Aug 2026" — and one action, "Show the last 6 weeks". Never draw a row of zero-height bars.</li>
+        <li><b>Error</b> (<code>pages/admin-metrics/error</code>): the metrics service failed; an error empty state ("We couldn’t load metrics") with "Try again" and a reference id. The date range is kept.</li>
+        <li><b>Loading</b>: each card shows a title skeleton, a total skeleton and a rectangle the height of plot plus axis; a single visually hidden status says "Loading metrics".</li>
+        <li><b>Invalid range</b> (<code>pages/admin-metrics/invalid</code>): the form shows "Choose a range of 24 months or less"; the charts keep showing the last valid range.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Below lg (62rem):</b> one chart per row, full width of the work area. Six weekly bars are about 2.5rem wide each at 320px.</li>
+        <li><b>lg (62rem) and up:</b> <code>.chart-grid</code> is two columns with a <code>--space-12</code> gap; card heads stay on one line (title left, total right) and wrap only if the title is very long.</li>
+        <li><b>Many periods:</b> with "Show by: Day" a six-week range is 41 bars, and 40 gaps of 8px don't fit a phone. Up to 14 bars per chart on phones and 31 on wider screens; beyond that, aggregate (week or month) or open the table by default. A tighter-gap rule for dense charts is proposed.</li>
+        <li>Axis labels never wrap; a label that doesn't fit its bar's width is clipped, which is why every value is also in the image label and the table.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Bars read <code>--color-fg-default</code> (ink) and <code>--color-accent</code> (current period); the baseline <code>--color-border-strong</code>; the axis <code>--color-fg-subtle</code>; the card divider <code>--color-border-default</code>. No component tokens and no chart palette: Sweet Hand charts have one series. In dark the bars become stone-100 and the accent pepper-300, so the bars stay the most contrasting thing in the card in both themes.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Each card is a <code>&lt;section aria-labelledby&gt;</code> named by its <code>&lt;h3&gt;</code>, so screen-reader users can jump between charts by heading or region. The plot is <code>role="img"</code> with an <code>aria-label</code> that lists every period and value ("Enquiries by week. 31 Aug: 8, 7 Sep: 11, …"); the bars inside are empty spans. The axis is <code>aria-hidden="true"</code>. The <code>&lt;details&gt;</code> table is the full equivalent (<a href="https://www.w3.org/WAI/tutorials/images/complex/">W3C complex images</a>), with a caption and row headers.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Moves from chart to chart via each "Show as a table" summary (and "Try again" in a failed chart). Bars are not focusable.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Opens or closes the table.</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>The summary takes the shared focus ring; it is at least 44px tall (<code>--target-comfortable</code>), so the ring has room.</p>
+      <h3>Labelling</h3>
+      <p>The image label starts with the measure and the period unit ("by week"), then every value; mark a running period "so far". The summary reads "Show as a table"; the table caption repeats the chart title ("Enquiries by week").</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Bars and title on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Current-period bar</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Baseline</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Axis labels</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>"Show as a table"</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+      </div>
+      <p>Ink and pepper bars sit side by side; they differ in colour only, so the current period is also named in the image label and is always the last bar.</p>
+      <h3>Motion</h3>
+      <p>Bars don't grow or animate in. A changed range swaps the chart in place.</p>
+      <h3>Touch</h3>
+      <p>The only target is the 44px summary row (and "Try again" when a chart failed).</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Titles name the measure in sentence case, units spelled out: "Replied within 48 hours", "Caterer page visits".</li>
+        <li>Totals match the stat above when both exist (71 enquiries, 39,700 visits); averages say "avg" ("2,578 avg").</li>
+        <li>Axis labels are short dates, "31 Aug"; table rows say "Week of 31 Aug". The page subtitle gives the range and time zone: "31 Aug – 10 Oct 2026 · by week · Toronto time".</li>
+        <li>Numbers use comma thousands and "%" without a space.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="bar-chart" role="img" aria-label="Shares drawn on a 0 to 100% scale: 75%, 82%, 88%." style="height: 5rem;"><span class="bar-chart__bar" style="--value: 75%;"></span><span class="bar-chart__bar" style="--value: 82%;"></span><span class="bar-chart__bar" style="--value: 88%;"></span></div></div><figcaption>Draw percentages on a 0–100% scale.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="bar-chart" role="img" aria-label="Shares scaled to the best week: 75% drawn at 85%." style="height: 5rem;"><span class="bar-chart__bar" style="--value: 85%;"></span><span class="bar-chart__bar" style="--value: 93%;"></span><span class="bar-chart__bar" style="--value: 100%;"></span></div></div><figcaption>Scaling shares to the best week (as the mock did) makes 88% look like 100%.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="bar-chart" role="img" aria-label="Weekly bars with the running week in pepper." style="height: 5rem;"><span class="bar-chart__bar" style="--value: 60%;"></span><span class="bar-chart__bar" style="--value: 80%;"></span><span class="bar-chart__bar bar-chart__bar--accent" style="--value: 40%;"></span></div></div><figcaption>Pepper for the running period only, labelled "so far".</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="bar-chart" role="img" aria-label="Best week highlighted in pepper." style="height: 5rem;"><span class="bar-chart__bar" style="--value: 60%;"></span><span class="bar-chart__bar bar-chart__bar--accent" style="--value: 100%;"></span><span class="bar-chart__bar" style="--value: 70%;"></span></div></div><figcaption>Don't highlight the best week; pepper means "you are here", not "winner".</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Bar</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Current-period bar</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Baseline</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Axis</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Card divider</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Table summary</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Total font</td><td><code>--text-h3</code></td><td colspan="2"><span data-token="--font-size-2xl"></span></td></tr>
+          <tr><td>Bar gap / card gap / grid gap</td><td><code>--space-2</code>, <code>--space-4</code>, <code>--space-12</code></td><td colspan="2"><span data-token="--space-2"></span> · <span data-token="--space-4"></span> · <span data-token="--space-12"></span></td></tr>
+          <tr><td>Bar corners</td><td><code>--radius-xs</code></td><td colspan="2"><span data-token="--radius-xs"></span></td></tr>
+          <tr><td>Summary height</td><td><code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-comfortable"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="chart-grid"&gt;
+  &lt;section class="chart-card" aria-labelledby="c-replied"&gt;
+    &lt;div class="chart-card__head"&gt;&lt;h3 id="c-replied"&gt;Replied within 48 hours&lt;/h3&gt;&lt;span class="chart-card__total"&gt;82%&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="bar-chart" role="img" aria-label="Replied within 48 hours by week. 31 Aug: 75%, … 5 Oct so far: 88%."&gt;
+      &lt;span class="bar-chart__bar" style="--value: 75%;"&gt;&lt;/span&gt; …
+      &lt;span class="bar-chart__bar bar-chart__bar--accent" style="--value: 88%;"&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="bar-chart__axis" aria-hidden="true"&gt;&lt;span&gt;31 Aug&lt;/span&gt; … &lt;span&gt;5 Oct&lt;/span&gt;&lt;/div&gt;
+    &lt;details&gt;&lt;summary&gt;Show as a table&lt;/summary&gt;…&lt;/details&gt;
+  &lt;/section&gt;
+&lt;/div&gt;</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.chart-grid</code></td><td>One column; two from 62rem.</td></tr>
+        <tr><td><code>.chart-card</code></td><td>Flat section with a hairline above; styles its <code>summary</code>.</td></tr>
+        <tr><td><code>.chart-card__head</code> / <code>__total</code></td><td>Title and total on one baseline.</td></tr>
+        <tr><td><code>.bar-chart</code></td><td>10rem plot, bottom baseline; add <code>role="img"</code> and <code>aria-label</code>.</td></tr>
+        <tr><td><code>.bar-chart__bar</code> + <code>style="--value: N%"</code></td><td>One bar; N is the value as a percentage of the scale maximum (the largest count, or 100 for shares).</td></tr>
+        <tr><td><code>.bar-chart__bar--accent</code></td><td>Current, still-running period.</td></tr>
+        <tr><td><code>.bar-chart__axis</code></td><td>One caption per bar; <code>aria-hidden="true"</code>.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <ul>
+        <li><a href="../../mocks/pages/admin-metrics/default.html">pages/admin-metrics/default</a></li>
+        <li><a href="../../mocks/pages/admin-metrics/partial.html">pages/admin-metrics/partial</a> (two charts failed)</li>
+        <li><a href="../../mocks/pages/admin-metrics/empty.html">pages/admin-metrics/empty</a></li>
+        <li><a href="../../mocks/pages/admin-metrics/error.html">pages/admin-metrics/error</a></li>
+        <li><a href="../../mocks/pages/admin-metrics/loading.html">pages/admin-metrics/loading</a></li>
+        <li><a href="../../mocks/pages/admin-metrics/invalid.html">pages/admin-metrics/invalid</a></li>
+      </ul>
+      <p>Drift fixed during extraction: "Replied within 48 hours" bars were scaled to the best week (75% drawn at 85% height); shares now use a 0–100% scale. The running week (5–10 Oct) was drawn like a complete week; it now uses the accent bar and "so far", the only use of <code>--accent</code>. The "Day" option can produce 41 bars that don't fit a phone; limits are set above. Loading skeletons used inline <code>calc()</code> heights.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

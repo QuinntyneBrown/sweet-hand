@@ -188,7 +188,7 @@
 
     <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
       <p>Tags are not interactive: no hover, focus, pressed or disabled. The dish row may be hovered in the menu manager; the tags don't change. The states that exist are about the data.</p>
-      <div class="ds-matrix"><table>
+      <div class="ds-matrix" style="position: relative;"><table>
         <caption class="visually-hidden">Tag data states</caption>
         <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">With icon</th><th scope="col">On a hovered row</th><th scope="col">Changed (operator review)</th><th scope="col">Loading</th></tr></thead>
         <tbody>
@@ -233,9 +233,9 @@
       <h3>Role and pattern</h3>
       <p>A <code>&lt;ul class="tags"&gt;</code> of <code>&lt;li class="tag"&gt;</code>, read as "list, 3 items: Gluten-free, Halal, Spicy" after the dish name and description. No role, no interaction. Icons are <code>aria-hidden="true"</code>.</p>
       <h3>Keyboard</h3>
-      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
         <tr><td><kbd>Tab</kbd></td><td>Never stops on a tag.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
       <h3>Focus</h3>
       <p>None.</p>
       <h3>Labelling</h3>
@@ -294,12 +294,12 @@
   &lt;li class="tag{{#if allergen}} tag--allergen{{/if}}"&gt;{{label}}&lt;/li&gt;
   {{/each}}
 &lt;/ul&gt;</code></pre>
-      <table class="ds-table"><thead><tr><th scope="col">Class</th><th scope="col">Effect</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class</th><th scope="col">Effect</th></tr></thead><tbody>
         <tr><td><code>.tags</code></td><td>The <code>&lt;ul&gt;</code>: wrapping row, no bullets.</td></tr>
         <tr><td><code>.tag</code></td><td>Dietary tag: outline pill, muted caption.</td></tr>
         <tr><td><code>.tag--allergen</code></td><td>Allergen tag: warning tint, border and text.</td></tr>
         <tr><td><code>.tag .icon</code></td><td>Sizes an icon to 14px.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

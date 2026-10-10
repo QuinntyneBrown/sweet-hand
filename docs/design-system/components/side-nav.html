@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Side navigation — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand side navigation: .side-nav with filter-list links and aria-current, grouped; the phone and tablet .section-list with .section-link and .check status; legacy .nav-link and .sidebar.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Navigation</p>
+      <h1>Side navigation</h1>
+      <p class="ds-lead">In the caterer dashboard and the operator console, a quiet text list down the left names every section and marks the one you are in with pepper red. On phones and tablets the dashboard swaps it for a stacked section list with done marks.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>&lt;nav aria-label&gt;</code> + <code>aria-current="page"</code></span><span class="ds-pill"><code>.side-nav</code></span><span class="ds-pill"><code>.section-list</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Side navigation lists the sections of a work area. It is the same visual language as the listing's cuisine filter: a vertical column of large muted text, the current item in pepper red and semibold. There are no boxes, icons or highlight bars, matching the reference design's filter column.</p>
+      <ul>
+        <li><b>Caterer dashboard</b> (<code>nav aria-label="Dashboard"</code>): Overview, Business details, Cuisines and areas, Guests and occasions, Photos, Menu, Food safety; then Enquiries (with "2 unread"), Reviews, Account.</li>
+        <li><b>Operator console</b> (<code>nav aria-label="Operator"</code>): Review queue (7), Recent changes, Caterers, Reviews, Metrics; then Audit log, Cuisines, Operators, Breach register.</li>
+        <li><b>From 62rem only.</b> Below that the dashboard overview shows a <b>section list</b> (<code>.section-list</code>): one large row per section with a status mark, opening one section at a time (L2-045.2). Operators use the <a href="sheet.html">site menu sheet</a>.</li>
+      </ul>
+      <p>Use the <a href="site-header.html">site header</a> for the 2 to 3 top-level destinations, <a href="tabs.html">tabs</a> or the <a href="button-group.html">segmented control</a> to switch views inside one section (Inbox "All · Open · Replied"), and the <a href="filter-list.html">filter list</a> for filtering results. Don't put actions ("Add a dish") in the side nav.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <nav class="stack stack--lg" aria-label="Dashboard, anatomy example" style="width: 15rem;">
+            <ul class="filter-list">
+              <li><a class="filter-list__item" href="../../mocks/pages/dashboard/default.html">Overview</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/profile-photos/default.html" aria-current="page">Photos</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/profile-menu/default.html">Menu</a></li>
+            </ul>
+            <ul class="filter-list">
+              <li><a class="filter-list__item" href="../../mocks/pages/dashboard-enquiries/default.html">Enquiries <span class="filter-list__count">2 unread</span></a></li>
+            </ul>
+          </nav>
+          <span class="ds-callout" style="left: 12%; top: 12%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 52%; top: 30%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 12%; top: 58%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 76%; top: 76%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Item</b><small><code>.filter-list__item</code> link: <code>--text-body-lg</code> (18px), <code>--color-fg-muted</code>, 44px tall, no padding or background.</small></div></li>
+          <li><div><b>Current item</b><small><code>aria-current="page"</code>: <code>--color-fg-accent</code> (pepper), semibold.</small></div></li>
+          <li><div><b>Group</b><small>Each <code>&lt;ul class="filter-list"&gt;</code> is a group; groups are separated by <code>--space-8</code> (the <code>.side-nav</code> gap), with no headings.</small></div></li>
+          <li><div><b>Count (optional)</b><small><code>.filter-list__count</code> in caption type: "2 unread", "7".</small></div></li>
+        </ol>
+      </div>
+      <p>The anatomy is drawn with a <code>.stack--lg</code> wrapper because <code>.side-nav</code> itself is hidden below 62rem and would vanish on a phone reading this page.</p>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Caterer dashboard</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas">
+          <nav class="stack stack--lg" aria-label="Dashboard, example" style="width: 15rem;">
+            <ul class="filter-list">
+              <li><a class="filter-list__item" href="../../mocks/pages/dashboard/default.html">Overview</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/profile-details/default.html">Business details</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/profile-cuisines/default.html" aria-current="page">Cuisines and areas</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/profile-events/default.html">Guests and occasions</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/profile-photos/default.html">Photos</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/profile-menu/default.html">Menu</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/profile-certificate/default.html">Food safety</a></li>
+            </ul>
+            <ul class="filter-list">
+              <li><a class="filter-list__item" href="../../mocks/pages/dashboard-enquiries/default.html">Enquiries <span class="filter-list__count">2 unread</span></a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/dashboard-reviews/default.html">Reviews</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/account/caterer.html">Account</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="ds-example__caption"><span>Profile sections first, then running the business. From <code>pages/profile-cuisines</code>.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="work-layout work-layout--preview"&gt;
+  &lt;nav class="side-nav" aria-label="Dashboard"&gt;
+    &lt;ul class="filter-list"&gt;
+      &lt;li&gt;&lt;a class="filter-list__item" href="/dashboard"&gt;Overview&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a class="filter-list__item" href="/dashboard/cuisines" aria-current="page"&gt;Cuisines and areas&lt;/a&gt;&lt;/li&gt;
+      …
+    &lt;/ul&gt;
+    &lt;ul class="filter-list"&gt;
+      &lt;li&gt;&lt;a class="filter-list__item" href="/dashboard/enquiries"&gt;Enquiries &lt;span class="filter-list__count"&gt;2 unread&lt;/span&gt;&lt;/a&gt;&lt;/li&gt; …
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+  &lt;div class="work-main"&gt;…&lt;/div&gt;
+  &lt;aside class="preview-pane"&gt;…&lt;/aside&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Operator console</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas">
+          <nav class="stack stack--lg" aria-label="Operator, example" style="width: 15rem;">
+            <ul class="filter-list">
+              <li><a class="filter-list__item" href="../../mocks/pages/admin-queue/default.html" aria-current="page">Review queue <span class="filter-list__count">7</span></a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/admin-changes/default.html">Recent changes</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/admin-caterers/default.html">Caterers</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/admin-reviews/default.html">Reviews</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/admin-metrics/default.html">Metrics</a></li>
+            </ul>
+            <ul class="filter-list">
+              <li><a class="filter-list__item" href="../../mocks/pages/admin-audit/default.html">Audit log</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/admin-cuisines/default.html">Cuisines</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/admin-operators/default.html">Operators</a></li>
+              <li><a class="filter-list__item" href="../../mocks/pages/admin-breaches/default.html">Breach register</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="ds-example__caption"><span>Daily work first, administration second. Tomas Reyes (Operator, not Admin) still sees the second group and gets the forbidden page; whether to hide those items is open question 21 in the mocks README.</span></div>
+      </div>
+
+      <h3>Section list (phones and tablets)</h3>
+      <p>Below 62rem the dashboard overview lists the profile sections as tall rows. Each row is one link: a status mark (<code>.check</code>), the section title, a one-line summary of what is there, and a chevron. The section opens as its own page with an "Overview" back link (<code>.eyebrow</code>) at the top.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ul class="section-list">
+            <li><a class="section-link" href="../../mocks/pages/profile-details/default.html"><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="section-link__body"><span class="section-link__title"><span class="visually-hidden">Done: </span>Business details</span><span class="section-link__meta">Name and description</span></span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li>
+            <li><a class="section-link" href="../../mocks/pages/profile-photos/default.html"><span class="check" aria-hidden="true"></span><span class="section-link__body"><span class="section-link__title"><span class="visually-hidden">To do: </span>Photos</span><span class="section-link__meta">Add at least 3 photos · 2 so far</span></span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li>
+            <li><a class="section-link" href="../../mocks/pages/profile-photos/default.html"><span class="check check--error" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg></span><span class="section-link__body"><span class="section-link__title"><span class="visually-hidden">Needs attention: </span>Photos</span><span class="section-link__meta" style="color: var(--color-danger-fg);">Replace photos 2 and 5</span></span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li>
+            <li><a class="section-link" href="../../mocks/pages/dashboard-reviews/default.html"><span class="section-link__body"><span class="section-link__title">Reviews</span><span class="section-link__meta">23 reviews · 1 without a response</span></span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>Done, to do, needs attention, and a row without status. From <code>pages/dashboard/draft</code> and <code>changes-requested</code> (Beverley Campbell, Auntie Bev’s Kitchen).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;ul class="section-list"&gt;
+  &lt;li&gt;&lt;a class="section-link" href="/dashboard/photos"&gt;
+    &lt;span class="check" aria-hidden="true"&gt;&lt;/span&gt;
+    &lt;span class="section-link__body"&gt;
+      &lt;span class="section-link__title"&gt;&lt;span class="visually-hidden"&gt;To do: &lt;/span&gt;Photos&lt;/span&gt;
+      &lt;span class="section-link__meta"&gt;Add at least 3 photos · 2 so far&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;&lt;path d="m9 18 6-6-6-6"/&gt;&lt;/svg&gt;
+  &lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre></details>
+      </div>
+
+      <h3>Legacy: <code>.nav-link</code>, <code>.sidebar</code>, <code>.sidebar__group</code>, <code>.side-nav__title</code></h3>
+      <p>The base kit has a boxed app sidebar (<code>.sidebar</code> with a surface background and a right border, uppercase <code>.sidebar__group</code> headings, <code>.nav-link</code> rows whose current state is ink, not pepper) and a <code>.side-nav__title</code> heading. No mock uses any of them; the mocks chose the filter-list look for every work area. They remain in components.css for parity only. Don't use them.</p>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="Side navigation has one size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Side navigation has one size: the <code>--layout-sidebar-width</code> column (15rem) with 44px items in 18px text. Section-list rows are 72px tall (4.5rem) so the title, the summary and the status fit with room to tap.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover and focus are forced with <code>data-state</code>; current uses <code>aria-current="page"</code>. Section rows add a status through <code>.check</code> modifiers.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Side navigation states</caption>
+        <thead><tr><th scope="col">Item</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Current</th><th scope="col">With count</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Side nav item</th>
+            <td><a class="filter-list__item" href="../../mocks/pages/profile-menu/default.html">Menu</a></td>
+            <td><a class="filter-list__item" href="../../mocks/pages/profile-menu/default.html" data-state="hover">Menu</a></td>
+            <td><a class="filter-list__item" href="../../mocks/pages/profile-menu/default.html" data-state="focus">Menu</a></td>
+            <td><a class="filter-list__item" href="../../mocks/pages/profile-menu/default.html" aria-current="page">Menu</a></td>
+            <td><a class="filter-list__item" href="../../mocks/pages/admin-queue/default.html" aria-current="page">Review queue <span class="filter-list__count">7</span></a></td></tr>
+        </tbody>
+      </table></div>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Section list row states</caption>
+        <thead><tr><th scope="col">Row</th><th scope="col">Done</th><th scope="col">To do</th><th scope="col">Needs attention</th><th scope="col">Hover</th><th scope="col">Focus</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Section link</th>
+            <td><a class="section-link" href="../../mocks/pages/profile-menu/default.html" style="min-width: 12rem;"><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="section-link__body"><span class="section-link__title"><span class="visually-hidden">Done: </span>Menu</span><span class="section-link__meta">18 dishes</span></span></a></td>
+            <td><a class="section-link" href="../../mocks/pages/profile-menu/default.html" style="min-width: 12rem;"><span class="check" aria-hidden="true"></span><span class="section-link__body"><span class="section-link__title"><span class="visually-hidden">To do: </span>Menu</span><span class="section-link__meta">Add at least 3 dishes</span></span></a></td>
+            <td><a class="section-link" href="../../mocks/pages/profile-menu/default.html" style="min-width: 12rem;"><span class="check check--error" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg></span><span class="section-link__body"><span class="section-link__title"><span class="visually-hidden">Needs attention: </span>Menu</span><span class="section-link__meta">Remove a phone number</span></span></a></td>
+            <td><a class="section-link" href="../../mocks/pages/profile-menu/default.html" style="min-width: 12rem;" data-state="hover"><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="section-link__body"><span class="section-link__title"><span class="visually-hidden">Done: </span>Menu</span><span class="section-link__meta">18 dishes</span></span></a></td>
+            <td><a class="section-link" href="../../mocks/pages/profile-menu/default.html" style="min-width: 12rem;" data-state="focus"><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="section-link__body"><span class="section-link__title"><span class="visually-hidden">Done: </span>Menu</span><span class="section-link__meta">18 dishes</span></span></a></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><ul class="filter-list"><li><a class="filter-list__item" href="../../mocks/pages/dashboard/default.html">Overview</a></li><li><a class="filter-list__item" href="../../mocks/pages/profile-photos/default.html" aria-current="page">Photos</a></li><li><a class="filter-list__item" href="../../mocks/pages/dashboard-enquiries/default.html">Enquiries <span class="filter-list__count">2 unread</span></a></li></ul><ul class="section-list" style="margin-top: var(--space-4);"><li><a class="section-link" href="../../mocks/pages/profile-photos/default.html"><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="section-link__body"><span class="section-link__title"><span class="visually-hidden">Done: </span>Photos</span><span class="section-link__meta">6 photos</span></span></a></li></ul></div>
+        <div data-theme="dark"><ul class="filter-list"><li><a class="filter-list__item" href="../../mocks/pages/dashboard/default.html">Overview</a></li><li><a class="filter-list__item" href="../../mocks/pages/profile-photos/default.html" aria-current="page">Photos</a></li><li><a class="filter-list__item" href="../../mocks/pages/dashboard-enquiries/default.html">Enquiries <span class="filter-list__count">2 unread</span></a></li></ul><ul class="section-list" style="margin-top: var(--space-4);"><li><a class="section-link" href="../../mocks/pages/profile-photos/default.html"><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="section-link__body"><span class="section-link__title"><span class="visually-hidden">Done: </span>Photos</span><span class="section-link__meta">6 photos</span></span></a></li></ul></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Below 62rem</b> <code>.side-nav</code> is hidden (<code>display: none</code>). The dashboard overview shows the <code>.section-list</code> (<code>.until-lg</code>); each section page shows an <code>.eyebrow</code> back link to the overview. Every dashboard destination is also in the caterer's site menu sheet; operators reach theirs only through the operator site menu.</li>
+        <li><b>From 62rem</b> the side nav appears as the first column of <code>.work-layout</code> (15rem, <code>--space-12</code> gap) and sticks <code>--space-8</code> from the top while the main column scrolls (L2-045.3).</li>
+        <li><b>From 75rem</b> the dashboard adds the live preview pane on the right (<code>.work-layout--preview</code>); the nav does not change.</li>
+        <li>Section rows are full width with no side padding beyond <code>--space-1</code>; long summaries wrap rather than truncate.</li>
+      </ul>
+      <div class="ds-iframes">
+        <iframe class="ds-iframe" src="../../mocks/pages/dashboard/draft.html?chrome=0&amp;theme=light" title="Caterer dashboard at phone width: section list with done and to-do marks" loading="lazy"></iframe>
+        <iframe class="ds-iframe" src="../../mocks/dialogs/site-menu/operator.html?chrome=0&amp;theme=light" title="Operator site menu at phone width" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Items read <code>--color-fg-muted</code>, <code>--color-fg-default</code> on hover and <code>--color-fg-accent</code> when current; counts <code>--color-fg-subtle</code>. Section rows read <code>--color-border-default</code> hairlines between rows and <code>--color-bg-surface-sunken</code> on hover; the checks read <code>--color-border-strong</code> (to do), <code>--color-success-solid</code> with a <code>--color-bg-surface</code> tick (done) and <code>--color-danger-solid</code> with <code>--color-danger-fg</code> (needs attention). In dark the pepper current item lifts to <code>--palette-pepper-300</code> and the done check to light callaloo with a near-black tick. No component tokens.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>A <code>&lt;nav&gt;</code> landmark with a unique <code>aria-label</code> ("Dashboard", "Operator") holding lists of links; the current page has <code>aria-current="page"</code>. This is plain navigation, not the APG menu or tree pattern: no arrow-key handling, no <code>role="menu"</code>. The section list is a <code>&lt;ul&gt;</code> of links inside a section headed "Your profile".</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through the links in order, group by group.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Opens the section.</td></tr>
+      </tbody></table>
+      <p>The side nav comes after the header and before the main column in the DOM, inside <code>&lt;main&gt;</code>; the skip link therefore lands just before it. Screen-reader users can jump past it by landmark.</p>
+      <h3>Focus</h3>
+      <p>The shared ring wraps each item. Because the nav is sticky, it never overlaps the focused element in the main column (they sit in separate grid columns).</p>
+      <h3>Labelling</h3>
+      <ul>
+        <li>Item text is the section name exactly as the page title says it: "Cuisines and areas" opens a page titled "Cuisines and areas".</li>
+        <li>Counts are words, not just numbers, where it matters: "2 unread". The queue count "7" is read as "Review queue 7"; make it "Review queue, 7 waiting" with a visually hidden word if testing shows confusion.</li>
+        <li>Section rows hide the check from assistive tech and put the status in words at the start of the title: "Done: ", "To do: ", "Needs attention: ".</li>
+      </ul>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Item text</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Current item (pepper)</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Count</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Section summary</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Done check fill</span><span class="ds-pair__ratio" data-contrast="--color-success-solid|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Tick in the done check</span><span class="ds-pair__ratio" data-contrast="--color-bg-surface|--color-success-solid" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>To-do check ring</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Needs-attention summary</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-canvas" data-min="4.5"></span></div>
+      </div>
+      <p>Current is not colour alone: it is also semibold and announced as "current page".</p>
+      <h3>Motion</h3>
+      <p>Colour changes over <code>--duration-fast</code>; nothing moves. Reduced motion needs no change beyond the zeroed duration.</p>
+      <h3>Touch</h3>
+      <p>Side nav items are 44px tall with no gap, stacked; each row is the full column width so a thumb cannot miss. Section rows are 72px.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Section names are nouns in sentence case, two or three words at most: "Business details", "Guests and occasions", "Food safety", "Breach register".</li>
+        <li>Order by frequency within each group, and put the business-running group (Enquiries, Reviews, Account) after the profile group.</li>
+        <li>Section summaries say what is there or what is missing, with numbers: "2 cuisines · 5 areas", "Add at least 3 photos · 2 so far", "Certificate valid until 14 Mar 2029", "Replace photos 2 and 5".</li>
+        <li>The back link on a section page always says "Overview", the name of the page it returns to.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><ul class="filter-list"><li><a class="filter-list__item" href="../../mocks/pages/profile-photos/default.html" aria-current="page">Photos</a></li><li><a class="filter-list__item" href="../../mocks/pages/profile-menu/default.html">Menu</a></li></ul></div><figcaption>Mark "you are here" with pepper text, like the cuisine filter.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="stack stack--sm"><a class="nav-link" href="../../mocks/pages/profile-photos/default.html" aria-current="page">Photos</a><a class="nav-link" href="../../mocks/pages/profile-menu/default.html">Menu</a></span></div><figcaption>Don't use the legacy <code>.nav-link</code>: its ink current state breaks the one-meaning rule for "you are here".</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="section-list"><li><a class="section-link" href="../../mocks/pages/profile-details/default.html"><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="section-link__body"><span class="section-link__title"><span class="visually-hidden">Done: </span>Business details</span><span class="section-link__meta">Name and description</span></span></a></li></ul></div><figcaption>Say the status in words for screen readers as well as with the check.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="section-list"><li><a class="section-link" href="../../mocks/pages/profile-details/default.html"><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span><span class="section-link__body"><span class="section-link__title">Business details</span><span class="section-link__meta">Name and description</span></span></a></li></ul></div><figcaption>The published dashboard (<code>dashboard/default</code>) dropped the hidden "Done: ", so the ticks said nothing to screen readers.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Item</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Item, hover</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Current item</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+          <tr><td>Count</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Section row divider</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Section row hover</td><td><code>--color-bg-surface-sunken</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-sunken" data-swatch></i><span data-token="--color-bg-surface-sunken"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-sunken" data-swatch></i><span data-token="--color-bg-surface-sunken"></span></span></td></tr>
+          <tr><td>Check, to do</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Check, done</td><td><code>--color-success-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-success-solid" data-swatch></i><span data-token="--color-success-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-success-solid" data-swatch></i><span data-token="--color-success-solid"></span></span></td></tr>
+          <tr><td>Check, needs attention</td><td><code>--color-danger-solid</code> / <code>--color-danger-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td></tr>
+          <tr><td>Column width</td><td><code>--layout-sidebar-width</code></td><td colspan="2"><span data-token="--layout-sidebar-width"></span></td></tr>
+          <tr><td>Item type / height</td><td><code>--text-body-lg</code> / <code>--target-comfortable</code></td><td colspan="2"><span data-token="--text-body-lg"></span> / <span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Group gap / sticky offset</td><td><code>--space-8</code> / <code>--space-8</code></td><td colspan="2"><span data-token="--space-8"></span></td></tr>
+          <tr><td>Section row height / gap</td><td>4.5rem / <code>--space-4</code></td><td colspan="2"><span data-token="--space-4"></span></td></tr>
+          <tr><td>Check size / border</td><td><code>--icon-size-xl</code> / <code>--border-width-thick</code></td><td colspan="2"><span data-token="--icon-size-xl"></span> / <span data-token="--border-width-thick"></span></td></tr>
+          <tr><td>Motion</td><td><code>--duration-fast</code></td><td colspan="2"><span data-token="--duration-fast"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;nav class="side-nav" aria-label="Operator"&gt;
+  &lt;ul class="filter-list"&gt;
+    &lt;li&gt;&lt;a class="filter-list__item" href="/admin/queue" aria-current="page"&gt;Review queue &lt;span class="filter-list__count"&gt;7&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a class="filter-list__item" href="/admin/changes"&gt;Recent changes&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;ul class="filter-list"&gt;
+    &lt;li&gt;&lt;a class="filter-list__item" href="/admin/audit"&gt;Audit log&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>nav.side-nav[aria-label]</code></td><td>Hidden below 62rem; from 62rem a sticky column of groups, <code>--space-8</code> apart.</td></tr>
+        <tr><td><code>ul.filter-list</code> / <code>a.filter-list__item</code></td><td>One group / one item (shared with the <a href="filter-list.html">filter list</a>).</td></tr>
+        <tr><td><code>aria-current="page"</code></td><td>Current section: pepper, semibold.</td></tr>
+        <tr><td><code>.filter-list__count</code></td><td>Count or "2 unread" after the label.</td></tr>
+        <tr><td><code>.section-list</code> / <code>.section-link</code> (<code>__body</code>, <code>__title</code>, <code>__meta</code>)</td><td>Phone and tablet section rows (use with <code>.until-lg</code>).</td></tr>
+        <tr><td><code>.check</code>, <code>--done</code>, <code>--error</code></td><td>Status mark: to do, done, needs attention (see <a href="checklist.html">checklist</a>).</td></tr>
+        <tr><td><code>.nav-link</code>, <code>.sidebar</code>, <code>.sidebar__group</code>, <code>.side-nav__title</code></td><td>Legacy base kit. Unused; don't use.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/dashboard/default.html">pages/dashboard/default</a> (caterer side nav, section list)</li>
+        <li><a href="../../mocks/pages/dashboard/draft.html">pages/dashboard/draft</a> and <a href="../../mocks/pages/dashboard/empty.html">empty</a> (done and to-do rows)</li>
+        <li><a href="../../mocks/pages/dashboard/changes-requested.html">pages/dashboard/changes-requested</a> (needs-attention row)</li>
+        <li><a href="../../mocks/pages/profile-cuisines/default.html">pages/profile-cuisines/default</a> (current section, back link)</li>
+        <li><a href="../../mocks/pages/admin-queue/default.html">pages/admin-queue/default</a> (operator side nav)</li>
+        <li><a href="../../mocks/dialogs/site-menu/operator.html">dialogs/site-menu/operator</a>, <a href="../../mocks/dialogs/site-menu/caterer.html">caterer</a> (phone equivalents)</li>
+      </ul>
+      <p>Drift fixed during extraction: every work area uses <code>.filter-list</code> inside <code>.side-nav</code>, so <code>.nav-link</code>, <code>.sidebar</code>, <code>.sidebar__group</code> and <code>.side-nav__title</code> are documented as unused legacy. <code>dashboard/default</code> (and other published states) omitted the visually hidden "Done: " that <code>draft</code> and <code>empty</code> include. <code>dashboard/changes-requested</code> coloured a summary with <code>style="color: var(--color-danger-fg)"</code>; a <code>.section-link__meta--error</code> modifier is proposed. The back link said "Overview" on some section pages and "Dashboard" on others (<code>profile-photos</code>); it is always "Overview". The side nav's Account linked to <code>account/default</code> (the customer view) while the caterer site menu links to <code>account/caterer</code>; the caterer view is correct.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

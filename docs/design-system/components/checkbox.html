@@ -303,7 +303,7 @@
       <ul>
         <li><b>Below 36rem</b> <code>.option-grid</code> is one column; long labels such as "Dominican (Dominican Republic)" or "Religious and cultural celebrations" wrap under themselves, never under the box.</li>
         <li><b>From 36rem</b> the grid is two equal columns with <code>--space-6</code> between them. It never goes to three: in dialogs and the 40rem form column, three columns would truncate cuisine names.</li>
-        <li><b>Phones (XS/SM)</b>: L2-065 asks for 44px targets with 8px between them. A <code>.choice</code> row is about 32px today, so components.css needs a phone rule that raises the row to <code>--target-comfortable</code> and the grid row gap to <code>--space-2</code> (listed in the extraction report). Until then, do not pack checkboxes tighter than the option grid.</li>
+        <li><b>Below 48rem</b> every <code>.choice</code> row grows to <code>--target-comfortable</code> (44px) to meet L2-065.1; from 48rem rows return to their compact height (about 32px: a 24px line plus <code>--space-1</code> above and below). The option grid keeps a <code>--space-1</code> row gap, so on phones neighbouring rows are 44px tall but only 4px apart; a <code>--space-2</code> phone row gap is proposed to reach the 8px spacing L2-065.1 also asks for.</li>
         <li><b>Filters</b>: from 62rem the listing uses the <a href="filter-list.html">filter list</a>; at 48–62rem the same options are checkboxes in a <a href="filter-trigger.html">filter dropdown</a>; below 48rem they are checkboxes in the full-screen filter <a href="sheet.html">sheet</a>.</li>
         <li>Nested areas keep their <code>--space-8</code> indent at every width; the indent is the only thing that shows they belong to the region.</li>
       </ul>
@@ -348,7 +348,7 @@
       <h3>Motion</h3>
       <p>Background and border colours transition over <code>--duration-fast</code>; the tick appears without animation. Reduced motion zeroes the duration.</p>
       <h3>Touch</h3>
-      <p>The full label row is the target, so a tap on "Trinidadian &amp; Tobagonian" anywhere toggles it. See Responsive for the 44px phone row height that components.css still needs to meet L2-065 in full.</p>
+      <p>The full label row is the target, so a tap on "Trinidadian &amp; Tobagonian" anywhere toggles it. Below 48rem each row is at least 44px tall; from 48rem the compact 32px row is used with a pointer, which still clears the 24px minimum (WCAG 2.5.8).</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
@@ -389,7 +389,7 @@
           <tr><td>Focus ring</td><td><code>--color-focus-ring</code>, <code>--focus-ring-width</code>, <code>--focus-ring-offset</code></td><td><span data-token="--color-focus-ring"></span></td><td><span data-theme="dark" data-token="--color-focus-ring"></span></td></tr>
           <tr><td>Box size / radius</td><td><code>--icon-size-md</code> / <code>--radius-xs</code></td><td colspan="2"><span data-token="--icon-size-md"></span> / <span data-token="--radius-xs"></span></td></tr>
           <tr><td>Box to label / row padding</td><td><code>--space-3</code> / <code>--space-1</code></td><td colspan="2"><span data-token="--space-3"></span> / <span data-token="--space-1"></span></td></tr>
-          <tr><td>Row min height</td><td><code>--target-min</code> (phones: <code>--target-comfortable</code>, pending)</td><td colspan="2"><span data-token="--target-min"></span></td></tr>
+          <tr><td>Row min height</td><td><code>--target-min</code> from 48rem; <code>--target-comfortable</code> below</td><td colspan="2"><span data-token="--target-min"></span> / <span data-token="--target-comfortable"></span></td></tr>
           <tr><td>Option grid gaps (row / column)</td><td><code>--space-1</code> / <code>--space-6</code></td><td colspan="2"><span data-token="--space-1"></span> / <span data-token="--space-6"></span></td></tr>
           <tr><td>Nested indent</td><td><code>--space-8</code></td><td colspan="2"><span data-token="--space-8"></span></td></tr>
           <tr><td>Transition</td><td><code>--duration-fast</code>, <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-fast"></span></td></tr>
@@ -431,7 +431,7 @@
         <li><a href="../../mocks/dialogs/moderate-review/remove.html">dialogs/moderate-review/remove</a> (confirmation agreement)</li>
         <li><a href="../../mocks/pages/sign-in/challenge.html">pages/sign-in/challenge</a> (bot check)</li>
       </ul>
-      <p>Drift fixed during extraction: region parents ("All of City of Toronto") stayed unchecked while some of their areas were ticked; the system makes them indeterminate. Legends that hold a section heading carried <code>style="font: var(--text-h3)"</code> inline on the <code>&lt;h2&gt;</code> in four profile mocks; a <code>legend &gt; h2</code> rule replaces it. The dish dialog marked "(optional)" with <code>.text-muted</code> where fields use <code>.optional</code>. The filter sheet and area dropdown counted Durham 6 and Halton 2 while the listing's filter list says 7 and 3; the listing counts are canonical. <code>.choice</code> rows measured about 32px, short of the 44px phone target in L2-065.</p>
+      <p>Drift fixed during extraction: region parents ("All of City of Toronto") stayed unchecked while some of their areas were ticked; the system makes them indeterminate. Legends that hold a section heading carried <code>style="font: var(--text-h3)"</code> inline on the <code>&lt;h2&gt;</code> in four profile mocks; a <code>legend &gt; h2</code> rule replaces it. The dish dialog marked "(optional)" with <code>.text-muted</code> where fields use <code>.optional</code>. The filter sheet and area dropdown counted Durham 6 and Halton 2 while the listing's filter list says 7 and 3; the listing counts are canonical. <code>.choice</code> rows measured about 32px at every width, short of the 44px phone target in L2-065.1; they now grow to 44px below 48rem.</p>
     </section>
 
     <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>

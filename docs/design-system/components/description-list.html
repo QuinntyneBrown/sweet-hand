@@ -291,7 +291,7 @@
 
     <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
       <p>Description lists are not interactive, so they have no hover, focus, active or disabled state; buttons inside a value keep their own (see <a href="button.html">button</a>). What changes is the data: loading, a missing value, a long value, a changed value and the certificate's date.</p>
-      <div class="ds-matrix"><table>
+      <div class="ds-matrix" style="position: relative;"><table>
         <caption class="visually-hidden">Description list data states by variant</caption>
         <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Long value</th><th scope="col">Missing value</th><th scope="col">Loading</th></tr></thead>
         <tbody>
@@ -357,10 +357,10 @@
       <h3>Role and pattern</h3>
       <p>Native <code>&lt;dl&gt;</code> with <code>&lt;dt&gt;</code>/<code>&lt;dd&gt;</code> pairs. HTML allows one wrapping <code>&lt;div&gt;</code> per pair, which <code>.facts</code>, <code>.regions</code> and <code>.enquiry-summary</code> use for layout; <code>.kv</code>, <code>.certificate</code> and <code>.dl</code> need the pairs as direct children. There is no APG pattern; follow the <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-dl-element">HTML <code>dl</code> element</a>. Each list sits under a heading ("Your details", "Areas served", "Food handler certificate") so it can be found by heading navigation.</p>
       <h3>Keyboard</h3>
-      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
         <tr><td><kbd>Tab</kbd></td><td>Skips the list and stops only on controls inside values ("Change password", the certificate file) in reading order.</td></tr>
         <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Activate those controls; there is nothing to activate on a term or value.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
       <h3>Focus</h3>
       <p>The list takes no focus. Buttons inside <code>.kv</code> values use the shared ring; the hairline row is tall enough that the 3px offset ring never overlaps the next row.</p>
       <h3>Labelling</h3>
@@ -378,7 +378,7 @@
       <h3>Motion</h3>
       <p>None. Description lists never animate; loading skeletons stop shimmering under reduced motion.</p>
       <h3>Touch</h3>
-      <p>Only the controls inside values are targets: small buttons are 36px tall with at least 8px clear around them inside the 12px row padding, and link-style buttons (the certificate file) reach 24px with spacing that clears WCAG 2.5.8.</p>
+      <p>Only the controls inside values are targets. Small buttons ("Change password", the certificate file) grow to 44px below 48rem (L2-065.1) and are 36px from 48rem, with at least 8px clear inside the row padding.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
@@ -428,7 +428,7 @@
     &lt;div&gt;&lt;dt&gt;City of Toronto&lt;/dt&gt;&lt;dd&gt;Scarborough, East York, North York&lt;/dd&gt;&lt;/div&gt;
   &lt;/dl&gt;
 &lt;/section&gt;</code></pre>
-      <table class="ds-table"><thead><tr><th scope="col">Class</th><th scope="col">Effect</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class</th><th scope="col">Effect</th></tr></thead><tbody>
         <tr><td><code>.dl</code></td><td>Base two-column list, label column sized to content.</td></tr>
         <tr><td><code>.facts</code></td><td>Stacked facts with large values; pairs wrapped in <code>&lt;div&gt;</code>.</td></tr>
         <tr><td><code>.inline-list</code></td><td>A <code>&lt;ul&gt;</code> that reads as a comma-separated line.</td></tr>
@@ -438,7 +438,7 @@
         <tr><td><code>.certificate</code></td><td>Bordered two-column list for the food handler certificate.</td></tr>
         <tr><td><code>.diff-old</code> / <code>.diff-new</code></td><td>Struck-through old value / highlighted new value. Use on <code>&lt;del&gt;</code> / <code>&lt;ins&gt;</code>.</td></tr>
         <tr><td><code>.changed-flag</code></td><td>Small warning-coloured note: "Name change waiting", "New photo", "Resubmitted".</td></tr>
-      </tbody></table>
+      </tbody></table></div>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

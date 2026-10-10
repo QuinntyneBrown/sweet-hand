@@ -172,7 +172,7 @@
           <li><div><b>Title</b><small><code>.toast__title</code>: what happened, label weight.</small></div></li>
           <li><div><b>Text (optional)</b><small><code>.toast__text</code>: one sentence of detail, <code>--text-body-sm</code> at 90% opacity.</small></div></li>
           <li><div><b>Action (optional)</b><small><code>.toast__action</code> inside <code>.toast__actions</code>: an underlined text button or link, at most one per toast.</small></div></li>
-          <li><div><b>Dismiss</b><small><code>.close</code>: always present, 24px (44px on phones).</small></div></li>
+          <li><div><b>Dismiss</b><small><code>.close</code>: always present; 44px below 48rem, 24px from 48rem.</small></div></li>
           <li><div><b>Timer bar</b><small><code>.toast__progress</code>: 2px <code>currentColor</code> at 40% along the bottom edge, decorative and <code>aria-hidden</code>. Only on toasts that auto-dismiss.</small></div></li>
         </ol>
       </div>
@@ -288,7 +288,7 @@
     </section>
 
     <section class="ds-section" id="sizes" data-na="Toasts have one size."><h2><a href="#sizes">Sizes</a></h2>
-      <p class="ds-na">Toasts have one size: 24rem wide from 36rem, the full region width below it, height from content. A long title wraps; it is never truncated. The dismiss button grows from 24px to 44px below 48rem (see Responsive).</p>
+      <p class="ds-na">Toasts have one size: 24rem wide from 36rem, the full region width below it, height from content. A long title wraps; it is never truncated. The dismiss button and the action are 44px tall below 48rem and compact (24px) from 48rem (see Responsive).</p>
     </section>
 
     <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
@@ -355,7 +355,7 @@
     <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
       <ul>
         <li><b>Below 36rem (xs):</b> the region spans the screen with a 16px gutter (<code>left/right: --space-4</code>) and sits 16px above the bottom plus <code>env(safe-area-inset-bottom)</code>, clear of the home indicator.</li>
-        <li><b>Below 48rem (xs, sm):</b> the dismiss button is 44px (<code>--target-comfortable</code>) and pulls into the corner with a negative margin so the text column keeps its width (L2-065.1).</li>
+        <li><b>Below 48rem (xs, sm):</b> the dismiss button is 44px square (<code>--target-comfortable</code>) and pulls into the corner with a negative margin so the text column keeps its width, and <code>.toast__action</code> is at least 44px tall (L2-065.1). Compact sizes apply only from 48rem.</li>
         <li><b>From 36rem (sm):</b> the region is 24rem wide at the bottom right, 24px from both edges.</li>
         <li><b>Caterer page below 62rem:</b> use <code>.toast-region--top</code> so toasts never cover the sticky enquiry bar; from 62rem the enquiry panel is in the sidebar and the default bottom region is fine.</li>
         <li>The region never covers a focused element (WCAG 2.4.11): toasts are short and sit in a corner; when a persistent toast is open and focus moves to something underneath it, the page scrolls that element clear.</li>
@@ -397,7 +397,7 @@
       <h3>Timing</h3>
       <p>WCAG 2.2.1: auto-dismiss is at least 8 seconds, pauses on hover and focus, and nothing that cannot be found elsewhere disappears on a timer. Undo is a convenience on top of the confirmation dialog the person already answered ("Remove photo?"), so missing it loses nothing they did not choose.</p>
       <h3>Touch</h3>
-      <p>Dismiss is 44px below 48rem; the action has a 24px minimum height with 16px between actions. A toast cannot be swiped away; swipe would be the only way to dismiss with one gesture, and the button already does that (WCAG 2.5.7).</p>
+      <p>Below 48rem the dismiss button is 44px square and the action at least 44px tall; from 48rem both are compact (24px minimum, WCAG 2.5.8) with 16px between action and dismiss. A toast cannot be swiped away; swipe would be the only way to dismiss with one gesture, and the button already does that (WCAG 2.5.7).</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
@@ -437,7 +437,7 @@
           <tr><td>Radius</td><td><code>--radius-md</code></td><td colspan="2"><span data-token="--radius-md"></span></td></tr>
           <tr><td>Title / text font</td><td><code>--text-label</code> at <code>--font-size-md</code> / <code>--text-body-sm</code></td><td colspan="2"><span data-token="--text-label"></span> / <span data-token="--text-body-sm"></span></td></tr>
           <tr><td>Timer bar height</td><td><code>--border-width-thick</code></td><td colspan="2"><span data-token="--border-width-thick"></span></td></tr>
-          <tr><td>Dismiss size (sm+ / xs)</td><td><code>--target-min</code> / <code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-min"></span> / <span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Dismiss and action size (from 48rem / below 48rem)</td><td><code>--target-min</code> / <code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-min"></span> / <span data-token="--target-comfortable"></span></td></tr>
           <tr><td>Enter / exit</td><td><code>--duration-base</code>, <code>--ease-enter</code>, <code>--ease-exit</code></td><td colspan="2"><span data-token="--duration-base"></span> · <span data-token="--ease-enter"></span> · <span data-token="--ease-exit"></span></td></tr>
         </tbody>
       </table></div>
@@ -463,8 +463,8 @@
         <tr><td><code>.toast</code></td><td>Inverse surface card with slide-up entry.</td></tr>
         <tr><td><code>.toast--info</code> <code>--success</code> <code>--warning</code> <code>--danger</code></td><td>Tone: icon choice and role; no colour change. Danger: <code>role="alert"</code>, no timer.</td></tr>
         <tr><td><code>.toast__body</code> <code>.toast__title</code> <code>.toast__text</code></td><td>Content column, title, one-sentence detail.</td></tr>
-        <tr><td><code>.toast__actions</code> / <code>.toast__action</code></td><td>Action row / underlined text button or link, 24px minimum height.</td></tr>
-        <tr><td><code>.close</code></td><td>Dismiss, always present; 44px on phones.</td></tr>
+        <tr><td><code>.toast__actions</code> / <code>.toast__action</code></td><td>Action row / underlined text button or link; 44px minimum height below 48rem, 24px from 48rem.</td></tr>
+        <tr><td><code>.close</code></td><td>Dismiss, always present; 44px below 48rem.</td></tr>
         <tr><td><code>.toast__progress</code></td><td>Decorative timer bar; only on auto-dismissing toasts. Script sets its width as time passes.</td></tr>
         <tr><td><code>data-state="leaving"</code></td><td>Exit animation; remove the node on <code>animationend</code>.</td></tr>
         <tr><td><code>data-state="hover|focus"</code> on action or close</td><td>Documentation and mocks only.</td></tr>

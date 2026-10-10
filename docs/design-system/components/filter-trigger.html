@@ -296,12 +296,12 @@
       <h3>Role and pattern</h3>
       <p>Dropdown triggers are buttons with <code>aria-expanded</code> and <code>aria-controls</code>; the panel is a non-modal <code>role="dialog"</code> labelled by its title, holding a <code>fieldset</code> of checkboxes (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/">APG Disclosure</a> behaviour with dialog semantics, because the panel holds form controls, not commands). The phone trigger has <code>aria-haspopup="dialog"</code> and opens a modal sheet (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/">APG Dialog (Modal)</a>) over an inert page.</p>
       <h3>Keyboard</h3>
-      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
         <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>On a dropdown trigger: opens the panel and moves focus to the first enabled checkbox. On Filters: opens the sheet and focuses its title.</td></tr>
         <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Dropdown: moves through checkboxes, Clear, then out; leaving the panel closes it. Sheet: focus is trapped until it closes (L2-067.1).</td></tr>
         <tr><td><kbd>Space</kbd></td><td>Ticks a checkbox; results and the live count update.</td></tr>
         <tr><td><kbd>Esc</kbd></td><td>Closes the dropdown or sheet and returns focus to the trigger (L2-067.4).</td></tr>
-      </tbody></table>
+      </tbody></table></div>
       <h3>Focus</h3>
       <p>The shared pepper ring sits outside the pill. When a panel closes, focus returns to the trigger that opened it, whose count bubble now reflects the new state.</p>
       <h3>Labelling</h3>
@@ -319,7 +319,7 @@
       <h3>Motion</h3>
       <p>The trigger's fill transitions over <code>--duration-fast</code>. The dropdown appears without animation; the sheet slides up (or in from the right from 48rem) over <code>--duration-slow</code>. Reduced motion zeroes both.</p>
       <h3>Touch</h3>
-      <p>44px tall, 8px apart in the bar (<code>--space-2</code>), which meets L2-065.1. Checkbox rows in the sheet are at least 24px tall with label text widening the target; the whole label is clickable.</p>
+      <p>44px tall, 8px apart in the bar (<code>--space-2</code>), which meets L2-065.1. Checkbox rows (<code>.choice</code>) in the sheet grow to 44px below 48rem, and the whole label is the target; chip remove buttons in the sheet are 44px too. In the MD dropdown, rows keep their compact height.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
@@ -373,7 +373,7 @@
     &lt;div class="menu-anchor"&gt;&lt;button class="filter-trigger" type="button" aria-expanded="false" aria-controls="menu-area"&gt;Area …&lt;/button&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
         <tr><td><code>.filter-trigger</code></td><td>Outlined pill button, 44px.</td></tr>
         <tr><td><code>.filter-trigger__count</code></td><td>Ink count bubble; put the spoken words in visually hidden text.</td></tr>
         <tr><td><code>aria-expanded="true"</code> / <code>data-state="open"</code></td><td>Open dropdown: 2px ink edge.</td></tr>
@@ -384,7 +384,7 @@
         <tr><td><code>.mobile-browse-bar</code></td><td>Phone row: Filters and area search, spaced apart, wrapping.</td></tr>
         <tr><td><code>disabled</code></td><td>Offline: 50% opacity, not-allowed cursor.</td></tr>
         <tr><td><code>data-state="hover|focus|active"</code></td><td>Documentation and mocks only.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

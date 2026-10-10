@@ -186,7 +186,7 @@
         <thead><tr><th scope="col">Component and size</th><th scope="col">Height</th><th scope="col">Padding</th><th scope="col">Gap inside</th></tr></thead>
         <tbody>
           <tr><td>Tag, badge</td><td>24px (min)</td><td><code>0 --space-2</code></td><td><code>--space-1</code></td></tr>
-          <tr><td>Chip, menu item, small button</td><td><code>--control-height-sm</code></td><td><code>0 --space-3</code></td><td><code>--space-1</code>–<code>--space-3</code></td></tr>
+          <tr><td>Chip, menu item, small button</td><td><code>--control-height-sm</code> from 48rem (44px below)</td><td><code>0 --space-3</code></td><td><code>--space-1</code>–<code>--space-3</code></td></tr>
           <tr><td>Button (default), filter trigger</td><td><code>--control-height-md</code></td><td><code>0 --space-4</code></td><td><code>--space-2</code></td></tr>
           <tr><td>Input, select</td><td><code>--control-height-md</code></td><td><code>--space-2 --space-3</code></td><td>n/a</td></tr>
           <tr><td>Large button, large input, search field</td><td><code>--control-height-lg</code></td><td><code>0 --space-6</code> (button)</td><td><code>--space-2</code></td></tr>
@@ -204,12 +204,12 @@
           <button class="btn" type="button">Cancel</button>
           <button class="btn btn--primary btn--lg" type="button">Send an enquiry</button>
         </div>
-        <div class="ds-example__caption"><span>Tag 8px, chip and small button 12px, button 16px, large button 24px horizontal padding.</span></div>
+        <div class="ds-example__caption"><span>Tag 8px, chip and small button 12px, button 16px, large button 24px horizontal padding. Below 48rem the chip and small button grow to 44px tall.</span></div>
       </div>
     </section>
 
     <section class="ds-section" id="control-heights"><h2><a href="#control-heights">Control heights</a></h2>
-      <p>Three heights for everything you can press or type into, so a button, an input and a select line up in one row. Medium (44px) is the default because it already meets the phone touch target (L2-065), so nothing needs a "mobile size".</p>
+      <p>Three heights for everything you can press or type into, so a button, an input and a select line up in one row. Medium (44px) is the default because it already meets the phone touch target (L2-065.1). Small (36px) is a <b>desktop density, from 48rem only</b>: below 48rem (XS and SM) every compact control grows to 44px through one rule at the end of <code>components.css</code>, so phones never get a target under 44 × 44px.</p>
       <div class="ds-scale">
         <div class="ds-scale__row"><code>--control-height-sm</code><span data-token="--control-height-sm"></span><span class="ds-scale__bar" style="--size: var(--control-height-sm);"></span></div>
         <div class="ds-scale__row"><code>--control-height-md</code><span data-token="--control-height-md"></span><span class="ds-scale__bar" style="--size: var(--control-height-md);"></span></div>
@@ -221,11 +221,11 @@
           <button class="btn" type="button">Check availability</button>
           <button class="btn btn--sm" type="button">Clear</button>
         </div>
-        <div class="ds-example__caption"><span>A 44px input and a 44px button share a baseline; the 36px small button is for dense rows.</span></div>
+        <div class="ds-example__caption"><span>A 44px input and a 44px button share a baseline; the small button is 36px from 48rem and 44px below it.</span></div>
       </div>
       <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Token</th><th scope="col">Resolved value</th><th scope="col">Declared as</th><th scope="col">Use</th></tr></thead><tbody><tr><td><code>--control-height-sm</code></td><td><span data-token="--control-height-sm"></span></td><td><code>2.25rem</code></td><td>36px · row actions, chips.</td></tr><tr><td><code>--control-height-md</code></td><td><span data-token="--control-height-md"></span></td><td><code>2.75rem</code></td><td>44px · default: every control meets L2-065.</td></tr><tr><td><code>--control-height-lg</code></td><td><span data-token="--control-height-lg"></span></td><td><code>3.25rem</code></td><td>52px · hero search, auth, enquiry CTA.</td></tr></tbody></table></div>
       <ul>
-        <li><b>Small, 36px:</b> chips, menu items, row actions (edit, remove, move up), small inputs in operator toolbars.</li>
+        <li><b>Small, 36px from 48rem:</b> chips, menu items, row actions (edit, remove, move up), small inputs in operator toolbars. Below 48rem these, plus chip remove buttons, choice rows, toast actions, breadcrumb links and alert close buttons, are 44px.</li>
         <li><b>Medium, 44px:</b> every other button, input, select, pagination link and filter trigger.</li>
         <li><b>Large, 52px:</b> the hero area and postal code search, sign-in and registration buttons, the enquiry call to action, device rows in account security.</li>
       </ul>
@@ -244,7 +244,7 @@
 
     <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
       <ul>
-        <li><b>Touch targets (2.5.8, L2-065).</b> On XS and SM every interactive control is at least 44 × 44px with at least 8px (<code>--space-2</code>) between neighbouring targets. Medium controls meet this by height. Small (36px) controls are only used where the next target is at least 8px away, which satisfies WCAG 2.5.8 (24px minimum) but not the stricter L2-065.1. Extending their hit area to 44px on XS and SM is an open item in the design-system README.</li>
+        <li><b>Touch targets (2.5.8, L2-065.1).</b> On XS and SM every interactive control is at least 44 × 44px with at least 8px (<code>--space-2</code>) between neighbouring targets. Medium controls meet this by height; compact controls (<code>.btn--sm</code>, <code>.chip</code>, <code>.menu__item</code>, <code>.input--sm</code>, <code>.choice</code>, <code>.toast__action</code>, breadcrumb links, close and remove buttons) grow to 44px below 48rem and only take their 36px or 24px size from 48rem, where WCAG 2.5.8 (24px) applies.</li>
         <li><b>Spacing survives text resizing.</b> Because every value is <code>rem</code>, a reader who sets 20px text gets proportionally larger gaps and taller controls, and nothing overlaps.</li>
         <li><b>Text spacing (1.4.12).</b> No component uses fixed heights for text, only <code>min-height</code>, so overriding line, word and letter spacing never clips content.</li>
         <li><b>Focus has room.</b> The focus ring sits 3px outside the element; gaps of at least <code>--space-2</code> between controls keep neighbouring rings from overlapping.</li>

@@ -325,7 +325,7 @@
       <h3>Motion</h3>
       <p>None beyond the buttons' own transitions; photos do not zoom. The busy Try again spinner keeps turning under reduced motion because it is status.</p>
       <h3>Touch</h3>
-      <p>Primary and secondary are large (52px). Copy is a small link button (36px) set apart from the large buttons by the code line spacing.</p>
+      <p>Primary and secondary are large (52px). Copy is a small link button: 44px tall below 48rem, 36px from 48rem, set apart from the large buttons by the code line spacing.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
@@ -407,7 +407,7 @@
         <li><a href="../../mocks/pages/maintenance/default.html">pages/maintenance/default</a></li>
         <li><a href="../../mocks/notifications/site-banner/info.html">notifications/site-banner/info</a> (the maintenance announcement)</li>
       </ul>
-      <p>Drift fixed during extraction: all six mocks gave the three photos <code>width/height="104"</code> while the rendered row is 72 / 104 / 72px (the inbox and listing empty states set 72 / 104 / 72); the attributes now match the render. The rate-limited retry was enabled in the mock although its note says it "enables when the window resets"; it is <code>aria-disabled</code> until then. The 500 page's Copy button had no accessible name beyond "Copy"; it is "Copy reference". The site banner announces maintenance for Sunday 18 October while the maintenance page shows Sunday 11 October 2026; the two mocks describe different windows and both stay, but a real page must take its window from the same source as the banner. components.css dropped the kit's larger middle photo (6.5rem); requested back.</p>
+      <p>Drift fixed during extraction: all six mocks gave the three photos <code>width/height="104"</code> while the rendered row is 72 / 104 / 72px (the inbox and listing empty states set 72 / 104 / 72); the attributes now match the render. The rate-limited retry was enabled in the mock although its note says it "enables when the window resets"; it is <code>aria-disabled</code> until then. The 500 page's Copy button had no accessible name beyond "Copy"; it is "Copy reference". The site banner announces maintenance for Sunday 18 October while the maintenance page shows Sunday 11 October 2026; the two mocks describe different windows and both stay, but a real page must take its window from the same source as the banner.</p>
     </section>
 
     <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>

@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notifications — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand notifications: toast vs banner vs inline vs email, priority, persistence and auto-dismiss rules, stacking, live regions, and the site-banner, profile-banner and toast families.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Pattern</p>
+      <h1>Notifications</h1>
+      <p class="ds-lead">News that is not an answer to what someone just did: a reply arrived, email is running late, a certificate expired, maintenance is coming. Toasts for passing news, banners for conditions that last, inline messages for the thing in front of you, and the inbox as the only notification centre.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.toast</code></span><span class="ds-pill"><code>.banner</code></span><span class="ds-pill"><code>.alert</code></span><span class="ds-pill"><code>.badge--count</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#when">When to use which</a></li><li><a href="#structure">Structure</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Notifications tell people something they did not just ask for, or something that outlasts the moment. Sweet Hand uses four channels and no others:</p>
+      <ul>
+        <li><b>Toast</b> (<a href="../components/toast.html">toast</a>): passing news, in the corner, gone after 8 s unless it is an error: "New message from Pelau House", "Photo order saved", "Couldn’t suspend Flying Fish Kitchen".</li>
+        <li><b>Banner</b> (<a href="../components/alert.html">alert and banner</a>, <code>.alert.banner</code>): a condition that lasts across pages, full-bleed under the header: "Verify your email to send enquiries", "Your profile is suspended and hidden from customers", "Scheduled maintenance".</li>
+        <li><b>Inline</b> (<a href="../components/alert.html">alert</a>, <a href="../components/inline-message.html">inline message</a>): a condition of the thing on screen, next to it: the fit warning on an enquiry, "Name change waiting for review" on Business details.</li>
+        <li><b>Email and badges</b>: email for anything that matters when people are away (a reply, a decision, an approval); unread counts (<a href="../components/badge.html">badge</a>) on Inbox, Enquiries and Queue. The inbox is the notification centre (open question 14); there is no bell.</li>
+      </ul>
+      <p>Feedback on the person's own action (saved, sent, failed to send) follows the same visual components but is chosen by <a href="feedback-and-loading.html">Feedback and loading</a>.</p>
+    </section>
+
+    <section class="ds-section" id="when"><h2><a href="#when">When to use which</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">The news</th><th scope="col">Lasts</th><th scope="col">Channel</th><th scope="col">Family and mock</th></tr></thead>
+        <tbody>
+          <tr><td>A new message arrived while you are on the site</td><td>A moment</td><td>Toast with "Show message", plus the unread badge</td><td>Toast · <a href="../../mocks/notifications/toast/with-action.html">toast/with-action</a></td></tr>
+          <tr><td>Something you did finished in the background (photo processed, export ready)</td><td>A moment</td><td>Toast; the item itself also shows its state</td><td>Dashboard toast · <a href="../../mocks/notifications/dashboard-toast/success.html">dashboard-toast/success</a>; Operator toast · <a href="../../mocks/notifications/admin-toast/stacked.html">admin-toast/stacked</a></td></tr>
+          <tr><td>A background job failed</td><td>Until handled</td><td>Danger toast with Try again, never auto-dismissed</td><td><a href="../../mocks/notifications/dashboard-toast/danger.html">dashboard-toast/danger</a></td></tr>
+          <tr><td>Your session is about to end</td><td>Until acted on</td><td>Warning toast with "Stay signed in"</td><td><a href="../../mocks/notifications/admin-toast/warning.html">admin-toast/warning</a></td></tr>
+          <tr><td>Your account needs something (verify email, bounced email)</td><td>Until fixed</td><td>Persistent warning site banner with the fixing action</td><td>Site banner · <a href="../../mocks/notifications/site-banner/persistent.html">site-banner/persistent</a>, <a href="../../mocks/notifications/site-banner/warning.html">warning</a></td></tr>
+          <tr><td>Platform condition (incident, maintenance)</td><td>While it lasts / until the day</td><td>Site banner: danger for incidents (not dismissible), info for planned maintenance (dismissible per device)</td><td><a href="../../mocks/notifications/site-banner/danger.html">site-banner/danger</a>, <a href="../../mocks/notifications/site-banner/info.html">info</a></td></tr>
+          <tr><td>A caterer's profile status (in review, changes requested, suspended, live)</td><td>While the status holds</td><td>Profile banner in the dashboard, with the next step</td><td>Profile banner · <a href="../../mocks/notifications/profile-banner/warning.html">profile-banner/warning</a>, <a href="../../mocks/notifications/profile-banner/danger.html">danger</a></td></tr>
+          <tr><td>A condition of one field, record or form</td><td>While on screen</td><td>Inline alert or field warning beside it</td><td><a href="../../mocks/dialogs/enquiry/warning.html">enquiry/warning</a>, <a href="../../mocks/pages/profile-details/name-pending.html">profile-details/name-pending</a></td></tr>
+          <tr><td>Anything that matters while you are away</td><td>—</td><td>Email (copy out of scope for the mocks), then the inbox and badges</td><td>—</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Priority</h3>
+      <ol>
+        <li><b>Danger site banner</b> (incident): above everything, one at a time.</li>
+        <li><b>Persistent account banner</b> (verify or update email): one; if both apply, the bounce wins.</li>
+        <li><b>Profile banner</b> (dashboard only): one, for the current status.</li>
+        <li><b>Inline alerts</b> in the content.</li>
+        <li><b>Toasts</b>: at most three, danger first to stay.</li>
+      </ol>
+      <p>Never show two banners of the same family. When a higher banner appears, a lower one waits for the next page load.</p>
+    </section>
+
+    <section class="ds-section" id="structure"><h2><a href="#structure">Structure</a></h2>
+      <h3>Toast families</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas">
+          <div class="toast-region toast-region--static" style="max-width: 24rem; width: 100%;" role="status" aria-live="polite">
+            <div class="toast toast--info">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              <div class="toast__body"><p class="toast__title">New message from Pelau House</p><p class="toast__text">“I’ll call this afternoon to confirm the menu.”</p><div class="toast__actions"><button class="toast__action" type="button">Show message</button></div></div>
+              <button class="close" type="button" aria-label="Dismiss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              <span class="toast__progress" aria-hidden="true"></span>
+            </div>
+            <div class="toast toast--success">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+              <div class="toast__body"><p class="toast__title">Auntie Bev’s Kitchen is published</p><p class="toast__text">It appears in the listing within a minute. Beverley Campbell has been emailed.</p><button class="toast__action" type="button">View page</button></div>
+              <button class="close" type="button" aria-label="Dismiss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+            </div>
+            <div class="toast toast--danger" role="alert">
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+              <div class="toast__body"><p class="toast__title">Couldn’t suspend Flying Fish Kitchen</p><p class="toast__text">The server didn’t respond. Nothing was changed and the caterer wasn’t emailed.</p><button class="toast__action" type="button">Try again</button></div>
+              <button class="close" type="button" aria-label="Dismiss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Customer (info with action), operator (success with a link), operator (danger, stays). All toasts share the ink surface; the icon shape carries the tone; the progress line shows the 8 s timer.</span><span>Sources: toast/with-action, admin-toast/success, admin-toast/danger</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;!-- Present and empty on page load, after &lt;main&gt; --&gt;
+&lt;div class="toast-region" role="status" aria-live="polite"&gt;
+  &lt;div class="toast toast--success"&gt;
+    &lt;svg class="icon" aria-hidden="true" …&gt;&lt;/svg&gt;
+    &lt;div class="toast__body"&gt;
+      &lt;p class="toast__title"&gt;Photo removed&lt;/p&gt;
+      &lt;p class="toast__text"&gt;“Curry chicken with rice and buss up shut” is off your page.&lt;/p&gt;
+      &lt;button class="toast__action" type="button"&gt;Undo&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;button class="close" type="button" aria-label="Dismiss"&gt;…&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="toast toast--danger" role="alert"&gt;…&lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+
+      <h3>Banner families</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-4);">
+          <div class="alert alert--warning banner" role="status"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/></svg><div class="alert__body"><span class="alert__title">Verify your email to send enquiries</span><span>We sent a link to marcia.t@example.com.</span><div class="alert__actions"><button type="button" class="btn btn--link">Resend verification email</button></div></div></div>
+          <div class="alert banner" role="status"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div class="alert__body"><span class="alert__title">Scheduled maintenance</span><span>Sunday 18 October, 1:00–3:00 a.m. Sweet Hand may be unavailable for up to two hours.</span></div><button class="close" type="button" aria-label="Dismiss maintenance notice"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+          <div class="alert alert--danger banner" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><span class="alert__title">Your profile is suspended and hidden from customers.</span><span>Your food handler certificate expired on 30 Sep 2026.</span><div class="alert__actions"><a href="../../mocks/pages/profile-certificate/default.html">Upload a new certificate</a></div></div></div>
+        </div>
+        <div class="ds-example__caption"><span>Site banner, persistent (account); site banner, dismissible (maintenance); profile banner, danger (dashboard only).</span><span>Sources: site-banner/persistent, site-banner/info, profile-banner/danger</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <h3>Persistence</h3>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Kind</th><th scope="col">Auto-dismiss</th><th scope="col">Dismissible</th><th scope="col">Announced as</th></tr></thead>
+        <tbody>
+          <tr><td>Info and success toast</td><td>After 8 s; the timer pauses on hover and on focus inside the toast</td><td>Yes</td><td>Polite (<code>role="status"</code> region)</td></tr>
+          <tr><td>Warning toast, no action</td><td>After 8 s, paused on hover and focus; the item itself keeps the warning ("Processing")</td><td>Yes</td><td>Polite</td></tr>
+          <tr><td>Warning toast with an action</td><td>Never; stays until acted on or dismissed ("Stay signed in")</td><td>Yes</td><td>Polite</td></tr>
+          <tr><td>Danger toast</td><td>Never</td><td>Yes, or by its action (Try again)</td><td>Assertive (<code>role="alert"</code>)</td></tr>
+          <tr><td>Success site banner</td><td>Gone on the next page load</td><td>Yes</td><td>Polite</td></tr>
+          <tr><td>Info site banner (maintenance)</td><td>No</td><td>Yes, per device; returns on the day</td><td>Polite</td></tr>
+          <tr><td>Persistent warning site banner</td><td>No; disappears when fixed</td><td>No</td><td>Polite</td></tr>
+          <tr><td>Danger site banner (incident)</td><td>No; while the incident lasts</td><td>No</td><td>Assertive</td></tr>
+          <tr><td>Profile banner</td><td>No; changes with the status</td><td>No</td><td>Polite, or assertive when suspended</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Stacking</h3>
+      <ul>
+        <li>At most three toasts; new ones join at the bottom.</li>
+        <li>When a fourth arrives, the oldest auto-dismissing toast leaves first. A danger toast is never pushed out.</li>
+        <li>Each toast keeps its own timer; hovering or focusing the region pauses all of them.</li>
+      </ul>
+      <h3>Tones, both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="stack stack--sm"><div class="alert"><div class="alert__body"><span class="alert__title">Info</span></div></div><div class="alert alert--success"><div class="alert__body"><span class="alert__title">Success</span></div></div><div class="alert alert--warning"><div class="alert__body"><span class="alert__title">Warning</span></div></div><div class="alert alert--danger"><div class="alert__body"><span class="alert__title">Danger</span></div></div><div class="toast"><div class="toast__body"><p class="toast__title">Toast</p></div></div></div></div>
+        <div data-theme="dark"><div class="stack stack--sm"><div class="alert"><div class="alert__body"><span class="alert__title">Info</span></div></div><div class="alert alert--success"><div class="alert__body"><span class="alert__title">Success</span></div></div><div class="alert alert--warning"><div class="alert__body"><span class="alert__title">Warning</span></div></div><div class="alert alert--danger"><div class="alert__body"><span class="alert__title">Danger</span></div></div><div class="toast"><div class="toast__body"><p class="toast__title">Toast</p></div></div></div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Toasts</b>: below 36rem they span the width 16px from each edge at the bottom, above the safe area and above the sticky enquiry bar and reply box; from 36rem they sit 24px from the bottom-right corner, 24rem wide.</li>
+        <li><b>Banners</b> are full-bleed under the header, with the text centred in the container; actions wrap under the text on phones.</li>
+        <li>Banner and toast dismiss buttons grow to 44px below 48rem.</li>
+        <li>Toast text clamps at no width: titles are kept short so a toast stays three lines or fewer at 320px.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>The toast region is in the page from the start, empty, with <code>role="status"</code> and <code>aria-live="polite"</code>, so a toast added later is announced without moving focus (WCAG 4.1.3). Danger toasts carry <code>role="alert"</code> and are announced at once. Banners use <code>role="status"</code>, or <code>role="alert"</code> for incidents and suspensions; a banner that is already there on page load is read in order like any content.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Banner actions come right after the header; the toast region comes after main, so its actions are reachable without a pointer.</td></tr>
+        <tr><td><kbd>Enter</kbd> / <kbd>Space</kbd></td><td>Activates a toast action or Dismiss. "Show message" scrolls to the message and moves focus there.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Has no effect on toasts (it belongs to any open dialog).</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>Notifications never take focus. Focusing anything inside a toast pauses its timer (WCAG 2.2.1); after Dismiss, focus moves to the next toast or back to main content.</p>
+      <h3>Labelling</h3>
+      <p>Dismiss buttons are named ("Dismiss", "Dismiss maintenance notice"). Badges carry the full phrase: <code>aria-label="1 unread enquiry"</code>, "7 items waiting".</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Toast text on ink</span><span class="ds-pair__ratio" data-contrast="--color-fg-inverse|--color-bg-inverse" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Info banner</span><span class="ds-pair__ratio" data-contrast="--color-info-fg|--color-info-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Warning banner</span><span class="ds-pair__ratio" data-contrast="--color-warning-fg|--color-warning-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Danger banner</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-danger-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Success banner</span><span class="ds-pair__ratio" data-contrast="--color-success-fg|--color-success-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Unread badge</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-danger|--color-danger-solid" data-min="4.5"></span></div>
+      </div>
+      <p>Tone is never colour alone: each tone has its own icon shape (circle-i, tick, triangle, circle-!) and the title says what happened.</p>
+      <h3>Motion</h3>
+      <p>Toasts slide up over 200 ms and fade out; reduced motion zeroes both. The timer line is decorative and hidden from assistive technology.</p>
+      <h3>Touch</h3>
+      <p>Below 48rem toast actions and banner and toast dismiss buttons grow to 44px (L2-065.1), with 16px between actions; from 48rem they use their compact size. Toasts never cover the sticky enquiry bar.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li><b>Toast title</b>: what happened, past tense, object named: "Photo added", "Reply sent", "Auntie Bev’s Kitchen is published", "Couldn’t suspend Flying Fish Kitchen".</li>
+        <li><b>Toast text</b>: the consequence or what to do, one sentence: "Your page shows the new order within a minute." "Check your connection, then try again. Your message is still in the box."</li>
+        <li><b>Banner title</b>: the condition: "You’re offline", "Verify your email to send enquiries", "Your profile is in review." Body: what it means or what to do, with exact dates ("Sunday 18 October, 1:00–3:00 a.m.").</li>
+        <li><b>Actions</b>: one verb, two at most: "Show message", "View page", "Undo", "Try again", "Stay signed in", "Resend verification email". Never "Retry" (see the <a href="../foundations/content.html#library">microcopy library</a>).</li>
+        <li>Quote the reason when a person wrote it: "Changes requested: “Photos 2 and 5 look like stock images. Please upload photos of your own food.”"</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="toast toast--danger" style="width: 100%;"><div class="toast__body"><p class="toast__title">Upload failed</p><p class="toast__text">IMG_2077.heic didn’t upload.</p><button class="toast__action" type="button">Try again</button></div></div></div><figcaption>Errors stay until handled.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="toast toast--danger" style="width: 100%;"><div class="toast__body"><p class="toast__title">Upload failed</p><p class="toast__text">Closing in 3 s…</p></div><span class="toast__progress" aria-hidden="true"></span></div></div><figcaption>Never time out an error; people miss it and lose the photo.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="alert alert--warning banner"><div class="alert__body"><span class="alert__title">Verify your email to send enquiries</span></div></div></div><figcaption>A lasting condition is a banner that names the fix.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="toast toast--warning" style="width: 100%;"><div class="toast__body"><p class="toast__title">Verify your email</p></div></div></div><figcaption>Don't put a lasting condition in a toast that disappears in 8 s.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <ul>
+        <li>Toast: <a href="../../mocks/notifications/toast/info.html">info</a>, <a href="../../mocks/notifications/toast/success.html">success</a>, <a href="../../mocks/notifications/toast/warning.html">warning</a>, <a href="../../mocks/notifications/toast/danger.html">danger</a>, <a href="../../mocks/notifications/toast/with-action.html">with-action</a>, <a href="../../mocks/notifications/toast/stacked.html">stacked</a></li>
+        <li>Dashboard toast: <a href="../../mocks/notifications/dashboard-toast/info.html">info</a>, <a href="../../mocks/notifications/dashboard-toast/success.html">success</a>, <a href="../../mocks/notifications/dashboard-toast/warning.html">warning</a>, <a href="../../mocks/notifications/dashboard-toast/danger.html">danger</a>, <a href="../../mocks/notifications/dashboard-toast/with-action.html">with-action</a>, <a href="../../mocks/notifications/dashboard-toast/stacked.html">stacked</a></li>
+        <li>Operator toast: <a href="../../mocks/notifications/admin-toast/info.html">info</a>, <a href="../../mocks/notifications/admin-toast/success.html">success</a>, <a href="../../mocks/notifications/admin-toast/warning.html">warning</a>, <a href="../../mocks/notifications/admin-toast/danger.html">danger</a>, <a href="../../mocks/notifications/admin-toast/stacked.html">stacked</a></li>
+        <li>Site banner: <a href="../../mocks/notifications/site-banner/info.html">info</a>, <a href="../../mocks/notifications/site-banner/success.html">success</a>, <a href="../../mocks/notifications/site-banner/warning.html">warning</a>, <a href="../../mocks/notifications/site-banner/danger.html">danger</a>, <a href="../../mocks/notifications/site-banner/persistent.html">persistent</a></li>
+        <li>Profile banner: <a href="../../mocks/notifications/profile-banner/info.html">info</a>, <a href="../../mocks/notifications/profile-banner/success.html">success</a>, <a href="../../mocks/notifications/profile-banner/warning.html">warning</a>, <a href="../../mocks/notifications/profile-banner/danger.html">danger</a>, <a href="../../mocks/notifications/profile-banner/persistent.html">persistent</a></li>
+      </ul>
+      <p>Drift fixed during extraction: the three stacked mocks gave three eviction rules ("a fourth replaces the oldest"; "the oldest auto-dismissing toast leaves first"; "older info and success toasts leave first, the error stays"); the system uses the last two together. Warning toasts auto-dismissed in the customer and dashboard families but stayed in the operator family; the rule is now "a warning with an action stays, one without auto-dismisses". The customer toast mock names its stacked text "Pelau House will get the email soon" where the single toast says "as soon as our mail service catches up"; the longer, specific line is the standard. <a href="../../mocks/notifications/dashboard-toast/danger.html">dashboard-toast/danger</a> labels its action "Retry"; the library string is "Try again". Site-banner mocks use <code>.alert--info</code>, which components.css does not define; info is the default <code>.alert</code> tone, so the modifier is dropped.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

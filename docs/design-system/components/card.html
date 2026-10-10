@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Card — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand cards and surfaces: card, flush, interactive and selected cards, well, closed note, contact card, private note, the enquiry panel and certificate, states in both themes, accessibility and tokens.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Containers and overlays</p>
+      <h1>Card</h1>
+      <p class="ds-lead">Sweet Hand is flat: content sits on the canvas, separated by space and headings, not boxes. Cards, wells and notes exist for the few places where something genuinely needs a surface of its own.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable (use sparingly)</span><span class="ds-pill"><code>.card</code></span><span class="ds-pill"><code>.well</code></span><span class="ds-pill"><code>.closed-note</code></span><span class="ds-pill"><code>.contact-card</code></span><span class="ds-pill"><code>.private-note</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The reference design has no card borders or shadows: caterers are round photos with two lines of text, the menu is a list, the dashboard is headings and rows. Before reaching for a surface, try space and a heading. When content does need one, pick by what it is:</p>
+      <ul>
+        <li><b>Well</b> (<code>.well</code>): a sunken, borderless panel for quoted or secondary content: the review you are responding to (<code>dialogs/review-response</code>), the reported review an operator is judging, the sign-in "Quick check".</li>
+        <li><b>Closed note</b> (<code>.closed-note</code>): a centred sunken line that ends a thread when nobody can reply: "This enquiry is closed.", "Sugar Dumplin hasn't replied yet. We'll email you when they do."</li>
+        <li><b>Contact card</b> (<code>.contact-card</code>): a bordered block for contact details shared inside an enquiry thread, so they stand apart from the messages.</li>
+        <li><b>Private note</b> (<code>.private-note</code>): not a surface but a muted line with a lock or shield icon that says who can see something: "Pelau House sees your name, not your email or phone." It appears in more than 100 mocks.</li>
+        <li><b>Bordered exceptions</b>: the enquiry panel on the caterer page at 62rem and wider (<code>.enquiry-panel</code>) and the food handler certificate in the operator console (<code>.certificate</code>). Both are records people act on, and both are the only boxed thing on their screen.</li>
+        <li><b>Card</b> (<code>.card</code> and modifiers): the general bordered surface from the base kit. No Sweet Hand screen uses it today. Keep it for a self-contained summary that must read as one object among others, such as a pending change an operator approves.</li>
+      </ul>
+      <p>Don't use a card for a listing item (use the borderless <a href="caterer-card.html">caterer card</a>), a row of data (use <a href="list.html">list rows</a>), or to group form fields (use headings and <a href="form-layout.html">form layout</a>). Overlays have their own surfaces: <a href="dialog.html">dialog</a>, <a href="sheet.html">sheet</a>, <a href="popover.html">popover</a>.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="card" style="width: min(100%, 24rem);">
+            <div class="card__header"><p class="card__title">Name change</p><span class="status status--pending">Pending</span></div>
+            <p>Pelau House → Pelau House by Kendra</p>
+            <div class="card__footer"><button class="btn btn--sm" type="button">Request changes</button><button class="btn btn--primary btn--sm" type="button">Approve</button></div>
+          </div>
+          <span class="ds-callout" style="left: 12%; top: 22%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 80%; top: 22%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 12%; top: 48%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 40%; top: 76%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 90%; top: 50%;" aria-hidden="true">5</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Title</b><small><code>.card__title</code> in <code>--text-h4</code>. Use a real heading level in context.</small></div></li>
+          <li><div><b>Header meta</b><small><code>.card__header</code> puts a <a href="status.html">status label</a> or icon button at the end.</small></div></li>
+          <li><div><b>Body</b><small>Any content; <code>--space-4</code> below the header.</small></div></li>
+          <li><div><b>Footer</b><small><code>.card__footer</code>: hairline divider, actions at the end, the one primary last.</small></div></li>
+          <li><div><b>Surface</b><small><code>--color-bg-surface</code>, 1px <code>--color-border-default</code>, <code>--radius-lg</code>, <code>--space-6</code> padding, no shadow.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>The bordered exceptions</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas" style="align-items: flex-start; gap: var(--space-8);">
+          <aside class="enquiry-panel" aria-label="Enquire (example)" style="width: min(100%, 22rem);">
+            <dl class="facts">
+              <div><dt>Guests</dt><dd>Serves 20–300 guests</dd></div>
+              <div><dt>Occasions</dt><dd>Weddings, Birthdays, Family gatherings</dd></div>
+            </dl>
+            <button class="btn btn--primary btn--lg btn--block" type="button" aria-haspopup="dialog">Send an enquiry</button>
+            <p class="enquiry-panel__note">Free to ask. Your email and phone stay private until you choose to share them.</p>
+          </aside>
+          <dl class="certificate" style="width: min(100%, 24rem);">
+            <dt>Holder</dt><dd>Kendra Baptiste</dd>
+            <dt>Issued by</dt><dd>Toronto Public Health</dd>
+            <dt>Number</dt><dd>FH-2024-118734</dd>
+            <dt>Expires</dt><dd>14 Mar 2029</dd>
+          </dl>
+        </div>
+        <div class="ds-example__caption"><span>The caterer page's enquiry panel (bordered and sticky from 62rem) and the operator's view of the food handler certificate. The certificate is the caterer's own statement; Sweet Hand does not certify kitchens.</span></div>
+      </div>
+      <h3>Well</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <figure class="well">
+            <div class="review__head"><span class="review__author">Andre C.</span><span class="review__date">Event in July 2026</span></div>
+            <blockquote class="review__body">Doubles for 60 at the office, hot and on time. Kendra answered every question the same day.</blockquote>
+          </figure>
+          <fieldset class="well stack stack--sm">
+            <legend class="visually-hidden">Quick check</legend>
+            <label class="choice"><input type="checkbox" name="card-human"><span class="choice__text"><span>I'm a person, not a bot</span></span></label>
+            <p class="text-caption">A privacy-friendly check. No tracking cookies, nothing shared with advertisers.</p>
+          </fieldset>
+        </div>
+        <div class="ds-example__caption"><span>Quoted review above the response field; the sign-in quick check. Sunken, no border, <code>--radius-md</code>.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;figure class="well"&gt;
+  &lt;div class="review__head"&gt;…&lt;/div&gt;
+  &lt;blockquote class="review__body"&gt;Doubles for 60 at the office, hot and on time.&lt;/blockquote&gt;
+&lt;/figure&gt;</code></pre></details>
+      </div>
+      <h3>Closed note, contact card, private note</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <p class="closed-note">This enquiry is closed.</p>
+          <p class="closed-note">Sugar Dumplin hasn't replied yet. We'll email you when they do.</p>
+          <div class="contact-card"><strong>Pelau House</strong><span>hello@pelauhouse.example</span><span>+1 416 555 0142</span></div>
+          <p class="private-note"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Pelau House sees your name, not your email or phone.</p>
+          <p class="private-note"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/></svg>Devon W. and Maracas Bay never see who reported this.</p>
+        </div>
+        <div class="ds-example__caption"><span>The end of a thread, shared contact details in a thread, and two privacy lines (lock for "who sees this", shield for anonymity).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;p class="closed-note"&gt;This enquiry is closed.&lt;/p&gt;
+&lt;div class="contact-card"&gt;&lt;strong&gt;Pelau House&lt;/strong&gt;&lt;span&gt;hello@pelauhouse.example&lt;/span&gt;&lt;span&gt;+1 416 555 0142&lt;/span&gt;&lt;/div&gt;
+&lt;p class="private-note"&gt;&lt;svg class="icon icon--sm" aria-hidden="true" …/&gt;Pelau House sees your name, not your email or phone.&lt;/p&gt;</code></pre></details>
+      </div>
+      <h3>Card family</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas" style="align-items: stretch;">
+          <div class="card" style="width: min(100%, 16rem);"><p class="card__title">Card</p><p class="text-muted">Static summary, <code>--space-6</code> padding.</p></div>
+          <div class="card card--flush" style="width: min(100%, 16rem);"><img src="../../mocks/assets/img/pelau-house.jpg" alt="Chicken pelau in a steel pot with lime and cucumber chutney" width="256" height="256"><div class="stack stack--sm" style="padding: var(--space-4);"><p class="card__title">Flush</p><p class="text-muted">Media runs to the edge.</p></div></div>
+          <div class="card card--interactive" style="width: min(100%, 16rem);"><p class="card__title"><a href="../../mocks/pages/caterer/default.html">Interactive</a></p><p class="text-muted">The whole card is the link.</p></div>
+          <div class="card card--selected" style="width: min(100%, 16rem);"><p class="card__title">Selected</p><p class="text-muted">Pepper edge: chosen.</p></div>
+        </div>
+        <div class="ds-example__caption"><span>Base-kit card variants. Use only where a bordered object is unavoidable; the flush example shows a square photo, which the brand otherwise never does: food photos are round everywhere else.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="One size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">Surfaces take their width from the layout and have one padding each: card <code>--space-6</code>, well and closed note <code>--space-4</code>, contact card <code>--space-4</code>, enquiry panel <code>--space-8</code>. A denser card would invite boxes into lists, which the brand avoids.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Static surfaces have no states. Interactive and selected cards do; hover and focus are forced with <code>data-state</code>, selection uses <code>.card--selected</code> (or <code>aria-selected</code> inside a listbox).</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Card states by variant</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Active</th><th scope="col">Disabled</th><th scope="col">Selected</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Card</th>
+            <td><div class="card"><p class="card__title">Name change</p></div></td>
+            <td><span class="text-subtle">None</span></td><td><span class="text-subtle">None</span></td><td><span class="text-subtle">None</span></td><td><span class="text-subtle">None</span></td>
+            <td><div class="card card--selected"><p class="card__title">Name change</p></div></td></tr>
+          <tr><th scope="row">Interactive</th>
+            <td><div class="card card--interactive"><p class="card__title"><a href="../../mocks/pages/caterer/default.html">Pelau House</a></p></div></td>
+            <td><div class="card card--interactive" data-state="hover"><p class="card__title"><a href="../../mocks/pages/caterer/default.html">Pelau House</a></p></div></td>
+            <td><div class="card card--interactive" data-state="focus"><p class="card__title"><a href="../../mocks/pages/caterer/default.html">Pelau House</a></p></div></td>
+            <td><span class="text-subtle">Same as hover</span></td>
+            <td><span class="text-subtle">Never (remove the link)</span></td>
+            <td><div class="card card--interactive card--selected"><p class="card__title"><a href="../../mocks/pages/caterer/default.html">Pelau House</a></p></div></td></tr>
+          <tr><th scope="row">Well</th>
+            <td><div class="well">Quoted review</div></td>
+            <td><span class="text-subtle">None</span></td><td><span class="text-subtle">None</span></td><td><span class="text-subtle">None</span></td><td><span class="text-subtle">None</span></td><td><span class="text-subtle">None</span></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="stack stack--sm"><div class="card"><p class="card__title">Name change</p><p class="text-muted">Pelau House → Pelau House by Kendra</p></div><div class="well">Quoted review</div><p class="closed-note">This enquiry is closed.</p><div class="contact-card"><strong>Pelau House</strong><span>hello@pelauhouse.example</span></div></div></div>
+        <div data-theme="dark"><div class="stack stack--sm"><div class="card"><p class="card__title">Name change</p><p class="text-muted">Pelau House → Pelau House by Kendra</p></div><div class="well">Quoted review</div><p class="closed-note">This enquiry is closed.</p><div class="contact-card"><strong>Pelau House</strong><span>hello@pelauhouse.example</span></div></div></div>
+      </div>
+      <ul>
+        <li><b>Hover</b> on an interactive card lifts it 1px with <code>--shadow-2</code> and a stronger edge; it is the only shadow a resting surface ever gets.</li>
+        <li><b>Loading</b>: wells and cards keep their size and hold <a href="skeleton.html">skeleton</a> lines (<a href="../../mocks/pages/admin-report/loading.html">pages/admin-report/loading</a>), so nothing shifts when data arrives.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>All surfaces are fluid: they fill their column and never set a minimum width wider than 288px (the content box at 320px).</li>
+        <li><b>Enquiry panel</b>: below 62rem it is not shown; its facts appear in the page (<code>.facts.until-lg</code>) and the button becomes the <a href="sticky-cta.html">sticky enquiry bar</a>. From 62rem it is a 22rem column, bordered, sticky <code>--space-8</code> from the top.</li>
+        <li><b>Certificate</b>: a two-column grid of label and value; values wrap anywhere (certificate numbers, long issuer names).</li>
+        <li><b>Contact card</b> stays left-aligned inside the centred system message on every width.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>No component tokens. Cards read <code>--color-bg-surface</code> and <code>--color-border-default</code>; wells and notes read <code>--color-bg-surface-sunken</code>; selection reads <code>--color-accent</code>. In light the surface and canvas are both white, so a card is just its hairline. In dark the surface equals the canvas (stone 950) and the sunken surface is stone 900, so wells stay visible and the border still carries the card. A theme that wants softer cards changes <code>--color-border-default</code>; it never adds a shadow to a resting card.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Surfaces are presentational; the content inside sets the semantics. Quoted content uses <code>figure</code> and <code>blockquote</code>; a group of form controls in a well is a <code>fieldset</code> with a <code>legend</code>; the enquiry panel is an <code>aside</code> named "Enquire"; the certificate is a <code>dl</code>. An interactive card follows the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/link/">APG Link</a> pattern with one real link stretched over the card.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Reaches the interactive card's single link (or each control inside a static card). Never make the card element itself focusable.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Follows the card's link.</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>An interactive card shows the shared ring around the whole card (<code>:focus-within</code>); the inner link's own ring is suppressed so there is one ring, not two. Put no second interactive element inside an interactive card.</p>
+      <h3>Labelling</h3>
+      <p>The contact card's <code>strong</code> names whose details they are. A private note's icon is hidden; the sentence says exactly who sees what. When a thread closes while open, announce the closed note through the thread's status region.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Text on a card</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Text in a well</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-sunken" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Closed note</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-sunken" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Certificate labels</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-surface-sunken" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Private note on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Selected card edge</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring on card</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+      </div>
+      <p>The card's hairline (<code>--color-border-default</code>) is decorative: the card's content, not its edge, carries meaning, so it is exempt from 1.4.11.</p>
+      <h3>Motion</h3>
+      <p>The interactive card's lift and shadow transition over <code>--duration-fast</code>; reduced motion removes the lift and keeps the shadow change.</p>
+      <h3>Touch</h3>
+      <p>The interactive card's whole area is the target. Buttons in a card footer keep their own sizes and 12px gap (<code>--space-3</code>).</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Closed notes are full sentences that say what happens next: "Sugar Dumplin hasn't replied yet. We'll email you when they do."; "This person has left Sweet Hand, so replies can't be delivered."</li>
+        <li>Private notes name the audience: "Only you and the Sweet Hand team see this. It never appears on your page." Never just "Private".</li>
+        <li>Contact cards hold only what was shared: name, email, phone. No labels like "Email:"; the formats speak for themselves.</li>
+        <li>Certificate dates use "14 Mar 2029"; the certificate is presented as the caterer's own record.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><p class="card__title">Areas served</p><p class="text-muted">City of Toronto: Scarborough, East York, North York</p><p class="text-muted">Durham: Pickering, Ajax</p></div><figcaption>A heading and space. That is a section.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="card"><p class="card__title">Areas served</p><p class="text-muted">City of Toronto: Scarborough</p></div><div class="card"><p class="card__title">Occasions</p><p class="text-muted">Weddings</p></div></div><figcaption>Don't box every section of a page; it turns a calm page into a dashboard.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="contact-card"><strong>Your details, visible to Pelau House in this enquiry</strong><span>marcia.t@example.com</span><span>+1 647 555 0187</span></div></div><figcaption>Contact cards are left-aligned blocks, even inside a centred system message.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><p class="private-note">Private</p></div><figcaption>Don't write a privacy line without the audience or the icon.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Card surface</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Card, contact card, certificate edge</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Hover edge</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Selected edge</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Well, closed note</td><td><code>--color-bg-surface-sunken</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-sunken" data-swatch></i><span data-token="--color-bg-surface-sunken"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-sunken" data-swatch></i><span data-token="--color-bg-surface-sunken"></span></span></td></tr>
+          <tr><td>Closed note, private note text</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Certificate labels</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Radius card / well / contact card</td><td><code>--radius-lg</code> <code>--radius-md</code></td><td colspan="2"><span data-token="--radius-lg"></span> / <span data-token="--radius-md"></span></td></tr>
+          <tr><td>Padding card / well / panel</td><td><code>--space-6</code> <code>--space-4</code> <code>--space-8</code></td><td colspan="2"><span data-token="--space-6"></span> / <span data-token="--space-4"></span> / <span data-token="--space-8"></span></td></tr>
+          <tr><td>Hover shadow</td><td><code>--shadow-2</code></td><td colspan="2"><span data-token="--shadow-2"></span></td></tr>
+          <tr><td>Transition</td><td><code>--duration-fast</code> <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-fast"></span> / <span data-token="--ease-standard"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="card"&gt;
+  &lt;div class="card__header"&gt;&lt;h3 class="card__title"&gt;Name change&lt;/h3&gt;&lt;span class="status status--pending"&gt;Pending&lt;/span&gt;&lt;/div&gt;
+  &lt;p&gt;Pelau House → Pelau House by Kendra&lt;/p&gt;
+  &lt;div class="card__footer"&gt;&lt;button class="btn btn--sm" type="button"&gt;Request changes&lt;/button&gt;&lt;button class="btn btn--primary btn--sm" type="button"&gt;Approve&lt;/button&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;li class="message message--system"&gt;
+  &lt;div class="contact-card"&gt;&lt;strong&gt;Pelau House&lt;/strong&gt;&lt;span&gt;hello@pelauhouse.example&lt;/span&gt;&lt;span&gt;+1 416 555 0142&lt;/span&gt;&lt;/div&gt;
+&lt;/li&gt;</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.card</code></td><td>Bordered surface, <code>--radius-lg</code>, <code>--space-6</code> padding.</td></tr>
+        <tr><td><code>.card--flush</code></td><td>No padding, clips media to the radius.</td></tr>
+        <tr><td><code>.card--interactive</code></td><td>Stretches its one link over the card; lift and shadow on hover; ring on focus-within.</td></tr>
+        <tr><td><code>.card--selected</code> / <code>aria-selected="true"</code></td><td>Pepper edge (2px with the inset shadow).</td></tr>
+        <tr><td><code>.card__header</code> <code>.card__title</code> <code>.card__footer</code></td><td>Title row, title type, divided action row.</td></tr>
+        <tr><td><code>.well</code></td><td>Sunken, borderless, <code>--radius-md</code>.</td></tr>
+        <tr><td><code>.closed-note</code></td><td>Centred sunken note at the end of a thread.</td></tr>
+        <tr><td><code>.contact-card</code></td><td>Bordered grid of shared contact details.</td></tr>
+        <tr><td><code>.private-note</code></td><td>Muted line with a leading 16px icon.</td></tr>
+        <tr><td><code>data-state="hover|focus|selected"</code></td><td>Documentation and mocks only.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/caterer/default.html">pages/caterer/default</a> (enquiry panel)</li>
+        <li><a href="../../mocks/pages/admin-caterer/default.html">pages/admin-caterer/default</a> (certificate)</li>
+        <li><a href="../../mocks/dialogs/review-response/default.html">dialogs/review-response/default</a>, <a href="../../mocks/pages/admin-report/default.html">pages/admin-report/default</a> and <a href="../../mocks/pages/sign-in/challenge.html">pages/sign-in/challenge</a> (wells)</li>
+        <li><a href="../../mocks/pages/thread/closed.html">pages/thread/closed</a> and <a href="../../mocks/pages/thread/open.html">pages/thread/open</a> (closed notes)</li>
+        <li><a href="../../mocks/pages/thread/shared.html">pages/thread/shared</a> (contact cards)</li>
+        <li><a href="../../mocks/pages/profile-certificate/default.html">pages/profile-certificate/default</a> (private note)</li>
+      </ul>
+      <p>Drift fixed during extraction: <code>.card</code> and its modifiers appear in no mock (they come from the base kit); the page says so. Contact cards carried an inline <code>text-align: left</code> inside centred system messages in all 5 mocks; <code>.message--system .contact-card { text-align: left; }</code> is proposed. Wells on <code>figure</code> carried a redundant inline <code>margin: 0</code> (5 dialogs), and private notes carried inline top margins; spacing belongs to the parent stack. "This enquiry is closed" had no full stop while every other closed note is a sentence; the system ends it with one.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

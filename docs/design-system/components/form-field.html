@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Form field — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand form field: .field, .field__label, .optional, .field__help, .field__counter with data-over, and the error and warning slot; spacing, states, both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Inputs</p>
+      <h1>Form field</h1>
+      <p class="ds-lead">The wrapper around every control: a visible label, the control, one message slot for an error or warning, and help with an optional character counter, in that order with 4px between parts.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.field</code></span><span class="ds-pill"><code>.field__label</code></span><span class="ds-pill"><code>.field__help</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Every <a href="text-field.html">text field</a>, <a href="textarea.html">textarea</a>, <a href="select.html">select</a> and <a href="file-upload.html">file upload</a> sits in a <code>.field</code>. The field gives the control its label and its descriptions, and keeps them in the same order on every form: the enquiry dialog, business details, the food handler certificate, the operator's reason boxes.</p>
+      <ul>
+        <li><b>Label</b> is always visible, above the control. Placeholders are hints, never labels.</li>
+        <li><b>Optional</b> is the marked case. Most Sweet Hand fields are required, so "(optional)" goes on the few that aren't, such as "Postal code (optional)" in the enquiry or "Copy of certificate (optional)".</li>
+        <li><b>Message slot</b> holds at most one message, directly under the control: an error (<code>.field__error</code>, sorrel, blocks submission) or a warning (<code>.field__warning</code>, mango, lets it through: "This caterer usually serves 20–300 guests").</li>
+        <li><b>Help</b> (<code>.field__help</code>) says what a good answer looks like: "At least 2 days from today", "Pelau House serves 20–300".</li>
+        <li><b>Counter</b> (<code>.field__counter</code>) shows "35 / 2,000" on long text and turns sorrel past the limit (<code>data-over</code>).</li>
+      </ul>
+      <p>Groups of checkboxes or radios use a <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> instead (see <a href="checkbox.html">checkbox</a> and <a href="radio-group.html">radio group</a>); a single consent checkbox sits in a <code>.field</code> without a separate label. Layout across fields (rows, sections, actions) is <a href="form-layout.html">form layout</a>; validation timing and the error summary are the <a href="../patterns/forms.html">forms pattern</a>.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="field" style="width: min(100%, 22rem);">
+            <label class="field__label" for="an-desc">Description <span class="optional">(optional)</span></label>
+            <textarea class="textarea" id="an-desc" rows="2" aria-invalid="true" aria-describedby="an-desc-error an-desc-help an-desc-count">Pholourie with tamarind sauce, for</textarea>
+            <span class="field__error" id="an-desc-error">Write at least 50 characters (35 so far)</span>
+            <span class="cluster cluster--between"><span class="field__help" id="an-desc-help">50–300 characters</span><span class="field__counter" id="an-desc-count">35 / 300</span></span>
+          </div>
+          <span class="ds-callout" style="left: 12%; top: 14%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 47%; top: 14%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 12%; top: 40%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 12%; top: 66%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 12%; top: 80%;" aria-hidden="true">5</span>
+          <span class="ds-callout" style="left: 84%; top: 80%;" aria-hidden="true">6</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Label</b><small><code>&lt;label class="field__label" for&gt;</code>; <code>--text-label</code>, <code>--color-fg-default</code>. Wraps, never truncates.</small></div></li>
+          <li><div><b>Optional marker</b><small><code>.optional</code> inside the label: "(optional)", regular weight, <code>--color-fg-subtle</code>. Part of the accessible name.</small></div></li>
+          <li><div><b>Control</b><small>Input, textarea or select, full width, 4px below the label.</small></div></li>
+          <li><div><b>Message slot</b><small>One <code>.field__error</code> or <code>.field__warning</code>, 4px below the control, before the help. Icon and words; never colour alone.</small></div></li>
+          <li><div><b>Help</b><small><code>.field__help</code>, <code>--text-body-sm</code>, <code>--color-fg-muted</code>. Stays put when an error appears.</small></div></li>
+          <li><div><b>Counter (optional)</b><small><code>.field__counter</code>, caption, <code>--color-fg-subtle</code>, end-aligned beside the help in a <code>.cluster--between</code> row. <code>data-over</code> turns it sorrel and semibold.</small></div></li>
+        </ol>
+      </div>
+      <h3>Spacing</h3>
+      <ul>
+        <li>Between the parts of one field: <code>--space-1</code> (4px), from <code>.field</code>'s <code>gap</code>. Don't add margins to the help or message; the search dialog's inline <code>margin-top</code> was drift.</li>
+        <li>Between fields in a form: <code>--space-6</code> (24px, <code>.form</code>). Between the two fields of a <code>.field-row</code>: <code>--space-4</code> (16px). The enquiry dialog tightens its stack to <code>--space-5</code> (20px).</li>
+        <li>Help beside counter: <code>--space-3</code> (12px) minimum, from <code>.cluster</code>; the counter wraps below the help rather than overlap it.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 32rem;">
+          <div class="field"><label class="field__label" for="v-name">Business name</label><input class="input" id="v-name" type="text" value="Pelau House" autocomplete="organization" aria-describedby="v-name-help"><span class="field__help" id="v-name-help">2–80 characters. A new name goes live after our team checks it.</span></div>
+          <div class="field"><label class="field__label" for="v-postal">Postal code <span class="optional">(optional)</span></label><input class="input" id="v-postal" type="text" autocomplete="postal-code" autocapitalize="characters" maxlength="7" aria-describedby="v-postal-help"><span class="field__help" id="v-postal-help">We keep only the first 3 characters</span></div>
+          <div class="field"><label class="field__label" for="v-msg">Message</label><textarea class="textarea" id="v-msg" rows="3" aria-describedby="v-msg-help v-msg-count"></textarea><span class="cluster cluster--between"><span class="field__help" id="v-msg-help">What you’d like to eat, serving style, timing</span><span class="field__counter" id="v-msg-count">0 / 2,000</span></span></div>
+        </div>
+        <div class="ds-example__caption"><span>With help · optional · with help and counter (the enquiry dialog's message).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="field"&gt;
+  &lt;label class="field__label" for="postal"&gt;Postal code &lt;span class="optional"&gt;(optional)&lt;/span&gt;&lt;/label&gt;
+  &lt;input class="input" id="postal" name="postal" type="text" autocomplete="postal-code"
+         autocapitalize="characters" aria-describedby="postal-help"&gt;
+  &lt;span class="field__help" id="postal-help"&gt;We keep only the first 3 characters&lt;/span&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>Error and warning</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 32rem;">
+          <div class="field"><label class="field__label" for="v-date">Event date</label><input class="input" id="v-date" type="date" value="2026-10-11" aria-invalid="true" aria-describedby="v-date-error v-date-help"><span class="field__error" id="v-date-error">Choose a date at least 2 days from today</span><span class="field__help" id="v-date-help">At least 2 days from today</span></div>
+          <div class="field"><label class="field__label" for="v-guests">Guests</label><input class="input" id="v-guests" type="text" inputmode="numeric" value="500" aria-describedby="v-guests-warn v-guests-help"><span class="field__warning" id="v-guests-warn">This caterer usually serves 20–300 guests</span><span class="field__help" id="v-guests-help">Pelau House serves 20–300</span></div>
+        </div>
+        <div class="ds-example__caption"><span>An error sets <code>aria-invalid</code> and blocks Send; a warning doesn't, and the caterer sees the same warning on the enquiry.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="field"&gt;
+  &lt;label class="field__label" for="date"&gt;Event date&lt;/label&gt;
+  &lt;input class="input" id="date" name="date" type="date" aria-invalid="true" aria-describedby="date-error date-help"&gt;
+  &lt;span class="field__error" id="date-error"&gt;Choose a date at least 2 days from today&lt;/span&gt;
+  &lt;span class="field__help" id="date-help"&gt;At least 2 days from today&lt;/span&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>Over the limit</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 32rem;">
+          <div class="field"><label class="field__label" for="v-reply">Your reply</label><textarea class="textarea" id="v-reply" rows="3" aria-invalid="true" aria-describedby="v-reply-error v-reply-count">Hi Kendra, yes please hold the date! A few details for the day: the hall opens at 4 p.m. and the side door on Ellesmere is the easiest for unloading…</textarea><span class="field__error" id="v-reply-error">Keep your reply under 2,000 characters. It’s 2,143 now.</span><span class="cluster cluster--between"><span class="field__help">Pelau House gets an email. Links show as plain text.</span><span class="field__counter" id="v-reply-count" data-over>2,143 / 2,000</span></span></div>
+        </div>
+        <div class="ds-example__caption"><span><code>data-over</code> on the counter replaces the inline colour the thread mock used. People may type or paste past the limit, so there is no <code>maxlength</code>; the error says how far over.</span></div>
+      </div>
+      <h3>Read-only value</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 32rem;">
+          <div class="field"><span class="field__label">Business name</span><p class="read-only-value">Auntie Bev’s Kitchen</p></div>
+        </div>
+        <div class="ds-example__caption"><span>While a profile is under review, values show as text under a plain label (<code>span.field__label</code>). Nothing to focus, nothing to edit.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>The field itself has one size: label <code>--text-label</code> (14px medium), help <code>--text-body-sm</code> (14px), counter <code>--text-caption</code> (12px). It follows its control's size (<code>.input--lg</code> on the sign-in, register and password screens) without changing its own text or spacing.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 32rem;">
+          <div class="field"><label class="field__label" for="s-email">Email</label><input class="input input--lg" id="s-email" type="email" autocomplete="email" spellcheck="false"></div>
+          <div class="field"><label class="field__label" for="s-target">Target</label><input class="input" id="s-target" type="search" placeholder="Name or ID"></div>
+        </div>
+        <div class="ds-example__caption"><span>The sign-in email (large, 52px control) and the audit log's "Target" (medium, 44px). The label and gap are the same.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>The field shows its control's state and adds the message. Focus is forced on the control with <code>data-state</code>; the rest use real attributes.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Form field states</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Focus</th><th scope="col">Invalid</th><th scope="col">Warning</th><th scope="col">Disabled</th><th scope="col">Read-only</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">With help</th>
+            <td><div class="field" style="min-width: 13rem;"><label class="field__label" for="m1a">Certificate number</label><input class="input" id="m1a" type="text" value="FH-2024-118734" aria-describedby="m1a-h"><span class="field__help" id="m1a-h">As printed on the certificate</span></div></td>
+            <td><div class="field" style="min-width: 13rem;"><label class="field__label" for="m1b">Certificate number</label><input class="input" id="m1b" type="text" value="FH-2024-118734" data-state="focus" aria-describedby="m1b-h"><span class="field__help" id="m1b-h">As printed on the certificate</span></div></td>
+            <td><div class="field" style="min-width: 13rem;"><label class="field__label" for="m1c">Certificate number</label><input class="input" id="m1c" type="text" value="" aria-invalid="true" aria-describedby="m1c-e m1c-h"><span class="field__error" id="m1c-e">Enter the certificate number</span><span class="field__help" id="m1c-h">As printed on the certificate</span></div></td>
+            <td><div class="field" style="min-width: 13rem;"><label class="field__label" for="m1d">Guests</label><input class="input" id="m1d" type="text" inputmode="numeric" value="500" aria-describedby="m1d-w m1d-h"><span class="field__warning" id="m1d-w">This caterer usually serves 20–300 guests</span><span class="field__help" id="m1d-h">Pelau House serves 20–300</span></div></td>
+            <td><div class="field" style="min-width: 13rem;"><label class="field__label" for="m1e">Certificate number</label><input class="input" id="m1e" type="text" value="FH-2024-118734" disabled aria-describedby="m1e-h"><span class="field__help" id="m1e-h">As printed on the certificate</span></div></td>
+            <td><div class="field" style="min-width: 13rem;"><label class="field__label" for="m1f">Certificate number</label><input class="input" id="m1f" type="text" value="FH-2024-118734" readonly aria-describedby="m1f-h"><span class="field__help" id="m1f-h">Locked while our team reviews it</span></div></td></tr>
+          <tr><th scope="row">With counter</th>
+            <td><div class="field" style="min-width: 13rem;"><label class="field__label" for="m2a">Reason</label><textarea class="textarea" id="m2a" rows="2" aria-describedby="m2a-c">Expired certificate</textarea><span class="field__counter" id="m2a-c">19 / 500</span></div></td>
+            <td><div class="field" style="min-width: 13rem;"><label class="field__label" for="m2b">Reason</label><textarea class="textarea" id="m2b" rows="2" data-state="focus" aria-describedby="m2b-c">Expired certificate</textarea><span class="field__counter" id="m2b-c">19 / 500</span></div></td>
+            <td><div class="field" style="min-width: 13rem;"><label class="field__label" for="m2c">Reason</label><textarea class="textarea" id="m2c" rows="2" aria-invalid="true" aria-describedby="m2c-e m2c-c"></textarea><span class="field__error" id="m2c-e">Write a reason the caterer will see</span><span class="field__counter" id="m2c-c">0 / 500</span></div></td>
+            <td><span class="ds-na">Reasons have no warning</span></td>
+            <td><div class="field" style="min-width: 13rem;"><label class="field__label" for="m2e">Reason</label><textarea class="textarea" id="m2e" rows="2" disabled aria-describedby="m2e-c">Expired certificate</textarea><span class="field__counter" id="m2e-c">19 / 500</span></div></td>
+            <td><div class="field" style="min-width: 13rem;"><label class="field__label" for="m2f">Reason</label><textarea class="textarea" id="m2f" rows="2" readonly aria-describedby="m2f-c">Expired certificate</textarea><span class="field__counter" id="m2f-c">19 / 500</span></div></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="field"><label class="field__label" for="tl-a">Price guidance <span class="optional">(optional)</span></label><input class="input" id="tl-a" type="text" value="From $18 per person" aria-describedby="tl-a-h"><span class="field__help" id="tl-a-h">Up to 60 characters, like “From $18 per person”</span></div><div class="field"><label class="field__label" for="tl-b">Guests</label><input class="input" id="tl-b" type="text" inputmode="numeric" value="fifty" aria-invalid="true" aria-describedby="tl-b-e"><span class="field__error" id="tl-b-e">Enter a whole number of guests from 1 to 5,000</span></div><div class="field"><label class="field__label" for="tl-c">Event area</label><input class="input" id="tl-c" type="text" value="Oshawa" aria-describedby="tl-c-w"><span class="field__warning" id="tl-c-w">This caterer doesn’t list Oshawa as an area they serve</span></div></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="field"><label class="field__label" for="td-a">Price guidance <span class="optional">(optional)</span></label><input class="input" id="td-a" type="text" value="From $18 per person" aria-describedby="td-a-h"><span class="field__help" id="td-a-h">Up to 60 characters, like “From $18 per person”</span></div><div class="field"><label class="field__label" for="td-b">Guests</label><input class="input" id="td-b" type="text" inputmode="numeric" value="fifty" aria-invalid="true" aria-describedby="td-b-e"><span class="field__error" id="td-b-e">Enter a whole number of guests from 1 to 5,000</span></div><div class="field"><label class="field__label" for="td-c">Event area</label><input class="input" id="td-c" type="text" value="Oshawa" aria-describedby="td-c-w"><span class="field__warning" id="td-c-w">This caterer doesn’t list Oshawa as an area they serve</span></div></div></div>
+      </div>
+      <ul>
+        <li><b>Invalid</b> appears after submit (with the error summary) or when leaving a field that was already submitted once, never while someone is still typing their first attempt. The value is kept.</li>
+        <li><b>Warning</b> appears as soon as the value is known (on change or blur) and never blocks. It is mango and uses the ringed "!", so it can't be mistaken for an error.</li>
+        <li><b>Error and warning together</b>: show only the error; the warning returns once the error is fixed.</li>
+        <li><b>Disabled</b> fields keep their help, so the reason is visible ("Locked while our team reviews it"). Prefer read-only or a read-only value when the content still matters.</li>
+        <li><b>Busy</b> (form submitting) puts controls in <code>readonly</code>, not <code>disabled</code>, so values stay readable and focus isn't lost.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>A field is always the full width of its column; forms cap at 40rem (<code>.form</code>) so lines stay readable on wide screens.</li>
+        <li>From 36rem, <code>.field-row</code> puts two short fields side by side (Event date and Guests; Event area and Postal code). Below 36rem they stack.</li>
+        <li>The help-and-counter row wraps: on a 320px phone a long help line takes the full width and the counter drops beneath it, end-aligned.</li>
+        <li>In the operator toolbar (<code>.toolbar</code>) fields are at least 10rem wide and wrap to new lines, with Apply staying at the end.</li>
+        <li>Labels, help and messages wrap; nothing truncates. Long words (email addresses in help) break with <code>overflow-wrap</code>.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The field reads semantic tokens only: <code>--color-fg-default</code> (label), <code>--color-fg-subtle</code> (optional marker, counter), <code>--color-fg-muted</code> (help), <code>--color-danger-fg</code> (error, over-limit counter) and <code>--color-warning-fg</code> (warning). The control's own tokens (<code>--field-bg</code>, <code>--field-border</code>, <code>--field-fg</code>) live on the <a href="text-field.html">text field</a>.</p>
+      <p>In dark, help becomes stone-350, errors sorrel-300 and warnings mango-300; all stay above 4.5:1 on the stone-950 page and the stone-850 dialog surface. <code>prefers-contrast: more</code> lifts muted and subtle text a step automatically.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native labelling: <code>&lt;label for&gt;</code> pointing at the control's <code>id</code>, and <code>aria-describedby</code> listing the message, then help, then counter ids. Errors set <code>aria-invalid="true"</code> on the control. Required fields use <code>required</code>; there are no asterisks. See the <a href="https://www.w3.org/WAI/tutorials/forms/">W3C forms tutorial</a> and <a href="https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html">WCAG 3.3.1</a>.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves between controls. The label, help, message and counter are not tab stops.</td></tr>
+        <tr><td>Click or tap the label</td><td>Focuses the control (a bigger target than the control alone).</td></tr>
+        <tr><td><kbd>Enter</kbd> on an error-summary link</td><td>Moves focus to this field's control, which then reads its label, error and help.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The ring sits on the control, not the field. After a failed submit, focus goes to the error summary, not the first field, so the count of problems is heard first.</p>
+      <h3>Labelling</h3>
+      <p>The label is a sibling of the control, not its parent. A <code>&lt;label class="field"&gt;</code> wrapping the help and error (279 mock fields) puts all that text into the accessible name, so "Business name" would be read as "Business name Enter a business name of 2 to 80 characters 2–80 characters…" and then again as the description. "(optional)" stays inside the label on purpose. The error's icon is CSS-generated and must not be read aloud (see Sources). A counter isn't a live region on every keystroke; a visually hidden polite status says "143 characters too many" once typing pauses past the limit.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Label on canvas</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Help on canvas</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Optional marker and counter</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Error on canvas</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Error in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Warning on canvas</span><span class="ds-pair__ratio" data-contrast="--color-warning-fg|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Help in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Messages appear without animation, so the layout shift is immediate and short. The control's border transitions over <code>--duration-fast</code>; reduced motion zeroes it.</p>
+      <h3>Touch</h3>
+      <p>The label is part of the target (tapping it focuses the control), and every control is at least 44px tall. Help and counter text are not interactive.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Labels are short nouns in sentence case, without colons: "Event date", "Guests", "Business name", "Name on the certificate".</li>
+        <li>Help gives the rule or an example, not an instruction to fill the field in: "An area like Scarborough, or a postal code like M1B 2K3".</li>
+        <li>Errors say what to do, name the limit, and repeat in the summary word for word: "Enter a whole number of guests from 1 to 5,000", "Write at least 50 characters (35 so far)". Never "Invalid input".</li>
+        <li>Warnings say what is unusual, without blame: "This caterer usually serves 20–300 guests".</li>
+        <li>Counters: "35 / 2,000" with a thin space around the slash and a thousands separator. The help states the range: "50–2,000 characters".</li>
+        <li>Help must match the real rule. The dish dialog says "Up to 60 characters" over a field that allows 80.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><label class="field__label" for="dd-a">Business name</label><input class="input" id="dd-a" type="text" aria-invalid="true" aria-describedby="dd-a-e dd-a-h"><span class="field__error" id="dd-a-e">Enter a business name of 2 to 80 characters</span><span class="field__help" id="dd-a-h">2–80 characters</span></div></div><figcaption>Label, control, error, help: the error sits next to what it is about.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><label class="field__label" for="dd-b">Business name</label><input class="input" id="dd-b" type="text" aria-invalid="true" aria-describedby="dd-b-h dd-b-e"><span class="field__help" id="dd-b-h">2–80 characters</span><span class="field__error" id="dd-b-e">Enter a business name of 2 to 80 characters</span></div></div><figcaption>Error below the help (17 mock fields) moves it away from the control and changes order from form to form.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><label class="field__label" for="dd-c">Postal code <span class="optional">(optional)</span></label><input class="input" id="dd-c" type="text" autocomplete="postal-code"></div></div><figcaption>Mark the rare optional field; required is the default.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><input class="input" id="dd-d" type="text" placeholder="Postal code" aria-label="Postal code"></div></div><figcaption>A placeholder as the only label disappears on the first keystroke.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Label</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Help</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Optional marker, counter</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Error, over-limit counter</td><td><code>--color-danger-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td></tr>
+          <tr><td>Warning</td><td><code>--color-warning-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-warning-fg" data-swatch></i><span data-token="--color-warning-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-warning-fg" data-swatch></i><span data-token="--color-warning-fg"></span></span></td></tr>
+          <tr><td>Label type</td><td><code>--text-label</code></td><td colspan="2"><span data-token="--text-label"></span></td></tr>
+          <tr><td>Help and message type</td><td><code>--text-body-sm</code></td><td colspan="2"><span data-token="--text-body-sm"></span></td></tr>
+          <tr><td>Counter type</td><td><code>--text-caption</code></td><td colspan="2"><span data-token="--text-caption"></span></td></tr>
+          <tr><td>Gap inside a field</td><td><code>--space-1</code></td><td colspan="2"><span data-token="--space-1"></span></td></tr>
+          <tr><td>Gap between fields / in a row</td><td><code>--space-6</code> / <code>--space-4</code></td><td colspan="2"><span data-token="--space-6"></span> / <span data-token="--space-4"></span></td></tr>
+          <tr><td>Over-limit weight</td><td><code>--font-weight-semibold</code></td><td colspan="2"><span data-token="--font-weight-semibold"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="field"&gt;
+  &lt;label class="field__label" for="desc"&gt;Description&lt;/label&gt;
+  &lt;textarea class="textarea" id="desc" name="description" rows="9" required
+            aria-invalid="true" aria-describedby="desc-error desc-help desc-count"&gt;…&lt;/textarea&gt;
+  &lt;span class="field__error" id="desc-error"&gt;Write at least 50 characters (35 so far)&lt;/span&gt;
+  &lt;span class="cluster cluster--between"&gt;
+    &lt;span class="field__help" id="desc-help"&gt;50–2,000 characters. Leave a blank line between paragraphs.&lt;/span&gt;
+    &lt;span class="field__counter" id="desc-count"&gt;35 / 2,000&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.field</code> (a <code>&lt;div&gt;</code>)</td><td>Column with a 4px gap.</td></tr>
+        <tr><td><code>.field__label</code></td><td>The <code>&lt;label for&gt;</code>; a <code>&lt;span&gt;</code> above a read-only value.</td></tr>
+        <tr><td><code>.optional</code></td><td>"(optional)" inside the label, subtle and regular weight.</td></tr>
+        <tr><td><code>.field__error</code> / <code>.field__warning</code></td><td>Message slot, directly under the control; icon added by CSS.</td></tr>
+        <tr><td><code>.field__help</code></td><td>Help text, muted, small.</td></tr>
+        <tr><td><code>.field__counter</code> + <code>data-over</code></td><td>Counter; sorrel and semibold past the limit.</td></tr>
+        <tr><td><code>.cluster.cluster--between</code></td><td>Puts help and counter on one wrapping row.</td></tr>
+        <tr><td><code>.read-only-value</code></td><td>A value shown as text (18px), for locked profiles.</td></tr>
+        <tr><td><code>aria-describedby</code> order</td><td>Message, help, counter.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/dialogs/enquiry/default.html">dialogs/enquiry/default</a>, <a href="../../mocks/dialogs/enquiry/invalid.html">invalid</a> and <a href="../../mocks/dialogs/enquiry/warning.html">warning</a> (help, optional, counter, errors, warnings)</li>
+        <li><a href="../../mocks/pages/profile-details/invalid.html">pages/profile-details/invalid</a> (error then help, counter)</li>
+        <li><a href="../../mocks/pages/profile-details/read-only.html">pages/profile-details/read-only</a> (read-only values)</li>
+        <li><a href="../../mocks/pages/sign-in/default.html">pages/sign-in/default</a> (<code>div.field</code> with a sibling label)</li>
+        <li><a href="../../mocks/pages/thread/invalid.html">pages/thread/invalid</a> (over-limit counter)</li>
+        <li><a href="../../mocks/dialogs/dish/default.html">dialogs/dish/default</a> (optional fields, counter)</li>
+        <li><a href="../../mocks/pages/admin-audit/default.html">pages/admin-audit/default</a> (toolbar fields)</li>
+      </ul>
+      <p>Drift fixed during extraction: 279 fields used <code>&lt;label class="field"&gt;</code> wrapping the help and error, which leaks them into the accessible name; the auth screens' <code>div.field</code> with a sibling <code>label.field__label</code> is the rule. The message came before the help in 17 fields and after it in 17; it now always goes directly under the control. The thread's over-limit counter used an inline <code>style</code> colour instead of <code>data-over</code>, on a textarea with <code>maxlength="2000"</code> holding 2,143 characters. The dish dialog's help says "Up to 60 characters" over <code>maxlength="80"</code>. The search dialog's help needed an inline <code>margin-top</code> because <code>.search-field</code> sat outside a <code>.field</code>. The read-only profile put <code>aria-labelledby</code> on a <code>&lt;p&gt;</code>, where it is not allowed; the label is now plain text above the value. The CSS error icon "⚠" was read aloud by some screen readers ("warning sign"), which contradicts the words.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

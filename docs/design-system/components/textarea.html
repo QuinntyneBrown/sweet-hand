@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Textarea — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand textarea: the .textarea in forms with a character counter, and the sticky reply box in threads; every state including over the limit, in both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Inputs</p>
+      <h1>Textarea</h1>
+      <p class="ds-lead">Room to write: a caterer's description, an enquiry message, a reply to a thread, the reason an operator gives. It shares the text field's look and adds a counter when there is a limit.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;textarea&gt;</code></span><span class="ds-pill"><code>.textarea</code></span><span class="ds-pill"><code>.reply-box</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use a textarea when the answer is a sentence or more. Size it to the answer you expect, so people can see what they've written.</p>
+      <ul>
+        <li><b>Form textarea</b> (<code>.textarea</code> in a <a href="form-field.html">form field</a>): the business description (9 rows, 50–2,000 characters), the enquiry message (5 rows), a dish description (3 rows, up to 300), a note when declining an enquiry (3 rows, up to 500), an operator's reason for suspending a caterer.</li>
+        <li><b>Reply box</b> (<code>.reply-box</code>): the bar pinned to the bottom of a thread, with a 2-row pill-cornered textarea and a primary Send button beside it. It is the only place a textarea sits next to its submit button.</li>
+      </ul>
+      <p>When a limit applies, show a <code>.field__counter</code> and let people go over: they may paste a long draft and trim it. When the answer is one line (a name, a postal code), use a <a href="text-field.html">text field</a>. Never use a textarea for structured data such as allergens or dietary tags; those are <a href="checkbox.html">checkboxes</a>.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="field" style="width: min(100%, 22rem);">
+            <label class="field__label" for="an-note">Note to Priya <span class="optional">(optional)</span></label>
+            <textarea class="textarea" id="an-note" rows="3" aria-describedby="an-note-help an-note-count">Thanks for thinking of us. We’re fully booked that weekend.</textarea>
+            <span class="cluster cluster--between"><span class="field__help" id="an-note-help">Shown to Priya in the email and the enquiry</span><span class="field__counter" id="an-note-count">58 / 500</span></span>
+          </div>
+          <span class="ds-callout" style="left: 12%; top: 46%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 80%; top: 64%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 84%; top: 82%;" aria-hidden="true">3</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Box</b><small>The text field's container: <code>--field-*</code> tokens, <code>--radius-md</code>, <code>--text-body</code>. Height from <code>rows</code>, never less than 2.5 × 44px (110px).</small></div></li>
+          <li><div><b>Resize handle</b><small>Vertical only (<code>resize: vertical</code>), so the box never breaks the layout sideways.</small></div></li>
+          <li><div><b>Counter (optional)</b><small><code>.field__counter</code> under the box, end-aligned beside the help; sorrel with <code>data-over</code>.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Form textarea</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 36rem;">
+          <div class="field"><label class="field__label" for="v-desc">Description</label><textarea class="textarea" id="v-desc" rows="6" aria-describedby="v-desc-help v-desc-count">Kendra Baptiste learned to burn sugar for pelau in her grandmother’s kitchen in Couva. Today she cooks the same one-pot pelau, curry goat and macaroni pie for weddings, christenings and big family Sundays across the east end.</textarea><span class="cluster cluster--between"><span class="field__help" id="v-desc-help">50–2,000 characters. Leave a blank line between paragraphs.</span><span class="field__counter" id="v-desc-count">225 / 2,000</span></span></div>
+          <div class="field"><label class="field__label" for="v-reason">Reason (sent to Kendra)</label><textarea class="textarea" id="v-reason" rows="3" aria-describedby="v-reason-help v-reason-count"></textarea><span class="cluster cluster--between"><span class="field__help" id="v-reason-help">Be specific: what happened and what she can do about it.</span><span class="field__counter" id="v-reason-count">0 / 1,000</span></span></div>
+        </div>
+        <div class="ds-example__caption"><span>The business description (rows sized to a real answer) and an operator's reason (3 rows).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="field"&gt;
+  &lt;label class="field__label" for="message"&gt;Message&lt;/label&gt;
+  &lt;textarea class="textarea" id="message" name="message" rows="5" required
+            aria-describedby="message-help message-count"&gt;&lt;/textarea&gt;
+  &lt;span class="cluster cluster--between"&gt;
+    &lt;span class="field__help" id="message-help"&gt;What you’d like to eat, serving style, timing&lt;/span&gt;
+    &lt;span class="field__counter" id="message-count"&gt;0 / 2,000&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>Reply box</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <form class="reply-box" action="../../mocks/pages/thread/submitting.html" novalidate>
+            <label class="reply-box__label" for="v-reply">Your reply</label>
+            <div class="reply-box__row">
+              <textarea class="textarea" id="v-reply" name="reply" rows="2" aria-describedby="v-reply-help v-reply-count"></textarea>
+              <button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button>
+            </div>
+            <span class="cluster cluster--between"><span class="field__help" id="v-reply-help">Pelau House gets an email. Links show as plain text.</span><span class="field__counter" id="v-reply-count">0 / 2,000</span></span>
+          </form>
+        </div>
+        <div class="ds-example__caption"><span>Sticky at the bottom of the thread, above the safe area. The textarea is 52px with <code>--radius-lg</code> corners; Send is the screen's one primary.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;form class="reply-box" novalidate&gt;
+  &lt;label class="reply-box__label" for="reply"&gt;Your reply&lt;/label&gt;
+  &lt;div class="reply-box__row"&gt;
+    &lt;textarea class="textarea" id="reply" name="reply" rows="2" aria-describedby="reply-help reply-count"&gt;&lt;/textarea&gt;
+    &lt;button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply"&gt;…&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;span class="cluster cluster--between"&gt;
+    &lt;span class="field__help" id="reply-help"&gt;Pelau House gets an email. Links show as plain text.&lt;/span&gt;
+    &lt;span class="field__counter" id="reply-count"&gt;0 / 2,000&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/form&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>One width (the column) and a height set by <code>rows</code> to fit the expected answer. The CSS minimum is 2.5 × <code>--control-height-md</code> (110px); the reply box lowers it to <code>--control-height-lg</code> (52px) because it grows as you type.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Use</th><th scope="col">Rows</th><th scope="col">Limit</th></tr></thead>
+        <tbody>
+          <tr><td>Reply in a thread</td><td>2, growing</td><td>2,000</td></tr>
+          <tr><td>Dish description, decline note, report details, reasons</td><td>3</td><td>300 / 500 / 1,000 / 1,000</td></tr>
+          <tr><td>Review response</td><td>4</td><td>1,000</td></tr>
+          <tr><td>Enquiry message</td><td>5</td><td>20–2,000</td></tr>
+          <tr><td>Business description</td><td>9</td><td>50–2,000</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover and focus are forced with <code>data-state</code>; the rest use the real attributes. Over the limit is an invalid textarea plus <code>data-over</code> on its counter.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Textarea states</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Invalid</th><th scope="col">Over limit</th><th scope="col">Disabled</th><th scope="col">Read-only</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Form</th>
+            <td><textarea class="textarea" rows="2" aria-label="Note, default" style="min-width: 10rem;">Fully booked that weekend</textarea></td>
+            <td><textarea class="textarea" rows="2" aria-label="Note, hover" data-state="hover" style="min-width: 10rem;">Fully booked that weekend</textarea></td>
+            <td><textarea class="textarea" rows="2" aria-label="Note, focus" data-state="focus" style="min-width: 10rem;">Fully booked that weekend</textarea></td>
+            <td><textarea class="textarea" rows="2" aria-label="Message, invalid" aria-invalid="true" style="min-width: 10rem;">Food for 120 please</textarea></td>
+            <td><div class="field" style="min-width: 10rem;"><textarea class="textarea" rows="2" aria-label="Dish description, over limit" aria-invalid="true" aria-describedby="st-over">Light, flaky dough fried golden, split and filled with…</textarea><span class="field__counter" id="st-over" data-over>312 / 300</span></div></td>
+            <td><textarea class="textarea" rows="2" aria-label="Note, disabled" disabled style="min-width: 10rem;">Fully booked that weekend</textarea></td>
+            <td><textarea class="textarea" rows="2" aria-label="Note, read-only" readonly style="min-width: 10rem;">Fully booked that weekend</textarea></td></tr>
+          <tr><th scope="row">Reply box</th>
+            <td><div class="reply-box" style="position: static; min-width: 12rem; padding: 0; border: 0;"><textarea class="textarea" rows="2" aria-label="Reply, default"></textarea></div></td>
+            <td><div class="reply-box" style="position: static; min-width: 12rem; padding: 0; border: 0;"><textarea class="textarea" rows="2" aria-label="Reply, hover" data-state="hover"></textarea></div></td>
+            <td><div class="reply-box" style="position: static; min-width: 12rem; padding: 0; border: 0;"><textarea class="textarea" rows="2" aria-label="Reply, focus" data-state="focus">Hi Kendra, yes please</textarea></div></td>
+            <td><div class="reply-box" style="position: static; min-width: 12rem; padding: 0; border: 0;"><textarea class="textarea" rows="2" aria-label="Reply, invalid" aria-invalid="true"></textarea></div></td>
+            <td><div class="reply-box" style="position: static; min-width: 12rem; padding: 0; border: 0;"><textarea class="textarea" rows="2" aria-label="Reply, over limit" aria-invalid="true" aria-describedby="st-over2">Hi Kendra, yes please hold the date! A few details…</textarea><span class="field__counter" id="st-over2" data-over>2,143 / 2,000</span></div></td>
+            <td><div class="reply-box" style="position: static; min-width: 12rem; padding: 0; border: 0;"><textarea class="textarea" rows="2" aria-label="Reply, disabled" disabled></textarea></div></td>
+            <td><div class="reply-box" style="position: static; min-width: 12rem; padding: 0; border: 0;"><textarea class="textarea" rows="2" aria-label="Reply, sending" readonly>Hi Kendra, yes please</textarea></div></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="field"><label class="field__label" for="th-l1">Your response</label><textarea class="textarea" id="th-l1" rows="3" aria-describedby="th-l1-c">Thank you, Andre. It was a joy to cook for your family.</textarea><span class="field__counter" id="th-l1-c">57 / 1,000</span></div><div class="field"><label class="field__label" for="th-l2">Your reply</label><textarea class="textarea" id="th-l2" rows="2" aria-invalid="true" aria-describedby="th-l2-e th-l2-c"></textarea><span class="field__error" id="th-l2-e">Write a reply before sending</span><span class="field__counter" id="th-l2-c">0 / 2,000</span></div></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="field"><label class="field__label" for="th-d1">Your response</label><textarea class="textarea" id="th-d1" rows="3" aria-describedby="th-d1-c">Thank you, Andre. It was a joy to cook for your family.</textarea><span class="field__counter" id="th-d1-c">57 / 1,000</span></div><div class="field"><label class="field__label" for="th-d2">Your reply</label><textarea class="textarea" id="th-d2" rows="2" aria-invalid="true" aria-describedby="th-d2-e th-d2-c"></textarea><span class="field__error" id="th-d2-e">Write a reply before sending</span><span class="field__counter" id="th-d2-c">0 / 2,000</span></div></div></div>
+      </div>
+      <ul>
+        <li><b>Over limit</b>: no <code>maxlength</code>. The counter turns sorrel at limit + 1, the textarea becomes invalid on submit, and the error says by how much: "Keep your reply under 2,000 characters. It’s 2,143 now."</li>
+        <li><b>Sending</b> (reply box): the textarea goes <code>readonly</code> and Send shows <code>aria-busy</code>. On success the box empties and the message joins the thread; on failure the text stays, with an error above.</li>
+        <li><b>Offline</b>: the reply box stays readable but Send is blocked with an explanation (mocks README, open question 17); the draft isn't lost.</li>
+        <li><b>Disabled</b> is rare: a closed enquiry hides the reply box and explains why, rather than showing a dead one.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Full width of the form column, capped by <code>.form</code> at 40rem; in dialogs, the dialog's width. Dialogs with long text (enquiry) fill the screen below 48rem, so the textarea has room above the keyboard.</li>
+        <li>The reply box is <code>position: sticky; bottom: 0</code> with <code>env(safe-area-inset-bottom)</code> padding, so it clears the iPhone home indicator. From 62rem the thread sits beside the inbox list and the box spans the thread column only.</li>
+        <li>The reply textarea grows with its content to about a third of the viewport height, then scrolls, so the thread above stays visible on a phone.</li>
+        <li>Text is 16px at every width, so focusing never zooms the page on iOS.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The textarea uses the text field's component tokens (<code>--field-bg</code>, <code>--field-border</code>, <code>--field-fg</code>) and the same state overrides. The reply box adds its own surface (<code>--color-bg-canvas</code>, a top <code>--color-border-default</code> rule) and rounds the textarea to <code>--radius-lg</code>. In dark, the box sits on the stone-950 canvas with a stone-750 rule. Re-skin by overriding the field tokens on <code>.reply-box</code>, not by restyling <code>.textarea</code>.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native <code>&lt;textarea&gt;</code> with a <code>&lt;label for&gt;</code>; <code>aria-describedby</code> lists message, help and counter. The reply box is a <code>&lt;form&gt;</code> with a visible label ("Your reply") and a submit button named "Send reply".</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves into and out of the textarea. Tab never inserts a tab character.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>New line. It never sends, in the reply box included, so a reply can't go out half-written.</td></tr>
+        <tr><td><kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>Enter</kbd> (reply box)</td><td>Sends the reply, the same as the Send button.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The flush pepper ring and pepper edge, as on the <a href="text-field.html">text field</a>; in the reply box it follows the larger radius. After sending, focus stays in the emptied textarea so a follow-up can be typed at once.</p>
+      <h3>Labelling</h3>
+      <p>Visible labels name the reader where it matters: "Note to Priya", "Reason (sent to Kendra)", "Your response". The counter is referenced from <code>aria-describedby</code>. It isn't announced on every keystroke; a polite status announces "143 characters too many" after typing pauses past the limit.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Text on field</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Edge on page</span><span class="ds-pair__ratio" data-contrast="--color-border-strong|--color-bg-canvas" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring on field</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Invalid edge on field</span><span class="ds-pair__ratio" data-contrast="--color-danger-solid|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Counter on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Over-limit counter on page</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-canvas" data-min="4.5"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Edge colour transitions over <code>--duration-fast</code>. The reply box's growth is instant, not animated. Reduced motion zeroes the transition.</p>
+      <h3>Touch</h3>
+      <p>Every textarea is at least 52px tall (reply box) or 110px (forms). The Send button beside the reply is 44px and sits 8px from the textarea, so a thumb can't hit both. The resize handle is optional on touch, because growing replaces it.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Say who will read it, in the label or help: "Shown to Priya in the email and the enquiry", "The caterer never sees who reported them", "Public on your page as “Response from Pelau House”".</li>
+        <li>Prompt with what's useful, not "Enter text": "What you’d like to eat, serving style, timing".</li>
+        <li>State the range in help ("50–2,000 characters") and the count as "225 / 2,000".</li>
+        <li>No placeholder text in textareas; it reads as content already written.</li>
+        <li>Links typed into replies show as plain text, and the help says so.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><label class="field__label" for="dd-1">Reason (sent to Kendra)</label><textarea class="textarea" id="dd-1" rows="2" aria-describedby="dd-1-c"></textarea><span class="field__counter" id="dd-1-c">0 / 1,000</span></div></div><figcaption>A limit comes with a visible counter.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><label class="field__label" for="dd-2">Reason (sent to Kendra)</label><textarea class="textarea" id="dd-2" rows="2" maxlength="1000"></textarea></div></div><figcaption>A hidden <code>maxlength</code> (the suspend dialog) silently cuts a pasted reason at 1,000 characters.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><label class="field__label" for="dd-3">Details <span class="optional">(optional)</span></label><textarea class="textarea" id="dd-3" rows="2" aria-describedby="dd-3-c"></textarea><span class="field__counter" id="dd-3-c">0 / 1,000</span></div></div><figcaption>The counter has an id and is in <code>aria-describedby</code>.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="field"><label class="field__label" for="dd-4">Details <span class="optional">(optional)</span></label><textarea class="textarea" id="dd-4" rows="2"></textarea><span class="field__counter">0 / 1,000</span></div></div><figcaption>The report dialog's counter has no id, so screen readers never hear the limit.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Fill</td><td><code>--field-bg</code> → <code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Edge</td><td><code>--field-border</code> → <code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Text</td><td><code>--field-fg</code> → <code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Invalid edge, over-limit counter</td><td><code>--color-danger-solid</code> / <code>--color-danger-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-solid" data-swatch></i><span data-token="--color-danger-solid"></span></span></td></tr>
+          <tr><td>Reply box surface</td><td><code>--color-bg-canvas</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-canvas" data-swatch></i><span data-token="--color-bg-canvas"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-canvas" data-swatch></i><span data-token="--color-bg-canvas"></span></span></td></tr>
+          <tr><td>Reply box rule</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Minimum height form / reply</td><td>2.5 × <code>--control-height-md</code> / <code>--control-height-lg</code></td><td colspan="2"><span data-token="--control-height-md"></span> × 2.5 / <span data-token="--control-height-lg"></span></td></tr>
+          <tr><td>Radius form / reply</td><td><code>--radius-md</code> / <code>--radius-lg</code></td><td colspan="2"><span data-token="--radius-md"></span> / <span data-token="--radius-lg"></span></td></tr>
+          <tr><td>Reply box padding and gap</td><td><code>--space-4</code>, <code>--space-2</code></td><td colspan="2"><span data-token="--space-4"></span> · <span data-token="--space-2"></span></td></tr>
+          <tr><td>Text</td><td><code>--text-body</code></td><td colspan="2"><span data-token="--text-body"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;textarea class="textarea" id="note" name="note" rows="3" aria-describedby="note-help note-count"&gt;&lt;/textarea&gt;
+&lt;span class="field__counter" id="note-count" data-over&gt;512 / 500&lt;/span&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.textarea</code></td><td>Field look, 110px minimum, vertical resize.</td></tr>
+        <tr><td><code>rows</code></td><td>Initial height; size it to the expected answer.</td></tr>
+        <tr><td><code>.reply-box</code>, <code>__label</code>, <code>__row</code></td><td>Sticky reply bar; textarea and Send side by side.</td></tr>
+        <tr><td><code>.field__counter[data-over]</code></td><td>Over-limit counter.</td></tr>
+        <tr><td><code>aria-invalid</code>, <code>readonly</code>, <code>disabled</code></td><td>As on the text field.</td></tr>
+        <tr><td><code>data-state="hover|focus|invalid|disabled"</code></td><td>Documentation and mocks only.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/thread/default.html">pages/thread/default</a>, <a href="../../mocks/pages/thread/invalid.html">invalid</a> and <a href="../../mocks/pages/thread/submitting.html">submitting</a> (reply box: empty, over the limit, sending)</li>
+        <li><a href="../../mocks/pages/profile-details/default.html">pages/profile-details/default</a> (business description, 9 rows)</li>
+        <li><a href="../../mocks/dialogs/enquiry/default.html">dialogs/enquiry/default</a> (message with counter)</li>
+        <li><a href="../../mocks/dialogs/decline-enquiry/default.html">dialogs/decline-enquiry/default</a> (optional note, 500)</li>
+        <li><a href="../../mocks/dialogs/suspend-caterer/default.html">dialogs/suspend-caterer/default</a> (reason with hidden <code>maxlength</code>)</li>
+        <li><a href="../../mocks/dialogs/report/default.html">dialogs/report/default</a> (counter without an id)</li>
+        <li><a href="../../mocks/dialogs/review-response/default.html">dialogs/review-response/default</a> (public response, 1,000)</li>
+      </ul>
+      <p>Drift fixed during extraction: limits were enforced three ways: a visible counter with no <code>maxlength</code> (decline note), a counter plus <code>maxlength</code> (enquiry, review response, thread, where 2,143 characters sat in a 2,000 <code>maxlength</code> box), and <code>maxlength</code> with no counter (suspend reason). The rule is a counter, no <code>maxlength</code>, and validation on submit. The report dialog's counter was not referenced by <code>aria-describedby</code>. The thread's over-limit counter used an inline colour instead of <code>data-over</code>.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

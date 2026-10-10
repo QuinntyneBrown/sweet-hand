@@ -153,7 +153,7 @@
         <ol class="ds-anatomy__list">
           <li><div><b>Panel</b><small><code>--color-bg-surface-raised</code>, 1px <code>--color-border-default</code>, <code>--radius-md</code> (<code>--radius-lg</code> for the account menu), <code>--shadow-3</code>, 4px padding, at least 12rem wide. A menu floats, so it is one of the few lifted surfaces.</small></div></li>
           <li><div><b>Section label (optional)</b><small>Uppercase overline in <code>--color-fg-subtle</code>; <code>role="presentation"</code>. Names a group or the object acted on.</small></div></li>
-          <li><div><b>Item</b><small>Icon (optional, 20px) + label, 36px tall (44px in the account menu), <code>--radius-sm</code>, <code>--text-body-sm</code>.</small></div></li>
+          <li><div><b>Item</b><small>Icon (optional, 20px) + label, 36px tall from 48rem and 44px below it (44px always in the account menu), <code>--radius-sm</code>, <code>--text-body-sm</code>.</small></div></li>
           <li><div><b>Shortcut (optional)</b><small><code>&lt;kbd&gt;</code> pushed to the end, 12px. Shown only for shortcuts that really exist.</small></div></li>
           <li><div><b>Divider</b><small>1px <code>--color-border-default</code> with 4px above and below; <code>role="separator"</code>.</small></div></li>
           <li><div><b>Danger item</b><small><code>.menu__item--danger</code>: sorrel text, sorrel tint on hover. Always last, after a divider; the ellipsis says a confirmation dialog follows.</small></div></li>
@@ -248,7 +248,7 @@
     <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
       <p>Two densities, chosen by where the menu lives, not by preference:</p>
       <ul>
-        <li><b>Compact</b> (<code>.menu</code>): 36px items (<code>--control-height-sm</code>), <code>--text-body-sm</code>, 12rem minimum width. For pointer-led operator and dashboard screens from 62rem.</li>
+        <li><b>Compact</b> (<code>.menu</code>): 36px items (<code>--control-height-sm</code>) from 48rem, <code>--text-body-sm</code>, 12rem minimum width. Below 48rem every <code>.menu__item</code> grows to 44px automatically (L2-065.1), so a dropdown opened on a phone is never compact.</li>
         <li><b>Comfortable</b> (<code>.account-menu</code>): 44px items (<code>--target-comfortable</code>), <code>--text-body</code>, <code>--radius-md</code> items, 18rem wide. For any menu a phone can open.</li>
       </ul>
       <div class="ds-example">
@@ -256,7 +256,7 @@
           <ul class="menu menu--static" role="menu" aria-label="Compact density"><li role="none"><button class="menu__item" role="menuitem" type="button">Edit details…</button></li><li role="none"><button class="menu__item" role="menuitem" type="button" tabindex="-1">View public page</button></li></ul>
           <div class="menu menu--static" style="width: 18rem; padding: var(--space-2); border-radius: var(--radius-lg);"><ul class="account-menu__list" role="menu" aria-label="Comfortable density"><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/dashboard/default.html" style="min-height: var(--target-comfortable); font: var(--text-body); border-radius: var(--radius-md);">Dashboard</a></li><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/account/caterer.html" tabindex="-1" style="min-height: var(--target-comfortable); font: var(--text-body); border-radius: var(--radius-md);">Account</a></li></ul></div>
         </div>
-        <div class="ds-example__caption"><span>Compact · 36px items and comfortable · 44px items (the account menu's item rule, shown statically here).</span></div>
+        <div class="ds-example__caption"><span>Compact · 36px items from 48rem (44px below) and comfortable · 44px items at every width (the account menu's item rule, shown statically here).</span></div>
       </div>
     </section>
 
@@ -310,7 +310,7 @@
         <li><b>Account menu</b>: <code>position: fixed</code>, its top tied to <code>--layout-topbar-height</code> (4rem, then 5rem from 48rem, 6rem from 62rem) so it always tucks under the header. It sits at <code>--layout-margin</code> from the right, <code>min(18rem, 100vw − 2 × margin)</code> wide, so at 320px it fills the width less 16px margins.</li>
         <li><b>Below 48rem the customer header hides the avatar</b> (<code>.site-nav__extra</code>); Inbox, Account and Sign out live in the site menu sheet instead. Caterer and operator headers keep the avatar on phones, so their account menu opens at phone width with 44px items.</li>
         <li><b>Dropdown menus</b> open below and aligned to the trigger's start edge; if they would overflow the viewport they flip up or to the end edge. They are never wider than the viewport minus both margins.</li>
-        <li>Compact (36px) dropdowns are for 62rem and up. Below that, use the comfortable density, or a <a href="sheet.html">sheet</a> when a menu has more than six items.</li>
+        <li>Below 48rem compact items grow to 44px (the phone-target rule in <code>components.css</code>); from 48rem they are 36px. A menu with more than six items becomes a <a href="sheet.html">sheet</a> on phones instead.</li>
       </ul>
     </section>
 
@@ -350,7 +350,7 @@
       <h3>Motion</h3>
       <p>The panel scales from 96% and fades in over <code>--duration-fast</code> with <code>--ease-enter</code>, from the corner nearest its trigger (top left; top right for the account menu). Reduced motion zeroes the duration, so it simply appears. Closing is instant.</p>
       <h3>Touch</h3>
-      <p>Comfortable items are 44px. Compact 36px items stack without gaps and clear the 24px minimum (WCAG 2.5.8), but appear only on wide, pointer-led screens. A tap outside closes the menu without activating what was tapped.</p>
+      <p>Below 48rem every menu item is 44px tall (L2-065.1). From 48rem compact items are 36px, stacked without gaps, which clears the 24px minimum (WCAG 2.5.8). Account-menu items are 44px at every width. A tap outside closes the menu without activating what was tapped.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>

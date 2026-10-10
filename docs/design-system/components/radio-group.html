@@ -288,7 +288,7 @@
         <li>Vertical groups and cards are the same at every breakpoint; labels wrap under themselves, never under the circle.</li>
         <li>Horizontal groups are a wrapping <code>.cluster</code>: at 320px "Take action" drops under "Dismiss" instead of squeezing.</li>
         <li>Inside the enquiry, report and breach dialogs (full screen below 36rem) groups keep the dialog's padding; cards stretch to the full body width.</li>
-        <li>Phones: like the checkbox, a plain <code>.choice</code> row is about 32px tall; the pending phone rule raises it to 44px (<code>--target-comfortable</code>) for L2-065. Cards already exceed it (16px padding on each side).</li>
+        <li>Below 48rem a plain <code>.choice</code> row grows to 44px (<code>--target-comfortable</code>) for L2-065.1; from 48rem it returns to its compact 32px height. Cards are taller than 44px at every width (16px padding on each side).</li>
       </ul>
     </section>
 

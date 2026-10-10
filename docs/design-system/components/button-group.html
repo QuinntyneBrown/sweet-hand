@@ -185,7 +185,7 @@
           <div class="btn-group" role="group" aria-label="Show by"><button class="btn" type="button" aria-pressed="false">Day</button><button class="btn" type="button" aria-pressed="true">Week</button><button class="btn" type="button" aria-pressed="false">Month</button></div>
           <div class="btn-group" role="group" aria-label="Period"><button class="btn btn--sm" type="button" aria-pressed="true">30 days</button><button class="btn btn--sm" type="button" aria-pressed="false">90 days</button></div>
         </div>
-        <div class="ds-example__caption"><span>Three segments at 44px; two compact segments at 36px for a dense operator toolbar.</span></div>
+        <div class="ds-example__caption"><span>Three segments at 44px; two compact segments, 36px from 48rem (44px on phones), for a dense operator toolbar.</span></div>
         <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="btn-group" role="group" aria-label="Show by"&gt;
   &lt;button class="btn" type="button" aria-pressed="false"&gt;Day&lt;/button&gt;
   &lt;button class="btn" type="button" aria-pressed="true"&gt;Week&lt;/button&gt;
@@ -202,13 +202,13 @@
     </section>
 
     <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
-      <p>The segmented filter has one size: body text in 44px rows. The button group takes its segments' size: medium (44px) by default, small (36px, <code>.btn--sm</code> on every segment) only in a desktop operator toolbar. Never mix sizes within a group.</p>
+      <p>The segmented filter has one size: body text in 44px rows. The button group takes its segments' size: medium (44px) by default, small (36px, <code>.btn--sm</code> on every segment) only in a desktop operator toolbar. Below 48rem small segments grow back to 44px (L2-065.1), so a compact group is never compact on a phone. Never mix sizes within a group.</p>
       <div class="ds-example">
         <div class="ds-example__canvas">
           <div class="btn-group" role="group" aria-label="Show by, small"><button class="btn btn--sm" type="button" aria-pressed="false">Day</button><button class="btn btn--sm" type="button" aria-pressed="true">Week</button><button class="btn btn--sm" type="button" aria-pressed="false">Month</button></div>
           <div class="btn-group" role="group" aria-label="Show by, medium"><button class="btn" type="button" aria-pressed="false">Day</button><button class="btn" type="button" aria-pressed="true">Week</button><button class="btn" type="button" aria-pressed="false">Month</button></div>
         </div>
-        <div class="ds-example__caption"><span>Small · 36px (<code>--control-height-sm</code>) and medium · 44px (<code>--control-height-md</code>).</span></div>
+        <div class="ds-example__caption"><span>Small · 36px from 48rem (<code>--control-height-sm</code>; 44px below) and medium · 44px (<code>--control-height-md</code>).</span></div>
       </div>
     </section>
 
@@ -294,7 +294,7 @@
       <h3>Motion</h3>
       <p>Colour transitions over <code>--duration-fast</code>; group segments nudge 1px when pressed. Reduced motion zeroes both.</p>
       <h3>Touch</h3>
-      <p>Every segmented item is at least 44px tall and as wide as its words, with 20px between items. Group segments are 44px (36px only in desktop toolbars), with no gap but no overlap of targets.</p>
+      <p>Every segmented item is at least 44px tall and as wide as its words, with 20px between items. Group segments are 44px; small segments are 36px only from 48rem and grow to 44px below it. There is no gap between segments, but targets don't overlap.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>

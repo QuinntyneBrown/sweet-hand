@@ -120,7 +120,7 @@
       <p class="ds-kicker">Pattern</p>
       <h1>Feedback and loading</h1>
       <p class="ds-lead">Every action gets an answer in proportion to it: a quiet line for a saved field, a toast for a sent reply, a confirmation inside the dialog for a sent enquiry. Waiting shows the shape of what is coming, and nothing flashes for waits under 300 ms.</p>
-      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.save-status</code> · <code>.toast</code> · <code>.skeleton</code> · <code>.progress</code></span></div>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.save-status</code></span><span class="ds-pill"><code>.toast</code></span><span class="ds-pill"><code>.skeleton</code></span><span class="ds-pill"><code>.progress</code></span></div>
       <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#when">When to use which feedback</a></li><li><a href="#structure">Structure</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li></ul>
     </header>
 
@@ -147,7 +147,7 @@
           <tr><td>An operator decision that affects someone else</td><td>Toast with a follow-up link, no Undo (reversed by another decision)</td><td>"Auntie Bev’s Kitchen is published · View page"</td></tr>
           <tr><td>A field or form problem</td><td>Inline <code>.field__error</code> and the <code>.form-summary</code> (see <a href="forms.html">Forms</a>)</td><td>"Fix 4 things to send your enquiry"</td></tr>
           <tr><td>A request failed inside a dialog</td><td>Danger alert at the top of the dialog body, values kept, primary becomes "Try again"</td><td>"Your enquiry wasn’t sent… Everything you typed is still here. Reference 7F3K-92QD."</td></tr>
-          <tr><td>A background job failed (upload, send)</td><td>Danger toast with Retry, never auto-dismissed; the item shows its failed state too</td><td>"Upload failed · IMG_2077.heic didn’t upload. Check your connection and try again. · Retry"</td></tr>
+          <tr><td>A background job failed (upload, send)</td><td>Danger toast with Try again, never auto-dismissed; the item shows its failed state too</td><td>"Upload failed · IMG_2077.heic didn’t upload. Check your connection and try again. · Try again"</td></tr>
           <tr><td>A page or region could not load</td><td>Error empty state in that region, with Try again and a reference</td><td>"We couldn’t load your enquiries · Your messages are safe."</td></tr>
           <tr><td>Connection lost</td><td>Warning banner at the top, cached content, network actions disabled with a reason</td><td>"You’re offline · Showing your inbox as of 9:45 a.m. Replies can’t be sent until you reconnect."</td></tr>
         </tbody>
@@ -276,8 +276,8 @@
       <p>Status lines (<code>.save-status</code>, <code>.result-count</code>) are <code>role="status"</code> polite live regions present on load, so changes are announced without moving focus (WCAG 4.1.3). Loading regions carry <code>aria-busy="true"</code> and a visually hidden "Loading your enquiries"; skeleton shapes are <code>aria-hidden="true"</code>. Uploads use <code>role="progressbar"</code> with <code>aria-valuenow</code> and a name per file. Errors that block an action use <code>role="alert"</code>.</p>
       <h3>Keyboard</h3>
       <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
-        <tr><td><kbd>Tab</kbd></td><td>Reaches toast actions (Undo, Retry) in the toast region at the end of the page; focusing a toast pauses its timer.</td></tr>
-        <tr><td><kbd>Enter</kbd> / <kbd>Space</kbd></td><td>Activates Undo, Retry, Try again, Cancel upload.</td></tr>
+        <tr><td><kbd>Tab</kbd></td><td>Reaches toast actions (Undo, Try again) in the toast region at the end of the page; focusing a toast pauses its timer.</td></tr>
+        <tr><td><kbd>Enter</kbd> / <kbd>Space</kbd></td><td>Activates Undo, Try again, Cancel upload.</td></tr>
       </tbody></table>
       <h3>Focus</h3>
       <p>Feedback never steals focus, with two exceptions that follow the person's own action: a refused submit moves focus to the error summary, and a dialog's success view focuses its first action. After Try again, focus moves to the reloaded region's heading.</p>
@@ -294,12 +294,12 @@
       <h3>Motion</h3>
       <p>Under reduced motion the skeleton shimmer and the save-status pulse stop and indeterminate progress becomes a static bar; the spinner keeps turning because it reports status. Toasts appear without sliding.</p>
       <h3>Touch</h3>
-      <p>Toast actions are at least 24px tall and the dismiss reaches 44px on phones; Cancel upload is a full-size link button.</p>
+      <p>Below 48rem every compact control grows to 44px (L2-065.1): toast actions, dismiss buttons, the small Cancel upload button. Compact sizes apply only from 48rem.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
       <ul>
-        <li><b>Progress</b> uses the verb and an ellipsis: "Saving…", "Sending…", "Loading your enquiries". Never "Please wait".</li>
+        <li><b>Progress</b> is status text, not a button label: "Saving…" in the save-status line, "You · Sending…" in a pending message, a hidden "Loading your enquiries" in a busy region. Never "Please wait". (The <a href="../foundations/content.html#library">microcopy library</a> keeps "Saving… · Saved" as the one label that ends in an ellipsis.)</li>
         <li><b>Success</b> names the thing and the consequence: "Photo added · “Doubles with tamarind and cucumber chutney” is now on your page." Time-sensitive claims are honest: "live on your page within a minute".</li>
         <li><b>Failure</b> says what happened, what was kept, and what to do: "Your reply wasn’t sent · Check your connection, then try again. Your message is still in the box."</li>
         <li><b>Slow</b> work is explained, not hidden: "Still processing · IMG_2077.heic is taking longer than usual. It will appear on your page by itself when it’s ready."</li>

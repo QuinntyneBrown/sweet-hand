@@ -144,8 +144,8 @@
         </figure>
         <ol class="ds-anatomy__list">
           <li><div><b>Label</b><small>The filter value exactly as in the filter list: "Scarborough", "Trinidadian &amp; Tobagonian". <code>--text-label</code>.</small></div></li>
-          <li><div><b>Remove button (filter chips)</b><small><code>.remove</code>: a 24px circular button with a 16px close icon, named "Remove Scarborough filter".</small></div></li>
-          <li><div><b>Container</b><small>Pill, 36px tall (<code>--control-height-sm</code>), 1px border: <code>--color-border-strong</code> at rest, <code>--color-accent</code> when selected.</small></div></li>
+          <li><div><b>Remove button (filter chips)</b><small><code>.remove</code>: a circular button with a 16px close icon, named "Remove Scarborough filter". 44px below 48rem, 24px from 48rem.</small></div></li>
+          <li><div><b>Container</b><small>Pill, 44px tall on phones and tablets below 48rem, 36px (<code>--control-height-sm</code>) from 48rem; 1px border: <code>--color-border-strong</code> at rest, <code>--color-accent</code> when selected.</small></div></li>
         </ol>
       </div>
     </section>
@@ -192,13 +192,20 @@
       </div>
     </section>
 
-    <section class="ds-section" id="sizes" data-na="Chips have one size."><h2><a href="#sizes">Sizes</a></h2>
-      <p class="ds-na">Chips have one size: 36px (<code>--control-height-sm</code>) with <code>--space-3</code> side padding. They appear in wrapping rows with <code>--space-2</code> gaps, which keeps each one clear of its neighbours (WCAG 2.5.8). Below 48rem a 44px chip height is proposed to match the Sweet Hand phone target.</p>
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>Chips have one design size whose height depends on the viewport (L2-065.1): below 48rem every chip is at least 44px tall (<code>--target-comfortable</code>) and the remove button is 44 × 44px; from 48rem chips are compact, 36px (<code>--control-height-sm</code>), with a 24px remove button (<code>--target-min</code>). Side padding is <code>--space-3</code> at every width, and rows keep <code>--space-2</code> gaps.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <span class="chip chip--filter">Scarborough<button class="remove" type="button" aria-label="Remove Scarborough filter"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></span>
+          <button class="chip" type="button" aria-pressed="false">Halal</button>
+        </div>
+        <div class="ds-example__caption"><span>Resize the window across 48rem: below it the chip and its remove button grow to 44px; above it they return to 36px and 24px.</span></div>
+      </div>
     </section>
 
     <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
       <p>Forced here with <code>data-state</code> where there is no attribute; selected uses the real <code>aria-pressed</code>, disabled the real <code>disabled</code>.</p>
-      <div class="ds-matrix"><table>
+      <div class="ds-matrix" style="position: relative;"><table>
         <caption class="visually-hidden">Chip states by variant</caption>
         <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Active</th><th scope="col">Selected</th><th scope="col">Selected hover</th><th scope="col">Disabled</th></tr></thead>
         <tbody>
@@ -242,6 +249,7 @@
         <li>Rows wrap (<code>.active-filters</code> is a wrapping flex row with <code>--space-2</code> gaps); they never scroll sideways.</li>
         <li><b>Below md (48rem)</b> the active-filter row sits under the results heading and above the phone "Filters" trigger's results. The same chips also appear inside the filters sheet's Area group (<code>dialogs/filters/selected</code>).</li>
         <li><b>lg (62rem) and up</b> the filter list is beside the results; the chip row stays above the results so the current filters read next to the count.</li>
+        <li><b>Target size:</b> below 48rem chips grow to 44px tall and remove buttons to 44 × 44px (L2-065.1); from 48rem they are 36px and 24px, for pointer use on wider screens.</li>
         <li>A very long label ("Religious and cultural celebrations") may make a chip wider than half the phone; it stays on one line and the row wraps around it.</li>
       </ul>
     </section>
@@ -254,11 +262,11 @@
       <h3>Role and pattern</h3>
       <p>A toggle chip is a <code>&lt;button aria-pressed&gt;</code> (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/button/">APG Button, toggle</a>). An active-filter chip is a plain <code>&lt;span&gt;</code> holding a real remove <code>&lt;button&gt;</code>; the chip itself is not focusable. A link chip is an <code>&lt;a&gt;</code>. Rows of chips sit in <code>role="group"</code> with an <code>aria-label</code>.</p>
       <h3>Keyboard</h3>
-      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
         <tr><td><kbd>Tab</kbd></td><td>Toggle chips and remove buttons are each one tab stop, in reading order.</td></tr>
         <tr><td><kbd>Space</kbd>, <kbd>Enter</kbd></td><td>Toggle a chip, or remove a filter.</td></tr>
         <tr><td>After removing</td><td>Focus moves to the next chip's remove button; after the last one, to "Clear filters", or to the results heading when no filters are left.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
       <h3>Focus</h3>
       <p>The shared ring goes round the whole toggle chip, or round the small remove button on a filter chip. On the pepper tint the ring keeps 3:1 thanks to its offset onto the page.</p>
       <h3>Labelling</h3>
@@ -277,7 +285,7 @@
       <h3>Motion</h3>
       <p>Background fades over <code>--duration-fast</code>; reduced motion removes it. A removed chip disappears without an exit animation, so focus never lands on something leaving.</p>
       <h3>Touch</h3>
-      <p>Toggle chips are 36px with 8px gaps, clearing the 24px minimum. The remove button is 24px — the minimum, below the 44px Sweet Hand phone target; an enlarged hit area is proposed.</p>
+      <p>Below 48rem toggle chips are at least 44px tall and remove buttons 44 × 44px, meeting the Sweet Hand phone target (L2-065.1). From 48rem chips are 36px and remove buttons 24px, with 8px gaps, which still clears the WCAG 2.5.8 minimum for pointer users.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
@@ -311,7 +319,8 @@
           <tr><td>Selected border</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
           <tr><td>Selected label</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
           <tr><td>Selected hover, remove hover</td><td><code>--color-accent-subtle-hover</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-subtle-hover" data-swatch></i><span data-token="--color-accent-subtle-hover"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-subtle-hover" data-swatch></i><span data-token="--color-accent-subtle-hover"></span></span></td></tr>
-          <tr><td>Height / remove size</td><td><code>--control-height-sm</code>, <code>--target-min</code></td><td colspan="2"><span data-token="--control-height-sm"></span> · <span data-token="--target-min"></span></td></tr>
+          <tr><td>Height / remove size, below 48rem</td><td><code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Height / remove size, from 48rem</td><td><code>--control-height-sm</code>, <code>--target-min</code></td><td colspan="2"><span data-token="--control-height-sm"></span> · <span data-token="--target-min"></span></td></tr>
           <tr><td>Padding / gap</td><td><code>--space-3</code>, <code>--space-1</code>; row gap <code>--space-2</code></td><td colspan="2"><span data-token="--space-3"></span> · <span data-token="--space-1"></span> · <span data-token="--space-2"></span></td></tr>
           <tr><td>Label / radius</td><td><code>--text-label</code>, <code>--radius-full</code></td><td colspan="2"><span data-token="--font-size-sm"></span> · <span data-token="--radius-full"></span></td></tr>
           <tr><td>Transition</td><td><code>--duration-fast</code></td><td colspan="2"><span data-token="--duration-fast"></span></td></tr>
@@ -322,15 +331,15 @@
     <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
       <pre><code>&lt;button class="chip" type="button" aria-pressed="false"&gt;Halal&lt;/button&gt;
 &lt;span class="chip chip--filter"&gt;“Pelau”&lt;button class="remove" type="button" aria-label="Remove search “Pelau”"&gt;…&lt;/button&gt;&lt;/span&gt;</code></pre>
-      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
-        <tr><td><code>.chip</code></td><td>Outlined pill, 36px.</td></tr>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.chip</code></td><td>Outlined pill: 44px below 48rem, 36px from 48rem.</td></tr>
         <tr><td><code>aria-pressed="true"</code> / <code>aria-selected="true"</code></td><td>Selected: pepper tint, border and text.</td></tr>
         <tr><td><code>.chip--filter</code></td><td>Active filter: always selected-looking, tighter right padding, default cursor.</td></tr>
         <tr><td><code>.remove</code></td><td>Circular remove button inside a chip; requires <code>aria-label</code>.</td></tr>
         <tr><td><code>.active-filters</code></td><td>Wrapping row; give it <code>role="group"</code> and <code>aria-label</code>.</td></tr>
         <tr><td><code>disabled</code> / <code>aria-disabled="true"</code></td><td>50% opacity, not-allowed cursor.</td></tr>
         <tr><td><code>data-state="hover|focus|active|selected|disabled"</code></td><td>Documentation only.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
@@ -341,7 +350,7 @@
         <li><a href="../../mocks/dialogs/filters/selected.html">dialogs/filters/selected</a> (chip inside the filters sheet)</li>
         <li><a href="../../mocks/pages/admin-caterers/no-results.html">pages/admin-caterers/no-results</a> (search and status chips)</li>
       </ul>
-      <p>Drift fixed during extraction: remove buttons were named four ways ("Remove Jamaican filter", "Remove Scarborough", "Remove search Pelau", "Remove filter Suspended"); the system uses "Remove &lt;value&gt; filter" and "Remove search “…”". The operator chip row in <code>pages/admin-caterers/no-results</code> lacked <code>role="group"</code> and <code>aria-label</code>, and spaced itself with an inline style. Toggle chips are in the kit but no mock uses them yet. A static <code>span.chip</code> still shows a pointer cursor; a fix is proposed.</p>
+      <p>Drift fixed during extraction: remove buttons were named four ways ("Remove Jamaican filter", "Remove Scarborough", "Remove search Pelau", "Remove filter Suspended"); the system uses "Remove &lt;value&gt; filter" and "Remove search “…”". The operator chip row in <code>pages/admin-caterers/no-results</code> lacked <code>role="group"</code> and <code>aria-label</code>, and spaced itself with an inline style. Toggle chips are in the kit but no mock uses them yet. Chips and remove buttons were 36px and 24px at every width; they now grow to 44px below 48rem (L2-065.1). A static <code>span.chip</code> still shows a pointer cursor; a fix is proposed.</p>
     </section>
 
     <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>

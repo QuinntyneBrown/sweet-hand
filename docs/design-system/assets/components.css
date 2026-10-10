@@ -714,6 +714,8 @@ hr, .divider { border: 0; border-top: var(--border-width-hairline) solid var(--c
 .admin-row__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-left: auto; }
 .admin-row--skeleton .skeleton--title { width: 40%; }
 .admin-row--skeleton .skeleton--text { width: 25%; }
+.admin-row--skeleton .skeleton--rect { width: var(--space-20); height: var(--target-comfortable); }
+@media (min-width: 48rem) { .admin-row--skeleton .skeleton--rect { height: var(--control-height-sm); } }
 /* Editable rows (menu manager) */
 .edit-list { list-style: none; padding: 0; margin: 0; border-top: var(--border-width-hairline) solid var(--color-border-default); }
 .edit-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-2) var(--space-6); align-items: center; padding-block: var(--space-4); border-bottom: var(--border-width-hairline) solid var(--color-border-default); }
@@ -980,6 +982,7 @@ button.avatar:hover, button.avatar[data-state="hover"] { background: var(--color
 
 /* ---------- Alert and banner · components/alert.html ----------------------- */
 .alert { --alert-bg: var(--color-info-bg); --alert-fg: var(--color-info-fg); --alert-border: var(--color-info-border); --alert-icon: var(--color-info-icon); display: flex; gap: var(--space-3); padding: var(--space-4); border: var(--border-width-hairline) solid var(--alert-border); border-radius: var(--radius-md); background: var(--alert-bg); color: var(--alert-fg); }
+.alert--info { --alert-bg: var(--color-info-bg); --alert-fg: var(--color-info-fg); --alert-border: var(--color-info-border); --alert-icon: var(--color-info-icon); }
 .alert--success { --alert-bg: var(--color-success-bg); --alert-fg: var(--color-success-fg); --alert-border: var(--color-success-border); --alert-icon: var(--color-success-icon); }
 .alert--warning { --alert-bg: var(--color-warning-bg); --alert-fg: var(--color-warning-fg); --alert-border: var(--color-warning-border); --alert-icon: var(--color-warning-icon); }
 .alert--danger { --alert-bg: var(--color-danger-bg); --alert-fg: var(--color-danger-fg); --alert-border: var(--color-danger-border); --alert-icon: var(--color-danger-icon); }
@@ -1020,13 +1023,12 @@ button.avatar:hover, button.avatar[data-state="hover"] { background: var(--color
 
 /* ---------- Progress and meter · components/progress.html ------------------ */
 .progress { width: 100%; height: var(--space-2); border-radius: var(--radius-full); background: var(--color-bg-subtle-hover); overflow: hidden; }
-.progress__bar { height: 100%; width: var(--value, 0%); background: var(--color-accent); border-radius: inherit; transition: width var(--duration-deliberate) var(--ease-standard); }
+.progress__bar { height: 100%; width: var(--value, 0%); background: var(--color-action); border-radius: inherit; transition: width var(--duration-deliberate) var(--ease-standard); }
 .progress--indeterminate .progress__bar { width: 40%; animation: indeterminate var(--duration-loop) var(--ease-standard) infinite; }
 .progress--success .progress__bar { background: var(--color-success-solid); } .progress--danger .progress__bar { background: var(--color-danger-solid); }
 .meter { display: flex; flex-direction: column; gap: var(--space-2); }
 .meter__label { display: flex; justify-content: space-between; font: var(--text-body-sm); color: var(--color-fg-muted); }
-/* Setup meter is ink, not accent: progress is not a selection. */
-.meter .progress__bar { background: var(--color-fg-default); }
+/* Progress is ink, not pepper: progress is not a selection. */
 
 /* ---------- Spinner · components/spinner.html ------------------------------ */
 .spinner { display: inline-block; width: var(--icon-size-md); height: var(--icon-size-md); border: var(--border-width-thick) solid var(--color-border-default); border-top-color: var(--color-fg-default); border-radius: 50%; animation: spin var(--duration-loop-fast) linear infinite; flex: none; }
@@ -1045,6 +1047,7 @@ button.avatar:hover, button.avatar[data-state="hover"] { background: var(--color
 .empty__title { font: var(--text-h3); } .empty__text { color: var(--color-fg-muted); max-width: 36ch; }
 .empty__actions { display: flex; gap: var(--space-3); margin-top: var(--space-2); flex-wrap: wrap; justify-content: center; }
 .empty--compact { padding: var(--space-8) var(--space-4); }
+.empty--info .empty__icon { background: var(--color-info-bg); color: var(--color-info-icon); }
 .empty--error .empty__icon { background: var(--color-danger-bg); color: var(--color-danger-icon); }
 
 /* ---------- Error page · components/error-page.html ------------------------ */

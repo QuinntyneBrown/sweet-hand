@@ -165,7 +165,7 @@
           <li><div><b>Title</b> <small><code>.alert__title</code>: the condition in one line, label weight at <code>--font-size-md</code>.</small></div></li>
           <li><div><b>Text (optional)</b><small>One or two sentences: why it matters and what happens next.</small></div></li>
           <li><div><b>Actions (optional)</b><small><code>.alert__actions</code>: one or two links or link buttons in the alert's text colour.</small></div></li>
-          <li><div><b>Dismiss (optional)</b><small><code>.close</code>: 24px icon button, 44px in banners below 48rem. Only for messages that can safely go away.</small></div></li>
+          <li><div><b>Dismiss (optional)</b><small><code>.close</code>: 44px icon button below 48rem, 24px from 48rem (L2-065.1). Only for messages that can safely go away.</small></div></li>
         </ol>
       </div>
     </section>
@@ -245,7 +245,7 @@
     </section>
 
     <section class="ds-section" id="sizes" data-na="Alerts have one size."><h2><a href="#sizes">Sizes</a></h2>
-      <p class="ds-na">Alerts have one size. Padding, icon and type are fixed so every alert reads the same; the banner is a layout variant (full-bleed, centred), not a size. The only size change is the dismiss button, which grows from 24px to 44px in banners below 48rem (see Responsive).</p>
+      <p class="ds-na">Alerts have one size. Padding, icon and type are fixed so every alert reads the same; the banner is a layout variant (full-bleed, centred), not a size. The only size change is the dismiss button, which is 44px below 48rem and 24px from 48rem; small action buttons in <code>.alert__actions</code> likewise grow to 44px on phones (see Responsive).</p>
     </section>
 
     <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
@@ -313,8 +313,8 @@
     <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
       <ul>
         <li><b>All sizes:</b> an inline alert fills the width of its column and wraps; text never truncates. Actions wrap onto a new line under the text (<code>flex-wrap</code>).</li>
-        <li><b>Below 48rem (xs, sm):</b> banner title, text and actions stack as wrapped lines. The banner and toast dismiss buttons grow to <code>--target-comfortable</code> (44px) and pull into the corner with a negative margin so the text does not shift (L2-065.1).</li>
-        <li><b>From 48rem (md):</b> the banner body is a single centred row (<code>.banner .alert__body</code> is <code>flex-direction: row</code>) when it fits; the dismiss button is 24px with at least 24px of clear space around it.</li>
+        <li><b>Below 48rem (xs, sm):</b> banner title, text and actions stack as wrapped lines. Every compact control in an alert grows to <code>--target-comfortable</code> (44px), per L2-065.1: the dismiss button (inline and banner; the banner close also pulls into the corner with a negative margin so the text does not shift) and <code>.btn--sm</code> actions such as "Resend verification email" and "Try again".</li>
+        <li><b>From 48rem (md):</b> the banner body is a single centred row (<code>.banner .alert__body</code> is <code>flex-direction: row</code>) when it fits; compact sizes apply: the dismiss button is 24px (<code>--target-min</code>) and small actions 36px, with at least 8px between targets.</li>
         <li><b>From 62rem (lg):</b> inline alerts in the dashboard and console sit in the main column (<code>.work-main</code>), never across the side navigation; the profile banner sits above both.</li>
         <li>Banners are never sticky. They scroll away with the page, so they never cover a focused field (WCAG 2.4.11) and never stack with the <a href="sticky-cta.html">sticky enquiry bar</a>.</li>
       </ul>
@@ -368,7 +368,7 @@
       <h3>Motion</h3>
       <p>Alerts appear and disappear without animation. A banner that slid in would push the page down while someone reads; it is rendered with the page instead. The dismiss hover is a colour change only.</p>
       <h3>Touch</h3>
-      <p>Banner dismiss buttons are 44px below 48rem. Inline alerts are not dismissible, so their 24px close never appears on phones. Link actions inside an alert keep the 24px minimum height of <code>.btn--sm</code> links with at least 8px between them.</p>
+      <p>Below 48rem every target in an alert is at least 44px: the dismiss button (<code>.alert .close</code>, inline and banner) and the <code>.btn--sm</code> actions. From 48rem, with a pointer, the compact sizes return (24px dismiss, 36px small buttons), which still clear the 24px minimum (WCAG 2.5.8) with at least 8px between targets. Plain text links in <code>.alert__actions</code> sit on their own wrapped line so the whole line is easy to hit.</p>
     </section>
 
     <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
@@ -413,7 +413,7 @@
           <tr><td>Radius (inline)</td><td><code>--radius-md</code></td><td colspan="2"><span data-token="--radius-md"></span></td></tr>
           <tr><td>Icon size</td><td><code>--icon-size-md</code></td><td colspan="2"><span data-token="--icon-size-md"></span></td></tr>
           <tr><td>Title font</td><td><code>--text-label</code> at <code>--font-size-md</code></td><td colspan="2"><span data-token="--text-label"></span></td></tr>
-          <tr><td>Dismiss size (desktop / phone banner)</td><td><code>--target-min</code> / <code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-min"></span> / <span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Dismiss size (from 48rem / below 48rem)</td><td><code>--target-min</code> / <code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-min"></span> / <span data-token="--target-comfortable"></span></td></tr>
         </tbody>
       </table></div>
     </section>
@@ -435,7 +435,7 @@
       <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
         <tr><td><code>.alert</code></td><td>Base: info tone, inline layout. The mocks also write <code>.alert--info</code>; treat it as an explicit alias for the default.</td></tr>
         <tr><td><code>.alert--success</code> <code>.alert--warning</code> <code>.alert--danger</code></td><td>Tone: swaps the four <code>--alert-*</code> tokens.</td></tr>
-        <tr><td><code>.banner</code></td><td>Full-bleed page banner under the header: no radius or side borders, centred, one row from 48rem, 44px dismiss on phones.</td></tr>
+        <tr><td><code>.banner</code></td><td>Full-bleed page banner under the header: no radius or side borders, centred, one row from 48rem.</td></tr>
         <tr><td><code>.alert__body</code></td><td>Column holding title, text and actions.</td></tr>
         <tr><td><code>.alert__title</code></td><td>The condition, label weight.</td></tr>
         <tr><td><code>.alert__actions</code></td><td>Wrapping row of links or link/secondary small buttons; inherits the tone colour.</td></tr>

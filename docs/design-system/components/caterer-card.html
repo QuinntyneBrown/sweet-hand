@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Caterer card — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand caterer card and grid: anatomy, long names, failed and draft photos, occasion tiles, skeletons, hover zoom, 1 to 3 columns, both themes, accessibility and tokens.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Containers and overlays</p>
+      <h1>Caterer card</h1>
+      <p class="ds-lead">The listing's core unit: a round food photo, the business name and one quiet line, all one link. Exactly four things, nothing else: no stars, no prices, no badges.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Signature component</span><span class="ds-pill"><code>.caterer-card</code></span><span class="ds-pill"><code>.caterer-grid</code></span><span class="ds-pill"><code>.occasion-grid</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The caterer listing is a grid of these cards: 60 caterers, 24 a page, in a daily shuffled order (L2-002). Each card shows the cover photo, the business name, the primary cuisine and the primary area, and the whole card links to the caterer page (L2-004). It has no border, no background and no shadow; the photo and the white space around it are the card.</p>
+      <ul>
+        <li><b>Listing</b> (<code>.caterer-grid</code>): the public listing and its filtered and occasion views.</li>
+        <li><b>Occasion tiles</b> (<code>.occasion-grid</code>): the same card with an occasion name and a count ("Weddings · 23 caterers") on the Occasions page.</li>
+        <li><b>Preview</b>: "Your listing card" in the dashboard's preview pane, so caterers see exactly what customers see.</li>
+        <li><b>Draft</b>: on a new caterer's empty dashboard, a non-link card with the "Cover photo" placeholder.</li>
+      </ul>
+      <p>Don't use it for people (use an <a href="avatar.html">avatar</a> in a <a href="list.html">list row</a>), for the operator's caterer table (use <a href="table.html">table</a>) or for a caterer inside a dialog (use the small photo chip, <code>.dialog__caterer</code>). Never add a rating, price, "New" badge or favourite button: L2-004 forbids them, and they would turn a calm grid into a marketplace.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <a class="caterer-card" href="../../mocks/pages/caterer/default.html" style="width: 15rem;"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="Chicken pelau in a steel pot with lime and cucumber chutney" width="280" height="280"></span><span class="caterer-card__name">Pelau House</span><span class="caterer-card__meta">Trinidadian &amp; Tobagonian · Scarborough</span></a>
+          <span class="ds-callout" style="left: 28%; top: 10%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 34%; top: 72%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 18%; top: 82%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 72%; top: 6%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Cover photo</b><small>A fluid <a href="photo.html">photo</a>, at most <code>--photo-card-size</code> (280px), <code>--space-5</code> above the name. Alt is the caterer's caption.</small></div></li>
+          <li><div><b>Name</b><small><code>.caterer-card__name</code>: <code>--text-card-title</code> (20px medium), ink, clamped to two lines.</small></div></li>
+          <li><div><b>Line</b><small><code>.caterer-card__meta</code>: "primary cuisine · primary area" in <code>--text-body-sm</code>, muted.</small></div></li>
+          <li><div><b>Link</b><small>The whole card is one <code>&lt;a&gt;</code>, centred column, <code>--radius-lg</code> for the focus ring.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Listing grid</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <ul class="caterer-grid">
+            <li><a class="caterer-card" href="../../mocks/pages/caterer/default.html"><span class="photo"><img src="../../mocks/assets/img/pelau-house.jpg" alt="Chicken pelau in a steel pot with lime and cucumber chutney" width="280" height="280"></span><span class="caterer-card__name">Pelau House</span><span class="caterer-card__meta">Trinidadian &amp; Tobagonian · Scarborough</span></a></li>
+            <li><a class="caterer-card" href="../../mocks/pages/caterer/default.html"><span class="photo"><img src="../../mocks/assets/img/cou-cou.jpg" alt="Sesame chicken with sweet peppers and broccoli over brown rice" width="280" height="280"></span><span class="caterer-card__name">Cou-Cou</span><span class="caterer-card__meta">Barbadian (Bajan) · North York</span></a></li>
+            <li><a class="caterer-card" href="../../mocks/pages/caterer/default.html"><span class="photo"><img src="../../mocks/assets/img/ti-kay.jpg" alt="Shrimp arranged in a heart on a mound of tomato rice" width="280" height="280"></span><span class="caterer-card__name">Ti Kay</span><span class="caterer-card__meta">Haitian · Etobicoke</span></a></li>
+            <li><a class="caterer-card" href="../../mocks/pages/caterer/default.html"><span class="photo"><img src="../../mocks/assets/img/demerara-kitchen.jpg" alt="Fried rice with chicken, peas, carrots and egg in a serving dish" width="280" height="280" loading="lazy"></span><span class="caterer-card__name">Demerara Kitchen</span><span class="caterer-card__meta">Guyanese · Brampton</span></a></li>
+            <li><a class="caterer-card" href="../../mocks/pages/caterer/default.html"><span class="photo"><img src="../../mocks/assets/img/sugar-dumplin.jpg" alt="Sugar-dusted dumplings, one split open to show a jam centre" width="280" height="280" loading="lazy"></span><span class="caterer-card__name">Sugar Dumplin</span><span class="caterer-card__meta">Antiguan &amp; Barbudan · Vaughan</span></a></li>
+            <li><a class="caterer-card" href="../../mocks/pages/caterer/default.html"><span class="photo"><img src="../../mocks/assets/img/sorrel-and-spice.jpg" alt="Sponge-finger cake crowned with strawberries and berries" width="280" height="280" loading="lazy"></span><span class="caterer-card__name">Sorrel &amp; Spice</span><span class="caterer-card__meta">Grenadian · Downtown Toronto</span></a></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>The first six of page 1. One column on phones, two from 36rem, three from 62rem.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;ul class="caterer-grid"&gt;
+  &lt;li&gt;&lt;a class="caterer-card" href="/caterers/pelau-house"&gt;
+    &lt;span class="photo"&gt;&lt;img src="…" srcset="…" sizes="…" alt="Chicken pelau in a steel pot with lime and cucumber chutney" width="280" height="280"&gt;&lt;/span&gt;
+    &lt;span class="caterer-card__name"&gt;Pelau House&lt;/span&gt;
+    &lt;span class="caterer-card__meta"&gt;Trinidadian &amp;amp; Tobagonian · Scarborough&lt;/span&gt;
+  &lt;/a&gt;&lt;/li&gt;
+  …
+&lt;/ul&gt;</code></pre></details>
+      </div>
+      <h3>Edge cases</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <ul class="caterer-grid">
+            <li><a class="caterer-card" href="../../mocks/pages/caterer/default.html"><span class="photo"><img src="../../mocks/assets/img/roti-road.jpg" alt="Curry chicken and rice beside folded roti" width="280" height="280"></span><span class="caterer-card__name">The Original Auntie Philomena's Roti, Doubles &amp; Pholourie Kitchen</span><span class="caterer-card__meta">Trinidadian &amp; Tobagonian · Whitchurch-Stouffville</span></a></li>
+            <li><a class="caterer-card" href="../../mocks/pages/caterer/default.html"><span class="photo photo--failed"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg><span class="photo__label">Photo unavailable</span></span><span class="caterer-card__name">Salt Pond Provisions</span><span class="caterer-card__meta">Kittitian &amp; Nevisian · East Gwillimbury</span></a></li>
+            <li><div class="caterer-card"><span class="photo photo--placeholder"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg><span class="photo__label">Cover photo</span></span><span class="caterer-card__name">Auntie Bev's Kitchen</span><span class="caterer-card__meta">Jamaican · Oshawa</span></div></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>A long name clamps to two lines with an ellipsis (L2-004.4); a failed photo keeps its circle and label; a draft card on the dashboard is not a link and shows the cover placeholder.</span></div>
+      </div>
+      <h3>Occasion tiles</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <ul class="occasion-grid">
+            <li><a class="caterer-card" href="../../mocks/pages/caterers/occasion.html"><span class="photo"><img src="../../mocks/assets/img/sorrel-and-spice.jpg" alt="" width="280" height="280"></span><span class="caterer-card__name">Weddings</span><span class="caterer-card__meta">23 caterers</span></a></li>
+            <li><a class="caterer-card" href="../../mocks/pages/caterers/occasion.html"><span class="photo"><img src="../../mocks/assets/img/black-cake-co.jpg" alt="" width="280" height="280"></span><span class="caterer-card__name">Birthdays</span><span class="caterer-card__meta">41 caterers</span></a></li>
+            <li><a class="caterer-card" href="../../mocks/pages/caterers/occasion.html"><span class="photo"><img src="../../mocks/assets/img/sunday-pot.jpg" alt="" width="280" height="280"></span><span class="caterer-card__name">Funerals and repasts</span><span class="caterer-card__meta">17 caterers</span></a></li>
+            <li><a class="caterer-card" href="../../mocks/pages/caterers/occasion.html"><span class="photo"><img src="../../mocks/assets/img/cook-up.jpg" alt="" width="280" height="280"></span><span class="caterer-card__name">Family gatherings</span><span class="caterer-card__meta">47 caterers</span></a></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span><code>.occasion-grid</code>: two columns on phones, three from 48rem, four from 62rem. The photo is decorative (<code>alt=""</code>) because the occasion name is the label.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="One size."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">The card has one size: its width comes from the grid column and its photo is capped at <code>--photo-card-size</code> (280px), so the photo is 280px on a 320px phone (288px column) and still 280px, with more space around it, on a 1440px screen. Type does not change with width.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover zooms the photo to 1.08 inside its circle and changes nothing else. Hover and focus are forced with <code>data-state</code>.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Caterer card states</caption>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Active</th><th scope="col">Disabled</th><th scope="col">Loading</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Caterer</th>
+            <td><a class="caterer-card" href="../../mocks/pages/caterer/default.html" style="width: 9rem;"><span class="photo"><img src="../../mocks/assets/img/island-pot.jpg" alt="Chicken fried rice with mixed vegetables" width="144" height="144"></span><span class="caterer-card__name">Island Pot</span><span class="caterer-card__meta">Jamaican · Scarborough</span></a></td>
+            <td><a class="caterer-card" href="../../mocks/pages/caterer/default.html" style="width: 9rem;" data-state="hover"><span class="photo"><img src="../../mocks/assets/img/island-pot.jpg" alt="Chicken fried rice with mixed vegetables" width="144" height="144"></span><span class="caterer-card__name">Island Pot</span><span class="caterer-card__meta">Jamaican · Scarborough</span></a></td>
+            <td><a class="caterer-card" href="../../mocks/pages/caterer/default.html" style="width: 9rem;" data-state="focus"><span class="photo"><img src="../../mocks/assets/img/island-pot.jpg" alt="Chicken fried rice with mixed vegetables" width="144" height="144"></span><span class="caterer-card__name">Island Pot</span><span class="caterer-card__meta">Jamaican · Scarborough</span></a></td>
+            <td><span class="text-subtle">Same as hover</span></td>
+            <td><span class="text-subtle">Never: unpublished caterers are not listed</span></td>
+            <td><div class="caterer-card caterer-card--skeleton" aria-hidden="true" style="width: 9rem;"><span class="photo"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></div></td></tr>
+          <tr><th scope="row">Occasion</th>
+            <td><a class="caterer-card" href="../../mocks/pages/caterers/occasion.html" style="width: 9rem;"><span class="photo"><img src="../../mocks/assets/img/sorrel-and-spice.jpg" alt="" width="144" height="144"></span><span class="caterer-card__name">Weddings</span><span class="caterer-card__meta">23 caterers</span></a></td>
+            <td><a class="caterer-card" href="../../mocks/pages/caterers/occasion.html" style="width: 9rem;" data-state="hover"><span class="photo"><img src="../../mocks/assets/img/sorrel-and-spice.jpg" alt="" width="144" height="144"></span><span class="caterer-card__name">Weddings</span><span class="caterer-card__meta">23 caterers</span></a></td>
+            <td><a class="caterer-card" href="../../mocks/pages/caterers/occasion.html" style="width: 9rem;" data-state="focus"><span class="photo"><img src="../../mocks/assets/img/sorrel-and-spice.jpg" alt="" width="144" height="144"></span><span class="caterer-card__name">Weddings</span><span class="caterer-card__meta">23 caterers</span></a></td>
+            <td><span class="text-subtle">Same as hover</span></td>
+            <td><span class="text-subtle">Never</span></td>
+            <td><div class="caterer-card caterer-card--skeleton" aria-hidden="true" style="width: 9rem;"><span class="photo"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></div></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><a class="caterer-card" href="../../mocks/pages/caterer/default.html" style="width: 12rem;"><span class="photo"><img src="../../mocks/assets/img/lakay-kitchen.jpg" alt="Shrimp on tomato rice" width="192" height="192"></span><span class="caterer-card__name">Lakay Kitchen</span><span class="caterer-card__meta">Haitian · Richmond Hill</span></a></div>
+        <div data-theme="dark"><a class="caterer-card" href="../../mocks/pages/caterer/default.html" style="width: 12rem;"><span class="photo"><img src="../../mocks/assets/img/lakay-kitchen.jpg" alt="Shrimp on tomato rice" width="192" height="192"></span><span class="caterer-card__name">Lakay Kitchen</span><span class="caterer-card__meta">Haitian · Richmond Hill</span></a></div>
+      </div>
+      <ul>
+        <li><b>Loading</b> (<code>.caterer-card--skeleton</code>): a skeleton circle and two text bars (9rem and 6rem) in the final grid, <code>aria-hidden</code>, while the count reads "Loading caterers" to screen readers. Six skeletons fill the first screen; the listing does not render 24.</li>
+        <li><b>Visited</b> is not styled: the listing is reshuffled daily, and a dimmed card would read as unavailable.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <caption class="visually-hidden">Card grid columns and gaps by breakpoint</caption>
+        <thead><tr><th scope="col">Grid</th><th scope="col">XS (base)</th><th scope="col">SM 36rem</th><th scope="col">MD 48rem</th><th scope="col">LG 62rem and XL</th></tr></thead>
+        <tbody>
+          <tr><td><code>.caterer-grid</code> columns</td><td>1</td><td>2</td><td>2</td><td>3</td></tr>
+          <tr><td>Row / column gap</td><td>48 / 24px</td><td>48 / 32px</td><td>48 / 32px</td><td>64 / 40px</td></tr>
+          <tr><td><code>.occasion-grid</code> columns</td><td>2</td><td>2</td><td>3</td><td>4</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li>L2-005.4 asks for 4 columns at XL; the design and mocks use 3 beside the filter column at 1440px. This is open question 2 in the mocks README.</li>
+        <li>L2-005.5 asks for a 4:3 photo filling at least 60% of the card; the design uses a circle, which fills well over 60% of the card's height. Open question 1.</li>
+        <li>Names wrap within the column and clamp at two lines on every width; the meta line wraps freely ("Trinidadian &amp; Tobagonian · Whitchurch-Stouffville" takes two lines on a phone).</li>
+        <li><code>sizes</code> for the photo: <code>(min-width: 62rem) 17.5rem, (min-width: 36rem) 45vw, 90vw</code>.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>No component tokens. The name is <code>--color-fg-default</code>, the line <code>--color-fg-muted</code>, the photo disc <code>--color-bg-photo</code>. There is no card surface, so dark mode only flips text colour and the placeholder disc; the food photo is untouched. Hover deliberately changes no colour.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>A list (<code>&lt;ul class="caterer-grid"&gt;</code>) of single links (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/link/">APG Link</a>), so screen readers announce "list, 24 items". Click, tap or Enter anywhere on the card goes to the caterer page (L2-004.3).</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>One stop per card, in reading order (row by row).</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Opens the caterer page.</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>The shared ring wraps the whole card, 8px out (<code>--space-2</code>) with <code>--radius-lg</code> corners, so it clears the round photo and the text.</p>
+      <h3>Labelling</h3>
+      <p>The link's name is its content in source order: the photo's caption, then the name, then the line ("Chicken pelau in a steel pot with lime and cucumber chutney, Pelau House, Trinidadian &amp; Tobagonian · Scarborough"). The two-line clamp is visual only; the full name stays in the accessible name (L2-004.4). Occasion tiles have <code>alt=""</code>, so they read "Weddings, 23 caterers".</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Name on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Cuisine and area line</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on page</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>The zoom runs over <code>--duration-slow</code> (320ms) with <code>--ease-standard</code>. Reduced motion removes the transition (L2-069.4).</p>
+      <h3>Touch</h3>
+      <p>The whole card is the target: at least 280px tall on a phone. Cards are 48px apart vertically.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>The name is exactly as the caterer registered it, ampersands and full stops included: "Pimento &amp; Thyme", "Black Cake Co.", "Auntie Merle's Table".</li>
+        <li>The line is "primary cuisine · primary area" with a middle dot and spaces. Cuisine uses the L2-007 name ("Barbadian (Bajan)"), area the L2-010 name ("Downtown Toronto").</li>
+        <li>Never "Caribbean" when the caterer chose a tradition; "Pan-Caribbean" only when it is the caterer's own choice.</li>
+        <li>Occasion tile lines are counts: "23 caterers", "1 caterer".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas" style="justify-content: center;"><a class="caterer-card" href="../../mocks/pages/caterer/default.html" style="width: 10rem;"><span class="photo"><img src="../../mocks/assets/img/auntie-merles-table.jpg" alt="Peppers, broccoli and chicken over rice on a white plate" width="160" height="160"></span><span class="caterer-card__name">Auntie Merle's Table</span><span class="caterer-card__meta">Jamaican · Markham</span></a></div><figcaption>Photo, name, cuisine, area. Nothing else.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas" style="justify-content: center;"><a class="caterer-card" href="../../mocks/pages/caterer/default.html" style="width: 10rem;"><span class="photo"><img src="../../mocks/assets/img/auntie-merles-table.jpg" alt="Peppers, broccoli and chicken over rice on a white plate" width="160" height="160"></span><span class="caterer-card__name">Auntie Merle's Table</span><span class="caterer-card__meta">4.8 · From $18 per person</span><span class="badge badge--info">New</span></a></div><figcaption>Don't add ratings, prices or badges (L2-004.2).</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas" style="justify-content: center;"><a class="caterer-card" href="../../mocks/pages/caterer/default.html" style="width: 10rem;"><span class="photo photo--failed"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg><span class="photo__label">Photo unavailable</span></span><span class="caterer-card__name">Salt Pond Provisions</span><span class="caterer-card__meta">Kittitian &amp; Nevisian · East Gwillimbury</span></a></div><figcaption>A failed photo says so and keeps the grid even.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas" style="justify-content: center;"><a class="caterer-card" href="../../mocks/pages/caterer/default.html" style="width: 10rem;"><span class="photo"><img src="../../mocks/assets/img/cook-up.jpg" alt="Food from O" width="160" height="160"></span><span class="caterer-card__name">O</span><span class="caterer-card__meta">Guyanese · York</span></a></div><figcaption>Don't fall back to "Food from …" alt text; use the caterer's caption.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Name</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Cuisine and area line</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Photo disc</td><td><code>--color-bg-photo</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-photo" data-swatch></i><span data-token="--color-bg-photo"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-photo" data-swatch></i><span data-token="--color-bg-photo"></span></span></td></tr>
+          <tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+          <tr><td>Name, line</td><td><code>--text-card-title</code> <code>--text-body-sm</code></td><td colspan="2"><span data-token="--text-card-title"></span> / <span data-token="--text-body-sm"></span></td></tr>
+          <tr><td>Photo size</td><td><code>--photo-card-size</code></td><td colspan="2"><span data-token="--photo-card-size"></span></td></tr>
+          <tr><td>Photo to name, name to line</td><td><code>--space-5</code> <code>--space-1</code></td><td colspan="2"><span data-token="--space-5"></span> / <span data-token="--space-1"></span></td></tr>
+          <tr><td>Focus offset, corner</td><td><code>--space-2</code> <code>--radius-lg</code></td><td colspan="2"><span data-token="--space-2"></span> / <span data-token="--radius-lg"></span></td></tr>
+          <tr><td>Grid gaps at LG</td><td><code>--space-16</code> <code>--space-10</code></td><td colspan="2"><span data-token="--space-16"></span> / <span data-token="--space-10"></span></td></tr>
+          <tr><td>Zoom</td><td><code>--duration-slow</code> <code>--ease-standard</code></td><td colspan="2"><span data-token="--duration-slow"></span> / <span data-token="--ease-standard"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;ul class="caterer-grid"&gt;
+  &lt;li&gt;&lt;a class="caterer-card" href="/caterers/island-pot"&gt;
+    &lt;span class="photo"&gt;&lt;img src="…" alt="Chicken fried rice with mixed vegetables" width="280" height="280" loading="lazy"&gt;&lt;/span&gt;
+    &lt;span class="caterer-card__name"&gt;Island Pot&lt;/span&gt;
+    &lt;span class="caterer-card__meta"&gt;Jamaican · Scarborough&lt;/span&gt;
+  &lt;/a&gt;&lt;/li&gt;
+  &lt;li class="caterer-card caterer-card--skeleton" aria-hidden="true"&gt;
+    &lt;span class="photo"&gt;&lt;span class="skeleton skeleton--circle"&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class="skeleton skeleton--text"&gt;&lt;/span&gt;&lt;span class="skeleton skeleton--text"&gt;&lt;/span&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.caterer-grid</code></td><td>List reset; 1 / 2 / 3 columns with large gaps.</td></tr>
+        <tr><td><code>.occasion-grid</code></td><td>2 / 3 / 4 columns for occasion tiles.</td></tr>
+        <tr><td><code>.caterer-card</code></td><td>Centred column link; zooms its photo on hover.</td></tr>
+        <tr><td><code>.caterer-card__name</code></td><td>Card title type, two-line clamp, wraps anywhere.</td></tr>
+        <tr><td><code>.caterer-card__meta</code></td><td>Small muted line.</td></tr>
+        <tr><td><code>.caterer-card--skeleton</code></td><td>Loading placeholder sized like a real card.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation and mocks only.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/caterers/default.html">pages/caterers/default</a> (24 cards, first six eager)</li>
+        <li><a href="../../mocks/pages/caterers/loading.html">pages/caterers/loading</a> (six skeletons)</li>
+        <li><a href="../../mocks/pages/caterers/edge.html">pages/caterers/edge</a> (long names, failed photos, one-letter name)</li>
+        <li><a href="../../mocks/pages/occasions/default.html">pages/occasions/default</a> and <a href="../../mocks/pages/occasions/loading.html">pages/occasions/loading</a> (occasion tiles)</li>
+        <li><a href="../../mocks/pages/dashboard/empty.html">pages/dashboard/empty</a> (draft card) and <a href="../../mocks/pages/profile-certificate/default.html">pages/profile-certificate/default</a> (preview pane)</li>
+      </ul>
+      <p>Drift fixed during extraction: the edge mock gave cards alt text like "Food from O" instead of the caption (L2-006.4); the system uses the caption. Failed photos in that mock had no label; the system shows "Photo unavailable" as on the caterer page. Open, not fixed here: 3 columns at XL versus L2-005.4's 4, and circles versus L2-005.5's 4:3.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

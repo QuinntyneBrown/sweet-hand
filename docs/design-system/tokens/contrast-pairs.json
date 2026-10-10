@@ -498,6 +498,54 @@
       "bg": "--color-action",
       "min": 4.5,
       "note": "filter count bubble, 'Cover' tag, my message bubble"
+    },
+    {
+      "fg": "--color-focus-ring",
+      "bg": "--color-info-bg",
+      "min": 3,
+      "note": "focus ring on a info alert"
+    },
+    {
+      "fg": "--color-focus-ring",
+      "bg": "--color-success-bg",
+      "min": 3,
+      "note": "focus ring on a success alert"
+    },
+    {
+      "fg": "--color-focus-ring",
+      "bg": "--color-warning-bg",
+      "min": 3,
+      "note": "focus ring on a warning alert"
+    },
+    {
+      "fg": "--color-focus-ring",
+      "bg": "--color-danger-bg",
+      "min": 3,
+      "note": "focus ring on a danger alert"
+    },
+    {
+      "fg": "--color-action",
+      "bg": "--color-bg-subtle-hover",
+      "min": 3,
+      "note": "progress fill vs track"
+    },
+    {
+      "fg": "--color-success-solid",
+      "bg": "--color-bg-subtle-hover",
+      "min": 3,
+      "note": "success progress fill vs track"
+    },
+    {
+      "fg": "--color-danger-solid",
+      "bg": "--color-bg-subtle-hover",
+      "min": 3,
+      "note": "failed progress fill vs track"
+    },
+    {
+      "fg": "--color-fg-default",
+      "bg": "--color-bg-photo",
+      "min": 3,
+      "note": "spinner arc in a photo placeholder"
     }
   ]
 }

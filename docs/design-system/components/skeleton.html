@@ -285,6 +285,7 @@
         <li>The inbox shows 4 skeleton rows on every size; from 62rem the thread column shows a large circle and one line where "Choose an enquiry to read it here" will be.</li>
         <li>Operator queue rows use <code>.queue-item--stack</code> below 36rem, and so do their skeletons, so the stacked phone layout is previewed too.</li>
         <li>Widths are percentages or <code>min(…, 100%)</code>, never fixed widths wider than a 320px screen.</li>
+        <li>A rect standing in for a small button must match the button at each size: below 48rem <code>.btn--sm</code> grows to 44px (L2-065.1), so the action rect in an admin row is <code>--target-comfortable</code> tall on phones and <code>--control-height-sm</code> from 48rem. The mocks set the 36px height inline; the composed skeleton rows should take it from CSS instead.</li>
       </ul>
     </section>
 
