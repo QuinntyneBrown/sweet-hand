@@ -4,7 +4,7 @@ import { currentUser, newId, startSession, type Store } from '../lib/store.ts';
 import type { User } from '../seed/users.ts';
 import type { AccountToken } from '../seed/account.ts';
 import { slugify } from '../seed/taxonomy.ts';
-import { endSessions } from './session.ts';
+import { endSession, endSessions } from './session.ts';
 import type { ConsentRequest, PrivacyNotice } from '../../projects/web/src/app/core/api/privacy.models.ts';
 import type { SecondFactorRequest, EmailVerified, ResendVerificationRequest, VerificationSent, PasswordResetLink, PasswordResetRequest, ResetPasswordRequest, RegisterCatererRequest, RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/web/src/app/core/api/identity.models.ts';
 
@@ -116,6 +116,9 @@ export function registerIdentity(r: Router<Store>): void {
     }
     user.failedSignIns = 0;
     user.failedSignInsAt = [];
+    // Whatever session the browser held before is replaced, never upgraded (L2-078.2).
+    endSession(ctx.store, ctx.cookies['sh_session'] ?? '');
+    delete ctx.store.account.pendingSecondFactor[ctx.cookies['sh_session'] ?? ''];
     if (user.role === 'Operator') {
       // The password alone opens nothing: the session waits for the second step (L2-056.2).
       const pending = newId().replace(/-/g, '');
