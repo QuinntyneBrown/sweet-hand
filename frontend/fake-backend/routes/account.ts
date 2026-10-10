@@ -102,6 +102,14 @@ export function registerAccount(r: Router<Store>): void {
     return { status: 204 };
   });
 
+  /** Starts an export; the link is emailed within 24 hours and works for 7 days (L2-071). */
+  r.post('/api/me/data-exports', (ctx): Reply => {
+    const me = signedIn(ctx);
+    if (isReply(me)) return me;
+    ctx.store.account.dataExports[me.user.id] ??= ctx.store.now.toISOString();
+    return { status: 202, body: accountView(ctx.store, me.user) };
+  });
+
   /** The caller's own sessions only (L2-078.5). */
   r.get('/api/me/sessions', (ctx): Reply => {
     const me = signedIn(ctx);

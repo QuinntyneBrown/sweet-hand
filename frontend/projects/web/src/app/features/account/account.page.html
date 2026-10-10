@@ -91,14 +91,31 @@
       <section class="caterer-section" aria-labelledby="data-title">
         <h2 id="data-title" i18n="@@account.data">Your data</h2>
         <p class="text-muted account__lead">{{ privacyLine() }} <a routerLink="/privacy" i18n="@@account.readPrivacy">Read the privacy notice</a></p>
-        @if (isCaterer()) {
-          <p class="text-muted measure" i18n="@@account.dataTextCaterer">
-            Your account, profile, full-size photos, menu, certificate details, enquiries, messages and review responses, as a JSON file with the photos. We email you a link within 24 hours; it works for 7 days.
-          </p>
+        @if (a.dataExport; as pending) {
+          <div class="stack">
+            <sh-alert tone="success" live="polite" [banner]="false" [title]="exportRequestedTitle(pending.requestedAt)"
+              ><ng-container i18n="@@account.exportRequestedText">We’ll email a download link to {{ a.email }} within 24 hours. It works for 7 days, only when you’re signed in.</ng-container></sh-alert
+            >
+            <p>
+              <button class="btn" type="button" disabled><svg shIcon="download"></svg><ng-container i18n="@@account.exportInProgress">Export in progress</ng-container></button>
+            </p>
+          </div>
         } @else {
-          <p class="text-muted measure" i18n="@@account.dataText">
-            Your profile, consent records, enquiries, messages, reviews and the reports you sent, as a JSON file. We email you a link within 24 hours; it works for 7 days.
+          @if (isCaterer()) {
+            <p class="text-muted measure" i18n="@@account.dataTextCaterer">
+              Your account, profile, full-size photos, menu, certificate details, enquiries, messages and review responses, as a JSON file with the photos. We email you a link within 24 hours; it works for 7 days.
+            </p>
+          } @else {
+            <p class="text-muted measure" i18n="@@account.dataText">
+              Your profile, consent records, enquiries, messages, reviews and the reports you sent, as a JSON file. We email you a link within 24 hours; it works for 7 days.
+            </p>
+          }
+          <p>
+            <button #downloadButton class="btn" type="button" aria-haspopup="dialog" (click)="dialog.set('download')">
+              <svg shIcon="download"></svg><ng-container i18n="@@account.downloadData">Download my data</ng-container>
+            </button>
           </p>
+          <app-download-data-dialog [open]="dialog() === 'download'" [account]="a" [returnFocus]="downloadButton" (closed)="dialog.set(null)" (exportRequested)="exportRequested($event)" />
         }
       </section>
 

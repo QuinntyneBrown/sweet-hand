@@ -1,23 +1,24 @@
 import { ChangeDetectionStrategy, Component, Injector, afterNextRender, computed, inject, signal, viewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { Icon, List, ListItem, PrivateNote, ToastNotifier } from '@sweet-hand/components';
+import { Alert, Icon, List, ListItem, PrivateNote, ToastNotifier } from '@sweet-hand/components';
 import { AccountApi } from '../../core/api/account-api';
 import type { AccountView, ActiveSession } from '../../core/api/account.models';
-import { shortDate } from '../../core/format/format';
+import { shortDate, time, torontoToday } from '../../core/format/format';
 import { problemOf, reference } from '../../core/forms/problem';
 import { Session } from '../../core/session/session';
 import { initials, memberLine, orderSessions, sessionMeta } from './account-view';
 import { ChangePasswordDialog } from './change-password/change-password.dialog';
 import { EditDetailsDialog } from './edit-details/edit-details.dialog';
+import { DownloadDataDialog } from './download-data/download-data.dialog';
 import { EndSessionDialog } from './end-session/end-session.dialog';
 
-type AccountDialog = 'details' | 'password' | 'session' | null;
+type AccountDialog = 'details' | 'password' | 'session' | 'download' | null;
 
 /** Account settings, /account (docs/mocks/pages/account; manage-sessions, export and delete-account designs). */
 @Component({
   selector: 'app-account-page',
-  imports: [RouterLink, ChangePasswordDialog, EditDetailsDialog, EndSessionDialog, Icon, List, ListItem, PrivateNote],
+  imports: [RouterLink, Alert, ChangePasswordDialog, DownloadDataDialog, EditDetailsDialog, EndSessionDialog, Icon, List, ListItem, PrivateNote],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './account.page.html',
   styleUrl: './account.page.css',
@@ -100,6 +101,18 @@ export class AccountPage {
     const [account, sessions] = await Promise.all([firstValueFrom(this.api.account()), firstValueFrom(this.api.sessions())]).catch(() => [null, null]);
     if (account) this.account.set(account);
     if (sessions) this.sessions.set(sessions);
+  }
+
+  protected exportRequested(account: AccountView): void {
+    this.account.set(account);
+    this.dialog.set(null);
+  }
+
+  /** "Export requested today at 10:14 a.m." */
+  protected exportRequestedTitle(at: string): string {
+    return torontoToday(new Date(at)) === torontoToday()
+      ? $localize`:@@account.exportRequestedToday:Export requested today at ${time(at)}:time:`
+      : $localize`:@@account.exportRequestedOn:Export requested ${shortDate(at)}:date:`;
   }
 
   protected signOutLabel(device: string): string {
