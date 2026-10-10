@@ -1,7 +1,8 @@
 import type { APIRequestContext, BrowserContext } from '@playwright/test';
 import { cast, type CastMember } from './cast';
+import { API_URL, WEB_URL } from './ports';
 
-const CONTROL = 'http://localhost:4300/__fake';
+const CONTROL = `${API_URL}/__fake`;
 
 export interface FaultOptions {
   status?: number;
@@ -45,7 +46,7 @@ export class Backend {
 
   async signInAs(who: CastMember) {
     const { cookie } = await this.call('POST', '/sign-in', { email: cast[who].email });
-    await this.context.addCookies([{ name: 'sh_session', value: cookie, url: 'http://localhost:4200', httpOnly: true, sameSite: 'Lax' }]);
+    await this.context.addCookies([{ name: 'sh_session', value: cookie, url: WEB_URL, httpOnly: true, sameSite: 'Lax' }]);
   }
 
   /** Make requests matching `METHOD /path*` fail, stall or drop. */

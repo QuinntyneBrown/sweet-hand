@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { API_PORT, API_URL, WEB_PORT, WEB_URL } from './e2e/support/ports';
 
 /**
  * Frontend acceptance tests (ADR 0004): Chromium only, against the fake backend.
@@ -9,12 +10,12 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env['CI'],
   retries: 0,
-  workers: process.env['CI'] ? 4 : undefined,
+  workers: process.env['E2E_WORKERS'] ? Number(process.env['E2E_WORKERS']) : process.env['CI'] ? 4 : undefined,
   reporter: process.env['CI'] ? [['list'], ['html', { open: 'never' }]] : 'list',
   timeout: 30_000,
   expect: { timeout: 7_000 },
   use: {
-    baseURL: 'http://localhost:4200',
+    baseURL: WEB_URL,
     locale: 'en-CA',
     timezoneId: 'America/Toronto',
     trace: 'retain-on-failure',
@@ -27,13 +28,13 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: 'node fake-backend/server.ts',
-      url: 'http://localhost:4300/__fake/requests',
+      command: `PORT=${API_PORT} node fake-backend/server.ts`,
+      url: `${API_URL}/__fake/requests`,
       reuseExistingServer: !process.env['CI'],
     },
     {
-      command: 'npx ng serve --port 4200',
-      url: 'http://localhost:4200',
+      command: `E2E_API_PORT=${API_PORT} npx ng serve --port ${WEB_PORT}`,
+      url: WEB_URL,
       reuseExistingServer: !process.env['CI'],
       timeout: 180_000,
     },
