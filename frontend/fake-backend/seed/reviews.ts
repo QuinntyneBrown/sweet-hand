@@ -72,8 +72,26 @@ const MORE_PELAU: [string, string | undefined, number, string, string, string][]
 
 const at = (date: string) => `${date}T14:00:00.000Z`;
 
+/** Pelau House's public responses: every review but Andre C.'s has one (docs/mocks/pages/dashboard-reviews). */
+const PELAU_RESPONSES: Record<string, string> = {
+  'review-nadia-pelau': 'Noted, Nadia. Thicker callaloo next time, promise.',
+  'review-pelau-4': 'Thank you, Devon. Congratulations to your son!',
+  'review-pelau-5': 'Congratulations to you both!',
+  'review-pelau-6': 'Sorry about the traffic on the 401, Kwame. Thanks for your patience.',
+};
+
+function withResponses(reviews: Review[]): Review[] {
+  for (const r of reviews) {
+    if (r.catererId !== PELAU || r.response || r.id === 'review-andre-pelau') continue;
+    const first = r.authorName.split(' ')[0];
+    const day = new Date(new Date(r.createdAt).getTime() + 24 * 60 * 60 * 1000).toISOString();
+    r.response = { text: PELAU_RESPONSES[r.id] ?? `Thank you, ${first}. It was a pleasure to cook for you.`, createdAt: day };
+  }
+  return reviews;
+}
+
 export function seedReviews(): Review[] {
-  return [
+  return withResponses([
     {
       id: 'review-marcia-pelau',
       catererId: PELAU,
@@ -131,48 +149,5 @@ export function seedReviews(): Review[] {
       createdAt: at('2026-09-26'),
       status: 'Published',
     },
-    // Held and hidden reviews on the operator Reviews screen (docs/mocks/pages/admin-reviews).
-    {
-      id: 'review-priya-sugar-dumplin',
-      catererId: 'cat-008',
-      authorName: 'Priya Ramdial',
-      rating: 5,
-      text: 'The tamarind balls and sugar cake were gone in ten minutes. Call Ondine on 416-555-0187, she’s the best!',
-      eventDate: '2026-09-12',
-      createdAt: '2026-10-10T11:58:00.000Z',
-      status: 'Held',
-    },
-    {
-      id: 'review-andre-cou-cou',
-      catererId: 'cat-002',
-      authorName: 'Andre Clarke',
-      rating: 4,
-      text: 'Flying fish and cou-cou like in Oistins. Their photos at instagram.com/coucou.to don’t do it justice.',
-      eventDate: '2026-08-22',
-      createdAt: '2026-10-10T01:14:00.000Z',
-      status: 'Held',
-    },
-    {
-      id: 'review-devon-maracas-hidden',
-      catererId: 'cat-009',
-      authorName: 'Devon Walters',
-      rating: 1,
-      text: 'Worst bake and shark I’ve had. The guy serving was rude and clearly didn’t want to be there.',
-      eventDate: '2026-07-18',
-      createdAt: '2026-07-25T14:00:00.000Z',
-      status: 'Hidden',
-      hidden: { by: null, reports: 3, reason: '', at: '2026-10-08T20:12:00.000Z' },
-    },
-    {
-      id: 'review-kwame-island-pot',
-      catererId: 'cat-018',
-      authorName: 'Kwame Osei',
-      rating: 2,
-      text: 'Food was fine but I won’t name names, the cook’s husband was arguing on the phone the whole time.',
-      eventDate: '2026-06-20',
-      createdAt: '2026-06-27T14:00:00.000Z',
-      status: 'Hidden',
-      hidden: { by: 'user-tomas', reports: 0, reason: 'Personal details about staff', at: '2026-10-05T14:30:00.000Z' },
-    },
-  ];
+  ]);
 }

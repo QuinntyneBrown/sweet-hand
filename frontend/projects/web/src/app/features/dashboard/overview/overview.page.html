@@ -1,0 +1,104 @@
+<app-dashboard-layout current="overview" [status]="status()" [previewLabel]="previewLabel()" [previewBusy]="state().kind === 'loading'">
+  @switch (state().kind) {
+    @case ('loading') {
+      <div class="page-intro" aria-busy="true">
+        <h1>
+          <span class="visually-hidden" i18n="@@dashboard.loading">Loading your dashboard</span
+          ><span class="skeleton skeleton--text" style="width: 16rem" aria-hidden="true"></span>
+        </h1>
+        <span class="skeleton skeleton--text" style="width: 9rem" aria-hidden="true"></span>
+      </div>
+      <sh-stat-grid [busy]="true" busyLabel="Loading your numbers" i18n-busyLabel="@@dashboard.loadingNumbers" />
+      <section class="caterer-section" aria-hidden="true">
+        <div class="caterer-section__head"><span class="skeleton skeleton--title" style="width: 12rem"></span></div>
+        <sh-inbox-list label="" [busy]="true" loadingLabel="Loading your enquiries" i18n-loadingLabel="@@inbox.loading" [skeletonCount]="3" />
+      </section>
+    }
+    @case ('error') {
+      <div class="page-intro">
+        <h1>{{ business()?.name }}</h1>
+      </div>
+      <sh-empty-state
+        tone="error"
+        heading="We couldn’t load your dashboard"
+        i18n-heading="@@dashboard.errorTitle"
+        text="Your profile and enquiries are safe. This is on our side; try again in a moment."
+        i18n-text="@@dashboard.errorText"
+        [reference]="errorReference()"
+        referenceLabel="Reference"
+        i18n-referenceLabel="@@common.reference"
+      >
+        <svg slot="icon" shIcon="danger"></svg>
+        <ng-container slot="actions">
+          <button class="btn btn--primary" type="button" (click)="load()">
+            <svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container>
+          </button>
+          <a class="btn" [routerLink]="pageHref()" i18n="@@dashboard.viewPage">View your page</a>
+        </ng-container>
+      </sh-empty-state>
+    }
+    @case ('ready') {
+      @if (ready(); as r) {
+        <div class="page-intro">
+          <h1>{{ r.profile.name }}</h1>
+          <p class="cluster">
+            <sh-status [tone]="tone()" [label]="statusText()" />
+            @if (r.profile.status === 'Published') {
+              <a class="link--standalone" [routerLink]="pageHref()" i18n="@@dashboard.viewPage">View your page</a>
+            }
+          </p>
+        </div>
+
+        <sh-stat-grid>
+          <div sh-stat label="Unread enquiries" i18n-label="@@dashboard.statUnread" [value]="'' + r.inbox.unread"></div>
+          <div sh-stat label="Open enquiries" i18n-label="@@dashboard.statOpen" [value]="openCount()"></div>
+          <div
+            sh-stat
+            label="Rating"
+            i18n-label="@@dashboard.statRating"
+            [value]="rating()"
+            valueContext=" out of 5"
+            i18n-valueContext="@@rating.outOf5"
+            missingLabel="No reviews yet"
+            i18n-missingLabel="@@dashboard.noReviews"
+          ></div>
+          <div sh-stat label="Reviews" i18n-label="@@dashboard.statReviews" [value]="'' + r.reviews.total"></div>
+        </sh-stat-grid>
+
+        <section class="caterer-section" aria-labelledby="latest-title">
+          <div class="caterer-section__head">
+            <h2 id="latest-title" i18n="@@dashboard.latest">Latest enquiries</h2>
+            <a class="link--standalone" routerLink="/dashboard/enquiries"
+              ><ng-container i18n="@@dashboard.allEnquiries">All enquiries</ng-container><svg class="icon--sm" shIcon="chevron-right"></svg
+            ></a>
+          </div>
+          <sh-inbox-list [label]="listLabel()">
+            @for (row of rows(); track row.id) {
+              <sh-inbox-row
+                [href]="row.href"
+                [name]="row.name"
+                [picture]="row.picture"
+                [time]="row.time"
+                [datetime]="row.datetime"
+                [summary]="row.summary"
+                [statusTone]="row.tone"
+                [statusLabel]="row.statusLabel"
+                [unread]="row.unread"
+                unreadLabel="Unread."
+                i18n-unreadLabel="@@inbox.unread"
+              />
+            }
+          </sh-inbox-list>
+        </section>
+
+        <section class="caterer-section until-lg" aria-labelledby="profile-title">
+          <h2 id="profile-title" i18n="@@dashboard.yourProfile">Your profile</h2>
+          <sh-section-list [items]="sections()" [statusLabels]="checkLabels" />
+        </section>
+      }
+    }
+  }
+  @if (card(); as c) {
+    <app-listing-preview slot="preview" [card]="c" [href]="previewHref()" />
+  }
+</app-dashboard-layout>

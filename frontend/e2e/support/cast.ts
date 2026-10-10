@@ -7,6 +7,13 @@ export const cast = {
   kendra: { email: 'kendra@pelauhouse.example', name: 'Kendra Baptiste', initials: 'KB' },
   leah: { email: 'leah@sweethand.example', name: 'Leah Mohammed', initials: 'LM' },
   tomas: { email: 'tomas@sweethand.example', name: 'Tomas Reyes', initials: 'TR' },
+  // Caterer accounts behind the dashboard. Beverley exists once a test runs the 'beverley' scenario.
+  beverley: { email: 'beverley@auntiebevs.example', name: 'Beverley Campbell', initials: 'BC' },
+  sharon: { email: 'sharon@flyingfish.example', name: 'Sharon Best', initials: 'SB' },
+  winston: { email: 'winston@coalpot.example', name: 'Winston Daley', initials: 'WD' },
+  vishnu: { email: 'vishnu@maracasbay.example', name: 'Vishnu Ramlogan', initials: 'VR' },
+  paulette: { email: 'paulette@blackcakeco.example', name: 'Paulette Morgan', initials: 'PM' },
+  desmond: { email: 'desmond@coucou.example', name: 'Desmond Greaves', initials: 'DG' },
 } as const;
 
 export type CastMember = keyof typeof cast;

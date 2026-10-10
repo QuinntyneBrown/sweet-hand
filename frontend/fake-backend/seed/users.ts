@@ -59,6 +59,12 @@ export const seedUsers = (): User[] => [
     createdAt: '2025-01-20T15:00:00Z',
     passwordChangedAt: '2026-08-02T16:00:00Z',
   }),
+  // Caterer accounts behind the dashboard (docs/mocks/README.md, "Other caterer accounts").
+  u({ id: 'user-vishnu', role: 'Caterer', displayName: 'Vishnu Ramlogan', email: 'vishnu@maracasbay.example', phone: '+1 905 555 0171', catererId: 'cat-009', createdAt: '2025-06-02T14:00:00Z' }),
+  u({ id: 'user-paulette', role: 'Caterer', displayName: 'Paulette Morgan', email: 'paulette@blackcakeco.example', phone: '+1 905 555 0128', catererId: 'cat-005', createdAt: '2025-11-12T14:00:00Z' }),
+  u({ id: 'user-desmond', role: 'Caterer', displayName: 'Desmond Greaves', email: 'desmond@coucou.example', phone: '+1 416 555 0193', catererId: 'cat-002', createdAt: '2022-01-10T14:00:00Z' }),
+  u({ id: 'user-sharon', role: 'Caterer', displayName: 'Sharon Best', email: 'sharon@flyingfish.example', phone: '+1 905 555 0136', catererId: 'cat-024', createdAt: '2021-10-01T14:00:00Z' }),
+  u({ id: 'user-winston', role: 'Caterer', displayName: 'Winston Daley', email: 'winston@coalpot.example', phone: '+1 905 555 0157', catererId: 'cat-901', createdAt: '2026-08-05T13:00:00Z' }),
   u({ id: 'user-leah', role: 'Operator', displayName: 'Leah Mohammed', email: 'leah@sweethand.example', admin: true, secondFactor: 'authenticator app' }),
   u({ id: 'user-tomas', role: 'Operator', displayName: 'Tomas Reyes', email: 'tomas@sweethand.example', admin: false, secondFactor: 'security key' }),
 ];
