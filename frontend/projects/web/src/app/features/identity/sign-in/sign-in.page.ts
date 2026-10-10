@@ -5,8 +5,7 @@ import { firstValueFrom } from 'rxjs';
 import { Alert, Button, Checkbox, FormField, FormSummary, LabelAction, TextField, Well, type SummaryItem } from '@sweet-hand/components';
 import { BotChallenge } from '../../../core/api/bot-challenge';
 import { IdentityApi } from '../../../core/api/identity-api';
-import type { SignInLocked, SignInRequest } from '../../../core/api/identity.models';
-import { time } from '../../../core/format/format';
+import { EnquiryDraftStore } from '../../../core/enquiry/enquiry-draft-store';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { emailError, summaryHeading } from '../../../core/forms/validation';
 import { landingFor, safeReturnUrl } from '../../../core/session/guards';
@@ -33,8 +32,16 @@ export class SignInPage {
   private readonly bots = inject(BotChallenge);
   private readonly session = inject(Session);
   private readonly router = inject(Router);
+  private readonly drafts = inject(EnquiryDraftStore);
 
   readonly returnUrl = input<string>();
+
+  /** Sent here from the enquiry form: the caterer and the saved enquiry are named (docs/mocks/pages/sign-in/return.html). */
+  protected readonly returning = computed(() => this.drafts.forReturnUrl(this.returnUrl()));
+  protected readonly returnSubtitle = computed(
+    () =>
+      $localize`:@@signIn.returnSubtitle:Your enquiry to ${this.returning()?.caterer.name ?? ''}:name: is saved. Sign in, or create a free account, and we’ll take you straight back to it.`,
+  );
 
   protected readonly form = new FormGroup({
     email: new FormControl('', { nonNullable: true }),

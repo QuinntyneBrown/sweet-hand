@@ -1,8 +1,18 @@
 <div class="auth">
   <div class="auth__head">
-    <app-auth-photos [photos]="photos()" />
-    <h1 i18n="@@signIn.title">Sign in</h1>
-    @if (!expired()) {
+    @if (returning(); as r) {
+      <div class="dialog__caterer">
+        <span class="photo"><img [src]="r.caterer.photo" alt="" width="56" height="56" /></span><span class="dialog__caterer-name">{{ r.caterer.name }}</span>
+      </div>
+      <h1 i18n="@@signIn.returnTitle">Sign in to send your enquiry</h1>
+      <p class="subtitle">{{ returnSubtitle() }}</p>
+    } @else {
+      <div class="photo-row">
+        <span class="photo"><img src="/media/pelau-house.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
+        <span class="photo"><img src="/media/ti-kay.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
+        <span class="photo"><img src="/media/black-cake-co.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
+      </div>
+      <h1 i18n="@@signIn.title">Sign in</h1>
       <p class="subtitle" i18n="@@signIn.subtitle">Welcome back. Your inbox and saved enquiries are waiting.</p>
     }
   </div>
@@ -57,8 +67,11 @@
     <p class="visually-hidden" role="status">{{ busy() ? signingIn : '' }}</p>
     <p><a class="link--standalone" routerLink="/forgot-password" i18n="@@signIn.forgot">Forgot your password?</a></p>
   </form>
-  @if (expired()) {
-    <p class="auth__alt" i18n="@@signIn.altOperator">Not an operator? <a routerLink="/caterers">Browse caterers</a></p>
+  @if (returning()) {
+    <!-- Registration comes back to the enquiry too (L2-023.1). -->
+    <p class="auth__alt" i18n="@@signIn.returnAlt">
+      New to Sweet Hand? <a routerLink="/register" [queryParams]="{ returnUrl: returnUrl() }">Create an account</a>. It takes a minute and your details stay private.
+    </p>
   } @else {
     <p class="auth__alt" i18n="@@signIn.alt">New to Sweet Hand? <a class="link--standalone" routerLink="/register">Create an account</a> · Caterers: <a routerLink="/join">list your business</a></p>
   }
