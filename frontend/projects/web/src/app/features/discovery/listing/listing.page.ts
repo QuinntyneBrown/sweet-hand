@@ -2,17 +2,27 @@ import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, injec
 import { toSignal } from '@angular/core/rxjs-interop';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CatererCard, CatererGrid, FilterGroup, Pagination } from '@sweet-hand/components';
+import { ActiveFilters, ButtonAnchor, CatererCard, CatererGrid, EmptyState, FilterGroup, Icon, Pagination } from '@sweet-hand/components';
 import { DiscoveryApi } from '../../../core/api/discovery-api';
 import type { ListingPageView, ListingQuery } from '../../../core/api/discovery.models';
-import { areaOptions, caterersNoun, cuisineOptions, moreCuisines, parseAreaValue } from './listing-filters';
+import {
+  activeChips,
+  areaOptions,
+  caterersNoun,
+  cuisineOptions,
+  moreCuisines,
+  noResultsText,
+  parseAreaValue,
+  removeFilterLabel,
+  withoutChip,
+} from './listing-filters';
 import { pageLabel, pageSummary } from './listing-text';
 import { knownQuery, readListingQuery, toQueryParams, withArea, withCuisine, withRegion, withoutCuisines } from './listing-query';
 
 /** The caterer listing, /caterers (docs/detailed-designs/discovery/browse-listing). */
 @Component({
   selector: 'app-listing-page',
-  imports: [CatererCard, CatererGrid, FilterGroup, Pagination],
+  imports: [ActiveFilters, ButtonAnchor, CatererCard, CatererGrid, EmptyState, FilterGroup, Icon, Pagination],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './listing.page.html',
 })
@@ -36,6 +46,12 @@ export class ListingPage {
   protected readonly cuisines = computed(() => (this.shown() ? cuisineOptions(this.shown()!, this.query()) : []));
   protected readonly areas = computed(() => (this.shown() ? areaOptions(this.shown()!, this.query()) : []));
   protected readonly allCuisinesHref = computed(() => this.href(withoutCuisines(this.known())));
+  protected readonly chips = computed(() => (this.shown() ? activeChips(this.shown()!, this.query()) : []));
+  protected readonly removeFilterLabel = removeFilterLabel;
+  protected readonly noResults = computed(() => {
+    const v = this.view();
+    return v && v.total === 0 ? noResultsText(v, this.query()) : null;
+  });
   protected readonly caterersNoun = caterersNoun;
   protected readonly moreCuisines = moreCuisines;
 
@@ -66,6 +82,14 @@ export class ListingPage {
   protected toggleArea(e: { value: string; pressed: boolean }): void {
     const { kind, id } = parseAreaValue(e.value);
     this.go(kind === 'region' ? withRegion(this.known(), id, e.pressed) : withArea(this.known(), id, e.pressed));
+  }
+
+  protected removeChip(value: string): void {
+    this.go(withoutChip(this.known(), value));
+  }
+
+  protected focusResults(): void {
+    this.resultsHeading().nativeElement.focus();
   }
 
   private go(q: ListingQuery): void {

@@ -27,6 +27,46 @@ export function parseAreaValue(value: string): { kind: 'region' | 'area'; id: st
   return { kind: kind === 'region' ? 'region' : 'area', id };
 }
 
+export type ChipValue = `cuisine:${string}` | `region:${string}` | `area:${string}` | `occasion:${string}`;
+
+/** One chip per active filter the listing knows, cuisines first (filter-list CRD, `sh-active-filters`). */
+export function activeChips(view: ListingPageView, q: ListingQuery): { value: ChipValue; label: string }[] {
+  const areas = view.regions.flatMap((r) => r.areas);
+  return [
+    ...view.cuisines.filter((c) => q.cuisines.includes(c.id)).map((c) => ({ value: `cuisine:${c.id}` as ChipValue, label: c.name })),
+    ...view.regions.filter((r) => q.regions.includes(r.id)).map((r) => ({ value: `region:${r.id}` as ChipValue, label: r.name })),
+    ...areas.filter((a) => q.areas.includes(a.id)).map((a) => ({ value: `area:${a.id}` as ChipValue, label: a.name })),
+    ...view.occasions.filter((o) => o.id === q.occasion).map((o) => ({ value: `occasion:${o.id}` as ChipValue, label: o.name })),
+  ];
+}
+
+/** The query without the filter a chip stands for; back to page 1. */
+export function withoutChip(q: ListingQuery, value: string): ListingQuery {
+  const [kind, id] = value.split(':');
+  return {
+    cuisines: kind === 'cuisine' ? q.cuisines.filter((v) => v !== id) : q.cuisines,
+    regions: kind === 'region' ? q.regions.filter((v) => v !== id) : q.regions,
+    areas: kind === 'area' ? q.areas.filter((v) => v !== id) : q.areas,
+    occasion: kind === 'occasion' ? undefined : q.occasion,
+    page: 1,
+  };
+}
+
+export function removeFilterLabel(label: string): string {
+  return $localize`:@@filters.remove:Remove ${label}:value: filter`;
+}
+
+/** What the no-results state suggests (L2-001.4). */
+export function noResultsText(view: ListingPageView, q: ListingQuery): string {
+  const chips = activeChips(view, q);
+  const cuisines = chips.filter((c) => c.value.startsWith('cuisine:'));
+  const places = chips.filter((c) => c.value.startsWith('region:') || c.value.startsWith('area:'));
+  if (chips.length === 2 && cuisines.length === 1 && places.length === 1) {
+    return $localize`:@@listing.noResults.one:No ${cuisines[0].label}:cuisine: caterers list ${places[0].label}:place: yet. Try a nearby area, or clear the filters.`;
+  }
+  return $localize`:@@listing.noResults.many:Try removing a filter, or clear the filters.`;
+}
+
 /** " caterers" after a count, read but not shown (filter-list D-2). */
 export function caterersNoun(n: number): string {
   return n === 1 ? $localize`:@@filters.caterer: caterer` : $localize`:@@filters.caterers: caterers`;

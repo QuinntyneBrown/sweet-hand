@@ -1,5 +1,6 @@
 import type { Locator } from '@playwright/test';
 import { BasePage } from './base.page';
+import { EmptyState } from './empty-state';
 
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -94,6 +95,34 @@ export class ListingPage extends BasePage {
 
   areaOption(name: string) {
     return this.areaGroup.getByRole('button', { name: optionName(name) });
+  }
+
+  // Active filters above the results (docs/specs/components/chip.md)
+
+  get activeFilters() {
+    return this.page.getByRole('group', { name: 'Active filters' });
+  }
+
+  get activeFilterChips() {
+    return this.activeFilters.locator('.chip--filter');
+  }
+
+  /** The chips' remove buttons and "Clear filters", in order. */
+  get activeFilterControls() {
+    return this.activeFilters.locator('button, a');
+  }
+
+  removeFilter(label: string) {
+    return this.activeFilters.getByRole('button', { name: `Remove ${label} filter` });
+  }
+
+  get clearFilters() {
+    return this.activeFilters.getByRole('link', { name: 'Clear filters' });
+  }
+
+  /** The no-results, empty and error states in the results. */
+  get emptyState() {
+    return new EmptyState(this.page.locator('.browse__results'));
   }
 
   // Pagination (docs/specs/components/pagination.md)

@@ -27,21 +27,41 @@
 
   <section class="browse__results" aria-labelledby="results-title">
     <h2 #resultsHeading class="visually-hidden" id="results-title" tabindex="-1" i18n="@@listing.results">Results</h2>
-    <sh-caterer-grid [busy]="listing.isLoading()">
-      @for (c of view()?.items ?? []; track c.slug) {
-        <li>
-          <sh-caterer-card
-            [href]="'/caterers/' + c.slug"
-            [name]="c.name"
-            [cuisine]="c.primaryCuisine"
-            [area]="c.primaryArea"
-            [photo]="c.cover"
-            failedLabel="Photo unavailable"
-            i18n-failedLabel="@@photo.unavailable"
-          />
-        </li>
-      }
-    </sh-caterer-grid>
+    <div class="browse__head" [class.until-lg]="!chips().length">
+      <sh-active-filters
+        label="Active filters"
+        i18n-label="@@filters.active"
+        [chips]="chips()"
+        [removeLabel]="removeFilterLabel"
+        clearLabel="Clear filters"
+        i18n-clearLabel="@@filters.clear"
+        clearHref="/caterers"
+        (removed)="removeChip($event)"
+        (emptied)="focusResults()"
+      />
+    </div>
+    @if (noResults(); as text) {
+      <sh-empty-state heading="No caterers match these filters" i18n-heading="@@listing.noResults.title" [headingLevel]="3" [text]="text">
+        <svg slot="icon" shIcon="search"></svg>
+        <sh-button-anchor slot="actions" variant="primary" href="/caterers"><ng-container i18n="@@filters.clear">Clear filters</ng-container></sh-button-anchor>
+      </sh-empty-state>
+    } @else {
+      <sh-caterer-grid [busy]="listing.isLoading()">
+        @for (c of view()?.items ?? []; track c.slug) {
+          <li>
+            <sh-caterer-card
+              [href]="'/caterers/' + c.slug"
+              [name]="c.name"
+              [cuisine]="c.primaryCuisine"
+              [area]="c.primaryArea"
+              [photo]="c.cover"
+              failedLabel="Photo unavailable"
+              i18n-failedLabel="@@photo.unavailable"
+            />
+          </li>
+        }
+      </sh-caterer-grid>
+    }
     @if (view(); as v) {
       <sh-pagination
         [page]="v.page"
