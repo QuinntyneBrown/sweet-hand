@@ -68,7 +68,7 @@ Inventory from `usage_inventory.py docs/mocks` for `list__item`, `admin-row`,
 | `pages/admin-cuisines/loading` | family `settings`, `busy`, 10 skeleton rows with an action block | status "Loading cuisines" | loading | canvas |
 | `pages/admin-operators/default`; `dialogs/add-operator`, `deactivate-operator` (page behind) | family `settings`, `ul`, label "Operators", leading [avatar](avatar.md) | "Leah Mohammed" + badge "You" / "Admin · Authenticator app · Active now", no action; "Tomas Reyes" / "Operator · Security key · Last active today, 8:15 a.m." + "Deactivate" named "Deactivate Tomas Reyes" | default, own row without action | canvas |
 | `pages/admin-operators/loading` | family `settings`, `busy`, 2 skeleton rows with avatar and action blocks | status "Loading operators" | loading | canvas |
-| `pages/profile-menu/default`; `dialogs/dish`, `remove-dish` (page behind) | family `editable`, `ol`, label "Dishes, in the order they appear on your page" | 18 rows: "Chicken pelau" / "From $16 per person" / description / tags "Gluten-free", "Dairy-free"; four icon buttons "Move Chicken pelau up" (disabled on the first row), "Move … down" (disabled on the last, "Paw paw chow"), "Edit …", "Remove …" | default, first, last | canvas |
+| `pages/profile-menu/default`; `dialogs/dish`, `remove-dish` (page behind) | family `editable`, `ol`, label "Dishes, in the order they appear on your page" | 18 rows: "Chicken pelau" / "From $16 per person" / description / tags "Gluten-free", "Dairy-free"; four icon buttons "Move Chicken pelau up" (unavailable on the first row), "Move … down" (unavailable on the last, "Paw paw chow"); the mock's native `disabled` becomes `aria-disabled` (D-5), "Edit …", "Remove …" | default, first, last | canvas |
 | `pages/profile-menu/full` | family `editable`, 50 rows | "50 of 50 dishes" | default | canvas |
 | `pages/profile-menu/read-only` | family `editable`, `readOnly` rows (no actions), 4 rows | "Curry goat" / "From $19 per person" / "Bone-in, with potato and pimento." / "Halal", "Gluten-free", "Spicy" | read-only | canvas |
 | `pages/profile-menu/loading` | family `editable`, `busy`, 8 skeleton rows | — | loading | canvas |
@@ -160,8 +160,8 @@ class) as their only child, so the list's direct children stay `li` elements.
 | Input | Type | Default | Required | Rule |
 |---|---|---|---|---|
 | `name` | `string` | — | yes | The dish name, used only inside the action labels ("Move Chicken pelau up"). The visible name comes through the body slot. |
-| `first` | `boolean` | `false` | no | Disables "Move up" (native `disabled`). |
-| `last` | `boolean` | `false` | no | Disables "Move down". |
+| `first` | `boolean` | `false` | no | Marks "Move up" `aria-disabled="true"`: it stays focusable and pressing it does nothing (D-5). Never native `disabled`. |
+| `last` | `boolean` | `false` | no | Marks "Move down" `aria-disabled="true"`, as `first` does. |
 | `readOnly` | `boolean` | `false` | no | Renders no `.edit-row__actions` at all (pending review, suspended). |
 | `moveUpLabel`, `moveDownLabel`, `editLabel`, `removeLabel` | `string` | — | yes unless `readOnly` | The full accessible names, already interpolated by the consumer: "Move Chicken pelau up", "Move Chicken pelau down", "Edit Chicken pelau", "Remove Chicken pelau". |
 
@@ -177,8 +177,8 @@ class) as their only child, so the list's direct children stay `li` elements.
 
 | Output | Payload | Emitted when |
 |---|---|---|
-| `sh-edit-row` `movedUp` | `void` | "Move up" is activated and not disabled. |
-| `sh-edit-row` `movedDown` | `void` | "Move down" is activated and not disabled. |
+| `sh-edit-row` `movedUp` | `void` | "Move up" is activated and not `aria-disabled`. Never emitted on the first row. |
+| `sh-edit-row` `movedDown` | `void` | "Move down" is activated and not `aria-disabled`. Never emitted on the last row. |
 | `sh-edit-row` `editRequested` | `void` | "Edit" is activated; the page opens the dish dialog. |
 | `sh-edit-row` `removeRequested` | `void` | "Remove" is activated; the page opens the remove-dish dialog. |
 | Others | — | None: device, settings and link rows hold [buttons](button.md) or a link with their own outputs; breach records are read-only. |
@@ -188,7 +188,7 @@ class) as their only child, so the list's direct children stay `li` elements.
 | Method | Rule |
 |---|---|
 | `sh-list.focusItem(index: number)` | Focuses the first enabled control of the row at `index` (the link itself for link rows), or the list's labelling heading when `index` is past the end. The page calls it after a confirmed removal (D-6). |
-| `sh-edit-row.focusMove(direction: 'up' \| 'down')` | Focuses that move button, or the other one when it is disabled. Used after a move (D-5). |
+| `sh-edit-row.focusMove(direction: 'up' \| 'down')` | Focuses that move button, even when it is `aria-disabled`. Used after a move when the row element was re-created (D-5). |
 
 ### Content slots
 
@@ -239,7 +239,7 @@ Each family has one size, set by its padding:
 | Current device | [status](status.md) "Current" instead of a button | Status dot and word | "Current" read as text |
 | New / you | [badge](badge.md) in the title | Badge after the title | Badge text read with the title |
 | Own operator row | no `[slot=actions]` | No actions column | Nothing to tab to |
-| First / last dish | `first` / `last` | "Move up" / "Move down" disabled | Disabled button skipped by Tab |
+| First / last dish | `first` / `last` | "Move up" / "Move down" dimmed (`aria-disabled="true"`) | Still focusable, announced "dimmed" / "unavailable"; pressing does nothing |
 | Read-only | `readOnly` | No actions; the body only | Row is text only |
 | Loading | `busy` | Family skeletons shimmering in the final layout | List `aria-busy="true"`, label = `busyLabel`, skeleton rows `aria-hidden`, status line says `busyLabel` |
 | Moved | `announcement` changes | Row in its new position; nothing animates | Status line says "Doubles moved to position 4 of 12" |
@@ -276,7 +276,7 @@ documentation and mocks only; the component never renders it.
 <!-- rendered: editable rows (first row) and a read-only row -->
 <ol class="edit-list" aria-label="Dishes, in the order they appear on your page">
   <li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name">Chicken pelau</span><span class="dish__price">From $16 per person</span></div><p class="dish__desc">Browned in burnt sugar, cooked down with pigeon peas, rice and coconut milk.</p><ul class="tags"><li class="tag">Gluten-free</li><li class="tag">Dairy-free</li></ul></div>
-    <div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Move Chicken pelau up" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24">…</svg></button><button class="icon-btn" type="button" aria-label="Move Chicken pelau down">…</button><button class="icon-btn" type="button" aria-label="Edit Chicken pelau" aria-haspopup="dialog">…</button><button class="icon-btn" type="button" aria-label="Remove Chicken pelau" aria-haspopup="dialog">…</button></div></li>
+    <div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Move Chicken pelau up" aria-disabled="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24">…</svg></button><button class="icon-btn" type="button" aria-label="Move Chicken pelau down">…</button><button class="icon-btn" type="button" aria-label="Edit Chicken pelau" aria-haspopup="dialog">…</button><button class="icon-btn" type="button" aria-label="Remove Chicken pelau" aria-haspopup="dialog">…</button></div></li>
   <li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name">Curry goat</span><span class="dish__price">From $19 per person</span></div>…</div></li>
 </ol>
 <p class="visually-hidden" role="status"></p>
@@ -412,9 +412,11 @@ tokens.
 - SM and up (36rem+): editable rows become two columns, details and actions
   side by side; breach pairs sit in a 12rem label column.
 - Below 48rem small text buttons ("Sign out", "Retire", "Deactivate") are
-  44 px tall; icon buttons are 44 px at every width, with no gap between
-  them, which is acceptable because each meets the full target. Link rows are
-  at least 44 px tall.
+  44 px tall; icon buttons are 44 px at every width. Below 48rem the four
+  edit-row icon buttons sit `--space-2` (8 px) apart, and settings actions
+  keep their `--space-2` gap, so neighbouring targets are always at least
+  8 px apart (L2-065.1, the user's decision of 10 Oct 2026, D-11). Link rows are at least 44 px tall and,
+  below 48rem, `--space-2` apart (D-11).
 - Long titles wrap; nothing truncates ("Dominican (Dominican Republic)").
 - At 320 px nothing scrolls horizontally or clips; at 200 % zoom every row
   and action stays available.
@@ -433,16 +435,16 @@ Listbox](https://www.w3.org/WAI/ARIA/apg/patterns/listbox/) belongs to the
 
 | Key | Action |
 |---|---|
-| <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | Through each row's controls in order (editable: up, down, edit, remove; then the next row). Disabled move buttons are skipped. |
+| <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | Through each row's controls in order (editable: up, down, edit, remove; then the next row). `aria-disabled` move buttons stay in the order. |
 | <kbd>Enter</kbd>, <kbd>Space</kbd> | Activates the focused control. |
 | <kbd>Enter</kbd> | On a link row, follows it. |
 
 ### Focus
 
 - Moving a dish keeps focus on the same button in the row's new position
-  (rows are tracked by id, so the element is kept). When the move makes that
-  button disabled (the row reached the top or bottom), focus moves to the
-  row's other move button (D-5).
+  (rows are tracked by id, so the element is kept). When the move takes the row
+  to the top or bottom, that button becomes `aria-disabled="true"` and keeps
+  focus; pressing it again does nothing (D-5).
 - After a removal is confirmed in its dialog, focus goes to the next row's
   first enabled control, or to the list's heading if the removed row was the
   last (`focusItem`, D-6).
@@ -524,7 +526,7 @@ Reordering never animates. Skeleton shimmer stops under reduced motion.
 - **AC-3** Given the 18 initial cuisines plus "Caymanian" added today by Leah Mohammed, when the cuisines page renders, then `ul.admin-list` named "Cuisines, A to Z" holds 19 `li.admin-row` in alphabetical order, "Caymanian" carries the badge "New" and the meta "Added today by Leah Mohammed · no caterers yet", and "Belizean" reads "1 published caterer". (L2-007)
 - **AC-4** Given the cuisine "Bahamian" with no published caterers, when its row renders, then the meta reads "No published caterers" and its ghost `sm` action is named "Retire Bahamian". (L2-007)
 - **AC-5** Given Leah Mohammed, an Admin, views the operators page, when it renders, then her own row shows the avatar "LM" (`aria-hidden`), the badge "You" and no `.admin-row__actions`, and Tomas Reyes's row shows "Deactivate" named "Deactivate Tomas Reyes". (L2-056)
-- **AC-6** Given Pelau House's 18 dishes, when the menu manager renders, then `ol.edit-list` named "Dishes, in the order they appear on your page" holds 18 `li.edit-row` in page order, "Move Chicken pelau up" is disabled on the first row and "Move Paw paw chow down" is disabled on the last. (L2-043)
+- **AC-6** Given Pelau House's 18 dishes, when the menu manager renders, then `ol.edit-list` named "Dishes, in the order they appear on your page" holds 18 `li.edit-row` in page order, "Move Chicken pelau up" has `aria-disabled="true"` on the first row and "Move Paw paw chow down" has it on the last; neither has native `disabled`. (L2-043)
 - **AC-7** Given the dish "Doubles" in position 5 of 12, when Kendra activates "Move Doubles up", then `movedUp` is emitted once, the row renders in position 4 after the page reorders, focus is still on "Move Doubles up", and the status line says "Doubles moved to position 4 of 12". (L2-043)
 - **AC-8** Given Maracas Bay's menu with 50 of 50 dishes, when it renders, then all 50 rows keep their four actions and the page's "Add dish" is disabled with "You can list up to 50 dishes. Remove one to add another." (L2-043)
 - **AC-9** Given Auntie Bev's Kitchen's menu while her profile is pending review, when the rows render with `readOnly`, then no row has `.edit-row__actions` and the 4 dishes show only their name, price, description and tags. (L2-044)
@@ -534,12 +536,12 @@ Reordering never animates. Skeleton shimmer stops under reduced motion.
 
 - **AC-11** Given the operators page is loading, when the list renders with `busy`, `busyLabel` "Loading operators", `skeletonCount` 2, `skeletonAvatar` and `skeletonAction`, then the list has `aria-busy="true"` and `aria-label="Loading operators"`, holds two `li.admin-row.admin-row--skeleton[aria-hidden="true"]` each with a circle, a title bar, a text bar and an action block, and the status line reads "Loading operators". (L2-066)
 - **AC-12** Given the menu manager is loading, when the list renders with `busy`, then the `ol.edit-list` holds 8 `li.edit-row.edit-row--skeleton[aria-hidden="true"]`, has `aria-busy="true"` and a name, and the status line says "Loading your menu". (L2-066)
-- **AC-13** Given "Paw paw chow" is in position 2 of 18, when Kendra activates "Move Paw paw chow up", then after the reorder its "Move up" is disabled and focus is on "Move Paw paw chow down". (L2-067)
+- **AC-13** Given "Paw paw chow" is in position 2 of 18, when Kendra activates "Move Paw paw chow up", then after the reorder the row is first, its "Move up" has `aria-disabled="true"` and still has focus, and pressing Enter again emits nothing and changes no order. (L2-067)
 - **AC-14** Given Kendra confirms removing "Sweet bread" (row 14 of 18) in the remove-dish dialog, when the dialog closes and the row is gone, then focus is on "Move Sorrel up", the first enabled control of the row that took its place. (L2-067)
 
 ### Keyboard and focus
 
-- **AC-15** Given the menu manager at 1280 px, when a keyboard user tabs through the first two rows, then focus visits "Move Chicken pelau down", "Edit Chicken pelau", "Remove Chicken pelau", then "Move Curry goat up", in that order, skipping the disabled "Move Chicken pelau up". (L2-067)
+- **AC-15** Given the menu manager at 1280 px, when a keyboard user tabs through the first two rows, then focus visits "Move Chicken pelau up" (announced as dimmed), "Move Chicken pelau down", "Edit Chicken pelau", "Remove Chicken pelau", then "Move Curry goat up", in that order. (L2-067)
 - **AC-16** Given keyboard focus on "Retire Grenadian" or on a link row, when it is displayed in either theme, then a `--color-focus-ring` ring is visible with at least 3:1 contrast against the page. (L2-067)
 
 ### Screen readers
@@ -554,7 +556,7 @@ Reordering never animates. Skeleton shimmer stops under reduced motion.
 
 ### Responsive
 
-- **AC-21** Given a 360 px viewport, when Pelau House's menu manager renders, then each edit row shows the dish details and, under them, the four 44 × 44 CSS px icon buttons in one line, with no horizontal scrolling. (L2-045)
+- **AC-21** Given a 360 px viewport, when Pelau House's menu manager renders, then each edit row shows the dish details and, under them, the four 44 × 44 CSS px icon buttons in one line, at least 8 px apart, with no horizontal scrolling. (L2-045)
 - **AC-22** Given a 360 px viewport, when the device list and the cuisines list render, then "Sign out" and "Retire" are at least 44 × 44 CSS px with at least 8 px to the next target. (L2-065)
 - **AC-23** Given a 320 px viewport, when the cuisines list renders "Dominican (Dominican Republic)" and the breach register renders, then titles wrap, nothing is truncated or clipped, the breach key-value pairs stack, and the page does not scroll horizontally. (L2-064)
 - **AC-24** Given a 1280 px window at 200 % zoom, when the menu manager renders, then every row's details and four actions are visible and the page does not scroll horizontally. (L2-069)
@@ -578,6 +580,7 @@ Reordering never animates. Skeleton shimmer stops under reduced motion.
   edit-row buttons, with the arrow up / down, edit and trash icons from the
   mocks' icon set) and [skeleton](skeleton.md). Buttons, badges and status
   labels arrive through slots and keep their own CRDs' APIs.
+- Mock catch-up: the menu mocks' native `disabled` on the first "Move up" and last "Move down" becomes `aria-disabled="true"` (D-5).
 - Mock catch-up: the account device "Sign out" buttons gain row names;
   `account/loading` and `profile-menu/loading` gain `aria-busy`, a name and
   the status line, and their skeleton rows `aria-hidden`; the cuisines and
@@ -586,6 +589,7 @@ Reordering never animates. Skeleton shimmer stops under reduced motion.
 - Design-system catch-up for D-8: skeleton widths that the mocks set inline
   (`width: 10rem`, `height: var(--space-32)`) move into family rules
   (`.device-list .skeleton--text`, `.breach .skeleton--rect`).
+- Design-system catch-up for D-11: `@media (max-width: 47.99rem) { .edit-row__actions { gap: var(--space-2); } .list > li + li > .list__item--interactive { margin-top: var(--space-2); } }`.
 - Design-system catch-up for D-10: link-row title and meta display as blocks.
 - No CDK primitive is needed.
 
@@ -595,9 +599,10 @@ Reordering never animates. Skeleton shimmer stops under reduced motion.
 - **D-2** *One component or four?* One library folder and one `sh-list` container with a row component per family. The design system documents the four families on one page and they share rules, loading and labelling; separate row components keep each family's API small and stop a settings row from being given dish content.
 - **D-3** *Who renders the loading status line?* `sh-list`, after the list, from `busyLabel`. The cuisines, operators and breach mocks do this; the device list and menu mocks lacked it and the design system fixed that drift.
 - **D-4** *Does the list support `aria-selected` rows?* No. The design system says `aria-selected` is valid only in a listbox, which is the [combobox](combobox.md)'s; list rows support only `aria-current` on a link row.
-- **D-5** *Where does focus go when a move disables the focused button?* To the same row's other move button. The design system keeps focus on the moved button; a disabled button cannot hold focus, so the nearest control in the same row keeps the user in place.
+- **D-5** *Native `disabled` or `aria-disabled` for the first "Move up" and last "Move down"?* `aria-disabled="true"`, and the button keeps focus; pressing it does nothing. With native `disabled`, a dish moved to the top or bottom would drop focus to the page; the dish design-system page, [photo tile](photo-tile.md) and [gallery](gallery.md) use the same rule, so every reorder control in the product behaves alike. The mocks' native `disabled` is drift.
 - **D-6** *Where does focus go after a removal?* To the next row's first enabled control, or the list heading when the last row went, as the design system says; the page calls `focusItem` when the remove dialog closes because the dialog's own return-focus target no longer exists.
 - **D-7** *Ghost or secondary for "Deactivate"?* Ghost, as every settings row action. The operators mock drew it outlined; the design system recorded this as drift and chose ghost. Device "Sign out" stays secondary `sm`, as the design system renders it.
 - **D-8** *Inline skeleton widths in the mocks?* Replaced by family CSS rules so the component sets no inline styles; the widths stay the same.
 - **D-9** *Is the device list's top rule part of the family?* Yes: `.device-list` adds the top rule and drops the inline padding, exactly as `components.css` does; generic `.list` has neither.
 - **D-10** *How do title and meta stack inside a link row?* As two lines. A link row's body holds `span` elements (phrasing content inside the `a`), which today's CSS leaves inline, so "Business details" and "Name, description, contact" run together on the design-system page. `components.css` adds `.list__body > .list__title, .list__body > .list__meta { display: block; }`; the rendering shows the required look with a specimen-only style.
+- **D-11** *How far apart are adjacent targets on phones?* At least 8 px, as L2-065.1 asks and the user's decision of 10 Oct 2026 settles (it wins over the design system's 4 px and its "no gap between icon buttons is acceptable"). Below 48rem `.edit-row__actions` uses a `--space-2` gap, and link rows in a `.list` are separated by `--space-2`; settings actions already have it. `components.css` adds both rules (design-system catch-up); the rendering shows them with a specimen-only style.

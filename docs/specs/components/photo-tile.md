@@ -71,7 +71,7 @@ tiles on 7 screens).
    `.photo-tile__caption--missing` reads "Add a caption" in
    `--color-warning-fg`, medium weight.
 5. **Move** — `div.photo-tile__move`: two 44 px [icon buttons](icon-button.md),
-   "Move photo 2 up" / "Move photo 2 down", `--space-1` apart.
+   "Move photo 2 up" / "Move photo 2 down", `--space-2` (8 px) apart (D-8).
 6. **Edit** — a link-style small [button](button.md), "Edit" plus a visually
    hidden " photo 2", `aria-haspopup="dialog"`. Extra actions sit in
    `div.photo-tile__actions`.
@@ -223,7 +223,8 @@ contract.
   `--radius-full`, `--text-caption` with `--font-weight-semibold`.
 - Caption: `--text-body-sm`, two-line clamp; missing caption
   `--font-weight-medium`.
-- Move buttons `--target-comfortable` (44 px), `--space-1` apart.
+- Move buttons `--target-comfortable` (44 px), `--space-2` (8 px) apart, and
+  `--space-2` between the move row and Edit (D-8).
 - Progress overlay `--color-bg-scrim`, `--text-label`; bar `min(100%, 8rem)`,
   `--space-2` tall, width eased over `--duration-deliberate`.
 - Layer: the cover tag and overlay sit inside the photo's stacking context; no
@@ -265,8 +266,8 @@ Progress is not a selection, so it is ink, never pepper.
 - The photo never exceeds 10rem; wide columns add space around it.
 - Captions clamp at two lines; the full caption is in the edit dialog.
 - Below 48rem the small "Edit" button grows to 44 px tall (L2-065.1); move
-  buttons are always 44 px with `--space-1` (4 px) between, and the two rows of
-  controls never overlap.
+  buttons are always 44 px with `--space-2` (8 px) between them and at least
+  8 px between the move row and Edit, so neighbouring targets never touch (D-8).
 - At 320 px two columns still fit (each about 136 px) and nothing scrolls
   horizontally.
 
@@ -360,7 +361,7 @@ The progress bar eases its width over `--duration-deliberate`; under
 - **AC-5** Given Kendra focuses "Move photo 3 up", when she presses Enter, then the photo moves to position 2, focus stays on the same photo's "Move photo 2 up", and the status says "Photo 3 moved to position 2." (L2-042)
 - **AC-6** Given photo 2, when Kendra activates "Move photo 2 up", then it becomes photo 1, gains the Cover tag, and the status says "Photo 2 moved to position 1. It is now your cover." (L2-042)
 - **AC-7** Given photo 1, when it renders, then "Move photo 1 up" has `aria-disabled="true"`, stays focusable, and activating it emits nothing; the same holds for "Move photo 6 down" on the last photo. (L2-067)
-- **AC-8** Given the photo manager at 360 px, when Kendra reorders with "Move up" and "Move down", then each button is at least 44 × 44 CSS px, at least 4 px apart with no overlap, and the page does not scroll horizontally. (L2-045)
+- **AC-8** Given the photo manager at 360 px, when Kendra reorders with "Move up" and "Move down", then each button is at least 44 × 44 CSS px, at least 8 px from any neighbouring target (including Edit), and the page does not scroll horizontally. (L2-045)
 - **AC-9** Given a keyboard user in the manager, when they tab through, then focus visits move up, move down and Edit of tile 1, then tile 2, in photo order, with a visible ring of at least 3:1 contrast. (L2-067)
 
 ### Upload and processing
@@ -401,7 +402,9 @@ The progress bar eases its width over `--duration-deliberate`; under
   label inside the circle; the operator grid uses `p.photo-tile__caption`
   (the mocks use `span`).
 - Below 48rem the Edit button needs `min-height: var(--target-comfortable)`
-  (the design system states it; `components.css` does not yet set it).
+  (the design system states it; `components.css` does not yet set it), and
+  `.photo-tile__move` needs `gap: var(--space-2)` plus `--space-2` above Edit
+  (D-8).
 - Focus following a move: after the order updates, the manager focuses the
   same direction's button on the moved photo's new tile (tracked by id).
 - No CDK primitive is needed for the grid; the dialog uses the framework's
@@ -416,3 +419,4 @@ The progress bar eases its width over `--duration-deliberate`; under
 - **D-5** *Does the manager own the move announcement?* Yes, as an input it renders in its own polite region, because the page knows when the new order is saved and the announcement must not fire for a failed save.
 - **D-6** *Is dragging supported?* No. Buttons work the same for touch, mouse, keyboard and switch access (WCAG 2.5.7); L2-042.1's "drag … (or use the Move up and Move down controls)" is satisfied by the buttons.
 - **D-7** *What does the edit button say when the caption is missing?* "Add caption" with the hidden object " to photo 2", so the visible word says what is needed and the accessible name stays unique.
+- **D-8** *How far apart are the move buttons?* At least 8 px (`--space-2`), and at least 8 px between the move row and Edit, on every width. The design system shows `--space-1` (4 px), but the user's decision of 10 Oct 2026 makes L2-065.1's 8 px win for neighbouring 44 px targets on phones; the design system will be updated. The rendering applies it with a specimen-only style.

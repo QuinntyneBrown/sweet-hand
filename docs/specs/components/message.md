@@ -78,7 +78,7 @@ mine, 9 system, 2 pending, 1 failed), `… thread "article|div"` (16),
 
 1. **Article** — `article.thread` with `aria-labelledby` the title's id: a
    flex column, `--space-6` between parts; `aria-busy="true"` while loading.
-2. **Back link (below LG)** — `a.eyebrow.until-lg` "Back to inbox" with a
+2. **Back link (below LG)** — `a.eyebrow.until-lg` "Inbox" (D-10) with a
    chevron, 44 px tall.
 3. **Head** — `div.thread__head`: wrapping row, `--space-4` gap.
    - **Party** — `span.photo` with a decorative 56 px `img` (customer view),
@@ -143,7 +143,7 @@ Hosts: all are `display: contents`, so `.inbox-layout__thread`, the
 | `statusLabel` | `string` | — | yes | "Open", "Replied", "Declined", "Closed". |
 | `viewLink` | `{ href: string; label: string } \| null` | `null` | no | Customer view: "View caterer" to `/caterers/pelau-house`. |
 | `subline` | `string \| null` | `null` | no | Caterer view: "Sent yesterday at 4:15 p.m." |
-| `backLink` | `{ href: string; label: string } \| null` | `null` | no | "Back to inbox", rendered as `a.eyebrow.until-lg` above the head. |
+| `backLink` | `{ href: string; label: string } \| null` | `null` | no | "Inbox" (the destination only, D-10), rendered as `a.eyebrow.until-lg` above the head. |
 | `busy` | `boolean` | `false` | no | Renders the loading skeleton (circle, title bar, status bar, 12rem summary block, one bubble) with `aria-busy="true"`, and the heading's visually hidden `loadingLabel`. Slots are not rendered. |
 | `loadingLabel` | `string` | — | yes when `busy` | "Loading enquiry". |
 
@@ -262,7 +262,7 @@ the party image is 3.5rem; the send button is 44 px.
 ```html
 <!-- rendered: customer view, replied -->
 <article class="thread" aria-labelledby="thread-title">
-  <a class="eyebrow until-lg" href="/inbox"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24">…</svg>Back to inbox</a>
+  <a class="eyebrow until-lg" href="/inbox"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24">…</svg>Inbox</a>
   <div class="thread__head">
     <span class="photo"><img src="…/pelau-house-112.avif" alt="" width="56" height="56"></span>
     <div class="thread__title"><h1 id="thread-title" tabindex="-1">Pelau House</h1>
@@ -318,7 +318,7 @@ Consumer templates (binding syntax illustrative):
 
 ```html
 <sh-thread [title]="thread.caterer.name" [party]="{ kind: 'photo', src: thread.caterer.photo }" [statusTone]="tone(thread.status)" [statusLabel]="t('enquiry.status.' + thread.status)"
-    [viewLink]="{ href: '/caterers/' + thread.caterer.slug, label: t('thread.viewCaterer') }" [backLink]="{ href: '/inbox', label: t('thread.back') }">
+    [viewLink]="{ href: '/caterers/' + thread.caterer.slug, label: t('thread.viewCaterer') }" [backLink]="{ href: '/inbox', label: t('thread.backToInbox') }">
   <sh-button slot="actions" size="sm" haspopup="dialog">{{ t('thread.share') }}</sh-button>
   <sh-description-list slot="summary" variant="enquiry-summary" …></sh-description-list>
   <sh-message-list [label]="t('thread.messages')">
@@ -388,7 +388,7 @@ still tell the parties apart, and the textarea keeps its system border.
 ## Responsive behaviour
 
 - Below LG (62rem) the inbox shows the list or the thread, never both, and
-  the thread shows "Back to inbox" (L2-036.2). From LG the thread sits beside
+  the thread shows the back link "Inbox" (L2-036.2). From LG the thread sits beside
   the list; with nothing selected the column shows the placeholder (L2-036.1).
   The page layout does the switching; the thread fills its column.
 - Bubbles are at most `min(36rem, 88%)`: about 290 px at 360 px, so "mine" and
@@ -415,7 +415,7 @@ model). The reply is a native `form`.
 
 | Key | Action |
 |---|---|
-| <kbd>Tab</kbd> | Back to inbox → View caterer → thread actions → "Try again" or links in the messages → reply field → Send. |
+| <kbd>Tab</kbd> | "Inbox" back link → View caterer → thread actions → "Try again" or links in the messages → reply field → Send. |
 | <kbd>Enter</kbd> | In the reply field: a new line. It never sends. |
 | <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>Enter</kbd> | Sends from the reply field. |
 | <kbd>Enter</kbd> / <kbd>Space</kbd> | On Send or "Try again": sends. |
@@ -522,7 +522,7 @@ open uses `scroll-behavior`, which `prefers-reduced-motion: reduce` sets to
 
 ### Keyboard and focus
 
-- **AC-17** Given Marcia opens the Pelau House thread from her inbox at 360 px, when it renders, then focus is on the heading "Pelau House", Tab then reaches "View caterer", "Share my contact details", "Close enquiry", the reply field and "Send reply" in that order, and Shift+Tab from the heading reaches "Back to inbox". (L2-067)
+- **AC-17** Given Marcia opens the Pelau House thread from her inbox at 360 px, when it renders, then focus is on the heading "Pelau House", Tab then reaches "View caterer", "Share my contact details", "Close enquiry", the reply field and "Send reply" in that order, and Shift+Tab from the heading reaches the back link "Inbox". (L2-067)
 - **AC-18** Given keyboard focus on "Send reply" or "Try again" in either theme, when it is displayed, then a focus ring with at least 3:1 contrast is visible and is not covered by the sticky reply box. (L2-067)
 
 ### Screen readers
@@ -585,3 +585,4 @@ open uses `scroll-behavior`, which `prefers-reduced-motion: reduce` sets to
 - **D-7** *Are incoming messages announced while the thread is open?* No. New messages arrive by polling (up to every 60 seconds, L2-029.3) and appear in place; announcing them would interrupt someone typing a reply. The unread count in the header updates instead.
 - **D-8** *How does the sticky reply box avoid hiding focus?* The thread sets `scroll-padding-bottom` to the reply box's height, so a focused "Try again" or link scrolls clear of it (WCAG 2.4.11).
 - **D-9** *What does "Try again" do with focus?* The failed meta becomes the pending meta, so the button disappears; focus moves to the reply field rather than being lost to the body.
+- **D-10** *What does the back link say?* "Inbox", the destination only, with a chevron, by the user's decision of 10 Oct 2026 (the mocks and L2-036.2 say "Back to inbox"; the chevron already says "back").

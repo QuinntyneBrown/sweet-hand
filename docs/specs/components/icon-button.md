@@ -34,9 +34,9 @@ Out of scope:
 - What the action does, opening and closing dialogs, sheets and the viewer,
   and returning focus: the [dialog](dialog.md), [sheet](sheet.md) and the
   page own that; the icon button exposes `focus()` for it.
-- The spacing between neighbouring icon buttons (`.site-nav`,
-  `.edit-row__actions`, `.photo-tile__move`, `.viewer__stage`): the parent
-  lays them out (see D-8).
+- Laying out neighbouring icon buttons (`.site-nav`, `.edit-row__actions`,
+  `.photo-tile__move`, `.viewer__stage`): the parent does it, and must keep
+  them at least 8 px apart on XS and SM (D-8, AC-26).
 - Computing the unread count and polling for it (L2-029.3): the site header
   passes the number in.
 - The count badge's own styling: [badge](badge.md) `.badge--count`; this
@@ -311,6 +311,9 @@ border to keep its state visible (D-6).
 - At 320 px the header row (wordmark, search, inbox, menu) fits with no
   horizontal scroll; at 200 % zoom on a 1280 px window every icon button stays
   visible and operable.
+- Neighbouring icon buttons are at least 8 px apart on XS and SM (L2-065.1):
+  the header row, the row actions and the tile arrows use at least
+  `--space-2` between them below 48rem (D-8).
 - Nothing depends on hover: no hover-only reveal on rows or tiles.
 
 ## Accessibility
@@ -433,6 +436,7 @@ Only the background colour transitions, over `--duration-fast`, which
 
 - **AC-21** Given a 320 px viewport and Kendra's dashboard, when the header renders the wordmark, the search icon button, the enquiries link with count 2 and Menu, then all three icon buttons are fully visible at 44 × 44 CSS px and the page does not scroll horizontally. (L2-064)
 - **AC-22** Given a 360 px viewport and Pelau House's photo manager, when the move arrows are measured, then every arrow's target is at least 44 × 44 CSS px. (L2-065)
+- **AC-26** Given a 360 px viewport and Kendra's menu manager, when the four row actions for "Chicken pelau" and the header's search, enquiries and menu icon buttons are measured, then each pair of neighbouring icon buttons is at least 8 CSS px apart. (L2-065)
 - **AC-23** Given a 1280 px window at 200 % zoom, when Kendra's menu manager renders, then all four row actions for "Chicken pelau" are visible and operable with no horizontal scrolling. (L2-069)
 
 ### Motion
@@ -463,18 +467,22 @@ Only the background colour transitions, over `--duration-fast`, which
   `components.css`:
   `.icon-btn[aria-pressed="true"], .icon-btn[aria-expanded="true"], .icon-btn[aria-current="page"] { border: var(--border-width-thick) solid Highlight; }`.
   The rendering shows it with a specimen-only style.
+- Design-system catch-up for D-8: below 48rem, `.site-nav`,
+  `.edit-row__actions` and `.photo-tile__move` use `gap: var(--space-2)`
+  (today `--space-1`). The rendering shows the required gap with a
+  specimen-only style.
 - No CDK primitive is needed.
 
 ## Decisions
 
 - **D-1** *Which framework does this API target?* Framework-neutral inputs, outputs and slots with the `sh-` prefix, because no stack ADR exists yet. The class names and attributes in *Markup* are the binding contract whatever the stack (AGENTS.md: BEM parity with the mocks).
-- **D-2** *Where does the unread count go for assistive technology?* In `ariaLabel`, with the badge `aria-hidden`, as the design system specifies ("Enquiries, 2 unread"). L2-029.1 says the badge's accessible name is "2 unread enquiries"; that matches the wide header's text link, whose visible badge carries `aria-label="2 unread enquiries"` ([site header](site-header.md)). On the phone icon link the badge is hidden and the link's own name carries the count, so the count is announced once. Raised with the user because a literal L2-029.1 test at phone width expects the other wording.
+- **D-2** *Where does the unread count go for assistive technology?* In `ariaLabel` ("Enquiries, 2 unread"), with the badge `aria-hidden`, as the design system specifies, per the user's decision of 10 Oct 2026. The count is announced once, as part of the link's name; L2-029.1's wording ("2 unread enquiries") is to be amended to match. The wide header's text link keeps its visible badge labelled `aria-label="2 unread enquiries"` ([site header](site-header.md)).
 - **D-3** *What does `count` 0 show?* Nothing: no badge, and the consumer drops the count from the name ("Enquiries"), per L2-029.4 and the mocks' `aria-label="Enquiries"`.
 - **D-4** *Can the anchor be disabled?* No. The design system says links are never disabled; a link that cannot go anywhere is not rendered.
 - **D-5** *Can an icon button submit a form?* No; it always renders `type="button"`. The only icon-only submit ("Send reply") needs a busy state and is `.btn--icon` from [button](button.md).
 - **D-6** *How do pressed, expanded and current show in forced colours?* With a thick `Highlight` border. Their only cue besides the fill is pepper, which forced colours remove, and WCAG 1.4.11 requires the state to stay perceivable; `components.css` catches up.
 - **D-7** *What does the badge show above 99?* "99+", with the real number in the name (design system, Content). The badge then stays within the 44 px box at 320 px.
-- **D-8** *Who owns the 8 px gap L2-065.1 asks for between neighbouring targets?* The parent layout, not the icon button, which sets no margin. The design system draws `.site-nav` and `.edit-row__actions`/`.photo-tile__move` at a 4 px gap and calls it compliant under WCAG 2.5.8, but L2-065.1 asks for 8 px on XS and SM. This CRD keeps the 44 px target and leaves the gap to [site header](site-header.md) and the row layouts; raised with the user as a conflict between L2-065.1 and the design system.
+- **D-8** *How far apart must neighbouring icon buttons be?* At least 8 px on XS and SM, per L2-065.1 and the user's decision of 10 Oct 2026. The icon button sets no margin of its own, so the parent layouts (`.site-nav`, `.edit-row__actions`, `.photo-tile__move`, `.viewer__stage`) own the spacing and use at least `--space-2` between icon buttons below 48rem; the requirement is binding and AC-26 tests it. The design system, which draws those rows at a 4 px gap today, is to be updated; the rendering shows the required gap with a specimen-only style.
 - **D-9** *Must the component render `<span class="icon-btn">`?* No. Those 22 spans are the static picture of the header behind an open sheet; the product renders the real, inert header there.
 - **D-10** *Is `extraClass` needed?* Yes. The header's phone-only icon buttons carry `.site-nav__menu` on the same element as `.icon-btn` in 395 mock instances, and with a layout-transparent host that class must reach the native element.
 - **D-11** *How does a mouse user learn what a row icon means?* Through an optional [tooltip](tooltip.md) wrapped around the icon button, which sets `describedBy` only when its text adds information. The icon button needs no tooltip input of its own.

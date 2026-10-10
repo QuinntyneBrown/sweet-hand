@@ -283,8 +283,12 @@ item is underlined the same way (D-8), and pressed segments keep their
   never truncated or hidden behind "More".
 - From 62rem (LG) the inbox list and the open thread sit side by side
   (L2-036.1); the filter wraps inside the list column, never the page.
-- The button group never wraps; it stays joined and is kept to 4 short
-  segments (about 280 px at md), so it fits at 320 px.
+- The button group never wraps and is kept to 4 short segments (about
+  280 px at md), so it fits at 320 px. From 48rem the segments are joined;
+  below 48rem they separate by `--space-2` (8 px) and each becomes a full pill,
+  so neighbouring targets are at least 8 px apart (L2-065.1, D-11).
+- Segmented rows that wrap below 48rem keep `--space-2` (8 px) between lines,
+  so a wrapped item is never closer than 8 px to the one above (D-11).
 - Small segments are 36 px only from 48rem and 44 px below; segmented items
   are 44 px tall at every width, with `--space-5` (20 px) between them.
 - At 200 % zoom on a 1280 px window every item stays visible and operable.
@@ -404,6 +408,7 @@ reduce`; the segment nudge is removed with it.
 - **AC-17** Given a 320 px viewport, when Leah's seven caterer states render, then they wrap onto three lines with no label truncated and no horizontal scrolling. (L2-064)
 - **AC-18** Given a 1280 px viewport and Marcia's inbox with a thread open, when the filter renders, then it wraps within the list column beside the thread, not across the page. (L2-036)
 - **AC-19** Given a 360 px viewport, when segmented items and the small "Period" group render, then every item and segment is at least 44 CSS px tall and segmented items are 20 px apart. (L2-065)
+- **AC-23** Given a 360 px viewport, when the "Show by" group and Leah's seven caterer states (wrapped onto three lines) are measured, then every pair of neighbouring targets, side by side or line above line, is at least 8 CSS px apart, and each "Show by" segment is a separate full pill. (L2-065)
 - **AC-20** Given a 1280 px window at 200 % zoom, when the "Show by" group and Leah's caterer filter render, then every option is visible and operable with no horizontal scrolling. (L2-069)
 
 ### Motion
@@ -432,6 +437,10 @@ reduce`; the segment nudge is removed with it.
   (for example a hidden bold copy of the label via `::after { content:
   attr(data-text); font-weight: var(--font-weight-semibold); height: 0;
   visibility: hidden; }`). The rendering shows both with specimen-only styles.
+- Design-system catch-up for D-11: below 48rem, `.btn-group { gap: var(--space-2); }`
+  with every segment `border-radius: var(--radius-full); margin-left: 0;`, and
+  `.segmented { row-gap: var(--space-2); }`. The rendering shows both with a
+  specimen-only style.
 - No CDK primitive is needed.
 
 ## Decisions
@@ -446,3 +455,4 @@ reduce`; the segment nudge is removed with it.
 - **D-8** *How is the selected item visible in forced colours?* Underlined, like the filter list's selected item, because pepper and weight alone may not survive forced colours.
 - **D-9** *Does selecting an item shift its neighbours?* No. Each item reserves its semibold width so the row never reflows when the selection changes.
 - **D-10** *Who emits for link items?* `followed`, so a client-side router can intercept; the link keeps its real `href` so it still works without script and opens in a new tab.
+- **D-11** *How far apart are neighbouring options on phones?* At least 8 px, per L2-065.1 and the user's decision of 10 Oct 2026. The design system joins button-group segments with no gap and stacks wrapped segmented rows with no row gap; below 48rem the segments separate by `--space-2` into full pills and wrapped rows get a `--space-2` row gap. From 48rem the joined pill returns. The design system is to be updated.

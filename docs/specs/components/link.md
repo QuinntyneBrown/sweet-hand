@@ -19,7 +19,7 @@ a sentence ("Read the privacy notice"), **standalone** on its own line with a
 44 px target ("Forgot your password?", "All enquiries", "View caterer") and
 **external** when it leaves Sweet Hand ("Office of the Privacy Commissioner of
 Canada"). `sh-back-link` draws the quiet chevron link above a page title
-("Caterers", "Review queue", "Dashboard", "Inbox").
+("Caterers", "Review queue", "Overview", "Inbox").
 
 Use something else when activating it changes something (sends, saves,
 removes, opens a dialog): a [button](button.md), even one that looks like a
@@ -50,7 +50,7 @@ and a search of every `<a href` without a component class in `docs/mocks/`
 |---|---|---|---|---|
 | `pages/caterer/*` | back link, every width | "Caterers" | default, hover, focus | canvas |
 | Operator records (`admin-caterer`, `admin-profile-review`, `admin-report` … 26 screens) | back link, every width | "Review queue" | default | canvas |
-| Caterer editor pages (43 screens) | back link, `untilLg` | "Dashboard" | default | canvas |
+| Caterer editor pages (43 screens) | back link, `untilLg` | "Overview" | default | canvas |
 | `pages/thread/*`, `pages/dashboard-enquiry/*` (34 screens) | back link, `untilLg` | "Back to inbox", "Back to enquiries" in the mocks; "Inbox", "Enquiries" required (D-3) | default | canvas |
 | Operator console pages (21) | back link, `untilLg` | "Overview" | default | canvas |
 | `pages/occasion` | back link | "Occasions" | default | canvas |
@@ -133,7 +133,7 @@ as well.
 | Inline | — (bare `a`) | Inside a sentence: "I agree to the privacy notice", email addresses, error-summary items, alert actions, footer links. |
 | Standalone | `.link--standalone` | On its own line or beside a heading: "Forgot your password?", "All enquiries", "View caterer", "Public page". |
 | External | `.link--standalone.link--external` | Leaves Sweet Hand: "Office of the Privacy Commissioner of Canada". |
-| Back link | `.eyebrow` | Above a page title, naming the page above: "Caterers", "Review queue", "Dashboard", "Inbox". |
+| Back link | `.eyebrow` | Above a page title, naming the page above: "Caterers", "Review queue", "Overview", "Inbox". |
 
 Sizes: inline links take their sentence's text style (`--text-body` in forms,
 `--text-prose` on the about, privacy and terms pages, `--text-body-sm` in help
@@ -297,7 +297,7 @@ None; `scroll-behavior` falls back to `auto` under reduced motion.
   photos", "View your page", "Upload a new certificate". Never "Click here",
   "Learn more" or a bare URL.
 - Error-summary links repeat the field's error exactly.
-- Back links name the destination only: "Caterers", "Dashboard", "Inbox", not
+- Back links name the destination only: "Caterers", "Overview", "Inbox", not
   "Back to inbox" (D-3).
 - Questions are fine when they are the task: "Forgot your password?", "Not
   you?".
@@ -362,7 +362,7 @@ None; `scroll-behavior` falls back to `auto` under reduced motion.
 ### Responsive
 
 - **AC-19** Given a 320 px viewport, when the privacy notice renders "privacy@sweethand.example" and the external link, then they wrap within the column with no horizontal scrolling. (L2-064)
-- **AC-20** Given Kendra's dashboard at 360 px, when the editor page's back link "Dashboard" renders, then it is at least 44 CSS px tall. (L2-045)
+- **AC-20** Given Kendra's dashboard at 360 px, when the editor page's back link "Overview" renders, then it is at least 44 CSS px tall. (L2-045)
 - **AC-21** Given a 1280 px window at 200 % zoom, when the sign-in page renders, then "Forgot your password?" and "Create an account" are visible and operable with no horizontal scrolling. (L2-069)
 
 ### Performance
@@ -390,7 +390,7 @@ None; `scroll-behavior` falls back to `auto` under reduced motion.
 
 - **D-1** *Which framework does this API target?* Framework-neutral inputs, outputs and slots with the `sh-` prefix, because no stack ADR exists yet. The class names and attributes in *Markup* are the binding contract whatever the stack (AGENTS.md: BEM parity with the mocks).
 - **D-2** *Are visited links styled?* No (design system, States): the ink look stays, and pages that need "seen" use real state such as the inbox's unread dot.
-- **D-3** *Does the thread's back link say "Back to inbox"?* No, it says "Inbox". The design system names the destination only (117 mocks do; 28 say "Back to …"), because the chevron already says "back". L2-036.2 asks for a "Back to inbox" control; this CRD reads that as the control's purpose, not its label, and raises the wording with the user as a conflict.
+- **D-3** *Does the thread's back link say "Back to inbox"?* No, it names the destination only ("Inbox"), per the user's decision of 10 Oct 2026 and the design system (117 mocks do; 28 say "Back to …"), because the chevron already says "back". L2-036.2's "Back to inbox" describes the control's purpose, not its label.
 - **D-4** *When is a link standalone?* Whenever it is alone on its line or beside a heading, so it gets the 44 px target the mocks' bare links lacked (design system, Do and don't).
 - **D-5** *Does the link handle tone inheritance itself?* No. The alert, error summary and footer set `color: inherit` on their links; a plain `<a>` keeps the underline and wording, which is all the link must guarantee.
 - **D-6** *Is the external variant needed when no mock links out?* Yes. The privacy notice names the Office of the Privacy Commissioner of Canada without linking it; the design system documents the external link as the fix, and the API must be ready for it.

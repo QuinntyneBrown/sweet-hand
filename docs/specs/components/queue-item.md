@@ -299,7 +299,9 @@ the number of days and the weight remain.
 - From 48rem the operator side navigation sits above, and from 62rem beside,
   the list; the row itself does not change.
 - Each row is the full width and at least 96 px tall: far above the 44 × 44
-  CSS px target. At 320 px nothing scrolls horizontally; at 200 % zoom every
+  CSS px target. Below 48rem consecutive rows are `--space-2` (8 px) apart
+  (`.queue > li + li { margin-top: var(--space-2); }`), so neighbouring row
+  targets meet L2-065.1 (the user's decision of 10 Oct 2026, D-8); the hairline stays under each row. At 320 px nothing scrolls horizontally; at 200 % zoom every
   row stays readable.
 
 ## Accessibility
@@ -420,7 +422,7 @@ zeroes. Skeleton shimmer stops under reduced motion.
 
 - **AC-16** Given a 320 px viewport, when the review queue renders "Pelau House → Pelau House by Kendra", then the title wraps, the wait is not cut off, and the page does not scroll horizontally. (L2-064)
 - **AC-17** Given a 360 px viewport, when Tamarind Tree's record row renders with `stack`, then "Changes requested" sits under the meta, left-aligned, and the title is not squeezed. (L2-064)
-- **AC-18** Given a 360 px viewport, when any queue row is measured, then its tap target is the full row, at least 44 CSS px tall (96 px in practice). (L2-065)
+- **AC-18** Given a 360 px viewport, when any queue row is measured, then its tap target is the full row, at least 44 CSS px tall (96 px in practice), and at least 8 px from the next row's target. (L2-065)
 - **AC-19** Given a 1280 px window at 200 % zoom, when the caterer records list renders, then every title, status and meta is visible and the page does not scroll horizontally. (L2-069)
 
 ### Motion
@@ -444,6 +446,7 @@ zeroes. Skeleton shimmer stops under reduced motion.
   long-queue mock's duplicate `aria-hidden` on icons inside an `aria-hidden`
   avatar goes; name-change titles gain the hidden "renamed to";
   `admin-queue/loading` gains `aria-busy` on the list.
+- Design-system catch-up for D-8: `@media (max-width: 47.99rem) { .queue > li + li { margin-top: var(--space-2); } }`.
 - No CDK primitive is needed.
 
 ## Decisions
@@ -455,3 +458,4 @@ zeroes. Skeleton shimmer stops under reduced motion.
 - **D-5** *Inline skeleton styles in the mocks?* Replaced by `.queue-item--skeleton`, which the design system proposed and `components.css` now has; widths stay the same.
 - **D-6** *Does a narrow phone stack every row?* Yes, below 22.5rem, as the rule in `components.css` does (the design system proposed it for the narrowest phones); `stack` rows stack from 36rem down.
 - **D-7** *Is the photo in a row ever given alt text?* No. The title names the caterer, and alt text would lengthen every link name (design system do and don't).
+- **D-8** *Must full-row links be 8 px apart on phones?* Yes. L2-065.1 asks for 8 px between neighbouring targets and the user's decision of 10 Oct 2026 is that it wins over the design system, whose rows touch. Below 48rem rows get a `--space-2` gap with the hairline kept under each row; from 48rem rows touch as designed. `components.css` adds the rule (design-system catch-up); the rendering shows it with a specimen-only style.

@@ -46,7 +46,7 @@ photos on 47 screens) and a count of each photo's parent element.
 
 | Where | Configuration | Slots / content | States seen | Surface |
 |---|---|---|---|---|
-| `pages/caterers/*`, `occasions/*`, dashboard preview (`a.caterer-card`, 228) | fluid, capped at `--photo-card-size`, `srcset` 400/800/1200, first 6 eager | alt = caterer's caption; occasions `alt=""` | loaded, loading, failed "Photo unavailable", placeholder "Cover photo" | canvas |
+| `pages/caterers/*`, `occasions/*`, dashboard preview (`a.caterer-card`, 228) | fluid, capped at `--photo-card-size`, `srcset` 400/800/1200, eager for the first viewport (XS 2, SM–MD 4, LG+ 6) | alt = caterer's caption; occasions `alt=""` | loaded, loading, failed "Photo unavailable", placeholder "Cover photo" | canvas |
 | `pages/caterer/*` gallery (`button.gallery__btn`, 37) | fluid | Pelau House's six captions | loaded, failed "Photo unavailable" | canvas |
 | `dialogs/photo-viewer/*` stage | fluid, `min(100%, 62dvh, 34rem)` | caption shown beside it | loaded, failed (`role="img"` "Photo 4 of 6 didn't load"), loading spinner (`role="img"` "Loading photo 3 of 6") | dialog surface |
 | `pages/inbox/*` (`a.inbox-row`, 149), `pages/admin-*` queues (`a.queue-item`, 84) | fixed 48 / 56 px by the row, lazy, `alt=""` | caterer's cover | loaded, placeholder (no cover: Callaloo Corner, Doubles Duo) | canvas |
@@ -193,7 +193,7 @@ Consumer templates (binding syntax illustrative):
 
 ```html
 <sh-photo [src]="c.cover?.src" [srcset]="c.cover?.srcset" [sizes]="cardSizes" [alt]="c.cover?.alt ?? ''" [width]="280" [height]="280"
-    [loading]="i < 6 ? 'eager' : 'lazy'" [placeholderLabel]="t('photo.cover')" [failedLabel]="t('photo.unavailable')"></sh-photo>
+    [loading]="i < eagerCount() ? 'eager' : 'lazy'" [placeholderLabel]="t('photo.cover')" [failedLabel]="t('photo.unavailable')"></sh-photo>
 <sh-photo size="xs" [src]="r.caterer.thumb" alt="" [width]="40" [height]="40" [failedLabel]="t('photo.unavailable')"></sh-photo>
 <sh-photo-row [photos]="systemPhotos"></sh-photo-row>
 ```
@@ -348,7 +348,7 @@ transition is removed and the zoom happens instantly.
 ### Responsive and performance
 
 - **AC-17** Given a 320 px viewport, when the sign-in page's decorative row and the operator strip of Pelau House's six photos render, then the row fits and the strip wraps, and the page does not scroll horizontally. (L2-064)
-- **AC-18** Given listing page 1 with 24 photos, when it first loads, then the first 6 `img` elements have no `loading` attribute and the other 18 have `loading="lazy"`. (L2-085)
+- **AC-18** Given listing page 1 with 24 photos at 1280 px, when it first loads, then the first 6 `img` elements have no `loading` attribute and the other 18 have `loading="lazy"`; at 360 px only the first 2 are eager, per the user's decision of 10 Oct 2026. (L2-085)
 - **AC-19** Given the operator views Pelau House in the admin console, when the strip of six photos renders, then each `img` has the caterer's caption as `alt` (photo 1: "Chicken pelau in a steel pot with lime and cucumber chutney"). (L2-068)
 
 ## Implementation notes
@@ -378,3 +378,4 @@ transition is removed and the zoom happens instantly.
 - **D-5** *What is the operator's photo strip?* `sh-photo-row variant="strip"`, 72 px photos, wrapping, left-aligned, with captions as `alt`. The mocks build it as a `.photo-row` with inline styles and `alt=""`, but the operator reviews these photos (L2-047.2), so they are content and L2-068.1 requires their captions.
 - **D-6** *How does the viewer retry?* The viewer sets the same `src` again with a cache-busting query; the photo treats a new `src` as a new load and clears the failed state. The photo itself has no retry control.
 - **D-7** *Which placeholder icons exist?* Two: the plate (no photo, failed) and the clock (processing). The camera glyph in the profile-photos empty state belongs to [empty state](empty-state.md).
+- **D-8** *How many photos load eagerly, and what shape is the card photo?* The consumer sets `loading` for the first viewport (XS 2, SM–MD 4, LG and up 6) and the card photo is the round 1:1 circle, both per the user's decision of 10 Oct 2026 (L2-005.5 and L2-006.3 are to be amended).

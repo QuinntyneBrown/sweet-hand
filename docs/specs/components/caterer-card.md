@@ -49,8 +49,8 @@ Inventory from `usage_inventory.py docs/mocks caterer-card "a|div|li|span"`,
 
 | Where | Configuration | Slots / content | States seen | Surface |
 |---|---|---|---|---|
-| `pages/caterers/default`, `filtered`, `occasion`, `signed-in`, `out-of-area`, `postal-invalid`, `offline`, `long` | grid `caterers`; card `caterer`, link; first 6 photos eager, the rest lazy | 24 cards: "Pelau House" / "Trinidadian & Tobagonian · Scarborough", "Cou-Cou" / "Barbadian (Bajan) · North York" … | default, hover, focus | canvas |
-| `pages/caterers/loading` | grid `caterers`, `busy`, 6 skeletons | — | loading | canvas |
+| `pages/caterers/default`, `filtered`, `occasion`, `signed-in`, `out-of-area`, `postal-invalid`, `offline`, `long` | grid `caterers`; card `caterer`, link; photos in the first viewport eager (2 on XS, 4 on SM–MD, 6 from LG), the rest lazy | 24 cards: "Pelau House" / "Trinidadian & Tobagonian · Scarborough", "Cou-Cou" / "Barbadian (Bajan) · North York" … | default, hover, focus | canvas |
+| `pages/caterers/loading` | grid `caterers`, `busy`; skeletons fill the first screen (3 on XS, 6 on SM–MD, 9 from LG; the mock shows 6) | — | loading | canvas |
 | `pages/caterers/edge` | card `caterer`, link | "The Original Auntie Philomena's Roti, Doubles & Pholourie Kitchen" / "Trinidadian & Tobagonian · Whitchurch-Stouffville"; "O" / "Guyanese · York"; "Salt Pond Provisions" (photo failed); "Mangú & Mofongo Co." / "Puerto Rican · Clarington" (photo failed) | long name clamped, one-letter name, failed photo | canvas |
 | `pages/occasions/default` | grid `occasions`; card `occasion`, link, decorative photo | 8 tiles: "Weddings" / "23 caterers", "Birthdays" / "41 caterers", "Funerals and repasts" / "17 caterers" … | default, hover, focus | canvas |
 | `pages/occasions/loading` | grid `occasions`, `busy`, 8 skeletons | — | loading | canvas |
@@ -103,7 +103,7 @@ renders the `ul` as its only child and is `display: block`.
 | `area` | `string` | — | yes for `caterer` | The primary service area's L2-010 name ("Downtown Toronto"). |
 | `meta` | `string` | — | yes for `occasion` | The occasion line, already translated and pluralised by the consumer ("23 caterers", "1 caterer"). Ignored for `caterer`. |
 | `photo` | `CardPhoto \| null` | `null` | no | `{ src: string; srcset: string; alt: string; width: number; height: number }`. `null` shows the placeholder. `alt` is the caterer's caption; for `occasion` the card renders `alt=""` whatever is passed. |
-| `loading` | `'eager' \| 'lazy'` | `'lazy'` | no | `lazy` renders `loading="lazy"`; `eager` renders no `loading` attribute. Set by the grid's `eagerCount` for listing cards. |
+| `loading` | `'eager' \| 'lazy'` | `'lazy'` | no | `lazy` renders `loading="lazy"`; `eager` renders no `loading` attribute. Set by the grid from `eagerCount` for listing cards (D-8). |
 | `placeholderLabel` | `string` | — | yes when `photo` is `null` | The placeholder word ("Cover photo"). |
 | `failedLabel` | `string` | — | yes | The word shown if the image fails to load ("Photo unavailable"). |
 | `skeleton` | `boolean` | `false` | no | Renders the loading card (`div.caterer-card.caterer-card--skeleton`, `aria-hidden="true"`) and ignores every other input. |
@@ -118,8 +118,11 @@ arrives.
 |---|---|---|---|---|
 | `variant` | `'caterers' \| 'occasions'` | `'caterers'` | no | Renders `ul.caterer-grid` or `ul.occasion-grid`. |
 | `busy` | `boolean` | `false` | no | Sets `aria-busy="true"` on the `ul` and renders `skeletonCount` skeleton items in place of the projected cards. |
-| `skeletonCount` | `number` | `6` | no | Number of skeleton items while busy (the listing uses 6, the occasions page 8). Whole number from 1 to 24. |
-| `eagerCount` | `number` | `6` | no | The first `eagerCount` projected cards get `loading="eager"`, the rest `lazy`, unless a card sets `loading` itself (D-8). |
+| `skeletonCount` | `ViewportCounts \| number` | `{ xs: 3, sm: 6, lg: 9 }` | no | Skeleton items while busy, per viewport class, so they fill the first screen of the grid (skeleton design system). A plain number applies at every width (the occasions page passes 8). Whole numbers from 1 to 24. |
+| `eagerCount` | `ViewportCounts \| number` | `{ xs: 2, sm: 4, lg: 6 }` | no | The first N projected cards for the current viewport class get `loading="eager"`, every other card `lazy`, unless a card sets `loading` itself (D-5, D-8). Whole numbers from 0 to 24. |
+| `viewport` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| null` | `null` | no | The viewport class to count for. `null`: the grid resolves it with `matchMedia` on the design-system breakpoints (36rem, 48rem, 62rem, 75rem); where no viewport is known (server rendering without a hint) it uses XS (D-8). |
+
+`ViewportCounts` is `{ xs: number; sm: number; lg: number }`: `xs` below 36rem, `sm` for SM and MD (36rem to 61.99rem), `lg` from 62rem (LG and XL). The grid re-resolves the class when a breakpoint is crossed; that changes the skeleton count while busy but never rewrites the `loading` attribute of images already rendered.
 
 ### Outputs
 
@@ -180,7 +183,7 @@ mocks only; the component never renders it.
 ## Markup
 
 ```html
-<!-- rendered: listing grid with a caterer card (eager) and a lazy one -->
+<!-- rendered: listing grid at LG (6 eager), first card eager and card 7 lazy -->
 <ul class="caterer-grid">
   <li><a class="caterer-card" href="/caterers/pelau-house"><span class="photo"><img src="https://img.sweethand.example/pelau-house-800.avif" srcset="…-400.avif 400w, …-800.avif 800w, …-1200.avif 1200w" sizes="(min-width: 62rem) 17.5rem, (min-width: 36rem) 45vw, 90vw" alt="Chicken pelau in a steel pot with lime and cucumber chutney" width="280" height="280"></span><span class="caterer-card__name">Pelau House</span><span class="caterer-card__meta">Trinidadian &amp; Tobagonian · Scarborough</span></a></li>
   …
@@ -395,8 +398,9 @@ shimmer stops under reduced motion ([skeleton](skeleton.md)).
   Scarborough", cover `pelau-house`); iterations in
   `e2e/perf-test/config/scenario-iterations.mjs` keep it at roughly
   100–300 ms.
-- Composite scenarios: `Listing` (page 1, 24 cards from the cast, first 6
-  eager), `ListingLoading` (6 skeletons), `Occasions` (8 tiles), `DarkTheme`.
+- Composite scenarios: `Listing` (page 1, 24 cards from the cast, 6 eager at
+  LG), `ListingLoading` (9 skeletons at LG), `Occasions` (8 tiles),
+  `DarkTheme`.
 - Regression rule: a change to the template, inputs, styles or change
   detection is measured against the base branch with `--fail-on-regression`
   before it is pushed.
@@ -423,7 +427,7 @@ shimmer stops under reduced motion ([skeleton](skeleton.md)).
 
 - **AC-9** Given Salt Pond Provisions' card whose image request fails, when the `error` event fires, then the circle keeps its size and position, shows the plate icon and "Photo unavailable", and the card's bounding box does not change. (L2-006)
 - **AC-10** Given a listing card on a slow connection, when the card renders before its image arrives, then a `--color-bg-photo` circle of the final size is shown and the image's arrival causes no layout shift. (L2-006)
-- **AC-11** Given the listing is loading, when the grid renders with `busy`, then the `ul.caterer-grid` has `aria-busy="true"` and holds exactly 6 `li.caterer-card.caterer-card--skeleton` items, each with `aria-hidden="true"`. (L2-066)
+- **AC-11** Given the listing is loading at 1280 px, when the grid renders with `busy`, then the `ul.caterer-grid` has `aria-busy="true"` and holds exactly 9 `li.caterer-card.caterer-card--skeleton` items, each with `aria-hidden="true"`, and axe-core reports 0 violations. (L2-066)
 - **AC-12** Given the listing loading at 1280 px, when the 24 real cards replace the skeletons, then the first row of cards occupies the same positions as the skeletons and the page's Cumulative Layout Shift stays at or below 0.1. (L2-085)
 - **AC-13** Given Auntie Bev's Kitchen's draft dashboard at 1280 px with no cover photo yet, when "Your listing card" renders, then it is a `div.caterer-card` (no link, no tab stop) with the placeholder "Cover photo", "Auntie Bev's Kitchen" and "Jamaican · Oshawa". (L2-045)
 - **AC-14** Given Kendra edits Pelau House's details at 1280 px, when she changes the business name in the form to "Pelau House by Kendra", then the live preview card shows "Pelau House by Kendra" without a page reload and is not a link. (L2-045)
@@ -455,7 +459,9 @@ shimmer stops under reduced motion ([skeleton](skeleton.md)).
 
 ### Performance
 
-- **AC-28** Given listing page 1 with 24 cards, when it first loads, then the first 6 card images have no `loading` attribute, cards 7–24 have `loading="lazy"`, and no more than 6 images are requested before the `load` event. (L2-085)
+- **AC-28** Given listing page 1 with 24 cards, when it first loads at 360 px (XS), at 800 px (MD) and at 1280 px (LG), then exactly the first 2, 4 and 6 card images respectively have no `loading` attribute, every other card image has `loading="lazy"`, and every eager image lies inside the first viewport. (L2-006)
+- **AC-29** Given listing page 1 with 24 cards at 1280 px, when it first loads, then no more than 6 card images are requested before the `load` event. (L2-085)
+- **AC-30** Given the listing is loading, when the busy grid renders at 360 px, at 800 px and at 1280 px, then it holds 3, 6 and 9 skeleton cards respectively, filling the first screen of 1, 2 and 3 columns, and when the first page of cards replaces them the page's Cumulative Layout Shift stays at or below 0.1. (L2-085)
 
 ## Implementation notes
 
@@ -474,23 +480,29 @@ shimmer stops under reduced motion ([skeleton](skeleton.md)).
 - Design-system catch-up for D-13: scope the hover rule to the link,
   `a.caterer-card:hover .photo img`, so a link-less preview card does not
   zoom. The rendering shows the required look with a specimen-only style.
-- The grid assigns `loading` by position from `eagerCount` (D-8); a card's own
+- The grid assigns `loading` by position from `eagerCount` for the resolved
+  viewport class (D-8); a card's own
   `loading` input wins.
 - No CDK primitive is needed.
-- The browse-listing detailed design describes a 4:3 photo box, 4 columns at
-  XL and a different `sizes` attribute; it changes with the outcome of D-3 and
-  D-4.
+- Upstream follow-ups decided by the user (D-3, D-4): L2-005.4 (4 columns at
+  XL) and L2-005.5 (4:3 photo) are to be amended through
+  `engineering-requirements`, and the browse-listing detailed design (4:3
+  photo box, 4 columns at XL, its `sizes` attribute) follows. When they land,
+  add criteria for 3 columns at XL and the 1:1 photo here.
+- Server rendering: the app may pass `viewport` from a viewport client hint
+  (`Sec-CH-Viewport-Width`); without one the grid renders the XS eager count,
+  which keeps every eager image inside the first viewport at any width.
 
 ## Decisions
 
 - **D-1** *Which framework does this API target?* Framework-neutral inputs, outputs and slots with the `sh-` prefix, because no stack ADR exists yet. The class names and attributes in *Markup* are the binding contract whatever the stack (AGENTS.md: BEM parity with the mocks).
 - **D-2** *Does this component own the grid?* Yes, as `sh-caterer-grid`. The design-system page defines `.caterer-grid` and `.occasion-grid` with the card, the skeleton class sits on the grid's `li`, and L2-005 governs columns and photo size together, so splitting them would put one requirement in two places.
-- **D-3** *How many columns at XL?* Three, as at LG. L2-005.4 asks for 4, but the reference design, the mocks and the design system show 3 beside the filter column at 1440 px (mocks README, question 2). This CRD follows the design system and has no criterion for XL columns until product settles it; see the report to the user.
-- **D-4** *4:3 photo or circle?* The 1:1 circle. L2-005.5 asks for a 4:3 photo filling at least 60 % of the card; the design, the mocks and [photo](photo.md) use a circle, which still fills well over 60 % (mocks README, question 1). AC-23 keeps the 60 % rule; the aspect ratio waits on product.
-- **D-5** *How many images load eagerly?* The first 6, as the design system and mocks do, which also satisfies L2-085.3 (at most 6 before `load`). On a phone the first viewport holds only one or two cards, so L2-006.3 ("only images in the first viewport are eager") is met at LG and above but not at XS; server-rendered HTML cannot know the viewport. Raised to the user with D-3 and D-4.
+- **D-3** *How many columns at XL?* Three, as at LG. L2-005.4 asks for 4, but the reference design, the mocks and the design system show 3 beside the filter column at 1440 px (mocks README, question 2). The user decided on 10 October 2026 to keep 3 columns at XL, as in the design system; L2-005.4 will be amended later through `engineering-requirements`. Until it is, this CRD has no criterion for XL columns, so no criterion contradicts the current L2 text.
+- **D-4** *4:3 photo or circle?* The 1:1 circle. L2-005.5 asks for a 4:3 photo filling at least 60 % of the card; the design, the mocks and [photo](photo.md) use a circle, which still fills well over 60 % (mocks README, question 1). The user decided on 10 October 2026 to keep the round 1:1 photo; L2-005.5 and the browse-listing design will be amended later. The rule that the photo fills at least 60 % of the card's height stays (AC-23).
+- **D-5** *How many images load eagerly?* As many as the first viewport holds, per viewport class: 2 on XS, 4 on SM and MD, 6 from LG; every other image is lazy. The user decided this on 10 October 2026. It meets L2-006.3 (only first-viewport images are eager) at every width and L2-085.3 (at most 6 images before `load`); the design system's fixed "first six" applied only to the 3-column layout.
 - **D-6** *When is a card not a link?* When it previews something a visitor cannot see yet: a draft (Auntie Bev's Kitchen) or the "Live preview" of unsaved edits. Linking would open a page that does not match the card. The dashboard's preview of a published, saved profile links to the caterer's own public page, as the mocks do.
 - **D-7** *What is in the link's accessible name when the image fails?* The failed label, then the name and line ("Photo unavailable, Salt Pond Provisions, …"). The photo component's rule is that inside a link the parent's name carries it, and the label is visible text, so it stays in the name rather than being hidden.
-- **D-8** *Who decides `loading` for each card?* The grid, by position, through `eagerCount`, so a page cannot forget it; a card's own `loading` wins for standalone cards (the dashboard preview is eager by setting it).
+- **D-8** *Who decides `loading` for each card, and how does it know the viewport?* The grid, by position, from `eagerCount` for the current viewport class, so a page cannot forget it; a card's own `loading` wins for standalone cards (the dashboard preview is eager by setting it). The grid resolves the class with `matchMedia` on the design-system breakpoints, or takes it from `viewport` (for server rendering with a client hint), and falls back to XS when nothing is known: then only 2 images are eager, which stays inside the first viewport at any width. Skeleton counts use the same mechanism with `skeletonCount` (3 / 6 / 9, the skeleton design system's first-screen rule); the loading state only appears on client-side page and filter changes, where the viewport is known.
 - **D-9** *Is a visited card styled?* No. The listing is reshuffled daily and a dimmed card would read as unavailable (design system, States).
 - **D-10** *Must the component render `<span class="caterer-card">`?* No. Those 66 spans in sheet and dialog mocks are a static picture of the listing behind the overlay; the product renders the real grid there.
 - **D-11** *Does the card accept slots for extras such as a "Saved" heart?* No. L2-004 allows exactly four things, so the card takes data inputs only and has no slot through which anything else could be added.

@@ -91,8 +91,8 @@ need sorting or row actions do not reshape the component later.
 8. **Row separator** — 1 px `--color-border-default` under every row except
    the last.
 9. **Row actions** — `div.row-actions` in the last cell, holding small ghost
-   [buttons](button.md); revealed on row hover or focus within, always shown on
-   touch.
+   [buttons](button.md) in a wrapping flex row with a `--space-2` (8 px) gap
+   (D-10); revealed on row hover or focus within, always shown on touch.
 10. **Empty marker** — `span.na[aria-hidden="true"]` "—" plus
     `span.visually-hidden` with a word ("No change").
 11. **Skeleton row (loading only)** — `tr[aria-hidden="true"]` with one
@@ -367,7 +367,8 @@ and muted text to `--color-fg-default` through the tokens.
   line and long cells (reasons, targets) wrap.
 - Row actions are always visible on touch screens (`@media (hover: none)`),
   and their small buttons grow to `--target-comfortable` (44 px) below 48rem
-  with at least `--space-2` between neighbours.
+  with at least `--space-2` (8 px) between neighbours, in the row and to the
+  next row's buttons (L2-065.1, the user's decision of 10 Oct 2026, D-10).
 - Tables are never turned into cards on phones: operators compare across rows
   (design system).
 - At 200 % zoom in a 1280 px window the audit log behaves as at 640 px: it
@@ -522,6 +523,7 @@ under reduced motion ([skeleton](skeleton.md)). Nothing else moves.
 - **AC-21** Given a 320 px viewport, when the privacy notice's "How long we keep it" table renders, then it fits without a scrollbar, the row header "Food handler certificate files" wraps onto two lines, and nothing is clipped or overlapping. (L2-064)
 - **AC-22** Given a 1280 px window at 200 % zoom, when the audit log renders, then every column is reachable by scrolling inside the wrapper and the page does not scroll horizontally. (L2-069)
 - **AC-23** Given a 360 px touch viewport, when the caterer list renders, then every row's "Open" button is visible without hover, at least 44 × 44 CSS px, and at least 8 px from the next target. (L2-065)
+- **AC-26** Given a 360 px touch viewport and a row with two actions ("Open" and "Suspend"), when the row is measured, then the two 44 px buttons are at least 8 px apart. (L2-065)
 
 ### Motion
 
@@ -542,6 +544,7 @@ under reduced motion ([skeleton](skeleton.md)). Nothing else moves.
 - Styles: the "Table" section of `components.css` moves into the component,
   class names unscoped (the consumer's `tr`, `th scope="row"`, `.num` and
   `.list__meta` sit in the projected body and must still match).
+- Design-system catch-up for D-10: `.table .row-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }`.
 - Design-system catch-up for D-2: add `.table tbody tr[aria-current="true"]`
   to the selected-row rule. The rendering shows the required look with a
   specimen-only style.
@@ -566,3 +569,4 @@ under reduced motion ([skeleton](skeleton.md)). Nothing else moves.
 - **D-7** *Does the caption change while loading?* No. The mock renames it "Audit entries, loading", but the design system pairs `aria-busy` with a separate hidden status line; one stable caption keeps the region's name stable and avoids announcing "loading" twice.
 - **D-8** *How many skeleton rows?* 8 by default, as in the audit loading mock; the input allows 1 to 20 for other tables.
 - **D-9** *Does the table sort or format anything itself?* No. It reports `sortChange` and renders given rows; sorting belongs to the page's query (the audit log is newest first by L2-060) and formatting to the shared formatters.
+- **D-10** *How far apart are adjacent row actions on phones?* At least 8 px: `.row-actions` is a wrapping flex row with a `--space-2` gap. L2-065.1 asks for 8 px between neighbouring targets and the user's decision of 10 Oct 2026 is that it wins over the design system's 4 px; `components.css` adds the gap (design-system catch-up).

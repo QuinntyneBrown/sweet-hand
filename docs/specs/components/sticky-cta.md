@@ -126,7 +126,7 @@ The bar has no interactive states of its own; its button does.
 | Default | caterer page loaded, viewport below 62rem | Bar fixed at the bottom from first paint | Region "Enquire"; button "Send an enquiry", has dialog popup |
 | Button hover, focus, active | [button](button.md) states | Primary hover, focus ring, active fills | As button |
 | Offline (disabled) | page served from cache, no connection | Button at 50 % opacity, native `disabled` | Button described by the banner: "You’re offline. This is the copy saved from your last visit. Sending an enquiry or a report needs a connection." |
-| Long name | name wider than the space left by the button | Name truncated with an ellipsis on one line; supporting line and button unchanged | Full name read |
+| Long name | name wider than the space left by the button | Name truncated with an ellipsis on one line; the supporting line wraps if it must, never truncates; button unchanged | Full name read |
 | Hidden at LG and up | viewport 62rem or wider | `display: none`; the enquiry panel is sticky instead | Removed from the tree; only the panel's `aside` "Enquire" is exposed |
 | Absent | caterer page loading, failed or removed | No bar; the page drops `stickyCta` | — |
 | Behind a dialog | enquiry or photo dialog open | Covered by the backdrop (`--z-sticky` is below `--z-overlay`) | Inert with the rest of the page |
@@ -217,7 +217,7 @@ button `Highlight` / `HighlightText` (button CRD).
 |---|---|
 | XS, SM, MD (below 62rem) | Fixed to the bottom edge, full width; `main` and the footer carry the bar's height as bottom padding. |
 | LG, XL (62rem+) | Not displayed; the `.enquiry-panel` in the right column is sticky at `--space-8` from the top with the large button and the privacy note. |
-| 320 px | The name truncates first; the supporting line truncates never (it is short); the button keeps its full width and one line. |
+| 320 px | The name truncates first; the supporting line may wrap onto a second line but is never truncated (it carries the guest range, D-8); the button keeps its full width and one line. |
 
 - Safe area: pages declare `viewport-fit=cover`; the bar's bottom padding adds
   `env(safe-area-inset-bottom)`, so the button sits above the home indicator.
@@ -336,7 +336,7 @@ follow [button](button.md) and reduced motion.
 
 ### Responsive
 
-- **AC-13** Given "Auntie Euphemia’s Kittitian & Nevisian Sunday Kitchen and Celebration Catering" at 320 px, when the bar renders, then the name shows on one line ending in an ellipsis, "Send an enquiry" is on one line at its full width, and the page does not scroll horizontally. (L2-064)
+- **AC-13** Given "Auntie Euphemia’s Kittitian & Nevisian Sunday Kitchen and Celebration Catering" at 320 px, when the bar renders, then the name shows on one line ending in an ellipsis, "Serves 50 guests" is shown in full (on one or two lines), "Send an enquiry" is on one line at its full width, and the page does not scroll horizontally. (L2-064)
 - **AC-14** Given Pelau House's page at 360 px scrolled to the end, when the last review and the footer are measured, then neither is overlapped by the bar. (L2-064)
 - **AC-15** Given a 1280 px window at 200 % zoom, when Pelau House's page renders, then the bar is displayed and every section and the footer can be scrolled fully above it with no horizontal scrolling. (L2-069)
 
@@ -375,3 +375,4 @@ follow [button](button.md) and reduced motion.
 - **D-5** *Does the button come from a slot or from inputs?* A slot holding `sh-button`. The page needs the button instance to open the dialog and to return focus to it (L2-067.4), and the button's own API already covers `disabled`, `describedBy` and `haspopup`.
 - **D-6** *Does the bar hide while scrolling down, or appear only after the first button scrolls away?* Neither: it is present from the first paint below 62rem. The design system rules out motion under a finger about to tap, and L2-015.4 is met because the button is in view at every scroll position.
 - **D-7** *Which landmark is exposed at each width?* Only the displayed one: the bar below 62rem, the panel from 62rem; both use `display: none` when hidden, so they never appear twice in the landmarks list.
+- **D-8** *What happens to the guest range when the bar is very narrow?* It wraps onto a second line and is never truncated. The 320 px rendering showed "Serves 20–300 guests" needing two lines beside the button; the name repeats the page's `h1` and can lose its end, but the guest range is the bar's only fact. Two lines make the bar about 87 px, still inside the page's `--space-24` room.

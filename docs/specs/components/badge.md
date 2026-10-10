@@ -33,7 +33,7 @@ Out of scope:
 - Fetching the unread count, polling it every 60 seconds and deciding when it
   changes (L2-029.3): the header or page owns that and passes the new count.
 - The accessible name of an icon button that carries a count ("Enquiries,
-  2 unread enquiries"): the [icon button](icon-button.md) owns its
+  2 unread"): the [icon button](icon-button.md) owns its
   `aria-label`; the badge inside it is hidden.
 - Announcing count changes: the inbox and queue pages own their own live
   regions; the badge never announces.
@@ -49,7 +49,7 @@ surrounding links and buttons.
 | Where | Configuration | Slots / content | States seen | Surface |
 |---|---|---|---|---|
 | Customer header on every signed-in customer page (`pages/inbox/*`, `pages/thread/*`, `pages/caterers/signed-in`, `pages/caterer/*` signed in, `pages/account/*`) | count, after the text link "Inbox", with hidden text | "1"; hidden ", 1 unread enquiry" | default, inside current link (`aria-current="page"`) | canvas, site header |
-| Caterer header on every caterer page (`pages/dashboard*`, `pages/profile-*`, `dialogs/dish`, `dialogs/remove-*`, `dialogs/decline-enquiry` …) | count, after "Enquiries", with hidden text | "2" (and "1" after one thread is read); hidden ", 2 unread enquiries" | default, current link | canvas, site header |
+| Caterer header on every caterer page (`pages/dashboard*`, `pages/profile-*`, `dialogs/dish`, `dialogs/remove-*`, `dialogs/decline-enquiry` …) | count, after "Enquiries", with hidden text | "2" (and "1" after one thread is read); hidden ", 2 unread" | default, current link | canvas, site header |
 | Caterer header below 48rem (79 screens) | count on the inbox icon button, no hidden text | "2"; the button is named "Enquiries, 2 unread" | default, current | icon button corner |
 | Customer header below 48rem (14 screens) | count on the inbox icon button, no hidden text | "1"; button "Inbox, 1 unread" | default, current | icon button corner |
 | `pages/caterers/signed-in` below 48rem | count on the menu icon button, no hidden text | "1"; button "Menu, 1 unread enquiry" | default | icon button corner |
@@ -89,7 +89,7 @@ Host: `sh-badge` is `display: contents`, so `.icon-btn .badge--count`,
 | `variant` | `'neutral' \| 'info' \| 'success' \| 'warning' \| 'danger' \| 'solid' \| 'count'` | `'neutral'` | no | Maps to `.badge--{variant}`; `neutral` adds no modifier. |
 | `count` | `number \| null` | `null` | yes for `count` | Whole number. `null`, `0` or a negative number renders nothing at all (no pill, no hidden text). Ignored for other variants. |
 | `max` | `number` | `99` | no | Above `max` the pill shows "`max`+" ("99+"). The hidden text is not capped. |
-| `countLabel` | `string \| null` | `null` | no | The meaning of the count, already translated and pluralised by the consumer ("2 unread enquiries", "7 items waiting", "134 items waiting"). When set, the component renders `<span class="visually-hidden">, {countLabel}</span>` after the pill. Leave `null` when the parent already names the count (an icon button's `aria-label`). |
+| `countLabel` | `string \| null` | `null` | no | The meaning of the count, already translated and pluralised by the consumer ("2 unread", "1 unread enquiry", "7 items waiting", "134 items waiting"). When set, the component renders `<span class="visually-hidden">, {countLabel}</span>` after the pill. Leave `null` when the parent already names the count (an icon button's `aria-label`). |
 
 The count pill always carries `aria-hidden="true"`; there is no input to turn
 that off (D-3).
@@ -149,12 +149,12 @@ own. What changes is the value and the context.
 
 ```html
 <!-- rendered: count after a text link, with hidden meaning -->
-<a class="site-nav__link" href="/dashboard/enquiries">Enquiries <span class="badge badge--count" aria-hidden="true">2</span><span class="visually-hidden">, 2 unread enquiries</span></a>
+<a class="site-nav__link" href="/dashboard/enquiries">Enquiries <span class="badge badge--count" aria-hidden="true">2</span><span class="visually-hidden">, 2 unread</span></a>
 ```
 
 ```html
 <!-- rendered: count on an icon button (no hidden text; the button names it) -->
-<a class="icon-btn" href="/dashboard/enquiries" aria-label="Enquiries, 2 unread enquiries"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">2</span></a>
+<a class="icon-btn" href="/dashboard/enquiries" aria-label="Enquiries, 2 unread"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">2</span></a>
 ```
 
 ```html
@@ -277,7 +277,7 @@ encloses it.
 
 ### Labelling
 
-- Spoken: "Inbox, 1 unread enquiry", "Enquiries, 2 unread enquiries",
+- Spoken: "Inbox, 1 unread enquiry", "Enquiries, 2 unread",
   "Queue, 7 items waiting", "Reports, 2 open reports".
 - Neutral and info badges are read as part of the name they follow ("Leah
   Mohammed You", "Caymanian New"); keep them to one or two words.
@@ -297,7 +297,7 @@ None. Counts change without animation; nothing pulses or bounces.
 
 - Counts are numerals: "1", "2", "7", "34", "99+". "0" is never shown.
 - The hidden text uses the noun the page uses, pluralised by the consumer:
-  "1 unread enquiry" / "2 unread enquiries", "1 item waiting" / "7 items
+  "1 unread enquiry" / "2 unread enquiries" (and the shorter "2 unread" after "Enquiries"), "1 item waiting" / "7 items
   waiting", "2 open reports". French ("2 demandes non lues") is longer, which
   is fine because the text is hidden.
 - Markers are one or two words, sentence case: "You", "New", "Your review"
@@ -315,7 +315,7 @@ None. Counts change without animation; nothing pulses or bounces.
 - No listeners, no timers, no polling; the parent passes new counts.
 - Perf-test scenario: `frontend/projects/perf-test/src/scenarios/Badge.ts`
   renders Kendra's header link "Enquiries" with count 2 and hidden text
-  ", 2 unread enquiries", plus the "You" marker beside Leah Mohammed;
+  ", 2 unread", plus the "You" marker beside Leah Mohammed;
   iterations in `e2e/perf-test/config/scenario-iterations.mjs` keep it at
   roughly 100–300 ms.
 - Composite scenarios: `SiteHeader` (all three roles' headers), `DarkTheme`.
@@ -331,8 +331,8 @@ None. Counts change without animation; nothing pulses or bounces.
 
 ### Rendering
 
-- **AC-1** Given Kendra Baptiste has 2 threads with unread messages, when her header renders at 1280 px, then the "Enquiries" link contains `<span class="badge badge--count" aria-hidden="true">2</span>` followed by `<span class="visually-hidden">, 2 unread enquiries</span>`. (L2-029)
-- **AC-2** Given Kendra opens one of her 2 unread threads, when the count input changes from 2 to 1, then the pill reads "1" and the hidden text ", 1 unread enquiry", without a page reload. (L2-029)
+- **AC-1** Given Kendra Baptiste has 2 threads with unread messages, when her header renders at 1280 px, then the "Enquiries" link contains `<span class="badge badge--count" aria-hidden="true">2</span>` followed by `<span class="visually-hidden">, 2 unread</span>`. (L2-029)
+- **AC-2** Given Kendra opens one of her 2 unread threads, when the count input changes from 2 to 1, then the pill reads "1" and the hidden text ", 1 unread", without a page reload. (L2-029)
 - **AC-3** Given Marcia Thompson has no unread threads, when her header renders, then the "Inbox" link contains no `.badge` element and no hidden count text, and no "0" appears. (L2-029)
 - **AC-4** Given the operator queue holds 134 items, when the "Queue" badge renders with `max` 99, then the pill reads "99+" and the hidden text reads ", 134 items waiting". (L2-029)
 - **AC-5** Given an operator added the cuisine "Caymanian" today, when the cuisines list renders, then "Caymanian" is followed by `<span class="badge badge--info">New</span>`. (L2-007)
@@ -340,8 +340,8 @@ None. Counts change without animation; nothing pulses or bounces.
 
 ### Screen readers
 
-- **AC-7** Given Kendra's header at 1280 px, when a screen reader reads the "Enquiries" link, then its accessible name is "Enquiries, 2 unread enquiries" and the number "2" is not read twice. (L2-029)
-- **AC-8** Given Kendra's header at 360 px, when the inbox icon button with a count of 2 renders, then the badge has `aria-hidden="true"`, has no `aria-label`, and the button's accessible name is "Enquiries, 2 unread enquiries". (L2-068)
+- **AC-7** Given Kendra's header at 1280 px, when a screen reader reads the "Enquiries" link, then its accessible name is "Enquiries, 2 unread" and the number "2" is not read twice. (L2-029)
+- **AC-8** Given Kendra's header at 360 px, when the inbox icon button with a count of 2 renders, then the badge has `aria-hidden="true"`, has no `aria-label`, and the button's accessible name is "Enquiries, 2 unread". (L2-068)
 - **AC-9** Given the operator list, when a screen reader reads Leah Mohammed's row title, then it reads "Leah Mohammed You" with no role announced for the badge. (L2-066)
 - **AC-10** Given the count badge renders in a link, a tab, an icon button and a filter-list item, when axe-core runs with WCAG 2.1 A and AA rules, then it reports 0 violations, including none for `aria-label` on a generic element. (L2-066)
 
@@ -393,7 +393,7 @@ None. Counts change without animation; nothing pulses or bounces.
 - **D-1** *Which framework does this API target?* Framework-neutral inputs, outputs and slots with the `sh-` prefix, because no stack ADR exists yet. The class names and attributes in *Markup* are the binding contract whatever the stack (AGENTS.md: BEM parity with the mocks).
 - **D-2** *What is the host?* `display: contents`, rendering `span.badge` in the light DOM, so parent rules (`.icon-btn .badge--count`, `.tab .badge`, the wrapping `.admin-row__title`) style the real pill and e2e locators match the mocks.
 - **D-3** *How is a count named?* The pill is always `aria-hidden="true"` and the meaning is visually hidden text after it (or the parent's `aria-label`), as the design system decided when it fixed 236 mocks that put `aria-label` on the `<span>`. There is no way to put `aria-label` on the badge.
-- **D-4** *What exactly does the hidden text say?* ", {count} {noun}" with the noun the page uses, so the link reads "Enquiries, 2 unread enquiries". L2-029.1 requires the accessible name "2 unread enquiries"; the design-system example's shorter ", 2 unread" would not contain it, so the CRD uses the full phrase for every role ("1 unread enquiry", "7 items waiting"). The icon button's `aria-label` follows the same rule, set by its consumer.
+- **D-4** *What exactly does the hidden text say?* ", {count} {meaning}" in the words the link needs: after "Enquiries" just ", 2 unread" (the link already says what is unread), after "Inbox" ", 1 unread enquiry", after "Queue" ", 7 items waiting". The phone icon link is named "Enquiries, 2 unread" with the badge `aria-hidden`, by the user's decision of 10 Oct 2026 (L2-029.1, which asks for "2 unread enquiries", is to be amended to match).
 - **D-5** *Are success, warning, danger and solid part of the API although no screen uses them?* Yes. The design system defines and renders them, and a later screen may need them; leaving them out would change the `variant` type later. Content rules (status labels for record states) keep them rare.
 - **D-6** *Does a count change animate or announce?* No. The design system forbids motion on counts, and the inbox and queue pages own their own live regions; a badge announcing every 60-second poll would interrupt.
 - **D-7** *What does a count of 0 or `null` render?* Nothing, not even the hidden text, so the link reads just "Inbox" (L2-029.4). A negative count, which should never arrive, is treated as 0.

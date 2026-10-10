@@ -374,7 +374,7 @@ reduce`; closing is instant.
 ## Decisions
 
 - **D-1** *Which framework does this API target?* Framework-neutral inputs, outputs and slots with the `sh-` prefix, because no stack ADR exists yet. The class names and attributes in *Markup* are the binding contract whatever the stack (AGENTS.md: BEM parity with the mocks).
-- **D-2** *Does `sh-popover` build the account menu?* No. The popover page calls it a non-modal dialog with `aria-haspopup="dialog"`; the menu page calls it a plain container around a labelled `role="menu"` with `aria-haspopup="menu"`. The two design-system pages conflict; this CRD and [menu](menu.md) D-2 follow the menu page (the component that owns it, and what 290 mock triggers already say). Raised with the user.
+- **D-2** *Does `sh-popover` build the account menu?* No. Per the user's decision of 10 Oct 2026, the account menu is `role="menu"` with `aria-haspopup="menu"` and is built by `sh-account-menu` in [menu](menu.md) (D-2). The popover page's description of it as a non-modal dialog is to be corrected.
 - **D-3** *Does Tab out of the panel close it?* Yes, as the design system's keyboard table says; Shift+Tab back to the trigger keeps it open, so the trigger and panel act as one unit.
 - **D-4** *Native `popover` attribute or a framework overlay?* Either, behind this API. The design system prefers the native attribute for top-layer rendering; its built-in light dismiss does not close on Tab-out, so the component handles dismissal itself (`popover="manual"`).
 - **D-5** *Does the filter dropdown animate?* Yes, like every popover (design system, States: "scales in from its anchor corner"); today's `.filter-dropdown` rule lacks the animation and catches up.
