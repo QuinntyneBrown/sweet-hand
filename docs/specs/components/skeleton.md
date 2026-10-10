@@ -69,9 +69,11 @@ loading mocks, about 600 shapes) and `usage_inventory.py docs/mocks skeleton
 
 Not built by this component:
 
-- `aria-label="Loading …"` on busy lists with exposed rows (cuisines,
-  operators, breaches) is drift; rows are `aria-hidden` and one
-  `sh-loading-status` names the load.
+- `aria-label="Loading …"` on a busy list is not the skeleton's: the
+  [list](list.md) (`busyLabel`) and [inbox row](inbox-row.md)
+  (`loadingLabel`) own it, and busy lists keep it ("Loading operators",
+  "Loading your enquiries"). The skeleton rows inside are `aria-hidden` and
+  one `sh-loading-status` names the load (D-9).
 - Inline `width: 100%; height: 100%` on circles inside `.photo` (29 times) is
   replaced by the `.photo > .skeleton` rule.
 - Inline `height: var(--control-height-sm)` on admin-row rects is replaced by
@@ -185,7 +187,7 @@ below 48rem and `--control-height-sm` from 48rem for a small button).
 ```html
 <!-- rendered: a region loading (inbox list) -->
 <p class="visually-hidden" role="status">Loading your enquiries</p>
-<ul class="inbox-list" aria-busy="true">
+<ul class="inbox-list" aria-busy="true" aria-label="Loading your enquiries">
   <li class="inbox-skeleton-row" aria-hidden="true"><span class="skeleton skeleton--circle" aria-hidden="true"></span><span class="skeleton skeleton--text" aria-hidden="true" style="width: 50%;"></span><span class="skeleton skeleton--text" aria-hidden="true" style="width: 3rem;"></span><span class="skeleton skeleton--text" aria-hidden="true" style="width: 70%;"></span><span class="skeleton skeleton--text" aria-hidden="true" style="width: 4rem;"></span></li>
   …4 rows
 </ul>
@@ -217,7 +219,7 @@ Consumer templates (binding syntax illustrative):
 ```html
 <!-- consumer: inbox -->
 <sh-loading-status [loading]="busy()" [loadingLabel]="t('inbox.loading')" [doneLabel]="summary()"></sh-loading-status>
-<ul class="inbox-list" [attr.aria-busy]="busy() || null">
+<ul class="inbox-list" [attr.aria-busy]="busy() || null" [attr.aria-label]="busy() ? t('inbox.loading') : null">
   @if (busy()) { @for (i of [1,2,3,4]; track i) {
     <li class="inbox-skeleton-row" aria-hidden="true"><sh-skeleton shape="circle"></sh-skeleton><sh-skeleton width="50%"></sh-skeleton>…</li> } }
   @else { … }
@@ -412,7 +414,9 @@ change, far below three flashes a second.
   `.skeleton--rect`; the mocks set the radius inline on five button
   placeholders. The rendering shows it with a specimen-only style.
 - Mock catch-up: rows in the cuisines, operators and breach-record loading
-  mocks get `aria-hidden`; the busy lists lose `aria-label`.
+  mocks get `aria-hidden`; the busy lists keep their `aria-label`
+  ("Loading operators", "Loading your enquiries"), as [list](list.md) and
+  [inbox row](inbox-row.md) specify (D-9).
 - Composed by [caterer card](caterer-card.md) (`busy` grid), [list](list.md),
   [table](table.md), [dish](dish.md), [avatar](avatar.md), and every page
   loading state. Composes nothing. No CDK primitive.
@@ -427,3 +431,4 @@ change, far below three flashes a second.
 - **D-6** *Is there a status component, or does each page write its own paragraph?* A component, `sh-loading-status`. The mocks used a visible subtitle, a hidden paragraph and a hidden span; the design system settled on one hidden `role="status"` paragraph per region, and a component makes that the only way to write it.
 - **D-7** *Is the skeleton ever focusable or labelled?* No. It is always `aria-hidden`; the input to remove it does not exist, because exposed skeleton rows are counted as real list items (design system, Do and don't).
 - **D-8** *Which shape stands in for a heading that is loading?* `text` inside the heading element. The mocks used `title` there with an inline `height: 0.9em` override; since `--title` is 1.5em of the heading's own display-size font it would draw a block twice the line's height and shift on load, while `text` (0.9em of that font) is exactly one line of it.
+- **D-9** *Does a busy list keep its `aria-label`?* Yes, aligned with [list](list.md) and [inbox row](inbox-row.md), which own the list markup: while busy the list is labelled by its loading label ("Loading operators", "Loading your enquiries"). The skeleton rows stay `aria-hidden` and the status line still announces the load.

@@ -85,8 +85,8 @@ Not product markup, and not built by this component:
    pill-shaped focus ring; current page in ink, semibold, `aria-current="page"`.
    Shown from 48rem.
 6. **Unread badge (optional)** — `span.badge.badge--count` from
-   [badge](badge.md) inside a link: the number, with an `aria-label` that says
-   what is counted ("2 unread enquiries").
+   [badge](badge.md) inside a link: the number, `aria-hidden="true"`, followed
+   by visually hidden text that says what is counted (", 2 unread").
 7. **Search (optional)** — `button.icon-btn` from [icon
    button](icon-button.md), magnifier icon, "Search by area or postal code",
    opens the search dialog. Shown at every width for visitors and customers.
@@ -128,7 +128,7 @@ interface SiteNavLink {
   href: string;           // "/inbox"
   current?: boolean;      // renders aria-current="page"; at most one link is current
   count?: number;         // unread or waiting count; 0 or absent renders no badge
-  countLabel?: string;    // "2 unread enquiries", "7 items waiting"; required when count > 0
+  countLabel?: string;    // hidden text after the badge: "2 unread", "1 unread enquiry", "7 items waiting"; required when count > 0 (D-15)
 }
 interface SiteNavShortcut {
   label: string;          // "Inbox" or "Enquiries"
@@ -202,7 +202,7 @@ One size, which grows with the viewport through `--layout-topbar-height`:
 | Icon / avatar hover | `:hover` | Icon button fill `--color-bg-subtle`, icon stays `--color-fg-default` (the inbox shortcut too, D-13); avatar fill `--color-bg-subtle-hover`; the wordmark does not change | — |
 | Focus | `:focus-visible` | Shared ring (`--focus-ring-width`, `--color-focus-ring`, `--focus-ring-offset`) following the pill or circle | Focused item announced |
 | Current page | `current` → `aria-current="page"` | Link in `--color-fg-default`, `--font-weight-semibold`; inbox icon in `--color-fg-accent` (D-10) | "current page" |
-| Unread count | `count > 0` | Ink-on-red `.badge--count` with the number, "99+" above 99 | Link name includes the badge's `aria-label`: "Inbox 1 unread enquiry"; icon name "Inbox, 1 unread" (D-3) |
+| Unread count | `count > 0` | Ink-on-red `.badge--count` with the number, "99+" above 99 | Badge `aria-hidden`; link name includes the hidden text: "Inbox, 1 unread enquiry", "Enquiries, 2 unread"; icon name "Inbox, 1 unread" (D-3, D-15) |
 | No unread | `count` 0 or absent | No badge at all | Link name "Inbox"; icon name "Inbox" |
 | Popup open | `menuOpen` / `searchOpen` / `accountOpen` → `aria-expanded="true"` | Icon button or avatar keeps the `--color-bg-subtle` fill | "expanded"; focus is inside the popup |
 | Behind a dialog | a sheet or dialog is open | Unchanged | Inert with the rest of the page |
@@ -235,7 +235,7 @@ and mocks. The component never renders it.
   <nav class="site-nav" aria-label="Primary">
     <a class="site-nav__link site-nav__extra" href="/caterers">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="/occasions">Occasions</a>
-    <a class="site-nav__link site-nav__extra" href="/inbox" aria-current="page">Inbox <span class="badge badge--count" aria-label="1 unread enquiry">1</span></a>
+    <a class="site-nav__link site-nav__extra" href="/inbox" aria-current="page">Inbox <span class="badge badge--count" aria-hidden="true">1</span><span class="visually-hidden">, 1 unread enquiry</span></a>
     <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24">…</svg></button>
     <a class="icon-btn site-nav__menu" href="/inbox" aria-label="Inbox, 1 unread" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24">…</svg><span class="badge badge--count" aria-hidden="true">1</span></a>
     <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24">…</svg></button>
@@ -250,7 +250,7 @@ and mocks. The component never renders it.
   <a class="wordmark" href="/dashboard">Sweet Hand <span class="wordmark__tag">for caterers</span></a>
   <nav class="site-nav" aria-label="Primary">
     <a class="site-nav__link site-nav__extra" href="/dashboard" aria-current="page">Dashboard</a>
-    <a class="site-nav__link site-nav__extra" href="/dashboard/enquiries">Enquiries <span class="badge badge--count" aria-label="2 unread enquiries">2</span></a>
+    <a class="site-nav__link site-nav__extra" href="/dashboard/enquiries">Enquiries <span class="badge badge--count" aria-hidden="true">2</span><span class="visually-hidden">, 2 unread</span></a>
     <a class="site-nav__link site-nav__extra" href="/caterers/pelau-house">My page</a>
     <a class="icon-btn site-nav__menu" href="/dashboard/enquiries" aria-label="Enquiries, 2 unread"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24">…</svg><span class="badge badge--count" aria-hidden="true">2</span></a>
     <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24">…</svg></button>
@@ -260,7 +260,7 @@ and mocks. The component never renders it.
 ```
 
 The operator header differs only in its tag ("Operator"), links (Queue with
-`<span class="badge badge--count" aria-label="7 items waiting">7</span>`,
+`<span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span>`,
 Caterers, Metrics) and the absence of search and the inbox shortcut.
 
 ```html
@@ -408,8 +408,9 @@ The minimal header has no `nav`.
 - The nav is "Primary".
 - The wordmark's name includes the tag: "Sweet Hand for caterers", "Sweet Hand
   Operator", which tells screen-reader users which area they are in.
-- A text link with a badge: the badge's `aria-label` ("2 unread enquiries")
-  joins the link's name: "Enquiries 2 unread enquiries".
+- A text link with a badge: the badge is `aria-hidden="true"` and the
+  visually hidden text after it (", 2 unread") joins the link's name:
+  "Enquiries, 2 unread" (D-15).
 - The inbox shortcut's name is its label, a comma, then its short count label:
   "Inbox, 1 unread", "Enquiries, 2 unread"; its visual badge is
   `aria-hidden="true"` (D-3). With no unread it is just "Inbox" or
@@ -438,9 +439,10 @@ Colour and fill transitions use `--duration-fast`, which
   product noun is "caterer", never "Cooks" or "Vendors".
 - Tags: "for caterers" (lower case, reads on from the wordmark), "Operator" (a
   role, capitalised).
-- Counts are numbers only in the badge ("2"); the meaning lives in the label,
-  pluralised by the resource files: "1 unread enquiry", "2 unread enquiries",
-  "7 items waiting". Above 99 the badge shows "99+" while the label keeps the
+- Counts are numbers only in the badge ("2"); the meaning lives in the hidden
+  text or the shortcut's name, pluralised by the resource files: ", 2 unread"
+  after "Enquiries", ", 1 unread enquiry" after "Inbox", ", 7 items waiting"
+  after "Queue" ([badge](badge.md) D-4). Above 99 the badge shows "99+" while the label keeps the
   number ("134 items waiting").
 - No marketing copy, no "Sign up free" button.
 - Translatable inputs: `brandName`, `tag`, every link and shortcut `label`,
@@ -480,8 +482,8 @@ Colour and fill transitions use `--duration-fast`, which
 
 - **AC-1** Given a visitor on the listing at 1280 px, when the header renders, then it is `<header class="site-header">` with `a.wordmark` "Sweet Hand" linking to `/caterers`, a `nav` named "Primary" holding the links "Caterers" (with `aria-current="page"`), "Occasions" and "Sign in" and the search button "Search by area or postal code", and no avatar. (L2-064)
 - **AC-2** Given a visitor on Pelau House's page, when the header renders, then "Sign in" is an `a.site-nav__link` with the same muted style as "Caterers", not a `.btn`, and no sign-in prompt or modal appears in the header. (L2-013)
-- **AC-3** Given Marcia Thompson signed in with 1 unread enquiry, when her inbox renders at 1280 px, then the links are "Caterers", "Occasions" and "Inbox" (current), "Inbox" holds `span.badge.badge--count` reading "1" with `aria-label="1 unread enquiry"`, there is no "Sign in", and the avatar button reads "MT" with the name "Account menu for Marcia Thompson", `aria-haspopup="menu"` and `aria-expanded="false"`. (L2-029)
-- **AC-4** Given Kendra Baptiste signed in with 2 unread enquiries, when her dashboard renders at 1280 px, then the wordmark links to `/dashboard` with the name "Sweet Hand for caterers", and "Enquiries" carries a badge reading "2" whose accessible name is "2 unread enquiries". (L2-029)
+- **AC-3** Given Marcia Thompson signed in with 1 unread enquiry, when her inbox renders at 1280 px, then the links are "Caterers", "Occasions" and "Inbox" (current), "Inbox" holds `span.badge.badge--count` reading "1" with `aria-hidden="true"` followed by visually hidden text ", 1 unread enquiry" (the link is named "Inbox, 1 unread enquiry"), there is no "Sign in", and the avatar button reads "MT" with the name "Account menu for Marcia Thompson", `aria-haspopup="menu"` and `aria-expanded="false"`. (L2-029)
+- **AC-4** Given Kendra Baptiste signed in with 2 unread enquiries, when her dashboard renders at 1280 px, then the wordmark links to `/dashboard` with the name "Sweet Hand for caterers", and "Enquiries" carries an `aria-hidden="true"` badge reading "2" followed by visually hidden text ", 2 unread", so the link's accessible name is "Enquiries, 2 unread". (L2-029)
 - **AC-5** Given Beverley Campbell's draft profile Auntie Bev's Kitchen, when her dashboard renders, then the links are "Dashboard" and "Enquiries" only, with no "My page" link to a page the public cannot see. (L2-046)
 - **AC-6** Given Leah Mohammed on the operator queue with 7 items waiting, when the header renders at 1280 px, then the wordmark reads "Sweet Hand Operator", the links "Queue" (current, badge "7" named "7 items waiting"), "Caterers" and "Metrics" and the avatar "LM" sit on one row, there is no search button, and nothing overflows. (L2-064)
 - **AC-7** Given an operator on the two-factor page who has not completed the second factor, when the minimal header renders, then it contains only the wordmark link and no `nav`, so no Queue, Caterers or Metrics link is offered. (L2-056)
@@ -490,7 +492,7 @@ Colour and fill transitions use `--duration-fast`, which
 ### States
 
 - **AC-9** Given Kendra has no unread enquiries, when the header renders, then no `.badge--count` exists anywhere in it, and the "Enquiries" link and shortcut are named "Enquiries". (L2-029)
-- **AC-10** Given Kendra's header shows 2 unread and she reads one thread, when the shell passes `count` 1 without a page reload, then the badge reads "1", its name is "1 unread enquiry", and the header's height does not change. (L2-029)
+- **AC-10** Given Kendra's header shows 2 unread and she reads one thread, when the shell passes `count` 1 without a page reload, then the badge reads "1", the link's name is "Enquiries, 1 unread", and the header's height does not change. (L2-029)
 - **AC-11** Given 134 items are waiting in the operator queue, when the header renders, then the Queue badge shows "99+" and its accessible name is "134 items waiting". (L2-068)
 - **AC-12** Given Marcia's inbox at 1280 px, when the header renders, then exactly one link carries `aria-current="page"`, and it differs from the others by `--font-weight-semibold` as well as by colour. (L2-069)
 
@@ -557,7 +559,7 @@ Colour and fill transitions use `--duration-fast`, which
 
 - **D-1** *Which framework does this API target?* Framework-neutral inputs, outputs and slots with the `sh-` prefix, because no stack ADR exists yet. The class names and attributes in *Markup* are the binding contract whatever the stack (AGENTS.md: BEM parity with the mocks).
 - **D-2** *How far apart are the header's targets on a phone?* At least 8 px (`--space-2`) below 48rem, the user's decision of 10 Oct 2026: L2-065.1 wins over the design system's 4 px (`--space-1`), and the design system will be updated. The widest row still fits at 320 px (308 px with the left margin). From 48rem the 4 px gap stays; L2-065.1 does not apply there.
-- **D-3** *What is the phone inbox shortcut called?* "Inbox, 1 unread" / "Enquiries, 2 unread", with the visual badge `aria-hidden`, as the design system names it: the user's decision of 10 Oct 2026. L2-029.1 (badge named "2 unread enquiries") is to be amended; the text link's badge from 48rem keeps the full "2 unread enquiries". The shortcut therefore takes its own short `countLabel`.
+- **D-3** *What is the phone inbox shortcut called?* "Inbox, 1 unread" / "Enquiries, 2 unread", with the visual badge `aria-hidden`, as the design system names it: the user's decision of 10 Oct 2026. L2-029.1 (badge named "2 unread enquiries") is to be amended. The text link from 48rem follows [badge](badge.md) D-3 and D-4 (D-15).
 - **D-4** *Is the wordmark-only header a variant?* Yes, `minimal`. Eight mocks (two-factor, privacy update, expired session) show only the wordmark: these are mid-authentication steps where offering Queue, Inbox or Dashboard would lead to a page the person cannot open yet (L2-056.2).
 - **D-5** *Where does a customer's unread count go on a phone?* On the envelope shortcut, not on the Menu button. One mock (`caterers/signed-in`) put it on Menu; the design system gives customers and caterers the shortcut so the inbox is one tap away, and the caterer header gains the Menu button it lacked so "My page" is reachable below 48rem.
 - **D-6** *When does a caterer's header show "My page"?* Only when the profile is Published. The mocks show it for Beverley's draft on some pages and not others; a draft has no public page (L2-046), so the link would lead to "not found". The shell leaves it out of `links`.
@@ -569,3 +571,4 @@ Colour and fill transitions use `--duration-fast`, which
 - **D-12** *Does search show `aria-expanded`?* Yes, like Menu and the avatar. The design system's do/don't asks for `aria-expanded` on each popup trigger, and the search dialog is a popup like the others.
 - **D-13** *Does the inbox shortcut turn pepper on hover?* No. It is an `<a>`, so today the generic `a:hover` rule (`--color-fg-link-hover`) outranks `.icon-btn` and colours the envelope pepper on hover, unlike the search and Menu buttons beside it. Pepper on hover would read as "current"; the shortcut behaves like every other icon button (fill only), and `components.css` catches up.
 - **D-14** *What does the avatar open, and how is it announced?* The account menu, `role="menu"`, so the avatar has `aria-haspopup="menu"` and `aria-expanded`: the user's decision of 10 Oct 2026. The design-system page had changed it to `"dialog"`; the mocks' `"menu"` stands, and the design system catches up. Opening moves focus to the first menu item; Esc closes the menu and returns focus through `focusTrigger('account')`.
+- **D-15** *How does the wide header's text link name its count?* Aligned with [badge](badge.md) D-3 and D-4: the pill is `aria-hidden="true"` and visually hidden text follows it (", 2 unread" after "Enquiries", ", 1 unread enquiry" after "Inbox", ", 7 items waiting" after "Queue"), so the link is named "Enquiries, 2 unread". The badge owns that markup; the earlier `aria-label="2 unread enquiries"` on the pill was the mocks' drift.

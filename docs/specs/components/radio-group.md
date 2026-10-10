@@ -54,7 +54,7 @@ built here.
 | `dialogs/report/default`, `invalid`, `busy`, `failed`, `limit` | vertical, legend "Reason", five options with descriptions, `required`, no preselection, `autofocus` on the first option | "Inaccurate information" / "Wrong menu, areas or details", "Inappropriate content", "Fake or spam", "Food safety concern", "Other" / "Tell us in the details" | none chosen, chosen, disabled while sending | dialog (`--color-bg-surface-raised`) |
 | `dialogs/resolve-report/default`, `take-action`, `invalid`, `busy`, `failed` — Decision | vertical, legend "Decision", preselected "Dismiss" with `autofocus` | "Dismiss" / "Nothing breaks the rules. Any automatic hiding is undone.", "Take action" / "Hide or remove the review." | chosen, disabled while saving | dialog |
 | `dialogs/resolve-report/take-action`, `busy` — Action | vertical, legend "Action", shown only after "Take action" | "Hide the review" / "Reversible. It leaves the page and the rating within a minute.", "Remove the review" / "Permanent. Only the audit entry remains." | chosen, disabled | dialog |
-| `dialogs/add-operator/default`, `invalid`, `busy`, `failed` | vertical, legend "Role", `inputId` on each option, preselected "Operator" (D-4) | "Operator" / "Reviews profiles, reviews and reports", "Admin" / "Also manages operators and the full audit log" | chosen; group error "Choose a role" with every radio invalid; disabled | dialog |
+| `dialogs/add-operator/default`, `invalid`, `busy`, `failed` | vertical, legend "Role", `inputId` on each option, preselected "Operator" (D-4) | "Operator" / "Reviews profiles, reviews and reports", "Admin" / "Also manages operators and the full audit log" | chosen; group error "Choose a role" with every radio invalid (drift: "Operator" is preselected, so there is no role error, D-11); disabled | dialog |
 | `dialogs/record-breach/*` — Risk | vertical (horizontal allowed: two short labels), legend "Risk of significant harm" | "Low", "Real risk of significant harm" | none chosen, chosen, disabled | dialog |
 | `dialogs/record-breach/*` — Notification decision | vertical or `variant="card"`, `inputId` "decision-report" | "Report to the Privacy Commissioner and notify the people affected", "Not reportable: no real risk of significant harm" | none chosen, invalid "Choose a notification decision", chosen, disabled | dialog |
 | `pages/profile-cuisines/default`, `invalid`, `saving` — Primary cuisine | `layout="vertical"` in `.stack.stack--sm`, legend "Primary cuisine", help "Shown on your listing card.", options are the ticked cuisines | "Guyanese", "Trinidadian & Tobagonian" | chosen; group error "Mark one cuisine as primary" | canvas |
@@ -195,12 +195,15 @@ clears `error`. `data-state="hover|focus|checked|disabled|invalid"` exists in
 ```
 
 ```html
-<!-- rendered: group error, every radio invalid (add operator) -->
-<fieldset class="stack stack--sm" aria-describedby="role-error">
-  <legend>Role</legend>
-  <p class="field__error" id="role-error">Choose a role</p>
-  <label class="choice"><input type="radio" name="role" id="role-operator" value="operator" aria-invalid="true"><span class="choice__text"><span>Operator</span><small>Reviews profiles, reviews and reports</small></span></label>
-  <label class="choice"><input type="radio" name="role" id="role-admin" value="admin" aria-invalid="true"><span class="choice__text"><span>Admin</span><small>Also manages operators and the full audit log</small></span></label>
+<!-- rendered: group error, every radio invalid (report dialog, no reason chosen) -->
+<fieldset class="stack stack--sm" aria-describedby="reason-error">
+  <legend>Reason</legend>
+  <p class="field__error" id="reason-error">Choose a reason</p>
+  <label class="choice"><input type="radio" name="reason" id="reason-inaccurate" value="Inaccurate information" required aria-invalid="true"><span class="choice__text"><span>Inaccurate information</span><small>Wrong menu, areas or details</small></span></label>
+  <label class="choice"><input type="radio" name="reason" value="Inappropriate content" required aria-invalid="true"><span class="choice__text"><span>Inappropriate content</span><small>Offensive words or photos</small></span></label>
+  <label class="choice"><input type="radio" name="reason" value="Fake or spam" required aria-invalid="true"><span class="choice__text"><span>Fake or spam</span><small>Not a real caterer, or stock photos</small></span></label>
+  <label class="choice"><input type="radio" name="reason" value="Food safety concern" required aria-invalid="true"><span class="choice__text"><span>Food safety concern</span><small>Something that could make people ill</small></span></label>
+  <label class="choice"><input type="radio" name="reason" value="Other" required aria-invalid="true"><span class="choice__text"><span>Other</span><small>Tell us in the details</small></span></label>
 </fieldset>
 ```
 
@@ -390,7 +393,7 @@ Colour transitions use `--duration-fast`, zeroed by
   "Reversible. It leaves the page and the rating within a minute."
 - "Other" is last and its details field becomes required ("Tell us what's
   wrong") — the dialog's rule.
-- Errors: "Choose a reason", "Choose a role", "Choose a notification
+- Errors: "Choose a reason", "Choose a notification
   decision", "Mark one cuisine as primary". Never "Please make a selection".
 - Preselect the safe default in operator decisions ("Dismiss") and the least
   privilege in a role ("Operator"); never preselect a report reason.
@@ -433,7 +436,7 @@ Colour transitions use `--duration-fast`, zeroed by
 
 - **AC-7** Given Kendra saves with no primary cuisine, when the group error "Mark one cuisine as primary" is set, then the error appears under the legend and help, the fieldset's `aria-describedby` lists it first, and every radio has `aria-invalid="true"`. (L2-007)
 - **AC-8** Given the breach record is submitted with no notification decision, when the error "Choose a notification decision" is set, then both radios have `aria-invalid="true"` and a `--color-danger-solid` ring, and the summary link `#decision-report` focuses the first radio. (L2-075)
-- **AC-9** Given the "Role" group shows "Choose a role", when Leah chooses "Operator", then the consumer clears `error`, and no radio keeps `aria-invalid`. (L2-068)
+- **AC-9** Given the report dialog's "Reason" group shows "Choose a reason", when the visitor chooses "Food safety concern", then the consumer clears `error`, and no radio keeps `aria-invalid`. (L2-068)
 - **AC-10** Given the report dialog is sending, when the group's `disabled` is true, then every radio has native `disabled`, the chosen "Food safety concern" keeps its dot, and the legend "Reason" is not dimmed. (L2-054)
 - **AC-11** Given the breach dialog renders the notification decision with `variant="card"`, when "Report to the Privacy Commissioner and notify the people affected" is checked, then its `label.choice.choice--card` edge is `--color-accent` with at least 3:1 against the dialog surface, and cards are `--space-2` apart. (L2-069)
 
@@ -485,8 +488,9 @@ Colour transitions use `--duration-fast`, zeroed by
   shows one ring. The rendering applies it with a specimen-only style.
 - Mock catch-up: plain groups in the mocks are bare `<fieldset>`s (D-10);
   `dialogs/add-operator` starts with no role (D-4);
-  `dialogs/add-operator/invalid` and `dialogs/record-breach/invalid` put the
-  error after the options (D-3); `record-breach/invalid` links its summary to
+  `dialogs/add-operator/invalid` drops its role error, because "Operator" is
+  preselected (D-11); `dialogs/record-breach/invalid` puts the error after
+  the options (D-3); `record-breach/invalid` links its summary to
   the second radio (D-7).
 - Composes nothing. Composed by [dialog](dialog.md) bodies and [form
   layout](form-layout.md).
@@ -503,3 +507,4 @@ Colour transitions use `--duration-fast`, zeroed by
 - **D-8** *What happens when the value matches no option (a primary cuisine Kendra has just unticked)?* No radio is checked and the value is left for the consumer to clear; the group never emits on its own, so the page's validation ("Mark one cuisine as primary") stays the single source of the rule.
 - **D-9** *Are horizontal and card layouts needed with no mock using them?* Yes; the design system documents both for future use, and specifying them now avoids an API change when the breach dialog adopts cards.
 - **D-10** *How are 44 px phone rows kept 8 px apart?* Every group's fieldset carries `.stack.stack--sm`, so rows are `--space-2` apart at every width. The mocks' bare fieldsets stack 44 px rows with no gap below 48rem, which misses the 8 px spacing in L2-065.1; the primary-cuisine and card groups already use `.stack.stack--sm`, so this extends an existing pattern rather than adding a class.
+- **D-11** *Can the add-operator "Role" group show an error?* No. Aligned with D-4: "Operator" is preselected and a radio group cannot be emptied, so "Choose a role" can never occur; `add-operator/invalid` shows only the email error. The group-error examples use the report dialog's "Reason" ("Choose a reason") instead.

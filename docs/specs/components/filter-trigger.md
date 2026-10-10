@@ -91,7 +91,7 @@ trigger, so the panel is positioned under it.
 | Input | Type | Default | Required | Rule |
 |---|---|---|---|---|
 | `label` | `string` | — | yes | "Filters", "Cuisine", "Area". |
-| `mode` | `'dialog' \| 'dropdown'` | `'dropdown'` | no | `dialog` renders `aria-haspopup="dialog"` and no chevron; `dropdown` renders `aria-expanded` and `aria-controls` and the chevron. |
+| `mode` | `'dialog' \| 'dropdown'` | `'dropdown'` | no | Both render `aria-haspopup="dialog"`. `dialog` renders no chevron; `dropdown` also renders `aria-expanded` and `aria-controls` and the chevron (D-7). |
 | `expanded` | `boolean` | `false` | no | Dropdown only: `aria-expanded`. Controlled by the consumer or the enclosing `sh-filter-dropdown`. |
 | `controls` | `string \| null` | `null` | yes in dropdown | `aria-controls`: the dropdown's id. |
 | `count` | `number` | `0` | no | Bubble shown when greater than 0. |
@@ -180,7 +180,7 @@ large trigger.
 <!-- rendered: tablet bar, Cuisine open with its dropdown, Area with a count -->
 <div class="filter-bar only-md">
   <div class="menu-anchor">
-    <button class="filter-trigger" type="button" aria-expanded="true" aria-controls="menu-cuisine">Cuisine
+    <button class="filter-trigger" type="button" aria-haspopup="dialog" aria-expanded="true" aria-controls="menu-cuisine">Cuisine
       <span class="filter-trigger__count"><span class="visually-hidden">, </span>1<span class="visually-hidden"> selected</span></span>
       <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
     <div class="filter-dropdown" id="menu-cuisine" role="dialog" aria-labelledby="menu-cuisine-title">
@@ -192,13 +192,13 @@ large trigger.
       <div class="cluster cluster--between"><button class="btn btn--link btn--sm" type="button">Clear</button><span class="result-count" role="status">2 caterers</span></div>
     </div>
   </div>
-  <div class="menu-anchor"><button class="filter-trigger" type="button" aria-expanded="false" aria-controls="menu-area">Area …</button></div>
+  <div class="menu-anchor"><button class="filter-trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-area">Area …</button></div>
 </div>
 ```
 
 ```html
 <!-- rendered: offline -->
-<button class="filter-trigger" type="button" aria-expanded="false" aria-controls="menu-cuisine" disabled>Cuisine <svg class="icon" aria-hidden="true" …/></button>
+<button class="filter-trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-cuisine" disabled>Cuisine <svg class="icon" aria-hidden="true" …/></button>
 ```
 
 ```html
@@ -277,7 +277,8 @@ keeps a `CanvasText` border (`components.css`), and open adds a 2 px edge in
 
 ### Role and pattern
 
-Dropdown triggers are buttons with `aria-expanded` and `aria-controls`; the
+Dropdown triggers are buttons with `aria-haspopup="dialog"`, `aria-expanded`
+and `aria-controls`; the
 panel is a non-modal `role="dialog"` labelled by its title holding a fieldset
 of checkboxes ([APG
 Disclosure](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/) behaviour
@@ -354,7 +355,7 @@ the dropdown does not animate.
 
 - **AC-1** Given the caterer listing at 360 px with no filters, when it renders, then a `button.filter-trigger` with `aria-haspopup="dialog"` named "Filters" sits in `.mobile-browse-bar` with an `aria-hidden` icon and no count bubble. (L2-009)
 - **AC-2** Given Jamaican and Scarborough are on at 360 px, when "Filters" renders with `count` 2 and `countLabel` "active", then it shows an ink bubble "2" and its accessible name is "Filters, 2 active", with no `aria-label` on the bubble. (L2-009)
-- **AC-3** Given the listing at 800 px, when it renders, then `.filter-bar` shows "Cuisine" and "Area" triggers with `aria-expanded="false"`, `aria-controls` and a chevron, and no "Filters" trigger is visible. (L2-009)
+- **AC-3** Given the listing at 800 px, when it renders, then `.filter-bar` shows "Cuisine" and "Area" triggers with `aria-haspopup="dialog"`, `aria-expanded="false"`, `aria-controls` and a chevron, and no "Filters" trigger is visible. (L2-009)
 - **AC-4** Given Jamaican is on at 800 px, when "Cuisine" renders with count 1 and `countLabel` "selected", then its accessible name is "Cuisine, 1 selected". (L2-068)
 - **AC-5** Given the listing at 1280 px, when it renders, then no filter trigger is visible. (L2-009)
 
@@ -414,3 +415,4 @@ the dropdown does not animate.
 - **D-4** *Does leaving the dropdown with Tab close it?* Yes. A non-modal panel left open behind focus would cover the grid the person is now reading; Escape and an outside click close it too.
 - **D-5** *Does the trigger have a busy state?* No. While results load, the sheet's primary is busy and the dropdown's total updates when they arrive; the trigger stays usable so the person can keep adjusting.
 - **D-6** *Where does focus go when the Cuisine dropdown opens?* To the first enabled checkbox; for Area, to the search field marked `autofocus` in the mock. Both put the person where typing or ticking starts.
+- **D-7** *Do dropdown triggers carry `aria-haspopup`?* Yes, `aria-haspopup="dialog"`, aligned with [popover](popover.md) D-6, which owns the panel the trigger opens: the panel is a non-modal `role="dialog"`, so the trigger says so as well as `aria-expanded` and `aria-controls`.

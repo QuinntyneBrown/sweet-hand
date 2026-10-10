@@ -54,7 +54,7 @@ Inventory from `usage_inventory.py docs/mocks form "form|div"`,
 |---|---|---|---|---|
 | `pages/sign-in`, `register`, `register-caterer`, `forgot-password`, `reset-password`, `two-factor` | submit form, compact column in `.auth` (28rem), large fields, block primary | summary (h2) | default, invalid "Fix 3 things to create your account", submitting (fields read-only), error | canvas |
 | Form dialogs (`enquiry`, `review`, `review-response`, `dish`, `report`, `edit-details`, `change-password`, `add-operator`, `add-cuisine`, `photo-details`, `record-breach`, reasons) | submit form, compact column in `.dialog__panel--form`; actions in the dialog footer | summary (h3) "Fix 4 things to send your enquiry"; rows Event date + Guests, Event area + Postal code | default, invalid, busy, failed, restored | dialog |
-| `pages/profile-details/*`, `profile-cuisines/*`, `profile-events/*` | autosave form in `.work-main`, named by the page title; save status in the page intro | status "All changes saved", "Saving…", "Saved at 10:14 a.m. · live on your page within a minute", "Not saved: fix 2 things below"; summary (h2) "Fix 2 things so we can save" | loaded, saving, saved, invalid, read-only (pending review, suspended) | canvas |
+| `pages/profile-details/*`, `profile-cuisines/*`, `profile-events/*` | autosave form in `.work-main`, named by the page title; save status in the page intro | status "Saved", "Saving…", "Saved at 10:14 a.m. · live on your page within a minute", "Not saved: fix 2 things below"; summary (h2) "Fix 2 things so we can save" | loaded, saving, saved, invalid, read-only (pending review, suspended) | canvas |
 | `pages/profile-events/*`, `profile-cuisines/*` | fieldsets with an `h2` legend and a shared help line; row Smallest event + Largest event | "Guests", "Occasions", "Cuisines", "Areas you serve" | default, invalid | canvas |
 | `pages/profile-certificate/*` | submit form on a page; actions row with primary and save status | "Save certificate" + "Saved Tue 2 Sep"; summary "Fix 1 thing to save" | default, saving (primary busy), invalid "This certificate has expired", expiring | canvas |
 | `pages/admin-audit/*`, `admin-metrics/*` | toolbar form with `aria-label` | Operator, Action, Target, From, To + Apply; From, To, Show by + Apply + Export CSV | default, invalid "Choose a range of 24 months or less", loading | canvas |
@@ -169,7 +169,7 @@ Slot: default — the primary [button](button.md) first, then an optional
 
 | Input | Type | Default | Required | Rule |
 |---|---|---|---|---|
-| `state` | `'loaded' \| 'saving' \| 'saved' \| 'error'` | `'loaded'` | no | `loaded`: plain tick, muted ("All changes saved"). `saving`: pulsing dot ("Saving…"). `saved`: circled tick, `.save-status--saved`. `error`: circled "!", `.save-status--error`. |
+| `state` | `'saved' \| 'saving' \| 'error'` | `'saved'` | no | `saved`: circled tick, `.save-status--saved` ("Saved", also on load; D-11). `saving`: pulsing dot ("Saving…"). `error`: circled "!", `.save-status--error`. |
 | `text` | `string` | — | yes | The words, from the resource files, with times formatted by the consumer ("Saved at 10:14 a.m. · live on your page within a minute"). |
 | `inline` | `boolean` | `false` | no | Renders a `span` without `role` (inside `.form-actions`, after "Save certificate") instead of the page-intro `p[role="status"]`. |
 
@@ -201,7 +201,7 @@ form 40rem (`.form`), dialog form 40rem (`.dialog__panel--form`). Gaps:
 | Submitting / busy | consumer: controls `readonly` (selects `disabled`), primary `busy` | Sunken fields, spinner in the primary; Cancel stays | Values readable; primary busy; focus kept |
 | Invalid (after submit) | summary `items` non-empty, `attempt` changed | Summary at the top in the danger tint; each field shows its error | Summary announced (`role="alert"`) and focused; links move to fields |
 | Fixing | consumer clears a field's error on input or blur | That field's error disappears; the summary stays until the next submit | — |
-| Autosave loaded | `state="loaded"` | Plain tick, muted "All changes saved" | Polite status |
+| Autosave loaded | `state="saved"` | Circled tick, success colour, "Saved" (D-11) | Polite status |
 | Saving | `state="saving"` | Pulsing dot, "Saving…" | Polite status |
 | Saved | `state="saved"` | Circled tick, success colour, "Saved at 10:14 a.m. · live on your page within a minute" | Polite status |
 | Not saved | `state="error"` + summary | Circled "!", danger colour, "Not saved: fix 2 things below" | Polite status; summary focused |
@@ -240,7 +240,7 @@ form 40rem (`.form`), dialog form 40rem (`.dialog__panel--form`). Gaps:
 <!-- rendered: autosave page form with fieldsets (Guests and occasions) -->
 <div class="page-intro">
   <h1 id="page-title">Guests and occasions</h1>
-  <p class="save-status" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24">…tick…</svg>All changes saved</p>
+  <p class="save-status save-status--saved" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24">…tick…</svg>Saved</p>
 </div>
 <form class="form" novalidate aria-labelledby="page-title">
   <fieldset class="stack" aria-describedby="guests-help">
@@ -337,7 +337,7 @@ contract. Icon path data is free to change.
 | Summary text and links | `--color-danger-fg` | `--palette-sorrel-600` | `--palette-sorrel-300` |
 | Sticky actions fill | `--color-bg-canvas` | `--palette-white` | `--palette-stone-950` |
 | Sticky actions edge | `--color-border-default` | `--palette-stone-200` | `--palette-stone-750` |
-| Status, loaded and saving | `--color-fg-muted` | `--palette-stone-700` | `--palette-stone-350` |
+| Status, saving | `--color-fg-muted` | `--palette-stone-700` | `--palette-stone-350` |
 | Status, saved | `--color-success-fg` | `--palette-callaloo-700` | `--palette-callaloo-300` |
 | Status, not saved | `--color-danger-fg` | `--palette-sorrel-600` | `--palette-sorrel-300` |
 | Legend | `--color-fg-default` | `--palette-stone-950` | `--palette-stone-100` |
@@ -349,7 +349,7 @@ Contrast pairs (from `tokens/contrast-pairs.json`; L2-069):
 | `--color-danger-fg` | `--color-danger-bg` | 4.5:1 | Summary text and links |
 | `--color-danger-fg` | `--color-bg-canvas` | 4.5:1 | Not-saved status, field errors on a page |
 | `--color-success-fg` | `--color-bg-canvas` | 4.5:1 | Saved status |
-| `--color-fg-muted` | `--color-bg-canvas` | 4.5:1 | Loaded and saving status, help |
+| `--color-fg-muted` | `--color-bg-canvas` | 4.5:1 | Saving status, help |
 | `--color-fg-default` | `--color-bg-canvas` | 4.5:1 | Legend |
 
 The summary and statuses never rely on colour: the summary has a heading
@@ -434,7 +434,7 @@ animates.
   enquiry", "Fix 1 thing to save", "Fix 2 things so we can save". Never
   "There is a problem" or "There are 3 problems".
 - Summary items repeat the field's own error and link to it.
-- Save status: "All changes saved", "Saving…", "Saved at 10:14 a.m.", "Not
+- Save status: "Saved", "Saving…", "Saved at 10:14 a.m.", "Not
   saved: fix 2 things below"; times in `America/Toronto`, "a.m."/"p.m.",
   dates "Saved Tue 2 Sep".
 - Legends are nouns ("Guests", "Occasions", "Areas you serve"); help states
@@ -455,7 +455,7 @@ animates.
   timer is the consumer's).
 - Perf-test scenario: `frontend/projects/perf-test/src/scenarios/FormLayout.ts`
   renders Kendra's Business details autosave form (save status cycling
-  loaded → saving → saved) and the enquiry form for Pelau House going from
+  saved → saving → saved) and the enquiry form for Pelau House going from
   default to invalid with four summary items; iterations in
   `e2e/perf-test/config/scenario-iterations.mjs` keep it at roughly
   100–300 ms.
@@ -506,7 +506,7 @@ animates.
 
 ### Theming
 
-- **AC-19** Given the light and the dark theme, when the summary renders, then its text and links (`--color-danger-fg` on `--color-danger-bg`) measure at least 4.5:1, and the saved status (`--color-success-fg`) and loaded status (`--color-fg-muted`) at least 4.5:1 on the canvas. (L2-069)
+- **AC-19** Given the light and the dark theme, when the summary renders, then its text and links (`--color-danger-fg` on `--color-danger-bg`) measure at least 4.5:1, and the saved status (`--color-success-fg`) and saving status (`--color-fg-muted`) at least 4.5:1 on the canvas. (L2-069)
 
 ### Responsive
 
@@ -555,3 +555,4 @@ animates.
 - **D-8** *How does a read-only profile render?* With the [form field](form-field.md) read-only value variant under the page's banner, as `profile-details/read-only` shows. The form-layout page mentions a description list; the mock and the form-field page use read-only values, which keep labels and order identical to the editable form.
 - **D-9** *Does the summary need a forced-colours edge?* Yes, a `CanvasText` hairline border under `forced-colors: active`, because its tint disappears in Windows high contrast and the box would merge with the form.
 - **D-10** *Is the save status in the actions row a live region?* No. Only the page-intro status is `role="status"`; a second live region in the actions would announce the same save twice.
+- **D-11** *What does the save status say when nothing has changed since load?* "Saved", with `.save-status--saved`, aligned with [inline message](inline-message.md) D-3, which owns `sh-save-status`: the saved state reads "Saved" only (optionally with the time and consequence), never "All changes saved", so the `loaded` state is dropped.

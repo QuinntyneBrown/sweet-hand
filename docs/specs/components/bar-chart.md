@@ -48,7 +48,7 @@ Inventory from a search of `docs/mocks` for `chart-card`, `bar-chart` and
 | `pages/admin-metrics/default`, `invalid` | grid of 6 cards, weekly, count scale | "Enquiries" 71: 8, 11, 15, 13, 12, 12; "Listing page visits" 22,670; "Caterer page visits" 39,700; "Unique visitors" "2,578 avg"; "New caterers published" 4 (zero weeks: 0, 0, 0) | default, table collapsed | canvas |
 | same | percentage scale | "Replied within 48 hours" 82%: 75%, 82%, 80%, 85%, 83%, 88% | default | canvas |
 | same, running week (design system) | current period accented, "so far" | "5 Oct so far: 12" | current | canvas |
-| `pages/admin-metrics/partial` | 2 cards failed, 4 drawn | "Enquiries", "Replied within 48 hours": title, no total, danger [alert](alert.md) "This chart didn't load" / "The other figures are up to date." / "Try again" | failed | canvas |
+| `pages/admin-metrics/partial` | 2 cards failed, 4 drawn | "Enquiries", "Replied within 48 hours": title, no total, danger [alert](alert.md) with no live role "This chart didn't load" / "The other figures are up to date." / "Try again"; the page adds one assertive summary alert "2 charts didn't load" (D-10) | failed | canvas |
 | `pages/admin-metrics/loading` | grid, cards `busy` | title, total and plot skeletons; page status "Loading metrics" | loading | canvas |
 | `pages/admin-metrics/empty`, `error` | no charts: the page's [empty state](empty-state.md) | — | empty, error | canvas |
 | "Show by: Day" (design system; L2-061.4) | 41 bars for six weeks, up to 366 for 12 months | — | dense | canvas |
@@ -101,7 +101,7 @@ axis.
 | `periodHeader`, `valueHeader` | `string` | — | yes | The table's column headers ("Week", "Enquiries"). |
 | `tableLabel` | `string` | — | yes | The summary text, "Show as a table". |
 | `tableOpen` | `boolean` | `false` | no | Opens the disclosure initially. |
-| `failed` | `boolean` | `false` | no | Renders the failed alert instead of plot, axis and table. |
+| `failed` | `boolean` | `false` | no | Renders the failed alert (no live role, D-10) instead of plot, axis and table. |
 | `failedTitle`, `failedText`, `retryLabel` | `string` | — | yes with `failed` | "This chart didn't load", "The other figures are up to date.", "Try again". |
 | `busy` | `boolean` | `false` | no | Renders the loading card (`aria-hidden`). The page's single status line says "Loading metrics". |
 
@@ -171,7 +171,7 @@ number of points.
 | Summary hover | `:hover` | Summary text in `--color-fg-default` | — |
 | Summary focus | `:focus-visible` | Shared focus ring | "Show as a table, collapsed" |
 | Expanded | `details[open]` | "+" turns 45° to "×"; the table shows | "expanded"; the table is readable |
-| Failed | `failed` | Title only, danger alert with "Try again" | Alert announced (`role="alert"`); "Try again" focusable |
+| Failed | `failed` | Title only, danger alert with "Try again" | Alert has no live role; the page's one summary alert announces the failures (D-10); "Try again" focusable |
 | Loading | `busy` | Title, total and plot skeletons of the final size | Card hidden; the page's status says "Loading metrics" |
 | Empty, error | — | Never rendered by the chart; the page shows an [empty state](empty-state.md) | — |
 
@@ -201,7 +201,7 @@ number of points.
 <!-- rendered: failed -->
 <section class="chart-card" aria-labelledby="c-replied">
   <div class="chart-card__head"><h3 id="c-replied">Replied within 48 hours</h3></div>
-  <div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24">…</svg><div class="alert__body"><p class="alert__title">This chart didn't load</p><p>The other figures are up to date.</p><div class="alert__actions"><button class="btn btn--sm" type="button">Try again</button></div></div></div>
+  <div class="alert alert--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24">…</svg><div class="alert__body"><p class="alert__title">This chart didn't load</p><p>The other figures are up to date.</p><div class="alert__actions"><button class="btn btn--sm" type="button">Try again</button></div></div></div>
 </section>
 ```
 
@@ -329,8 +329,9 @@ focus to the new summary when the chart reloads (D-8).
 
 ### Announcements
 
-The failed alert is `role="alert"`. Loading is announced once by the page's
-status line.
+The card's failed alert has no live role. The page renders one assertive
+summary [alert](alert.md) ("2 charts didn't load") however many cards failed
+(D-10). Loading is announced once by the page's status line.
 
 ### Motion
 
@@ -387,7 +388,7 @@ which reduced motion zeroes.
 
 ### States
 
-- **AC-7** Given the enquiry data fails while visits load (`pages/admin-metrics/partial`), when the "Enquiries" and "Replied within 48 hours" cards render with `failed`, then each keeps its title, has no total, and shows the danger alert "This chart didn't load" / "The other figures are up to date." with "Try again", while the other four charts draw normally. (L2-091)
+- **AC-7** Given the enquiry data fails while visits load (`pages/admin-metrics/partial`), when the "Enquiries" and "Replied within 48 hours" cards render with `failed`, then each keeps its title, has no total, and shows the danger alert "This chart didn't load" / "The other figures are up to date." with "Try again" and no live role, the page shows exactly one `role="alert"` summary "2 charts didn't load", and the other four charts draw normally. (L2-091)
 - **AC-8** Given a failed card, when the operator activates "Try again", then `retried` is emitted once and, after the data loads, focus is on that card's "Show as a table" summary. (L2-067)
 - **AC-9** Given the metrics page is loading, when the cards render with `busy`, then each is an `aria-hidden` card with title, total and plot skeletons of the final height, and no `role="img"` is present. (L2-066)
 - **AC-10** Given "Show by: Day" for 31 Aug – 10 Oct 2026 (41 days), when the chart renders, then it has 41 bars with `.bar-chart--dense` and no gap, at most 7 axis labels, and an image label listing all 41 values. (L2-061)
@@ -450,3 +451,4 @@ which reduced motion zeroes.
 - **D-7** *Do bars survive forced colours?* Yes: bars take `CanvasText` (accent `Highlight`) with `forced-color-adjust: none`; otherwise the background-coloured bars would disappear in Windows high contrast.
 - **D-8** *Where does focus go after "Try again" succeeds?* To the card's new "Show as a table" summary, because the button that had focus no longer exists; it is the card's first control.
 - **D-9** *Is the hidden table rendered on load?* No. It is created when the disclosure first opens, which keeps the 12-month daily page within its 3-second budget; the image label already gives every value to assistive technology.
+- **D-10** *How are failed charts announced?* Aligned with [alert](alert.md) D-5 and the user's ruling on the conflict between the two CRDs: each failed card shows "This chart didn't load" with no live role, and the page renders one assertive summary alert, "2 charts didn't load". Two assertive alerts would interrupt each other; the per-card alert keeps the card's own "Try again".

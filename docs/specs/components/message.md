@@ -144,7 +144,7 @@ Hosts: all are `display: contents`, so `.inbox-layout__thread`, the
 | `viewLink` | `{ href: string; label: string } \| null` | `null` | no | Customer view: "View caterer" to `/caterers/pelau-house`. |
 | `subline` | `string \| null` | `null` | no | Caterer view: "Sent yesterday at 4:15 p.m." |
 | `backLink` | `{ href: string; label: string } \| null` | `null` | no | "Inbox" (the destination only, D-10), rendered as `a.eyebrow.until-lg` above the head. |
-| `busy` | `boolean` | `false` | no | Renders the loading skeleton (circle, title bar, status bar, 12rem summary block, one bubble) with `aria-busy="true"`, and the heading's visually hidden `loadingLabel`. Slots are not rendered. |
+| `busy` | `boolean` | `false` | no | Renders the loading skeleton (circle, title bar, status bar, the summary well with its own skeleton bars, one bubble; D-12, D-13) with `aria-busy="true"`, and the heading's visually hidden `loadingLabel`. Slots are not rendered. |
 | `loadingLabel` | `string` | — | yes when `busy` | "Loading enquiry". |
 
 ### `sh-message` inputs
@@ -174,7 +174,7 @@ Hosts: all are `display: contents`, so `.inbox-layout__thread`, the
 | `label` | `string` | — | yes | "Your reply" (customer), "Reply to Priya" (caterer). |
 | `fieldId` | `string` | `'reply'` | no | Textarea id; help, error and counter ids derive from it (`reply-help`, `reply-error`, `reply-count`). |
 | `value` | `string` | `''` | no | Two-way with `valueChange`. |
-| `maxLength` | `number` | `2000` | no | Rendered as `maxlength` and used for the counter. |
+| `maxLength` | `number` | `2000` | no | Used for the counter and the on-submit check. Never rendered as `maxlength` (D-11). |
 | `help` | `string` | — | yes | "Pelau House gets an email. Links show as plain text." / "Priya sees Pelau House, not your email or phone." |
 | `counterLabel` | `string` | — | yes | Formatted by the consumer: "0 / 2,000", "2,143 / 2,000". `data-over` is set when the length exceeds `maxLength`. |
 | `error` | `string \| null` | `null` | no | Inline error ("Keep your reply under 2,000 characters. It’s 2,143 now.", "Write a reply before sending"). Replaces the help, sets `aria-invalid` and `aria-describedby="reply-error reply-count"`. |
@@ -292,7 +292,7 @@ the party image is 3.5rem; the send button is 44 px.
   <div class="form-summary" role="alert" tabindex="-1" id="reply-summary"><h3>Your reply wasn’t sent</h3><ul><li><a href="#reply">Keep your reply under 2,000 characters</a></li></ul></div>
   <label class="reply-box__label" for="reply">Your reply</label>
   <div class="reply-box__row">
-    <textarea class="textarea" id="reply" name="reply" rows="2" maxlength="2000" aria-invalid="true" aria-describedby="reply-error reply-count">Hi Kendra, yes please hold the date! …</textarea>
+    <textarea class="textarea" id="reply" name="reply" rows="2" aria-invalid="true" aria-describedby="reply-error reply-count">Hi Kendra, yes please hold the date! …</textarea>
     <button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24">…</svg></button>
   </div>
   <span class="cluster cluster--between"><span class="field__error" id="reply-error">Keep your reply under 2,000 characters. It’s 2,143 now.</span><span class="field__counter" id="reply-count" data-over>2,143 / 2,000</span></span>
@@ -303,8 +303,8 @@ the party image is 3.5rem; the send button is 44 px.
 <!-- rendered: loading -->
 <article class="thread" aria-labelledby="thread-title" aria-busy="true">
   <div class="thread__head"><span class="skeleton skeleton--circle" style="width: 3.5rem; height: 3.5rem" aria-hidden="true"></span>
-    <div class="thread__title"><h1 id="thread-title"><span class="visually-hidden">Loading enquiry</span><span class="skeleton skeleton--title" style="width: 10rem" aria-hidden="true"></span></h1><span class="skeleton skeleton--text" style="width: 6rem" aria-hidden="true"></span></div></div>
-  <div class="skeleton skeleton--rect" style="height: 12rem" aria-hidden="true"></div>
+    <div class="thread__title"><h1 id="thread-title"><span class="visually-hidden">Loading enquiry</span><span class="skeleton skeleton--text" style="width: 10rem" aria-hidden="true"></span></h1><span class="skeleton skeleton--text" style="width: 6rem" aria-hidden="true"></span></div></div>
+  <div class="enquiry-summary" aria-hidden="true"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></div>
   <div class="message" aria-hidden="true"><span class="skeleton skeleton--rect" style="height: 4.5rem; width: 22rem; max-width: 100%"></span></div>
 </article>
 ```
@@ -570,7 +570,9 @@ open uses `scroll-behavior`, which `prefers-reduced-motion: reduce` sets to
   sender prefix; the failed message lacks it and has "Try again" as text; the
   caterer side uses `.field__label` for the reply label and puts the status
   outside `.thread__title`; the over-limit counter uses an inline colour
-  instead of `data-over`; the caterer send button is both `disabled` and
+  instead of `data-over`; the reply textarea has `maxlength="2000"` (D-11); the
+  loading mock uses `skeleton--title` in the heading and one 12rem summary
+  block (D-12, D-13); the caterer send button is both `disabled` and
   `aria-busy`; "Sending…" is a live region on the caterer side only.
 - No CDK primitive is needed.
 
@@ -586,3 +588,6 @@ open uses `scroll-behavior`, which `prefers-reduced-motion: reduce` sets to
 - **D-8** *How does the sticky reply box avoid hiding focus?* The thread sets `scroll-padding-bottom` to the reply box's height, so a focused "Try again" or link scrolls clear of it (WCAG 2.4.11).
 - **D-9** *What does "Try again" do with focus?* The failed meta becomes the pending meta, so the button disappears; focus moves to the reply field rather than being lost to the body.
 - **D-10** *What does the back link say?* "Inbox", the destination only, with a chevron, by the user's decision of 10 Oct 2026 (the mocks and L2-036.2 say "Back to inbox"; the chevron already says "back").
+- **D-11** *Does the reply textarea carry `maxlength`?* No, aligned with [textarea](textarea.md) D-3: the limit is a visible counter and a check on submit, so a pasted draft over 2,000 characters is kept for trimming rather than cut off silently. `maxLength` only drives the counter and the error.
+- **D-12** *How does the thread's summary load?* With the summary well's own skeleton bars (`div.enquiry-summary[aria-hidden]` holding four `skeleton--text` bars), aligned with [description list](description-list.md) D-8, rather than a single 12rem block.
+- **D-13** *Which shape stands in for the loading heading?* `skeleton--text` inside the `h1`, aligned with [skeleton](skeleton.md) D-8; `skeleton--title` would draw a block twice the line's height and shift on load.
