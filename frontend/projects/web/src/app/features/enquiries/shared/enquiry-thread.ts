@@ -7,6 +7,7 @@ import { count } from '../../../core/format/format';
 import { problemOf } from '../../../core/forms/problem';
 import { messageTime, statusLabel, statusTone } from '../enquiry-text';
 import { CloseEnquiryDialog } from './close-enquiry-dialog';
+import { DeclineEnquiryDialog } from './decline-enquiry-dialog';
 import { ShareContactDialog } from './share-contact-dialog';
 import {
   REPLY_MAX,
@@ -37,7 +38,7 @@ let nextOutgoing = 0;
  */
 @Component({
   selector: 'app-enquiry-thread',
-  imports: [Icon, Message, MessageList, ReplyBox, Thread, ThreadActionsSlot, CloseEnquiryDialog, ShareContactDialog],
+  imports: [Icon, Message, MessageList, ReplyBox, Thread, ThreadActionsSlot, CloseEnquiryDialog, DeclineEnquiryDialog, ShareContactDialog],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
   templateUrl: './enquiry-thread.html',
@@ -112,10 +113,20 @@ export class EnquiryThread {
     this.dialog.set(null);
   }
 
+  /** Declining was refused because Kendra already replied elsewhere: offer closing instead (L2-033.3). */
+  protected closeInstead(): void {
+    this.returnTo.set(this.headingElement());
+    this.dialog.set('close');
+  }
+
+  private headingElement(): HTMLElement | null {
+    return this.host.nativeElement.querySelector<HTMLElement>('.thread__title [tabindex="-1"]');
+  }
+
   /** An action succeeded: show the thread as it is now; the action that opened the dialog may be gone, so focus goes to the heading. */
   protected acted(t: ThreadView): void {
     const kind = this.dialog();
-    this.returnTo.set(this.host.nativeElement.querySelector<HTMLElement>('.thread__title [tabindex="-1"]'));
+    this.returnTo.set(this.headingElement());
     this.thread.set(t);
     this.dialog.set(null);
     if (kind === 'share') {

@@ -105,3 +105,12 @@
 
 <app-share-contact-dialog [open]="dialog() === 'share'" [thread]="thread()" [returnFocus]="returnTo()" (done)="acted($event)" (dismissed)="closeDialog()" />
 <app-close-enquiry-dialog [open]="dialog() === 'close'" [thread]="thread()" [returnFocus]="returnTo()" (done)="acted($event)" (dismissed)="closeDialog()" />
+<app-decline-enquiry-dialog
+  [open]="dialog() === 'decline'"
+  [thread]="thread()"
+  [returnFocus]="returnTo()"
+  (done)="acted($event)"
+  (updated)="thread.set($event)"
+  (closeInstead)="closeInstead()"
+  (dismissed)="closeDialog()"
+/>
