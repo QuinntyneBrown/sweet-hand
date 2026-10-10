@@ -30,3 +30,5 @@ export * from './lib/dish/dish';
 export * from './lib/photo/photo';
 export * from './lib/gallery/gallery';
 export * from './lib/gallery/photo-viewer';
+export * from './lib/rating/rating';
+export * from './lib/review/review';

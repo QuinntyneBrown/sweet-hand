@@ -10,8 +10,12 @@ import {
   Gallery,
   InlineList,
   PhotoViewer,
+  RatingSummary,
   StickyCta,
 } from '@sweet-hand/components';
+import { RouterLink } from '@angular/router';
+import { ReviewsSection } from '../../reviews/reviews-section/reviews-section';
+import { reviewCount } from '../../reviews/reviews-section/review-labels';
 import { CatererPageApi } from '../../../core/api/caterer-page-api';
 import { EnquiryLauncher } from '../../../core/enquiry/enquiry-launcher';
 import { CatererPageMetadata } from './caterer-meta';
@@ -23,7 +27,7 @@ import { MainLandmark } from './main-landmark';
 /** A caterer's public page, /caterers/:slug (docs/detailed-designs/discovery/view-caterer-page). */
 @Component({
   selector: 'app-caterer-page',
-  imports: [BackLink, Button, Description, DescriptionList, Dish, DishList, Gallery, InlineList, PhotoViewer, StickyCta],
+  imports: [RouterLink, BackLink, Button, Description, DescriptionList, Dish, DishList, Gallery, InlineList, PhotoViewer, RatingSummary, StickyCta, ReviewsSection],
   providers: [CatererPageMetadata, MainLandmark],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './caterer.page.html',
@@ -49,6 +53,7 @@ export class CatererPage {
   protected readonly showAllDishes = computed(() => $localize`:@@caterer.showAllDishes:Show all ${this.view()?.dishes.length ?? 0}:count: dishes`);
   protected readonly dishesShown = computed(() => $localize`:@@caterer.dishesShown:${this.view()?.dishes.length ?? 0}:count: dishes shown`);
   protected readonly tagLabels = DIETARY_LABELS;
+  protected readonly reviewCount = reviewCount;
 
   /** The photo the viewer shows, or null while it is closed. */
   protected readonly viewerAt = signal<number | null>(null);

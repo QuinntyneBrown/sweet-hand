@@ -1,4 +1,7 @@
-/** Fictional reviews from docs/mocks/README.md ("Cast and catalog"). All people are fictional. */
+/**
+ * Fictional reviews from docs/mocks/README.md ("Cast and catalog"). All people
+ * are fictional. Pelau House has 23 published reviews averaging 4.7 (sum 108).
+ */
 
 export type ReviewStatus = 'Published' | 'Held' | 'Hidden' | 'Removed';
 
@@ -19,6 +22,112 @@ export interface Review {
   response?: { text: string; createdAt: string };
 }
 
+/**
+ * A replied enquiry whose event has passed: what makes a customer eligible to
+ * review (L2-049). The enquiries area owns enquiries; until its seed carries
+ * events, the reviews fake reads these.
+ */
+export interface ReviewableEvent {
+  userId: string;
+  catererId: string;
+  enquiryId: string;
+  eventDate: string;
+  replied: boolean;
+}
+
+export const REVIEWABLE_EVENTS: ReviewableEvent[] = [
+  // Jean-Robert Pierre: replied enquiry to Pelau House for Sun 6 Sep (can-review).
+  { userId: 'user-jean-robert', catererId: 'cat-001', enquiryId: 'enq-jean-robert-pelau', eventDate: '2026-09-06', replied: true },
+  // Marcia Thompson's August event, which her review of Pelau House is about.
+  { userId: 'user-marcia', catererId: 'cat-001', enquiryId: 'enq-marcia-pelau-aug', eventDate: '2026-08-05', replied: true },
+];
+
+const PELAU = 'cat-001';
+
+/** [name, account, rating, event date, created, text] newest first, after Marcia, Andre and Nadia. */
+const MORE_PELAU: [string, string | undefined, number, string, string, string][] = [
+  ['Devon Walters', 'user-devon', 5, '2026-05-23', '2026-05-30', 'Forty plates of pelau for my son’s graduation and every one came back clean.'],
+  ['Simone Alleyne', undefined, 5, '2026-05-09', '2026-05-16', 'The macaroni pie alone was worth it. Set-up was quick and tidy.'],
+  ['Kwame Osei', undefined, 4, '2026-04-25', '2026-05-02', 'Lovely curry goat and very fair prices. Arrived twenty minutes late.'],
+  ['Rhea Mahabir', undefined, 5, '2026-04-11', '2026-04-18', 'Doubles and aloo pie for a Diwali gathering. Tasted just like home.'],
+  ['Leon Bramble', undefined, 5, '2026-03-28', '2026-04-04', 'Kendra helped us plan the whole menu for a christening of 120.'],
+  ['Tara Singh', undefined, 4, '2026-03-14', '2026-03-21', 'Callaloo and buss up shut were excellent; the pelau was a touch salty.'],
+  ['Camille Duncan', undefined, 5, '2026-02-28', '2026-03-07', 'Hot food, friendly team and not one pan left for us to wash.'],
+  ['Marlon Gittens', undefined, 5, '2026-02-14', '2026-02-21', 'Valentine’s dinner for twenty friends. The sorrel went first.'],
+  ['Shauna Phillip', undefined, 5, '2026-01-31', '2026-02-07', 'Stewed oxtail that fell off the bone. Everyone asked who cooked.'],
+  ['Andrew Persad', undefined, 4, '2026-01-17', '2026-01-24', 'Good portions and good flavour. Would like more vegetarian choices.'],
+  ['Keisha Lewis', undefined, 5, '2025-12-20', '2025-12-28', 'Black cake for our office party, soaked just right.'],
+  ['Natalie Ramsaran', undefined, 5, '2025-12-06', '2025-12-13', 'Pholourie with tamarind sauce was a hit with the kids and the uncles.'],
+  ['Omar Chin', undefined, 4, '2025-11-22', '2025-11-29', 'Tasty food for a big birthday. Communication could have been quicker.'],
+  ['Gail Henry', undefined, 5, '2025-11-08', '2025-11-15', 'Our church harvest lunch for 150 went off without a hitch.'],
+  ['Ryan Maharaj', undefined, 5, '2025-10-25', '2025-11-01', 'Curry channa and aloo, perfectly spiced. We will book again.'],
+  ['Joy Edwards', undefined, 5, '2025-10-11', '2025-10-18', 'Sweet bread and coconut bake for a baby shower. So good.'],
+  ['Patrice Noel', undefined, 4, '2025-09-27', '2025-10-04', 'Very good pelau. The chafing dishes ran low on fuel by the end.'],
+  ['Wendell Hosein', undefined, 5, '2025-09-13', '2025-09-20', 'Saltfish buljol and fried bake for a Sunday brunch. Perfect.'],
+  ['Alicia Charles', undefined, 5, '2025-08-30', '2025-09-06', 'Kendra remembered our nut allergy without being reminded.'],
+  ['Brian Ali', undefined, 5, '2025-08-16', '2025-08-23', 'Big family reunion, big flavours. The paw paw chow was a surprise.'],
+];
+
+const at = (date: string) => `${date}T14:00:00.000Z`;
+
 export function seedReviews(): Review[] {
-  return [];
+  return [
+    {
+      id: 'review-marcia-pelau',
+      catererId: PELAU,
+      authorUserId: 'user-marcia',
+      authorName: 'Marcia Thompson',
+      rating: 5,
+      text: 'The pelau tasted like my aunt’s. Ninety people, not a grain left.',
+      eventDate: '2026-08-05',
+      createdAt: at('2026-09-20'),
+      status: 'Published',
+      response: { text: 'Thank you, Marcia. Give your aunt our regards!', createdAt: at('2026-09-21') },
+    },
+    {
+      id: 'review-andre-pelau',
+      catererId: PELAU,
+      authorUserId: 'user-andre',
+      authorName: 'Andre Clarke',
+      rating: 5,
+      text: 'Doubles for 60 at the office, hot and on time. Kendra answered every question the same day.',
+      eventDate: '2026-07-05',
+      createdAt: at('2026-08-03'),
+      status: 'Published',
+    },
+    {
+      id: 'review-nadia-pelau',
+      catererId: PELAU,
+      authorUserId: 'user-nadia',
+      authorName: 'Nadia Joseph',
+      rating: 4,
+      text: 'Curry goat was the star. I’d ask for the callaloo a little thicker next time.',
+      eventDate: '2026-06-04',
+      createdAt: at('2026-06-10'),
+      status: 'Published',
+    },
+    ...MORE_PELAU.map(([authorName, authorUserId, rating, eventDate, created, text], i): Review => ({
+      id: `review-pelau-${i + 4}`,
+      catererId: PELAU,
+      authorUserId,
+      authorName,
+      rating,
+      text,
+      eventDate,
+      createdAt: at(created),
+      status: 'Published',
+    })),
+    // Devon W.'s review of Maracas Bay, the subject of report R-2041.
+    {
+      id: 'review-devon-maracas',
+      catererId: 'cat-009',
+      authorUserId: 'user-devon',
+      authorName: 'Devon Walters',
+      rating: 1,
+      text: 'Cold roti and an hour late. Never again.',
+      eventDate: '2026-09-19',
+      createdAt: at('2026-09-26'),
+      status: 'Published',
+    },
+  ];
 }

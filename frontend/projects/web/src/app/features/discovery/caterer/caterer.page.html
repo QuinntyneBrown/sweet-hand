@@ -22,6 +22,11 @@
           @for (cuisine of c.cuisines; track cuisine) {
             <li>{{ cuisine }}</li>
           }
+          @if (c.rating.count > 0) {
+            <li>
+              <a [routerLink]="[]" fragment="reviews"><sh-rating-summary variant="inline" [average]="c.rating.average" [count]="c.rating.count" [countLabel]="reviewCount(c.rating.count)" ratedPrefix="Rated" i18n-ratedPrefix="@@reviews.rated" /></a>
+            </li>
+          }
         </ul>
       </div>
 
@@ -56,6 +61,8 @@
           }
         </sh-description-list>
       </section>
+
+      <app-reviews-section [slug]="c.slug" [catererName]="c.name" [rating]="c.rating" />
 
       <div class="caterer-section until-lg">
         <sh-button variant="primary" size="lg" [block]="true" haspopup="dialog" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>

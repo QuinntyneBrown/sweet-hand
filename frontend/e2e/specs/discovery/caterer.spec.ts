@@ -101,6 +101,7 @@ test.describe('Caterer page', () => {
     await expect(caterer.dishPart(curryGoat, 'price')).toHaveText('From $18 per person');
     const blackCake = caterer.dish('Black cake');
     await expect(caterer.dishAllergens(blackCake)).toHaveText(['Contains nuts']);
+    expect(await caterer.allergenIconsDrawn(blackCake)).toEqual([true]);
   });
 
   test('L2-017.2: a dish without a description, tags or price shows none of them and no empty labels', async ({ page }) => {

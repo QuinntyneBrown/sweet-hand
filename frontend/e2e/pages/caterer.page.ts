@@ -99,6 +99,11 @@ export class CatererPage extends BasePage {
     return dish.locator('.tags > li.tag--allergen');
   }
 
+  /** Whether each allergen tag on the dish draws its warning icon (not just an empty box). */
+  async allergenIconsDrawn(dish: Locator): Promise<boolean[]> {
+    return this.dishAllergens(dish).evaluateAll((tags) => tags.map((t) => ((t.querySelector('svg') as SVGGraphicsElement | null)?.getBBox().width ?? 0) > 0));
+  }
+
   get menuToggle() {
     return this.menu.getByRole('button', { name: /^Show (all \d+|fewer) dishes$/ });
   }
@@ -180,6 +185,56 @@ export class CatererPage extends BasePage {
   /** The carousel scrolls sideways inside itself. */
   async galleryScrollsSideways(): Promise<boolean> {
     return this.main.locator('.gallery__track').evaluate((track) => track.scrollWidth > track.clientWidth && getComputedStyle(track).overflowX === 'auto');
+  }
+
+  /** "Rated 4.7 · 23 reviews" under the name, linking to the reviews. */
+  get ratingLink() {
+    return this.main.locator('.caterer-head__meta a');
+  }
+
+  get reviewsSection() {
+    return this.main.getByRole('region', { name: 'Reviews' });
+  }
+
+  get ratingSummary() {
+    return this.reviewsSection.locator('.rating__summary');
+  }
+
+  get reviews() {
+    return this.reviewsSection.locator('.review-list > li.review');
+  }
+
+  review(n: number) {
+    return this.reviews.nth(n - 1);
+  }
+
+  reviewByAuthor(author: string) {
+    return this.reviews.filter({ has: this.page.locator('.review__author', { hasText: author }) });
+  }
+
+  reviewPart(review: Locator, part: 'author' | 'date' | 'body') {
+    return review.locator(`.review__head .review__${part}, :scope > .review__${part}`).first();
+  }
+
+  reviewStars(review: Locator) {
+    return review.locator('.stars[role="img"]');
+  }
+
+  reviewResponse(review: Locator) {
+    return review.locator('.review__response');
+  }
+
+  get showMoreReviews() {
+    return this.reviewsSection.getByRole('button', { name: 'Show more reviews' });
+  }
+
+  get reviewsStatus() {
+    return this.reviewsSection.locator('p[role="status"]');
+  }
+
+  /** The quiet text a section shows when there are no reviews yet. */
+  get noReviews() {
+    return this.reviewsSection.locator('p');
   }
 
   metaContent(name: string) {

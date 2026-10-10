@@ -1,0 +1,12 @@
+/* Spacing the mocks set inline (docs/mocks/pages/caterer/default.html, no-reviews.html). */
+.show-more {
+  margin-top: var(--space-6);
+}
+
+.no-reviews {
+  margin-top: var(--space-2);
+}
+
+.no-reviews__note {
+  margin-top: var(--space-1);
+}
