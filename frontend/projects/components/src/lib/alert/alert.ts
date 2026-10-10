@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, DOCUMENT, ElementRef, computed, inject, input, output, signal, viewChild } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { Icon, type IconName } from '../icon/icon';
 
 /**
@@ -7,7 +8,7 @@ import { Icon, type IconName } from '../icon/icon';
  */
 @Component({
   selector: 'sh-alert',
-  imports: [Icon],
+  imports: [Icon, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
   template: `
@@ -15,11 +16,12 @@ import { Icon, type IconName } from '../icon/icon';
       <div [class]="cls()" [attr.role]="role()">
         <svg [shIcon]="icon()"></svg>
         <div class="alert__body">
+          <!-- One projection slot shared by both layouts: a default ng-content in each branch would leave one empty. -->
           @if (banner()) {
-            <span #titleEl class="alert__title">{{ title() }}</span> <span><ng-content /></span>
+            <span #titleEl class="alert__title">{{ title() }}</span> <span><ng-container *ngTemplateOutlet="text" /></span>
           } @else {
             <p #titleEl class="alert__title">{{ title() }}</p>
-            <p><ng-content /></p>
+            <p><ng-container *ngTemplateOutlet="text" /></p>
           }
           <ng-content select="[slot=actions]" />
         </div>
@@ -28,6 +30,7 @@ import { Icon, type IconName } from '../icon/icon';
         }
       </div>
     }
+    <ng-template #text><ng-content /></ng-template>
   `,
 })
 export class Alert {
