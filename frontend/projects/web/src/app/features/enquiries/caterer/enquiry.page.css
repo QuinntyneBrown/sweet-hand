@@ -1,0 +1,8 @@
+/* The mock sets the list beside the thread a little closer to the header than the inbox does. */
+.inbox-layout {
+  margin-top: var(--space-6);
+}
+
+.enquiry-column {
+  min-width: 0;
+}

@@ -17,4 +17,19 @@ export const enquiriesRoutes: Routes = [
     data: { mainClass: 'container' },
     title: $localize`:@@thread.documentTitle:Enquiry · Sweet Hand`,
   },
+  // Listed before the dashboard area in app.routes.ts, so these win over 'dashboard'.
+  {
+    path: 'dashboard/enquiries',
+    canActivate: [requireRole('Caterer')],
+    loadComponent: () => import('./caterer/enquiries.page').then((m) => m.EnquiriesPage),
+    data: { mainClass: 'container' },
+    title: $localize`:@@enquiries.documentTitle:Enquiries · Sweet Hand`,
+  },
+  {
+    path: 'dashboard/enquiries/:id',
+    canActivate: [requireRole('Caterer')],
+    loadComponent: () => import('./caterer/enquiry.page').then((m) => m.EnquiryPage),
+    data: { mainClass: 'container' },
+    title: $localize`:@@thread.documentTitle:Enquiry · Sweet Hand`,
+  },
 ];

@@ -35,6 +35,11 @@ export class EnquiryThread {
     return this.root.locator('.thread__status');
   }
 
+  /** The caterer's "Sent yesterday at 4:15 p.m." */
+  get sentLine() {
+    return this.root.locator('.thread__status > span:not(.status)');
+  }
+
   get viewCaterer() {
     return this.root.locator('.thread__status').getByRole('link', { name: 'View caterer' });
   }

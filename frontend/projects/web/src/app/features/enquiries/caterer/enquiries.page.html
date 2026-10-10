@@ -1,0 +1,55 @@
+<div class="page-intro">
+  <h1 i18n="@@nav.enquiries">Enquiries</h1>
+  @if (failed()) {
+    <p class="subtitle" i18n="@@enquiries.didNotLoad">Enquiries didn’t load</p>
+  } @else if (view()) {
+    <p class="subtitle" [attr.role]="filter() ? 'status' : null" [attr.aria-live]="filter() ? 'polite' : null">{{ subtitle() }}</p>
+  } @else {
+    <p class="subtitle"><span class="skeleton skeleton--text" style="width: 10rem" aria-hidden="true"></span><span class="visually-hidden" i18n="@@common.loading">Loading</span></p>
+  }
+</div>
+
+@if (failed()) {
+  <div class="inbox-layout inbox-layout--solo">
+    <section class="inbox-layout__list" aria-label="Enquiry list" i18n-aria-label="@@enquiries.listRegion">
+      <sh-alert tone="danger" live="assertive" title="We couldn’t load your enquiries" i18n-title="@@inbox.errorTitle">
+        <ng-container i18n="@@enquiries.errorText">Your enquiries are safe. Check your connection and try again.</ng-container>
+        <div slot="actions" class="alert__actions">
+          <button class="btn btn--sm" type="button" (click)="retry()" i18n="@@common.retry">Retry</button>
+          <a routerLink="/dashboard" i18n="@@enquiries.backToOverview">Back to overview</a>
+        </div>
+      </sh-alert>
+    </section>
+  </div>
+} @else if (none()) {
+  <div class="inbox-layout inbox-layout--solo">
+    <section class="inbox-layout__list" aria-label="Enquiry list" i18n-aria-label="@@enquiries.listRegion">
+      <sh-empty-state heading="No enquiries yet" i18n-heading="@@inbox.emptyTitle" [text]="emptyText()">
+        <ng-container slot="photos">
+          <span class="photo"><img src="/media/maracas-bay.jpg?w=400&fm=jpeg" alt="" width="72" height="72" /></span>
+          <span class="photo"><img src="/media/pelau-house.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
+          <span class="photo"><img src="/media/black-cake-co.jpg?w=400&fm=jpeg" alt="" width="72" height="72" /></span>
+        </ng-container>
+        <a slot="actions" class="btn btn--primary" [routerLink]="pageHref()" i18n="@@enquiries.viewPage">View your page</a>
+      </sh-empty-state>
+    </section>
+  </div>
+} @else {
+  <div [class]="noResults() ? 'inbox-layout inbox-layout--solo' : 'inbox-layout'">
+    <section class="inbox-layout__list" aria-label="Enquiry list" i18n-aria-label="@@enquiries.listRegion">
+      @if (!view()) {
+        <p class="visually-hidden" role="status" i18n="@@enquiries.loading">Loading enquiries</p>
+      }
+      <app-enquiry-list [view]="view()" viewer="caterer" basePath="/dashboard/enquiries" [label]="listLabel()" [filter]="filter()" [currentId]="selectedId()" currentKind="true" />
+    </section>
+    @if (!noResults()) {
+      <div class="inbox-layout__thread">
+        @if (paneThread(); as t) {
+          <app-enquiry-thread [thread]="t" (threadChange)="changed($event)" [headingLevel]="2" />
+        } @else {
+          <sh-thread [busy]="true" [headingLevel]="2" loadingLabel="Loading enquiry" i18n-loadingLabel="@@thread.loading" />
+        }
+      </div>
+    }
+  </div>
+}

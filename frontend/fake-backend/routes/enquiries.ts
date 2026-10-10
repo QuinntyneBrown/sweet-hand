@@ -317,10 +317,11 @@ function find(store: Store, args: { customer?: string; caterer: string }): Enqui
   return e;
 }
 
-const CUSTOMER_NAMES = [
-  'Simone Achterberg-Ramkissoon', 'Kwame Owusu', 'Rhea Mahabir', 'Leon Bascombe', 'Tara Singh', 'Grace Alleyne', 'Omar Hosein',
-  'Chantal Dorval', 'Winston Greaves', 'Lisa Ramnarine', 'Patrick Nurse', 'Ayesha Mohammed', 'Dwayne Charles',
-];
+const FIRST_NAMES = ['Kwame', 'Rhea', 'Leon', 'Tara', 'Grace', 'Omar', 'Chantal', 'Winston', 'Lisa', 'Patrick', 'Ayesha', 'Dwayne'];
+const LAST_NAMES = ['Owusu', 'Mahabir', 'Bascombe', 'Singh', 'Alleyne', 'Hosein'];
+/** Fictional, unique names for extra customers; the first one is long, to show truncation. */
+const customerName = (i: number) =>
+  i === 0 ? 'Simone Achterberg-Ramkissoon' : `${FIRST_NAMES[i % FIRST_NAMES.length]} ${LAST_NAMES[Math.floor(i / FIRST_NAMES.length) % LAST_NAMES.length]}`;
 
 /** Named store changes tests can ask for (`backend.scenario(name, args)`). */
 export const enquiriesScenarios: Record<string, (store: Store, args: any) => unknown> = {
@@ -408,7 +409,7 @@ export const enquiriesScenarios: Record<string, (store: Store, args: any) => unk
       let catererId = caterers[i % caterers.length].id;
       if (user.role === 'Caterer') {
         catererId = user.catererId!;
-        const name = CUSTOMER_NAMES[i % CUSTOMER_NAMES.length];
+        const name = customerName(i);
         customerId = `user-extra-${i}`;
         store.users.push({ ...user, id: customerId, role: 'Customer', displayName: name, email: `extra-${i}@example.com`, catererId: undefined, phone: undefined });
       }

@@ -14,7 +14,9 @@ import { FILTERS, activityTime, noResults, pageSummary, rowName, rowSummary, sta
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
   template: `
-    <sh-segmented ariaLabel="Filter by status" i18n-ariaLabel="@@inbox.filterLabel" [items]="filterItems()" [selected]="filter() ?? 'all'" [loading]="!view() && viewer() === 'caterer'" />
+    @if (filterable()) {
+      <sh-segmented ariaLabel="Filter by status" i18n-ariaLabel="@@inbox.filterLabel" [items]="filterItems()" [selected]="filter() ?? 'all'" [loading]="!view() && viewer() === 'caterer'" />
+    }
     @if (empty(); as e) {
       <sh-empty-state size="compact" [heading]="e.heading" [text]="e.text">
         @if (viewer() === 'caterer') {
@@ -68,6 +70,8 @@ export class EnquiryList {
   readonly filter = input<InboxFilter | null>(null);
   readonly currentId = input<string | null>(null);
   readonly currentKind = input<'page' | 'true'>('page');
+  /** The status filter above the list; the caterer's enquiry page lists rows only (mock). */
+  readonly filterable = input(true);
 
   private readonly rowComponents = viewChildren(InboxRow);
 
