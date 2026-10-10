@@ -5,6 +5,7 @@ import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from 
 import { routes } from './app.routes';
 import { DiscoveryApi, HttpDiscoveryApi } from './core/api/discovery-api';
 import { HttpSessionApi, SessionApi } from './core/session/session-api';
+import { HttpIdentityApi, IdentityApi } from './core/api/identity-api';
 import { Session } from './core/session/session';
 
 export const appConfig: ApplicationConfig = {
@@ -14,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch(), withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }), withInterceptors([systemErrorsInterceptor])),
     { provide: SessionApi, useClass: HttpSessionApi },
     { provide: DiscoveryApi, useClass: HttpDiscoveryApi },
+    { provide: IdentityApi, useClass: HttpIdentityApi },
     provideAppInitializer(() => inject(Session).load()),
   ],
 };

@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, input, output, signal, 
 @Component({
   selector: 'sh-error-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: ':host { display: contents; }',
+  host: { style: 'display: contents' },
   template: `
     <div class="container">
       <div class="system-page">

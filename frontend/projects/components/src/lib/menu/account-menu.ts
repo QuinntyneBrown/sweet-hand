@@ -33,7 +33,7 @@ export interface MenuItemEntry {
   selector: 'sh-account-menu',
   imports: [RouterLink, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: ':host { display: contents; }',
+  host: { style: 'display: contents' },
   template: `
     @if (open()) {
       <div class="menu account-menu" (keydown)="onKeydown($event)">

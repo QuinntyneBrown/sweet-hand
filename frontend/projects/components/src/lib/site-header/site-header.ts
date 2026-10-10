@@ -30,7 +30,7 @@ export interface SiteHeaderAccount {
   selector: 'sh-site-header',
   imports: [RouterLink, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: ':host { display: contents; }',
+  host: { style: 'display: contents' },
   template: `
     <header class="site-header">
       <a class="wordmark" [routerLink]="homeHref()">{{ brandName() }}@if (tag() && !minimal()) {&ngsp;<span class="wordmark__tag">{{ tag() }}</span>}</a>

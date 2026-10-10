@@ -23,7 +23,7 @@ const OCCASION_SIZES = '(min-width: 62rem) 17.5rem, (min-width: 48rem) 30vw, 45v
   selector: 'sh-caterer-card',
   imports: [RouterLink, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: ':host { display: contents; }',
+  host: { style: 'display: contents' },
   template: `
     @if (skeleton()) {
       <div class="caterer-card caterer-card--skeleton" aria-hidden="true">

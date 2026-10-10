@@ -12,7 +12,7 @@ export interface FooterLink {
   selector: 'sh-footer',
   imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: ':host { display: contents; }',
+  host: { style: 'display: contents' },
   template: `
     <footer class="site-footer">
       <div class="site-footer__brand"><strong>{{ brandName() }}</strong><span>{{ line() }}</span></div>

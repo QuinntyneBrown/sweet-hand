@@ -25,7 +25,7 @@ let nextId = 0;
   selector: 'sh-sheet',
   imports: [Icon, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: ':host { display: contents; }',
+  host: { style: 'display: contents' },
   template: `
     <ng-template #panel>
       <div class="backdrop"></div>

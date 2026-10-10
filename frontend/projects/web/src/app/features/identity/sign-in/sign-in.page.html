@@ -1,0 +1,40 @@
+<div class="auth">
+  <div class="auth__head">
+    <div class="photo-row">
+      <span class="photo"><img src="/media/pelau-house.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
+      <span class="photo"><img src="/media/ti-kay.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
+      <span class="photo"><img src="/media/black-cake-co.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
+    </div>
+    <h1 i18n="@@signIn.title">Sign in</h1>
+    <p class="subtitle" i18n="@@signIn.subtitle">Welcome back. Your inbox and saved enquiries are waiting.</p>
+  </div>
+
+  @if (failure(); as f) {
+    <sh-alert tone="danger" live="assertive" title="We couldn’t sign you in just now" i18n-title="@@signIn.serverErrorTitle">
+      {{ serverText(f.reference) }}
+      <div slot="actions" class="alert__actions">
+        <sh-button size="sm" (activated)="submit()"><ng-container i18n="@@common.tryAgain">Try again</ng-container></sh-button>
+        <a routerLink="/caterers" i18n="@@signIn.keepBrowsing">Keep browsing</a>
+      </div>
+    </sh-alert>
+  }
+
+  <sh-form-summary [heading]="summaryTitle()" [items]="summary()" [attempt]="attempt()" />
+
+  <form class="form form--compact" novalidate [formGroup]="form" (ngSubmit)="submit()">
+    <sh-form-field label="Email" i18n-label="@@field.email" controlId="email" [error]="errors().email">
+      <sh-text-field formControlName="email" type="email" size="lg" name="email" autocomplete="email" [spellcheck]="false" [required]="true" [autofocus]="true" [readonly]="busy()" />
+    </sh-form-field>
+    <sh-form-field label="Password" i18n-label="@@field.password" controlId="password" [error]="errors().password">
+      <sh-button slot="labelAction" variant="link" size="sm" [pressed]="revealed()" controls="password" (activated)="revealed.set(!revealed())"
+        ><ng-container i18n="@@field.showPassword">Show</ng-container></sh-button
+      >
+      <sh-text-field formControlName="password" type="password" size="lg" name="password" autocomplete="current-password" [required]="true" [revealed]="revealed()" [readonly]="busy()" />
+    </sh-form-field>
+
+    <sh-button type="submit" variant="primary" size="lg" [block]="true" [busy]="busy()"><ng-container i18n="@@signIn.submit">Sign in</ng-container></sh-button>
+    <p class="visually-hidden" role="status">{{ busy() ? signingIn : '' }}</p>
+    <p><a class="link--standalone" routerLink="/forgot-password" i18n="@@signIn.forgot">Forgot your password?</a></p>
+  </form>
+  <p class="auth__alt" i18n="@@signIn.alt">New to Sweet Hand? <a class="link--standalone" routerLink="/register">Create an account</a> · Caterers: <a routerLink="/join">list your business</a></p>
+</div>

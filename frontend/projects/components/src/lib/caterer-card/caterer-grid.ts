@@ -10,7 +10,7 @@ import { CatererCard } from './caterer-card';
 @Component({
   selector: 'sh-caterer-grid',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: ':host { display: contents; }',
+  host: { style: 'display: contents' },
   template: `
     <ul [class]="variant() === 'occasions' ? 'occasion-grid' : 'caterer-grid'" [attr.aria-busy]="busy() ? 'true' : null">
       @if (busy()) {
