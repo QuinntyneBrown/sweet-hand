@@ -5,6 +5,7 @@ import type { User } from '../seed/users.ts';
 import type { AccountToken } from '../seed/account.ts';
 import { slugify } from '../seed/taxonomy.ts';
 import { endSessions } from './session.ts';
+import type { ConsentRequest, PrivacyNotice } from '../../projects/web/src/app/core/api/privacy.models.ts';
 import type { SecondFactorRequest, EmailVerified, ResendVerificationRequest, VerificationSent, PasswordResetLink, PasswordResetRequest, ResetPasswordRequest, RegisterCatererRequest, RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/web/src/app/core/api/identity.models.ts';
 
 const MINUTE = 60_000;
@@ -306,6 +307,24 @@ export function registerIdentity(r: Router<Store>): void {
     return { status: 202, body: sent };
   });
 
+  /** The current notice; public by deliberate choice (consent-to-privacy-notice design). */
+  r.get('/api/public/privacy-notice', (ctx): Reply => {
+    const { version, effectiveDate, changes } = ctx.store.account.privacyNotice;
+    const body: PrivacyNotice = { version, effectiveDate, changes };
+    return ok(body);
+  });
+
+  /** Accepts the current notice for the signed-in account (L2-070.3). */
+  r.post('/api/me/consents', (ctx): Reply => {
+    const user = currentUser(ctx.store, ctx.cookies);
+    if (!user) return { status: 401, body: { title: 'Sign in to continue' } };
+    const body = (ctx.body ?? {}) as Partial<ConsentRequest>;
+    if (body.version !== currentPrivacyVersion(ctx.store)) return invalid({ version: ['Accept the current privacy notice'] });
+    user.acceptedPrivacyVersion = body.version;
+    user.acceptedPrivacyAt = ctx.store.now.toISOString();
+    return { status: 204 };
+  });
+
   r.get('/api/identity/password-resets/:token', (ctx): Reply => {
     const t = liveToken(ctx.store, 'reset', ctx.params['token']);
     const user = t && ctx.store.users.find((u) => u.id === t.userId && !u.deleted);
@@ -362,6 +381,19 @@ export function normalisePhone(value: string): string | null {
 
 /** Named store changes for identity tests (`backend.scenario(name, args)`). */
 export const identityScenarios: Record<string, (store: Store, args: any) => unknown> = {
+  /** A notice with substantially different purposes takes effect 1 November 2026 (L2-070.4). */
+  'publish-privacy-notice': (store) => {
+    store.account.privacyNotice = {
+      version: '2026-11',
+      effectiveDate: '2026-11-01',
+      substantialChange: true,
+      changes: [
+        'We now use a Canadian email provider in Montréal, Quebec, to send notifications.',
+        'Visit counts use a daily hash that can’t be linked across days.',
+        'Closed enquiries are deleted 3 years after they close.',
+      ],
+    };
+  },
   /** The account is waiting for verification and a link was emailed just now; returns its path. */
   'issue-verification': (store, { email }: { email: string }) => {
     const user = findUser(store, email);

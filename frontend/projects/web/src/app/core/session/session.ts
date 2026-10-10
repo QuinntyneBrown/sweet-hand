@@ -1,5 +1,6 @@
 import { DestroyRef, Injectable, computed, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
+import { filter } from 'rxjs';
 import { firstValueFrom } from 'rxjs';
 import type { SessionView } from '../api/session.models';
 import { SessionApi } from './session-api';
@@ -26,9 +27,18 @@ export class Session {
   readonly pendingSecondFactor = computed(() => this.view().pendingSecondFactor ?? null);
   /** Who was signed out for being idle, until they sign in again (L2-078.3). */
   readonly expired = this.expiredAs.asReadonly();
+  /** The signed-in account owes acceptance of a changed privacy notice (L2-070.4). */
+  readonly privacyUpdateRequired = computed(() => !!this.view().user && !!this.view().privacyUpdateRequired);
 
   constructor() {
     inject(DestroyRef).onDestroy(() => clearInterval(this.timer));
+    // Until a changed notice is accepted, every page but the notice itself leads to it (L2-070.4).
+    this.router.events.pipe(filter((e) => e instanceof NavigationStart)).subscribe((e) => {
+      const path = e.url.split(/[?#]/)[0];
+      if (this.privacyUpdateRequired() && path !== '/privacy/accept' && path !== '/privacy') {
+        void this.router.navigate(['/privacy/accept'], { queryParams: { returnUrl: e.url } });
+      }
+    });
   }
 
   /** Loads the session before the first page renders, then keeps the counts fresh. */

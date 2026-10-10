@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import type { Routes } from '@angular/router';
-import { requirePendingSecondFactor } from '../../core/session/guards';
+import { requirePendingSecondFactor, requireRole } from '../../core/session/guards';
 import { Session } from '../../core/session/session';
 
 export const identityRoutes: Routes = [
@@ -37,6 +37,13 @@ export const identityRoutes: Routes = [
     path: 'reset-password/:token',
     loadComponent: () => import('./reset-password/reset-password.page').then((m) => m.ResetPasswordPage),
     title: $localize`:@@reset.documentTitle:Choose a new password · Sweet Hand`,
+  },
+  {
+    path: 'privacy/accept',
+    canActivate: [requireRole()],
+    loadComponent: () => import('./privacy-update/privacy-update.page').then((m) => m.PrivacyUpdatePage),
+    data: { chrome: 'minimal' },
+    title: $localize`:@@privacyUpdate.documentTitle:Privacy notice update · Sweet Hand`,
   },
   {
     path: 'verify-email/sent',

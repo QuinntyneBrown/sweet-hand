@@ -3,7 +3,7 @@ import { ok } from '../lib/http.ts';
 import { currentUser, type Store } from '../lib/store.ts';
 import type { SessionUser, SessionView } from '../../projects/web/src/app/core/api/session.models.ts';
 import type { User } from '../seed/users.ts';
-import { unreadThreads } from './enquiries.ts';
+import { privacyUpdateRequired } from './identity.ts';
 
 export function sessionUser(store: Store, user: User): SessionUser {
   const caterer = user.catererId ? store.caterers.find((c) => c.id === user.catererId) : undefined;
@@ -93,6 +93,7 @@ export function registerSession(r: Router<Store>): void {
     const pendingId = ctx.store.account.pendingSecondFactor[ctx.cookies['sh_session'] ?? ''];
     const pending = pendingId ? ctx.store.users.find((u) => u.id === pendingId && !u.deleted) : undefined;
     if (!user && pending) view.pendingSecondFactor = { email: pending.email, method: pending.secondFactor ?? 'authenticator app' };
+    if (user && privacyUpdateRequired(ctx.store, user)) view.privacyUpdateRequired = true;
     if (expired) {
       view.expired = expired;
       return { ...ok(view), headers: { 'set-cookie': 'sh_session=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax' } };

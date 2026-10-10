@@ -1,0 +1,26 @@
+<div class="auth">
+  <div class="auth__head">
+    <app-auth-photos [photos]="['sunday-pot', 'cou-cou', 'maracas-bay']" />
+    <h1 i18n="@@privacyUpdate.title">We’ve updated our privacy notice</h1>
+    <p class="subtitle" i18n="@@privacyUpdate.subtitle">Please review the changes before you continue.</p>
+  </div>
+  @if (notice(); as n) {
+    <div class="stack">
+      <p i18n="@@privacyUpdate.intro">Our privacy notice changes on {{ effective() }}. What’s different:</p>
+      <ul class="stack stack--sm privacy-update__changes">
+        @for (change of n.changes; track $index) {
+          <li>{{ change }}</li>
+        }
+      </ul>
+      <p><a routerLink="/privacy" i18n="@@privacyUpdate.readNotice">Read the full privacy notice</a></p>
+    </div>
+  }
+  @if (failure(); as f) {
+    <sh-alert tone="danger" live="assertive" title="We couldn’t save your choice" i18n-title="@@privacyUpdate.serverErrorTitle">{{ serverText(f.reference) }}</sh-alert>
+  }
+  <form class="stack" (submit)="accept($event)">
+    <sh-button type="submit" variant="primary" size="lg" [block]="true" [busy]="busy()"><ng-container i18n="@@privacyUpdate.accept">Accept and continue</ng-container></sh-button>
+    <p class="visually-hidden" role="status">{{ busy() ? saving : '' }}</p>
+    <sh-button size="lg" [block]="true" (activated)="signOut()"><ng-container i18n="@@nav.signOut">Sign out</ng-container></sh-button>
+  </form>
+</div>
