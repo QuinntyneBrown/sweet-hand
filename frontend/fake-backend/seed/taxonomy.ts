@@ -75,6 +75,40 @@ export const OCCASIONS = [
   'Community events',
 ].map((name) => ({ id: slugify(name), name }));
 
+/**
+ * Occasions of catalog caterer `n` (1–60), giving the occasion counts in
+ * docs/mocks/README.md: Weddings 23, Birthdays 41, Corporate events 28,
+ * Funerals and repasts 17, Religious and cultural celebrations 26, Family
+ * gatherings 47, Private dinners 12, Community events 19 (Pelau House, #1,
+ * keeps its own list).
+ */
+export function seedOccasions(n: number): string[] {
+  const rules: [string, boolean][] = [
+    ['weddings', n <= 23],
+    ['birthdays', n <= 41],
+    ['corporate-events', n % 2 === 0 && n <= 54],
+    ['funerals-and-repasts', n % 3 === 0 && n <= 51],
+    ['religious-and-cultural-celebrations', n % 2 === 1 && n >= 3 && n <= 51],
+    ['family-gatherings', n <= 43],
+    ['private-dinners', n % 5 === 0],
+    ['community-events', n % 3 === 1 && n >= 4 && n <= 58],
+  ];
+  const chosen = rules.filter(([, on]) => on).map(([id]) => id);
+  return chosen.length ? chosen : ['family-gatherings'];
+}
+
+/** The photo on each occasion tile (docs/mocks/pages/occasions). */
+export const OCCASION_PHOTOS: Record<string, string> = {
+  weddings: 'sorrel-and-spice',
+  birthdays: 'black-cake-co',
+  'corporate-events': 'cou-cou',
+  'funerals-and-repasts': 'sunday-pot',
+  'religious-and-cultural-celebrations': 'pelau-house',
+  'family-gatherings': 'cook-up',
+  'private-dinners': 'ti-kay',
+  'community-events': 'demerara-kitchen',
+};
+
 export const DIETARY_TAGS = [
   'Vegetarian',
   'Vegan',

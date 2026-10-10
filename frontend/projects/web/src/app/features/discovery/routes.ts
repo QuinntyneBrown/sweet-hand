@@ -7,4 +7,10 @@ export const discoveryRoutes: Routes = [
     data: { mainClass: 'container' },
     title: $localize`:@@listing.documentTitle:Caterers · Sweet Hand`,
   },
+  {
+    path: 'occasions',
+    loadComponent: () => import('./occasions/occasions.page').then((m) => m.OccasionsPage),
+    data: { mainClass: 'container' },
+    title: $localize`:@@occasions.documentTitle:Occasions · Sweet Hand`,
+  },
 ];

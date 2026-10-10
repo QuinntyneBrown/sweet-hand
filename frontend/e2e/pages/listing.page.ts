@@ -17,6 +17,11 @@ export class ListingPage extends BasePage {
     return this.page.locator('.browse__title .result-count');
   }
 
+  /** The "Occasions" link above an occasion's heading. */
+  get backToOccasions() {
+    return this.page.locator('.browse__title a.eyebrow');
+  }
+
   get resultsHeading() {
     return this.page.getByRole('heading', { name: 'Results', exact: true });
   }

@@ -2,7 +2,7 @@
  * The fictional caterers from docs/mocks/README.md ("Cast and catalog").
  * All people, businesses and addresses are fictional.
  */
-import { slugify } from './taxonomy.ts';
+import { seedOccasions, slugify } from './taxonomy.ts';
 
 export type ProfileStatus = 'Draft' | 'Pending review' | 'Changes requested' | 'Published' | 'Suspended' | 'Removed';
 
@@ -182,9 +182,7 @@ export function seedCaterers(): Caterer[] {
   rows.forEach(([name, file, cuisine, area, caption], i) => {
     const n = i + 1;
     const slug = slugify(name.replace(/'/g, ''));
-    const occasions = ['family-gatherings', 'birthdays'];
-    if (n <= 23) occasions.unshift('weddings');
-    if (n % 3 === 0) occasions.push('corporate-events');
+    const occasions = seedOccasions(n);
     const generic = GENERIC_DISHES.map((d, j) => ({ ...d, id: `${slug}-dish-${j + 1}` }));
     const photos: Photo[] = [
       [file, caption],

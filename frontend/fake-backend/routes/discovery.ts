@@ -2,9 +2,9 @@ import type { Router } from '../lib/router.ts';
 import { ok, notFound } from '../lib/http.ts';
 import { torontoDate, type Store } from '../lib/store.ts';
 import { photoView } from '../lib/views.ts';
-import { FSA_TO_AREA, OCCASIONS } from '../seed/taxonomy.ts';
+import { FSA_TO_AREA, OCCASION_PHOTOS, OCCASIONS } from '../seed/taxonomy.ts';
 import type { Caterer } from '../seed/caterers.ts';
-import type { ListingPageView, ServiceArea } from '../../projects/web/src/app/core/api/discovery.models.ts';
+import type { ListingPageView, OccasionTile, ServiceArea } from '../../projects/web/src/app/core/api/discovery.models.ts';
 
 const PAGE_SIZE = 24;
 /** On the mocks' "today" the listing keeps catalog order so tests read like the mocks. */
@@ -105,7 +105,18 @@ export function registerDiscovery(r: Router<Store>): void {
     return ok(list);
   });
 
-  r.get('/api/public/cuisines', (ctx) => ok(ctx.store.cuisines.filter((c) => !c.retired).map(({ id, name }) => ({ id, name }))));
+  /** The eight occasions with how many published caterers take each on (L2-021, docs/mocks/pages/occasions). */
+  r.get('/api/public/occasions', (ctx) => {
+    const published = ctx.store.caterers.filter((c) => c.status === 'Published');
+    const tiles: OccasionTile[] = OCCASIONS.map((o) => ({
+      ...o,
+      count: published.filter((c) => c.occasions.includes(o.id)).length,
+      photo: photoView({ id: o.id, file: `${OCCASION_PHOTOS[o.id]}.jpg`, caption: '' }),
+    }));
+    return ok(tiles);
+  });
+
+  r.get('/api/public/cuisines',(ctx) => ok(ctx.store.cuisines.filter((c) => !c.retired).map(({ id, name }) => ({ id, name }))));
 
   /** Resolves a forward sortation area; only the FSA ever reaches the server (L2-012.6). */
   r.get('/api/public/fsa/:fsa', (ctx) => {

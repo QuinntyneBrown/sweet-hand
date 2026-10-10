@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, inject, linkedSignal, signal, viewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   ActiveFilters,
   Button,
@@ -42,7 +42,7 @@ import { activeFilterCount, knownQuery, readListingQuery, toQueryParams, withAre
 /** The caterer listing, /caterers (docs/detailed-designs/discovery/browse-listing). */
 @Component({
   selector: 'app-listing-page',
-  imports: [ActiveFilters, AreaField, ListingFilterBar, ListingFiltersSheet, SearchDialog, FilterTrigger, Button, ButtonAnchor, CatererCard, CatererGrid, EmptyState, FilterGroup, Icon, Pagination, Skeleton],
+  imports: [RouterLink, ActiveFilters, AreaField, ListingFilterBar, ListingFiltersSheet, SearchDialog, FilterTrigger, Button, ButtonAnchor, CatererCard, CatererGrid, EmptyState, FilterGroup, Icon, Pagination, Skeleton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './listing.page.html',
 })
@@ -78,7 +78,12 @@ export class ListingPage {
   private readonly cuisineList = rxResource({ stream: () => this.api.cuisines() });
   /** The URL's filters without values the listing does not know (L2-003.3). */
   protected readonly known = computed(() => knownQuery(this.query(), this.shown()));
-  protected readonly activeCount = computed(() => (this.shown() ? activeFilterCount(this.known()) : 0));
+  /** The occasion the listing is narrowed to, from /occasions (L2-021). */
+  protected readonly occasion = computed(() => {
+    const o = this.shown()?.occasions.find((x) => x.id === this.known().occasion);
+    return o ? { name: o.name, lowerName: o.name.toLocaleLowerCase('en-CA') } : null;
+  });
+  protected readonly activeCount =computed(() => (this.shown() ? activeFilterCount(this.known()) : 0));
   protected readonly sheetOpen = signal(false);
   protected readonly searchOpen = signal(false);
   protected readonly filtersTrigger = viewChild(FilterTrigger);
