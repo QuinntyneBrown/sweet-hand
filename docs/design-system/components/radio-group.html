@@ -301,12 +301,12 @@
       <h3>Role and pattern</h3>
       <p>Native radios in a <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code> (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/radio/">APG Radio Group</a>). Browsers supply the roving focus and arrow-key selection for radios that share a <code>name</code>, so no script or <code>role="radiogroup"</code> is needed.</p>
       <h3>Keyboard</h3>
-      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
         <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Enters the group on the selected radio (or the first one if none is selected) and leaves it in one step. The group is a single tab stop.</td></tr>
         <tr><td><kbd>↓</kbd> / <kbd>→</kbd></td><td>Moves to the next radio and selects it; wraps from last to first.</td></tr>
         <tr><td><kbd>↑</kbd> / <kbd>←</kbd></td><td>Moves to the previous radio and selects it; wraps from first to last.</td></tr>
         <tr><td><kbd>Space</kbd></td><td>Selects the focused radio when none is selected yet.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
       <p>Because arrows change the answer, never run an action on <code>change</code> (no auto-submit, no navigation). A decision in a moderation dialog takes effect only on the dialog's primary button.</p>
       <h3>Focus</h3>
       <p>The shared ring circles the radio, not the row or the card. When a dialog opens on a group with an answer already chosen (<code>dialogs/resolve-report</code> defaults to "Dismiss"), <code>autofocus</code> goes on that selected radio.</p>
@@ -384,7 +384,7 @@
   …
   &lt;p class="field__error" id="reason-error"&gt;Choose a reason&lt;/p&gt;
 &lt;/fieldset&gt;</code></pre>
-      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
         <tr><td><code>label.choice</code> + <code>input[type="radio"]</code></td><td>Row with a round box; shared with the checkbox.</td></tr>
         <tr><td><code>.choice--card</code></td><td>Bordered, padded option; pepper edge when its radio is checked (<code>:has(input:checked)</code>).</td></tr>
         <tr><td><code>.choice__text</code> + <code>&lt;small&gt;</code></td><td>Label and muted description.</td></tr>
@@ -393,7 +393,7 @@
         <tr><td><code>name</code> (shared)</td><td>Makes the radios one group: one tab stop, arrow keys, one value.</td></tr>
         <tr><td><code>checked</code> / <code>disabled</code> / <code>required</code> / <code>aria-invalid</code></td><td>Native and ARIA states.</td></tr>
         <tr><td><code>data-state="hover|focus|checked|disabled|invalid"</code></td><td>Documentation and mocks only.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

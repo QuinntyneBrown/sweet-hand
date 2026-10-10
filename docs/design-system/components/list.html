@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>List rows — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand list rows: the generic list and device list, settings rows for cuisines and operators, editable menu rows and breach records, with loading skeletons, states and both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Data display</p>
+      <h1>List rows</h1>
+      <p class="ds-lead">Most of Sweet Hand's settings and records are rows: a title, a quiet line under it, an action at the end, and a hairline between. Four row families share that shape.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>&lt;ul&gt;</code> / <code>&lt;ol&gt;</code></span><span class="ds-pill"><code>.list</code></span><span class="ds-pill"><code>.admin-row</code></span><span class="ds-pill"><code>.edit-row</code></span><span class="ds-pill"><code>.breach</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A list row shows one thing per line, readable on its own: a device, a cuisine, an operator, a dish, a breach record. Rows are flat: no card, no shadow, just a 1px rule underneath, in line with Sweet Hand's surfaces. Pick the family by what the row holds:</p>
+      <ul>
+        <li><b>List</b> (<code>.list</code>, <code>.list__item</code>): a compact title-and-meta row with an optional trailing control. The account page's <b>device list</b> (<code>.device-list</code>) is the product use: "Safari on iPhone · Last active today, 8:15 a.m." with "Sign out".</li>
+        <li><b>Settings rows</b> (<code>.admin-list</code>, <code>.admin-row</code>): larger titles for operator settings: cuisines with their caterer count and "Retire", operators with an avatar and "Deactivate".</li>
+        <li><b>Editable rows</b> (<code>.edit-list</code>, <code>.edit-row</code>): a caterer's dishes in page order, each with move up, move down, edit and remove icon buttons (the menu manager).</li>
+        <li><b>Breach records</b> (<code>.breach-list</code>, <code>.breach</code>): tall, read-only records in the privacy breach register, each a heading, a date line and a key-value list.</li>
+      </ul>
+      <p>Use an <a href="inbox-row.html">inbox row</a> for conversations, a <a href="queue-item.html">queue item</a> for operator review work, a <a href="table.html">table</a> when people compare columns, a <a href="dish.html">dish</a> for the public menu and a <a href="caterer-card.html">caterer card</a> for browsing.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="padding-inline: var(--space-3);">
+          <ul class="admin-list" aria-label="Operators, example" style="width: 100%;">
+            <li class="admin-row"><span class="avatar" aria-hidden="true">TR</span><span class="admin-row__body"><span class="admin-row__title">Tomas Reyes</span><span class="admin-row__meta">Operator · Security key · Last active today, 8:15 a.m.</span></span><span class="admin-row__actions"><button class="btn btn--sm btn--ghost" type="button" aria-haspopup="dialog" aria-label="Deactivate Tomas Reyes">Deactivate</button></span></li>
+          </ul>
+          <span class="ds-callout" style="left: 4%; top: 36%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 24%; top: 30%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 24%; top: 58%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 86%; top: 30%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 50%; top: 80%;" aria-hidden="true">5</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Leading visual (optional)</b><small>A 44px <a href="avatar.html">avatar</a> for people; nothing for things. <code>aria-hidden</code> when the name follows.</small></div></li>
+          <li><div><b>Title</b><small><code>__title</code>: the row's name. <code>--text-body-lg</code> medium in settings rows, <code>--text-label</code> in a list; can carry a badge ("You", "New").</small></div></li>
+          <li><div><b>Meta</b><small><code>__meta</code>: facts joined by middle dots in <code>--text-body-sm</code>, <code>--color-fg-muted</code>.</small></div></li>
+          <li><div><b>Actions (optional)</b><small><code>__actions</code>: small ghost buttons or 44px icon buttons, pushed to the end; they wrap under the body when space runs out.</small></div></li>
+          <li><div><b>Row rule</b><small>1px <code>--color-border-default</code> under each row; the list adds one on top (except <code>.list</code>, which drops the last row's rule).</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>List and device list</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ul class="list device-list" aria-label="Signed-in devices">
+            <li class="list__item"><div class="list__body"><div class="list__title">Chrome on Windows</div><div class="list__meta">This device · active now</div></div><span class="status status--published">Current</span></li>
+            <li class="list__item"><div class="list__body"><div class="list__title">Safari on iPhone</div><div class="list__meta">Last active today, 8:15 a.m.</div></div><button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Sign out Safari on iPhone">Sign out</button></li>
+            <li class="list__item"><div class="list__body"><div class="list__title">Samsung Internet on Android</div><div class="list__meta">Last active Mon 28 Sep</div></div><button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Sign out Samsung Internet on Android">Sign out</button></li>
+          </ul>
+          <ul class="list" aria-label="Navigation list example">
+            <li><a class="list__item list__item--interactive" href="../../mocks/pages/profile-details/default.html"><span class="list__body"><span class="list__title">Business details</span><span class="list__meta">Name, description, contact</span></span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li>
+            <li><a class="list__item list__item--interactive" href="../../mocks/pages/profile-certificate/default.html" aria-current="true" data-state="selected"><span class="list__body"><span class="list__title">Food safety</span><span class="list__meta">Certificate expires 14 Mar 2029</span></span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>From <code>pages/account/default</code>: <code>.device-list</code> removes the side padding and makes rows 52px. Below, the generic <code>.list__item--interactive</code> (the whole row is a link; illustrative), with the open item marked.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;ul class="list device-list" aria-label="Signed-in devices"&gt;
+  &lt;li class="list__item"&gt;
+    &lt;div class="list__body"&gt;&lt;div class="list__title"&gt;Safari on iPhone&lt;/div&gt;&lt;div class="list__meta"&gt;Last active today, 8:15 a.m.&lt;/div&gt;&lt;/div&gt;
+    &lt;button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Sign out Safari on iPhone"&gt;Sign out&lt;/button&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre></details>
+      </div>
+
+      <h3>Settings rows</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ul class="admin-list" aria-label="Cuisines, A to Z">
+            <li class="admin-row"><span class="admin-row__body"><span class="admin-row__title">Belizean</span><span class="admin-row__meta">1 published caterer</span></span><span class="admin-row__actions"><button class="btn btn--sm btn--ghost" type="button" aria-haspopup="dialog" aria-label="Retire Belizean">Retire</button></span></li>
+            <li class="admin-row"><span class="admin-row__body"><span class="admin-row__title">Caymanian <span class="badge badge--info">New</span></span><span class="admin-row__meta">Added today by Leah Mohammed · no caterers yet</span></span><span class="admin-row__actions"><button class="btn btn--sm btn--ghost" type="button" aria-haspopup="dialog" aria-label="Retire Caymanian">Retire</button></span></li>
+          </ul>
+          <ul class="admin-list" aria-label="Operators">
+            <li class="admin-row"><span class="avatar" aria-hidden="true">LM</span><span class="admin-row__body"><span class="admin-row__title">Leah Mohammed <span class="badge">You</span></span><span class="admin-row__meta">Admin · Authenticator app · Active now</span></span></li>
+            <li class="admin-row"><span class="avatar" aria-hidden="true">TR</span><span class="admin-row__body"><span class="admin-row__title">Tomas Reyes</span><span class="admin-row__meta">Operator · Security key · Last active today, 8:15 a.m.</span></span><span class="admin-row__actions"><button class="btn btn--sm btn--ghost" type="button" aria-haspopup="dialog" aria-label="Deactivate Tomas Reyes">Deactivate</button></span></li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>From <code>pages/admin-cuisines/default</code> and <code>pages/admin-operators/default</code>. You can't deactivate yourself, so your own row has no action.</span></div>
+      </div>
+
+      <h3>Editable rows</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ol class="edit-list" aria-label="Dishes, in the order they appear on your page">
+            <li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name">Chicken pelau</span><span class="dish__price">From $16 per person</span></div><p class="dish__desc">Browned in burnt sugar, cooked down with pigeon peas, rice and coconut milk.</p><ul class="tags"><li class="tag">Gluten-free</li><li class="tag">Dairy-free</li></ul></div><div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Move Chicken pelau up" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Move Chicken pelau down"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button><button class="icon-btn" type="button" aria-label="Edit Chicken pelau" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><button class="icon-btn" type="button" aria-label="Remove Chicken pelau" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li>
+            <li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name">Doubles</span><span class="dish__price">$3 each, 40 minimum</span></div><p class="dish__desc">Bara and curry channa with tamarind and cucumber chutney.</p><ul class="tags"><li class="tag">Vegan</li><li class="tag">Spicy</li></ul></div><div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Move Doubles up"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Move Doubles down"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button><button class="icon-btn" type="button" aria-label="Edit Doubles" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button><button class="icon-btn" type="button" aria-label="Remove Doubles" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li>
+          </ol>
+        </div>
+        <div class="ds-example__caption"><span>From <code>pages/profile-menu/default</code>. An ordered list because order is the content; the first row's "Move up" is disabled. Editing opens the dish dialog, never an inline form.</span></div>
+      </div>
+
+      <h3>Breach records</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <ul class="breach-list" aria-label="Recorded breaches, newest first">
+            <li class="breach">
+              <div class="breach__head"><h4 class="breach__title">Enquiry email sent to the wrong caterer</h4><p class="breach__when">Confirmed Thu 17 Sep 2026 · recorded by Leah Mohammed</p></div>
+              <dl class="kv"><dt>Information involved</dt><dd>A customer's display name and event details (date, guests, area). No email or phone.</dd><dt>People affected</dt><dd>1</dd><dt>Notification decision</dt><dd>Not reported to the Privacy Commissioner: no real risk of significant harm.</dd></dl>
+            </li>
+          </ul>
+        </div>
+        <div class="ds-example__caption"><span>From <code>pages/admin-breaches/default</code>. Read-only once saved; each record's title is a heading so the register can be navigated by headings.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>Each family has one size, set by its padding; there are no size modifiers.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Row</th><th scope="col">Padding</th><th scope="col">Minimum height</th><th scope="col">Title</th></tr></thead>
+        <tbody>
+          <tr><td><code>.list__item</code></td><td><code>--space-3</code> <code>--space-4</code></td><td>content</td><td><code>--text-label</code>, md</td></tr>
+          <tr><td><code>.device-list .list__item</code></td><td><code>--space-3</code> 0</td><td>52px (<code>--control-height-lg</code>)</td><td>as list</td></tr>
+          <tr><td><code>.admin-row</code></td><td><code>--space-4</code> <code>--space-2</code></td><td>content; 44px avatar</td><td><code>--text-body-lg</code>, medium</td></tr>
+          <tr><td><code>.edit-row</code></td><td><code>--space-4</code> 0</td><td>content; 44px icon buttons</td><td><code>.dish__name</code></td></tr>
+          <tr><td><code>.breach</code></td><td><code>--space-8</code> 0</td><td>content</td><td><code>--text-h4</code></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Rows are mostly static containers; their controls carry hover and focus. Interactive rows (a whole-row link) fill on hover; the open item takes the pepper tint. Hover and focus are forced with <code>data-state</code>.</p>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">List row states by family</caption>
+        <thead><tr><th scope="col">Row</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Selected / current</th><th scope="col">Disabled / read-only</th><th scope="col">Loading</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Interactive list item</th>
+            <td><ul class="list" style="min-width: 12rem;" aria-label="Default"><li><a class="list__item list__item--interactive" href="../../mocks/pages/profile-photos/default.html"><span class="list__body"><span class="list__title">Photos</span><span class="list__meta">6 of 30</span></span></a></li></ul></td>
+            <td><ul class="list" style="min-width: 12rem;" aria-label="Hover"><li><a class="list__item list__item--interactive" href="../../mocks/pages/profile-photos/default.html" data-state="hover"><span class="list__body"><span class="list__title">Photos</span><span class="list__meta">6 of 30</span></span></a></li></ul></td>
+            <td><ul class="list" style="min-width: 12rem;" aria-label="Focus"><li><a class="list__item list__item--interactive" href="../../mocks/pages/profile-photos/default.html" data-state="focus"><span class="list__body"><span class="list__title">Photos</span><span class="list__meta">6 of 30</span></span></a></li></ul></td>
+            <td><ul class="list" style="min-width: 12rem;" aria-label="Current"><li><a class="list__item list__item--interactive" href="../../mocks/pages/profile-photos/default.html" aria-current="true" data-state="selected"><span class="list__body"><span class="list__title">Photos</span><span class="list__meta">6 of 30</span></span></a></li></ul></td>
+            <td><span class="text-subtle">—</span></td>
+            <td><ul class="list" style="min-width: 12rem;" aria-hidden="true"><li class="list__item"><div class="list__body"><span class="skeleton skeleton--text" style="width: 8rem;"></span><span class="skeleton skeleton--text" style="width: 5rem;"></span></div></li></ul></td></tr>
+          <tr><th scope="row">Device row</th>
+            <td><ul class="list device-list" style="min-width: 15rem;" aria-label="Device default"><li class="list__item"><div class="list__body"><div class="list__title">Safari on iPhone</div><div class="list__meta">Today, 8:15 a.m.</div></div><button class="btn btn--sm" type="button" aria-label="Sign out Safari on iPhone">Sign out</button></li></ul></td>
+            <td><ul class="list device-list" style="min-width: 15rem;" aria-label="Device hover"><li class="list__item"><div class="list__body"><div class="list__title">Safari on iPhone</div><div class="list__meta">Today, 8:15 a.m.</div></div><button class="btn btn--sm" type="button" aria-label="Sign out Safari on iPhone" data-state="hover">Sign out</button></li></ul></td>
+            <td><ul class="list device-list" style="min-width: 15rem;" aria-label="Device focus"><li class="list__item"><div class="list__body"><div class="list__title">Safari on iPhone</div><div class="list__meta">Today, 8:15 a.m.</div></div><button class="btn btn--sm" type="button" aria-label="Sign out Safari on iPhone" data-state="focus">Sign out</button></li></ul></td>
+            <td><ul class="list device-list" style="min-width: 15rem;" aria-label="Device current"><li class="list__item"><div class="list__body"><div class="list__title">Chrome on Windows</div><div class="list__meta">This device</div></div><span class="status status--published">Current</span></li></ul></td>
+            <td><span class="text-subtle">—</span></td>
+            <td><ul class="list device-list" style="min-width: 15rem;" aria-hidden="true"><li class="list__item"><div class="list__body"><span class="skeleton skeleton--text" style="width: 10rem;"></span><span class="skeleton skeleton--text" style="width: 8rem;"></span></div></li></ul></td></tr>
+          <tr><th scope="row">Settings row</th>
+            <td><ul class="admin-list" style="min-width: 15rem;" aria-label="Settings default"><li class="admin-row"><span class="admin-row__body"><span class="admin-row__title">Haitian</span><span class="admin-row__meta">5 published caterers</span></span><span class="admin-row__actions"><button class="btn btn--sm btn--ghost" type="button" aria-label="Retire Haitian">Retire</button></span></li></ul></td>
+            <td><ul class="admin-list" style="min-width: 15rem;" aria-label="Settings hover"><li class="admin-row"><span class="admin-row__body"><span class="admin-row__title">Haitian</span><span class="admin-row__meta">5 published caterers</span></span><span class="admin-row__actions"><button class="btn btn--sm btn--ghost" type="button" aria-label="Retire Haitian" data-state="hover">Retire</button></span></li></ul></td>
+            <td><ul class="admin-list" style="min-width: 15rem;" aria-label="Settings focus"><li class="admin-row"><span class="admin-row__body"><span class="admin-row__title">Haitian</span><span class="admin-row__meta">5 published caterers</span></span><span class="admin-row__actions"><button class="btn btn--sm btn--ghost" type="button" aria-label="Retire Haitian" data-state="focus">Retire</button></span></li></ul></td>
+            <td><ul class="admin-list" style="min-width: 15rem;" aria-label="Settings new"><li class="admin-row"><span class="admin-row__body"><span class="admin-row__title">Caymanian <span class="badge badge--info">New</span></span><span class="admin-row__meta">Added today</span></span></li></ul></td>
+            <td><ul class="admin-list" style="min-width: 15rem;" aria-label="Settings own row"><li class="admin-row"><span class="avatar" aria-hidden="true">LM</span><span class="admin-row__body"><span class="admin-row__title">Leah Mohammed <span class="badge">You</span></span><span class="admin-row__meta">Admin</span></span></li></ul></td>
+            <td><ul class="admin-list" style="min-width: 15rem;" aria-hidden="true"><li class="admin-row admin-row--skeleton"><span class="admin-row__body"><span class="skeleton skeleton--title"></span><span class="skeleton skeleton--text"></span></span></li></ul></td></tr>
+          <tr><th scope="row">Editable row</th>
+            <td><ol class="edit-list" style="min-width: 18rem;" aria-label="Edit default"><li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name">Callaloo</span></div></div><div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Move Callaloo up"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Edit Callaloo"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button></div></li></ol></td>
+            <td><ol class="edit-list" style="min-width: 18rem;" aria-label="Edit hover"><li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name">Callaloo</span></div></div><div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Move Callaloo up"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Edit Callaloo" data-state="hover"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button></div></li></ol></td>
+            <td><ol class="edit-list" style="min-width: 18rem;" aria-label="Edit focus"><li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name">Callaloo</span></div></div><div class="edit-row__actions"><button class="icon-btn" type="button" aria-label="Move Callaloo up"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button><button class="icon-btn" type="button" aria-label="Edit Callaloo" data-state="focus"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button></div></li></ol></td>
+            <td><span class="text-subtle">—</span></td>
+            <td><ol class="edit-list" style="min-width: 18rem;" aria-label="Edit read-only"><li class="edit-row"><div class="edit-row__body"><div class="dish__top"><span class="dish__name">Curry goat</span><span class="dish__price">From $19 per person</span></div></div></li></ol></td>
+            <td><ol class="edit-list" style="min-width: 18rem;" aria-hidden="true"><li class="edit-row edit-row--skeleton"><div class="edit-row__body"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></div></li></ol></td></tr>
+          <tr><th scope="row">Breach record</th>
+            <td><ul class="breach-list" style="min-width: 15rem;" aria-label="Breach default"><li class="breach" style="padding-block: var(--space-4);"><div class="breach__head"><p class="breach__title">Team laptop stolen from a car</p><p class="breach__when">Confirmed Tue 11 Mar 2025</p></div></li></ul></td>
+            <td><span class="text-subtle">Static</span></td><td><span class="text-subtle">Static</span></td><td><span class="text-subtle">—</span></td><td><span class="text-subtle">Always read-only</span></td>
+            <td><ul class="breach-list" style="min-width: 15rem;" aria-hidden="true"><li class="breach" style="padding-block: var(--space-4);"><div class="breach__head"><span class="skeleton skeleton--title" style="width: 60%;"></span><span class="skeleton skeleton--text" style="width: 35%;"></span></div></li></ul></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><ul class="admin-list" aria-label="Light theme example"><li class="admin-row"><span class="admin-row__body"><span class="admin-row__title">Grenadian</span><span class="admin-row__meta">4 published caterers</span></span><span class="admin-row__actions"><button class="btn btn--sm btn--ghost" type="button" aria-label="Retire Grenadian">Retire</button></span></li><li class="admin-row admin-row--skeleton" aria-hidden="true"><span class="admin-row__body"><span class="skeleton skeleton--title"></span><span class="skeleton skeleton--text"></span></span></li></ul></div>
+        <div data-theme="dark"><ul class="admin-list" aria-label="Dark theme example"><li class="admin-row"><span class="admin-row__body"><span class="admin-row__title">Grenadian</span><span class="admin-row__meta">4 published caterers</span></span><span class="admin-row__actions"><button class="btn btn--sm btn--ghost" type="button" aria-label="Retire Grenadian">Retire</button></span></li><li class="admin-row admin-row--skeleton" aria-hidden="true"><span class="admin-row__body"><span class="skeleton skeleton--title"></span><span class="skeleton skeleton--text"></span></span></li></ul></div>
+      </div>
+      <ul>
+        <li><b>Loading</b>: skeleton rows of the same family (<code>.admin-row--skeleton</code>, <code>.edit-row--skeleton</code>), each <code>aria-hidden</code>; the list gets <code>aria-busy="true"</code> and a loading label, and a visually hidden <code>role="status"</code> line says "Loading cuisines".</li>
+        <li><b>Read-only</b> (<code>profile-menu/read-only</code>, while a profile waits for review): editable rows drop their actions and a status alert above explains why.</li>
+        <li><b>Full</b> (<code>profile-menu/full</code>): rows are unchanged; the add button above is disabled with the reason visible ("You can list up to 50 dishes. Remove one to add another.").</li>
+        <li><b>Selected</b>: <code>aria-selected="true"</code> on a <code>.list__item</code> is only valid inside <code>role="listbox"</code> (like the area suggestions in the search dialog); a navigation list marks the open item with <code>aria-current</code>. Both use the pepper tint.</li>
+        <li><b>Empty and error</b>: the list is replaced by an <a href="empty-state.html">empty state</a> ("What do you cook best?", "We couldn't load your menu").</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>XS (below 36rem)</b>: editable rows stack: dish details, then the four icon buttons on their own line. Settings rows wrap their actions under the body when the title and meta need the width (the body's flex basis is <code>--space-32</code>).</li>
+        <li><b>SM and up (36rem+)</b>: editable rows become two columns, details and actions side by side.</li>
+        <li><b>Below 48rem</b>: small row buttons ("Sign out", "Retire", "Deactivate") grow to 44px tall (L2-065.1); icon buttons are 44px at every width. From 48rem the small buttons return to 36px.</li>
+        <li>Breach records' key-value pairs stack below 36rem and sit in a 12rem label column above it.</li>
+        <li>Long titles wrap (<code>overflow-wrap: anywhere</code>); nothing truncates, so "Dominican (Dominican Republic)" and long dish names stay readable.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Rows read <code>--color-border-default</code> (rules), <code>--color-fg-default</code> (titles), <code>--color-fg-muted</code> (meta), <code>--color-bg-subtle</code> (interactive hover) and <code>--color-accent-subtle</code> (selected). Rows have no background of their own, so they sit on whatever surface holds them: the canvas on pages, the raised surface in a dialog. In dark the rules drop to stone-750; badges and status labels bring their own tokens.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native lists: <code>&lt;ul&gt;</code>, or <code>&lt;ol&gt;</code> when order is meaningful (dishes). Each list has an <code>aria-label</code> that says what and in what order ("Cuisines, A to Z", "Dishes, in the order they appear on your page", "Recorded breaches, newest first"), so the list announcement gives context and count. No ARIA list roles are added; an interactive row is a real link or button (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/listbox/">APG Listbox</a> only for a true selection list).</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Moves through each row's controls in order: up, down, edit, remove; then the next row.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Activates the focused control. Moving a dish keeps focus on the same button in its new position, and a status line says "Doubles moved to position 4 of 12".</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>After removing a row (confirmed in a dialog), focus goes to the next row's first control, or to the list heading if it was the last. A disabled "Move up" on the first row is skipped by Tab, which is fine because its reason is obvious from position.</p>
+      <h3>Labelling</h3>
+      <p>Every row action names its row: "Move Chicken pelau up", "Retire Belizean", "Deactivate Tomas Reyes", "Sign out Safari on iPhone". The <code>aria-label</code> starts with the visible word, so voice control ("click Retire") still works (WCAG 2.5.3). Avatars are <code>aria-hidden</code> beside the name.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Title on the page</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Meta on the page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Title on a hovered row</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Title on a selected row</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-accent-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Current status label</span><span class="ds-pair__ratio" data-contrast="--color-success-fg|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on the page</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Interactive rows fill over <code>--duration-fast</code>. Reordering does not animate. Skeleton shimmer stops under reduced motion.</p>
+      <h3>Touch</h3>
+      <p>Icon buttons are 44px with no gap between them, which is acceptable because each meets the full target size. Small text buttons grow to 44px below 48rem. Whole-row links are at least 44px tall.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Titles are the thing's own name: "Safari on iPhone", "Barbadian (Bajan)", "Tomas Reyes", "Chicken pelau". Spell dishes as the caterer does.</li>
+        <li>Meta lines join two or three facts with middle dots, most useful first: "Operator · Security key · Last active today, 8:15 a.m.".</li>
+        <li>Counts use the noun: "1 published caterer", "No published caterers", not "0".</li>
+        <li>Row actions are one verb: "Sign out", "Retire", "Deactivate". The dialog they open names the consequence.</li>
+        <li>Badges in titles are one word: "You", "New".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="list device-list" aria-label="Do example"><li class="list__item"><div class="list__body"><div class="list__title">Safari on iPhone</div></div><button class="btn btn--sm" type="button" aria-label="Sign out Safari on iPhone">Sign out</button></li></ul></div><figcaption>Name the row in each action's accessible name.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="list device-list" aria-label="Don't example"><li class="list__item"><div class="list__body"><div class="list__title">Safari on iPhone</div></div><button class="btn btn--sm" type="button">Sign out</button></li><li class="list__item"><div class="list__body"><div class="list__title">Samsung Internet on Android</div></div><button class="btn btn--sm" type="button">Sign out</button></li></ul></div><figcaption>The account mock had two buttons both called "Sign out"; a screen-reader list of buttons can't tell them apart.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--stack"><ul class="admin-list" aria-label="Do example 2"><li class="admin-row"><span class="admin-row__body"><span class="admin-row__title">Cuban</span></span><span class="admin-row__actions"><button class="btn btn--sm btn--ghost" type="button" aria-label="Retire Cuban">Retire</button></span></li></ul></div><figcaption>Rows sit flat on the page with a hairline rule.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--stack"><div class="card"><p class="admin-row__title">Cuban</p></div><div class="card"><p class="admin-row__title">Haitian</p></div></div><figcaption>Don't box each row in a bordered card; it breaks the flat look and doubles the lines.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Row rule</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Title</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Meta</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Interactive hover</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Selected or current</td><td><code>--color-accent-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td></tr>
+          <tr><td>Row padding (list / settings / editable / breach)</td><td><code>--space-3</code> / <code>--space-4</code> / <code>--space-4</code> / <code>--space-8</code></td><td colspan="2"><span data-token="--space-3"></span> / <span data-token="--space-4"></span> / <span data-token="--space-8"></span></td></tr>
+          <tr><td>Device row height</td><td><code>--control-height-lg</code></td><td colspan="2"><span data-token="--control-height-lg"></span></td></tr>
+          <tr><td>Avatar and icon button size</td><td><code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Settings body basis</td><td><code>--space-32</code></td><td colspan="2"><span data-token="--space-32"></span></td></tr>
+          <tr><td>Title fonts (list / settings / breach)</td><td><code>--text-label</code> / <code>--text-body-lg</code> / <code>--text-h4</code></td><td colspan="2"><span data-token="--text-label"></span> / <span data-token="--text-body-lg"></span> / <span data-token="--text-h4"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;ul class="admin-list" aria-label="Cuisines, A to Z"&gt;
+  &lt;li class="admin-row"&gt;
+    &lt;span class="admin-row__body"&gt;
+      &lt;span class="admin-row__title"&gt;Belizean&lt;/span&gt;
+      &lt;span class="admin-row__meta"&gt;1 published caterer&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class="admin-row__actions"&gt;
+      &lt;button class="btn btn--sm btn--ghost" type="button" aria-haspopup="dialog" aria-label="Retire Belizean"&gt;Retire&lt;/button&gt;
+    &lt;/span&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ul class="admin-list" aria-busy="true" aria-label="Loading cuisines"&gt;
+  &lt;li class="admin-row admin-row--skeleton" aria-hidden="true"&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p class="visually-hidden" role="status"&gt;Loading cuisines&lt;/p&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.list</code>, <code>.list__item</code>, <code>__body</code>, <code>__title</code>, <code>__meta</code></td><td>Generic compact row.</td></tr>
+        <tr><td><code>.list__item--interactive</code></td><td>Whole row is a link or button; hover fill.</td></tr>
+        <tr><td><code>.device-list</code></td><td>No side padding, 52px rows, top rule.</td></tr>
+        <tr><td><code>.admin-list</code>, <code>.admin-row</code>, <code>__body</code>, <code>__title</code>, <code>__meta</code>, <code>__actions</code></td><td>Settings rows; 44px avatar; wrapping actions.</td></tr>
+        <tr><td><code>.admin-row--skeleton</code></td><td>Skeleton widths for a loading settings row.</td></tr>
+        <tr><td><code>.edit-list</code>, <code>.edit-row</code>, <code>__body</code>, <code>__actions</code></td><td>Editable rows; stack below 36rem, two columns above.</td></tr>
+        <tr><td><code>.edit-row--skeleton</code></td><td>Skeleton widths for a loading editable row.</td></tr>
+        <tr><td><code>.breach-list</code>, <code>.breach</code>, <code>__head</code>, <code>__title</code>, <code>__when</code></td><td>Tall read-only record with a <code>.kv</code> list.</td></tr>
+        <tr><td><code>aria-current</code> / <code>aria-selected</code> (in a listbox)</td><td>Pepper-tinted open or selected row.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <ul>
+        <li><a href="../../mocks/pages/account/default.html">pages/account/default</a>, <a href="../../mocks/pages/account/loading.html">loading</a> (device list)</li>
+        <li><a href="../../mocks/pages/admin-cuisines/default.html">pages/admin-cuisines/default</a>, <a href="../../mocks/pages/admin-cuisines/loading.html">loading</a>; <a href="../../mocks/pages/admin-operators/default.html">pages/admin-operators/default</a>, <a href="../../mocks/pages/admin-operators/loading.html">loading</a></li>
+        <li><a href="../../mocks/pages/profile-menu/default.html">pages/profile-menu/default</a>, <a href="../../mocks/pages/profile-menu/loading.html">loading</a>, <a href="../../mocks/pages/profile-menu/read-only.html">read-only</a>, <a href="../../mocks/pages/profile-menu/full.html">full</a></li>
+        <li><a href="../../mocks/pages/admin-breaches/default.html">pages/admin-breaches/default</a>, <a href="../../mocks/pages/admin-breaches/loading.html">loading</a></li>
+      </ul>
+      <p>Drift fixed during extraction:</p>
+      <ul>
+        <li>The device list's "Sign out" buttons had no row in their names; they now read "Sign out Safari on iPhone", like "Retire Belizean" and "Move Chicken pelau up" elsewhere.</li>
+        <li>The loading menu (<code>profile-menu/loading</code>) and device list (<code>account/loading</code>) had no <code>aria-busy</code>, no label and no status line, and the device skeletons were not <code>aria-hidden</code>; they now load like the cuisines and breach lists.</li>
+        <li>Settings row actions were ghost for "Retire" but outlined for "Deactivate"; both are small ghost buttons, as row actions are everywhere.</li>
+        <li><code>.list__item--interactive</code> and <code>aria-selected</code> rows come from the kit; no mock uses them yet.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

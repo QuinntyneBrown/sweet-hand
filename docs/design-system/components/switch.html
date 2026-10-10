@@ -233,11 +233,11 @@
       <h3>Role and pattern</h3>
       <p><code>role="switch"</code> on a native checkbox (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/switch/">APG Switch</a>). Screen readers announce "Pause new enquiries, switch, off". The checked state maps to on/off natively, so no <code>aria-checked</code> is needed.</p>
       <h3>Keyboard</h3>
-      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
         <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves to and from the switch.</td></tr>
         <tr><td><kbd>Space</kbd></td><td>Toggles and applies the setting.</td></tr>
         <tr><td><kbd>Enter</kbd></td><td>No effect (native checkbox behaviour); never wire Enter to submit a surrounding form.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
       <h3>Focus</h3>
       <p>The shared 2px pepper ring follows the pill shape with a 3px offset, so it stays visible against the pepper "on" track.</p>
       <h3>Labelling</h3>
@@ -302,13 +302,13 @@
   &lt;input type="checkbox" role="switch" name="pause-enquiries"&gt;
   &lt;span class="switch__text"&gt;Pause new enquiries&lt;small&gt;Your page says you’re not taking bookings&lt;/small&gt;&lt;/span&gt;
 &lt;/label&gt;</code></pre>
-      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
         <tr><td><code>label.switch</code></td><td>44px-tall row; the whole row toggles.</td></tr>
         <tr><td><code>input[type="checkbox"][role="switch"]</code></td><td>Track and thumb drawn on the native input.</td></tr>
         <tr><td><code>.switch__text</code> + <code>&lt;small&gt;</code></td><td>Label and muted description.</td></tr>
         <tr><td><code>checked</code> / <code>disabled</code></td><td>On; disabled (50% opacity).</td></tr>
         <tr><td><code>data-state="hover|focus|checked|disabled"</code>, <code>data-hover</code></td><td>Documentation only: forces a state (on + hover needs both).</td></tr>
-      </tbody></table>
+      </tbody></table></div>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

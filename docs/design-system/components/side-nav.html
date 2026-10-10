@@ -308,10 +308,10 @@
       <h3>Role and pattern</h3>
       <p>A <code>&lt;nav&gt;</code> landmark with a unique <code>aria-label</code> ("Dashboard", "Operator") holding lists of links; the current page has <code>aria-current="page"</code>. This is plain navigation, not the APG menu or tree pattern: no arrow-key handling, no <code>role="menu"</code>. The section list is a <code>&lt;ul&gt;</code> of links inside a section headed "Your profile".</p>
       <h3>Keyboard</h3>
-      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
         <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through the links in order, group by group.</td></tr>
         <tr><td><kbd>Enter</kbd></td><td>Opens the section.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
       <p>The side nav comes after the header and before the main column in the DOM, inside <code>&lt;main&gt;</code>; the skip link therefore lands just before it. Screen-reader users can jump past it by landmark.</p>
       <h3>Focus</h3>
       <p>The shared ring wraps each item. Because the nav is sticky, it never overlaps the focused element in the main column (they sit in separate grid columns).</p>
@@ -390,7 +390,7 @@
     &lt;li&gt;&lt;a class="filter-list__item" href="/admin/audit"&gt;Audit log&lt;/a&gt;&lt;/li&gt;
   &lt;/ul&gt;
 &lt;/nav&gt;</code></pre>
-      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
         <tr><td><code>nav.side-nav[aria-label]</code></td><td>Hidden below 62rem; from 62rem a sticky column of groups, <code>--space-8</code> apart.</td></tr>
         <tr><td><code>ul.filter-list</code> / <code>a.filter-list__item</code></td><td>One group / one item (shared with the <a href="filter-list.html">filter list</a>).</td></tr>
         <tr><td><code>aria-current="page"</code></td><td>Current section: pepper, semibold.</td></tr>
@@ -398,7 +398,7 @@
         <tr><td><code>.section-list</code> / <code>.section-link</code> (<code>__body</code>, <code>__title</code>, <code>__meta</code>)</td><td>Phone and tablet section rows (use with <code>.until-lg</code>).</td></tr>
         <tr><td><code>.check</code>, <code>--done</code>, <code>--error</code></td><td>Status mark: to do, done, needs attention (see <a href="checklist.html">checklist</a>).</td></tr>
         <tr><td><code>.nav-link</code>, <code>.sidebar</code>, <code>.sidebar__group</code>, <code>.side-nav__title</code></td><td>Legacy base kit. Unused; don't use.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

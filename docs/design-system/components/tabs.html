@@ -269,12 +269,12 @@
       <h3>Role and pattern</h3>
       <p>Panel tabs follow the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/">APG Tabs pattern</a> with <b>automatic activation</b>: <code>role="tablist"</code> with an <code>aria-label</code>, <code>role="tab"</code> with <code>aria-selected</code> and <code>aria-controls</code>, <code>role="tabpanel"</code> with <code>aria-labelledby</code> and <code>tabindex="0"</code>. Use manual activation (arrows move, Enter selects) only if a panel has to load from the network. Link tabs are a <code>&lt;nav&gt;</code> of links with <code>aria-current="page"</code> and no tab roles.</p>
       <h3>Keyboard</h3>
-      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
         <tr><td><kbd>Tab</kbd></td><td>Into the tablist on the selected tab; the next Tab goes to the panel.</td></tr>
         <tr><td><kbd>→</kbd> / <kbd>←</kbd></td><td>Next / previous tab, selecting it; wraps at the ends; skips disabled tabs.</td></tr>
         <tr><td><kbd>Home</kbd> / <kbd>End</kbd></td><td>First / last tab.</td></tr>
         <tr><td><kbd>Enter</kbd> / <kbd>Space</kbd></td><td>Selects the focused tab (needed only with manual activation).</td></tr>
-      </tbody></table>
+      </tbody></table></div>
       <h3>Focus</h3>
       <p>Roving <code>tabindex</code>: the selected tab is <code>0</code>, the others <code>-1</code>. The shared ring draws around the focused tab with the usual 3px offset, clear of the pepper bar.</p>
       <h3>Labelling</h3>
@@ -344,7 +344,7 @@ tablist.addEventListener("keydown", (e) =&gt; {
   e.preventDefault();
   select(tabs[(next + tabs.length) % tabs.length]);   // sets aria-selected, tabindex, hidden; focuses the tab
 });</code></pre>
-      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
         <tr><td><code>.tabs</code></td><td>Row with a hairline; scrolls sideways when it overflows.</td></tr>
         <tr><td><code>.tab</code> (button or a)</td><td>Tab label, 44px, muted.</td></tr>
         <tr><td><code>aria-selected="true"</code> / <code>aria-current="page"</code></td><td>Selected: ink, semibold, pepper underline.</td></tr>
@@ -352,7 +352,7 @@ tablist.addEventListener("keydown", (e) =&gt; {
         <tr><td><code>.tab .badge</code></td><td>Count spacing inside a tab.</td></tr>
         <tr><td><code>role="tablist|tab|tabpanel"</code>, <code>aria-controls</code>, <code>aria-labelledby</code>, roving <code>tabindex</code></td><td>APG semantics for panel tabs.</td></tr>
         <tr><td><code>data-state="hover|focus"</code></td><td>Documentation only.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>

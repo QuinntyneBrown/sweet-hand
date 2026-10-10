@@ -320,11 +320,11 @@
       <h3>Role and pattern</h3>
       <p>Native checkbox (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/">APG Checkbox</a>). <code>appearance: none</code> only restyles it; the role, the checked and mixed states, form submission and <code>required</code> all stay native. Groups are a <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code>, which screen readers announce on entering the group ("Cuisines, group").</p>
       <h3>Keyboard</h3>
-      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
         <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves to the next or previous checkbox. Every box is its own tab stop (unlike radios).</td></tr>
         <tr><td><kbd>Space</kbd></td><td>Toggles. On an indeterminate parent, Space checks it and all its children.</td></tr>
         <tr><td><kbd>Enter</kbd></td><td>Does not toggle; inside a form it submits, which is why autosaved profile forms have no implicit submit.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
       <h3>Focus</h3>
       <p>The shared ring (2px <code>--color-focus-ring</code>, 3px offset) draws around the box only, not the whole row, so it does not collide with neighbouring rows in the grid. Focus is never moved programmatically to a checkbox except from an error-summary link.</p>
       <h3>Labelling</h3>
@@ -406,7 +406,7 @@
     &lt;label class="choice"&gt;&lt;input type="checkbox" name="occasion" value="Funerals and repasts"&gt;&lt;span class="choice__text"&gt;Funerals and repasts&lt;/span&gt;&lt;/label&gt;
   &lt;/div&gt;
 &lt;/fieldset&gt;</code></pre>
-      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
         <tr><td><code>label.choice</code></td><td>Row: box and text side by side, whole row clickable. Shared with <a href="radio-group.html">radio</a>.</td></tr>
         <tr><td><code>.choice__text</code></td><td>Label column; a <code>&lt;small&gt;</code> inside becomes the muted description line.</td></tr>
         <tr><td><code>.option-grid</code></td><td>One column, two from 36rem.</td></tr>
@@ -415,7 +415,7 @@
         <tr><td><code>input.indeterminate = true</code></td><td>Mixed parent (set from script; no attribute exists).</td></tr>
         <tr><td><code>aria-invalid="true"</code></td><td>Danger ring on the box; pair with an error in <code>aria-describedby</code> on the fieldset or box.</td></tr>
         <tr><td><code>data-state="hover|focus|checked|indeterminate|disabled|invalid"</code></td><td>Documentation and mocks only: forces a state statically.</td></tr>
-      </tbody></table>
+      </tbody></table></div>
     </section>
 
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
