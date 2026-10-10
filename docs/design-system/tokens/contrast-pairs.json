@@ -642,6 +642,36 @@
       "bg": "--color-border-strong",
       "min": 3,
       "note": "switch thumb on the off track"
+    },
+    {
+      "fg": "--color-border-strong",
+      "bg": "--color-bg-surface-sunken",
+      "min": 3,
+      "note": "read-only field edge"
+    },
+    {
+      "fg": "--color-border-strong",
+      "bg": "--color-bg-surface-raised",
+      "min": 3,
+      "note": "field edges inside dialogs"
+    },
+    {
+      "fg": "--color-accent",
+      "bg": "--color-bg-subtle",
+      "min": 3,
+      "note": "combobox active-option bar"
+    },
+    {
+      "fg": "--color-fg-accent",
+      "bg": "--color-bg-subtle",
+      "min": 3,
+      "note": "pressed icon-button glyph on its fill"
+    },
+    {
+      "fg": "--color-fg-link-hover",
+      "bg": "--color-bg-canvas",
+      "min": 4.5,
+      "note": "hovered link on page"
     }
   ]
 }

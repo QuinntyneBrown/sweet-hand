@@ -39,8 +39,8 @@ python .claude/skills/writing-html-mocks/scripts/screenshot_mocks.py docs/mocks
 docs/mocks/
   index.html          gallery (generated)
   manifest.json       every screen, state, route and L2 requirement
-  assets/tokens.css   colour, type, space, radius, elevation, motion, layout
-  assets/ui.css       the component kit (base kit + "Sweet Hand components")
+  assets/tokens.css   @import of docs/design-system/tokens/tokens.css (edit tokens there)
+  assets/ui.css       @import of docs/design-system/assets/components.css (edit components there)
   assets/mock.css     mock bar and notes (not product UI)
   assets/mock.js      theme, ?chrome=0, data-mock-href click-through
   assets/img/         36 round food photos, one per caterer, cut from the reference

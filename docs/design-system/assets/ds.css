@@ -85,7 +85,7 @@ pre code { background: none; padding: 0; }
 /* Anatomy */
 .ds-anatomy { display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr); margin-block: var(--space-4); }
 @media (min-width: 48rem) { .ds-anatomy { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); align-items: start; } }
-.ds-anatomy__figure { position: relative; padding: var(--space-10) var(--space-8); background: var(--color-bg-surface); border: 1px dashed var(--color-border-strong); border-radius: var(--radius-lg); display: grid; place-items: center; }
+.ds-anatomy__figure { position: relative; overflow: hidden; min-width: 0; padding: var(--space-10) var(--space-8); background: var(--color-bg-surface); border: 1px dashed var(--color-border-strong); border-radius: var(--radius-lg); display: grid; place-items: center; }
 .ds-callout { position: absolute; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--color-accent); color: var(--color-fg-on-accent); font: var(--text-overline); display: grid; place-items: center; box-shadow: 0 0 0 2px var(--color-bg-surface); }
 .ds-anatomy__list { counter-reset: part; list-style: none; padding: 0; margin: 0; }
 .ds-anatomy__list li { display: flex; gap: var(--space-3); padding-block: var(--space-2); border-bottom: 1px solid var(--color-border-default); }
@@ -125,8 +125,8 @@ pre code { background: none; padding: 0; }
 @media (min-width: 48rem) { .ds-specimen { grid-template-columns: 12rem minmax(0, 1fr); align-items: baseline; } }
 .ds-specimen__meta { font: var(--text-caption); color: var(--color-fg-muted); font-family: var(--font-family-mono); }
 .ds-scale { display: flex; flex-direction: column; gap: var(--space-2); margin-block: var(--space-4); }
-.ds-scale__row { display: grid; grid-template-columns: 7rem 5rem minmax(0, 1fr); gap: var(--space-3); align-items: center; font: var(--text-body-sm); }
-.ds-scale__bar { height: 1rem; background: var(--color-accent-subtle-hover); border-radius: var(--radius-xs); width: var(--size); }
+.ds-scale__row { display: grid; grid-template-columns: minmax(0, 7rem) minmax(0, 5rem) minmax(0, 1fr); gap: var(--space-3); align-items: center; font: var(--text-body-sm); }
+.ds-scale__bar { max-width: 100%; height: 1rem; background: var(--color-accent-subtle-hover); border-radius: var(--radius-xs); width: var(--size); }
 .ds-scale__box { width: 3rem; height: 3rem; background: var(--color-accent-subtle); border: 1px solid var(--color-accent); border-radius: var(--size); }
 .ds-shadow-grid { display: grid; gap: var(--space-6); grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr)); padding: var(--space-6); background: var(--color-bg-canvas); border-radius: var(--radius-lg); }
 .ds-shadow-grid div { aspect-ratio: 4/3; background: var(--color-bg-surface); border-radius: var(--radius-md); box-shadow: var(--shadow); display: grid; place-items: center; font: var(--text-caption); color: var(--color-fg-muted); }
@@ -183,3 +183,6 @@ pre code { background: none; padding: 0; }
 .ds-iframes { display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: flex-start; }
 .ds-iframe { display: block; width: 22.5rem; max-width: 100%; height: 40rem; border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); background: var(--color-bg-canvas); }
 .ds-iframe--wide { width: 100%; height: 34rem; }
+
+/* Long token names and class lists in prose wrap instead of widening the page at 320px. */
+.ds-main p code, .ds-main li code, .ds-main td code, .ds-main figcaption code { overflow-wrap: anywhere; }
