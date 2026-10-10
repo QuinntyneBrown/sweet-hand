@@ -10,7 +10,8 @@ import { Popover, type PopoverDismissal } from '../popover/popover';
   selector: 'sh-filter-dropdown',
   imports: [Popover],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
+  // The title input must not become a tooltip on the host.
+  host: { style: 'display: contents', '[attr.title]': 'null' },
   template: `
     <sh-popover variant="filter" [open]="open()" [panelId]="panelId()" [heading]="title()" (dismissed)="closed.emit($event)">
       <ng-container ngProjectAs="[slot=trigger]"><ng-content select="[slot=trigger]" /></ng-container>

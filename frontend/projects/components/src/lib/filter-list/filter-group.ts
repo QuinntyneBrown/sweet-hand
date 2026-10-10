@@ -13,7 +13,8 @@ let nextId = 0;
   selector: 'sh-filter-group',
   imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
+  // The title input must not become a tooltip on the host.
+  host: { style: 'display: contents', '[attr.title]': 'null' },
   template: `
     <div class="filter-group" role="group" [attr.aria-labelledby]="titleId">
       <h2 class="filter-group__title" [id]="titleId">{{ title() }}</h2>
