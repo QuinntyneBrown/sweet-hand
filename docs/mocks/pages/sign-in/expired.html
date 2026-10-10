@@ -28,9 +28,9 @@
     
   </div>
   <div class="alert alert--info" role="status"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div class="alert__body"><p class="alert__title">You were signed out</p><p>Operator sessions end after 30 minutes without activity. Sign in again to pick up where you left off.</p></div></div>
-  <form class="stack" style="gap: var(--space-5);" action="../inbox/default.html" method="post" novalidate>
-    <div class="field"><label class="field__label" for="email">Email</label><input class="input input--lg" id="email" name="email" type="email" autocomplete="email" spellcheck="false" required value="leah.mohammed@sweethand.example"></div>
-    <div class="field"><div class="cluster cluster--between"><label class="field__label" for="password">Password</label><button class="btn btn--link btn--sm" type="button" aria-pressed="false" aria-controls="password">Show</button></div><input class="input input--lg" id="password" name="password" type="password" autocomplete="current-password" required minlength="12" maxlength="128"></div>
+  <form class="form form--compact" action="../inbox/default.html" method="post" novalidate>
+    <div class="field"><label class="field__label" for="email">Email</label><input class="input input--lg" id="email" name="email" type="email" autocomplete="email" spellcheck="false" required value="leah.mohammed@sweethand.example"><span class="visually-hidden" role="status"></span></div>
+    <div class="field"><div class="cluster cluster--between"><label class="field__label" for="password">Password</label><button class="btn btn--link btn--sm" type="button" aria-pressed="false" aria-controls="password">Show</button></div><input class="input input--lg" id="password" name="password" type="password" autocomplete="current-password" required minlength="12" maxlength="128"><span class="visually-hidden" role="status"></span></div>
     
     <button class="btn btn--primary btn--lg btn--block" type="submit">Sign in</button>
     <p><a href="../forgot-password/default.html">Forgot your password?</a></p>

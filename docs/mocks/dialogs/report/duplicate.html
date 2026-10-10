@@ -14,10 +14,10 @@
 <link rel="stylesheet" href="../../assets/mock.css">
 </head>
 <body>
-<a class="skip-link" href="#dlg-title">Skip to the dialog</a>
 
 <!-- The caterer page underneath is inert while the dialog is open. -->
 <div class="page" inert aria-hidden="true">
+<a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header">
     <span class="wordmark">Sweet Hand</span>
     <span class="site-nav"><span class="site-nav__link site-nav__extra">Caterers</span><span class="site-nav__link site-nav__extra">Occasions</span><span class="site-nav__link site-nav__extra">Inbox</span><span class="avatar">MT</span></span>
@@ -44,15 +44,15 @@
   <div class="dialog__panel">
     <div class="dialog__header">
       <div class="dialog__icon dialog__icon--info" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 21V4m0 0h11l-2 4 2 4H5"/></svg></div>
-      <div style="flex: 1;">
+      <div class="dialog__heading">
         <h2 class="dialog__title" id="dlg-title">Report this listing</h2>
-        <p id="dlg-desc" class="text-muted" style="margin-top: var(--space-1);">Pelau House</p>
+        <p class="dialog__desc" id="dlg-desc">Pelau House</p>
       </div>
       <button class="icon-btn" type="button" aria-label="Close" data-mock-href="../../pages/caterer/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>
     <div class="dialog__body stack">
-      <div class="empty empty--compact" role="status">
-        <div class="empty__icon" aria-hidden="true" style="background: var(--color-info-bg); color: var(--color-info-icon);"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg></div>
+      <div class="empty empty--compact empty--info" role="status">
+        <div class="empty__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg></div>
         <p class="empty__title">You’ve already reported this</p>
         <p class="empty__text">Your report from Thu 8 Oct is still with our team. We’ll email you when it’s been reviewed.</p>
       </div>

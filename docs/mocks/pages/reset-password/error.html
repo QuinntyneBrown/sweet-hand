@@ -22,8 +22,8 @@
     <a class="site-nav__link site-nav__extra" href="../caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../occasions/default.html">Occasions</a>
     <a class="site-nav__link site-nav__extra" href="../sign-in/default.html">Sign in</a>
-    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
   </nav>
 </header>
 
@@ -35,9 +35,9 @@
     <p class="subtitle">Choose a new password for marcia.t@example.com.</p>
   </div>
   <div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><p class="alert__title">We couldn’t save your new password</p><p>Something went wrong on our side. Your link still works for a few more minutes; try again. Reference c4e7192b.</p></div></div>
-  <form class="stack" style="gap: var(--space-5);" action="success.html" method="post" novalidate>
+  <form class="form form--compact" action="success.html" method="post" novalidate>
     <input type="hidden" name="username" value="marcia.t@example.com" autocomplete="username">
-    <div class="field"><div class="cluster cluster--between"><label class="field__label" for="password">New password</label><button class="btn btn--link btn--sm" type="button" aria-pressed="false" aria-controls="password">Show</button></div><input class="input input--lg" id="password" name="password" type="password" autocomplete="new-password" required minlength="12" maxlength="128" aria-describedby="password-help"><p class="field__help" id="password-help">At least 12 characters. Avoid common passwords.</p></div>
+    <div class="field"><div class="cluster cluster--between"><label class="field__label" for="password">New password</label><button class="btn btn--link btn--sm" type="button" aria-pressed="false" aria-controls="password">Show</button></div><input class="input input--lg" id="password" name="password" type="password" autocomplete="new-password" required minlength="12" maxlength="128" aria-describedby="password-help"><span class="field__help" id="password-help">At least 12 characters. Avoid common passwords.</span><span class="visually-hidden" role="status"></span></div>
     <button class="btn btn--primary btn--lg btn--block" type="submit">Save new password</button>
   </form>
 </div>

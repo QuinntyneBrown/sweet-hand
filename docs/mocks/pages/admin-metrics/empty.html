@@ -19,11 +19,11 @@
 <header class="site-header">
   <a class="wordmark" href="../admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
   <nav class="site-nav" aria-label="Primary">
-    <a class="site-nav__link site-nav__extra" href="../admin-queue/default.html">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a>
+    <a class="site-nav__link site-nav__extra" href="../admin-queue/default.html">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
     <a class="site-nav__link site-nav__extra" href="../admin-caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../admin-metrics/default.html" aria-current="page">Metrics</a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
   </nav>
 </header>
 
@@ -31,7 +31,7 @@
   <div class="work-layout">
     <nav class="side-nav" aria-label="Operator">
       <ul class="filter-list">
-        <li><a class="filter-list__item" href="../admin-queue/default.html">Review queue <span class="filter-list__count">7</span></a></li>
+        <li><a class="filter-list__item" href="../admin-queue/default.html">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
         <li><a class="filter-list__item" href="../admin-changes/default.html">Recent changes</a></li>
         <li><a class="filter-list__item" href="../admin-caterers/default.html">Caterers</a></li>
         <li><a class="filter-list__item" href="../admin-reviews/default.html">Reviews <span class="filter-list__count">2 held</span></a></li>
@@ -51,9 +51,9 @@
         <p class="subtitle">1 Jun – 31 Jul 2026 · by week</p>
       </div>
       <form class="toolbar" action="default.html" aria-label="Date range">
-        <label class="field" for="from"><span class="field__label">From</span><input class="input" id="from" name="from" type="date" value="2026-06-01" max="2026-10-10"></label>
-        <label class="field" for="to"><span class="field__label">To</span><input class="input" id="to" name="to" type="date" value="2026-07-31" max="2026-10-10"></label>
-        <label class="field" for="by"><span class="field__label">Show by</span><select class="select" id="by" name="by"><option>Day</option><option selected>Week</option><option>Month</option></select></label>
+        <div class="field"><label class="field__label" for="from">From</label><input class="input" id="from" name="from" type="date" value="2026-06-01" max="2026-10-10"><span class="visually-hidden" role="status"></span></div>
+        <div class="field"><label class="field__label" for="to">To</label><input class="input" id="to" name="to" type="date" value="2026-07-31" max="2026-10-10"><span class="visually-hidden" role="status"></span></div>
+        <div class="field"><label class="field__label" for="by">Show by</label><select class="select" id="by" name="by"><option>Day</option><option selected>Week</option><option>Month</option></select><span class="visually-hidden" role="status"></span></div>
         <button class="btn btn--primary" type="submit">Apply</button>
         <button class="btn" type="button" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v12m0 0-4-4m4 4 4-4M4 20h16"/></svg>Export CSV</button>
       </form>

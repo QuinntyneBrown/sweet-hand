@@ -22,10 +22,10 @@
     <a class="site-nav__link site-nav__extra" href="../../pages/caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/occasions/default.html">Occasions</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/inbox/default.html" aria-current="page">Inbox</a>
-    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
     <a class="icon-btn site-nav__menu" href="../../pages/inbox/default.html" aria-label="Inbox" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/signed-in.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/default.html">MT</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/signed-in.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/default.html">MT</button>
   </nav>
 </header>
 <main id="main" class="container">
@@ -70,7 +70,7 @@
       <form class="reply-box" action="../../pages/thread/submitting.html" novalidate>
         <label class="reply-box__label" for="reply">Your reply</label>
         <div class="reply-box__row">
-          <textarea class="textarea" id="reply" name="reply" rows="2" maxlength="2000" aria-describedby="reply-help reply-count"></textarea>
+          <textarea class="textarea" id="reply" name="reply" rows="2" aria-describedby="reply-help reply-count"></textarea>
           <button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button>
         </div>
         <span class="cluster cluster--between"><span class="field__help" id="reply-help">Pelau House gets an email. Links show as plain text.</span><span class="field__counter" id="reply-count">0 / 2,000</span></span>

@@ -23,7 +23,8 @@
     <a class="site-nav__link site-nav__extra" href="../../pages/dashboard-enquiries/default.html">Enquiries</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/caterer/default.html">My page</a>
     <a class="icon-btn site-nav__menu" href="../../pages/dashboard-enquiries/default.html" aria-label="Enquiries"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
-    <button class="avatar" type="button" aria-label="Account menu for Desmond Greaves" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/caterer.html">DG</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/caterer.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Desmond Greaves" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/caterer.html">DG</button>
   </nav>
 </header>
 
@@ -42,7 +43,7 @@
       <ul class="filter-list">
         <li><a class="filter-list__item" href="../../pages/dashboard-enquiries/default.html">Enquiries</a></li>
         <li><a class="filter-list__item" href="../../pages/dashboard-reviews/default.html">Reviews</a></li>
-        <li><a class="filter-list__item" href="../../pages/account/default.html">Account</a></li>
+        <li><a class="filter-list__item" href="../../pages/account/caterer.html">Account</a></li>
       </ul>
     </nav>
 
@@ -63,21 +64,25 @@
       <div style="height: var(--space-6);"></div>
       <form class="form" action="default.html" novalidate>
         <p class="private-note"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Only you and the Sweet Hand team see this. It never appears on your page.</p>
-        <label class="field" for="holder"><span class="field__label">Name on the certificate</span>
+        <div class="field"><label class="field__label" for="holder">Name on the certificate</label>
           <input class="input" id="holder" name="holder" type="text" autocomplete="name" required value="Desmond Greaves">
-        </label>
-        <label class="field" for="issuer"><span class="field__label">Issued by</span>
+          <span class="visually-hidden" role="status"></span>
+        </div>
+        <div class="field"><label class="field__label" for="issuer">Issued by</label>
           <input class="input" id="issuer" name="issuer" type="text" required aria-describedby="issuer-help" value="Toronto Public Health">
           <span class="field__help" id="issuer-help">For example, Toronto Public Health or an approved training provider</span>
-        </label>
+          <span class="visually-hidden" role="status"></span>
+        </div>
         <div class="field-row">
-          <label class="field" for="number"><span class="field__label">Certificate number</span>
+          <div class="field"><label class="field__label" for="number">Certificate number</label>
             <input class="input" id="number" name="number" type="text" autocapitalize="characters" autocomplete="off" required value="FH-2021-093317">
-          </label>
-          <label class="field" for="expiry"><span class="field__label">Expiry date</span>
+            <span class="visually-hidden" role="status"></span>
+          </div>
+          <div class="field"><label class="field__label" for="expiry">Expiry date</label>
             <input class="input" id="expiry" name="expiry" type="date" min="2026-10-10" required value="2026-11-09" aria-describedby="expiry-help">
             <span class="field__help" id="expiry-help">We remind you 30 and 7 days before it expires</span>
-          </label>
+            <span class="visually-hidden" role="status"></span>
+          </div>
         </div>
         <div class="field">
           <span class="field__label" id="file-label">Copy of certificate <span class="optional">(optional)</span></span>
@@ -87,8 +92,9 @@
             <span class="cluster"><input class="file-input visually-hidden" id="cert-file" type="file" accept="application/pdf,image/jpeg,image/png"><label class="btn btn--sm" for="cert-file">Replace<span class="visually-hidden"> certificate-2021.pdf</span></label><button class="btn btn--sm btn--ghost" type="button">Remove<span class="visually-hidden"> certificate-2021.pdf</span></button></span>
           </div>
           <span class="field__help">PDF, JPEG or PNG, up to 10 MB</span>
+          <span class="visually-hidden" role="status"></span>
         </div>
-        <div class="form-actions" style="justify-content: flex-start;"><button class="btn btn--primary" type="submit">Save certificate</button><span class="save-status save-status--saved"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Saved 14 Jan 2022</span></div>
+        <div class="form-actions"><button class="btn btn--primary" type="submit">Save certificate</button><span class="save-status save-status--saved"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Saved 14 Jan 2022</span></div>
       </form>
 
     </div>

@@ -14,20 +14,20 @@
 <link rel="stylesheet" href="../../assets/mock.css">
 </head>
 <body>
-<a class="skip-link" href="#dlg-title">Skip to the dialog</a>
 
 <!-- The page underneath is inert while the dialog is open. -->
 <div class="page" inert aria-hidden="true">
+<a class="skip-link" href="#main">Skip to main content</a>
 <header class="site-header">
   <a class="wordmark" href="../../pages/caterers/default.html">Sweet Hand</a>
   <nav class="site-nav" aria-label="Primary">
     <a class="site-nav__link site-nav__extra" href="../../pages/caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/occasions/default.html">Occasions</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/inbox/default.html" aria-current="page">Inbox</a>
-    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
     <a class="icon-btn site-nav__menu" href="../../pages/inbox/default.html" aria-label="Inbox" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/signed-in.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/default.html">MT</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/signed-in.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Marcia Thompson" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/default.html">MT</button>
   </nav>
 </header>
 <main id="main" class="container">
@@ -72,7 +72,7 @@
       <form class="reply-box" action="../../pages/thread/submitting.html" novalidate>
         <label class="reply-box__label" for="reply">Your reply</label>
         <div class="reply-box__row">
-          <textarea class="textarea" id="reply" name="reply" rows="2" maxlength="2000" aria-describedby="reply-help reply-count"></textarea>
+          <textarea class="textarea" id="reply" name="reply" rows="2" aria-describedby="reply-help reply-count"></textarea>
           <button class="btn btn--primary btn--icon" type="submit" aria-label="Send reply"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-3-7z"/></svg></button>
         </div>
         <span class="cluster cluster--between"><span class="field__help" id="reply-help">Pelau House gets an email. Links show as plain text.</span><span class="field__counter" id="reply-count">0 / 2,000</span></span>
@@ -87,13 +87,16 @@
   <div class="dialog__panel dialog__panel--sm">
     <div class="dialog__header">
       <div class="dialog__icon dialog__icon--info" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
-      <h2 class="dialog__title" id="dlg-title">Share your contact details?</h2>
+      <div class="dialog__heading">
+        <h2 class="dialog__title" id="dlg-title">Share your contact details?</h2>
+        <p class="dialog__desc" id="dlg-desc">Your email and phone will show to Pelau House in this enquiry only. Other caterers and other enquiries stay private. You can’t take this back.</p>
+      </div>
       <button class="icon-btn" type="button" aria-label="Close" data-mock-href="../../pages/thread/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>
     <div class="dialog__body stack">
       <div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><div class="alert__body"><span class="alert__title">We couldn’t share your details</span><span>Nothing was shared. Check your connection and try again.</span></div></div>
-      <p id="dlg-desc" class="text-muted">Your email and phone will show to Pelau House in this enquiry only. Other caterers and other enquiries stay private. You can’t take this back.</p>
       <div class="contact-card"><strong>Pelau House will see</strong><span>marcia.t@example.com</span><span>+1 647 555 0187</span></div>
+      <p class="visually-hidden" role="status"></p>
     </div>
     <div class="dialog__footer">
       <button class="btn" type="button" data-mock-href="../../pages/thread/default.html" autofocus>Cancel</button>

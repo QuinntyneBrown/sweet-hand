@@ -14,24 +14,24 @@
 <link rel="stylesheet" href="../../assets/mock.css">
 </head>
 <body>
-<a class="skip-link" href="#dlg-title">Skip to the dialog</a>
 <div inert aria-hidden="true">
 <div class="page">
+<a class="skip-link" href="#main">Skip to main content</a>
 <header class="site-header">
   <a class="wordmark" href="../../pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
   <nav class="site-nav" aria-label="Primary">
-    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html" aria-current="page">Queue <span class="badge badge--count" aria-label="7 items waiting">7</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html" aria-current="page">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
     <a class="site-nav__link site-nav__extra" href="../../pages/admin-caterers/default.html">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/admin-metrics/default.html">Metrics</a>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-    <button class="avatar" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
   </nav>
 </header>
 <main id="main" class="container">
   <div class="work-layout">
     <nav class="side-nav" aria-label="Operator">
       <ul class="filter-list">
-        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html" aria-current="page">Review queue <span class="filter-list__count">7</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html" aria-current="page">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
         <li><a class="filter-list__item" href="../../pages/admin-changes/default.html">Recent changes</a></li>
         <li><a class="filter-list__item" href="../../pages/admin-caterers/default.html">Caterers</a></li>
         <li><a class="filter-list__item" href="../../pages/admin-reviews/default.html">Reviews</a></li>
@@ -110,22 +110,23 @@
 </div>
 <div class="backdrop"></div>
 <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc" data-dismiss-on-escape>
-  <form class="dialog__panel" action="../../pages/admin-profile-review/default.html" novalidate>
+  <form class="dialog__panel" action="../../pages/admin-profile-review/default.html" novalidate aria-busy="true">
     <div class="dialog__header">
       <div class="dialog__caterer" style="flex: 1; align-items: flex-start;">
         <span class="photo"><img src="../../assets/img/green-fig-catering.jpg" alt="" width="56" height="56"></span>
-        <div>
+        <div class="dialog__heading">
           <h2 class="dialog__title" id="dlg-title">Approve Auntie Bev’s Kitchen?</h2>
-          <p id="dlg-desc" class="text-muted" style="margin-top: var(--space-1);">The profile appears in the listing within a minute, and Beverley Campbell gets an email with a link to the public page.</p>
+          <p class="dialog__desc" id="dlg-desc">The profile appears in the listing within a minute, and Beverley Campbell gets an email with a link to the public page.</p>
         </div>
       </div>
-      <button class="icon-btn" type="button" aria-label="Close" data-mock-href="../../pages/admin-profile-review/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <button class="icon-btn" type="button" aria-label="Close" data-mock-href="../../pages/admin-profile-review/default.html" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>
     <div class="dialog__body stack">
       <ul class="checklist"><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>All submission rules pass</li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>Certificate valid until 22 Jan 2030</li><li><span class="check check--done" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>Recorded in the audit log under your name</li></ul>
+      <p class="visually-hidden" role="status">Approving Auntie Bev’s Kitchen</p>
     </div>
     <div class="dialog__footer">
-      <button class="btn" type="button" disabled>Cancel</button><button class="btn btn--primary" type="submit" aria-busy="true" disabled>Approve and publish</button>
+      <button class="btn" type="button" disabled>Cancel</button><button class="btn btn--primary" type="submit" aria-busy="true" aria-disabled="true">Approve and publish</button>
     </div>
   </form>
 </div>

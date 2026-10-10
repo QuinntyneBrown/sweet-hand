@@ -20,10 +20,11 @@
   <a class="wordmark" href="../../pages/dashboard/default.html">Sweet Hand <span class="wordmark__tag">for caterers</span></a>
   <nav class="site-nav" aria-label="Primary">
     <a class="site-nav__link site-nav__extra" href="../../pages/dashboard/default.html">Dashboard</a>
-    <a class="site-nav__link site-nav__extra" href="../../pages/dashboard-enquiries/default.html">Enquiries <span class="badge badge--count" aria-label="2 unread enquiries">2</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/dashboard-enquiries/default.html">Enquiries <span class="badge badge--count" aria-hidden="true">2</span><span class="visually-hidden">, 2 unread</span></a>
     <a class="site-nav__link site-nav__extra" href="../../pages/caterer/default.html">My page</a>
     <a class="icon-btn site-nav__menu" href="../../pages/dashboard-enquiries/default.html" aria-label="Enquiries, 2 unread"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="badge badge--count" aria-hidden="true">2</span></a>
-    <button class="avatar" type="button" aria-label="Account menu for Kendra Baptiste" aria-haspopup="menu" data-mock-href="../../dialogs/account-menu/caterer.html">KB</button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/caterer.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Kendra Baptiste" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/caterer.html">KB</button>
   </nav>
 </header>
 
@@ -42,7 +43,7 @@
       <ul class="filter-list">
         <li><a class="filter-list__item" href="../../pages/dashboard-enquiries/default.html">Enquiries <span class="filter-list__count">2 unread</span></a></li>
         <li><a class="filter-list__item" href="../../pages/dashboard-reviews/default.html">Reviews</a></li>
-        <li><a class="filter-list__item" href="../../pages/account/default.html">Account</a></li>
+        <li><a class="filter-list__item" href="../../pages/account/caterer.html">Account</a></li>
       </ul>
     </nav>
 
@@ -53,14 +54,14 @@
         <p class="subtitle">Pelau House</p>
       </div>
       <div class="empty empty--error" role="alert">
-        <div class="empty__icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg></div>
+        <div class="empty__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg></div>
         <h2 class="empty__title">We couldn’t load your menu</h2>
         <p class="empty__text">Nothing you saved is lost. This is a problem on our side, and trying again usually fixes it.</p>
         <div class="empty__actions">
           <a class="btn btn--primary" href="default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>Try again</a>
           <a class="btn" href="../../pages/dashboard/default.html">Back to dashboard</a>
         </div>
-        <p class="text-caption">Reference 7F3A-21C9</p>
+        <p class="text-caption">Reference <code>7f3a-21c9</code></p>
       </div>
 
     </div>

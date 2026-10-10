@@ -22,8 +22,8 @@
     <a class="site-nav__link site-nav__extra" href="../../pages/caterers/default.html" aria-current="page">Caterers</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/occasions/default.html">Occasions</a>
     <a class="site-nav__link site-nav__extra" href="../../pages/sign-in/default.html">Sign in</a>
-    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
-    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="icon-btn" type="button" aria-label="Search by area or postal code" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/search/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
   </nav>
 </header>
 
@@ -90,9 +90,12 @@
       <nav class="load-more" aria-label="Pagination">
         <p class="result-count">Showing 1–24 of 1,284</p>
         <ul class="pagination">
+          <li><a role="link" aria-disabled="true" aria-label="Previous page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></a></li>
           <li><a href="default.html" aria-current="page" aria-label="Page 1">1</a></li>
-          <li><a href="long.html" aria-label="Page 2">2</a></li>
-          <li><a href="long.html" aria-label="Page 3">3</a></li>
+          <li class="pagination__narrow"><span class="pagination__gap" aria-hidden="true">…</span></li>
+          <li class="pagination__wide"><a href="long.html" aria-label="Page 2">2</a></li>
+          <li class="pagination__wide"><span class="pagination__gap" aria-hidden="true">…</span></li>
+          <li><a href="long.html" aria-label="Page 54">54</a></li>
           <li><a href="long.html" aria-label="Next page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li>
         </ul>
       </nav>

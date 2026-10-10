@@ -14,10 +14,10 @@
 <link rel="stylesheet" href="../../assets/mock.css">
 </head>
 <body>
-<a class="skip-link" href="#dlg-title">Skip to the dialog</a>
 
 <!-- The listing underneath is inert while the dialog is open. -->
 <div class="page" inert aria-hidden="true">
+<a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header"><span class="wordmark">Sweet Hand</span><span class="site-nav"><span class="site-nav__link site-nav__extra">Caterers</span><span class="site-nav__link site-nav__extra">Occasions</span><span class="site-nav__link site-nav__extra">Inbox</span><span class="avatar">MT</span></span></header>
   <main id="main" class="container">
     <div class="browse">
@@ -42,7 +42,7 @@
     <ul class="filter-list">
       <li><a class="filter-list__item" href="../../pages/caterers/default.html" aria-current="page">Caterers</a></li>
       <li><a class="filter-list__item" href="../../pages/occasions/default.html">Occasions</a></li>
-      <li><a class="filter-list__item" href="../../pages/inbox/default.html">Inbox <span class="badge badge--count" aria-label="1 unread enquiry">1</span></a></li>
+      <li><a class="filter-list__item" href="../../pages/inbox/default.html">Inbox <span class="badge badge--count" aria-hidden="true">1</span><span class="visually-hidden">, 1 unread enquiry</span></a></li>
       <li><a class="filter-list__item" href="../../pages/account/default.html">Account</a></li>
     </ul>
     <div class="stack stack--sm">
