@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, Injector, afterNextRender, computed, inject, signal, viewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { Alert, Icon, List, ListItem, PrivateNote, ToastNotifier } from '@sweet-hand/components';
+import { Alert, Icon, List, ListItem, PrivateNote, SideNav, ToastNotifier } from '@sweet-hand/components';
 import { AccountApi } from '../../core/api/account-api';
 import type { AccountView, ActiveSession } from '../../core/api/account.models';
 import { shortDate, time, torontoToday } from '../../core/format/format';
 import { problemOf, reference } from '../../core/forms/problem';
 import { Session } from '../../core/session/session';
 import { initials, memberLine, orderSessions, sessionMeta } from './account-view';
+import { catererNavGroups } from './caterer-nav';
 import { ChangePasswordDialog } from './change-password/change-password.dialog';
 import { EditDetailsDialog } from './edit-details/edit-details.dialog';
 import { DeleteAccountDialog } from './delete-account/delete-account.dialog';
@@ -19,7 +20,7 @@ type AccountDialog = 'details' | 'password' | 'session' | 'download' | 'delete' 
 /** Account settings, /account (docs/mocks/pages/account; manage-sessions, export and delete-account designs). */
 @Component({
   selector: 'app-account-page',
-  imports: [RouterLink, Alert, ChangePasswordDialog, DeleteAccountDialog, DownloadDataDialog, EditDetailsDialog, EndSessionDialog, Icon, List, ListItem, PrivateNote],
+  imports: [RouterLink, Alert, ChangePasswordDialog, DeleteAccountDialog, DownloadDataDialog, EditDetailsDialog, EndSessionDialog, Icon, List, ListItem, PrivateNote, SideNav],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './account.page.html',
   styleUrl: './account.page.css',
@@ -46,7 +47,16 @@ export class AccountPage {
     const a = this.account();
     return a ? memberLine(a) : '';
   });
-  protected readonly isCaterer = computed(() => this.account()?.role === 'Caterer');
+  protected readonly isCaterer = computed(() => (this.account()?.role ?? this.session.role()) === 'Caterer');
+  protected readonly catererNav = computed(() => catererNavGroups(this.session.unread()));
+  protected readonly bouncingTitle = computed(() => $localize`:@@account.bouncingTitle:Emails to ${this.account()?.email ?? ''}:email: are bouncing`);
+  protected readonly verifyText = computed(() => {
+    const a = this.account();
+    if (!a) return '';
+    return a.verificationSentAt
+      ? $localize`:@@account.verifySentOn:We sent a link to ${a.email}:email: on ${shortDate(a.verificationSentAt)}:date:. It works for 24 hours.`
+      : $localize`:@@account.verifySent:We sent a link to ${a.email}:email:. It works for 24 hours.`;
+  });
   protected readonly devices = computed(() => orderSessions(this.sessions() ?? []).map((s) => ({ ...s, meta: sessionMeta(s) })));
   protected readonly passwordChanged = computed(() => {
     const a = this.account();
@@ -126,6 +136,11 @@ export class AccountPage {
       title: $localize`:@@delete.done:Your account is deleted`,
       text: $localize`:@@delete.doneText:We’ve sent a confirmation email. Thank you for using Sweet Hand.`,
     });
+  }
+
+  /** The "Check your email" page sends a new link to the signed-in account (L2-023.2). */
+  protected async resendVerification(): Promise<void> {
+    await this.router.navigateByUrl('/verify-email/sent');
   }
 
   protected signOutLabel(device: string): string {

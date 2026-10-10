@@ -1,164 +1,324 @@
-<div class="account">
-  @if (loadFailed(); as failed) {
-    <div class="page-intro"><h1 i18n="@@account.title">Account</h1></div>
-    <div class="empty empty--error" role="alert">
-      <div class="empty__icon" aria-hidden="true"><svg shIcon="danger"></svg></div>
-      <h2 class="empty__title" i18n="@@account.loadFailedTitle">We couldn’t load your account</h2>
-      <p class="empty__text" i18n="@@account.loadFailedText">Your details are safe. This is a problem on our side; please try again in a moment.</p>
-      <div class="empty__actions">
-        <button class="btn btn--primary" type="button" (click)="load()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></button>
-        <a class="btn" routerLink="/caterers" i18n="@@account.backToCaterers">Back to caterers</a>
+<div [class]="isCaterer() ? 'work-layout' : null">
+  @if (isCaterer()) {
+    <sh-side-nav label="Dashboard" i18n-label="@@dashboard.nav" [groups]="catererNav()" />
+  }
+  <div [class]="isCaterer() ? 'work-main account' : 'account'">
+    @if (loadFailed(); as failed) {
+      <div class="page-intro"><h1 i18n="@@account.title">Account</h1></div>
+      <div class="empty empty--error" role="alert">
+        <div class="empty__icon" aria-hidden="true"><svg shIcon="danger"></svg></div>
+        <h2 class="empty__title" i18n="@@account.loadFailedTitle">We couldn’t load your account</h2>
+        <p class="empty__text" i18n="@@account.loadFailedText">
+          Your details are safe. This is a problem on our side; please try again in a moment.
+        </p>
+        <div class="empty__actions">
+          <button class="btn btn--primary" type="button" (click)="load()">
+            <svg shIcon="refresh"></svg
+            ><ng-container i18n="@@common.tryAgain">Try again</ng-container>
+          </button>
+          <a class="btn" routerLink="/caterers" i18n="@@account.backToCaterers">Back to caterers</a>
+        </div>
+        @if (failed.reference) {
+          <p class="text-caption" i18n="@@account.reference">
+            Reference <code>{{ failed.reference }}</code>
+          </p>
+        }
       </div>
-      @if (failed.reference) {
-        <p class="text-caption" i18n="@@account.reference">Reference <code>{{ failed.reference }}</code></p>
-      }
-    </div>
-  } @else if (account(); as a) {
-    <div class="page-intro">
-      <div class="cluster account__intro-row">
-        <span class="avatar avatar--lg" aria-hidden="true">{{ initials() }}</span>
-        <div>
-          <h1 i18n="@@account.title">Account</h1>
-          <p class="subtitle">{{ memberLine() }}</p>
+    } @else if (account(); as a) {
+      <div class="page-intro">
+        <div class="cluster account__intro-row">
+          <span class="avatar avatar--lg" aria-hidden="true">{{ initials() }}</span>
+          <div>
+            <h1 i18n="@@account.title">Account</h1>
+            <p class="subtitle">{{ memberLine() }}</p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <section class="caterer-section caterer-section--first" aria-labelledby="details-title">
-      <div class="caterer-section__head">
-        <h2 id="details-title" i18n="@@account.details">Your details</h2>
-        <button #editButton class="btn btn--sm" type="button" aria-haspopup="dialog" (click)="dialog.set('details')">
-          <svg shIcon="edit"></svg><ng-container i18n="@@account.editDetails">Edit details</ng-container>
-        </button>
-      </div>
-      <dl class="kv">
-        @if (isCaterer()) {
-          <dt i18n="@@account.contactName">Contact name</dt>
-        } @else {
-          <dt i18n="@@account.displayName">Display name</dt>
-        }
-        <dd>{{ a.displayName }}</dd>
-        <dt i18n="@@field.email">Email</dt>
-        <dd>
-          <span>{{ a.email }}</span>
-          @if (a.emailBounced) {
-            <span class="status status--declined" i18n="@@account.emailBouncing">Emails bouncing</span>
-          } @else if (a.emailVerified) {
-            <span class="status status--published" i18n="@@account.emailVerified">Verified</span>
-          } @else {
-            <span class="status status--pending" i18n="@@account.emailNotVerified">Not verified</span>
-          }
-        </dd>
-        <dt i18n="@@field.phone">Phone</dt>
-        <dd>
-          @if (a.phone) {
-            <span>{{ a.phone }}</span>
-            @if (isCaterer()) {
-              <sh-private-note [inline]="true" text="Private; shown to a customer only when you share it in a thread" i18n-text="@@account.phonePrivateCaterer" />
-            } @else {
-              <sh-private-note [inline]="true" text="Private until you share it in a thread" i18n-text="@@account.phonePrivate" />
-            }
-          } @else {
-            <span class="text-muted" i18n="@@account.noPhone">Not added</span>
-          }
-        </dd>
-        <dt i18n="@@field.password">Password</dt>
-        <dd>
-          <span>{{ passwordChanged() }}</span>
-          <button #passwordButton class="btn btn--sm" type="button" aria-haspopup="dialog" (click)="dialog.set('password')" i18n="@@account.changePassword">Change password</button>
-        </dd>
-      </dl>
-    </section>
-
-    <section class="caterer-section" aria-labelledby="devices-title">
-      <h2 id="devices-title" i18n="@@account.devices">Signed-in devices</h2>
-      <sh-list family="device" labelledBy="devices-title">
-        @for (d of devices(); track d.id) {
-          <li sh-list-item [title]="d.device" [meta]="d.meta">
-            @if (d.current) {
-              <span slot="end" class="status status--published" i18n="@@account.currentDevice">Current</span>
-            } @else {
-              <button slot="end" class="btn btn--sm" type="button" aria-haspopup="dialog" [attr.aria-label]="signOutLabel(d.device)" (click)="askToEnd(d, $event)" i18n="@@account.signOutDevice">
-                Sign out
-              </button>
-            }
-          </li>
-        }
-      </sh-list>
-    </section>
-
-    @if (a.role !== 'Operator') {
-      <section class="caterer-section" aria-labelledby="data-title">
-        <h2 id="data-title" i18n="@@account.data">Your data</h2>
-        <p class="text-muted account__lead">{{ privacyLine() }} <a routerLink="/privacy" i18n="@@account.readPrivacy">Read the privacy notice</a></p>
-        @if (a.dataExport; as pending) {
-          <div class="stack">
-            <sh-alert tone="success" live="polite" [banner]="false" [title]="exportRequestedTitle(pending.requestedAt)"
-              ><ng-container i18n="@@account.exportRequestedText">We’ll email a download link to {{ a.email }} within 24 hours. It works for 7 days, only when you’re signed in.</ng-container></sh-alert
+      @if (a.emailBounced) {
+        <div class="account__banner">
+          <sh-alert tone="danger" live="assertive" [title]="bouncingTitle()"
+            ><ng-container i18n="@@account.bouncingText"
+              >Update your email so you don’t miss replies from caterers.</ng-container
             >
-            <p>
-              <button class="btn" type="button" disabled><svg shIcon="download"></svg><ng-container i18n="@@account.exportInProgress">Export in progress</ng-container></button>
-            </p>
-          </div>
-        } @else {
+            <div slot="actions" class="alert__actions">
+              <button
+                type="button"
+                class="btn btn--link btn--sm"
+                aria-haspopup="dialog"
+                (click)="dialog.set('details')"
+                i18n="@@account.updateEmail"
+              >
+                Update email
+              </button>
+            </div>
+          </sh-alert>
+        </div>
+      } @else if (!a.emailVerified && a.role === 'Customer') {
+        <div class="account__banner">
+          <sh-alert
+            tone="warning"
+            live="polite"
+            title="Verify your email to send enquiries"
+            i18n-title="@@banner.verifyTitle"
+            >{{ verifyText() }}
+            <div slot="actions" class="alert__actions">
+              <button
+                type="button"
+                class="btn btn--link btn--sm"
+                (click)="resendVerification()"
+                i18n="@@banner.resend"
+              >
+                Resend verification email
+              </button>
+            </div>
+          </sh-alert>
+        </div>
+      }
+      <section class="caterer-section caterer-section--first" aria-labelledby="details-title">
+        <div class="caterer-section__head">
+          <h2 id="details-title" i18n="@@account.details">Your details</h2>
+          <button
+            #editButton
+            class="btn btn--sm"
+            type="button"
+            aria-haspopup="dialog"
+            (click)="dialog.set('details')"
+          >
+            <svg shIcon="edit"></svg
+            ><ng-container i18n="@@account.editDetails">Edit details</ng-container>
+          </button>
+        </div>
+        <dl class="kv">
           @if (isCaterer()) {
-            <p class="text-muted measure" i18n="@@account.dataTextCaterer">
-              Your account, profile, full-size photos, menu, certificate details, enquiries, messages and review responses, as a JSON file with the photos. We email you a link within 24 hours; it works for 7 days.
-            </p>
+            <dt i18n="@@account.contactName">Contact name</dt>
           } @else {
-            <p class="text-muted measure" i18n="@@account.dataText">
-              Your profile, consent records, enquiries, messages, reviews and the reports you sent, as a JSON file. We email you a link within 24 hours; it works for 7 days.
-            </p>
+            <dt i18n="@@account.displayName">Display name</dt>
           }
+          <dd>{{ a.displayName }}</dd>
+          <dt i18n="@@field.email">Email</dt>
+          <dd>
+            <span>{{ a.email }}</span>
+            @if (a.emailBounced) {
+              <span class="status status--declined" i18n="@@account.emailBouncing"
+                >Emails bouncing</span
+              >
+            } @else if (a.emailVerified) {
+              <span class="status status--published" i18n="@@account.emailVerified">Verified</span>
+            } @else {
+              <span class="status status--pending" i18n="@@account.emailNotVerified"
+                >Not verified</span
+              >
+            }
+          </dd>
+          <dt i18n="@@field.phone">Phone</dt>
+          <dd>
+            @if (a.phone) {
+              <span>{{ a.phone }}</span>
+              @if (isCaterer()) {
+                <sh-private-note
+                  [inline]="true"
+                  text="Private; shown to a customer only when you share it in a thread"
+                  i18n-text="@@account.phonePrivateCaterer"
+                />
+              } @else {
+                <sh-private-note
+                  [inline]="true"
+                  text="Private until you share it in a thread"
+                  i18n-text="@@account.phonePrivate"
+                />
+              }
+            } @else {
+              <span class="text-muted" i18n="@@account.noPhone">Not added</span>
+            }
+          </dd>
+          <dt i18n="@@field.password">Password</dt>
+          <dd>
+            <span>{{ passwordChanged() }}</span>
+            <button
+              #passwordButton
+              class="btn btn--sm"
+              type="button"
+              aria-haspopup="dialog"
+              (click)="dialog.set('password')"
+              i18n="@@account.changePassword"
+            >
+              Change password
+            </button>
+          </dd>
+        </dl>
+      </section>
+
+      <section class="caterer-section" aria-labelledby="devices-title">
+        <h2 id="devices-title" i18n="@@account.devices">Signed-in devices</h2>
+        <sh-list family="device" labelledBy="devices-title">
+          @for (d of devices(); track d.id) {
+            <li sh-list-item [title]="d.device" [meta]="d.meta">
+              @if (d.current) {
+                <span slot="end" class="status status--published" i18n="@@account.currentDevice"
+                  >Current</span
+                >
+              } @else {
+                <button
+                  slot="end"
+                  class="btn btn--sm"
+                  type="button"
+                  aria-haspopup="dialog"
+                  [attr.aria-label]="signOutLabel(d.device)"
+                  (click)="askToEnd(d, $event)"
+                  i18n="@@account.signOutDevice"
+                >
+                  Sign out
+                </button>
+              }
+            </li>
+          }
+        </sh-list>
+      </section>
+
+      @if (a.role !== 'Operator') {
+        <section class="caterer-section" aria-labelledby="data-title">
+          <h2 id="data-title" i18n="@@account.data">Your data</h2>
+          <p class="text-muted account__lead">
+            {{ privacyLine() }}
+            <a routerLink="/privacy" i18n="@@account.readPrivacy">Read the privacy notice</a>
+          </p>
+          @if (a.dataExport; as pending) {
+            <div class="stack">
+              <sh-alert
+                tone="success"
+                live="polite"
+                [banner]="false"
+                [title]="exportRequestedTitle(pending.requestedAt)"
+                ><ng-container i18n="@@account.exportRequestedText"
+                  >We’ll email a download link to {{ a.email }} within 24 hours. It works for 7
+                  days, only when you’re signed in.</ng-container
+                ></sh-alert
+              >
+              <p>
+                <button class="btn" type="button" disabled>
+                  <svg shIcon="download"></svg
+                  ><ng-container i18n="@@account.exportInProgress">Export in progress</ng-container>
+                </button>
+              </p>
+            </div>
+          } @else {
+            @if (isCaterer()) {
+              <p class="text-muted measure" i18n="@@account.dataTextCaterer">
+                Your account, profile, full-size photos, menu, certificate details, enquiries,
+                messages and review responses, as a JSON file with the photos. We email you a link
+                within 24 hours; it works for 7 days.
+              </p>
+            } @else {
+              <p class="text-muted measure" i18n="@@account.dataText">
+                Your profile, consent records, enquiries, messages, reviews and the reports you
+                sent, as a JSON file. We email you a link within 24 hours; it works for 7 days.
+              </p>
+            }
+            <p>
+              <button
+                #downloadButton
+                class="btn"
+                type="button"
+                aria-haspopup="dialog"
+                (click)="dialog.set('download')"
+              >
+                <svg shIcon="download"></svg
+                ><ng-container i18n="@@account.downloadData">Download my data</ng-container>
+              </button>
+            </p>
+            <app-download-data-dialog
+              [open]="dialog() === 'download'"
+              [account]="a"
+              [returnFocus]="downloadButton"
+              (closed)="dialog.set(null)"
+              (exportRequested)="exportRequested($event)"
+            />
+          }
+        </section>
+
+        <section class="caterer-section" aria-labelledby="delete-title">
+          <h2 id="delete-title" i18n="@@account.delete">Delete account</h2>
+          <p class="text-muted measure account__lead">{{ deleteText() }}</p>
           <p>
-            <button #downloadButton class="btn" type="button" aria-haspopup="dialog" (click)="dialog.set('download')">
-              <svg shIcon="download"></svg><ng-container i18n="@@account.downloadData">Download my data</ng-container>
+            <button
+              #deleteButton
+              class="btn"
+              type="button"
+              aria-haspopup="dialog"
+              (click)="dialog.set('delete')"
+            >
+              <svg shIcon="trash"></svg
+              ><ng-container i18n="@@account.deleteAccount">Delete my account</ng-container>
             </button>
           </p>
-          <app-download-data-dialog [open]="dialog() === 'download'" [account]="a" [returnFocus]="downloadButton" (closed)="dialog.set(null)" (exportRequested)="exportRequested($event)" />
-        }
-      </section>
-
-      <section class="caterer-section" aria-labelledby="delete-title">
-        <h2 id="delete-title" i18n="@@account.delete">Delete account</h2>
-        <p class="text-muted measure account__lead">{{ deleteText() }}</p>
-        <p>
-          <button #deleteButton class="btn" type="button" aria-haspopup="dialog" (click)="dialog.set('delete')">
-            <svg shIcon="trash"></svg><ng-container i18n="@@account.deleteAccount">Delete my account</ng-container>
-          </button>
-        </p>
-        <app-delete-account-dialog [open]="dialog() === 'delete'" [account]="a" [returnFocus]="deleteButton" (closed)="dialog.set(null)" (deleted)="accountDeleted()" />
-      </section>
-    }
-    <app-end-session-dialog [open]="dialog() === 'session'" [session]="ending()" [returnFocus]="endOpener()" (closed)="dialog.set(null)" (signedOut)="sessionEnded($event)" />
-    <app-change-password-dialog [open]="dialog() === 'password'" [lastChanged]="passwordChangedSentence()" [returnFocus]="passwordButton" (closed)="dialog.set(null)" (changed)="onPasswordChanged()" />
-    <app-edit-details-dialog [open]="dialog() === 'details'" [account]="a" [returnFocus]="editButton" (closed)="dialog.set(null)" (saved)="detailsSaved($event)" />
-    <p class="caterer-section">
-      <button class="btn btn--link" type="button" (click)="signOut()"><svg shIcon="sign-out"></svg><ng-container i18n="@@nav.signOut">Sign out</ng-container></button>
-    </p>
-  } @else {
-    <div class="page-intro" aria-busy="true">
-      <div class="cluster account__intro-row">
-        <span class="avatar avatar--lg skeleton skeleton--circle" aria-hidden="true"></span>
-        <div>
-          <h1 i18n="@@account.title">Account</h1>
-          <span class="skeleton skeleton--text account__skeleton-line" aria-hidden="true"></span>
+          <app-delete-account-dialog
+            [open]="dialog() === 'delete'"
+            [account]="a"
+            [returnFocus]="deleteButton"
+            (closed)="dialog.set(null)"
+            (deleted)="accountDeleted()"
+          />
+        </section>
+      }
+      <app-end-session-dialog
+        [open]="dialog() === 'session'"
+        [session]="ending()"
+        [returnFocus]="endOpener()"
+        (closed)="dialog.set(null)"
+        (signedOut)="sessionEnded($event)"
+      />
+      <app-change-password-dialog
+        [open]="dialog() === 'password'"
+        [lastChanged]="passwordChangedSentence()"
+        [returnFocus]="passwordButton"
+        (closed)="dialog.set(null)"
+        (changed)="onPasswordChanged()"
+      />
+      <app-edit-details-dialog
+        [open]="dialog() === 'details'"
+        [account]="a"
+        [returnFocus]="editButton"
+        (closed)="dialog.set(null)"
+        (saved)="detailsSaved($event)"
+      />
+      <p class="caterer-section">
+        <button class="btn btn--link" type="button" (click)="signOut()">
+          <svg shIcon="sign-out"></svg><ng-container i18n="@@nav.signOut">Sign out</ng-container>
+        </button>
+      </p>
+    } @else {
+      <div class="page-intro" aria-busy="true">
+        <div class="cluster account__intro-row">
+          <span class="avatar avatar--lg skeleton skeleton--circle" aria-hidden="true"></span>
+          <div>
+            <h1 i18n="@@account.title">Account</h1>
+            <span class="skeleton skeleton--text account__skeleton-line" aria-hidden="true"></span>
+          </div>
         </div>
       </div>
-    </div>
-    <p class="visually-hidden" role="status" i18n="@@account.loading">Loading your account</p>
-    <section class="caterer-section caterer-section--first" aria-hidden="true">
-      <span class="skeleton skeleton--title account__skeleton-title"></span>
-      <dl class="kv">
-        @for (i of [1, 2, 3, 4]; track i) {
-          <dt><span class="skeleton skeleton--text account__skeleton-term"></span></dt>
-          <dd><span class="skeleton skeleton--text account__skeleton-value"></span></dd>
-        }
-      </dl>
-    </section>
-    <section class="caterer-section">
-      <span class="skeleton skeleton--title account__skeleton-title account__skeleton-title--wide" aria-hidden="true"></span>
-      <sh-list family="device" [busy]="true" busyLabel="Loading your devices" i18n-busyLabel="@@account.loadingDevices" />
-    </section>
-  }
+      <p class="visually-hidden" role="status" i18n="@@account.loading">Loading your account</p>
+      <section class="caterer-section caterer-section--first" aria-hidden="true">
+        <span class="skeleton skeleton--title account__skeleton-title"></span>
+        <dl class="kv">
+          @for (i of [1, 2, 3, 4]; track i) {
+            <dt><span class="skeleton skeleton--text account__skeleton-term"></span></dt>
+            <dd><span class="skeleton skeleton--text account__skeleton-value"></span></dd>
+          }
+        </dl>
+      </section>
+      <section class="caterer-section">
+        <span
+          class="skeleton skeleton--title account__skeleton-title account__skeleton-title--wide"
+          aria-hidden="true"
+        ></span>
+        <sh-list
+          family="device"
+          [busy]="true"
+          busyLabel="Loading your devices"
+          i18n-busyLabel="@@account.loadingDevices"
+        />
+      </section>
+    }
+  </div>
 </div>

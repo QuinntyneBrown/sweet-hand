@@ -143,4 +143,17 @@ export function registerAccount(r: Router<Store>): void {
 /** Named store changes tests can ask for (`backend.scenario(name, args)`), including identity's. */
 export const accountScenarios: Record<string, (store: Store, args: any) => unknown> = {
   ...identityScenarios,
+  /** The account is waiting for its email to be verified; the link went out at `sentAt` (L2-023.2). */
+  'unverify-email': (store, { email, sentAt }: { email: string; sentAt?: string }) => {
+    const user = findUser(store, email);
+    if (!user) throw new Error(`No account for ${email}`);
+    user.emailVerified = false;
+    user.verificationSentAt = sentAt ?? store.now.toISOString();
+  },
+  /** Mail to the address bounced permanently (L2-030.3). */
+  'bounce-email': (store, { email }: { email: string }) => {
+    const user = findUser(store, email);
+    if (!user) throw new Error(`No account for ${email}`);
+    user.emailBounced = true;
+  },
 };

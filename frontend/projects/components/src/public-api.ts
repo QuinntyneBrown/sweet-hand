@@ -25,3 +25,4 @@ export * from './lib/toast/toast';
 export * from './lib/card/card';
 export * from './lib/checklist/checklist';
 export * from './lib/list/list';
+export * from './lib/side-nav/side-nav';
