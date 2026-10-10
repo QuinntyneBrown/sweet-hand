@@ -5,7 +5,7 @@ import type { User } from '../seed/users.ts';
 import type { AccountToken } from '../seed/account.ts';
 import { slugify } from '../seed/taxonomy.ts';
 import { endSessions } from './session.ts';
-import type { EmailVerified, ResendVerificationRequest, VerificationSent, PasswordResetLink, PasswordResetRequest, ResetPasswordRequest, RegisterCatererRequest, RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/web/src/app/core/api/identity.models.ts';
+import type { SecondFactorRequest, EmailVerified, ResendVerificationRequest, VerificationSent, PasswordResetLink, PasswordResetRequest, ResetPasswordRequest, RegisterCatererRequest, RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/web/src/app/core/api/identity.models.ts';
 
 const MINUTE = 60_000;
 /** 5 failed sign-ins for one account within 15 minutes pause it for 15 minutes (L2-076.4). */
@@ -35,6 +35,15 @@ export function passwordProblem(password: unknown): string | null {
 export function currentPrivacyVersion(store: Store): string {
   return store.account.privacyNotice.version;
 }
+
+/** A newer notice with substantially different purposes is accepted at the next sign-in (L2-070.4). */
+export function privacyUpdateRequired(store: Store, user: User): boolean {
+  const notice = store.account.privacyNotice;
+  return notice.substantialChange && user.acceptedPrivacyVersion !== notice.version;
+}
+
+/** The code the fake accepts from an operator's authenticator app (e2e/support/cast.ts). */
+export const OPERATOR_CODE = '731905';
 
 /** Issues a single-use link and invalidates earlier unused ones of the same kind (L2-077). */
 export function issueToken(store: Store, user: User, kind: AccountToken['kind']): string {
@@ -106,12 +115,32 @@ export function registerIdentity(r: Router<Store>): void {
     }
     user.failedSignIns = 0;
     user.failedSignInsAt = [];
+    if (user.role === 'Operator') {
+      // The password alone opens nothing: the session waits for the second step (L2-056.2).
+      const pending = newId().replace(/-/g, '');
+      ctx.store.account.pendingSecondFactor[pending] = user.id;
+      const result: SignInResult = { secondFactorRequired: true, privacyUpdateRequired: false };
+      return { ...ok(result), headers: { 'set-cookie': sessionCookie(pending) } };
+    }
     const token = startSession(ctx.store, user);
-    const result: SignInResult = {
-      secondFactorRequired: user.role === 'Operator',
-      privacyUpdateRequired: user.acceptedPrivacyVersion !== currentPrivacyVersion(ctx.store),
-    };
+    const result: SignInResult = { secondFactorRequired: false, privacyUpdateRequired: privacyUpdateRequired(ctx.store, user) };
     return { ...ok(result), headers: { 'set-cookie': sessionCookie(token) } };
+  });
+
+  /** An authenticator code or a security key completes an operator's sign-in (L2-056.2). */
+  r.post('/api/identity/second-factor', (ctx): Reply => {
+    const token = ctx.cookies['sh_session'] ?? '';
+    const userId = ctx.store.account.pendingSecondFactor[token];
+    const user = userId ? ctx.store.users.find((u) => u.id === userId && !u.deleted) : undefined;
+    if (!user) return { status: 401, body: { title: 'Sign in to continue' } };
+    const body = (ctx.body ?? {}) as Partial<SecondFactorRequest> & { code?: unknown; assertion?: unknown };
+    const passed =
+      body.method === 'security key' ? typeof body.assertion === 'string' && body.assertion.startsWith('local-key:') : body.method === 'authenticator app' && body.code === OPERATOR_CODE;
+    if (!passed) return invalid({ code: ['That code didn’t work'] });
+    delete ctx.store.account.pendingSecondFactor[token];
+    ctx.store.sessions.set(token, user.id);
+    const result: SignInResult = { secondFactorRequired: false, privacyUpdateRequired: privacyUpdateRequired(ctx.store, user) };
+    return ok(result);
   });
 
   /**

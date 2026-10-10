@@ -13,3 +13,6 @@ export type CastMember = keyof typeof cast;
 
 /** Every seeded account's password. */
 export const SEED_PASSWORD = 'pepperpot-sunday-2026';
+
+/** The code the fake backend accepts from an operator's authenticator app (L2-056.2). */
+export const OPERATOR_CODE = '731905';

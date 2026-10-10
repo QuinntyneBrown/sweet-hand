@@ -43,6 +43,8 @@ export interface AccountState {
   tokens: AccountToken[];
   privacyNotice: PrivacyNoticeVersion;
   savedEnquiries: SavedEnquiry[];
+  /** Session cookie → operator id, for operators who still owe the second step (L2-056.2). */
+  pendingSecondFactor: Record<string, string>;
 }
 
 export function seedAccount(): AccountState {
@@ -53,5 +55,6 @@ export function seedAccount(): AccountState {
     tokens: [],
     privacyNotice: { version: '2026-03', effectiveDate: '2026-03-01', substantialChange: false, changes: [] },
     savedEnquiries: [],
+    pendingSecondFactor: {},
   };
 }

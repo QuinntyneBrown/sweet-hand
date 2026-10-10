@@ -1,0 +1,23 @@
+<div class="auth">
+  <div class="auth__head">
+    <app-auth-photos [photos]="['cook-up', 'pimento-and-thyme', 'ti-kay']" />
+    <h1 i18n="@@twoFactor.title">Two-step verification</h1>
+    <p class="subtitle" i18n="@@twoFactor.subtitle">Enter the 6-digit code from your authenticator app to open the operator console.</p>
+  </div>
+
+  @if (failure(); as f) {
+    <sh-alert tone="danger" live="assertive" title="We couldn’t check your code" i18n-title="@@twoFactor.serverErrorTitle">{{ serverText(f.reference) }}</sh-alert>
+  }
+
+  <sh-form-summary [heading]="summaryTitle()" [items]="summary()" [attempt]="attempt()" />
+
+  <form class="form form--compact" novalidate [formGroup]="form" (ngSubmit)="submit()">
+    <sh-form-field label="6-digit code" i18n-label="@@twoFactor.code" controlId="code" [error]="error()?.field ?? null">
+      <sh-text-field formControlName="code" size="lg" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]*" [maxlength]="6" [required]="true" [autofocus]="true" [readonly]="busy()" />
+    </sh-form-field>
+    <sh-button type="submit" variant="primary" size="lg" [block]="true" [busy]="busy()"><ng-container i18n="@@twoFactor.submit">Continue</ng-container></sh-button>
+    <p class="visually-hidden" role="status">{{ busy() ? checking : '' }}</p>
+    <sh-button size="lg" [block]="true" (activated)="useSecurityKey()"><svg shIcon="shield"></svg><ng-container i18n="@@twoFactor.securityKey">Use a security key instead</ng-container></sh-button>
+  </form>
+  <p class="auth__alt" i18n="@@twoFactor.signedInAs">Signed in as {{ email() }} · <a class="link--standalone" href="/sign-in" (click)="notYou($event)">Not you?</a></p>
+</div>

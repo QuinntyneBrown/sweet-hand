@@ -26,4 +26,9 @@ export interface SessionView {
   unread: number;
   /** Items waiting in the operator review queue. */
   queueCount: number;
+  /**
+   * An operator whose password was right but who has not completed the second
+   * step yet: `user` stays null until they do (L2-056.2).
+   */
+  pendingSecondFactor?: { email: string; method: 'authenticator app' | 'security key' } | null;
 }

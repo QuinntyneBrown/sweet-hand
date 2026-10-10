@@ -19,6 +19,8 @@ export class Session {
   readonly role = computed(() => this.view().user?.role ?? 'Visitor');
   readonly unread = computed(() => this.view().unread);
   readonly queueCount = computed(() => this.view().queueCount);
+  /** Set while an operator still owes the second step (L2-056.2). */
+  readonly pendingSecondFactor = computed(() => this.view().pendingSecondFactor ?? null);
 
   constructor() {
     inject(DestroyRef).onDestroy(() => clearInterval(this.timer));

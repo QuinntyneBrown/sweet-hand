@@ -1,10 +1,18 @@
 import type { Routes } from '@angular/router';
+import { requirePendingSecondFactor } from '../../core/session/guards';
 
 export const identityRoutes: Routes = [
   {
     path: 'sign-in',
     loadComponent: () => import('./sign-in/sign-in.page').then((m) => m.SignInPage),
     title: $localize`:@@signIn.documentTitle:Sign in · Sweet Hand`,
+  },
+  {
+    path: 'sign-in/verify',
+    canActivate: [requirePendingSecondFactor],
+    loadComponent: () => import('./two-factor/two-factor.page').then((m) => m.TwoFactorPage),
+    data: { chrome: 'minimal' },
+    title: $localize`:@@twoFactor.documentTitle:Two-step verification · Sweet Hand`,
   },
   {
     path: 'register',

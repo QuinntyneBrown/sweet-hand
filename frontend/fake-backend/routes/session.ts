@@ -16,7 +16,7 @@ export function sessionUser(store: Store, user: User): SessionUser {
     emailVerified: user.emailVerified,
     emailBounced: !!user.emailBounced,
     caterer: caterer && { id: caterer.id, name: caterer.name, slug: caterer.slug, status: caterer.status },
-    secondFactor: user.role === 'Operator' ? 'security key' : undefined,
+    secondFactor: user.role === 'Operator' ? (user.secondFactor ?? 'security key') : undefined,
   };
 }
 
@@ -40,12 +40,16 @@ export function registerSession(r: Router<Store>): void {
     const view: SessionView = user
       ? { user: sessionUser(ctx.store, user), unread: unreadCount(ctx.store, user), queueCount: user.role === 'Operator' ? queueCount(ctx.store) : 0 }
       : { user: null, unread: 0, queueCount: 0 };
+    const pendingId = ctx.store.account.pendingSecondFactor[ctx.cookies['sh_session'] ?? ''];
+    const pending = pendingId ? ctx.store.users.find((u) => u.id === pendingId && !u.deleted) : undefined;
+    if (!user && pending) view.pendingSecondFactor = { email: pending.email, method: pending.secondFactor ?? 'authenticator app' };
     return ok(view);
   });
 
   /** Ends the session on the server (L2-078.4). */
   r.post('/api/identity/sign-out', (ctx) => {
     ctx.store.sessions.delete(ctx.cookies['sh_session'] ?? '');
+    delete ctx.store.account.pendingSecondFactor[ctx.cookies['sh_session'] ?? ''];
     return { status: 204, headers: { 'set-cookie': 'sh_session=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax' } };
   });
 }

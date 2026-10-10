@@ -13,6 +13,8 @@ export function requireRole(...roles: Role[]): CanActivateFn {
     const session = inject(Session);
     const router = inject(Router);
     const user = session.user();
+    // An operator part-way through signing in finishes the second step first (L2-056.2).
+    if (!user && session.pendingSecondFactor()) return router.createUrlTree(['/sign-in/verify'], { queryParams: { returnUrl: state.url } });
     if (!user) return router.createUrlTree(['/sign-in'], { queryParams: { returnUrl: state.url } });
     if (roles.length && !roles.includes(user.role)) {
       return new RedirectCommand(router.parseUrl('/403'), { skipLocationChange: true });
@@ -28,11 +30,20 @@ export const requireAdmin: CanActivateFn = () => {
   return session.user()?.admin ? true : new RedirectCommand(router.parseUrl('/403'), { skipLocationChange: true });
 };
 
+/** The second-step page is only for an operator who still owes it (L2-056.2). */
+export const requirePendingSecondFactor: CanActivateFn = () => {
+  const session = inject(Session);
+  const router = inject(Router);
+  if (session.pendingSecondFactor()) return true;
+  const user = session.user();
+  return router.parseUrl(user ? landingFor(user.role) : '/sign-in');
+};
+
 /** Only same-site paths are followed after sign-in, never another origin. */
 export function safeReturnUrl(value: string | null | undefined): string | null {
   return value && value.startsWith('/') && !value.startsWith('//') && !value.startsWith('/\\') ? value : null;
 }
 
 export function landingFor(role: Role): string {
-  return role === 'Caterer' ? '/dashboard' : role === 'Operator' ? '/sign-in/verify' : '/inbox';
+  return role === 'Caterer' ? '/dashboard' : role === 'Operator' ? '/admin/queue' : '/inbox';
 }
