@@ -1,14 +1,21 @@
 import type { Locator, Page } from '@playwright/test';
 import { BasePage } from './base.page';
 import { PhotoViewer } from './photo-viewer';
+import { ReportDialog } from './report-dialog';
 
 /** A caterer's public page, /caterers/:slug (docs/mocks/pages/caterer). */
 export class CatererPage extends BasePage {
   readonly viewer: PhotoViewer;
+  readonly report: ReportDialog;
 
   constructor(page: Page) {
     super(page);
     this.viewer = new PhotoViewer(page);
+    this.report = new ReportDialog(page);
+  }
+
+  get reportListing() {
+    return this.main.getByRole('button', { name: 'Report this listing' });
   }
 
   /** Whether the page behind an open dialog is inert. */

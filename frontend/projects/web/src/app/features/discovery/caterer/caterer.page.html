@@ -127,6 +127,9 @@
       <div class="caterer-section until-lg">
         <sh-button variant="primary" size="lg" [block]="true" haspopup="dialog" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>
       </div>
+      <p class="report-listing">
+        <sh-button variant="link" size="sm" haspopup="dialog" (activated)="openReport($event)"><svg shIcon="flag"></svg><ng-container i18n="@@caterer.report">Report this listing</ng-container></sh-button>
+      </p>
     </div>
 
     <aside class="enquiry-panel only-lg" aria-label="Enquire" i18n-aria-label="@@caterer.enquireRegion">
@@ -142,6 +145,8 @@
   @if (viewerAt() !== null) {
     <sh-photo-viewer [photos]="c.photos" [index]="viewerAt()!" (indexChange)="viewerAt.set($event)" [title]="photosTitle()" [countLabel]="photoCountLabel" [labels]="viewerLabels" (closed)="closeViewer($event.index)" />
   }
+
+  <app-report-dialog [open]="reportFrom() !== null" [target]="{ kind: 'CatererProfile', id: c.slug, name: c.name }" [returnFocus]="reportFrom()" (closed)="reportFrom.set(null)" />
 
   <div sh-sticky-cta regionLabel="Enquire" i18n-regionLabel="@@caterer.enquireRegion" [heading]="c.name" [detail]="guests()">
     <sh-button variant="primary" haspopup="dialog" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>

@@ -21,6 +21,10 @@
   margin-top: var(--space-6);
 }
 
+.report-listing {
+  margin-top: var(--space-10);
+}
+
 .facts {
   margin-top: var(--space-10);
 }

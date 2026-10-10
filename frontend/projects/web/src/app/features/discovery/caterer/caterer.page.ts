@@ -30,6 +30,7 @@ import { guestRange, paragraphs } from './caterer-view';
 import { DIETARY_LABELS } from './dietary-labels';
 import { VIEWER_LABELS, morePhotosLabel, openPhotoLabel, photoCountLabel } from './gallery-labels';
 import { MainLandmark } from './main-landmark';
+import { ReportDialog } from './report-dialog/report-dialog';
 
 type PageState = 'loading' | 'ready' | 'gone' | 'not-found' | 'error';
 
@@ -60,6 +61,7 @@ const ERROR_PHOTOS: RowPhoto[] = [
     RatingSummary,
     StickyCta,
     ReviewsSection,
+    ReportDialog,
   ],
   providers: [CatererPageMetadata, MainLandmark],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -144,6 +146,13 @@ export class CatererPage {
   protected closeViewer(index: number): void {
     this.viewerAt.set(null);
     this.gallery()?.focusPhoto(index);
+  }
+
+  /** The button that opened the report dialog, while it is open. */
+  protected readonly reportFrom = signal<HTMLElement | null>(null);
+
+  protected openReport(event: MouseEvent): void {
+    this.reportFrom.set((event.target as HTMLElement).closest('button'));
   }
 
   protected enquire(event: MouseEvent): void {
