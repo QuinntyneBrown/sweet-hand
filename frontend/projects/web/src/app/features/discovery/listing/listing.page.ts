@@ -4,6 +4,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActiveFilters, ButtonAnchor, CatererCard, CatererGrid, EmptyState, FilterGroup, Icon, Pagination } from '@sweet-hand/components';
 import { DiscoveryApi } from '../../../core/api/discovery-api';
+import { AreaField } from '../search/area-field';
 import type { ListingPageView, ListingQuery } from '../../../core/api/discovery.models';
 import {
   activeChips,
@@ -22,7 +23,7 @@ import { knownQuery, readListingQuery, toQueryParams, withArea, withCuisine, wit
 /** The caterer listing, /caterers (docs/detailed-designs/discovery/browse-listing). */
 @Component({
   selector: 'app-listing-page',
-  imports: [ActiveFilters, ButtonAnchor, CatererCard, CatererGrid, EmptyState, FilterGroup, Icon, Pagination],
+  imports: [ActiveFilters, AreaField, ButtonAnchor, CatererCard, CatererGrid, EmptyState, FilterGroup, Icon, Pagination],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './listing.page.html',
 })
@@ -40,6 +41,8 @@ export class ListingPage {
     source: this.view,
     computation: (v, previous) => v ?? previous?.value,
   });
+  private readonly areaList = rxResource({ stream: () => this.api.serviceAreas() });
+  protected readonly serviceAreas = computed(() => (this.areaList.hasValue() ? this.areaList.value() : []));
   /** The URL's filters without values the listing does not know (L2-003.3). */
   private readonly known = computed(() => knownQuery(this.query(), this.shown()));
 
@@ -82,6 +85,10 @@ export class ListingPage {
   protected toggleArea(e: { value: string; pressed: boolean }): void {
     const { kind, id } = parseAreaValue(e.value);
     this.go(kind === 'region' ? withRegion(this.known(), id, e.pressed) : withArea(this.known(), id, e.pressed));
+  }
+
+  protected addArea(id: string): void {
+    this.go(withArea(this.known(), id, true));
   }
 
   protected removeChip(value: string): void {

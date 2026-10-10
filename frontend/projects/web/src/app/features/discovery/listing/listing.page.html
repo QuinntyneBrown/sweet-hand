@@ -22,7 +22,9 @@
       [countNoun]="caterersNoun"
       (toggled)="toggleCuisine($event)"
     />
-    <sh-filter-group title="Area" i18n-title="@@filters.area" [options]="areas()" [countNoun]="caterersNoun" (toggled)="toggleArea($event)" />
+    <sh-filter-group title="Area" i18n-title="@@filters.area" [options]="areas()" [countNoun]="caterersNoun" (toggled)="toggleArea($event)">
+      <app-area-field slot="before-list" [areas]="serviceAreas()" (areaChosen)="addArea($event)" />
+    </sh-filter-group>
   </aside>
 
   <section class="browse__results" aria-labelledby="results-title">

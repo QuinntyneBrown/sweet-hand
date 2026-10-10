@@ -97,6 +97,32 @@ export class ListingPage extends BasePage {
     return this.areaGroup.getByRole('button', { name: optionName(name) });
   }
 
+  /** The area or postal code search in the column's Area group. */
+  get areaSearch() {
+    return this.areaGroup.getByRole('combobox', { name: 'Area or postal code' });
+  }
+
+  get areaSuggestions() {
+    return this.areaGroup.getByRole('listbox', { name: 'Matching areas' }).getByRole('option');
+  }
+
+  get areaNoMatch() {
+    return this.areaGroup.locator('.suggestions__empty');
+  }
+
+  get areaError() {
+    return this.areaGroup.locator('.field__error');
+  }
+
+  get areaWarning() {
+    return this.areaGroup.locator('.field__warning');
+  }
+
+  async searchArea(text: string) {
+    await this.areaSearch.fill(text);
+    await this.areaSearch.press('Enter');
+  }
+
   // Active filters above the results (docs/specs/components/chip.md)
 
   get activeFilters() {
