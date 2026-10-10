@@ -206,4 +206,78 @@ test.describe('Caterer page', () => {
     await expect(caterer.galleryMore).toHaveText('+25 photos');
     await expect(caterer.galleryPhoto(5)).toHaveAccessibleName(/^Open photo 5 of 30: .+, 25 more photos in the viewer$/);
   });
+
+  test('L2-015.1: on a phone the sections come in order: gallery, name, cuisines, description, event summary, menu, areas, reviews, enquiry', async ({ page }) => {
+    const caterer = new CatererPage(page);
+    await caterer.usePhone();
+
+    await caterer.open('pelau-house');
+    await expect(caterer.reviews.first()).toBeVisible();
+
+    expect(await caterer.sectionOrder()).toEqual([
+      'photo gallery',
+      'business name',
+      'cuisines',
+      'description',
+      'event sizes and occasions',
+      'menu',
+      'service areas',
+      'reviews',
+      'send an enquiry',
+    ]);
+  });
+});
+
+test.describe('Caterer page edge cases', () => {
+  const EDGE_NAME = 'Auntie Euphemia’s Kittitian & Nevisian Sunday Kitchen and Celebration Catering';
+
+  test('L2-015.2 L2-020.2 L2-017.2 L2-050.4: a long name, five cuisines, one guest count, bare dishes and markup shown as text', async ({ page, backend }) => {
+    const { slug } = await backend.scenario('add-edge-caterer');
+    const caterer = new CatererPage(page);
+
+    await caterer.open(slug);
+
+    await expect(caterer.heading).toHaveText(EDGE_NAME);
+    expect(await caterer.nameFits()).toBe(true);
+    await expect(caterer.cuisines).toHaveText(['Kittitian & Nevisian', 'Antiguan & Barbudan', 'Dominican (Dominica)', 'Vincentian', 'Pan-Caribbean']);
+    await expect(caterer.fact(caterer.panel, 'Guests')).toHaveText('Serves 50 guests');
+    await expect(caterer.occasions(caterer.panel)).toHaveCount(8);
+    await expect(caterer.description.first()).toContainText('<b>Best in town</b>');
+    await expect(caterer.descriptionElements).toHaveCount(0);
+    await expect(caterer.dish('Goat water')).toHaveText('Goat water');
+    const platter = caterer.dish('Stewed saltfish, spicy plantain, coconut dumplings and seasoned breadfruit platter');
+    await expect(caterer.dishTags(platter)).toHaveText(['Vegetarian', 'Vegan', 'Gluten-free', 'Dairy-free', 'Halal', 'Contains shellfish', 'Spicy']);
+    await expect(caterer.dishPart(platter, 'price')).toHaveText('From $1,250 per 50 guests');
+    await expect(caterer.regionNames).toHaveText(['City of Toronto', 'Peel', 'York Region', 'Durham', 'Halton']);
+    await expect(caterer.areasIn('Halton')).toHaveText('Burlington, Halton Hills, Milton, Oakville');
+    await expect(caterer.ratingSummary).toHaveText('3.0 · 1 review');
+    const review = caterer.review(1);
+    await expect(caterer.reviewPart(review, 'body')).toContainText('<script>alert(1)</script>');
+    await expect(caterer.reviewBodyElements(review)).toHaveCount(0);
+    await caterer.expectNoAccessibilityViolations();
+  });
+
+  test('gallery AC-5: a photo that fails to load keeps its place, says so and says so in its name', async ({ page, backend }) => {
+    const { slug } = await backend.scenario('add-edge-caterer');
+    const caterer = new CatererPage(page);
+
+    await caterer.open(slug);
+
+    await expect(caterer.galleryPhotoLabel(2)).toHaveText('Photo unavailable');
+    await expect(caterer.galleryPhoto(2)).toHaveAccessibleName('Open photo 2 of 4: Stewed saltfish with peppers over rice (did not load)');
+    await expect(caterer.galleryImage(1)).toHaveAttribute('alt', '');
+  });
+
+  test('L2-019.4: at 320 px the long-named caterer wraps and the page never scrolls sideways', async ({ page, backend }) => {
+    const { slug } = await backend.scenario('add-edge-caterer');
+    const caterer = new CatererPage(page);
+    await page.setViewportSize({ width: 320, height: 700 });
+
+    await caterer.open(slug);
+
+    await expect(caterer.heading).toHaveText(EDGE_NAME);
+    expect(await caterer.nameFits()).toBe(true);
+    await caterer.expectNoHorizontalScroll();
+    await caterer.expectNoAccessibilityViolations();
+  });
 });

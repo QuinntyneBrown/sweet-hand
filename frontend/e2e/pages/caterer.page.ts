@@ -302,6 +302,41 @@ export class CatererPage extends BasePage {
     return this.main.locator('.system-page__actions').getByRole('link', { name });
   }
 
+  /** The page's parts in reading order, as L2-015 names them (on a phone, where all sit in one column). */
+  async sectionOrder(): Promise<string[]> {
+    return this.main.evaluate((main) => {
+      const parts: [string, Element | null][] = [
+        ['photo gallery', main.querySelector('section.gallery')],
+        ['business name', main.querySelector('h1')],
+        ['cuisines', main.querySelector('.caterer-head__meta')],
+        ['description', main.querySelector('.caterer-layout .prose')],
+        ['event sizes and occasions', main.querySelector('.caterer-layout > div dl.facts')],
+        ['menu', main.querySelector('[aria-labelledby="menu-title"]')],
+        ['service areas', main.querySelector('[aria-labelledby="areas-title"]')],
+        ['reviews', main.querySelector('#reviews')],
+        ['send an enquiry', main.querySelector('.caterer-layout > div > .caterer-section.until-lg')],
+      ];
+      return parts
+        .filter((p): p is [string, Element] => p[1] !== null)
+        .sort((a, b) => (a[1].compareDocumentPosition(b[1]) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1))
+        .map(([name]) => name);
+    });
+  }
+
+  /** Whether the name is shown in full, wrapping rather than cut off. */
+  async nameFits(): Promise<boolean> {
+    return this.heading.evaluate((h) => h.scrollWidth <= h.clientWidth + 1 && getComputedStyle(h).textOverflow !== 'ellipsis');
+  }
+
+  /** Elements (not text) inside the description, which must show markup as literal text. */
+  get descriptionElements() {
+    return this.main.locator('.caterer-layout .prose > p *');
+  }
+
+  reviewBodyElements(review: Locator) {
+    return review.locator('.review__body *');
+  }
+
   metaContent(name: string) {
     return this.page.locator(`head meta[name="${name}"], head meta[property="${name}"]`);
   }

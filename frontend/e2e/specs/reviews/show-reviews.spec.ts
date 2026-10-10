@@ -45,6 +45,8 @@ test.describe('Reviews on the caterer page', () => {
 
     await caterer.open('green-fig-catering');
 
+    await expect(caterer.menuCount).toHaveText('8 dishes');
+    await expect(caterer.fact(caterer.panel, 'Guests')).toHaveText('Serves 15–120 guests');
     await expect(caterer.noReviews).toHaveText(['No reviews yet', 'Reviews come from customers after their event.']);
     await expect(caterer.ratingSummary).toHaveCount(0);
     await expect(caterer.ratingLink).toHaveCount(0);

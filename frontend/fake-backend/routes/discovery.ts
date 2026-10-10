@@ -167,6 +167,56 @@ export const catererPageScenarios: Record<string, (store: Store, args: any) => u
     c.name = name;
     c.slug = slugify(name.replace(/'/g, ''));
   },
+  /** The edge-case caterer of docs/mocks/pages/caterer/edge.html; returns its slug. */
+  'add-edge-caterer': (store) => {
+    const name = 'Auntie Euphemia’s Kittitian & Nevisian Sunday Kitchen and Celebration Catering';
+    const slug = slugify(name.replace(/['’]/g, ''));
+    const id = 'cat-950';
+    store.caterers.push({
+      id,
+      slug,
+      name,
+      status: 'Published',
+      cuisines: ['kittitian-and-nevisian', 'antiguan-and-barbudan', 'dominican-dominica', 'vincentian', 'pan-caribbean'],
+      areas: store.regions.flatMap((rg) => rg.areas.map((a) => a.id)),
+      minGuests: 50,
+      maxGuests: 50,
+      occasions: OCCASIONS.map((o) => o.id),
+      description:
+        'We write our own description. Some of us paste in things like <b>Best in town</b> or a link to www.example.com — it always shows exactly as typed, never as formatting or a live link.\n\nExactly fifty guests, every time, because that is how many plates Auntie owns.',
+      photos: [
+        ['souse-and-sorrel.jpg', 'Goat water stew with dumplings in a steel pot'],
+        ['no-such-photo.jpg', 'Stewed saltfish with peppers over rice'],
+        ['sea-moss-and-spice.jpg', 'Coconut dumplings and spiced rice'],
+        ['lambie-lane.jpg', 'Rum cake topped with a single raspberry'],
+      ].map(([file, caption], j) => ({ id: `${slug}-photo-${j + 1}`, file, caption })),
+      dishes: [
+        { id: `${slug}-dish-1`, name: 'Goat water', tags: [] },
+        {
+          id: `${slug}-dish-2`,
+          name: 'Stewed saltfish, spicy plantain, coconut dumplings and seasoned breadfruit platter',
+          description: 'A whole Saturday of cooking on one platter, enough for the full fifty with seconds for the uncles who say they are not hungry and then are.',
+          tags: ['spicy', 'contains-shellfish', 'halal', 'dairy-free', 'gluten-free', 'vegan', 'vegetarian'],
+          price: 'From $1,250 per 50 guests',
+        },
+        { id: `${slug}-dish-3`, name: 'Conkies', tags: [] },
+      ],
+      createdAt: '2026-09-01T13:00:00Z',
+      publishedAt: '2026-09-08T13:00:00Z',
+      previousSlugs: [],
+    });
+    store.reviews.push({
+      id: 'review-anne-marie-edge',
+      catererId: id,
+      authorName: 'Anne-Marie Francis',
+      rating: 3,
+      text: 'Food was good. Someone typed <script>alert(1)</script> here to test us; it shows as plain text and nothing runs. Same for https://example.com — not a link.',
+      eventDate: '2026-09-12',
+      createdAt: '2026-09-19T14:00:00.000Z',
+      status: 'Published',
+    });
+    return { slug };
+  },
   /** A name change waiting for approval: the public page keeps the approved name (L2-014.3). */
   'request-name-change': (store, { slug, name }: { slug: string; name: string }) => {
     const c = store.caterers.find((x) => x.slug === slug);

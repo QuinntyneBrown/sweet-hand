@@ -254,6 +254,41 @@ function applyCatererPageCast(all: Caterer[]): void {
   maracas.photos = files.map((p, j) => ({ id: `maracas-bay-photo-${j + 1}`, file: p.file, caption: p.caption }));
   maracas.dishes = MARACAS_DISHES.map((name, j) => ({ id: `maracas-bay-dish-${j + 1}`, name, tags: j % 3 === 0 ? ['vegan'] : [], price: j % 4 === 0 ? 'From $14 per person' : undefined }));
 
+  // Marie-Claire Augustin's Green Fig Catering: new, 3 photos, 8 dishes, no reviews (caterer/no-reviews).
+  // Areas, occasions and the cover caption stay as in the listing catalog so its counts hold.
+  const greenFig = all.find((c) => c.slug === 'green-fig-catering')!;
+  Object.assign(greenFig, {
+    minGuests: 15,
+    maxGuests: 120,
+    description:
+      'Marie-Claire Augustin cooks the Sunday food of Castries: green fig and saltfish, bouyon thick with dumplings, and accra still crackling from the pot.\n\nGreen Fig is new to Sweet Hand this autumn. Small family gatherings are the sweet spot.',
+    photos: [
+      greenFig.photos[0],
+      { id: 'green-fig-catering-photo-2', file: 'oil-down-kitchen.jpg', caption: 'Bouyon with dumplings and provisions in a red pot' },
+      { id: 'green-fig-catering-photo-3', file: 'lakay-kitchen.jpg', caption: 'Lambi curry on a mound of red rice' },
+    ],
+    dishes: (
+      [
+        { name: 'Green fig and saltfish', description: 'St. Lucia’s national dish, with cucumber salad.', tags: ['dairy-free'], price: 'From $15 per person' },
+        { name: 'Bouyon', description: 'Red beans, provisions and dumplings.', tags: ['dairy-free'] },
+        { name: 'Accra', description: 'Saltfish fritters.', tags: [], price: '$1.50 each' },
+        { name: 'Lambi curry', tags: ['gluten-free', 'contains-shellfish'], price: 'From $24 per person' },
+        { name: 'Bakes', tags: ['vegan'] },
+        { name: 'Callaloo soup', tags: ['vegan', 'gluten-free'] },
+        { name: 'Banana bread', tags: ['vegetarian', 'contains-nuts'] },
+        { name: 'Cocoa tea', description: 'Grated cocoa stick, nutmeg and bay leaf.', tags: ['vegetarian'], price: '$12 per litre' },
+      ] as Omit<Dish, 'id'>[]
+    ).map((d, j) => ({ ...d, id: `green-fig-catering-dish-${j + 1}` })),
+  });
+
+  // Paulette Morgan's Black Cake Co.: exactly 3 photos and 3 dishes.
+  const blackCake = all.find((c) => c.slug === 'black-cake-co')!;
+  blackCake.dishes = [
+    { id: 'black-cake-co-dish-1', name: 'Black cake', description: 'Fruit soaked in rum and port since last Christmas.', tags: ['contains-nuts'], price: '$65 per cake' },
+    { id: 'black-cake-co-dish-2', name: 'Sorrel', tags: ['vegan'], price: '$14 per litre' },
+    { id: 'black-cake-co-dish-3', name: 'Coconut drops', tags: ['vegan', 'gluten-free'], price: '$2 each' },
+  ];
+
   // Winston Daley's Coal Pot Kitchen: the removed example (Mon 28 Sep).
   all.push({
     id: 'cat-901',
