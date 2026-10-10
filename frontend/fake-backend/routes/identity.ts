@@ -3,7 +3,8 @@ import { invalid, ok, type Reply } from '../lib/http.ts';
 import { newId, startSession, type Store } from '../lib/store.ts';
 import type { User } from '../seed/users.ts';
 import type { AccountToken } from '../seed/account.ts';
-import type { RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/web/src/app/core/api/identity.models.ts';
+import { slugify } from '../seed/taxonomy.ts';
+import type { RegisterCatererRequest, RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/web/src/app/core/api/identity.models.ts';
 
 const MINUTE = 60_000;
 /** 5 failed sign-ins for one account within 15 minutes pause it for 15 minutes (L2-076.4). */
@@ -152,6 +153,89 @@ export function registerIdentity(r: Router<Store>): void {
     sendVerification(ctx.store, user);
     return { status: 202, body: {} };
   });
+
+  /**
+   * Caterer registration (register-caterer design): an account, a draft
+   * profile, a verification email and a session so the caterer can set up
+   * their profile (L2-037.1). A known email gets the same 202 without a
+   * session, and its owner an email (L2-037.4).
+   */
+  r.post('/api/identity/registrations/caterer', (ctx): Reply => {
+    const body = (ctx.body ?? {}) as Partial<RegisterCatererRequest>;
+    if (!validChallenge(body.challengeToken, 'register-caterer')) return invalid({ challengeToken: ['Confirm you’re a person'] });
+    const businessName = text(body.businessName);
+    const contactName = text(body.contactName);
+    const email = text(body.email);
+    const phone = normalisePhone(text(body.phone));
+    const errors: Record<string, string[]> = {};
+    if (length(businessName) < 2 || length(businessName) > 80) errors['business'] = ['Enter a business name of 2 to 80 characters'];
+    if (length(contactName) < 2 || length(contactName) > 50) errors['contact'] = ['Enter your name, 2 to 50 characters'];
+    if (!EMAIL.test(email)) errors['email'] = ['Enter an email address like name@example.com'];
+    if (!phone) errors['phone'] = ['Enter a 10-digit Canadian phone number'];
+    const weak = passwordProblem(body.password);
+    if (weak) errors['password'] = [weak];
+    if (body.sellsCaribbeanFoodInGta !== true) errors['sells'] = ['Confirm that you sell Caribbean food in Toronto or the GTA'];
+    if (body.acceptsTermsAndPrivacyNotice !== true) errors['terms'] = ['Accept the caterer terms and privacy notice to continue'];
+    if (Object.keys(errors).length) return invalid(errors);
+
+    const existing = findUser(ctx.store, email);
+    if (existing) {
+      sendEmail(ctx.store, existing.email, 'registration-attempt');
+      return { status: 202, body: {} };
+    }
+    const now = ctx.store.now.toISOString();
+    const userId = `user-${newId()}`;
+    const catererId = `cat-${newId()}`;
+    let slug = slugify(businessName);
+    while (ctx.store.caterers.some((c) => c.slug === slug)) slug = `${slug}-${Math.floor(Math.random() * 1000)}`;
+    ctx.store.caterers.push({
+      id: catererId,
+      slug,
+      name: businessName,
+      status: 'Draft',
+      ownerUserId: userId,
+      cuisines: [],
+      areas: [],
+      minGuests: 0,
+      maxGuests: 0,
+      occasions: [],
+      description: '',
+      photos: [],
+      dishes: [],
+      createdAt: now,
+      previousSlugs: [],
+    });
+    const user: User = {
+      id: userId,
+      role: 'Caterer',
+      displayName: contactName,
+      email,
+      phone: phone!,
+      password: String(body.password),
+      passwordChangedAt: now,
+      emailVerified: false,
+      catererId,
+      createdAt: now,
+      acceptedPrivacyVersion: currentPrivacyVersion(ctx.store),
+      acceptedPrivacyAt: now,
+    };
+    ctx.store.users.push(user);
+    sendVerification(ctx.store, user);
+    return { status: 202, body: {}, headers: { 'set-cookie': sessionCookie(startSession(ctx.store, user)) } };
+  });
+}
+
+/** "+14165550199" from any 10-digit North American form (L2-037.2). */
+export function normalisePhone(value: string): string | null {
+  if (!/^\+?[\d\s().-]+$/.test(value)) return null;
+  let digits = value.replace(/\D/g, '');
+  if (value.startsWith('+')) {
+    if (!digits.startsWith('1')) return null;
+    digits = digits.slice(1);
+  } else if (digits.length === 11 && digits.startsWith('1')) {
+    digits = digits.slice(1);
+  }
+  return digits.length === 10 ? `+1${digits}` : null;
 }
 
 /** Named store changes for identity tests (`backend.scenario(name, args)`). */

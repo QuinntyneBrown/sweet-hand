@@ -17,6 +17,8 @@ export const ICONS = {
   success: '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
   warning: '<path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17v.5"/>',
   danger: '<circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/>',
+  /** The mark inside a needs-attention check (checklist CRD). */
+  exclamation: '<path d="M12 7v6M12 16.5v.5"/>',
   mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
   send: '<path d="M4 12 20 4l-6 16-3-7z"/>',
   calendar: '<rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',

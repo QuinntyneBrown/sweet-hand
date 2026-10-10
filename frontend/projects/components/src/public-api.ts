@@ -23,3 +23,4 @@ export * from './lib/dialog/dialog';
 export * from './lib/combobox/combobox';
 export * from './lib/toast/toast';
 export * from './lib/card/card';
+export * from './lib/checklist/checklist';

@@ -11,4 +11,9 @@ export const identityRoutes: Routes = [
     loadComponent: () => import('./register/register.page').then((m) => m.RegisterPage),
     title: $localize`:@@register.documentTitle:Create an account · Sweet Hand`,
   },
+  {
+    path: 'join',
+    loadComponent: () => import('./register-caterer/register-caterer.page').then((m) => m.RegisterCatererPage),
+    title: $localize`:@@registerCaterer.documentTitle:Cater with Sweet Hand`,
+  },
 ];
