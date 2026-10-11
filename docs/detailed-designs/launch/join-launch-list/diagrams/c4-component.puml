@@ -1,0 +1,34 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Join the launch list
+
+Container_Boundary(fe, "Launch site") {
+  Component(form, "LaunchSignUpForm", "Component", "Fields, error summary, busy and error states")
+  Component(rules, "launch-form.ts", "Plain TypeScript", "Client mirror of L2-095/L2-096 rules")
+  Component(svc, "LaunchListService", "@sweet-hand/api contract", "status(), signUp()")
+  Component(bot, "BotChallengeService", "@sweet-hand/api contract", "token('launch-sign-up')")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(pipe, "Request pipeline", "NestJS guards", "CSRF, body limit 4 KB, policy anonymous")
+  Component(ctrl, "LaunchListController", "NestJS controller", "Maps launch-list routes to use cases")
+  Component(join, "joinLaunchList", "Use case (sign-up.ts)", "Validates, throttles, writes, queues email")
+  Component(srules, "rules.ts", "Domain functions", "validateSignUp, emailKey")
+  Component(tokens, "tokens.ts", "Domain functions", "issueLaunchToken (256-bit, SHA-256 stored)")
+  Component(throttle, "throttle.ts", "Platform", "Sliding-window counts per hashed IP")
+  Component(outbox, "outbox.ts", "Platform", "queueEmail in the same transaction")
+}
+ComponentDb(db, "Sweet Hand database", "PostgreSQL", "Document collections")
+
+Rel(form, rules, "Validates with")
+Rel(form, bot, "Gets token from")
+Rel(form, svc, "Submits through")
+Rel(svc, pipe, "Calls", "JSON/HTTPS")
+Rel(pipe, ctrl, "Forwards to")
+Rel(ctrl, join, "Calls")
+Rel(join, srules, "Uses")
+Rel(join, throttle, "Checks 10 per hour per IP")
+Rel(join, tokens, "Issues confirmation token")
+Rel(join, outbox, "Queues launch-confirm email")
+Rel(join, db, "Reads and writes")
+@enduml

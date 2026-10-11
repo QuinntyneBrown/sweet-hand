@@ -1,0 +1,25 @@
+@startuml
+title UML sequence behaviour — Delete unconfirmed entries
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "main.ts worker interval" as worker
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "sweepLaunchList" as sweep
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+worker -> sweep : every hour
+sweep -> db : find({ status: 'Pending' })
+loop each Pending entry
+  alt last of confirmationsSent older than 48 h (L2-099 AC5)
+    sweep -> db : delete entry, its tokens and queued launch emails
+  end
+end
+sweep --> worker : counts by kind, logged without addresses (L2-103 AC7)
+@enduml

@@ -124,3 +124,16 @@ Cross-cutting quality and operations: responsive pages, accessibility, performan
 | [Monitor health](platform/monitor-health/README.md) | `L2-088`, `L2-089` |
 | [Render responsive pages](platform/render-responsive-pages/README.md) | `L2-064`, `L2-065` |
 | [Secure build pipeline](platform/secure-build-pipeline/README.md) | `L2-075`, `L2-083` |
+
+## launch
+
+The pre-launch site: a separate, prerendered `launch` application at `/` until launch day, the launch list with double opt-in and one-click removal, the single launch-day email, and the hand-over to the product.
+
+| Feature | L2 requirements |
+|---------|-----------------|
+| [Confirm the launch list email](launch/confirm-launch-list-email/README.md) | `L2-099` |
+| [Join the launch list](launch/join-launch-list/README.md) | `L2-095`, `L2-096`, `L2-097`, `L2-098`, `L2-103`, `L2-104` |
+| [Leave the launch list](launch/leave-launch-list/README.md) | `L2-100` |
+| [Retire the launch site](launch/retire-launch-site/README.md) | `L2-102` |
+| [Send the launch-day email](launch/send-launch-day-email/README.md) | `L2-101` |
+| [Serve the launch site](launch/serve-launch-site/README.md) | `L2-092`, `L2-093`, `L2-094`, `L2-105`, `L2-106`, `L2-107` |

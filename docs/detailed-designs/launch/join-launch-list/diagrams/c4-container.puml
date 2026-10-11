@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Join the launch list
+
+Person(visitor, "Visitor", "Browser")
+System_Boundary(sh, "Sweet Hand") {
+  Container(launch, "Launch site", "Angular 21 (projects/launch)", "Sign-up form and its states")
+  Container(api, "Sweet Hand API", "NestJS 11", "launch-list area; in-process email worker")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "launchList, launchListTokens, throttles, outbox")
+}
+System_Ext(email, "Email provider", "<TO SUPPLY>")
+
+Rel(visitor, launch, "Fills in and submits", "HTTPS")
+Rel(launch, api, "GET /api/public/launch-list, POST /api/launch-list/sign-ups", "JSON/HTTPS")
+Rel(api, db, "Writes entry, token and outbox email in one transaction")
+Rel(api, email, "Dispatches queued emails every 15 s")
+@enduml

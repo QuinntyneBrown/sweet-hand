@@ -1,0 +1,25 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Confirm the launch list email
+
+Container_Boundary(fe, "Launch site") {
+  Component(page, "LaunchPage", "Page component", "Shows confirmed or link-expired")
+  Component(url, "LaunchUrlState", "Plain TypeScript", "Reads ?confirmed=, clears it")
+  Component(svc, "LaunchListService", "@sweet-hand/api contract", "confirm(token)")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "LaunchListController", "NestJS controller", "POST api/launch-list/confirmations")
+  Component(confirm, "confirmLaunchListEmail", "Use case (confirm.ts)", "Checks token, confirms entry")
+  Component(tokens, "tokens.ts", "Domain functions", "liveLaunchToken, consume, issue remove token")
+  Component(sweep, "sweepLaunchList", "Job (sweep.ts)", "Deletes Pending entries after 48 h")
+}
+ComponentDb(db, "Sweet Hand database", "PostgreSQL", "Document collections")
+Rel(page, url, "read()")
+Rel(page, svc, "confirm(token)")
+Rel(svc, ctrl, "Calls", "JSON/HTTPS")
+Rel(ctrl, confirm, "Calls")
+Rel(confirm, tokens, "Uses")
+Rel(confirm, db, "Reads and writes")
+Rel(sweep, db, "Deletes expired Pending entries")
+@enduml

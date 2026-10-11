@@ -1,0 +1,27 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Serve the launch site
+
+Person(visitor, "Visitor", "Browser")
+Container_Boundary(launch, "Launch site (frontend/projects/launch)") {
+  Component(config, "appConfig / serverConfig", "Angular providers", "Router, HttpClient with XSRF, LaunchListService, BotChallengeService")
+  Component(serverRoutes, "serverRoutes", "@angular/ssr ServerRoute[]", "RenderMode.Prerender for ''")
+  Component(app, "LaunchApp", "Root component", "Skip link, header, <main>, footer")
+  Component(page, "LaunchPage", "Page component", "Hero, sign-up panel, How it works, caterer call-out")
+  Component(scroller, "NotifyScroller", "Plain TypeScript", "Scrolls to #notify and focuses its heading (L2-094)")
+  Component(urlState, "LaunchUrlState", "Plain TypeScript", "Reads and clears ?confirmed= and ?remove=")
+}
+Container_Boundary(lib, "Shared libraries") {
+  Component(components, "@sweet-hand/components", "sh-* library", "sh-site-header, sh-radio-group, sh-alert, sh-empty-state, sh-footer, sh-photo")
+  Component(tokens, "Design system CSS", "tokens.css, components.css", "Only global styles (ADR 0002)")
+}
+Rel(visitor, app, "Reads, tabs and scrolls")
+Rel(serverRoutes, app, "Prerenders at build time")
+Rel(app, page, "Hosts")
+Rel(page, scroller, "Header and call-out use")
+Rel(page, urlState, "Reads tokens after hydration")
+Rel(page, components, "Renders with")
+Rel(app, tokens, "Styled by")
+Rel(config, page, "Provides services to")
+@enduml

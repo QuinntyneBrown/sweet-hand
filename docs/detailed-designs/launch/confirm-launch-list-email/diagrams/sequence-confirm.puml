@@ -1,0 +1,46 @@
+@startuml
+title UML sequence behaviour — Confirm the launch list email
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Person" as actor
+box "Frontend — Launch site" #E0F2FE
+  participant "LaunchPage" as page
+  participant "LaunchUrlState" as url
+  participant "LaunchListService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "LaunchListController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "confirmLaunchListEmail" as uc
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> page : Open /?confirmed=<token> (prerendered default page)
+page -> url : read(location) after hydration
+url --> page : { kind: 'confirm', token }
+page -> svc : confirm(token)
+svc -> ctrl : POST /api/launch-list/confirmations { token } (XSRF cookie ensured first)
+ctrl -> uc : confirmLaunchListEmail(req)
+uc -> db : recordEvent('launch-token', ip): over 30/h -> 429 (L2-104 AC5)
+uc -> db : liveLaunchToken('confirm', token): unused and under 48 h?
+alt live token (L2-099 AC2)
+  uc -> db : consume token; status Confirmed; consent.confirmedAt = now
+  uc -> db : issue remove token
+  uc --> ctrl : 200 { email, removalToken }
+  ctrl --> svc : 200
+  svc --> page : LaunchConfirmation
+  page -> page : panel = confirmed; keep removalToken in memory
+  page --> actor : "You’re on the list", "See you on launch day.", "Remove my email"
+else expired, used, replaced or unknown (L2-099 AC4)
+  uc --> ctrl : 410 { title }
+  ctrl --> svc : 410
+  svc --> page : expired
+  page --> actor : "That link has expired" above an empty form
+end
+page -> url : clear() with history.replaceState (L2-099 AC3)
+@enduml

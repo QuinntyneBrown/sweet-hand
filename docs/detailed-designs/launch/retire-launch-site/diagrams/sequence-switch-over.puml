@@ -1,0 +1,26 @@
+@startuml
+title UML sequence behaviour — Switch / from the launch site to the product
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Operator" as op
+box "Backend — Launch-email command" #D1FADF
+  participant "sendLaunchEmail" as send
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "joinLaunchList" as join
+end box
+box "Hosting" #F2F4F7
+  participant "CDN and static host" as cdn
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+op -> cdn : Point / at the sweet-hand build; stop serving the launch build (L2-102 AC2)
+cdn --> op : Product live at /
+op -> send : npm run launch-email (send-launch-day-email)
+send -> db : launchState.launchEmailRunAt = now
+note right of join : From here every sign-up returns 410 and stores nothing (L2-102 AC1)
+@enduml

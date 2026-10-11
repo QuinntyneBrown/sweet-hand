@@ -1,0 +1,52 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Confirm the launch list email
+
+class LaunchConfirmation {
+  +email: string
+  +removalToken: string
+}
+class "confirm.ts" as c <<use case>> {
+  +confirmLaunchListEmail(req: Request): Promise<Reply>
+}
+class "tokens.ts" as t <<functions>> {
+  +liveLaunchToken(tx, now, kind, token): LaunchListToken | undefined
+  +consumeLaunchToken(tx, now, token): void
+  +issueLaunchToken(tx, now, entry, kind): string
+}
+class "sweep.ts" as s <<job>> {
+  +sweepLaunchList(env: Environment): Promise<SweepCounts>
+}
+class LaunchListEntry <<document>> {
+  +status: 'Pending' | 'Confirmed'
+  +consent: LaunchConsent
+  +confirmationsSent: string[]
+}
+class LaunchListToken <<document>> {
+  +kind: 'confirm' | 'remove'
+  +tokenHash: string
+  +issuedAt: string
+  +consumedAt?: string
+}
+class LaunchPage <<component>> {
+  +panel: Signal<NotifyPanel>
+  +notice: Signal<LaunchNotice | null>
+  +removalToken: Signal<string | null>
+}
+c ..> t : uses
+c --> LaunchListEntry : sets Confirmed
+c ..> LaunchConfirmation : returns
+t --> LaunchListToken
+s --> LaunchListEntry : deletes Pending
+LaunchPage ..> LaunchConfirmation : receives
+LaunchListEntry "1" o-- "*" LaunchListToken
+@enduml

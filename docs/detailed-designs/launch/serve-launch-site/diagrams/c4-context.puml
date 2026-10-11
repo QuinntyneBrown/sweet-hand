@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Serve the launch site
+
+Person(visitor, "Visitor", "Someone planning an event, or a caterer, before Sweet Hand opens")
+System(sweethand, "Sweet Hand", "Pre-launch site and launch list API")
+System_Ext(cdn, "CDN and static host", "<TO SUPPLY>: serves the prerendered launch site")
+
+Rel(visitor, cdn, "Opens / (often from the flyer QR code)", "HTTPS")
+Rel(cdn, sweethand, "Serves the launch build of", "static files")
+@enduml

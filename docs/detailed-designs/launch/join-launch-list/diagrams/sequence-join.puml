@@ -1,0 +1,67 @@
+@startuml
+title UML sequence behaviour — Join the launch list
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Launch site" #E0F2FE
+  participant "LaunchSignUpForm" as form
+  participant "launch-form.ts" as rules
+  participant "BotChallengeService" as bot
+  participant "LaunchListService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "Request pipeline" as pipe
+  participant "LaunchListController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "joinLaunchList" as join
+  participant "rules.ts" as srules
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> form : Submit "Get the launch email"
+form -> rules : validateLaunchForm(values)
+alt errors (L2-096 AC1)
+  rules --> form : errors
+  form --> actor : "Fix N things" summary, inline errors, focus on summary
+else valid
+  form -> form : Lock fields, aria-busy, announce "Adding you to the list" (L2-097 AC1)
+  form -> bot : token('launch-sign-up')
+  bot --> form : challengeToken
+  opt no XSRF-TOKEN cookie yet
+    form -> svc : status()
+    svc -> ctrl : GET /api/public/launch-list
+    ctrl --> svc : { open } and XSRF-TOKEN cookie
+  end
+  form -> svc : signUp(request)
+  svc -> pipe : POST /api/launch-list/sign-ups
+  pipe -> pipe : CSRF, 4 KB body limit, policy anonymous (L2-104)
+  pipe -> ctrl : forward
+  ctrl -> join : joinLaunchList(req)
+  join -> db : Launch state: sign-ups open?
+  join -> db : recordEvent('launch-sign-up', ip): over 10/h -> 429 (L2-104 AC5)
+  join -> join : Verify challenge token (L2-104 AC4)
+  join -> srules : validateSignUp(body) (L2-096 AC5)
+  join -> db : findOne({ emailKey })
+  alt not on the list
+    join -> db : put Pending entry with consent record (L2-103 AC1, AC2)
+  else Pending
+    join -> db : update role, business name, consent; consume earlier confirm tokens (L2-098 AC4)
+  else Confirmed
+    join -> join : nothing changes
+  end
+  alt Confirmed
+    join -> db : queue launch-already-listed email if none in 24 h
+  else fewer than 3 confirmations in 24 h (L2-098 AC5)
+    join -> db : issue confirm token; queue launch-confirm email
+  end
+  join --> ctrl : 202 {} (identical for every case, L2-098 AC2)
+  ctrl --> svc : 202
+  svc --> form : done
+  form --> actor : "Check your email", focus on result (L2-098 AC1)
+end
+@enduml

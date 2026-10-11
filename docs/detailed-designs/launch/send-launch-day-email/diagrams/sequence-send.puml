@@ -1,0 +1,43 @@
+@startuml
+title UML sequence behaviour — Send the launch-day email
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Operator" as op
+box "Backend — Launch-email command" #D1FADF
+  participant "sendLaunchEmail" as send
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "launchDayEmail" as compose
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+  participant "dispatchDueEmails" as dispatch
+  participant "EmailGateway" as gw
+end box
+op -> send : npm run launch-email
+send -> db : launchState: set launchEmailRunAt and launchDay if absent (sign-ups close, L2-102 AC1)
+loop batches of 500, one transaction each
+  send -> db : Confirmed entries without launchEmailQueuedAt (L2-101 AC1)
+  loop each entry
+    send -> db : issue remove token
+    send -> compose : launchDayEmail(entry, removal URL)
+    compose --> send : customer: listing link; caterer: registration link (L2-101 AC3)
+    send -> db : queueEmail(...); set launchEmailQueuedAt (L2-101 AC2)
+  end
+end
+send --> op : { queued, alreadyQueued }
+loop every 15 s
+  dispatch -> db : due queued emails, up to the provider cap per tick (L2-101 AC5)
+  dispatch -> gw : send(email) with List-Unsubscribe headers
+  alt sent
+    dispatch -> db : status sent; drop link, removalLink, headers
+  else temporary failure
+    dispatch -> db : retry with back-off
+  else hard bounce (PermanentFailure)
+    dispatch -> db : status failed, no retry
+  end
+end
+@enduml

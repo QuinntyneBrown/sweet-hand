@@ -1,0 +1,21 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Send the launch-day email
+
+Container_Boundary(cmd, "Launch-email command") {
+  Component(send, "sendLaunchEmail", "Script entry (send-launch-email.ts)", "Idempotent, batches of 500")
+  Component(compose, "launchDayEmail", "Domain function (emails.ts)", "Role-specific content and links")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(dispatch, "dispatchDueEmails", "Platform (email-dispatch.ts)", "Rate cap per tick, retries, permanent failures")
+  Component(sweep, "sweepLaunchList", "Job (sweep.ts)", "Deletes every entry 30 days after launch day")
+  Component(gateway, "EmailGateway", "Port", "Provider adapter <TO SUPPLY>")
+}
+ComponentDb(db, "Sweet Hand database", "PostgreSQL", "Document collections")
+Rel(send, compose, "Builds each email with")
+Rel(send, db, "Sets launchState, queues outbox emails")
+Rel(dispatch, db, "Reads queued emails")
+Rel(dispatch, gateway, "Sends through")
+Rel(sweep, db, "Deletes entries, tokens, launch-* outbox emails")
+@enduml

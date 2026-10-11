@@ -1,0 +1,39 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Retire the launch site
+
+class "launch-link-redirect.ts" as g <<functions>> {
+  +launchLinkRedirect: CanMatchFn
+}
+class LaunchListRemovalPage <<component>> {
+  +token: InputSignal<string>
+  +removal: Signal<LaunchRemoval | null>
+}
+abstract class LaunchListService {
+  +remove(token: string): Observable<LaunchRemoval>
+}
+class LaunchRemoval {
+  +email?: string
+}
+class LaunchState <<document>> {
+  +launchEmailRunAt?: string
+  +launchDay?: string
+}
+class "sign-up.ts / confirm.ts" as uc <<use cases>> {
+  +joinLaunchList(req): Promise<Reply>
+  +confirmLaunchListEmail(req): Promise<Reply>
+}
+g ..> LaunchListRemovalPage : redirects to
+LaunchListRemovalPage ..> LaunchListService : injects
+LaunchListService ..> LaunchRemoval
+uc --> LaunchState : 410 when launchEmailRunAt is set
+@enduml

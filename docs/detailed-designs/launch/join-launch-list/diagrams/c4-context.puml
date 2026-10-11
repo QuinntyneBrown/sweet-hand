@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Join the launch list
+
+Person(visitor, "Visitor", "Planning an event, or a caterer")
+System(sweethand, "Sweet Hand", "Launch site and launch list API")
+System_Ext(bot, "Bot-protection provider", "<TO SUPPLY>")
+System_Ext(email, "Email provider", "<TO SUPPLY>, processes data in Canada or as listed in the privacy notice")
+
+Rel(visitor, sweethand, "Submits role, email, optional business name and consent")
+Rel(sweethand, bot, "Verifies challenge token with")
+Rel(sweethand, email, "Sends confirmation email via")
+Rel(email, visitor, "Delivers confirmation email to")
+@enduml

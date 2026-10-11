@@ -1,0 +1,23 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Retire the launch site
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(guard, "launchLinkRedirect", "CanMatchFn on the root route", "Strips ?confirmed=, forwards ?remove=")
+  Component(page, "LaunchListRemovalPage", "Page (features/launch-list)", "Shows You’re off the list")
+  Component(svc, "LaunchListService", "@sweet-hand/api contract", "remove(token)")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "LaunchListController", "NestJS controller", "launch-list routes")
+  Component(join, "joinLaunchList", "Use case", "410 once launchState is set")
+  Component(confirm, "confirmLaunchListEmail", "Use case", "410 once launchState is set")
+  Component(leave, "leaveLaunchList", "Use case", "Works until the list is deleted")
+}
+Rel(guard, page, "Redirects ?remove= to")
+Rel(page, svc, "remove(token)")
+Rel(svc, ctrl, "Calls", "JSON/HTTPS")
+Rel(ctrl, join, "Calls")
+Rel(ctrl, confirm, "Calls")
+Rel(ctrl, leave, "Calls")
+@enduml

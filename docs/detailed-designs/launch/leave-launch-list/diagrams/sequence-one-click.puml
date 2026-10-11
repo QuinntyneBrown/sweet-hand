@@ -1,0 +1,34 @@
+@startuml
+title UML sequence behaviour — One-click unsubscribe from a mail client
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+participant "Mail client" as mail
+actor "Person" as actor
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "Request pipeline" as pipe
+  participant "LaunchListController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "unsubscribeOneClick / openRemovalLink" as uc
+  participant "eraseEntry" as erase
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+alt RFC 8058 one-click (L2-100 AC2, AC3)
+  mail -> pipe : POST /api/launch-list/unsubscribe?token=… body List-Unsubscribe=One-Click
+  pipe -> pipe : CsrfGuard skips @WithoutCsrf route; token is the authority, delete only (L2-104 AC3)
+  pipe -> ctrl : forward
+  ctrl -> uc : unsubscribeOneClick(req)
+  uc -> db : find remove token
+  uc -> erase : eraseEntry(entry) when found
+  uc --> mail : 200, empty body (same when not found)
+else person opens the List-Unsubscribe URL in a browser
+  actor -> ctrl : GET /api/launch-list/unsubscribe?token=…
+  ctrl -> uc : openRemovalLink(req)
+  uc --> actor : 303 to /?remove=<token>; nothing deleted on GET
+end
+@enduml

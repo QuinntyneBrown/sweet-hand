@@ -1,0 +1,17 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Send the launch-day email
+
+Person(operator, "Operator", "Shell access to a deployed backend")
+System_Boundary(sh, "Sweet Hand") {
+  Container(cmd, "Launch-email command", "Node.js 22 script (backend/src/launch-list/send-launch-email.ts)", "Queues launch-day emails")
+  Container(api, "Sweet Hand API", "NestJS 11", "In-process email worker and hourly launch list sweep")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "launchList, launchListTokens, launchState, outbox")
+}
+System_Ext(email, "Email provider", "<TO SUPPLY>")
+Rel(operator, cmd, "Runs")
+Rel(cmd, db, "Marks launch, queues emails in batches")
+Rel(api, db, "Reads due emails; deletes the list 30 days after launch")
+Rel(api, email, "Sends, rate-limited", "provider API")
+@enduml

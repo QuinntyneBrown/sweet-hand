@@ -1,0 +1,64 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Send the launch-day email
+
+class LaunchState <<document>> {
+  +id: 'launch'
+  +launchEmailRunAt?: string
+  +launchDay?: string
+}
+class LaunchListEntry <<document>> {
+  +status: 'Pending' | 'Confirmed'
+  +role: LaunchRole
+  +launchEmailQueuedAt?: string
+}
+class "send-launch-email.ts" as s <<script>> {
+  +sendLaunchEmail(env: Environment): Promise<LaunchEmailRun>
+}
+class LaunchEmailRun {
+  +queued: number
+  +alreadyQueued: number
+}
+class "emails.ts" as e <<functions>> {
+  +launchDayEmail(entry, removalUrl, config): QueuedEmail
+  +senderFooter(config): SenderDetails
+}
+class SenderDetails {
+  +senderName: 'Sweet Hand'
+  +mailingAddress: string
+  +contactEmail: string
+}
+class OutboxEmail <<document>> {
+  +to: string
+  +kind: 'launch-day-customer' | 'launch-day-caterer'
+  +link?: string
+  +removalLink?: string
+  +headers?: Record<string, string>
+  +status: 'queued' | 'sent' | 'failed'
+}
+class "sweep.ts" as w <<job>> {
+  +sweepLaunchList(env: Environment): Promise<SweepCounts>
+}
+class SweepCounts {
+  +unconfirmedDeleted: number
+  +listDeleted: number
+}
+s --> LaunchState : sets once
+s --> LaunchListEntry : selects Confirmed, marks queued
+s ..> e : uses
+s ..> LaunchEmailRun : returns
+e ..> SenderDetails
+s --> OutboxEmail : queues
+w --> LaunchState : reads launchDay
+w --> LaunchListEntry : deletes all after 30 days
+w ..> SweepCounts : returns
+@enduml

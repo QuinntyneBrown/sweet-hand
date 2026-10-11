@@ -1,0 +1,13 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Confirm the launch list email
+
+Person(person, "Person who signed up", "Owns the email address")
+System_Ext(email, "Email provider", "<TO SUPPLY>")
+System(sweethand, "Sweet Hand", "Launch site and launch list API")
+
+Rel(sweethand, email, "Sends launch-confirm email via")
+Rel(email, person, "Delivers confirmation link to")
+Rel(person, sweethand, "Opens /?confirmed=<token>", "HTTPS")
+@enduml

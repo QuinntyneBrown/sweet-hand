@@ -1,0 +1,44 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Leave the launch list
+
+class LaunchRemoval {
+  +email?: string
+}
+class "leave.ts" as l <<use case>> {
+  +leaveLaunchList(req: Request): Promise<Reply>
+  +unsubscribeOneClick(req: Request): Promise<Reply>
+  +openRemovalLink(req: Request): Promise<Reply>
+}
+class "erase.ts" as e <<functions>> {
+  +eraseEntry(tx: Transaction, entry: LaunchListEntry): Promise<void>
+}
+class LaunchListEntry <<document>>
+class LaunchListToken <<document>> {
+  +kind: 'remove'
+  +tokenHash: string
+}
+class OutboxEmail <<document>> {
+  +to: string
+  +kind: string
+  +status: 'queued' | 'sent' | 'failed'
+}
+class "decorators.ts" as d <<functions>> {
+  +WithoutCsrf(): MethodDecorator
+}
+l ..> e : uses
+l ..> LaunchRemoval : returns
+l --> LaunchListToken : finds by hash
+e --> LaunchListEntry : deletes
+e --> LaunchListToken : deletes all of entry
+e --> OutboxEmail : deletes queued launch-* to the address
+@enduml

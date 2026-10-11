@@ -1,0 +1,14 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Send the launch-day email
+
+Person(operator, "Operator", "Runs the launch-day command")
+Person(person, "Person on the list", "Confirmed address")
+System(sweethand, "Sweet Hand", "Launch list and email outbox")
+System_Ext(email, "Email provider", "<TO SUPPLY>")
+
+Rel(operator, sweethand, "Runs npm run launch-email against")
+Rel(sweethand, email, "Sends one launch-day email per confirmed address via")
+Rel(email, person, "Delivers to")
+@enduml

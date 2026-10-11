@@ -1,0 +1,17 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Leave the launch list
+
+Person(person, "Person on the list", "Browser")
+System_Ext(mail, "Mail client", "RFC 8058")
+System_Boundary(sh, "Sweet Hand") {
+  Container(launch, "Launch site", "Angular 21 (projects/launch)", "Shows You’re off the list")
+  Container(api, "Sweet Hand API", "NestJS 11", "launch-list area")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "launchList, launchListTokens, outbox")
+}
+Rel(person, launch, "Opens /?remove=<token> or uses Remove my email", "HTTPS")
+Rel(launch, api, "POST /api/launch-list/removals", "JSON/HTTPS")
+Rel(mail, api, "POST /api/launch-list/unsubscribe?token=", "HTTPS")
+Rel(api, db, "Deletes entry, tokens and queued emails")
+@enduml

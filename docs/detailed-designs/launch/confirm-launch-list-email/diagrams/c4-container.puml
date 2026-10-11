@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Confirm the launch list email
+
+Person(person, "Person who signed up", "Browser")
+System_Boundary(sh, "Sweet Hand") {
+  Container(launch, "Launch site", "Angular 21 (projects/launch)", "Reads the token after the page loads")
+  Container(api, "Sweet Hand API", "NestJS 11", "launch-list area; hourly launch list sweep")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "launchList, launchListTokens")
+}
+Rel(person, launch, "Opens the link", "HTTPS")
+Rel(launch, api, "POST /api/launch-list/confirmations", "JSON/HTTPS")
+Rel(api, db, "Confirms entry, consumes token")
+@enduml
