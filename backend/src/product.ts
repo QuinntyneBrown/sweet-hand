@@ -5,6 +5,7 @@ import { authenticate } from './identity/sessions.ts';
 import { recordSecurityEvent } from './platform/security-log.ts';
 import { HealthController } from './health/health.controller.ts';
 import { DiscoveryController } from './discovery/discovery.controller.ts';
+import { ModerationController } from './moderation/moderation.controller.ts';
 import { CatererProfileController } from './caterer-profile/caterer-profile.controller.ts';
 import { OperatorSettingsController } from './operator-settings/operator-settings.controller.ts';
 import { AccountController } from './account/account.controller.ts';
@@ -26,4 +27,4 @@ export function productOptions(): Pick<AppOptions, 'areas' | 'authenticate' | 'o
 }
 
 /** The NestJS controllers of every area moved to NestJS so far (ADR 0009). */
-export const productControllers: Type<unknown>[] = [HealthController, DiscoveryController, IdentityController, EnquiriesController, ReviewsController, ReportsController, AccountController, OperatorSettingsController, CatererProfileController];
+export const productControllers: Type<unknown>[] = [HealthController, DiscoveryController, IdentityController, EnquiriesController, ReviewsController, ReportsController, AccountController, OperatorSettingsController, CatererProfileController, ModerationController];
