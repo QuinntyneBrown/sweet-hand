@@ -32,7 +32,9 @@ keep it accurate:
   (`frontend.md`); close an item by deleting its entry in the PR that resolves it
 - `docs/operations/` — production subscription, costs, deployment, DNS, rollback and recovery runbooks
 - `infra/` — Azure Bicep and Azure CLI deployment entry points
-- `docs/videos/` — narrated walkthroughs (`creating-videos` skill)
+- `docs/videos/` — narrated walkthroughs (`creating-videos` skill); see its `README.md`
+- `tools/` — video tooling: `video-audio/` (narration), `video-build/` (MP4),
+  `video-record/` (screen recordings and the local launch demo stack)
 - `docs/marketing/` — print-ready pre-launch flyer and die-cut stickers, with
   `render.mjs` to regenerate them (see its `README.md`)
 - `frontend/` — Angular workspace (ADR 0001); see `frontend/README.md`

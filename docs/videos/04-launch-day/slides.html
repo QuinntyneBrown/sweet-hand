@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video 04 Slides</title>
+<link rel="stylesheet" href="../assets/slides.css">
+</head>
+<body data-video-number="04" data-video-title="Launch day" data-parts="Introduction|The command|Launch-day emails|After the command|Still to come|Deleting the list|Recap">
+
+<section id="title" data-part="0">
+  <img class="mark" src="../assets/mark.svg" alt="">
+  <div class="kicker">Sweet Hand · Video 04</div>
+  <h1>Launch day</h1>
+  <p class="lead">One email to every confirmed address, then the list closes and is deleted</p>
+</section>
+
+<section id="command" data-part="1" data-cue="There is no button for this in any web page">
+  <h2>One explicit command</h2>
+  <pre class="code" data-lang="sh">$ cd backend
+$ npm run launch-email</pre>
+  <ul>
+    <li>No web UI: nothing on a page can send it (L2-101.1)</li>
+    <li>Runs against <code>DATABASE_URL</code>, like <code>npm run migrate</code> and <code>npm run seed</code></li>
+  </ul>
+  <p class="file">backend/src/launch-list/send-launch-email.ts</p>
+</section>
+
+<section id="two-steps" data-part="1" data-cue="The command does two things">
+  <h2>What it does</h2>
+  <ol class="steps">
+    <li><span>Records the launch: sign-ups and confirmations close (HTTP 410)</span></li>
+    <li><span>Queues one launch-day email per <strong>confirmed</strong> address, marking each record in the same transaction</span></li>
+  </ol>
+  <p class="small muted">Pending addresses get nothing; removed addresses no longer exist.</p>
+</section>
+
+<section id="twice" data-part="1" data-cue="For this recording the list held three people">
+  <h2>Safe to run twice</h2>
+  <pre class="code" data-lang="sh">$ npm run launch-email
+{"queued":2,"alreadyQueued":0}
+$ npm run launch-email
+{"queued":0,"alreadyQueued":2}</pre>
+  <p class="small muted">Real output for this recording: Andre and Marcia confirmed, Keisha pending (L2-101.2)</p>
+</section>
+
+<section id="emails" data-part="2" data-cue="Two kinds of launch-day email">
+  <h2>Two kinds of launch-day email</h2>
+  <div class="cols">
+    <div class="card"><h3>Planning an event</h3><p><code>launch-day-customer</code></p><p>Links to the caterer listing, <code>/caterers</code></p></div>
+    <div class="card"><h3>A caterer</h3><p><code>launch-day-caterer</code></p><p>Links to registration, <code>/join</code>, and mentions the food handler certificate</p></div>
+  </div>
+  <p class="small muted">Email wording still needs its mock (L2-101.3)</p>
+</section>
+
+<section id="casl" data-part="2" data-cue="Like every launch list email, both name Sweet Hand as the sender">
+  <h2>Every launch list email carries</h2>
+  <ul>
+    <li>Sweet Hand as the sender, the operator's mailing address and a contact address</li>
+    <li>When the person asked for it</li>
+    <li>A removal link, <code>List-Unsubscribe</code> and <code>List-Unsubscribe-Post</code></li>
+    <li>Sent through the outbox at the provider's rate limit; retries, but no retry on hard bounces</li>
+  </ul>
+  <p class="small muted">CASL identification and unsubscribe rules (L2-101.4, L2-101.5)</p>
+</section>
+
+<section id="closed-clip" data-part="3" data-cue="Here is the launch site right after the command ran" data-clip="clips/sign-ups-closed.mp4" data-clip-delay="0.5">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">L2-102.1</span>
+    <h3>Sign-ups closed</h3>
+    <p class="muted">HTTP 410 Gone, nothing stored. The page shows its failure alert until the closed message has a mock.</p>
+  </aside>
+</section>
+
+<section id="confirm-closed-clip" data-part="3" data-cue="Next, Keisha finally opens the confirmation link" data-clip="clips/confirmation-closed.mp4" data-clip-delay="0.3">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">L2-102.4</span>
+    <h3>Confirmations closed</h3>
+    <p class="muted">410 → “That link has expired”. Nothing is confirmed.</p>
+  </aside>
+</section>
+
+<section id="emails-clip" data-part="3" data-cue="Now the two queued launch-day emails" data-clip="clips/launch-day-emails.mp4" data-clip-delay="0.3">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">L2-101.3 · L2-102.3</span>
+    <h3>Two emails, and removal still works</h3>
+    <p class="muted">Caterer → <code>/join</code>, customer → <code>/caterers</code>. The removal link deletes at once.</p>
+  </aside>
+</section>
+
+<section id="still-to-come" data-part="4" data-cue="The command closes the list, but two parts of launch day">
+  <h2>Still to come</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>The swap at <code>/</code></h3>
+      <p>A hosting change: the product's build replaces the launch build. The host and CDN are still to be chosen.</p>
+    </div>
+    <div class="card">
+      <h3>Old links in the product</h3>
+      <p><code>/?remove=…</code> → a removal page that still deletes; <code>/?confirmed=…</code> → <code>/</code>. Designed, not built: the page needs its mock first.</p>
+    </div>
+  </div>
+  <p class="file">docs/detailed-designs/launch/retire-launch-site/</p>
+</section>
+
+<section id="sweep" data-part="5" data-cue="Every hour, a background job sweeps the launch list">
+  <h2>The hourly sweep</h2>
+  <pre class="code tight" data-lang="ts" data-mark="5-9">export async function sweepLaunchList(env: Environment): Promise&lt;number&gt; {
+  const now = env.clock.now();
+  const deleted = await env.db.transaction(async (tx) =&gt; {
+    const { launchDay } = await launchState(tx);
+    if (launchDay &amp;&amp; daysBetween(launchDay, torontoDate(now)) &gt;= 30) {
+      const entries = await launchList(tx).all();
+      for (const entry of entries) await launchList(tx).delete(entry.id);
+      …
+      return entries.length;
+    }
+    // Otherwise: delete Pending entries whose last confirmation email is over 48 hours old
+</pre>
+  <p class="file">backend/src/launch-list/sweep.ts</p>
+</section>
+
+<section id="never-else" data-part="5" data-cue="Throughout, the list is never used for anything else">
+  <h2>Used for one thing only</h2>
+  <ul>
+    <li>Never linked to a Sweet Hand account</li>
+    <li>Never shared with caterers, or anyone but the email provider</li>
+    <li>Logs and metrics: counts and hashed identifiers only</li>
+  </ul>
+  <p class="small muted">L2-101.7, L2-103.7</p>
+</section>
+
+<section id="recap" data-part="6" data-cue="Things to remember">
+  <h2>Things to remember</h2>
+  <ul class="recap">
+    <li>Launch day is one command, <code>npm run launch-email</code>, safe to run twice</li>
+    <li>Sign-ups and confirmations close at once; removal keeps working</li>
+    <li>Thirty days later the hourly sweep deletes the whole list</li>
+  </ul>
+  <p class="lead">That completes the launch app</p>
+</section>
+
+<script src="../assets/slides.js"></script>
+</body>
+</html>
