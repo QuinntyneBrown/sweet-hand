@@ -1,6 +1,6 @@
 import { caterers } from '../../caterers/model.ts';
 import { profileEdits } from '../../moderation/model.ts';
-import { hiddenReview } from '../../moderation/report-handling.ts';
+import { hiddenReview, shownReview } from '../../moderation/report-handling.ts';
 import { enquiries } from '../../enquiries/model.ts';
 import { reports } from '../../reports/model.ts';
 import { reviews } from '../../reviews/model.ts';
@@ -43,5 +43,9 @@ export const moderationScenarios: Scenarios = {
   /** Devon's review no longer links to an enquiry (L2-034.4). */
   'unlink-review-enquiry': async ({ tx }) => {
     for (const e of await enquiries(tx).find({ customerId: 'user-devon', catererId: 'cat-009' })) await enquiries(tx).delete(e.id);
+  },
+  /** docs/mocks/pages/admin-reviews/empty.html: nothing held, nothing hidden. */
+  'no-reviews-to-moderate': async ({ tx }) => {
+    for (const r of await reviews(tx).all()) if (r.status === 'Held' || r.status === 'Hidden') await reviews(tx).put(shownReview(r));
   },
 };
