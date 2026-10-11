@@ -35,3 +35,10 @@ export const saveCaterer = (req: Request, c: Caterer) => caterers(req.tx).put(c)
 
 /** Trimmed text of a body field; anything but a string is empty. */
 export const text = (s: unknown): string => (typeof s === 'string' ? s.trim() : '');
+
+/** `items` in the order of `ids`, when `ids` names every item exactly once; otherwise undefined. */
+export function reorder<T extends { id: string }>(items: T[], ids: unknown): T[] | undefined {
+  if (!Array.isArray(ids) || ids.length !== items.length || new Set(ids).size !== ids.length) return undefined;
+  const out = ids.map((id) => items.find((x) => x.id === id));
+  return out.every((x): x is T => !!x) ? out : undefined;
+}
