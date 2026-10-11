@@ -50,7 +50,7 @@ export async function postReply(req: Request): Promise<Reply> {
   if (party === 'caterer' && !parties.customer) return conflict('This person has left Sweet Hand');
   const body = text(req.body?.text);
   if (!body.trim()) return invalid({ reply: ['Write a reply before sending'] });
-  if (length(body) > REPLY_MAX) return invalid({ reply: ['Keep your reply under 2,000 characters'] });
+  if (length(body.trim()) > REPLY_MAX) return invalid({ reply: ['Keep your reply under 2,000 characters'] });
 
   const ev = appendEvent(e, req.now, randomUUID(), { kind: 'reply', by: party, text: body });
   // The caterer's first reply moves an Open enquiry to Replied (L2-033.1).

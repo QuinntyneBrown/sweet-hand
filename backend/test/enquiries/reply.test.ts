@@ -52,6 +52,15 @@ describe('replying in a thread (L2-032.2, L2-033, L2-028)', () => {
     assert.equal((await marcia.get(`/api/enquiries/${id}`)).body.entries.length, 2);
   });
 
+  it('Given a 2,000-character reply with surrounding whitespace, when it is sent, then it is accepted and stored exactly as given (reply-in-thread MessageText)', async () => {
+    const api = await startApi();
+    const marcia = await signedInClient(api, MARCIA);
+    const id = await idOf(marcia, 'Pelau House');
+    const res = await marcia.post(`/api/enquiries/${id}/messages`, { text: 'a'.repeat(2000) + '\n' });
+    assert.equal(res.status, 201);
+    assert.equal(res.body.entry.text, 'a'.repeat(2000) + '\n');
+  });
+
   it('Given a Closed or Declined enquiry, when anyone replies, then it is refused with 409 (L2-033.5)', async () => {
     const api = await startApi();
     const marcia = await signedInClient(api, MARCIA);

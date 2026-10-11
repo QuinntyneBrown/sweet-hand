@@ -144,4 +144,12 @@ describe('handling reports (L2-055, L2-034.3–4)', () => {
     assert.equal((await leah.post('/api/operator/reports/R-2047/enquiry', { reason: 'Checking.' })).status, 403, 'a caterer report links to no enquiry');
     assert.deepEqual(await auditOf(api), []);
   });
+
+  it('Given a resolved report linked to an enquiry, when an operator tries to open the enquiry, then the answer is 403 and nothing is recorded (L2-034.3)', async () => {
+    const { api, leah } = await arranged();
+    assert.equal((await leah.post('/api/operator/reports/R-2041/resolve', { decision: 'dismiss', note: 'Reviewed; it stays.' })).status, 200);
+    const before = (await auditOf(api)).length;
+    assert.equal((await leah.post('/api/operator/reports/R-2041/enquiry', { reason: 'Checking the event.' })).status, 403);
+    assert.equal((await auditOf(api)).length, before);
+  });
 });

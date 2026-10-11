@@ -182,6 +182,8 @@ export async function openLinkedEnquiry(req: Request): Promise<Reply> {
   if (!group) return notFound();
   const reason = trimmed(req.body?.reason);
   if (!reason) return invalid({ reason: ['Add a reason for opening this enquiry'] });
+  // Only while the report is still being handled (L2-034.3).
+  if (group[0].status !== 'Open') return forbidden();
   const enquiry = await linkedEnquiry(req.tx, group);
   if (!enquiry) return forbidden();
   await recordAudit(req.tx, req.now, { operatorId: req.actor!.userId, action: 'Open enquiry', targetType: 'Enquiry', targetId: enquiry.id, reason, before: null, after: { reportId: group[0].id } });
