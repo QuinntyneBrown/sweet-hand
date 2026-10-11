@@ -74,7 +74,7 @@ providers not named there remain `<TO SUPPLY>`.
 - **`AuthorisationFailureMonitor`** — counts `AuthorisationFailed` events per
   session in a 5-minute window. At 10 it raises one alert to the operations
   channel through the observability platform (`L2-084 AC3`). The counter store
-  is `<TO SUPPLY>` and is shared across API instances.
+  is a PostgreSQL table shared across API instances (ADR 0006).
 
 **Rules the slice enforces**
 

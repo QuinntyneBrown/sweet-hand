@@ -15,7 +15,7 @@ System_Ext(obs, "Observability platform", "Logs, metrics, traces and alerts")
 Rel(visitor, web, "Uses", "HTTPS")
 Rel(web, bot, "Obtains challenge token from", "HTTPS")
 Rel(web, api, "Calls", "JSON/HTTPS")
-Rel(api, db, "Counts requests (rate-limit store; backing store TO SUPPLY)")
+Rel(api, db, "Counts requests (rate-limit store)", "Drizzle ORM (SQL)")
 Rel(api, bot, "Verifies challenge token with", "HTTPS")
 Rel(api, obs, "Sends security events and alerts")
 @enduml

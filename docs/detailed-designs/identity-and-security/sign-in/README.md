@@ -83,8 +83,8 @@ providers not named there remain `<TO SUPPLY>`.
 - **`UserAccountRepository`** — loads the account by email address.
 - **`PasswordHasher`** — verifies Argon2id hashes (`L2-076 AC2`).
 - **`SignInAttemptRepository`** — records failed sign-ins per account and per
-  hashed IP address with timestamps. The backing store is shared across API
-  instances; its technology is `<TO SUPPLY>`.
+  hashed IP address with timestamps. The backing store is the PostgreSQL
+  database shared by every API instance (ADR 0006).
 - **`SessionStore`** — creates sessions and deletes the pre-sign-in session
   (`L2-078 AC2`). It stores a hash of the session identifier, not the
   identifier itself.

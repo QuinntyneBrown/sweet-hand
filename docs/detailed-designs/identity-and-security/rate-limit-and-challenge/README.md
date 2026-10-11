@@ -74,7 +74,8 @@ privacy notice (`L2-074 AC1`).
 
 - **`RateLimitStore`** — atomic counters keyed by rule and client key, shared by
   every API instance so the limits hold when the API scales out (`L2-086 AC5`).
-  The backing store is `<TO SUPPLY>`.
+  The backing store is a PostgreSQL table updated with one atomic upsert per
+  request (ADR 0006).
 - **`IpHasher`** — hashes IP addresses before they are used as counter keys, so
   raw IP addresses are not stored (`L2-084 AC1`).
 - **`BotProtectionVerifier`** — sends the token to the provider and returns

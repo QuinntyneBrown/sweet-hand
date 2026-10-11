@@ -6,7 +6,7 @@ title Components — Back up and recover
 Person(ops, "Operations team", "Runs restores and drills")
 Container_Boundary(iac, "Infrastructure-as-code definitions") {
   Component(dbpolicy, "DatabaseBackupPolicy", "Infrastructure as code", "PITR, 35 days, encrypted, secondary Canadian region")
-  Component(storepolicy, "StorageProtectionPolicy", "Infrastructure as code", "Versioning or replication to secondary Canadian region")
+  Component(storepolicy, "StorageProtectionPolicy", "Infrastructure as code", "Replication to secondary Canadian region")
 }
 Container_Boundary(runbooks, "Operations runbooks") {
   Component(runbook, "RestoreRunbook", "Runbook", "Restore to a point in time within 4 hours")

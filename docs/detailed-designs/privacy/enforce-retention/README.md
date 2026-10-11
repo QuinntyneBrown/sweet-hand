@@ -95,8 +95,9 @@ providers not named there remain `<TO SUPPLY>`. Components are named by role.
 - **`RetentionRunRepository`** — persists `RetentionRun` records.
 - **`AuditLogPurger`** — the only component allowed to delete audit entries. The
   application's database account has no UPDATE or DELETE permission on the
-  audit table (`L2-060 AC2`). The purge therefore runs under a separate,
-  narrowly scoped database identity whose exact mechanism is `<TO SUPPLY>`.
+  audit table (`L2-060 AC2`). The purge therefore runs under the
+  `sweethand_retention` database role (ADR 0006), the only role with DELETE on
+  the audit table.
 
 ### Points that are not settled in the specifications
 

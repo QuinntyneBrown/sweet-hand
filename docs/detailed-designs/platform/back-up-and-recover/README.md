@@ -40,9 +40,9 @@ region policy check in `platform/secure-build-pipeline`.
   backups (`L2-072 AC5`). PITR provides the 15-minute RPO; the log shipping
   interval that achieves it is `<TO SUPPLY>`.
 - **`StorageProtectionPolicy`** — infrastructure-as-code settings for object
-  storage. Photo files and certificate files are protected by versioning or by
-  replication to a secondary Canadian region (`L2-090 AC2`). The choice
-  between the two is `<TO SUPPLY>`. Any version retention keeps deleted files
+  storage. Photo files and certificate files are protected by
+  replication to a secondary Canadian region (`L2-090 AC2`, ADR 0006). Any
+  version retention keeps deleted files
   for no longer than the deletion rules in `L2-072` and `L2-073` allow.
 - **`RestoreRunbook`** — written procedure for restoring the database to a
   chosen point in time and re-pointing the platform to it. It targets the
@@ -83,7 +83,7 @@ backups in a managed backup service in a secondary Canadian region.
 ### Containers
 
 The database ships continuous backups to encrypted storage in the secondary
-region. Object storage versions or replicates photo and certificate files. A
+region. Object storage replicates photo and certificate files. A
 drill restores into an isolated environment.
 
 ![C4 container view for backing up and recovering](diagrams/c4-container.png)
@@ -107,8 +107,8 @@ The two policies carry the retention, encryption and region settings.
 ### Behaviour — back up continuously
 
 The database ships transaction logs and snapshots to encrypted backup storage in
-the secondary region. Object storage versions or replicates each new photo or
-certificate file.
+the secondary region. Object storage replicates each new photo or certificate
+file.
 
 ![Sequence diagram for continuous backup](diagrams/sequence-back-up-continuously.png)
 

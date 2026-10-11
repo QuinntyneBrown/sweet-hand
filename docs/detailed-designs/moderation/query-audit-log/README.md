@@ -46,12 +46,11 @@ providers not named there remain `<TO SUPPLY>`.
 
 - **`AuditLog`** — the only writer. `Append(entry)` inserts within the caller's unit of work, so an action and its entry commit or fail together. It exposes no update or delete method.
 - **`AuditLogReader`** — runs filtered, paged queries.
-- **Database permissions** — an explicit migration grants the application's database account INSERT and SELECT on the audit table and no UPDATE or DELETE (`L2-060` AC2).
-- **`RetentionJob`** (worker) — deletes entries older than 7 years (`L2-060` AC4, `L2-073`).
+- **Database permissions** — an explicit migration grants the application's database role (`sweethand_app`, ADR 0006) INSERT and SELECT on the audit table and no UPDATE or DELETE (`L2-060` AC2).
+- **`RetentionJob`** (worker) — deletes entries older than 7 years (`L2-060` AC4, `L2-073`). It connects as the `sweethand_retention` role, the only role with DELETE on the audit table (ADR 0006).
 
 Open points:
 
-- `RetentionJob` deletes audit entries, but the application's database account holds no DELETE permission on the table. The database principal that the retention job uses, and how it is restricted: `<TO SUPPLY>`.
 - Page size of search results: `<TO SUPPLY>`.
 - Whether audit entries also feed the observability platform: `<TO SUPPLY>`.
 

@@ -31,12 +31,11 @@ providers not named there remain `<TO SUPPLY>`.
 
 **Email provider down (`L2-091 AC1`)**
 
-- **`JobQueue`** — persistent queue in the Sweet Hand infrastructure. Command
-  handlers that trigger an email, such as `SendEnquiryHandler` and
-  `ReplyToEnquiryHandler`, enqueue a `SendNotificationJob` in the same unit of
-  work as the state change. The action succeeds whether or not the email
-  provider is reachable. How the enqueue joins the database transaction is
-  `<TO SUPPLY>`.
+- **`JobQueue`** — PostgreSQL-table queue (pg-boss, ADR 0006). Command handlers
+  that trigger an email, such as `SendEnquiryHandler` and
+  `ReplyToEnquiryHandler`, insert a `SendNotificationJob` through the same
+  database transaction as the state change, so both commit or neither does. The
+  action succeeds whether or not the email provider is reachable.
 - **`SendNotificationJob`** — background worker job that calls `EmailGateway`.
   On failure it retries with exponential backoff for up to 24 hours, then marks
   the `Notification` `Failed` and raises an operator alert, as defined in

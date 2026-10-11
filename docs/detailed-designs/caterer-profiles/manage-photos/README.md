@@ -92,7 +92,8 @@ Background worker:
   1. `MalwareScanner` scans the file before any derivative exists. A flagged
      file is deleted, the photo becomes `Rejected`, and the event is written
      to `SecurityLog` (L2-041 AC6).
-  2. `ImageProcessor` decodes the image, removes EXIF, XMP and IPTC metadata
+  2. `ImageProcessor` runs inside the background worker with `sharp` (ADR
+     0006). It decodes the image, removes EXIF, XMP and IPTC metadata
      (L2-041 AC4), and encodes AVIF, WebP and JPEG at widths 400, 800, 1200
      and 2000 pixels, never enlarging (L2-041 AC5).
   3. Derivatives go to the public area of `ObjectStore`, served through the
@@ -119,8 +120,8 @@ Open points:
   `<TO SUPPLY>`.
 - The retry schedule for `ProcessPhotoJob` while image processing is down is
   `<TO SUPPLY>`.
-- Whether the image processor runs inside the background worker or as a
-  separate service is `<TO SUPPLY>` pending an ADR.
+- How the worker image decodes HEIC input (L2-041 AC1) is `<TO SUPPLY>`.
+  Prebuilt `sharp` binaries do not decode HEIC.
 
 ## Requirements
 
