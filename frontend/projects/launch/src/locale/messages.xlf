@@ -326,7 +326,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="launch.privacy.processor" datatype="html">
-        <source>Microsoft Azure Communication Services sends the confirmation and launch-day emails with its data location set to Canada. Cloudflare Turnstile processes a security challenge only after you submit a valid form. We do not share the list with Cloudflare.</source>
+        <source>Microsoft Azure Communication Services sends the confirmation and launch-day emails with its data location set to Canada. Cloudflare Turnstile processes a security challenge only after you submit a valid form. We do not share the list with Cloudflare. The list and its backups are stored in Canada.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
           <context context-type="linenumber">19,20</context>

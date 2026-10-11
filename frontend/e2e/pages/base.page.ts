@@ -49,7 +49,9 @@ export abstract class BasePage {
 
   /** The page does not scroll sideways (L2-005.6, L2-064.2). */
   async expectNoHorizontalScroll() {
-    const overflow = await this.page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-    expect(overflow).toBeLessThanOrEqual(0);
+    // Measured until layout settles: under a loaded CI runner the first frame after navigation or resize can still be unstyled.
+    await expect
+      .poll(() => this.page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth))
+      .toBeLessThanOrEqual(0);
   }
 }
