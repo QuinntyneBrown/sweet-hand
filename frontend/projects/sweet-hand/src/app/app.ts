@@ -120,7 +120,9 @@ export class App {
 
   protected async signOut(): Promise<void> {
     this.menuOpen.set(false);
+    // Read the role before signing out: afterwards the user is a visitor.
+    const role = this.user()?.role;
     await this.session.signOut();
-    await this.router.navigateByUrl(this.user()?.role === 'Operator' ? '/sign-in' : '/caterers');
+    await this.router.navigateByUrl(role === 'Operator' ? '/sign-in' : '/caterers');
   }
 }

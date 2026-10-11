@@ -156,6 +156,9 @@ session ends and the request continues as unauthenticated.
 ### Behaviour — sign out and end a session
 
 Sign-out revokes the current session on the server and clears the cookie.
+The shell then navigates by the role the user had before signing out:
+customers and caterers land on the caterer listing, operators on sign in
+(L2-078.6).
 Ending another session from the "Active sessions" list revokes that session
 after an ownership check.
 
