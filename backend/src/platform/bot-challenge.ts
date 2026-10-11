@@ -1,3 +1,5 @@
+import type { Config } from './config.ts';
+
 /** The forms protected by a bot challenge (L2-082, L2-104). */
 export type ProtectedAction = 'sign-in' | 'register' | 'register-caterer' | 'password-reset' | 'enquiry' | 'report' | 'launch-sign-up';
 
@@ -10,6 +12,17 @@ export class LocalChallengeVerifier implements ChallengeVerifier {
   async verify(token: unknown, action: ProtectedAction): Promise<boolean> {
     return typeof token === 'string' && token.startsWith(`local:${action}:`) && token.length <= 200;
   }
+}
+
+/**
+ * Production verifies with Turnstile; only the operator's explicit `BOT_CHALLENGE=off`
+ * keeps the local stand-in in use until the widget exists (L2-104.9). Development
+ * and tests, which have no database, always use the local verifier.
+ */
+export function createChallengeVerifier(config: Pick<Config, 'databaseUrl' | 'botChallenge' | 'turnstileSecret' | 'turnstileHostnames'>): ChallengeVerifier {
+  if (!config.databaseUrl || config.botChallenge === 'off') return new LocalChallengeVerifier();
+  if (!config.turnstileSecret) throw new Error('TURNSTILE_SECRET is not set');
+  return new TurnstileChallengeVerifier(config.turnstileSecret, config.turnstileHostnames);
 }
 
 interface TurnstileResponse {

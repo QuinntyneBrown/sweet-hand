@@ -15,7 +15,7 @@ The deployment feature publishes the pre-launch website and launch-list API to t
 - **`deploy.yml`** — `main` delivery using GitHub OIDC and Azure CLI. It applies Bicep, pushes the commit-tagged image, runs the migration job and promotes healthy artifacts.
 - **`PrelaunchGuard`** — request middleware that returns HTTP 404 before unfinished product controllers execute.
 - **`AzureCommunicationEmailGateway`** — managed-identity adapter that sends queued messages through the verified `sweethand.ca` domain.
-- **`TurnstileChallengeVerifier`** — server-side verifier for token, action and hostname. Local tokens remain available only in development and tests.
+- **`TurnstileChallengeVerifier`** — server-side verifier for token, action and hostname. `createChallengeVerifier(config)` selects it whenever a database is configured, unless `BOT_CHALLENGE=off`; then production falls back to `LocalChallengeVerifier`, the API logs that bot protection is off, and `deploy.yml` warns on every run (`L2-104 AC9`). Without a database, development and tests always use the local verifier.
 - **Operations runbook** — records the Azure subscription, resource inventory, DNS changes, rollback, restore, budget and cost assumptions.
 
 ## Requirements

@@ -13,6 +13,8 @@ export interface Config {
   testControl: boolean;
   /** Where uploaded media live when there is no database (local development). */
   mediaDir?: string;
+  /** `off` is the operator's explicit, temporary choice before the Turnstile widget exists (L2-104.9). */
+  botChallenge: 'turnstile' | 'off';
   turnstileSecret?: string;
   turnstileHostnames: string[];
   prelaunchMode: boolean;
@@ -24,6 +26,12 @@ export function requiredEnv(name: string): string {
   const value = process.env[name];
   if (!value) throw new Error(`${name} is not set`);
   return value;
+}
+
+function botChallengeMode(value: string | undefined): Config['botChallenge'] {
+  if (!value || value === 'turnstile') return 'turnstile';
+  if (value === 'off') return 'off';
+  throw new Error('BOT_CHALLENGE must be "turnstile" or "off"');
 }
 
 const flag = (name: string, fallback: boolean) => {
@@ -40,6 +48,7 @@ export function loadConfig(): Config {
     trustProxy: flag('TRUST_PROXY', false),
     testControl: flag('TEST_CONTROL', false),
     mediaDir: process.env['MEDIA_DIR'] || undefined,
+    botChallenge: botChallengeMode(process.env['BOT_CHALLENGE']),
     turnstileSecret: process.env['TURNSTILE_SECRET'] || undefined,
     turnstileHostnames: (process.env['TURNSTILE_HOSTNAMES'] ?? 'sweethand.ca,www.sweethand.ca').split(',').map((s) => s.trim()).filter(Boolean),
     prelaunchMode: flag('PRELAUNCH_MODE', false),
@@ -52,7 +61,7 @@ export function loadConfig(): Config {
     // and keys IP hashes with its own secret, never the built-in one.
     if (!config.allowedOrigins.length) throw new Error('ALLOWED_ORIGINS is not set');
     if (!process.env['IP_HASH_SECRET']) throw new Error('IP_HASH_SECRET is not set');
-    if (!config.turnstileSecret) throw new Error('TURNSTILE_SECRET is not set');
+    if (config.botChallenge === 'turnstile' && !config.turnstileSecret) throw new Error('TURNSTILE_SECRET is not set');
     if (!config.communicationEmailEndpoint) throw new Error('ACS_EMAIL_ENDPOINT is not set');
     if (!config.communicationEmailSender) throw new Error('ACS_EMAIL_SENDER is not set');
   }

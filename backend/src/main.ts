@@ -19,7 +19,7 @@ import { MemoryMediaStore, PostgresMediaStore } from './platform/media.ts';
 import type { Environment } from './environment.ts';
 import { PassThroughImageProcessing } from './platform/image-processing.ts';
 import { SignatureScanner } from './platform/malware-scanner.ts';
-import { LocalChallengeVerifier, TurnstileChallengeVerifier } from './platform/bot-challenge.ts';
+import { createChallengeVerifier } from './platform/bot-challenge.ts';
 
 const config = loadConfig();
 const db = config.databaseUrl ? new PostgresDatabase(config.databaseUrl) : new MemoryDatabase();
@@ -31,8 +31,9 @@ const env: Environment = {
   images: new PassThroughImageProcessing(),
   // No scanning provider yet: the stand-in flags only the EICAR test file.
   scanner: new SignatureScanner(),
-  challenges: config.databaseUrl ? new TurnstileChallengeVerifier(config.turnstileSecret!, config.turnstileHostnames) : new LocalChallengeVerifier(),
+  challenges: createChallengeVerifier(config),
 };
+if (config.databaseUrl && config.botChallenge === 'off') console.warn('Bot protection is OFF (BOT_CHALLENGE=off): sign-ups accept local stand-in tokens until Turnstile is configured (L2-104.9)');
 
 useSecureCookies(config.secureCookies);
 // Local development without a database starts from the fictional cast.
