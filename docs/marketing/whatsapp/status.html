@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<title>Sweet Hand — WhatsApp Status</title>
+<link rel="stylesheet" href="../assets/print.css">
+<!--
+  WhatsApp Status (Update) images, 1080 x 1920 px (9:16), one per <section>.
+  Safe zone: WhatsApp lays its progress bar and name over the top ~220 px and
+  the reply bar over the bottom ~220 px, so all copy sits 260 px inside the
+  top and bottom edges and 96 px inside the sides. Only the band and the
+  backgrounds run to the edge.
+  Colours come from docs/design-system/tokens/tokens.css via ../assets/print.css.
+-->
+<style>
+  :root {
+    --edge-y: 260px;
+    --edge-x: 96px;
+    --band: 56px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #e9e6e1; }
+  body { font-family: "Figtree", system-ui, sans-serif; }
+
+  .status {
+    position: relative;
+    width: 1080px;
+    height: 1920px;
+    overflow: hidden;
+  }
+  .band {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: var(--band);
+    background: var(--pepper-600);
+  }
+  .safe {
+    position: absolute;
+    top: var(--edge-y);
+    bottom: var(--edge-y);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .brand { display: flex; align-items: center; gap: 28px; }
+  .brand svg { width: 112px; height: 112px; flex: none; }
+  .wordmark { font-weight: 700; font-size: 64px; line-height: 1; letter-spacing: -0.02em; }
+  .wordmark span { color: var(--pepper-500); }
+
+  .rule { width: 120px; height: 8px; background: var(--pepper-500); }
+
+  .cta .url { font-weight: 700; font-size: 76px; line-height: 1; letter-spacing: -0.02em; }
+  .cta .soon { margin-top: 20px; font-weight: 500; font-size: 40px; line-height: 1.3; }
+
+  /* ---------- Eaters ---------- */
+  .eaters { background: var(--white); color: var(--stone-950); }
+  .eaters .band { right: 0; }
+  .eaters .safe { left: var(--edge-x); right: calc(var(--band) + 72px); }
+  .eaters h1 {
+    font-weight: 700;
+    font-size: 136px;
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+  .eaters .lead {
+    margin-top: 44px;
+    font-weight: 500;
+    font-size: 44px;
+    line-height: 1.35;
+    color: var(--stone-700);
+  }
+  .eaters .dishes {
+    margin-top: 64px;
+    list-style: none;
+    columns: 2;
+    column-gap: 48px;
+    font-weight: 500;
+    font-size: 52px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+  .eaters .dishes li[aria-current] { color: var(--pepper-600); font-weight: 700; }
+  .eaters .cta .soon { color: var(--stone-600); }
+  .eaters .rule { margin-bottom: 40px; }
+
+  /* ---------- Makers ---------- */
+  .makers { background: var(--stone-950); color: var(--white); }
+  .makers .band { left: 0; }
+  .makers .safe { left: calc(var(--band) + 72px); right: var(--edge-x); }
+  .makers h2 {
+    font-weight: 700;
+    font-size: 100px;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+  .makers h2 span { display: block; margin-top: 28px; color: #d6d2cc; white-space: nowrap; }
+  .makers .facts {
+    margin-top: 60px;
+    list-style: none;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1.3;
+  }
+  .makers .facts li { padding: 24px 0; border-top: 2px solid var(--stone-700); }
+  .makers .facts li:last-child { border-bottom: 2px solid var(--stone-700); }
+  .makers .join { margin-top: 48px; font-weight: 700; font-size: 52px; letter-spacing: -0.01em; }
+  .makers .cta .soon { color: var(--stone-350); }
+  .makers .rule { margin-bottom: 40px; }
+
+  /* ---------- Screen preview only ---------- */
+  @media screen {
+    body:not(.export) {
+      min-height: 100vh;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+    body:not(.export) .status { zoom: 0.4; box-shadow: 0 8px 24px rgb(20 19 18 / 0.18); }
+    /* WhatsApp overlay zones (pink) */
+    body:not(.export) .status::before,
+    body:not(.export) .status::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0;
+      height: 220px;
+      background: rgb(255 0 160 / 0.12);
+      pointer-events: none;
+    }
+    body:not(.export) .status::before { top: 0; }
+    body:not(.export) .status::after { bottom: 0; }
+    body.export { background: transparent; }
+  }
+</style>
+</head>
+<body>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <!-- The logo mark, from assets/logo/sweet-hand-mark.svg -->
+    <symbol id="mark" viewBox="0 0 120 120">
+      <rect x="4" y="4" width="112" height="112" rx="28" fill="#b5381f"/>
+      <path d="M60 58 C 60 58 40 46 40 34 C 40 26 46 21 52 21 C 56 21 59 23 60 27 C 61 23 64 21 68 21 C 74 21 80 26 80 34 C 80 46 60 58 60 58 Z" fill="#ffffff"/>
+      <path d="M26 66 H 94 C 94 85 79 98 60 98 C 41 98 26 85 26 66 Z" fill="#ffffff"/>
+      <rect x="44" y="99" width="32" height="5" rx="2.5" fill="#ffffff"/>
+    </symbol>
+  </svg>
+
+  <!-- 1: for eaters -->
+  <section class="status eaters" aria-label="For eaters">
+    <div class="band" aria-hidden="true"></div>
+    <div class="safe">
+      <div class="brand">
+        <svg aria-hidden="true"><use href="#mark"/></svg>
+        <div class="wordmark">Sweet Hand<span>.</span></div>
+      </div>
+      <div>
+        <h1>Someone with a sweet hand.</h1>
+        <p class="lead">Caribbean home cooks and small-batch makers of Toronto and the GTA.</p>
+        <ul class="dishes">
+          <li aria-current="true">Doubles</li>
+          <li>Roti</li>
+          <li>Oxtail</li>
+          <li>Jerk</li>
+          <li>Patties</li>
+          <li>Pepper sauce</li>
+          <li>Black cake</li>
+          <li>Sorrel</li>
+        </ul>
+      </div>
+      <div class="cta">
+        <div class="rule" aria-hidden="true"></div>
+        <p class="url">sweethand.ca</p>
+        <p class="soon">Coming soon.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: for makers -->
+  <section class="status makers" aria-label="For makers">
+    <div class="band" aria-hidden="true"></div>
+    <div class="safe">
+      <div class="brand">
+        <svg aria-hidden="true"><use href="#mark"/></svg>
+        <div class="wordmark">Sweet Hand<span>.</span></div>
+      </div>
+      <div>
+        <h2>You have a<br>sweet hand. <span>Let Toronto find it.</span></h2>
+        <ul class="facts">
+          <li>Free to list.</li>
+          <li>You set the menu, the batches and the days.</li>
+          <li>Your home address stays private.</li>
+        </ul>
+        <p class="join">Cater with Sweet Hand</p>
+      </div>
+      <div class="cta">
+        <div class="rule" aria-hidden="true"></div>
+        <p class="url">sweethand.ca</p>
+        <p class="soon">Coming soon.</p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

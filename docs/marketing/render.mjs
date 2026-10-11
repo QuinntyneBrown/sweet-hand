@@ -5,12 +5,15 @@
  *
  * Writes (all committed, so a printer file never depends on a rebuild):
  *   assets/qr-sweethand-ca.svg            offline QR for https://sweethand.ca
- *   flyer/sweet-hand-pre-launch-flyer.pdf front + back, 5.25 x 7.25 in with bleed
+ *   flyer/sweet-hand-pre-launch-flyer.pdf front + back, 5.25 x 7.25 in with bleed (online printers)
+ *   flyer/sweet-hand-pre-launch-flyer-crop-marks.pdf  same, centred on 6 x 8 in with crop marks
+ *   flyer/sweet-hand-pre-launch-flyer-4up-12x18.pdf   4-up on a 12 x 18 in press sheet with crop marks
  *   flyer/proof-front.png, proof-back.png 300 dpi, full bleed, no guides
  *   stickers/sticker-N-*.png              900 x 900 RGBA, transparent: the alpha edge is the die cut
  *   stickers/sticker-N-*-preview.png      on paper, review only
  *   stickers/sticker-N-*.svg              editable vector, font inlined, hidden #cutline layer
  *   stickers/contact-sheet.png
+ *   whatsapp/status-1-eaters.png, status-2-makers.png  1080 x 1920 WhatsApp Status images
  *
  * Playwright is not a dependency of this folder. It is borrowed from
  * frontend/node_modules (@playwright/test); point SWEET_HAND_MODULE_ROOT at any
@@ -21,6 +24,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { qrcodegen } from './lib/qrcodegen.mjs'
+import { assertPdf, pressPdf } from './lib/press.mjs'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(here, '..', '..')
@@ -31,6 +35,8 @@ const { chromium } = require('@playwright/test')
 
 const SITE_URL = 'https://sweethand.ca'
 const FLYER_PDF = 'sweet-hand-pre-launch-flyer.pdf'
+const FLYER_TRIM = { w: 5, h: 7 }
+const FLYER_BLEED = 0.125
 const STICKERS = [
   { slug: 'sticker-1-wordmark', title: 'Sweet Hand wordmark badge' },
   { slug: 'sticker-2-sweet-hand', title: 'You have a sweet hand' },
@@ -99,14 +105,17 @@ async function renderFlyer() {
   await pdfCtx.close()
   await writeFile(path.join(here, 'flyer', FLYER_PDF), pdf)
 
-  const text = pdf.toString('latin1')
-  const pages = (text.match(/\/Type\s*\/Page[^s]/g) ?? []).length
-  const box = text.match(/\/MediaBox\s*\[\s*0\s+0\s+([\d.]+)\s+([\d.]+)\s*\]/)
-  if (pages !== 2) throw new Error(`flyer PDF: expected 2 pages, got ${pages}`)
-  if (!box || Math.abs(box[1] / 72 - 5.25) > 0.01 || Math.abs(box[2] / 72 - 7.25) > 0.01) {
-    throw new Error(`flyer PDF: expected 5.25 x 7.25 in, got ${box ? `${box[1] / 72} x ${box[2] / 72}` : 'unknown'}`)
-  }
-  if (!/Figtree/.test(text)) throw new Error('flyer PDF: Figtree is not embedded')
+  assertPdf('flyer PDF', pdf, { pages: 2, w: 5.25, h: 7.25 })
+
+  // Print-shop versions: crop marks single-up, and 4-up on a 12 x 18 in sheet.
+  const press = { src, selector: '.sheet', trim: FLYER_TRIM, bleed: FLYER_BLEED, ready: (p) => requireFigtree(p, 'flyer press') }
+  const labels = (layout) => ['front', 'back'].map((side) => `Sweet Hand pre-launch flyer · ${side} · trim 5 × 7 in · bleed 0.125 in · ${layout}`)
+  const crop = await pressPdf(browser, { ...press, labels: labels('crop marks') })
+  assertPdf('flyer crop marks', crop.pdf, { pages: 2, w: 6, h: 8 })
+  await writeFile(path.join(here, 'flyer', FLYER_PDF.replace('.pdf', '-crop-marks.pdf')), crop.pdf)
+  const gang = await pressPdf(browser, { ...press, sheet: { w: 12, h: 18 }, cols: 2, rows: 2, labels: labels('4-up, flip on long edge') })
+  assertPdf('flyer 4-up', gang.pdf, { pages: 2, w: 12, h: 18 })
+  await writeFile(path.join(here, 'flyer', FLYER_PDF.replace('.pdf', '-4up-12x18.pdf')), gang.pdf)
 
   // Proofs: 5.25 x 7.25 in at 300 dpi = 1575 x 2175, no guides.
   const ctx = await browser.newContext({
@@ -124,7 +133,7 @@ async function renderFlyer() {
     if (width !== 1575 || height !== 2175) throw new Error(`proof-${side}: expected 1575x2175, got ${width}x${height}`)
   }
   await ctx.close()
-  console.log(`✓ flyer ${FLYER_PDF} (2 pages, 5.25 x 7.25 in), proof-front.png, proof-back.png (1575x2175)`)
+  console.log(`✓ flyer ${FLYER_PDF} (2 pages, 5.25 x 7.25 in), -crop-marks.pdf, -4up-12x18.pdf, proof-front.png, proof-back.png (1575x2175)`)
 }
 
 /** Lifts a sticker's <svg> into a standalone file: font inlined, cut line layer added. */
@@ -296,11 +305,31 @@ async function renderStickers() {
   console.log('✓ contact sheet               contact-sheet.png')
 }
 
+async function renderWhatsApp() {
+  const ctx = await browser.newContext({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 })
+  const page = await ctx.newPage()
+  await page.goto(pathToFileURL(path.join(here, 'whatsapp', 'status.html')).href, { waitUntil: 'load' })
+  await page.evaluate(() => document.body.classList.add('export'))
+  await requireFigtree(page, 'whatsapp')
+  const names = []
+  for (const [n, slug] of [[1, 'eaters'], [2, 'makers']]) {
+    const name = `status-${n}-${slug}.png`
+    const out = path.join(here, 'whatsapp', name)
+    await page.locator(`.status.${slug}`).screenshot({ path: out, animations: 'disabled' })
+    const { width, height } = readPngHeader(await readFile(out))
+    if (width !== 1080 || height !== 1920) throw new Error(`${name}: expected 1080x1920, got ${width}x${height}`)
+    names.push(name)
+  }
+  await ctx.close()
+  console.log(`✓ WhatsApp Status ${names.join(', ')} (1080x1920)`)
+}
+
 try {
   const qr = await writeQr()
   console.log(`✓ QR for ${SITE_URL} (version ${qr.version}, ${qr.modules}x${qr.modules} modules, ECC M)`)
   await renderFlyer()
   await renderStickers()
+  await renderWhatsApp()
 } finally {
   await browser.close()
 }
