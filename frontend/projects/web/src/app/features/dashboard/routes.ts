@@ -1,5 +1,11 @@
-import type { Routes } from '@angular/router';
+import { inject } from '@angular/core';
+import { Router, type CanActivateFn, type Routes } from '@angular/router';
 import { requireRole } from '../../core/session/guards';
+import { Session } from '../../core/session/session';
+
+/** A removed caterer cannot edit their profile; the overview explains why (L2-058.5). */
+const editorOpen: CanActivateFn = () =>
+  inject(Session).user()?.caterer?.status === 'Removed' ? inject(Router).createUrlTree(['/dashboard']) : true;
 
 /**
  * Routes of the dashboard area; every page needs the role (L2-079).
@@ -16,6 +22,13 @@ export const dashboardRoutes: Routes = [
         loadComponent: () => import('./overview/overview.page').then((m) => m.OverviewPage),
         data: { mainClass: 'container' },
         title: $localize`:@@dashboard.documentTitle:Dashboard · Sweet Hand`,
+      },
+      {
+        path: 'profile/details',
+        canActivate: [editorOpen],
+        loadComponent: () => import('./details/details.page').then((m) => m.DetailsPage),
+        data: { mainClass: 'container' },
+        title: $localize`:@@details.documentTitle:Business details · Sweet Hand`,
       },
       { path: '**', loadComponent: () => import('../../shell/system-page').then((m) => m.SystemPage), data: { kind: 'not-found' } },
     ],
