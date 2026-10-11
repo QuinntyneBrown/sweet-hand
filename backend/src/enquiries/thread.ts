@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { Request, Reply } from '../http/router.ts';
-import { conflict, fail, invalid, notFound, ok } from '../http/problems.ts';
+import { conflict, fail, forbidden, invalid, notFound, ok } from '../http/problems.ts';
 import { mailServiceStatus } from '../platform/mail-service.ts';
 import { currentUser } from '../identity/sessions.ts';
 import type { Party } from '@contract/party.ts';
@@ -9,7 +9,7 @@ import type { User } from '../identity/model.ts';
 import { enquiries, type Enquiry } from './model.ts';
 import { appendEvent, isActive, markRead, partyOf } from './rules.ts';
 import { partiesOf, threadView } from './views.ts';
-import { notifyReply } from './notifications.ts';
+import { notifyDeclined, notifyReply } from './notifications.ts';
 
 export interface PartyThread {
   user: User;
@@ -66,4 +66,32 @@ export async function postReply(req: Request): Promise<Reply> {
     emailDelayed: (await mailServiceStatus(req.tx)) !== 'up',
   };
   return ok(result, 201);
+}
+
+const NOTE_MAX = 500;
+
+/** POST /api/enquiries/:id/decline: only the caterer, only while Open, with an optional note of up to 500 characters (L2-033.2, L2-033.3). */
+export async function declineEnquiry(req: Request): Promise<Reply> {
+  const { e, party } = await loadThread(req);
+  if (party !== 'caterer') return forbidden();
+  const note = text(req.body?.note).trim();
+  if (length(note) > NOTE_MAX) return invalid({ note: ['Keep your note under 500 characters'] });
+  if (e.status !== 'Open') return conflict('Only an open enquiry can be declined', { status: e.status });
+  e.status = 'Declined';
+  appendEvent(e, req.now, randomUUID(), { kind: 'declined', by: 'caterer', note: note || null });
+  markRead(e, party, req.now);
+  await enquiries(req.tx).put(e);
+  await notifyDeclined(req.tx, req.now, e, await partiesOf(req.tx, e), note || null);
+  return ok(await threadView(req.tx, e, party, req.now));
+}
+
+/** POST /api/enquiries/:id/close: either party closes an Open or Replied enquiry (L2-033). */
+export async function closeEnquiry(req: Request): Promise<Reply> {
+  const { e, party } = await loadThread(req);
+  if (!isActive(e)) return conflict('This enquiry is already closed', { status: e.status });
+  e.status = 'Closed';
+  appendEvent(e, req.now, randomUUID(), { kind: 'closed', by: party });
+  markRead(e, party, req.now);
+  await enquiries(req.tx).put(e);
+  return ok(await threadView(req.tx, e, party, req.now));
 }
