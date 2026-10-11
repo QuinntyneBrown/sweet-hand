@@ -5,8 +5,13 @@ import { ProblemError, forbidden, notFound, problem, unauthorized } from './http
 import { Router, type Actor, type Area, type Policy, type Reply, type Request } from './http/router.ts';
 import type { Config } from './platform/config.ts';
 import type { Environment } from './environment.ts';
+import { RateLimiter } from './platform/rate-limit.ts';
+import { hashIp } from './platform/secrets.ts';
 
 const MB = 1024 * 1024;
+/** Public reads allowed per address per minute (L2-082.1). */
+const PUBLIC_READS_PER_MINUTE = 300;
+const isPublicRead = (method: string, path: string) => method === 'GET' && (path.startsWith('/api/public/') || path.startsWith('/media/'));
 const SAFE_METHODS = new Set(['GET', 'HEAD']);
 
 export interface Environments {
@@ -94,6 +99,8 @@ export function createApp(options: AppOptions): (req: IncomingMessage, res: Serv
   const router = new Router();
   for (const area of options.areas) area(router);
   const config = { secureCookies: false, allowedOrigins: [], trustProxy: false, ...options.config };
+  // One limiter per environment, so test sessions never share counts.
+  const limiters = new WeakMap<Environment, RateLimiter>();
 
   return (req, res) => {
     void handle(req, res).catch((err) => {
@@ -138,6 +145,18 @@ export function createApp(options: AppOptions): (req: IncomingMessage, res: Serv
       const match = router.match(method, url.pathname);
       if (!match) return send(notFound());
 
+      const forwarded = config.trustProxy ? String(req.headers['x-forwarded-for'] ?? '').split(',')[0].trim() : '';
+      const ip = forwarded || req.socket.remoteAddress || 'unknown';
+      if (isPublicRead(method, url.pathname)) {
+        let limiter = limiters.get(env);
+        if (!limiter) limiters.set(env, (limiter = new RateLimiter(PUBLIC_READS_PER_MINUTE)));
+        const wait = limiter.take(ip, env.clock.now());
+        if (wait !== null) {
+          console.log(JSON.stringify({ level: 'security', type: 'rate-limit-block', path: url.pathname, ipHash: hashIp(ip), at: env.clock.now().toISOString(), correlationId }));
+          return send({ ...problem(429, 'Too many requests'), headers: { 'retry-after': String(wait) } });
+        }
+      }
+
       if (!SAFE_METHODS.has(method)) {
         const token = req.headers['x-xsrf-token'];
         const origin = req.headers.origin;
@@ -156,7 +175,6 @@ export function createApp(options: AppOptions): (req: IncomingMessage, res: Serv
         throw err;
       }
 
-      const forwarded = config.trustProxy ? String(req.headers['x-forwarded-for'] ?? '').split(',')[0].trim() : '';
       const reply = await env.db
         .transaction(async (tx) => {
           const request: Request = {
@@ -167,7 +185,7 @@ export function createApp(options: AppOptions): (req: IncomingMessage, res: Serv
             body,
             headers: req.headers,
             cookies,
-            ip: forwarded || req.socket.remoteAddress || 'unknown',
+            ip,
             correlationId,
             env,
             tx,
