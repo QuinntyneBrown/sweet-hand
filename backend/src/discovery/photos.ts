@@ -19,5 +19,5 @@ export function photoView(photo: Pick<Photo, 'file' | 'caption'>): PhotoView {
 /** The gallery viewer loads the 2000 px rendition (view-photo-gallery design). */
 export function catererPhotoView(photo: Photo): CatererPhotoView {
   const view = photoView(photo);
-  return { caption: photo.caption, src: view.src, srcset: view.srcset, width: view.width, height: view.height, viewerSrc: `/media/${photo.file}?w=2000&fm=jpeg` };
+  return { caption: photo.caption, src: view.src, srcset: view.srcset, width: view.width, height: view.height, viewerSrc: `/media/${photo.file}?w=1200&fm=jpeg` };
 }

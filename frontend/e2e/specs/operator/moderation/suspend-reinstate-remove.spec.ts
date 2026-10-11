@@ -45,7 +45,7 @@ test.describe('Suspending, reinstating and removing caterers', () => {
 
     const state = await backend.state();
     expect(await audit.appended()).toEqual([
-      expect.objectContaining({ operatorId: 'user-leah', action: 'Suspend', targetType: 'CatererProfile', targetId: 'cat-001', reason: REASON, before: { status: 'Published' }, after: { status: 'Suspended' } }),
+      expect.objectContaining({ operatorId: 'user-leah', action: 'Suspend', targetType: 'caterer', targetId: 'cat-001', reason: REASON, before: { status: 'Published' }, after: { status: 'Suspended' } }),
     ]);
     const pelau = state.enquiries.filter((e: { catererId: string }) => e.catererId === 'cat-001');
     expect(pelau.filter((e: { status: string }) => e.status === 'Open' || e.status === 'Replied')).toEqual([]);

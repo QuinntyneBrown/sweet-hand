@@ -64,7 +64,7 @@ test.describe('Recent changes', () => {
     await expect(changes.reverted('Pelau House · Description')).toHaveText('Reverted by Leah Mohammed · Sat 10 Oct');
     await expect(changes.toasts.titled('Change reverted')).toBeVisible();
     expect(await audit.appended()).toEqual([
-      expect.objectContaining({ action: 'Revert change', targetType: 'ProfileEdit', reason: 'Restoring the earlier wording while we check the new delivery claim with Kendra.' }),
+      expect.objectContaining({ action: 'Revert', targetType: 'caterer', reason: 'Restoring the earlier wording while we check the new delivery claim with Kendra.' }),
     ]);
     const caterer = new CatererPage(page);
     await caterer.open('pelau-house');

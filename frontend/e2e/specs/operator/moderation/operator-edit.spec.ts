@@ -117,7 +117,7 @@ test.describe('Operator edits to caterer profiles', () => {
     const state = await backend.state();
     expect(state.caterers.find((c: { id: string }) => c.id === 'cat-005').status).toBe('Published');
     expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: 'paulette@blackcakeco.example', kind: 'operator-removed-photo', reason: 'Photo shows another caterer’s logo.' }));
-    expect(await audit.appended()).toEqual([expect.objectContaining({ action: 'Remove photo', targetId: 'cat-005' })]);
+    expect(await audit.appended()).toEqual([expect.objectContaining({ action: 'RemoveItem', targetId: 'cat-005' })]);
   });
 
   test('L2-057: removing a dish works the same way', async ({ page, backend }) => {
