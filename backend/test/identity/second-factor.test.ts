@@ -69,6 +69,20 @@ describe('operator second factor and timeouts (L2-056.2, L2-078.3)', async () =>
     assert.equal(client.cookies.get('sh_session'), undefined);
   });
 
+  it('Given an operator idle for 30 minutes whose next request is not the session check, when the session is then checked, then it still says why they were signed out', async () => {
+    const api = await startApi();
+    const client = api.client();
+    await client.post('/api/identity/sign-in', { email: 'leah@sweethand.example', password: SEED_PASSWORD });
+    await client.post('/api/identity/second-factor', { method: 'authenticator app', code: totp(LEAH_TOTP_SECRET, api.env.clock.now()) });
+    advanceClock(api, 31 * MINUTE);
+    assert.equal((await client.get('/api/operator/queue')).status, 401);
+    const res = await client.get('/api/session');
+    assert.equal(res.body.user, null);
+    assert.deepEqual(res.body.expired, { email: 'leah@sweethand.example' });
+    assert.equal(client.cookies.get('sh_session'), undefined);
+    assert.equal((await client.get('/api/session')).body.expired, undefined, 'said once');
+  });
+
   it('Given a customer idle for 13 days, when they come back, then they are still signed in; after 15 days they are not', async () => {
     const api = await startApi();
     const client = api.client();

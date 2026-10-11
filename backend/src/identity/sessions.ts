@@ -118,7 +118,14 @@ export async function authenticate(req: Request): Promise<Actor | undefined> {
   }
   const limits = TIMEOUTS[user.role];
   const now = req.now.getTime();
-  if (now - Date.parse(session.lastActiveAt) > limits.idle || now - Date.parse(session.createdAt) > limits.absolute) {
+  const timedOut = now - Date.parse(session.lastActiveAt) > limits.idle || now - Date.parse(session.createdAt) > limits.absolute;
+  if (session.expired || timedOut) {
+    // The session ends here. Only the session check reports why, so another
+    // request that notices first leaves the ended session for it to read.
+    if (req.path !== '/api/session' && !session.pendingSecondFactor) {
+      if (!session.expired) await sessions(req.tx).put({ ...session, expired: true });
+      return undefined;
+    }
     await sessions(req.tx).delete(session.id);
     clearSessionCookie(req);
     if (!session.pendingSecondFactor) req.locals['expiredEmail'] = user.email;

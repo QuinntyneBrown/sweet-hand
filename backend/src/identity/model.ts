@@ -47,6 +47,8 @@ export interface Session extends Document {
   lastActiveAt: string;
   /** An operator who still owes the second step (L2-056.2). */
   pendingSecondFactor?: boolean;
+  /** Timed out; kept only until the session check has told the user why (L2-078.3). */
+  expired?: boolean;
 }
 
 /** A single-use email verification or password reset token; only its hash is stored (L2-077.5). */
