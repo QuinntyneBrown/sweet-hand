@@ -2,9 +2,7 @@ import { roles, type Area } from '../http/router.ts';
 import { ownProfile, referenceData } from './profile.ts';
 import { saveSection } from './sections.ts';
 import { addDish, removeDish, reorderDishes, updateDish } from './menu.ts';
-import { submitProfile, withdrawSubmission } from './submission.ts';
-import { ownReviews } from './own-reviews.ts';
-import { CERTIFICATE_BODY_BYTES, removeCertificateFile, saveCertificate, uploadCertificateFile } from './certificate.ts';
+import { submitProfile, withdrawSubmission } from './submission.ts';import { CERTIFICATE_BODY_BYTES, removeCertificateFile, saveCertificate, uploadCertificateFile } from './certificate.ts';
 import { PHOTO_BODY_BYTES, removePhoto, reorderPhotos, replacePhoto, restorePhoto, updatePhoto, uploadPhoto } from './photos.ts';
 
 const caterer = roles('Caterer');
@@ -36,8 +34,4 @@ export const catererProfileArea: Area = (r) => {
   r.post('/api/caterer/profile/menu-items', caterer, addDish);
   r.put('/api/caterer/profile/menu-items/order', caterer, reorderDishes);
   r.put('/api/caterer/profile/menu-items/:id', caterer, updateDish);
-  r.delete('/api/caterer/profile/menu-items/:id', caterer, removeDish);
-
-  // The dashboard's reviews list; responding to a review belongs to the reviews area.
-  r.get('/api/caterer/reviews', caterer, ownReviews);
-};
+  r.delete('/api/caterer/profile/menu-items/:id', caterer, removeDish);};
