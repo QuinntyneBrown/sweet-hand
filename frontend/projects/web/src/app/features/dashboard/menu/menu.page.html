@@ -1,0 +1,147 @@
+<app-dashboard-layout current="menu" [status]="data.status()" [previewLabel]="data.state().kind === 'ready' ? previewLabel() : null">
+  <sh-back-link href="/dashboard" [untilLg]="true"><ng-container i18n="@@nav.overview">Overview</ng-container></sh-back-link>
+  <div class="page-intro">
+    <h1 i18n="@@nav.menu">Menu</h1>
+    @switch (data.state().kind) {
+      @case ('loading') {
+        <p class="subtitle">
+          <span class="visually-hidden" i18n="@@menu.loading">Loading your menu</span
+          ><span class="skeleton skeleton--text" style="width: var(--layout-sidebar-width)" aria-hidden="true"></span>
+        </p>
+      }
+      @case ('error') {
+        <p class="subtitle">{{ data.profile()?.name }}</p>
+      }
+      @case ('ready') {
+        <p class="subtitle">{{ subtitle() }}</p>
+        <p class="cluster">
+          <sh-status [tone]="data.statusTone()" [label]="data.statusText()" />
+          @if (!data.readOnly() && dishes().length) {
+            <sh-save-status [inline]="true" text="Saved" i18n-text="@@autosave.saved" />
+          }
+        </p>
+      }
+    }
+  </div>
+
+  @switch (data.state().kind) {
+    @case ('loading') {
+      <div class="toolbar" aria-hidden="true"><span class="skeleton skeleton--rect skeleton--pill" style="width: var(--space-32); height: var(--control-height-md)"></span></div>
+      <ol class="edit-list" aria-busy="true" aria-label="Loading your menu" i18n-aria-label="@@menu.loading">
+        @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+          <li class="edit-row edit-row--skeleton" aria-hidden="true">
+            <div class="edit-row__body"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></div>
+          </li>
+        }
+      </ol>
+      <p class="visually-hidden" role="status" i18n="@@menu.loading">Loading your menu</p>
+    }
+    @case ('error') {
+      <sh-empty-state
+        tone="error"
+        heading="We couldn’t load your menu"
+        i18n-heading="@@menu.errorTitle"
+        text="Nothing you saved is lost. This is a problem on our side, and trying again usually fixes it."
+        i18n-text="@@section.errorText"
+        [reference]="data.errorReference()"
+        referenceLabel="Reference"
+        i18n-referenceLabel="@@common.reference"
+      >
+        <svg slot="icon" shIcon="danger"></svg>
+        <ng-container slot="actions">
+          <button class="btn btn--primary" type="button" (click)="reload()">
+            <svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container>
+          </button>
+          <a class="btn" routerLink="/dashboard" i18n="@@section.backToOverview">Back to overview</a>
+        </ng-container>
+      </sh-empty-state>
+    }
+    @case ('ready') {
+      @if (data.profile(); as p) {
+        @if (data.readOnly()) {
+          <app-status-notice [profile]="p" variant="list" (withdrawRequested)="withdrawOpen.set(true)" />
+          <div style="height: var(--space-8)"></div>
+        }
+        @if (!dishes().length && !data.readOnly()) {
+          <div class="empty">
+            <div class="empty__icon" aria-hidden="true"><svg shIcon="plate"></svg></div>
+            <h2 class="empty__title" i18n="@@menu.emptyTitle">What do you cook best?</h2>
+            <p class="empty__text" i18n="@@menu.emptyText">Add at least 3 dishes. A name is enough; descriptions, dietary tags and prices help people choose.</p>
+            <div class="empty__actions">
+              <button #addButton class="btn btn--primary btn--lg" type="button" aria-haspopup="dialog" (click)="openAdd()">
+                <svg shIcon="plus"></svg><ng-container i18n="@@menu.addFirst">Add your first dish</ng-container>
+              </button>
+            </div>
+          </div>
+        } @else {
+          @if (!data.readOnly()) {
+            <div class="toolbar">
+              <div class="stack stack--sm">
+                <span class="cluster">
+                  <button
+                    #addButton
+                    class="btn btn--primary"
+                    type="button"
+                    aria-haspopup="dialog"
+                    [disabled]="full()"
+                    [attr.aria-describedby]="full() ? 'dish-limit' : null"
+                    (click)="openAdd()"
+                  >
+                    <svg shIcon="plus"></svg><ng-container i18n="@@dish.add">Add dish</ng-container>
+                  </button>
+                </span>
+                @if (full()) {
+                  <span class="field__help" id="dish-limit" i18n="@@menu.full">You can list up to 50 dishes. Remove one to add another.</span>
+                }
+              </div>
+            </div>
+          }
+          <ol class="edit-list" aria-label="Dishes, in the order they appear on your page" i18n-aria-label="@@menu.listLabel">
+            @for (d of dishes(); track d.id; let i = $index; let first = $first; let last = $last) {
+              <li
+                sh-edit-row
+                [name]="d.name"
+                [first]="first"
+                [last]="last"
+                [readOnly]="data.readOnly()"
+                [moveUpLabel]="moveUp(d.name)"
+                [moveDownLabel]="moveDown(d.name)"
+                [editLabel]="editLabel(d.name)"
+                [removeLabel]="removeLabel(d.name)"
+                (movedUp)="move(i, 'up')"
+                (movedDown)="move(i, 'down')"
+                (editRequested)="openEdit(d.id)"
+                (removeRequested)="openRemove(d.id)"
+              >
+                <sh-dish layout="row" [name]="d.name" [price]="d.price" [description]="d.description" [tags]="d.tags" [tagLabels]="tagLabels" />
+              </li>
+            }
+          </ol>
+        }
+      }
+    }
+  }
+  @if (data.card(); as c) {
+    <app-listing-preview slot="preview" [card]="c" [href]="previewHref()" />
+  }
+</app-dashboard-layout>
+
+<app-dish-dialog
+  [open]="editing() !== null"
+  [dish]="editedDish()"
+  [position]="editedPosition()"
+  [total]="dishes().length"
+  (closed)="editing.set(null)"
+  (saved)="saved($event)"
+/>
+<app-remove-dish-dialog
+  [open]="!!removing()"
+  [dish]="removing()"
+  [blocked]="removeBlocked()"
+  (closed)="removeId.set(null)"
+  (removed)="removed($event)"
+  (addRequested)="addFromBlocked()"
+/>
+@if (data.profile(); as p) {
+  <app-withdraw-dialog [open]="withdrawOpen()" [business]="p.name" (closed)="withdrawOpen.set(false)" (withdrawn)="withdrawn($event)" />
+}

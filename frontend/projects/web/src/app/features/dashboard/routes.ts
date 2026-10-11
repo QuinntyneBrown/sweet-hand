@@ -51,6 +51,13 @@ export const dashboardRoutes: Routes = [
         data: { mainClass: 'container' },
         title: $localize`:@@photos.documentTitle:Photos · Sweet Hand`,
       },
+      {
+        path: 'profile/menu',
+        canActivate: [editorOpen],
+        loadComponent: () => import('./menu/menu.page').then((m) => m.MenuPage),
+        data: { mainClass: 'container' },
+        title: $localize`:@@menu.documentTitle:Menu · Sweet Hand`,
+      },
       { path: '**', loadComponent: () => import('../../shell/system-page').then((m) => m.SystemPage), data: { kind: 'not-found' } },
     ],
   },
