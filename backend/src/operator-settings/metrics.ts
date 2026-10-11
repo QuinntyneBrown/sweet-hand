@@ -7,6 +7,7 @@ import type { Granularity } from '@contract/granularity.ts';
 import type { MetricsBucket } from '@contract/metrics-bucket.ts';
 import type { MetricsReport } from '@contract/metrics-report.ts';
 import { dailyMetrics, metricsState, METRICS_STATE_ID, type DailyMetrics, type MetricsState } from './model.ts';
+import { visitsByDay } from './visits.ts';
 
 /** view-metrics-dashboard and export-metrics (L2-061, L2-063). */
 
@@ -57,12 +58,14 @@ class Figures {
   readonly range: Range;
   readonly today: string;
   private readonly daily: Map<string, DailyMetrics>;
+  private readonly visits: Map<string, { listing: number; caterer: number; unique: number }>;
   private readonly state: MetricsState;
 
-  constructor(range: Range, today: string, daily: DailyMetrics[], state: MetricsState) {
+  constructor(range: Range, today: string, daily: DailyMetrics[], visits: Figures['visits'], state: MetricsState) {
     this.range = range;
     this.today = today;
     this.daily = new Map(daily.map((m) => [m.id, m]));
+    this.visits = visits;
     this.state = state;
     const byBucket = new Map<string, string[]>();
     for (let d = range.from; d <= range.to; d = addDays(d, 1)) {
@@ -78,11 +81,13 @@ class Figures {
 
   static async load(tx: Transaction, range: Range, now: Date): Promise<Figures> {
     const state = (await metricsState(tx).get(METRICS_STATE_ID)) ?? { id: METRICS_STATE_ID, countingSince: torontoDate(now), statuses: [] };
-    return new Figures(range, torontoDate(now), await dailyMetrics(tx).all(), state);
+    return new Figures(range, torontoDate(now), await dailyMetrics(tx).all(), await visitsByDay(tx), state);
   }
 
+  /** Daily aggregates plus the visits recorded since, so a visit shows straight away (L2-061.3). */
   private sum(key: 'listing' | 'caterer' | 'unique' | 'published'): number[] {
-    return this.days.map((days) => days.reduce((n, d) => n + (this.daily.get(d)?.[key] ?? 0), 0));
+    const live = (d: string) => (key === 'published' ? 0 : (this.visits.get(d)?.[key] ?? 0));
+    return this.days.map((days) => days.reduce((n, d) => n + (this.daily.get(d)?.[key] ?? 0) + live(d), 0));
   }
 
   /** Caterers by status at the end of a day: Published from the publication history, the rest as last aggregated. */

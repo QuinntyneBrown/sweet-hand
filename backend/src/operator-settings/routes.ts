@@ -1,4 +1,5 @@
-import { admins, roles, type Area } from '../http/router.ts';
+import { admins, anonymous, roles, type Area } from '../http/router.ts';
+import { recordVisit } from './visits.ts';
 import { queryAuditLog } from './audit-log.ts';
 import { enquiryMetrics, exportMetrics, metricsReport } from './metrics.ts';
 import { adminOnly, deactivateOperator, inviteOperator, listOperators } from './accounts.ts';
@@ -25,4 +26,6 @@ export const operatorSettingsArea: Area = (r) => {
   r.get('/api/operator/metrics', operators, metricsReport);
   r.get('/api/operator/metrics/enquiries', operators, enquiryMetrics);
   r.get('/api/operator/metrics/export.csv', operators, exportMetrics);
+  // Anonymous by deliberate choice: visitors who are not signed in are counted, without any id (L2-062).
+  r.post('/api/visits', anonymous, recordVisit);
 };

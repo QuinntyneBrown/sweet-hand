@@ -56,9 +56,26 @@ export interface MetricsState extends Document {
 
 export const METRICS_STATE_ID = 'current';
 
+export type PageType = 'Listing' | 'CatererPage';
+
+/** One counted page load (L2-062.2): exactly the daily hash, page type, caterer (if any) and time. */
+export interface VisitRecord extends Document {
+  dailyHash: string;
+  pageType: PageType;
+  catererId?: string;
+  occurredAt: string;
+}
+
+/** The random salt for one Toronto day, keyed by that date; deleted once the day is over (L2-062.4). */
+export interface VisitSalt extends Document {
+  salt: string;
+}
+
 export const breaches =(tx: Transaction) => tx.collection<Breach>('breaches');
 export const operatorInvitations = (tx: Transaction) => tx.collection<OperatorInvitation>('operatorInvitations');
 export const operatorDeactivations = (tx: Transaction) => tx.collection<OperatorDeactivation>('operatorDeactivations');
 export const operatorActivity = (tx: Transaction) => tx.collection<OperatorActivity>('operatorActivity');
 export const dailyMetrics = (tx: Transaction) => tx.collection<DailyMetrics>('dailyMetrics');
 export const metricsState = (tx: Transaction) => tx.collection<MetricsState>('metricsState');
+export const visits = (tx: Transaction) => tx.collection<VisitRecord>('visits');
+export const visitSalts = (tx: Transaction) => tx.collection<VisitSalt>('visitSalts');
