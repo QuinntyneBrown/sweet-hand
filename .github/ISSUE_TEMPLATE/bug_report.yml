@@ -1,0 +1,47 @@
+name: Bug report
+description: Something in Sweet Hand does not work as it should.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. Please do not include real people's personal information, and report security vulnerabilities privately through SECURITY.md instead.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the problem and what you expected to happen instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Sign in as marcia.t@example.com
+        2. Open ...
+        3. Select ...
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Frontend (app)
+        - Backend (API)
+        - Design system or mocks
+        - Documentation
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser, device and screen width
+      placeholder: Chrome 140 on Android, 390px wide
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Paste any error output or attach screenshots.

@@ -15,6 +15,11 @@ cooking is just that good.
 The repository is at an early stage. Record the layout here as it lands, and
 keep it accurate:
 
+- `README.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`,
+  `SUPPORT.md`, `LICENSE` (MIT) — the open-source front door; keep the README's
+  commands and layout in step with the sub-project READMEs
+- `.github/` — pull request template and issue forms
+- `assets/logo/` — the logo (light and dark lockups, square mark)
 - `docs/specs/` — L1/L2 requirements (`engineering-requirements` skill)
 - `docs/specs/components/` — component requirements documents (CRDs), one
   `<component>.md` and `<component>.html` pair per component, tracing to L2
