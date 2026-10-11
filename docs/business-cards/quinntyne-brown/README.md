@@ -1,6 +1,6 @@
 # Business card — Quinntyne Brown
 
-CEO, Founder and Principal Product Engineer, Sweet Hand.
+Founder and Chief Product Officer, Sweet Hand.
 
 | File | Purpose |
 | --- | --- |
