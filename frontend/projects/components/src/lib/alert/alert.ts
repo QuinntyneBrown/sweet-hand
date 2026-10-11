@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, DOCUMENT, ElementRef, computed, inject, input, output, signal, viewChild } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { Icon, type IconName } from '../icon/icon';
+import { Icon } from '../icon/icon';
+import type { IconName } from '../icon/icon-name';
 
 /**
  * A message about the page or what just happened (docs/specs/components/alert.md).

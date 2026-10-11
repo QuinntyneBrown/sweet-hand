@@ -3,8 +3,7 @@ import { firstValueFrom } from 'rxjs';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { cardModel, statusLabel, statusTone } from './profile-text';
 import { type CatererProfileService, type OwnProfileView, type ReferenceDataView } from '@sweet-hand/api';
-
-export type LoadState = { kind: 'loading' } | { kind: 'error'; reference: string | null } | { kind: 'ready' };
+import type { LoadState } from './load-state';
 
 /** The caterer's own profile and the reference lists, as one section page loads them. */
 export class ProfileData {

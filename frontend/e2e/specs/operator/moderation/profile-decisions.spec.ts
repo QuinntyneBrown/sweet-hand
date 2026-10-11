@@ -1,7 +1,8 @@
 import { test, expect } from '../../../support/test';
 import { ProfileReviewPage } from '../../../pages/profile-review.page';
 import { ReviewQueuePage } from '../../../pages/review-queue.page';
-import { ApproveDialog, RequestChangesDialog } from '../../../pages/moderation-dialogs';
+import { ApproveDialog } from '../../../pages/approve-dialog';
+import { RequestChangesDialog } from '../../../pages/request-changes-dialog';
 import { ListingPage } from '../../../pages/listing.page';
 import { CatererPage } from '../../../pages/caterer.page';
 

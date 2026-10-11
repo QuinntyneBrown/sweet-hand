@@ -1,14 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { Router, RouterLink, type UrlTree } from '@angular/router';
-
-export interface SegmentedItem {
-  value: string;
-  label: string;
-  count?: number | null;
-  hiddenSuffix?: string | null;
-  href?: string;
-  disabled?: boolean;
-}
+import type { SegmentedItem } from './segmented-item';
 
 /**
  * Pick one from a short, always visible row: links kept in the URL or

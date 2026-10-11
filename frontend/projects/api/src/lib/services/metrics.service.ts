@@ -1,5 +1,7 @@
 import { type Observable } from 'rxjs';
-import type { EnquiryMetrics, MetricsQuery, MetricsReport } from '../models/metrics.models';
+import type { EnquiryMetrics } from '../models/enquiry-metrics';
+import type { MetricsQuery } from '../models/metrics-query';
+import type { MetricsReport } from '../models/metrics-report';
 
 /**
  * The operator metrics dashboard and its CSV export (view-metrics-dashboard,

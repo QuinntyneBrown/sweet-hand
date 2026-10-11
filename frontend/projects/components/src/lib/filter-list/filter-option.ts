@@ -8,15 +8,6 @@ export interface FilterOption {
   disabled?: boolean;
 }
 
-/** One link of the list in navigation mode. */
-export interface NavItem {
-  label: string;
-  href: string;
-  current: boolean;
-  count?: string;
-  badge?: { text: string; label: string };
-}
-
 /** Zero-count options stay listed but disabled, unless chosen so they can be unchosen (filter-list AC-8). */
 export function optionDisabled(o: FilterOption, groupDisabled: boolean): boolean {
   return groupDisabled || (o.disabled ?? (o.count === 0 && !o.pressed));

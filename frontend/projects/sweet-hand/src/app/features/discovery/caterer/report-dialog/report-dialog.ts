@@ -5,9 +5,8 @@ import { count, shortDate } from '../../../../core/format/format';
 import { problemOf } from '../../../../core/forms/problem';
 import { DETAILS_MAX, REPORT_REASONS, reportErrors } from './report-rules';
 import { BotChallengeService, type ReportReason, type ReportRequest, ReportsService } from '@sweet-hand/api';
-
-type Step = 'form' | 'sent' | 'duplicate';
-type Failure = 'server' | 'limit' | null;
+import type { Step } from './step';
+import type { Failure } from './failure';
 
 /**
  * "Report this listing" (docs/detailed-designs/moderation/report-content,

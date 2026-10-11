@@ -20,7 +20,8 @@ import {
   StickyCta,
   type RowPhoto,
 } from '@sweet-hand/components';
-import { EnquiryLauncher, type EnquiryTarget } from '../../../core/enquiry/enquiry-launcher';
+import { EnquiryLauncher } from '../../../core/enquiry/enquiry-launcher';
+import type { EnquiryTarget } from '../../../core/enquiry/enquiry-target';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { ReviewsSection } from '../../reviews/reviews-section/reviews-section';
 import { reviewCount } from '../../reviews/reviews-section/review-labels';
@@ -32,8 +33,7 @@ import { MainLandmark } from './main-landmark';
 import { ReportDialog } from './report-dialog/report-dialog';
 import { Connectivity } from './connectivity';
 import { type CatererGoneView, CatererPageService, type CatererPageView } from '@sweet-hand/api';
-
-type PageState = 'loading' | 'ready' | 'gone' | 'not-found' | 'error';
+import type { PageState } from './page-state';
 
 /** What the enquiry form needs to know about the caterer (L2-024, L2-026.2). */
 function enquiryTarget(v: CatererPageView): EnquiryTarget {

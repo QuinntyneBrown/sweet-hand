@@ -7,16 +7,9 @@ import { summaryHeading } from '../../../core/forms/validation';
 import { Session } from '../../../core/session/session';
 import { STAR_LABELS, TEXT_MAX, reviewErrors, type ReviewErrors } from './review-rules';
 import { type ReviewResult, ReviewsService } from '@sweet-hand/api';
-
-/** What the dialog writes or edits. */
-export type ReviewDialogSubject =
-  | { mode: 'write'; slug: string; catererName: string; eventDate: string; reviewerLabel: string }
-  | { mode: 'edit'; reviewId: string; catererName: string; eventMonth: string; reviewerLabel: string; rating: number; text: string; editableUntil: string };
-
-/** How the dialog ended: dismissed, saved (published or held), or "See your review". */
-export type ReviewDialogOutcome = 'dismissed' | 'saved' | 'see-review';
-
-type Step = 'form' | 'live' | 'held';
+import type { ReviewDialogSubject } from './review-dialog-subject';
+import type { ReviewDialogOutcome } from './review-dialog-outcome';
+import type { Step } from './step';
 
 /**
  * Write or edit a review (docs/detailed-designs/reviews/write-review and

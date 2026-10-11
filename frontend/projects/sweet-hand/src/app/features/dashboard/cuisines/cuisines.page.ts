@@ -12,8 +12,8 @@ import { fixHeading, notSavedText } from '../shared/section-text';
 import { StatusNotice } from '../shared/status-notice';
 import { WithdrawDialog } from '../shared/withdraw-dialog';
 import { CatererProfileService, type OwnProfileView } from '@sweet-hand/api';
+import type { Errors } from './errors';
 
-type Errors = { cuisines: string | null; primaryCuisine: string | null; areas: string | null; primaryArea: string | null };
 const NONE: Errors = { cuisines: null, primaryCuisine: null, areas: null, primaryArea: null };
 
 /** Cuisines and areas, /dashboard/profile/cuisines (docs/mocks/pages/profile-cuisines; L2-007, L2-010). */

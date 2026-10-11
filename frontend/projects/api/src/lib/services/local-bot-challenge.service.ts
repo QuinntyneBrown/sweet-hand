@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BotChallengeService, ProtectedAction } from './bot-challenge.service';
+import { BotChallengeService } from './bot-challenge.service';
+import { ProtectedAction } from './protected-action';
 
 /**
  * Stands in for the provider until one is chosen (rate-limit-and-challenge

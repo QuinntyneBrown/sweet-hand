@@ -13,7 +13,8 @@ import {
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Icon } from '../icon/icon';
-import { ModalLayer, type ModalRef } from '../overlay/modal-layer';
+import { ModalLayer } from '../overlay/modal-layer';
+import type { ModalRef } from '../overlay/modal-ref';
 
 let nextId = 0;
 

@@ -1,7 +1,7 @@
 import { type RecordBreachRequest } from '@sweet-hand/api';
+import type { BreachErrors } from './breach-errors';
 
 export type BreachField = 'date' | 'what' | 'people' | 'risk' | 'decision';
-export type BreachErrors = Partial<Record<BreachField, string>>;
 
 /** A breach record needs every part L2-075.2 lists; the server applies the same rules. */
 export function breachErrors(r: RecordBreachRequest, today: string): BreachErrors {

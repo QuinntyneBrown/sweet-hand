@@ -1,11 +1,6 @@
-import { DashboardDialog, DashboardScreen } from './dashboard.page';
-
-/** A file to hand to a file picker. */
-export interface PickedFile {
-  name: string;
-  mimeType: string;
-  buffer: Buffer;
-}
+import { DashboardDialog } from './dashboard-dialog';
+import { DashboardScreen } from './dashboard-screen';
+import type { PickedFile } from './picked-file';
 
 /** A PNG whose header says how big it is; the server reads the size from the content (L2-041.1, L2-041.2). */
 export function pngFile(name: string, width: number, height: number): PickedFile {

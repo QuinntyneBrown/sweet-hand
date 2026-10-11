@@ -13,16 +13,8 @@ import {
   Injector,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Icon, type IconName } from '../icon/icon';
-
-export interface MenuItemEntry {
-  kind: 'item';
-  id: string;
-  label: string;
-  href?: string;
-  icon?: IconName;
-  danger?: boolean;
-}
+import { Icon } from '../icon/icon';
+import type { MenuItemEntry } from './menu-item-entry';
 
 /**
  * The avatar's account menu (docs/specs/components/menu.md, `sh-account-menu`).

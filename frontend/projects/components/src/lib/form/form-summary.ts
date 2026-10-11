@@ -1,9 +1,5 @@
 import { ChangeDetectionStrategy, Component, DOCUMENT, ElementRef, effect, inject, input, output, untracked, viewChild, afterNextRender, Injector } from '@angular/core';
-
-export interface SummaryItem {
-  controlId: string;
-  message: string;
-}
+import type { SummaryItem } from './summary-item';
 
 /**
  * The error summary at the top of a form (form-layout CRD, `sh-form-summary`;

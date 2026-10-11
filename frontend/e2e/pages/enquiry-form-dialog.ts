@@ -1,14 +1,5 @@
 import { expect, type Page } from '@playwright/test';
-
-/** What a test types into the form; omitted fields are left as they are. */
-export interface EnquiryEntry {
-  date?: string;
-  guests?: string;
-  area?: string;
-  postal?: string;
-  occasion?: string;
-  message?: string;
-}
+import type { EnquiryEntry } from './enquiry-entry';
 
 /** "Send an enquiry" to a caterer (docs/mocks/dialogs/enquiry, every state). */
 export class EnquiryFormDialog {

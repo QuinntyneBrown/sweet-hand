@@ -1,5 +1,8 @@
 import type { Observable } from 'rxjs';
-import type { ReviewEligibility, ReviewPageView, ReviewRequest, ReviewResult } from '../models/reviews.models';
+import type { ReviewEligibility } from '../models/review-eligibility';
+import type { ReviewPageView } from '../models/review-page-view';
+import type { ReviewRequest } from '../models/review-request';
+import type { ReviewResult } from '../models/review-result';
 
 /** Reviews of a caterer: reading, eligibility, writing, editing and deleting (ADR 0003). */
 export abstract class ReviewsService {

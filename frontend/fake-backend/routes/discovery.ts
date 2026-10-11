@@ -3,9 +3,14 @@ import { ok, notFound } from '../lib/http.ts';
 import { torontoDate, type Store } from '../lib/store.ts';
 import { photoView } from '../lib/views.ts';
 import { FSA_TO_AREA, OCCASION_PHOTOS, OCCASIONS, slugify } from '../seed/taxonomy.ts';
-import type { Caterer } from '../seed/caterers.ts';
-import type { ListingPageView, OccasionTile, ServiceArea } from '../../projects/api/src/lib/models/discovery.models.ts';
-import type { CatererGoneView, CatererPageView, CatererRegionView, DietaryTag } from '../../projects/api/src/lib/models/caterer-page.models.ts';
+import type { Caterer } from '../seed/caterer.ts';
+import type { ListingPageView } from '../../projects/api/src/lib/models/listing-page-view.ts';
+import type { OccasionTile } from '../../projects/api/src/lib/models/occasion-tile.ts';
+import type { ServiceArea } from '../../projects/api/src/lib/models/service-area.ts';
+import type { CatererGoneView } from '../../projects/api/src/lib/models/caterer-gone-view.ts';
+import type { CatererPageView } from '../../projects/api/src/lib/models/caterer-page-view.ts';
+import type { CatererRegionView } from '../../projects/api/src/lib/models/caterer-region-view.ts';
+import type { DietaryTag } from '../../projects/api/src/lib/models/dietary-tag.ts';
 import { ratingSummary } from './reviews.ts';
 
 const PAGE_SIZE = 24;

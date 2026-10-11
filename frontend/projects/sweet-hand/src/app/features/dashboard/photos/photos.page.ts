@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, Injector, afterNextRender, computed, effect, inject, signal, viewChild, viewChildren } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
-import { firstValueFrom, type Subscription } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { Alert, BackLink, EMPTY_STATE, FileUpload, Icon, PhotoManager, PhotoTile, SaveStatus, Status, ToastNotifier, type PhotoTileLabels } from '@sweet-hand/components';
 import { problemOf } from '../../../core/forms/problem';
 import { DashboardLayout } from '../shared/dashboard-layout';
@@ -13,13 +13,7 @@ import { PhotoDetailsDialog } from './photo-details.dialog';
 import { MAX_PHOTOS, MIN_PUBLISHED_PHOTOS, PHOTO_TYPES, photoSizeMessage, photosSubtitle, readUpload, tooBig } from './photo-rules';
 import { RemovePhotoDialog } from './remove-photo.dialog';
 import { CatererProfileService, type OwnPhotoView, type OwnProfileView } from '@sweet-hand/api';
-
-interface Upload {
-  key: number;
-  file: File;
-  progress: number;
-  subscription: Subscription | null;
-}
+import type { Upload } from './upload';
 
 /** How often photos still processing are checked (L2-041.1: a preview within 10 seconds). */
 const PROCESSING_POLL_MS = 10_000;

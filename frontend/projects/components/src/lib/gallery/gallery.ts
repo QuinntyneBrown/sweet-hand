@@ -1,16 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, computed, input, output, signal, viewChild } from '@angular/core';
 import { Photo } from '../photo/photo';
-
-/** One gallery photo, in the caterer's order (gallery CRD, API). */
-export interface GalleryPhoto {
-  src: string;
-  srcset: string;
-  width: number;
-  height: number;
-  caption: string;
-  /** The large rendition the viewer shows. */
-  viewerSrc: string;
-}
+import type { GalleryPhoto } from './gallery-photo';
 
 /** Image sizes for the lead and the thumbnails (gallery CRD D-8). */
 const LEAD_SIZES = '(min-width: 62rem) 30rem, (min-width: 36rem) 24rem, 80vw';

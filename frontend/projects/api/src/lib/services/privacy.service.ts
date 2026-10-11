@@ -1,5 +1,5 @@
 import type { Observable } from 'rxjs';
-import type { PrivacyNotice } from '../models/privacy.models';
+import type { PrivacyNotice } from '../models/privacy-notice';
 
 /** The privacy notice and consent records (consent-to-privacy-notice design, `PrivacyClient`). */
 export abstract class PrivacyService {

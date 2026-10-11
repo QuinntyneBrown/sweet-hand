@@ -1,45 +1,8 @@
-import { ChangeDetectionStrategy, Component, ElementRef, computed, input, output, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, input, output, viewChild } from '@angular/core';
 import { Icon } from '../icon/icon';
 import { Progress } from '../progress/progress';
-
-/**
- * Translated copy for a photo tile (photo-tile CRD, API). `{n}` is the
- * position and `{file}` the uploaded file's name; `{pct}` the percent sent.
- */
-export interface PhotoTileLabels {
-  /** "Cover" */
-  cover: string;
-  /** "Move photo {n} up" */
-  moveUp: string;
-  /** "Move photo {n} down" */
-  moveDown: string;
-  /** "Edit" */
-  edit: string;
-  /** " photo {n}" */
-  editObject: string;
-  /** "Add a caption" */
-  missingCaption: string;
-  /** "Add caption" */
-  addCaption: string;
-  /** " to photo {n}" */
-  addCaptionObject: string;
-  /** "Uploading {file}" */
-  uploading: string;
-  /** "{pct}%, uploading" */
-  uploadingValue: string;
-  /** "Cancel" */
-  cancel: string;
-  /** " upload of {file}" */
-  cancelObject: string;
-  /** "Processing" */
-  processing: string;
-}
-
-export interface TilePhoto {
-  src: string;
-  width: number;
-  height: number;
-}
+import type { PhotoTileLabels } from './photo-tile-labels';
+import type { TilePhoto } from './tile-photo';
 
 /**
  * One photo in the caterer's photo manager (docs/specs/components/photo-tile.md,
@@ -144,31 +107,3 @@ export class PhotoTile {
   }
 }
 
-/** The grid of photo tiles in public order (photo-tile CRD, `sh-photo-manager`). */
-@Component({
-  selector: 'sh-photo-manager',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
-  template: `
-    <ul class="photo-manager" [attr.aria-label]="label()" [attr.aria-busy]="busy() ? 'true' : null">
-      @if (busy()) {
-        @for (i of skeletons(); track i) {
-          <li class="photo-tile photo-tile--skeleton" aria-hidden="true">
-            <span class="photo"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text"></span>
-          </li>
-        }
-      } @else {
-        <ng-content />
-      }
-    </ul>
-    <p class="visually-hidden" role="status" aria-live="polite">{{ announcement() }}</p>
-  `,
-})
-export class PhotoManager {
-  readonly label = input.required<string>();
-  readonly busy = input(false);
-  readonly skeletonCount = input(6);
-  readonly announcement = input<string | null>(null);
-
-  protected readonly skeletons = computed(() => Array.from({ length: Math.min(30, Math.max(1, Math.round(this.skeletonCount()))) }, (_, i) => i));
-}

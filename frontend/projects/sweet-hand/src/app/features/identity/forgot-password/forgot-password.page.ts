@@ -8,8 +8,7 @@ import { problemOf, reference } from '../../../core/forms/problem';
 import { emailError, summaryHeading } from '../../../core/forms/validation';
 import { AuthPhotos } from '../auth-photos';
 import { BotChallengeService, IdentityService } from '@sweet-hand/api';
-
-type Failure = { kind: 'server'; reference: string | null } | { kind: 'rate-limited'; minutes: number } | null;
+import type { Failure } from './failure';
 
 /** Forgot password, /forgot-password (docs/detailed-designs/identity-and-security/verify-email-and-reset-password). */
 @Component({

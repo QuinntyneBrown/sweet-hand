@@ -1,18 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-
-export type StatusTone =
-  | 'open'
-  | 'replied'
-  | 'published'
-  | 'pending'
-  | 'held'
-  | 'hidden'
-  | 'declined'
-  | 'suspended'
-  | 'changes'
-  | 'closed'
-  | 'removed'
-  | 'draft';
+import type { StatusTone } from './status-tone';
 
 /**
  * A state word with a shape that is never the only signal (docs/specs/components/status.md,

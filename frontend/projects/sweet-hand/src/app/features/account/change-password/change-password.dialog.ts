@@ -6,9 +6,8 @@ import { problemOf } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
 import { newPasswordError } from '../../identity/rules';
 import { AccountService } from '@sweet-hand/api';
+import type { Errors } from './errors';
 
-type Field = 'current' | 'new' | 'confirm';
-type Errors = Record<Field, string | null>;
 const NO_ERRORS: Errors = { current: null, new: null, confirm: null };
 
 /** Change password (docs/mocks/dialogs/change-password). Other sessions end; this one stays. */

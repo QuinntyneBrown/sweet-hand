@@ -1,6 +1,8 @@
 import { test, expect } from '../../../support/test';
 import { CatererRecordPage } from '../../../pages/caterer-record.page';
-import { ReinstateDialog, RemoveDialog, SuspendDialog } from '../../../pages/moderation-dialogs';
+import { ReinstateDialog } from '../../../pages/reinstate-dialog';
+import { RemoveDialog } from '../../../pages/remove-dialog';
+import { SuspendDialog } from '../../../pages/suspend-dialog';
 import { CatererPage } from '../../../pages/caterer.page';
 import { ListingPage } from '../../../pages/listing.page';
 

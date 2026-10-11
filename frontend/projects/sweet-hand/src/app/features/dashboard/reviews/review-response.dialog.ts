@@ -4,8 +4,7 @@ import { Alert, Dialog, FormField, FormSummary, Icon, Stars, Textarea, Well, typ
 import { count, monthYear, shortDate } from '../../../core/format/format';
 import { problemOf } from '../../../core/forms/problem';
 import { CatererProfileService, type OwnReviewView } from '@sweet-hand/api';
-
-type Outcome = { kind: 'saved'; review: OwnReviewView } | { kind: 'deleted'; review: OwnReviewView; text: string };
+import type { Outcome } from './outcome';
 
 /** Respond to a review and Edit your response (docs/mocks/dialogs/review-response; respond-to-review, L2-052). */
 @Component({

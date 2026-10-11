@@ -1,5 +1,5 @@
 import type { Observable } from 'rxjs';
-import type { SessionView } from '../models/session.models';
+import type { SessionView } from '../models/session-view';
 
 /** The signed-in session contract (ADR 0003). */
 export abstract class SessionService {

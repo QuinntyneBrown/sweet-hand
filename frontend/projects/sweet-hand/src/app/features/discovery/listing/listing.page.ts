@@ -37,7 +37,8 @@ import {
   withoutChip,
 } from './listing-filters';
 import { pageLabel, pageSummary, savedAt } from './listing-text';
-import { Connectivity, ListingCache } from './listing-cache';
+import { Connectivity } from './connectivity';
+import { ListingCache } from './listing-cache';
 import { activeFilterCount, knownQuery, readListingQuery, toQueryParams, withArea, withCuisine, withRegion, withoutCuisines } from './listing-query';
 import { DiscoveryService, type ListingPageView, type ListingQuery } from '@sweet-hand/api';
 

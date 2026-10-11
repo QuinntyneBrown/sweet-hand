@@ -2,8 +2,10 @@ import { ApplicationRef, EnvironmentInjector, Injectable, createComponent, injec
 import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { EnquiryDraftStore } from '../../../core/enquiry/enquiry-draft-store';
-import { EnquiryLauncher, RESUME_PARAM, RESUME_VALUE, type EnquiryTarget } from '../../../core/enquiry/enquiry-launcher';
-import type { EnquiryFormDialog, EnquiryFormRequest } from './enquiry-form-dialog';
+import { EnquiryLauncher, RESUME_PARAM, RESUME_VALUE } from '../../../core/enquiry/enquiry-launcher';
+import type { EnquiryTarget } from '../../../core/enquiry/enquiry-target';
+import type { EnquiryFormDialog } from './enquiry-form-dialog';
+import type { EnquiryFormRequest } from './enquiry-form-request';
 
 /**
  * Opens the enquiry form over the caterer page (send-enquiry design,

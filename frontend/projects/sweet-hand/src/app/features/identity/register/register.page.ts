@@ -8,9 +8,8 @@ import { emailError, summaryHeading } from '../../../core/forms/validation';
 import { AuthPhotos } from '../auth-photos';
 import { displayNameError, newPasswordError } from '../rules';
 import { BotChallengeService, IdentityService } from '@sweet-hand/api';
+import type { Errors } from './errors';
 
-type Field = 'name' | 'email' | 'password' | 'consent';
-type Errors = Record<Field, string | null>;
 const NO_ERRORS: Errors = { name: null, email: null, password: null, consent: null };
 
 /** Create a customer account, /register (docs/detailed-designs/identity-and-security/register-customer). */

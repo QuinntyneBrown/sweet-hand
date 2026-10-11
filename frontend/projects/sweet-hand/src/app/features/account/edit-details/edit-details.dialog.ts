@@ -6,9 +6,8 @@ import { problemOf } from '../../../core/forms/problem';
 import { emailError, summaryHeading } from '../../../core/forms/validation';
 import { displayNameError, normalisePhone, phoneError } from '../../identity/rules';
 import { AccountService, type AccountView } from '@sweet-hand/api';
+import type { Errors } from './errors';
 
-type Field = 'name' | 'email' | 'phone';
-type Errors = Record<Field, string | null>;
 const NO_ERRORS: Errors = { name: null, email: null, phone: null };
 
 /** "+1 647 555 0123" from "+16475550123". */

@@ -9,20 +9,8 @@ import {
 } from '@angular/core';
 import { FocusTrapFactory, type FocusTrap } from '@angular/cdk/a11y';
 import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
-
-export interface ModalOptions {
-  /** Called when Escape is pressed inside the overlay. */
-  onEscape: () => void;
-  /** Element to focus first; defaults to the first `[autofocus]`, then the first focusable element. */
-  initialFocus?: (host: HTMLElement) => HTMLElement | null;
-  /** Where focus goes on close; defaults to the element focused when it opened (L2-067.4). */
-  returnFocus?: () => HTMLElement | null;
-}
-
-export interface ModalRef {
-  readonly host: HTMLElement;
-  close(): void;
-}
+import type { ModalOptions } from './modal-options';
+import type { ModalRef } from './modal-ref';
 
 /**
  * Renders a modal template at the end of `<body>`, makes the rest of the page

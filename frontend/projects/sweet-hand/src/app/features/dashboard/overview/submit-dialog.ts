@@ -3,8 +3,7 @@ import { RouterLink } from '@angular/router';
 import { Alert, Check, Dialog, Icon, Timeline, TimelineEntry } from '@sweet-hand/components';
 import { RULE_HREF } from '../shared/profile-text';
 import { type ChecklistKey } from '@sweet-hand/api';
-
-export type SubmitStep = 'confirm' | 'invalid' | 'success';
+import type { SubmitStep } from './submit-step';
 
 /** What a refused rule asks for, and the action that fixes the first one. */
 export function failureText(key: ChecklistKey): string {

@@ -3,8 +3,7 @@ import { Checkbox, FilterDropdown, FilterTrigger, optionDisabled, type FilterOpt
 import { AreaField } from '../search/area-field';
 import { caterersCount } from './listing-text';
 import { type ServiceArea } from '@sweet-hand/api';
-
-type Group = 'cuisine' | 'area';
+import type { Group } from './group';
 
 /**
  * The tablet filter bar (MD): Cuisine and Area dropdowns that apply each tick

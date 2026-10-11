@@ -1,24 +1,28 @@
 import type { Router } from '../lib/router.ts';
-import { conflict, forbidden, invalid, notFound, ok, unauthorized, type Ctx, type Reply } from '../lib/http.ts';
+import { conflict, type Ctx, forbidden, invalid, notFound, ok, unauthorized } from '../lib/http.ts';
+import type { Reply } from '../lib/reply.ts';
 import { currentUser, newId, torontoDate, type Store } from '../lib/store.ts';
-import type { Caterer, Dish, Photo } from '../seed/caterers.ts';
-import type { User } from '../seed/users.ts';
+import type { Caterer } from '../seed/caterer.ts';
+import type { Dish } from '../seed/dish.ts';
+import type { Photo } from '../seed/photo.ts';
+import type { User } from '../seed/user.ts';
 import { OCCASIONS } from '../seed/taxonomy.ts';
 import { sendEmail } from './identity.ts';
 import { reviewerLabel } from './reviews.ts';
-import type {
-  AttentionView,
-  CertificateView,
-  ChecklistItemView,
-  ChecklistKey,
-  DietaryTagId,
-  OwnPhotoView,
-  OwnProfileView,
-  OwnReviewPageView,
-  OwnReviewView,
-  ReferenceDataView,
-  SubmissionProblem,
-} from '../../projects/api/src/lib/models/caterer-profile.models.ts';
+import type { AttentionView } from '../../projects/api/src/lib/models/attention-view.ts';
+import type { CertificateView } from '../../projects/api/src/lib/models/certificate-view.ts';
+import type { ChecklistItemView } from '../../projects/api/src/lib/models/checklist-item-view.ts';
+import type { ChecklistKey } from '../../projects/api/src/lib/models/checklist-key.ts';
+import type { DietaryTagId } from '../../projects/api/src/lib/models/dietary-tag-id.ts';
+import type { OwnPhotoView } from '../../projects/api/src/lib/models/own-photo-view.ts';
+import type { OwnProfileView } from '../../projects/api/src/lib/models/own-profile-view.ts';
+import type { OwnReviewPageView } from '../../projects/api/src/lib/models/own-review-page-view.ts';
+import type { OwnReviewView } from '../../projects/api/src/lib/models/own-review-view.ts';
+import type { ReferenceDataView } from '../../projects/api/src/lib/models/reference-data-view.ts';
+import type { SubmissionProblem } from '../../projects/api/src/lib/models/submission-problem.ts';
+import type { Own } from './own.ts';
+import type { Sniffed } from './sniffed.ts';
+import type { BevState } from './bev-state.ts';
 
 // ---------------------------------------------------------------------------
 // Limits and messages (L2-007, L2-010, L2-020, L2-021, L2-039 to L2-044, L2-052)
@@ -152,8 +156,6 @@ function settleProcessing(store: Store, c: Caterer): void {
 // Access: the session's own caterer profile, never one named in the request (L2-079)
 // ---------------------------------------------------------------------------
 
-type Own = { user: User; caterer: Caterer };
-
 function own(ctx: Ctx<Store>): Own | Reply {
   const user = currentUser(ctx.store, ctx.cookies);
   if (!user) return unauthorized();
@@ -181,8 +183,6 @@ function handle(fn: (o: Own, ctx: Ctx<Store>) => Reply): (ctx: Ctx<Store>) => Re
 // ---------------------------------------------------------------------------
 // Uploads: the type comes from the content signature, never the name (L2-041.3)
 // ---------------------------------------------------------------------------
-
-type Sniffed = 'JPEG' | 'PNG' | 'WEBP' | 'HEIC' | 'PDF' | null;
 
 function sniff(bytes: Buffer): Sniffed {
   if (bytes.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) return 'JPEG';
@@ -725,8 +725,6 @@ const BEV_DISHES: Omit<Dish, 'id'>[] = [
   { name: 'Festival', tags: ['vegetarian'], price: '$2 each' },
   { name: 'Escovitch fish', description: 'Fried snapper under pickled peppers and onion.', tags: ['gluten-free', 'dairy-free', 'spicy'] },
 ];
-
-type BevState = 'new' | 'draft' | 'ready' | 'pending' | 'changes-requested' | 'published';
 
 /** Beverley Campbell's Auntie Bev's Kitchen at each step of setup (docs/mocks/pages/dashboard). */
 function beverley(store: Store, state: BevState): void {

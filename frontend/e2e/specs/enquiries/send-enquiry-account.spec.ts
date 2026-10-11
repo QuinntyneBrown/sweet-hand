@@ -1,7 +1,7 @@
 import { test, expect } from '../../support/test';
 import { CatererPage } from '../../pages/caterer.page';
 import { EnquiryFormDialog } from '../../pages/enquiry-form-dialog';
-import { Toasts } from '../../pages/enquiry-thread';
+import { Toasts } from '../../pages/toasts';
 
 const ENTRY = {
   date: '2026-12-12',

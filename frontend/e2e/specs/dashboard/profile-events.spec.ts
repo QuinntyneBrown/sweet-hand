@@ -1,5 +1,5 @@
 import { test, expect } from '../../support/test';
-import { ProfileEventsPage } from '../../pages/profile-sections.page';
+import { ProfileEventsPage } from '../../pages/profile-events-page';
 
 test.describe('Guests and occasions', () => {
   test('L2-020 L2-021 L2-065.2: the guest range with numeric keypads and the chosen occasions', async ({ page, backend }) => {

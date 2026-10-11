@@ -1,7 +1,8 @@
 import type { Page } from '@playwright/test';
 import { test, expect } from '../../support/test';
 import { ProfileDetailsPage } from '../../pages/profile-details.page';
-import { ProfileCuisinesPage, ProfileEventsPage } from '../../pages/profile-sections.page';
+import { ProfileCuisinesPage } from '../../pages/profile-cuisines-page';
+import { ProfileEventsPage } from '../../pages/profile-events-page';
 import { ProfilePhotosPage } from '../../pages/profile-photos.page';
 import { ProfileMenuPage } from '../../pages/profile-menu.page';
 import { ProfileCertificatePage } from '../../pages/profile-certificate.page';

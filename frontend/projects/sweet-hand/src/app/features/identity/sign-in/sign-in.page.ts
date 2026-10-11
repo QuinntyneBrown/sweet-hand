@@ -11,13 +11,9 @@ import { landingFor, safeReturnUrl } from '../../../core/session/guards';
 import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
 import { BotChallengeService, IdentityService, type SignInLocked, type SignInRequest } from '@sweet-hand/api';
+import type { Failure } from './failure';
+import type { Errors } from './errors';
 
-type Failure = { kind: 'server'; reference: string | null } | { kind: 'locked'; until: string } | null;
-interface Errors {
-  email: string | null;
-  password: string | null;
-  human: string | null;
-}
 const NO_ERRORS: Errors = { email: null, password: null, human: null };
 
 /** Sign in, /sign-in (docs/detailed-designs/identity-and-security/sign-in). */

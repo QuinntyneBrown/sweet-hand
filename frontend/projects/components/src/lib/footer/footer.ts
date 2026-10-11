@@ -1,11 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
-export interface FooterLink {
-  label: string;
-  href: string;
-  current?: boolean;
-}
+import type { FooterLink } from './footer-link';
 
 /** The site footer (docs/specs/components/footer.md): a wordmark, one line and a few links. */
 @Component({

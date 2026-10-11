@@ -12,8 +12,7 @@ import { StatusNotice } from '../shared/status-notice';
 import { WithdrawDialog } from '../shared/withdraw-dialog';
 import { fixHeading, notSavedText } from '../shared/section-text';
 import { CatererProfileService, type OwnProfileView } from '@sweet-hand/api';
-
-type Errors = { name: string | null; description: string | null };
+import type { Errors } from './errors';
 
 /** Business details, /dashboard/profile/details (docs/mocks/pages/profile-details; set-up-profile and edit-published-profile designs). */
 @Component({

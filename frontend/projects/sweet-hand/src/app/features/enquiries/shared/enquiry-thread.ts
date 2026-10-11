@@ -23,12 +23,7 @@ import {
   threadEntries,
 } from '../thread-view';
 import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
-
-interface Outgoing {
-  id: number;
-  text: string;
-  state: 'pending' | 'failed';
-}
+import type { Outgoing } from './outgoing';
 
 let nextOutgoing = 0;
 

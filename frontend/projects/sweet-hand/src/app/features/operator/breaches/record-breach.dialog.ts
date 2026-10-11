@@ -5,7 +5,8 @@ import { Alert, Button, Checkbox, Dialog, FormField, FormSummary, Radio, RadioGr
 import { torontoToday } from '../../../core/format/format';
 import { problemOf } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
-import { breachErrors, type BreachErrors, type BreachField } from './breach-rules';
+import { breachErrors, type BreachField } from './breach-rules';
+import type { BreachErrors } from './breach-errors';
 import { type BreachInformation, type BreachRecord, OperatorSettingsService, type RecordBreachRequest } from '@sweet-hand/api';
 
 const INFORMATION: { value: BreachInformation; label: string }[] = [

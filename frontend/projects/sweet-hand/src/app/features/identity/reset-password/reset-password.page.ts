@@ -9,13 +9,7 @@ import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
 import { PASSWORD_MIN, newPasswordError } from '../rules';
 import { IdentityService } from '@sweet-hand/api';
-
-type View =
-  | { kind: 'loading' }
-  | { kind: 'load-failed' }
-  | { kind: 'form'; email: string }
-  | { kind: 'expired' }
-  | { kind: 'done' };
+import type { View } from './view';
 
 /** Choose a new password from a reset link, /reset-password/:token (L2-077.2, L2-077.4). */
 @Component({

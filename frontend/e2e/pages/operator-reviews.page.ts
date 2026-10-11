@@ -1,4 +1,5 @@
-import { ConsoleDialog, OperatorScreen } from './operator-screen';
+import { ConsoleDialog } from './console-dialog';
+import { OperatorScreen } from './operator-screen';
 
 /** Held and hidden reviews, /admin/reviews (docs/mocks/pages/admin-reviews, dialogs/moderate-review). */
 export class OperatorReviewsPage extends OperatorScreen {

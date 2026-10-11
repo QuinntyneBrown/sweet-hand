@@ -1,4 +1,5 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
+import type { Reply } from './reply.ts';
 
 /** What a route handler sees: the parsed request plus the caller's isolated store. */
 export interface Ctx<S = unknown> {
@@ -13,15 +14,6 @@ export interface Ctx<S = unknown> {
   req: IncomingMessage;
   res: ServerResponse;
 }
-
-export interface Reply {
-  status: number;
-  body?: unknown;
-  headers?: Record<string, string | string[]>;
-  raw?: Buffer | string;
-}
-
-export type Handler<S> = (ctx: Ctx<S>) => Reply | Promise<Reply>;
 
 export const ok = (body: unknown, status = 200): Reply => ({ status, body });
 export const noContent = (): Reply => ({ status: 204 });

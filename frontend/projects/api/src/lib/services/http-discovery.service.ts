@@ -1,7 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import type { Observable } from 'rxjs';
-import type { CuisineRef, ListingPageView, ListingQuery, OccasionTile, ServiceArea } from '../models/discovery.models';
+import type { CuisineRef } from '../models/cuisine-ref';
+import type { ListingPageView } from '../models/listing-page-view';
+import type { ListingQuery } from '../models/listing-query';
+import type { OccasionTile } from '../models/occasion-tile';
+import type { ServiceArea } from '../models/service-area';
 import { DiscoveryService } from './discovery.service';
 
 @Injectable()

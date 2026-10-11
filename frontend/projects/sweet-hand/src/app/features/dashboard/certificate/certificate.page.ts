@@ -14,13 +14,10 @@ import { StatusNotice } from '../shared/status-notice';
 import { WithdrawDialog } from '../shared/withdraw-dialog';
 import { readUpload } from '../photos/photo-rules';
 import { CatererProfileService, type CertificateView, type OwnProfileView } from '@sweet-hand/api';
+import type { Errors } from './errors';
+import type { Copy } from './copy';
 
-type Field = 'holder' | 'issuer' | 'number' | 'expiry';
-type Errors = Record<Field, string | null>;
 const NONE: Errors = { holder: null, issuer: null, number: null, expiry: null };
-
-/** The copy beside the form: the saved one, a newly chosen one, or one that was refused. */
-type Copy = { kind: 'saved'; name: string; meta: string } | { kind: 'chosen'; file: File; meta: string } | { kind: 'failed'; file: File | null; name: string; message: string } | null;
 
 const CERT_TYPES = 'application/pdf,image/jpeg,image/png';
 const MAX_BYTES = 10 * 1024 * 1024;

@@ -1,5 +1,5 @@
 import type { Observable } from 'rxjs';
-import type { ReportRequest } from '../models/reports.models';
+import type { ReportRequest } from '../models/report-request';
 
 /**
  * Reports of a caterer or a review (ADR 0003). Anonymous by explicit choice:

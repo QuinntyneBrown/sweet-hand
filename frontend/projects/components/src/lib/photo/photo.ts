@@ -1,14 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal, untracked } from '@angular/core';
 import { Icon } from '../icon/icon';
-
-export interface RowPhoto {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-}
-
-type Size = 'fluid' | 'xs' | 'sm' | 'md' | 'lg';
+import type { Size } from './size';
 
 /**
  * One round photo (docs/specs/components/photo.md): the image, a placeholder,
@@ -89,39 +81,3 @@ export class Photo {
   }
 }
 
-/** A row of round photos: the decorative three above system pages, or the operator's strip (photo CRD). */
-@Component({
-  selector: 'sh-photo-row',
-  imports: [Photo],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: block' },
-  template: `
-    @if (variant() === 'strip') {
-      <div class="photo-row photo-row--strip" [attr.aria-hidden]="busy() ? 'true' : null">
-        @if (busy()) {
-          @for (i of skeletons(); track i) {
-            <span class="photo"><span class="skeleton skeleton--circle"></span></span>
-          }
-        } @else {
-          @for (p of photos(); track $index) {
-            <sh-photo [src]="p.src" [alt]="p.alt" [width]="p.width" [height]="p.height" [failedLabel]="''" />
-          }
-        }
-      </div>
-    } @else {
-      <div class="photo-row" aria-hidden="true">
-        @for (p of photos(); track $index) {
-          <sh-photo [src]="p.src" alt="" [width]="p.width" [height]="p.height" loading="eager" [failedLabel]="''" />
-        }
-      </div>
-    }
-  `,
-})
-export class PhotoRow {
-  readonly variant = input<'decorative' | 'strip'>('decorative');
-  readonly photos = input.required<readonly RowPhoto[]>();
-  readonly busy = input(false);
-  readonly skeletonCount = input(4);
-
-  protected readonly skeletons = computed(() => Array.from({ length: this.skeletonCount() }, (_, i) => i));
-}

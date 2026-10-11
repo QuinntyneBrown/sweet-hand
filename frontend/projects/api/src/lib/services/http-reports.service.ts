@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import type { Observable } from 'rxjs';
-import type { ReportRequest } from '../models/reports.models';
+import type { ReportRequest } from '../models/report-request';
 import { ReportsService } from './reports.service';
 
 @Injectable()

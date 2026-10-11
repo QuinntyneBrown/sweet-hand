@@ -1,5 +1,6 @@
 import { TIME_ZONE, time } from '../../../core/format/format';
-import { type SessionUser, type SiteNotice } from '@sweet-hand/api';
+import type { SiteNotice } from '@sweet-hand/api';
+import type { BannerInputs } from './banner-inputs';
 
 /** The one banner under the header, most urgent first ("at most one banner per screen", alert CRD). */
 export type Banner =
@@ -8,16 +9,6 @@ export type Banner =
   | { kind: 'unverified'; email: string }
   | { kind: 'verified' }
   | { kind: 'maintenance'; id: string; startsAt: string; endsAt: string };
-
-export interface BannerInputs {
-  notices: readonly SiteNotice[];
-  user: SessionUser | null;
-  /** The email was verified while this page was open. */
-  justVerified: boolean;
-  dismissed: ReadonlySet<string>;
-  /** Pages that show the email conditions themselves (the account page). */
-  emailShownByPage: boolean;
-}
 
 export function pickBanner(i: BannerInputs): Banner | null {
   if (i.notices.some((n) => n.kind === 'degraded')) return { kind: 'degraded' };

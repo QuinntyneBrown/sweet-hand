@@ -1,6 +1,7 @@
 import { test, expect } from '../../../support/test';
 import { ReportReviewPage } from '../../../pages/report-review.page';
-import { OpenEnquiryDialog, ResolveReportDialog } from '../../../pages/moderation-dialogs';
+import { OpenEnquiryDialog } from '../../../pages/open-enquiry-dialog';
+import { ResolveReportDialog } from '../../../pages/resolve-report-dialog';
 import { CatererPage } from '../../../pages/caterer.page';
 
 const REVIEW = 'Food was cold and the owner is a crook. Everybody knows that family can’t cook. Avoid.';

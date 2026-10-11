@@ -1,18 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
-
-export interface TableColumn {
-  key: string;
-  label: string;
-  numeric?: boolean;
-  sortable?: boolean;
-  firstSort?: 'ascending' | 'descending';
-  actions?: boolean;
-}
-
-export interface TableSort {
-  key: string;
-  direction: 'ascending' | 'descending';
-}
+import type { TableColumn } from './table-column';
+import type { TableSort } from './table-sort';
 
 let nextId = 0;
 
@@ -101,22 +89,3 @@ export class Table {
   }
 }
 
-/** The actions of one row, revealed on hover or focus (table CRD, `sh-table-row-actions`). */
-@Component({
-  selector: 'sh-table-row-actions',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
-  template: `<div class="row-actions"><ng-content /></div>`,
-})
-export class TableRowActions {}
-
-/** An empty cell: a muted dash read as a word ("No change"; table CRD, `sh-table-na`). */
-@Component({
-  selector: 'sh-table-na',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
-  template: `<span class="na" aria-hidden="true">—</span><span class="visually-hidden">{{ label() }}</span>`,
-})
-export class TableNa {
-  readonly label = input.required<string>();
-}

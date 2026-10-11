@@ -3,72 +3,13 @@
  * All people, businesses and addresses are fictional.
  */
 import { seedOccasions, slugify } from './taxonomy.ts';
+import type { Photo } from './photo.ts';
+import type { Dish } from './dish.ts';
+import type { Certificate } from './certificate.ts';
+import type { Caterer } from './caterer.ts';
+import type { CastCaterer } from './cast-caterer.ts';
 
 export type ProfileStatus = 'Draft' | 'Pending review' | 'Changes requested' | 'Published' | 'Suspended' | 'Removed';
-
-export interface Photo {
-  id: string;
-  /** File name under docs/mocks/assets/img, served as /media/<file>. */
-  file: string;
-  caption: string;
-  processing?: boolean;
-  /** The name an uploaded photo arrived with (manage-photos design). */
-  fileName?: string;
-}
-
-export interface Dish {
-  id: string;
-  name: string;
-  description?: string;
-  tags: string[];
-  price?: string;
-}
-
-export interface Certificate {
-  holder: string;
-  issuer: string;
-  number: string;
-  expires: string;
-  fileName?: string;
-  fileSize?: number;
-  /** When the details were last saved, and when the copy was uploaded (provide-food-handler-certificate design). */
-  savedAt?: string;
-  fileUploadedAt?: string;
-  fileType?: 'PDF' | 'JPEG' | 'PNG';
-}
-
-export interface Caterer {
-  id: string;
-  slug: string;
-  name: string;
-  status: ProfileStatus;
-  ownerUserId?: string;
-  /** Cuisine ids; the first is primary. */
-  cuisines: string[];
-  /** Service area ids; the first is primary. */
-  areas: string[];
-  minGuests: number;
-  maxGuests: number;
-  occasions: string[];
-  description: string;
-  photos: Photo[];
-  dishes: Dish[];
-  certificate?: Certificate;
-  businessEmail?: string;
-  businessPhone?: string;
-  createdAt: string;
-  publishedAt?: string;
-  /** Old slugs that redirect (L2-018.3). */
-  previousSlugs: string[];
-  statusReason?: string;
-  pendingName?: string;
-  /** When the status last changed (submitted, changes requested, suspended, removed). */
-  statusChangedAt?: string;
-  /** When the pending business name was asked for (L2-044.2). */
-  pendingNameAt?: string;
-  /** Sections an operator flagged when asking for changes (L2-048.3). */
-  attention?: { key: string; note: string }[];
-}
 
 /** [name, file, primary cuisine, primary area, caption] in catalog order (#1–36). */
 const CATALOG: [string, string, string, string, string][] = [
@@ -375,9 +316,6 @@ function applyDashboardCast(all: Caterer[]): void {
 // ---------------------------------------------------------------------------
 
 const dish = (name: string, tags: string[], price?: string, description?: string): Omit<Dish, 'id'> => ({ name, tags, price, description });
-
-type CastCaterer = Pick<Caterer, 'id' | 'name' | 'status' | 'cuisines' | 'areas' | 'createdAt'> &
-  Partial<Omit<Caterer, 'photos' | 'dishes'>> & { photos?: Omit<Photo, 'id'>[]; dishes?: Omit<Dish, 'id'>[] };
 
 function moderationCaterer(p: CastCaterer): Caterer {
   const slug = slugify(p.name.replace(/[’']/g, ''));

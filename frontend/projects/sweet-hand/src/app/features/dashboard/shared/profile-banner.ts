@@ -2,16 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, input, signal } from '@an
 import { RouterLink } from '@angular/router';
 import { Alert } from '@sweet-hand/components';
 import { RULE_HREF, SECTION_HREF, attentionAction } from './profile-text';
-import { type OwnProfileStatus } from '@sweet-hand/api';
-
-/** What the banner needs to know about the profile. */
-export interface BannerProfile {
-  name: string;
-  status: OwnProfileStatus;
-  statusReason: string | null;
-  pendingName: { name: string } | null;
-  attention: { key: keyof typeof RULE_HREF }[];
-}
+import type { BannerProfile } from './banner-profile';
 
 /**
  * The profile's state on dashboard pages that have no status message of their

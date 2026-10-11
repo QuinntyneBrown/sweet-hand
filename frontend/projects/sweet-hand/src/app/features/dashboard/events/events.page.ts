@@ -12,8 +12,8 @@ import { fixHeading, notSavedText } from '../shared/section-text';
 import { StatusNotice } from '../shared/status-notice';
 import { WithdrawDialog } from '../shared/withdraw-dialog';
 import { CatererProfileService, type OwnProfileView } from '@sweet-hand/api';
+import type { Errors } from './errors';
 
-type Errors = { minGuests: string | null; maxGuests: string | null; occasions: string | null };
 const NONE: Errors = { minGuests: null, maxGuests: null, occasions: null };
 
 /** "Enter a whole number from 1 to 5,000" unless the text is one (L2-020.4). */

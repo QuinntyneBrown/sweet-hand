@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { Popover, type PopoverDismissal } from '../popover/popover';
+import { Popover } from '../popover/popover';
+import type { PopoverDismissal } from '../popover/popover-dismissal';
 
 /**
  * One filter group in a tablet dropdown under its trigger: the choices, Clear

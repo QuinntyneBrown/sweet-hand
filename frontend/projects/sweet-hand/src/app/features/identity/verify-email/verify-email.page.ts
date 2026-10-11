@@ -6,9 +6,8 @@ import { shortDate } from '../../../core/format/format';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
-import { type EmailVerified, IdentityService } from '@sweet-hand/api';
-
-type View = { kind: 'loading' } | { kind: 'verified'; result: EmailVerified } | { kind: 'expired' } | { kind: 'failed'; reference: string | null };
+import { IdentityService } from '@sweet-hand/api';
+import type { View } from './view';
 
 /** The landing page of a verification link, /verify-email/:token (L2-077.3, L2-023.3). */
 @Component({

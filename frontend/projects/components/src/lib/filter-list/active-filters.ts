@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { ButtonAnchor } from '../button/button';
-import { ChipGroup, FilterChip } from '../chip/chip';
+import { ButtonAnchor } from '../button/button-anchor';
+import { ChipGroup } from '../chip/chip-group';
+import { FilterChip } from '../chip/filter-chip';
 
 /**
  * The chips row above the results: one removable chip per active filter, then

@@ -1,10 +1,9 @@
 import { DestroyRef, computed, inject, signal } from '@angular/core';
 import { time } from '../../../core/format/format';
+import type { SaveState } from './save-state';
 
 /** Draft autosave waits this long after the last change (L2-038.1). */
 export const AUTOSAVE_DELAY_MS = 2000;
-
-export type SaveState = 'saved' | 'saving' | 'invalid' | 'failed';
 
 /**
  * Saves a section 2 seconds after the last change, or at once when a field

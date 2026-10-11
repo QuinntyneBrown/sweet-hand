@@ -11,17 +11,10 @@ import { DashboardLayout } from '../shared/dashboard-layout';
 import { ListingPreview } from '../shared/listing-preview';
 import { CHECK_LABELS, RULE_HREF, attentionAction, cardModel, checklistRows, publishedSections, sectionsLeft, statusLabel, statusTone } from '../shared/profile-text';
 import { WithdrawDialog } from '../shared/withdraw-dialog';
-import { SubmitDialog, type SubmitStep } from './submit-dialog';
-import { AccountService, type AccountView, CatererProfileService, type ChecklistKey, EnquiriesService, type InboxPageView, type InboxRowView, type OwnProfileView, type OwnReviewPageView, type ReferenceDataView, type SubmissionProblem } from '@sweet-hand/api';
-
-interface Loaded {
-  profile: OwnProfileView;
-  ref: ReferenceDataView;
-  inbox: InboxPageView;
-  reviews: OwnReviewPageView;
-}
-
-type ViewState = { kind: 'loading' } | { kind: 'error'; reference: string | null } | ({ kind: 'ready' } & Loaded);
+import { SubmitDialog } from './submit-dialog';
+import type { SubmitStep } from './submit-step';
+import { AccountService, type AccountView, CatererProfileService, type ChecklistKey, EnquiriesService, type InboxRowView, type OwnProfileView, type SubmissionProblem } from '@sweet-hand/api';
+import type { ViewState } from './view-state';
 
 const DISMISSED_KEY = 'sh-dismissed-live:';
 
@@ -302,7 +295,6 @@ export class OverviewPage {
     this.downloadOpen.set(true);
   }
 }
-
 
 function picture(row: InboxRowView): InboxRowPicture {
   const p = row.otherParty;

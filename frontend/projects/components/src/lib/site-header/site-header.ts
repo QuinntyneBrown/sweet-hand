@@ -1,29 +1,9 @@
 import { ChangeDetectionStrategy, Component, ElementRef, input, output, viewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Icon } from '../icon/icon';
-
-export interface SiteNavLink {
-  label: string;
-  href: string;
-  current?: boolean;
-  count?: number;
-  /** Hidden text after the badge, e.g. "1 unread enquiry"; required when count > 0. */
-  countLabel?: string;
-}
-
-export interface SiteNavShortcut {
-  label: string;
-  href: string;
-  current?: boolean;
-  count?: number;
-  /** The short count for the icon's name: "1 unread". */
-  countLabel?: string;
-}
-
-export interface SiteHeaderAccount {
-  initials: string;
-  label: string;
-}
+import type { SiteNavLink } from './site-nav-link';
+import type { SiteNavShortcut } from './site-nav-shortcut';
+import type { SiteHeaderAccount } from './site-header-account';
 
 /** The site header (docs/specs/components/site-header.md). Holds no strings of its own. */
 @Component({

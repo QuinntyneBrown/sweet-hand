@@ -17,24 +17,12 @@ import {
   type WritableSignal,
 } from '@angular/core';
 import { Icon } from '../icon/icon';
-import { ModalLayer, type ModalRef } from '../overlay/modal-layer';
+import { ModalLayer } from '../overlay/modal-layer';
+import type { ModalRef } from '../overlay/modal-ref';
 import { Photo } from '../photo/photo';
-import type { GalleryPhoto } from './gallery';
-
-/** The viewer's words, from the consumer's resource files (gallery CRD, API). */
-export interface ViewerLabels {
-  close: string;
-  previous: string;
-  next: string;
-  /** "Loading photo 3 of 6" */
-  loading: (n: number, total: number) => string;
-  /** "Photo 4 of 6 didn't load" */
-  failed: (n: number, total: number) => string;
-  failedNote: string;
-  retry: string;
-}
-
-type Phase = 'arriving' | 'ready' | 'failed';
+import type { GalleryPhoto } from './gallery-photo';
+import type { ViewerLabels } from './viewer-labels';
+import type { Phase } from './phase';
 
 /** Only a photo slower than this shows the spinner (gallery CRD, Performance). */
 const SPINNER_DELAY_MS = 300;

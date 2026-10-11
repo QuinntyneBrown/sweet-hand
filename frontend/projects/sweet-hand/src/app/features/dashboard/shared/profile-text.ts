@@ -1,6 +1,7 @@
-import type { CardPhoto, CheckStatusLabels, SectionLinkItem, SideNavItem, StatusTone } from '@sweet-hand/components';
+import type { CheckStatusLabels, SectionLinkItem, SideNavItem, StatusTone } from '@sweet-hand/components';
 import { shortDate } from '../../../core/format/format';
 import { type ChecklistKey, type OwnProfileStatus, type OwnProfileView, type ReferenceDataView } from '@sweet-hand/api';
+import type { CardModel } from './card-model';
 
 /**
  * Words and view models of the caterer dashboard (set-up-profile,
@@ -105,14 +106,6 @@ export function areaName(ref: ReferenceDataView, id: string | null): string {
     if (area) return area.name;
   }
   return '';
-}
-
-/** What the listing card shows: cover, name, primary cuisine and primary area (set-up-profile, ListingCardPreview). */
-export interface CardModel {
-  name: string;
-  cuisine: string;
-  area: string;
-  photo: CardPhoto | null;
 }
 
 export function cardModel(profile: OwnProfileView, ref: ReferenceDataView): CardModel {

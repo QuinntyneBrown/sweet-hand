@@ -1,11 +1,5 @@
-import type { Handler } from './http.ts';
-
-interface Route<S> {
-  method: string;
-  pattern: RegExp;
-  keys: string[];
-  handler: Handler<S>;
-}
+import type { Handler } from './handler.ts';
+import type { Route } from './route.ts';
 
 /** A tiny method + path router. Patterns use `:name` segments, e.g. `/api/public/caterers/:slug`. */
 export class Router<S> {

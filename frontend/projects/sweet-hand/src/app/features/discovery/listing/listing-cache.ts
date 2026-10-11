@@ -1,23 +1,6 @@
-import { DOCUMENT, Injectable, inject, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { type ListingPageView, type ListingQuery } from '@sweet-hand/api';
-
-/** Whether the browser has a connection, kept up to date by its online and offline events. */
-@Injectable({ providedIn: 'root' })
-export class Connectivity {
-  private readonly window = inject(DOCUMENT).defaultView;
-  private readonly state = signal(this.window?.navigator.onLine ?? true);
-  readonly online = this.state.asReadonly();
-
-  constructor() {
-    this.window?.addEventListener('online', () => this.state.set(true));
-    this.window?.addEventListener('offline', () => this.state.set(false));
-  }
-}
-
-export interface SavedListing {
-  view: ListingPageView;
-  savedAt: Date;
-}
+import type { SavedListing } from './saved-listing';
 
 const keyOf = (q: ListingQuery) => JSON.stringify([[...q.cuisines].sort(), [...q.regions].sort(), [...q.areas].sort(), q.occasion ?? null, q.page]);
 

@@ -1,7 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, type Observable } from 'rxjs';
-import type { EnquiryDraftView, EnquiryFormValues, InboxFilter, InboxPageView, ReplyResult, SendEnquiryRequest, SentEnquiryView, ThreadView } from '../models/enquiries.models';
+import type { EnquiryDraftView } from '../models/enquiry-draft-view';
+import type { EnquiryFormValues } from '../models/enquiry-form-values';
+import type { InboxFilter } from '../models/inbox-filter';
+import type { InboxPageView } from '../models/inbox-page-view';
+import type { ReplyResult } from '../models/reply-result';
+import type { SendEnquiryRequest } from '../models/send-enquiry-request';
+import type { SentEnquiryView } from '../models/sent-enquiry-view';
+import type { ThreadView } from '../models/thread-view';
 import { EnquiriesService } from './enquiries.service';
 
 @Injectable()

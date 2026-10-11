@@ -13,8 +13,7 @@ import { DeleteAccountDialog } from './delete-account/delete-account.dialog';
 import { DownloadDataDialog } from './download-data/download-data.dialog';
 import { EndSessionDialog } from './end-session/end-session.dialog';
 import { AccountService, type AccountView, type ActiveSession } from '@sweet-hand/api';
-
-type AccountDialog = 'details' | 'password' | 'session' | 'download' | 'delete' | null;
+import type { AccountDialog } from './account-dialog';
 
 /** Account settings, /account (docs/mocks/pages/account; manage-sessions, export and delete-account designs). */
 @Component({

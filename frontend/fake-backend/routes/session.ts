@@ -1,8 +1,9 @@
 import type { Router } from '../lib/router.ts';
 import { ok } from '../lib/http.ts';
 import { currentUser, newId, type Store } from '../lib/store.ts';
-import type { SessionUser, SessionView } from '../../projects/api/src/lib/models/session.models.ts';
-import type { User } from '../seed/users.ts';
+import type { SessionUser } from '../../projects/api/src/lib/models/session-user.ts';
+import type { SessionView } from '../../projects/api/src/lib/models/session-view.ts';
+import type { User } from '../seed/user.ts';
 import { privacyUpdateRequired } from './identity.ts';
 import { unreadThreads } from './enquiries.ts';
 import { queueItems } from './operator.ts';

@@ -7,7 +7,8 @@ import { summaryHeading } from '../../../../core/forms/validation';
 import { reasonError } from '../decisions/decision-text';
 import { ReasonDialog } from '../decisions/reason-dialog';
 import { RemoveDialog } from '../decisions/remove-dialog';
-import { OperatorEditDialog, type EditOutcome } from '../decisions/operator-edit-dialog';
+import { OperatorEditDialog } from '../decisions/operator-edit-dialog';
+import type { EditOutcome } from '../decisions/edit-outcome';
 import { shortDate } from '../../../../core/format/format';
 import { Session } from '../../../../core/session/session';
 import { guestRange } from '../../../discovery/caterer/caterer-view';
@@ -29,8 +30,7 @@ import {
   withPrimary,
 } from './record-view';
 import { type CatererRecordView, type DecisionResult, OperatorModerationService } from '@sweet-hand/api';
-
-export type RecordDialog = 'edit' | 'suspend' | 'reinstate' | 'remove';
+import type { RecordDialog } from './record-dialog';
 
 /**
  * One caterer's record for operators, /admin/caterers/:id

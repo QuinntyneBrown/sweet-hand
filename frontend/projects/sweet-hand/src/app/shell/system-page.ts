@@ -3,8 +3,7 @@ import { RouterLink } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
 import { ErrorPage, Icon } from '@sweet-hand/components';
 import { longDate, time } from '../core/format/format';
-
-export type SystemPageKind = 'not-found' | 'forbidden' | 'server-error' | 'rate-limited' | 'offline' | 'maintenance';
+import type { SystemPageKind } from './system-page-kind';
 
 const PHOTOS: Record<SystemPageKind, [string, string, string]> = {
   'not-found': ['demerara-kitchen', 'ti-kay', 'sugar-dumplin'],

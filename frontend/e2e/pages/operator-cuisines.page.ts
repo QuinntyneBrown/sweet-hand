@@ -1,4 +1,5 @@
-import { ConsoleDialog, OperatorScreen } from './operator-screen';
+import { ConsoleDialog } from './console-dialog';
+import { OperatorScreen } from './operator-screen';
 
 /** The cuisine list, /admin/cuisines (docs/mocks/pages/admin-cuisines, dialogs add-cuisine and retire-cuisine). */
 export class OperatorCuisinesPage extends OperatorScreen {

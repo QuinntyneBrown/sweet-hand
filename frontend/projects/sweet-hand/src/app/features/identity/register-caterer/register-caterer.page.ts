@@ -21,10 +21,10 @@ import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
 import { businessNameError, contactNameError, newPasswordError, normalisePhone, phoneError } from '../rules';
 import { BotChallengeService, IdentityService } from '@sweet-hand/api';
+import type { Errors } from './errors';
 
-const FIELDS = ['business', 'contact', 'email', 'phone', 'password', 'sells', 'terms'] as const;
-type Field = (typeof FIELDS)[number];
-type Errors = Record<Field, string | null>;
+export const FIELDS = ['business', 'contact', 'email', 'phone', 'password', 'sells', 'terms'] as const;
+
 const NO_ERRORS: Errors = { business: null, contact: null, email: null, phone: null, password: null, sells: null, terms: null };
 
 export const STATUS_WORDS: CheckStatusLabels = {

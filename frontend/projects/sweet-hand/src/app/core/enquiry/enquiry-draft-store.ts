@@ -1,13 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RESUME_PARAM, RESUME_VALUE } from './enquiry-launcher';
-import { type EnquiryFormValues } from '@sweet-hand/api';
-
-/** A visitor's unsent enquiry, kept while they sign in or register (send-enquiry design, `EnquiryDraftStore`). */
-export interface LocalEnquiryDraft {
-  caterer: { slug: string; name: string; photo: string };
-  values: EnquiryFormValues;
-  savedAt: number;
-}
+import type { LocalEnquiryDraft } from './local-enquiry-draft';
 
 const KEY = 'sh.enquiry-draft';
 /** Drafts are kept for 24 hours (docs/mocks/dialogs/enquiry/restored). */

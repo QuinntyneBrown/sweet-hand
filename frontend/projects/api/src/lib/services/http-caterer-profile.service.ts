@@ -1,7 +1,15 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, type HttpEvent } from '@angular/common/http';
 import type { Observable } from 'rxjs';
-import type { CertificateRequest, CertificateView, DishRequest, OwnPhotoView, OwnProfileView, OwnReviewPageView, ReferenceDataView, SectionRequest, UploadRequest } from '../models/caterer-profile.models';
+import type { CertificateRequest } from '../models/certificate-request';
+import type { CertificateView } from '../models/certificate-view';
+import type { DishRequest } from '../models/dish-request';
+import type { OwnPhotoView } from '../models/own-photo-view';
+import type { OwnProfileView } from '../models/own-profile-view';
+import type { OwnReviewPageView } from '../models/own-review-page-view';
+import type { ReferenceDataView } from '../models/reference-data-view';
+import type { SectionRequest } from '../models/section-request';
+import type { UploadRequest } from '../models/upload-request';
 import { CatererProfileService } from './caterer-profile.service';
 
 const BASE = '/api/caterer/profile';

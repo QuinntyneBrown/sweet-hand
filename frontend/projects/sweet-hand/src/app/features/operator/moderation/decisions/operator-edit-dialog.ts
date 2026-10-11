@@ -7,11 +7,8 @@ import { summaryHeading } from '../../../../core/forms/validation';
 import { firstName } from '../moderation-text';
 import { reasonError } from './decision-text';
 import { type CatererRecordView, type EditableField, type OperatorEditRequest, OperatorModerationService } from '@sweet-hand/api';
-
-export type EditField = EditableField | 'photo' | 'dish';
-
-/** What the operator changed, for the page's toast. */
-export type EditOutcome = { kind: 'edit' } | { kind: 'photo' | 'dish'; replaceBy: string | null };
+import type { EditField } from './edit-field';
+import type { EditOutcome } from './edit-outcome';
 
 const DESCRIPTION_MAX = 2000;
 

@@ -5,8 +5,7 @@ import { Alert, Button, Checkbox, Dialog, FormField, FormSummary, Icon, Stars, T
 import { summaryHeading } from '../../../core/forms/validation';
 import { ratingLabel } from '../../reviews/reviews-section/review-labels';
 import { type ModeratedReview, type ModerationAction, OperatorSettingsService } from '@sweet-hand/api';
-
-type Tone = 'info' | 'success' | 'danger';
+import type { Tone } from './tone';
 
 /** Approve, keep hidden, restore or remove a review, with a reason (docs/mocks/dialogs/moderate-review; ModerateReviewDialog, L2-059). */
 @Component({

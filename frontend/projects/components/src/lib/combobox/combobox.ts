@@ -13,12 +13,7 @@ import {
 } from '@angular/core';
 import { FIELD_CONTEXT } from '../form/form-field';
 import { Icon } from '../icon/icon';
-
-export interface AreaOption {
-  value: string;
-  label: string;
-  region: string;
-}
+import type { AreaOption } from './area-option';
 
 let nextId = 0;
 

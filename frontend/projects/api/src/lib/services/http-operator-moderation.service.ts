@@ -1,7 +1,19 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import type { Observable } from 'rxjs';
-import type { CatererRecordView, CaterersPageView, CatererStatusFilter, DecisionResult, OperatorEditRequest, ProfileReviewView, QueueFilter, QueuePageView, RecentChangesPageView, RemoveItemResult, ReportEnquiryView, ReportGroupView, ResolveReportRequest } from '../models/operator-moderation.models';
+import type { CatererRecordView } from '../models/caterer-record-view';
+import type { CaterersPageView } from '../models/caterers-page-view';
+import type { CatererStatusFilter } from '../models/caterer-status-filter';
+import type { DecisionResult } from '../models/decision-result';
+import type { OperatorEditRequest } from '../models/operator-edit-request';
+import type { ProfileReviewView } from '../models/profile-review-view';
+import type { QueueFilter } from '../models/queue-filter';
+import type { QueuePageView } from '../models/queue-page-view';
+import type { RecentChangesPageView } from '../models/recent-changes-page-view';
+import type { RemoveItemResult } from '../models/remove-item-result';
+import type { ReportEnquiryView } from '../models/report-enquiry-view';
+import type { ReportGroupView } from '../models/report-group-view';
+import type { ResolveReportRequest } from '../models/resolve-report-request';
 import { OperatorModerationService } from './operator-moderation.service';
 
 @Injectable()

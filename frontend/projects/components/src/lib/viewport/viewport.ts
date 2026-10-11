@@ -1,13 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-
-export type ViewportClass = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-
-/** Counts per viewport class: `xs` below 36rem, `sm` for SM and MD, `lg` from 62rem. */
-export interface ViewportCounts {
-  xs: number;
-  sm: number;
-  lg: number;
-}
+import type { ViewportClass } from './viewport-class';
+import type { ViewportCounts } from './viewport-counts';
 
 const QUERIES: [ViewportClass, string][] = [
   ['xl', '(min-width: 75rem)'],

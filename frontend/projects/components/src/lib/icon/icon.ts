@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, inject, input } from '@angular/core';
+import type { IconName } from './icon-name';
 
 /** The inline icon set from docs/mocks/README.md ("Icons"); every icon is decorative. */
 export const ICONS = {
@@ -41,8 +42,6 @@ export const ICONS = {
   document: '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/>',
   'sign-out': '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/>',
 } as const;
-
-export type IconName = keyof typeof ICONS;
 
 /** `<svg shIcon="search"></svg>` renders a decorative `svg.icon` (L2-068.1). */
 @Component({

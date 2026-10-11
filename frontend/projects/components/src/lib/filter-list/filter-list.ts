@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { Router, RouterLink, type UrlTree } from '@angular/router';
-import { optionDisabled, type FilterOption, type NavItem } from './filter-option';
+import { type FilterOption, optionDisabled } from './filter-option';
+import type { NavItem } from './nav-item';
 
 /**
  * The plain text list: toggle options with counts, or navigation links with

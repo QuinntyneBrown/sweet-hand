@@ -1,15 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
-
-/** A photo rendition for a card (caterer-card CRD, API). */
-export interface CardPhoto {
-  src: string;
-  srcset: string;
-  alt: string;
-  width: number;
-  height: number;
-}
+import type { CardPhoto } from './card-photo';
 
 const CARD_SIZES = '(min-width: 62rem) 17.5rem, (min-width: 36rem) 45vw, 90vw';
 const OCCASION_SIZES = '(min-width: 62rem) 17.5rem, (min-width: 48rem) 30vw, 45vw';

@@ -1,17 +1,8 @@
 import { ChangeDetectionStrategy, Component, ElementRef, computed, forwardRef, inject, input, model, output, signal, viewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
 import { FIELD_CONTEXT } from './form-field';
-
-export interface SelectOption {
-  value: string;
-  label: string;
-  disabled?: boolean;
-}
-
-export interface SelectGroup {
-  label: string;
-  options: SelectOption[];
-}
+import type { SelectOption } from './select-option';
+import type { SelectGroup } from './select-group';
 
 let nextId = 0;
 

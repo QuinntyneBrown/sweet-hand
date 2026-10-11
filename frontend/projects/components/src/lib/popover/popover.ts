@@ -14,10 +14,9 @@ import {
   untracked,
   viewChild,
 } from '@angular/core';
+import type { PopoverDismissal } from './popover-dismissal';
 
 let nextId = 0;
-
-export type PopoverDismissal = 'escape' | 'outside' | 'focusout';
 
 /**
  * A small non-modal panel anchored to the control that opened it: the generic

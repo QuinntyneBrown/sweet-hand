@@ -1,7 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, type Observable } from 'rxjs';
-import type { EnquiryMetrics, MetricsQuery, MetricsReport } from '../models/metrics.models';
+import type { EnquiryMetrics } from '../models/enquiry-metrics';
+import type { MetricsQuery } from '../models/metrics-query';
+import type { MetricsReport } from '../models/metrics-report';
 import { MetricsService } from './metrics.service';
 
 const params = (q: MetricsQuery) => new HttpParams().set('from', q.from).set('to', q.to).set('granularity', q.granularity);

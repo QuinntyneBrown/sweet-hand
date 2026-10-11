@@ -1,5 +1,5 @@
 import { test, expect } from '../../support/test';
-import { ProfileCuisinesPage } from '../../pages/profile-sections.page';
+import { ProfileCuisinesPage } from '../../pages/profile-cuisines-page';
 
 const CUISINES = [
   'Antiguan & Barbudan',

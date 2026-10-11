@@ -1,7 +1,17 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import type { Observable } from 'rxjs';
-import type { EmailVerified, PasswordResetLink, PasswordResetRequest, RegisterCatererRequest, RegisterRequest, ResendVerificationRequest, ResetPasswordRequest, SecondFactorRequest, SignInRequest, SignInResult, VerificationSent } from '../models/identity.models';
+import type { EmailVerified } from '../models/email-verified';
+import type { PasswordResetLink } from '../models/password-reset-link';
+import type { PasswordResetRequest } from '../models/password-reset-request';
+import type { RegisterCatererRequest } from '../models/register-caterer-request';
+import type { RegisterRequest } from '../models/register-request';
+import type { ResendVerificationRequest } from '../models/resend-verification-request';
+import type { ResetPasswordRequest } from '../models/reset-password-request';
+import type { SecondFactorRequest } from '../models/second-factor-request';
+import type { SignInRequest } from '../models/sign-in-request';
+import type { SignInResult } from '../models/sign-in-result';
+import type { VerificationSent } from '../models/verification-sent';
 import { IdentityService } from './identity.service';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import type { Observable } from 'rxjs';
-import type { PrivacyNotice } from '../models/privacy.models';
+import type { PrivacyNotice } from '../models/privacy-notice';
 import { PrivacyService } from './privacy.service';
 
 @Injectable()

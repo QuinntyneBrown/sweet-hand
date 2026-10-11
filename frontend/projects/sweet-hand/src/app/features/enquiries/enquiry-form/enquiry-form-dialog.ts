@@ -22,32 +22,17 @@ import {
   type SummaryItem,
 } from '@sweet-hand/components';
 import { EnquiryDraftStore } from '../../../core/enquiry/enquiry-draft-store';
-import { RESUME_PARAM, RESUME_VALUE, type EnquiryTarget } from '../../../core/enquiry/enquiry-launcher';
+import { RESUME_PARAM, RESUME_VALUE } from '../../../core/enquiry/enquiry-launcher';
 import { count, shortDate, torontoToday } from '../../../core/format/format';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
 import { Session } from '../../../core/session/session';
-import { EMPTY_VALUES, FIELDS, MESSAGE_MAX, areaWarning, dateRange, enquiryErrors, guestsWarning, serverErrors, type Field, type FieldErrors } from './enquiry-rules';
+import { areaWarning, dateRange, EMPTY_VALUES, enquiryErrors, type Field, FIELDS, guestsWarning, MESSAGE_MAX, serverErrors } from './enquiry-rules';
+import type { FieldErrors } from './field-errors';
 import { BotChallengeService, DiscoveryService, EnquiriesService, type EnquiryFormValues, type EnquiryRefusal, type SentEnquiryView } from '@sweet-hand/api';
-
-/** What the launcher opens the form with. */
-export interface EnquiryFormRequest {
-  caterer: EnquiryTarget;
-  /** The "Send an enquiry" button, for focus to return to (L2-067.4). */
-  trigger: HTMLElement | null;
-  /** Values typed before signing in (L2-023.1). */
-  restored?: EnquiryFormValues | null;
-}
-
-type Mode = 'form' | 'sent' | 'wrong-account';
-
-/** The message above the fields, one at a time (docs/mocks/dialogs/enquiry). */
-type Notice =
-  | { kind: 'restored' }
-  | { kind: 'failed'; reference: string | null }
-  | { kind: 'duplicate'; enquiryId: string }
-  | { kind: 'limit'; newAccount: boolean }
-  | { kind: 'unverified' };
+import type { EnquiryFormRequest } from './enquiry-form-request';
+import type { Mode } from './mode';
+import type { Notice } from './notice';
 
 /**
  * "Send an enquiry" (docs/detailed-designs/enquiries/send-enquiry,

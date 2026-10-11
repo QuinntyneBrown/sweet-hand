@@ -1,5 +1,9 @@
 import type { Observable } from 'rxjs';
-import type { CuisineRef, ListingPageView, ListingQuery, OccasionTile, ServiceArea } from '../models/discovery.models';
+import type { CuisineRef } from '../models/cuisine-ref';
+import type { ListingPageView } from '../models/listing-page-view';
+import type { ListingQuery } from '../models/listing-query';
+import type { OccasionTile } from '../models/occasion-tile';
+import type { ServiceArea } from '../models/service-area';
 
 /** Public browsing contract (ADR 0003): listing, taxonomies and postal code lookup. */
 export abstract class DiscoveryService {

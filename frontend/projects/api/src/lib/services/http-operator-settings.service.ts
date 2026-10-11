@@ -1,7 +1,19 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import type { Observable } from 'rxjs';
-import type { AddCuisineRequest, AddOperatorRequest, AuditPage, AuditQuery, BreachRecord, CuisineUsage, ModerateReviewRequest, ModerationAction, ModerationList, ModerationStatus, OperatorAccount, OperatorCuisine, RecordBreachRequest } from '../models/operator-settings.models';
+import type { AddCuisineRequest } from '../models/add-cuisine-request';
+import type { AddOperatorRequest } from '../models/add-operator-request';
+import type { AuditPage } from '../models/audit-page';
+import type { AuditQuery } from '../models/audit-query';
+import type { BreachRecord } from '../models/breach-record';
+import type { CuisineUsage } from '../models/cuisine-usage';
+import type { ModerateReviewRequest } from '../models/moderate-review-request';
+import type { ModerationAction } from '../models/moderation-action';
+import type { ModerationList } from '../models/moderation-list';
+import type { ModerationStatus } from '../models/moderation-status';
+import type { OperatorAccount } from '../models/operator-account';
+import type { OperatorCuisine } from '../models/operator-cuisine';
+import type { RecordBreachRequest } from '../models/record-breach-request';
 import { OperatorSettingsService } from './operator-settings.service';
 
 @Injectable()

@@ -1,5 +1,5 @@
 import { test, expect } from '../../support/test';
-import { EnquiryPage } from '../../pages/enquiries.page';
+import { EnquiryPage } from '../../pages/enquiry-page';
 import type { Backend } from '../../support/backend';
 
 const PRIYA = 'priya.r@example.com';

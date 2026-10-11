@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { CatererCard } from '@sweet-hand/components';
-import type { CardModel } from './profile-text';
+import type { CardModel } from './card-model';
 
 /** The listing card as it appears with the current values (set-up-profile, ListingCardPreview). */
 @Component({

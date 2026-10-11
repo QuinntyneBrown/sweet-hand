@@ -4,8 +4,9 @@
  * Messages come from the resource files.
  */
 import { graphemeLength } from '@sweet-hand/components';
-import type { EnquiryTarget } from '../../../core/enquiry/enquiry-launcher';
+import type { EnquiryTarget } from '../../../core/enquiry/enquiry-target';
 import { type EnquiryFormValues } from '@sweet-hand/api';
+import type { FieldErrors } from './field-errors';
 
 export const MESSAGE_MIN = 20;
 export const MESSAGE_MAX = 2000;
@@ -14,7 +15,6 @@ export const GUESTS_MAX = 5000;
 /** Control ids in form order; the error summary lists errors in this order (form-layout CRD). */
 export const FIELDS = ['date', 'guests', 'area', 'postal', 'occasion', 'message'] as const;
 export type Field = (typeof FIELDS)[number];
-export type FieldErrors = Partial<Record<Field, string>>;
 
 /** The server's field names (request properties) for each control. */
 const SERVER_FIELD: Record<string, Field> = {

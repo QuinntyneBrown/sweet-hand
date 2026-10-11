@@ -4,8 +4,8 @@ import { Alert, DIETARY_TAGS, Dialog, Fieldset, FormField, FormSummary, TextFiel
 import { problemOf } from '../../../core/forms/problem';
 import { DIETARY_LABELS } from '../../discovery/caterer/dietary-labels';
 import { CatererProfileService, type DietaryTagId, type OwnDishView, type OwnProfileView } from '@sweet-hand/api';
+import type { Errors } from './errors';
 
-type Errors = { name: string | null; description: string | null; price: string | null };
 const NONE: Errors = { name: null, description: null, price: null };
 
 /** Add a dish and Edit dish (docs/mocks/dialogs/dish; manage-menu, MenuItemDialog, L2-043). */

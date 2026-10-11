@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, contentChild, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Icon } from '../icon/icon';
-import { ChangedFlag } from '../description-list/description-list';
-
-export type QueueItemMedia = 'photo' | 'placeholder' | 'report' | 'review';
+import { ChangedFlag } from '../description-list/changed-flag';
+import type { QueueItemMedia } from './queue-item-media';
 
 /**
  * One row of the review queue or the caterer records (docs/specs/components/queue-item.md,

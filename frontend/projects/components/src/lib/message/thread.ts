@@ -1,14 +1,10 @@
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, computed, contentChildren, input, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, contentChildren, ElementRef, input, viewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Icon } from '../icon/icon';
-import { Status, type StatusTone } from '../status/status';
-
-export type ThreadParty = { kind: 'photo'; src: string } | { kind: 'initials'; text: string } | { kind: 'gone' };
-
-/** Marks content for the thread's action row (`slot="actions"`). */
-// eslint-disable-next-line @angular-eslint/directive-selector
-@Directive({ selector: '[slot=actions]' })
-export class ThreadActionsSlot {}
+import { Status } from '../status/status';
+import type { StatusTone } from '../status/status-tone';
+import type { ThreadParty } from './thread-party';
+import { ThreadActionsSlot } from './thread-actions-slot';
 
 /**
  * One enquiry's conversation: who it is with, where it stands, the messages and
@@ -113,13 +109,3 @@ export class Thread {
   }
 }
 
-/** The ordered messages of a thread (`sh-message-list`). */
-@Component({
-  selector: 'sh-message-list',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
-  template: `<ol class="messages" [attr.aria-label]="label()"><ng-content /></ol>`,
-})
-export class MessageList {
-  readonly label = input.required<string>();
-}

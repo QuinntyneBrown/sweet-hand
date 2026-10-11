@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import type { Observable } from 'rxjs';
-import type { CatererPageView } from '../models/caterer-page.models';
+import type { CatererPageView } from '../models/caterer-page-view';
 import { CatererPageService } from './caterer-page.service';
 
 @Injectable()

@@ -9,8 +9,7 @@ import { DashboardLayout } from '../shared/dashboard-layout';
 import { ProfileBanner } from '../shared/profile-banner';
 import { ReviewResponseDialog } from './review-response.dialog';
 import { CatererProfileService, type OwnProfileView, type OwnReviewPageView, type OwnReviewView } from '@sweet-hand/api';
-
-type ViewState = { kind: 'loading' } | { kind: 'error'; reference: string | null } | { kind: 'ready' };
+import type { ViewState } from './view-state';
 
 /** The caterer's reviews, /dashboard/reviews (docs/mocks/pages/dashboard-reviews; respond-to-review, CatererReviewsScreen, L2-052). */
 @Component({

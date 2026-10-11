@@ -1,9 +1,13 @@
 import type { Router } from '../lib/router.ts';
 import { conflict, forbidden, invalid, noContent, notFound, ok, unauthorized } from '../lib/http.ts';
 import { currentUser, newId, torontoDate, type Store } from '../lib/store.ts';
-import type { Review } from '../seed/reviews.ts';
-import type { RatingSummaryView } from '../../projects/api/src/lib/models/caterer-page.models.ts';
-import type { PublicReviewView, ReviewEligibility, ReviewPageView, ReviewRequest, ReviewResult } from '../../projects/api/src/lib/models/reviews.models.ts';
+import type { Review } from '../seed/review.ts';
+import type { RatingSummaryView } from '../../projects/api/src/lib/models/rating-summary-view.ts';
+import type { PublicReviewView } from '../../projects/api/src/lib/models/public-review-view.ts';
+import type { ReviewEligibility } from '../../projects/api/src/lib/models/review-eligibility.ts';
+import type { ReviewPageView } from '../../projects/api/src/lib/models/review-page-view.ts';
+import type { ReviewRequest } from '../../projects/api/src/lib/models/review-request.ts';
+import type { ReviewResult } from '../../projects/api/src/lib/models/review-result.ts';
 
 const PAGE_SIZE = 10;
 

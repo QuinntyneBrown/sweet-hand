@@ -1,5 +1,6 @@
 import type { FilterOption } from '@sweet-hand/components';
 import { type CuisineRef, type ListingPageView, type ListingQuery, type ServiceArea } from '@sweet-hand/api';
+import type { ChipValue } from './chip-value';
 
 /**
  * Filter options of the listing (filter-by-cuisine and filter-by-area designs):
@@ -42,8 +43,6 @@ export function parseAreaValue(value: string): { kind: 'region' | 'area'; id: st
   const [kind, id] = value.split(':');
   return { kind: kind === 'region' ? 'region' : 'area', id };
 }
-
-export type ChipValue = `cuisine:${string}` | `region:${string}` | `area:${string}` | `occasion:${string}`;
 
 /** One chip per active filter the listing knows, cuisines first (filter-list CRD, `sh-active-filters`). */
 export function activeChips(view: ListingPageView, q: ListingQuery): { value: ChipValue; label: string }[] {

@@ -1,7 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import type { Observable } from 'rxjs';
-import type { AccountView, ActiveSession, ChangePasswordRequest, DeleteAccountRequest, UpdateDetailsRequest } from '../models/account.models';
+import type { AccountView } from '../models/account-view';
+import type { ActiveSession } from '../models/active-session';
+import type { ChangePasswordRequest } from '../models/change-password-request';
+import type { DeleteAccountRequest } from '../models/delete-account-request';
+import type { UpdateDetailsRequest } from '../models/update-details-request';
 import { AccountService } from './account.service';
 
 @Injectable()

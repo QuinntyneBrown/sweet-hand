@@ -1,5 +1,5 @@
-import type { PickedFile } from './profile-photos.page';
-import { DashboardScreen } from './dashboard.page';
+import type { PickedFile } from './picked-file';
+import { DashboardScreen } from './dashboard-screen';
 
 /** Food safety, /dashboard/profile/food-safety (docs/mocks/pages/profile-certificate). */
 export class ProfileCertificatePage extends DashboardScreen {

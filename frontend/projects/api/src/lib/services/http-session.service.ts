@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import type { Observable } from 'rxjs';
-import type { SessionView } from '../models/session.models';
+import type { SessionView } from '../models/session-view';
 import { SessionService } from './session.service';
 
 @Injectable()

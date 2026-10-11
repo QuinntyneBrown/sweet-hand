@@ -1,31 +1,11 @@
 import { NgTemplateOutlet } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Directive,
-  InjectionToken,
-  computed,
-  contentChild,
-  forwardRef,
-  input,
-  type Signal,
-} from '@angular/core';
-
-/** What a form field tells the control in its default slot (form-field CRD, "Field context"). */
-export interface FieldContext {
-  id: Signal<string>;
-  describedBy: Signal<string | null>;
-  invalid: Signal<boolean>;
-}
+import { ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, InjectionToken, input } from '@angular/core';
+import type { FieldContext } from './field-context';
+import { LabelAction } from './label-action';
 
 export const FIELD_CONTEXT = new InjectionToken<FieldContext>('FIELD_CONTEXT');
 
 let nextId = 0;
-
-/** Marks the label-row action (the password "Show" toggle). */
-// eslint-disable-next-line @angular-eslint/directive-selector
-@Directive({ selector: '[slot=labelAction]' })
-export class LabelAction {}
 
 /**
  * Label, control, message, help and counter for one control

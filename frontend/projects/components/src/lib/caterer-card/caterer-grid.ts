@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, contentChildren, effect, inject, input } from '@angular/core';
-import { Viewport, type ViewportCounts } from '../viewport/viewport';
+import { Viewport } from '../viewport/viewport';
+import type { ViewportCounts } from '../viewport/viewport-counts';
 import { CatererCard } from './caterer-card';
 
 /**

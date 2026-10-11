@@ -1,12 +1,25 @@
 import type { Router } from '../lib/router.ts';
-import { invalid, ok, type Reply } from '../lib/http.ts';
+import { invalid, ok } from '../lib/http.ts';
+import type { Reply } from '../lib/reply.ts';
 import { currentUser, newId, startSession, type Store } from '../lib/store.ts';
-import type { User } from '../seed/users.ts';
-import type { AccountToken } from '../seed/account.ts';
+import type { User } from '../seed/user.ts';
+import type { AccountToken } from '../seed/account-token.ts';
 import { slugify } from '../seed/taxonomy.ts';
 import { endSession, endSessions } from './session.ts';
-import type { ConsentRequest, PrivacyNotice } from '../../projects/api/src/lib/models/privacy.models.ts';
-import type { SecondFactorRequest, EmailVerified, ResendVerificationRequest, VerificationSent, PasswordResetLink, PasswordResetRequest, ResetPasswordRequest, RegisterCatererRequest, RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/api/src/lib/models/identity.models.ts';
+import type { ConsentRequest } from '../../projects/api/src/lib/models/consent-request.ts';
+import type { PrivacyNotice } from '../../projects/api/src/lib/models/privacy-notice.ts';
+import type { SecondFactorRequest } from '../../projects/api/src/lib/models/second-factor-request.ts';
+import type { EmailVerified } from '../../projects/api/src/lib/models/email-verified.ts';
+import type { ResendVerificationRequest } from '../../projects/api/src/lib/models/resend-verification-request.ts';
+import type { VerificationSent } from '../../projects/api/src/lib/models/verification-sent.ts';
+import type { PasswordResetLink } from '../../projects/api/src/lib/models/password-reset-link.ts';
+import type { PasswordResetRequest } from '../../projects/api/src/lib/models/password-reset-request.ts';
+import type { ResetPasswordRequest } from '../../projects/api/src/lib/models/reset-password-request.ts';
+import type { RegisterCatererRequest } from '../../projects/api/src/lib/models/register-caterer-request.ts';
+import type { RegisterRequest } from '../../projects/api/src/lib/models/register-request.ts';
+import type { SignInLocked } from '../../projects/api/src/lib/models/sign-in-locked.ts';
+import type { SignInRequest } from '../../projects/api/src/lib/models/sign-in-request.ts';
+import type { SignInResult } from '../../projects/api/src/lib/models/sign-in-result.ts';
 
 const MINUTE = 60_000;
 /** 5 failed sign-ins for one account within 15 minutes pause it for 15 minutes (L2-076.4). */
