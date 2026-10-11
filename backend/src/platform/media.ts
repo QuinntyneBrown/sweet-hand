@@ -18,6 +18,10 @@ export interface MediaStore {
 /** Media ids are file-name-like: letters, digits, dots, dashes and underscores, never a path. */
 export const validMediaId = (id: string): boolean => /^[\w][\w.-]{0,199}$/.test(id) && !id.includes('..');
 
+/** Media under this prefix is never served publicly: certificate copies and unprocessed uploads (L2-040.4, L2-041.5). */
+export const PRIVATE_MEDIA = 'private-';
+export const isPublicMedia = (id: string): boolean => !id.startsWith(PRIVATE_MEDIA);
+
 /** The mock photos the fictional cast uses (docs/mocks/assets/img). */
 export const CAST_MEDIA_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..', 'docs', 'mocks', 'assets', 'img');
 

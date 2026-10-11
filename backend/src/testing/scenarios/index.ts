@@ -6,6 +6,7 @@ import { enquiriesScenarios } from './enquiries.ts';
 import { reviewsScenarios } from './reviews.ts';
 import { reportsScenarios } from './reports.ts';
 import { operatorSettingsScenarios } from './operator-settings.ts';
+import { catererProfileScenarios } from './caterer-profile.ts';
 
 /** Every area's scenarios (ADR 0008). Names are unique across areas. */
 export const allScenarios: Scenarios = {
@@ -16,4 +17,5 @@ export const allScenarios: Scenarios = {
   ...reviewsScenarios,
   ...reportsScenarios,
   ...operatorSettingsScenarios,
+  ...catererProfileScenarios,
 };
