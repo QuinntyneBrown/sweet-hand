@@ -18,8 +18,8 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(repos, "UserAccountRepository / CatererProfileRepository", "Infrastructure", "Persists aggregates in one unit of work")
   Component(jobs, "JobQueue", "Infrastructure", "Enqueues SendNotificationJob")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts and profiles")
-ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Background jobs")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Accounts and profiles")
+ContainerQueue(queue, "Job queue", "pg-boss (PostgreSQL)", "Background jobs")
 System_Ext(bot, "Bot-protection provider", "Verifies challenge tokens")
 
 Rel(caterer, page, "Completes form")

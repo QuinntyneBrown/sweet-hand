@@ -45,8 +45,9 @@ Terms used in this document:
 
 ## Description
 
-Technology choices for every component below are `<TO SUPPLY>`, pending
-architecture decision records in `docs/adr/`. The hosting provider, the
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`. The hosting provider, the
 infrastructure-as-code tool and the list of approved Canadian regions are all
 `<TO SUPPLY>`. Components are named by role.
 

@@ -23,7 +23,7 @@ The statuses mean:
 
 ## Description
 
-Technology choices for every component, and the time of day the daily maintenance job runs, are `<TO SUPPLY>`, pending architecture decision records in `docs/adr/`.
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage); providers not named there remain `<TO SUPPLY>`. The time of day the daily maintenance job runs is `<TO SUPPLY>`.
 
 The allowed transitions, from the table in `L2-033`, are:
 

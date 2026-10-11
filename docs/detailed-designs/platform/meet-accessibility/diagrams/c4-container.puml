@@ -6,8 +6,8 @@ title Containers — Meet accessibility
 Person(customer, "Customer", "Keyboard and screen reader user")
 System_Ext(ci, "CI pipeline", "<TO SUPPLY>")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Pages, dialogs and forms built from accessible building blocks")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Returns field-level validation errors")
+  Container(web, "Sweet Hand web application", "Angular 21", "Pages, dialogs and forms built from accessible building blocks")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "Returns field-level validation errors")
 }
 
 Rel(customer, web, "Uses", "HTTPS")

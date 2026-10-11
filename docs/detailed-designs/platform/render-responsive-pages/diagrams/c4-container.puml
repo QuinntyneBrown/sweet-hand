@@ -6,9 +6,9 @@ title Containers — Render responsive pages
 Person(customer, "Customer", "Uses a phone, tablet or desktop browser")
 System_Ext(ci, "CI pipeline", "<TO SUPPLY>")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages, responsive layout, externalised text")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles, enquiries, reviews and accounts")
+  Container(web, "Sweet Hand web application", "Angular 21", "Server-rendered pages, responsive layout, externalised text")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "HTTP endpoints, application services and domain model")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Profiles, enquiries, reviews and accounts")
 }
 
 Rel(customer, web, "Requests pages", "HTTPS")

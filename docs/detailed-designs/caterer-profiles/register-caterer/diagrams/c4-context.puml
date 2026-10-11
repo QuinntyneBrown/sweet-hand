@@ -10,6 +10,6 @@ System_Ext(email, "Email provider", "Sends transactional email")
 
 Rel(caterer, sweethand, "Registers a caterer account using", "HTTPS")
 Rel(sweethand, bot, "Verifies challenge token with", "HTTPS")
-Rel(sweethand, email, "Sends verification email via", "<TO SUPPLY>")
+Rel(sweethand, email, "Sends verification email via", "HTTPS")
 Rel(email, caterer, "Delivers verification email to")
 @enduml

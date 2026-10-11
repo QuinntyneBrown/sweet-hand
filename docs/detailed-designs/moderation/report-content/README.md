@@ -20,9 +20,9 @@ about the same item; operators resolve them in handle-reports.
 
 ## Description
 
-The slice runs from a report dialog on public pages to the database. Technology
-choices for every container are `<TO SUPPLY>` pending architecture decision
-records (ADRs) in `docs/adr/`.
+The slice runs from a report dialog on public pages to the database. Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`.
 
 **Frontend — Sweet Hand web application**
 

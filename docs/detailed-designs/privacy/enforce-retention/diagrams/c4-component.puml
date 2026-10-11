@@ -17,9 +17,9 @@ Container_Boundary(worker, "Sweet Hand background worker") {
   Component(purger, "AuditLogPurger", "Infrastructure", "Separate database identity for audit purges")
 }
 
-ComponentDb(db, "Sweet Hand database", "<TO SUPPLY>", "Records under retention and RetentionRun")
-ComponentDb(storage, "Object storage", "<TO SUPPLY>", "Certificate files")
-ComponentQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent job queue")
+ComponentDb(db, "Sweet Hand database", "PostgreSQL", "Records under retention and RetentionRun")
+ComponentDb(storage, "Object storage", "S3-compatible object storage", "Certificate files")
+ComponentQueue(queue, "Job queue", "pg-boss (PostgreSQL)", "Persistent job queue")
 
 Rel(job, policy, "Reads rules from")
 Rel(job, enquiryRule, "Runs")

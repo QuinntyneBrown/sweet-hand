@@ -6,10 +6,10 @@ title Containers — View the photo gallery
 Person(visitor, "Visitor", "Views caterer photos")
 System_Ext(cdn, "CDN", "Serves processed photo derivatives")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Gallery layouts and full-screen photo viewer")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Caterer page view including ordered photos")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Photo order (position 1 is the cover), captions")
-  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Photo derivatives at 400, 800, 1200 and 2000 px")
+  Container(web, "Sweet Hand web application", "Angular 21", "Gallery layouts and full-screen photo viewer")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "Caterer page view including ordered photos")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Photo order (position 1 is the cover), captions")
+  ContainerDb(storage, "Object storage", "S3-compatible object storage", "Photo derivatives at 400, 800, 1200 and 2000 px")
 }
 Rel(visitor, web, "Opens and navigates the viewer", "HTTPS")
 Rel(visitor, cdn, "Downloads photos", "HTTPS")

@@ -16,7 +16,7 @@ The layout depends on the viewport class. On LG and XL the list and the selected
 
 ## Description
 
-Technology choices for every component are `<TO SUPPLY>`, pending architecture decision records in `docs/adr/`.
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage); providers not named there remain `<TO SUPPLY>`.
 
 **Frontend — Sweet Hand web application**
 

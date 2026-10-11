@@ -6,9 +6,9 @@ title Components — Export personal data
 Person(user, "Customer or caterer", "Requests and downloads an export")
 
 Container_Boundary(web, "Sweet Hand web application") {
-  Component(settings, "AccountSettingsPage", "<TO SUPPLY>", "Offers Download my data")
-  Component(dialog, "DataExportDialog", "<TO SUPPLY>", "Confirms the request and explains timing")
-  Component(downloadPage, "DataExportDownloadPage", "<TO SUPPLY>", "Target of the emailed link")
+  Component(settings, "AccountSettingsPage", "Page", "Offers Download my data")
+  Component(dialog, "DataExportDialog", "Dialog", "Confirms the request and explains timing")
+  Component(downloadPage, "DataExportDownloadPage", "Page", "Target of the emailed link")
   Component(client, "DataExportClient", "API client contract", "Requests exports and download URLs")
 }
 
@@ -25,9 +25,9 @@ Container_Boundary(worker, "Sweet Hand background worker") {
   Component(notify, "SendNotificationJob", "Job", "Sends the download link email")
 }
 
-ComponentDb(db, "Sweet Hand database", "<TO SUPPLY>", "Personal data and DataExport records")
-ComponentDb(storage, "Object storage", "<TO SUPPLY>", "Photo originals and export files")
-ComponentQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent job queue")
+ComponentDb(db, "Sweet Hand database", "PostgreSQL", "Personal data and DataExport records")
+ComponentDb(storage, "Object storage", "S3-compatible object storage", "Photo originals and export files")
+ComponentQueue(queue, "Job queue", "pg-boss (PostgreSQL)", "Persistent job queue")
 System_Ext(email, "Email provider", "Sends transactional email")
 
 Rel(user, settings, "Activates Download my data")
@@ -48,5 +48,5 @@ Rel(collector, db, "Reads")
 Rel(collector, storage, "Reads full-resolution photos")
 Rel(job, storage, "Writes export file")
 Rel(job, queue, "Enqueues SendNotificationJob")
-Rel(notify, email, "Sends via", "<TO SUPPLY>")
+Rel(notify, email, "Sends via", "HTTPS")
 @enduml

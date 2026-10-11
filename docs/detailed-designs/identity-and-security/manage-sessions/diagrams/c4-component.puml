@@ -5,21 +5,21 @@ title Components — Manage sessions
 
 Person(user, "Customer, caterer or operator", "Signed in")
 Container_Boundary(web, "Sweet Hand web application") {
-  Component(page, "ActiveSessionsPage", "<TO SUPPLY>", "Lists sessions; End session dialog")
-  Component(signout, "SignOutControl", "<TO SUPPLY>", "Header sign-out")
+  Component(page, "ActiveSessionsPage", "Page", "Lists sessions; End session dialog")
+  Component(signout, "SignOutControl", "Page component", "Header sign-out")
   Component(client, "SessionsClient", "API client contract", "listSessions, endSession, signOut")
 }
 Container_Boundary(api, "Sweet Hand API") {
-  Component(auth, "SessionAuthenticator", "<TO SUPPLY>", "RequestPipeline stage")
-  Component(endpoints, "SessionsEndpoints", "<TO SUPPLY>", "GET /sessions, DELETE /sessions/{id}, POST /sessions/sign-out")
+  Component(auth, "SessionAuthenticator", "Request pipeline", "RequestPipeline stage")
+  Component(endpoints, "SessionsEndpoints", "Endpoint group", "GET /sessions, DELETE /sessions/{id}, POST /sessions/sign-out")
   Component(policy, "SessionPolicy", "Domain policy", "Idle and absolute timeouts by role")
-  Component(query, "GetActiveSessionsHandler", "<TO SUPPLY>", "Lists caller's sessions")
-  Component(end, "EndSessionHandler", "<TO SUPPLY>", "Revokes one session")
-  Component(out, "SignOutHandler", "<TO SUPPLY>", "Revokes current session")
-  Component(store, "SessionStore", "<TO SUPPLY>", "Sessions by identifier hash")
-  Component(seclog, "SecurityLog", "<TO SUPPLY>", "Session revocation events")
+  Component(query, "GetActiveSessionsHandler", "Query handler", "Lists caller's sessions")
+  Component(end, "EndSessionHandler", "Command handler", "Revokes one session")
+  Component(out, "SignOutHandler", "Command handler", "Revokes current session")
+  Component(store, "SessionStore", "Infrastructure", "Sessions by identifier hash")
+  Component(seclog, "SecurityLog", "Infrastructure", "Session revocation events")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Sessions")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Sessions")
 
 Rel(user, page, "Uses")
 Rel(user, signout, "Uses")

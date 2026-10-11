@@ -5,8 +5,8 @@ title Containers — Log security events
 
 Person(operator, "Operator", "Sweet Hand team member who moderates the platform")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
-  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Runs queued and scheduled jobs")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "HTTP endpoints, application services and domain model")
+  Container(worker, "Sweet Hand background worker", "NestJS worker (Node.js, TypeScript)", "Runs queued and scheduled jobs")
 }
 System_Ext(obs, "Observability platform", "Logs, metrics, traces and alerts")
 System_Ext(secrets, "Managed secret store", "Holds keys and credentials")

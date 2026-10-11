@@ -22,8 +22,9 @@ one state machine described here.
 ## Description
 
 The slice runs from the operator review screen to the database, the job queue
-and the email provider. Technology choices for every container are
-`<TO SUPPLY>` pending architecture decision records (ADRs) in `docs/adr/`.
+and the email provider. Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`.
 
 **Status lifecycle (`L2-046`).** `ProfileStateMachine` allows only these
 transitions and rejects every other one with HTTP 409:

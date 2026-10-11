@@ -29,8 +29,9 @@ Terms used in this document:
 
 ## Description
 
-Technology choices for every component below are `<TO SUPPLY>` pending
-architecture decision records in `docs/adr/`. The bot-protection provider is
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`. The bot-protection provider is
 `<TO SUPPLY>`; it shall respect privacy and set only the cookie listed in the
 privacy notice (`L2-074 AC1`).
 
@@ -73,7 +74,8 @@ privacy notice (`L2-074 AC1`).
 
 - **`RateLimitStore`** — atomic counters keyed by rule and client key, shared by
   every API instance so the limits hold when the API scales out (`L2-086 AC5`).
-  The backing store is `<TO SUPPLY>`.
+  The backing store is a PostgreSQL table updated with one atomic upsert per
+  request (ADR 0006).
 - **`IpHasher`** — hashes IP addresses before they are used as counter keys, so
   raw IP addresses are not stored (`L2-084 AC1`).
 - **`BotProtectionVerifier`** — sends the token to the provider and returns

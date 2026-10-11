@@ -5,18 +5,18 @@ title Components — Rate limit requests and challenge abusive forms
 
 Person(visitor, "Visitor", "Browses and submits forms")
 Container_Boundary(web, "Sweet Hand web application") {
-  Component(widget, "BotChallengeWidget", "<TO SUPPLY>", "Adds challenge token to protected forms")
+  Component(widget, "BotChallengeWidget", "Page component", "Adds challenge token to protected forms")
 }
 Container_Boundary(api, "Sweet Hand API") {
-  Component(limiter, "RateLimiter", "<TO SUPPLY>", "429 with Retry-After")
+  Component(limiter, "RateLimiter", "Infrastructure", "429 with Retry-After")
   Component(policy, "RateLimitPolicy", "Domain policy", "Rules per action and client key")
-  Component(guard, "ChallengeGuard", "<TO SUPPLY>", "400 on missing or invalid token")
+  Component(guard, "ChallengeGuard", "Request pipeline", "400 on missing or invalid token")
   Component(forms, "ProtectedForms", "Domain policy", "Forms that require a challenge (L2-082 AC2)")
   Component(degraded, "DegradedModePolicy", "Domain policy", "Half thresholds when provider unreachable")
-  Component(store, "RateLimitStore", "<TO SUPPLY>", "Atomic counters shared across instances")
-  Component(iphash, "IpHasher", "<TO SUPPLY>", "Hashes IP addresses")
-  Component(verifier, "BotProtectionVerifier", "<TO SUPPLY>", "Calls provider")
-  Component(seclog, "SecurityLog", "<TO SUPPLY>", "Rate-limit block events")
+  Component(store, "RateLimitStore", "Infrastructure", "Atomic counters shared across instances")
+  Component(iphash, "IpHasher", "Infrastructure", "Hashes IP addresses")
+  Component(verifier, "BotProtectionVerifier", "Infrastructure", "Calls provider")
+  Component(seclog, "SecurityLog", "Infrastructure", "Rate-limit block events")
 }
 System_Ext(bot, "Bot-protection provider", "Verifies tokens")
 

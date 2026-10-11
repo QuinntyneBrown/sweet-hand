@@ -33,8 +33,9 @@ log records the event for detection.
 
 ## Description
 
-Technology choices for every component below are `<TO SUPPLY>` pending
-architecture decision records in `docs/adr/`.
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`.
 
 **Backend — Sweet Hand API application and background worker**
 
@@ -73,7 +74,7 @@ architecture decision records in `docs/adr/`.
 - **`AuthorisationFailureMonitor`** — counts `AuthorisationFailed` events per
   session in a 5-minute window. At 10 it raises one alert to the operations
   channel through the observability platform (`L2-084 AC3`). The counter store
-  is `<TO SUPPLY>` and is shared across API instances.
+  is a PostgreSQL table shared across API instances (ADR 0006).
 
 **Rules the slice enforces**
 

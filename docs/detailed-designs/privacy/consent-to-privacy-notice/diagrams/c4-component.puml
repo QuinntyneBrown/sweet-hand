@@ -6,22 +6,22 @@ title Components — Consent to the privacy notice
 Person(user, "Customer or caterer", "Registers or signs in")
 
 Container_Boundary(web, "Sweet Hand web application") {
-  Component(footer, "SiteFooter", "<TO SUPPLY>", "Links to the privacy notice on every page")
-  Component(noticePage, "PrivacyNoticePage", "<TO SUPPLY>", "Renders the current privacy notice version")
-  Component(consentField, "ConsentField", "<TO SUPPLY>", "Unticked consent checkbox with purpose summary")
-  Component(changesScreen, "PrivacyChangesScreen", "<TO SUPPLY>", "Shows changes and asks for acceptance")
+  Component(footer, "SiteFooter", "Page component", "Links to the privacy notice on every page")
+  Component(noticePage, "PrivacyNoticePage", "Page", "Renders the current privacy notice version")
+  Component(consentField, "ConsentField", "Page component", "Unticked consent checkbox with purpose summary")
+  Component(changesScreen, "PrivacyChangesScreen", "Page", "Shows changes and asks for acceptance")
   Component(client, "PrivacyClient", "API client contract", "Reads the notice and posts acceptances")
 }
 
 Container_Boundary(api, "Sweet Hand API") {
-  Component(pipeline, "RequestPipeline", "<TO SUPPLY>", "Authentication, CSRF, rate limit, correlation ID, authorisation")
+  Component(pipeline, "RequestPipeline", "Request pipeline", "Authentication, CSRF, rate limit, correlation ID, authorisation")
   Component(gate, "ConsentGate", "Pipeline step", "Holds accounts that owe re-consent")
   Component(cookies, "CookiePolicy", "Pipeline step", "Issues only declared cookies with required attributes")
   Component(endpoints, "PrivacyEndpoints", "Endpoint group", "GET /privacy-notice, POST /me/consents")
   Component(handler, "RecordConsentHandler", "Application handler", "Records acceptance of the current version")
   Component(requirement, "ConsentRequirement", "Domain service", "Decides whether re-consent is owed")
   Component(registry, "CookieRegistry", "Domain policy", "Declares cookies and their categories")
-  ComponentDb(db, "Sweet Hand database", "<TO SUPPLY>", "PrivacyNoticeVersion, ConsentRecord")
+  ComponentDb(db, "Sweet Hand database", "PostgreSQL", "PrivacyNoticeVersion, ConsentRecord")
 }
 
 Rel(user, consentField, "Ticks consent")

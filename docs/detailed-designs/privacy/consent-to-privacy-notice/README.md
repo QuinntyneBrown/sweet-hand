@@ -41,8 +41,9 @@ consent step that registration includes.
 
 ## Description
 
-Technology choices for every component below are `<TO SUPPLY>`, pending
-architecture decision records in `docs/adr/`. Components are named by role.
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`. Components are named by role.
 
 ### Frontend — Sweet Hand web application
 

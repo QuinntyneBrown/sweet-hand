@@ -28,8 +28,9 @@ Terms used in this document:
 
 ## Description
 
-Technology choices for every component below are `<TO SUPPLY>` pending
-architecture decision records in `docs/adr/`.
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`.
 
 **Frontend — Sweet Hand web application**
 
@@ -82,8 +83,8 @@ architecture decision records in `docs/adr/`.
 - **`UserAccountRepository`** — loads the account by email address.
 - **`PasswordHasher`** — verifies Argon2id hashes (`L2-076 AC2`).
 - **`SignInAttemptRepository`** — records failed sign-ins per account and per
-  hashed IP address with timestamps. The backing store is shared across API
-  instances; its technology is `<TO SUPPLY>`.
+  hashed IP address with timestamps. The backing store is the PostgreSQL
+  database shared by every API instance (ADR 0006).
 - **`SessionStore`** — creates sessions and deletes the pre-sign-in session
   (`L2-078 AC2`). It stores a hash of the session identifier, not the
   identifier itself.

@@ -5,22 +5,22 @@ title Components — Register a customer account
 
 Person(visitor, "Visitor", "Creates a customer account")
 Container_Boundary(web, "Sweet Hand web application") {
-  Component(page, "RegistrationPage", "<TO SUPPLY>", "Fields, unticked consent checkbox, error summary")
-  Component(widget, "BotChallengeWidget", "<TO SUPPLY>", "Obtains challenge token")
+  Component(page, "RegistrationPage", "Page", "Fields, unticked consent checkbox, error summary")
+  Component(widget, "BotChallengeWidget", "Page component", "Obtains challenge token")
   Component(client, "IdentityClient", "API client contract", "register(request)")
 }
 Container_Boundary(api, "Sweet Hand API") {
-  Component(pipeline, "RequestPipeline", "<TO SUPPLY>", "Rate limit, CSRF, request schema")
-  Component(endpoints, "IdentityEndpoints", "<TO SUPPLY>", "POST /identity/registrations")
-  Component(handler, "RegisterCustomerHandler", "<TO SUPPLY>", "Applies registration rules")
+  Component(pipeline, "RequestPipeline", "Request pipeline", "Rate limit, CSRF, request schema")
+  Component(endpoints, "IdentityEndpoints", "Endpoint group", "POST /identity/registrations")
+  Component(handler, "RegisterCustomerHandler", "Command handler", "Applies registration rules")
   Component(policy, "PasswordPolicy", "Domain policy", "12-128 characters, not breached (L2-076)")
-  Component(hasher, "PasswordHasher", "<TO SUPPLY>", "Argon2id, unique salt")
-  Component(verifier, "BotProtectionVerifier", "<TO SUPPLY>", "Validates challenge tokens")
-  Component(repo, "UserAccountRepository", "<TO SUPPLY>", "Persists accounts")
-  Component(consent, "ConsentRepository", "<TO SUPPLY>", "Persists consent records (L2-070)")
-  Component(jobs, "JobQueue", "<TO SUPPLY>", "Enqueues email jobs")
+  Component(hasher, "PasswordHasher", "Infrastructure", "Argon2id, unique salt")
+  Component(verifier, "BotProtectionVerifier", "Infrastructure", "Validates challenge tokens")
+  Component(repo, "UserAccountRepository", "Repository", "Persists accounts")
+  Component(consent, "ConsentRepository", "Repository", "Persists consent records (L2-070)")
+  Component(jobs, "JobQueue", "Infrastructure", "Enqueues email jobs")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts and consent records")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Accounts and consent records")
 System_Ext(bot, "Bot-protection provider", "Verifies challenge tokens")
 
 Rel(visitor, page, "Uses")

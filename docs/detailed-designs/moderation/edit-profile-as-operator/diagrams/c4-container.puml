@@ -6,12 +6,12 @@ title Containers — Edit a caterer profile as an operator
 Person(operator, "Operator", "Sweet Hand team member who approves caterers and moderates content")
 Person(caterer, "Caterer", "Person or small business selling Caribbean food")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions for visitors, customers, caterers and operators")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
-  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Runs queued and scheduled jobs")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, profiles, enquiries, reviews, reports, audit log")
-  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent queue of background jobs")
-  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Photos, certificate files and data exports in a Canadian region")
+  Container(web, "Sweet Hand web application", "Angular 21", "Server-rendered pages and client interactions for visitors, customers, caterers and operators")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "HTTP endpoints, application services and domain model")
+  Container(worker, "Sweet Hand background worker", "NestJS worker (Node.js, TypeScript)", "Runs queued and scheduled jobs")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Accounts, profiles, enquiries, reviews, reports, audit log")
+  ContainerQueue(queue, "Job queue", "pg-boss (PostgreSQL)", "Persistent queue of background jobs")
+  ContainerDb(storage, "Object storage", "S3-compatible object storage", "Photos, certificate files and data exports in a Canadian region")
 }
 System_Ext(email, "Email provider", "Sends transactional email and reports bounces")
 

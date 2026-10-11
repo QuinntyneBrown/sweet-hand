@@ -4,21 +4,21 @@ LAYOUT_WITH_LEGEND()
 title Containers — Locate data in Canada and record breaches
 
 Person(operator, "Operator", "Records confirmed breaches")
-System_Ext(ci, "Continuous integration service", "Runs the residency policy check on every build")
+System_Ext(ci, "CI pipeline", "Runs the residency policy check on every build")
 System_Ext(obs, "Observability platform", "Logs, metrics, traces; stored in Canada")
 
 System_Boundary(sweethand, "Sweet Hand (Canadian regions)") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Breach register screens")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Operator breach endpoints and audit logging")
-  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Background jobs")
-  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent queue of background jobs")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Breach records, audit log and all other personal data; backups in a second Canadian region")
-  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Photos, certificate files, exports; replicated in a second Canadian region")
+  Container(web, "Sweet Hand web application", "Angular 21", "Breach register screens")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "Operator breach endpoints and audit logging")
+  Container(worker, "Sweet Hand background worker", "NestJS worker (Node.js, TypeScript)", "Background jobs")
+  ContainerQueue(queue, "Job queue", "pg-boss (PostgreSQL)", "Persistent queue of background jobs")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Breach records, audit log and all other personal data; backups in a second Canadian region")
+  ContainerDb(storage, "Object storage", "S3-compatible object storage", "Photos, certificate files, exports; replicated in a second Canadian region")
 }
 
 Rel(operator, web, "Uses", "HTTPS")
 Rel(web, api, "Calls", "JSON/HTTPS")
-Rel(api, db, "Writes BreachRecord and AuditEntry", "<TO SUPPLY>")
+Rel(api, db, "Writes BreachRecord and AuditEntry", "Drizzle ORM (SQL)")
 Rel(api, queue, "Enqueues jobs")
 Rel(queue, worker, "Delivers jobs to")
 Rel(api, obs, "Sends logs and traces to")

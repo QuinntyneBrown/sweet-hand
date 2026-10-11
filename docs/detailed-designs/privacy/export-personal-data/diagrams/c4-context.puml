@@ -10,7 +10,7 @@ System_Ext(email, "Email provider", "Sends transactional email")
 
 Rel(customer, sweethand, "Requests and downloads export", "HTTPS")
 Rel(caterer, sweethand, "Requests and downloads export", "HTTPS")
-Rel(sweethand, email, "Sends download link via", "<TO SUPPLY>")
+Rel(sweethand, email, "Sends download link via", "HTTPS")
 Rel(email, customer, "Delivers download link to")
 Rel(email, caterer, "Delivers download link to")
 @enduml

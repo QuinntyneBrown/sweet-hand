@@ -3,19 +3,19 @@
 LAYOUT_WITH_LEGEND()
 title Components — Authorise requests
 
-Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Sends requests on behalf of the caller")
+Container(web, "Sweet Hand web application", "Angular 21", "Sends requests on behalf of the caller")
 Container_Boundary(api, "Sweet Hand API") {
-  Component(pipeline, "RequestPipeline", "<TO SUPPLY>", "Ordered request stages")
-  Component(auth, "SessionAuthenticator", "<TO SUPPLY>", "Resolves caller and role")
-  Component(guard, "EndpointPolicyGuard", "<TO SUPPLY>", "Role check: 401 or 403")
-  Component(catalog, "EndpointPolicyCatalog", "<TO SUPPLY>", "Every endpoint with its allowed roles (L2-079 AC3)")
-  Component(endpoint, "<Area>Endpoints", "<TO SUPPLY>", "Bind only command fields (L2-079 AC2)")
-  Component(handler, "Command and query handlers", "<TO SUPPLY>", "Load records through RecordScope")
+  Component(pipeline, "RequestPipeline", "Request pipeline", "Ordered request stages")
+  Component(auth, "SessionAuthenticator", "Request pipeline", "Resolves caller and role")
+  Component(guard, "EndpointPolicyGuard", "Request pipeline", "Role check: 401 or 403")
+  Component(catalog, "EndpointPolicyCatalog", "Policy data", "Every endpoint with its allowed roles (L2-079 AC3)")
+  Component(endpoint, "<Area>Endpoints", "Endpoint group", "Bind only command fields (L2-079 AC2)")
+  Component(handler, "Command and query handlers", "Application handlers", "Load records through RecordScope")
   Component(scope, "RecordScope", "Domain service", "Owner or party condition per record type")
-  Component(repo, "<Entity>Repository", "<TO SUPPLY>", "Scoped lookups only")
-  Component(seclog, "SecurityLog", "<TO SUPPLY>", "Authorisation failure events (L2-079 AC4)")
+  Component(repo, "<Entity>Repository", "Repository", "Scoped lookups only")
+  Component(seclog, "SecurityLog", "Infrastructure", "Authorisation failure events (L2-079 AC4)")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles, enquiries, reviews")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Profiles, enquiries, reviews")
 System_Ext(obs, "Observability platform", "Logs and alerts")
 
 Rel(web, pipeline, "Sends request", "JSON/HTTPS")

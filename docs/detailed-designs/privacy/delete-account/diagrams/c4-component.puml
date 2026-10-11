@@ -6,8 +6,8 @@ title Components — Delete an account
 Person(user, "Customer or caterer", "Deletes their own account")
 
 Container_Boundary(web, "Sweet Hand web application") {
-  Component(settings, "AccountSettingsPage", "<TO SUPPLY>", "Offers Delete my account")
-  Component(dialog, "DeleteAccountDialog", "<TO SUPPLY>", "Confirms with the current password")
+  Component(settings, "AccountSettingsPage", "Page", "Offers Delete my account")
+  Component(dialog, "DeleteAccountDialog", "Dialog", "Confirms with the current password")
   Component(client, "AccountClient", "API client contract", "Requests deletion")
 }
 
@@ -24,9 +24,9 @@ Container_Boundary(worker, "Sweet Hand background worker") {
   Component(notify, "SendNotificationJob", "Job", "Sends confirmation and enquiry-closed emails")
 }
 
-ComponentDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, enquiries, messages, reviews, profiles")
-ComponentDb(storage, "Object storage", "<TO SUPPLY>", "Photos and certificate files")
-ComponentQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent job queue")
+ComponentDb(db, "Sweet Hand database", "PostgreSQL", "Accounts, enquiries, messages, reviews, profiles")
+ComponentDb(storage, "Object storage", "S3-compatible object storage", "Photos and certificate files")
+ComponentQueue(queue, "Job queue", "pg-boss (PostgreSQL)", "Persistent job queue")
 
 Rel(user, settings, "Activates Delete my account")
 Rel(settings, dialog, "Opens")

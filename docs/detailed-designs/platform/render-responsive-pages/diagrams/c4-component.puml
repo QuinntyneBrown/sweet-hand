@@ -5,18 +5,18 @@ title Components — Render responsive pages
 
 Person(customer, "Customer", "Phone, tablet or desktop")
 Container_Boundary(web, "Sweet Hand web application") {
-  Component(page, "Page templates", "<TO SUPPLY>", "Listing, caterer page, enquiry form, inbox, thread, editor, queue, dashboard, sign-in, registration")
-  Component(shell, "PageShell", "<TO SUPPLY>", "Viewport, safe-area insets, width 320–2560 px")
-  Component(res, "ResourceCatalog", "<TO SUPPLY>", "Resolves en-CA message keys")
-  Component(policy, "FieldInputPolicy", "<TO SUPPLY>", "Input type, inputmode and autocomplete per field kind")
-  Component(hover, "HoverDisclosure", "<TO SUPPLY>", "Hover content also on tap and focus")
-  Component(keeper, "FormStateKeeper", "<TO SUPPLY>", "Keeps values and scroll across rotation")
-  Component(client, "Feature API clients", "<TO SUPPLY>", "Area client contracts")
+  Component(page, "Page templates", "Page", "Listing, caterer page, enquiry form, inbox, thread, editor, queue, dashboard, sign-in, registration")
+  Component(shell, "PageShell", "Page component", "Viewport, safe-area insets, width 320–2560 px")
+  Component(res, "ResourceCatalog", "Infrastructure", "Resolves en-CA message keys")
+  Component(policy, "FieldInputPolicy", "Client rule", "Input type, inputmode and autocomplete per field kind")
+  Component(hover, "HoverDisclosure", "Page component", "Hover content also on tap and focus")
+  Component(keeper, "FormStateKeeper", "Client state", "Keeps values and scroll across rotation")
+  Component(client, "Feature API clients", "API client contract", "Area client contracts")
 }
-Container(api, "Sweet Hand API", "<TO SUPPLY>", "Page data")
+Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "Page data")
 Container_Boundary(ci, "CI pipeline") {
-  Component(suite, "ResponsiveLayoutSuite", "<TO SUPPLY>", "Page objects per screen; 10 widths")
-  Component(lint, "StringLiteralLintStep", "<TO SUPPLY>", "Fails on user-facing literals outside resource files")
+  Component(suite, "ResponsiveLayoutSuite", "Test suite", "Page objects per screen; 10 widths")
+  Component(lint, "StringLiteralLintStep", "Pipeline step", "Fails on user-facing literals outside resource files")
 }
 
 Rel(customer, page, "Requests", "HTTPS")

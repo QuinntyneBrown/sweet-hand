@@ -5,23 +5,23 @@ title Components — Sign in
 
 Person(user, "Customer, caterer or operator", "Holds an account")
 Container_Boundary(web, "Sweet Hand web application") {
-  Component(page, "SignInPage", "<TO SUPPLY>", "Email and password form")
-  Component(mfa, "SecondFactorPage", "<TO SUPPLY>", "TOTP or WebAuthn for operators")
+  Component(page, "SignInPage", "Page", "Email and password form")
+  Component(mfa, "SecondFactorPage", "Page", "TOTP or WebAuthn for operators")
   Component(client, "IdentityClient", "API client contract", "signIn, completeSecondFactor")
 }
 Container_Boundary(api, "Sweet Hand API") {
-  Component(endpoints, "IdentityEndpoints", "<TO SUPPLY>", "POST /identity/sign-in, /identity/second-factor")
-  Component(handler, "SignInHandler", "<TO SUPPLY>", "Decides each sign-in")
+  Component(endpoints, "IdentityEndpoints", "Endpoint group", "POST /identity/sign-in, /identity/second-factor")
+  Component(handler, "SignInHandler", "Command handler", "Decides each sign-in")
   Component(policy, "SignInAttemptPolicy", "Domain policy", "Account lockout and IP threshold (L2-076)")
-  Component(mfahandler, "CompleteSecondFactorHandler", "<TO SUPPLY>", "Verifies operator second factor (L2-056)")
-  Component(hasher, "PasswordHasher", "<TO SUPPLY>", "Verifies Argon2id hashes")
-  Component(attempts, "SignInAttemptRepository", "<TO SUPPLY>", "Failed attempts per account and hashed IP")
-  Component(accounts, "UserAccountRepository", "<TO SUPPLY>", "Accounts")
-  Component(sessions, "SessionStore", "<TO SUPPLY>", "Creates and replaces sessions")
-  Component(verifier, "BotProtectionVerifier", "<TO SUPPLY>", "Validates challenge tokens")
-  Component(seclog, "SecurityLog", "<TO SUPPLY>", "Records sign-in events")
+  Component(mfahandler, "CompleteSecondFactorHandler", "Command handler", "Verifies operator second factor (L2-056)")
+  Component(hasher, "PasswordHasher", "Infrastructure", "Verifies Argon2id hashes")
+  Component(attempts, "SignInAttemptRepository", "Repository", "Failed attempts per account and hashed IP")
+  Component(accounts, "UserAccountRepository", "Repository", "Accounts")
+  Component(sessions, "SessionStore", "Infrastructure", "Creates and replaces sessions")
+  Component(verifier, "BotProtectionVerifier", "Infrastructure", "Validates challenge tokens")
+  Component(seclog, "SecurityLog", "Infrastructure", "Records sign-in events")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, sessions, attempts")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Accounts, sessions, attempts")
 
 Rel(user, page, "Uses")
 Rel(user, mfa, "Uses")

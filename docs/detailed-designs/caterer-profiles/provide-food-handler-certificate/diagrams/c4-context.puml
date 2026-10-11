@@ -11,6 +11,6 @@ System_Ext(email, "Email provider", "Sends transactional email")
 
 Rel(caterer, sweethand, "Enters certificate details and uploads copy using", "HTTPS")
 Rel(operator, sweethand, "Views certificate in review screens of", "HTTPS")
-Rel(sweethand, malware, "Scans uploaded file with", "<TO SUPPLY>")
-Rel(sweethand, email, "Sends expiry reminders via", "<TO SUPPLY>")
+Rel(sweethand, malware, "Scans uploaded file with", "HTTPS")
+Rel(sweethand, email, "Sends expiry reminders via", "HTTPS")
 @enduml

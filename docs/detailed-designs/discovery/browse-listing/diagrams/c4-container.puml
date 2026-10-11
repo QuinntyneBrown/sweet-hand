@@ -6,10 +6,10 @@ title Containers — Browse the caterer listing
 Person(visitor, "Visitor", "Browses caterers without signing in")
 System_Ext(cdn, "CDN", "Caches public HTML and serves processed photos")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-renders the listing and handles page changes")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Public listing endpoint, ordering and paging rules")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Caterer profiles, cuisines, service areas")
-  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Processed photo derivatives")
+  Container(web, "Sweet Hand web application", "Angular 21", "Server-renders the listing and handles page changes")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "Public listing endpoint, ordering and paging rules")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Caterer profiles, cuisines, service areas")
+  ContainerDb(storage, "Object storage", "S3-compatible object storage", "Processed photo derivatives")
 }
 Rel(visitor, cdn, "Uses", "HTTPS")
 Rel(cdn, web, "Fetches listing HTML", "HTTPS")

@@ -6,9 +6,9 @@ title Containers — Authorise requests
 Person(customer, "Customer", "Signed-in person planning a meal or an event")
 Person(caterer, "Caterer", "Sells Caribbean food and receives enquiries")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, sessions, tokens, consent records")
+  Container(web, "Sweet Hand web application", "Angular 21", "Server-rendered pages and client interactions")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "HTTP endpoints, application services and domain model")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Accounts, sessions, tokens, consent records")
 }
 System_Ext(obs, "Observability platform", "Logs, metrics, traces and alerts")
 

@@ -82,7 +82,7 @@ Never weaken a test to make it pass, and never write architecture tests
   in `seed/<area>.ts`; the store (`lib/store.ts`) holds one copy per test.
 - Wire types live in `projects/api/src/lib/models/`, one type per file, and
   are imported by the fake with `import type`, so both sides share one
-  contract.
+  contract. The real backend (ADR 0006) imports them the same way.
 - Validation errors: `invalid({ field: ['message'] })` → HTTP 400 problem body
   `{ title, errors }`; field names match the form control names.
 - State-changing requests need the CSRF header; Angular's HttpClient adds it.

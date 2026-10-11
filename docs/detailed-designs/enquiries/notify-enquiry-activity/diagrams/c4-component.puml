@@ -4,21 +4,21 @@ LAYOUT_WITH_LEGEND()
 title Components — Notify enquiry activity
 
 Container_Boundary(api, "Sweet Hand API") {
-  Component(handlers, "SendEnquiryHandler, PostReplyHandler, DeclineEnquiryHandler", "<TO SUPPLY>", "Actions that need an email")
-  Component(sched, "NotificationScheduler", "<TO SUPPLY>", "Creates or extends Notification")
-  Component(bounceep, "EmailEventsEndpoints", "<TO SUPPLY>", "Bounce webhook")
-  Component(bounce, "HandleEmailBounceHandler", "<TO SUPPLY>", "Marks email undeliverable")
-  Component(repo, "NotificationRepository", "<TO SUPPLY>", "Notification persistence")
+  Component(handlers, "SendEnquiryHandler, PostReplyHandler, DeclineEnquiryHandler", "Command handlers", "Actions that need an email")
+  Component(sched, "NotificationScheduler", "Domain service", "Creates or extends Notification")
+  Component(bounceep, "EmailEventsEndpoints", "Endpoint group", "Bounce webhook")
+  Component(bounce, "HandleEmailBounceHandler", "Command handler", "Marks email undeliverable")
+  Component(repo, "NotificationRepository", "Repository", "Notification persistence")
 }
 Container_Boundary(worker, "Sweet Hand background worker") {
-  Component(job, "SendNotificationJob", "<TO SUPPLY>", "Sends one notification")
-  Component(composer, "NotificationComposer", "<TO SUPPLY>", "Builds email from templates")
-  Component(retry, "RetryPolicy", "<TO SUPPLY>", "Exponential backoff, 24 h limit")
-  Component(gateway, "EmailGateway", "<TO SUPPLY>", "Authenticated sending domain")
-  Component(alert, "OperatorAlert", "<TO SUPPLY>", "Failed-notification alert")
+  Component(job, "SendNotificationJob", "Job", "Sends one notification")
+  Component(composer, "NotificationComposer", "Domain service", "Builds email from templates")
+  Component(retry, "RetryPolicy", "Infrastructure", "Exponential backoff, 24 h limit")
+  Component(gateway, "EmailGateway", "Infrastructure", "Authenticated sending domain")
+  Component(alert, "OperatorAlert", "Infrastructure", "Failed-notification alert")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Notifications and accounts")
-ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent jobs")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Notifications and accounts")
+ContainerQueue(queue, "Job queue", "pg-boss (PostgreSQL)", "Persistent jobs")
 System_Ext(email, "Email provider", "Sends transactional email and reports bounces")
 System_Ext(obs, "Observability platform", "Raises alerts")
 

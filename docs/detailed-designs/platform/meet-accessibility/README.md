@@ -29,8 +29,9 @@ version is `<TO SUPPLY>`. This design follows the specification text.
 
 ## Description
 
-Technology choices for every component below are `<TO SUPPLY>`, pending
-architecture decision records in `docs/adr/`. Accessible dialogs and overlays
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`. Accessible dialogs and overlays
 use the UI framework's own primitives, as AGENTS.md requires.
 
 - **`SkipLink`** — first focusable element in `PageShell`

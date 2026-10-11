@@ -18,7 +18,7 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(item, "MenuItem / DietaryTag", "Domain entity and enumeration", "Field lengths and fixed tag list")
   Component(repo, "CatererProfileRepository", "Infrastructure", "Persistence")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Menu items")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Menu items")
 
 Rel(caterer, page, "Uses")
 Rel(page, dialog, "Opens")

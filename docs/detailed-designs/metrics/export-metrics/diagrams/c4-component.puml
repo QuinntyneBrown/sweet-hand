@@ -18,7 +18,7 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(guard, "CsvFormulaGuard", "Domain service", "Neutralises leading = + - @")
   Component(repo, "MetricsRepository", "Repository", "Daily aggregate rows")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Daily metric aggregates")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Daily metric aggregates")
 
 Rel(operator, page, "Uses", "HTTPS")
 Rel(page, client, "exportCsv")

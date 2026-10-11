@@ -23,9 +23,9 @@ edit-profile-as-operator (which owns the "Revert" action on the feed).
 ## Description
 
 The slice is read-only. It runs from the operator screens in the web
-application to the database and object storage. Technology choices for every
-container are `<TO SUPPLY>` pending architecture decision records (ADRs) in
-`docs/adr/`.
+application to the database and object storage. Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`.
 
 **Frontend — Sweet Hand web application**
 

@@ -4,20 +4,20 @@ LAYOUT_WITH_LEGEND()
 title Components — Limit enquiry abuse
 
 Container_Boundary(web, "Sweet Hand web application") {
-  Component(dialog, "EnquiryFormDialog", "<TO SUPPLY>", "Shows limit and duplicate messages")
-  Component(widget, "BotChallengeWidget", "<TO SUPPLY>", "Obtains challenge token")
-  Component(client, "EnquiriesClient", "<TO SUPPLY>", "API client contract")
+  Component(dialog, "EnquiryFormDialog", "Dialog", "Shows limit and duplicate messages")
+  Component(widget, "BotChallengeWidget", "Page component", "Obtains challenge token")
+  Component(client, "EnquiriesClient", "API client contract", "API client contract")
 }
 Container_Boundary(api, "Sweet Hand API") {
-  Component(pipe, "RequestPipeline", "<TO SUPPLY>", "Logs rate-limit blocks")
-  Component(ep, "EnquiriesEndpoints", "<TO SUPPLY>", "POST /enquiries")
-  Component(handler, "SendEnquiryHandler", "<TO SUPPLY>", "Runs checks before creating")
-  Component(policy, "EnquiryLimitPolicy", "<TO SUPPLY>", "New-account, daily and duplicate limits")
-  Component(verifier, "BotProtectionVerifier", "<TO SUPPLY>", "Verifies challenge tokens")
-  Component(repo, "EnquiryRepository", "<TO SUPPLY>", "Counts and finds enquiries")
-  Component(seclog, "SecurityLog", "<TO SUPPLY>", "Structured security events")
+  Component(pipe, "RequestPipeline", "Request pipeline", "Logs rate-limit blocks")
+  Component(ep, "EnquiriesEndpoints", "Endpoint group", "POST /enquiries")
+  Component(handler, "SendEnquiryHandler", "Command handler", "Runs checks before creating")
+  Component(policy, "EnquiryLimitPolicy", "Domain policy", "New-account, daily and duplicate limits")
+  Component(verifier, "BotProtectionVerifier", "Infrastructure", "Verifies challenge tokens")
+  Component(repo, "EnquiryRepository", "Repository", "Counts and finds enquiries")
+  Component(seclog, "SecurityLog", "Infrastructure", "Structured security events")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Enquiries and accounts")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Enquiries and accounts")
 System_Ext(bot, "Bot-protection provider", "Issues and verifies challenge tokens")
 
 Rel(dialog, widget, "Embeds")

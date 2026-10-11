@@ -4,21 +4,21 @@ LAYOUT_WITH_LEGEND()
 title Components — Share contact details
 
 Container_Boundary(web, "Sweet Hand web application") {
-  Component(pane, "ThreadPane", "<TO SUPPLY>", "Share action and shared details")
-  Component(dialog, "ShareContactDialog", "<TO SUPPLY>", "Confirmation")
-  Component(card, "SharedContactCard", "<TO SUPPLY>", "Other party's email and phone")
-  Component(client, "EnquiriesClient", "<TO SUPPLY>", "API client contract")
+  Component(pane, "ThreadPane", "Page component", "Share action and shared details")
+  Component(dialog, "ShareContactDialog", "Dialog", "Confirmation")
+  Component(card, "SharedContactCard", "Page component", "Other party's email and phone")
+  Component(client, "EnquiriesClient", "API client contract", "API client contract")
 }
 Container_Boundary(api, "Sweet Hand API") {
-  Component(ep, "EnquiriesEndpoints", "<TO SUPPLY>", "contact-shares and thread endpoints")
-  Component(policy, "EnquiryAccessPolicy", "<TO SUPPLY>", "Party check")
-  Component(share, "ShareContactDetailsHandler", "<TO SUPPLY>", "Records a share")
-  Component(get, "GetThreadHandler", "<TO SUPPLY>", "Reveals details only when shared")
-  Component(agg, "Enquiry", "<TO SUPPLY>", "ShareContact")
-  Component(repo, "EnquiryRepository", "<TO SUPPLY>", "Enquiries and shares")
-  Component(accounts, "UserAccountRepository", "<TO SUPPLY>", "Current email and phone")
+  Component(ep, "EnquiriesEndpoints", "Endpoint group", "contact-shares and thread endpoints")
+  Component(policy, "EnquiryAccessPolicy", "Domain policy", "Party check")
+  Component(share, "ShareContactDetailsHandler", "Command handler", "Records a share")
+  Component(get, "GetThreadHandler", "Query handler", "Reveals details only when shared")
+  Component(agg, "Enquiry", "Domain aggregate", "ShareContact")
+  Component(repo, "EnquiryRepository", "Repository", "Enquiries and shares")
+  Component(accounts, "UserAccountRepository", "Repository", "Current email and phone")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Enquiries, shares, accounts")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Enquiries, shares, accounts")
 
 Rel(pane, dialog, "Opens")
 Rel(pane, card, "Renders when other party shared")

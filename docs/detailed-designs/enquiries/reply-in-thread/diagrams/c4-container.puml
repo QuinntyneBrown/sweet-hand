@@ -7,10 +7,10 @@ Person(customer, "Customer", "Signed-in person in Toronto or the GTA planning a 
 Person(caterer, "Caterer", "Person or small business selling Caribbean food")
 Person(operator, "Operator", "Sweet Hand team member who moderates the platform")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions for visitors, customers, caterers and operators")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, profiles, enquiries, messages, notifications, audit log")
-  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent queue of background jobs")
+  Container(web, "Sweet Hand web application", "Angular 21", "Server-rendered pages and client interactions for visitors, customers, caterers and operators")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "HTTP endpoints, application services and domain model")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Accounts, profiles, enquiries, messages, notifications, audit log")
+  ContainerQueue(queue, "Job queue", "pg-boss (PostgreSQL)", "Persistent queue of background jobs")
 }
 
 Rel(customer, web, "Opens thread, replies", "HTTPS")

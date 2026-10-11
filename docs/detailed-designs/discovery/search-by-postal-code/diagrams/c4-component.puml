@@ -18,7 +18,7 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(handler, "GetListingHandler", "Query handler", "Filters by resolved area")
   Component(fsaRepo, "FsaMappingRepository", "Repository", "FSA mapping reference data")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "FSA mapping and profiles")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "FSA mapping and profiles")
 
 Rel(visitor, search, "Submits code")
 Rel(page, search, "Hosts")

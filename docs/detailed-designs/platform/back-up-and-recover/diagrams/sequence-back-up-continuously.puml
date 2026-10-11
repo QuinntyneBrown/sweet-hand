@@ -40,6 +40,6 @@ end
 loop on schedule <TO SUPPLY>
   db -> dbbackup : Encrypted snapshot, kept 35 days (L2-090 AC1)
 end
-storage -> replica : Version or replicate file (L2-090 AC2)
+storage -> replica : Replicate file (L2-090 AC2)
 note over dbbackup : Point-in-time recovery covers the last 35 days\nRPO 15 minutes
 @enduml

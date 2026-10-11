@@ -24,7 +24,7 @@ Container_Boundary(worker, "Sweet Hand background worker") {
   Component(notify, "SendNotificationJob", "Job", "Caterer and customer emails")
   Component(purge, "PurgeCatererPhotosJob", "Job", "Revokes and purges photos")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles, enquiries, audit log")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Profiles, enquiries, audit log")
 
 Rel(operator, screen, "Uses", "HTTPS")
 Rel(screen, dialogs, "Opens")

@@ -28,8 +28,9 @@ Terms used in this document:
 
 ## Description
 
-Technology choices for every component below are `<TO SUPPLY>`, pending
-architecture decision records in `docs/adr/`. Components are named by role.
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`. Components are named by role.
 
 ### Retention periods
 
@@ -94,8 +95,9 @@ architecture decision records in `docs/adr/`. Components are named by role.
 - **`RetentionRunRepository`** — persists `RetentionRun` records.
 - **`AuditLogPurger`** — the only component allowed to delete audit entries. The
   application's database account has no UPDATE or DELETE permission on the
-  audit table (`L2-060 AC2`). The purge therefore runs under a separate,
-  narrowly scoped database identity whose exact mechanism is `<TO SUPPLY>`.
+  audit table (`L2-060 AC2`). The purge therefore runs under the
+  `sweethand_retention` database role (ADR 0006), the only role with DELETE on
+  the audit table.
 
 ### Points that are not settled in the specifications
 

@@ -10,3 +10,5 @@ cover an area before changing it.
 | [0003](0003-frontend-api-contracts.md) | Pages depend on API contracts; HTTP clients implement them | Accepted |
 | [0004](0004-e2e-tests-against-a-fake-backend.md) | Frontend acceptance tests run in Playwright against a fake backend | Accepted |
 | [0005](0005-externalised-text-with-angular-i18n.md) | User-facing text is externalised with Angular i18n | Accepted |
+| [0006](0006-backend-stack-nestjs-postgresql-drizzle.md) | Backend stack: NestJS on Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage | Accepted |
+| [0007](0007-backend-tests-against-in-memory-repositories.md) | Backend tests drive the API over HTTP against in-memory repositories | Accepted |

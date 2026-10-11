@@ -19,7 +19,7 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(jobs, "JobQueue", "Infrastructure", "Transactional outbox")
   Component(repo, "ReviewRepository", "Infrastructure", "Reviews and summaries")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Reviews, summaries, audit log")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Reviews, summaries, audit log")
 
 Rel(operator, screen, "Uses", "HTTPS")
 Rel(screen, dialog, "Opens")

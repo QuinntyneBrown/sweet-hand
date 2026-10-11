@@ -7,14 +7,14 @@ Person(visitor, "Visitor", "Reads the privacy notice")
 Person(customer, "Customer", "Gives consent")
 Person(caterer, "Caterer", "Gives consent")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Renders the privacy notice, footer link, consent field and privacy changes screen")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Serves the notice, records consent, gates re-consent and issues cookies")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Privacy notice versions and consent records")
+  Container(web, "Sweet Hand web application", "Angular 21", "Renders the privacy notice, footer link, consent field and privacy changes screen")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "Serves the notice, records consent, gates re-consent and issues cookies")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Privacy notice versions and consent records")
 }
 
 Rel(visitor, web, "Uses", "HTTPS")
 Rel(customer, web, "Uses", "HTTPS")
 Rel(caterer, web, "Uses", "HTTPS")
 Rel(web, api, "Calls", "JSON/HTTPS")
-Rel(api, db, "Reads and writes", "<TO SUPPLY>")
+Rel(api, db, "Reads and writes", "Drizzle ORM (SQL)")
 @enduml

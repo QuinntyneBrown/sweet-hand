@@ -19,7 +19,7 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(limiter, "ReportRateLimiter", "Infrastructure", "5 per hour per hashed IP")
   Component(repos, "Repositories", "Infrastructure", "Report, Review, ReviewQueue")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Reports, reviews, queue items")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Reports, reviews, queue items")
 
 Rel(visitor, pages, "Uses", "HTTPS")
 Rel(pages, dialog, "Opens")
