@@ -126,6 +126,7 @@ test.describe('The privacy notice before launch', () => {
     await expect(launch.main).toContainText('30 days after launch day');
     await expect(launch.main).toContainText('in Canada');
     await expect(page.getByRole('heading', { name: 'How to leave the list' })).toBeVisible();
+    await expect(launch.main).toContainText('Write to hello@sweethand.example.');
     await launch.expectNoAccessibilityViolations();
   });
 });
