@@ -58,6 +58,13 @@ export const dashboardRoutes: Routes = [
         data: { mainClass: 'container' },
         title: $localize`:@@menu.documentTitle:Menu · Sweet Hand`,
       },
+      {
+        path: 'profile/food-safety',
+        canActivate: [editorOpen],
+        loadComponent: () => import('./certificate/certificate.page').then((m) => m.CertificatePage),
+        data: { mainClass: 'container' },
+        title: $localize`:@@certificate.documentTitle:Food safety · Sweet Hand`,
+      },
       { path: '**', loadComponent: () => import('../../shell/system-page').then((m) => m.SystemPage), data: { kind: 'not-found' } },
     ],
   },

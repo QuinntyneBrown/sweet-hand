@@ -1,0 +1,187 @@
+<app-dashboard-layout current="food-safety" [status]="data.status()" [previewLabel]="data.state().kind === 'ready' ? data.previewLabel(yourCard) : null">
+  <sh-back-link href="/dashboard" [untilLg]="true"><ng-container i18n="@@nav.overview">Overview</ng-container></sh-back-link>
+  <div class="page-intro">
+    <h1 i18n="@@nav.foodSafety">Food safety</h1>
+    @switch (data.state().kind) {
+      @case ('loading') {
+        <p class="subtitle">
+          <span class="visually-hidden" role="status" i18n="@@certificate.loading">Loading your certificate</span
+          ><span class="skeleton skeleton--text" style="width: var(--layout-sidebar-width)" aria-hidden="true"></span>
+        </p>
+      }
+      @case ('ready') {
+        <p class="subtitle">{{ subtitle() }}</p>
+        <p class="cluster"><sh-status [tone]="data.statusTone()" [label]="data.statusText()" /></p>
+      }
+    }
+  </div>
+
+  @switch (data.state().kind) {
+    @case ('loading') {
+      <div class="form">
+        @for (i of [1, 2, 3, 4]; track i) {
+          <div class="field" aria-hidden="true">
+            <span class="skeleton skeleton--text" style="width: var(--space-32)"></span><span class="skeleton skeleton--rect" style="height: var(--control-height-md)"></span>
+          </div>
+        }
+      </div>
+    }
+    @case ('error') {
+      <sh-empty-state
+        tone="error"
+        heading="We couldn’t load your certificate"
+        i18n-heading="@@certificate.errorTitle"
+        text="Nothing you saved is lost. This is a problem on our side, and trying again usually fixes it."
+        i18n-text="@@section.errorText"
+        [reference]="data.errorReference()"
+        referenceLabel="Reference"
+        i18n-referenceLabel="@@common.reference"
+      >
+        <svg slot="icon" shIcon="danger"></svg>
+        <ng-container slot="actions">
+          <button class="btn btn--primary" type="button" (click)="load()">
+            <svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container>
+          </button>
+          <a class="btn" routerLink="/dashboard" i18n="@@section.backToOverview">Back to overview</a>
+        </ng-container>
+      </sh-empty-state>
+    }
+    @case ('ready') {
+      @if (data.profile(); as p) {
+        @if (readOnly()) {
+          <app-status-notice [profile]="p" (withdrawRequested)="withdrawOpen.set(true)" />
+          <dl class="kv" style="margin-top: var(--space-8)">
+            @for (row of readOnlyRows(); track row.term) {
+              <dt>{{ row.term }}</dt>
+              <dd>{{ row.value }}</dd>
+            }
+          </dl>
+        } @else {
+          @if (data.suspended() || p.status === 'Changes requested' || p.pendingName) {
+            <app-profile-banner [profile]="p" />
+            <div style="height: var(--space-6)"></div>
+          } @else if (expiring(); as e) {
+            <sh-alert tone="warning" live="polite" [title]="e.title">{{ e.text }}</sh-alert>
+            <div style="height: var(--space-6)"></div>
+          }
+          @if (failed()) {
+            <sh-alert tone="danger" live="assertive" title="Your certificate wasn’t saved" i18n-title="@@certificate.failedTitle"
+              ><ng-container i18n="@@certificate.failedText">We couldn’t reach Sweet Hand. Your entries are still here; try again.</ng-container></sh-alert
+            >
+          }
+          <sh-form-summary [heading]="summaryTitle()" [items]="summary()" [attempt]="attempt()" />
+          <form class="form" novalidate aria-labelledby="certificate-title" (submit)="$event.preventDefault(); save()">
+            <h2 class="visually-hidden" id="certificate-title" i18n="@@certificate.formTitle">Your food handler certificate</h2>
+            <sh-private-note text="Only you and the Sweet Hand team see this. It never appears on your page." i18n-text="@@certificate.private" />
+            <sh-form-field label="Name on the certificate" i18n-label="@@certificate.holder" controlId="holder" [error]="errors().holder">
+              <sh-text-field name="holder" autocomplete="name" [required]="true" [readonly]="busy()" [value]="holder()" (valueChange)="holder.set($event)" />
+            </sh-form-field>
+            <sh-form-field
+              label="Issued by"
+              i18n-label="@@certificate.issuer"
+              controlId="issuer"
+              [error]="errors().issuer"
+              help="For example, Toronto Public Health or an approved training provider"
+              i18n-help="@@certificate.issuerHelp"
+            >
+              <sh-text-field name="issuer" [required]="true" [readonly]="busy()" [value]="issuer()" (valueChange)="issuer.set($event)" />
+            </sh-form-field>
+            <sh-form-row>
+              <sh-form-field label="Certificate number" i18n-label="@@certificate.number" controlId="number" [error]="errors().number">
+                <sh-text-field name="number" autocapitalize="characters" autocomplete="off" [required]="true" [readonly]="busy()" [value]="number()" (valueChange)="number.set($event)" />
+              </sh-form-field>
+              <sh-form-field
+                label="Expiry date"
+                i18n-label="@@certificate.expiry"
+                controlId="expiry"
+                [error]="errors().expiry"
+                help="We remind you 30 and 7 days before it expires"
+                i18n-help="@@certificate.expiryHelp"
+              >
+                <sh-text-field type="date" name="expiry" [min]="today" [required]="true" [readonly]="busy()" [value]="expiry()" (valueChange)="expiry.set($event)" />
+              </sh-form-field>
+            </sh-form-row>
+            <div class="field">
+              <span class="field__label" id="file-label"
+                ><ng-container i18n="@@certificate.copy">Copy of certificate</ng-container>&ngsp;<span class="optional" i18n="@@field.optional">(optional)</span></span
+              >
+              @switch (copy()?.kind) {
+                @case ('saved') {
+                  <sh-file-row
+                    [fileName]="$any(copy()).name"
+                    [meta]="$any(copy()).meta"
+                    labelledBy="file-label"
+                    [accept]="certTypes"
+                    replaceLabel="Replace"
+                    i18n-replaceLabel="@@file.replace"
+                    removeLabel="Remove"
+                    i18n-removeLabel="@@file.remove"
+                    [disabled]="busy()"
+                    (replaceSelected)="choose($event)"
+                    (removed)="removeCopy()"
+                  />
+                }
+                @case ('chosen') {
+                  <sh-file-row
+                    [fileName]="$any(copy()).file.name"
+                    [meta]="$any(copy()).meta"
+                    labelledBy="file-label"
+                    [accept]="certTypes"
+                    replaceLabel="Replace"
+                    i18n-replaceLabel="@@file.replace"
+                    removeLabel="Remove"
+                    i18n-removeLabel="@@file.remove"
+                    [disabled]="busy()"
+                    (replaceSelected)="choose($event)"
+                    (removed)="removeCopy()"
+                  />
+                }
+                @case ('failed') {
+                  <sh-file-row
+                    state="failed"
+                    [fileName]="$any(copy()).name"
+                    [meta]="$any(copy()).message"
+                    labelledBy="file-label"
+                    [accept]="certTypes"
+                    replaceLabel="Replace"
+                    i18n-replaceLabel="@@file.replace"
+                    removeLabel="Remove"
+                    i18n-removeLabel="@@file.remove"
+                    [disabled]="busy()"
+                    (replaceSelected)="choose($event)"
+                    (removed)="removeCopy()"
+                  />
+                }
+                @default {
+                  <span class="cluster">
+                    <sh-file-upload [accept]="certTypes" inputId="cert-file" describedBy="file-help" [disabled]="busy()" (filesSelected)="choose($event[0])"
+                      ><svg shIcon="upload"></svg><ng-container i18n="@@certificate.upload">Upload a copy</ng-container></sh-file-upload
+                    >
+                  </span>
+                }
+              }
+              <span class="field__help" id="file-help" i18n="@@certificate.fileHelp">PDF, JPEG or PNG, up to 10 MB</span>
+            </div>
+            <sh-form-actions>
+              <button class="btn btn--primary" type="submit" [attr.aria-busy]="busy() ? 'true' : null" [attr.aria-disabled]="busy() ? 'true' : null" i18n="@@certificate.save">
+                Save certificate
+              </button>
+              @if (busy()) {
+                <p class="visually-hidden" role="status" i18n="@@certificate.saving">Saving the certificate</p>
+              } @else if (savedText()) {
+                <sh-save-status [inline]="true" [text]="savedText()!" />
+              }
+            </sh-form-actions>
+          </form>
+        }
+      }
+    }
+  }
+  @if (data.card(); as c) {
+    <app-listing-preview slot="preview" [card]="c" [href]="data.published() ? data.pageHref() : null" />
+  }
+</app-dashboard-layout>
+
+@if (data.profile(); as p) {
+  <app-withdraw-dialog [open]="withdrawOpen()" [business]="p.name" (closed)="withdrawOpen.set(false)" (withdrawn)="withdrawn($event)" />
+}
