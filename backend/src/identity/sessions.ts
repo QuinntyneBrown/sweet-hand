@@ -114,16 +114,16 @@ export async function authenticate(req: Request): Promise<Actor | undefined> {
     await sessions(req.tx).delete(session.id);
     return undefined;
   }
-  if (session.pendingSecondFactor) {
-    req.locals['pendingSecondFactor'] = user;
-    return undefined;
-  }
   const limits = TIMEOUTS[user.role];
   const now = req.now.getTime();
   if (now - Date.parse(session.lastActiveAt) > limits.idle || now - Date.parse(session.createdAt) > limits.absolute) {
     await sessions(req.tx).delete(session.id);
     clearSessionCookie(req);
-    req.locals['expiredEmail'] = user.email;
+    if (!session.pendingSecondFactor) req.locals['expiredEmail'] = user.email;
+    return undefined;
+  }
+  if (session.pendingSecondFactor) {
+    req.locals['pendingSecondFactor'] = user;
     return undefined;
   }
   await sessions(req.tx).put({ ...session, lastActiveAt: req.now.toISOString() });
