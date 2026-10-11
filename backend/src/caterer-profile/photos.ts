@@ -1,12 +1,14 @@
 import { randomUUID } from 'node:crypto';
 import type { Reply, Request } from '../http/router.ts';
-import { conflict, fail, invalid, notFound, ok } from '../http/problems.ts';
+import { badRequest, conflict, fail, invalid, notFound, ok } from '../http/problems.ts';
 import type { Photo } from '../caterers/model.ts';
-import { assertEditable, loadOwn, saveCaterer, type Own } from './own.ts';
+import { assertEditable, loadOwn, reorder, saveCaterer, text, type Own } from './own.ts';
 import { recordCoverChange } from './live-edits.ts';
+import { removedPhotos } from './model.ts';
+import { ownProfileReply } from './profile.ts';
 import { discardPhotoMedia, storePhoto } from './processing.ts';
 import { CONTENT_TYPES, EXTENSIONS, decodeUpload, dimensions, sniff, type FileKind } from './uploads.ts';
-import { MAX_PHOTOS, photoView } from './view.ts';
+import { MAX_PHOTOS, MIN_PUBLISHED, photoView } from './view.ts';
 
 const PHOTO_BYTES = 15 * 1024 * 1024;
 /** Upload bodies are base64 JSON: 15 MB of photo is about 20 MB of request (L2-080.3). */
@@ -70,4 +72,59 @@ export async function replacePhoto(req: Request): Promise<Reply> {
   await recordCoverChange(req, own, cover);
   await saveCaterer(req, own.caterer);
   return ok(photoView(photo));
+}
+
+/** `PATCH /api/caterer/profile/photos/:id`: caption of 5–125 characters, and "Use as cover photo" moves it to position 1 (L2-042.3, L2-042.6). */
+export async function updatePhoto(req: Request): Promise<Reply> {
+  const own = await editableOwn(req);
+  const photo = photoOf(own, req.params['id']);
+  const caption = text(req.body?.caption);
+  if (caption.length < 5 || caption.length > 125) return invalid({ caption: ['Captions describe the photo in 5–125 characters'] });
+  const photos = own.caterer.photos;
+  const cover = { ...photos[0] };
+  photo.caption = caption;
+  if (req.body?.useAsCover === true) own.caterer.photos = [photo, ...photos.filter((p) => p !== photo)];
+  await recordCoverChange(req, own, cover);
+  await saveCaterer(req, own.caterer);
+  return ownProfileReply(req, own);
+}
+
+/** `PUT /api/caterer/profile/photos/order`: every photo id once; the first is the cover (L2-042.1). */
+export async function reorderPhotos(req: Request): Promise<Reply> {
+  const own = await editableOwn(req);
+  const next = reorder(own.caterer.photos, req.body?.photoIds);
+  if (!next) return badRequest('Send every photo id once');
+  const cover = own.caterer.photos[0];
+  own.caterer.photos = next;
+  await recordCoverChange(req, own, cover);
+  await saveCaterer(req, own.caterer);
+  return ownProfileReply(req, own);
+}
+
+/** `DELETE /api/caterer/profile/photos/:id`: off the page at once, kept for Undo; a Published profile keeps at least 3 (L2-042.4). */
+export async function removePhoto(req: Request): Promise<Reply> {
+  const own = await editableOwn(req);
+  const photo = photoOf(own, req.params['id']);
+  if (own.caterer.status === 'Published' && own.caterer.photos.length <= MIN_PUBLISHED) return conflict('Published profiles need at least 3 photos');
+  const cover = own.caterer.photos[0];
+  const index = own.caterer.photos.indexOf(photo);
+  own.caterer.photos.splice(index, 1);
+  await removedPhotos(req.tx).put({ id: photo.id, catererId: own.caterer.id, photo, index, removedAt: req.now.toISOString() });
+  await recordCoverChange(req, own, cover);
+  await saveCaterer(req, own.caterer);
+  return ownProfileReply(req, own);
+}
+
+/** `POST /api/caterer/profile/photos/:id/restoration`: Undo puts a removed photo back where it was. */
+export async function restorePhoto(req: Request): Promise<Reply> {
+  const own = await editableOwn(req);
+  const removed = await removedPhotos(req.tx).get(req.params['id']);
+  if (!removed || removed.catererId !== own.caterer.id) return notFound();
+  if (own.caterer.photos.length >= MAX_PHOTOS) return conflict('You can have up to 30 photos');
+  const cover = own.caterer.photos[0];
+  own.caterer.photos.splice(Math.min(removed.index, own.caterer.photos.length), 0, removed.photo);
+  await removedPhotos(req.tx).delete(removed.id);
+  await recordCoverChange(req, own, cover);
+  await saveCaterer(req, own.caterer);
+  return ownProfileReply(req, own);
 }
