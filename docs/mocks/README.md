@@ -342,8 +342,8 @@ the mock changed.
     project, served at `/` until launch) that collects launch-day sign-ups. It has no
     L1/L2 yet, and L1 puts "Marketing email and newsletters" out of scope. The mocks
     assume a single launch-day email with express consent, a confirmation link (48 hours),
-    one-click removal without sign-in, deletion 30 days after launch, and one extra
-    early profile link for caterers. The success message is the same for a new or an
+    one-click removal without sign-in, and deletion 30 days after launch. Copy is
+    kept deliberately sparse. The success message is the same for a new or an
     existing address, so the page never reveals who signed up. *Needs an L1/L2 and a
     detailed design before implementation; confirm the email rules against CASL.*
     `privacy@sweethand.example` is a placeholder.
