@@ -84,3 +84,35 @@ describe('review queue (L2-047, L2-055.1)', async () => {
     assert.equal(res.body.queueCount, 9);
   });
 });
+
+describe('review queue arrangements for the Playwright suite (ADR 0008)', () => {
+  it('Given the long queue, when an operator opens it, then 34 items wait in pages of 20 and 9 are late', async () => {
+    const api = await startApi();
+    await putCastReports(api);
+    await scenario(api, 'long-review-queue');
+    const leah = await signedInClient(api, 'leah@sweethand.example');
+    const first = await leah.get('/api/operator/queue');
+    assert.deepEqual([first.body.total, first.body.items.length, first.body.late, first.body.pageCount], [34, 20, 9, 2]);
+    assert.equal((await leah.get('/api/operator/queue?page=2')).body.items.length, 14);
+  });
+
+  it('Given nothing waiting, when an operator opens the queue, then it is empty', async () => {
+    const api = await startApi();
+    await putCastReports(api);
+    await scenario(api, 'pelau-name-change-pending');
+    await scenario(api, 'empty-review-queue');
+    const res = await (await signedInClient(api, 'leah@sweethand.example')).get('/api/operator/queue');
+    assert.equal(res.body.counts.all, 0);
+  });
+
+  it('Given a new report or a newly held review, when the queue is opened again, then each is there', async () => {
+    const api = await startApi();
+    const leah = await signedInClient(api, 'leah@sweethand.example');
+    const created = (await scenario(api, 'new-report', { caterer: 'sugar-dumplin', reason: 'Food safety concern' })) as { id: string };
+    await scenario(api, 'hold-review', { caterer: 'cou-cou', author: 'Nadia Joseph', holdReason: 'phone' });
+    const res = await leah.get('/api/operator/queue');
+    const report = res.body.items.find((i: any) => i.kind === 'reports');
+    assert.deepEqual([report.targetId, report.title, report.reasons], [created.id, 'Sugar Dumplin', ['Food safety concern']]);
+    assert.ok(res.body.items.some((i: any) => i.kind === 'held-review' && i.title === 'Review of Cou-Cou by Nadia J.' && i.holdReason === 'phone'));
+  });
+});
