@@ -2,7 +2,10 @@
  * Operator console settings and metrics state from docs/mocks/README.md: the
  * breach register. Every person and record is fictional.
  */
-import type { Breach } from '../operator-settings/model.ts';
+import type { Breach, OperatorActivity } from '../operator-settings/model.ts';
+
+/** Tomas last used the console this morning (docs/mocks/pages/admin-operators). */
+export const seedOperatorActivity = (): OperatorActivity[] => [{ id: 'user-tomas', lastActiveAt: '2026-10-10T12:15:00.000Z' }];
 
 export const seedBreaches = (): Breach[] => [
   {

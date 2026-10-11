@@ -179,7 +179,9 @@ export function createApp(options: AppOptions): (req: IncomingMessage, res: Serv
           const verdict = permits(match.route.policy, request.actor);
           if (verdict !== 200) {
             await options.onDenied?.(request, verdict);
-            return verdict === 401 ? unauthorized() : forbidden();
+            if (verdict === 401) return unauthorized();
+            const refusal = await match.route.options.refusal?.(request);
+            return refusal ? { ...refusal, status: 403 } : forbidden();
           }
           return match.route.handler(request);
         })

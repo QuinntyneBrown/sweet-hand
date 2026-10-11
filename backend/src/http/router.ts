@@ -60,6 +60,12 @@ export type Handler = (req: Request) => Promise<Reply>;
 export interface RouteOptions {
   /** Upload endpoints accept bodies larger than the 1 MB default (L2-080.3). */
   maxBodyBytes?: number;
+  /**
+   * The 403 reply for a signed-in caller the policy refuses, in place of the
+   * generic one (for example, naming the Admins to ask, L2-056.5). The
+   * refusal is still logged as a security event.
+   */
+  refusal?: (req: Request) => Promise<Reply>;
 }
 
 export interface Route {
