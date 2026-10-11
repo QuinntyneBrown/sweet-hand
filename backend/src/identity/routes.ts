@@ -1,4 +1,5 @@
-import { anonymous, type Area } from '../http/router.ts';
+import { anonymous, signedIn, type Area } from '../http/router.ts';
+import { acceptPrivacyNotice, privacyNotice } from './consent.ts';
 import { sessionView } from './session-view.ts';
 import { signIn, signOut } from './sign-in.ts';
 import { completeSecondFactor } from './second-factor.ts';
@@ -22,4 +23,7 @@ export const identityArea: Area = (r) => {
   r.post('/api/identity/password-reset-requests', anonymous, requestPasswordReset);
   r.get('/api/identity/password-resets/:token', anonymous, openResetLink);
   r.post('/api/identity/password-resets', anonymous, resetPassword);
+  // Public by deliberate choice: anyone may read the privacy notice.
+  r.get('/api/public/privacy-notice', anonymous, privacyNotice);
+  r.post('/api/me/consents', signedIn, acceptPrivacyNotice);
 };

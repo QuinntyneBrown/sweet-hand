@@ -25,3 +25,8 @@ export async function privacyUpdateRequired(tx: Transaction, user: User): Promis
   const notice = await currentPrivacyNotice(tx);
   return notice.substantialChange && user.acceptedPrivacyVersion !== notice.version;
 }
+
+/** Publishes a new notice version (the privacy officer's change; also used by the test-control API). */
+export async function publishPrivacyNotice(tx: Transaction, notice: Omit<PrivacyNoticeVersion, 'id'>): Promise<void> {
+  await settings(tx).put({ id: PRIVACY_NOTICE_ID, ...notice });
+}
