@@ -375,7 +375,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/photo-details.dialog.html</context>
-          <context context-type="linenumber">62,63</context>
+          <context context-type="linenumber">62,64</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/photos.page.html</context>
@@ -419,7 +419,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/shared/close-enquiry-dialog.html</context>
-          <context context-type="linenumber">28,29</context>
+          <context context-type="linenumber">28,30</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/shared/enquiry-thread.html</context>
@@ -431,7 +431,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/shared/share-contact-dialog.html</context>
-          <context context-type="linenumber">34,35</context>
+          <context context-type="linenumber">34,36</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/thread/thread.page.html</context>
@@ -551,7 +551,7 @@
         <source> Update email </source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/account.page.html</context>
-          <context context-type="linenumber">52,53</context>
+          <context context-type="linenumber">52,54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="banner.verifyTitle" datatype="html">
@@ -653,7 +653,7 @@
         <source>Not verified</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/account.page.html</context>
-          <context context-type="linenumber">110,112</context>
+          <context context-type="linenumber">110,113</context>
         </context-group>
       </trans-unit>
       <trans-unit id="field.phone" datatype="html">
@@ -715,7 +715,7 @@
         <source> Change password </source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/account.page.html</context>
-          <context context-type="linenumber">146,147</context>
+          <context context-type="linenumber">146,148</context>
         </context-group>
       </trans-unit>
       <trans-unit id="account.devices" datatype="html">
@@ -1768,7 +1768,7 @@
         <source>The link works for 7 days, and only when you’re signed in as <x id="INTERPOLATION" equiv-text="{{ firstName() }}"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.html</context>
-          <context context-type="linenumber">20,21</context>
+          <context context-type="linenumber">20,22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.failedTitle" datatype="html">
@@ -1782,7 +1782,7 @@
         <source>Something went wrong on our side. Try again in a moment.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.html</context>
-          <context context-type="linenumber">24,25</context>
+          <context context-type="linenumber">24,26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.contactsCaterer" datatype="html">
@@ -1971,7 +1971,7 @@
         <source>We couldn’t reach Sweet Hand. Your changes are still here; try again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/edit-details/edit-details.dialog.html</context>
-          <context context-type="linenumber">21,23</context>
+          <context context-type="linenumber">21,24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="editDetails.nameHelp" datatype="html">
@@ -2180,7 +2180,7 @@
         <source>New messages may take a few minutes to appear. Nothing you send is lost.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/site-banner/site-banner.html</context>
-          <context context-type="linenumber">5,6</context>
+          <context context-type="linenumber">5,7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="banner.dismissEmail" datatype="html">
@@ -2222,7 +2222,7 @@
         <source>You can now send enquiries to caterers.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/site-banner/site-banner.html</context>
-          <context context-type="linenumber">25,26</context>
+          <context context-type="linenumber">25,27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="banner.maintenanceTitle" datatype="html">
@@ -2488,15 +2488,15 @@
         <source>Replace</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/certificate/certificate.page.html</context>
-          <context context-type="linenumber">115,116</context>
+          <context context-type="linenumber">116</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/certificate/certificate.page.html</context>
-          <context context-type="linenumber">130,131</context>
+          <context context-type="linenumber">131</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/certificate/certificate.page.html</context>
-          <context context-type="linenumber">146,147</context>
+          <context context-type="linenumber">147</context>
         </context-group>
       </trans-unit>
       <trans-unit id="file.remove" datatype="html">
@@ -2806,15 +2806,15 @@
         <source>Done</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/cuisines/cuisines.page.html</context>
-          <context context-type="linenumber">180,182</context>
+          <context context-type="linenumber">180,183</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/details/details.page.html</context>
-          <context context-type="linenumber">88,90</context>
+          <context context-type="linenumber">88,91</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/events/events.page.html</context>
-          <context context-type="linenumber">125,127</context>
+          <context context-type="linenumber">125,128</context>
         </context-group>
       </trans-unit>
       <trans-unit id="cuisines.regionCount" datatype="html">
@@ -3444,7 +3444,7 @@
         <source>We couldn’t reach Sweet Hand. Try again in a moment.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/remove-dish.dialog.html</context>
-          <context context-type="linenumber">24,26</context>
+          <context context-type="linenumber">24,27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="removeDish.add" datatype="html">
@@ -3569,11 +3569,11 @@
         <source>See the change</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/overview/overview.page.html</context>
-          <context context-type="linenumber">68,69</context>
+          <context context-type="linenumber">68,70</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/shared/profile-banner.html</context>
-          <context context-type="linenumber">21,22</context>
+          <context context-type="linenumber">21,23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dashboard.statUnread" datatype="html">
@@ -3636,11 +3636,11 @@
         <source>Unread.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/overview/overview.page.html</context>
-          <context context-type="linenumber">109,110</context>
+          <context context-type="linenumber">110</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/shared/enquiry-list.html</context>
-          <context context-type="linenumber">24,25</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="inbox.emptyTitle" datatype="html">
@@ -3694,7 +3694,7 @@
         <source> You can still read your past enquiries and download everything we hold about you. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/overview/overview.page.html</context>
-          <context context-type="linenumber">136,137</context>
+          <context context-type="linenumber">136,138</context>
         </context-group>
       </trans-unit>
       <trans-unit id="nav.enquiryHistory" datatype="html">
@@ -3744,7 +3744,7 @@
         <source>Upload a new certificate</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/overview/overview.page.html</context>
-          <context context-type="linenumber">164,165</context>
+          <context context-type="linenumber">164,166</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/shared/profile-banner.html</context>
@@ -3752,7 +3752,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/shared/status-notice.html</context>
-          <context context-type="linenumber">14,16</context>
+          <context context-type="linenumber">14,17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="setup.welcomeText" datatype="html">
@@ -4242,7 +4242,7 @@
         <source>Your caption is still here. Check your connection and try again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/photo-details.dialog.html</context>
-          <context context-type="linenumber">18,20</context>
+          <context context-type="linenumber">18,21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="photoDetails.fixOne" datatype="html">
@@ -4256,7 +4256,7 @@
         <source>Caption</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/photo-details.dialog.html</context>
-          <context context-type="linenumber">28,29</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="photoDetails.coverHelp" datatype="html">
@@ -4270,7 +4270,7 @@
         <source>Use as cover photo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/photo-details.dialog.html</context>
-          <context context-type="linenumber">45,46</context>
+          <context context-type="linenumber">45,47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="photoDetails.replace" datatype="html">
@@ -4778,7 +4778,7 @@
         <source>We couldn’t reach Sweet Hand. Try again in a moment.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/remove-photo.dialog.html</context>
-          <context context-type="linenumber">19,21</context>
+          <context context-type="linenumber">19,22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="removePhoto.confirm" datatype="html">
@@ -4848,7 +4848,7 @@
         <source>Edit your response below instead.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.html</context>
-          <context context-type="linenumber">22,24</context>
+          <context context-type="linenumber">22,25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.label" datatype="html">
@@ -5275,7 +5275,7 @@
         <source>We’ll email you within 3 business days.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/shared/profile-banner.html</context>
-          <context context-type="linenumber">5,6</context>
+          <context context-type="linenumber">5,7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="profileStatus.changes" datatype="html">
@@ -5824,7 +5824,7 @@
         <source> Withdraw submission </source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/shared/status-notice.html</context>
-          <context context-type="linenumber">6,8</context>
+          <context context-type="linenumber">6,9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="suspended.title" datatype="html">
@@ -6014,7 +6014,7 @@
         <source>You can send enquiries and reports again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/caterer/caterer.page.html</context>
-          <context context-type="linenumber">31,33</context>
+          <context context-type="linenumber">31,35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="gallery.label" datatype="html">
@@ -6197,7 +6197,7 @@
         <source>{VAR_PLURAL, plural, =1 {1 dish} other {<x id="INTERPOLATION"/> dishes}}</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/caterer/caterer.page.html</context>
-          <context context-type="linenumber">119,120</context>
+          <context context-type="linenumber">119,121</context>
         </context-group>
       </trans-unit>
       <trans-unit id="caterer.showFewerDishes" datatype="html">
@@ -6500,7 +6500,7 @@
         <source>Details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/caterer/report-dialog/report-dialog.html</context>
-          <context context-type="linenumber">52,53</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="report.detailsHelp" datatype="html">
@@ -6662,11 +6662,11 @@
         <source>Cuisine</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/listing/listing-filter-bar.html</context>
-          <context context-type="linenumber">5,6</context>
+          <context context-type="linenumber">6</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/listing/listing-filter-bar.html</context>
-          <context context-type="linenumber">16,17</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/listing/listing-filters-sheet.html</context>
@@ -6674,7 +6674,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/listing/listing.page.html</context>
-          <context context-type="linenumber">34,35</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filters.clearGroup" datatype="html">
@@ -6744,11 +6744,11 @@
         <source>Filters</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/listing/listing-filters-sheet.html</context>
-          <context context-type="linenumber">3,4</context>
+          <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/listing/listing.page.html</context>
-          <context context-type="linenumber">57,58</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filters.activeCount" datatype="html">
@@ -6941,7 +6941,7 @@
         <source>{VAR_PLURAL, plural, =1 {1 caterer} other {<x id="INTERPOLATION"/> caterers}}</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/listing/listing.page.html</context>
-          <context context-type="linenumber">25,26</context>
+          <context context-type="linenumber">25,27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filters.title" datatype="html">
@@ -6980,7 +6980,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/search/area-field.html</context>
-          <context context-type="linenumber">9,10</context>
+          <context context-type="linenumber">9,11</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/search/area-field.html</context>
@@ -7326,7 +7326,7 @@
         <source>Show caterers</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/search/search-dialog.html</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">44,45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="search.busy" datatype="html">
@@ -7424,7 +7424,7 @@
         <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Your account:<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> display name, email, password (stored only as a secure hash) and, for caterers, business name and phone. To sign you in and let caterers and customers reach each other. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/static-pages/privacy.page.html</context>
-          <context context-type="linenumber">15,17</context>
+          <context context-type="linenumber">15,18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="privacy.collectEnquiries" datatype="html">
@@ -7508,7 +7508,7 @@
         <source>Why</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/static-pages/privacy.page.html</context>
-          <context context-type="linenumber">45,46</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="privacy.lasts" datatype="html">
@@ -7536,7 +7536,7 @@
         <source>Up to 30 days</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/static-pages/privacy.page.html</context>
-          <context context-type="linenumber">53,55</context>
+          <context context-type="linenumber">53,56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="privacy.csrfCookie" datatype="html">
@@ -7592,7 +7592,7 @@
         <source>How long Sweet Hand keeps personal information</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/static-pages/privacy.page.html</context>
-          <context context-type="linenumber">73,75</context>
+          <context context-type="linenumber">73,76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="privacy.information" datatype="html">
@@ -7648,7 +7648,7 @@
         <source>13 months</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/static-pages/privacy.page.html</context>
-          <context context-type="linenumber">91,93</context>
+          <context context-type="linenumber">91,94</context>
         </context-group>
       </trans-unit>
       <trans-unit id="privacy.keepCertificates" datatype="html">
@@ -7676,7 +7676,7 @@
         <source>7 years</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/static-pages/privacy.page.html</context>
-          <context context-type="linenumber">99,101</context>
+          <context context-type="linenumber">99,102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="privacy.keepVisits" datatype="html">
@@ -7690,7 +7690,7 @@
         <source>25 months</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/static-pages/privacy.page.html</context>
-          <context context-type="linenumber">103,105</context>
+          <context context-type="linenumber">103,106</context>
         </context-group>
       </trans-unit>
       <trans-unit id="privacy.choicesTitle" datatype="html">
@@ -7914,7 +7914,7 @@
         <source>Back to overview</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/caterer/enquiries.page.html</context>
-          <context context-type="linenumber">19,21</context>
+          <context context-type="linenumber">19,22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="enquiries.viewPage" datatype="html">
@@ -8072,7 +8072,7 @@
         <source>We kept everything you typed before signing in.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/enquiry-form/enquiry-form-dialog.html</context>
-          <context context-type="linenumber">40,41</context>
+          <context context-type="linenumber">40,42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="enquiryForm.resend" datatype="html">
@@ -8156,7 +8156,7 @@
         <source>Message</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/enquiry-form/enquiry-form-dialog.html</context>
-          <context context-type="linenumber">101,102</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="enquiryForm.messageHelp" datatype="html">
@@ -8958,7 +8958,7 @@
         <source>Contact details shared</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/shared/enquiry-thread.html</context>
-          <context context-type="linenumber">13,14</context>
+          <context context-type="linenumber">13,15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="thread.share" datatype="html">
@@ -9404,11 +9404,11 @@
         <source>Back to inbox</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/thread/thread.page.html</context>
-          <context context-type="linenumber">19,20</context>
+          <context context-type="linenumber">19,21</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/thread/thread.page.html</context>
-          <context context-type="linenumber">37,38</context>
+          <context context-type="linenumber">37,39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="thread.errorText" datatype="html">
@@ -9478,14 +9478,14 @@
         <source>Send reset link</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/identity/forgot-password/forgot-password.page.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">35,36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="forgot.alt" datatype="html">
         <source>Remembered it? <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [routerLink]=&quot;paths.signIn&quot;&gt;"/>Sign in<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/identity/forgot-password/forgot-password.page.html</context>
-          <context context-type="linenumber">38,39</context>
+          <context context-type="linenumber">38,40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="forgot.busy" datatype="html">
@@ -9646,7 +9646,7 @@
         <source>Didn’t get the email? <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [routerLink]=&quot;paths.verifyEmailSent&quot; [state]=&quot;{ email: d.email }&quot;&gt;"/>Resend it<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/identity/register-caterer/register-caterer.page.html</context>
-          <context context-type="linenumber">19,20</context>
+          <context context-type="linenumber">19,21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="registerCaterer.title" datatype="html">
@@ -9779,7 +9779,7 @@
         <source>Already listed? <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [routerLink]=&quot;paths.signIn&quot;&gt;"/>Sign in<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> · Looking for food? <x id="START_LINK_1" equiv-text="&lt;a [routerLink]=&quot;paths.register&quot;&gt;"/>Create a customer account<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/identity/register-caterer/register-caterer.page.html</context>
-          <context context-type="linenumber">72,73</context>
+          <context context-type="linenumber">72,74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="registerCaterer.busy" datatype="html">
@@ -9890,7 +9890,7 @@
         <source>Wrong address? <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [href]=&quot;paths.register&quot; (click)=&quot;startAgain($event)&quot;&gt;"/>Start again<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/identity/register/register.page.html</context>
-          <context context-type="linenumber">13,14</context>
+          <context context-type="linenumber">13,15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="register.title" datatype="html">
@@ -9939,7 +9939,7 @@
         <source>Already have an account? <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [routerLink]=&quot;paths.signIn&quot;&gt;"/>Sign in<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> · Caterers: <x id="START_LINK_1" equiv-text="&lt;a [routerLink]=&quot;paths.join&quot;&gt;"/>list your business<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/identity/register/register.page.html</context>
-          <context context-type="linenumber">52,53</context>
+          <context context-type="linenumber">52,54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="register.busy" datatype="html">
@@ -10010,7 +10010,7 @@
         <source>Something went wrong on our side. Your link still works; try again in a moment.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/identity/reset-password/reset-password.page.html</context>
-          <context context-type="linenumber">20,22</context>
+          <context context-type="linenumber">20,23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reset.expired.title" datatype="html">
@@ -10024,7 +10024,7 @@
         <source> Reset links work once, for 30 minutes. Request a new one and use it straight away. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/identity/reset-password/reset-password.page.html</context>
-          <context context-type="linenumber">37,39</context>
+          <context context-type="linenumber">37,40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reset.expired.request" datatype="html">
@@ -10080,7 +10080,7 @@
         <source>Save new password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/identity/reset-password/reset-password.page.html</context>
-          <context context-type="linenumber">122</context>
+          <context context-type="linenumber">122,123</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reset.busy" datatype="html">
@@ -10248,7 +10248,7 @@
         <source>Welcome back. Your inbox and saved enquiries are waiting.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/identity/sign-in/sign-in.page.html</context>
-          <context context-type="linenumber">13,17</context>
+          <context context-type="linenumber">13,18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="signIn.lockedTitle" datatype="html">
@@ -10294,7 +10294,7 @@
         <source>Operator sessions end after 30 minutes without activity. Sign in again to pick up where you left off.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/identity/sign-in/sign-in.page.html</context>
-          <context context-type="linenumber">35,36</context>
+          <context context-type="linenumber">35,37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="signIn.challengeTitle" datatype="html">
@@ -10329,14 +10329,14 @@
         <source>A privacy-friendly check. No tracking cookies, nothing shared with advertisers.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/identity/sign-in/sign-in.page.html</context>
-          <context context-type="linenumber">60,62</context>
+          <context context-type="linenumber">60,63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="signIn.submit" datatype="html">
         <source>Sign in</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/identity/sign-in/sign-in.page.html</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">64,65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="signIn.forgot" datatype="html">
@@ -10539,7 +10539,7 @@
         <source>We sent a new link to <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ address }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>. It works for 24 hours.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/identity/verify-email/verification-sent.page.html</context>
-          <context context-type="linenumber">6,7</context>
+          <context context-type="linenumber">6,8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="verifySent.subtitleNoEmail" datatype="html">
@@ -10561,7 +10561,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/identity/verify-email/verify-email.page.html</context>
-          <context context-type="linenumber">39,41</context>
+          <context context-type="linenumber">39,42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="verifySent.help" datatype="html">
@@ -11303,7 +11303,7 @@
         <source>Record a breach</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/breaches/breaches.page.html</context>
-          <context context-type="linenumber">16,18</context>
+          <context context-type="linenumber">16,19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/breaches/breaches.page.html</context>
@@ -11459,7 +11459,7 @@
         <source>Nothing was saved. Everything you entered is still here; try again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/breaches/record-breach.dialog.html</context>
-          <context context-type="linenumber">22,24</context>
+          <context context-type="linenumber">22,25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="recordBreach.date" datatype="html">
@@ -11620,7 +11620,7 @@
         <source>Nothing was saved. Check your connection and try again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/cuisines/add-cuisine.dialog.html</context>
-          <context context-type="linenumber">21,23</context>
+          <context context-type="linenumber">21,24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="addCuisine.name" datatype="html">
@@ -11785,7 +11785,7 @@
         <source>Add cuisine</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/cuisines/cuisines.page.html</context>
-          <context context-type="linenumber">16,19</context>
+          <context context-type="linenumber">16,20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="operatorCuisines.errorTitle" datatype="html">
@@ -12725,7 +12725,7 @@
         <source>Remove</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/caterer-record/caterer-record.page.html</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">65,66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="record.backToQueue" datatype="html">
@@ -12761,7 +12761,7 @@
         <source>Owner</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/caterer-record/caterer-record.page.html</context>
-          <context context-type="linenumber">96,97</context>
+          <context context-type="linenumber">96,98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.contact" datatype="html">
@@ -12808,7 +12808,7 @@
         <source>Operators only. Never shown on public pages.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/caterer-record/caterer-record.page.html</context>
-          <context context-type="linenumber">109,111</context>
+          <context context-type="linenumber">109,112</context>
         </context-group>
       </trans-unit>
       <trans-unit id="record.profile" datatype="html">
@@ -13844,7 +13844,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/changes/changes.page.html</context>
-          <context context-type="linenumber">75,77</context>
+          <context context-type="linenumber">76,77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="changes.now" datatype="html">
@@ -13855,7 +13855,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/changes/changes.page.html</context>
-          <context context-type="linenumber">83,85</context>
+          <context context-type="linenumber">84,85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="changes.revert" datatype="html">
@@ -14322,7 +14322,7 @@
         <source>Type <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ record().name }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to confirm</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.html</context>
-          <context context-type="linenumber">36,37</context>
+          <context context-type="linenumber">36,38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove.confirmHelp" datatype="html">
@@ -14796,7 +14796,7 @@
         <source>Cover</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/profile-review/profile-review.page.html</context>
-          <context context-type="linenumber">79,80</context>
+          <context context-type="linenumber">79,81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.newPhoto" datatype="html">
@@ -14810,7 +14810,7 @@
         <source>Changed since changes were requested</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/profile-review/profile-review.page.html</context>
-          <context context-type="linenumber">98</context>
+          <context context-type="linenumber">98,99</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.privateDetails" datatype="html">
@@ -14906,7 +14906,7 @@
         <source>Page address</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/profile-review/profile-review.page.html</context>
-          <context context-type="linenumber">208,210</context>
+          <context context-type="linenumber">208,211</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.oldRedirects" datatype="html">
@@ -15364,7 +15364,7 @@
         <source>Go to recent changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/queue/queue.page.html</context>
-          <context context-type="linenumber">17,19</context>
+          <context context-type="linenumber">17,20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="queue.emptyTitle" datatype="html">
@@ -16086,7 +16086,7 @@
         <source>No account was created. Your entries are kept; try again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/operators/add-operator.dialog.html</context>
-          <context context-type="linenumber">20,22</context>
+          <context context-type="linenumber">20,23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="addOperator.name" datatype="html">
@@ -16345,7 +16345,7 @@
         <source>Operators</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/operators/operators.page.html</context>
-          <context context-type="linenumber">4,5</context>
+          <context context-type="linenumber">4,6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="operators.adminsOnly" datatype="html">
@@ -16366,7 +16366,7 @@
         <source>Add operator</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/operators/operators.page.html</context>
-          <context context-type="linenumber">18,20</context>
+          <context context-type="linenumber">18,21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="operators.forbiddenTitle" datatype="html">
@@ -16422,7 +16422,7 @@
         <source>Deactivate</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/operators/operators.page.html</context>
-          <context context-type="linenumber">64,66</context>
+          <context context-type="linenumber">64,67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="operators.note" datatype="html">
@@ -16861,7 +16861,7 @@
         <source>Clear search</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/reviews.page.html</context>
-          <context context-type="linenumber">63,65</context>
+          <context context-type="linenumber">63,66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reviewsAdmin.loading" datatype="html">
@@ -17078,7 +17078,7 @@
         <source>Something went wrong on our side. Try again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/delete-review-dialog/delete-review-dialog.html</context>
-          <context context-type="linenumber">21,23</context>
+          <context context-type="linenumber">21,24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="deleteReview.confirm" datatype="html">
@@ -17355,11 +17355,11 @@
         <source> your review</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/reviews-section/reviews-section.html</context>
-          <context context-type="linenumber">24,25</context>
+          <context context-type="linenumber">24,26</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/reviews-section/reviews-section.html</context>
-          <context context-type="linenumber">29,30</context>
+          <context context-type="linenumber">29,31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reviews.delete" datatype="html">
@@ -17387,7 +17387,7 @@
         <source>Write a review</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/reviews-section/reviews-section.html</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">64,65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reviews.edited" datatype="html">
