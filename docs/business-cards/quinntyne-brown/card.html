@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<title>Quinntyne Brown — Business Card</title>
+<!--
+  Print spec (North American standard business card)
+  Trim:  3.5in x 2in
+  Bleed: 0.125in each side -> page 3.75in x 2.25in
+  Safe:  0.125in inside trim (0.25in from page edge)
+  Page 1 = front, page 2 = back. Colours come from docs/design-system/tokens/tokens.css.
+-->
+<style>
+  @font-face {
+    font-family: "Figtree";
+    src: url("fonts/figtree-latin.woff2") format("woff2");
+    font-weight: 300 900;
+    font-style: normal;
+  }
+  :root {
+    /* Design-system palette (tokens.css) */
+    --stone-950: #141312;
+    --stone-700: #4d4b48;
+    --stone-600: #6b6863;
+    --stone-200: #e2ded7;
+    --white: #ffffff;
+    --pepper-500: #c94a2f;
+    --pepper-600: #b5381f;
+
+    --bleed: 0.125in;
+    --safe: 0.25in; /* bleed + 0.125in safe margin */
+  }
+  @page { size: 3.75in 2.25in; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #e9e6e1; }
+  body {
+    font-family: "Figtree", system-ui, sans-serif;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .card {
+    position: relative;
+    width: 3.75in;
+    height: 2.25in;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+  }
+  .card:last-child { page-break-after: auto; break-after: auto; }
+  .safe {
+    position: absolute;
+    inset: var(--safe);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- Front ---------- */
+  .front { background: var(--stone-950); color: var(--white); }
+  .front .safe { justify-content: center; }
+  .front .wordmark {
+    font-weight: 700;
+    font-size: 28pt;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .front .wordmark span { color: var(--pepper-500); }
+  .front .rule {
+    width: 0.4in;
+    height: 2pt;
+    background: var(--pepper-500);
+    margin: 0.12in 0 0.1in;
+  }
+  .front .tagline {
+    font-weight: 500;
+    font-size: 8pt;
+    line-height: 1.35;
+    color: #d6d2cc;
+    letter-spacing: 0.01em;
+  }
+  /* Accent band that runs into the bleed */
+  .front .band {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: calc(var(--bleed) + 0.18in);
+    background: var(--pepper-600);
+  }
+
+  /* ---------- Back ---------- */
+  .back { background: var(--white); color: var(--stone-950); }
+  .back .safe { justify-content: space-between; }
+  .back .name {
+    font-weight: 700;
+    font-size: 15pt;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+  .back .title {
+    margin-top: 0.06in;
+    font-weight: 500;
+    font-size: 7.75pt;
+    line-height: 1.35;
+    color: var(--stone-700);
+  }
+  .back .rule {
+    width: 0.3in;
+    height: 1.5pt;
+    background: var(--pepper-600);
+    margin-top: 0.1in;
+  }
+  .back .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 0.5pt solid var(--stone-200);
+    padding-top: 0.07in;
+  }
+  .back .foot .brand {
+    font-weight: 700;
+    font-size: 9pt;
+    letter-spacing: -0.02em;
+  }
+  .back .foot .brand span { color: var(--pepper-600); }
+  .back .foot .place {
+    font-weight: 500;
+    font-size: 6.75pt;
+    color: var(--stone-600);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- Screen preview only ---------- */
+  @media screen {
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+    .card { box-shadow: 0 8px 24px rgb(20 19 18 / 0.18); }
+    /* Trim line and safe zone guides */
+    .card::before, .card::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .card::before { inset: var(--bleed); outline: 1px dashed rgb(0 160 255 / 0.9); }
+    .card::after  { inset: var(--safe);  outline: 1px dotted rgb(255 0 160 / 0.7); }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Front -->
+  <section class="card front" aria-label="Front">
+    <div class="band" aria-hidden="true"></div>
+    <div class="safe">
+      <div class="wordmark">Sweet Hand<span>.</span></div>
+      <div class="rule" aria-hidden="true"></div>
+      <p class="tagline">Caribbean home cooks and small-batch makers<br>of Toronto and the GTA</p>
+    </div>
+  </section>
+
+  <!-- Back -->
+  <section class="card back" aria-label="Back">
+    <div class="safe">
+      <div>
+        <p class="name">Quinntyne Brown</p>
+        <p class="title">CEO, Founder and Principal Product Engineer</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="foot">
+        <span class="brand">Sweet Hand<span>.</span></span>
+        <span class="place">Toronto · GTA</span>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
