@@ -4,7 +4,7 @@ import { caterers, type Caterer } from '../caterers/model.ts';
 import { users, type User } from '../identity/model.ts';
 import { allCuisines } from '../discovery/taxonomy.ts';
 import { torontoDate } from '../discovery/listing.ts';
-import { historyOf, recordChanges, type StatusChange } from './model.ts';
+import { historyOf, type StatusChange } from './model.ts';
 import type { OwnerView } from '@contract/owner-view.ts';
 import type { ReviewCertificateView } from '@contract/review-certificate-view.ts';
 
@@ -93,12 +93,6 @@ export function certificateView(now: Date, c: Caterer): ReviewCertificateView | 
     fileName: cert.fileName ?? null,
     fileSize: cert.fileSize ?? null,
   };
-}
-
-/** The record's last change: noted by an action, its latest status change, or when it was published or created. */
-export async function lastChange(tx: Transaction, c: Caterer, history?: StatusChange[]): Promise<string> {
-  const candidates = [(await recordChanges(tx).get(c.id))?.at, (history ?? (await historyOf(tx, c.id))).at(-1)?.at, c.publishedAt ?? c.createdAt];
-  return candidates.filter((x): x is string => !!x).reduce((a, b) => (Date.parse(b) > Date.parse(a) ? b : a));
 }
 
 export const trimmed = (value: unknown): string => (typeof value === 'string' ? value.trim() : '');

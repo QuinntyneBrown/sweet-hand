@@ -2,6 +2,7 @@ import { roles, type Area } from '../http/router.ts';
 import { contributeSessionCounters } from '../identity/session-view.ts';
 import { queueItems, reviewQueue } from './queue.ts';
 import { approveName, approveProfile, declineName, requestChanges } from './decisions.ts';
+import { catererRecordView, listCaterersForOperators } from './records.ts';
 import { certificateFile, certificateFileLink, profileForReview } from './profile-review.ts';
 
 const operators = roles('Operator');
@@ -16,6 +17,8 @@ export const moderationArea: Area = (r) => {
   r.get('/api/operator/profiles/:id/certificate-file', operators, certificateFileLink);
   // The link's token and an operator session are both needed.
   r.get('/api/operator/certificate-files/:token', operators, certificateFile);
+  r.get('/api/operator/caterers', operators, listCaterersForOperators);
+  r.get('/api/operator/caterers/:id', operators, catererRecordView);
   r.post('/api/operator/profiles/:id/approve', operators, approveProfile);
   r.post('/api/operator/profiles/:id/request-changes', operators, requestChanges);
   r.post('/api/operator/profiles/:id/name/approve', operators, approveName);

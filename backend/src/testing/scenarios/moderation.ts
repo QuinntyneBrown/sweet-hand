@@ -11,4 +11,8 @@ export const moderationScenarios: Scenarios = {
     const c = await caterers(tx).findOne({ slug: 'pelau-house' });
     if (c) await caterers(tx).put({ ...c, pendingName: 'Pelau House by Kendra', pendingNameAt: '2026-10-09T22:20:00.000Z' });
   },
+  /** First run: no caterer has registered (admin-caterers/empty). */
+  'no-caterers': async ({ tx }) => {
+    for (const c of await caterers(tx).all()) await caterers(tx).delete(c.id);
+  },
 };
