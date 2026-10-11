@@ -27,6 +27,8 @@ export interface User extends Document {
   catererId?: string;
   createdAt: string;
   deleted?: boolean;
+  /** When the owner deleted the account (L2-072). */
+  deletedAt?: string;
   /** Privacy notice version the user accepted, and when (L2-070.3). */
   acceptedPrivacyVersion: string;
   acceptedPrivacyAt: string;

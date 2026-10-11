@@ -128,7 +128,8 @@ export async function authenticate(req: Request): Promise<Actor | undefined> {
     req.locals['pendingSecondFactor'] = user;
     return undefined;
   }
-  await sessions(req.tx).put({ ...session, lastActiveAt: req.now.toISOString() });
+  // A session arranged without a browser (test control) learns its device from the first request.
+  await sessions(req.tx).put({ ...session, device: session.device || deviceOf(req.headers['user-agent']), lastActiveAt: req.now.toISOString() });
   req.locals['user'] = user;
   return actorOf(user, session);
 }

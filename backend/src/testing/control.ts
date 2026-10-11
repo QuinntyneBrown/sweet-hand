@@ -72,7 +72,7 @@ export function testControl(envs: TestEnvironments): (req: IncomingMessage, res:
           return send(res, 200, result ?? {});
         }
         case 'POST /sign-in': {
-          // A complete session for a seeded account, second factor included.
+          // A complete session for a seeded account, second factor included; the browser's first request names its device.
           const { email } = await readJson(req);
           const env = await envs.forKey(key);
           const token = await env.db.transaction(async (tx) => {
@@ -80,7 +80,7 @@ export function testControl(envs: TestEnvironments): (req: IncomingMessage, res:
             if (!user) return undefined;
             const token = randomToken();
             const now = env.clock.now().toISOString();
-            await sessions(tx).put({ id: `ses-${randomUUID()}`, tokenHash: sha256(token), userId: user.id, device: 'Chrome on Linux', createdAt: now, lastActiveAt: now });
+            await sessions(tx).put({ id: `ses-${randomUUID()}`, tokenHash: sha256(token), userId: user.id, device: '', createdAt: now, lastActiveAt: now });
             return token;
           });
           return token ? send(res, 200, { cookie: token }) : send(res, 404, { title: 'No such account' });
