@@ -4,6 +4,8 @@ import { discoveryArea } from './discovery/routes.ts';
 import { mediaArea } from './discovery/media-routes.ts';
 import { accountArea } from './account/routes.ts';
 import { enquiriesArea } from './enquiries/routes.ts';
+import { reviewsArea } from './reviews/routes.ts';
+import { reportsArea } from './reports/routes.ts';
 
 /** Every product feature area, in registration order. */
 export const productAreas: Area[] = [
@@ -12,4 +14,6 @@ export const productAreas: Area[] = [
   mediaArea,
   accountArea,
   enquiriesArea,
+  reviewsArea,
+  reportsArea,
 ];
