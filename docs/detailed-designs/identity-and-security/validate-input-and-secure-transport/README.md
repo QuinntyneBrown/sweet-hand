@@ -29,8 +29,9 @@ Terms used in this document:
 
 ## Description
 
-Technology choices for every component below are `<TO SUPPLY>` pending
-architecture decision records in `docs/adr/`. The TLS termination point (CDN,
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`. The TLS termination point (CDN,
 load balancer or container) is `<TO SUPPLY>`.
 
 **Transport and headers**

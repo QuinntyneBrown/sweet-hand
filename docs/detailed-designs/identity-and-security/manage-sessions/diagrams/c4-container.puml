@@ -6,9 +6,9 @@ title Containers — Manage sessions
 Person(customer, "Customer", "Signed-in person planning a meal or an event")
 Person(operator, "Operator", "Sweet Hand team member who moderates the platform")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Server-rendered pages and client interactions")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "HTTP endpoints, application services and domain model")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, sessions, tokens, consent records")
+  Container(web, "Sweet Hand web application", "Angular 21", "Server-rendered pages and client interactions")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "HTTP endpoints, application services and domain model")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Accounts, sessions, tokens, consent records")
 }
 
 Rel(customer, web, "Sends session cookie with each request", "HTTPS")

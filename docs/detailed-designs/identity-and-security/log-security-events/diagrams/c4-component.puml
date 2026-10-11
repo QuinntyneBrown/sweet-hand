@@ -4,12 +4,12 @@ LAYOUT_WITH_LEGEND()
 title Components — Log security events
 
 Container_Boundary(api, "Sweet Hand API") {
-  Component(corr, "CorrelationIdStage", "<TO SUPPLY>", "Creates or accepts correlation ID")
-  Component(sources, "Event sources", "<TO SUPPLY>", "Sign-in, reset, sessions, guard, rate limiter, operator handlers")
-  Component(seclog, "SecurityLog", "<TO SUPPLY>", "Builds structured entries")
-  Component(iphash, "IpHasher", "<TO SUPPLY>", "Keyed IP hash")
-  Component(redactor, "LogRedactor", "<TO SUPPLY>", "Drops forbidden fields (L2-084 AC2)")
-  Component(monitor, "AuthorisationFailureMonitor", "<TO SUPPLY>", "10 failures per session in 5 min (L2-084 AC3)")
+  Component(corr, "CorrelationIdStage", "Request pipeline", "Creates or accepts correlation ID")
+  Component(sources, "Event sources", "Infrastructure", "Sign-in, reset, sessions, guard, rate limiter, operator handlers")
+  Component(seclog, "SecurityLog", "Infrastructure", "Builds structured entries")
+  Component(iphash, "IpHasher", "Infrastructure", "Keyed IP hash")
+  Component(redactor, "LogRedactor", "Request pipeline", "Drops forbidden fields (L2-084 AC2)")
+  Component(monitor, "AuthorisationFailureMonitor", "Infrastructure", "10 failures per session in 5 min (L2-084 AC3)")
 }
 System_Ext(secrets, "Managed secret store", "IP hashing key")
 System_Ext(obs, "Observability platform", "Log store, alerting")

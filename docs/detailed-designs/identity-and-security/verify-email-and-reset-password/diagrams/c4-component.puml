@@ -5,24 +5,24 @@ title Components — Verify an email address and reset a password
 
 Person(user, "Customer or caterer", "Holds an account")
 Container_Boundary(web, "Sweet Hand web application") {
-  Component(verify, "VerifyEmailPage", "<TO SUPPLY>", "Verification link landing")
-  Component(forgot, "ForgotPasswordPage", "<TO SUPPLY>", "Reset request with challenge")
-  Component(reset, "ResetPasswordPage", "<TO SUPPLY>", "New password form")
+  Component(verify, "VerifyEmailPage", "Page", "Verification link landing")
+  Component(forgot, "ForgotPasswordPage", "Page", "Reset request with challenge")
+  Component(reset, "ResetPasswordPage", "Page", "New password form")
   Component(client, "IdentityClient", "API client contract", "verifyEmail, requestPasswordReset, resetPassword")
 }
 Container_Boundary(api, "Sweet Hand API") {
-  Component(endpoints, "IdentityEndpoints", "<TO SUPPLY>", "Verification and reset endpoints")
-  Component(limiter, "RateLimiter", "<TO SUPPLY>", "5 reset requests per IP per hour (L2-082 AC3)")
-  Component(verifyh, "VerifyEmailHandler", "<TO SUPPLY>", "Consumes verification tokens")
-  Component(requesth, "RequestPasswordResetHandler", "<TO SUPPLY>", "Issues reset tokens")
-  Component(reseth, "ResetPasswordHandler", "<TO SUPPLY>", "Consumes reset tokens, sets password")
-  Component(gen, "TokenGenerator", "<TO SUPPLY>", "Secure random tokens")
-  Component(th, "TokenHasher", "<TO SUPPLY>", "Hashes tokens (L2-077 AC5)")
-  Component(tokens, "TokenRepository", "<TO SUPPLY>", "Token hashes and states")
-  Component(sessions, "SessionStore", "<TO SUPPLY>", "Ends sessions after reset")
-  Component(jobs, "JobQueue", "<TO SUPPLY>", "Email jobs")
+  Component(endpoints, "IdentityEndpoints", "Endpoint group", "Verification and reset endpoints")
+  Component(limiter, "RateLimiter", "Infrastructure", "5 reset requests per IP per hour (L2-082 AC3)")
+  Component(verifyh, "VerifyEmailHandler", "Command handler", "Consumes verification tokens")
+  Component(requesth, "RequestPasswordResetHandler", "Command handler", "Issues reset tokens")
+  Component(reseth, "ResetPasswordHandler", "Command handler", "Consumes reset tokens, sets password")
+  Component(gen, "TokenGenerator", "Infrastructure", "Secure random tokens")
+  Component(th, "TokenHasher", "Infrastructure", "Hashes tokens (L2-077 AC5)")
+  Component(tokens, "TokenRepository", "Repository", "Token hashes and states")
+  Component(sessions, "SessionStore", "Infrastructure", "Ends sessions after reset")
+  Component(jobs, "JobQueue", "Infrastructure", "Email jobs")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Tokens, accounts, sessions")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Tokens, accounts, sessions")
 
 Rel(user, verify, "Opens link")
 Rel(user, forgot, "Uses")
