@@ -1,3 +1,4 @@
+import { endSessionsOf } from '../identity/sessions.ts';
 import { randomUUID } from 'node:crypto';
 import type { Request, Reply } from '../http/endpoint.ts';
 import { conflict, created, forbidden, invalid, notFound, ok } from '../http/problems.ts';
@@ -81,7 +82,7 @@ const RANK: Record<OperatorAccount['status'], number> = { Active: 0, Invited: 1,
 export async function listOperators(req: Request): Promise<Reply> {
   const deactivated = new Set((await operatorDeactivations(req.tx).all()).map((d) => d.id));
   const team = (await operatorUsers(req.tx)).filter((u) => !u.deleted || deactivated.has(u.id));
-  const all = [...(await Promise.all(team.map((u) => accountView(req, u)))), ...(await operatorInvitations(req.tx).all()).map(invitationView)];
+  const all = [...(await Promise.all(team.map((u) => accountView(req, u)))), ...(await operatorInvitations(req.tx).all()).filter((i) => !i.acceptedAt).map(invitationView)];
   return ok(all.sort((a, b) => RANK[a.status] - RANK[b.status] || byName(a, b)));
 }
 
@@ -113,7 +114,7 @@ export async function inviteOperator(req: Request): Promise<Reply> {
   };
   await operatorInvitations(req.tx).put(invite);
   await queueEmail(req.tx, req.now, { to: email, kind: 'operator-invitation', link: `/operator-invitations/${token}`, name, expiresAt: invite.expiresAt });
-  await recordAudit(req.tx, req.now, {
+  await recordAudit(req, {
     operatorId: req.actor!.userId,
     action: 'CreateOperator',
     targetType: 'operator',
@@ -130,18 +131,20 @@ export async function deactivateOperator(req: Request): Promise<Reply> {
   const id = req.params['id'];
   const me = req.actor!.userId;
   if (id === me) return conflict('You can’t deactivate your own account');
+  // The Admin's reason goes to the audit log; a request without one keeps the standard wording.
+  const reason = (typeof req.body?.reason === 'string' && req.body.reason.trim()) || 'Operator account deactivated';
   const user = await users(req.tx).get(id);
   if (user && user.role === 'Operator') {
     if (!(await operatorDeactivations(req.tx).get(id))) {
       await operatorDeactivations(req.tx).put({ id, at: req.now.toISOString(), by: me });
       await users(req.tx).put({ ...user, deleted: true });
-      for (const s of await sessions(req.tx).find({ userId: id })) await sessions(req.tx).delete(s.id);
-      await recordAudit(req.tx, req.now, {
+      await endSessionsOf(req, id);
+      await recordAudit(req, {
         operatorId: me,
         action: 'DeactivateOperator',
         targetType: 'operator',
         targetId: id,
-        reason: 'Operator account deactivated',
+        reason,
         before: user.admin ? 'Admin' : 'Operator',
         after: 'Deactivated',
       });
@@ -153,6 +156,6 @@ export async function deactivateOperator(req: Request): Promise<Reply> {
   if (invite.deactivatedAt) return ok(invitationView(invite));
   const done = { ...invite, deactivatedAt: req.now.toISOString() };
   await operatorInvitations(req.tx).put(done);
-  await recordAudit(req.tx, req.now, { operatorId: me, action: 'DeactivateOperator', targetType: 'operator', targetId: id, reason: 'Operator account deactivated', before: 'Invited', after: 'Deactivated' });
+  await recordAudit(req, { operatorId: me, action: 'DeactivateOperator', targetType: 'operator', targetId: id, reason, before: 'Invited', after: 'Deactivated' });
   return ok(invitationView(done));
 }

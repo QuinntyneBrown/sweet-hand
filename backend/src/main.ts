@@ -8,7 +8,8 @@ import { createApiApp } from './api-app.ts';
 import { useSecureCookies } from './identity/sessions.ts';
 import { seedDatabase } from './seed/index.ts';
 import { TestEnvironments, testControl } from './testing/control.ts';
-import { dispatchDueEmails, logGateway } from './platform/email-dispatch.ts';
+import { logGateway } from './platform/email-dispatch.ts';
+import { startBackgroundWork } from './maintenance/scheduler.ts';
 import { loadConfig } from './platform/config.ts';
 import { systemClock } from './platform/clock.ts';
 import { MemoryDatabase } from './platform/memory-database.ts';
@@ -16,6 +17,7 @@ import { PostgresDatabase } from './platform/postgres-database.ts';
 import { MemoryMediaStore, PostgresMediaStore } from './platform/media.ts';
 import type { Environment } from './environment.ts';
 import { PassThroughImageProcessing } from './platform/image-processing.ts';
+import { SignatureScanner } from './platform/malware-scanner.ts';
 
 const config = loadConfig();
 const db = config.databaseUrl ? new PostgresDatabase(config.databaseUrl) : new MemoryDatabase();
@@ -25,6 +27,8 @@ const env: Environment = {
   media: db instanceof PostgresDatabase ? new PostgresMediaStore(db.connection) : new MemoryMediaStore(),
   // No image provider yet (L2-041.4–6 not implemented): uploads pass through unchanged.
   images: new PassThroughImageProcessing(),
+  // No scanning provider yet: the stand-in flags only the EICAR test file.
+  scanner: new SignatureScanner(),
 };
 
 useSecureCookies(config.secureCookies);
@@ -44,22 +48,14 @@ const server = app.getHttpServer() as Server;
 server.keepAliveTimeout = 65_000;
 server.headersTimeout = 66_000;
 
-// The email worker (L2-030). In test mode emails stay queued so specs can read them.
-let dispatching = false;
-const worker = testEnvs
-  ? undefined
-  : setInterval(() => {
-      if (dispatching) return;
-      dispatching = true;
-      void dispatchDueEmails(env, logGateway)
-        .catch((err) => console.error(err))
-        .finally(() => (dispatching = false));
-    }, 15_000);
+// The background work: emails (L2-030), waiting photos (L2-091.2) and the daily
+// maintenance job. In test mode it stays off so specs control time and read queued emails.
+const stopBackgroundWork = testEnvs ? undefined : startBackgroundWork(env, logGateway);
 await app.listen(config.port);
 console.log(`Sweet Hand API on http://localhost:${config.port}${config.databaseUrl ? '' : config.testControl ? ' (test mode)' : ' (in-memory database)'}`);
 
 const stop = () => {
-  if (worker) clearInterval(worker);
+  stopBackgroundWork?.();
   void app.close().then(() => env.db.close()).then(() => process.exit(0));
 };
 process.on('SIGTERM', stop);

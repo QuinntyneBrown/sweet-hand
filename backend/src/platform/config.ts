@@ -37,5 +37,11 @@ export function loadConfig(): Config {
     mediaDir: process.env['MEDIA_DIR'] || undefined,
   };
   if (config.testControl && config.databaseUrl) throw new Error('TEST_CONTROL cannot be used with a real database');
+  if (config.databaseUrl) {
+    // A real deployment names the origins it accepts state changes from (L2-081.4)
+    // and keys IP hashes with its own secret, never the built-in one.
+    if (!config.allowedOrigins.length) throw new Error('ALLOWED_ORIGINS is not set');
+    if (!process.env['IP_HASH_SECRET']) throw new Error('IP_HASH_SECRET is not set');
+  }
   return config;
 }

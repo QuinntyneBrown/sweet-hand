@@ -1,12 +1,12 @@
 import { randomUUID } from 'node:crypto';
 import type { Reply, Request } from '../http/endpoint.ts';
-import { badRequest, conflict, fail, invalid, notFound, ok } from '../http/problems.ts';
+import { badRequest, conflict, fail, hidden, invalid, notFound, ok } from '../http/problems.ts';
 import type { Photo } from '../caterers/model.ts';
 import { assertEditable, loadOwn, reorder, saveCaterer, text, type Own } from './own.ts';
 import { recordCoverChange } from './live-edits.ts';
 import { removedPhotos } from './model.ts';
 import { ownProfileReply } from './profile.ts';
-import { discardPhotoMedia, storePhoto } from './processing.ts';
+import { discardPhotoMedia, flaggedUpload, restorePhotoMedia, storePhoto, withdrawPhotoMedia } from './processing.ts';
 import { CONTENT_TYPES, EXTENSIONS, decodeUpload, dimensions, sniff, type FileKind } from './uploads.ts';
 import { MAX_PHOTOS, MIN_PUBLISHED, photoView } from './view.ts';
 
@@ -23,8 +23,9 @@ function checkedPhoto(body: unknown): { fileName: string; bytes: Buffer; kind: F
   if (file.bytes.length > PHOTO_BYTES) fail(invalid({ file: [PHOTO_SIZE] }));
   const kind = sniff(file.bytes);
   if (!kind || kind === 'PDF') return fail(invalid({ file: [PHOTO_TYPE] }));
+  // A size that cannot be read is refused too (L2-041.2).
   const size = dimensions(file.bytes, kind);
-  if (size && Math.min(size.width, size.height) < 800) fail(invalid({ file: [PHOTO_SIZE] }));
+  if (!size || Math.min(size.width, size.height) < 800) fail(invalid({ file: [PHOTO_SIZE] }));
   return { ...file, kind };
 }
 
@@ -47,6 +48,8 @@ export async function uploadPhoto(req: Request): Promise<Reply> {
   const own = await editableOwn(req);
   if (own.caterer.photos.length >= MAX_PHOTOS) return conflict('You can have up to 30 photos');
   const file = checkedPhoto(req.body);
+  const flagged = await flaggedUpload(req, file.bytes);
+  if (flagged) return flagged;
   const cover = own.caterer.photos[0];
   const { file: mediaId, processing } = await store(req, file);
   const photo: Photo = { id: `photo-${randomUUID()}`, file: mediaId, caption: '', fileName: file.fileName, ...(processing ? { processing } : {}) };
@@ -61,14 +64,25 @@ export async function replacePhoto(req: Request): Promise<Reply> {
   const own = await editableOwn(req);
   const photo = photoOf(own, req.params['id']);
   const file = checkedPhoto(req.body);
+  const flagged = await flaggedUpload(req, file.bytes);
+  if (flagged) return flagged;
   const cover = { ...own.caterer.photos[0] };
   const old = photo.file;
   const { file: mediaId, processing } = await store(req, file);
-  photo.file = mediaId;
-  photo.fileName = file.fileName;
-  if (processing) photo.processing = true;
-  else delete photo.processing;
-  await discardPhotoMedia(req, old);
+  if (photo.pendingFile) await discardPhotoMedia(req, photo.pendingFile);
+  if (processing && !photo.processing) {
+    // The current image stays on the page until the replacement is ready (L2-042.2).
+    photo.pendingFile = mediaId;
+    photo.pendingFileName = file.fileName;
+  } else {
+    photo.file = mediaId;
+    photo.fileName = file.fileName;
+    delete photo.pendingFile;
+    delete photo.pendingFileName;
+    if (processing) photo.processing = true;
+    else delete photo.processing;
+    await discardPhotoMedia(req, old);
+  }
   await recordCoverChange(req, own, cover);
   await saveCaterer(req, own.caterer);
   return ok(photoView(photo));
@@ -110,6 +124,8 @@ export async function removePhoto(req: Request): Promise<Reply> {
   const index = own.caterer.photos.indexOf(photo);
   own.caterer.photos.splice(index, 1);
   await removedPhotos(req.tx).put({ id: photo.id, catererId: own.caterer.id, photo, index, removedAt: req.now.toISOString() });
+  // Off the page at once: its image is no longer served, but kept for Undo.
+  await withdrawPhotoMedia(req, photo.file);
   await recordCoverChange(req, own, cover);
   await saveCaterer(req, own.caterer);
   return ownProfileReply(req, own);
@@ -119,11 +135,13 @@ export async function removePhoto(req: Request): Promise<Reply> {
 export async function restorePhoto(req: Request): Promise<Reply> {
   const own = await editableOwn(req);
   const removed = await removedPhotos(req.tx).get(req.params['id']);
-  if (!removed || removed.catererId !== own.caterer.id) return notFound();
+  if (!removed) return notFound();
+  if (removed.catererId !== own.caterer.id) return hidden(removed.id);
   if (own.caterer.photos.length >= MAX_PHOTOS) return conflict('You can have up to 30 photos');
   const cover = own.caterer.photos[0];
   own.caterer.photos.splice(Math.min(removed.index, own.caterer.photos.length), 0, removed.photo);
   await removedPhotos(req.tx).delete(removed.id);
+  await restorePhotoMedia(req, removed.photo.file);
   await recordCoverChange(req, own, cover);
   await saveCaterer(req, own.caterer);
   return ownProfileReply(req, own);

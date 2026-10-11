@@ -24,4 +24,14 @@ describe('health checks (L2-088)', async () => {
     const res = await api.client().get('/health/ready');
     assert.equal(res.status, 503);
   });
+
+  it('Given the database does not answer, when /health/ready is requested, then it answers 503 after the check times out (L2-088.3)', async () => {
+    const env = await testEnvironment();
+    env.db.ping = () => new Promise<boolean>(() => {});
+    const api = await startApi({ env });
+    const started = Date.now();
+    const res = await api.client().get('/health/ready');
+    assert.equal(res.status, 503);
+    assert.ok(Date.now() - started < 5_000);
+  });
 });

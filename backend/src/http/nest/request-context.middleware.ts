@@ -4,6 +4,7 @@ import type { Request as ExpressRequest, Response, NextFunction } from 'express'
 import { parseCookies, serializeCookie } from '../cookies.ts';
 import type { Request } from '../endpoint.ts';
 import type { Transaction } from '../../platform/database.ts';
+import { redactPostalPath } from '../../discovery/postal-code.ts';
 import { applyStandardHeaders } from './reply.ts';
 import { PIPELINE_OPTIONS, type PipelineOptions } from './options.ts';
 
@@ -30,6 +31,11 @@ export class RequestContextMiddleware implements NestMiddleware {
   async use(req: ExpressRequest, res: Response, next: NextFunction): Promise<void> {
     try {
       const { config } = this.options;
+      // Behind the TLS proxy, plain HTTP is sent to HTTPS (L2-081.1).
+      if (config.trustProxy && config.secureCookies && req.headers['x-forwarded-proto'] === 'http') {
+        res.redirect(301, `https://${req.headers.host}${req.originalUrl ?? req.url}`);
+        return;
+      }
       const upstream = config.trustProxy ? String(req.headers['x-correlation-id'] ?? '') : '';
       const correlationId = /^[\w-]{8,64}$/.test(upstream) ? upstream : randomUUID();
       const cookies = parseCookies(req.headers.cookie);
@@ -41,7 +47,8 @@ export class RequestContextMiddleware implements NestMiddleware {
       const url = new URL(req.originalUrl ?? req.url ?? '/', 'http://localhost');
       const ctx: Request = {
         method: req.method,
-        path: url.pathname,
+        // Never more than a postal code's FSA in anything that logs the path (L2-012.6).
+        path: redactPostalPath(url.pathname),
         params: {},
         query: url.searchParams,
         body: undefined,

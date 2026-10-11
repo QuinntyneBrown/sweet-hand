@@ -1,3 +1,5 @@
+import { readyPhotos } from '../caterer-profile/processing.ts';
+import { areaOfFsa, fsaOf, invalidPostalCode, isFsa, outsideServiceArea } from './postal-code.ts';
 import type { Request, Reply } from '../http/endpoint.ts';
 import { ok } from '../http/problems.ts';
 import { caterers, type Caterer } from '../caterers/model.ts';
@@ -44,6 +46,23 @@ function matches(c: Caterer, f: Filter): boolean {
 
 /** GET /api/public/caterers (browse-listing, filter-by-cuisine and filter-by-area designs). */
 export async function listCaterers(req: Request): Promise<Reply> {
+  // A form without script sends the whole postal code; only its FSA goes further (L2-012.6).
+  const postal = req.query.get('postal');
+  if (postal !== null) {
+    const fsa = fsaOf(postal);
+    if (!fsa) return invalidPostalCode();
+    const query = new URLSearchParams(req.query);
+    query.delete('postal');
+    query.set('fsa', fsa);
+    return { status: 302, headers: { location: `${req.path}?${query}` } };
+  }
+  const fsaParam = req.query.get('fsa');
+  let fsaArea: string | undefined;
+  if (fsaParam !== null) {
+    if (!isFsa(fsaParam)) return invalidPostalCode();
+    fsaArea = areaOfFsa(fsaParam);
+    if (!fsaArea) return outsideServiceArea();
+  }
   const published = await caterers(req.tx).find({ status: 'Published' });
   const cuisineList = await allCuisines(req.tx);
   const active = cuisineList.filter((c) => !c.retired);
@@ -56,7 +75,7 @@ export async function listCaterers(req: Request): Promise<Reply> {
   const areasWanted = req.query.getAll('area').filter((id) => allAreas.has(id));
   const occasionParam = req.query.get('occasion') ?? undefined;
   const occasion = OCCASIONS.some((o) => o.id === occasionParam) ? occasionParam : undefined;
-  const places = [...new Set([...areasWanted, ...regionsWanted.flatMap(areasOfRegion)])];
+  const places = [...new Set([...areasWanted, ...regionsWanted.flatMap(areasOfRegion), ...(fsaArea ? [fsaArea] : [])])];
 
   const filter: Filter = { cuisines: cuisinesWanted, places, occasion };
   const matching = dailyOrder(published.filter((c) => matches(c, filter)), req.now, req.env.catalogDay);
@@ -72,7 +91,7 @@ export async function listCaterers(req: Request): Promise<Reply> {
       name: c.name,
       primaryCuisine: names.get(c.cuisines[0]) ?? c.cuisines[0],
       primaryArea: areaName(c.areas[0]),
-      cover: photoView(c.photos[0] ?? { file: 'missing-photo.jpg', caption: c.name }),
+      cover: photoView(readyPhotos(c)[0] ?? { file: 'missing-photo.jpg', caption: c.name }),
     })),
     total: matching.length,
     page,

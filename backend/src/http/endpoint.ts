@@ -53,4 +53,10 @@ export interface Reply {
   headers?: Record<string, string>;
   /** A non-JSON body (media, CSV); `headers` gives its content type. */
   raw?: Buffer | string;
+  /**
+   * Set when the reply refuses a record the caller may not reach. The pipeline
+   * records the refusal in its own transaction, so it is kept even when the
+   * handler's work rolls back (authorise-requests design, L2-079.4).
+   */
+  denied?: { targetId?: string };
 }

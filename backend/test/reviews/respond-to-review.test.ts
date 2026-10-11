@@ -42,6 +42,23 @@ describe('the caterer responding to reviews (L2-052)', () => {
     const mail = (await outbox(api)).filter((m) => m.kind === 'review-response');
     assert.equal(mail.length, 1);
     assert.equal(mail[0].to, 'andre.c@example.com');
+    assert.equal(mail[0].caterer, 'Pelau House', 'the email names the caterer');
+  });
+
+  it('Given a response to a review that is later held, when the caterer edits or deletes the response, then it is allowed at any time (L2-052)', async () => {
+    const api = await startApi();
+    await api.env.db.transaction(async (tx) => {
+      const r = await tx.collection<any>('reviews').get('review-marcia-pelau');
+      await tx.collection<any>('reviews').put({ ...r, status: 'Held' });
+    });
+    const kendra = await signedInClient(api, KENDRA);
+    const edited = await kendra.put('/api/caterer/reviews/review-marcia-pelau/response', { text: 'Thank you, Marcia.' });
+    assert.equal(edited.status, 200);
+    assert.equal(edited.body.response.text, 'Thank you, Marcia.');
+    const stored = (await api.env.db.transaction((tx) => tx.collection<any>('reviews').get('review-marcia-pelau')))!;
+    assert.equal(stored.response.updatedAt, '2026-10-10T14:00:00.000Z', 'the edit time is recorded');
+    assert.equal((await kendra.delete('/api/caterer/reviews/review-marcia-pelau/response')).status, 200);
+    assert.equal((await kendra.post('/api/caterer/reviews/review-marcia-pelau/response', { text: THANKS })).status, 404, 'posting still needs a published review');
   });
 
   it('Given an empty or over-long response, when it is posted, then it is refused with the field message', async () => {

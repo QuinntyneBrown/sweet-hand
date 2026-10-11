@@ -101,7 +101,7 @@ export async function moderateReview(req: Request): Promise<Reply> {
     delete next.response;
   }
   await reviews(req.tx).put(next);
-  await recordAudit(req.tx, req.now, { operatorId, action: transition.action, targetType: 'review', targetId: review.id, reason, before: review.status, after: transition.to });
+  await recordAudit(req, { operatorId, action: transition.action, targetType: 'review', targetId: review.id, reason, before: review.status, after: transition.to });
   // The author is told, with the reason (L2-059).
   const author = await liveUser(req.tx, review.authorUserId);
   if (author) await queueEmail(req.tx, req.now, { to: author.email, kind: 'review-moderated', decision: action, reason, reviewId: review.id, catererId: review.catererId });

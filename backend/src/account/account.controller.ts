@@ -5,7 +5,7 @@ import { accountView } from './account-view.ts';
 import { endSession, listSessions } from './active-sessions.ts';
 import { updateDetails } from './details.ts';
 import { changePassword } from './password.ts';
-import { requestDataExport } from './data-export.ts';
+import { downloadDataExport, requestDataExport } from './data-export.ts';
 import { deleteAccount } from './deletion.ts';
 
 /** The signed-in person's own account (docs/detailed-designs/privacy, identity-and-security/manage-sessions). */
@@ -46,6 +46,12 @@ export class AccountController {
   @UsePolicy(roles('Customer', 'Caterer'))
   requestDataExport(@Ctx() req: Request): Promise<Reply> {
     return requestDataExport(req);
+  }
+
+  @Get('api/me/data-exports/:id/download')
+  @UsePolicy(roles('Customer', 'Caterer'))
+  downloadDataExport(@Ctx() req: Request): Promise<Reply> {
+    return downloadDataExport(req);
   }
 
   @Post('api/me/deletion')

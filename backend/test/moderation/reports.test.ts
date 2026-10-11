@@ -74,7 +74,7 @@ describe('handling reports (L2-055, L2-034.3–4)', () => {
     assert.equal(res.body.status, 'Resolved');
     assert.equal(res.body.target.status, 'Published');
     const audit = await auditOf(api);
-    assert.deepEqual(audit.map((a) => [a.operatorId, a.action, a.targetType, a.targetId, a.reason]), [['user-leah', 'Dismiss reports', 'Report', 'R-2041', note]]);
+    assert.deepEqual(audit.map((a) => [a.operatorId, a.action, a.targetType, a.targetId, a.reason]), [['user-leah', 'DismissReports', 'report', 'R-2041', note]]);
     assert.deepEqual(res.body.resolution, { at: '2026-10-10T14:00:00.000Z', by: 'Leah Mohammed', outcome: 'dismissed', note, auditId: audit[0].id, reporterEmailed: true });
     assert.equal((await documents(api, 'reports')).filter((r) => r.targetId === 'review-devon-maracas' && r.status === 'Open').length, 0);
     const reviewed = (await outbox(api)).filter((e) => e.kind === 'report-reviewed');
@@ -91,8 +91,8 @@ describe('handling reports (L2-055, L2-034.3–4)', () => {
     const res = await leah.post('/api/operator/reports/R-2041/resolve', { decision: 'action', action: 'hide', note });
     assert.equal(res.status, 200);
     assert.deepEqual([res.body.target.status, res.body.target.hiddenBy], ['Hidden', 'operator']);
-    const hide = (await auditOf(api)).find((a) => a.action === 'Hide review');
-    assert.deepEqual([hide.targetType, hide.targetId, hide.reason, hide.before, hide.after], ['Review', 'review-devon-maracas', note, { status: 'Published' }, { status: 'Hidden' }]);
+    const hide = (await auditOf(api)).find((a) => a.action === 'HideReview');
+    assert.deepEqual([hide.targetType, hide.targetId, hide.reason, hide.before, hide.after], ['review', 'review-devon-maracas', note, { status: 'Published' }, { status: 'Hidden' }]);
     assert.deepEqual((await find(api, 'reports', 'R-2041')).resolution, { at: '2026-10-10T14:00:00.000Z', byUserId: 'user-leah', outcome: 'hidden', note, auditId: hide.id });
     assert.ok((await outbox(api)).some((e) => e.to === 'devon.w@example.com' && e.kind === 'review-hidden' && e.reason === note));
     assert.equal((await find(api, 'reviews', 'review-devon-maracas')).status, 'Hidden');
@@ -133,7 +133,7 @@ describe('handling reports (L2-055, L2-034.3–4)', () => {
     const opened = (await auditOf(api))[0];
     assert.ok(devons.some((e) => e.id === opened.targetId), 'the audit names Devon’s enquiry to Maracas Bay');
     assert.deepEqual((await auditOf(api)).map((a) => [a.operatorId, a.action, a.targetType, a.reason, a.after]), [
-      ['user-leah', 'Open enquiry', 'Enquiry', 'Checking whether the event in the review happened.', { reportId: 'R-2041' }],
+      ['user-leah', 'EnquiryAccess', 'enquiry', 'Checking whether the event in the review happened.', { reportId: 'R-2041' }],
     ]);
   });
 
@@ -143,5 +143,13 @@ describe('handling reports (L2-055, L2-034.3–4)', () => {
     assert.equal((await leah.post('/api/operator/reports/R-2041/enquiry', { reason: 'Checking the event.' })).status, 403);
     assert.equal((await leah.post('/api/operator/reports/R-2047/enquiry', { reason: 'Checking.' })).status, 403, 'a caterer report links to no enquiry');
     assert.deepEqual(await auditOf(api), []);
+  });
+
+  it('Given a resolved report linked to an enquiry, when an operator tries to open the enquiry, then the answer is 403 and nothing is recorded (L2-034.3)', async () => {
+    const { api, leah } = await arranged();
+    assert.equal((await leah.post('/api/operator/reports/R-2041/resolve', { decision: 'dismiss', note: 'Reviewed; it stays.' })).status, 200);
+    const before = (await auditOf(api)).length;
+    assert.equal((await leah.post('/api/operator/reports/R-2041/enquiry', { reason: 'Checking the event.' })).status, 403);
+    assert.equal((await auditOf(api)).length, before);
   });
 });

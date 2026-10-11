@@ -104,7 +104,7 @@ test.describe('Handling reports', () => {
     await expect(report.itemStatus).toHaveText('Showing on Maracas Bay’s page');
     const state = await backend.state();
     expect(state.reports.filter((r: { targetId: string; status: string }) => r.targetId === 'review-devon-maracas' && r.status === 'Open')).toEqual([]);
-    expect(await audit.appended()).toEqual([expect.objectContaining({ action: 'Dismiss reports', targetType: 'Report', targetId: 'R-2041' })]);
+    expect(await audit.appended()).toEqual([expect.objectContaining({ action: 'DismissReports', targetType: 'report', targetId: 'R-2041' })]);
     expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: 'priya.r@example.com', kind: 'report-reviewed' }));
     expect((await backend.emails()).find((e: { kind: string; reason?: string }) => e.kind === 'report-reviewed')?.reason).toBeUndefined();
   });
@@ -136,8 +136,8 @@ test.describe('Handling reports', () => {
     await expect(report.itemStatus).toHaveText('Hidden by an operator');
     await expect(report.openEnquiry).toHaveCount(0);
     const state = await backend.state();
-    const hide = (await audit.appended()).find((a: { action: string }) => a.action === 'Hide review');
-    expect(hide).toEqual(expect.objectContaining({ targetType: 'Review', targetId: 'review-devon-maracas', reason: 'Personal attack on the owner’s family, not a review of the food.' }));
+    const hide = (await audit.appended()).find((a: { action: string }) => a.action === 'HideReview');
+    expect(hide).toEqual(expect.objectContaining({ targetType: 'review', targetId: 'review-devon-maracas', reason: 'Personal attack on the owner’s family, not a review of the food.' }));
     expect(state.reports.find((r: { id: string }) => r.id === 'R-2041').resolution).toEqual(expect.objectContaining({ outcome: 'hidden', auditId: hide.id }));
     expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: 'devon.w@example.com', kind: 'review-hidden' }));
 
@@ -215,7 +215,7 @@ test.describe('Handling reports', () => {
     await expect(report.messages.first()).toContainText('we need curry duck, buss up shut and macaroni pie for 35');
     await expect(report.linkedEnquiry.getByRole('textbox')).toHaveCount(0);
     expect(await audit.appended()).toEqual([
-      expect.objectContaining({ operatorId: 'user-leah', action: 'Open enquiry', targetType: 'Enquiry', reason: 'Checking whether the event in the review happened.', after: { reportId: 'R-2041' } }),
+      expect.objectContaining({ operatorId: 'user-leah', action: 'EnquiryAccess', targetType: 'enquiry', reason: 'Checking whether the event in the review happened.', after: { reportId: 'R-2041' } }),
     ]);
     await report.expectNoAccessibilityViolations();
   });

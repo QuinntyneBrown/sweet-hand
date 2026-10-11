@@ -11,6 +11,10 @@ export const unauthorized = () => problem(401, 'Sign in to continue');
 export const forbidden = () => problem(403, 'Forbidden');
 export const notFound = () => problem(404, 'Not found');
 export const conflict = (title: string, extra: Record<string, unknown> = {}) => problem(409, title, extra);
+/** A record that exists but is outside the caller's scope: the same 404 as a missing one, logged as an authorisation failure (L2-079.4). */
+export const hidden = (targetId?: string): Reply => ({ ...notFound(), denied: { targetId } });
+/** A 403 decided inside a handler, logged as an authorisation failure (L2-079.4). */
+export const refused = (targetId?: string): Reply => ({ ...forbidden(), denied: { targetId } });
 export const gone = (title: string) => problem(410, title);
 export const invalid = (errors: Record<string, string[]>, status = 400, title = 'Check the form'): Reply => ({ status, body: { title, errors } });
 

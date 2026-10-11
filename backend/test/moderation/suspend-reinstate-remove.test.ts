@@ -44,7 +44,7 @@ describe('suspending, reinstating and removing caterers (L2-058, L2-060)', () =>
     assert.ok(mail.some((e) => e.to === 'kendra@pelauhouse.example' && e.kind === 'caterer-suspended' && e.reason === REASON));
     assert.deepEqual(mail.filter((e) => e.kind === 'caterer-unavailable').map((e) => e.to), ['marcia.t@example.com', 'priya.r@example.com']);
     assert.deepEqual((await auditOf(api)).map((a) => [a.operatorId, a.action, a.targetType, a.targetId, a.reason, a.before, a.after]), [
-      ['user-leah', 'Suspend', 'CatererProfile', 'cat-001', REASON, { status: 'Published' }, { status: 'Suspended' }],
+      ['user-leah', 'Suspend', 'caterer', 'cat-001', REASON, { status: 'Published' }, { status: 'Suspended' }],
     ]);
     const record = (await leah.get('/api/operator/caterers/cat-001')).body;
     assert.deepEqual(record.suspension, { at: '2026-10-10T14:00:00.000Z', closedEnquiries: 2 });

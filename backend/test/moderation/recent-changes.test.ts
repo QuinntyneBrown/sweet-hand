@@ -46,7 +46,7 @@ describe('recent changes and revert (L2-047.4, L2-057.3)', () => {
     const feed = await leah.get('/api/operator/recent-changes');
     assert.deepEqual(feed.body.items[0].reverted, { by: 'Leah Mohammed', at: '2026-10-10T14:00:00.000Z' });
     assert.deepEqual((await auditOf(api)).map((a) => [a.action, a.targetType, a.targetId, a.reason, a.before, a.after]), [
-      ['Revert change', 'ProfileEdit', 'edit-001', reason, { description: { kind: 'text', text: NEW } }, { description: { kind: 'text', text: OLD } }],
+      ['Revert', 'caterer', 'cat-001', reason, { description: { kind: 'text', text: NEW } }, { description: { kind: 'text', text: OLD }, revertedChange: 'edit-001' }],
     ]);
     assert.ok((await outbox(api)).some((e) => e.kind === 'change-reverted' && e.to === 'kendra@pelauhouse.example' && e.reason === reason));
     assert.equal((await leah.post('/api/operator/recent-changes/edit-001/revert', { reason })).status, 409, 'already undone');

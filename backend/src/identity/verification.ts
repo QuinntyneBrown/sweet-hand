@@ -1,5 +1,7 @@
 import type { Request, Reply } from '../http/endpoint.ts';
-import { gone, ok } from '../http/problems.ts';
+import { gone, ok, problem } from '../http/problems.ts';
+import { recordSecurityEvent } from '../platform/security-log.ts';
+import { recentEvents, recordEvent } from '../platform/throttle.ts';
 import type { Document, Transaction } from '../platform/database.ts';
 import { caterers } from '../caterers/model.ts';
 import type { EmailVerified } from '@contract/email-verified.ts';
@@ -38,12 +40,24 @@ export async function verifyEmail(req: Request): Promise<Reply> {
   return ok(body);
 }
 
+const HOUR = 60 * 60_000;
+const RESENDS_PER_HOUR = 5;
+const RESEND_KIND = 'verification-resend';
+
 /**
  * A new verification link for the signed-in account, the account an expired
  * link belongs to, or an address waiting for verification. Always 202, so it
  * never reveals whether an address has an account (L2-076).
  */
 export async function resendVerification(req: Request): Promise<Reply> {
+  // Anyone may ask by address, so one network gets 5 an hour (rate-limit-and-challenge design).
+  const recent = await recentEvents(req.tx, RESEND_KIND, req.ip, req.now, HOUR);
+  if (recent.length >= RESENDS_PER_HOUR) {
+    await recordSecurityEvent(req, 'rate-limit-block');
+    const retryAfter = Math.ceil((Date.parse(recent[0]) + HOUR - req.now.getTime()) / 1000);
+    return { ...problem(429, 'Too many requests'), headers: { 'retry-after': String(retryAfter) } };
+  }
+  await recordEvent(req.tx, RESEND_KIND, req.ip, req.now, HOUR);
   const body = (req.body ?? {}) as ResendVerificationRequest;
   const fromToken = body.token ? await findToken(req.tx, 'verify', body.token) : undefined;
   const signedIn = req.actor ? await liveUser(req.tx, req.actor.userId) : undefined;

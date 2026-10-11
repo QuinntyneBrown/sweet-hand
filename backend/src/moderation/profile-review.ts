@@ -45,12 +45,13 @@ async function changedFields(tx: Transaction, c: Caterer): Promise<string[]> {
   const same = (a: string[], b: string[]) => a.length === b.length && a.every((x, i) => x === b[i]);
   return [
     s.description !== c.description && 'description',
-    !same(s.photoFiles, c.photos.map((p) => p.file)) && 'photos',
-    !same(s.dishNames, c.dishes.map((d) => d.name)) && 'menu',
+    (!same(s.photoFiles, c.photos.map((p) => p.file)) || (s.captions && !same(s.captions, c.photos.map((p) => p.caption)))) && 'photos',
+    (!same(s.dishNames, c.dishes.map((d) => d.name)) || (s.dishes && !same(s.dishes, c.dishes.map((d) => JSON.stringify(d))))) && 'menu',
     (s.minGuests !== c.minGuests || s.maxGuests !== c.maxGuests) && 'guests',
     !same(s.occasions, c.occasions) && 'occasions',
     !same(s.areas, c.areas) && 'areas',
     !same(s.cuisines, c.cuisines) && 'cuisines',
+    s.certificate !== undefined && s.certificate !== JSON.stringify(c.certificate ?? null) && 'certificate',
   ].filter((x): x is string => !!x);
 }
 
@@ -143,7 +144,7 @@ export async function certificateFileLink(req: Request): Promise<Reply> {
 }
 
 /** A minimal PDF standing in for seeded certificates that have no uploaded copy. */
-const STAND_IN_PDF = '%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n2 0 obj<</Type/Pages/Kids[]/Count 0>>endobj\ntrailer<</Root 1 0 R>>\n%%EOF\n';
+export const STAND_IN_PDF = '%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n2 0 obj<</Type/Pages/Kids[]/Count 0>>endobj\ntrailer<</Root 1 0 R>>\n%%EOF\n';
 
 /** GET /api/operator/certificate-files/:token — an unknown or expired link is 404 (L2-040.4). */
 export async function certificateFile(req: Request): Promise<Reply> {

@@ -1,6 +1,7 @@
 import type { Environment } from '../environment.ts';
 import { outbox, type OutboxEmail } from './outbox.ts';
 import { hashIp } from './secrets.ts';
+import { writeLog } from './log-redactor.ts';
 
 /** Hands one email to the provider; throws when it could not be sent. The provider is `<TO SUPPLY>`. */
 export interface EmailGateway {
@@ -9,7 +10,7 @@ export interface EmailGateway {
 
 /** Until a provider is chosen: logs that the email would go out, without the address or link (L2-084.2). */
 export const logGateway: EmailGateway = {
-  send: async (email) => console.log(JSON.stringify({ level: 'info', event: 'email-sent', kind: email.kind, toHash: hashIp(email.to), id: email.id })),
+  send: async (email) => writeLog({ level: 'info', event: 'email-sent', kind: email.kind, toHash: hashIp(email.to), id: email.id }),
 };
 
 const MINUTE = 60_000;
@@ -24,7 +25,7 @@ const due = (email: OutboxEmail, now: Date) => email.status === 'queued' && (!em
  * emails drop their link, which may hold a token. An email still failing 24
  * hours after it was queued becomes `failed` and raises an operator alert.
  */
-export async function dispatchDueEmails(env: Environment, gateway: EmailGateway, alert: (message: string) => void = (m) => console.error(JSON.stringify({ level: 'alert', message: m }))): Promise<number> {
+export async function dispatchDueEmails(env: Environment, gateway: EmailGateway, alert: (message: string) => void = (m) => writeLog({ level: 'alert', message: m })): Promise<number> {
   const now = env.clock.now();
   const pending = await env.db.transaction(async (tx) => (await outbox(tx).find({ status: 'queued' })).filter((e) => due(e, now)));
   let sent = 0;
@@ -41,13 +42,14 @@ export async function dispatchDueEmails(env: Environment, gateway: EmailGateway,
       if (!failure) {
         const { link: _link, ...rest } = current;
         void _link;
-        await outbox(tx).put({ ...rest, status: 'sent', sentAt: now.toISOString() });
+        // Mail to a deleted account keeps no address once sent (L2-072).
+        await outbox(tx).put({ ...rest, ...(rest.forgetRecipient ? { to: '' } : {}), status: 'sent', sentAt: now.toISOString() });
         sent++;
         return;
       }
       const attempts = ((current.attempts as number | undefined) ?? 0) + 1;
       if (now.getTime() - Date.parse(current.at) >= GIVE_UP_AFTER_MS) {
-        await outbox(tx).put({ ...current, attempts, status: 'failed', failedAt: now.toISOString() });
+        await outbox(tx).put({ ...current, ...(current.forgetRecipient ? { to: '' } : {}), attempts, status: 'failed', failedAt: now.toISOString() });
         alert(`Email ${current.id} (${current.kind}) failed for 24 hours and was given up`);
         return;
       }

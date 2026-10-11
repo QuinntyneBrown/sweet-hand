@@ -7,8 +7,9 @@ import type { Environment } from '../../environment.ts';
 import { RateLimiter } from '../../platform/rate-limit.ts';
 import { hashIp } from '../../platform/secrets.ts';
 import { BadJson, BodyTooLarge, MB, readBody } from './body.ts';
-import { MAX_BODY, POLICY, REFUSAL, WITHOUT_DATABASE, requestContext } from './decorators.ts';
+import { MAX_BODY, POLICY, PUBLIC_READ_LIMIT, REFUSAL, WITHOUT_CSRF, WITHOUT_DATABASE, requestContext } from './decorators.ts';
 import { PIPELINE_OPTIONS, type PipelineOptions } from './options.ts';
+import { writeLog } from '../../platform/log-redactor.ts';
 
 /** Public reads allowed per address per minute (L2-082.1). */
 const PUBLIC_READS_PER_MINUTE = 300;
@@ -21,19 +22,30 @@ function context(execution: ExecutionContext): Request {
   return ctx;
 }
 
-/** 300 public reads a minute per address; one limiter per environment, so test sessions never share counts (L2-082.1). */
+/**
+ * 300 public reads a minute per address: every anonymous GET in the endpoint
+ * policy catalogue except the health checks. One limiter per environment, so
+ * test sessions never share counts (L2-082.1).
+ */
 @Injectable()
 export class RateLimitGuard implements CanActivate {
   private readonly limiters = new WeakMap<Environment, RateLimiter>();
+  private readonly reflector: Reflector;
+
+  constructor(reflector: Reflector) {
+    this.reflector = reflector;
+  }
 
   canActivate(execution: ExecutionContext): boolean {
     const ctx = context(execution);
-    if (ctx.method !== 'GET' || !(ctx.path.startsWith('/api/public/') || ctx.path.startsWith('/media/'))) return true;
+    const policy = this.reflector.get<Policy | undefined>(POLICY, execution.getHandler());
+    const counted = ctx.method === 'GET' || this.reflector.get<boolean>(PUBLIC_READ_LIMIT, execution.getHandler());
+    if (!counted || policy?.kind !== 'anonymous' || this.reflector.get<boolean>(WITHOUT_DATABASE, execution.getHandler())) return true;
     let limiter = this.limiters.get(ctx.env);
     if (!limiter) this.limiters.set(ctx.env, (limiter = new RateLimiter(PUBLIC_READS_PER_MINUTE)));
     const wait = limiter.take(ctx.ip, ctx.env.clock.now());
     if (wait === null) return true;
-    console.log(JSON.stringify({ level: 'security', type: 'rate-limit-block', path: ctx.path, ipHash: hashIp(ctx.ip), at: ctx.env.clock.now().toISOString(), correlationId: ctx.correlationId }));
+    writeLog({ level: 'security', type: 'rate-limit-block', path: ctx.path, ipHash: hashIp(ctx.ip), at: ctx.env.clock.now().toISOString(), correlationId: ctx.correlationId });
     throw new ProblemError({ ...problem(429, 'Too many requests'), headers: { 'retry-after': String(wait) } });
   }
 }
@@ -41,15 +53,19 @@ export class RateLimitGuard implements CanActivate {
 /** State changes must echo the CSRF cookie and come from an allowed origin (L2-081.4). */
 @Injectable()
 export class CsrfGuard implements CanActivate {
+  private readonly reflector: Reflector;
   private readonly options: PipelineOptions;
 
-  constructor(@Inject(PIPELINE_OPTIONS) options: PipelineOptions) {
+  constructor(reflector: Reflector, @Inject(PIPELINE_OPTIONS) options: PipelineOptions) {
+    this.reflector = reflector;
     this.options = options;
   }
 
   canActivate(execution: ExecutionContext): boolean {
     const ctx = context(execution);
     if (SAFE_METHODS.has(ctx.method)) return true;
+    const policy = this.reflector.get<Policy | undefined>(POLICY, execution.getHandler());
+    if (policy?.kind === 'anonymous' && this.reflector.get<boolean>(WITHOUT_CSRF, execution.getHandler())) return true;
     const { allowedOrigins } = this.options.config;
     const origin = ctx.headers.origin;
     const badOrigin = origin && allowedOrigins.length > 0 && !allowedOrigins.includes(origin);
@@ -117,7 +133,7 @@ export class EndpointPolicyGuard implements CanActivate {
       ctx.tx = tx;
       ctx.actor = await this.options.authenticate?.(ctx);
       const verdict = permits(policy, ctx.actor);
-      if (verdict === 200) return undefined;
+      if (verdict === 200) return policy?.kind === 'anonymous' || !ctx.actor ? undefined : await this.options.gate?.(ctx);
       await this.options.onDenied?.(ctx, verdict);
       if (verdict === 401) return unauthorized();
       const custom = await refusal?.(ctx);

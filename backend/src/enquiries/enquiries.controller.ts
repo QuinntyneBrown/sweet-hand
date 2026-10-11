@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Put } from '@nestjs/common';
-import { roles, signedIn, type Reply, type Request } from '../http/endpoint.ts';
-import { Ctx, UsePolicy } from '../http/nest/decorators.ts';
+import { anonymous, roles, signedIn, type Reply, type Request } from '../http/endpoint.ts';
+import { Ctx, UsePolicy, WithoutCsrf } from '../http/nest/decorators.ts';
+import { receiveEmailEvent } from './email-bounces.ts';
 import { sendEnquiry } from './send.ts';
 import { getDraft, saveDraft } from './drafts.ts';
 import { contributeSessionCounters } from '../identity/session-view.ts';
@@ -69,5 +70,13 @@ export class EnquiriesController {
   @UsePolicy(parties)
   shareContact(@Ctx() req: Request): Promise<Reply> {
     return shareContact(req);
+  }
+
+  /** The email provider's delivery reports; anonymous by explicit choice, verified by the provider's token (L2-030.3). */
+  @Post('api/email-events')
+  @UsePolicy(anonymous)
+  @WithoutCsrf()
+  receiveEmailEvent(@Ctx() req: Request): Promise<Reply> {
+    return receiveEmailEvent(req);
   }
 }

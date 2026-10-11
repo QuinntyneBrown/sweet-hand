@@ -41,6 +41,10 @@ export interface ProfileSnapshot extends Document {
   occasions: string[];
   areas: string[];
   cuisines: string[];
+  /** Every dish field, photo caption and the certificate, so any edit shows as changed (L2-047.3). Older snapshots lack them. */
+  dishes?: string[];
+  captions?: string[];
+  certificate?: string;
 }
 
 /** What the daily certificate job found for a caterer (L2-040.2–3), keyed by caterer id. */
@@ -49,6 +53,8 @@ export interface CertificateExpiry extends Document {
   detectedAt?: string;
   /** When the expiry reminders went out. */
   reminders: string[];
+  /** The expiry date the reminders were for; older records have none. */
+  forExpiry?: string;
 }
 
 /** A time-limited link to a certificate copy (L2-040.4); only the hash of the link's token is kept, as the id. */

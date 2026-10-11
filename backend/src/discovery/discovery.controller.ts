@@ -6,10 +6,18 @@ import { listCaterers } from './listing.ts';
 import { catererPage } from './caterer-page.ts';
 import { listNotices } from './notices.ts';
 import { media } from './media.ts';
+import { sitemap } from './sitemap.ts';
 
 /** Public browsing, anonymous by explicit choice (L2-013). */
 @Controller()
 export class DiscoveryController {
+  /** Anonymous by explicit choice: search engines read it (L2-018.6). */
+  @Get('sitemap.xml')
+  @UsePolicy(anonymous)
+  sitemap(@Ctx() req: Request): Promise<Reply> {
+    return sitemap(req);
+  }
+
   @Get('api/public/caterers')
   @UsePolicy(anonymous)
   list(@Ctx() req: Request): Promise<Reply> {

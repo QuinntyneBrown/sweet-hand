@@ -2,7 +2,7 @@
 import type { Request, Reply } from '../http/endpoint.ts';
 import { fail, invalid, ok } from '../http/problems.ts';
 import { recordAudit } from '../platform/audit.ts';
-import { caterers, slugify } from '../caterers/model.ts';
+import { caterers, uniqueSlug, withAddressFor } from '../caterers/model.ts';
 import { profileSnapshots, touchRecord } from './model.ts';
 import { decision, emailOwner, stale, targetCaterer, transition } from './lifecycle.ts';
 import { trimmed } from './views.ts';
@@ -18,8 +18,10 @@ function changeReason(body: unknown): string {
 export async function approveProfile(req: Request): Promise<Reply> {
   const c = await targetCaterer(req);
   if (c.status !== 'Pending review') return stale(c);
-  const next = await transition(req, c, 'Published', 'approved', undefined, { publishedAt: c.publishedAt ?? req.now.toISOString(), statusReason: undefined, attention: undefined });
-  await recordAudit(req.tx, req.now, { operatorId: req.actor!.userId, action: 'Approve', targetType: 'CatererProfile', targetId: c.id, reason: null, before: { status: 'Pending review' }, after: { status: 'Published' } });
+  // The first publication takes its address from the name it is published under (L2-018.1).
+  const address = c.publishedAt ? {} : { slug: await uniqueSlug(req.tx, c.name, c.id) };
+  const next = await transition(req, c, 'Published', 'approved', undefined, { ...address, publishedAt: c.publishedAt ?? req.now.toISOString(), statusReason: undefined, attention: undefined });
+  await recordAudit(req, { operatorId: req.actor!.userId, action: 'Approve', targetType: 'caterer', targetId: c.id, reason: null, before: { status: 'Pending review' }, after: { status: 'Published' } });
   await emailOwner(req, next, 'profile-approved', { link: `/caterers/${next.slug}` });
   return ok(await decision(req.tx, next));
 }
@@ -39,9 +41,12 @@ export async function requestChanges(req: Request): Promise<Reply> {
     occasions: [...c.occasions],
     areas: [...c.areas],
     cuisines: [...c.cuisines],
+    dishes: c.dishes.map((d) => JSON.stringify(d)),
+    captions: c.photos.map((p) => p.caption),
+    certificate: JSON.stringify(c.certificate ?? null),
   });
   const next = await transition(req, c, 'Changes requested', 'changes-requested', reason, { statusReason: reason });
-  await recordAudit(req.tx, req.now, { operatorId: req.actor!.userId, action: 'Request changes', targetType: 'CatererProfile', targetId: c.id, reason, before: { status: 'Pending review' }, after: { status: 'Changes requested' } });
+  await recordAudit(req, { operatorId: req.actor!.userId, action: 'RequestChanges', targetType: 'caterer', targetId: c.id, reason, before: { status: 'Pending review' }, after: { status: 'Changes requested' } });
   await emailOwner(req, next, 'changes-requested', { reason });
   return ok(await decision(req.tx, next));
 }
@@ -51,11 +56,12 @@ export async function approveName(req: Request): Promise<Reply> {
   const c = await targetCaterer(req);
   if (!c.pendingName || c.status === 'Removed') return stale(c);
   const before = { name: c.name, slug: c.slug };
-  const slug = slugify(c.pendingName);
-  const next = { ...c, name: c.pendingName, slug, previousSlugs: slug === c.slug ? c.previousSlugs : [...c.previousSlugs, c.slug], pendingName: undefined, pendingNameAt: undefined };
+  const address = await withAddressFor(req.tx, c, c.pendingName);
+  const slug = address.slug;
+  const next = { ...c, name: c.pendingName, ...address, pendingName: undefined, pendingNameAt: undefined };
   await caterers(req.tx).put(next);
   await touchRecord(req.tx, c.id, req.now);
-  await recordAudit(req.tx, req.now, { operatorId: req.actor!.userId, action: 'Approve name change', targetType: 'CatererProfile', targetId: c.id, reason: null, before, after: { name: next.name, slug } });
+  await recordAudit(req, { operatorId: req.actor!.userId, action: 'Approve', targetType: 'caterer', targetId: c.id, reason: null, before, after: { name: next.name, slug } });
   await emailOwner(req, next, 'name-approved', { link: `/caterers/${slug}` });
   return ok(await decision(req.tx, next));
 }
@@ -67,7 +73,7 @@ export async function declineName(req: Request): Promise<Reply> {
   if (!c.pendingName) return stale(c);
   const next = { ...c, pendingName: undefined, pendingNameAt: undefined };
   await caterers(req.tx).put(next);
-  await recordAudit(req.tx, req.now, { operatorId: req.actor!.userId, action: 'Reject name change', targetType: 'CatererProfile', targetId: c.id, reason, before: { name: c.name, requested: c.pendingName }, after: { name: c.name } });
+  await recordAudit(req, { operatorId: req.actor!.userId, action: 'RequestChanges', targetType: 'caterer', targetId: c.id, reason, before: { name: c.name, requested: c.pendingName }, after: { name: c.name } });
   await emailOwner(req, next, 'name-change-declined', { reason });
   return ok(await decision(req.tx, next));
 }

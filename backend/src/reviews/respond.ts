@@ -1,5 +1,5 @@
 import type { Request, Reply } from '../http/endpoint.ts';
-import { conflict, created, fail, forbidden, invalid, notFound, ok } from '../http/problems.ts';
+import { conflict, created, fail, invalid, notFound, ok, refused } from '../http/problems.ts';
 import type { OwnReviewPageView } from '@contract/own-review-page-view.ts';
 import type { OwnReviewView } from '@contract/own-review-view.ts';
 import { caterers, type Caterer } from '../caterers/model.ts';
@@ -30,12 +30,16 @@ async function ownCaterer(req: Request): Promise<Caterer> {
   return caterer ?? fail(notFound());
 }
 
-/** A published review of the caller's business; another caterer's is 403 (L2-052.3). */
-async function reviewToAnswer(req: Request): Promise<{ caterer: Caterer; review: Review }> {
+/**
+ * A review of the caller's business; another caterer's is 403 (L2-052.3).
+ * Responses are posted only to published reviews, but edited or deleted at
+ * any time while the review exists (L2-052).
+ */
+async function reviewToAnswer(req: Request, posting = false): Promise<{ caterer: Caterer; review: Review }> {
   const caterer = await ownCaterer(req);
   const review = await reviews(req.tx).get(req.params['id']);
-  if (!review || review.status !== 'Published') return fail(notFound());
-  if (review.catererId !== caterer.id) return fail(forbidden());
+  if (!review || review.status === 'Removed' || (posting && review.status !== 'Published')) return fail(notFound());
+  if (review.catererId !== caterer.id) return fail(refused(review.id));
   if (caterer.status === 'Suspended' || caterer.status === 'Removed') return fail(conflict('Your profile can’t be changed right now'));
   return { caterer, review };
 }
@@ -66,12 +70,12 @@ export async function listOwnReviews(req: Request): Promise<Reply> {
 
 /** POST /api/caterer/reviews/:id/response: one public response per review; the reviewer is emailed (L2-052.1, .2, .4). */
 export async function postResponse(req: Request): Promise<Reply> {
-  const { caterer, review } = await reviewToAnswer(req);
+  const { caterer, review } = await reviewToAnswer(req, true);
   if (review.response) return conflict('This review already has your response', { response: ownReviewView(review).response });
-  const answered: Review = { ...review, response: { text: responseText(req.body), createdAt: req.now.toISOString() } };
+  const answered: Review = { ...review, response: { text: responseText(req.body), createdAt: req.now.toISOString(), updatedAt: req.now.toISOString() } };
   await reviews(req.tx).put(answered);
   const reviewer = await liveUser(req.tx, review.authorUserId);
-  if (reviewer) await queueEmail(req.tx, req.now, { to: reviewer.email, kind: 'review-response', link: `/caterers/${caterer.slug}#reviews` });
+  if (reviewer) await queueEmail(req.tx, req.now, { to: reviewer.email, kind: 'review-response', caterer: caterer.name, link: `/caterers/${caterer.slug}#reviews` });
   return created(ownReviewView(answered));
 }
 
@@ -79,7 +83,7 @@ export async function postResponse(req: Request): Promise<Reply> {
 export async function editResponse(req: Request): Promise<Reply> {
   const { review } = await reviewToAnswer(req);
   if (!review.response) return notFound();
-  const edited: Review = { ...review, response: { ...review.response, text: responseText(req.body) } };
+  const edited: Review = { ...review, response: { ...review.response, text: responseText(req.body), updatedAt: req.now.toISOString() } };
   await reviews(req.tx).put(edited);
   return ok(ownReviewView(edited));
 }

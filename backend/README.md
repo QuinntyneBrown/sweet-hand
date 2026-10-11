@@ -22,8 +22,17 @@ Run from `backend/` (Node 22.18+).
 
 Environment: `PORT`, `DATABASE_URL`, `SECURE_COOKIES` (default on with a
 database), `ALLOWED_ORIGINS` (comma-separated, for the CSRF origin check),
-`TRUST_PROXY`, `IP_HASH_SECRET`, `TEST_CONTROL` (test mode, refused with a
-database).
+`TRUST_PROXY` (behind it, plain HTTP is redirected to HTTPS), `IP_HASH_SECRET`,
+`TEST_CONTROL` (test mode, refused with a database). With a database,
+`ALLOWED_ORIGINS` and `IP_HASH_SECRET` are required and startup fails without
+them.
+
+Background work runs in the API process (ADR 0008): every 15 seconds it sends
+due emails, finishes waiting photos and builds requested data exports; every
+15 minutes it refreshes the metrics aggregates; once per Toronto day it runs
+the daily maintenance job (enquiry auto-close, certificate reminders and
+expiry, retention). It is off in test mode, where `POST /__test/background`
+and `POST /__test/maintenance` run one pass on demand.
 
 ## Layout
 
@@ -35,7 +44,9 @@ src/
   http/endpoint.ts   request context, reply, endpoint policies; http/problems.ts, http/cookies.ts
   http/nest/         the request pipeline: context middleware; rate-limit, CSRF, body and
                      endpoint-policy guards; the transaction interceptor; the problem filter
-  platform/          persistence port and adapters, clock, outbox, audit log, security log, throttles, media, secrets
+  platform/          persistence port and adapters, clock, outbox, audit log, security log, alerts,
+                     log redaction, throttles, media, malware scanner, secrets
+  maintenance/       background work: the scheduler and the daily maintenance job
   <area>/            model.ts (documents and collections), use cases, <area>.controller.ts
   seed/              the fictional cast, as documents per collection
   testing/           test mode only: per-session environments, /__test/ control API, scenarios/<area>.ts
@@ -60,6 +71,12 @@ test/
   specific body (Admin-only routes name the Admins to ask, L2-056.5); the
   guard still makes the decision and logs it. `@MaxBody(bytes)` raises the
   1 MB body limit for uploads. `@WithoutDatabase()` is for health checks only.
+  `@WithoutCsrf()` is for anonymous server-to-server webhooks that prove
+  themselves with their own token (email events); `@CountsAsPublicRead()`
+  puts an anonymous write under the public read rate limit (the visit beacon).
+- **Refusals are logged.** Return `hidden(id)` (404) or `refused(id)` (403)
+  for a record outside the caller's scope; the pipeline records the
+  authorisation failure in its own transaction and alerts on repeats.
 - **Register a new controller** in `productControllers` (`src/product.ts`).
   Routes match in declaration order, so declare `items/order` before
   `items/:id`.

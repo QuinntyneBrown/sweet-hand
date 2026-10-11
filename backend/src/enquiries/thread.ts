@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { Request, Reply } from '../http/endpoint.ts';
-import { conflict, fail, forbidden, invalid, notFound, ok } from '../http/problems.ts';
+import { conflict, fail, hidden, invalid, notFound, ok, refused } from '../http/problems.ts';
 import { mailServiceStatus } from '../platform/mail-service.ts';
 import { currentUser } from '../identity/sessions.ts';
 import type { Party } from '@contract/party.ts';
@@ -27,8 +27,9 @@ const REPLY_MAX = 2000;
 export async function loadThread(req: Request): Promise<PartyThread> {
   const user = currentUser(req);
   const e = await enquiries(req.tx).get(req.params['id']);
-  const party = e ? partyOf(user, e) : null;
-  if (!e || !party) return fail(notFound());
+  if (!e) return fail(notFound());
+  const party = partyOf(user, e);
+  if (!party) return fail(hidden(e.id));
   return { user, e, party };
 }
 
@@ -50,7 +51,7 @@ export async function postReply(req: Request): Promise<Reply> {
   if (party === 'caterer' && !parties.customer) return conflict('This person has left Sweet Hand');
   const body = text(req.body?.text);
   if (!body.trim()) return invalid({ reply: ['Write a reply before sending'] });
-  if (length(body) > REPLY_MAX) return invalid({ reply: ['Keep your reply under 2,000 characters'] });
+  if (length(body.trim()) > REPLY_MAX) return invalid({ reply: ['Keep your reply under 2,000 characters'] });
 
   const ev = appendEvent(e, req.now, randomUUID(), { kind: 'reply', by: party, text: body });
   // The caterer's first reply moves an Open enquiry to Replied (L2-033.1).
@@ -71,7 +72,7 @@ const NOTE_MAX = 500;
 /** POST /api/enquiries/:id/decline: only the caterer, only while Open, with an optional note of up to 500 characters (L2-033.2, L2-033.3). */
 export async function declineEnquiry(req: Request): Promise<Reply> {
   const { e, party } = await loadThread(req);
-  if (party !== 'caterer') return forbidden();
+  if (party !== 'caterer') return refused(e.id);
   const note = text(req.body?.note).trim();
   if (length(note) > NOTE_MAX) return invalid({ note: ['Keep your note under 500 characters'] });
   if (e.status !== 'Open') return conflict('Only an open enquiry can be declined', { status: e.status });
