@@ -3,7 +3,7 @@ import { HttpEventType } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Alert, BackLink, EMPTY_STATE, FileUpload, Icon, PhotoManager, PhotoTile, SaveStatus, Status, ToastNotifier, type PhotoTileLabels } from '@sweet-hand/components';
-import { problemOf } from '../../../core/forms/problem';
+import { fieldError, problemOf } from '../../../core/forms/problem';
 import { DashboardLayout } from '../shared/dashboard-layout';
 import { ListingPreview } from '../shared/listing-preview';
 import { ProfileData } from '../shared/profile-data';
@@ -191,7 +191,7 @@ export class PhotosPage {
 
   private refused(file: File, error: unknown): void {
     const { status, problem } = problemOf(error);
-    const message = problem.errors?.['file']?.[0];
+    const message = fieldError(problem, 'file');
     if (status === 400 && message) {
       this.uploadErrors.update((list) => [...list, { fileName: file.name, message }]);
       return;

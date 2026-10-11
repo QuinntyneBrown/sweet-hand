@@ -5,6 +5,7 @@ import { count, monthYear, shortDate } from '../../../core/format/format';
 import { CatererProfileService, type OwnReviewView } from '@sweet-hand/api';
 import type { Outcome } from './outcome';
 import { FormDialogState } from '../../../core/forms/form-dialog-state';
+import { fieldError } from '../../../core/forms/problem';
 
 /** Respond to a review and Edit your response (docs/mocks/dialogs/review-response; respond-to-review, L2-052). */
 @Component({
@@ -93,7 +94,7 @@ export class ReviewResponseDialog {
       },
       (status, problem) => {
         const existing = problem['response'] as { text: string; createdAt: string } | undefined;
-        if (status === 400) return this.state.reject(problem.errors?.['text']?.[0] ?? tooLong);
+        if (status === 400) return this.state.reject(fieldError(problem, 'text') ?? tooLong);
         if (status !== 409 || !existing) return false;
         // A response already exists: offer to edit it instead (L2-052.2).
         this.conflicted.set(existing);

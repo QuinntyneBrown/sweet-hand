@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { Alert, BackLink, EMPTY_STATE, FormField, FormSummary, Icon, PrivateNote, SaveStatus, TextField, Textarea, type SummaryItem } from '@sweet-hand/components';
+import { Alert, BackLink, EMPTY_STATE, FormField, FormSummary, Icon, PrivateNote, SaveStatus, TextField, Textarea } from '@sweet-hand/components';
 import { RouterLink } from '@angular/router';
 import { count, shortDate } from '../../../core/format/format';
-import { problemOf } from '../../../core/forms/problem';
+import { fieldErrors, hasFieldErrors, problemOf } from '../../../core/forms/problem';
+import { summaryFrom } from '../../../core/forms/validation';
 import { Autosave } from '../shared/autosave';
 import { DashboardLayout } from '../shared/dashboard-layout';
 import { ListingPreview } from '../shared/listing-preview';
@@ -33,10 +34,7 @@ export class DetailsPage {
   protected readonly withdrawOpen = signal(false);
   protected readonly withdrawOpener = signal<HTMLElement | null>(null);
 
-  protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.errors();
-    return [e.name && { controlId: 'name', message: e.name }, e.description && { controlId: 'description', message: e.description }].filter(Boolean) as SummaryItem[];
-  });
+  protected readonly summary = computed(() => summaryFrom(this.errors(), ['name', 'description']));
   protected readonly summaryHeading = computed(() => fixHeading(this.summary().length));
   protected readonly statusText = computed(() => (this.autosave.state() === 'invalid' ? notSavedText(this.summary().length) : this.autosave.text()));
   protected readonly saveState = computed(() => {
@@ -107,8 +105,8 @@ export class DetailsPage {
       return 'saved';
     } catch (error) {
       const { status, problem } = problemOf(error);
-      if (status === 400 && problem.errors) {
-        this.errors.set({ name: problem.errors['name']?.[0] ?? null, description: problem.errors['description']?.[0] ?? null });
+      if (status === 400 && hasFieldErrors(problem)) {
+        this.errors.set(fieldErrors(problem, ['name', 'description']));
         this.attempt.update((n) => n + 1);
         return 'invalid';
       }

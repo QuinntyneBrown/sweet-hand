@@ -4,6 +4,7 @@ import { Alert, Checkbox, Dialog, FileUpload, FormField, FormSummary, Icon, Text
 import { PHOTO_TYPES, readUpload } from './photo-rules';
 import { CatererProfileService, type OwnPhotoView, type OwnProfileView } from '@sweet-hand/api';
 import { FormDialogState } from '../../../core/forms/form-dialog-state';
+import { fieldError } from '../../../core/forms/problem';
 
 /** Photo details (docs/mocks/dialogs/photo-details; manage-photos, PhotoDetailsDialog): caption, cover, replace, remove. */
 @Component({
@@ -67,7 +68,7 @@ export class PhotoDetailsDialog {
         const profile = await firstValueFrom(this.api.updatePhoto(p.id, { caption, useAsCover: this.cover() }));
         this.saved.emit({ profile, cover: this.cover() });
       },
-      (status, problem) => status === 400 && !!problem.errors?.['caption'] && this.state.reject(problem.errors['caption'][0]),
+      (status, problem) => status === 400 && !!fieldError(problem, 'caption') && this.state.reject(fieldError(problem, 'caption')),
     );
   }
 
@@ -79,7 +80,7 @@ export class PhotoDetailsDialog {
     await this.state.submit(
       async () => this.replaced.emit(await firstValueFrom(this.api.replacePhoto(p.id, await readUpload(file)))),
       (status, problem) => {
-        if (status === 400 && problem.errors?.['file']) this.state.errors.set(null);
+        if (status === 400 && fieldError(problem, 'file')) this.state.errors.set(null);
         return false;
       },
     );

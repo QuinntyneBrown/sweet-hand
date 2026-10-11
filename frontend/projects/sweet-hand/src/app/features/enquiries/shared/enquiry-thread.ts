@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, Injector, a
 import { firstValueFrom } from 'rxjs';
 import { Icon, Message, MessageList, ReplyBox, Thread, ThreadActionsSlot, ToastNotifier, graphemeLength } from '@sweet-hand/components';
 import { count, shortDate } from '../../../core/format/format';
-import { problemOf } from '../../../core/forms/problem';
+import { fieldError, problemOf } from '../../../core/forms/problem';
 import { SESSION_REFRESH_MS, Session } from '../../../core/session/session';
 import { messageTime, statusLabel, statusTone } from '../enquiry-text';
 import { CloseEnquiryDialog } from './close-enquiry-dialog';
@@ -249,7 +249,7 @@ export class EnquiryThread {
       } else if (status === 400) {
         this.drop(item.id);
         this.draft.set(item.text);
-        this.replyErrorText.set(problem.errors?.['reply']?.[0] ?? replyError(item.text));
+        this.replyErrorText.set(fieldError(problem, 'reply') ?? replyError(item.text));
       } else {
         this.setState(item.id, 'failed');
         this.toasts.show({

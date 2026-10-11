@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
-import { Alert, Button, Dialog, FormField, FormSummary, PrivateNote, TextField, type SummaryItem } from '@sweet-hand/components';
-import { summaryHeading } from '../../../core/forms/validation';
+import { Alert, Button, Dialog, FormField, FormSummary, PrivateNote, TextField } from '@sweet-hand/components';
+import { summaryFrom, summaryHeading } from '../../../core/forms/validation';
 import { newPasswordError } from '../../identity/rules';
 import { AccountService } from '@sweet-hand/api';
 import type { Errors } from './errors';
 import { FormDialogState } from '../../../core/forms/form-dialog-state';
+import { fieldError } from '../../../core/forms/problem';
 
 const NO_ERRORS: Errors = { current: null, new: null, confirm: null };
 
@@ -36,10 +37,7 @@ export class ChangePasswordDialog {
   protected readonly state = new FormDialogState(this.open, { noErrors: NO_ERRORS, reset: () => this.form.reset() });
   protected readonly changing = $localize`:@@changePassword.busy:Changing your password`;
 
-  protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.state.errors();
-    return (['current', 'new', 'confirm'] as const).filter((f) => e[f]).map((f) => ({ controlId: f, message: e[f]! }));
-  });
+  protected readonly summary = computed(() => summaryFrom(this.state.errors(), ['current', 'new', 'confirm']));
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@changePassword.action:change your password`));
 
   protected async change(): Promise<void> {
@@ -58,11 +56,11 @@ export class ChangePasswordDialog {
       },
       (status, problem) =>
         status === 400 &&
-        !!(problem.errors?.['currentPassword'] || problem.errors?.['newPassword']) &&
+        !!(fieldError(problem, 'currentPassword') || fieldError(problem, 'newPassword')) &&
         this.state.reject({
           ...NO_ERRORS,
-          current: problem.errors?.['currentPassword'] ? $localize`:@@changePassword.wrongCurrent:That password isn’t right. Try again.` : null,
-          new: problem.errors?.['newPassword'] ? $localize`:@@changePassword.breached:This password appears in lists of breached passwords. Choose a different one.` : null,
+          current: fieldError(problem, 'currentPassword') ? $localize`:@@changePassword.wrongCurrent:That password isn’t right. Try again.` : null,
+          new: fieldError(problem, 'newPassword') ? $localize`:@@changePassword.breached:This password appears in lists of breached passwords. Choose a different one.` : null,
         }),
     );
   }
