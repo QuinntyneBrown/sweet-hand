@@ -8,6 +8,7 @@ import { EnquiryList } from '../shared/enquiry-list';
 import { EnquiryThread } from '../shared/enquiry-thread';
 import { LastThread } from '../shared/last-thread';
 import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
+import { paths } from '../../../core/routing/paths';
 
 /** One enquiry for the caterer, /dashboard/enquiries/:id (reply-in-thread design; docs/mocks/pages/dashboard-enquiry). */
 @Component({
@@ -18,13 +19,14 @@ import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
   styleUrl: './enquiry.page.css',
 })
 export class EnquiryPage {
+  protected readonly paths = paths;
   private readonly api = inject(EnquiriesService);
   private readonly session = inject(Session);
   private readonly lastThread = inject(LastThread);
 
   readonly id = input.required<string>();
 
-  protected readonly backLink = { href: '/dashboard/enquiries', label: $localize`:@@nav.enquiries:Enquiries` };
+  protected readonly backLink = { href: paths.dashboard.enquiries, label: $localize`:@@nav.enquiries:Enquiries` };
   protected readonly listLabel = computed(() => $localize`:@@enquiries.listLabel:${this.session.user()?.caterer?.name ?? ''}:business: enquiries`);
   protected readonly threadResource = rxResource({ params: () => this.id(), stream: ({ params }) => this.api.thread(params) });
   protected readonly thread = linkedSignal(() => (this.threadResource.hasValue() ? this.threadResource.value() : undefined));

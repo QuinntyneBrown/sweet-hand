@@ -4,6 +4,7 @@ import { problemOf, reference } from '../../../core/forms/problem';
 import { cardModel, statusLabel, statusTone } from './profile-text';
 import { type CatererProfileService, type OwnProfileView, type ReferenceDataView } from '@sweet-hand/api';
 import type { LoadState } from './load-state';
+import { paths } from '../../../core/routing/paths';
 
 /** The caterer's own profile and the reference lists, as one section page loads them. */
 export class ProfileData {
@@ -28,7 +29,7 @@ export class ProfileData {
     const r = this.ref();
     return p && r ? cardModel(p, r) : null;
   });
-  readonly pageHref = computed(() => `/caterers/${this.profile()?.slug ?? ''}`);
+  readonly pageHref = computed(() => paths.caterer(this.profile()?.slug ?? ''));
 
   constructor(private readonly api: CatererProfileService) {}
 

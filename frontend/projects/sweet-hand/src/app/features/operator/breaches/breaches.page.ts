@@ -6,6 +6,7 @@ import { count, shortDate } from '../../../core/format/format';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { RecordBreachDialog } from './record-breach.dialog';
 import { type BreachRecord, OperatorSettingsService } from '@sweet-hand/api';
+import { paths } from '../../../core/routing/paths';
 
 /** "Confirmed Thu 17 Sep 2026 · recorded by Leah Mohammed" */
 export function breachWhen(b: BreachRecord): string {
@@ -22,6 +23,7 @@ export function breachWhen(b: BreachRecord): string {
   templateUrl: './breaches.page.html',
 })
 export class BreachesPage {
+  protected readonly paths = paths;
   private readonly api = inject(OperatorSettingsService);
   private readonly toasts = inject(ToastNotifier);
 

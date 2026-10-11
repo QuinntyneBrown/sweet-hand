@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RESUME_PARAM, RESUME_VALUE } from './enquiry-launcher';
 import type { LocalEnquiryDraft } from './local-enquiry-draft';
+import { catererSlugOf } from '../routing/paths';
 
 const KEY = 'sh.enquiry-draft';
 /** Drafts are kept for 24 hours (docs/mocks/dialogs/enquiry/restored). */
@@ -42,9 +43,10 @@ export class EnquiryDraftStore {
 
   /** The draft a sign-in return address leads back to: `/caterers/:slug?enquiry=resume` (L2-013.3). */
   forReturnUrl(returnUrl: string | null | undefined): LocalEnquiryDraft | null {
-    const match = /^\/caterers\/([^/?#]+)\?(.*)$/.exec(returnUrl ?? '');
-    if (!match || new URLSearchParams(match[2]).get(RESUME_PARAM) !== RESUME_VALUE) return null;
-    return this.get(decodeURIComponent(match[1]));
+    const slug = catererSlugOf(returnUrl ?? '');
+    const query = returnUrl?.split('?')[1];
+    if (!slug || query === undefined || new URLSearchParams(query).get(RESUME_PARAM) !== RESUME_VALUE) return null;
+    return this.get(slug);
   }
 
   private read(): LocalEnquiryDraft | null {

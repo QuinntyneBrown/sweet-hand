@@ -9,6 +9,7 @@ import { emailError, summaryHeading } from '../../../core/forms/validation';
 import { AuthPhotos } from '../auth-photos';
 import { BotChallengeService, IdentityService } from '@sweet-hand/api';
 import type { Failure } from './failure';
+import { paths } from '../../../core/routing/paths';
 
 /** Forgot password, /forgot-password (docs/detailed-designs/identity-and-security/verify-email-and-reset-password). */
 @Component({
@@ -18,6 +19,7 @@ import type { Failure } from './failure';
   templateUrl: './forgot-password.page.html',
 })
 export class ForgotPasswordPage {
+  protected readonly paths = paths;
   private readonly api = inject(IdentityService);
   private readonly bots = inject(BotChallengeService);
 

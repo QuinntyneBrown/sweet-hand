@@ -3,6 +3,7 @@ import { firstValueFrom, type Observable } from 'rxjs';
 import { Alert, ButtonAnchor, Dialog, FormField, FormSummary, Icon, Textarea, type IconName, type SummaryItem } from '@sweet-hand/components';
 import { conflictText } from './decision-text';
 import { FormDialogState } from '../../../../core/forms/form-dialog-state';
+import { paths } from '../../../../core/routing/paths';
 import { fieldError } from '../../../../core/forms/problem';
 
 /**
@@ -43,7 +44,7 @@ export class ReasonDialog<T = unknown> {
   readonly summaryHeading = input.required<string>();
   readonly validate = input.required<(reason: string) => string | null>();
   readonly action = input.required<(reason: string) => Observable<T>>();
-  readonly conflictHref = input('/admin/queue');
+  readonly conflictHref = input<string>(paths.admin.queue);
   readonly conflictLink = input($localize`:@@review.backToQueue:Back to review queue`);
   readonly returnFocus = input<HTMLElement | null>(null);
   /** What a 403 means for this decision, when it can happen (L2-034.4). */

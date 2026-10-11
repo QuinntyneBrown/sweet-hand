@@ -12,7 +12,7 @@
           <li>{{ change }}</li>
         }
       </ul>
-      <p><a routerLink="/privacy" i18n="@@privacyUpdate.readNotice">Read the full privacy notice</a></p>
+      <p><a [routerLink]="paths.privacy" i18n="@@privacyUpdate.readNotice">Read the full privacy notice</a></p>
     </div>
   }
   @if (failure(); as f) {

@@ -5,7 +5,8 @@ import { firstValueFrom } from 'rxjs';
 import { Alert, Button, FormField, FormSummary, Icon, TextField, type SummaryItem } from '@sweet-hand/components';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
-import { landingFor, safeReturnUrl } from '../../../core/session/guards';
+import { safeReturnUrl } from '../../../core/session/guards';
+import { landingFor, paths } from '../../../core/routing/paths';
 import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
 import { IdentityService, type SecondFactorRequest, SecurityKeyService } from '@sweet-hand/api';
@@ -18,6 +19,7 @@ import { IdentityService, type SecondFactorRequest, SecurityKeyService } from '@
   templateUrl: './two-factor.page.html',
 })
 export class TwoFactorPage {
+  protected readonly paths = paths;
   private readonly api = inject(IdentityService);
   private readonly keys = inject(SecurityKeyService);
   private readonly session = inject(Session);
@@ -68,7 +70,7 @@ export class TwoFactorPage {
       await this.session.refresh();
       const returnUrl = safeReturnUrl(this.returnUrl());
       if (result.privacyUpdateRequired) {
-        await this.router.navigate(['/privacy/accept'], { queryParams: { returnUrl } });
+        await this.router.navigate([paths.privacyAccept], { queryParams: { returnUrl } });
       } else {
         await this.router.navigateByUrl(returnUrl ?? landingFor('Operator'));
       }
@@ -81,7 +83,7 @@ export class TwoFactorPage {
         });
         this.attempt.update((n) => n + 1);
       } else if (status === 401) {
-        await this.router.navigateByUrl('/sign-in');
+        await this.router.navigateByUrl(paths.signIn);
       } else {
         this.failure.set({ reference: reference(problem) });
         queueMicrotask(() => this.alert()?.focusTitle());
@@ -94,7 +96,7 @@ export class TwoFactorPage {
   protected async notYou(event: Event): Promise<void> {
     event.preventDefault();
     await this.session.signOut();
-    await this.router.navigateByUrl('/sign-in');
+    await this.router.navigateByUrl(paths.signIn);
   }
 
   protected serverText(ref: string | null): string {

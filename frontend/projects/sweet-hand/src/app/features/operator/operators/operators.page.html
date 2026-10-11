@@ -22,7 +22,7 @@
 @if (forbidden()) {
   <sh-empty-state heading="Only Admins can manage operators" i18n-heading="@@operators.forbiddenTitle" [text]="forbiddenText()">
     <svg slot="icon" shIcon="lock"></svg>
-    <a slot="actions" class="btn btn--primary" routerLink="/admin/queue" i18n="@@operator.backToQueue">Back to review queue</a>
+    <a slot="actions" class="btn btn--primary" [routerLink]="paths.admin.queue" i18n="@@operator.backToQueue">Back to review queue</a>
   </sh-empty-state>
 } @else if (failure(); as f) {
   <sh-empty-state
@@ -38,7 +38,7 @@
     <svg slot="icon" shIcon="danger"></svg>
     <ng-container slot="actions">
       <button class="btn btn--primary" type="button" (click)="load()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></button>
-      <a class="btn btn--ghost" routerLink="/admin/queue" i18n="@@operator.backToQueue">Back to review queue</a>
+      <a class="btn btn--ghost" [routerLink]="paths.admin.queue" i18n="@@operator.backToQueue">Back to review queue</a>
     </ng-container>
   </sh-empty-state>
 } @else {
@@ -69,7 +69,7 @@
   </sh-list>
   @if (!loading()) {
     <p class="text-caption" style="margin-top: var(--space-6)">
-      <ng-container i18n="@@operators.note">Operators can’t sign up themselves. Every change here is written to the <a routerLink="/admin/audit">audit log</a>.</ng-container>
+      <ng-container i18n="@@operators.note">Operators can’t sign up themselves. Every change here is written to the <a [routerLink]="paths.admin.audit">audit log</a>.</ng-container>
     </p>
   }
 }

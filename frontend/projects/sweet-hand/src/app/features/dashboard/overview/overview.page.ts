@@ -15,6 +15,7 @@ import { SubmitDialog } from './submit-dialog';
 import type { SubmitStep } from './submit-step';
 import { AccountService, type AccountView, CatererProfileService, type ChecklistKey, EnquiriesService, type InboxRowView, type OwnProfileView, type SubmissionProblem } from '@sweet-hand/api';
 import type { ViewState } from './view-state';
+import { paths } from '../../../core/routing/paths';
 
 const DISMISSED_KEY = 'sh-dismissed-live:';
 
@@ -53,6 +54,7 @@ function rememberedDismissal(id: string): boolean {
   templateUrl: './overview.page.html',
 })
 export class OverviewPage {
+  protected readonly paths = paths;
   private readonly api = inject(CatererProfileService);
   private readonly enquiries = inject(EnquiriesService);
   private readonly accounts = inject(AccountService);
@@ -101,7 +103,7 @@ export class OverviewPage {
         return $localize`:@@preview.yourCard:Your listing card`;
     }
   });
-  protected readonly pageHref = computed(() => `/caterers/${this.profile()?.slug ?? this.business()?.slug ?? ''}`);
+  protected readonly pageHref = computed(() => paths.caterer(this.profile()?.slug ?? this.business()?.slug ?? ''));
   protected readonly previewHref = computed(() => (this.status() === 'Published' && !this.profile()?.pendingName ? this.pageHref() : null));
 
   // Published
@@ -117,7 +119,7 @@ export class OverviewPage {
     const now = new Date();
     return (this.ready()?.inbox.items ?? []).slice(0, 3).map((row) => ({
       id: row.id,
-      href: `/dashboard/enquiries/${row.id}`,
+      href: paths.dashboard.enquiry(row.id),
       name: rowName(row),
       picture: picture(row),
       time: activityTime(row.lastActivityAt, now),

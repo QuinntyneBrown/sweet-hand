@@ -21,6 +21,7 @@ import {
 } from './report-view';
 import { ResolveReportDialog } from './resolve-report-dialog';
 import { OperatorModerationService, type ReportEnquiryView, type ReportGroupView } from '@sweet-hand/api';
+import { paths } from '../../../../core/routing/paths';
 
 /** One reported item and its reports, /admin/reports/:id (handle-reports design; docs/mocks/pages/admin-report). */
 @Component({
@@ -31,6 +32,7 @@ import { OperatorModerationService, type ReportEnquiryView, type ReportGroupView
   styleUrl: './report.page.css',
 })
 export class ReportPage {
+  protected readonly paths = paths;
   private readonly api = inject(OperatorModerationService);
   private readonly session = inject(Session);
 

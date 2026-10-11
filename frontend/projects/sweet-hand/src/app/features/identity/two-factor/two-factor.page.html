@@ -19,5 +19,5 @@
     <p class="visually-hidden" role="status">{{ busy() ? checking : '' }}</p>
     <sh-button size="lg" [block]="true" (activated)="useSecurityKey()"><svg shIcon="shield"></svg><ng-container i18n="@@twoFactor.securityKey">Use a security key instead</ng-container></sh-button>
   </form>
-  <p class="auth__alt" i18n="@@twoFactor.signedInAs">Signed in as {{ email() }} · <a class="link--standalone" href="/sign-in" (click)="notYou($event)">Not you?</a></p>
+  <p class="auth__alt" i18n="@@twoFactor.signedInAs">Signed in as {{ email() }} · <a class="link--standalone" [href]="paths.signIn" (click)="notYou($event)">Not you?</a></p>
 </div>

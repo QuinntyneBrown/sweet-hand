@@ -9,6 +9,7 @@ import { EnquiryList } from '../shared/enquiry-list';
 import { LastThread } from '../shared/last-thread';
 import { filteredSubtitle, inboxSubtitle, readFilter, readPage } from '../enquiry-text';
 import { EnquiriesService } from '@sweet-hand/api';
+import { paths } from '../../../core/routing/paths';
 
 /** The customer's inbox, /inbox (docs/detailed-designs/enquiries/browse-inbox). */
 @Component({
@@ -18,6 +19,7 @@ import { EnquiriesService } from '@sweet-hand/api';
   templateUrl: './inbox.page.html',
 })
 export class InboxPage {
+  protected readonly paths = paths;
   private readonly api = inject(EnquiriesService);
   private readonly params = toSignal(inject(ActivatedRoute).queryParamMap, { requireSync: true });
   protected readonly online = inject(Connection).online;

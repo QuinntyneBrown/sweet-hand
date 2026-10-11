@@ -8,6 +8,7 @@ import { eventLabel, ratingLabel } from '../../reviews/reviews-section/review-la
 import { ModerateReviewDialog } from './moderate-review.dialog';
 import { actionsFor, decisionToast, moderationStatus, moderationSubtitle, searchCount } from './reviews-view';
 import { type ModeratedReview, type ModerationAction, type ModerationList, type ModerationStatus, OperatorSettingsService } from '@sweet-hand/api';
+import { paths } from '../../../core/routing/paths';
 
 const ACTION_LABEL: Record<ModerationAction, () => string> = {
   approve: () => $localize`:@@reviewsAdmin.approve:Approve`,
@@ -25,6 +26,7 @@ const ACTION_LABEL: Record<ModerationAction, () => string> = {
   styleUrl: './reviews.page.css',
 })
 export class ReviewsPage {
+  protected readonly paths = paths;
   private readonly api = inject(OperatorSettingsService);
   private readonly router = inject(Router);
   private readonly toasts = inject(ToastNotifier);
@@ -49,8 +51,8 @@ export class ReviewsPage {
   protected readonly tabs = computed<SegmentedItem[]>(() => {
     const l = this.list();
     return [
-      { value: 'Held', label: $localize`:@@reviewsAdmin.held:Held`, count: l ? l.held : null, href: '/admin/reviews' },
-      { value: 'Hidden', label: $localize`:@@reviewsAdmin.hiddenTab:Hidden`, count: l ? l.hidden : null, href: '/admin/reviews?status=hidden' },
+      { value: 'Held', label: $localize`:@@reviewsAdmin.held:Held`, count: l ? l.held : null, href: paths.admin.reviews },
+      { value: 'Hidden', label: $localize`:@@reviewsAdmin.hiddenTab:Hidden`, count: l ? l.hidden : null, href: `${paths.admin.reviews}?status=hidden` },
     ];
   });
   protected readonly countText = computed(() => searchCount(this.tab(), this.list()?.reviews.length ?? 0, this.query()));

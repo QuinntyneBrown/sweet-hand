@@ -14,6 +14,7 @@ import { DownloadDataDialog } from './download-data/download-data.dialog';
 import { EndSessionDialog } from './end-session/end-session.dialog';
 import { AccountService, type AccountView, type ActiveSession } from '@sweet-hand/api';
 import type { AccountDialog } from './account-dialog';
+import { paths } from '../../core/routing/paths';
 
 /** Account settings, /account (docs/mocks/pages/account; manage-sessions, export and delete-account designs). */
 @Component({
@@ -24,6 +25,7 @@ import type { AccountDialog } from './account-dialog';
   styleUrl: './account.page.css',
 })
 export class AccountPage {
+  protected readonly paths = paths;
   private readonly api = inject(AccountService);
   private readonly session = inject(Session);
   private readonly router = inject(Router);
@@ -132,7 +134,7 @@ export class AccountPage {
   protected async accountDeleted(): Promise<void> {
     this.dialog.set(null);
     await this.session.refresh();
-    await this.router.navigateByUrl('/caterers');
+    await this.router.navigateByUrl(paths.caterers);
     this.toasts.show({
       tone: 'success',
       title: $localize`:@@delete.done:Your account is deleted`,
@@ -142,7 +144,7 @@ export class AccountPage {
 
   /** The "Check your email" page sends a new link to the signed-in account (L2-023.2). */
   protected async resendVerification(): Promise<void> {
-    await this.router.navigateByUrl('/verify-email/sent');
+    await this.router.navigateByUrl(paths.verifyEmailSent);
   }
 
   protected signOutLabel(device: string): string {
@@ -167,6 +169,6 @@ export class AccountPage {
 
   protected async signOut(): Promise<void> {
     await this.session.signOut();
-    await this.router.navigateByUrl('/sign-in');
+    await this.router.navigateByUrl(paths.signIn);
   }
 }

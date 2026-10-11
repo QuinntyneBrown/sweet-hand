@@ -22,7 +22,7 @@
   >
     <svg slot="icon" shIcon="danger"></svg>
     <button slot="actions" class="btn btn--primary" type="button" (click)="feed.reload()" i18n="@@common.tryAgain">Try again</button>
-    <a slot="actions" class="btn" routerLink="/admin/queue" i18n="@@record.backToQueue">Back to the queue</a>
+    <a slot="actions" class="btn" [routerLink]="paths.admin.queue" i18n="@@record.backToQueue">Back to the queue</a>
   </sh-empty-state>
 } @else if (view()?.total === 0) {
   <sh-empty-state
@@ -32,7 +32,7 @@
     i18n-text="@@changes.emptyText"
   >
     <svg slot="icon" shIcon="edit"></svg>
-    <a slot="actions" class="btn btn--primary" routerLink="/admin/queue" i18n="@@changes.toQueue">Go to the review queue</a>
+    <a slot="actions" class="btn btn--primary" [routerLink]="paths.admin.queue" i18n="@@changes.toQueue">Go to the review queue</a>
   </sh-empty-state>
 } @else if (!view()) {
   <p class="visually-hidden" role="status" i18n="@@changes.loading">Loading recent changes</p>
@@ -141,7 +141,7 @@
     [summaryHeading]="revertSummary"
     [validate]="validateReason"
     [action]="revertAction"
-    conflictHref="/admin/changes"
+    [conflictHref]="paths.admin.changes"
     conflictLink="Back to recent changes"
     i18n-conflictLink="@@revert.backToChanges"
     [returnFocus]="opener()"

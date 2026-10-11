@@ -4,6 +4,7 @@ import { Button, ButtonAnchor, CatererCard, CatererGrid, EmptyState, Icon, Loadi
 import { problemOf, reference } from '../../../core/forms/problem';
 import { caterersCount } from '../listing/listing-text';
 import { DiscoveryService } from '@sweet-hand/api';
+import { paths } from '../../../core/routing/paths';
 
 /** Occasions, /occasions: eight photo tiles, each opening the listing for that occasion (docs/mocks/pages/occasions, L2-021). */
 @Component({
@@ -13,6 +14,7 @@ import { DiscoveryService } from '@sweet-hand/api';
   templateUrl: './occasions.page.html',
 })
 export class OccasionsPage {
+  protected readonly paths = paths;
   private readonly api = inject(DiscoveryService);
 
   protected readonly tiles = rxResource({ stream: () => this.api.occasions() });

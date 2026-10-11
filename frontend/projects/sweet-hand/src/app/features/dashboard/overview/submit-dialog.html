@@ -57,7 +57,7 @@
       <a #fix slot="footer" class="btn btn--primary" [routerLink]="href(failures()[0]?.key ?? 'photos')" autofocus>{{ fixLabel() }}</a>
     }
     @case ('success') {
-      <a #back slot="footer" class="btn btn--primary" routerLink="/dashboard" autofocus (click)="closed.emit()" i18n="@@submit.backToOverview">Back to overview</a>
+      <a #back slot="footer" class="btn btn--primary" [routerLink]="paths.dashboard.overview" autofocus (click)="closed.emit()" i18n="@@submit.backToOverview">Back to overview</a>
     }
     @default {
       <button

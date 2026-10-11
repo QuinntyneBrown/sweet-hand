@@ -25,7 +25,7 @@
     }
   </sh-checklist>
   @if (conflict()) {
-    <sh-button-anchor slot="footer" variant="primary" href="/admin/queue"><ng-container i18n="@@review.backToQueue">Back to review queue</ng-container></sh-button-anchor>
+    <sh-button-anchor slot="footer" variant="primary" [href]="paths.admin.queue"><ng-container i18n="@@review.backToQueue">Back to review queue</ng-container></sh-button-anchor>
   } @else {
     <button
       slot="footer"

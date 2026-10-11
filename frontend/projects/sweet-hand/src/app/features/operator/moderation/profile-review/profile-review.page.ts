@@ -31,6 +31,7 @@ import { openCertificate } from '../certificate-link';
 import { dayAtTime, dayTime, fullDate, profileStatusLabel, profileStatusTone, waitingInSentence } from '../moderation-text';
 import { certificateFileLabel, historyLine, resubmittedText, ruleLines, submittedLine } from './profile-review-view';
 import { type DecisionResult, type NameChangeReviewView, OperatorModerationService, type ProfileReviewView, type SubmissionReviewView } from '@sweet-hand/api';
+import { paths } from '../../../../core/routing/paths';
 
 /**
  * Reviewing a submitted profile or a business-name change, /admin/review/:id
@@ -63,6 +64,7 @@ import { type DecisionResult, type NameChangeReviewView, OperatorModerationServi
   styleUrl: './profile-review.page.css',
 })
 export class ProfileReviewPage {
+  protected readonly paths = paths;
   private readonly api = inject(OperatorModerationService);
   private readonly router = inject(Router);
   private readonly toasts = inject(ToastNotifier);
@@ -166,13 +168,13 @@ export class ProfileReviewPage {
       this.toasts.show({
         title: $localize`:@@approve.nameToastTitle:${v.name}:old: is now ${result.name}:name:`,
         text: $localize`:@@approve.nameToastText:The public page shows the new name within a minute. ${result.owner}:owner: has been emailed.`,
-        action: { label: $localize`:@@approve.viewPage:View page`, href: `/caterers/${result.slug}` },
+        action: { label: $localize`:@@approve.viewPage:View page`, href: paths.caterer(result.slug) },
       });
     } else {
       this.toasts.show({
         title: $localize`:@@approve.toastTitle:${result.name}:name: is published`,
         text: $localize`:@@approve.toastText:It appears in the listing within a minute. ${result.owner}:owner: has been emailed.`,
-        action: { label: $localize`:@@approve.viewPage:View page`, href: `/caterers/${result.slug}` },
+        action: { label: $localize`:@@approve.viewPage:View page`, href: paths.caterer(result.slug) },
       });
     }
     this.backToQueue();
@@ -189,7 +191,7 @@ export class ProfileReviewPage {
 
   private backToQueue(): void {
     void this.session.refresh();
-    void this.router.navigateByUrl('/admin/queue');
+    void this.router.navigateByUrl(paths.admin.queue);
   }
 
   protected openCertificate(): void {
@@ -197,7 +199,7 @@ export class ProfileReviewPage {
   }
 
   protected path(slug: string): string {
-    return `/caterers/${slug}`;
+    return paths.caterer(slug);
   }
 
   protected cardPhoto(n: NameChangeReviewView) {

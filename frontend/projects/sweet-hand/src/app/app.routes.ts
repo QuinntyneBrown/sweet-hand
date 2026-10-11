@@ -6,13 +6,7 @@ import { enquiriesRoutes } from './features/enquiries/routes';
 import { identityRoutes } from './features/identity/routes';
 import { operatorRoutes } from './features/operator/routes';
 import { reviewsRoutes } from './features/reviews/routes';
-
-const system = (path: string, kind: string, title: string): Routes[number] => ({
-  path,
-  loadComponent: () => import('./shell/system-page').then((m) => m.SystemPage),
-  data: { kind },
-  title,
-});
+import { system } from './shell/system-route';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'caterers' },
@@ -25,11 +19,11 @@ export const routes: Routes = [
   ...operatorRoutes,
   ...reviewsRoutes,
   ...discoveryRoutes,
-  system('403', 'forbidden', $localize`:@@system.forbidden.title:No access · Sweet Hand`),
-  system('500', 'server-error', $localize`:@@system.serverError.title:Something went wrong · Sweet Hand`),
-  system('429', 'rate-limited', $localize`:@@system.rateLimited.title:Slow down · Sweet Hand`),
-  system('offline', 'offline', $localize`:@@system.offline.title:Offline · Sweet Hand`),
-  system('maintenance', 'maintenance', $localize`:@@system.maintenance.title:Back soon · Sweet Hand`),
-  system('404', 'not-found', $localize`:@@system.notFound.title:Page not found · Sweet Hand`),
-  system('**', 'not-found', $localize`:@@system.notFound.title:Page not found · Sweet Hand`),
+  system('403', 'forbidden', $localize`:@@system.forbidden.title:No access`),
+  system('500', 'server-error', $localize`:@@system.serverError.title:Something went wrong`),
+  system('429', 'rate-limited', $localize`:@@system.rateLimited.title:Slow down`),
+  system('offline', 'offline', $localize`:@@system.offline.title:Offline`),
+  system('maintenance', 'maintenance', $localize`:@@system.maintenance.title:Back soon`),
+  system('404', 'not-found', $localize`:@@system.notFound.title:Page not found`),
+  system('**', 'not-found', $localize`:@@system.notFound.title:Page not found`),
 ];

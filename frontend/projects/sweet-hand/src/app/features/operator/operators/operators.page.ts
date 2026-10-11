@@ -8,6 +8,7 @@ import { AddOperatorDialog } from './add-operator.dialog';
 import { DeactivateOperatorDialog } from './deactivate-operator.dialog';
 import { operatorMeta, operatorsSubtitle } from './operators-view';
 import { type OperatorAccount, OperatorSettingsService } from '@sweet-hand/api';
+import { paths } from '../../../core/routing/paths';
 
 /** Operator accounts, /admin/operators (docs/mocks/pages/admin-operators; OperatorAccountsPage, L2-056). */
 @Component({
@@ -17,6 +18,7 @@ import { type OperatorAccount, OperatorSettingsService } from '@sweet-hand/api';
   templateUrl: './operators.page.html',
 })
 export class OperatorsPage {
+  protected readonly paths = paths;
   private readonly api = inject(OperatorSettingsService);
   private readonly toasts = inject(ToastNotifier);
 

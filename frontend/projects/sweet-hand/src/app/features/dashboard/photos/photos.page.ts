@@ -14,6 +14,7 @@ import { MAX_PHOTOS, MIN_PUBLISHED_PHOTOS, PHOTO_TYPES, photoSizeMessage, photos
 import { RemovePhotoDialog } from './remove-photo.dialog';
 import { CatererProfileService, type OwnPhotoView, type OwnProfileView } from '@sweet-hand/api';
 import type { Upload } from './upload';
+import { paths } from '../../../core/routing/paths';
 
 /** How often photos still processing are checked (L2-041.1: a preview within 10 seconds). */
 const PROCESSING_POLL_MS = 10_000;
@@ -26,6 +27,7 @@ const PROCESSING_POLL_MS = 10_000;
   templateUrl: './photos.page.html',
 })
 export class PhotosPage {
+  protected readonly paths = paths;
   private readonly api = inject(CatererProfileService);
   private readonly toasts = inject(ToastNotifier);
   private readonly injector = inject(Injector);

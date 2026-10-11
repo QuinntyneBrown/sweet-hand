@@ -11,6 +11,7 @@ import { WithdrawDialog } from '../shared/withdraw-dialog';
 import { DishDialog } from './dish.dialog';
 import { RemoveDishDialog } from './remove-dish.dialog';
 import { CatererProfileService, type OwnProfileView } from '@sweet-hand/api';
+import { paths } from '../../../core/routing/paths';
 
 const MAX_DISHES = 50;
 const MIN_PUBLISHED_DISHES = 3;
@@ -23,6 +24,7 @@ const MIN_PUBLISHED_DISHES = 3;
   templateUrl: './menu.page.html',
 })
 export class MenuPage {
+  protected readonly paths = paths;
   private readonly api = inject(CatererProfileService);
   private readonly toasts = inject(ToastNotifier);
   private readonly injector = inject(Injector);

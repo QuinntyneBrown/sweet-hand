@@ -4,7 +4,8 @@ import { firstValueFrom } from 'rxjs';
 import { Alert, Button } from '@sweet-hand/components';
 import { TIME_ZONE } from '../../../core/format/format';
 import { problemOf, reference } from '../../../core/forms/problem';
-import { landingFor, safeReturnUrl } from '../../../core/session/guards';
+import { safeReturnUrl } from '../../../core/session/guards';
+import { landingFor, paths } from '../../../core/routing/paths';
 import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
 import { type PrivacyNotice, PrivacyService } from '@sweet-hand/api';
@@ -25,6 +26,7 @@ function dayMonthYear(date: string): string {
   styleUrl: './privacy-update.page.css',
 })
 export class PrivacyUpdatePage {
+  protected readonly paths = paths;
   private readonly api = inject(PrivacyService);
   private readonly session = inject(Session);
   private readonly router = inject(Router);
@@ -74,7 +76,7 @@ export class PrivacyUpdatePage {
 
   protected async signOut(): Promise<void> {
     await this.session.signOut();
-    await this.router.navigateByUrl('/caterers');
+    await this.router.navigateByUrl(paths.caterers);
   }
 
   protected serverText(ref: string | null): string {

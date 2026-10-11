@@ -21,6 +21,7 @@ import { AuthPhotos } from '../auth-photos';
 import { businessNameError, contactNameError, newPasswordError, normalisePhone, phoneError } from '../rules';
 import { BotChallengeService, IdentityService } from '@sweet-hand/api';
 import type { Errors } from './errors';
+import { paths } from '../../../core/routing/paths';
 
 export const FIELDS = ['business', 'contact', 'email', 'phone', 'password', 'sells', 'terms'] as const;
 
@@ -40,6 +41,7 @@ export const STATUS_WORDS: CheckStatusLabels = {
   templateUrl: './register-caterer.page.html',
 })
 export class RegisterCatererPage {
+  protected readonly paths = paths;
   private readonly api = inject(IdentityService);
   private readonly bots = inject(BotChallengeService);
   private readonly session = inject(Session);

@@ -19,14 +19,14 @@
     @if (f.kind === 'locked') {
       <sh-alert tone="warning" live="polite" title="Sign-in is paused for this account" i18n-title="@@signIn.lockedTitle">
         {{ lockedText(f.until) }}
-        <div slot="actions" class="alert__actions"><a routerLink="/forgot-password" i18n="@@signIn.resetPassword">Reset your password</a></div>
+        <div slot="actions" class="alert__actions"><a [routerLink]="paths.forgotPassword" i18n="@@signIn.resetPassword">Reset your password</a></div>
       </sh-alert>
     } @else {
       <sh-alert tone="danger" live="assertive" title="We couldn’t sign you in just now" i18n-title="@@signIn.serverErrorTitle">
         {{ serverText(f.reference) }}
         <div slot="actions" class="alert__actions">
           <sh-button size="sm" (activated)="submit()"><ng-container i18n="@@common.tryAgain">Try again</ng-container></sh-button>
-          <a routerLink="/caterers" i18n="@@signIn.keepBrowsing">Keep browsing</a>
+          <a [routerLink]="paths.caterers" i18n="@@signIn.keepBrowsing">Keep browsing</a>
         </div>
       </sh-alert>
     }
@@ -63,16 +63,16 @@
 
     <sh-button type="submit" variant="primary" size="lg" [block]="true" [busy]="busy()" [disabled]="locked()"><ng-container i18n="@@signIn.submit">Sign in</ng-container></sh-button>
     <p class="visually-hidden" role="status">{{ busy() ? signingIn : '' }}</p>
-    <p><a class="link--standalone" routerLink="/forgot-password" i18n="@@signIn.forgot">Forgot your password?</a></p>
+    <p><a class="link--standalone" [routerLink]="paths.forgotPassword" i18n="@@signIn.forgot">Forgot your password?</a></p>
   </form>
   @if (returning()) {
     <!-- Registration comes back to the enquiry too (L2-023.1). -->
     <p class="auth__alt" i18n="@@signIn.returnAlt">
-      New to Sweet Hand? <a routerLink="/register" [queryParams]="{ returnUrl: returnUrl() }">Create an account</a>. It takes a minute and your details stay private.
+      New to Sweet Hand? <a [routerLink]="paths.register" [queryParams]="{ returnUrl: returnUrl() }">Create an account</a>. It takes a minute and your details stay private.
     </p>
   } @else if (expired()) {
-    <p class="auth__alt" i18n="@@signIn.altOperator">Not an operator? <a routerLink="/caterers">Browse caterers</a></p>
+    <p class="auth__alt" i18n="@@signIn.altOperator">Not an operator? <a [routerLink]="paths.caterers">Browse caterers</a></p>
   } @else {
-    <p class="auth__alt" i18n="@@signIn.alt">New to Sweet Hand? <a class="link--standalone" routerLink="/register">Create an account</a> · Caterers: <a routerLink="/join">list your business</a></p>
+    <p class="auth__alt" i18n="@@signIn.alt">New to Sweet Hand? <a class="link--standalone" [routerLink]="paths.register">Create an account</a> · Caterers: <a [routerLink]="paths.join">list your business</a></p>
   }
 </div>

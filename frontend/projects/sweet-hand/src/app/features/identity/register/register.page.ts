@@ -9,6 +9,7 @@ import { AuthPhotos } from '../auth-photos';
 import { displayNameError, newPasswordError } from '../rules';
 import { BotChallengeService, IdentityService } from '@sweet-hand/api';
 import type { Errors } from './errors';
+import { paths } from '../../../core/routing/paths';
 
 const NO_ERRORS: Errors = { name: null, email: null, password: null, consent: null };
 
@@ -20,6 +21,7 @@ const NO_ERRORS: Errors = { name: null, email: null, password: null, consent: nu
   templateUrl: './register.page.html',
 })
 export class RegisterPage {
+  protected readonly paths = paths;
   private readonly api = inject(IdentityService);
   private readonly bots = inject(BotChallengeService);
   private readonly router = inject(Router);
@@ -98,7 +100,7 @@ export class RegisterPage {
 
   protected async resend(): Promise<void> {
     // The "Check your email" page sends the new link when it opens.
-    await this.router.navigate(['/verify-email/sent'], { state: { email: this.sentTo() } });
+    await this.router.navigate([paths.verifyEmailSent], { state: { email: this.sentTo() } });
   }
 
   protected serverText(ref: string | null): string {

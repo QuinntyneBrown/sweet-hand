@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { RedirectCommand, Router, type CanActivateFn } from '@angular/router';
 import { Session } from './session';
 import { type Role } from '@sweet-hand/api';
+import { landingFor, paths } from '../routing/paths';
 
 /**
  * Pages that need an account (L2-013): a visitor goes to sign in and comes
@@ -14,10 +15,10 @@ export function requireRole(...roles: Role[]): CanActivateFn {
     const router = inject(Router);
     const user = session.user();
     // An operator part-way through signing in finishes the second step first (L2-056.2).
-    if (!user && session.pendingSecondFactor()) return router.createUrlTree(['/sign-in/verify'], { queryParams: { returnUrl: state.url } });
-    if (!user) return router.createUrlTree(['/sign-in'], { queryParams: { returnUrl: state.url } });
+    if (!user && session.pendingSecondFactor()) return router.createUrlTree([paths.signInVerify], { queryParams: { returnUrl: state.url } });
+    if (!user) return router.createUrlTree([paths.signIn], { queryParams: { returnUrl: state.url } });
     if (roles.length && !roles.includes(user.role)) {
-      return new RedirectCommand(router.parseUrl('/403'), { skipLocationChange: true });
+      return new RedirectCommand(router.parseUrl(paths.system.forbidden), { skipLocationChange: true });
     }
     return true;
   };
@@ -27,7 +28,7 @@ export function requireRole(...roles: Role[]): CanActivateFn {
 export const requireAdmin: CanActivateFn = () => {
   const session = inject(Session);
   const router = inject(Router);
-  return session.user()?.admin ? true : new RedirectCommand(router.parseUrl('/403'), { skipLocationChange: true });
+  return session.user()?.admin ? true : new RedirectCommand(router.parseUrl(paths.system.forbidden), { skipLocationChange: true });
 };
 
 /** The second-step page is only for an operator who still owes it (L2-056.2). */
@@ -36,14 +37,10 @@ export const requirePendingSecondFactor: CanActivateFn = () => {
   const router = inject(Router);
   if (session.pendingSecondFactor()) return true;
   const user = session.user();
-  return router.parseUrl(user ? landingFor(user.role) : '/sign-in');
+  return router.parseUrl(user ? landingFor(user.role) : paths.signIn);
 };
 
 /** Only same-site paths are followed after sign-in, never another origin. */
 export function safeReturnUrl(value: string | null | undefined): string | null {
   return value && value.startsWith('/') && !value.startsWith('//') && !value.startsWith('/\\') ? value : null;
-}
-
-export function landingFor(role: Role): string {
-  return role === 'Caterer' ? '/dashboard' : role === 'Operator' ? '/admin/queue' : '/inbox';
 }

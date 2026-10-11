@@ -7,6 +7,7 @@ import { toQueryParams, withArea, withRegion } from '../listing/listing-query';
 import { interpretSearch, matchCountText } from './area-search';
 import { DiscoveryService, type ListingQuery } from '@sweet-hand/api';
 import { FormDialogState } from '../../../core/forms/form-dialog-state';
+import { paths } from '../../../core/routing/paths';
 
 const REGIONS = [
   { id: 'city-of-toronto', name: 'City of Toronto' },
@@ -24,6 +25,7 @@ const REGIONS = [
   templateUrl: './search-dialog.html',
 })
 export class SearchDialog {
+  protected readonly paths = paths;
   readonly open = input(false);
   readonly returnFocus = input<HTMLElement | null>(null);
   /** The listing's filters when opened from the listing: the area is added to them; from the header it replaces them. */
@@ -60,7 +62,7 @@ export class SearchDialog {
     this.reset();
     this.closed.emit();
     const current = this.current();
-    await this.router.navigate(['/caterers'], { queryParams: current ? toQueryParams(withArea(current, id, true)) : { area: id } });
+    await this.router.navigate([paths.caterers], { queryParams: current ? toQueryParams(withArea(current, id, true)) : { area: id } });
   }
 
   protected regionParams(id: string): Params {

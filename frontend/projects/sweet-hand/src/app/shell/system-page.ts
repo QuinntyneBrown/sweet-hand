@@ -4,6 +4,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { ErrorPage, Icon } from '@sweet-hand/components';
 import { longDate, time } from '../core/format/format';
 import type { SystemPageKind } from './system-page-kind';
+import { paths } from '../core/routing/paths';
 
 const PHOTOS: Record<SystemPageKind, [string, string, string]> = {
   'not-found': ['demerara-kitchen', 'ti-kay', 'sugar-dumplin'],
@@ -22,6 +23,7 @@ const PHOTOS: Record<SystemPageKind, [string, string, string]> = {
   templateUrl: './system-page.html',
 })
 export class SystemPage {
+  protected readonly paths = paths;
   readonly kind = input.required<SystemPageKind>();
   /** Correlation ID of the failed request (L2-089.4). */
   readonly ref = input<string>();

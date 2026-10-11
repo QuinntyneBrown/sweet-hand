@@ -17,7 +17,7 @@
     i18n-text="@@reviewsAdmin.emptyText"
   >
     <svg slot="icon" shIcon="success"></svg>
-    <a slot="actions" class="btn btn--primary" routerLink="/admin/queue" i18n="@@operator.goToQueue">Go to the review queue</a>
+    <a slot="actions" class="btn btn--primary" [routerLink]="paths.admin.queue" i18n="@@operator.goToQueue">Go to the review queue</a>
   </sh-empty-state>
 } @else if (failure(); as f) {
   <sh-empty-state
@@ -33,7 +33,7 @@
     <svg slot="icon" shIcon="danger"></svg>
     <ng-container slot="actions">
       <button class="btn btn--primary" type="button" (click)="load()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></button>
-      <a class="btn" routerLink="/admin/queue" i18n="@@operator.backToTheQueue">Back to the queue</a>
+      <a class="btn" [routerLink]="paths.admin.queue" i18n="@@operator.backToTheQueue">Back to the queue</a>
     </ng-container>
   </sh-empty-state>
 } @else {

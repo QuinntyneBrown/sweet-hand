@@ -9,6 +9,7 @@ import { Session } from '../../../core/session/session';
 import { adminsToAsk } from '../admin-only';
 import { ACTION_FILTERS, actionLabel, auditChange, auditCount, auditWhen, lastWeek, noMatchText } from './audit-view';
 import { type AuditPage as AuditResult, type AuditQuery, OperatorSettingsService } from '@sweet-hand/api';
+import { paths } from '../../../core/routing/paths';
 
 /** The audit log, /admin/audit (docs/mocks/pages/admin-audit; AuditLogPage, L2-060). Admin only (L2-056.5). */
 @Component({
@@ -18,6 +19,7 @@ import { type AuditPage as AuditResult, type AuditQuery, OperatorSettingsService
   templateUrl: './audit.page.html',
 })
 export class AuditPage {
+  protected readonly paths = paths;
   private readonly api = inject(OperatorSettingsService);
   private readonly router = inject(Router);
   private readonly session = inject(Session);
@@ -91,7 +93,7 @@ export class AuditPage {
       $localize`:@@audit.forbiddenText:You’re signed in as ${this.session.user()?.displayName ?? ''}:name:, an operator. Ask ${adminsToAsk(this.forbidden() ?? [])}:admins:, an Admin, if you need an entry checked.`,
   );
 
-  protected readonly hrefFor = (page: number) => this.router.serializeUrl(this.router.createUrlTree(['/admin/audit'], { queryParams: { ...this.queryParams(), page } }));
+  protected readonly hrefFor = (page: number) => this.router.serializeUrl(this.router.createUrlTree([paths.admin.audit], { queryParams: { ...this.queryParams(), page } }));
   protected readonly pageLabel = (page: number) => $localize`:@@pagination.page:Page ${page}:page:`;
 
   constructor() {
@@ -121,7 +123,7 @@ export class AuditPage {
 
   protected apply(): void {
     const v = this.filters.getRawValue();
-    void this.router.navigate(['/admin/audit'], { queryParams: { operator: v.operator || null, action: v.action || null, target: v.target.trim() || null, from: v.from || null, to: v.to || null } });
+    void this.router.navigate([paths.admin.audit], { queryParams: { operator: v.operator || null, action: v.action || null, target: v.target.trim() || null, from: v.from || null, to: v.to || null } });
   }
 
   private queryParams(): Record<string, string | null> {

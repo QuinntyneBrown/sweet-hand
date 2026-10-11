@@ -5,6 +5,7 @@ import { fullDate } from '../moderation-text';
 import { conflictText } from './decision-text';
 import { type DecisionResult, OperatorModerationService, type ProfileReviewView } from '@sweet-hand/api';
 import { FormDialogState } from '../../../../core/forms/form-dialog-state';
+import { paths } from '../../../../core/routing/paths';
 
 /** "Approve Auntie Bev's Kitchen?" for a submission or a name change (decide-profile-approval design; docs/mocks/dialogs/approve-profile). */
 @Component({
@@ -14,6 +15,7 @@ import { FormDialogState } from '../../../../core/forms/form-dialog-state';
   templateUrl: './approve-dialog.html',
 })
 export class ApproveDialog {
+  protected readonly paths = paths;
   private readonly api = inject(OperatorModerationService);
 
   readonly open = input(false);

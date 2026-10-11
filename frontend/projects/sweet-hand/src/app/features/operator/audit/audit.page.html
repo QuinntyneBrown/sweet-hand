@@ -1,7 +1,7 @@
 @if (forbidden()) {
   <sh-empty-state heading="Only Admins can see the audit log" i18n-heading="@@audit.forbiddenTitle" [headingLevel]="1" [text]="forbiddenText()">
     <svg slot="icon" shIcon="lock"></svg>
-    <a slot="actions" class="btn btn--primary" routerLink="/admin/queue" i18n="@@operator.backToTheQueue">Back to the queue</a>
+    <a slot="actions" class="btn btn--primary" [routerLink]="paths.admin.queue" i18n="@@operator.backToTheQueue">Back to the queue</a>
   </sh-empty-state>
 } @else {
   <div class="page-intro">
@@ -16,7 +16,7 @@
       i18n-text="@@audit.emptyText"
     >
       <svg slot="icon" shIcon="clock"></svg>
-      <a slot="actions" class="btn btn--primary" routerLink="/admin/queue" i18n="@@operator.goToQueue">Go to the review queue</a>
+      <a slot="actions" class="btn btn--primary" [routerLink]="paths.admin.queue" i18n="@@operator.goToQueue">Go to the review queue</a>
     </sh-empty-state>
   } @else {
     <form class="toolbar" aria-label="Filter the audit log" i18n-aria-label="@@audit.filters" [formGroup]="filters" (ngSubmit)="apply()">
@@ -66,7 +66,7 @@
         <svg slot="icon" shIcon="danger"></svg>
         <ng-container slot="actions">
           <button class="btn btn--primary" type="button" (click)="load()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></button>
-          <a class="btn" routerLink="/admin/queue" i18n="@@operator.backToTheQueue">Back to the queue</a>
+          <a class="btn" [routerLink]="paths.admin.queue" i18n="@@operator.backToTheQueue">Back to the queue</a>
         </ng-container>
       </sh-empty-state>
     } @else if (result(); as r) {
@@ -74,7 +74,7 @@
         <p class="result-count" role="status" i18n="@@audit.noMatchCount">No entries match these filters</p>
         <sh-empty-state heading="No entries match" i18n-heading="@@audit.noMatchTitle" [text]="noMatch()">
           <svg slot="icon" shIcon="search"></svg>
-          <a slot="actions" class="btn btn--primary" routerLink="/admin/audit" i18n="@@audit.clearFilters">Clear filters</a>
+          <a slot="actions" class="btn btn--primary" [routerLink]="paths.admin.audit" i18n="@@audit.clearFilters">Clear filters</a>
         </sh-empty-state>
       } @else {
         <p class="result-count" role="status" style="margin-bottom: var(--space-4)">{{ countText() }}</p>

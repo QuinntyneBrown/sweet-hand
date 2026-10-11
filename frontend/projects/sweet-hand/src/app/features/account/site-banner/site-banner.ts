@@ -5,6 +5,7 @@ import { Alert } from '@sweet-hand/components';
 import { SESSION_REFRESH_MS, Session } from '../../../core/session/session';
 import { duration, maintenanceWindow, pickBanner } from './site-banner-rules';
 import { NoticesService, type SiteNotice } from '@sweet-hand/api';
+import { paths } from '../../../core/routing/paths';
 
 const STORAGE_PREFIX = 'sh-dismissed-notice:';
 
@@ -76,7 +77,7 @@ export class SiteBanner {
       const user = this.session.user();
       const verified = user ? user.emailVerified : null;
       untracked(() => {
-        if (wasVerified === false && verified === true && !this.router.url.startsWith('/verify-email')) this.justVerified.set(true);
+        if (wasVerified === false && verified === true && !this.router.url.startsWith(paths.verifyEmail)) this.justVerified.set(true);
         wasVerified = verified;
       });
     });
@@ -106,10 +107,10 @@ export class SiteBanner {
   }
 
   protected async updateEmail(): Promise<void> {
-    await this.router.navigate(['/account'], { queryParams: { edit: 'details' } });
+    await this.router.navigate([paths.account], { queryParams: { edit: 'details' } });
   }
 
   protected async resend(): Promise<void> {
-    await this.router.navigateByUrl('/verify-email/sent');
+    await this.router.navigateByUrl(paths.verifyEmailSent);
   }
 }

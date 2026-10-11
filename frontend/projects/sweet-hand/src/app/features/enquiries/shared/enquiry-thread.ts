@@ -24,6 +24,7 @@ import {
 } from '../thread-view';
 import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
 import type { Outgoing } from './outgoing';
+import { paths } from '../../../core/routing/paths';
 
 let nextOutgoing = 0;
 
@@ -62,7 +63,7 @@ export class EnquiryThread {
   protected readonly tone = computed(() => statusTone(this.thread().status));
   protected readonly status = computed(() => statusLabel(this.thread().status));
   protected readonly viewLink = computed(() =>
-    this.customerView() ? { href: `/caterers/${this.thread().caterer.slug}`, label: $localize`:@@thread.viewCaterer:View caterer` } : null,
+    this.customerView() ? { href: paths.caterer(this.thread().caterer.slug), label: $localize`:@@thread.viewCaterer:View caterer` } : null,
   );
   protected readonly subline = computed(() => (this.customerView() ? null : sentLine(this.thread())));
   protected readonly actions = computed(() => actionsFor(this.thread()));

@@ -14,9 +14,9 @@
         <li sh-checklist-item status="missing"><ng-container i18n="@@registerCaterer.step.profile">Add photos, menu and food safety certificate</ng-container></li>
         <li sh-checklist-item status="missing"><ng-container i18n="@@registerCaterer.step.submit">Submit for review (about 3 business days)</ng-container></li>
       </sh-checklist>
-      <a class="btn btn--primary btn--lg btn--block" routerLink="/dashboard" i18n="@@registerCaterer.success.setUp">Set up your profile</a>
+      <a class="btn btn--primary btn--lg btn--block" [routerLink]="paths.dashboard.overview" i18n="@@registerCaterer.success.setUp">Set up your profile</a>
     </div>
-    <p class="auth__alt" i18n="@@registerCaterer.success.alt">Didn’t get the email? <a routerLink="/verify-email/sent" [state]="{ email: d.email }">Resend it</a></p>
+    <p class="auth__alt" i18n="@@registerCaterer.success.alt">Didn’t get the email? <a [routerLink]="paths.verifyEmailSent" [state]="{ email: d.email }">Resend it</a></p>
   </div>
 } @else {
   <div class="auth">
@@ -60,7 +60,7 @@
         </sh-form-field>
         <sh-form-field controlId="terms" [error]="errors().terms">
           <sh-checkbox formControlName="terms" name="terms" [required]="true" [hasSummary]="true"
-            ><ng-container i18n="@@registerCaterer.terms">I accept the <a routerLink="/terms">caterer terms</a> and the <a routerLink="/privacy">privacy notice</a></ng-container>
+            ><ng-container i18n="@@registerCaterer.terms">I accept the <a [routerLink]="paths.terms">caterer terms</a> and the <a [routerLink]="paths.privacy">privacy notice</a></ng-container>
             <p slot="summary" class="consent-summary" id="terms-summary" i18n="@@registerCaterer.termsSummary">We use your contact details to run your account and reach you about your listing. Customers never see your email or phone unless you share them in a conversation. Everything is stored in Canada.</p>
           </sh-checkbox>
         </sh-form-field>
@@ -69,6 +69,6 @@
       <sh-button type="submit" variant="primary" size="lg" [block]="true" [busy]="busy()"><ng-container i18n="@@registerCaterer.submit">Create caterer account</ng-container></sh-button>
       <p class="visually-hidden" role="status">{{ busy() ? creating : '' }}</p>
     </form>
-    <p class="auth__alt" i18n="@@registerCaterer.alt">Already listed? <a routerLink="/sign-in">Sign in</a> · Looking for food? <a routerLink="/register">Create a customer account</a></p>
+    <p class="auth__alt" i18n="@@registerCaterer.alt">Already listed? <a [routerLink]="paths.signIn">Sign in</a> · Looking for food? <a [routerLink]="paths.register">Create a customer account</a></p>
   </div>
 }

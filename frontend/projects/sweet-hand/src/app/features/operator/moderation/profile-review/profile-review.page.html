@@ -1,4 +1,4 @@
-<sh-back-link href="/admin/queue" i18n="@@nav.reviewQueue">Review queue</sh-back-link>
+<sh-back-link [href]="paths.admin.queue" i18n="@@nav.reviewQueue">Review queue</sh-back-link>
 
 @if (notFound()) {
   <sh-empty-state
@@ -8,7 +8,7 @@
     text="This profile isn’t waiting for a decision. Another operator may have decided it already."
     i18n-text="@@review.nothingText"
   >
-    <a slot="actions" class="btn" routerLink="/admin/queue" i18n="@@review.backToTheQueue">Back to the queue</a>
+    <a slot="actions" class="btn" [routerLink]="paths.admin.queue" i18n="@@review.backToTheQueue">Back to the queue</a>
   </sh-empty-state>
 } @else if (failed()) {
   <div class="page-intro">
@@ -20,7 +20,7 @@
       <ng-container i18n="@@review.errorText">No decision has been recorded. Try again, or go back to the queue.</ng-container>
       <div slot="actions" class="alert__actions">
         <button class="btn btn--sm" type="button" (click)="review.reload()" i18n="@@common.retry">Retry</button>
-        <a routerLink="/admin/queue" i18n="@@review.backToQueue">Back to review queue</a>
+        <a [routerLink]="paths.admin.queue" i18n="@@review.backToQueue">Back to review queue</a>
       </div>
     </sh-alert>
   </div>
@@ -219,7 +219,7 @@
   <section class="caterer-section" aria-labelledby="nc-prev">
     <h2 id="nc-prev" class="review-card-title" i18n="@@review.cardAfter">Listing card after approval</h2>
     <div class="review-card">
-      <sh-caterer-card [href]="'/caterers/' + n.slug" [name]="n.newName" [cuisine]="n.card.cuisine" [area]="n.card.area" [photo]="cardPhoto(n)" />
+      <sh-caterer-card [href]="paths.caterer(n.slug)" [name]="n.newName" [cuisine]="n.card.cuisine" [area]="n.card.area" [photo]="cardPhoto(n)" />
     </div>
   </section>
   <section class="caterer-section" aria-labelledby="nc-hist">

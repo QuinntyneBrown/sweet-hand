@@ -33,10 +33,10 @@
               ><span class="dialog__caterer-name" i18n="@@verify.savedEnquiry">Your enquiry to {{ e.catererName }} is still saved</span><br /><span class="text-muted">{{ e.when }}</span></span
             >
           </div>
-          <a class="btn btn--primary btn--lg btn--block" [routerLink]="['/caterers', e.catererSlug]" i18n="@@verify.finishEnquiry">Finish your enquiry</a>
-          <a class="btn btn--lg btn--block" routerLink="/caterers" i18n="@@verify.browse">Browse caterers</a>
+          <a class="btn btn--primary btn--lg btn--block" [routerLink]="[paths.caterers, e.catererSlug]" i18n="@@verify.finishEnquiry">Finish your enquiry</a>
+          <a class="btn btn--lg btn--block" [routerLink]="paths.caterers" i18n="@@verify.browse">Browse caterers</a>
         } @else {
-          <a class="btn btn--primary btn--lg btn--block" routerLink="/caterers" i18n="@@verify.browse">Browse caterers</a>
+          <a class="btn btn--primary btn--lg btn--block" [routerLink]="paths.caterers" i18n="@@verify.browse">Browse caterers</a>
         }
       </div>
     </div>
@@ -49,7 +49,7 @@
         <p class="subtitle" i18n="@@verify.expired.subtitle">Verification links work for 24 hours. We can send you a new one.</p>
       </div>
       <sh-button variant="primary" size="lg" [block]="true" (activated)="resend()"><ng-container i18n="@@verify.expired.resend">Resend verification email</ng-container></sh-button>
-      <p class="auth__alt" i18n="@@verify.expired.alt">Signed up with a different address? <a routerLink="/account">Check your account</a></p>
+      <p class="auth__alt" i18n="@@verify.expired.alt">Signed up with a different address? <a [routerLink]="paths.account">Check your account</a></p>
     </div>
   }
   @case ('failed') {
@@ -62,7 +62,7 @@
         >{{ failedText() }}
         <div slot="actions" class="alert__actions">
           <sh-button size="sm" (activated)="verify()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></sh-button>
-          <a routerLink="/caterers" i18n="@@signIn.keepBrowsing">Keep browsing</a>
+          <a [routerLink]="paths.caterers" i18n="@@signIn.keepBrowsing">Keep browsing</a>
         </div>
       </sh-alert>
     </div>

@@ -7,10 +7,10 @@
     </div>
     <div class="stack">
       <p i18n="@@register.success.text">You can browse caterers now. You’ll need a verified email to send an enquiry.</p>
-      <a class="btn btn--primary btn--lg btn--block" routerLink="/caterers" i18n="@@register.success.browse">Browse caterers</a>
+      <a class="btn btn--primary btn--lg btn--block" [routerLink]="paths.caterers" i18n="@@register.success.browse">Browse caterers</a>
       <sh-button size="lg" [block]="true" (activated)="resend()"><ng-container i18n="@@register.success.resend">Resend email</ng-container></sh-button>
     </div>
-    <p class="auth__alt" i18n="@@register.success.alt">Wrong address? <a href="/register" (click)="startAgain($event)">Start again</a></p>
+    <p class="auth__alt" i18n="@@register.success.alt">Wrong address? <a [href]="paths.register" (click)="startAgain($event)">Start again</a></p>
   </div>
 } @else {
   <div class="auth">
@@ -41,7 +41,7 @@
       </sh-form-field>
       <sh-form-field controlId="consent" [error]="errors().consent">
         <sh-checkbox formControlName="consent" name="consent" [required]="true" [hasSummary]="true"
-          ><ng-container i18n="@@register.consent">I agree to the <a routerLink="/privacy">privacy notice</a></ng-container>
+          ><ng-container i18n="@@register.consent">I agree to the <a [routerLink]="paths.privacy">privacy notice</a></ng-container>
           <p slot="summary" class="consent-summary" id="consent-summary" i18n="@@register.consentSummary">We use your name and email to run your account and pass your enquiries to caterers. Caterers see your name, never your email or phone unless you share them. Everything is stored in Canada.</p>
         </sh-checkbox>
       </sh-form-field>
@@ -49,6 +49,6 @@
       <sh-button type="submit" variant="primary" size="lg" [block]="true" [busy]="busy()"><ng-container i18n="@@register.submit">Create account</ng-container></sh-button>
       <p class="visually-hidden" role="status">{{ busy() ? creating : '' }}</p>
     </form>
-    <p class="auth__alt" i18n="@@register.alt">Already have an account? <a routerLink="/sign-in">Sign in</a> · Caterers: <a routerLink="/join">list your business</a></p>
+    <p class="auth__alt" i18n="@@register.alt">Already have an account? <a [routerLink]="paths.signIn">Sign in</a> · Caterers: <a [routerLink]="paths.join">list your business</a></p>
   </div>
 }

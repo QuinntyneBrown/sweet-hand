@@ -7,6 +7,7 @@ import { AddCuisineDialog } from './add-cuisine.dialog';
 import { cuisineMeta, cuisinesSubtitle, isNew } from './cuisines-view';
 import { RetireCuisineDialog } from './retire-cuisine.dialog';
 import { type CuisineUsage, type OperatorCuisine, OperatorSettingsService } from '@sweet-hand/api';
+import { paths } from '../../../core/routing/paths';
 
 /** The cuisine catalogue, /admin/cuisines (docs/mocks/pages/admin-cuisines; manage-cuisine-list, L2-007). */
 @Component({
@@ -16,6 +17,7 @@ import { type CuisineUsage, type OperatorCuisine, OperatorSettingsService } from
   templateUrl: './cuisines.page.html',
 })
 export class CuisinesPage {
+  protected readonly paths = paths;
   private readonly api = inject(OperatorSettingsService);
   private readonly toasts = inject(ToastNotifier);
 

@@ -16,7 +16,7 @@
             <svg shIcon="refresh"></svg
             ><ng-container i18n="@@common.tryAgain">Try again</ng-container>
           </button>
-          <a class="btn" routerLink="/caterers" i18n="@@account.backToCaterers">Back to caterers</a>
+          <a class="btn" [routerLink]="paths.caterers" i18n="@@account.backToCaterers">Back to caterers</a>
         </div>
         @if (failed.reference) {
           <p class="text-caption" i18n="@@account.reference">
@@ -181,7 +181,7 @@
           <h2 id="data-title" i18n="@@account.data">Your data</h2>
           <p class="text-muted account__lead">
             {{ privacyLine() }}
-            <a routerLink="/privacy" i18n="@@account.readPrivacy">Read the privacy notice</a>
+            <a [routerLink]="paths.privacy" i18n="@@account.readPrivacy">Read the privacy notice</a>
           </p>
           @if (a.dataExport; as pending) {
             <div class="stack">

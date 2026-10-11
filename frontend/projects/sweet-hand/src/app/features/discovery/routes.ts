@@ -1,38 +1,15 @@
 import type { Routes } from '@angular/router';
+import { page } from '../../core/routing/page';
 
 export const discoveryRoutes: Routes = [
-  {
-    path: 'caterers',
-    loadComponent: () => import('./listing/listing.page').then((m) => m.ListingPage),
-    data: { mainClass: 'container' },
-    title: $localize`:@@listing.documentTitle:Caterers · Sweet Hand`,
-  },
-  {
-    path: 'occasions',
-    loadComponent: () => import('./occasions/occasions.page').then((m) => m.OccasionsPage),
-    data: { mainClass: 'container' },
-    title: $localize`:@@occasions.documentTitle:Occasions · Sweet Hand`,
-  },
+  page('caterers', () => import('./listing/listing.page').then((m) => m.ListingPage), $localize`:@@listing.documentTitle:Caterers`),
+  page('occasions', () => import('./occasions/occasions.page').then((m) => m.OccasionsPage), $localize`:@@occasions.documentTitle:Occasions`),
   // Public content pages, linked from the footer.
-  {
-    path: 'about',
-    loadComponent: () => import('./static-pages/about.page').then((m) => m.AboutPage),
+  page('about', () => import('./static-pages/about.page').then((m) => m.AboutPage), $localize`:@@about.documentTitle:About`, {
     data: { mainClass: 'container container--narrow' },
-    title: $localize`:@@about.documentTitle:About · Sweet Hand`,
-  },
-  {
-    path: 'privacy',
-    pathMatch: 'full',
-    loadComponent: () => import('./static-pages/privacy.page').then((m) => m.PrivacyPage),
-    data: { mainClass: 'container' },
-    title: $localize`:@@privacy.documentTitle:Privacy notice · Sweet Hand`,
-  },
-  {
-    path: 'terms',
-    loadComponent: () => import('./static-pages/terms.page').then((m) => m.TermsPage),
-    data: { mainClass: 'container' },
-    title: $localize`:@@terms.documentTitle:Terms · Sweet Hand`,
-  },
+  }),
+  page('privacy', () => import('./static-pages/privacy.page').then((m) => m.PrivacyPage), $localize`:@@privacy.documentTitle:Privacy notice`, { pathMatch: 'full' }),
+  page('terms', () => import('./static-pages/terms.page').then((m) => m.TermsPage), $localize`:@@terms.documentTitle:Terms`),
   {
     // The page sets its own title and the classes of <main> from what it shows.
     path: 'caterers/:slug',

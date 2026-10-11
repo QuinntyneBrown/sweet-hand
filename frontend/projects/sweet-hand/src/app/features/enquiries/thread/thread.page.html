@@ -1,14 +1,14 @@
 <div class="inbox-layout inbox-layout--thread">
   <section class="inbox-layout__list" aria-labelledby="list-title">
     <h2 class="inbox-heading" id="list-title" i18n="@@inbox.title">Inbox</h2>
-    <app-enquiry-list [view]="listView()" viewer="customer" basePath="/inbox" label="Your enquiries" i18n-label="@@inbox.listLabel" [currentId]="id()" currentKind="page" />
+    <app-enquiry-list [view]="listView()" viewer="customer" [basePath]="paths.inbox" label="Your enquiries" i18n-label="@@inbox.listLabel" [currentId]="id()" currentKind="page" />
   </section>
   <div class="inbox-layout__thread">
     @if (thread(); as t) {
       <app-enquiry-thread [thread]="t" (threadChange)="changed($event)" [headingLevel]="1" [backLink]="backLink" />
     } @else if (failure(); as f) {
       <article class="thread" aria-labelledby="thread-title">
-        <a class="eyebrow until-lg" routerLink="/inbox"><svg shIcon="chevron-left" class="icon--sm"></svg><ng-container i18n="@@nav.inbox">Inbox</ng-container></a>
+        <a class="eyebrow until-lg" [routerLink]="paths.inbox"><svg shIcon="chevron-left" class="icon--sm"></svg><ng-container i18n="@@nav.inbox">Inbox</ng-container></a>
         @if (f.notFound) {
           <sh-empty-state [headingLevel]="1" headingId="thread-title" heading="We can’t find that enquiry" i18n-heading="@@thread.notFoundTitle" text="The link may be old, or it belongs to a different account." i18n-text="@@thread.notFoundText">
             <ng-container slot="photos">
@@ -16,7 +16,7 @@
               <span class="photo"><img src="/media/sunday-pot.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
               <span class="photo"><img src="/media/sorrel-and-spice.jpg?w=400&fm=jpeg" alt="" width="72" height="72" /></span>
             </ng-container>
-            <a slot="actions" class="btn btn--primary" routerLink="/inbox" i18n="@@thread.backToInbox">Back to inbox</a>
+            <a slot="actions" class="btn btn--primary" [routerLink]="paths.inbox" i18n="@@thread.backToInbox">Back to inbox</a>
           </sh-empty-state>
         } @else {
           <sh-empty-state
@@ -34,7 +34,7 @@
             <svg slot="icon" shIcon="danger"></svg>
             <ng-container slot="actions">
               <button class="btn btn--primary" type="button" (click)="retry()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></button>
-              <a class="btn" routerLink="/inbox" i18n="@@thread.backToInbox">Back to inbox</a>
+              <a class="btn" [routerLink]="paths.inbox" i18n="@@thread.backToInbox">Back to inbox</a>
             </ng-container>
           </sh-empty-state>
         }

@@ -8,6 +8,7 @@ import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
 import { IdentityService } from '@sweet-hand/api';
 import type { View } from './view';
+import { paths } from '../../../core/routing/paths';
 
 /** The landing page of a verification link, /verify-email/:token (L2-077.3, L2-023.3). */
 @Component({
@@ -18,6 +19,7 @@ import type { View } from './view';
   styleUrl: './verify-email.page.css',
 })
 export class VerifyEmailPage {
+  protected readonly paths = paths;
   private readonly api = inject(IdentityService);
   private readonly session = inject(Session);
   private readonly router = inject(Router);
@@ -57,7 +59,7 @@ export class VerifyEmailPage {
   }
 
   protected async resend(): Promise<void> {
-    await this.router.navigate(['/verify-email/sent'], { state: { token: this.token() } });
+    await this.router.navigate([paths.verifyEmailSent], { state: { token: this.token() } });
   }
 
   protected readonly failedText = computed(() => {

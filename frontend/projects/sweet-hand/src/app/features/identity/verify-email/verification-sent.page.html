@@ -9,7 +9,7 @@
     }
   </div>
   <div class="stack">
-    <a class="btn btn--primary btn--lg btn--block" routerLink="/caterers" i18n="@@verify.browse">Browse caterers</a>
+    <a class="btn btn--primary btn--lg btn--block" [routerLink]="paths.caterers" i18n="@@verify.browse">Browse caterers</a>
     <sh-button size="lg" [block]="true" [disabled]="paused()" describedBy="resend-help" (activated)="send()"
       ><ng-container i18n="@@register.success.resend">Resend email</ng-container></sh-button
     >

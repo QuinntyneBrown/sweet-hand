@@ -8,6 +8,7 @@ import { ReasonDialog } from '../decisions/reason-dialog';
 import { firstName, pageName, pageSummary, readPage } from '../moderation-text';
 import { changeEntry, changesSubtitle, revertDescription, revertTitle, type ChangeEntry } from './changes-view';
 import { OperatorModerationService, type RecentChangesPageView } from '@sweet-hand/api';
+import { paths } from '../../../../core/routing/paths';
 
 /**
  * Edits to published profiles from the last 30 days, newest first, each with a
@@ -21,6 +22,7 @@ import { OperatorModerationService, type RecentChangesPageView } from '@sweet-ha
   styleUrl: './changes.page.css',
 })
 export class RecentChangesPage {
+  protected readonly paths = paths;
   private readonly api = inject(OperatorModerationService);
   private readonly toasts = inject(ToastNotifier);
   private readonly params = toSignal(inject(ActivatedRoute).queryParamMap, { requireSync: true });
@@ -40,7 +42,7 @@ export class RecentChangesPage {
     return v ? pageSummary(v.page, v.pageSize, v.total) : null;
   });
   protected readonly pageName = pageName;
-  protected readonly hrefFor = (page: number): string => (page > 1 ? `/admin/changes?page=${page}` : '/admin/changes');
+  protected readonly hrefFor = (page: number): string => (page > 1 ? `${paths.admin.changes}?page=${page}` : paths.admin.changes);
 
   protected readonly reverting = signal<ChangeEntry | null>(null);
   protected readonly opener = signal<HTMLElement | null>(null);

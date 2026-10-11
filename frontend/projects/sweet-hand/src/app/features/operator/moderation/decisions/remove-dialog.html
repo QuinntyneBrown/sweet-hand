@@ -53,7 +53,7 @@
     <span class="field__help" id="confirm-help" i18n="@@remove.confirmHelp">The button stays off until the name matches.</span>
   </div>
   @if (conflict()) {
-    <sh-button-anchor slot="footer" variant="primary" href="/admin/caterers"><ng-container i18n="@@record.backToCaterers">Back to caterers</ng-container></sh-button-anchor>
+    <sh-button-anchor slot="footer" variant="primary" [href]="paths.admin.caterers"><ng-container i18n="@@record.backToCaterers">Back to caterers</ng-container></sh-button-anchor>
   } @else {
     <button
       slot="footer"

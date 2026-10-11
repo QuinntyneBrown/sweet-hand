@@ -7,7 +7,8 @@ import { time } from '../../../core/format/format';
 import { EnquiryDraftStore } from '../../../core/enquiry/enquiry-draft-store';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { emailError, summaryHeading } from '../../../core/forms/validation';
-import { landingFor, safeReturnUrl } from '../../../core/session/guards';
+import { safeReturnUrl } from '../../../core/session/guards';
+import { landingFor, paths } from '../../../core/routing/paths';
 import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
 import { BotChallengeService, IdentityService, type SignInLocked, type SignInRequest } from '@sweet-hand/api';
@@ -24,6 +25,7 @@ const NO_ERRORS: Errors = { email: null, password: null, human: null };
   templateUrl: './sign-in.page.html',
 })
 export class SignInPage {
+  protected readonly paths = paths;
   private readonly api = inject(IdentityService);
   private readonly bots = inject(BotChallengeService);
   private readonly session = inject(Session);
@@ -100,9 +102,9 @@ export class SignInPage {
       await this.session.refresh();
       const user = this.session.user();
       if (result.secondFactorRequired) {
-        await this.router.navigate(['/sign-in/verify'], { queryParams: { returnUrl: safeReturnUrl(this.returnUrl()) } });
+        await this.router.navigate([paths.signInVerify], { queryParams: { returnUrl: safeReturnUrl(this.returnUrl()) } });
       } else if (result.privacyUpdateRequired) {
-        await this.router.navigate(['/privacy/accept'], { queryParams: { returnUrl: safeReturnUrl(this.returnUrl()) } });
+        await this.router.navigate([paths.privacyAccept], { queryParams: { returnUrl: safeReturnUrl(this.returnUrl()) } });
       } else {
         await this.router.navigateByUrl(safeReturnUrl(this.returnUrl()) ?? landingFor(user?.role ?? 'Customer'));
       }
