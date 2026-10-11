@@ -12,12 +12,15 @@ import { loadConfig } from './platform/config.ts';
 import { systemClock } from './platform/clock.ts';
 import { MemoryDatabase } from './platform/memory-database.ts';
 import { PostgresDatabase } from './platform/postgres-database.ts';
+import { MemoryMediaStore, PostgresMediaStore } from './platform/media.ts';
 import type { Environment } from './environment.ts';
 
 const config = loadConfig();
+const db = config.databaseUrl ? new PostgresDatabase(config.databaseUrl) : new MemoryDatabase();
 const env: Environment = {
-  db: config.databaseUrl ? new PostgresDatabase(config.databaseUrl) : new MemoryDatabase(),
+  db,
   clock: systemClock,
+  media: db instanceof PostgresDatabase ? new PostgresMediaStore(db.connection) : new MemoryMediaStore(),
 };
 
 useSecureCookies(config.secureCookies);

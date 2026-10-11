@@ -5,12 +5,18 @@
 import type { Database, Document } from '../platform/database.ts';
 import { seedUsers } from './users.ts';
 import { seedPrivacyNotice, seedSessions } from './account.ts';
+import { seedCaterers } from './caterers.ts';
+import { seedReviews } from './reviews.ts';
+import { seedCuisines } from '../discovery/taxonomy.ts';
 
 export async function castDocuments(): Promise<Record<string, Document[]>> {
   return {
     users: await seedUsers(),
     sessions: seedSessions(),
     settings: [seedPrivacyNotice()],
+    caterers: seedCaterers(),
+    cuisines: seedCuisines(),
+    reviews: seedReviews(),
   };
 }
 

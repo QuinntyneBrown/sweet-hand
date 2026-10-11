@@ -4,7 +4,7 @@ import { documents, outbox, startApi } from '../support/api.ts';
 
 const priya = { displayName: 'Priya Singh', email: 'priya.singh@example.com', password: 'tamarind-balls-2026', consent: true, challengeToken: 'local:register:1' };
 const bev = {
-  businessName: 'Auntie Bev’s Kitchen',
+  businessName: 'Bev’s Sunday Kitchen',
   contactName: 'Beverley Campbell',
   email: 'beverley@auntiebevs.example',
   phone: '(905) 555-0164',
@@ -76,13 +76,13 @@ describe('caterer registration (L2-037)', () => {
     assert.equal(user.displayName, 'Beverley Campbell');
     assert.equal(user.phone, '+19055550164');
     const caterer = (await documents(api, 'caterers')).find((c) => c.id === user.catererId);
-    assert.equal(caterer.name, 'Auntie Bev’s Kitchen');
-    assert.equal(caterer.slug, 'auntie-bevs-kitchen');
+    assert.equal(caterer.name, 'Bev’s Sunday Kitchen');
+    assert.equal(caterer.slug, 'bevs-sunday-kitchen');
     assert.equal(caterer.status, 'Draft');
     assert.equal(caterer.ownerUserId, user.id);
     assert.deepEqual((await outbox(api)).map((m) => m.kind), ['verify-email']);
     const session = await client.get('/api/session');
-    assert.deepEqual(session.body.user.caterer, { id: caterer.id, name: 'Auntie Bev’s Kitchen', slug: 'auntie-bevs-kitchen', status: 'Draft' });
+    assert.deepEqual(session.body.user.caterer, { id: caterer.id, name: 'Bev’s Sunday Kitchen', slug: 'bevs-sunday-kitchen', status: 'Draft' });
   });
 
   it('Given invalid details, when a caterer registers, then each field explains its rule', async () => {
