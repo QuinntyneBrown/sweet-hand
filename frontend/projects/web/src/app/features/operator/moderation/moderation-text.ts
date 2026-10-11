@@ -59,6 +59,14 @@ export function dayAtTime(iso: string, now: Date = new Date()): string {
   return $localize`:@@moderation.dayAtTime:${shortDate(iso, now)}:date: at ${time(iso)}:time:`;
 }
 
+/** "Today, 8:15 a.m.", "Yesterday, 6:40 p.m.", "Thu 8 Oct, 2:05 p.m." */
+export function relativeDayTime(iso: string, now: Date = new Date()): string {
+  const days = daysSince(iso, now);
+  if (days === 0) return $localize`:@@moderation.todayAt:Today, ${time(iso)}:time:`;
+  if (days === 1) return $localize`:@@moderation.yesterdayAt:Yesterday, ${time(iso)}:time:`;
+  return `${shortDate(iso, now)}, ${time(iso)}`;
+}
+
 /** "Fri 14 Mar 2025, 11:20 a.m." for timelines. */
 export function dayTime(iso: string, now: Date = new Date()): string {
   return `${shortDate(iso, now)}, ${time(iso)}`;

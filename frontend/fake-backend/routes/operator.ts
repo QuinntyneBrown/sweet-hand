@@ -1,12 +1,12 @@
 import { randomUUID } from 'node:crypto';
 import type { Router } from '../lib/router.ts';
 import type { Ctx, Reply } from '../lib/http.ts';
-import { conflict, forbidden, invalid, notFound, ok, unauthorized } from '../lib/http.ts';
+import { conflict, forbidden, invalid, noContent, notFound, ok, unauthorized } from '../lib/http.ts';
 import { currentUser, torontoDate, type AuditEntry, type Store } from '../lib/store.ts';
 import type { Caterer, ProfileStatus } from '../seed/caterers.ts';
 import type { User } from '../seed/users.ts';
 import type { Report } from '../seed/reports.ts';
-import { ownerFor, type StatusChange } from '../seed/operator.ts';
+import { ownerFor, type ProfileEdit, type StatusChange } from '../seed/operator.ts';
 import { OCCASIONS, slugify } from '../seed/taxonomy.ts';
 import type {
   CatererCounts,
@@ -19,6 +19,8 @@ import type {
   DecisionResult,
   EditableField,
   NameChangeReviewView,
+  RecentChangesPageView,
+  RecentChangeView,
   RemoveItemResult,
   OwnerView,
   PublicProfileView,
@@ -815,8 +817,109 @@ function registerEdits(r: Router<Store>): void {
   r.delete('/api/operator/profiles/:id/menu-items/:item', removeItem('dish'));
 }
 
+// ---------------------------------------------------------------------------
+// Recent changes (L2-047.4) and Revert (L2-057.3)
+// ---------------------------------------------------------------------------
+
+const FEED_DAYS = 30;
+
+function changeView(store: Store, e: ProfileEdit): RecentChangeView | null {
+  const c = store.caterers.find((x) => x.id === e.catererId);
+  if (!c) return null;
+  return {
+    id: e.id,
+    catererId: c.id,
+    catererName: c.name,
+    photo: coverOf(c),
+    field: e.field,
+    by: e.by || catererOwner(store, c).name,
+    at: e.at,
+    old: e.old,
+    new: e.new,
+    reverted: e.reverted ?? null,
+  };
+}
+
+const idsOf = (names: string[], known: { id: string; name: string }[]) =>
+  names.map((n) => known.find((k) => k.name === n)?.id).filter((x): x is string => !!x);
+
+/** Writes the edit's old value back; false when the field moved on since (open point of the design: refuse). */
+function revertEdit(store: Store, c: Caterer, e: ProfileEdit): boolean {
+  const o = e.old;
+  const n = e.new;
+  switch (e.field) {
+    case 'description':
+      if (o?.kind !== 'text' || n?.kind !== 'text' || !c.description.includes(n.text)) return false;
+      c.description = c.description.replace(n.text, o.text);
+      return true;
+    case 'guests':
+      if (o?.kind !== 'guests') return false;
+      c.minGuests = o.min;
+      c.maxGuests = o.max;
+      return true;
+    case 'areas':
+      if (o?.kind !== 'list') return false;
+      c.areas = idsOf(o.items, store.regions.flatMap((rg) => rg.areas));
+      return true;
+    case 'occasions':
+      if (o?.kind !== 'list') return false;
+      c.occasions = idsOf(o.items, OCCASIONS);
+      return true;
+    case 'menu': {
+      if (n?.kind !== 'dish') return false;
+      const added = c.dishes.find((d) => d.name === n.name);
+      if (added) c.dishes.splice(c.dishes.indexOf(added), 1);
+      if (o?.kind === 'dish') c.dishes.push({ id: `${c.slug}-dish-${randomUUID()}`, name: o.name, tags: o.tags, price: o.price ?? undefined });
+      return true;
+    }
+    case 'cover-photo': {
+      if (o?.kind !== 'photo') return false;
+      const file = o.src.replace(/^\/media\//, '').replace(/\?.*$/, '');
+      const existing = c.photos.find((p) => p.file === file);
+      if (existing) c.photos.splice(c.photos.indexOf(existing), 1);
+      c.photos.unshift(existing ?? { id: `${c.slug}-photo-${randomUUID()}`, file, caption: o.alt });
+      return true;
+    }
+  }
+}
+
+function registerRecentChanges(r: Router<Store>): void {
+  r.get('/api/operator/recent-changes', (ctx) => {
+    const who = operator(ctx);
+    if (isReply(who)) return who;
+    const store = ctx.store;
+    const since = store.now.getTime() - FEED_DAYS * DAY_MS;
+    const all = store.operator.moderation.edits
+      .filter((e) => Date.parse(e.at) >= since)
+      .sort((a, b) => b.at.localeCompare(a.at))
+      .map((e) => changeView(store, e))
+      .filter((x): x is RecentChangeView => !!x);
+    const view: RecentChangesPageView = paginate(all, page(ctx.query));
+    return ok(view);
+  });
+
+  r.post('/api/operator/recent-changes/:id/revert', (ctx) => {
+    const who = operator(ctx);
+    if (isReply(who)) return who;
+    const store = ctx.store;
+    const e = store.operator.moderation.edits.find((x) => x.id === ctx.params['id']);
+    const c = e && store.caterers.find((x) => x.id === e.catererId);
+    if (!e || !c) return notFound();
+    const reason = trimmed(ctx.body?.reason);
+    if (!reason) return reasonRequired();
+    if (e.reverted || c.status === 'Removed') return conflict('This change was already undone', { status: c.status, name: c.name });
+    if (!revertEdit(store, c, e)) return conflict('The field changed again since', { status: c.status, name: c.name });
+    e.reverted = { by: who.displayName, at: store.now.toISOString() };
+    store.operator.moderation.updatedAt[c.id] = store.now.toISOString();
+    audit(store, who, 'Revert change', 'ProfileEdit', e.id, reason, { [e.field]: e.new }, { [e.field]: e.old });
+    email(store, catererOwner(store, c).email, 'change-reverted', { reason });
+    return noContent();
+  });
+}
+
 /** Fake endpoints of the operator area. */
 export function registerOperator(r: Router<Store>): void {
+  registerRecentChanges(r);
   registerEdits(r);
   registerStatusActions(r);
   registerCaterers(r);
@@ -833,6 +936,10 @@ const hoursAgo = (store: Store, hours: number) => new Date(store.now.getTime() -
 
 /** Named store changes tests can ask for (`backend.scenario(name, args)`). */
 export const operatorScenarios: Record<string, (store: Store, args: any) => unknown> = {
+  /** No caterer edited a published profile in the last 30 days (admin-changes/empty). */
+  'no-recent-changes': (store) => {
+    store.operator.moderation.edits.length = 0;
+  },
   /** First run: no caterer has registered (admin-caterers/empty). */
   'no-caterers': (store) => {
     store.caterers.length = 0;
