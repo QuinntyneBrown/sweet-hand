@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, input, output } from '@an
 import { RouterLink } from '@angular/router';
 import { Alert } from '@sweet-hand/components';
 import { SECTION_HREF } from './profile-text';
-import { OwnProfileView } from '@sweet-hand/api';
+import { type OwnProfileView } from '@sweet-hand/api';
 
 /**
  * Why a section cannot be edited: waiting for review, with Withdraw submission

@@ -4,7 +4,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { Combobox, FIELD_CONTEXT, type AreaOption, type FieldContext } from '@sweet-hand/components';
 import { problemOf } from '../../../core/forms/problem';
 import { interpretSearch, matchCountText } from './area-search';
-import { DISCOVERY_SERVICE, ServiceArea } from '@sweet-hand/api';
+import { DiscoveryService, type ServiceArea } from '@sweet-hand/api';
 
 let nextId = 0;
 
@@ -68,7 +68,7 @@ export class AreaField implements FieldContext {
   readonly ownForm = input(true);
   readonly areaChosen = output<string>();
 
-  private readonly api = inject(DISCOVERY_SERVICE);
+  private readonly api = inject(DiscoveryService);
   private readonly combobox = viewChild.required(Combobox);
 
   readonly id = signal(`area-q-${++nextId}`).asReadonly();

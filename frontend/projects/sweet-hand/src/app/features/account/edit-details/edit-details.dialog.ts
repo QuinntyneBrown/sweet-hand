@@ -5,7 +5,7 @@ import { Alert, Button, Dialog, FormField, FormSummary, TextField, type SummaryI
 import { problemOf } from '../../../core/forms/problem';
 import { emailError, summaryHeading } from '../../../core/forms/validation';
 import { displayNameError, normalisePhone, phoneError } from '../../identity/rules';
-import { ACCOUNT_SERVICE, AccountView } from '@sweet-hand/api';
+import { AccountService, type AccountView } from '@sweet-hand/api';
 
 type Field = 'name' | 'email' | 'phone';
 type Errors = Record<Field, string | null>;
@@ -63,7 +63,7 @@ export function displayPhone(normalised: string): string {
   `,
 })
 export class EditDetailsDialog {
-  private readonly api = inject(ACCOUNT_SERVICE);
+  private readonly api = inject(AccountService);
 
   readonly open = input(false);
   readonly account = input.required<AccountView>();

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, input, ou
 import { firstValueFrom } from 'rxjs';
 import { Alert, Dialog, Icon } from '@sweet-hand/components';
 import { problemOf } from '../../../core/forms/problem';
-import { CATERER_PROFILE_SERVICE, OwnPhotoView, OwnProfileView } from '@sweet-hand/api';
+import { CatererProfileService, type OwnPhotoView, type OwnProfileView } from '@sweet-hand/api';
 
 /** Remove this photo? and Keep at least 3 photos (docs/mocks/dialogs/remove-photo; L2-042.4). */
 @Component({
@@ -53,7 +53,7 @@ import { CATERER_PROFILE_SERVICE, OwnPhotoView, OwnProfileView } from '@sweet-ha
   `,
 })
 export class RemovePhotoDialog {
-  private readonly api = inject(CATERER_PROFILE_SERVICE);
+  private readonly api = inject(CatererProfileService);
 
   readonly open = input(false);
   readonly photo = input<OwnPhotoView | null>(null);

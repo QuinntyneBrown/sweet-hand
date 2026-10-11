@@ -3,7 +3,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { Button, ButtonAnchor, CatererCard, CatererGrid, EmptyState, Icon, LoadingStatus, delayedBusy } from '@sweet-hand/components';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { caterersCount } from '../listing/listing-text';
-import { DISCOVERY_SERVICE } from '@sweet-hand/api';
+import { DiscoveryService } from '@sweet-hand/api';
 
 /** Occasions, /occasions: eight photo tiles, each opening the listing for that occasion (docs/mocks/pages/occasions, L2-021). */
 @Component({
@@ -51,7 +51,7 @@ import { DISCOVERY_SERVICE } from '@sweet-hand/api';
   `,
 })
 export class OccasionsPage {
-  private readonly api = inject(DISCOVERY_SERVICE);
+  private readonly api = inject(DiscoveryService);
 
   protected readonly tiles = rxResource({ stream: () => this.api.occasions() });
   protected readonly busy = delayedBusy(this.tiles.isLoading);

@@ -6,7 +6,7 @@ import { problemOf } from '../../../../core/forms/problem';
 import { summaryHeading } from '../../../../core/forms/validation';
 import { firstName } from '../moderation-text';
 import { reasonError } from './decision-text';
-import { OPERATOR_MODERATION_SERVICE } from '@sweet-hand/api';
+import { type CatererRecordView, type EditableField, type OperatorEditRequest, OperatorModerationService } from '@sweet-hand/api';
 
 export type EditField = EditableField | 'photo' | 'dish';
 
@@ -96,7 +96,7 @@ const DESCRIPTION_MAX = 2000;
   `,
 })
 export class OperatorEditDialog {
-  private readonly api = inject(OPERATOR_MODERATION_SERVICE);
+  private readonly api = inject(OperatorModerationService);
 
   readonly open = input(false);
   readonly record = input.required<CatererRecordView>();

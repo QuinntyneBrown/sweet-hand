@@ -5,7 +5,7 @@
  */
 import type { StatusTone } from '@sweet-hand/components';
 import { count, shortDate, time, torontoToday } from '../../core/format/format';
-import { EnquiryStatus, InboxCounts, InboxFilter, InboxRowView, Party } from '@sweet-hand/api';
+import { type EnquiryStatus, type InboxCounts, type InboxFilter, type InboxRowView, type Party } from '@sweet-hand/api';
 
 export const FILTERS: InboxFilter[] = ['open', 'replied', 'declined', 'closed'];
 

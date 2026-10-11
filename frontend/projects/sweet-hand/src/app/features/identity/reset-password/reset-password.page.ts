@@ -8,7 +8,7 @@ import { summaryHeading } from '../../../core/forms/validation';
 import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
 import { PASSWORD_MIN, newPasswordError } from '../rules';
-import { IDENTITY_SERVICE } from '@sweet-hand/api';
+import { IdentityService } from '@sweet-hand/api';
 
 type View =
   | { kind: 'loading' }
@@ -25,7 +25,7 @@ type View =
   templateUrl: './reset-password.page.html',
 })
 export class ResetPasswordPage {
-  private readonly api = inject(IDENTITY_SERVICE);
+  private readonly api = inject(IdentityService);
   private readonly session = inject(Session);
 
   readonly token = input.required<string>();

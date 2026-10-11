@@ -4,7 +4,7 @@ import { Alert, Dialog, FormField, FormSummary, Radio, RadioGroup, Textarea, typ
 import { problemOf } from '../../../../core/forms/problem';
 import { firstName } from '../moderation-text';
 import { conflictText } from '../decisions/decision-text';
-import { OPERATOR_MODERATION_SERVICE } from '@sweet-hand/api';
+import { OperatorModerationService, type ReportGroupView, type ResolveAction } from '@sweet-hand/api';
 
 /**
  * "Resolve report": dismiss with a note, or take action on the reported
@@ -78,7 +78,7 @@ import { OPERATOR_MODERATION_SERVICE } from '@sweet-hand/api';
   `,
 })
 export class ResolveReportDialog {
-  private readonly api = inject(OPERATOR_MODERATION_SERVICE);
+  private readonly api = inject(OperatorModerationService);
 
   readonly open = input(false);
   readonly group = input.required<ReportGroupView>();

@@ -7,7 +7,7 @@ import { Session } from '../../../core/session/session';
 import { ReviewDialog, type ReviewDialogOutcome, type ReviewDialogSubject } from '../review-dialog/review-dialog';
 import { DeleteReviewDialog } from '../delete-review-dialog/delete-review-dialog';
 import { eventLabel, ratingLabel, responseLabel, reviewCount, reviewsShown } from './review-labels';
-import { PublicReviewView, REVIEWS_SERVICE, RatingSummaryView, ReviewEligibility } from '@sweet-hand/api';
+import { type PublicReviewView, type RatingSummaryView, type ReviewEligibility, ReviewsService } from '@sweet-hand/api';
 
 /**
  * The reviews section of a caterer page (docs/detailed-designs/reviews): the
@@ -29,7 +29,7 @@ export class ReviewsSection {
   /** Reviews changed: the page reloads its summary. */
   readonly changed = output<void>();
 
-  private readonly api = inject(REVIEWS_SERVICE);
+  private readonly api = inject(ReviewsService);
   private readonly session = inject(Session);
   private readonly injector = inject(Injector);
 

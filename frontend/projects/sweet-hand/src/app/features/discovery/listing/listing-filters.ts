@@ -1,5 +1,5 @@
 import type { FilterOption } from '@sweet-hand/components';
-import { CuisineRef, ListingPageView, ListingQuery, ServiceArea } from '@sweet-hand/api';
+import { type CuisineRef, type ListingPageView, type ListingQuery, type ServiceArea } from '@sweet-hand/api';
 
 /**
  * Filter options of the listing (filter-by-cuisine and filter-by-area designs):

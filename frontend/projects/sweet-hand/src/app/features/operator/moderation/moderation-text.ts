@@ -1,6 +1,6 @@
 import type { StatusTone } from '@sweet-hand/components';
 import { count, shortDate, time, torontoToday } from '../../../core/format/format';
-import { ProfileStatus } from '@sweet-hand/api';
+import { type ProfileStatus, type QueueFilter } from '@sweet-hand/api';
 
 /** Words, labels and small rules shared by the operator moderation screens. Messages come from the resource files. */
 

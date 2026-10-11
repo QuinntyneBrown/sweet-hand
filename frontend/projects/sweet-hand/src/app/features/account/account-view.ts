@@ -1,5 +1,5 @@
 import { monthYear, shortDate, time, torontoToday } from '../../core/format/format';
-import { AccountView, ActiveSession } from '@sweet-hand/api';
+import { type AccountView, type ActiveSession } from '@sweet-hand/api';
 
 /** What the account page says, worked out from the API's data (docs/mocks/pages/account). */
 

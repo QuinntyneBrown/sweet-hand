@@ -4,7 +4,7 @@ import { Alert, Button, Dialog, FormField, Icon, Radio, RadioGroup, Textarea, gr
 import { count, shortDate } from '../../../../core/format/format';
 import { problemOf } from '../../../../core/forms/problem';
 import { DETAILS_MAX, REPORT_REASONS, reportErrors } from './report-rules';
-import { BOT_CHALLENGE_SERVICE, REPORTS_SERVICE, ReportReason, ReportRequest } from '@sweet-hand/api';
+import { BotChallengeService, type ReportReason, type ReportRequest, ReportsService } from '@sweet-hand/api';
 
 type Step = 'form' | 'sent' | 'duplicate';
 type Failure = 'server' | 'limit' | null;
@@ -26,8 +26,8 @@ export class ReportDialog {
   readonly returnFocus = input<HTMLElement | null>(null);
   readonly closed = output<void>();
 
-  private readonly api = inject(REPORTS_SERVICE);
-  private readonly bot = inject(BOT_CHALLENGE_SERVICE);
+  private readonly api = inject(ReportsService);
+  private readonly bot = inject(BotChallengeService);
   private readonly injector = inject(Injector);
 
   protected readonly reasons = REPORT_REASONS;

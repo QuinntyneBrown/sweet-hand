@@ -11,7 +11,7 @@ import { guestRange, guestSpan, occasionsCount } from '../shared/profile-text';
 import { fixHeading, notSavedText } from '../shared/section-text';
 import { StatusNotice } from '../shared/status-notice';
 import { WithdrawDialog } from '../shared/withdraw-dialog';
-import { CATERER_PROFILE_SERVICE, OwnProfileView } from '@sweet-hand/api';
+import { CatererProfileService, type OwnProfileView } from '@sweet-hand/api';
 
 type Errors = { minGuests: string | null; maxGuests: string | null; occasions: string | null };
 const NONE: Errors = { minGuests: null, maxGuests: null, occasions: null };
@@ -30,7 +30,7 @@ function wholeGuests(text: string): string | null {
   templateUrl: './events.page.html',
 })
 export class EventsPage {
-  private readonly api = inject(CATERER_PROFILE_SERVICE);
+  private readonly api = inject(CatererProfileService);
   protected readonly data = new ProfileData(this.api);
   protected readonly autosave = new Autosave(() => this.save(), () => this.data.published());
 

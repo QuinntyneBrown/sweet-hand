@@ -1,6 +1,6 @@
 import type { CardPhoto, CheckStatusLabels, SectionLinkItem, SideNavItem, StatusTone } from '@sweet-hand/components';
 import { shortDate } from '../../../core/format/format';
-import { ChecklistKey, OwnProfileStatus, OwnProfileView, ReferenceDataView } from '@sweet-hand/api';
+import { type ChecklistKey, type OwnProfileStatus, type OwnProfileView, type ReferenceDataView } from '@sweet-hand/api';
 
 /**
  * Words and view models of the caterer dashboard (set-up-profile,

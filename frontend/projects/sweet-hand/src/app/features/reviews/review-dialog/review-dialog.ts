@@ -6,7 +6,7 @@ import { problemOf } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
 import { Session } from '../../../core/session/session';
 import { STAR_LABELS, TEXT_MAX, reviewErrors, type ReviewErrors } from './review-rules';
-import { REVIEWS_SERVICE, ReviewResult } from '@sweet-hand/api';
+import { type ReviewResult, ReviewsService } from '@sweet-hand/api';
 
 /** What the dialog writes or edits. */
 export type ReviewDialogSubject =
@@ -36,7 +36,7 @@ export class ReviewDialog {
   readonly saved = output<ReviewResult>();
   readonly closed = output<ReviewDialogOutcome>();
 
-  private readonly api = inject(REVIEWS_SERVICE);
+  private readonly api = inject(ReviewsService);
   private readonly session = inject(Session);
   private readonly injector = inject(Injector);
 

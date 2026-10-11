@@ -11,7 +11,7 @@ import { areaName, areasCount, cardModel, cuisineName, cuisinesCount } from '../
 import { fixHeading, notSavedText } from '../shared/section-text';
 import { StatusNotice } from '../shared/status-notice';
 import { WithdrawDialog } from '../shared/withdraw-dialog';
-import { CATERER_PROFILE_SERVICE, OwnProfileView } from '@sweet-hand/api';
+import { CatererProfileService, type OwnProfileView } from '@sweet-hand/api';
 
 type Errors = { cuisines: string | null; primaryCuisine: string | null; areas: string | null; primaryArea: string | null };
 const NONE: Errors = { cuisines: null, primaryCuisine: null, areas: null, primaryArea: null };
@@ -24,7 +24,7 @@ const NONE: Errors = { cuisines: null, primaryCuisine: null, areas: null, primar
   templateUrl: './cuisines.page.html',
 })
 export class CuisinesPage {
-  private readonly api = inject(CATERER_PROFILE_SERVICE);
+  private readonly api = inject(CatererProfileService);
   protected readonly data = new ProfileData(this.api);
   protected readonly autosave = new Autosave(() => this.save(), () => this.data.published());
 

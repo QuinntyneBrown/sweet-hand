@@ -5,7 +5,7 @@ import { BreachRecord as BreachRecordRow, Button, Description, DescriptionList, 
 import { count, shortDate } from '../../../core/format/format';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { RecordBreachDialog } from './record-breach.dialog';
-import { BreachRecord } from '@sweet-hand/api';
+import { type BreachRecord, OperatorSettingsService } from '@sweet-hand/api';
 
 /** "Confirmed Thu 17 Sep 2026 · recorded by Leah Mohammed" */
 export function breachWhen(b: BreachRecord): string {
@@ -84,7 +84,7 @@ export function breachWhen(b: BreachRecord): string {
   `,
 })
 export class BreachesPage {
-  private readonly api = inject(OPERATOR_SETTINGS_SERVICE);
+  private readonly api = inject(OperatorSettingsService);
   private readonly toasts = inject(ToastNotifier);
 
   protected readonly records = signal<BreachRecord[] | null>(null);

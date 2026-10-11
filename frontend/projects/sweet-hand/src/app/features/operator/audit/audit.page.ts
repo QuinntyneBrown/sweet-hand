@@ -8,7 +8,7 @@ import { problemOf, reference } from '../../../core/forms/problem';
 import { Session } from '../../../core/session/session';
 import { adminsToAsk } from '../admin-only';
 import { ACTION_FILTERS, actionLabel, auditChange, auditCount, auditWhen, lastWeek, noMatchText } from './audit-view';
-import { OPERATOR_SETTINGS_SERVICE } from '@sweet-hand/api';
+import { type AuditPage as AuditResult, type AuditQuery, OperatorSettingsService } from '@sweet-hand/api';
 
 /** The audit log, /admin/audit (docs/mocks/pages/admin-audit; AuditLogPage, L2-060). Admin only (L2-056.5). */
 @Component({
@@ -136,7 +136,7 @@ import { OPERATOR_SETTINGS_SERVICE } from '@sweet-hand/api';
   `,
 })
 export class AuditPage {
-  private readonly api = inject(OPERATOR_SETTINGS_SERVICE);
+  private readonly api = inject(OperatorSettingsService);
   private readonly router = inject(Router);
   private readonly session = inject(Session);
 

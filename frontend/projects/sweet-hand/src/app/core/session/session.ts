@@ -2,7 +2,7 @@ import { DestroyRef, Injectable, computed, inject, signal } from '@angular/core'
 import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { firstValueFrom } from 'rxjs';
-import { SESSION_SERVICE, SessionView } from '@sweet-hand/api';
+import { SessionService, type SessionView } from '@sweet-hand/api';
 
 /** How often the header's unread and queue counts refresh (L2-029.3). */
 export const SESSION_REFRESH_MS = 60_000;
@@ -12,7 +12,7 @@ const VISITOR: SessionView = { user: null, unread: 0, queueCount: 0 };
 /** Who is signed in, and the counts the header shows. */
 @Injectable({ providedIn: 'root' })
 export class Session {
-  private readonly api = inject(SESSION_SERVICE);
+  private readonly api = inject(SessionService);
   private readonly router = inject(Router);
   private readonly view = signal<SessionView>(VISITOR);
   private readonly expiredAs = signal<{ email: string } | null>(null);

@@ -2,6 +2,7 @@ import type { CheckStatus } from '@sweet-hand/components';
 import { count } from '../../../../core/format/format';
 import { dayAtTime, fileSize, waitingInSentence } from '../moderation-text';
 import { shortDate } from '../../../../core/format/format';
+import { type ReviewHistoryView, type SubmissionChecks, type SubmissionReviewView } from '@sweet-hand/api';
 
 /** The sentence of one history entry (docs/mocks/pages/admin-profile-review). */
 export function historyLine(h: ReviewHistoryView): string {

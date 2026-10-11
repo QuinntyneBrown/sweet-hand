@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Button, Dialog, Icon } from '@sweet-hand/components';
-import { CuisineUsage, OPERATOR_SETTINGS_SERVICE, OperatorCuisine } from '@sweet-hand/api';
+import { type CuisineUsage, type OperatorCuisine, OperatorSettingsService } from '@sweet-hand/api';
 
 /** Retire cuisine (docs/mocks/dialogs/retire-cuisine; RetireCuisineDialog, L2-007.5). */
 @Component({
@@ -54,7 +54,7 @@ import { CuisineUsage, OPERATOR_SETTINGS_SERVICE, OperatorCuisine } from '@sweet
   `,
 })
 export class RetireCuisineDialog {
-  private readonly api = inject(OPERATOR_SETTINGS_SERVICE);
+  private readonly api = inject(OperatorSettingsService);
 
   readonly open = input(false);
   readonly cuisine = input.required<OperatorCuisine>();

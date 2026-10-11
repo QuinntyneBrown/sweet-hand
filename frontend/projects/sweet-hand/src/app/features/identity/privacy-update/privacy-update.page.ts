@@ -7,7 +7,7 @@ import { problemOf, reference } from '../../../core/forms/problem';
 import { landingFor, safeReturnUrl } from '../../../core/session/guards';
 import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
-import { PRIVACY_SERVICE, PrivacyNotice } from '@sweet-hand/api';
+import { type PrivacyNotice, PrivacyService } from '@sweet-hand/api';
 
 /** "1 November 2026" */
 function dayMonthYear(date: string): string {
@@ -29,7 +29,7 @@ function dayMonthYear(date: string): string {
   `,
 })
 export class PrivacyUpdatePage {
-  private readonly api = inject(PRIVACY_SERVICE);
+  private readonly api = inject(PrivacyService);
   private readonly session = inject(Session);
   private readonly router = inject(Router);
 

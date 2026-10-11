@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, input, signal } from '@an
 import { RouterLink } from '@angular/router';
 import { Alert } from '@sweet-hand/components';
 import { RULE_HREF, SECTION_HREF, attentionAction } from './profile-text';
-import { OwnProfileStatus } from '@sweet-hand/api';
+import { type OwnProfileStatus } from '@sweet-hand/api';
 
 /** What the banner needs to know about the profile. */
 export interface BannerProfile {

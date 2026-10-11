@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, Injector, afterNextRend
 import { RouterLink } from '@angular/router';
 import { Alert, Check, Dialog, Icon, Timeline, TimelineEntry } from '@sweet-hand/components';
 import { RULE_HREF } from '../shared/profile-text';
-import { ChecklistKey } from '@sweet-hand/api';
+import { type ChecklistKey } from '@sweet-hand/api';
 
 export type SubmitStep = 'confirm' | 'invalid' | 'success';
 

@@ -16,7 +16,7 @@ import type {
   CatererRowView,
   CaterersPageView,
   CatererStatusFilter,
-  CertificateView,
+  ReviewCertificateView,
   DecisionResult,
   EditableField,
   NameChangeReviewView,
@@ -215,7 +215,7 @@ export function catererOwner(store: Store, c: Caterer): OwnerView {
   return { ...owner, emailVerified: true, since };
 }
 
-export function certificateView(store: Store, c: Caterer): CertificateView | null {
+export function certificateView(store: Store, c: Caterer): ReviewCertificateView | null {
   const cert = c.certificate;
   if (!cert) return null;
   return {

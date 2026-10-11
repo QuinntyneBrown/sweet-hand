@@ -22,7 +22,7 @@ import {
   summaryRows,
   threadEntries,
 } from '../thread-view';
-import { ENQUIRIES_SERVICE, ThreadView } from '@sweet-hand/api';
+import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
 
 interface Outgoing {
   id: number;
@@ -44,7 +44,7 @@ let nextOutgoing = 0;
   templateUrl: './enquiry-thread.html',
 })
 export class EnquiryThread {
-  private readonly api = inject(ENQUIRIES_SERVICE);
+  private readonly api = inject(EnquiriesService);
   private readonly toasts = inject(ToastNotifier);
   private readonly injector = inject(Injector);
   private readonly host: ElementRef<HTMLElement> = inject(ElementRef);

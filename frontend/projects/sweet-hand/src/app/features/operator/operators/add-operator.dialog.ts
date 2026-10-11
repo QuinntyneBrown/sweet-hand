@@ -4,7 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { Alert, Button, Dialog, FormField, FormSummary, Radio, RadioGroup, TextField, type SummaryItem } from '@sweet-hand/components';
 import { problemOf } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
-import { OPERATOR_SETTINGS_SERVICE, OperatorAccount, Role } from '@sweet-hand/api';
+import { type OperatorAccount, OperatorSettingsService } from '@sweet-hand/api';
 
 type Field = 'name' | 'email';
 const CONTROL: Record<Field, string> = { name: 'op-name', email: 'op-email' };
@@ -60,7 +60,7 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   `,
 })
 export class AddOperatorDialog {
-  private readonly api = inject(OPERATOR_SETTINGS_SERVICE);
+  private readonly api = inject(OperatorSettingsService);
 
   readonly open = input(false);
   readonly returnFocus = input<HTMLElement | null>(null);

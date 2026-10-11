@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, input, ou
 import { firstValueFrom } from 'rxjs';
 import { Alert, Button, Dialog } from '@sweet-hand/components';
 import { Session } from '../../../core/session/session';
-import { CATERER_PROFILE_SERVICE, OwnProfileView } from '@sweet-hand/api';
+import { CatererProfileService, type OwnProfileView } from '@sweet-hand/api';
 
 /** Withdraw your submission? (docs/mocks/dialogs/withdraw-submission; submit-profile-for-review, WithdrawSubmissionDialog). */
 @Component({
@@ -36,7 +36,7 @@ import { CATERER_PROFILE_SERVICE, OwnProfileView } from '@sweet-hand/api';
   `,
 })
 export class WithdrawDialog {
-  private readonly api = inject(CATERER_PROFILE_SERVICE);
+  private readonly api = inject(CatererProfileService);
   private readonly session = inject(Session);
 
   readonly open = input(false);

@@ -3,7 +3,7 @@ import { firstValueFrom } from 'rxjs';
 import { Alert, Dialog, FormField, FormSummary, Icon, Stars, Textarea, Well, type SummaryItem } from '@sweet-hand/components';
 import { count, monthYear, shortDate } from '../../../core/format/format';
 import { problemOf } from '../../../core/forms/problem';
-import { CATERER_PROFILE_SERVICE, OwnReviewView } from '@sweet-hand/api';
+import { CatererProfileService, type OwnReviewView } from '@sweet-hand/api';
 
 type Outcome = { kind: 'saved'; review: OwnReviewView } | { kind: 'deleted'; review: OwnReviewView; text: string };
 
@@ -70,7 +70,7 @@ type Outcome = { kind: 'saved'; review: OwnReviewView } | { kind: 'deleted'; rev
   `,
 })
 export class ReviewResponseDialog {
-  private readonly api = inject(CATERER_PROFILE_SERVICE);
+  private readonly api = inject(CatererProfileService);
   private readonly injector = inject(Injector);
 
   readonly open = input(false);

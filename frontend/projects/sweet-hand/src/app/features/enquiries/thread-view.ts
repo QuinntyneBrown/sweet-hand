@@ -6,7 +6,7 @@
 import { graphemeLength, type ThreadParty } from '@sweet-hand/components';
 import { count, longDate, shortDate, time, torontoToday } from '../../core/format/format';
 import { FORMER_USER, messageTime } from './enquiry-text';
-import { ThreadView } from '@sweet-hand/api';
+import { type ContactDetails, type FitWarning, type ThreadEntryView, type ThreadView } from '@sweet-hand/api';
 
 export const REPLY_MAX = 2000;
 export const NOTE_MAX = 500;

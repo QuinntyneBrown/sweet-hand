@@ -6,7 +6,7 @@ import { shortDate } from '../../../core/format/format';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
-import { EmailVerified, IDENTITY_SERVICE } from '@sweet-hand/api';
+import { type EmailVerified, IdentityService } from '@sweet-hand/api';
 
 type View = { kind: 'loading' } | { kind: 'verified'; result: EmailVerified } | { kind: 'expired' } | { kind: 'failed'; reference: string | null };
 
@@ -26,7 +26,7 @@ type View = { kind: 'loading' } | { kind: 'verified'; result: EmailVerified } | 
   `,
 })
 export class VerifyEmailPage {
-  private readonly api = inject(IDENTITY_SERVICE);
+  private readonly api = inject(IdentityService);
   private readonly session = inject(Session);
   private readonly router = inject(Router);
 

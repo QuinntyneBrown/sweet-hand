@@ -13,7 +13,7 @@ import { ProfileBanner } from '../shared/profile-banner';
 import { StatusNotice } from '../shared/status-notice';
 import { WithdrawDialog } from '../shared/withdraw-dialog';
 import { readUpload } from '../photos/photo-rules';
-import { CATERER_PROFILE_SERVICE, CertificateView, OwnProfileView } from '@sweet-hand/api';
+import { CatererProfileService, type CertificateView, type OwnProfileView } from '@sweet-hand/api';
 
 type Field = 'holder' | 'issuer' | 'number' | 'expiry';
 type Errors = Record<Field, string | null>;
@@ -46,7 +46,7 @@ function typeOf(file: File): string {
   templateUrl: './certificate.page.html',
 })
 export class CertificatePage {
-  private readonly api = inject(CATERER_PROFILE_SERVICE);
+  private readonly api = inject(CatererProfileService);
   private readonly injector = inject(Injector);
   protected readonly data = new ProfileData(this.api);
   private readonly upload = viewChild(FileUpload);

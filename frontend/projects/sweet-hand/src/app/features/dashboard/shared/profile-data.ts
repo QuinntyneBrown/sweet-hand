@@ -2,7 +2,7 @@ import { computed, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { cardModel, statusLabel, statusTone } from './profile-text';
-import { ICatererProfileService, OwnProfileView, ReferenceDataView } from '@sweet-hand/api';
+import { type CatererProfileService, type OwnProfileView, type ReferenceDataView } from '@sweet-hand/api';
 
 export type LoadState = { kind: 'loading' } | { kind: 'error'; reference: string | null } | { kind: 'ready' };
 
@@ -31,7 +31,7 @@ export class ProfileData {
   });
   readonly pageHref = computed(() => `/caterers/${this.profile()?.slug ?? ''}`);
 
-  constructor(private readonly api: ICatererProfileService) {}
+  constructor(private readonly api: CatererProfileService) {}
 
   async load(): Promise<void> {
     this.state.set({ kind: 'loading' });

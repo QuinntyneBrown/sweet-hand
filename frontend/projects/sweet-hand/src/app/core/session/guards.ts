@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { RedirectCommand, Router, type CanActivateFn } from '@angular/router';
 import { Session } from './session';
-import { Role } from '@sweet-hand/api';
+import { type Role } from '@sweet-hand/api';
 
 /**
  * Pages that need an account (L2-013): a visitor goes to sign in and comes

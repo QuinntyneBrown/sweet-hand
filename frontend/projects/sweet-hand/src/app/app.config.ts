@@ -11,14 +11,14 @@ import { enquiriesProviders } from './features/enquiries/providers';
 import { identityProviders } from './features/identity/providers';
 import { operatorProviders } from './features/operator/providers';
 import { reviewsProviders } from './features/reviews/providers';
-import { SESSION_SERVICE, SessionService } from '@sweet-hand/api';
+import { HttpSessionService, SessionService } from '@sweet-hand/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding(), withInMemoryScrolling({ scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' }), withRouterConfig({ paramsInheritanceStrategy: 'always' })),
     provideHttpClient(withFetch(), withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }), withInterceptors([systemErrorsInterceptor])),
-    { provide: SESSION_SERVICE, useClass: SessionService },
+    { provide: SessionService, useClass: HttpSessionService },
     ...discoveryProviders,
     ...identityProviders,
     ...accountProviders,

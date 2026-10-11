@@ -1,5 +1,5 @@
 import { DOCUMENT, Injectable, inject, signal } from '@angular/core';
-import { ListingPageView, ListingQuery } from '@sweet-hand/api';
+import { type ListingPageView, type ListingQuery } from '@sweet-hand/api';
 
 /** Whether the browser has a connection, kept up to date by its online and offline events. */
 @Injectable({ providedIn: 'root' })

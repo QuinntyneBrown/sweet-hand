@@ -7,7 +7,7 @@ import { Session } from '../../../core/session/session';
 import { EnquiryList } from '../shared/enquiry-list';
 import { EnquiryThread } from '../shared/enquiry-thread';
 import { LastThread } from '../shared/last-thread';
-import { ENQUIRIES_SERVICE, ThreadView } from '@sweet-hand/api';
+import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
 
 /** One enquiry for the caterer, /dashboard/enquiries/:id (reply-in-thread design; docs/mocks/pages/dashboard-enquiry). */
 @Component({
@@ -18,7 +18,7 @@ import { ENQUIRIES_SERVICE, ThreadView } from '@sweet-hand/api';
   styleUrl: './enquiry.page.css',
 })
 export class EnquiryPage {
-  private readonly api = inject(ENQUIRIES_SERVICE);
+  private readonly api = inject(EnquiriesService);
   private readonly session = inject(Session);
   private readonly lastThread = inject(LastThread);
 

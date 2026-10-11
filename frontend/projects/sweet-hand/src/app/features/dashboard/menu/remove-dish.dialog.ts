@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Dialog, Icon } from '@sweet-hand/components';
-import { CATERER_PROFILE_SERVICE, OwnDishView, OwnProfileView } from '@sweet-hand/api';
+import { CatererProfileService, type OwnDishView, type OwnProfileView } from '@sweet-hand/api';
 
 /** Remove “Curry goat”? and Keep at least 3 dishes (docs/mocks/dialogs/remove-dish; L2-043.2). */
 @Component({
@@ -54,7 +54,7 @@ import { CATERER_PROFILE_SERVICE, OwnDishView, OwnProfileView } from '@sweet-han
   `,
 })
 export class RemoveDishDialog {
-  private readonly api = inject(CATERER_PROFILE_SERVICE);
+  private readonly api = inject(CatererProfileService);
 
   readonly open = input(false);
   readonly dish = input<OwnDishView | null>(null);

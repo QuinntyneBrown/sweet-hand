@@ -12,7 +12,7 @@ import { ListingPreview } from '../shared/listing-preview';
 import { CHECK_LABELS, RULE_HREF, attentionAction, cardModel, checklistRows, publishedSections, sectionsLeft, statusLabel, statusTone } from '../shared/profile-text';
 import { WithdrawDialog } from '../shared/withdraw-dialog';
 import { SubmitDialog, type SubmitStep } from './submit-dialog';
-import { ACCOUNT_SERVICE, CATERER_PROFILE_SERVICE, ENQUIRIES_SERVICE, InboxPageView, OwnProfileView, OwnReviewPageView, ReferenceDataView } from '@sweet-hand/api';
+import { AccountService, type AccountView, CatererProfileService, type ChecklistKey, EnquiriesService, type InboxPageView, type InboxRowView, type OwnProfileView, type OwnReviewPageView, type ReferenceDataView, type SubmissionProblem } from '@sweet-hand/api';
 
 interface Loaded {
   profile: OwnProfileView;
@@ -60,9 +60,9 @@ function rememberedDismissal(id: string): boolean {
   templateUrl: './overview.page.html',
 })
 export class OverviewPage {
-  private readonly api = inject(CATERER_PROFILE_SERVICE);
-  private readonly enquiries = inject(ENQUIRIES_SERVICE);
-  private readonly accounts = inject(ACCOUNT_SERVICE);
+  private readonly api = inject(CatererProfileService);
+  private readonly enquiries = inject(EnquiriesService);
+  private readonly accounts = inject(AccountService);
   private readonly session = inject(Session);
   private readonly submitDialog = viewChild(SubmitDialog);
 

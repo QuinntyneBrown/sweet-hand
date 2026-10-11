@@ -31,7 +31,7 @@ import { VIEWER_LABELS, morePhotosLabel, openPhotoLabel, photoCountLabel } from 
 import { MainLandmark } from './main-landmark';
 import { ReportDialog } from './report-dialog/report-dialog';
 import { Connectivity } from './connectivity';
-import { CATERER_PAGE_SERVICE, CatererGoneView, CatererPageView } from '@sweet-hand/api';
+import { type CatererGoneView, CatererPageService, type CatererPageView } from '@sweet-hand/api';
 
 type PageState = 'loading' | 'ready' | 'gone' | 'not-found' | 'error';
 
@@ -78,7 +78,7 @@ const ERROR_PHOTOS: RowPhoto[] = [
 export class CatererPage {
   readonly slug = input.required<string>();
 
-  private readonly api = inject(CATERER_PAGE_SERVICE);
+  private readonly api = inject(CatererPageService);
   private readonly metadata = inject(CatererPageMetadata);
   private readonly main = inject(MainLandmark);
   private readonly launcher = inject(EnquiryLauncher);

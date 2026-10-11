@@ -8,7 +8,7 @@ import { summaryHeading } from '../../../core/forms/validation';
 import { landingFor, safeReturnUrl } from '../../../core/session/guards';
 import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
-import { IDENTITY_SERVICE, SECURITY_KEY_SERVICE, SecondFactorRequest } from '@sweet-hand/api';
+import { IdentityService, type SecondFactorRequest, SecurityKeyService } from '@sweet-hand/api';
 
 /** Two-step verification for operators, /sign-in/verify (L2-056.2; sign-in design, SecondFactorPage). */
 @Component({
@@ -18,8 +18,8 @@ import { IDENTITY_SERVICE, SECURITY_KEY_SERVICE, SecondFactorRequest } from '@sw
   templateUrl: './two-factor.page.html',
 })
 export class TwoFactorPage {
-  private readonly api = inject(IDENTITY_SERVICE);
-  private readonly keys = inject(SECURITY_KEY_SERVICE);
+  private readonly api = inject(IdentityService);
+  private readonly keys = inject(SecurityKeyService);
   private readonly session = inject(Session);
   private readonly router = inject(Router);
 

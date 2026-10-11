@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { Alert } from '@sweet-hand/components';
 import { SESSION_REFRESH_MS, Session } from '../../../core/session/session';
 import { duration, maintenanceWindow, pickBanner } from './site-banner-rules';
+import { NoticesService, type SiteNotice } from '@sweet-hand/api';
 
 const STORAGE_PREFIX = 'sh-dismissed-notice:';
 
@@ -79,7 +80,7 @@ function remember(id: string): void {
   `,
 })
 export class SiteBanner {
-  private readonly api = inject(NOTICES_SERVICE);
+  private readonly api = inject(NoticesService);
   private readonly session = inject(Session);
   private readonly router = inject(Router);
 

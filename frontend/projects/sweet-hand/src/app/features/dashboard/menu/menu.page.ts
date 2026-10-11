@@ -10,7 +10,7 @@ import { StatusNotice } from '../shared/status-notice';
 import { WithdrawDialog } from '../shared/withdraw-dialog';
 import { DishDialog } from './dish.dialog';
 import { RemoveDishDialog } from './remove-dish.dialog';
-import { CATERER_PROFILE_SERVICE, DietaryTag, OwnProfileView } from '@sweet-hand/api';
+import { CatererProfileService, type OwnProfileView } from '@sweet-hand/api';
 
 const MAX_DISHES = 50;
 const MIN_PUBLISHED_DISHES = 3;
@@ -23,7 +23,7 @@ const MIN_PUBLISHED_DISHES = 3;
   templateUrl: './menu.page.html',
 })
 export class MenuPage {
-  private readonly api = inject(CATERER_PROFILE_SERVICE);
+  private readonly api = inject(CatererProfileService);
   private readonly toasts = inject(ToastNotifier);
   private readonly injector = inject(Injector);
   protected readonly data = new ProfileData(this.api);

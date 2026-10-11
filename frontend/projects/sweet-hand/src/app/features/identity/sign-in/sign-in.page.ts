@@ -10,7 +10,7 @@ import { emailError, summaryHeading } from '../../../core/forms/validation';
 import { landingFor, safeReturnUrl } from '../../../core/session/guards';
 import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
-import { BOT_CHALLENGE_SERVICE, IDENTITY_SERVICE, SignInLocked, SignInRequest } from '@sweet-hand/api';
+import { BotChallengeService, IdentityService, type SignInLocked, type SignInRequest } from '@sweet-hand/api';
 
 type Failure = { kind: 'server'; reference: string | null } | { kind: 'locked'; until: string } | null;
 interface Errors {
@@ -28,8 +28,8 @@ const NO_ERRORS: Errors = { email: null, password: null, human: null };
   templateUrl: './sign-in.page.html',
 })
 export class SignInPage {
-  private readonly api = inject(IDENTITY_SERVICE);
-  private readonly bots = inject(BOT_CHALLENGE_SERVICE);
+  private readonly api = inject(IdentityService);
+  private readonly bots = inject(BotChallengeService);
   private readonly session = inject(Session);
   private readonly router = inject(Router);
   private readonly drafts = inject(EnquiryDraftStore);

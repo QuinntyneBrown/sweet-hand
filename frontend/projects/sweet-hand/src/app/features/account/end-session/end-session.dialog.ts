@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, input, ou
 import { firstValueFrom } from 'rxjs';
 import { Alert, Dialog } from '@sweet-hand/components';
 import { whenActive } from '../account-view';
-import { ACCOUNT_SERVICE, ActiveSession } from '@sweet-hand/api';
+import { AccountService, type ActiveSession } from '@sweet-hand/api';
 
 /** Sign out of another device (docs/mocks/dialogs/end-session; L2-078.4, L2-078.5). */
 @Component({
@@ -55,7 +55,7 @@ import { ACCOUNT_SERVICE, ActiveSession } from '@sweet-hand/api';
   `,
 })
 export class EndSessionDialog {
-  private readonly api = inject(ACCOUNT_SERVICE);
+  private readonly api = inject(AccountService);
 
   readonly open = input(false);
   readonly session = input<ActiveSession | null>(null);

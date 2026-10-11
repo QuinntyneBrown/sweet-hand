@@ -28,7 +28,7 @@ import {
   suspendedTitle,
   withPrimary,
 } from './record-view';
-import { OPERATOR_MODERATION_SERVICE } from '@sweet-hand/api';
+import { type CatererRecordView, type DecisionResult, OperatorModerationService } from '@sweet-hand/api';
 
 export type RecordDialog = 'edit' | 'suspend' | 'reinstate' | 'remove';
 
@@ -44,7 +44,7 @@ export type RecordDialog = 'edit' | 'suspend' | 'reinstate' | 'remove';
   styleUrl: './caterer-record.page.css',
 })
 export class CatererRecordPage {
-  private readonly api = inject(OPERATOR_MODERATION_SERVICE);
+  private readonly api = inject(OperatorModerationService);
   private readonly session = inject(Session);
   private readonly toasts = inject(ToastNotifier);
   protected readonly noLabels: CheckStatusLabels = { done: '', missing: '', attention: '' };

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RESUME_PARAM, RESUME_VALUE } from './enquiry-launcher';
-import { EnquiryFormValues } from '@sweet-hand/api';
+import { type EnquiryFormValues } from '@sweet-hand/api';
 
 /** A visitor's unsent enquiry, kept while they sign in or register (send-enquiry design, `EnquiryDraftStore`). */
 export interface LocalEnquiryDraft {

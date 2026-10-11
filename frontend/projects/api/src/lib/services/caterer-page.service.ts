@@ -1,14 +1,11 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import type { Observable } from 'rxjs';
 import type { CatererPageView } from '../models/caterer-page.models';
-import type { ICatererPageService } from './caterer-page.service.contract';
 
-@Injectable()
-export class CatererPageService implements ICatererPageService {
-  private readonly http = inject(HttpClient);
-
-  caterer(slug: string): Observable<CatererPageView> {
-    return this.http.get<CatererPageView>(`/api/public/caterers/${encodeURIComponent(slug)}`);
-  }
+/**
+ * A caterer's public page (ADR 0003, docs/detailed-designs/discovery/view-caterer-page).
+ * A retired slug answers 301 to the current one, which the browser follows;
+ * a removed caterer answers 410 and any other unpublished one 404.
+ */
+export abstract class CatererPageService {
+  abstract caterer(slug: string): Observable<CatererPageView>;
 }

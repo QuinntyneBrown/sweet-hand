@@ -1,5 +1,5 @@
 import { TIME_ZONE, time } from '../../../core/format/format';
-import { SessionUser, SiteNotice } from '@sweet-hand/api';
+import { type SessionUser, type SiteNotice } from '@sweet-hand/api';
 
 /** The one banner under the header, most urgent first ("at most one banner per screen", alert CRD). */
 export type Banner =

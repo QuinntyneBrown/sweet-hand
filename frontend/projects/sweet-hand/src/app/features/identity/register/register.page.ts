@@ -7,7 +7,7 @@ import { problemOf, reference } from '../../../core/forms/problem';
 import { emailError, summaryHeading } from '../../../core/forms/validation';
 import { AuthPhotos } from '../auth-photos';
 import { displayNameError, newPasswordError } from '../rules';
-import { BOT_CHALLENGE_SERVICE, IDENTITY_SERVICE } from '@sweet-hand/api';
+import { BotChallengeService, IdentityService } from '@sweet-hand/api';
 
 type Field = 'name' | 'email' | 'password' | 'consent';
 type Errors = Record<Field, string | null>;
@@ -21,8 +21,8 @@ const NO_ERRORS: Errors = { name: null, email: null, password: null, consent: nu
   templateUrl: './register.page.html',
 })
 export class RegisterPage {
-  private readonly api = inject(IDENTITY_SERVICE);
-  private readonly bots = inject(BOT_CHALLENGE_SERVICE);
+  private readonly api = inject(IdentityService);
+  private readonly bots = inject(BotChallengeService);
   private readonly router = inject(Router);
 
   protected readonly form = new FormGroup({

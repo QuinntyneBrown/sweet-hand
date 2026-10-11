@@ -1,4 +1,4 @@
-import { RecordBreachRequest } from '@sweet-hand/api';
+import { type RecordBreachRequest } from '@sweet-hand/api';
 
 export type BreachField = 'date' | 'what' | 'people' | 'risk' | 'decision';
 export type BreachErrors = Partial<Record<BreachField, string>>;

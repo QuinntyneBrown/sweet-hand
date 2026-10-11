@@ -1,6 +1,6 @@
 import type { ChartPoint } from '@sweet-hand/components';
 import { count, monthYear, shortDate, torontoToday } from '../../../core/format/format';
-import { EnquiryMetrics, Granularity, MetricsBucket, MetricsReport } from '@sweet-hand/api';
+import { type EnquiryMetrics, type Granularity, type MetricsBucket, type MetricsReport } from '@sweet-hand/api';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const addDays = (date: string, n: number) => new Date(Date.parse(`${date}T12:00:00Z`) + n * DAY_MS).toISOString().slice(0, 10);

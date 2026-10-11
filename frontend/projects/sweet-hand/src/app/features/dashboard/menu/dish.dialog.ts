@@ -3,7 +3,7 @@ import { firstValueFrom } from 'rxjs';
 import { Alert, DIETARY_TAGS, Dialog, Fieldset, FormField, FormSummary, TextField, Textarea, type DietaryTag, type SummaryItem } from '@sweet-hand/components';
 import { problemOf } from '../../../core/forms/problem';
 import { DIETARY_LABELS } from '../../discovery/caterer/dietary-labels';
-import { CATERER_PROFILE_SERVICE, DietaryTag, DietaryTagId, OwnDishView, OwnProfileView } from '@sweet-hand/api';
+import { CatererProfileService, type DietaryTagId, type OwnDishView, type OwnProfileView } from '@sweet-hand/api';
 
 type Errors = { name: string | null; description: string | null; price: string | null };
 const NONE: Errors = { name: null, description: null, price: null };
@@ -79,7 +79,7 @@ const NONE: Errors = { name: null, description: null, price: null };
   `,
 })
 export class DishDialog {
-  private readonly api = inject(CATERER_PROFILE_SERVICE);
+  private readonly api = inject(CatererProfileService);
 
   readonly open = input(false);
   /** The dish being edited, or null to add one. */

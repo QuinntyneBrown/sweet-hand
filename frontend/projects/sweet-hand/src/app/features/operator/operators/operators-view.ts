@@ -1,5 +1,5 @@
 import { shortDate, time, torontoToday } from '../../../core/format/format';
-import { OperatorAccount } from '@sweet-hand/api';
+import { type OperatorAccount } from '@sweet-hand/api';
 
 /** "today, 8:15 a.m." or "Fri 9 Oct, 4:30 p.m." */
 function when(iso: string, now: Date): string {

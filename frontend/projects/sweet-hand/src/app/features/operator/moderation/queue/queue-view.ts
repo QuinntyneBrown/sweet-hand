@@ -1,6 +1,7 @@
 import type { QueueItemMedia, SegmentedItem } from '@sweet-hand/components';
 import { count } from '../../../../core/format/format';
 import { fullDate, profileStatusLabel, waitingFor } from '../moderation-text';
+import { type HoldReason, type QueueFilter, type QueueItemView, type QueuePageView } from '@sweet-hand/api';
 
 /** One row of the review queue as the page renders it (queue-item CRD). */
 export interface QueueRow {

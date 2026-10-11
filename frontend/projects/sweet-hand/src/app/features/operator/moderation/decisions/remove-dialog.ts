@@ -6,7 +6,7 @@ import { problemOf } from '../../../../core/forms/problem';
 import { summaryHeading } from '../../../../core/forms/validation';
 import { firstName } from '../moderation-text';
 import { conflictText, reasonError } from './decision-text';
-import { OPERATOR_MODERATION_SERVICE } from '@sweet-hand/api';
+import { type CatererRecordView, type DecisionResult, OperatorModerationService } from '@sweet-hand/api';
 
 /**
  * "Remove Pelau House permanently?" with a reason and the business name typed
@@ -90,7 +90,7 @@ import { OPERATOR_MODERATION_SERVICE } from '@sweet-hand/api';
   `,
 })
 export class RemoveDialog {
-  private readonly api = inject(OPERATOR_MODERATION_SERVICE);
+  private readonly api = inject(OperatorModerationService);
 
   readonly open = input(false);
   readonly record = input.required<CatererRecordView>();

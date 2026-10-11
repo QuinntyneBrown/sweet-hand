@@ -1,7 +1,7 @@
 import type { SegmentedItem, StatusTone } from '@sweet-hand/components';
 import { count } from '../../../../core/format/format';
 import { profileStatusLabel, profileStatusTone, updatedOn } from '../moderation-text';
-import { ProfileStatus } from '@sweet-hand/api';
+import { type CatererFlag, type CatererRowView, type CatererStatusFilter, type CaterersPageView, type ProfileStatus } from '@sweet-hand/api';
 
 const FILTERS: CatererStatusFilter[] = ['draft', 'pending', 'changes', 'published', 'suspended', 'removed'];
 const STATUS_OF: Record<CatererStatusFilter, ProfileStatus> = {

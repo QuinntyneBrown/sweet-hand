@@ -3,7 +3,7 @@ import { count, shortDate } from '../../../../core/format/format';
 import { DIETARY_LABELS } from '../../../discovery/caterer/dietary-labels';
 import { guestRange } from '../../../discovery/caterer/caterer-view';
 import { relativeDayTime } from '../moderation-text';
-import { DietaryTag } from '@sweet-hand/api';
+import { type ChangeValue, type ChangedField, type RecentChangeView, type RecentChangesPageView } from '@sweet-hand/api';
 
 export function fieldLabel(field: ChangedField): string {
   switch (field) {

@@ -20,7 +20,7 @@ import { emailError, summaryHeading } from '../../../core/forms/validation';
 import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
 import { businessNameError, contactNameError, newPasswordError, normalisePhone, phoneError } from '../rules';
-import { BOT_CHALLENGE_SERVICE, IDENTITY_SERVICE } from '@sweet-hand/api';
+import { BotChallengeService, IdentityService } from '@sweet-hand/api';
 
 const FIELDS = ['business', 'contact', 'email', 'phone', 'password', 'sells', 'terms'] as const;
 type Field = (typeof FIELDS)[number];
@@ -41,8 +41,8 @@ export const STATUS_WORDS: CheckStatusLabels = {
   templateUrl: './register-caterer.page.html',
 })
 export class RegisterCatererPage {
-  private readonly api = inject(IDENTITY_SERVICE);
-  private readonly bots = inject(BOT_CHALLENGE_SERVICE);
+  private readonly api = inject(IdentityService);
+  private readonly bots = inject(BotChallengeService);
   private readonly session = inject(Session);
 
   protected readonly form = new FormGroup({

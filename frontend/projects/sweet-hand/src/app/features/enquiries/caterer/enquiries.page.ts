@@ -7,7 +7,7 @@ import { EnquiryList } from '../shared/enquiry-list';
 import { EnquiryThread } from '../shared/enquiry-thread';
 import { LastThread } from '../shared/last-thread';
 import { catererFilteredSubtitle, inboxSubtitle, readFilter, readPage } from '../enquiry-text';
-import { ENQUIRIES_SERVICE, ThreadView } from '@sweet-hand/api';
+import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
 
 /**
  * A caterer's enquiries, /dashboard/enquiries (browse-inbox design): the list,
@@ -20,7 +20,7 @@ import { ENQUIRIES_SERVICE, ThreadView } from '@sweet-hand/api';
   templateUrl: './enquiries.page.html',
 })
 export class EnquiriesPage {
-  private readonly api = inject(ENQUIRIES_SERVICE);
+  private readonly api = inject(EnquiriesService);
   private readonly params = toSignal(inject(ActivatedRoute).queryParamMap, { requireSync: true });
   private readonly lastThread = inject(LastThread);
   protected readonly user = inject(Session).user;

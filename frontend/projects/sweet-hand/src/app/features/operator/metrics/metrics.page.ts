@@ -25,7 +25,7 @@ import { count, torontoToday } from '../../../core/format/format';
 import { problemOf, reference } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
 import { charts, emptyText, lastSixWeeks, percent, publishedDelta, rangeError, rangeSubtitle, statusCaption, statusName, sum } from './metrics-view';
-import { METRICS_SERVICE } from '@sweet-hand/api';
+import { type EnquiryMetrics, type Granularity, type MetricsQuery, type MetricsReport, MetricsService } from '@sweet-hand/api';
 
 /** The metrics dashboard, /admin/metrics (docs/mocks/pages/admin-metrics; MetricsDashboardPage, L2-061, L2-063). */
 @Component({
@@ -149,7 +149,7 @@ import { METRICS_SERVICE } from '@sweet-hand/api';
   `,
 })
 export class MetricsPage {
-  private readonly api = inject(METRICS_SERVICE);
+  private readonly api = inject(MetricsService);
   private readonly router = inject(Router);
   private readonly toasts = inject(ToastNotifier);
 

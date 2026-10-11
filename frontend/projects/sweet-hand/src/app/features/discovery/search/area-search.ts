@@ -1,5 +1,5 @@
 import { foldText } from '@sweet-hand/components';
-import { ServiceArea } from '@sweet-hand/api';
+import { type ServiceArea } from '@sweet-hand/api';
 
 /**
  * What a search for "an area or a postal code" means (L2-011, L2-012).

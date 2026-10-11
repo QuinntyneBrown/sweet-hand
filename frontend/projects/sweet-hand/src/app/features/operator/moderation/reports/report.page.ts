@@ -20,7 +20,7 @@ import {
   reviewStatusLabel,
 } from './report-view';
 import { ResolveReportDialog } from './resolve-report-dialog';
-import { OPERATOR_MODERATION_SERVICE } from '@sweet-hand/api';
+import { OperatorModerationService, type ReportEnquiryView, type ReportGroupView } from '@sweet-hand/api';
 
 /** One reported item and its reports, /admin/reports/:id (handle-reports design; docs/mocks/pages/admin-report). */
 @Component({
@@ -31,7 +31,7 @@ import { OPERATOR_MODERATION_SERVICE } from '@sweet-hand/api';
   styleUrl: './report.page.css',
 })
 export class ReportPage {
-  private readonly api = inject(OPERATOR_MODERATION_SERVICE);
+  private readonly api = inject(OperatorModerationService);
   private readonly session = inject(Session);
 
   /** The report id from the route. */

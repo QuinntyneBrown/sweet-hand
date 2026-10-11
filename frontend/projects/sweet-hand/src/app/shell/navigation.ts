@@ -1,4 +1,5 @@
 import type { FooterLink, SiteNavLink, SiteNavShortcut } from '@sweet-hand/components';
+import { type SessionUser } from '@sweet-hand/api';
 
 /** What the shell offers each role (site-header, site-menu and footer mocks). */
 

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, input, output, signal } f
 import { Checkbox, FilterDropdown, FilterTrigger, optionDisabled, type FilterOption } from '@sweet-hand/components';
 import { AreaField } from '../search/area-field';
 import { caterersCount } from './listing-text';
-import { ServiceArea } from '@sweet-hand/api';
+import { type ServiceArea } from '@sweet-hand/api';
 
 type Group = 'cuisine' | 'area';
 

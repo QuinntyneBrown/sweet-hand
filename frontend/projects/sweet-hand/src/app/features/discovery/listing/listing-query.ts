@@ -1,5 +1,5 @@
 import type { ParamMap, Params } from '@angular/router';
-import { ListingPageView, ListingQuery } from '@sweet-hand/api';
+import { type ListingPageView, type ListingQuery } from '@sweet-hand/api';
 
 /**
  * The listing state kept in the URL query string (L2-003): `cuisine`, `region`

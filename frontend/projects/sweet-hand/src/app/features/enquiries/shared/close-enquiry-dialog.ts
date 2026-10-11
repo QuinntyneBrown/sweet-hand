@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, input, ou
 import { firstValueFrom } from 'rxjs';
 import { Button, Dialog, Icon } from '@sweet-hand/components';
 import { otherShortName } from '../thread-view';
-import { ENQUIRIES_SERVICE, ThreadView } from '@sweet-hand/api';
+import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
 
 /** "Close this enquiry?" (decline-or-close-enquiry design; docs/mocks/dialogs/close-enquiry). */
 @Component({
@@ -46,7 +46,7 @@ import { ENQUIRIES_SERVICE, ThreadView } from '@sweet-hand/api';
   `,
 })
 export class CloseEnquiryDialog {
-  private readonly api = inject(ENQUIRIES_SERVICE);
+  private readonly api = inject(EnquiriesService);
 
   readonly open = input(false);
   readonly thread = input.required<ThreadView>();

@@ -5,7 +5,7 @@ import { AreaField } from '../search/area-field';
 import { activeChips, areaOptions, cuisineOptions, removeFilterLabel } from './listing-filters';
 import { activeFilterCount, sameFilters, withArea, withCuisine, withRegion } from './listing-query';
 import { caterersCount } from './listing-text';
-import { DISCOVERY_SERVICE, ListingPageView, ListingQuery, ServiceArea } from '@sweet-hand/api';
+import { DiscoveryService, type ListingPageView, type ListingQuery, type ServiceArea } from '@sweet-hand/api';
 
 /**
  * The phone Filters sheet (docs/mocks/dialogs/filters): choices wait in the
@@ -70,7 +70,7 @@ export class ListingFiltersSheet {
   readonly applied = output<ListingQuery>();
   readonly dismissed = output<void>();
 
-  private readonly api = inject(DISCOVERY_SERVICE);
+  private readonly api = inject(DiscoveryService);
   protected readonly pending = signal<ListingQuery>({ cuisines: [], regions: [], areas: [], page: 1 });
   /** The choices are those in force, whose results the listing already shows. */
   private readonly unchanged = computed(() => sameFilters(this.pending(), this.current()) && !!this.currentView());

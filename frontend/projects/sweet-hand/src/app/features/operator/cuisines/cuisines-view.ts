@@ -1,5 +1,5 @@
 import { shortDate, torontoToday } from '../../../core/format/format';
-import { OperatorCuisine } from '@sweet-hand/api';
+import { type OperatorCuisine } from '@sweet-hand/api';
 
 /** Case- and accent-insensitive, so "HAÏTIAN" is the same cuisine as "Haitian" (docs/mocks/dialogs/add-cuisine/invalid.html). */
 const fold = (s: string) =>

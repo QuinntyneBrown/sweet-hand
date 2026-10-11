@@ -30,7 +30,7 @@ import { guestRange } from '../../../discovery/caterer/caterer-view';
 import { openCertificate } from '../certificate-link';
 import { dayAtTime, dayTime, fullDate, profileStatusLabel, profileStatusTone, waitingInSentence } from '../moderation-text';
 import { certificateFileLabel, historyLine, resubmittedText, ruleLines, submittedLine } from './profile-review-view';
-import { OPERATOR_MODERATION_SERVICE } from '@sweet-hand/api';
+import { type DecisionResult, type NameChangeReviewView, OperatorModerationService, type ProfileReviewView, type SubmissionReviewView } from '@sweet-hand/api';
 
 /**
  * Reviewing a submitted profile or a business-name change, /admin/review/:id
@@ -63,7 +63,7 @@ import { OPERATOR_MODERATION_SERVICE } from '@sweet-hand/api';
   styleUrl: './profile-review.page.css',
 })
 export class ProfileReviewPage {
-  private readonly api = inject(OPERATOR_MODERATION_SERVICE);
+  private readonly api = inject(OperatorModerationService);
   private readonly router = inject(Router);
   private readonly toasts = inject(ToastNotifier);
   private readonly session = inject(Session);

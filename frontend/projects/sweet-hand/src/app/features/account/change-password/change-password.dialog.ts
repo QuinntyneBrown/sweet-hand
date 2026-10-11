@@ -5,7 +5,7 @@ import { Alert, Button, Dialog, FormField, FormSummary, PrivateNote, TextField, 
 import { problemOf } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
 import { newPasswordError } from '../../identity/rules';
-import { ACCOUNT_SERVICE } from '@sweet-hand/api';
+import { AccountService } from '@sweet-hand/api';
 
 type Field = 'current' | 'new' | 'confirm';
 type Errors = Record<Field, string | null>;
@@ -57,7 +57,7 @@ const NO_ERRORS: Errors = { current: null, new: null, confirm: null };
   `,
 })
 export class ChangePasswordDialog {
-  private readonly api = inject(ACCOUNT_SERVICE);
+  private readonly api = inject(AccountService);
 
   readonly open = input(false);
   /** "Last changed Sat 14 Mar." */

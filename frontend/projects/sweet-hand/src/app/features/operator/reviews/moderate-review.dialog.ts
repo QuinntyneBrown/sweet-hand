@@ -4,7 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { Alert, Button, Checkbox, Dialog, FormField, FormSummary, Icon, Stars, Textarea, Well, type SummaryItem } from '@sweet-hand/components';
 import { summaryHeading } from '../../../core/forms/validation';
 import { ratingLabel } from '../../reviews/reviews-section/review-labels';
-import { ModeratedReview, ModerationAction, OPERATOR_SETTINGS_SERVICE } from '@sweet-hand/api';
+import { type ModeratedReview, type ModerationAction, OperatorSettingsService } from '@sweet-hand/api';
 
 type Tone = 'info' | 'success' | 'danger';
 
@@ -64,7 +64,7 @@ type Tone = 'info' | 'success' | 'danger';
   `,
 })
 export class ModerateReviewDialog {
-  private readonly api = inject(OPERATOR_SETTINGS_SERVICE);
+  private readonly api = inject(OperatorSettingsService);
 
   readonly open = input(false);
   readonly review = input.required<ModeratedReview>();

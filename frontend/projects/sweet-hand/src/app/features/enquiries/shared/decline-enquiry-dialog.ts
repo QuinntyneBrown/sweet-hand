@@ -4,7 +4,7 @@ import { Button, Dialog, FormField, FormSummary, Icon, Textarea, graphemeLength,
 import { count } from '../../../core/format/format';
 import { problemOf } from '../../../core/forms/problem';
 import { NOTE_MAX, noteError, otherShortName } from '../thread-view';
-import { ENQUIRIES_SERVICE, ThreadView } from '@sweet-hand/api';
+import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
 
 /**
  * "Decline Priya’s enquiry?" with an optional note of up to 500 characters
@@ -71,7 +71,7 @@ import { ENQUIRIES_SERVICE, ThreadView } from '@sweet-hand/api';
   `,
 })
 export class DeclineEnquiryDialog {
-  private readonly api = inject(ENQUIRIES_SERVICE);
+  private readonly api = inject(EnquiriesService);
 
   readonly open = input(false);
   readonly thread = input.required<ThreadView>();

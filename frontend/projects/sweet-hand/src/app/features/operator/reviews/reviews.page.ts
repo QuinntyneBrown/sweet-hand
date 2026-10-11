@@ -7,7 +7,7 @@ import { problemOf, reference } from '../../../core/forms/problem';
 import { eventLabel, ratingLabel } from '../../reviews/reviews-section/review-labels';
 import { ModerateReviewDialog } from './moderate-review.dialog';
 import { actionsFor, decisionToast, moderationStatus, moderationSubtitle, searchCount } from './reviews-view';
-import { ModerationAction, OPERATOR_SETTINGS_SERVICE } from '@sweet-hand/api';
+import { type ModeratedReview, type ModerationAction, type ModerationList, type ModerationStatus, OperatorSettingsService } from '@sweet-hand/api';
 
 const ACTION_LABEL: Record<ModerationAction, () => string> = {
   approve: () => $localize`:@@reviewsAdmin.approve:Approve`,
@@ -130,7 +130,7 @@ const ACTION_LABEL: Record<ModerationAction, () => string> = {
   `,
 })
 export class ReviewsPage {
-  private readonly api = inject(OPERATOR_SETTINGS_SERVICE);
+  private readonly api = inject(OperatorSettingsService);
   private readonly router = inject(Router);
   private readonly toasts = inject(ToastNotifier);
 

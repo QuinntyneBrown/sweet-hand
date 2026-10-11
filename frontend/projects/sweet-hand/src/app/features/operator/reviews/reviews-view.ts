@@ -1,6 +1,6 @@
 import { shortDate, time, torontoToday } from '../../../core/format/format';
 import type { ReviewStatusTone } from '@sweet-hand/components';
-import { ModeratedReview, ModerationAction, ModerationList, ModerationStatus } from '@sweet-hand/api';
+import { type ModeratedReview, type ModerationAction, type ModerationList, type ModerationStatus } from '@sweet-hand/api';
 
 /** "Today, 7:58 a.m.", "Yesterday, 9:14 p.m." or "Thu 8 Oct, 4:12 p.m." in Toronto. */
 export function moderationTime(at: string, now: Date = new Date()): string {

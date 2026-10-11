@@ -7,7 +7,7 @@ import { Alert, Button, FormField, FormSummary, TextField, type SummaryItem } fr
 import { problemOf, reference } from '../../../core/forms/problem';
 import { emailError, summaryHeading } from '../../../core/forms/validation';
 import { AuthPhotos } from '../auth-photos';
-import { BOT_CHALLENGE_SERVICE, IDENTITY_SERVICE } from '@sweet-hand/api';
+import { BotChallengeService, IdentityService } from '@sweet-hand/api';
 
 type Failure = { kind: 'server'; reference: string | null } | { kind: 'rate-limited'; minutes: number } | null;
 
@@ -19,8 +19,8 @@ type Failure = { kind: 'server'; reference: string | null } | { kind: 'rate-limi
   templateUrl: './forgot-password.page.html',
 })
 export class ForgotPasswordPage {
-  private readonly api = inject(IDENTITY_SERVICE);
-  private readonly bots = inject(BOT_CHALLENGE_SERVICE);
+  private readonly api = inject(IdentityService);
+  private readonly bots = inject(BotChallengeService);
 
   protected readonly form = new FormGroup({ email: new FormControl('', { nonNullable: true }) });
   protected readonly error = signal<string | null>(null);

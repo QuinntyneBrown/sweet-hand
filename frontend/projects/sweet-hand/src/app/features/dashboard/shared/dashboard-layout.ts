@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, input } from '@an
 import { CatererCard, SideNav } from '@sweet-hand/components';
 import { Session } from '../../../core/session/session';
 import { dashboardNav, type NavKey } from './profile-text';
-import { OwnProfileStatus } from '@sweet-hand/api';
+import { type OwnProfileStatus } from '@sweet-hand/api';
 
 /**
  * The caterer dashboard's work layout (container CRD, `work-layout`): side

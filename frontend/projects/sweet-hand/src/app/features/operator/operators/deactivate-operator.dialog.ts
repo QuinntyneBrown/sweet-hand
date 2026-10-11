@@ -4,7 +4,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Button, Dialog, FormField, Icon, TextField } from '@sweet-hand/components';
 import { firstName } from './operators-view';
-import { OPERATOR_SETTINGS_SERVICE, OperatorAccount } from '@sweet-hand/api';
+import { type OperatorAccount, OperatorSettingsService } from '@sweet-hand/api';
 
 /** The typed name matches, ignoring case and spacing (docs/mocks/dialogs/deactivate-operator). */
 export const confirms = (typed: string, name: string) => typed.replace(/\s+/g, ' ').trim().toLocaleLowerCase('en-CA') === name.toLocaleLowerCase('en-CA');
@@ -48,7 +48,7 @@ export const confirms = (typed: string, name: string) => typed.replace(/\s+/g, '
   `,
 })
 export class DeactivateOperatorDialog {
-  private readonly api = inject(OPERATOR_SETTINGS_SERVICE);
+  private readonly api = inject(OperatorSettingsService);
 
   readonly open = input(false);
   readonly account = input<OperatorAccount | null>(null);

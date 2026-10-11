@@ -28,7 +28,7 @@ import { problemOf, reference } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
 import { Session } from '../../../core/session/session';
 import { EMPTY_VALUES, FIELDS, MESSAGE_MAX, areaWarning, dateRange, enquiryErrors, guestsWarning, serverErrors, type Field, type FieldErrors } from './enquiry-rules';
-import { BOT_CHALLENGE_SERVICE, DISCOVERY_SERVICE, ENQUIRIES_SERVICE, EnquiryFormValues, SentEnquiryView } from '@sweet-hand/api';
+import { BotChallengeService, DiscoveryService, EnquiriesService, type EnquiryFormValues, type EnquiryRefusal, type SentEnquiryView } from '@sweet-hand/api';
 
 /** What the launcher opens the form with. */
 export interface EnquiryFormRequest {
@@ -63,9 +63,9 @@ export class EnquiryFormDialog implements OnInit {
   readonly request = input.required<EnquiryFormRequest>();
   readonly closed = output<void>();
 
-  private readonly api = inject(ENQUIRIES_SERVICE);
-  private readonly discovery = inject(DISCOVERY_SERVICE);
-  private readonly challenge = inject(BOT_CHALLENGE_SERVICE);
+  private readonly api = inject(EnquiriesService);
+  private readonly discovery = inject(DiscoveryService);
+  private readonly challenge = inject(BotChallengeService);
   private readonly injector = inject(Injector);
   private readonly session = inject(Session);
   private readonly router = inject(Router);

@@ -7,7 +7,7 @@ import { Session } from '../../../core/session/session';
 import { EnquiryList } from '../shared/enquiry-list';
 import { EnquiryThread } from '../shared/enquiry-thread';
 import { LastThread } from '../shared/last-thread';
-import { ENQUIRIES_SERVICE, ThreadView } from '@sweet-hand/api';
+import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
 
 /** A customer's enquiry thread beside their inbox, /inbox/:id (reply-in-thread and browse-inbox designs). */
 @Component({
@@ -18,7 +18,7 @@ import { ENQUIRIES_SERVICE, ThreadView } from '@sweet-hand/api';
   styleUrl: './thread.page.css',
 })
 export class ThreadPage {
-  private readonly api = inject(ENQUIRIES_SERVICE);
+  private readonly api = inject(EnquiriesService);
   private readonly session = inject(Session);
   private readonly lastThread = inject(LastThread);
 

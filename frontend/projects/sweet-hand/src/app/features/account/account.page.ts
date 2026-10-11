@@ -12,7 +12,7 @@ import { EditDetailsDialog } from './edit-details/edit-details.dialog';
 import { DeleteAccountDialog } from './delete-account/delete-account.dialog';
 import { DownloadDataDialog } from './download-data/download-data.dialog';
 import { EndSessionDialog } from './end-session/end-session.dialog';
-import { ACCOUNT_SERVICE, AccountView, ActiveSession } from '@sweet-hand/api';
+import { AccountService, type AccountView, type ActiveSession } from '@sweet-hand/api';
 
 type AccountDialog = 'details' | 'password' | 'session' | 'download' | 'delete' | null;
 
@@ -25,7 +25,7 @@ type AccountDialog = 'details' | 'password' | 'session' | 'download' | 'delete' 
   styleUrl: './account.page.css',
 })
 export class AccountPage {
-  private readonly api = inject(ACCOUNT_SERVICE);
+  private readonly api = inject(AccountService);
   private readonly session = inject(Session);
   private readonly router = inject(Router);
   private readonly toasts = inject(ToastNotifier);

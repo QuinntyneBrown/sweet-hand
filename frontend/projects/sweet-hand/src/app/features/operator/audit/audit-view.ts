@@ -1,5 +1,5 @@
 import { count, shortDate, time, torontoToday } from '../../../core/format/format';
-import { AuditEntryView } from '@sweet-hand/api';
+import { type AuditEntryView } from '@sweet-hand/api';
 
 /** The filter's action choices (docs/mocks/pages/admin-audit): a value is an action key or a group of keys. */
 export const ACTION_FILTERS: { value: string; label: string }[] = [

@@ -7,7 +7,7 @@ import { adminsToAsk } from '../admin-only';
 import { AddOperatorDialog } from './add-operator.dialog';
 import { DeactivateOperatorDialog } from './deactivate-operator.dialog';
 import { operatorMeta, operatorsSubtitle } from './operators-view';
-import { OPERATOR_SETTINGS_SERVICE, OperatorAccount } from '@sweet-hand/api';
+import { type OperatorAccount, OperatorSettingsService } from '@sweet-hand/api';
 
 /** Operator accounts, /admin/operators (docs/mocks/pages/admin-operators; OperatorAccountsPage, L2-056). */
 @Component({
@@ -95,7 +95,7 @@ import { OPERATOR_SETTINGS_SERVICE, OperatorAccount } from '@sweet-hand/api';
   `,
 })
 export class OperatorsPage {
-  private readonly api = inject(OPERATOR_SETTINGS_SERVICE);
+  private readonly api = inject(OperatorSettingsService);
   private readonly toasts = inject(ToastNotifier);
 
   protected readonly accounts = signal<OperatorAccount[] | null>(null);

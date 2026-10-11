@@ -1,5 +1,6 @@
 import { monthYear, shortDate, time } from '../../../../core/format/format';
 import { daysSince, dayTime, firstName } from '../moderation-text';
+import { type ReportEntryView, type ReportGroupView, type ReportOutcome } from '@sweet-hand/api';
 
 export function reportHeading(g: ReportGroupView): string {
   const t = g.target;

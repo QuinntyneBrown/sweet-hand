@@ -1,6 +1,6 @@
 import type { Problem } from '../../../../core/forms/problem';
 import { profileStatusLabel } from '../moderation-text';
-import { ProfileStatus } from '@sweet-hand/api';
+import { type ProfileStatus } from '@sweet-hand/api';
 
 const STATUSES: ProfileStatus[] = ['Draft', 'Pending review', 'Changes requested', 'Published', 'Suspended', 'Removed'];
 

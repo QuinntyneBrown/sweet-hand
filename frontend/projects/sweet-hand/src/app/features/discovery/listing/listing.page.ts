@@ -39,7 +39,7 @@ import {
 import { pageLabel, pageSummary, savedAt } from './listing-text';
 import { Connectivity, ListingCache } from './listing-cache';
 import { activeFilterCount, knownQuery, readListingQuery, toQueryParams, withArea, withCuisine, withRegion, withoutCuisines } from './listing-query';
-import { DISCOVERY_SERVICE, ListingPageView } from '@sweet-hand/api';
+import { DiscoveryService, type ListingPageView, type ListingQuery } from '@sweet-hand/api';
 
 /** The caterer listing, /caterers (docs/detailed-designs/discovery/browse-listing). */
 @Component({
@@ -49,7 +49,7 @@ import { DISCOVERY_SERVICE, ListingPageView } from '@sweet-hand/api';
   templateUrl: './listing.page.html',
 })
 export class ListingPage {
-  private readonly api = inject(DISCOVERY_SERVICE);
+  private readonly api = inject(DiscoveryService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 

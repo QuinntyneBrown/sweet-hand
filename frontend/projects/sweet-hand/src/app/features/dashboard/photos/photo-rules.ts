@@ -1,4 +1,4 @@
-import { OwnPhotoView, UploadRequest } from '@sweet-hand/api';
+import { type OwnPhotoView, type UploadRequest } from '@sweet-hand/api';
 
 /** What the picker offers; the server checks the content itself (L2-041.3). */
 export const PHOTO_TYPES = 'image/jpeg,image/png,image/webp,image/heic';

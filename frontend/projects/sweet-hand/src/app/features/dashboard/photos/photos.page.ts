@@ -12,7 +12,7 @@ import { WithdrawDialog } from '../shared/withdraw-dialog';
 import { PhotoDetailsDialog } from './photo-details.dialog';
 import { MAX_PHOTOS, MIN_PUBLISHED_PHOTOS, PHOTO_TYPES, photoSizeMessage, photosSubtitle, readUpload, tooBig } from './photo-rules';
 import { RemovePhotoDialog } from './remove-photo.dialog';
-import { CATERER_PROFILE_SERVICE } from '@sweet-hand/api';
+import { CatererProfileService, type OwnPhotoView, type OwnProfileView } from '@sweet-hand/api';
 
 interface Upload {
   key: number;
@@ -32,7 +32,7 @@ const PROCESSING_POLL_MS = 10_000;
   templateUrl: './photos.page.html',
 })
 export class PhotosPage {
-  private readonly api = inject(CATERER_PROFILE_SERVICE);
+  private readonly api = inject(CatererProfileService);
   private readonly toasts = inject(ToastNotifier);
   private readonly injector = inject(Injector);
   protected readonly data = new ProfileData(this.api);

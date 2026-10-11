@@ -11,7 +11,7 @@ import { ProfileData } from '../shared/profile-data';
 import { StatusNotice } from '../shared/status-notice';
 import { WithdrawDialog } from '../shared/withdraw-dialog';
 import { fixHeading, notSavedText } from '../shared/section-text';
-import { CATERER_PROFILE_SERVICE, OwnProfileView } from '@sweet-hand/api';
+import { CatererProfileService, type OwnProfileView } from '@sweet-hand/api';
 
 type Errors = { name: string | null; description: string | null };
 
@@ -23,7 +23,7 @@ type Errors = { name: string | null; description: string | null };
   templateUrl: './details.page.html',
 })
 export class DetailsPage {
-  private readonly api = inject(CATERER_PROFILE_SERVICE);
+  private readonly api = inject(CatererProfileService);
   protected readonly data = new ProfileData(this.api);
   protected readonly autosave = new Autosave(() => this.save(), () => this.data.published());
 

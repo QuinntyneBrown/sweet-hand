@@ -5,7 +5,7 @@
  */
 import { graphemeLength } from '@sweet-hand/components';
 import type { EnquiryTarget } from '../../../core/enquiry/enquiry-launcher';
-import { EnquiryFormValues } from '@sweet-hand/api';
+import { type EnquiryFormValues } from '@sweet-hand/api';
 
 export const MESSAGE_MIN = 20;
 export const MESSAGE_MAX = 2000;

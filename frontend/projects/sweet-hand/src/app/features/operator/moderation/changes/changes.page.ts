@@ -7,7 +7,7 @@ import { reasonError } from '../decisions/decision-text';
 import { ReasonDialog } from '../decisions/reason-dialog';
 import { firstName, pageName, pageSummary, readPage } from '../moderation-text';
 import { changeEntry, changesSubtitle, revertDescription, revertTitle, type ChangeEntry } from './changes-view';
-import { OPERATOR_MODERATION_SERVICE } from '@sweet-hand/api';
+import { OperatorModerationService, type RecentChangesPageView } from '@sweet-hand/api';
 
 /**
  * Edits to published profiles from the last 30 days, newest first, each with a
@@ -201,7 +201,7 @@ import { OPERATOR_MODERATION_SERVICE } from '@sweet-hand/api';
   `,
 })
 export class RecentChangesPage {
-  private readonly api = inject(OPERATOR_MODERATION_SERVICE);
+  private readonly api = inject(OperatorModerationService);
   private readonly toasts = inject(ToastNotifier);
   private readonly params = toSignal(inject(ActivatedRoute).queryParamMap, { requireSync: true });
 

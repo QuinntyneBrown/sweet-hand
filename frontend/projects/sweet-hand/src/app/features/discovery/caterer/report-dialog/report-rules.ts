@@ -1,4 +1,4 @@
-import { ReportReason } from '@sweet-hand/api';
+import { type ReportReason } from '@sweet-hand/api';
 
 /** The fixed reasons of L2-054 with the hint under each (docs/mocks/dialogs/report). */
 export const REPORT_REASONS: { value: ReportReason; label: string; hint: string }[] = [

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Injector, afterNextRender, computed, effect, inject, input, output, signal, untracked, viewChild } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Checklist, ChecklistItem, Dialog, Icon } from '@sweet-hand/components';
-import { ACCOUNT_SERVICE, AccountView } from '@sweet-hand/api';
+import { AccountService, type AccountView } from '@sweet-hand/api';
 
 const plural = (n: number, one: string, many: string) => (n === 1 ? one : many);
 
@@ -93,7 +93,7 @@ export function exportLines(account: AccountView): string[] {
   `,
 })
 export class DownloadDataDialog {
-  private readonly api = inject(ACCOUNT_SERVICE);
+  private readonly api = inject(AccountService);
   private readonly injector = inject(Injector);
 
   readonly open = input(false);

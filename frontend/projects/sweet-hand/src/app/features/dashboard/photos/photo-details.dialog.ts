@@ -3,7 +3,7 @@ import { firstValueFrom } from 'rxjs';
 import { Alert, Checkbox, Dialog, FileUpload, FormField, FormSummary, Icon, Textarea, type SummaryItem } from '@sweet-hand/components';
 import { problemOf } from '../../../core/forms/problem';
 import { PHOTO_TYPES, readUpload } from './photo-rules';
-import { CATERER_PROFILE_SERVICE, OwnPhotoView, OwnProfileView } from '@sweet-hand/api';
+import { CatererProfileService, type OwnPhotoView, type OwnProfileView } from '@sweet-hand/api';
 
 /** Photo details (docs/mocks/dialogs/photo-details; manage-photos, PhotoDetailsDialog): caption, cover, replace, remove. */
 @Component({
@@ -81,7 +81,7 @@ import { CATERER_PROFILE_SERVICE, OwnPhotoView, OwnProfileView } from '@sweet-ha
   `,
 })
 export class PhotoDetailsDialog {
-  private readonly api = inject(CATERER_PROFILE_SERVICE);
+  private readonly api = inject(CatererProfileService);
 
   readonly open = input(false);
   readonly photo = input<OwnPhotoView | null>(null);

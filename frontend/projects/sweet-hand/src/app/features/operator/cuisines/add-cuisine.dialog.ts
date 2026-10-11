@@ -5,7 +5,7 @@ import { Alert, Button, Dialog, FormField, FormSummary, TextField, type SummaryI
 import { problemOf } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
 import { cuisineNameError } from './cuisines-view';
-import { OPERATOR_SETTINGS_SERVICE, OperatorCuisine } from '@sweet-hand/api';
+import { type OperatorCuisine, OperatorSettingsService } from '@sweet-hand/api';
 
 /** Add cuisine (docs/mocks/dialogs/add-cuisine; AddCuisineDialog, L2-007.4). */
 @Component({
@@ -53,7 +53,7 @@ import { OPERATOR_SETTINGS_SERVICE, OperatorCuisine } from '@sweet-hand/api';
   `,
 })
 export class AddCuisineDialog {
-  private readonly api = inject(OPERATOR_SETTINGS_SERVICE);
+  private readonly api = inject(OperatorSettingsService);
 
   readonly open = input(false);
   readonly returnFocus = input<HTMLElement | null>(null);

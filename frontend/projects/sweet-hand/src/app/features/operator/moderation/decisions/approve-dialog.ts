@@ -4,7 +4,7 @@ import { Alert, ButtonAnchor, Checklist, ChecklistItem, Dialog, type CheckStatus
 import { problemOf } from '../../../../core/forms/problem';
 import { fullDate } from '../moderation-text';
 import { conflictText } from './decision-text';
-import { OPERATOR_MODERATION_SERVICE } from '@sweet-hand/api';
+import { type DecisionResult, OperatorModerationService, type ProfileReviewView } from '@sweet-hand/api';
 
 /** "Approve Auntie Bev's Kitchen?" for a submission or a name change (decide-profile-approval design; docs/mocks/dialogs/approve-profile). */
 @Component({
@@ -56,7 +56,7 @@ import { OPERATOR_MODERATION_SERVICE } from '@sweet-hand/api';
   `,
 })
 export class ApproveDialog {
-  private readonly api = inject(OPERATOR_MODERATION_SERVICE);
+  private readonly api = inject(OperatorModerationService);
 
   readonly open = input(false);
   readonly review = input.required<ProfileReviewView>();

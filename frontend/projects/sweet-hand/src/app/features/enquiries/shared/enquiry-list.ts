@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, input, viewChildren } fro
 import { RouterLink } from '@angular/router';
 import { EMPTY_STATE, Icon, InboxList, InboxRow, Pagination, Segmented, type InboxRowPicture, type SegmentedItem } from '@sweet-hand/components';
 import { FILTERS, activityTime, noResults, pageSummary, rowName, rowSummary, statusLabel, statusTone } from '../enquiry-text';
-import { InboxFilter, InboxPageView, InboxRowView, Party } from '@sweet-hand/api';
+import { type InboxFilter, type InboxPageView, type InboxRowView, type Party } from '@sweet-hand/api';
 
 /**
  * The status filter and rows of an inbox, for customers (/inbox) and caterers

@@ -1,5 +1,6 @@
 import { count, longDate, shortDate } from '../../../../core/format/format';
 import { dayTime, firstName } from '../moderation-text';
+import { type CatererRecordView, type StatusChangeView } from '@sweet-hand/api';
 
 /** The note under one status change (docs/mocks/pages/admin-caterer, "Status history"). */
 export function historyNote(h: StatusChangeView): string {

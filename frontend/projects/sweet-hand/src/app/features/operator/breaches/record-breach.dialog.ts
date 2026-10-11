@@ -6,7 +6,7 @@ import { torontoToday } from '../../../core/format/format';
 import { problemOf } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
 import { breachErrors, type BreachErrors, type BreachField } from './breach-rules';
-import { BreachInformation, BreachRecord, OPERATOR_SETTINGS_SERVICE, RecordBreachRequest } from '@sweet-hand/api';
+import { type BreachInformation, type BreachRecord, OperatorSettingsService, type RecordBreachRequest } from '@sweet-hand/api';
 
 const INFORMATION: { value: BreachInformation; label: string }[] = [
   { value: 'Names', label: $localize`:@@recordBreach.names:Names` },
@@ -86,7 +86,7 @@ const CONTROL: Record<BreachField, string> = { date: 'br-date', what: 'br-what',
   `,
 })
 export class RecordBreachDialog {
-  private readonly api = inject(OPERATOR_SETTINGS_SERVICE);
+  private readonly api = inject(OperatorSettingsService);
 
   readonly open = input(false);
   readonly returnFocus = input<HTMLElement | null>(null);

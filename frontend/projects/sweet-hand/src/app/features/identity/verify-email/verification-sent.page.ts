@@ -3,7 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Button } from '@sweet-hand/components';
 import { AuthPhotos } from '../auth-photos';
-import { IDENTITY_SERVICE, ResendVerificationRequest } from '@sweet-hand/api';
+import { IdentityService, type ResendVerificationRequest } from '@sweet-hand/api';
 
 /** How long "Resend email" stays paused after a link was sent. */
 export const RESEND_PAUSE_MS = 60_000;
@@ -39,7 +39,7 @@ export const RESEND_PAUSE_MS = 60_000;
   `,
 })
 export class VerificationSentPage {
-  private readonly api = inject(IDENTITY_SERVICE);
+  private readonly api = inject(IdentityService);
   private readonly from: ResendVerificationRequest;
   private timer: ReturnType<typeof setTimeout> | undefined;
 

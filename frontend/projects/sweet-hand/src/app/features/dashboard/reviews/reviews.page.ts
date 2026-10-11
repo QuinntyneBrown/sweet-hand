@@ -8,7 +8,7 @@ import { Session } from '../../../core/session/session';
 import { DashboardLayout } from '../shared/dashboard-layout';
 import { ProfileBanner } from '../shared/profile-banner';
 import { ReviewResponseDialog } from './review-response.dialog';
-import { CATERER_PROFILE_SERVICE, OwnProfileView, OwnReviewPageView, OwnReviewView } from '@sweet-hand/api';
+import { CatererProfileService, type OwnProfileView, type OwnReviewPageView, type OwnReviewView } from '@sweet-hand/api';
 
 type ViewState = { kind: 'loading' } | { kind: 'error'; reference: string | null } | { kind: 'ready' };
 
@@ -20,7 +20,7 @@ type ViewState = { kind: 'loading' } | { kind: 'error'; reference: string | null
   templateUrl: './reviews.page.html',
 })
 export class ReviewsPage {
-  private readonly api = inject(CATERER_PROFILE_SERVICE);
+  private readonly api = inject(CatererProfileService);
   private readonly session = inject(Session);
   private readonly toasts = inject(ToastNotifier);
   private readonly injector = inject(Injector);

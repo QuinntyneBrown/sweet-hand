@@ -5,7 +5,7 @@ import { Alert, EMPTY_STATE, Icon, Pagination, Queue, QueueItem, Segmented, Toas
 import { Session } from '../../../../core/session/session';
 import { pageName, pageSummary, readPage, readQueueFilter } from '../moderation-text';
 import { arrivalText, queueFilters, queueHref, queueRow, queueSubtitle } from './queue-view';
-import { OPERATOR_MODERATION_SERVICE } from '@sweet-hand/api';
+import { OperatorModerationService, type QueuePageView } from '@sweet-hand/api';
 
 /** How often an open queue checks for new items (admin-toast/info). */
 export const QUEUE_REFRESH_MS = 60_000;
@@ -78,7 +78,7 @@ export const QUEUE_REFRESH_MS = 60_000;
   `,
 })
 export class ReviewQueuePage {
-  private readonly api = inject(OPERATOR_MODERATION_SERVICE);
+  private readonly api = inject(OperatorModerationService);
   private readonly toasts = inject(ToastNotifier);
   private readonly session = inject(Session);
   private readonly params = toSignal(inject(ActivatedRoute).queryParamMap, { requireSync: true });

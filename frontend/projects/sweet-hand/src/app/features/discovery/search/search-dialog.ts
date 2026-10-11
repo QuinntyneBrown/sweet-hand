@@ -6,7 +6,7 @@ import { Button, Combobox, Dialog, FormField, type AreaOption } from '@sweet-han
 import { problemOf } from '../../../core/forms/problem';
 import { toQueryParams, withArea, withRegion } from '../listing/listing-query';
 import { interpretSearch, matchCountText } from './area-search';
-import { DISCOVERY_SERVICE, ListingQuery } from '@sweet-hand/api';
+import { DiscoveryService, type ListingQuery } from '@sweet-hand/api';
 
 const REGIONS = [
   { id: 'city-of-toronto', name: 'City of Toronto' },
@@ -76,7 +76,7 @@ export class SearchDialog {
   readonly current = input<ListingQuery | null>(null);
   readonly closed = output<void>();
 
-  private readonly api = inject(DISCOVERY_SERVICE);
+  private readonly api = inject(DiscoveryService);
   private readonly router = inject(Router);
 
   protected readonly regions = REGIONS;

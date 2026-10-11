@@ -4,7 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { Alert, Dialog, FormField, FormSummary, Icon, TextField, type SummaryItem } from '@sweet-hand/components';
 import { problemOf } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
-import { ACCOUNT_SERVICE, AccountView } from '@sweet-hand/api';
+import { AccountService, type AccountView } from '@sweet-hand/api';
 
 /** "Priya, Andre and Marcia" */
 const listOf = (names: string[]) => new Intl.ListFormat('en-CA', { style: 'long', type: 'conjunction' }).format(names);
@@ -97,7 +97,7 @@ export function deletionLines(account: AccountView): string[] {
   `,
 })
 export class DeleteAccountDialog {
-  private readonly api = inject(ACCOUNT_SERVICE);
+  private readonly api = inject(AccountService);
 
   readonly open = input(false);
   readonly account = input.required<AccountView>();

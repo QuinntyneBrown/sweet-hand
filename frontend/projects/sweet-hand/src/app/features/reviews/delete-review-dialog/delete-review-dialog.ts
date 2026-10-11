@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Button, Dialog, Icon } from '@sweet-hand/components';
-import { REVIEWS_SERVICE } from '@sweet-hand/api';
+import { ReviewsService } from '@sweet-hand/api';
 
 /**
  * "Delete your review?" (docs/detailed-designs/reviews/edit-or-delete-review,
@@ -51,7 +51,7 @@ export class DeleteReviewDialog {
   /** `true` once the review is deleted. */
   readonly closed = output<boolean>();
 
-  private readonly api = inject(REVIEWS_SERVICE);
+  private readonly api = inject(ReviewsService);
 
   protected readonly busy = signal(false);
   protected readonly failed = signal(false);

@@ -1,7 +1,7 @@
 import { DOCUMENT, Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { previewText } from './caterer-view';
-import { CatererPageView } from '@sweet-hand/api';
+import { type CatererPageView } from '@sweet-hand/api';
 
 const OG = ['og:title', 'og:description', 'og:image', 'og:url', 'og:type'];
 
