@@ -339,13 +339,16 @@ the mock changed.
 27. **Mock-only shortcuts:** every caterer card links to the Pelau House page and operator
     dialogs always name Pelau House, because only one caterer page is mocked.
 28. **Pre-launch site (`pages/launch/`).** A one-page marketing app (its own Angular
-    project, served at `/` until launch) that collects launch-day sign-ups. It has no
-    L1/L2 yet, and L1 puts "Marketing email and newsletters" out of scope. The mocks
+    project, served at `/` until launch) that collects launch-day sign-ups. Its requirements are
+    L1-024, L1-025 and L2-092 to L2-107 (draft), under assumption A-8. The mocks
     assume a single launch-day email with express consent, a confirmation link (48 hours),
     one-click removal without sign-in, and deletion 30 days after launch. Copy is
     kept deliberately sparse. The success message is the same for a new or an
-    existing address, so the page never reveals who signed up. *Needs an L1/L2 and a
-    detailed design before implementation; confirm the email rules against CASL.*
+    existing address, so the page never reveals who signed up. *Needs a detailed design
+    before implementation; confirm the email rules against CASL.* The L2s mark the
+    behaviour that still needs mocks *(needs a mock)*: the confirmation, already-on-the-list
+    and launch-day emails, a rate-limited message, the bot-protection challenge and a
+    removal link for an address that is already gone.
     The page has no privacy section; its Privacy links point to the product privacy
     notice (`pages/privacy`), which needs a launch-list section. `hello@sweethand.example` is a placeholder.
 
@@ -404,7 +407,7 @@ Legend: ✅ mock exists · ➖ not applicable (reason in manifest) · ❌ missin
 | Too many requests (`rate-limited`) | [✅](pages/rate-limited/default.html) | ➖ | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-082` |
 | Offline (`offline`) | [✅](pages/offline/default.html) | ➖ | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-091` |
 | Maintenance (`maintenance`) | [✅](pages/maintenance/default.html) | ➖ | ➖ | ➖ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | `L2-088` |
-| Launch (pre-launch site) (`launch`) | [✅](pages/launch/default.html) | ➖ | ➖ | [✅](pages/launch/error.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/launch/invalid.html) | [✅](pages/launch/submitting.html) |  |  |  |  | [✅](pages/launch/success.html) |  |  |  |  |  |  |  |  |  |  | [✅](pages/launch/caterer.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/launch/confirmed.html) | [✅](pages/launch/link-expired.html) | [✅](pages/launch/unsubscribed.html) |  |
+| Launch (pre-launch site) (`launch`) | [✅](pages/launch/default.html) | ➖ | ➖ | [✅](pages/launch/error.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/launch/invalid.html) | [✅](pages/launch/submitting.html) |  |  |  |  | [✅](pages/launch/success.html) |  |  |  |  |  |  |  |  |  |  | [✅](pages/launch/caterer.html) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | [✅](pages/launch/confirmed.html) | [✅](pages/launch/link-expired.html) | [✅](pages/launch/unsubscribed.html) | `L2-093`, `L2-094`, `L2-095`, `L2-096`, `L2-097`, `L2-098`, `L2-099`, `L2-100`, `L2-103`, `L2-105`, `L2-106`, `L2-107` |
 
 ### Dialogs
 
