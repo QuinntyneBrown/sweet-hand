@@ -1,3 +1,4 @@
+import type { Type } from '@nestjs/common';
 import type { AppOptions } from './app.ts';
 import { productAreas } from './areas.ts';
 import { authenticate } from './identity/sessions.ts';
@@ -14,3 +15,6 @@ export function productOptions(): Pick<AppOptions, 'areas' | 'authenticate' | 'o
     },
   };
 }
+
+/** The NestJS controllers of every area moved to NestJS so far (ADR 0009). */
+export const productControllers: Type<unknown>[] = [];

@@ -3,9 +3,8 @@
  * PostgreSQL when DATABASE_URL is set (run `npm run migrate` first), otherwise
  * an in-memory database for local development.
  */
-import { createServer } from 'node:http';
-import { createApp } from './app.ts';
-import { productOptions } from './product.ts';
+import type { Server } from 'node:http';
+import { createApiApp } from './api-app.ts';
 import { useSecureCookies } from './identity/sessions.ts';
 import { seedDatabase } from './seed/index.ts';
 import { TestEnvironments, testControl } from './testing/control.ts';
@@ -34,13 +33,12 @@ if (!config.databaseUrl && !config.testControl) await seedDatabase(env.db);
 
 // Test mode (ADR 0008): one isolated, seeded environment per x-test-session header.
 const testEnvs = config.testControl ? new TestEnvironments() : undefined;
-const app = createApp({
+const app = await createApiApp({
   environments: testEnvs ?? { resolve: () => env },
   control: testEnvs && testControl(testEnvs),
-  ...productOptions(),
   config,
 });
-const server = createServer(app);
+const server = app.getHttpServer() as Server;
 // Outlive the idle timeout of clients and load balancers that reuse connections,
 // so a reused socket is never closed under a request (Node's default is 5 s).
 server.keepAliveTimeout = 65_000;
@@ -57,11 +55,12 @@ const worker = testEnvs
         .catch((err) => console.error(err))
         .finally(() => (dispatching = false));
     }, 15_000);
-server.listen(config.port, () => console.log(`Sweet Hand API on http://localhost:${config.port}${config.databaseUrl ? '' : config.testControl ? ' (test mode)' : ' (in-memory database)'}`));
+await app.listen(config.port);
+console.log(`Sweet Hand API on http://localhost:${config.port}${config.databaseUrl ? '' : config.testControl ? ' (test mode)' : ' (in-memory database)'}`);
 
 const stop = () => {
   if (worker) clearInterval(worker);
-  server.close(() => void env.db.close().then(() => process.exit(0)));
+  void app.close().then(() => env.db.close()).then(() => process.exit(0));
 };
 process.on('SIGTERM', stop);
 process.on('SIGINT', stop);

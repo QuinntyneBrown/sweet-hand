@@ -4,10 +4,9 @@
  */
 import { after } from 'node:test';
 import type { AddressInfo } from 'node:net';
-import { createServer, type Server } from 'node:http';
-import { createApp, type AppOptions } from '../../src/app.ts';
+import type { Server } from 'node:http';
+import { createApiApp, type ApiAppOptions } from '../../src/api-app.ts';
 import { testEnvironment, type TestEnvironment } from '../../src/environment.ts';
-import { productOptions } from '../../src/product.ts';
 import { SEED_PASSWORD } from '../../src/seed/users.ts';
 import { totp } from '../../src/identity/totp.ts';
 
@@ -77,13 +76,12 @@ export class Client {
 }
 
 /** Starts the API for one test file; it stops when the file's tests finish. */
-export async function startApi(options: Partial<AppOptions> & { env?: TestEnvironment } = {}): Promise<Api> {
+export async function startApi(options: Partial<Omit<ApiAppOptions, 'environments'>> & { env?: TestEnvironment } = {}): Promise<Api> {
   const env = options.env ?? (await testEnvironment());
-  const app = createApp({ ...productOptions(), environments: { resolve: () => env }, ...options });
-  const server: Server = createServer(app);
-  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
-  after(() => new Promise<void>((resolve) => server.close(() => resolve())));
-  const url = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
+  const app = await createApiApp({ ...options, environments: { resolve: () => env } });
+  await app.listen(0, '127.0.0.1');
+  after(() => app.close());
+  const url = `http://127.0.0.1:${((app.getHttpServer() as Server).address() as AddressInfo).port}`;
   return { url, env, client: () => new Client(url) };
 }
 
