@@ -3,6 +3,7 @@ import { SignInPage } from '../../pages/sign-in.page';
 import { TwoFactorPage } from '../../pages/two-factor.page';
 import { ListingPage } from '../../pages/listing.page';
 import { cast, OPERATOR_CODE, SEED_PASSWORD } from '../../support/cast';
+import { operatorCodeAt } from '../../support/operator-code';
 
 test.describe('Session timeouts', () => {
   test('L2-078.3: an operator idle for 30 minutes is signed out, told why, and returns to the page after signing in again', async ({ page, backend }) => {
@@ -26,7 +27,8 @@ test.describe('Session timeouts', () => {
 
     await signIn.password.fill(SEED_PASSWORD);
     await signIn.submit.click();
-    await new TwoFactorPage(page).enter(OPERATOR_CODE);
+    // The authenticator's code changes with the clock, which is now 31 minutes on.
+    await new TwoFactorPage(page).enter(operatorCodeAt('2026-10-10T14:31:00Z'));
     await expect(page).toHaveURL(/\/admin\/queue$/);
   });
 

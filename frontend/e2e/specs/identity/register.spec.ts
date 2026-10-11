@@ -138,10 +138,10 @@ test.describe('Create a customer account', () => {
 
     const sent = (await backend.requests()).find((r) => r.path === '/api/identity/registrations');
     expect(sent?.body).toMatchObject({ displayName: priya.name, email: priya.email, consent: true, challengeToken: expect.any(String) });
-    const { users, account } = await backend.state();
+    const { users } = await backend.state();
     const user = users.find((u: { email: string }) => u.email === priya.email);
     expect(user).toMatchObject({ role: 'Customer', emailVerified: false, acceptedPrivacyVersion: '2026-03', acceptedPrivacyAt: '2026-10-10T14:00:00.000Z' });
-    expect(account.outbox).toContainEqual(expect.objectContaining({ to: priya.email, kind: 'verify-email' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: priya.email, kind: 'verify-email' }));
   });
 
   test('L2-076: an email that already has an account gets the same screen, and its owner is told instead', async ({ page, backend }) => {
@@ -152,9 +152,9 @@ test.describe('Create a customer account', () => {
 
     await expect(register.heading).toHaveText('Check your email');
     await expect(register.subtitle).toHaveText(`We sent a link to ${cast.marcia.email}. Open it within 24 hours to verify your address.`);
-    const { users, account } = await backend.state();
+    const { users } = await backend.state();
     expect(users.filter((u: { email: string }) => u.email === cast.marcia.email)).toHaveLength(1);
-    expect(account.outbox).toContainEqual(expect.objectContaining({ to: cast.marcia.email, kind: 'registration-attempt' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: cast.marcia.email, kind: 'registration-attempt' }));
   });
 
   test('"Start again" goes back to an empty form', async ({ page }) => {

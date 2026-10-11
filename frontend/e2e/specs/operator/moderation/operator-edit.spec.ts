@@ -48,7 +48,7 @@ test.describe('Operator edits to caterer profiles', () => {
     expect(await audit.appended()).toEqual([
       expect.objectContaining({ action: 'Edit', targetId: 'cat-001', reason: 'Removed phone number from description', after: { description: WITHOUT_PHONE } }),
     ]);
-    expect(state.operator.moderation.emails).toContainEqual(expect.objectContaining({ to: 'kendra@pelauhouse.example', kind: 'operator-edit', reason: 'Removed phone number from description' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: 'kendra@pelauhouse.example', kind: 'operator-edit', reason: 'Removed phone number from description' }));
 
     const caterer = new CatererPage(page);
     await caterer.open('pelau-house');
@@ -116,7 +116,7 @@ test.describe('Operator edits to caterer profiles', () => {
     await expect(record.toasts.textOf(toast)).toHaveText('Black Cake Co. is below the minimum now. Paulette has until Sat 24 Oct to add a replacement.');
     const state = await backend.state();
     expect(state.caterers.find((c: { id: string }) => c.id === 'cat-005').status).toBe('Published');
-    expect(state.operator.moderation.emails).toContainEqual(expect.objectContaining({ to: 'paulette@blackcakeco.example', kind: 'operator-removed-photo', reason: 'Photo shows another caterer’s logo.' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: 'paulette@blackcakeco.example', kind: 'operator-removed-photo', reason: 'Photo shows another caterer’s logo.' }));
     expect(await audit.appended()).toEqual([expect.objectContaining({ action: 'Remove photo', targetId: 'cat-005' })]);
   });
 

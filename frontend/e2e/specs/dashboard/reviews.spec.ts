@@ -63,8 +63,7 @@ test.describe('Responding to reviews', () => {
     await expect(reviews.responseOf('Andre C.')).toHaveText(/Thanks, Andre! Feeding your team was a pleasure\. Doubles anytime\.$/);
     await expect(reviews.subtitle).toHaveText('4.7 · 23 reviews');
     await expect(reviews.editResponse('Andre C.')).toBeFocused();
-    const { account } = await backend.state();
-    expect(account.outbox).toContainEqual(expect.objectContaining({ to: cast.andre.email, kind: 'review-response' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: cast.andre.email, kind: 'review-response' }));
   });
 
   test('a response that fails to post keeps the text', async ({ page, backend }) => {

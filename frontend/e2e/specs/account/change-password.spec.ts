@@ -112,6 +112,6 @@ test.describe('Change password', () => {
     await expect(account.deviceTitles).toHaveText(['Chrome on Windows']);
     await expect(account.button('Change password')).toBeFocused();
     const { account: state } = await backend.state();
-    expect(state.outbox).toContainEqual(expect.objectContaining({ to: cast.marcia.email, kind: 'password-changed' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: cast.marcia.email, kind: 'password-changed' }));
   });
 });

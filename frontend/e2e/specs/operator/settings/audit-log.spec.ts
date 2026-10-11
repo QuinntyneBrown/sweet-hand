@@ -197,8 +197,10 @@ test.describe('Audit log', () => {
     await expect(audit.table).toHaveCount(0);
     await expect(audit.sideNavLink('Audit log')).toHaveCount(0);
     await audit.expectNoAccessibilityViolations();
-    const { operatorSettings } = await backend.state();
-    expect(operatorSettings.securityEvents).toMatchObject([{ userId: 'user-tomas', path: '/api/operator/audit-log' }]);
+    const state = await backend.state();
+    // Every refused request is an authorization-failure security event (L2-079.4, L2-084).
+    const refused = state.securityEvents.filter((e: { type: string }) => e.type === 'authorization-failure');
+    expect(refused).toMatchObject([{ userId: 'user-tomas', path: '/api/operator/audit-log' }]);
   });
 
   test('L2-060: an operator’s change to the cuisine list appears at the top of the log', async ({ page, backend }) => {

@@ -30,5 +30,5 @@ concrete implementation. The detailed designs name the endpoints (for example
 
 ## Consequences
 
-- The fake backend (ADR 0004) and the real backend implement the same HTTP
-  contract; the frontend does not change when the real one arrives.
+- The backend (ADR 0006) implements this HTTP contract and imports the
+  same wire types, so the frontend did not change when it replaced the fake.
