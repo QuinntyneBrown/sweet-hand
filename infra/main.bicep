@@ -177,6 +177,13 @@ resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2024-08-01' = {
   dependsOn: [privateDnsLink]
 }
 
+// The database the connection string names; migrations create everything inside it.
+resource sweethandDb 'Microsoft.DBforPostgreSQL/flexibleServers/databases@2024-08-01' = {
+  parent: postgres
+  name: 'sweethand'
+  properties: { charset: 'UTF8', collation: 'en_US.utf8' }
+}
+
 resource environment 'Microsoft.App/managedEnvironments@2024-03-01' = {
   name: environmentName
   location: location
@@ -282,7 +289,7 @@ resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApi) {
       scale: { minReplicas: 1, maxReplicas: 1 }
     }
   }
-  dependsOn: [acrPull, vaultReader, postgres, communicationContributor]
+  dependsOn: [acrPull, vaultReader, sweethandDb, communicationContributor]
 }
 
 resource migrate 'Microsoft.App/jobs@2024-03-01' = if (deployMigration) {
@@ -301,7 +308,7 @@ resource migrate 'Microsoft.App/jobs@2024-03-01' = if (deployMigration) {
     }
     template: { containers: [{ name: 'migrate', image: containerImage, command: ['npm'], args: ['run', 'migrate'], resources: { cpu: json('0.5'), memory: '1Gi' }, env: [{ name: 'DATABASE_URL', secretRef: 'database-url' }] }] }
   }
-  dependsOn: [acrPull, vaultReader, postgres]
+  dependsOn: [acrPull, vaultReader, sweethandDb]
 }
 
 resource budget 'Microsoft.Consumption/budgets@2023-11-01' = {
