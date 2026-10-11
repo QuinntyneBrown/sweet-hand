@@ -4,6 +4,7 @@ import { queueItems, reviewQueue } from './queue.ts';
 import { approveName, approveProfile, declineName, requestChanges } from './decisions.ts';
 import { catererRecordView, listCaterersForOperators } from './records.ts';
 import { reinstate, remove, suspend } from './status-actions.ts';
+import { editProfile, removeDish, removePhoto } from './operator-edits.ts';
 import { certificateFile, certificateFileLink, profileForReview } from './profile-review.ts';
 
 const operators = roles('Operator');
@@ -25,6 +26,9 @@ export const moderationArea: Area = (r) => {
   r.post('/api/operator/profiles/:id/suspend', operators, suspend);
   r.post('/api/operator/profiles/:id/reinstate', operators, reinstate);
   r.post('/api/operator/profiles/:id/remove', operators, remove);
+  r.patch('/api/operator/profiles/:id', operators, editProfile);
+  r.delete('/api/operator/profiles/:id/photos/:item', operators, removePhoto);
+  r.delete('/api/operator/profiles/:id/menu-items/:item', operators, removeDish);
   r.post('/api/operator/profiles/:id/name/approve', operators, approveName);
   r.post('/api/operator/profiles/:id/name/request-changes', operators, declineName);
 };
