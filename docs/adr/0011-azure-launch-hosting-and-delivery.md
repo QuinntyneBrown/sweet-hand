@@ -22,4 +22,4 @@ Bicep defines Azure resources. Azure CLI applies Bicep. GitHub Actions authentic
 - The API keeps one replica until background work moves to a separately scaled worker.
 - Turnstile is a disclosed third-party processor, but it is absent from the first page load.
 - The lean database tier accepts a temporary regional recovery-point exception of up to one hour. Local point-in-time recovery retains the 15-minute target.
-- Namecheap and Cloudflare each require one-time account-side configuration outside Azure CLI.
+- Namecheap and Cloudflare each require one-time account-side configuration outside Azure CLI. Until the Turnstile widget exists, delivery runs with the bot challenge explicitly off and warns on every run (L2-104.9); the Static Web Apps default hostname remains a valid origin until `sweethand.ca` validates.

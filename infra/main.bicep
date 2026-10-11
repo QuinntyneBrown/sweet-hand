@@ -10,8 +10,11 @@ param containerImage string = 'mcr.microsoft.com/azuredocs/containerapps-hellowo
 param postgresAdminPassword string
 @secure()
 param ipHashSecret string
+@description('turnstile verifies sign-ups with Cloudflare; off is the explicit, temporary operator choice before the widget exists (L2-104.9).')
+@allowed(['turnstile', 'off'])
+param botChallenge string = 'turnstile'
 @secure()
-param turnstileSecret string
+param turnstileSecret string = ''
 param turnstileHostnames string = 'sweethand.ca,www.sweethand.ca'
 param postgresAdmin string = 'sweethand_migrate'
 param contactEmail string = 'hello@sweethand.ca'
@@ -146,7 +149,7 @@ resource ipHashSecretResource 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
   name: 'ip-hash-secret'
   properties: { value: ipHashSecret }
 }
-resource turnstileSecretResource 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
+resource turnstileSecretResource 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = if (botChallenge == 'turnstile') {
   parent: vault
   name: 'turnstile-secret'
   properties: { value: turnstileSecret }
@@ -241,23 +244,25 @@ resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApi) {
       activeRevisionsMode: 'Single'
       ingress: { external: true, targetPort: 4300, transport: 'auto', allowInsecure: false }
       registries: [{ server: acr.properties.loginServer, identity: identity.id }]
-      secrets: [
+      secrets: concat([
         { name: 'database-url', keyVaultUrl: databaseUrlSecret.properties.secretUriWithVersion, identity: identity.id }
         { name: 'ip-hash-secret', keyVaultUrl: ipHashSecretResource.properties.secretUriWithVersion, identity: identity.id }
-        { name: 'turnstile-secret', keyVaultUrl: turnstileSecretResource.properties.secretUriWithVersion, identity: identity.id }
-      ]
+      ], botChallenge == 'turnstile' ? [
+        { name: 'turnstile-secret', keyVaultUrl: turnstileSecretResource!.properties.secretUriWithVersion, identity: identity.id }
+      ] : [])
     }
     template: {
       containers: [{
         name: 'api'
         image: containerImage
         resources: { cpu: json('0.5'), memory: '1Gi' }
-        env: [
+        // The Static Web Apps default hostname stays a valid origin so the site works before the custom domain validates.
+        env: concat([
           { name: 'DATABASE_URL', secretRef: 'database-url' }
           { name: 'IP_HASH_SECRET', secretRef: 'ip-hash-secret' }
-          { name: 'TURNSTILE_SECRET', secretRef: 'turnstile-secret' }
-          { name: 'TURNSTILE_HOSTNAMES', value: turnstileHostnames }
-          { name: 'ALLOWED_ORIGINS', value: 'https://sweethand.ca,https://www.sweethand.ca' }
+          { name: 'BOT_CHALLENGE', value: botChallenge }
+          { name: 'TURNSTILE_HOSTNAMES', value: '${turnstileHostnames},${swa.properties.defaultHostname}' }
+          { name: 'ALLOWED_ORIGINS', value: 'https://sweethand.ca,https://www.sweethand.ca,https://${swa.properties.defaultHostname}' }
           { name: 'TRUST_PROXY', value: 'true' }
           { name: 'PRELAUNCH_MODE', value: 'true' }
           { name: 'SECURE_COOKIES', value: 'true' }
@@ -268,7 +273,7 @@ resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApi) {
           { name: 'ACS_EMAIL_SENDER', value: contactEmail }
           { name: 'APPLICATIONINSIGHTS_CONNECTION_STRING', value: insights.properties.ConnectionString }
           { name: 'AZURE_CLIENT_ID', value: identity.properties.clientId }
-        ]
+        ], botChallenge == 'turnstile' ? [{ name: 'TURNSTILE_SECRET', secretRef: 'turnstile-secret' }] : [])
         probes: [
           { type: 'Liveness', httpGet: { path: '/health/live', port: 4300, scheme: 'HTTP' }, initialDelaySeconds: 15, periodSeconds: 20 }
           { type: 'Readiness', httpGet: { path: '/health/ready', port: 4300, scheme: 'HTTP' }, initialDelaySeconds: 10, periodSeconds: 10 }
