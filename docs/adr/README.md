@@ -12,3 +12,5 @@ cover an area before changing it.
 | [0005](0005-externalised-text-with-angular-i18n.md) | User-facing text is externalised with Angular i18n | Accepted |
 | [0006](0006-backend-stack-nestjs-postgresql-drizzle.md) | Backend stack: NestJS on Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage | Accepted |
 | [0007](0007-backend-tests-against-in-memory-repositories.md) | Backend tests drive the API over HTTP against in-memory repositories | Accepted |
+| [0006](0006-backend-stack-node-typescript.md) | Backend stack: TypeScript on Node.js, no web framework | Accepted |
+| [0007](0007-persistence-document-collections.md) | Persistence: document collections on PostgreSQL, faked in memory for tests | Accepted |

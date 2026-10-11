@@ -1,0 +1,26 @@
+{
+  "name": "sweet-hand-backend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "start": "node src/main.ts",
+    "test": "node --test --test-concurrency=4 \"test/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit",
+    "migrate": "node src/platform/migrate.ts",
+    "seed": "node src/seed/run.ts",
+    "smoke:postgres": "node src/platform/postgres-smoke.ts"
+  },
+  "dependencies": {
+    "@node-rs/argon2": "^2.2.2",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@types/pg": "^8.23.1",
+    "typescript": "~5.9.2"
+  }
+}
