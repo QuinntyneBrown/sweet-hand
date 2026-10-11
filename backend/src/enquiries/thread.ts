@@ -10,6 +10,7 @@ import { enquiries, type Enquiry } from './model.ts';
 import { appendEvent, isActive, markRead, partyOf } from './rules.ts';
 import { partiesOf, threadView } from './views.ts';
 import { notifyDeclined, notifyReply } from './notifications.ts';
+import { length, text } from './form.ts';
 
 export interface PartyThread {
   user: User;
@@ -18,9 +19,6 @@ export interface PartyThread {
 }
 
 const REPLY_MAX = 2000;
-/** Characters, not UTF-16 code units. */
-export const length = (s: string) => [...s].length;
-export const text = (v: unknown) => (typeof v === 'string' ? v : '');
 
 /**
  * The caller's enquiry and their side of it. Anyone who is not one of its two

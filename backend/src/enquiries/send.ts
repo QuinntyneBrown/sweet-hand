@@ -1,18 +1,16 @@
 /** Sending an enquiry and the limits that protect caterers (send-enquiry and limit-enquiry-abuse designs). */
 import { randomUUID } from 'node:crypto';
 import type { Request, Reply } from '../http/router.ts';
-import { invalid, notFound, ok, problem } from '../http/problems.ts';
+import { invalid, notFound, ok } from '../http/problems.ts';
 import { validChallenge } from '../platform/bot-challenge.ts';
 import { mailServiceStatus } from '../platform/mail-service.ts';
 import { recordSecurityEvent } from '../platform/security-log.ts';
 import type { Transaction } from '../platform/database.ts';
 import type { EnquiryFormValues } from '@contract/enquiry-form-values.ts';
-import type { EnquiryRefusal } from '@contract/enquiry-refusal.ts';
 import type { SendEnquiryRequest } from '@contract/send-enquiry-request.ts';
 import type { SentEnquiryView } from '@contract/sent-enquiry-view.ts';
-import { caterers, type Caterer } from '../caterers/model.ts';
+import type { Caterer } from '../caterers/model.ts';
 import type { User } from '../identity/model.ts';
-import { currentUser } from '../identity/sessions.ts';
 import { ALL_AREAS, OCCASIONS, areaName, occasionName } from '../discovery/taxonomy.ts';
 import { torontoDate } from '../discovery/listing.ts';
 import { enquiries, type Enquiry } from './model.ts';
@@ -20,7 +18,7 @@ import { isActive } from './rules.ts';
 import { catererOwner, firstName, fitWarnings, partiesOf } from './views.ts';
 import { notifyNewEnquiry } from './notifications.ts';
 import { forgetDraft } from './drafts.ts';
-import { length, text } from './thread.ts';
+import { customerOnly, formValues, isReply, length, publishedCaterer, refuse } from './form.ts';
 
 const HOUR_MS = 3_600_000;
 const DAY_MS = 24 * HOUR_MS;
@@ -40,19 +38,6 @@ function addMonths(date: string, months: number): string {
   const d = new Date(`${date}T12:00:00Z`);
   d.setUTCMonth(d.getUTCMonth() + months);
   return d.toISOString().slice(0, 10);
-}
-
-/** What the form holds, field by field; anything else in the body is ignored. */
-export function formValues(body: Record<string, unknown> | undefined): EnquiryFormValues {
-  const b = body ?? {};
-  return {
-    eventDate: text(b['eventDate']),
-    guests: b['guests'] === undefined || b['guests'] === null ? '' : String(b['guests']),
-    area: text(b['area']),
-    postalCode: text(b['postalCode']),
-    occasion: text(b['occasion']),
-    message: text(b['message']),
-  };
 }
 
 /** The field rules of L2-022, one message per failing field, keyed by request field. */
@@ -76,10 +61,6 @@ export function enquiryErrors(values: EnquiryFormValues, now: Date): Record<stri
   return errors;
 }
 
-function refuse(status: number, code: EnquiryRefusal, title: string, extra: Record<string, unknown> = {}, headers?: Record<string, string>): Reply {
-  return { ...problem(status, title, { code, ...extra }), headers };
-}
-
 const retryAfter = (untilMs: number, now: Date) => ({ 'retry-after': String(Math.ceil((untilMs - now.getTime()) / 1000)) });
 
 /** New-account, daily and duplicate limits, in that order (limit-enquiry-abuse design, `EnquiryLimitPolicy`). */
@@ -100,18 +81,6 @@ async function limitRefusal(tx: Transaction, user: User, caterer: Caterer, event
   if (existing) return refuse(409, 'duplicate', 'You already have an open enquiry with this caterer for that date', { enquiryId: existing.id });
   return null;
 }
-
-/** The signed-in customer, or the refusal for any other role (L2-023.4). */
-export function customerOnly(req: Request): User | Reply {
-  const user = currentUser(req);
-  if (user.role !== 'Customer') return refuse(403, 'customer-only', 'Sign in with a customer account to send enquiries');
-  return user;
-}
-
-export const isReply = (x: User | Reply): x is Reply => typeof (x as Reply).status === 'number';
-
-export const publishedCaterer = (tx: Transaction, slug: unknown) =>
-  typeof slug === 'string' ? caterers(tx).findOne({ slug, status: 'Published' }) : Promise.resolve(undefined);
 
 /** POST /api/enquiries: creates an Open enquiry (L2-022, L2-023, L2-024, L2-025, L2-027). */
 export async function sendEnquiry(req: Request): Promise<Reply> {
