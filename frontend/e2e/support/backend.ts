@@ -138,6 +138,14 @@ export class Backend {
     return [...(state.outbox ?? [])].sort((a: { seq: number }, b: { seq: number }) => a.seq - b.seq);
   }
 
+  /** The confirmation and removal tokens in the latest launch list email to `to` (launch designs). */
+  async launchListTokens(to: string): Promise<{ confirm?: string; remove: string }> {
+    const mail = (await this.emails()).filter((e) => e.to === to && String(e.kind).startsWith('launch-')).at(-1);
+    if (!mail) throw new Error(`No launch list email to ${to}`);
+    const param = (link: unknown, name: string) => new URL(String(link), WEB_URL).searchParams.get(name) ?? undefined;
+    return { confirm: param(mail.link, 'confirmed'), remove: param(mail.removalLink, 'token')! };
+  }
+
   /**
    * Start watching the audit log once the test is arranged. The log is seeded
    * with history (L2-060), so `appended()` returns only the entries added after

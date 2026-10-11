@@ -111,3 +111,21 @@ test.describe('The launch page', () => {
     await launch.expectNoAccessibilityViolations();
   });
 });
+
+test.describe('The privacy notice before launch', () => {
+  test('L2-103.4: the "Privacy" links open a notice with a launch list section', async ({ page }) => {
+    const launch = new LaunchPage(page);
+    await launch.open();
+    await launch.footerLink('Privacy').click();
+    await expect(page).toHaveURL(/\/privacy$/);
+    await expect(page).toHaveTitle('Privacy · Sweet Hand');
+    await expect(launch.heading).toHaveText('Privacy notice');
+    await expect(page.getByRole('heading', { name: 'The launch list' })).toBeVisible();
+    await expect(launch.main).toContainText('one email on the day Sweet Hand opens');
+    await expect(launch.main).toContainText('48 hours after the last confirmation email');
+    await expect(launch.main).toContainText('30 days after launch day');
+    await expect(launch.main).toContainText('in Canada');
+    await expect(page.getByRole('heading', { name: 'How to leave the list' })).toBeVisible();
+    await launch.expectNoAccessibilityViolations();
+  });
+});

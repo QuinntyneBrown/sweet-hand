@@ -1,4 +1,30 @@
 <div class="container container--narrow">
+  @switch (notice()?.kind) {
+    @case ('link-expired') {
+      <div class="section">
+        <div class="alert alert--warning" role="status">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z" /><path d="M12 10v4M12 17v.5" /></svg>
+          <div class="alert__body">
+            <p class="alert__title" i18n="@@launch.linkExpired.title">That link has expired</p>
+            <p i18n="@@launch.linkExpired.text">Enter your email again for a new one.</p>
+          </div>
+        </div>
+      </div>
+    }
+    @case ('unsubscribed') {
+      <div class="section">
+        <div class="alert alert--info" role="status">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.5" /></svg>
+          <div class="alert__body">
+            <p class="alert__title" i18n="@@launch.unsubscribed.title">You’re off the list</p>
+            @if (removedEmail(); as email) {
+              <p i18n="@@launch.unsubscribed.text">We’ve deleted {{ email }}.</p>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  }
   <div class="page-intro">
     <div class="photo-row" aria-hidden="true">
       <span class="photo"><img src="img/maracas-bay.webp" alt="" width="72" height="72" /></span>
@@ -21,6 +47,16 @@
           <p class="empty__text" i18n="@@launch.success.text">Confirm the link we sent to <strong>{{ successEmail() }}</strong>.</p>
           <p class="text-caption"><a href="#notify" (click)="startOver($event)" i18n="@@launch.success.differentAddress">Use a different address</a></p>
           <p class="visually-hidden" role="status" i18n="@@launch.success.announcement">Check your email. We sent a confirmation link.</p>
+        </div>
+      }
+      @case ('confirmed') {
+        <div class="empty empty--success">
+          <div class="empty__icon">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="m8 12 3 3 5-6" /></svg>
+          </div>
+          <h2 class="empty__title" id="notify-title" tabindex="-1" i18n="@@launch.confirmed.heading">You’re on the list</h2>
+          <p class="empty__text" i18n="@@launch.confirmed.text">See you on launch day.</p>
+          <div class="empty__actions"><button class="btn" type="button" (click)="removeMyEmail()" i18n="@@launch.confirmed.remove">Remove my email</button></div>
         </div>
       }
       @default {

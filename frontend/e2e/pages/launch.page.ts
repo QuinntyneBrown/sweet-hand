@@ -175,7 +175,7 @@ export class LaunchPage {
   }
 
   get notice() {
-    return this.signUpSection.locator('.alert[role=status]');
+    return this.page.locator('.alert[role=status]');
   }
 
   get result() {
