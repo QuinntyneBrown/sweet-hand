@@ -1,7 +1,10 @@
 import { flaggedUpload } from './processing.ts';
-import { randomUUID } from 'node:crypto';
+import { randomBytes, randomUUID } from 'node:crypto';
+import { sha256 } from '../platform/secrets.ts';
+import { certificateLinks } from '../moderation/model.ts';
+import { STAND_IN_PDF } from '../moderation/profile-review.ts';
 import type { Reply, Request } from '../http/endpoint.ts';
-import { conflict, invalid, notFound, ok } from '../http/problems.ts';
+import { conflict, hidden, invalid, notFound, ok } from '../http/problems.ts';
 import { PRIVATE_MEDIA } from '../platform/media.ts';
 import { torontoDate } from '../discovery/listing.ts';
 import { assertCertificateEditable, loadOwn, saveCaterer, text, type Own } from './own.ts';
@@ -77,4 +80,27 @@ export async function removeCertificateFile(req: Request): Promise<Reply> {
   delete cert.fileUploadedAt;
   await saveCaterer(req, own.caterer);
   return ok(certificateView(own.caterer));
+}
+
+const LINK_LIFETIME_MS = 5 * 60_000;
+
+/** GET /api/caterer/profile/certificate/file-url — the owner's own copy, through a link that stops working after 5 minutes (L2-040.4). */
+export async function certificateFileUrl(req: Request): Promise<Reply> {
+  const { caterer } = await loadOwn(req);
+  if (!caterer.certificate?.fileName) return notFound();
+  const token = randomBytes(16).toString('hex');
+  const expiresAt = new Date(req.now.getTime() + LINK_LIFETIME_MS).toISOString();
+  await certificateLinks(req.tx).put({ id: sha256(token), catererId: caterer.id, expiresAt });
+  return { status: 302, headers: { location: `/api/caterer/certificate-files/${token}?expires=${encodeURIComponent(expiresAt)}`, 'cache-control': 'no-store' } };
+}
+
+/** GET /api/caterer/certificate-files/:token — only the owner, and only while the link lasts; anyone else gets 404. */
+export async function ownCertificateFile(req: Request): Promise<Reply> {
+  const link = await certificateLinks(req.tx).get(sha256(req.params['token'] ?? ''));
+  const { caterer } = await loadOwn(req);
+  if (!link || Date.parse(link.expiresAt) < req.now.getTime()) return notFound();
+  if (link.catererId !== caterer.id) return hidden(link.catererId);
+  const stored = caterer.certificate?.fileMediaId ? await req.env.media.get(caterer.certificate.fileMediaId) : undefined;
+  if (!caterer.certificate?.fileName) return notFound();
+  return { status: 200, raw: stored?.bytes ?? STAND_IN_PDF, headers: { 'content-type': stored?.contentType ?? 'application/pdf', 'cache-control': 'no-store' } };
 }

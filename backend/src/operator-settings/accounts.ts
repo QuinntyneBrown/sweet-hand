@@ -82,7 +82,7 @@ const RANK: Record<OperatorAccount['status'], number> = { Active: 0, Invited: 1,
 export async function listOperators(req: Request): Promise<Reply> {
   const deactivated = new Set((await operatorDeactivations(req.tx).all()).map((d) => d.id));
   const team = (await operatorUsers(req.tx)).filter((u) => !u.deleted || deactivated.has(u.id));
-  const all = [...(await Promise.all(team.map((u) => accountView(req, u)))), ...(await operatorInvitations(req.tx).all()).map(invitationView)];
+  const all = [...(await Promise.all(team.map((u) => accountView(req, u)))), ...(await operatorInvitations(req.tx).all()).filter((i) => !i.acceptedAt).map(invitationView)];
   return ok(all.sort((a, b) => RANK[a.status] - RANK[b.status] || byName(a, b)));
 }
 

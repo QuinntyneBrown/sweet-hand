@@ -4,7 +4,8 @@ import { Ctx, MaxBody, UsePolicy } from '../http/nest/decorators.ts';
 import { ownProfile, referenceData } from './profile.ts';
 import { saveSection } from './sections.ts';
 import { addDish, removeDish, reorderDishes, updateDish } from './menu.ts';
-import { submitProfile, withdrawSubmission } from './submission.ts';import { CERTIFICATE_BODY_BYTES, removeCertificateFile, saveCertificate, uploadCertificateFile } from './certificate.ts';
+import { submitProfile, withdrawSubmission } from './submission.ts';
+import { CERTIFICATE_BODY_BYTES, certificateFileUrl, ownCertificateFile, removeCertificateFile, saveCertificate, uploadCertificateFile } from './certificate.ts';
 import { PHOTO_BODY_BYTES, removePhoto, reorderPhotos, replacePhoto, restorePhoto, updatePhoto, uploadPhoto } from './photos.ts';
 
 const caterer = roles('Caterer');
@@ -81,6 +82,19 @@ export class CatererProfileController {
   @MaxBody(CERTIFICATE_BODY_BYTES)
   uploadCertificateFile(@Ctx() req: Request): Promise<Reply> {
     return uploadCertificateFile(req);
+  }
+
+  @Get('api/caterer/profile/certificate/file-url')
+  @UsePolicy(caterer)
+  certificateFileUrl(@Ctx() req: Request): Promise<Reply> {
+    return certificateFileUrl(req);
+  }
+
+  /** The link's token and the owner's session are both needed. */
+  @Get('api/caterer/certificate-files/:token')
+  @UsePolicy(caterer)
+  ownCertificateFile(@Ctx() req: Request): Promise<Reply> {
+    return ownCertificateFile(req);
   }
 
   @Delete('api/caterer/profile/certificate/file')

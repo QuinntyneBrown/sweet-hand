@@ -9,7 +9,7 @@ import type { RegisterCatererRequest } from '@contract/register-caterer-request.
 import type { RegisterRequest } from '@contract/register-request.ts';
 import { findUserByEmail, users, type User } from './model.ts';
 import { passwordProblem } from './passwords.ts';
-import { currentPrivacyNotice, recordConsent } from './privacy.ts';
+import { CATERER_TERMS_VERSION, currentPrivacyNotice, recordConsent } from './privacy.ts';
 import { startSession } from './sessions.ts';
 import { sendVerification } from './tokens.ts';
 
@@ -46,7 +46,7 @@ async function newUser(req: Request, fields: Pick<User, 'role' | 'displayName' |
   };
   await users(req.tx).put(user);
   // An account never exists without a consent record (L2-070.3).
-  await recordConsent(req.tx, user.id, notice.version, req.now);
+  await recordConsent(req.tx, user.id, notice.version, req.now, user.role === 'Caterer' ? CATERER_TERMS_VERSION : undefined);
   return user;
 }
 

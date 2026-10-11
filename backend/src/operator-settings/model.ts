@@ -19,6 +19,11 @@ export interface OperatorInvitation extends Document {
   tokenHash: string;
   expiresAt: string;
   deactivatedAt?: string;
+  /** The authenticator secret offered during enrolment, until the invitation is accepted. */
+  pendingTotpSecret?: string;
+  /** When the invitation was used, and the account it created. */
+  acceptedAt?: string;
+  userId?: string;
 }
 
 /** When an Admin deactivated an operator account, keyed by the operator's user id (L2-056.4). */

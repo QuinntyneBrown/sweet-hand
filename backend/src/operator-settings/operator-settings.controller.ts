@@ -6,6 +6,7 @@ import { listModeratedReviews, moderateReview } from './moderate-reviews.ts';
 import { queryAuditLog } from './audit-log.ts';
 import { enquiryMetrics, exportMetrics, metricsReport } from './metrics.ts';
 import { adminOnly, deactivateOperator, inviteOperator, listOperators } from './accounts.ts';
+import { acceptInvitation, startTotpEnrolment, viewInvitation } from './invitations.ts';
 import { listBreaches, recordBreach } from './breaches.ts';
 import { addCuisine, cuisineUsage, listCuisines, retireCuisine } from './cuisines.ts';
 
@@ -55,6 +56,25 @@ export class OperatorSettingsController {
   @Refusal(adminOnly)
   listOperators(@Ctx() req: Request): Promise<Reply> {
     return listOperators(req);
+  }
+
+  /** Invitation links are anonymous by explicit choice: the single-use token is the credential (L2-056). */
+  @Get('api/operator-invitations/:token')
+  @UsePolicy(anonymous)
+  viewInvitation(@Ctx() req: Request): Promise<Reply> {
+    return viewInvitation(req);
+  }
+
+  @Post('api/operator-invitations/:token/totp')
+  @UsePolicy(anonymous)
+  startTotpEnrolment(@Ctx() req: Request): Promise<Reply> {
+    return startTotpEnrolment(req);
+  }
+
+  @Post('api/operator-invitations/:token')
+  @UsePolicy(anonymous)
+  acceptInvitation(@Ctx() req: Request): Promise<Reply> {
+    return acceptInvitation(req);
   }
 
   @Post('api/operator/accounts')

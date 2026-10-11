@@ -144,7 +144,7 @@ export async function certificateFileLink(req: Request): Promise<Reply> {
 }
 
 /** A minimal PDF standing in for seeded certificates that have no uploaded copy. */
-const STAND_IN_PDF = '%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n2 0 obj<</Type/Pages/Kids[]/Count 0>>endobj\ntrailer<</Root 1 0 R>>\n%%EOF\n';
+export const STAND_IN_PDF = '%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n2 0 obj<</Type/Pages/Kids[]/Count 0>>endobj\ntrailer<</Root 1 0 R>>\n%%EOF\n';
 
 /** GET /api/operator/certificate-files/:token — an unknown or expired link is 404 (L2-040.4). */
 export async function certificateFile(req: Request): Promise<Reply> {
