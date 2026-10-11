@@ -1,6 +1,16 @@
 <sh-back-link href="/admin/queue" i18n="@@nav.reviewQueue">Review queue</sh-back-link>
 
-@if (failed()) {
+@if (notFound()) {
+  <sh-empty-state
+    [headingLevel]="1"
+    heading="Nothing to review here"
+    i18n-heading="@@review.nothingHeading"
+    text="This profile isn’t waiting for a decision. Another operator may have decided it already."
+    i18n-text="@@review.nothingText"
+  >
+    <a slot="actions" class="btn" routerLink="/admin/queue" i18n="@@review.backToTheQueue">Back to the queue</a>
+  </sh-empty-state>
+} @else if (failed()) {
   <div class="page-intro">
     <h1 i18n="@@review.errorHeading">Profile review</h1>
     <p class="subtitle" i18n="@@review.didNotLoad">Didn’t load</p>
@@ -222,4 +232,33 @@
       }
     </ol>
   </section>
+}
+
+@if (view(); as v) {
+  <app-approve-dialog [open]="dialog() === 'approve'" [review]="v" (dismissed)="dialog.set(null)" (done)="approved($event)" />
+  <app-reason-dialog
+    [open]="dialog() === 'request-changes'"
+    [title]="requestTitle()"
+    [description]="requestDescription()"
+    [photo]="dialogPhoto()"
+    [name]="v.name"
+    label="What needs to change"
+    i18n-label="@@requestChanges.label"
+    help="Be specific: which photo, field or sentence, and what to do"
+    i18n-help="@@requestChanges.help"
+    [rows]="4"
+    submitLabel="Request changes"
+    i18n-submitLabel="@@review.requestChanges"
+    retryLabel="Try again"
+    i18n-retryLabel="@@common.tryAgain"
+    [busyMessage]="requestBusy"
+    [failedTitle]="requestFailedTitle"
+    [failedText]="requestFailedText()"
+    summaryHeading="Check the reason"
+    i18n-summaryHeading="@@requestChanges.summary"
+    [validate]="validateChanges"
+    [action]="requestAction"
+    (dismissed)="dialog.set(null)"
+    (done)="changesRequested($event.result)"
+  />
 }

@@ -1,15 +1,16 @@
 import { randomUUID } from 'node:crypto';
 import type { Router } from '../lib/router.ts';
 import type { Ctx, Reply } from '../lib/http.ts';
-import { forbidden, notFound, ok, unauthorized } from '../lib/http.ts';
-import { currentUser, torontoDate, type Store } from '../lib/store.ts';
-import type { Caterer } from '../seed/caterers.ts';
+import { conflict, forbidden, invalid, notFound, ok, unauthorized } from '../lib/http.ts';
+import { currentUser, torontoDate, type AuditEntry, type Store } from '../lib/store.ts';
+import type { Caterer, ProfileStatus } from '../seed/caterers.ts';
 import type { User } from '../seed/users.ts';
 import type { Report } from '../seed/reports.ts';
 import { ownerFor, type StatusChange } from '../seed/operator.ts';
 import { OCCASIONS, slugify } from '../seed/taxonomy.ts';
 import type {
   CertificateView,
+  DecisionResult,
   NameChangeReviewView,
   OwnerView,
   PublicProfileView,
@@ -385,10 +386,136 @@ function registerProfileReview(r: Router<Store>): void {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Decisions (decide-profile-approval, suspend-reinstate-remove-profile; L2-046, L2-048, L2-060)
+// ---------------------------------------------------------------------------
+
+/** Appends an audit entry (L2-060): the log is only ever added to. */
+export function audit(
+  store: Store,
+  operatorUser: User,
+  action: string,
+  targetType: string,
+  targetId: string,
+  reason: string | null,
+  before: unknown,
+  after: unknown,
+): AuditEntry {
+  const entry: AuditEntry = { id: `audit-${randomUUID()}`, at: store.now.toISOString(), operatorId: operatorUser.id, action, targetType, targetId, reason, before, after };
+  store.audit.push(entry);
+  return entry;
+}
+
+export function email(store: Store, to: string, kind: string, extra: { reason?: string; link?: string } = {}): void {
+  store.operator.moderation.emails.push({ to, kind, at: store.now.toISOString(), ...extra });
+}
+
+function decision(store: Store, c: Caterer): DecisionResult {
+  return { id: c.id, name: c.name, slug: c.slug, status: c.status, owner: catererOwner(store, c).name };
+}
+
+/** 409 with the record's current status, so the page can say what changed (L2-046.2–3). */
+const stale = (c: Caterer): Reply => conflict('This profile changed', { status: c.status, name: c.name });
+
+/** Records a status change in the history (L2-046.4) and the record's last change. */
+export function transition(store: Store, c: Caterer, status: ProfileStatus, by: User, step: StatusChange['step'], reason?: string): void {
+  statusHistory(store, c).push({ at: store.now.toISOString(), status, by: by.displayName, step, ...(reason ? { reason } : {}) });
+  c.status = status;
+  store.operator.moderation.updatedAt[c.id] = store.now.toISOString();
+}
+
+const trimmed = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
+
+/** Load the caterer an operator acts on, or the reply refusing it. */
+function target(ctx: Ctx<Store>): { who: User; c: Caterer } | Reply {
+  const who = operator(ctx);
+  if (isReply(who)) return who;
+  const c = ctx.store.caterers.find((x) => x.id === ctx.params['id']);
+  if (!c) return notFound();
+  return { who, c };
+}
+
+function registerDecisions(r: Router<Store>): void {
+  r.post('/api/operator/profiles/:id/approve', (ctx) => {
+    const t = target(ctx);
+    if (!('c' in t)) return t;
+    const { who, c } = t;
+    if (c.status !== 'Pending review') return stale(c);
+    const store = ctx.store;
+    transition(store, c, 'Published', who, 'approved');
+    c.publishedAt ??= store.now.toISOString();
+    delete c.statusReason;
+    audit(store, who, 'Approve', 'CatererProfile', c.id, null, { status: 'Pending review' }, { status: 'Published' });
+    email(store, catererOwner(store, c).email, 'profile-approved', { link: `/caterers/${c.slug}` });
+    return ok(decision(store, c));
+  });
+
+  r.post('/api/operator/profiles/:id/request-changes', (ctx) => {
+    const t = target(ctx);
+    if (!('c' in t)) return t;
+    const { who, c } = t;
+    const reason = trimmed(ctx.body?.reason);
+    if ([...reason].length < 10) return invalid({ reason: ['Explain what the caterer needs to change'] });
+    if (c.status !== 'Pending review') return stale(c);
+    const store = ctx.store;
+    store.operator.moderation.snapshots[c.id] = {
+      description: c.description,
+      photoFiles: c.photos.map((p) => p.file),
+      dishNames: c.dishes.map((d) => d.name),
+      minGuests: c.minGuests,
+      maxGuests: c.maxGuests,
+      occasions: [...c.occasions],
+      areas: [...c.areas],
+      cuisines: [...c.cuisines],
+    };
+    transition(store, c, 'Changes requested', who, 'changes-requested', reason);
+    c.statusReason = reason;
+    audit(store, who, 'Request changes', 'CatererProfile', c.id, reason, { status: 'Pending review' }, { status: 'Changes requested' });
+    email(store, catererOwner(store, c).email, 'changes-requested', { reason });
+    return ok(decision(store, c));
+  });
+
+  /** Approving a business-name change: the new name goes live and the old slug redirects (L2-044.3, L2-018.3). */
+  r.post('/api/operator/profiles/:id/name/approve', (ctx) => {
+    const t = target(ctx);
+    if (!('c' in t)) return t;
+    const { who, c } = t;
+    if (!c.pendingName || c.status === 'Removed') return stale(c);
+    const store = ctx.store;
+    const before = { name: c.name, slug: c.slug };
+    c.previousSlugs.push(c.slug);
+    c.name = c.pendingName;
+    c.slug = slugify(c.name.replace(/[’']/g, ''));
+    delete c.pendingName;
+    delete store.operator.moderation.nameRequestedAt[c.id];
+    store.operator.moderation.updatedAt[c.id] = store.now.toISOString();
+    audit(store, who, 'Approve name change', 'CatererProfile', c.id, null, before, { name: c.name, slug: c.slug });
+    email(store, catererOwner(store, c).email, 'name-approved', { link: `/caterers/${c.slug}` });
+    return ok(decision(store, c));
+  });
+
+  r.post('/api/operator/profiles/:id/name/request-changes', (ctx) => {
+    const t = target(ctx);
+    if (!('c' in t)) return t;
+    const { who, c } = t;
+    const reason = trimmed(ctx.body?.reason);
+    if ([...reason].length < 10) return invalid({ reason: ['Explain what the caterer needs to change'] });
+    if (!c.pendingName) return stale(c);
+    const store = ctx.store;
+    const requested = c.pendingName;
+    delete c.pendingName;
+    delete store.operator.moderation.nameRequestedAt[c.id];
+    audit(store, who, 'Reject name change', 'CatererProfile', c.id, reason, { name: c.name, requested }, { name: c.name });
+    email(store, catererOwner(store, c).email, 'name-change-declined', { reason });
+    return ok(decision(store, c));
+  });
+}
+
 /** Fake endpoints of the operator area. */
 export function registerOperator(r: Router<Store>): void {
   registerQueue(r);
   registerProfileReview(r);
+  registerDecisions(r);
 }
 
 // ---------------------------------------------------------------------------

@@ -135,6 +135,19 @@ test.describe('Profile review', () => {
     await expect(review.heading).toHaveText('Auntie Bev’s Kitchen');
   });
 
+  test('L2-046: a profile no longer waiting for a decision says so, with a way back to the queue', async ({ page, backend }) => {
+    await backend.signInAs('leah');
+    const review = new ProfileReviewPage(page);
+
+    await review.goto('cat-002');
+
+    await expect(review.heading).toHaveText('Nothing to review here');
+    await expect(review.workArea).toContainText('This profile isn’t waiting for a decision. Another operator may have decided it already.');
+    await expect(review.approve).toHaveCount(0);
+    await review.workArea.getByRole('link', { name: 'Back to the queue' }).click();
+    await expect(page).toHaveURL(/\/admin\/queue$/);
+  });
+
   test('L2-064: on a phone the review reads top to bottom without scrolling sideways', async ({ page, backend }) => {
     await backend.signInAs('leah');
     const review = new ProfileReviewPage(page);
