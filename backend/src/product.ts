@@ -5,6 +5,7 @@ import { authenticate } from './identity/sessions.ts';
 import { recordSecurityEvent } from './platform/security-log.ts';
 import { HealthController } from './health/health.controller.ts';
 import { DiscoveryController } from './discovery/discovery.controller.ts';
+import { IdentityController } from './identity/identity.controller.ts';
 
 /** The product's routes and request hooks, shared by main.ts and the acceptance tests. */
 export function productOptions(): Pick<AppOptions, 'areas' | 'authenticate' | 'onDenied'> {
@@ -19,4 +20,4 @@ export function productOptions(): Pick<AppOptions, 'areas' | 'authenticate' | 'o
 }
 
 /** The NestJS controllers of every area moved to NestJS so far (ADR 0009). */
-export const productControllers: Type<unknown>[] = [HealthController, DiscoveryController];
+export const productControllers: Type<unknown>[] = [HealthController, DiscoveryController, IdentityController];
