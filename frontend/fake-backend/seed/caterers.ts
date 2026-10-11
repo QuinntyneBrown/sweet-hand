@@ -246,6 +246,7 @@ export function seedCaterers(): Caterer[] {
     businessPhone: '+1 416 555 0142',
   });
   applyCatererPageCast(all);
+  applyDashboardCast(all);
   applyModerationCast(all);
   return all;
 }
@@ -327,6 +328,45 @@ function applyCatererPageCast(all: Caterer[]): void {
 }
 
 // ---------------------------------------------------------------------------
+// Caterer accounts behind the dashboard (docs/mocks/README.md, "Other caterer
+// accounts"). Owners and certificates are private; the public data is unchanged.
+// ---------------------------------------------------------------------------
+
+function applyDashboardCast(all: Caterer[]): void {
+  const bySlug = (slug: string) => all.find((c) => c.slug === slug)!;
+  const cert = (holder: string, issuer: string, number: string, expires: string, savedAt: string, file?: [string, number]): Certificate => ({
+    holder,
+    issuer,
+    number,
+    expires,
+    savedAt,
+    ...(file ? { fileName: file[0], fileSize: file[1], fileType: 'PDF' as const, fileUploadedAt: savedAt } : {}),
+  });
+  // Vishnu Ramlogan's Maracas Bay: the full example (30 photos, 50 dishes).
+  Object.assign(bySlug('maracas-bay'), {
+    ownerUserId: 'user-vishnu',
+    certificate: cert('Vishnu Ramlogan', 'Peel Public Health', 'FH-2023-410266', '2028-06-30', '2026-06-30T14:00:00Z'),
+  });
+  // Paulette Morgan's Black Cake Co.: exactly 3 photos and 3 dishes.
+  Object.assign(bySlug('black-cake-co'), {
+    ownerUserId: 'user-paulette',
+    certificate: cert('Paulette Morgan', 'Durham Region Health Department', 'FH-2024-301558', '2029-01-31', '2026-01-31T14:00:00Z'),
+  });
+  // Desmond Greaves's Cou-Cou: the certificate expires Mon 9 Nov 2026, 30 days from today.
+  Object.assign(bySlug('cou-cou'), {
+    ownerUserId: 'user-desmond',
+    certificate: cert('Desmond Greaves', 'Toronto Public Health', 'FH-2021-093317', '2026-11-09', '2022-01-14T15:00:00Z', ['certificate-2021.pdf', 838861]),
+  });
+  // Sharon Best's Flying Fish Kitchen: its certificate expired on 30 Sep 2026 (suspended by the 'flying-fish-suspended' scenario).
+  Object.assign(bySlug('flying-fish-kitchen'), {
+    ownerUserId: 'user-sharon',
+    certificate: cert('Sharon Best', 'Durham Region Health Department', 'FH-2021-337102', '2026-09-30', '2021-10-04T14:00:00Z'),
+  });
+  // Winston Daley's Coal Pot Kitchen: removed Mon 28 Sep.
+  Object.assign(bySlug('coal-pot-kitchen'), { ownerUserId: 'user-winston', statusChangedAt: '2026-09-28T14:00:00Z' });
+}
+
+// ---------------------------------------------------------------------------
 // Operator moderation cast (docs/mocks/README.md, "Other caterer accounts" and
 // "Operator-only totals"): profiles waiting for review, drafts, a suspended
 // and a removed caterer, an expired certificate, a pending name change and a
@@ -355,10 +395,8 @@ function moderationCaterer(p: CastCaterer): Caterer {
 }
 
 function applyModerationCast(all: Caterer[]): void {
-  // A published name change waiting for approval (L2-044.2).
-  all.find((c) => c.slug === 'pelau-house')!.pendingName = 'Pelau House by Kendra';
   // Flying Fish Kitchen's certificate expired on Wed 30 Sep 2026; it stays published until an operator acts (L2-040.3).
-  all.find((c) => c.slug === 'flying-fish-kitchen')!.certificate = {
+  all.find((c) => c.slug === 'flying-fish-kitchen')!.certificate ??= {
     holder: 'Sharon Best',
     issuer: 'Durham Region Health',
     number: 'FH-2021-337102',

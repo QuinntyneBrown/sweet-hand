@@ -804,10 +804,15 @@ export const catererProfileScenarios: Record<string, (store: Store, args: any) =
     });
   },
 
-  /** Kendra asked on Fri 9 Oct to rename Pelau House (L2-044.2). */
+  /**
+   * Kendra asked at 6:20 p.m. on Fri 9 Oct to rename Pelau House (L2-044.2): the
+   * caterer's dashboard shows the request, and it waits in the operator review queue.
+   */
   'pelau-name-change-pending': (store) => {
     const c = store.caterers.find((x) => x.slug === 'pelau-house')!;
-    Object.assign(c, { pendingName: 'Pelau House by Kendra', pendingNameAt: '2026-10-09T15:30:00Z' });
+    const requestedAt = '2026-10-09T22:20:00.000Z';
+    Object.assign(c, { pendingName: 'Pelau House by Kendra', pendingNameAt: requestedAt });
+    store.operator.moderation.nameRequestedAt[c.id] = requestedAt;
   },
 
   /** The image service is down: uploads are kept and stay "Processing" (L2-091.2). */

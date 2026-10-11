@@ -114,7 +114,7 @@ test.describe('Who can send an enquiry', () => {
     await expect(form.outcomeTitle).toHaveText('Sign in with a customer account to send enquiries');
     await expect(form.outcomeText).toHaveText('You’re signed in as Tomas Reyes, a Sweet Hand operator. Operator accounts can’t send enquiries.');
 
-    const response = await form.postDirectly({ catererSlug: 'cou-cou', eventDate: '2026-12-12', guests: '40', area: 'north-york', postalCode: '', occasion: 'birthdays', message: ENTRY.message, challengeToken: 'invisible-challenge-passed' });
+    const response = await form.postDirectly({ catererSlug: 'cou-cou', eventDate: '2026-12-12', guests: '40', area: 'north-york', postalCode: '', occasion: 'birthdays', message: ENTRY.message, challengeToken: 'local:enquiry:e2e' });
     expect(response.status).toBe(403);
     expect(response.body.code).toBe('customer-only');
   });

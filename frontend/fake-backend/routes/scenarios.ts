@@ -1,6 +1,7 @@
 import type { Store } from '../lib/store.ts';
 import { accountScenarios } from './account.ts';
 import { catererProfileScenarios } from './caterer-profile.ts';
+import { discoveryScenarios } from './discovery.ts';
 import { catererPageScenarios } from './discovery.ts';
 import { enquiriesScenarios } from './enquiries.ts';
 import { operatorScenarios } from './operator.ts';
@@ -27,6 +28,7 @@ const ALL: Record<string, (store: Store, args: any) => unknown> = {
   ...SCENARIOS,
   ...accountScenarios,
   ...catererProfileScenarios,
+  ...discoveryScenarios,
   ...catererPageScenarios,
   ...enquiriesScenarios,
   ...operatorScenarios,

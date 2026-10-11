@@ -65,7 +65,7 @@ export function sessionRecord(store: Store, token: string, userId: string, userA
   return record;
 }
 
-/** Unread threads for a customer or caterer. The enquiries area derives this from its threads. */
+/** Threads with something unread for a customer or caterer (L2-029). */
 export function unreadCount(store: Store, user: User): number {
   return user.role === 'Customer' || user.role === 'Caterer' ? unreadThreads(store, user) : 0;
 }

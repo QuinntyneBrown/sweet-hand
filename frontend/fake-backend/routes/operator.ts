@@ -1179,10 +1179,11 @@ export const operatorScenarios: Record<string, (store: Store, args: any) => unkn
     for (const rep of store.reports) rep.status = 'Resolved';
     for (const rev of store.reviews) if (rev.status === 'Held') rev.status = 'Published';
   },
-  /** 34 items: 27 more new profiles, 8 of them waiting 4 to 11 days (admin-queue/long). */
+  /** 34 items: the seeded queue topped up with new profiles, 8 of them waiting 4 to 11 days (admin-queue/long). */
   'long-review-queue': (store) => {
     const template = store.caterers.find((c) => c.slug === 'auntie-bevs-kitchen')!;
-    for (let i = 0; i < 27; i++) {
+    const more = 34 - queueItems(store).length;
+    for (let i = 0; i < more; i++) {
       const id = `cat-l${String(i + 1).padStart(2, '0')}`;
       const like = store.caterers[i % 36];
       const at = i < 8 ? hoursAgo(store, (11 - i) * 24) : hoursAgo(store, 1 + i);

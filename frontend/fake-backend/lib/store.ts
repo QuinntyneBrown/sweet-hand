@@ -9,7 +9,6 @@ import { seedReports, type Report } from '../seed/reports.ts';
 import { seedOperator, type OperatorState } from '../seed/operator.ts';
 import { seedAccount, type AccountState } from '../seed/account.ts';
 import { seedAudit, seedOperatorSettings, type OperatorSettingsState } from '../seed/operator-settings.ts';
-import type { AuditEntry } from '../../projects/web/src/app/core/api/operator-settings.models.ts';
 
 /** One operator action (L2-060.1): who, what, on which record, when (UTC), why, and the values before and after. */
 export interface AuditEntry {
@@ -42,10 +41,9 @@ export interface Store {
   reports: Report[];
   operator: OperatorState;
   account: AccountState;
-  /** Every operator action, append-only (L2-060): the moderation area writes it, the audit log page reads it. */
+  /** Append-only operator audit log (L2-060), oldest first: { id, at, operatorId, action, targetType, targetId, reason, before, after }. */
   audit: AuditEntry[];
-  /** Items in the operator review queue until the moderation area computes them. */
-  queueCount: number;
+  operatorSettings: OperatorSettingsState;
   /** Session cookie value → user id. */
   sessions: Map<string, string>;
   faults: Fault[];
@@ -65,8 +63,8 @@ export function createStore(): Store {
     reports: seedReports(),
     operator: seedOperator(),
     account: seedAccount(),
-    audit: [],
-    queueCount: 7,
+    audit: seedAudit(),
+    operatorSettings: seedOperatorSettings(),
     sessions: new Map(),
     faults: [],
     requests: [],

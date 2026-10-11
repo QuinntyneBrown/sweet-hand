@@ -76,7 +76,7 @@ export class ReportDialog {
 
     this.busy.set(true);
     try {
-      const challengeToken = await this.bot.token();
+      const challengeToken = await this.bot.token('report');
       const t = this.target();
       await firstValueFrom(this.api.submit({ targetKind: t.kind, targetId: t.id, reason: reason!, details: this.details().trim(), challengeToken }));
       this.finish('sent');

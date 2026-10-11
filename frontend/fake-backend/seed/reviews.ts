@@ -20,6 +20,8 @@ export interface Review {
   editedAt?: string;
   status: ReviewStatus;
   response?: { text: string; createdAt: string };
+  /** Hidden reviews: who hid it (an operator's user id, or null when hidden automatically after reports), why and when (L2-059). */
+  hidden?: { by: string | null; reports: number; reason: string; at: string };
   /** Why a held review was held back (L2-050.3). */
   holdReason?: 'phone' | 'email' | 'link';
   /** Who hid a hidden review: three reports in 7 days (L2-055.2) or an operator; and when. */
@@ -151,6 +153,51 @@ export function seedReviews(): Review[] {
       eventDate: '2026-09-12',
       createdAt: at('2026-09-26'),
       status: 'Published',
+    },
+    // Held and hidden reviews on the operator Reviews screen (docs/mocks/pages/admin-reviews).
+    {
+      id: 'review-priya-sugar-dumplin',
+      catererId: 'cat-008',
+      authorName: 'Priya Ramdial',
+      rating: 5,
+      text: 'The tamarind balls and sugar cake were gone in ten minutes. Call Ondine on 416-555-0187, she’s the best!',
+      eventDate: '2026-09-12',
+      createdAt: '2026-10-10T11:58:00.000Z',
+      status: 'Held',
+      holdReason: 'phone',
+    },
+    {
+      id: 'review-andre-cou-cou',
+      catererId: 'cat-002',
+      authorName: 'Andre Clarke',
+      rating: 4,
+      text: 'Flying fish and cou-cou like in Oistins. Their photos at instagram.com/coucou.to don’t do it justice.',
+      eventDate: '2026-08-22',
+      createdAt: '2026-10-10T01:14:00.000Z',
+      status: 'Held',
+      holdReason: 'link',
+    },
+    {
+      id: 'review-devon-maracas-hidden',
+      catererId: 'cat-009',
+      authorName: 'Devon Walters',
+      rating: 1,
+      text: 'Worst bake and shark I’ve had. The guy serving was rude and clearly didn’t want to be there.',
+      eventDate: '2026-07-18',
+      createdAt: '2026-07-25T14:00:00.000Z',
+      status: 'Hidden',
+      hidden: { by: null, reports: 3, reason: '', at: '2026-10-08T20:12:00.000Z' },
+    },
+    {
+      id: 'review-kwame-island-pot',
+      catererId: 'cat-018',
+      authorName: 'Kwame Osei',
+      rating: 2,
+      text: 'Food was fine but I won’t name names, the cook’s husband was arguing on the phone the whole time.',
+      eventDate: '2026-06-20',
+      createdAt: '2026-06-27T14:00:00.000Z',
+      status: 'Hidden',
+      hidden: { by: 'user-tomas', reports: 0, reason: 'Personal details about staff', at: '2026-10-05T14:30:00.000Z' },
     },
   ]);
 }

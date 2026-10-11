@@ -3,13 +3,14 @@ import { ReviewQueuePage } from '../../../pages/review-queue.page';
 
 test.describe('Review queue', () => {
   test('L2-047.1: items are listed oldest first, each with how long it has waited', async ({ page, backend }) => {
+    await backend.scenario('pelau-name-change-pending');
     await backend.signInAs('leah');
     const queue = new ReviewQueuePage(page);
 
     await queue.goto();
 
     await expect(queue.heading).toHaveText('Review queue');
-    await expect(queue.subtitle).toHaveText('7 waiting · oldest first · 1 waiting over 3 days');
+    await expect(queue.subtitle).toHaveText('9 waiting · oldest first · 1 waiting over 3 days');
     await expect(queue.titles).toHaveText([
       'Auntie Bev’s Kitchen',
       'Breadfruit & Butter',
@@ -17,7 +18,9 @@ test.describe('Review queue', () => {
       'Pelau House',
       /^Pelau House →\s?renamed to Pelau House by Kendra$/,
       'Flying Fish Kitchen',
+      'Review of Cou-Cou by Andre C.',
       'Island Pot',
+      'Review of Sugar Dumplin by Priya R.',
     ]);
     await expect(queue.rows.locator('.queue-item__wait')).toHaveText([
       'Waiting 3 days',
@@ -26,7 +29,9 @@ test.describe('Review queue', () => {
       'Waiting 2 days',
       'Waiting 1 day',
       'Waiting 1 day',
+      'Waiting 1 day',
       'Waiting 6 hours',
+      'Waiting 2 hours',
     ]);
     await expect(queue.lateWaits).toHaveText(['Waiting 3 days']);
     await expect(queue.kind('Auntie Bev’s Kitchen')).toHaveText('New profile');
@@ -49,6 +54,7 @@ test.describe('Review queue', () => {
   });
 
   test('L2-044.2 queue-item AC-4: a name change reads old → new, and a screen reader hears "renamed to"', async ({ page, backend }) => {
+    await backend.scenario('pelau-name-change-pending');
     await backend.signInAs('leah');
     const queue = new ReviewQueuePage(page);
 
@@ -73,7 +79,6 @@ test.describe('Review queue', () => {
   });
 
   test('queue-item AC-6: a held review shows a star, "Held review" and why it was held', async ({ page, backend }) => {
-    await backend.scenario('hold-review', { caterer: 'sugar-dumplin', author: 'Priya Ramdial', holdReason: 'phone' });
     await backend.signInAs('leah');
     const queue = new ReviewQueuePage(page);
 
@@ -85,11 +90,12 @@ test.describe('Review queue', () => {
   });
 
   test('L2-047 filtered: the Reports filter keeps only report items, kept in the address', async ({ page, backend }) => {
+    await backend.scenario('pelau-name-change-pending');
     await backend.signInAs('leah');
     const queue = new ReviewQueuePage(page);
     await queue.goto();
 
-    await expect(queue.filters.getByRole('link')).toHaveText(['All 7', 'Profiles 2', 'Name changes 1', 'Certificates 1', 'Reports 3']);
+    await expect(queue.filters.getByRole('link')).toHaveText(['All 9', 'Profiles 2', 'Name changes 1', 'Certificates 1', 'Reports 3', 'Held reviews 2']);
     await queue.filter(/^Reports/).click();
 
     await expect(page).toHaveURL(/\/admin\/queue\?kind=reports$/);
@@ -126,7 +132,7 @@ test.describe('Review queue', () => {
     await expect(queue.goToRecentChanges).toHaveAttribute('href', '/admin/changes');
     await queue.expectNoAccessibilityViolations();
     await queue.retry.click();
-    await expect(queue.rows).toHaveCount(7);
+    await expect(queue.rows).toHaveCount(8);
   });
 
   test('loading: skeleton rows while the queue loads', async ({ page, backend }) => {
@@ -141,7 +147,7 @@ test.describe('Review queue', () => {
     await expect(queue.loadingStatus).toBeAttached();
     await queue.expectNoAccessibilityViolations();
     await backend.release();
-    await expect(queue.rows).toHaveCount(7);
+    await expect(queue.rows).toHaveCount(8);
   });
 
   test('long: 34 items in pages of 20, late items counted in the subtitle', async ({ page, backend }) => {
@@ -168,7 +174,7 @@ test.describe('Review queue', () => {
 
     await queue.goto();
 
-    await expect(queue.rows).toHaveCount(7);
+    await expect(queue.rows).toHaveCount(8);
     await queue.expectNoHorizontalScroll();
     await queue.expectNoAccessibilityViolations();
   });
@@ -177,14 +183,14 @@ test.describe('Review queue', () => {
     await backend.signInAs('leah');
     const queue = new ReviewQueuePage(page);
     await queue.goto();
-    await expect(queue.rows).toHaveCount(7);
+    await expect(queue.rows).toHaveCount(8);
 
     await backend.scenario('new-report', { caterer: 'sugar-dumplin', reason: 'Food safety concern' });
     await page.clock.runFor(60_000);
 
     const toast = queue.toasts.titled('New in the queue');
     await expect(queue.toasts.textOf(toast)).toHaveText('Sugar Dumplin was reported for a food safety concern.');
-    await expect(queue.rows).toHaveCount(8);
+    await expect(queue.rows).toHaveCount(9);
     await queue.toasts.action(toast, 'Open report').click();
     await expect(page).toHaveURL(/\/admin\/reports\/R-\d+$/);
   });

@@ -14,6 +14,7 @@ test.describe('Operator edits to caterer profiles', () => {
     const record = new CatererRecordPage(page);
     const dialog = new OperatorEditDialog(page);
     await record.goto('cat-001');
+    const audit = await backend.watchAudit();
 
     await record.action('Edit').click();
 
@@ -44,7 +45,7 @@ test.describe('Operator edits to caterer profiles', () => {
     const toast = record.toasts.titled('Change saved');
     await expect(record.toasts.textOf(toast)).toHaveText('Live within a minute. Kendra has been emailed your reason.');
     const state = await backend.state();
-    expect(state.audit).toEqual([
+    expect(await audit.appended()).toEqual([
       expect.objectContaining({ action: 'Edit', targetId: 'cat-001', reason: 'Removed phone number from description', after: { description: WITHOUT_PHONE } }),
     ]);
     expect(state.operator.moderation.emails).toContainEqual(expect.objectContaining({ to: 'kendra@pelauhouse.example', kind: 'operator-edit', reason: 'Removed phone number from description' }));
@@ -100,6 +101,7 @@ test.describe('Operator edits to caterer profiles', () => {
     const dialog = new OperatorEditDialog(page);
     await record.goto('cat-005');
     await expect(record.photos).toHaveCount(3);
+    const audit = await backend.watchAudit();
     await record.action('Edit').click();
 
     await dialog.choose('A photo');
@@ -114,8 +116,8 @@ test.describe('Operator edits to caterer profiles', () => {
     await expect(record.toasts.textOf(toast)).toHaveText('Black Cake Co. is below the minimum now. Paulette has until Sat 24 Oct to add a replacement.');
     const state = await backend.state();
     expect(state.caterers.find((c: { id: string }) => c.id === 'cat-005').status).toBe('Published');
-    expect(state.operator.moderation.emails).toContainEqual(expect.objectContaining({ to: 'paulette@blackcake.example', kind: 'operator-removed-photo', reason: 'Photo shows another caterer’s logo.' }));
-    expect(state.audit).toEqual([expect.objectContaining({ action: 'Remove photo', targetId: 'cat-005' })]);
+    expect(state.operator.moderation.emails).toContainEqual(expect.objectContaining({ to: 'paulette@blackcakeco.example', kind: 'operator-removed-photo', reason: 'Photo shows another caterer’s logo.' }));
+    expect(await audit.appended()).toEqual([expect.objectContaining({ action: 'Remove photo', targetId: 'cat-005' })]);
   });
 
   test('L2-057: removing a dish works the same way', async ({ page, backend }) => {

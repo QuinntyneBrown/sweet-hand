@@ -76,6 +76,7 @@ test.describe('Handling reports', () => {
     const report = new ReportReviewPage(page);
     const dialog = new ResolveReportDialog(page);
     await report.goto('R-2041');
+    const audit = await backend.watchAudit();
 
     await report.resolve.click();
 
@@ -102,7 +103,7 @@ test.describe('Handling reports', () => {
     await expect(report.itemStatus).toHaveText('Showing on Maracas Bay’s page');
     const state = await backend.state();
     expect(state.reports.filter((r: { targetId: string; status: string }) => r.targetId === 'review-devon-maracas' && r.status === 'Open')).toEqual([]);
-    expect(state.audit).toEqual([expect.objectContaining({ action: 'Dismiss reports', targetType: 'Report', targetId: 'R-2041' })]);
+    expect(await audit.appended()).toEqual([expect.objectContaining({ action: 'Dismiss reports', targetType: 'Report', targetId: 'R-2041' })]);
     expect(state.operator.moderation.emails).toContainEqual(expect.objectContaining({ to: 'priya.r@example.com', kind: 'report-reviewed' }));
     expect(state.operator.moderation.emails.find((e: { kind: string; reason?: string }) => e.kind === 'report-reviewed')?.reason).toBeUndefined();
   });
@@ -112,6 +113,7 @@ test.describe('Handling reports', () => {
     const report = new ReportReviewPage(page);
     const dialog = new ResolveReportDialog(page);
     await report.goto('R-2041');
+    const audit = await backend.watchAudit();
     await report.resolve.click();
 
     await dialog.decision('Take action').check();
@@ -133,7 +135,7 @@ test.describe('Handling reports', () => {
     await expect(report.itemStatus).toHaveText('Hidden by an operator');
     await expect(report.openEnquiry).toHaveCount(0);
     const state = await backend.state();
-    const hide = state.audit.find((a: { action: string }) => a.action === 'Hide review');
+    const hide = (await audit.appended()).find((a: { action: string }) => a.action === 'Hide review');
     expect(hide).toEqual(expect.objectContaining({ targetType: 'Review', targetId: 'review-devon-maracas', reason: 'Personal attack on the owner’s family, not a review of the food.' }));
     expect(state.reports.find((r: { id: string }) => r.id === 'R-2041').resolution).toEqual(expect.objectContaining({ outcome: 'hidden', auditId: hide.id }));
     expect(state.operator.moderation.emails).toContainEqual(expect.objectContaining({ to: 'devon.w@example.com', kind: 'review-hidden' }));
@@ -192,6 +194,7 @@ test.describe('Handling reports', () => {
     const report = new ReportReviewPage(page);
     const dialog = new OpenEnquiryDialog(page);
     await report.goto('R-2041');
+    const audit = await backend.watchAudit();
 
     await report.openEnquiry.click();
 
@@ -210,8 +213,7 @@ test.describe('Handling reports', () => {
     await expect(report.messages).toHaveCount(3);
     await expect(report.messages.first()).toContainText('we need curry duck, buss up shut and macaroni pie for 35');
     await expect(report.linkedEnquiry.getByRole('textbox')).toHaveCount(0);
-    const state = await backend.state();
-    expect(state.audit).toEqual([
+    expect(await audit.appended()).toEqual([
       expect.objectContaining({ operatorId: 'user-leah', action: 'Open enquiry', targetType: 'Enquiry', reason: 'Checking whether the event in the review happened.', after: { reportId: 'R-2041' } }),
     ]);
     await report.expectNoAccessibilityViolations();
@@ -242,6 +244,7 @@ test.describe('Handling reports', () => {
     await report.goto('R-2041');
     await expect(report.openEnquiry).toBeVisible();
     await backend.scenario('unlink-review-enquiry');
+    const audit = await backend.watchAudit();
     const dialog = new OpenEnquiryDialog(page);
     await report.openEnquiry.click();
     await dialog.reason.fill('Checking the event.');
@@ -252,7 +255,7 @@ test.describe('Handling reports', () => {
     await expect(dialog.alert).toContainText('No report links to it any more, so it stays private. Nothing was recorded.');
     const requests = await backend.requests();
     expect(requests.some((r) => r.path === '/api/operator/reports/R-2041/enquiry')).toBe(true);
-    expect((await backend.state()).audit).toEqual([]);
+    expect(await audit.appended()).toEqual([]);
   });
 
   test('loading: a skeleton of the report while it loads', async ({ page, backend }) => {

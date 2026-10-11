@@ -8,6 +8,7 @@ export type ProtectedAction = 'sign-in' | 'register' | 'register-caterer' | 'pas
  * for a token when they submit and send it as `challengeToken`. Where the form
  * shows the "I'm a person, not a bot" check, it asks only once that is ticked.
  */
+@Injectable({ providedIn: 'root', useFactory: () => new LocalBotChallenge() })
 export abstract class BotChallenge {
   abstract token(action: ProtectedAction): Promise<string>;
 }

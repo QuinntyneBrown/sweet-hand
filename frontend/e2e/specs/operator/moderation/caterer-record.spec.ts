@@ -3,6 +3,7 @@ import { CatererRecordPage } from '../../../pages/caterer-record.page';
 
 test.describe('Operator caterer record', () => {
   test('L2-046 L2-014: a published caterer’s record: owner, profile, certificate, activity and status history', async ({ page, backend }) => {
+    await backend.scenario('pelau-name-change-pending');
     await backend.signInAs('leah');
     const record = new CatererRecordPage(page);
 

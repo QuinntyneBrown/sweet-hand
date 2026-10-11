@@ -65,14 +65,14 @@ test.describe('Site header and footer', () => {
 
     await expect(listing.header.wordmark).toHaveAccessibleName('Sweet Hand Operator');
     await expect(listing.header.wordmark).toHaveAttribute('href', '/admin/queue');
-    await expect(listing.header.link('Queue, 7 items waiting')).toBeVisible();
-    await expect(listing.header.textLinks).toHaveText(['Queue 7, 7 items waiting', 'Caterers', 'Metrics']);
+    await expect(listing.header.link('Queue, 8 items waiting')).toBeVisible();
+    await expect(listing.header.textLinks).toHaveText(['Queue 8, 8 items waiting', 'Caterers', 'Metrics']);
     await expect(listing.header.searchButton).toHaveCount(0);
     await expect(listing.footer.line).toHaveText('Operator console. Every action is written to the audit log.');
 
     await listing.usePhone();
     await listing.header.menuButton.click();
-    await expect(listing.siteMenu.links).toHaveText(['Review queue 7, 7 items waiting', 'Recent changes', 'Caterers', 'Reviews', 'Metrics', 'Cuisines', 'Breach register']);
+    await expect(listing.siteMenu.links).toHaveText(['Review queue 8, 8 items waiting', 'Recent changes', 'Caterers', 'Reviews', 'Metrics', 'Cuisines', 'Breach register']);
     await expect(listing.siteMenu.signedInAs).toHaveText('Signed in as Tomas Reyes');
   });
 

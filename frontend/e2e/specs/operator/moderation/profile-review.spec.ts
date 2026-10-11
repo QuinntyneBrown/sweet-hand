@@ -84,6 +84,7 @@ test.describe('Profile review', () => {
   });
 
   test('L2-044.2: a name change shows old and new names, the new address and the listing card after approval', async ({ page, backend }) => {
+    await backend.scenario('pelau-name-change-pending');
     await backend.signInAs('leah');
     const review = new ProfileReviewPage(page);
 

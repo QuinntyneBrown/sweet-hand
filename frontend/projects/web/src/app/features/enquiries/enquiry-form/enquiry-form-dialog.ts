@@ -235,7 +235,7 @@ export class EnquiryFormDialog implements OnInit {
     }
     this.busy.set(true);
     try {
-      const challengeToken = await this.challenge.token();
+      const challengeToken = await this.challenge.token('enquiry');
       const sent = await firstValueFrom(this.api.send({ ...values, catererSlug: this.caterer().slug, challengeToken }));
       this.sent.set(sent);
       this.notice.set(null);

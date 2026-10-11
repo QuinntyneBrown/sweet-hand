@@ -11,6 +11,7 @@ test.describe('Profile decisions', () => {
     const review = new ProfileReviewPage(page);
     const dialog = new ApproveDialog(page);
     await review.goto('cat-910');
+    const audit = await backend.watchAudit();
 
     await review.approve.click();
 
@@ -28,11 +29,11 @@ test.describe('Profile decisions', () => {
     const toast = queue.toasts.titled('Auntie Bev’s Kitchen is published');
     await expect(queue.toasts.textOf(toast)).toHaveText('It appears in the listing within a minute. Beverley Campbell has been emailed.');
     await expect(queue.toasts.action(toast, 'View page')).toHaveAttribute('href', '/caterers/auntie-bevs-kitchen');
-    await expect(queue.subtitle).toHaveText(/^6 waiting/);
-    await expect(queue.currentSideNavLink).toHaveAccessibleName('Review queue 6 waiting');
+    await expect(queue.subtitle).toHaveText(/^7 waiting/);
+    await expect(queue.currentSideNavLink).toHaveAccessibleName('Review queue 7 waiting');
 
     const state = await backend.state();
-    expect(state.audit).toEqual([
+    expect(await audit.appended()).toEqual([
       expect.objectContaining({ operatorId: 'user-leah', action: 'Approve', targetType: 'CatererProfile', targetId: 'cat-910', before: { status: 'Pending review' }, after: { status: 'Published' } }),
     ]);
     expect(state.operator.moderation.emails).toContainEqual(expect.objectContaining({ to: 'beverley@auntiebevs.example', kind: 'profile-approved', link: '/caterers/auntie-bevs-kitchen' }));
@@ -85,6 +86,7 @@ test.describe('Profile decisions', () => {
     await review.goto('cat-910');
     await expect(review.heading).toHaveText('Auntie Bev’s Kitchen');
     await backend.scenario('set-caterer-status', { slug: 'auntie-bevs-kitchen', status: 'Draft' });
+    const audit = await backend.watchAudit();
     await review.approve.click();
 
     await dialog.submit.click();
@@ -93,7 +95,7 @@ test.describe('Profile decisions', () => {
     await expect(dialog.alert).toContainText('Auntie Bev’s Kitchen is now Draft. Nothing was changed.');
     await dialog.backToQueue.click();
     await expect(page).toHaveURL(/\/admin\/queue$/);
-    expect((await backend.state()).audit).toEqual([]);
+    expect(await audit.appended()).toEqual([]);
   });
 
   test('approve-profile: Escape closes the dialog and focus returns to Approve', async ({ page, backend }) => {
@@ -140,6 +142,7 @@ test.describe('Profile decisions', () => {
     const review = new ProfileReviewPage(page);
     const dialog = new RequestChangesDialog(page);
     await review.goto('cat-910');
+    const audit = await backend.watchAudit();
     await review.requestChanges.click();
 
     await dialog.reason.fill('Photos 2 and 5 show stock images');
@@ -154,7 +157,7 @@ test.describe('Profile decisions', () => {
     expect(bev.status).toBe('Changes requested');
     expect(bev.statusReason).toBe('Photos 2 and 5 show stock images');
     expect(state.operator.moderation.emails).toContainEqual(expect.objectContaining({ to: 'beverley@auntiebevs.example', kind: 'changes-requested', reason: 'Photos 2 and 5 show stock images' }));
-    expect(state.audit).toEqual([
+    expect(await audit.appended()).toEqual([
       expect.objectContaining({ operatorId: 'user-tomas', action: 'Request changes', targetId: 'cat-910', reason: 'Photos 2 and 5 show stock images', after: { status: 'Changes requested' } }),
     ]);
   });
@@ -185,10 +188,12 @@ test.describe('Profile decisions', () => {
   });
 
   test('L2-044.3: approving a name change renames the public page, and the old address redirects', async ({ page, backend }) => {
+    await backend.scenario('pelau-name-change-pending');
     await backend.signInAs('leah');
     const review = new ProfileReviewPage(page);
     const dialog = new ApproveDialog(page);
     await review.goto('cat-001');
+    const audit = await backend.watchAudit();
     await review.approve.click();
 
     await expect(dialog.heading).toHaveText('Approve Pelau House by Kendra?');
@@ -201,7 +206,7 @@ test.describe('Profile decisions', () => {
     const queue = new ReviewQueuePage(page);
     const toast = queue.toasts.titled('Pelau House is now Pelau House by Kendra');
     await expect(queue.toasts.textOf(toast)).toHaveText('The public page shows the new name within a minute. Kendra Baptiste has been emailed.');
-    expect((await backend.state()).audit).toEqual([
+    expect(await audit.appended()).toEqual([
       expect.objectContaining({ action: 'Approve name change', targetId: 'cat-001', before: { name: 'Pelau House', slug: 'pelau-house' }, after: { name: 'Pelau House by Kendra', slug: 'pelau-house-by-kendra' } }),
     ]);
 
@@ -212,10 +217,12 @@ test.describe('Profile decisions', () => {
   });
 
   test('L2-044: sending a name change back keeps the current name and tells the caterer why', async ({ page, backend }) => {
+    await backend.scenario('pelau-name-change-pending');
     await backend.signInAs('leah');
     const review = new ProfileReviewPage(page);
     const dialog = new RequestChangesDialog(page);
     await review.goto('cat-001');
+    const audit = await backend.watchAudit();
     await review.requestChanges.click();
 
     await expect(dialog.heading).toHaveText('Request changes to Pelau House');
@@ -225,10 +232,10 @@ test.describe('Profile decisions', () => {
 
     const queue = new ReviewQueuePage(page);
     await expect(queue.toasts.titled('Changes requested from Pelau House')).toBeVisible();
-    await expect(queue.subtitle).toHaveText(/^6 waiting/);
+    await expect(queue.subtitle).toHaveText(/^8 waiting/);
     const state = await backend.state();
     expect(state.caterers.find((c: { id: string }) => c.id === 'cat-001').name).toBe('Pelau House');
-    expect(state.audit).toEqual([expect.objectContaining({ action: 'Reject name change', targetId: 'cat-001', reason: 'Use the business name on your food handler certificate.' })]);
+    expect(await audit.appended()).toEqual([expect.objectContaining({ action: 'Reject name change', targetId: 'cat-001', reason: 'Use the business name on your food handler certificate.' })]);
   });
 
   test('L2-064: on a phone the approval dialog fills the screen and is accessible', async ({ page, backend }) => {

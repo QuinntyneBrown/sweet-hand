@@ -65,6 +65,9 @@ Never weaken a test to make it pass, and never write architecture tests
   - `backend.fail('GET /api/path*', { status, body, times, network, delayMs })`
   - `backend.hold('POST /api/path')` then `backend.release()` for busy states
   - `backend.requests()` and `backend.state()` to assert what was sent
+  - `const audit = await backend.watchAudit()` after arranging, then
+    `await audit.appended()` for the audit entries the test's actions added
+    (the log is seeded, so never assert on the whole `state().audit`)
 - `page.clock.runFor(ms)` advances timers (polling, toasts).
 - Call `expectNoAccessibilityViolations()` in the states a test covers (L2-066)
   and `usePhone()` for phone layouts.

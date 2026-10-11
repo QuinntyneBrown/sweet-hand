@@ -143,7 +143,7 @@ test.describe('Checking the enquiry form', () => {
       postalCode: '12345',
       occasion: 'launch-party',
       message: 'Too short',
-      challengeToken: 'invisible-challenge-passed',
+      challengeToken: 'local:enquiry:e2e',
     });
 
     expect(response.status).toBe(400);

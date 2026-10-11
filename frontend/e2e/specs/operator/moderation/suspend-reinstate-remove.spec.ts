@@ -12,6 +12,7 @@ test.describe('Suspending, reinstating and removing caterers', () => {
     const record = new CatererRecordPage(page);
     const dialog = new SuspendDialog(page);
     await record.goto('cat-001');
+    const audit = await backend.watchAudit();
 
     await record.action('Suspend').click();
 
@@ -41,7 +42,7 @@ test.describe('Suspending, reinstating and removing caterers', () => {
     await expect(record.history.first()).toContainText(`Suspended · Leah Mohammed“${REASON}”`);
 
     const state = await backend.state();
-    expect(state.audit).toEqual([
+    expect(await audit.appended()).toEqual([
       expect.objectContaining({ operatorId: 'user-leah', action: 'Suspend', targetType: 'CatererProfile', targetId: 'cat-001', reason: REASON, before: { status: 'Published' }, after: { status: 'Suspended' } }),
     ]);
     const pelau = state.enquiries.filter((e: { catererId: string }) => e.catererId === 'cat-001');
@@ -111,6 +112,7 @@ test.describe('Suspending, reinstating and removing caterers', () => {
     const record = new CatererRecordPage(page);
     const dialog = new ReinstateDialog(page);
     await record.goto('cat-001');
+    const audit = await backend.watchAudit();
 
     await record.action('Reinstate').click();
 
@@ -128,7 +130,7 @@ test.describe('Suspending, reinstating and removing caterers', () => {
 
     await expect(record.status).toHaveText('Published');
     await expect(record.toasts.titled('Pelau House is reinstated')).toBeVisible();
-    expect((await backend.state()).audit).toEqual([expect.objectContaining({ action: 'Reinstate', before: { status: 'Suspended' }, after: { status: 'Published' } })]);
+    expect(await audit.appended()).toEqual([expect.objectContaining({ action: 'Reinstate', before: { status: 'Suspended' }, after: { status: 'Published' } })]);
     const caterer = new CatererPage(page);
     await caterer.open('pelau-house');
     await expect(caterer.heading).toHaveText('Pelau House');
@@ -162,6 +164,7 @@ test.describe('Suspending, reinstating and removing caterers', () => {
     const record = new CatererRecordPage(page);
     const dialog = new RemoveDialog(page);
     await record.goto('cat-001');
+    const audit = await backend.watchAudit();
 
     await record.action('Remove').click();
 
@@ -196,7 +199,7 @@ test.describe('Suspending, reinstating and removing caterers', () => {
     await expect(record.status).toHaveText('Removed');
     await expect(record.actions).toHaveCount(0);
     await expect(record.noticeTitle).toHaveText('Removed on Sat 10 Oct, 10:00 a.m. This can’t be undone.');
-    expect((await backend.state()).audit).toEqual([
+    expect(await audit.appended()).toEqual([
       expect.objectContaining({ action: 'Remove', reason: 'Business has closed; owner asked for the profile to be taken down.', before: { status: 'Published' }, after: { status: 'Removed' } }),
     ]);
     const caterer = new CatererPage(page);
@@ -234,6 +237,7 @@ test.describe('Suspending, reinstating and removing caterers', () => {
     await record.goto('cat-001');
     await expect(record.status).toHaveText('Published');
     await backend.scenario('set-caterer-status', { slug: 'pelau-house', status: 'Removed' });
+    const audit = await backend.watchAudit();
     await record.action('Suspend').click();
     await dialog.reason.fill('Report R-2047 is being investigated.');
 
@@ -241,7 +245,7 @@ test.describe('Suspending, reinstating and removing caterers', () => {
 
     await expect(dialog.alert).toContainText('This profile changed while you were looking');
     await expect(dialog.alert).toContainText('Pelau House is now Removed. Nothing was changed.');
-    expect((await backend.state()).audit).toEqual([]);
+    expect(await audit.appended()).toEqual([]);
   });
 
   test('L2-064: on a phone the remove dialog fills the screen and stays accessible', async ({ page, backend }) => {

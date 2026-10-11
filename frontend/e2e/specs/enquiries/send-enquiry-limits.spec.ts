@@ -5,7 +5,7 @@ import { ThreadPage } from '../../pages/thread.page';
 
 const MESSAGE = 'We’d love pelau, curry goat and macaroni pie for about 120 people, buffet style around 6 p.m.';
 const ENTRY = { date: '2026-11-21', guests: '120', area: 'Scarborough', postal: 'M1E 4R8', occasion: 'Family gatherings', message: MESSAGE };
-const BODY = { eventDate: '2026-12-05', guests: '40', area: 'scarborough', postalCode: '', occasion: 'birthdays', message: MESSAGE, challengeToken: 'invisible-challenge-passed' };
+const BODY = { eventDate: '2026-12-05', guests: '40', area: 'scarborough', postalCode: '', occasion: 'birthdays', message: MESSAGE, challengeToken: 'local:enquiry:e2e' };
 
 test.describe('Enquiry limits', () => {
   async function openForm(page: CatererPage['page']) {

@@ -1,4 +1,5 @@
 import type { Router } from '../lib/router.ts';
+import type { AuditEntry as StoredAuditEntry } from '../lib/store.ts';
 import { conflict, forbidden, invalid, notFound, ok, unauthorized, type Ctx, type Reply } from '../lib/http.ts';
 import { currentUser, newId, torontoDate, type Store } from '../lib/store.ts';
 import type { User } from '../seed/users.ts';
@@ -307,7 +308,7 @@ function shortName(full: string): string {
 }
 
 /** What an Admin reads as the target of an entry. */
-function targetLabel(store: Store, e: AuditEntry): string {
+function targetLabel(store: Store, e: StoredAuditEntry): string {
   const caterer = (id: string) => store.caterers.find((c) => c.id === id)?.name;
   switch (e.targetType) {
     case 'caterer':
@@ -354,7 +355,7 @@ function registerAudit(r: Router<Store>): void {
     const pageSize = 20;
     const name = (id: string) => store.users.find((u) => u.id === id)?.displayName ?? id;
     const matching = store.audit
-      .map((e): AuditEntryView => ({ ...e, operatorName: name(e.operatorId), targetLabel: targetLabel(store, e) }))
+      .map((e): AuditEntryView => ({ ...e, reason: e.reason ?? '', before: asText(e.before), after: asText(e.after), operatorName: name(e.operatorId), targetLabel: targetLabel(store, e) }))
       .filter((e) => !operatorId || e.operatorId === operatorId)
       .filter((e) => !actions.length || actions.includes(e.action))
       .filter((e) => !target || fold(e.targetLabel).includes(target) || fold(e.targetId).includes(target))
@@ -635,3 +636,9 @@ export const operatorSettingsScenarios: Record<string, (store: Store, args: any)
     for (const review of store.reviews) if (review.status === 'Held' || review.status === 'Hidden') review.status = 'Published';
   },
 };
+
+/** Moderation actions store structured before/after values; the audit page shows them as text. */
+function asText(value: unknown): string | null {
+  if (value === null || value === undefined) return null;
+  return typeof value === 'string' ? value : JSON.stringify(value);
+}

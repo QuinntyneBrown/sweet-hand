@@ -77,10 +77,10 @@ import { charts, emptyText, lastSixWeeks, percent, publishedDelta, rangeError, r
     } @else if (report(); as r) {
       <div class="metrics__stats">
       <sh-stat-grid>
-        <sh-stat label="Published caterers" i18n-label="@@metrics.publishedCaterers" [value]="published()" [delta]="delta().text" [direction]="delta().direction" [sentiment]="delta().sentiment" />
-        <sh-stat label="Enquiries" i18n-label="@@metrics.enquiries" [value]="enquiryTotal()" missingLabel="Not loaded" i18n-missingLabel="@@metrics.notLoaded" />
-        <sh-stat label="Replied within 48 hours" i18n-label="@@metrics.replied" [value]="repliedTotal()" missingLabel="Not loaded" i18n-missingLabel="@@metrics.notLoaded" />
-        <sh-stat label="Caterer page visits" i18n-label="@@metrics.catererVisits" [value]="catererTotal()" />
+        <div sh-stat label="Published caterers" i18n-label="@@metrics.publishedCaterers" [value]="published()" [delta]="delta().text" [direction]="delta().direction" [sentiment]="delta().sentiment"></div>
+        <div sh-stat label="Enquiries" i18n-label="@@metrics.enquiries" [value]="enquiryTotal()" missingLabel="Not loaded" i18n-missingLabel="@@metrics.notLoaded"></div>
+        <div sh-stat label="Replied within 48 hours" i18n-label="@@metrics.replied" [value]="repliedTotal()" missingLabel="Not loaded" i18n-missingLabel="@@metrics.notLoaded"></div>
+        <div sh-stat label="Caterer page visits" i18n-label="@@metrics.catererVisits" [value]="catererTotal()"></div>
       </sh-stat-grid>
       </div>
       <h2 class="visually-hidden" i18n="@@metrics.charts">Charts</h2>

@@ -108,7 +108,7 @@ const NAMED_OWNERS: Record<string, [string, string, string]> = {
   'cou-cou': ['Desmond Greaves', 'desmond@coucou.example', '+1 416 555 0166'],
   'sorrel-and-spice': ['Celestine Charles', 'celestine@sorrelandspice.example', '+1 416 555 0102'],
   'scotch-bonnet-social': ['Tanisha Reid', 'tanisha@scotchbonnet.example', '+1 905 555 0114'],
-  'black-cake-co': ['Paulette Morgan', 'paulette@blackcake.example', '+1 905 555 0190'],
+  'black-cake-co': ['Paulette Morgan', 'paulette@blackcakeco.example', '+1 905 555 0190'],
   'sunday-pot': ['Marcus Alexander', 'marcus@sundaypot.example', '+1 905 555 0157'],
   'green-fig-catering': ['Marie-Claire Augustin', 'marieclaire@greenfig.example', '+1 905 555 0139'],
   'coal-pot-kitchen': ['Winston Daley', 'winston@coalpot.example', '+1 905 555 0172'],
@@ -259,7 +259,7 @@ function seedModeration(): ModerationState {
         cuisines: ['vincentian'],
       },
     },
-    nameRequestedAt: { 'cat-001': '2026-10-09T22:20:00.000Z' },
+    nameRequestedAt: {},
     expiredCertificates: { 'cat-024': { detectedAt: '2026-10-09T23:30:00.000Z', reminders: ['2026-08-31T13:00:00.000Z', '2026-09-23T13:00:00.000Z'] } },
     updatedAt: {
       'cat-001': '2026-10-10T12:15:00.000Z',

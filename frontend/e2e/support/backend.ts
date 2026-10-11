@@ -80,4 +80,16 @@ export class Backend {
   state(): Promise<any> {
     return this.call('GET', '/state');
   }
+
+  /**
+   * Start watching the audit log once the test is arranged. The log is seeded
+   * with history (L2-060), so `appended()` returns only the entries added after
+   * this call, oldest first: the ones the test's own actions produced.
+   */
+  async watchAudit(): Promise<{ appended(): Promise<any[]> }> {
+    const seen = new Set((await this.state()).audit.map((e: { id: string }) => e.id));
+    return {
+      appended: async () => (await this.state()).audit.filter((e: { id: string }) => !seen.has(e.id)),
+    };
+  }
 }

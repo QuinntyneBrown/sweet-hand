@@ -38,8 +38,8 @@ const emailDown = new WeakSet<Store>();
 /** Saved drafts per store, keyed `userId caterer-slug` (send-enquiry design, `EnquiryDraft`). */
 const drafts = new WeakMap<Store, Map<string, EnquiryDraftView>>();
 
-/** The token the default invisible bot check hands the form (core/api/bot-challenge.ts). */
-const CHALLENGE_PASSED = 'invisible-challenge-passed';
+/** Tokens from the local bot-check stand-in for this form (core/api/bot-challenge.ts). */
+const validChallenge = (token: unknown) => typeof token === 'string' && token.startsWith('local:enquiry:');
 const HOUR_MS = 3_600_000;
 const DAY_MS = 24 * HOUR_MS;
 const DAILY_LIMIT = 10;
@@ -289,7 +289,7 @@ function registerSending(r: Router<Store>): void {
     if (!isUser(user)) return user;
     if (!user.emailVerified) return refuse(403, 'email-unverified', 'Verify your email to send enquiries');
     const body = (ctx.body ?? {}) as Partial<SendEnquiryRequest>;
-    if (body.challengeToken !== CHALLENGE_PASSED) return refuse(400, 'challenge-failed', 'The bot check failed');
+    if (!validChallenge(body.challengeToken)) return refuse(400, 'challenge-failed', 'The bot check failed');
     const c = ctx.store.caterers.find((x) => x.slug === body.catererSlug && x.status === 'Published');
     if (!c) return notFound();
     const errors = enquiryErrors(ctx.store, body);

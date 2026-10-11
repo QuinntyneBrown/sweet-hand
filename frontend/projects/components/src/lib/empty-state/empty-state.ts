@@ -1,40 +1,27 @@
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, computed, contentChild, input, viewChild } from '@angular/core';
-
-/** Marks the icon slot of `sh-empty-state` (`<svg slot="icon">`). */
-// eslint-disable-next-line @angular-eslint/directive-selector
-@Directive({ selector: '[slot=icon]' })
-export class EmptyStateIcon {}
-
-/** Marks the photos slot of `sh-empty-state`. */
-// eslint-disable-next-line @angular-eslint/directive-selector
-@Directive({ selector: '[slot=photos]' })
-export class EmptyStatePhotos {}
-
-/** Marks the actions slot of `sh-empty-state`. */
-// eslint-disable-next-line @angular-eslint/directive-selector
-@Directive({ selector: '[slot=actions]' })
-export class EmptyStateActions {}
-
-/** Marks the note slot of `sh-empty-state`. */
-// eslint-disable-next-line @angular-eslint/directive-selector
-@Directive({ selector: '[slot=note]' })
-export class EmptyStateNote {}
+import { ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, computed, input, viewChild } from '@angular/core';
 
 /**
- * Nothing to show yet, nothing matches, or the list failed to load
- * (docs/specs/components/empty-state.md). Absent inputs and slots leave no element behind.
+ * What a region shows when it has nothing to show: no results, first run,
+ * an error with a retry (docs/specs/components/empty-state.md). Slots:
+ * `[slot=icon]`, `[slot=photos]`, `[slot=actions]`, `[slot=note]`.
  */
 @Component({
   selector: 'sh-empty-state',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   host: { style: 'display: contents' },
+  // Slot wrappers with nothing projected are not shown ("No input renders an empty wrapper").
+  styles: `
+    .empty__icon:empty,
+    .photo-row:empty,
+    .empty__actions:empty {
+      display: none;
+    }
+  `,
   template: `
     <div [class]="cls()" [attr.role]="role()">
-      @if (photos()) {
-        <div class="photo-row" aria-hidden="true"><ng-content select="[slot=photos]" /></div>
-      } @else if (icon()) {
-        <div class="empty__icon" aria-hidden="true"><ng-content select="[slot=icon]" /></div>
-      }
+      <div class="photo-row" aria-hidden="true"><ng-content select="[slot=photos]" /></div>
+      <div class="empty__icon" aria-hidden="true"><ng-content select="[slot=icon]" /></div>
       @switch (headingLevel()) {
         @case (1) {
           <h1 class="empty__title" [attr.id]="headingId()">{{ heading() }}</h1>
@@ -55,9 +42,7 @@ export class EmptyStateNote {}
       @if (text()) {
         <p class="empty__text">{{ text() }}</p>
       }
-      @if (actions()) {
-        <div #actionsBox class="empty__actions"><ng-content select="[slot=actions]" /></div>
-      }
+      <div #actions class="empty__actions"><ng-content select="[slot=actions]" /></div>
       <ng-content select="[slot=note]" />
       @if (reference()) {
         <p class="text-caption">{{ referenceLabel() }} <code>{{ reference() }}</code></p>
@@ -76,10 +61,7 @@ export class EmptyState {
   readonly reference = input<string | null>(null);
   readonly referenceLabel = input<string | null>(null);
 
-  protected readonly icon = contentChild(EmptyStateIcon);
-  protected readonly photos = contentChild(EmptyStatePhotos);
-  protected readonly actions = contentChild(EmptyStateActions);
-  private readonly actionsBox = viewChild<ElementRef<HTMLElement>>('actionsBox');
+  private readonly actions = viewChild.required<ElementRef<HTMLElement>>('actions');
 
   protected readonly cls = computed(() =>
     ['empty', this.size() === 'compact' && 'empty--compact', this.tone() !== 'neutral' && `empty--${this.tone()}`].filter(Boolean).join(' '),
@@ -91,11 +73,10 @@ export class EmptyState {
     return this.tone() === 'error' ? 'alert' : this.tone() === 'neutral' ? null : 'status';
   });
 
-  /** Focuses the first action, so focus never falls to the body when the last item goes. */
   focusPrimaryAction(options?: FocusOptions): void {
-    this.actionsBox()?.nativeElement.querySelector<HTMLElement>('a[href], button:not([disabled]), input, label')?.focus(options);
+    this.actions().nativeElement.querySelector<HTMLElement>('a[href], button:not([disabled]), input, label')?.focus(options);
   }
 }
 
-/** Import this with the component so its slots are recognised. */
-export const EMPTY_STATE = [EmptyState, EmptyStateIcon, EmptyStatePhotos, EmptyStateActions, EmptyStateNote];
+/** Import array kept for consumers that import the state with its slot markers. */
+export const EMPTY_STATE = [EmptyState] as const;

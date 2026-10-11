@@ -19,7 +19,7 @@ test.describe('Operator console frame', () => {
       'Operators',
       'Breach register',
     ]);
-    await expect(console.currentSideNavLink).toHaveAccessibleName('Review queue 7 waiting');
+    await expect(console.currentSideNavLink).toHaveAccessibleName('Review queue 8 waiting');
     await expect(console.sideNavLink('Audit log')).toHaveAttribute('href', '/admin/audit');
     await expect(console.main).toHaveClass('container');
   });

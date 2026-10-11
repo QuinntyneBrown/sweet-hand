@@ -3,6 +3,7 @@ import { OperatorCaterersPage } from '../../../pages/operator-caterers.page';
 
 test.describe('Operator caterer list', () => {
   test('L2-046 queue-item AC-7: every caterer in every status, most recently changed first', async ({ page, backend }) => {
+    await backend.scenario('pelau-name-change-pending');
     await backend.signInAs('leah');
     const caterers = new OperatorCaterersPage(page);
 

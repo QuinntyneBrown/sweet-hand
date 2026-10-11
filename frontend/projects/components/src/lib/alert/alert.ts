@@ -16,7 +16,6 @@ import { Icon, type IconName } from '../icon/icon';
       <div [class]="cls()" [attr.role]="role()">
         <svg [shIcon]="icon()"></svg>
         <div class="alert__body">
-          <!-- One projection slot shared by both layouts: a default ng-content in each branch would leave one empty. -->
           @if (banner()) {
             <span #titleEl class="alert__title">{{ title() }}</span> <span><ng-container *ngTemplateOutlet="text" /></span>
           } @else {
