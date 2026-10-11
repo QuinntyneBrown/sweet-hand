@@ -37,6 +37,8 @@ export const ICONS = {
   offline: '<path d="M3 3l18 18M8.5 16.5a5 5 0 0 1 7 0M5 13a10 10 0 0 1 5-2.7M2 9.5a15 15 0 0 1 4.5-2.8M22 9.5A15 15 0 0 0 11 5.1"/>',
   plate: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/>',
   plus: '<path d="M12 5v14M5 12h14"/>',
+  /** A file (file-upload CRD, file row). */
+  document: '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/>',
   'sign-out': '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/>',
 } as const;
 

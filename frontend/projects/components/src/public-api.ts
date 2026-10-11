@@ -57,3 +57,7 @@ export * from './lib/review/review';
 export * from './lib/radio-group/radio-group';
 export * from './lib/stat/stat';
 export * from './lib/progress/progress';
+export * from './lib/form-layout/form-layout';
+export * from './lib/timeline/timeline';
+export * from './lib/photo-tile/photo-tile';
+export * from './lib/file-upload/file-upload';
