@@ -8,7 +8,8 @@ import { createApiApp } from './api-app.ts';
 import { useSecureCookies } from './identity/sessions.ts';
 import { seedDatabase } from './seed/index.ts';
 import { TestEnvironments, testControl } from './testing/control.ts';
-import { dispatchDueEmails, logGateway } from './platform/email-dispatch.ts';
+import { logGateway } from './platform/email-dispatch.ts';
+import { startBackgroundWork } from './maintenance/scheduler.ts';
 import { loadConfig } from './platform/config.ts';
 import { systemClock } from './platform/clock.ts';
 import { MemoryDatabase } from './platform/memory-database.ts';
@@ -47,22 +48,14 @@ const server = app.getHttpServer() as Server;
 server.keepAliveTimeout = 65_000;
 server.headersTimeout = 66_000;
 
-// The email worker (L2-030). In test mode emails stay queued so specs can read them.
-let dispatching = false;
-const worker = testEnvs
-  ? undefined
-  : setInterval(() => {
-      if (dispatching) return;
-      dispatching = true;
-      void dispatchDueEmails(env, logGateway)
-        .catch((err) => console.error(err))
-        .finally(() => (dispatching = false));
-    }, 15_000);
+// The background work: emails (L2-030), waiting photos (L2-091.2) and the daily
+// maintenance job. In test mode it stays off so specs control time and read queued emails.
+const stopBackgroundWork = testEnvs ? undefined : startBackgroundWork(env, logGateway);
 await app.listen(config.port);
 console.log(`Sweet Hand API on http://localhost:${config.port}${config.databaseUrl ? '' : config.testControl ? ' (test mode)' : ' (in-memory database)'}`);
 
 const stop = () => {
-  if (worker) clearInterval(worker);
+  stopBackgroundWork?.();
   void app.close().then(() => env.db.close()).then(() => process.exit(0));
 };
 process.on('SIGTERM', stop);

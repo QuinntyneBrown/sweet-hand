@@ -10,6 +10,8 @@ import { testEnvironment, type TestEnvironment } from '../environment.ts';
 import { findUserByEmail, sessions } from '../identity/model.ts';
 import { randomToken, sha256 } from '../platform/secrets.ts';
 import { allScenarios } from './scenarios/index.ts';
+import { runDailyMaintenance } from '../maintenance/daily.ts';
+import { processWaitingPhotos } from '../caterer-profile/processing.ts';
 
 export const SESSION_HEADER = 'x-test-session';
 
@@ -88,6 +90,16 @@ export function testControl(envs: TestEnvironments): (req: IncomingMessage, res:
         case 'POST /clock': {
           const { now } = await readJson(req);
           (await envs.forKey(key)).clock.set(now);
+          return send(res, 204);
+        }
+        case 'POST /maintenance': {
+          // The daily maintenance job, run now (auto-close, certificate reminders, retention).
+          await runDailyMaintenance(await envs.forKey(key));
+          return send(res, 204);
+        }
+        case 'POST /background': {
+          // One tick of the frequent background work that needs no email provider: waiting photos.
+          await processWaitingPhotos(await envs.forKey(key));
           return send(res, 204);
         }
         case 'GET /state': {

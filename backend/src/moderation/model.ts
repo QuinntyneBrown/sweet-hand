@@ -53,6 +53,8 @@ export interface CertificateExpiry extends Document {
   detectedAt?: string;
   /** When the expiry reminders went out. */
   reminders: string[];
+  /** The expiry date the reminders were for; older records have none. */
+  forExpiry?: string;
 }
 
 /** A time-limited link to a certificate copy (L2-040.4); only the hash of the link's token is kept, as the id. */
