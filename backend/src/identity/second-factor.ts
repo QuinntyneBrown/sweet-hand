@@ -16,7 +16,7 @@ export async function completeSecondFactor(req: Request): Promise<Reply> {
   const body = (req.body ?? {}) as Partial<SecondFactorRequest> & { code?: unknown; assertion?: unknown };
   const passed =
     body.method === 'security key'
-      ? user.secondFactor === 'security key' && validSecurityKeyAssertion(body.assertion)
+      ? validSecurityKeyAssertion(body.assertion)
       : body.method === 'authenticator app' && !!user.totpSecret && verifyTotp(user.totpSecret, body.code, req.now);
   if (!passed) return invalid({ code: ['That code didn’t work'] });
   await sessions(req.tx).put({ ...session, pendingSecondFactor: false, lastActiveAt: req.now.toISOString() });

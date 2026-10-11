@@ -42,6 +42,15 @@ describe('operator second factor and timeouts (L2-056.2, L2-078.3)', async () =>
     assert.equal((await client.get('/api/session')).body.user.secondFactor, 'security key');
   });
 
+  it('Given an operator who uses an authenticator app, when they choose their security key instead, then the sign-in completes', async () => {
+    const api = await startApi();
+    const client = api.client();
+    await client.post('/api/identity/sign-in', { email: 'leah@sweethand.example', password: SEED_PASSWORD });
+    const res = await client.post('/api/identity/second-factor', { method: 'security key', assertion: 'local-key:5678' });
+    assert.equal(res.status, 200);
+    assert.equal((await client.get('/api/session')).body.user.email, 'leah@sweethand.example');
+  });
+
   it('Given no pending sign-in, when a code is sent, then the answer is 401', async () => {
     const api = await startApi();
     const res = await api.client().post('/api/identity/second-factor', { method: 'authenticator app', code: '123456' });
