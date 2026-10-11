@@ -2,6 +2,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { documents, signedInClient, startApi, type Api } from '../support/api.ts';
 import { caterers, type Caterer } from '../../src/caterers/model.ts';
+import { CAST_NOW } from '../../src/platform/clock.ts';
 
 const KENDRA = 'kendra@pelauhouse.example';
 const PHOTO_SIZE = 'Photos must be under 15 MB and at least 800 pixels on the shorter side';
@@ -160,7 +161,7 @@ describe('photo upload (manage-photos design, L2-041)', () => {
     await kendra.post('/api/caterer/profile/photos/pelau-house-photo-1/replacement', upload('IMG_9.png', png(1600, 1200)));
 
     const cover = (await pelau(api)).photos[0];
-    const [edit] = (await documents(api, 'profileEdits')).filter((e) => e.catererId === 'cat-001');
+    const [edit] = (await documents(api, 'profileEdits')).filter((e) => e.catererId === 'cat-001' && e.at >= CAST_NOW);
     assert.equal(edit.field, 'cover-photo');
     assert.deepEqual(edit.old, { kind: 'photo', src: '/media/pelau-house.jpg?w=400&fm=jpeg', alt: 'Chicken pelau in a steel pot with lime and cucumber chutney' });
     assert.deepEqual(edit.new, { kind: 'photo', src: `/media/${cover.file}?w=400&fm=jpeg`, alt: 'Chicken pelau in a steel pot with lime and cucumber chutney' });

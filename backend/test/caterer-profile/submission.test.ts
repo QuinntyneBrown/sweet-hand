@@ -3,10 +3,11 @@ import assert from 'node:assert/strict';
 import { documents, signedInClient, startApi, type Api } from '../support/api.ts';
 import { caterers, type Caterer } from '../../src/caterers/model.ts';
 import { users } from '../../src/identity/model.ts';
+import { CAST_NOW } from '../../src/platform/clock.ts';
 
 const KENDRA = 'kendra@pelauhouse.example';
 const pelau = async (api: Api) => (await documents<Caterer>(api, 'caterers')).find((c) => c.id === 'cat-001')!;
-const history = async (api: Api) => (await documents(api, 'statusHistory')).filter((h) => h.catererId === 'cat-001');
+const history = async (api: Api) => (await documents(api, 'statusHistory')).filter((h) => h.catererId === 'cat-001' && h.at >= CAST_NOW);
 
 async function change(api: Api, patch: (c: Caterer) => Partial<Caterer>): Promise<void> {
   await api.env.db.transaction(async (tx) => {

@@ -1,8 +1,15 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { documents, outbox, signedInClient, startApi } from '../support/api.ts';
+import { documents, outbox, signedInClient, startApi, type Api } from '../support/api.ts';
 import { SEED_PASSWORD } from '../../src/seed/users.ts';
 import { enquiries, type Enquiry } from '../../src/enquiries/model.ts';
+
+/** The test owns every enquiry it checks: the seeded ones are set aside. */
+async function clearEnquiries(api: Api): Promise<void> {
+  await api.env.db.transaction(async (tx) => {
+    for (const e of await enquiries(tx).all()) await enquiries(tx).delete(e.id);
+  });
+}
 
 function enquiry(id: string, customerId: string, catererId: string, status: Enquiry['status'], events: Enquiry['events'] = []): Enquiry {
   return {
@@ -58,6 +65,7 @@ describe('delete account (L2-072)', () => {
 
   it('Given a deleted customer’s threads, when the deletion is processed, then the messages stay for the caterer and contact details they shared are no longer there', async () => {
     const api = await startApi();
+    await clearEnquiries(api);
     await api.env.db.transaction((tx) =>
       enquiries(tx).put(
         enquiry('enq-m', 'user-marcia', 'cat-001', 'Replied', [
@@ -98,6 +106,7 @@ describe('delete account (L2-072)', () => {
 
   it('Given a caterer, when they delete their account, then the profile leaves public view, its own files are deleted and each open enquiry is closed with an email to the customer (L2-072.4)', async () => {
     const api = await startApi();
+    await clearEnquiries(api);
     await api.env.db.transaction(async (tx) => {
       await enquiries(tx).put(enquiry('enq-1', 'user-priya', 'cat-001', 'Open'));
       await enquiries(tx).put(enquiry('enq-2', 'user-andre', 'cat-001', 'Replied'));

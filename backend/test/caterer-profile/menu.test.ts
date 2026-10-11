@@ -2,11 +2,12 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { documents, signedInClient, startApi, type Api } from '../support/api.ts';
 import type { Caterer } from '../../src/caterers/model.ts';
+import { CAST_NOW } from '../../src/platform/clock.ts';
 
 const KENDRA = 'kendra@pelauhouse.example';
 
 const caterer = async (api: Api, id: string) => (await documents<Caterer>(api, 'caterers')).find((c) => c.id === id)!;
-const edits = async (api: Api, catererId: string) => (await documents(api, 'profileEdits')).filter((e) => e.catererId === catererId).sort((a, b) => a.seq - b.seq);
+const edits = async (api: Api, catererId: string) => (await documents(api, 'profileEdits')).filter((e) => e.catererId === catererId && e.at >= CAST_NOW).sort((a, b) => a.seq - b.seq);
 
 const PEPPERPOT = { name: ' Pepperpot ', description: 'Cassareep, beef and pork, cooked down slow.', tags: ['gluten-free', 'spicy'], price: 'From $20 per person' };
 

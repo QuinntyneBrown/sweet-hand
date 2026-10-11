@@ -2,6 +2,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { documents, signedInClient, startApi, type Api } from '../support/api.ts';
 import { caterers, type Caterer } from '../../src/caterers/model.ts';
+import { CAST_NOW } from '../../src/platform/clock.ts';
 
 const KENDRA = 'kendra@pelauhouse.example';
 const PELAU = 'cat-001';
@@ -18,7 +19,7 @@ async function setStatus(api: Api, status: Caterer['status']): Promise<void> {
   });
 }
 
-const edits = async (api: Api) => (await documents(api, 'profileEdits')).filter((e) => e.catererId === PELAU).sort((a, b) => a.seq - b.seq);
+const edits = async (api: Api) => (await documents(api, 'profileEdits')).filter((e) => e.catererId === PELAU && e.at >= CAST_NOW).sort((a, b) => a.seq - b.seq);
 
 const LONG = 'Pelau, curry goat and macaroni pie for weddings and big family Sundays across the east end.';
 

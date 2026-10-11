@@ -24,6 +24,9 @@ function enquiry(id: string, customerId: string, catererId: string, status: Enqu
 
 async function arrange(api: Api, docs: { enquiries?: Enquiry[]; reports?: Report[] }): Promise<void> {
   await api.env.db.transaction(async (tx) => {
+    // The test owns every enquiry and report it counts: the seeded ones are set aside.
+    for (const e of await enquiries(tx).all()) await enquiries(tx).delete(e.id);
+    for (const r of await reports(tx).all()) await reports(tx).delete(r.id);
     for (const e of docs.enquiries ?? []) await enquiries(tx).put(e);
     for (const r of docs.reports ?? []) await reports(tx).put(r);
   });

@@ -2,11 +2,12 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { documents, signedInClient, startApi, type Api } from '../support/api.ts';
 import type { Caterer } from '../../src/caterers/model.ts';
+import { CAST_NOW } from '../../src/platform/clock.ts';
 
 const KENDRA = 'kendra@pelauhouse.example';
 const pelau = async (api: Api) => (await documents<Caterer>(api, 'caterers')).find((c) => c.id === 'cat-001')!;
 const ids = async (api: Api) => (await pelau(api)).photos.map((p) => p.id);
-const coverEdits = async (api: Api) => (await documents(api, 'profileEdits')).filter((e) => e.catererId === 'cat-001' && e.field === 'cover-photo');
+const coverEdits = async (api: Api) => (await documents(api, 'profileEdits')).filter((e) => e.catererId === 'cat-001' && e.field === 'cover-photo' && e.at >= CAST_NOW);
 const P = (n: number) => `pelau-house-photo-${n}`;
 
 describe('managing photos (manage-photos design, L2-042)', () => {
