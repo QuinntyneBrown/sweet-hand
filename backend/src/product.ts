@@ -18,6 +18,7 @@ import { ReportsController } from './reports/reports.controller.ts';
 import { ReviewsController } from './reviews/reviews.controller.ts';
 import { EnquiriesController } from './enquiries/enquiries.controller.ts';
 import { IdentityController } from './identity/identity.controller.ts';
+import { LaunchListController } from './launch-list/launch-list.controller.ts';
 
 /** The product's request hooks: who is calling, and what a refusal records. */
 export function productHooks(): Pick<PipelineOptions, 'authenticate' | 'onDenied' | 'gate'> {
@@ -67,4 +68,4 @@ async function watchAuthorisationFailures(req: Request): Promise<void> {
 }
 
 /** Every feature area's NestJS controller (ADR 0010). */
-export const productControllers: Type<unknown>[] = [HealthController, DiscoveryController, IdentityController, EnquiriesController, ReviewsController, ReportsController, AccountController, OperatorSettingsController, CatererProfileController, ModerationController];
+export const productControllers: Type<unknown>[] = [HealthController, DiscoveryController, IdentityController, EnquiriesController, ReviewsController, ReportsController, AccountController, OperatorSettingsController, CatererProfileController, ModerationController, LaunchListController];
