@@ -23,6 +23,8 @@ keep it accurate:
 - `docs/mocks/` — static HTML design reference (`writing-html-mocks` skill)
 - `docs/design-system/` — design system extracted from the mocks (`extracting-design-systems` skill)
 - `docs/adr/` — architecture decisions; read relevant ADRs before changing the areas they cover
+- `docs/technical-debt/` — technical-debt registers with resolution strategies
+  (`frontend.md`); close an item by deleting its entry in the PR that resolves it
 - `docs/videos/` — narrated walkthroughs (`creating-videos` skill)
 - `frontend/` — Angular workspace (ADR 0001); see `frontend/README.md`
   - `frontend/projects/components/` — `sh-*` design-system component library,
