@@ -1,0 +1,56 @@
+<ng-template #overlay>
+  <div class="backdrop"></div>
+  <div
+    [class]="fullScreenOnPhone() ? 'dialog dialog--full' : 'dialog'"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-labelledby]="ids.title"
+    [attr.aria-describedby]="describedBy()"
+  >
+    @if (form()) {
+      <form [class]="panelClass()" novalidate [attr.role]="formRole()" [attr.aria-busy]="busy() ? 'true' : null" (submit)="onSubmit($event)">
+        <ng-container *ngTemplateOutlet="panel" />
+      </form>
+    } @else {
+      <div [class]="panelClass()" [attr.aria-busy]="busy() ? 'true' : null"><ng-container *ngTemplateOutlet="panel" /></div>
+    }
+  </div>
+</ng-template>
+
+<ng-template #panel>
+  <div class="dialog__header">
+    @if (photo()) {
+      <div class="dialog__caterer">
+        <span class="photo"><img [src]="photo()" alt="" width="56" height="56" /></span>
+        <div class="dialog__heading">
+          <h2 class="dialog__title" [id]="ids.title" tabindex="-1">{{ title() }}</h2>
+          @if (description()) {
+            <p [class]="descriptionRole() === 'recipient' ? 'dialog__caterer-name' : 'dialog__desc'" [id]="ids.desc">{{ description() }}</p>
+          }
+        </div>
+      </div>
+    } @else {
+      @if (tone()) {
+        <div [class]="'dialog__icon dialog__icon--' + tone()" aria-hidden="true"><ng-content select="[slot=icon]" /></div>
+      }
+      <div class="dialog__heading">
+        <h2 class="dialog__title" [id]="ids.title" tabindex="-1">{{ title() }}</h2>
+        @if (description()) {
+          <p class="dialog__desc" [id]="ids.desc">{{ description() }}</p>
+        }
+      </div>
+    }
+    <button class="icon-btn" type="button" [attr.aria-label]="closeLabel()" [disabled]="busy()" (click)="dismiss('close')"><svg shIcon="close"></svg></button>
+  </div>
+  <div class="dialog__body stack">
+    <ng-content />
+    <p class="visually-hidden" role="status">{{ busy() ? busyMessage() : '' }}</p>
+  </div>
+  <div class="dialog__footer">
+    <ng-content select="[slot=footer-start]" />
+    @if (cancelLabel()) {
+      <button #cancel class="btn" type="button" [disabled]="busy()" (click)="dismiss('cancel')">{{ cancelLabel() }}</button>
+    }
+    <ng-content select="[slot=footer]" />
+  </div>
+</ng-template>

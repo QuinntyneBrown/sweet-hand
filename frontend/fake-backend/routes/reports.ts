@@ -1,8 +1,9 @@
 import type { Router } from '../lib/router.ts';
 import { conflict, invalid } from '../lib/http.ts';
 import { currentUser, newId as storeId, type Store } from '../lib/store.ts';
-import type { Report } from '../seed/reports.ts';
-import type { ReportDuplicate, ReportRequest } from '../../projects/web/src/app/core/api/reports.models.ts';
+import type { Report } from '../seed/report.ts';
+import type { ReportDuplicate } from '../../projects/api/src/lib/models/report-duplicate.ts';
+import type { ReportRequest } from '../../projects/api/src/lib/models/report-request.ts';
 
 const REASONS: Report['reason'][] = ['Inaccurate information', 'Inappropriate content', 'Fake or spam', 'Food safety concern', 'Other'];
 /** Reports one connection may send in a rolling hour (L2-054.3). */

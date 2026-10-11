@@ -1,0 +1,27 @@
+<sh-dialog
+  [open]="open()"
+  title="Delete your review?"
+  i18n-title="@@deleteReview.title"
+  [description]="description()"
+  size="sm"
+  tone="danger"
+  initialFocus="cancel"
+  closeLabel="Close"
+  i18n-closeLabel="@@common.close"
+  cancelLabel="Keep review"
+  i18n-cancelLabel="@@deleteReview.keep"
+  [busy]="busy()"
+  [busyMessage]="deleting"
+  [returnFocus]="returnFocus()"
+  (dismissed)="closed.emit(false)"
+>
+  <svg slot="icon" shIcon="trash"></svg>
+  @if (failed()) {
+    <sh-alert tone="danger" live="assertive" title="Your review wasn’t deleted" i18n-title="@@deleteReview.failedTitle"
+      ><ng-container i18n="@@deleteReview.failedText">Something went wrong on our side. Try again.</ng-container></sh-alert
+    >
+  }
+  <sh-button slot="footer" variant="danger" [busy]="busy()" (activated)="confirm()"
+    >@if (failed()) {<ng-container i18n="@@common.tryAgain">Try again</ng-container>} @else {<ng-container i18n="@@deleteReview.confirm">Delete review</ng-container>}</sh-button
+  >
+</sh-dialog>

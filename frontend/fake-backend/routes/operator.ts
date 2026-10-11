@@ -1,42 +1,45 @@
 import { randomUUID } from 'node:crypto';
 import type { Router } from '../lib/router.ts';
-import type { Ctx, Reply } from '../lib/http.ts';
+import type { Ctx } from '../lib/http.ts';
+import type { Reply } from '../lib/reply.ts';
 import { conflict, forbidden, invalid, noContent, notFound, ok, unauthorized } from '../lib/http.ts';
-import { currentUser, torontoDate, type AuditEntry, type Store } from '../lib/store.ts';
-import type { Caterer, ProfileStatus } from '../seed/caterers.ts';
-import type { Enquiry } from '../seed/enquiries.ts';
-import type { User } from '../seed/users.ts';
-import type { Report } from '../seed/reports.ts';
-import { ownerFor, type ProfileEdit, type StatusChange } from '../seed/operator.ts';
+import { currentUser, type Store, torontoDate } from '../lib/store.ts';
+import type { AuditEntry } from '../lib/audit-entry.ts';
+import type { Caterer } from '../seed/caterer.ts';
+import type { ProfileStatus } from '../seed/caterers.ts';
+import type { Enquiry } from '../seed/enquiry.ts';
+import type { User } from '../seed/user.ts';
+import type { Report } from '../seed/report.ts';
+import { ownerFor } from '../seed/operator.ts';
+import type { ProfileEdit } from '../seed/profile-edit.ts';
+import type { StatusChange } from '../seed/status-change.ts';
 import { OCCASIONS, slugify } from '../seed/taxonomy.ts';
-import type {
-  CatererCounts,
-  CatererFlag,
-  CatererRecordView,
-  CatererRowView,
-  CaterersPageView,
-  CatererStatusFilter,
-  CertificateView,
-  DecisionResult,
-  EditableField,
-  NameChangeReviewView,
-  RecentChangesPageView,
-  RecentChangeView,
-  RemoveItemResult,
-  ReportEnquiryView,
-  ReportGroupView,
-  ReportedTargetView,
-  ResolveReportRequest,
-  OwnerView,
-  PublicProfileView,
-  ReviewHistoryView,
-  SubmissionReviewView,
-  QueueCounts,
-  QueueFilter,
-  QueueItemView,
-  QueuePageView,
-  ReportReason,
-} from '../../projects/web/src/app/core/api/operator-moderation.models.ts';
+import type { CatererCounts } from '../../projects/api/src/lib/models/caterer-counts.ts';
+import type { CatererFlag } from '../../projects/api/src/lib/models/caterer-flag.ts';
+import type { CatererRecordView } from '../../projects/api/src/lib/models/caterer-record-view.ts';
+import type { CatererRowView } from '../../projects/api/src/lib/models/caterer-row-view.ts';
+import type { CaterersPageView } from '../../projects/api/src/lib/models/caterers-page-view.ts';
+import type { CatererStatusFilter } from '../../projects/api/src/lib/models/caterer-status-filter.ts';
+import type { ReviewCertificateView } from '../../projects/api/src/lib/models/review-certificate-view.ts';
+import type { DecisionResult } from '../../projects/api/src/lib/models/decision-result.ts';
+import type { EditableField } from '../../projects/api/src/lib/models/editable-field.ts';
+import type { NameChangeReviewView } from '../../projects/api/src/lib/models/name-change-review-view.ts';
+import type { RecentChangesPageView } from '../../projects/api/src/lib/models/recent-changes-page-view.ts';
+import type { RecentChangeView } from '../../projects/api/src/lib/models/recent-change-view.ts';
+import type { RemoveItemResult } from '../../projects/api/src/lib/models/remove-item-result.ts';
+import type { ReportEnquiryView } from '../../projects/api/src/lib/models/report-enquiry-view.ts';
+import type { ReportGroupView } from '../../projects/api/src/lib/models/report-group-view.ts';
+import type { ReportedTargetView } from '../../projects/api/src/lib/models/reported-target-view.ts';
+import type { ResolveReportRequest } from '../../projects/api/src/lib/models/resolve-report-request.ts';
+import type { OwnerView } from '../../projects/api/src/lib/models/owner-view.ts';
+import type { PublicProfileView } from '../../projects/api/src/lib/models/public-profile-view.ts';
+import type { ReviewHistoryView } from '../../projects/api/src/lib/models/review-history-view.ts';
+import type { SubmissionReviewView } from '../../projects/api/src/lib/models/submission-review-view.ts';
+import type { QueueCounts } from '../../projects/api/src/lib/models/queue-counts.ts';
+import type { QueueFilter } from '../../projects/api/src/lib/models/queue-filter.ts';
+import type { QueueItemView } from '../../projects/api/src/lib/models/queue-item-view.ts';
+import type { QueuePageView } from '../../projects/api/src/lib/models/queue-page-view.ts';
+import type { ReportReason } from '../../projects/api/src/lib/models/report-reason.ts';
 import { areaName, cuisineName } from './discovery.ts';
 import { ratingSummary, reviewerLabel } from './reviews.ts';
 
@@ -215,7 +218,7 @@ export function catererOwner(store: Store, c: Caterer): OwnerView {
   return { ...owner, emailVerified: true, since };
 }
 
-export function certificateView(store: Store, c: Caterer): CertificateView | null {
+export function certificateView(store: Store, c: Caterer): ReviewCertificateView | null {
   const cert = c.certificate;
   if (!cert) return null;
   return {

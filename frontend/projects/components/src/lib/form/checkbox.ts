@@ -14,31 +14,7 @@ let nextId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => Checkbox), multi: true }],
-  template: `
-    <label class="choice">
-      <input
-        #el
-        type="checkbox"
-        [id]="id()"
-        [attr.name]="name()"
-        [attr.value]="value()"
-        [checked]="checked()"
-        [required]="required()"
-        [disabled]="disabled() || formDisabled()"
-        [attr.aria-invalid]="isInvalid() ? 'true' : null"
-        [attr.aria-describedby]="describedByIds()"
-        (change)="onToggle($event)"
-        (blur)="onTouched()"
-      />
-      <span class="choice__text"
-        ><span><ng-content /></span>
-        @if (description()) {
-          <small>{{ description() }}</small>
-        }</span
-      >
-    </label>
-    <ng-content select="[slot=summary]" />
-  `,
+  templateUrl: './checkbox.html',
 })
 export class Checkbox implements ControlValueAccessor {
   readonly checked = model(false);

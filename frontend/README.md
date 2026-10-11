@@ -1,12 +1,13 @@
 # Sweet Hand frontend
 
-Angular 21 workspace (ADR 0001) with two projects, a fake backend and the
+Angular 21 workspace (ADR 0001) with three projects, a fake backend and the
 Playwright acceptance suite.
 
 ```
 frontend/
   projects/components/   sh-* design-system components (docs/specs/components)
-  projects/web/          the product application
+  projects/api/          @sweet-hand/api: backend services and wire models
+  projects/sweet-hand/   the product application
   fake-backend/          in-memory HTTP API for development and e2e (ADR 0004)
   e2e/                   Playwright: support/, pages/ (page objects), specs/
 ```
@@ -21,16 +22,16 @@ Run everything from `frontend/` (Node 22.12+).
 | `npm start` | Fake backend on :4300 and the dev server on :4200 (proxy in `proxy.conf.mjs`) |
 | `npm run e2e` | Acceptance suite, Chromium only; starts both servers unless already running |
 | `npm run lint` | ESLint, including the i18n rule (ADR 0005) |
-| `npm run typecheck` | `tsc` for the app, the e2e suite and the fake backend |
+| `npm run typecheck` | `tsc` for the API library, the app, the e2e suite and the fake backend |
 | `npm run build` | Production build |
-| `npm run extract-i18n` | Writes `projects/web/src/locale/messages.xlf` |
+| `npm run extract-i18n` | Writes `projects/sweet-hand/src/locale/messages.xlf` |
 
 Ports: set `E2E_WEB_PORT` and `E2E_API_PORT` to run a second checkout side by
 side (`E2E_WEB_PORT=4210 E2E_API_PORT=4310 npx playwright test`).
 `E2E_WORKERS=1` limits Playwright workers.
 
 The Angular CLI sometimes keeps running after a failed compile. Wrap builds in a
-timeout: `timeout 120 node_modules/.bin/ng build web --configuration development < /dev/null`.
+timeout: `timeout 120 node_modules/.bin/ng build sweet-hand --configuration development < /dev/null`.
 
 ## How a change is made (AGENTS.md, ATDD)
 
@@ -79,9 +80,9 @@ Never weaken a test to make it pass, and never write architecture tests
 - `server.ts` routes `/api/*` to handlers registered in `routes/index.ts`.
   Each area has `routes/<area>.ts` (`registerX` + `xScenarios`) and seed data
   in `seed/<area>.ts`; the store (`lib/store.ts`) holds one copy per test.
-- Wire types live in the app as import-free `*.models.ts` files under
-  `projects/web/src/app/core/api/` and are imported by the fake with
-  `import type`, so both sides share one contract.
+- Wire types live in `projects/api/src/lib/models/`, one type per file, and
+  are imported by the fake with `import type`, so both sides share one
+  contract.
 - Validation errors: `invalid({ field: ['message'] })` → HTTP 400 problem body
   `{ title, errors }`; field names match the form control names.
 - State-changing requests need the CSRF header; Angular's HttpClient adds it.
@@ -90,8 +91,14 @@ Never weaken a test to make it pass, and never write architecture tests
 
 ## Application conventions
 
-- `core/api/<area>-api.ts`: an abstract class (the contract and DI token) plus
-  `Http…` implementation; register it in `features/<area>/providers.ts`.
+- `projects/api/src/lib/services/`: `foo.service.ts` holds `abstract class
+  FooService` (the contract and DI token) and `http-foo.service.ts` holds
+  `HttpFooService extends FooService`. Export both from `src/public-api.ts`,
+  register `{ provide: FooService, useClass: HttpFooService }` in
+  `features/<area>/providers.ts`, and inject `FooService` in pages.
+- One type per file (class, interface, type alias, enum), named in kebab case
+  after the type. Components keep templates in `.html` and styles in `.css`;
+  no inline `template` or `styles`.
 - `features/<area>/routes.ts` holds the area's lazy routes; guard pages with
   `requireRole(...)` / `requireAdmin` from `core/session/guards.ts`.
   `data.mainClass` sets the classes of `<main>` from the mock; `data.chrome:
@@ -122,8 +129,7 @@ Never weaken a test to make it pass, and never write architecture tests
   `src/public-api.ts`.
 - Library components hold no user-facing strings; every label is an input.
 - Wrapper hosts use `host: { style: 'display: contents' }`. **Do not** use an
-  inline `styles` string that is identical in two components of the same
-  file: the Angular CLI then never exits after a build.
+  inline `styles`; styles go in the component's `.css` file.
 - Template reference names must not shadow component members (`#title` next to
   a `title` input breaks compilation).
 - Overlays: `sh-dialog` and `sh-sheet` render through `ModalLayer` (focus trap,

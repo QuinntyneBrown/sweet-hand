@@ -1,0 +1,40 @@
+<sh-dialog
+  [open]="open()"
+  [form]="true"
+  [tone]="tone()"
+  [title]="title()"
+  [description]="description()"
+  closeLabel="Close"
+  i18n-closeLabel="@@common.close"
+  cancelLabel="Cancel"
+  i18n-cancelLabel="@@common.cancel"
+  [busy]="busy()"
+  [busyMessage]="saving"
+  [returnFocus]="returnFocus()"
+  (dismissed)="closed.emit()"
+  (submitted)="decide()"
+>
+  <svg slot="icon" [shIcon]="tone() === 'danger' ? 'warning' : tone() === 'success' ? 'success' : 'info'"></svg>
+  @if (failed()) {
+    <sh-alert tone="danger" live="assertive" title="We couldn’t save this decision" i18n-title="@@moderate.failedTitle"
+      ><ng-container i18n="@@moderate.failedText">The review hasn’t changed and nobody has been emailed. Try again.</ng-container></sh-alert
+    >
+  }
+  <sh-form-summary [heading]="summaryTitle()" [headingLevel]="3" [items]="summary()" [attempt]="attempt()" summaryId="moderate-summary" />
+  <sh-well as="figure">
+    <figcaption class="review__head">
+      <span class="photo photo--xs"><img [src]="review().catererPhoto" alt="" width="40" height="40" /></span><span class="review__author">{{ review().catererName }}</span
+      ><span class="review__date">{{ byline() }}</span><sh-stars [value]="review().rating" [label]="stars()" />
+    </figcaption>
+    <blockquote class="review__body">@for (part of parts(); track $index) {@if (part.mark) {<mark class="diff-new">{{ part.text }}</mark>} @else {<ng-container>{{ part.text }}</ng-container>}}</blockquote>
+  </sh-well>
+  <sh-form-field label="Reason" i18n-label="@@moderate.reason" controlId="reason" [error]="errors().reason ?? null" help="Emailed to the reviewer and kept in the audit log." i18n-help="@@moderate.reasonHelp">
+    <sh-textarea [formControl]="reason" name="reason" [rows]="3" [required]="true" [readonly]="busy()" [autofocus]="true" />
+  </sh-form-field>
+  @if (action() === 'remove') {
+    <sh-checkbox inputId="understand" name="understand" [required]="true" [(checked)]="understood" [invalid]="!!errors().understand" [disabled]="busy()" i18n="@@moderate.understand"
+      >I understand this review can’t be restored</sh-checkbox
+    >
+  }
+  <sh-button slot="footer" type="submit" [variant]="action() === 'remove' ? 'danger' : 'primary'" [busy]="busy()">{{ failed() ? retryLabel : submitLabel() }}</sh-button>
+</sh-dialog>

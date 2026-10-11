@@ -11,11 +11,10 @@ import {
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Button } from '../button/button';
-import { Stars } from '../rating/rating';
+import { Stars } from '../rating/stars';
+import type { ReviewStatusTone } from './review-status-tone';
 
-export type ReviewStatusTone = 'held' | 'hidden' | 'removed' | 'published' | 'pending';
-
-const REVIEW_LIST = new InjectionToken<true>('REVIEW_LIST');
+export const REVIEW_LIST = new InjectionToken<true>('REVIEW_LIST');
 
 /**
  * One review (docs/specs/components/review.md): public, the author's own, the
@@ -27,59 +26,8 @@ const REVIEW_LIST = new InjectionToken<true>('REVIEW_LIST');
   imports: [NgTemplateOutlet, Stars],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (!inList) {
-      <ng-container *ngTemplateOutlet="item" />
-    }
-    <ng-template #item>
-      @if (skeleton() === 'operator') {
-        <li class="review" aria-hidden="true">
-          <div class="review__head"><span class="photo photo--xs"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text" style="width: 40%"></span></div>
-          <span class="skeleton skeleton--text" style="width: 30%"></span><span class="skeleton skeleton--text" style="width: 90%"></span><span class="skeleton skeleton--text" style="width: 60%"></span>
-          <span class="skeleton skeleton--rect" style="height: var(--control-height-sm)"></span>
-        </li>
-      } @else if (skeleton() === 'public') {
-        <li class="review" aria-hidden="true">
-          <span class="skeleton skeleton--text" style="width: 12rem"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text" style="width: 70%"></span>
-        </li>
-      } @else {
-        <li class="review">
-          <div class="review__head">
-            @if (variant() === 'operator' && catererPhoto(); as photo) {
-              <span class="photo photo--xs"><img [src]="photo.src" alt="" [width]="photo.width" [height]="photo.height" /></span>
-            }
-            <span class="review__author">{{ author() }}</span>
-            @if (variant() === 'own' && ownLabel()) {
-              <span class="badge">{{ ownLabel() }}</span>
-            }
-            <span class="review__date">{{ dateLine() }}</span>
-            <sh-stars [value]="rating()" [label]="ratingLabel()" />
-          </div>
-          @if (variant() === 'operator' && moderation(); as m) {
-            <p class="cluster">
-              <span [class]="'status status--' + m.tone">{{ m.detail ? m.label + ' · ' + m.detail : m.label }}</span><span class="text-caption">{{ m.time }}</span>
-            </p>
-          }
-          <p class="review__body">@for (part of bodyParts(); track $index) {@if (part.mark) {<mark class="diff-new">{{ part.text }}</mark>} @else {<ng-container>{{ part.text }}</ng-container>}}</p>
-          @if (response(); as r) {
-            <div class="review__response">
-              <span class="review__response-label">{{ r.label }}</span>
-              <p class="review__body">{{ r.body }}</p>
-            </div>
-          } @else if (variant() === 'caterer' && awaitingLabel()) {
-            <p class="status status--pending">{{ awaitingLabel() }}</p>
-          }
-          @if (variant() === 'own' && editWindowLabel()) {
-            <p class="text-caption">{{ editWindowLabel() }}</p>
-          }
-          @if (variant() !== 'public' && actions().length) {
-            <div class="review__actions"><ng-content select="[slot=actions]" /></div>
-          }
-        </li>
-      }
-    </ng-template>
-  `,
-  styles: `.review__body { white-space: pre-line; overflow-wrap: anywhere; }`,
+  templateUrl: './review.html',
+  styleUrl: './review.css',
 })
 export class Review {
   readonly variant = input<'public' | 'own' | 'caterer' | 'operator'>('public');
@@ -127,44 +75,3 @@ export class Review {
   });
 }
 
-/** The ruled list of reviews with its loading state (review CRD, `sh-review-list`). */
-@Component({
-  selector: 'sh-review-list',
-  imports: [NgTemplateOutlet],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: block' },
-  providers: [{ provide: REVIEW_LIST, useValue: true }],
-  template: `
-    <ul class="review-list" [attr.id]="listId()" [attr.aria-busy]="busy() ? 'true' : null">
-      @if (busy()) {
-        @for (i of skeletons(); track i) {
-          @if (skeletonVariant() === 'operator') {
-            <li class="review" aria-hidden="true">
-              <div class="review__head"><span class="photo photo--xs"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text" style="width: 40%"></span></div>
-              <span class="skeleton skeleton--text" style="width: 30%"></span><span class="skeleton skeleton--text" style="width: 90%"></span><span class="skeleton skeleton--text" style="width: 60%"></span>
-              <span class="skeleton skeleton--rect" style="height: var(--control-height-sm)"></span>
-            </li>
-          } @else {
-            <li class="review" aria-hidden="true">
-              <span class="skeleton skeleton--text" style="width: 12rem"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text" style="width: 70%"></span>
-            </li>
-          }
-        }
-      } @else {
-        @for (r of reviews(); track r) {
-          <ng-container *ngTemplateOutlet="r.item()" />
-        }
-      }
-    </ul>
-    <ng-content />
-  `,
-})
-export class ReviewList {
-  readonly busy = input(false);
-  readonly skeletonCount = input(3);
-  readonly skeletonVariant = input<'public' | 'operator'>('public');
-  readonly listId = input<string | null>(null);
-
-  protected readonly reviews = contentChildren(Review);
-  protected readonly skeletons = computed(() => Array.from({ length: this.skeletonCount() }, (_, i) => i));
-}

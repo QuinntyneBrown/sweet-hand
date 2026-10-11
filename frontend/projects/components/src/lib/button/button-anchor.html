@@ -1,0 +1,11 @@
+<a
+  [class]="cls()"
+  [routerLink]="disabled() ? null : href()"
+  [queryParams]="queryParams()"
+  [attr.aria-disabled]="disabled() ? 'true' : null"
+  [attr.aria-label]="ariaLabel()"
+  [attr.aria-describedby]="describedBy()"
+  (click)="onClick($event)"
+>
+  <ng-content />
+</a>

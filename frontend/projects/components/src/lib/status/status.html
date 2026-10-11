@@ -1,0 +1,7 @@
+@if (skeleton()) {
+  <span class="skeleton skeleton--text" style="width: 5rem" aria-hidden="true"></span>
+} @else if (block()) {
+  <p [class]="cls()">{{ text() }}</p>
+} @else {
+  <span [class]="cls()">{{ text() }}</span>
+}

@@ -1,0 +1,7 @@
+@if (valid()) {
+  <span class="stars" role="img" [attr.aria-label]="label()">
+    @for (i of five; track i) {
+      <svg shIcon="star" [class.icon--empty]="i >= value()"></svg>
+    }
+  </span>
+}

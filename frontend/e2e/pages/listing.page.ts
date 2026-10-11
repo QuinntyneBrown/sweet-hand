@@ -1,6 +1,8 @@
 import type { Locator } from '@playwright/test';
 import { BasePage } from './base.page';
 import { EmptyState } from './empty-state';
+import { FiltersSheet } from './filters-sheet';
+import { FilterDropdown } from './filter-dropdown';
 
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -285,80 +287,3 @@ export class ListingPage extends BasePage {
   }
 }
 
-/** The Filters sheet: pending choices, Clear and "Show N caterers". */
-export class FiltersSheet {
-  constructor(readonly dialog: Locator) {}
-
-  get title() {
-    return this.dialog.locator('.sheet__title');
-  }
-
-  get close() {
-    return this.dialog.getByRole('button', { name: 'Close filters' });
-  }
-
-  get cuisines() {
-    return this.dialog.getByRole('group', { name: 'Cuisine' }).getByRole('checkbox');
-  }
-
-  get regions() {
-    return this.dialog.getByRole('group', { name: 'Area' }).getByRole('checkbox');
-  }
-
-  choice(name: string) {
-    return this.dialog.getByRole('checkbox', { name: optionName(name) });
-  }
-
-  get search() {
-    return this.dialog.getByRole('combobox', { name: 'Area or postal code' });
-  }
-
-  get suggestions() {
-    return this.dialog.getByRole('listbox', { name: 'Matching areas' }).getByRole('option');
-  }
-
-  get selectedAreas() {
-    return this.dialog.getByRole('group', { name: 'Selected areas' }).locator('.chip--filter');
-  }
-
-  removeArea(name: string) {
-    return this.dialog.getByRole('group', { name: 'Selected areas' }).getByRole('button', { name: `Remove ${name} filter` });
-  }
-
-  get clear() {
-    return this.dialog.getByRole('button', { name: 'Clear', exact: true });
-  }
-
-  get apply() {
-    return this.dialog.getByRole('button', { name: /^Show \d[\d,]* caterers?$/ });
-  }
-}
-
-/** A filter dropdown (`.filter-dropdown[role=dialog]`): checkboxes with counts, Clear and the live total. */
-export class FilterDropdown {
-  constructor(readonly panel: Locator) {}
-
-  get choices() {
-    return this.panel.getByRole('checkbox');
-  }
-
-  choice(name: string) {
-    return this.panel.getByRole('checkbox', { name: optionName(name) });
-  }
-
-  get status() {
-    return this.panel.locator('.result-count[role="status"]');
-  }
-
-  get clear() {
-    return this.panel.getByRole('button', { name: 'Clear', exact: true });
-  }
-
-  get search() {
-    return this.panel.getByRole('combobox', { name: 'Area or postal code' });
-  }
-
-  get suggestions() {
-    return this.panel.getByRole('listbox', { name: 'Matching areas' }).getByRole('option');
-  }
-}

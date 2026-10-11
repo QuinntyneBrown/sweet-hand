@@ -1,36 +1,9 @@
+import type { User } from './user.ts';
+
 /** Fictional accounts from docs/mocks/README.md. Every seeded account uses SEED_PASSWORD. */
 export const SEED_PASSWORD = 'pepperpot-sunday-2026';
 
 export type Role = 'Customer' | 'Caterer' | 'Operator';
-
-export interface User {
-  id: string;
-  role: Role;
-  displayName: string;
-  email: string;
-  phone?: string;
-  password: string;
-  passwordChangedAt: string;
-  emailVerified: boolean;
-  /** When the latest verification link was sent (L2-023.2). */
-  verificationSentAt?: string;
-  emailBounced?: boolean;
-  /** Operators only. */
-  admin?: boolean;
-  /** Operators only: how they complete the second step (L2-056.2). */
-  secondFactor?: 'authenticator app' | 'security key';
-  /** Caterers only: the profile they own. */
-  catererId?: string;
-  createdAt: string;
-  deleted?: boolean;
-  /** Privacy notice version the user accepted, and when (L2-070.3). */
-  acceptedPrivacyVersion: string;
-  acceptedPrivacyAt: string;
-  failedSignIns?: number;
-  /** When each recent failed sign-in happened (L2-076.4). */
-  failedSignInsAt?: string[];
-  lockedUntil?: string;
-}
 
 const u = (p: Partial<User> & Pick<User, 'id' | 'role' | 'displayName' | 'email'>): User => ({
   password: SEED_PASSWORD,

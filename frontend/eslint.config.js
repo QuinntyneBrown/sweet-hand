@@ -28,7 +28,7 @@ module.exports = tseslint.config(
   },
   {
     // User-facing text in the product must be externalised (ADR 0005, L2-064.4).
-    files: ['projects/web/src/app/**/*.html'],
+    files: ['projects/sweet-hand/src/app/**/*.html'],
     rules: {
       '@angular-eslint/template/i18n': [
         'error',

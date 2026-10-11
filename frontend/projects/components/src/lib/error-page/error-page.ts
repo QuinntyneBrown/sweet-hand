@@ -8,25 +8,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, input, output, signal, 
   selector: 'sh-error-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <div class="container">
-      <div class="system-page">
-        <div class="photo-row" aria-hidden="true"><ng-content select="[slot=photos]" /></div>
-        <h1 #headingEl tabindex="-1">{{ heading() }}</h1>
-        <p class="prose">{{ text() }}</p>
-        <div class="system-page__actions"><ng-content select="[slot=actions]" /></div>
-        <p class="visually-hidden" role="status">{{ copied() ? copiedLabel() : statusMessage() }}</p>
-        @if (reference()) {
-          <p class="system-page__code">
-            {{ referenceLabel() }} <code>{{ reference() }}</code>
-            <button class="btn btn--link btn--sm" type="button" [attr.aria-label]="copyAriaLabel()" (click)="copy()">{{ copyLabel() }}</button>
-          </p>
-        } @else if (code()) {
-          <p class="system-page__code">{{ code() }}</p>
-        }
-      </div>
-    </div>
-  `,
+  templateUrl: './error-page.html',
 })
 export class ErrorPage {
   readonly heading = input.required<string>();

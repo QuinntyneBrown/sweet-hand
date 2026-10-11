@@ -5,9 +5,12 @@
  * (docs/mocks/README.md, "Other caterer accounts" and "Operators").
  */
 import { randomUUID } from 'node:crypto';
-import type { Enquiry } from './enquiries.ts';
 import type { ProfileStatus } from './caterers.ts';
-import type { ChangedField, ChangeValue } from '../../projects/web/src/app/core/api/operator-moderation.models.ts';
+import type { ChangeValue } from '../../projects/api/src/lib/models/change-value.ts';
+import type { Owner } from './owner.ts';
+import type { StatusChange } from './status-change.ts';
+import type { ProfileEdit } from './profile-edit.ts';
+import type { ModerationState } from './moderation-state.ts';
 
 export interface OperatorState {
   moderation: ModerationState;
@@ -20,79 +23,6 @@ export function seedOperator(): OperatorState {
 // ---------------------------------------------------------------------------
 // Moderation (docs/detailed-designs/moderation)
 // ---------------------------------------------------------------------------
-
-/** A caterer's contact details as operators see them (L2-014: never public). */
-export interface Owner {
-  name: string;
-  email: string;
-  phone: string | null;
-}
-
-/** One status change (L2-046.4). Entries are only ever appended. */
-export interface StatusChange {
-  at: string;
-  status: ProfileStatus;
-  by: string;
-  step: 'created' | 'submitted' | 'resubmitted' | 'approved' | 'changes-requested' | 'suspended' | 'reinstated' | 'removed';
-  reason?: string;
-}
-
-/** The profile as it was when an operator requested changes (L2-047.3). */
-export interface ProfileSnapshot {
-  description: string;
-  photoFiles: string[];
-  dishNames: string[];
-  minGuests: number;
-  maxGuests: number;
-  occasions: string[];
-  areas: string[];
-  cuisines: string[];
-}
-
-/** One caterer edit to a published profile (L2-044.1), for the recent-changes feed. */
-export interface ProfileEdit {
-  id: string;
-  catererId: string;
-  field: ChangedField;
-  by: string;
-  at: string;
-  old: ChangeValue | null;
-  new: ChangeValue | null;
-  reverted?: { by: string; at: string };
-}
-
-/** An email the platform would have sent; tests read these instead of a mailbox. */
-export interface ModerationEmail {
-  to: string;
-  kind: string;
-  at: string;
-  reason?: string;
-  link?: string;
-  /** When a removed photo or dish must be replaced by (L2-057.2), YYYY-MM-DD. */
-  replaceBy?: string;
-}
-
-export interface ModerationState {
-  owners: Record<string, Owner>;
-  /** Oldest first, per caterer id. */
-  history: Record<string, StatusChange[]>;
-  /** The last "Changes requested" decision, per caterer id. */
-  snapshots: Record<string, ProfileSnapshot>;
-  /** When the caterer asked for the pending name, per caterer id. */
-  nameRequestedAt: Record<string, string>;
-  /** When the daily job found the certificate expired, and the reminders sent before (L2-040.2–3). */
-  expiredCertificates: Record<string, { detectedAt: string; reminders: string[] }>;
-  /** The last change to each record, for the caterer list's order. */
-  updatedAt: Record<string, string>;
-  edits: ProfileEdit[];
-  /** Open enquiries closed by a suspension, per caterer id. */
-  closedBySuspension: Record<string, number>;
-  /** The enquiry a reviewed event came from, per review id: what a report about the review links to (L2-034.3). */
-  reviewEnquiries: Record<string, Enquiry>;
-  /** Time-limited certificate links (L2-040.4). */
-  certificateLinks: Record<string, { catererId: string; expiresAt: string }>;
-  emails: ModerationEmail[];
-}
 
 const LEAH = 'Leah Mohammed';
 const TOMAS = 'Tomas Reyes';

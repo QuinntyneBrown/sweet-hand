@@ -1,0 +1,8 @@
+.caterers-search {
+  max-width: 28rem;
+  margin-bottom: var(--space-4);
+}
+.caterers-skeleton {
+  display: inline-block;
+  width: min(16rem, 80%);
+}

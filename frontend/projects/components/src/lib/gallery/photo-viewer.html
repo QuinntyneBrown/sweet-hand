@@ -1,0 +1,47 @@
+<ng-template #overlay>
+  <div
+    class="viewer"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-labelledby]="ids.title"
+    [attr.aria-describedby]="ids.caption"
+    [attr.aria-busy]="slow() ? 'true' : null"
+    (keydown)="onKey($event)"
+  >
+    <div class="viewer__bar">
+      <h2 class="visually-hidden" [id]="ids.title">{{ title() }}</h2>
+      <p class="viewer__count" aria-live="polite">{{ count() }}</p>
+      <button class="icon-btn" type="button" [attr.aria-label]="labels().close" autofocus (click)="close()"><svg shIcon="close"></svg></button>
+    </div>
+    <div class="viewer__stage" (pointerdown)="swipeFrom = $event.clientX" (pointerup)="onSwipe($event)">
+      <button class="icon-btn" type="button" [attr.aria-label]="labels().previous" [attr.aria-disabled]="atStart() ? 'true' : null" (click)="go(index() - 1)">
+        <svg shIcon="chevron-left"></svg>
+      </button>
+      @switch (phase()) {
+        @case ('ready') {
+          <sh-photo [src]="src()" [alt]="photo().caption" [width]="560" [height]="560" loading="eager" [failedLabel]="''" [standaloneLabel]="null" (loadFailed)="markFailed()" />
+        }
+        @case ('failed') {
+          <sh-photo [src]="src()" [alt]="photo().caption" [width]="560" [height]="560" loading="eager" [failedLabel]="''" [standaloneLabel]="failedName()" />
+        }
+        @default {
+          @if (slow()) {
+            <sh-photo [alt]="photo().caption" status="pending" pendingIndicator="spinner" [failedLabel]="''" [standaloneLabel]="loadingName()" />
+          } @else {
+            <span class="photo"></span>
+          }
+        }
+      }
+      <button class="icon-btn" type="button" [attr.aria-label]="labels().next" [attr.aria-disabled]="atEnd() ? 'true' : null" (click)="go(index() + 1)">
+        <svg shIcon="chevron-right"></svg>
+      </button>
+    </div>
+    <p class="viewer__caption" [id]="ids.caption">
+      {{ photo().caption }}
+      @if (phase() === 'failed') {
+        <br /><span class="text-muted text-sm">{{ labels().failedNote }}</span>
+        <button class="btn btn--sm viewer__retry" type="button" (click)="retry()"><svg shIcon="refresh"></svg>{{ labels().retry }}</button>
+      }
+    </p>
+  </div>
+</ng-template>

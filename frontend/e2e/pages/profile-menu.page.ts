@@ -1,4 +1,5 @@
-import { DashboardDialog, DashboardScreen } from './dashboard.page';
+import { DashboardDialog } from './dashboard-dialog';
+import { DashboardScreen } from './dashboard-screen';
 
 /** Menu, /dashboard/profile/menu (docs/mocks/pages/profile-menu). */
 export class ProfileMenuPage extends DashboardScreen {

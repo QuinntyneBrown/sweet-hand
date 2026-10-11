@@ -1,0 +1,22 @@
+.changes-skeleton {
+  display: inline-block;
+  width: 40%;
+}
+.changes-skeleton--45 {
+  width: 45%;
+}
+.changes-skeleton--15 {
+  width: 15%;
+}
+.changes-skeleton--70 {
+  width: 70%;
+}
+.changes-skeleton--80 {
+  width: 80%;
+}
+.changes-photos {
+  gap: var(--space-4);
+}
+.changes-photo {
+  align-items: center;
+}

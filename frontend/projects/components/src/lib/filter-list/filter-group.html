@@ -1,0 +1,35 @@
+<div class="filter-group" role="group" [attr.aria-labelledby]="titleId">
+  <h2 class="filter-group__title" [id]="titleId">{{ title() }}</h2>
+  <ng-content select="[slot=before-list]" />
+  <ul class="filter-list" [id]="listId">
+    @if (allLabel()) {
+      <li>
+        <a class="filter-list__item" [routerLink]="allTree()" [attr.aria-current]="noneChosen() ? 'true' : null">{{ allLabel() }}</a>
+      </li>
+    }
+    @for (o of visible(); track o.value) {
+      <li>
+        <button
+          class="filter-list__item"
+          type="button"
+          [attr.aria-pressed]="o.pressed"
+          [disabled]="isDisabled(o) && focused() !== o.value"
+          [attr.aria-disabled]="isDisabled(o) && focused() === o.value ? 'true' : null"
+          (focus)="focused.set(o.value)"
+          (blur)="focused.set(null)"
+          (click)="toggle(o)"
+        >
+          {{ o.label }}
+          @if (o.count !== null) {
+            <span class="filter-list__count">{{ o.count }}<span class="visually-hidden">{{ countNoun()(o.count) }}</span></span>
+          }
+        </button>
+      </li>
+    }
+  </ul>
+  @if (hiddenCount() > 0 || expanded()) {
+    <button class="filter-more" type="button" [attr.aria-expanded]="expanded()" [attr.aria-controls]="listId" [disabled]="disabled()" (click)="toggleMore()">
+      {{ expanded() ? fewerLabel() : moreLabel()!(hiddenCount()) }}
+    </button>
+  }
+</div>

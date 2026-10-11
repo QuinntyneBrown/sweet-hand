@@ -1,0 +1,5 @@
+@if (inline()) {
+  <span class="private-note"><svg class="icon--sm" [shIcon]="iconName()"></svg>{{ text() }}</span>
+} @else {
+  <p class="private-note"><svg class="icon--sm" [shIcon]="iconName()"></svg>{{ text() }}</p>
+}

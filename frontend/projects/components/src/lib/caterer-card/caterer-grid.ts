@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, contentChildren, effect, inject, input } from '@angular/core';
-import { Viewport, type ViewportCounts } from '../viewport/viewport';
+import { Viewport } from '../viewport/viewport';
+import type { ViewportCounts } from '../viewport/viewport-counts';
 import { CatererCard } from './caterer-card';
 
 /**
@@ -11,20 +12,7 @@ import { CatererCard } from './caterer-card';
   selector: 'sh-caterer-grid',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <ul [class]="variant() === 'occasions' ? 'occasion-grid' : 'caterer-grid'" [attr.aria-busy]="busy() ? 'true' : null">
-      @if (busy()) {
-        @for (i of skeletons(); track i) {
-          <li class="caterer-card caterer-card--skeleton" aria-hidden="true">
-            <span class="photo"><span class="skeleton skeleton--circle"></span></span>
-            <span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span>
-          </li>
-        }
-      } @else {
-        <ng-content />
-      }
-    </ul>
-  `,
+  templateUrl: './caterer-grid.html',
 })
 export class CatererGrid {
   readonly variant = input<'caterers' | 'occasions'>('caterers');

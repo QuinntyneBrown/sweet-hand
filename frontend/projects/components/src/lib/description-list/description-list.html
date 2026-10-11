@@ -1,0 +1,18 @@
+@if (busy()) {
+  <div [class]="cls()" aria-hidden="true">
+    @for (i of skeletons(); track i) {
+      <span class="skeleton skeleton--text"></span>
+    }
+  </div>
+  <p class="visually-hidden" role="status">{{ busyLabel() }}</p>
+} @else {
+  <dl [class]="cls()">
+    @for (d of descriptions(); track d) {
+      <ng-container *ngTemplateOutlet="d.pair()" />
+    }
+  </dl>
+  @if (layout() === 'certificate') {
+    <p class="text-caption">{{ statement() }}</p>
+  }
+}
+<ng-content />

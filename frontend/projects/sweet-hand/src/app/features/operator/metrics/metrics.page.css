@@ -1,0 +1,6 @@
+.metrics__stats {
+  margin-bottom: var(--space-10);
+}
+.metrics__alert {
+  margin-bottom: var(--space-6);
+}

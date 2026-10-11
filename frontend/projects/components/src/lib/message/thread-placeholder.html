@@ -1,0 +1,8 @@
+<div class="thread-placeholder">
+  <div class="photo-row" aria-hidden="true">
+    @for (p of photos(); track $index) {
+      <span class="photo"><img [src]="p.src" alt="" [width]="p.size" [height]="p.size" /></span>
+    }
+  </div>
+  <p>{{ text() }}</p>
+</div>

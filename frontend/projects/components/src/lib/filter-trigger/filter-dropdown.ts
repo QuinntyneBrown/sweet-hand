@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { Popover, type PopoverDismissal } from '../popover/popover';
+import { Popover } from '../popover/popover';
+import type { PopoverDismissal } from '../popover/popover-dismissal';
 
 /**
  * One filter group in a tablet dropdown under its trigger: the choices, Clear
@@ -12,16 +13,7 @@ import { Popover, type PopoverDismissal } from '../popover/popover';
   changeDetection: ChangeDetectionStrategy.OnPush,
   // The title input must not become a tooltip on the host.
   host: { style: 'display: contents', '[attr.title]': 'null' },
-  template: `
-    <sh-popover variant="filter" [open]="open()" [panelId]="panelId()" [heading]="title()" (dismissed)="closed.emit($event)">
-      <ng-container ngProjectAs="[slot=trigger]"><ng-content select="[slot=trigger]" /></ng-container>
-      <ng-content />
-      <div class="cluster cluster--between">
-        <button class="btn btn--link btn--sm" type="button" [disabled]="clearDisabled()" (click)="cleared.emit()">{{ clearLabel() }}</button>
-        <span class="result-count" role="status">{{ resultCount() }}</span>
-      </div>
-    </sh-popover>
-  `,
+  templateUrl: './filter-dropdown.html',
 })
 export class FilterDropdown {
   readonly open = input(false);

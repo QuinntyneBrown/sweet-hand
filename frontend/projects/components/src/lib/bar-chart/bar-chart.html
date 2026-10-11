@@ -1,0 +1,10 @@
+<div [class]="dense() ? 'bar-chart bar-chart--dense' : 'bar-chart'" role="img" [attr.aria-label]="imageLabel()">
+  @for (b of bars(); track $index) {
+    <span [class]="b.accent ? 'bar-chart__bar bar-chart__bar--accent' : 'bar-chart__bar'" [style.--value]="b.height"></span>
+  }
+</div>
+<div class="bar-chart__axis" aria-hidden="true">
+  @for (a of axis(); track $index) {
+    <span>{{ a }}</span>
+  }
+</div>

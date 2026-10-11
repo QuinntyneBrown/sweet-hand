@@ -1,16 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, computed, input, output, signal, viewChild } from '@angular/core';
 import { Photo } from '../photo/photo';
-
-/** One gallery photo, in the caterer's order (gallery CRD, API). */
-export interface GalleryPhoto {
-  src: string;
-  srcset: string;
-  width: number;
-  height: number;
-  caption: string;
-  /** The large rendition the viewer shows. */
-  viewerSrc: string;
-}
+import type { GalleryPhoto } from './gallery-photo';
 
 /** Image sizes for the lead and the thumbnails (gallery CRD D-8). */
 const LEAD_SIZES = '(min-width: 62rem) 30rem, (min-width: 36rem) 24rem, 80vw';
@@ -30,47 +20,9 @@ const SCRIM_AT = [5, 6];
   imports: [Photo],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: block' },
-  template: `
-    <section class="gallery" [attr.aria-label]="label()" [attr.aria-busy]="busy() ? 'true' : null">
-      @if (busy()) {
-        <ul class="gallery__track" aria-hidden="true">
-          @for (i of [0, 1, 2, 3, 4]; track i) {
-            <li><span class="photo"><span class="skeleton skeleton--circle"></span></span></li>
-          }
-        </ul>
-      } @else {
-        <ul #track class="gallery__track" (scroll)="onScroll()">
-          @for (p of photos(); track $index; let i = $index) {
-            <li>
-              <button class="gallery__btn" type="button" aria-haspopup="dialog" [attr.aria-label]="names()[i]" (click)="opened.emit({ index: i, trigger: $any($event.currentTarget) })">
-                <sh-photo
-                  [src]="p.src"
-                  [srcset]="p.srcset"
-                  [sizes]="i === 0 ? leadSizes : thumbSizes"
-                  alt=""
-                  [width]="p.width"
-                  [height]="p.height"
-                  [loading]="i < eager ? 'eager' : 'lazy'"
-                  [failedLabel]="failedLabel()"
-                  (loadFailed)="markFailed(i)"
-                />
-              </button>
-              @if (scrim(i); as more) {
-                <span class="gallery__more" aria-hidden="true">{{ more.visible }}</span>
-              }
-            </li>
-          }
-        </ul>
-        <div class="gallery__dots" aria-hidden="true">
-          @for (p of photos(); track $index; let i = $index) {
-            <span [attr.aria-current]="i === current() ? 'true' : null"></span>
-          }
-        </div>
-      }
-    </section>
-  `,
+  templateUrl: './gallery.html',
   // The "+N" scrim is decoration over the button: a tap on it opens that photo.
-  styles: `.gallery__more { pointer-events: none; }`,
+  styleUrl: './gallery.css',
 })
 export class Gallery {
   readonly photos = input.required<readonly GalleryPhoto[]>();

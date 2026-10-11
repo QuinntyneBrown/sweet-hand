@@ -1,6 +1,8 @@
 import { BasePage } from './base.page';
 import { EnquiryList } from './enquiry-list';
-import { EnquiryDialog, EnquiryThread, Toasts } from './enquiry-thread';
+import { EnquiryDialog } from './enquiry-dialog';
+import { EnquiryThread } from './enquiry-thread';
+import { Toasts } from './toasts';
 
 /** A customer's enquiry thread, /inbox/:id (docs/mocks/pages/thread). */
 export class ThreadPage extends BasePage {

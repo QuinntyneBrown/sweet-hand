@@ -1,0 +1,15 @@
+@switch (tag()) {
+  @case ('fieldset') {
+    <fieldset [class]="cls()">
+      <legend [class]="legendHidden() ? 'visually-hidden' : null">{{ legend() }}</legend>
+      <ng-container *ngTemplateOutlet="body" />
+    </fieldset>
+  }
+  @case ('figure') {
+    <figure [class]="cls()"><ng-container *ngTemplateOutlet="body" /></figure>
+  }
+  @default {
+    <div [class]="cls()"><ng-container *ngTemplateOutlet="body" /></div>
+  }
+}
+<ng-template #body><ng-content /></ng-template>

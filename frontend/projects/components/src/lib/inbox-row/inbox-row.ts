@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, ElementRef, computed, input, output, viewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Status, type StatusTone } from '../status/status';
-
-export type InboxRowPicture = { kind: 'photo'; src: string } | { kind: 'initials'; text: string } | { kind: 'gone' };
+import { Status } from '../status/status';
+import type { StatusTone } from '../status/status-tone';
+import type { InboxRowPicture } from './inbox-row-picture';
 
 /**
  * One enquiry in an inbox: the whole row is one link to its thread
@@ -14,29 +14,7 @@ export type InboxRowPicture = { kind: 'photo'; src: string } | { kind: 'initials
   imports: [RouterLink, Status],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents', role: 'listitem' },
-  template: `
-    <li role="none">
-      <a #link [class]="cls()" [routerLink]="href()" [attr.aria-current]="current()" (click)="opened.emit($event)"
-        >@switch (picture().kind) {
-          @case ('photo') {
-            <span class="photo"><img [src]="photoSrc()" alt="" width="48" height="48" loading="lazy" /></span>
-          }
-          @case ('initials') {
-            <span class="avatar" aria-hidden="true">{{ initialsText() }}</span>
-          }
-          @default {
-            <span class="avatar" aria-hidden="true"
-              ><svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></svg
-            ></span>
-          }
-        }<span class="inbox-row__name"
-          >@if (unread()) {<span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">{{ unreadText() }}</span>}{{ name() }}</span
-        ><span class="inbox-row__time"
-          >@if (datetime()) {<time [attr.datetime]="datetime()">{{ time() }}</time>} @else {{{ time() }}}</span
-        ><span class="inbox-row__meta">{{ summary() }}</span><sh-status [tone]="statusTone()" [label]="statusLabel()" extraClass="inbox-row__status"
-      /></a>
-    </li>
-  `,
+  templateUrl: './inbox-row.html',
 })
 export class InboxRow {
   readonly href = input.required<string>();
@@ -72,32 +50,3 @@ export class InboxRow {
   }
 }
 
-/** The ruled list of inbox rows and its loading skeletons (docs/specs/components/inbox-row.md). */
-@Component({
-  selector: 'sh-inbox-list',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
-  template: `
-    <ul class="inbox-list" [attr.aria-label]="busy() ? loadingLabel() : label()" [attr.aria-busy]="busy() ? 'true' : null">
-      @if (busy()) {
-        @for (i of skeletons(); track i) {
-          <li class="inbox-skeleton-row" aria-hidden="true">
-            <span class="skeleton skeleton--circle"></span><span class="skeleton skeleton--text" style="width: 50%"></span
-            ><span class="skeleton skeleton--text" style="width: 3rem"></span><span class="skeleton skeleton--text" style="width: 70%"></span
-            ><span class="skeleton skeleton--text" style="width: 4rem"></span>
-          </li>
-        }
-      } @else {
-        <ng-content />
-      }
-    </ul>
-  `,
-})
-export class InboxList {
-  readonly label = input.required<string>();
-  readonly busy = input(false);
-  readonly loadingLabel = input('');
-  readonly skeletonCount = input(4);
-
-  protected readonly skeletons = computed(() => Array.from({ length: Math.min(20, Math.max(1, Math.round(this.skeletonCount()))) }, (_, i) => i));
-}

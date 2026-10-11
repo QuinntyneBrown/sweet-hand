@@ -1,82 +1,12 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  InjectionToken,
-  computed,
-  contentChildren,
-  forwardRef,
-  inject,
-  input,
-  model,
-  signal,
-  viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, contentChildren, forwardRef, InjectionToken, input, model, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
+import type { RadioGroupContext } from './radio-group-context';
+import { Radio } from './radio';
 
-interface RadioGroupContext {
-  name: () => string;
-  value: () => string | null;
-  variant: () => 'plain' | 'card';
-  required: () => boolean;
-  isDisabled: () => boolean;
-  invalid: () => boolean;
-  isAutofocusTarget(radio: Radio): boolean;
-  autofocus: () => boolean;
-  choose(value: string): void;
-}
-
-const RADIO_GROUP = new InjectionToken<RadioGroupContext>('RADIO_GROUP');
+export const RADIO_GROUP = new InjectionToken<RadioGroupContext>('RADIO_GROUP');
 
 let nextId = 0;
-
-/**
- * One option of a radio group (docs/specs/components/radio-group.md, `sh-radio`):
- * a `label.choice` wrapping the native radio, its label and description.
- */
-@Component({
-  selector: 'sh-radio',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
-  template: `
-    <label [class]="group.variant() === 'card' ? 'choice choice--card' : 'choice'"
-      ><input
-        #input
-        type="radio"
-        [attr.name]="group.name()"
-        [value]="value()"
-        [attr.id]="inputId()"
-        [checked]="group.value() === value()"
-        [required]="group.required()"
-        [disabled]="group.isDisabled() || disabled()"
-        [attr.aria-invalid]="group.invalid() ? 'true' : null"
-        [attr.autofocus]="group.autofocus() && group.isAutofocusTarget(self) ? '' : null"
-        (change)="group.choose(value())" /><span class="choice__text"
-        ><span><ng-content /></span>@if (description()) {<small>{{ description() }}</small>}</span
-      ></label
-    >
-  `,
-})
-export class Radio {
-  readonly value = input.required<string>();
-  readonly description = input<string | null>(null);
-  readonly inputId = input<string | null>(null);
-  readonly disabled = input(false);
-
-  protected readonly group = inject(RADIO_GROUP);
-  protected readonly self = this;
-  private readonly input = viewChild.required<ElementRef<HTMLInputElement>>('input');
-
-  /** @internal Used by the group. */
-  get enabled(): boolean {
-    return !this.disabled();
-  }
-
-  focus(options?: FocusOptions): void {
-    this.input().nativeElement.focus(options);
-  }
-}
 
 /**
  * A group of radios with its legend, help and one error (radio-group CRD).
@@ -91,24 +21,8 @@ export class Radio {
     { provide: RADIO_GROUP, useExisting: forwardRef(() => RadioGroup) },
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => RadioGroup), multi: true },
   ],
-  template: `
-    <fieldset class="stack stack--sm" [attr.aria-describedby]="describedBy()">
-      <legend [class.visually-hidden]="legendHidden()"><ng-content select="[slot=legend]" /></legend>
-      @if (help()) {
-        <p class="field__help" [id]="ids.help">{{ help() }}</p>
-      }
-      @if (error()) {
-        <p class="field__error" [id]="ids.error">{{ error() }}</p>
-      }
-      @if (layout() === 'horizontal' && variant() === 'plain') {
-        <div class="cluster radio-group__row"><ng-container *ngTemplateOutlet="options" /></div>
-      } @else {
-        <ng-container *ngTemplateOutlet="options" />
-      }
-    </fieldset>
-    <ng-template #options><ng-content /></ng-template>
-  `,
-  styles: `.radio-group__row { gap: var(--space-2) var(--space-6); }`,
+  templateUrl: './radio-group.html',
+  styleUrl: './radio-group.css',
 })
 export class RadioGroup implements RadioGroupContext, ControlValueAccessor {
   readonly name = input.required<string>();

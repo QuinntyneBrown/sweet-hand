@@ -1,5 +1,5 @@
-import type { PhotoView } from '../../projects/web/src/app/core/api/discovery.models.ts';
-import type { Photo } from '../seed/caterers.ts';
+import type { PhotoView } from '../../projects/api/src/lib/models/photo-view.ts';
+import type { Photo } from '../seed/photo.ts';
 
 /** Derivative URLs the CDN would serve; the fake serves the same JPEG for every size and format. */
 export function photoView(photo: Photo): PhotoView {

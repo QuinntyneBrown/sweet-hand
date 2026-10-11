@@ -13,12 +13,7 @@ import {
 } from '@angular/core';
 import { FIELD_CONTEXT } from '../form/form-field';
 import { Icon } from '../icon/icon';
-
-export interface AreaOption {
-  value: string;
-  label: string;
-  region: string;
-}
+import type { AreaOption } from './area-option';
 
 let nextId = 0;
 
@@ -37,47 +32,7 @@ export function foldText(s: string): string {
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <div class="search-field">
-      <svg shIcon="pin"></svg>
-      <input
-        #input
-        class="input"
-        [id]="id()"
-        type="search"
-        [attr.name]="name()"
-        [value]="value()"
-        [attr.placeholder]="placeholder()"
-        autocomplete="postal-code"
-        autocapitalize="characters"
-        enterkeyhint="search"
-        spellcheck="false"
-        role="combobox"
-        aria-autocomplete="list"
-        [attr.aria-controls]="listId"
-        [attr.aria-expanded]="expanded()"
-        [attr.aria-activedescendant]="activeId()"
-        [attr.aria-invalid]="isInvalid() ? 'true' : null"
-        [attr.aria-describedby]="field?.describedBy() ?? null"
-        [readOnly]="readonly()"
-        [disabled]="disabled()"
-        (input)="onInput($event)"
-        (keydown)="onKeydown($event)"
-        (blur)="onBlur($event)"
-      />
-    </div>
-    <ul [class]="suggestions() === 'inline' ? 'suggestions suggestions--inline' : 'suggestions'" [id]="listId" role="listbox" [attr.aria-label]="listLabel()" [hidden]="!expanded()">
-      @for (o of matches(); track o.value; let i = $index) {
-        <li class="suggestion" [id]="optionId(o)" role="option" [attr.aria-selected]="i === active()" (pointerdown)="$event.preventDefault()" (click)="choose(o)">
-          <span>{{ before(o) }}<mark>{{ marked(o) }}</mark>{{ after(o) }}</span><span class="visually-hidden">, </span><span class="suggestion__hint">{{ o.region }}</span>
-        </li>
-      }
-    </ul>
-    @if (showNoMatch()) {
-      <p class="suggestions suggestions__empty" role="status">{{ noMatchText() }}</p>
-    }
-    <span class="visually-hidden" role="status">{{ announcement() }}</span>
-  `,
+  templateUrl: './combobox.html',
 })
 export class Combobox {
   readonly areas = input.required<readonly AreaOption[]>();

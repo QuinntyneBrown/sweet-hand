@@ -1,0 +1,24 @@
+@switch (kind()) {
+  @case ('pending') {
+    @if (!dismissed()) {
+      <sh-alert [banner]="true" live="polite" title="Your profile is in review" i18n-title="@@banner.inReview" [dismissible]="true" dismissLabel="Dismiss" i18n-dismissLabel="@@toast.dismiss" (dismissed)="dismissed.set(true)"
+        ><ng-container i18n="@@banner.inReviewText">We’ll email you within 3 business days.</ng-container></sh-alert
+      >
+    }
+  }
+  @case ('changes') {
+    <sh-alert [banner]="true" tone="warning" live="polite" title="Changes requested" i18n-title="@@profileStatus.changes"
+      >{{ reason() }}<span slot="actions" class="alert__actions"><a [routerLink]="attentionHref()">{{ attentionLabel() }}</a></span></sh-alert
+    >
+  }
+  @case ('suspended') {
+    <sh-alert [banner]="true" tone="danger" live="polite" title="Your profile is suspended and hidden from customers" i18n-title="@@certificate.suspendedTitle"
+      >{{ profile().statusReason }}<span slot="actions" class="alert__actions"><a [routerLink]="certificateHref" i18n="@@suspended.upload">Upload a new certificate</a></span></sh-alert
+    >
+  }
+  @case ('rename') {
+    <sh-alert [banner]="true" live="polite" title="Name change waiting for review" i18n-title="@@nameChange.title"
+      >{{ renameText() }}<span slot="actions" class="alert__actions"><a class="link--standalone" [routerLink]="detailsHref" i18n="@@nameChange.see">See the change</a></span></sh-alert
+    >
+  }
+}

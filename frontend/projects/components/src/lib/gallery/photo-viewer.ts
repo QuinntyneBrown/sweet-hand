@@ -17,24 +17,12 @@ import {
   type WritableSignal,
 } from '@angular/core';
 import { Icon } from '../icon/icon';
-import { ModalLayer, type ModalRef } from '../overlay/modal-layer';
+import { ModalLayer } from '../overlay/modal-layer';
+import type { ModalRef } from '../overlay/modal-ref';
 import { Photo } from '../photo/photo';
-import type { GalleryPhoto } from './gallery';
-
-/** The viewer's words, from the consumer's resource files (gallery CRD, API). */
-export interface ViewerLabels {
-  close: string;
-  previous: string;
-  next: string;
-  /** "Loading photo 3 of 6" */
-  loading: (n: number, total: number) => string;
-  /** "Photo 4 of 6 didn't load" */
-  failed: (n: number, total: number) => string;
-  failedNote: string;
-  retry: string;
-}
-
-type Phase = 'arriving' | 'ready' | 'failed';
+import type { GalleryPhoto } from './gallery-photo';
+import type { ViewerLabels } from './viewer-labels';
+import type { Phase } from './phase';
 
 /** Only a photo slower than this shows the spinner (gallery CRD, Performance). */
 const SPINNER_DELAY_MS = 300;
@@ -54,58 +42,8 @@ let nextId = 0;
   imports: [Icon, Photo],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <ng-template #overlay>
-      <div
-        class="viewer"
-        role="dialog"
-        aria-modal="true"
-        [attr.aria-labelledby]="ids.title"
-        [attr.aria-describedby]="ids.caption"
-        [attr.aria-busy]="slow() ? 'true' : null"
-        (keydown)="onKey($event)"
-      >
-        <div class="viewer__bar">
-          <h2 class="visually-hidden" [id]="ids.title">{{ title() }}</h2>
-          <p class="viewer__count" aria-live="polite">{{ count() }}</p>
-          <button class="icon-btn" type="button" [attr.aria-label]="labels().close" autofocus (click)="close()"><svg shIcon="close"></svg></button>
-        </div>
-        <div class="viewer__stage" (pointerdown)="swipeFrom = $event.clientX" (pointerup)="onSwipe($event)">
-          <button class="icon-btn" type="button" [attr.aria-label]="labels().previous" [attr.aria-disabled]="atStart() ? 'true' : null" (click)="go(index() - 1)">
-            <svg shIcon="chevron-left"></svg>
-          </button>
-          @switch (phase()) {
-            @case ('ready') {
-              <sh-photo [src]="src()" [alt]="photo().caption" [width]="560" [height]="560" loading="eager" [failedLabel]="''" [standaloneLabel]="null" (loadFailed)="markFailed()" />
-            }
-            @case ('failed') {
-              <sh-photo [src]="src()" [alt]="photo().caption" [width]="560" [height]="560" loading="eager" [failedLabel]="''" [standaloneLabel]="failedName()" />
-            }
-            @default {
-              @if (slow()) {
-                <sh-photo [alt]="photo().caption" status="pending" pendingIndicator="spinner" [failedLabel]="''" [standaloneLabel]="loadingName()" />
-              } @else {
-                <span class="photo"></span>
-              }
-            }
-          }
-          <button class="icon-btn" type="button" [attr.aria-label]="labels().next" [attr.aria-disabled]="atEnd() ? 'true' : null" (click)="go(index() + 1)">
-            <svg shIcon="chevron-right"></svg>
-          </button>
-        </div>
-        <p class="viewer__caption" [id]="ids.caption">
-          {{ photo().caption }}
-          @if (phase() === 'failed') {
-            <br /><span class="text-muted text-sm">{{ labels().failedNote }}</span>
-            <button class="btn btn--sm viewer__retry" type="button" (click)="retry()"><svg shIcon="refresh"></svg>{{ labels().retry }}</button>
-          }
-        </p>
-      </div>
-    </ng-template>
-  `,
-  styles: `
-    .viewer__stage { touch-action: pan-y; }
-  `,
+  templateUrl: './photo-viewer.html',
+  styleUrl: './photo-viewer.css',
 })
 export class PhotoViewer {
   readonly photos = input.required<readonly GalleryPhoto[]>();

@@ -1,4 +1,5 @@
-import { ConsoleDialog, OperatorScreen } from './operator-screen';
+import { ConsoleDialog } from './console-dialog';
+import { OperatorScreen } from './operator-screen';
 
 /** Operator accounts, /admin/operators (docs/mocks/pages/admin-operators, dialogs add-operator and deactivate-operator). */
 export class OperatorAccountsPage extends OperatorScreen {

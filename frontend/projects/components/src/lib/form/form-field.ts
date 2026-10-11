@@ -1,31 +1,11 @@
 import { NgTemplateOutlet } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Directive,
-  InjectionToken,
-  computed,
-  contentChild,
-  forwardRef,
-  input,
-  type Signal,
-} from '@angular/core';
-
-/** What a form field tells the control in its default slot (form-field CRD, "Field context"). */
-export interface FieldContext {
-  id: Signal<string>;
-  describedBy: Signal<string | null>;
-  invalid: Signal<boolean>;
-}
+import { ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, InjectionToken, input } from '@angular/core';
+import type { FieldContext } from './field-context';
+import { LabelAction } from './label-action';
 
 export const FIELD_CONTEXT = new InjectionToken<FieldContext>('FIELD_CONTEXT');
 
 let nextId = 0;
-
-/** Marks the label-row action (the password "Show" toggle). */
-// eslint-disable-next-line @angular-eslint/directive-selector
-@Directive({ selector: '[slot=labelAction]' })
-export class LabelAction {}
 
 /**
  * Label, control, message, help and counter for one control
@@ -37,59 +17,7 @@ export class LabelAction {}
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
   providers: [{ provide: FIELD_CONTEXT, useExisting: forwardRef(() => FormField) }],
-  template: `
-    <div class="field">
-      @if (readOnlyValue() !== null) {
-        <span class="field__label">{{ label() }}</span>
-        @if (isList()) {
-          <div class="prose read-only-value">
-            @for (p of list(); track $index) {
-              <p>{{ p }}</p>
-            }
-          </div>
-        } @else {
-          <p class="read-only-value">{{ readOnlyValue() }}</p>
-        }
-        @if (help()) {
-          <span class="field__help" [id]="id() + '-help'">{{ help() }}</span>
-        }
-      } @else {
-        @if (labelAction()) {
-          <div class="cluster cluster--between">
-            <ng-container *ngTemplateOutlet="labelTpl" />
-            <ng-content select="[slot=labelAction]" />
-          </div>
-        } @else {
-          <ng-container *ngTemplateOutlet="labelTpl" />
-        }
-        <ng-content />
-        @if (error()) {
-          <span class="field__error" [id]="id() + '-error'">{{ error() }}</span>
-        } @else if (warning()) {
-          <span class="field__warning" [id]="id() + '-warning'">{{ warning() }}</span>
-        }
-        @if (help() && counter()) {
-          <!-- Help and counter share one row (form-field CRD, Markup). -->
-          <span class="cluster cluster--between">
-            <span class="field__help" [id]="id() + '-help'">{{ help() }}</span>
-            <span class="field__counter" [id]="id() + '-count'" [attr.data-over]="counterOver() ? '' : null">{{ counter() }}</span>
-          </span>
-        } @else if (help()) {
-          <span class="field__help" [id]="id() + '-help'">{{ help() }}</span>
-        } @else if (counter()) {
-          <span class="field__counter" [id]="id() + '-count'" [attr.data-over]="counterOver() ? '' : null">{{ counter() }}</span>
-        }
-        <span class="visually-hidden" role="status">{{ !error() && warning() ? warning() : counterOver() ? counterAnnouncement() : '' }}</span>
-      }
-    </div>
-    <ng-template #labelTpl>
-      @if (label() !== null) {
-        <label [class]="labelHidden() ? 'visually-hidden' : 'field__label'" [for]="id()"
-          >{{ label() }}@if (optionalMarker()) {&ngsp;<span class="optional">{{ optionalMarker() }}</span>}</label
-        >
-      }
-    </ng-template>
-  `,
+  templateUrl: './form-field.html',
   imports: [NgTemplateOutlet],
 })
 export class FormField implements FieldContext {

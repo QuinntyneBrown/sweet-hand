@@ -1,0 +1,15 @@
+<div class="breach__head">
+  @switch (headingLevel()) {
+    @case (3) {
+      <h3 class="breach__title">{{ title() }}</h3>
+    }
+    @case (4) {
+      <h4 class="breach__title">{{ title() }}</h4>
+    }
+    @default {
+      <h2 class="breach__title">{{ title() }}</h2>
+    }
+  }
+  <p class="breach__when">{{ when() }}</p>
+</div>
+<ng-content />

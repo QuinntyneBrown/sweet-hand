@@ -4,7 +4,8 @@
  * for every store, so tests look them up instead of hard-coding them.
  */
 import { randomUUID } from 'node:crypto';
-import type { EnquiryStatus, FitWarning, Party } from '../../projects/web/src/app/core/api/enquiries.models.ts';
+import type { Party } from '../../projects/api/src/lib/models/party.ts';
+import type { Enquiry } from './enquiry.ts';
 
 export interface EnquiryEvent {
   id: string;
@@ -14,28 +15,6 @@ export interface EnquiryEvent {
   at: string;
   text?: string;
   note?: string | null;
-}
-
-export interface Enquiry {
-  id: string;
-  /** A user id; when no live user has it, the customer deleted their account (L2-072.2). */
-  customerId: string;
-  catererId: string;
-  eventDate: string;
-  guests: number;
-  /** Service area id. */
-  area: string;
-  fsa: string | null;
-  /** Occasion id. */
-  occasion: string;
-  message: string;
-  createdAt: string;
-  status: EnquiryStatus;
-  events: EnquiryEvent[];
-  /** When each party last opened the thread (show-unread-indicators design). */
-  readAt: Partial<Record<Party, string>>;
-  /** Fit warnings worked out when it was sent, so the caterer sees what the customer saw (L2-024.3). */
-  fitWarnings?: FitWarning[];
 }
 
 const t = (local: string) => new Date(local).toISOString();

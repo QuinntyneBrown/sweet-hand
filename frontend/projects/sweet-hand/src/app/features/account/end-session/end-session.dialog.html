@@ -1,0 +1,42 @@
+@if (session(); as s) {
+  <sh-dialog
+    [open]="open()"
+    size="form"
+    [form]="true"
+    [title]="title()"
+    description="Anyone using Sweet Hand on that device will need to sign in again."
+    i18n-description="@@endSession.description"
+    closeLabel="Close"
+    i18n-closeLabel="@@common.close"
+    cancelLabel="Cancel"
+    i18n-cancelLabel="@@common.cancel"
+    [busy]="busy()"
+    [busyMessage]="busyMessage()"
+    [returnFocus]="returnFocus()"
+    (dismissed)="closed.emit()"
+    (submitted)="end()"
+  >
+    @if (failed()) {
+      <sh-alert tone="danger" live="assertive" title="That device is still signed in" i18n-title="@@endSession.failedTitle"
+        ><ng-container i18n="@@endSession.failedText">Something went wrong on our side. Try again in a moment.</ng-container></sh-alert
+      >
+    }
+    <dl class="kv">
+      <dt i18n="@@endSession.device">Device</dt>
+      <dd>{{ s.device }}</dd>
+      <dt i18n="@@endSession.lastActive">Last active</dt>
+      <dd>{{ lastActive() }}</dd>
+    </dl>
+    <button
+      slot="footer"
+      class="btn btn--primary"
+      type="submit"
+      autofocus
+      [attr.aria-busy]="busy() ? 'true' : null"
+      [attr.aria-disabled]="busy() ? 'true' : null"
+      i18n="@@endSession.submit"
+    >
+      Sign out device
+    </button>
+  </sh-dialog>
+}

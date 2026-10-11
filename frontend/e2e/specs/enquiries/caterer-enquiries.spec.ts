@@ -1,5 +1,6 @@
 import { test, expect } from '../../support/test';
-import { EnquiriesPage, EnquiryPage } from '../../pages/enquiries.page';
+import { EnquiriesPage } from '../../pages/enquiries.page';
+import { EnquiryPage } from '../../pages/enquiry-page';
 import { cast } from '../../support/cast';
 import type { Backend } from '../../support/backend';
 

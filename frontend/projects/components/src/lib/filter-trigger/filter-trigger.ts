@@ -11,27 +11,7 @@ import { Icon } from '../icon/icon';
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <button
-      #el
-      class="filter-trigger"
-      type="button"
-      aria-haspopup="dialog"
-      [attr.aria-expanded]="mode() === 'dropdown' ? expanded() : null"
-      [attr.aria-controls]="mode() === 'dropdown' ? controls() : null"
-      [attr.aria-label]="name()"
-      [disabled]="disabled()"
-      (click)="activated.emit($event)"
-    >
-      <ng-content select="[slot=icon]" />{{ label() }}
-      @if (count() > 0) {
-        <span class="filter-trigger__count"><span class="visually-hidden">, </span>{{ count() }}<span class="visually-hidden"> {{ countLabel() }}</span></span>
-      }
-      @if (mode() === 'dropdown') {
-        <svg shIcon="chevron-down"></svg>
-      }
-    </button>
-  `,
+  templateUrl: './filter-trigger.html',
 })
 export class FilterTrigger {
   readonly label = input.required<string>();

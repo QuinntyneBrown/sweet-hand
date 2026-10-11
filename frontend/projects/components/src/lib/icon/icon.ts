@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, inject, input } from '@angular/core';
+import type { IconName } from './icon-name';
 
 /** The inline icon set from docs/mocks/README.md ("Icons"); every icon is decorative. */
 export const ICONS = {
@@ -42,14 +43,12 @@ export const ICONS = {
   'sign-out': '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/>',
 } as const;
 
-export type IconName = keyof typeof ICONS;
-
 /** `<svg shIcon="search"></svg>` renders a decorative `svg.icon` (L2-068.1). */
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'svg[shIcon]',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '',
+  templateUrl: './icon.html',
   host: {
     class: 'icon',
     'aria-hidden': 'true',

@@ -1,18 +1,9 @@
 import type { APIRequestContext, BrowserContext } from '@playwright/test';
 import { cast, type CastMember } from './cast';
 import { API_URL, WEB_URL } from './ports';
+import type { FaultOptions } from './fault-options';
 
 const CONTROL = `${API_URL}/__fake`;
-
-export interface FaultOptions {
-  status?: number;
-  body?: unknown;
-  delayMs?: number;
-  network?: boolean;
-  hang?: boolean;
-  times?: number;
-  headers?: Record<string, string>;
-}
 
 /**
  * The test's handle on its own isolated fake backend (ADR 0004). Tests arrange

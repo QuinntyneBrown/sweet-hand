@@ -1,0 +1,18 @@
+<ul class="dish-list" [id]="listId()" [attr.aria-busy]="busy() ? 'true' : null">
+  @if (busy()) {
+    @for (i of skeletons(); track i) {
+      <li class="dish dish--skeleton" aria-hidden="true"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></li>
+    }
+  } @else {
+    @for (d of dishes(); track d) {
+      <ng-container *ngTemplateOutlet="d.item()" />
+    }
+  }
+</ul>
+@if (!busy() && toggleable()) {
+  <p class="dish-list__toggle">
+    <sh-button [expanded]="expanded()" [controls]="listId()" (activated)="toggle()">{{ expanded() ? showFewerLabel() : showAllLabel() }}</sh-button>
+  </p>
+  <p class="visually-hidden" role="status" aria-live="polite">{{ announcement() }}</p>
+}
+<ng-content />

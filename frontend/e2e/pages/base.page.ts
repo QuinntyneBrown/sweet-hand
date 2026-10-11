@@ -1,6 +1,11 @@
 import { expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { AccountMenu, SearchDialog, SiteFooter, SiteHeader, SiteMenu, SkipLink } from './shell';
+import { AccountMenu } from './account-menu';
+import { SearchDialog } from './search-dialog';
+import { SiteFooter } from './site-footer';
+import { SiteHeader } from './shell';
+import { SiteMenu } from './site-menu';
+import { SkipLink } from './skip-link';
 
 /** Shared behaviour of every screen's page object. */
 export abstract class BasePage {

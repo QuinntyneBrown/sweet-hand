@@ -1,0 +1,60 @@
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
+import { Alert, Dialog, Icon } from '@sweet-hand/components';
+import { problemOf } from '../../../core/forms/problem';
+import { CatererProfileService, type OwnPhotoView, type OwnProfileView } from '@sweet-hand/api';
+
+/** Remove this photo? and Keep at least 3 photos (docs/mocks/dialogs/remove-photo; L2-042.4). */
+@Component({
+  selector: 'app-remove-photo-dialog',
+  imports: [Alert, Dialog, Icon],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './remove-photo.dialog.html',
+})
+export class RemovePhotoDialog {
+  private readonly api = inject(CatererProfileService);
+
+  readonly open = input(false);
+  readonly photo = input<OwnPhotoView | null>(null);
+  /** A published profile at its minimum of 3 photos cannot lose one. */
+  readonly blocked = input(false);
+  readonly returnFocus = input<HTMLElement | null>(null);
+
+  readonly closed = output<void>();
+  readonly removed = output<{ profile: OwnProfileView; photo: OwnPhotoView }>();
+
+  protected readonly busy = signal(false);
+  protected readonly failed = signal(false);
+  protected readonly title = $localize`:@@removePhoto.title:Remove this photo?`;
+  protected readonly blockedTitle = $localize`:@@removePhoto.blockedTitle:Keep at least 3 photos`;
+  protected readonly cancel = $localize`:@@common.cancel:Cancel`;
+  protected readonly gotIt = $localize`:@@common.gotIt:Got it`;
+  protected readonly busyMessage = $localize`:@@removePhoto.busy:Removing the photo`;
+  protected readonly description = computed(() =>
+    this.blocked()
+      ? $localize`:@@removePhoto.blockedText:Published profiles need at least 3 photos. Add another photo before you remove this one.`
+      : $localize`:@@removePhoto.text:“${this.photo()?.caption || this.photo()?.fileName || ''}:caption:” leaves your page within a minute.`,
+  );
+
+  constructor() {
+    effect(() => {
+      if (this.open()) untracked(() => this.failed.set(false));
+    });
+  }
+
+  protected async remove(): Promise<void> {
+    const photo = this.photo();
+    if (!photo || this.busy()) return;
+    this.busy.set(true);
+    this.failed.set(false);
+    try {
+      const profile = await firstValueFrom(this.api.removePhoto(photo.id));
+      this.removed.emit({ profile, photo });
+    } catch (error) {
+      if (problemOf(error).status === 409) this.closed.emit();
+      else this.failed.set(true);
+    } finally {
+      this.busy.set(false);
+    }
+  }
+}

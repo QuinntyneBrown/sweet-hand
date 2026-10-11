@@ -1,8 +1,12 @@
 import type { Router } from '../lib/router.ts';
-import { forbidden, invalid, notFound, ok, unauthorized, type Ctx, type Reply } from '../lib/http.ts';
+import { type Ctx, forbidden, invalid, notFound, ok, unauthorized } from '../lib/http.ts';
+import type { Reply } from '../lib/reply.ts';
 import { currentUser, type Store } from '../lib/store.ts';
-import type { User } from '../seed/users.ts';
-import type { AccountView, ActiveSession, ChangePasswordRequest, UpdateDetailsRequest } from '../../projects/web/src/app/core/api/account.models.ts';
+import type { User } from '../seed/user.ts';
+import type { AccountView } from '../../projects/api/src/lib/models/account-view.ts';
+import type { ActiveSession } from '../../projects/api/src/lib/models/active-session.ts';
+import type { ChangePasswordRequest } from '../../projects/api/src/lib/models/change-password-request.ts';
+import type { UpdateDetailsRequest } from '../../projects/api/src/lib/models/update-details-request.ts';
 import { findUser, identityScenarios, passwordProblem, sendEmail, sendVerification } from './identity.ts';
 import { endSession, endSessions, sessionRecord } from './session.ts';
 

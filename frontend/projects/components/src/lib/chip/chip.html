@@ -1,0 +1,19 @@
+<ng-template #label><ng-content /></ng-template>
+@switch (kind()) {
+  @case ('link') {
+    <a
+      class="chip"
+      [routerLink]="href()"
+      [attr.aria-current]="current() ? 'page' : null"
+      [attr.aria-disabled]="disabled() ? 'true' : null"
+      (click)="disabled() && $event.preventDefault()"
+      ><ng-container [ngTemplateOutlet]="label"
+    /></a>
+  }
+  @case ('static') {
+    <span class="chip" [attr.aria-disabled]="disabled() ? 'true' : null"><ng-container [ngTemplateOutlet]="label" /></span>
+  }
+  @default {
+    <button class="chip" type="button" [attr.aria-pressed]="pressed()" [disabled]="disabled()" (click)="toggle()"><ng-container [ngTemplateOutlet]="label" /></button>
+  }
+}

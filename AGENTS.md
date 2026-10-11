@@ -27,9 +27,12 @@ keep it accurate:
 - `frontend/` — Angular workspace (ADR 0001); see `frontend/README.md`
   - `frontend/projects/components/` — `sh-*` design-system component library,
     one folder per CRD under `src/lib/<component>/`
-  - `frontend/projects/web/` — the product application: `core/` (API
-    contracts, session, formatting, form helpers), `shell/` (header, footer,
-    menus, system pages), `features/<area>/` (pages, routes, providers)
+  - `frontend/projects/api/` — `@sweet-hand/api`: every service that talks
+    to the backend (`src/lib/services/`) and the wire models they exchange
+    (`src/lib/models/`, shared with the fake backend)
+  - `frontend/projects/sweet-hand/` — the product application: `core/`
+    (session, formatting, form helpers), `shell/` (header, footer, menus,
+    system pages), `features/<area>/` (pages, routes, providers)
   - `frontend/fake-backend/` — in-memory implementation of the HTTP API for
     development and acceptance tests (ADR 0004)
   - `frontend/e2e/` — Playwright: `support/` (fixtures, cast, ports),
@@ -44,12 +47,13 @@ Record each stack decision as an ADR in `docs/adr/` and summarize it here.
 Frontend (ADRs 0001–0005):
 
 - Angular 21 (standalone components, signals, zoneless) in `frontend/`. The
-  web app imports the component library from source as
-  `@sweet-hand/components`. The library knows nothing about the API and holds
+  `sweet-hand` app imports the component library and the API library from
+  source as `@sweet-hand/components` and `@sweet-hand/api`. The library knows nothing about the API and holds
   no user-facing strings; pages pass every label in.
-- Dependency direction: `features/<area>` → `core` → library. Pages depend on
-  abstract API contracts in `core/api/` (each its own DI token), registered
-  per area in `features/<area>/providers.ts`; `Http…` classes implement them.
+- Dependency direction: `features/<area>` → `core` → libraries. Pages depend
+  on the abstract service classes in `@sweet-hand/api` (each its own DI
+  token), registered per area in `features/<area>/providers.ts`; `Http…`
+  classes implement them.
 - Frontend business rules (validation messages, eligibility, view models,
   URL state) live in plain TypeScript beside the page, never in templates or
   library components. The server remains the authority for every rule.
@@ -62,7 +66,7 @@ Frontend (ADRs 0001–0005):
 - All user-facing text is marked for Angular i18n (ADR 0005); lint fails on
   unmarked template text.
 - The backend is not built yet. The fake backend implements the same HTTP
-  contract, with wire types shared from `core/api/*.models.ts`.
+  contract, with wire types shared from `projects/api/src/lib/models/`.
 
 These rules hold whatever the stack:
 
@@ -120,8 +124,18 @@ Detailed conventions are in `frontend/README.md`. In short:
   foundations and utilities.
 - Read design tokens by role, never by hex value. The tokens come from the
   design system in `docs/design-system/`.
-- API clients have a contract (interface/abstraction); pages depend on the
-  contract, not the concrete implementation.
+- Services that talk to the backend live in `projects/api`. The contract is
+  `abstract class FooService` in `foo.service.ts` and is its own DI token; the
+  implementation is `class HttpFooService extends FooService` in
+  `http-foo.service.ts` (`Local…` for client-side stand-ins). Register
+  `{ provide: FooService, useClass: HttpFooService }`; pages inject
+  `FooService`, never the implementation.
+- One type per file: each class, interface, type alias and enum gets its own
+  kebab-case file (`OwnProfileView` → `own-profile-view.ts`). Never put two
+  classes in one file.
+- No single-file components: every component keeps its template in
+  `<file>.html` (`templateUrl`) and any styles in `<file>.css` (`styleUrl`),
+  never inline `template` or `styles`.
 - No inline forms in pages. Button-triggered editing opens a dialog or
   navigates to a screen. Use the UI framework's accessible dialog/overlay
   primitives; don't hand-roll modals.

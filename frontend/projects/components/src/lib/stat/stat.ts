@@ -1,40 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { Icon } from '../icon/icon';
-
-/**
- * A row of large figures (docs/specs/components/stat.md, `sh-stat-grid`).
- * The stats are `div[sh-stat]` children so the `dl` keeps valid children.
- */
-@Component({
-  selector: 'sh-stat-grid',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
-  template: `
-    @if (busy()) {
-      <p class="visually-hidden" role="status">{{ busyLabel() }}</p>
-      <div class="stat-grid" aria-busy="true">
-        @for (i of skeletons(); track i) {
-          <div class="stat" aria-hidden="true">
-            <span class="skeleton skeleton--text"></span><span class="skeleton skeleton--title"></span>
-            @if (skeletonDelta()) {
-              <span class="skeleton skeleton--text"></span>
-            }
-          </div>
-        }
-      </div>
-    } @else {
-      <dl class="stat-grid"><ng-content /></dl>
-    }
-  `,
-})
-export class StatGrid {
-  readonly busy = input(false);
-  readonly busyLabel = input('');
-  readonly skeletonCount = input(4);
-  readonly skeletonDelta = input(false);
-
-  protected readonly skeletons = computed(() => Array.from({ length: Math.min(8, Math.max(1, Math.round(this.skeletonCount()))) }, (_, i) => i));
-}
+import { StatGrid } from './stat-grid';
 
 /**
  * One labelled figure (stat CRD, `sh-stat`), used as `<div sh-stat>`: inside a
@@ -47,36 +13,7 @@ export class StatGrid {
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'stat' },
-  template: `
-    @if (inGrid) {
-      <dt class="stat__label">{{ label() }}</dt>
-      <dd class="stat__value">
-        @if (value() === null) {
-          <span aria-hidden="true">–</span><span class="visually-hidden">{{ missingLabel() }}</span>
-        } @else {
-          {{ value() }}@if (valueContext()) {<span class="visually-hidden">{{ valueContext() }}</span>}
-        }
-      </dd>
-      @if (value() === null) {
-        <dd class="text-caption" aria-hidden="true">{{ missingLabel() }}</dd>
-      }
-      @if (delta()) {
-        <dd [class]="deltaClass()">@if (direction()) {<svg class="icon--sm" [shIcon]="direction() === 'up' ? 'arrow-up' : 'arrow-down'"></svg>}{{ delta() }}</dd>
-      }
-    } @else {
-      <span class="stat__label">{{ label() }}</span>
-      <span class="stat__value">
-        @if (value() === null) {
-          <span aria-hidden="true">–</span><span class="visually-hidden">{{ missingLabel() }}</span>
-        } @else {
-          {{ value() }}@if (valueContext()) {<span class="visually-hidden">{{ valueContext() }}</span>}
-        }
-      </span>
-      @if (delta()) {
-        <span [class]="deltaClass()">@if (direction()) {<svg class="icon--sm" [shIcon]="direction() === 'up' ? 'arrow-up' : 'arrow-down'"></svg>}{{ delta() }}</span>
-      }
-    }
-  `,
+  templateUrl: './stat.html',
 })
 export class Stat {
   readonly label = input.required<string>();

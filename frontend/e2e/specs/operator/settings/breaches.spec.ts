@@ -1,6 +1,6 @@
 import { test, expect } from '../../../support/test';
 import { OperatorBreachesPage } from '../../../pages/operator-breaches.page';
-import type { ConsoleDialog } from '../../../pages/operator-screen';
+import type { ConsoleDialog } from '../../../pages/console-dialog';
 
 const EXPORT_LINK = 'A caterer’s export link was forwarded to a family member before it expired.';
 const RISK_NOTES = 'The link expired after 7 days and the download log shows one use, by the caterer’s sister.';

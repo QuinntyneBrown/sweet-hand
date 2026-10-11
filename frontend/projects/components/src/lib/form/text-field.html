@@ -1,0 +1,52 @@
+@if (variant() === 'search') {
+  <div class="search"><svg shIcon="search"></svg><ng-container *ngTemplateOutlet="control" /></div>
+} @else if (variant() === 'search-pill') {
+  <div class="search-field"><svg [shIcon]="searchIcon()"></svg><ng-container *ngTemplateOutlet="control" /></div>
+} @else if (prefix() || suffix()) {
+  <div class="input-group">
+    @if (prefix()) {
+      <span class="addon" aria-hidden="true">{{ prefix() }}</span>
+    }
+    <ng-container *ngTemplateOutlet="control" />
+    @if (suffix()) {
+      <span class="addon" [id]="id() + '-unit'">{{ suffix() }}</span>
+    }
+  </div>
+} @else {
+  <ng-container *ngTemplateOutlet="control" />
+}
+<ng-template #control>
+  <input
+    #input
+    [class]="cls()"
+    [id]="id()"
+    [type]="type() === 'password' && revealed() ? 'text' : type()"
+    [value]="value()"
+    [attr.name]="name()"
+    [attr.autocomplete]="autocomplete()"
+    [attr.inputmode]="inputmode()"
+    [attr.autocapitalize]="autocapitalize()"
+    [attr.spellcheck]="spellcheck() === null ? null : spellcheck()"
+    [attr.enterkeyhint]="enterkeyhint()"
+    [attr.pattern]="pattern()"
+    [attr.minlength]="minlength()"
+    [attr.maxlength]="maxlength()"
+    [attr.min]="min()"
+    [attr.max]="max()"
+    [attr.placeholder]="placeholder()"
+    [required]="required()"
+    [disabled]="isDisabled()"
+    [readOnly]="readonly()"
+    [attr.aria-invalid]="isInvalid() ? 'true' : null"
+    [attr.aria-describedby]="describedBy()"
+    [attr.aria-label]="ariaLabel()"
+    [attr.role]="role()"
+    [attr.aria-autocomplete]="ariaAutocomplete()"
+    [attr.aria-controls]="ariaControls()"
+    [attr.aria-expanded]="ariaExpanded()"
+    [attr.aria-activedescendant]="ariaActivedescendant()"
+    (input)="onInput($event)"
+    (blur)="onBlur($event)"
+    (keydown)="inputKeydown.emit($event)"
+  />
+</ng-template>

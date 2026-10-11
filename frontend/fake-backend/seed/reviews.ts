@@ -1,46 +1,12 @@
+import type { Review } from './review.ts';
+import type { ReviewableEvent } from './reviewable-event.ts';
+
 /**
  * Fictional reviews from docs/mocks/README.md ("Cast and catalog"). All people
  * are fictional. Pelau House has 23 published reviews averaging 4.7 (sum 108).
  */
 
 export type ReviewStatus = 'Published' | 'Held' | 'Hidden' | 'Removed';
-
-export interface Review {
-  id: string;
-  catererId: string;
-  /** The customer account that wrote it, when the reviewer can sign in. */
-  authorUserId?: string;
-  /** The reviewer's display name; shown as "Marcia T." (L2-051.3). */
-  authorName: string;
-  rating: number;
-  text: string;
-  /** Event date of the eligible enquiry, YYYY-MM-DD; shown as "Event in August 2026". */
-  eventDate: string;
-  createdAt: string;
-  editedAt?: string;
-  status: ReviewStatus;
-  response?: { text: string; createdAt: string };
-  /** Hidden reviews: who hid it (an operator's user id, or null when hidden automatically after reports), why and when (L2-059). */
-  hidden?: { by: string | null; reports: number; reason: string; at: string };
-  /** Why a held review was held back (L2-050.3). */
-  holdReason?: 'phone' | 'email' | 'link';
-  /** Who hid a hidden review: three reports in 7 days (L2-055.2) or an operator; and when. */
-  hiddenBy?: 'reports' | 'operator';
-  hiddenAt?: string;
-}
-
-/**
- * A replied enquiry whose event has passed: what makes a customer eligible to
- * review (L2-049). The enquiries area owns enquiries; until its seed carries
- * events, the reviews fake reads these.
- */
-export interface ReviewableEvent {
-  userId: string;
-  catererId: string;
-  enquiryId: string;
-  eventDate: string;
-  replied: boolean;
-}
 
 export const REVIEWABLE_EVENTS: ReviewableEvent[] = [
   // Jean-Robert Pierre: replied enquiry to Pelau House for Sun 6 Sep (can-review).
@@ -75,7 +41,7 @@ const MORE_PELAU: [string, string | undefined, number, string, string, string][]
   ['Brian Ali', undefined, 5, '2025-08-16', '2025-08-23', 'Big family reunion, big flavours. The paw paw chow was a surprise.'],
 ];
 
-const at = (date: string) => `${date}T14:00:00.000Z`;
+export const at = (date: string) => `${date}T14:00:00.000Z`;
 
 /** Pelau House's public responses: every review but Andre C.'s has one (docs/mocks/pages/dashboard-reviews). */
 const PELAU_RESPONSES: Record<string, string> = {

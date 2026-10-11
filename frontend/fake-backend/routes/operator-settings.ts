@@ -1,31 +1,33 @@
 import type { Router } from '../lib/router.ts';
-import type { AuditEntry as StoredAuditEntry } from '../lib/store.ts';
-import { conflict, forbidden, invalid, notFound, ok, unauthorized, type Ctx, type Reply } from '../lib/http.ts';
+import type { AuditEntry as StoredAuditEntry } from '../lib/audit-entry.ts';
+import { conflict, type Ctx, forbidden, invalid, notFound, ok, unauthorized } from '../lib/http.ts';
+import type { Reply } from '../lib/reply.ts';
 import { currentUser, newId, torontoDate, type Store } from '../lib/store.ts';
-import type { User } from '../seed/users.ts';
-import type { Review } from '../seed/reviews.ts';
-import { KNOWN_TARGETS, longAudit, type DailyMetrics, type InvitedOperator } from '../seed/operator-settings.ts';
-import type { EnquiryMetrics, Granularity, MetricsBucket, MetricsReport } from '../../projects/web/src/app/core/api/metrics.models.ts';
+import type { User } from '../seed/user.ts';
+import type { Review } from '../seed/review.ts';
+import { type DailyMetrics, KNOWN_TARGETS, longAudit } from '../seed/operator-settings.ts';
+import type { InvitedOperator } from '../seed/invited-operator.ts';
+import type { EnquiryMetrics } from '../../projects/api/src/lib/models/enquiry-metrics.ts';
+import type { Granularity } from '../../projects/api/src/lib/models/granularity.ts';
+import type { MetricsBucket } from '../../projects/api/src/lib/models/metrics-bucket.ts';
+import type { MetricsReport } from '../../projects/api/src/lib/models/metrics-report.ts';
 import { slugify, type Cuisine } from '../seed/taxonomy.ts';
-import type {
-  AddCuisineRequest,
-  AddOperatorRequest,
-  AdminOnlyProblem,
-  AuditEntry,
-  AuditEntryView,
-  AuditPage,
-  BreachInformation,
-  BreachRecord,
-  CuisineUsage,
-  ModeratedReview,
-  ModerateReviewRequest,
-  ModerationAction,
-  ModerationList,
-  ModerationStatus,
-  OperatorAccount,
-  OperatorCuisine,
-  RecordBreachRequest,
-} from '../../projects/web/src/app/core/api/operator-settings.models.ts';
+import type { AddCuisineRequest } from '../../projects/api/src/lib/models/add-cuisine-request.ts';
+import type { AddOperatorRequest } from '../../projects/api/src/lib/models/add-operator-request.ts';
+import type { AdminOnlyProblem } from '../../projects/api/src/lib/models/admin-only-problem.ts';
+import type { AuditEntryView } from '../../projects/api/src/lib/models/audit-entry-view.ts';
+import type { AuditPage } from '../../projects/api/src/lib/models/audit-page.ts';
+import type { BreachInformation } from '../../projects/api/src/lib/models/breach-information.ts';
+import type { BreachRecord } from '../../projects/api/src/lib/models/breach-record.ts';
+import type { CuisineUsage } from '../../projects/api/src/lib/models/cuisine-usage.ts';
+import type { ModeratedReview } from '../../projects/api/src/lib/models/moderated-review.ts';
+import type { ModerateReviewRequest } from '../../projects/api/src/lib/models/moderate-review-request.ts';
+import type { ModerationAction } from '../../projects/api/src/lib/models/moderation-action.ts';
+import type { ModerationList } from '../../projects/api/src/lib/models/moderation-list.ts';
+import type { ModerationStatus } from '../../projects/api/src/lib/models/moderation-status.ts';
+import type { OperatorAccount } from '../../projects/api/src/lib/models/operator-account.ts';
+import type { OperatorCuisine } from '../../projects/api/src/lib/models/operator-cuisine.ts';
+import type { RecordBreachRequest } from '../../projects/api/src/lib/models/record-breach-request.ts';
 
 /**
  * Fake endpoints of the operator console's settings and moderation screens:

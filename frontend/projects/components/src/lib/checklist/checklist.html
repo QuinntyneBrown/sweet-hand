@@ -1,0 +1,6 @@
+@if (ordered()) {
+  <ol class="checklist" [attr.aria-labelledby]="ariaLabelledby()"><ng-container *ngTemplateOutlet="items" /></ol>
+} @else {
+  <ul class="checklist" [attr.aria-labelledby]="ariaLabelledby()"><ng-container *ngTemplateOutlet="items" /></ul>
+}
+<ng-template #items><ng-content /></ng-template>

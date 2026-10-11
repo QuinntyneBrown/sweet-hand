@@ -1,4 +1,5 @@
-import { DashboardDialog, DashboardScreen } from './dashboard.page';
+import { DashboardDialog } from './dashboard-dialog';
+import { DashboardScreen } from './dashboard-screen';
 
 /** Business details, /dashboard/profile/details (docs/mocks/pages/profile-details). */
 export class ProfileDetailsPage extends DashboardScreen {

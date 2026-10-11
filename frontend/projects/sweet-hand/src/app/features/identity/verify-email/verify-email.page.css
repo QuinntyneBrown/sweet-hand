@@ -1,0 +1,6 @@
+.verify__title-skeleton {
+  width: 80%;
+}
+.verify__button-skeleton {
+  height: var(--control-height-lg);
+}

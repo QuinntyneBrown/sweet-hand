@@ -1,0 +1,57 @@
+<sh-dialog
+  [open]="open()"
+  size="form"
+  [form]="true"
+  [fullScreenOnPhone]="true"
+  title="Record a breach"
+  i18n-title="@@recordBreach.title"
+  description="Kept for at least 24 months. You can’t edit or delete a record later."
+  i18n-description="@@recordBreach.description"
+  closeLabel="Close"
+  i18n-closeLabel="@@common.close"
+  cancelLabel="Cancel"
+  i18n-cancelLabel="@@common.cancel"
+  [busy]="busy()"
+  [busyMessage]="saving"
+  [returnFocus]="returnFocus()"
+  (dismissed)="closed.emit()"
+  (submitted)="save()"
+>
+  @if (failed()) {
+    <sh-alert tone="danger" live="assertive" title="We couldn’t save this record" i18n-title="@@recordBreach.failedTitle"
+      ><ng-container i18n="@@recordBreach.failedText">Nothing was saved. Everything you entered is still here; try again.</ng-container></sh-alert
+    >
+  }
+  <sh-form-summary [heading]="summaryTitle()" [headingLevel]="3" [items]="summary()" [attempt]="attempt()" summaryId="breach-summary" />
+  <sh-form-field label="Date confirmed" i18n-label="@@recordBreach.date" controlId="br-date" [error]="errors().date ?? null">
+    <sh-text-field [formControl]="date" type="date" name="date" [max]="today" [required]="true" [readonly]="busy()" [autofocus]="true" />
+  </sh-form-field>
+  <sh-form-field label="What happened" i18n-label="@@recordBreach.what" controlId="br-what" [error]="errors().what ?? null">
+    <sh-textarea [formControl]="what" name="what" [rows]="3" [required]="true" [readonly]="busy()" />
+  </sh-form-field>
+  <fieldset>
+    <legend i18n="@@recordBreach.information">Information involved</legend>
+    <div class="option-grid">
+      @for (option of options; track option.value) {
+        <sh-checkbox name="info" [value]="option.value" [checked]="information().includes(option.value)" (checkedChange)="toggle(option.value, $event)" [disabled]="busy()">{{ option.label }}</sh-checkbox>
+      }
+    </div>
+  </fieldset>
+  <sh-form-field label="People affected" i18n-label="@@recordBreach.people" controlId="br-people" [error]="errors().people ?? null">
+    <sh-text-field [formControl]="people" name="people" inputmode="numeric" autocomplete="off" [required]="true" [readonly]="busy()" />
+  </sh-form-field>
+  <sh-radio-group name="risk" [(value)]="risk" [error]="errors().risk ?? null" [disabled]="busy()">
+    <span slot="legend" i18n="@@recordBreach.riskLegend">Risk of significant harm</span>
+    <sh-radio value="low" inputId="risk-low" i18n="@@recordBreach.riskLow">Low</sh-radio>
+    <sh-radio value="real" inputId="risk-real" i18n="@@recordBreach.riskReal">Real risk of significant harm</sh-radio>
+  </sh-radio-group>
+  <sh-form-field label="Risk assessment" i18n-label="@@recordBreach.riskNotes" controlId="br-risk">
+    <sh-textarea [formControl]="riskNotes" name="risk_notes" [rows]="2" [readonly]="busy()" />
+  </sh-form-field>
+  <sh-radio-group name="decision" [(value)]="decision" [error]="errors().decision ?? null" [disabled]="busy()">
+    <span slot="legend" i18n="@@recordBreach.decisionLegend">Notification decision</span>
+    <sh-radio value="report" inputId="decision-report" i18n="@@recordBreach.decisionReport">Report to the Privacy Commissioner and notify the people affected</sh-radio>
+    <sh-radio value="not" inputId="decision-not" i18n="@@recordBreach.decisionNot">Not reportable: no real risk of significant harm</sh-radio>
+  </sh-radio-group>
+  <sh-button slot="footer" type="submit" variant="primary" [busy]="busy()"><ng-container i18n="@@recordBreach.submit">Save record</ng-container></sh-button>
+</sh-dialog>

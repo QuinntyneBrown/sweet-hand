@@ -13,16 +13,8 @@ import {
   Injector,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Icon, type IconName } from '../icon/icon';
-
-export interface MenuItemEntry {
-  kind: 'item';
-  id: string;
-  label: string;
-  href?: string;
-  icon?: IconName;
-  danger?: boolean;
-}
+import { Icon } from '../icon/icon';
+import type { MenuItemEntry } from './menu-item-entry';
 
 /**
  * The avatar's account menu (docs/specs/components/menu.md, `sh-account-menu`).
@@ -34,32 +26,7 @@ export interface MenuItemEntry {
   imports: [RouterLink, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (open()) {
-      <div class="menu account-menu" (keydown)="onKeydown($event)">
-        <div class="account-menu__who">
-          <span class="avatar" aria-hidden="true">{{ initials() }}</span>
-          <div><p class="account-menu__name" [id]="nameId">{{ name() }}</p><p class="account-menu__email">{{ secondLine() }}</p></div>
-        </div>
-        <div class="menu__divider"></div>
-        <ul class="account-menu__list" role="menu" [attr.aria-labelledby]="nameId">
-          @for (item of items(); track item.id; let i = $index) {
-            <li role="none">
-              @if (item.href) {
-                <a #entry class="menu__item" [class.menu__item--danger]="item.danger" role="menuitem" [routerLink]="item.href" [attr.tabindex]="i === 0 ? 0 : -1" (click)="choose(item, $event)"
-                  >@if (item.icon) {<svg [shIcon]="item.icon"></svg>}{{ item.label }}</a
-                >
-              } @else {
-                <button #entry class="menu__item" [class.menu__item--danger]="item.danger" role="menuitem" type="button" [attr.tabindex]="i === 0 ? 0 : -1" (click)="choose(item, $event)">
-                  @if (item.icon) {<svg [shIcon]="item.icon"></svg>}{{ item.label }}
-                </button>
-              }
-            </li>
-          }
-        </ul>
-      </div>
-    }
-  `,
+  templateUrl: './account-menu.html',
 })
 export class AccountMenu {
   readonly name = input.required<string>();

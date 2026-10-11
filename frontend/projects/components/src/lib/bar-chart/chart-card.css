@@ -1,0 +1,9 @@
+.chart-card[aria-hidden='true'] .chart-card__head .skeleton--text:first-child {
+  width: 40%;
+}
+.chart-card[aria-hidden='true'] .chart-card__head .skeleton--text:last-child {
+  width: 15%;
+}
+.chart-card[aria-hidden='true'] > .skeleton--rect {
+  height: calc(var(--space-32) + var(--space-16));
+}

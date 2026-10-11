@@ -1,18 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
-
-export interface TableColumn {
-  key: string;
-  label: string;
-  numeric?: boolean;
-  sortable?: boolean;
-  firstSort?: 'ascending' | 'descending';
-  actions?: boolean;
-}
-
-export interface TableSort {
-  key: string;
-  direction: 'ascending' | 'descending';
-}
+import type { TableColumn } from './table-column';
+import type { TableSort } from './table-sort';
 
 let nextId = 0;
 
@@ -25,50 +13,7 @@ let nextId = 0;
   selector: 'sh-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: block' },
-  template: `
-    @if (busy()) {
-      <p class="visually-hidden" role="status">{{ busyLabel() }}</p>
-    }
-    <div
-      class="table-wrap"
-      [attr.tabindex]="isRegion() ? 0 : null"
-      [attr.role]="isRegion() ? 'region' : null"
-      [attr.aria-labelledby]="isRegion() ? captionId : null"
-      [attr.aria-busy]="busy() ? 'true' : null"
-    >
-      <table [class]="isDense() ? 'table table--dense' : 'table'">
-        <caption [class.visually-hidden]="!captionVisible()" [id]="captionId">{{ caption() }}</caption>
-        <thead>
-          <tr>
-            @for (c of columns(); track c.key) {
-              @if (c.actions) {
-                <th scope="col"><span class="visually-hidden">{{ c.label }}</span></th>
-              } @else if (c.sortable) {
-                <th scope="col" [class.num]="!!c.numeric" [attr.aria-sort]="sortOf(c)">
-                  <button type="button" (click)="requestSort(c)">{{ c.label }}</button>
-                </th>
-              } @else {
-                <th scope="col" [class.num]="!!c.numeric">{{ c.label }}</th>
-              }
-            }
-          </tr>
-        </thead>
-        <tbody>
-          @if (busy()) {
-            @for (r of skeletons(); track r) {
-              <tr aria-hidden="true">
-                @for (c of columns(); track c.key) {
-                  <td><span class="skeleton skeleton--text"></span></td>
-                }
-              </tr>
-            }
-          } @else {
-            <ng-content />
-          }
-        </tbody>
-      </table>
-    </div>
-  `,
+  templateUrl: './table.html',
 })
 export class Table {
   readonly caption = input.required<string>();
@@ -101,22 +46,3 @@ export class Table {
   }
 }
 
-/** The actions of one row, revealed on hover or focus (table CRD, `sh-table-row-actions`). */
-@Component({
-  selector: 'sh-table-row-actions',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
-  template: `<div class="row-actions"><ng-content /></div>`,
-})
-export class TableRowActions {}
-
-/** An empty cell: a muted dash read as a word ("No change"; table CRD, `sh-table-na`). */
-@Component({
-  selector: 'sh-table-na',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
-  template: `<span class="na" aria-hidden="true">—</span><span class="visually-hidden">{{ label() }}</span>`,
-})
-export class TableNa {
-  readonly label = input.required<string>();
-}

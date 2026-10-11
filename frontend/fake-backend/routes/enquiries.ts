@@ -1,30 +1,30 @@
 import { randomUUID } from 'node:crypto';
 import type { Router } from '../lib/router.ts';
-import type { Ctx, Reply } from '../lib/http.ts';
+import type { Ctx } from '../lib/http.ts';
+import type { Reply } from '../lib/reply.ts';
 import { conflict, forbidden, invalid, notFound, ok, unauthorized } from '../lib/http.ts';
 import { currentUser, torontoDate, type Store } from '../lib/store.ts';
-import { photoView } from '../lib/views.ts';
 import { OCCASIONS } from '../seed/taxonomy.ts';
-import type { Enquiry, EnquiryEvent } from '../seed/enquiries.ts';
-import type { User } from '../seed/users.ts';
-import type {
-  ContactDetails,
-  EnquiryDraftView,
-  EnquiryFormValues,
-  EnquiryRefusal,
-  EnquiryStatus,
-  FitWarning,
-  InboxFilter,
-  InboxPageView,
-  InboxRowView,
-  OtherParty,
-  Party,
-  ReplyResult,
-  SendEnquiryRequest,
-  SentEnquiryView,
-  ThreadEntryView,
-  ThreadView,
-} from '../../projects/web/src/app/core/api/enquiries.models.ts';
+import type { Enquiry } from '../seed/enquiry.ts';
+import type { EnquiryEvent } from '../seed/enquiries.ts';
+import type { User } from '../seed/user.ts';
+import type { ContactDetails } from '../../projects/api/src/lib/models/contact-details.ts';
+import type { EnquiryDraftView } from '../../projects/api/src/lib/models/enquiry-draft-view.ts';
+import type { EnquiryFormValues } from '../../projects/api/src/lib/models/enquiry-form-values.ts';
+import type { EnquiryRefusal } from '../../projects/api/src/lib/models/enquiry-refusal.ts';
+import type { EnquiryStatus } from '../../projects/api/src/lib/models/enquiry-status.ts';
+import type { FitWarning } from '../../projects/api/src/lib/models/fit-warning.ts';
+import type { InboxFilter } from '../../projects/api/src/lib/models/inbox-filter.ts';
+import type { InboxPageView } from '../../projects/api/src/lib/models/inbox-page-view.ts';
+import type { InboxRowView } from '../../projects/api/src/lib/models/inbox-row-view.ts';
+import type { OtherParty } from '../../projects/api/src/lib/models/other-party.ts';
+import type { Party } from '../../projects/api/src/lib/models/party.ts';
+import type { ReplyResult } from '../../projects/api/src/lib/models/reply-result.ts';
+import type { SendEnquiryRequest } from '../../projects/api/src/lib/models/send-enquiry-request.ts';
+import type { SentEnquiryView } from '../../projects/api/src/lib/models/sent-enquiry-view.ts';
+import type { ThreadEntryView } from '../../projects/api/src/lib/models/thread-entry-view.ts';
+import type { ThreadView } from '../../projects/api/src/lib/models/thread-view.ts';
+import type { Found } from './found.ts';
 
 const PAGE_SIZE = 20;
 const REPLY_MAX = 2000;
@@ -363,8 +363,6 @@ function registerSending(r: Router<Store>): void {
 }
 
 // ---------- Endpoints --------------------------------------------------------
-
-type Found = { user: User; e: Enquiry; party: Party };
 
 /** The signed-in party and their enquiry, or the reply that ends the request: 401, or 404 for anyone else (L2-034.1). */
 function load(ctx: Ctx<Store>): Found | Reply {

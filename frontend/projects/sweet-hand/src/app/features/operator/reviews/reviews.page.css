@@ -1,0 +1,4 @@
+.reviews-search {
+  max-width: var(--layout-panel-width);
+  margin-bottom: var(--space-6);
+}

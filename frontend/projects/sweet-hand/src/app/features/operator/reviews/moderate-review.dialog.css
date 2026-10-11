@@ -1,0 +1,5 @@
+.review__body {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  margin: 0;
+}

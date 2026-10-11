@@ -1,4 +1,5 @@
-import { ConsoleDialog, OperatorScreen } from './operator-screen';
+import { ConsoleDialog } from './console-dialog';
+import { OperatorScreen } from './operator-screen';
 
 /** The breach register, /admin/breaches (docs/mocks/pages/admin-breaches, dialogs/record-breach). */
 export class OperatorBreachesPage extends OperatorScreen {

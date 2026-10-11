@@ -1,0 +1,2 @@
+@if (kind() === 'old') {<del class="diff-old"><ng-container *ngTemplateOutlet="text" /></del>} @else {<ins class="diff-new"><ng-container *ngTemplateOutlet="text" /></ins>}
+    <ng-template #text><ng-content /></ng-template>

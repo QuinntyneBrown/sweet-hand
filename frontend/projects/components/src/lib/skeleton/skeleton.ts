@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, DestroyRef, computed, effect, injec
   selector: 'sh-skeleton',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `<span [class]="'skeleton skeleton--' + shape()" aria-hidden="true" [style.width]="width()" [style.height]="usesHeight() ? height() : null"></span>`,
+  templateUrl: './skeleton.html',
 })
 export class Skeleton {
   readonly shape = input<'text' | 'title' | 'circle' | 'rect' | 'pill'>('text');
@@ -13,19 +13,6 @@ export class Skeleton {
   readonly height = input<string | null>(null);
 
   protected readonly usesHeight = computed(() => this.shape() !== 'text' && this.shape() !== 'title');
-}
-
-/** The region's hidden status line: what is loading, then what loaded (D-6). */
-@Component({
-  selector: 'sh-loading-status',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
-  template: `<p class="visually-hidden" role="status">{{ loading() ? loadingLabel() : (doneLabel() ?? '') }}</p>`,
-})
-export class LoadingStatus {
-  readonly loading = input(false);
-  readonly loadingLabel = input.required<string>();
-  readonly doneLabel = input<string | null>(null);
 }
 
 /**

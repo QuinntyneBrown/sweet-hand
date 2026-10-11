@@ -1,27 +1,23 @@
 import { randomUUID } from 'node:crypto';
 import type { Fault } from './faults.ts';
-import { seedCaterers, type Caterer } from '../seed/caterers.ts';
-import { seedCuisines, seedRegions, type Cuisine, type Region } from '../seed/taxonomy.ts';
-import { seedUsers, type User } from '../seed/users.ts';
-import { seedEnquiries, type Enquiry } from '../seed/enquiries.ts';
-import { seedReviews, type Review } from '../seed/reviews.ts';
-import { seedReports, type Report } from '../seed/reports.ts';
+import { seedCaterers } from '../seed/caterers.ts';
+import type { Caterer } from '../seed/caterer.ts';
+import { type Cuisine, seedCuisines, seedRegions } from '../seed/taxonomy.ts';
+import type { Region } from '../seed/region.ts';
+import { seedUsers } from '../seed/users.ts';
+import type { User } from '../seed/user.ts';
+import { seedEnquiries } from '../seed/enquiries.ts';
+import type { Enquiry } from '../seed/enquiry.ts';
+import { seedReviews } from '../seed/reviews.ts';
+import type { Review } from '../seed/review.ts';
+import { seedReports } from '../seed/reports.ts';
+import type { Report } from '../seed/report.ts';
 import { seedOperator, type OperatorState } from '../seed/operator.ts';
-import { seedAccount, type AccountState } from '../seed/account.ts';
-import { seedAudit, seedOperatorSettings, type OperatorSettingsState } from '../seed/operator-settings.ts';
-
-/** One operator action (L2-060.1): who, what, on which record, when (UTC), why, and the values before and after. */
-export interface AuditEntry {
-  id: string;
-  at: string;
-  operatorId: string;
-  action: string;
-  targetType: string;
-  targetId: string;
-  reason: string | null;
-  before: unknown;
-  after: unknown;
-}
+import { seedAccount } from '../seed/account.ts';
+import type { AccountState } from '../seed/account-state.ts';
+import { seedAudit, seedOperatorSettings } from '../seed/operator-settings.ts';
+import type { OperatorSettingsState } from '../seed/operator-settings-state.ts';
+import type { AuditEntry } from './audit-entry.ts';
 
 /** Saturday 10 October 2026, 10:00 a.m. in Toronto (UTC−4): "today" in the mocks' cast. */
 export const DEFAULT_NOW = '2026-10-10T14:00:00.000Z';

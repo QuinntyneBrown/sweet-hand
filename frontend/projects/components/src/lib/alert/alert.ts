@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, DOCUMENT, ElementRef, computed, inject, input, output, signal, viewChild } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { Icon, type IconName } from '../icon/icon';
+import { Icon } from '../icon/icon';
+import type { IconName } from '../icon/icon-name';
 
 /**
  * A message about the page or what just happened (docs/specs/components/alert.md).
@@ -11,27 +12,7 @@ import { Icon, type IconName } from '../icon/icon';
   imports: [Icon, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (!gone()) {
-      <div [class]="cls()" [attr.role]="role()">
-        <svg [shIcon]="icon()"></svg>
-        <div class="alert__body">
-          @if (banner()) {
-            <span #titleEl class="alert__title">{{ title() }}</span> <span><ng-container *ngTemplateOutlet="text" /></span>
-          } @else {
-            <p #titleEl class="alert__title">{{ title() }}</p>
-            <p><ng-container *ngTemplateOutlet="text" /></p>
-          }
-          <ng-content select="[slot=actions]" />
-        </div>
-        @if (dismissible() && tone() !== 'danger') {
-          <button class="close" type="button" [attr.aria-label]="dismissLabel()" (click)="dismiss()"><svg class="icon--sm" shIcon="close"></svg></button>
-        }
-      </div>
-    }
-    <!-- One slot for the text, whichever layout renders it: a second <ng-content> would never receive it. -->
-    <ng-template #text><ng-content /></ng-template>
-  `,
+  templateUrl: './alert.html',
 })
 export class Alert {
   readonly tone = input<'info' | 'success' | 'warning' | 'danger'>('info');

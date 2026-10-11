@@ -1,0 +1,5 @@
+.empty__icon:empty,
+.photo-row:empty,
+.empty__actions:empty {
+  display: none;
+}

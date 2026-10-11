@@ -1,0 +1,25 @@
+<ng-template #panel>
+  <div class="backdrop"></div>
+  <div [class]="variant() === 'sheet' ? 'sheet' : variant() === 'drawer' ? 'drawer' : 'drawer drawer--left'" role="dialog" aria-modal="true" [attr.aria-labelledby]="titleId" [attr.aria-busy]="busy() ? 'true' : null">
+    <div [class]="region('header')">
+      <h2 [class]="region('title')" [id]="titleId">{{ title() }}@if (count()) {<span class="filter-trigger__count"><span class="visually-hidden">, </span>{{ count() }}<span class="visually-hidden"> {{ countLabel() }}</span></span>}</h2>
+      <button class="icon-btn" type="button" [attr.aria-label]="closeLabel()" autofocus (click)="dismissed.emit('close')"><svg shIcon="close"></svg></button>
+    </div>
+    @switch (bodyAs()) {
+      @case ('nav') {
+        <nav [class]="region('body')" [attr.aria-labelledby]="titleId"><ng-container *ngTemplateOutlet="body" /></nav>
+      }
+      @case ('form') {
+        <form [class]="region('body')" [id]="formId()" [attr.action]="formAction()" novalidate (submit)="onSubmit($event)"><ng-container *ngTemplateOutlet="body" /></form>
+      }
+      @default {
+        <div [class]="region('body')"><ng-container *ngTemplateOutlet="body" /></div>
+      }
+    }
+    @if (hasFooter()) {
+      <div [class]="region('footer')"><ng-container *ngTemplateOutlet="footer" /></div>
+    }
+  </div>
+</ng-template>
+<ng-template #body><ng-content /></ng-template>
+<ng-template #footer><ng-content select="[slot=footer]" /></ng-template>

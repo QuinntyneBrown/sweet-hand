@@ -1,0 +1,26 @@
+<div [class]="placement() === 'top' ? 'toast-region toast-region--top' : 'toast-region'" role="status" aria-live="polite" (keydown.escape)="escape()">
+  @for (t of notifier.toasts(); track t.id) {
+    <div [class]="'toast toast--' + t.tone" [attr.role]="t.tone === 'danger' ? 'alert' : null">
+      <svg [shIcon]="icon(t.tone)"></svg>
+      <div class="toast__body">
+        <div class="toast__title">{{ t.title }}</div>
+        @if (t.text) {
+          <div class="toast__text">{{ t.text }}</div>
+        }
+        @if (t.action; as a) {
+          <div class="toast__actions">
+            @if (a.href) {
+              <a class="toast__action" [routerLink]="a.href" (click)="act(t.id, a.run, t.restoreFocusTo)">{{ a.label }}</a>
+            } @else {
+              <button class="toast__action" type="button" (click)="act(t.id, a.run, t.restoreFocusTo)">{{ a.label }}</button>
+            }
+          </div>
+        }
+      </div>
+      <button class="close" type="button" [attr.aria-label]="dismissLabel()" (click)="notifier.remove(t.id, 'dismiss')"><svg shIcon="close"></svg></button>
+      @if (!t.persistent) {
+        <span class="toast__progress" aria-hidden="true" [style.width.%]="100"></span>
+      }
+    </div>
+  }
+</div>

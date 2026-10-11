@@ -1,45 +1,8 @@
-import { ChangeDetectionStrategy, Component, ElementRef, computed, input, output, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, input, output, viewChild } from '@angular/core';
 import { Icon } from '../icon/icon';
 import { Progress } from '../progress/progress';
-
-/**
- * Translated copy for a photo tile (photo-tile CRD, API). `{n}` is the
- * position and `{file}` the uploaded file's name; `{pct}` the percent sent.
- */
-export interface PhotoTileLabels {
-  /** "Cover" */
-  cover: string;
-  /** "Move photo {n} up" */
-  moveUp: string;
-  /** "Move photo {n} down" */
-  moveDown: string;
-  /** "Edit" */
-  edit: string;
-  /** " photo {n}" */
-  editObject: string;
-  /** "Add a caption" */
-  missingCaption: string;
-  /** "Add caption" */
-  addCaption: string;
-  /** " to photo {n}" */
-  addCaptionObject: string;
-  /** "Uploading {file}" */
-  uploading: string;
-  /** "{pct}%, uploading" */
-  uploadingValue: string;
-  /** "Cancel" */
-  cancel: string;
-  /** " upload of {file}" */
-  cancelObject: string;
-  /** "Processing" */
-  processing: string;
-}
-
-export interface TilePhoto {
-  src: string;
-  width: number;
-  height: number;
-}
+import type { PhotoTileLabels } from './photo-tile-labels';
+import type { TilePhoto } from './tile-photo';
 
 /**
  * One photo in the caterer's photo manager (docs/specs/components/photo-tile.md,
@@ -52,60 +15,7 @@ export interface TilePhoto {
   imports: [Icon, Progress],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'photo-tile' },
-  template: `
-    @switch (mode()) {
-      @case ('uploading') {
-        <span [class]="photo() ? 'photo' : 'photo photo--placeholder'"
-          >@if (photo(); as p) {<img [src]="p.src" alt="" width="160" height="160" />} @else {<svg shIcon="upload"></svg>}<span
-            class="photo-tile__progress"
-            aria-hidden="true"
-            >{{ progress() }}%</span
-          ></span
-        >
-        <p class="photo-tile__caption">{{ fileName() }}</p>
-        <sh-progress [value]="progress()" [label]="fill(labels().uploading)" [valueText]="fill(labels().uploadingValue)" />
-        <button class="btn btn--link btn--sm" type="button" (click)="cancelRequested.emit({ fileName: fileName() })">
-          {{ labels().cancel }}<span class="visually-hidden">{{ fill(labels().cancelObject) }}</span>
-        </button>
-      }
-      @case ('processing') {
-        <span class="photo photo--placeholder"><svg shIcon="clock"></svg></span>
-        <p class="photo-tile__caption">{{ caption() || fileName() }}</p>
-        <span class="status status--pending">{{ labels().processing }}</span>
-      }
-      @default {
-        <span class="photo"
-          >@if (photo(); as p) {<img [src]="p.src" alt="" [width]="p.width" [height]="p.height" [attr.loading]="position() > 6 ? 'lazy' : null" />}@if (position() === 1) {<span
-              class="photo-tile__cover"
-              >{{ labels().cover }}</span
-            >}</span
-        >
-        @if (caption() || mode() === 'readonly') {
-          <p class="photo-tile__caption">{{ caption() }}</p>
-        } @else {
-          <p class="photo-tile__caption photo-tile__caption--missing">{{ labels().missingCaption }}</p>
-        }
-        @if (mode() === 'editable') {
-          <div class="photo-tile__move">
-            <button #up class="icon-btn" type="button" [attr.aria-label]="fill(labels().moveUp)" [attr.aria-disabled]="position() === 1 ? 'true' : null" (click)="move('up')">
-              <svg shIcon="arrow-up"></svg>
-            </button>
-            <button #down class="icon-btn" type="button" [attr.aria-label]="fill(labels().moveDown)" [attr.aria-disabled]="position() === total() ? 'true' : null" (click)="move('down')">
-              <svg shIcon="arrow-down"></svg>
-            </button>
-          </div>
-          <button #edit class="btn btn--link btn--sm" type="button" aria-haspopup="dialog" (click)="editRequested.emit({ position: position() })">
-            @if (caption()) {
-              {{ labels().edit }}<span class="visually-hidden">{{ fill(labels().editObject) }}</span>
-            } @else {
-              {{ labels().addCaption }}<span class="visually-hidden">{{ fill(labels().addCaptionObject) }}</span>
-            }
-          </button>
-          <ng-content select="[slot=actions]" />
-        }
-      }
-    }
-  `,
+  templateUrl: './photo-tile.html',
 })
 export class PhotoTile {
   readonly mode = input<'editable' | 'readonly' | 'uploading' | 'processing'>('editable');
@@ -144,31 +54,3 @@ export class PhotoTile {
   }
 }
 
-/** The grid of photo tiles in public order (photo-tile CRD, `sh-photo-manager`). */
-@Component({
-  selector: 'sh-photo-manager',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { style: 'display: contents' },
-  template: `
-    <ul class="photo-manager" [attr.aria-label]="label()" [attr.aria-busy]="busy() ? 'true' : null">
-      @if (busy()) {
-        @for (i of skeletons(); track i) {
-          <li class="photo-tile photo-tile--skeleton" aria-hidden="true">
-            <span class="photo"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text"></span>
-          </li>
-        }
-      } @else {
-        <ng-content />
-      }
-    </ul>
-    <p class="visually-hidden" role="status" aria-live="polite">{{ announcement() }}</p>
-  `,
-})
-export class PhotoManager {
-  readonly label = input.required<string>();
-  readonly busy = input(false);
-  readonly skeletonCount = input(6);
-  readonly announcement = input<string | null>(null);
-
-  protected readonly skeletons = computed(() => Array.from({ length: Math.min(30, Math.max(1, Math.round(this.skeletonCount()))) }, (_, i) => i));
-}

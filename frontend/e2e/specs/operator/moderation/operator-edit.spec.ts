@@ -1,6 +1,6 @@
 import { test, expect } from '../../../support/test';
 import { CatererRecordPage } from '../../../pages/caterer-record.page';
-import { OperatorEditDialog } from '../../../pages/moderation-dialogs';
+import { OperatorEditDialog } from '../../../pages/operator-edit-dialog';
 import { CatererPage } from '../../../pages/caterer.page';
 
 const WITH_PHONE =

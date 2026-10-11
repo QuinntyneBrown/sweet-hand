@@ -1,6 +1,6 @@
 import { test, expect } from '../../../support/test';
 import { RecentChangesPage } from '../../../pages/recent-changes.page';
-import { RevertDialog } from '../../../pages/moderation-dialogs';
+import { RevertDialog } from '../../../pages/revert-dialog';
 import { CatererPage } from '../../../pages/caterer.page';
 
 const OLD = 'Everything is cooked the morning of your event and arrives hot, with chafing dishes.';

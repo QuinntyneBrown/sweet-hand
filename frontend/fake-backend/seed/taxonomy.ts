@@ -1,3 +1,5 @@
+import type { Region } from './region.ts';
+
 /** Fixed lists from L2-007 (cuisines), L2-010 (service areas), L2-021 (occasions) and L2-017 (dietary tags). */
 
 export const slugify = (s: string): string =>
@@ -39,12 +41,6 @@ export const CUISINE_NAMES = [
 
 export const seedCuisines = (): Cuisine[] =>
   CUISINE_NAMES.map((name) => ({ id: slugify(name), name, retired: false, addedAt: '2026-08-03T13:00:00Z' }));
-
-export interface Region {
-  id: string;
-  name: string;
-  areas: { id: string; name: string }[];
-}
 
 const REGIONS: [string, string[]][] = [
   ['City of Toronto', ['Downtown Toronto', 'East York', 'Etobicoke', 'North York', 'Scarborough', 'York']],
