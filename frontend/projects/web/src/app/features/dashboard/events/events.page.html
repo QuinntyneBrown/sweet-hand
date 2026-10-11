@@ -1,0 +1,147 @@
+<app-dashboard-layout current="events" [status]="data.status()" [previewLabel]="data.state().kind === 'ready' ? data.previewLabel() : null">
+  <sh-back-link href="/dashboard" [untilLg]="true"><ng-container i18n="@@nav.overview">Overview</ng-container></sh-back-link>
+  <div class="page-intro">
+    <h1 id="page-title" i18n="@@nav.guestsOccasions">Guests and occasions</h1>
+    @switch (data.state().kind) {
+      @case ('loading') {
+        <p class="visually-hidden" role="status" i18n="@@events.loading">Loading guests and occasions</p>
+      }
+      @case ('ready') {
+        @if (data.readOnly()) {
+          <sh-private-note text="Read-only" i18n-text="@@section.readOnly" />
+        } @else {
+          <p class="subtitle">{{ subtitle() }}</p>
+          <sh-save-status [state]="saveState()" [text]="statusText()" />
+        }
+      }
+    }
+  </div>
+
+  @switch (data.state().kind) {
+    @case ('loading') {
+      <div class="form" aria-hidden="true">
+        <div class="field-row">
+          <span class="skeleton skeleton--rect" style="height: var(--control-height-md)"></span><span class="skeleton skeleton--rect" style="height: var(--control-height-md)"></span>
+        </div>
+        <span class="skeleton skeleton--title" style="width: 8rem; margin-top: var(--space-8)"></span>
+        <div class="option-grid">
+          @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+            <span class="skeleton skeleton--text" style="width: 10rem"></span>
+          }
+        </div>
+      </div>
+    }
+    @case ('error') {
+      <sh-empty-state
+        tone="error"
+        heading="We couldn’t load guests and occasions"
+        i18n-heading="@@events.errorTitle"
+        text="Your answers are safe. Try again in a moment."
+        i18n-text="@@events.errorText"
+        [reference]="data.errorReference()"
+        referenceLabel="Reference"
+        i18n-referenceLabel="@@common.reference"
+      >
+        <svg slot="icon" shIcon="danger"></svg>
+        <ng-container slot="actions">
+          <button class="btn btn--primary" type="button" (click)="load()">
+            <svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container>
+          </button>
+          <a class="btn" routerLink="/dashboard" i18n="@@section.backToOverview">Back to overview</a>
+        </ng-container>
+      </sh-empty-state>
+    }
+    @case ('ready') {
+      @if (data.profile(); as p) {
+        @if (data.readOnly()) {
+          <app-status-notice [profile]="p" (withdrawRequested)="withdrawOpen.set(true)" />
+          <dl class="kv" style="margin-top: var(--space-8)">
+            <dt i18n="@@events.guests">Guests</dt>
+            <dd>{{ saved() }}</dd>
+            <dt i18n="@@checklist.occasions">Occasions</dt>
+            <dd>{{ occasionNames() }}</dd>
+          </dl>
+        } @else {
+          <sh-form-summary [heading]="summaryHeading()" [items]="summary()" [attempt]="attempt()" />
+          <form class="form" style="margin-top: var(--space-6)" aria-labelledby="page-title" novalidate (submit)="$event.preventDefault(); autosave.flush()">
+            <sh-fieldset legend="Guests" i18n-legend="@@events.guests" legendHeading="h2">
+              <sh-form-row>
+                <sh-form-field label="Smallest event" i18n-label="@@events.smallest" controlId="min-guests" [error]="errors().minGuests">
+                  <sh-text-field
+                    name="min-guests"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    [required]="true"
+                    extraDescribedBy="guests-help"
+                    [value]="min()"
+                    (valueChange)="setGuests('min', $event)"
+                    (blurred)="autosave.flush()"
+                  />
+                </sh-form-field>
+                <sh-form-field label="Largest event" i18n-label="@@events.largest" controlId="max-guests" [error]="errors().maxGuests">
+                  <sh-text-field
+                    name="max-guests"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    [required]="true"
+                    extraDescribedBy="guests-help"
+                    [value]="max()"
+                    (valueChange)="setGuests('max', $event)"
+                    (blurred)="autosave.flush()"
+                  />
+                </sh-form-field>
+              </sh-form-row>
+              <span class="field__help" id="guests-help">{{ guestsHelp() }}</span>
+            </sh-fieldset>
+            <div style="margin-top: var(--space-8)">
+              <sh-fieldset
+                legend="Occasions"
+                i18n-legend="@@checklist.occasions"
+                legendHeading="h2"
+                fieldId="occasions"
+                help="Choose every kind of event you take on."
+                i18n-help="@@events.occasionsHelp"
+                [error]="errors().occasions"
+              >
+                <div class="option-grid">
+                  @for (o of allOccasions(); track o.id) {
+                    <label class="choice"
+                      ><input
+                        type="checkbox"
+                        name="occasion"
+                        [id]="'o-' + o.id"
+                        [value]="o.id"
+                        [checked]="occasions().has(o.id)"
+                        [attr.aria-invalid]="errors().occasions ? 'true' : null"
+                        (change)="toggleOccasion(o.id, $any($event.target).checked)" /><span class="choice__text"
+                        ><span>{{ o.name }}</span></span
+                      ></label
+                    >
+                  }
+                </div>
+              </sh-fieldset>
+            </div>
+          </form>
+          <p style="margin-top: var(--space-8)"><a class="btn" routerLink="/dashboard" i18n="@@section.done">Done</a></p>
+        }
+      }
+    }
+  }
+  @if (data.card(); as c) {
+    <ng-container slot="preview">
+      <app-listing-preview [card]="c" />
+      @if (saved(); as s) {
+        <dl class="facts">
+          <div>
+            <dt i18n="@@events.onYourPage">On your page</dt>
+            <dd>{{ s }}</dd>
+          </div>
+        </dl>
+      }
+    </ng-container>
+  }
+</app-dashboard-layout>
+
+@if (data.profile(); as p) {
+  <app-withdraw-dialog [open]="withdrawOpen()" [business]="p.name" (closed)="withdrawOpen.set(false)" (withdrawn)="withdrawn($event)" />
+}

@@ -37,6 +37,13 @@ export const dashboardRoutes: Routes = [
         data: { mainClass: 'container' },
         title: $localize`:@@cuisines.documentTitle:Cuisines and areas · Sweet Hand`,
       },
+      {
+        path: 'profile/events',
+        canActivate: [editorOpen],
+        loadComponent: () => import('./events/events.page').then((m) => m.EventsPage),
+        data: { mainClass: 'container' },
+        title: $localize`:@@events.documentTitle:Guests and occasions · Sweet Hand`,
+      },
       { path: '**', loadComponent: () => import('../../shell/system-page').then((m) => m.SystemPage), data: { kind: 'not-found' } },
     ],
   },
