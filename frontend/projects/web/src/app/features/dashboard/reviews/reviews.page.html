@@ -1,0 +1,93 @@
+<app-dashboard-layout current="reviews" [status]="profile()?.status ?? null" [narrow]="true">
+  @switch (state().kind) {
+    @case ('loading') {
+      <div class="page-intro">
+        <h1 i18n="@@nav.reviews">Reviews</h1>
+        <span class="skeleton skeleton--text" style="width: 14rem" aria-hidden="true"></span>
+      </div>
+      <p class="visually-hidden" role="status" i18n="@@reviews.loading">Loading reviews</p>
+      <sh-review-list [busy]="true" [skeletonCount]="4" />
+    }
+    @case ('error') {
+      <div class="page-intro"><h1 i18n="@@nav.reviews">Reviews</h1></div>
+      <sh-empty-state
+        tone="error"
+        heading="We couldn’t load your reviews"
+        i18n-heading="@@reviews.errorTitle"
+        text="Your reviews are still on your public page. This is a problem on our side; try again in a moment."
+        i18n-text="@@reviews.errorText"
+        [reference]="errorReference()"
+        referenceLabel="Reference"
+        i18n-referenceLabel="@@common.reference"
+      >
+        <svg slot="icon" shIcon="danger"></svg>
+        <ng-container slot="actions">
+          <button class="btn btn--primary" type="button" (click)="load()">
+            <svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container>
+          </button>
+          <a class="btn" routerLink="/dashboard" i18n="@@section.backToOverview">Back to overview</a>
+        </ng-container>
+      </sh-empty-state>
+    }
+    @case ('ready') {
+      <div class="page-intro">
+        <h1 i18n="@@nav.reviews">Reviews</h1>
+        <p class="subtitle">{{ subtitle() }}</p>
+      </div>
+      @if (profile(); as p) {
+        <app-profile-banner [profile]="p" />
+      }
+      @if (!items().length) {
+        <sh-empty-state
+          heading="Your first review is on its way"
+          i18n-heading="@@reviews.emptyTitle"
+          text="Customers can review you once you’ve replied to their enquiry and their event has passed. You can answer each review once, in public."
+          i18n-text="@@reviews.emptyText"
+        >
+          <ng-container slot="photos">
+            <span class="photo"><img src="/media/maracas-bay.jpg?w=400&fm=jpeg" alt="" width="72" height="72" /></span>
+            <span class="photo"><img src="/media/pelau-house.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
+            <span class="photo"><img src="/media/black-cake-co.jpg?w=400&fm=jpeg" alt="" width="72" height="72" /></span>
+          </ng-container>
+          <a slot="actions" class="btn btn--primary" routerLink="/dashboard/enquiries" i18n="@@reviews.goEnquiries">Go to enquiries</a>
+        </sh-empty-state>
+      } @else {
+        <h2 class="visually-hidden" id="reviews-title" i18n="@@reviews.newestFirst">Newest first</h2>
+        <sh-review-list listId="review-list">
+          @for (row of rows(); track row.review.id) {
+            <sh-review
+              variant="caterer"
+              [author]="row.review.author"
+              [eventLabel]="row.event"
+              [postedLabel]="row.posted"
+              [rating]="row.review.rating"
+              [ratingLabel]="row.ratingLabel"
+              [body]="row.review.text"
+              [response]="row.response"
+              awaitingLabel="No response yet"
+              i18n-awaitingLabel="@@reviews.awaiting"
+            >
+              @if (row.review.response) {
+                <sh-button slot="actions" variant="link" size="sm" haspopup="dialog" (activated)="responding.set(row.review.id)"
+                  ><svg shIcon="edit"></svg><ng-container i18n="@@reviews.editResponse">Edit response</ng-container
+                  ><span class="visually-hidden" i18n="@@reviews.toAuthor"> to {{ row.review.author }}</span></sh-button
+                >
+              } @else {
+                <sh-button slot="actions" size="sm" haspopup="dialog" (activated)="responding.set(row.review.id)"
+                  ><ng-container i18n="@@reviews.respond">Respond</ng-container><span class="visually-hidden" i18n="@@reviews.toAuthor"> to {{ row.review.author }}</span></sh-button
+                >
+              }
+            </sh-review>
+          }
+        </sh-review-list>
+        @if (hasMore()) {
+          <p style="margin-top: var(--space-6)">
+            <button class="btn" type="button" aria-controls="review-list" [attr.aria-busy]="loadingMore() ? 'true' : null" (click)="more()" i18n="@@reviews.more">Show more reviews</button>
+          </p>
+        }
+      }
+    }
+  }
+</app-dashboard-layout>
+
+<app-review-response-dialog [open]="!!selected()" [review]="selected()" [business]="business()" (closed)="responding.set(null)" (done)="done($event)" />

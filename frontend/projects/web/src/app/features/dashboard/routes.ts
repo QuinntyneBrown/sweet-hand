@@ -65,6 +65,12 @@ export const dashboardRoutes: Routes = [
         data: { mainClass: 'container' },
         title: $localize`:@@certificate.documentTitle:Food safety · Sweet Hand`,
       },
+      {
+        path: 'reviews',
+        loadComponent: () => import('./reviews/reviews.page').then((m) => m.ReviewsPage),
+        data: { mainClass: 'container' },
+        title: $localize`:@@reviews.documentTitle:Reviews · Sweet Hand`,
+      },
       { path: '**', loadComponent: () => import('../../shell/system-page').then((m) => m.SystemPage), data: { kind: 'not-found' } },
     ],
   },
