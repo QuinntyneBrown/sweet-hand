@@ -11,6 +11,7 @@ The deployment feature publishes the pre-launch website and launch-list API to t
 ## Description
 
 - **`infra/main.bicep`** — subscription-specific resource graph for Static Web Apps, Container Apps, PostgreSQL, Container Registry, Key Vault, monitoring and Communication Services.
+- **`infra/roles.bicep`** — the API identity's role assignments, applied once by an Owner; the GitHub deployer holds Contributor only and never writes role assignments.
 - **`ci.yml`** — change validation for branches and pull requests. It performs no Azure mutation.
 - **`deploy.yml`** — `main` delivery using GitHub OIDC and Azure CLI. It applies Bicep, pushes the commit-tagged image, runs the migration job and promotes healthy artifacts.
 - **`PrelaunchGuard`** — request middleware that returns HTTP 404 before unfinished product controllers execute.

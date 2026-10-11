@@ -69,6 +69,8 @@ The email footer uses this runtime configuration and does not expose a maker add
 
 Delivery stops before touching Azure when only one of `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET` is set in the `production` environment. Smoke checks always run against the Static Web Apps default hostname and add `sweethand.ca` once Azure reports its custom domain `Ready`.
 
+The GitHub deployer (`github-sweethand-production`) holds Contributor on `rg-sweethand-prod` and nothing more. The API identity's role assignments live in `infra/roles.bicep`; a subscription Owner applies them once, in an MFA session, with `az deployment group create -g rg-sweethand-prod --template-file infra/roles.bicep`, and again only when that file changes.
+
 GitHub's OIDC subject for this repository includes the owner and repository IDs (`repo:QuinntyneBrown@1749159/sweet-hand@1413231887:environment:production`). The `github-sweethand-production` app registration holds a federated credential for that exact subject; a credential with the plain `repo:QuinntyneBrown/sweet-hand:environment:production` subject is not matched.
 
 If any step after promotion fails, the workflow redeploys the API image that was serving before the run (`az containerapp update --image <previous>`), which creates a new revision from the known-good image; the app runs in single-revision mode, so a traffic split is not available. To roll back by hand, read the image of an earlier revision with `az containerapp revision list -g rg-sweethand-prod -n ca-swh-api -o table` and apply it the same way. Re-run smoke checks. For a static rollback, rerun the last successful Deploy production workflow for the known commit. Database migrations shall remain backward compatible with the preceding image.

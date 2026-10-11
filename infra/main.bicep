@@ -105,15 +105,8 @@ resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' 
   location: location
 }
 
-resource acrPull 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(acr.id, identity.id, 'acrpull')
-  scope: acr
-  properties: {
-    principalId: identity.properties.principalId
-    principalType: 'ServicePrincipal'
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '7f951dda-4ed3-4680-a7ca-43fe172d538d')
-  }
-}
+// The identity's role assignments (AcrPull, Key Vault Secrets User, Communication and
+// Email Service Owner) live in roles.bicep, applied once by an Owner.
 
 resource vault 'Microsoft.KeyVault/vaults@2023-07-01' = {
   name: vaultName
@@ -126,16 +119,6 @@ resource vault 'Microsoft.KeyVault/vaults@2023-07-01' = {
     softDeleteRetentionInDays: 90
     publicNetworkAccess: 'Enabled'
     sku: { family: 'A', name: 'standard' }
-  }
-}
-
-resource vaultReader 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(vault.id, identity.id, 'secrets-user')
-  scope: vault
-  properties: {
-    principalId: identity.properties.principalId
-    principalType: 'ServicePrincipal'
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '4633458b-17de-408a-b874-0445c86b69e6')
   }
 }
 
@@ -231,16 +214,6 @@ resource emailSender 'Microsoft.Communication/emailServices/domains/senderUserna
   properties: { username: 'hello', displayName: 'Sweet Hand' }
 }
 
-resource communicationContributor 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(communication.id, identity.id, 'communication-contributor')
-  scope: communication
-  properties: {
-    principalId: identity.properties.principalId
-    principalType: 'ServicePrincipal'
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '09976791-48a7-449e-bb21-39d1a415f350')
-  }
-}
-
 resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApi) {
   name: apiName
   location: location
@@ -289,7 +262,7 @@ resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApi) {
       scale: { minReplicas: 1, maxReplicas: 1 }
     }
   }
-  dependsOn: [acrPull, vaultReader, sweethandDb, communicationContributor]
+  dependsOn: [sweethandDb]
 }
 
 resource migrate 'Microsoft.App/jobs@2024-03-01' = if (deployMigration) {
@@ -308,7 +281,7 @@ resource migrate 'Microsoft.App/jobs@2024-03-01' = if (deployMigration) {
     }
     template: { containers: [{ name: 'migrate', image: containerImage, command: ['npm'], args: ['run', 'migrate'], resources: { cpu: json('0.5'), memory: '1Gi' }, env: [{ name: 'DATABASE_URL', secretRef: 'database-url' }] }] }
   }
-  dependsOn: [acrPull, vaultReader, sweethandDb]
+  dependsOn: [sweethandDb]
 }
 
 resource budget 'Microsoft.Consumption/budgets@2023-11-01' = {
