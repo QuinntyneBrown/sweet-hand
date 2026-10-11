@@ -64,7 +64,8 @@ test.describe('Menu', () => {
     await menu.moveUp('Pepperpot').click();
     await expect(menu.names.nth(17)).toHaveText('Pepperpot');
     await expect(menu.moveUp('Pepperpot')).toBeFocused();
-    expect((await pelauDishes(backend))[17].name).toBe('Pepperpot');
+    // The list moves at once; the saved order follows when the request completes.
+    await expect.poll(async () => (await pelauDishes(backend))[17].name).toBe('Pepperpot');
   });
 
   test('L2-043.4: a one-character name and long price guidance are refused inline', async ({ page, backend }) => {

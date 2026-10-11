@@ -99,7 +99,8 @@ test.describe('Verify email', () => {
     await expect(verify.button('Resend email')).toBeEnabled();
     await verify.button('Resend email').click();
     await expect(verify.button('Resend email')).toBeDisabled();
-    expect((await backend.emails()).filter((m: { to: string; kind: string }) => m.to === 'priya.singh@example.com' && m.kind === 'verify-email')).toHaveLength(3);
+    // The button pauses at once; the email is queued when the request completes.
+    await expect.poll(async () => (await backend.emails()).filter((m: { to: string; kind: string }) => m.to === 'priya.singh@example.com' && m.kind === 'verify-email')).toHaveLength(3);
   });
 
   test('a new caterer can have the link sent again from the welcome screen', async ({ page }) => {
