@@ -67,7 +67,8 @@ export interface Caterer extends Document {
   /** When the pending business name was asked for (L2-044.2). */
   pendingNameAt?: string;
   /** Sections an operator flagged when asking for changes (L2-048.3). */
-  attention?: { key: string; note: string }[];
+  /** `replaceBy` marks an operator's replacement deadline (L2-057.2); it clears once the minimum is met again. */
+  attention?: { key: string; note: string; replaceBy?: string }[];
 }
 
 export const caterers = (tx: Transaction) => tx.collection<Caterer>('caterers');

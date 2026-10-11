@@ -1,5 +1,5 @@
 import type { Request, Reply } from '../http/endpoint.ts';
-import { ok } from '../http/problems.ts';
+import { ok, invalid } from '../http/problems.ts';
 import type { Transaction } from '../platform/database.ts';
 import { audit, type AuditEntry } from '../platform/audit.ts';
 import { torontoDate } from '../discovery/listing.ts';
@@ -101,6 +101,13 @@ export async function queryAuditLog(req: Request): Promise<Reply> {
   const from = q.get('from') ?? '';
   const to = q.get('to') ?? '';
   const page = Math.max(1, Math.floor(Number(q.get('page') ?? 1)) || 1);
+  // The filter is checked before any search: dates as YYYY-MM-DD, the start not after the end (AuditLogFilter).
+  const dateErrors: Record<string, string[]> = {};
+  for (const [field, value] of [['from', from], ['to', to]] as const) {
+    if (value && !(/^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value)))) dateErrors[field] = ['Enter a date like 2026-10-10'];
+  }
+  if (!Object.keys(dateErrors).length && from && to && from > to) dateErrors['to'] = ['End date must be on or after the start date'];
+  if (Object.keys(dateErrors).length) return invalid(dateErrors);
 
   const operators = (await users(req.tx).find({ role: 'Operator' })).map((u) => ({ id: u.id, name: u.displayName })).sort(byName);
   const names = new Map(operators.map((o) => [o.id, o.name]));

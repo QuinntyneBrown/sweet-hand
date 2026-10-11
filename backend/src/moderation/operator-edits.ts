@@ -77,7 +77,7 @@ export async function editProfile(req: Request): Promise<Reply> {
   if (!reason) return reasonRequired();
   await caterers(req.tx).put(result.next);
   await touchRecord(req.tx, c.id, req.now);
-  await recordAudit(req, { operatorId: req.actor!.userId, action: 'Edit', targetType: 'CatererProfile', targetId: c.id, reason, before: result.before, after: result.after });
+  await recordAudit(req, { operatorId: req.actor!.userId, action: 'Edit', targetType: 'caterer', targetId: c.id, reason, before: result.before, after: result.after });
   await emailOwner(req, result.next, 'operator-edit', { reason });
   return ok(await catererRecord(req.tx, req.now, result.next));
 }
@@ -95,11 +95,17 @@ const removeItem =
     const next: Caterer = kind === 'photo' ? { ...c, photos: c.photos.filter((p) => p !== item) } : { ...c, dishes: c.dishes.filter((d) => d !== item) };
     const short = kind === 'photo' ? next.photos.length < MIN_PHOTOS : next.dishes.length < MIN_DISHES;
     const replaceBy = short ? torontoDate(new Date(req.now.getTime() + REPLACE_WITHIN_DAYS * DAY_MS)) : null;
+    // The deadline is kept on the profile, so the caterer's editor shows it after the email (ReplacementDeadline, L2-057.2).
+    if (replaceBy) {
+      const key = kind === 'photo' ? 'photos' : 'menu';
+      const note = kind === 'photo' ? `Add a photo to replace the one Sweet Hand removed by ${replaceBy}` : `Add a dish to replace the one Sweet Hand removed by ${replaceBy}`;
+      next.attention = [...(next.attention ?? []).filter((a) => a.key !== key), { key, note, replaceBy }];
+    }
     await caterers(req.tx).put(next);
     // A removed photo is no longer served (edit-profile-as-operator design).
     if (kind === 'photo') await discardPhotoMedia(req, (item as Photo).file);
     await touchRecord(req.tx, c.id, req.now);
-    await recordAudit(req, { operatorId: req.actor!.userId, action: kind === 'photo' ? 'Remove photo' : 'Remove dish', targetType: 'CatererProfile', targetId: c.id, reason, before: { [kind]: item }, after: null });
+    await recordAudit(req, { operatorId: req.actor!.userId, action: 'RemoveItem', targetType: 'caterer', targetId: c.id, reason, before: { [kind]: item }, after: null });
     await emailOwner(req, next, kind === 'photo' ? 'operator-removed-photo' : 'operator-removed-dish', { reason, ...(replaceBy ? { replaceBy } : {}) });
     const view: RemoveItemResult = { replaceBy };
     return ok(view);

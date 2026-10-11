@@ -68,7 +68,7 @@ describe('operator edits to caterer profiles (L2-057)', () => {
     assert.equal(blackCake.photos.length, 2);
     assert.ok((await outbox(api)).some((e) => e.to === 'paulette@blackcakeco.example' && e.kind === 'operator-removed-photo' && e.reason === 'Photo shows another caterer’s logo.' && e.replaceBy === '2026-10-24'));
     const audit = await auditOf(api);
-    assert.deepEqual([audit[0].action, audit[0].targetId, audit[0].before.photo.id, audit[0].after], ['Remove photo', 'cat-005', 'black-cake-co-photo-3', null]);
+    assert.deepEqual([audit[0].action, audit[0].targetId, audit[0].before.photo.id, audit[0].after], ['RemoveItem', 'cat-005', 'black-cake-co-photo-3', null]);
     assert.equal((await leah.request('DELETE', '/api/operator/profiles/cat-005/photos/black-cake-co-photo-3', { reason: 'Again.' })).status, 404);
   });
 
@@ -78,7 +78,7 @@ describe('operator edits to caterer profiles (L2-057)', () => {
     const res = await leah.request('DELETE', '/api/operator/profiles/cat-001/menu-items/pelau-house-dish-11', { reason: 'Duplicate of the shrimp dish further down.' });
     assert.deepEqual(res.body, { replaceBy: null });
     assert.equal((await caterer(api, 'cat-001')).dishes.length, 17);
-    assert.equal((await auditOf(api))[0].action, 'Remove dish');
+    assert.equal((await auditOf(api))[0].action, 'RemoveItem');
     assert.ok((await outbox(api)).some((e) => e.kind === 'operator-removed-dish' && e.replaceBy === undefined));
   });
 });

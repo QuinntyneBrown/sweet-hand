@@ -34,7 +34,15 @@ export function assertCertificateEditable(c: Caterer): void {
   if (c.status === 'Pending review' || c.status === 'Removed') fail(conflict('Your profile can’t be changed right now', { status: c.status }));
 }
 
-export const saveCaterer = (req: Request, c: Caterer) => caterers(req.tx).put(c);
+export const saveCaterer = (req: Request, c: Caterer) => {
+  // A replacement deadline is met once the profile is back at its minimum (L2-057.2).
+  if (c.attention?.some((a) => a.replaceBy)) {
+    const met = (key: string) => (key === 'photos' ? c.photos.length >= 3 : key === 'menu' ? c.dishes.length >= 3 : false);
+    c.attention = c.attention.filter((a) => !a.replaceBy || !met(a.key));
+    if (!c.attention.length) delete c.attention;
+  }
+  return caterers(req.tx).put(c);
+};
 
 /** Trimmed text of a body field; anything but a string is empty. */
 export const text = (s: unknown): string => (typeof s === 'string' ? s.trim() : '');

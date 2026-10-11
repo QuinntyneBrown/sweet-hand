@@ -1,3 +1,4 @@
+import { endSessionsOf } from '../identity/sessions.ts';
 import { randomUUID } from 'node:crypto';
 import type { Request, Reply } from '../http/endpoint.ts';
 import { conflict, created, forbidden, invalid, notFound, ok } from '../http/problems.ts';
@@ -130,18 +131,20 @@ export async function deactivateOperator(req: Request): Promise<Reply> {
   const id = req.params['id'];
   const me = req.actor!.userId;
   if (id === me) return conflict('You can’t deactivate your own account');
+  // The Admin's reason goes to the audit log; a request without one keeps the standard wording.
+  const reason = (typeof req.body?.reason === 'string' && req.body.reason.trim()) || 'Operator account deactivated';
   const user = await users(req.tx).get(id);
   if (user && user.role === 'Operator') {
     if (!(await operatorDeactivations(req.tx).get(id))) {
       await operatorDeactivations(req.tx).put({ id, at: req.now.toISOString(), by: me });
       await users(req.tx).put({ ...user, deleted: true });
-      for (const s of await sessions(req.tx).find({ userId: id })) await sessions(req.tx).delete(s.id);
+      await endSessionsOf(req, id);
       await recordAudit(req, {
         operatorId: me,
         action: 'DeactivateOperator',
         targetType: 'operator',
         targetId: id,
-        reason: 'Operator account deactivated',
+        reason,
         before: user.admin ? 'Admin' : 'Operator',
         after: 'Deactivated',
       });
@@ -153,6 +156,6 @@ export async function deactivateOperator(req: Request): Promise<Reply> {
   if (invite.deactivatedAt) return ok(invitationView(invite));
   const done = { ...invite, deactivatedAt: req.now.toISOString() };
   await operatorInvitations(req.tx).put(done);
-  await recordAudit(req, { operatorId: me, action: 'DeactivateOperator', targetType: 'operator', targetId: id, reason: 'Operator account deactivated', before: 'Invited', after: 'Deactivated' });
+  await recordAudit(req, { operatorId: me, action: 'DeactivateOperator', targetType: 'operator', targetId: id, reason, before: 'Invited', after: 'Deactivated' });
   return ok(invitationView(done));
 }

@@ -45,12 +45,13 @@ async function changedFields(tx: Transaction, c: Caterer): Promise<string[]> {
   const same = (a: string[], b: string[]) => a.length === b.length && a.every((x, i) => x === b[i]);
   return [
     s.description !== c.description && 'description',
-    !same(s.photoFiles, c.photos.map((p) => p.file)) && 'photos',
-    !same(s.dishNames, c.dishes.map((d) => d.name)) && 'menu',
+    (!same(s.photoFiles, c.photos.map((p) => p.file)) || (s.captions && !same(s.captions, c.photos.map((p) => p.caption)))) && 'photos',
+    (!same(s.dishNames, c.dishes.map((d) => d.name)) || (s.dishes && !same(s.dishes, c.dishes.map((d) => JSON.stringify(d))))) && 'menu',
     (s.minGuests !== c.minGuests || s.maxGuests !== c.maxGuests) && 'guests',
     !same(s.occasions, c.occasions) && 'occasions',
     !same(s.areas, c.areas) && 'areas',
     !same(s.cuisines, c.cuisines) && 'cuisines',
+    s.certificate !== undefined && s.certificate !== JSON.stringify(c.certificate ?? null) && 'certificate',
   ].filter((x): x is string => !!x);
 }
 

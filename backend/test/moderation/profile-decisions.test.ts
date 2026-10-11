@@ -16,7 +16,7 @@ describe('approval decisions (L2-046, L2-048, L2-060)', () => {
     assert.equal(bev.status, 'Published');
     assert.equal(bev.publishedAt, '2026-10-10T14:00:00.000Z');
     assert.deepEqual((await auditOf(api)).map((a) => [a.operatorId, a.action, a.targetType, a.targetId, a.reason, a.before, a.after, a.at]), [
-      ['user-leah', 'Approve', 'CatererProfile', 'cat-910', null, { status: 'Pending review' }, { status: 'Published' }, '2026-10-10T14:00:00.000Z'],
+      ['user-leah', 'Approve', 'caterer', 'cat-910', null, { status: 'Pending review' }, { status: 'Published' }, '2026-10-10T14:00:00.000Z'],
     ]);
     const mail = (await outbox(api)).find((e) => e.kind === 'profile-approved');
     assert.equal(mail?.to, 'beverley@auntiebevs.example');
@@ -64,7 +64,7 @@ describe('approval decisions (L2-046, L2-048, L2-060)', () => {
     assert.ok((await outbox(api)).some((e) => e.kind === 'changes-requested' && e.to === 'beverley@auntiebevs.example' && e.reason === 'Photos 2 and 5 show stock images'));
     const snapshot = (await documents(api, 'profileSnapshots')).find((s) => s.id === 'cat-910');
     assert.equal(snapshot.photoFiles.length, 5);
-    assert.deepEqual((await auditOf(api)).map((a) => [a.operatorId, a.action, a.reason, a.after]), [['user-tomas', 'Request changes', 'Photos 2 and 5 show stock images', { status: 'Changes requested' }]]);
+    assert.deepEqual((await auditOf(api)).map((a) => [a.operatorId, a.action, a.reason, a.after]), [['user-tomas', 'RequestChanges', 'Photos 2 and 5 show stock images', { status: 'Changes requested' }]]);
   });
 
   it('Given a pending name change, when an operator approves it, then the new name and address go live and the old address redirects (L2-044.3, L2-018.3)', async () => {
@@ -78,7 +78,7 @@ describe('approval decisions (L2-046, L2-048, L2-060)', () => {
     assert.equal(pelau.pendingName, undefined);
     assert.deepEqual(pelau.previousSlugs, ['pelau-house']);
     const audit = await auditOf(api);
-    assert.deepEqual([audit[0].action, audit[0].before, audit[0].after], ['Approve name change', { name: 'Pelau House', slug: 'pelau-house' }, { name: 'Pelau House by Kendra', slug: 'pelau-house-by-kendra' }]);
+    assert.deepEqual([audit[0].action, audit[0].before, audit[0].after], ['Approve', { name: 'Pelau House', slug: 'pelau-house' }, { name: 'Pelau House by Kendra', slug: 'pelau-house-by-kendra' }]);
     assert.ok((await outbox(api)).some((e) => e.kind === 'name-approved' && e.to === 'kendra@pelauhouse.example' && e.link === '/caterers/pelau-house-by-kendra'));
     assert.equal((await leah.post('/api/operator/profiles/cat-001/name/approve')).status, 409, 'nothing waits any more');
   });
@@ -94,7 +94,7 @@ describe('approval decisions (L2-046, L2-048, L2-060)', () => {
     assert.equal(pelau.name, 'Pelau House');
     assert.equal(pelau.pendingName, undefined);
     const audit = await auditOf(api);
-    assert.deepEqual([audit[0].action, audit[0].before, audit[0].after], ['Reject name change', { name: 'Pelau House', requested: 'Pelau House by Kendra' }, { name: 'Pelau House' }]);
+    assert.deepEqual([audit[0].action, audit[0].before, audit[0].after], ['RequestChanges', { name: 'Pelau House', requested: 'Pelau House by Kendra' }, { name: 'Pelau House' }]);
     assert.ok((await outbox(api)).some((e) => e.kind === 'name-change-declined' && e.reason === 'Use the business name on your food handler certificate.'));
   });
 });

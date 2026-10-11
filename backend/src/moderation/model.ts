@@ -41,6 +41,10 @@ export interface ProfileSnapshot extends Document {
   occasions: string[];
   areas: string[];
   cuisines: string[];
+  /** Every dish field, photo caption and the certificate, so any edit shows as changed (L2-047.3). Older snapshots lack them. */
+  dishes?: string[];
+  captions?: string[];
+  certificate?: string;
 }
 
 /** What the daily certificate job found for a caterer (L2-040.2–3), keyed by caterer id. */

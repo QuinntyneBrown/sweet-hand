@@ -85,7 +85,7 @@ export async function revertChange(req: Request): Promise<Reply> {
   await caterers(req.tx).put(next);
   await profileEdits(req.tx).put({ ...e, reverted: { by: req.actor!.userId, at: req.now.toISOString() } });
   await touchRecord(req.tx, c.id, req.now);
-  await recordAudit(req, { operatorId: req.actor!.userId, action: 'Revert change', targetType: 'ProfileEdit', targetId: e.id, reason, before: { [e.field]: e.new }, after: { [e.field]: e.old } });
+  await recordAudit(req, { operatorId: req.actor!.userId, action: 'Revert', targetType: 'caterer', targetId: c.id, reason, before: { [e.field]: e.new }, after: { [e.field]: e.old, revertedChange: e.id } });
   await emailOwner(req, next, 'change-reverted', { reason });
   return noContent();
 }

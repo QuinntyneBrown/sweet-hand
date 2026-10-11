@@ -129,6 +129,9 @@ export async function resolveReport(req: Request): Promise<Reply> {
   if (!note) return invalid({ note: [dismiss ? 'Add a note explaining your decision' : 'Add a reason for this change'] });
   const first = group[0];
   if (first.status !== 'Open') return conflict('This report was already resolved', { status: first.status });
+  // Review reports offer hide or remove; profile reports suspend or remove. Anything else is refused, never swapped (handle-reports design).
+  const actions = first.targetKind === 'Review' ? ['hide', 'remove-review'] : ['suspend', 'remove'];
+  if (!dismiss && !actions.includes(String(body.action))) return invalid({ action: ['Choose an action'] });
   const operatorId = req.actor!.userId;
 
   let outcome: NonNullable<Report['resolution']>['outcome'];
@@ -138,7 +141,7 @@ export async function resolveReport(req: Request): Promise<Reply> {
     const review = first.targetKind === 'Review' ? await reviews(req.tx).get(first.targetId) : undefined;
     // Dismissing undoes automatic hiding (L2-055.3).
     if (review?.status === 'Hidden' && hiddenByReports(review)) await reviews(req.tx).put(shownReview(review));
-    entry = await recordAudit(req, { operatorId, action: 'Dismiss reports', targetType: 'Report', targetId: first.id, reason: note, before: { status: 'Open' }, after: { status: 'Resolved', outcome } });
+    entry = await recordAudit(req, { operatorId, action: 'DismissReports', targetType: 'report', targetId: first.id, reason: note, before: { status: 'Open' }, after: { status: 'Resolved', outcome } });
   } else if (first.targetKind === 'Review') {
     const review = await reviews(req.tx).get(first.targetId);
     if (!review || review.status === 'Removed') return notFound();
@@ -146,12 +149,12 @@ export async function resolveReport(req: Request): Promise<Reply> {
     if (body.action === 'remove-review') {
       outcome = 'review-removed';
       await reviews(req.tx).put({ ...review, status: 'Removed', text: '', response: undefined, hidden: undefined, hiddenBy: undefined, hiddenAt: undefined });
-      entry = await recordAudit(req, { operatorId, action: 'Remove review', targetType: 'Review', targetId: review.id, reason: note, before, after: { status: 'Removed' } });
+      entry = await recordAudit(req, { operatorId, action: 'RemoveReview', targetType: 'review', targetId: review.id, reason: note, before, after: { status: 'Removed' } });
       await emailAuthor(req, review, 'review-removed', note);
     } else {
       outcome = 'hidden';
       await reviews(req.tx).put(hiddenReview(review, operatorId, note, req.now, group.length));
-      entry = await recordAudit(req, { operatorId, action: 'Hide review', targetType: 'Review', targetId: review.id, reason: note, before, after: { status: 'Hidden' } });
+      entry = await recordAudit(req, { operatorId, action: 'HideReview', targetType: 'review', targetId: review.id, reason: note, before, after: { status: 'Hidden' } });
       await emailAuthor(req, review, 'review-hidden', note);
     }
   } else {
@@ -164,6 +167,10 @@ export async function resolveReport(req: Request): Promise<Reply> {
       outcome = 'suspended';
       entry = (await suspendCaterer(req, c, note)).entry;
     }
+  }
+  // The resolution itself is in the log too, linked to the action's entry (L2-060).
+  if (!dismiss) {
+    await recordAudit(req, { operatorId, action: 'ResolveReports', targetType: 'report', targetId: first.id, reason: note, before: { status: 'Open' }, after: { status: 'Resolved', outcome, actionAuditEntryId: entry.id } });
   }
   const resolution = { at: req.now.toISOString(), byUserId: operatorId, outcome, note, auditId: entry.id };
   const resolved = group.map((r): Report => ({ ...r, status: 'Resolved', resolution }));
@@ -186,7 +193,7 @@ export async function openLinkedEnquiry(req: Request): Promise<Reply> {
   if (group[0].status !== 'Open') return refused(group[0].id);
   const enquiry = await linkedEnquiry(req.tx, group);
   if (!enquiry) return refused(group[0].id);
-  await recordAudit(req, { operatorId: req.actor!.userId, action: 'Open enquiry', targetType: 'Enquiry', targetId: enquiry.id, reason, before: null, after: { reportId: group[0].id } });
+  await recordAudit(req, { operatorId: req.actor!.userId, action: 'EnquiryAccess', targetType: 'enquiry', targetId: enquiry.id, reason, before: null, after: { reportId: group[0].id } });
   const customer = await users(req.tx).get(enquiry.customerId);
   const caterer = await caterers(req.tx).get(enquiry.catererId);
   const view: ReportEnquiryView = {

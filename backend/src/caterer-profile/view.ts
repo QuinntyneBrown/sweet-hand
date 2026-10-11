@@ -95,7 +95,7 @@ export function profileView(c: Caterer, owner: User | undefined, now: Date): Own
     dishes: c.dishes.map((d) => ({ id: d.id, name: d.name, description: d.description ?? null, tags: d.tags as DietaryTagId[], price: d.price ?? null })),
     certificate: certificateView(c),
     checklist: checklist(c, owner, now),
-    attention: (c.attention ?? []) as AttentionView[],
+    attention: (c.attention ?? []).map(({ key, note }) => ({ key, note }) as AttentionView),
     cover: first && !first.processing ? { alt: first.caption, image: rendition(first, 280) } : null,
   };
 }
