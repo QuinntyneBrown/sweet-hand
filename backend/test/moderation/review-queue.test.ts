@@ -111,7 +111,7 @@ describe('review queue arrangements for the Playwright suite (ADR 0008)', () => 
     const created = (await scenario(api, 'new-report', { caterer: 'sugar-dumplin', reason: 'Food safety concern' })) as { id: string };
     await scenario(api, 'hold-review', { caterer: 'cou-cou', author: 'Nadia Joseph', holdReason: 'phone' });
     const res = await leah.get('/api/operator/queue');
-    const report = res.body.items.find((i: any) => i.kind === 'reports');
+    const report = res.body.items.find((i: any) => i.kind === 'reports' && i.targetId === created.id);
     assert.deepEqual([report.targetId, report.title, report.reasons], [created.id, 'Sugar Dumplin', ['Food safety concern']]);
     assert.ok(res.body.items.some((i: any) => i.kind === 'held-review' && i.title === 'Review of Cou-Cou by Nadia J.' && i.holdReason === 'phone'));
   });

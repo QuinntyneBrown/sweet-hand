@@ -231,7 +231,7 @@ const DEVON_MARACAS: Enquiry = {
     { id: 'enq-devon-maracas-event-1', kind: 'reply', by: 'caterer', at: '2026-08-20T19:40:00.000Z', text: 'Hi Devon, yes, we deliver to Mississauga. For 35 that comes to about $700 before tax. Shall I hold the date?' },
     { id: 'enq-devon-maracas-event-2', kind: 'reply', by: 'customer', at: '2026-08-21T12:10:00.000Z', text: 'Yes please, hold it.' },
   ],
-  readAt: {},
+  readAt: { customer: '2026-08-21T12:10:00.000Z', caterer: '2026-08-21T12:10:00.000Z' },
 };
 
 /** Adds the moderation cast to the other areas' documents (collections are concatenated). */
