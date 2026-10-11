@@ -149,6 +149,12 @@ test.describe('Suspending, reinstating and removing caterers', () => {
 
     await expect(dialog.alert).toContainText('We couldn’t reinstate Hibiscus Hut');
     await expect(dialog.reason).toHaveValue('Sharon uploaded photos of her own food.');
+    await backend.hold('POST /api/operator/profiles/cat-916/reinstate');
+    await dialog.submit.click();
+    await expect(dialog.submit).toHaveAttribute('aria-busy', 'true');
+    await expect(dialog.status).toHaveText('Reinstating Hibiscus Hut');
+    await backend.release();
+    await expect(record.status).toHaveText('Published');
   });
 
   test('L2-058.4 L2-058.5: removing needs a reason and the exact name, is final, and the page is gone', async ({ page, backend }) => {

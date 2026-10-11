@@ -217,6 +217,25 @@ test.describe('Handling reports', () => {
     await report.expectNoAccessibilityViolations();
   });
 
+  test('open-enquiry busy: the reason is locked while the access is recorded', async ({ page, backend }) => {
+    await backend.signInAs('leah');
+    await backend.hold('POST /api/operator/reports/R-2041/enquiry');
+    const report = new ReportReviewPage(page);
+    const dialog = new OpenEnquiryDialog(page);
+    await report.goto('R-2041');
+    await report.openEnquiry.click();
+    await dialog.reason.fill('Checking whether the event happened.');
+
+    await dialog.submit.click();
+
+    await expect(dialog.submit).toHaveAttribute('aria-busy', 'true');
+    await expect(dialog.reason).toHaveAttribute('readonly', '');
+    await expect(dialog.cancel).toBeDisabled();
+    await expect(dialog.status).toHaveText('Opening the enquiry');
+    await backend.release();
+    await expect(report.messages).toHaveCount(3);
+  });
+
   test('L2-034.4: an enquiry with no linked report is refused with 403', async ({ page, backend }) => {
     await backend.signInAs('leah');
     const report = new ReportReviewPage(page);
