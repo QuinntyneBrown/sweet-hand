@@ -14,7 +14,9 @@ export interface Environment {
 }
 
 /** A fresh environment on the fake database with the cast's clock (ADR 0007), seeded with the cast unless asked not to. */
-export async function testEnvironment(options: { seed?: boolean } = {}): Promise<Environment & { clock: FixedClock; db: MemoryDatabase }> {
+export type TestEnvironment = Environment & { clock: FixedClock; db: MemoryDatabase };
+
+export async function testEnvironment(options: { seed?: boolean } = {}): Promise<TestEnvironment> {
   const env = { db: new MemoryDatabase(), clock: new FixedClock() };
   if (options.seed !== false) await seedDatabase(env.db);
   return env;

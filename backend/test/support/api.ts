@@ -6,12 +6,12 @@ import { after } from 'node:test';
 import type { AddressInfo } from 'node:net';
 import { createServer, type Server } from 'node:http';
 import { createApp, type AppOptions } from '../../src/app.ts';
-import { testEnvironment, type Environment } from '../../src/environment.ts';
+import { testEnvironment, type TestEnvironment } from '../../src/environment.ts';
 import { productOptions } from '../../src/product.ts';
 
 export interface Api {
   url: string;
-  env: Environment;
+  env: TestEnvironment;
   /** A browser-like client with its own cookie jar; sends the CSRF header like Angular. */
   client(): Client;
 }
@@ -75,7 +75,7 @@ export class Client {
 }
 
 /** Starts the API for one test file; it stops when the file's tests finish. */
-export async function startApi(options: Partial<AppOptions> & { env?: Environment } = {}): Promise<Api> {
+export async function startApi(options: Partial<AppOptions> & { env?: TestEnvironment } = {}): Promise<Api> {
   const env = options.env ?? (await testEnvironment());
   const app = createApp({ ...productOptions(), environments: { resolve: () => env }, ...options });
   const server: Server = createServer(app);
@@ -83,4 +83,19 @@ export async function startApi(options: Partial<AppOptions> & { env?: Environmen
   after(() => new Promise<void>((resolve) => server.close(() => resolve())));
   const url = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
   return { url, env, client: () => new Client(url) };
+}
+
+/** Every document of a collection in the test's fake database. */
+export function documents<T = any>(api: Api, collection: string): Promise<T[]> {
+  return api.env.db.transaction((tx) => tx.collection<any>(collection).all()) as Promise<T[]>;
+}
+
+/** Emails the platform queued, oldest first. */
+export async function outbox(api: Api): Promise<{ to: string; kind: string; at: string; link?: string; [k: string]: unknown }[]> {
+  return (await documents<any>(api, 'outbox')).sort((a, b) => a.seq - b.seq);
+}
+
+/** Moves the test environment's clock. */
+export function advanceClock(api: Api, ms: number): void {
+  api.env.clock.advance(ms);
 }
