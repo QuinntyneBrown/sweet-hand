@@ -1,6 +1,6 @@
 # Sweet Hand frontend
 
-Angular 21 workspace (ADR 0001) with three projects and the Playwright
+Angular 21 workspace (ADR 0001) with four projects and the Playwright
 acceptance suite. The API it talks to is `../backend`, a NestJS application (ADRs 0006, 0010).
 
 ```
@@ -8,6 +8,7 @@ frontend/
   projects/components/   sh-* design-system components (docs/specs/components)
   projects/api/          @sweet-hand/api: backend services and wire models
   projects/sweet-hand/   the product application
+  projects/launch/       the pre-launch site served at / until launch day (L2-092)
   e2e/                   Playwright: support/, pages/ (page objects), specs/
 ```
 
@@ -25,13 +26,32 @@ Run everything from `frontend/` (Node 22.18+), after `npm install` in both
 | `npm run typecheck` | `tsc` for the API library, the app and the e2e suite |
 | `npm run build` | Production build |
 | `npm run extract-i18n` | Writes `projects/sweet-hand/src/locale/messages.xlf` |
+| `npm run start:launch` | The backend on :4300 and the launch site on :4200 |
+| `npm run build:launch` | Prerendered static build in `dist/launch/browser`, then the first-load check (`scripts/check-launch-size.mjs`: 100 KB of gzipped JavaScript, 350 KB in all, 25 KB per photo) |
+| `npm run lint:launch` | ESLint for the launch site; every string needs an `@@launch.…` i18n ID |
+| `npm run test:launch` | The launch site's Playwright project (`e2e/specs/launch/`, one `LaunchPage` page object) |
+| `npm run extract-i18n:launch` | Writes `projects/launch/src/locale/messages.xlf` |
 
-Ports: set `E2E_WEB_PORT` and `E2E_API_PORT` to run a second checkout side by
+Ports: set `E2E_WEB_PORT`, `E2E_LAUNCH_PORT` (default 4201) and `E2E_API_PORT` to run a second checkout side by
 side (`E2E_WEB_PORT=4210 E2E_API_PORT=4310 npx playwright test`).
 `E2E_WORKERS=1` limits Playwright workers.
 
 The Angular CLI sometimes keeps running after a failed compile. Wrap builds in a
 timeout: `timeout 120 node_modules/.bin/ng build sweet-hand --configuration development < /dev/null`.
+
+## The launch site (`projects/launch/`)
+
+A slim application of its own (launch designs in `docs/detailed-designs/launch/`).
+It imports only Angular and `@sweet-hand/api`, never `projects/sweet-hand/`,
+and its only global CSS is the design system's. The browser bundle has no
+router: `/` and `/privacy` are prerendered to static files at build time (the
+router is provided only in `app.config.server.ts`, for route discovery), and
+`LaunchApp` picks the page from the address. Token links (`/?confirmed=…`,
+`/?remove=…`) are read after hydration, posted to the API and cleared from the
+address bar. The contact address and site URL come from `define` in
+`angular.json` (placeholders until deployment). Delete the project, its
+`angular.json` entry, `e2e/specs/launch/` and `e2e/pages/launch.page.ts` once
+the product launches (L2-102.5).
 
 ## How a change is made (AGENTS.md, ATDD)
 

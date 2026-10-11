@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit",
     "migrate": "node --import @swc-node/register/esm-register src/platform/migrate.ts",
     "seed": "node --import @swc-node/register/esm-register src/seed/run.ts",
+    "launch-email": "node --import @swc-node/register/esm-register src/launch-list/send-launch-email.ts",
     "smoke:postgres": "node --import @swc-node/register/esm-register src/platform/postgres-smoke.ts"
   },
   "dependencies": {

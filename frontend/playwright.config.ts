@@ -1,5 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
-import { API_PORT, API_URL, WEB_PORT, WEB_URL } from './e2e/support/ports';
+import { API_PORT, API_URL, LAUNCH_PORT, LAUNCH_URL, WEB_PORT, WEB_URL } from './e2e/support/ports';
 
 /**
  * Frontend acceptance tests (ADRs 0004, 0009): Chromium only, against the backend in test mode.
@@ -23,7 +23,14 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
+      testIgnore: 'launch/**',
       use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 900 } },
+    },
+    {
+      // The pre-launch site is its own application on its own port (L2-092.6).
+      name: 'launch',
+      testMatch: 'launch/**/*.spec.ts',
+      use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 900 }, baseURL: LAUNCH_URL },
     },
   ],
   webServer: [
@@ -34,8 +41,14 @@ export default defineConfig({
       reuseExistingServer: !process.env['CI'],
     },
     {
-      command: `E2E_API_PORT=${API_PORT} npx ng serve --port ${WEB_PORT}`,
+      command: `E2E_API_PORT=${API_PORT} npx ng serve sweet-hand --port ${WEB_PORT}`,
       url: WEB_URL,
+      reuseExistingServer: !process.env['CI'],
+      timeout: 180_000,
+    },
+    {
+      command: `E2E_API_PORT=${API_PORT} npx ng serve launch --port ${LAUNCH_PORT}`,
+      url: LAUNCH_URL,
       reuseExistingServer: !process.env['CI'],
       timeout: 180_000,
     },

@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-CA" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="launch.skipLink" datatype="html">
+        <source>Skip to main content</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/app.html</context>
+          <context context-type="linenumber">1,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.brand" datatype="html">
+        <source>Sweet Hand</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/app.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/app.html</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.nav.primary" datatype="html">
+        <source>Primary</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/app.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.header.getEmail" datatype="html">
+        <source>Get the launch email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/app.html</context>
+          <context context-type="linenumber">6,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.nav.footer" datatype="html">
+        <source>Footer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/app.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.footer.privacy" datatype="html">
+        <source>Privacy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/app.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.footer.contact" datatype="html">
+        <source>Contact</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/app.html</context>
+          <context context-type="linenumber">23,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.documentTitle" datatype="html">
+        <source>Privacy · Sweet Hand</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/app.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.documentTitle" datatype="html">
+        <source>Sweet Hand · Opening soon in Toronto and the GTA</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/app.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/app.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.metaDescription" datatype="html">
+        <source>Caribbean caterers in Toronto and the GTA, all in one place. Sweet Hand opens soon: get one email on launch day.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/app.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.linkExpired.title" datatype="html">
+        <source>That link has expired</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">8,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.linkExpired.text" datatype="html">
+        <source>Enter your email again for a new one.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">9,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.unsubscribed.title" datatype="html">
+        <source>You’re off the list</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.unsubscribed.text" datatype="html">
+        <source>We’ve deleted <x id="INTERPOLATION" equiv-text="{{ email }}"/>.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">21,22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.hero.overline" datatype="html">
+        <source>Opening soon · Toronto and the GTA</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">34,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.hero.heading" datatype="html">
+        <source>Find someone with a sweet hand</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">35,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.hero.subtitle" datatype="html">
+        <source>Caribbean caterers, all in one place.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">36,39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.success.heading" datatype="html">
+        <source>Check your email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">46,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.success.text" datatype="html">
+        <source>Confirm the link we sent to <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ successEmail() }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">47,48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.success.differentAddress" datatype="html">
+        <source>Use a different address</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">48,49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.success.announcement" datatype="html">
+        <source>Check your email. We sent a confirmation link.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">49,52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.confirmed.heading" datatype="html">
+        <source>You’re on the list</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">57,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.confirmed.text" datatype="html">
+        <source>See you on launch day.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">58,59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.confirmed.remove" datatype="html">
+        <source>Remove my email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">59,61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.how.heading" datatype="html">
+        <source>How it works</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">70,71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.how.browse" datatype="html">
+        <source>Browse</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">73,74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.how.browseText" datatype="html">
+        <source>By island, area and occasion.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">74,76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.how.enquire" datatype="html">
+        <source>Enquire</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">77,78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.how.enquireText" datatype="html">
+        <source>Send your date and guest count.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">78,80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.how.agree" datatype="html">
+        <source>Agree</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">81,82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.how.agreeText" datatype="html">
+        <source>Directly with the caterer. No fees.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">82,85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.caterers.heading" datatype="html">
+        <source>Caterers: be there on day one</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">90,91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.caterers.text" datatype="html">
+        <source>Listing is free. You’ll need a food handler certificate.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">91,93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.caterers.join" datatype="html">
+        <source>Join as a caterer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
+          <context context-type="linenumber">93,96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.heading" datatype="html">
+        <source>Privacy notice</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.subtitle" datatype="html">
+        <source>Before Sweet Hand opens</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">4,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.intro" datatype="html">
+        <source>Sweet Hand hasn’t opened yet. Until it does, the only personal information we collect is what you give us to join the launch list. We follow Canada’s Personal Information Protection and Electronic Documents Act (PIPEDA) and Canada’s Anti-Spam Legislation (CASL).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">7,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.listHeading" datatype="html">
+        <source>The launch list</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">9,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.purposeHeading" datatype="html">
+        <source>Why we collect it</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.purpose" datatype="html">
+        <source>To send you one email on the day Sweet Hand opens. We never use the list for anything else, never link it to an account, and never share it with caterers.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">11,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.dataHeading" datatype="html">
+        <source>What we keep</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">12,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.dataEmail" datatype="html">
+        <source>Your email address, and whether you’re planning an event or a caterer.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">14,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.dataBusiness" datatype="html">
+        <source>Your business name, if you’re a caterer and chose to give it.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">15,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.dataConsent" datatype="html">
+        <source>A record of your consent: the words you agreed to, this notice’s version, the page, and when you signed up and confirmed.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">16,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.processorHeading" datatype="html">
+        <source>Who processes it, and where</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">18,19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.processor" datatype="html">
+        <source>Our email provider sends the confirmation and launch-day emails. The list, its backups and our email provider are all in Canada.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.retentionHeading" datatype="html">
+        <source>How long we keep it</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">20,22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.retentionCaption" datatype="html">
+        <source>How long Sweet Hand keeps the launch list</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">24,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.retentionInformation" datatype="html">
+        <source>Information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.retentionKept" datatype="html">
+        <source>Kept for</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">28,31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.retentionUnconfirmed" datatype="html">
+        <source>An address you haven’t confirmed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">33,34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.retentionUnconfirmedFor" datatype="html">
+        <source>48 hours after the last confirmation email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">34,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.retentionConfirmed" datatype="html">
+        <source>A confirmed address</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">37,38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.retentionConfirmedFor" datatype="html">
+        <source>30 days after launch day, or at once if you remove it</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">38,42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.leaveHeading" datatype="html">
+        <source>How to leave the list</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">44,45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.leave" datatype="html">
+        <source>Use the removal link in any email we send, or “Remove my email” after you confirm. There’s no sign-in and no second step: your details are deleted at once, and from backups within 35 days.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">45,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.cookiesHeading" datatype="html">
+        <source>Cookies</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">46,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.cookies" datatype="html">
+        <source>Opening the page sets no cookies. When you sign up, confirm or leave, we set a security token cookie that stops other sites acting as you. There are no analytics, advertising or tracking cookies.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">47,48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.contactHeading" datatype="html">
+        <source>Contact us</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">48,49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.privacy.contact" datatype="html">
+        <source>Write to</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.errorRole" datatype="html">
+        <source>Choose one</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-form.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.errorEmail" datatype="html">
+        <source>Enter an email like name@example.com</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-form.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.errorConsent" datatype="html">
+        <source>Tick the box to get the email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-form.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.heading" datatype="html">
+        <source>Get the launch email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">1,2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.summaryTitle" datatype="html">
+        <source>{VAR_PLURAL, plural, =1 {Fix 1 thing} other {Fix <x id="INTERPOLATION"/> things}}</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">5,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.failedTitle" datatype="html">
+        <source>We couldn’t add you just now</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.failedText" datatype="html">
+        <source>Your details are still here. Reference <x id="INTERPOLATION" equiv-text="{{ reference() }}"/>.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">18,19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.roleLegend" datatype="html">
+        <source>I’m…</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.roleCustomer" datatype="html">
+        <source>Planning an event</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">39,40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.roleCaterer" datatype="html">
+        <source>A caterer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">50,52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.businessName" datatype="html">
+        <source>Business name <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;text-subtle&quot;&gt;"/>(optional)<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">56,57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.email" datatype="html">
+        <source>Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">70,72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.consent" datatype="html">
+        <source>Email me when Sweet Hand opens</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">99,101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.consentSummary" datatype="html">
+        <source>One email, nothing else.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.privacy" datatype="html">
+        <source>Privacy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">101,102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.tryAgain" datatype="html">
+        <source>Try again</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">108,110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.submit" datatype="html">
+        <source>Get the launch email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">110,113</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.sending" datatype="html">
+        <source>Adding you to the list</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">115,118</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

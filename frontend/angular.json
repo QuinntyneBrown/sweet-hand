@@ -160,6 +160,98 @@
           "defaultConfiguration": "production"
         }
       }
+    },
+    "launch": {
+      "projectType": "application",
+      "root": "projects/launch",
+      "sourceRoot": "projects/launch/src",
+      "prefix": "launch",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/launch/src/main.ts",
+            "server": "projects/launch/src/main.server.ts",
+            "outputMode": "static",
+            "outputPath": "dist/launch",
+            "tsConfig": "projects/launch/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/launch/public"
+              }
+            ],
+            "styles": [
+              "../docs/design-system/tokens/tokens.css",
+              "../docs/design-system/assets/components.css"
+            ],
+            "polyfills": [
+              "@angular/localize/init"
+            ],
+            "define": {
+              "LAUNCH_SITE_URL": "'https://sweethand.example'",
+              "LAUNCH_CONTACT_EMAIL": "'hello@sweethand.example'"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "380kB",
+                  "maximumError": "400kB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "launch:build:production"
+            },
+            "development": {
+              "buildTarget": "launch:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "proxyConfig": "proxy.conf.mjs"
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n",
+          "options": {
+            "buildTarget": "launch:build",
+            "outputPath": "projects/launch/src/locale"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/launch/src/**/*.ts",
+              "projects/launch/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "i18n": {
+        "sourceLocale": "en-CA"
+      }
     }
   }
 }

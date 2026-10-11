@@ -8,7 +8,7 @@ module.exports = tseslint.config(
     extends: [...tseslint.configs.recommended, ...angular.configs.tsRecommended],
     processor: angular.processInlineTemplates,
     rules: {
-      '@angular-eslint/component-selector': ['error', { type: 'element', prefix: ['app', 'sh'], style: 'kebab-case' }],
+      '@angular-eslint/component-selector': ['error', { type: 'element', prefix: ['app', 'sh', 'launch'], style: 'kebab-case' }],
       '@angular-eslint/directive-selector': ['error', { type: 'attribute', prefix: ['app', 'sh'], style: 'camelCase' }],
       '@typescript-eslint/no-explicit-any': 'off',
     },
@@ -37,6 +37,23 @@ module.exports = tseslint.config(
           checkText: true,
           checkAttributes: true,
           ignoreAttributes: ['formRole', 'describedByIds', 'controlId', 'controls', 'live', 'headingLevel', 'returnFocus', 'inputId', 'describedBy', 'extraDescribedBy', 'haspopup', 'searchIcon', 'summaryId', 'formAction', 'slot', 'shIcon', 'bodyAs', 'descriptionRole', 'initialFocus', 'formId', 'queryParamsHandling', 'routerLinkActive', 'class', 'id', 'type', 'name', 'autocomplete', 'inputmode', 'autocapitalize', 'enterkeyhint', 'role', 'variant', 'size', 'icon', 'href', 'routerLink', 'for', 'loading', 'tone', 'spellcheck', 'viewBox', 'd', 'cx', 'cy', 'r', 'x', 'y', 'rx', 'width', 'height', 'method', 'action', 'data-label', 'data-text', 'aria-controls', 'aria-describedby', 'aria-labelledby', 'formControlName', 'formGroupName', 'fragment', 'tabindex', 'accept', 'capture', 'min', 'max', 'step', 'pattern', 'maxlength', 'minlength', 'dir', 'lang', 'srcset', 'sizes', 'src', 'target', 'rel', 'value', 'placement', 'align', 'aria-live', 'aria-hidden', 'aria-current', 'aria-haspopup', 'aria-expanded', 'aria-pressed', 'aria-busy', 'aria-modal', 'aria-atomic', 'aria-invalid', 'aria-required', 'aria-autocomplete', 'aria-orientation', 'aria-selected', 'aria-checked', 'aria-disabled', 'aria-level', 'aria-posinset', 'aria-setsize', 'aria-sort', 'decoding', 'fetchpriority', 'datetime', 'download', 'form', 'list', 'wrap', 'cols', 'rows', 'span', 'colspan', 'rowspan', 'scope', 'headers', 'xmlns', 'fill', 'stroke', 'points', 'transform', 'preserveAspectRatio', 'focusable', 'shape', 'kind', 'status', 'state', 'density', 'layout', 'mode', 'track', 'sortKey', 'labelPosition', 'emphasis', 'surface', 'scheme', 'level', 'tag', 'as', 'columns', 'gap', 'width', 'clip', 'count', 'clearHref', 'allHref', 'panelId', 'suggestions', 'viewer', 'basePath', 'currentKind', 'headingId', 'fieldId', 'titleId', 'sendStyle', 'listId', 'family', 'labelledBy', 'ariaLabelledby', 'current', 'legendHeading', 'submitVariant', 'conflictHref'],
+          ignoreTags: ['svg', 'path', 'circle', 'rect', 'polyline', 'line', 'g'],
+        },
+      ],
+    },
+  },
+  {
+    // The launch site's text is externalised with `@@launch.…` IDs (ADR 0005, L2-106.6).
+    files: ['projects/launch/src/app/**/*.html'],
+    rules: {
+      '@angular-eslint/template/i18n': [
+        'error',
+        {
+          checkId: true,
+          checkText: true,
+          checkAttributes: true,
+          requireDescription: false,
+          ignoreAttributes: ['class', 'id', 'type', 'name', 'autocomplete', 'spellcheck', 'role', 'href', 'routerLink', 'for', 'loading', 'fetchpriority', 'src', 'alt', 'width', 'height', 'value', 'maxlength', 'tabindex', 'scope', 'viewBox', 'd', 'cx', 'cy', 'r', 'x', 'y', 'rx', 'aria-hidden', 'aria-describedby', 'aria-labelledby', 'aria-invalid', 'aria-busy', 'aria-disabled', 'aria-live', 'style', 'novalidate'],
           ignoreTags: ['svg', 'path', 'circle', 'rect', 'polyline', 'line', 'g'],
         },
       ],
