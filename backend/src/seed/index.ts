@@ -8,6 +8,7 @@ import { seedPrivacyNotice, seedSessions } from './account.ts';
 import { seedCaterers } from './caterers.ts';
 import { seedReviews } from './reviews.ts';
 import { seedCuisines } from '../discovery/taxonomy.ts';
+import { seedBreaches } from './operator-settings.ts';
 
 export async function castDocuments(): Promise<Record<string, Document[]>> {
   return {
@@ -17,6 +18,7 @@ export async function castDocuments(): Promise<Record<string, Document[]>> {
     caterers: seedCaterers(),
     cuisines: seedCuisines(),
     reviews: seedReviews(),
+    breaches: seedBreaches(),
   };
 }
 
