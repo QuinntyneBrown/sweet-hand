@@ -35,8 +35,10 @@ keep it accurate:
 - `docs/videos/` — narrated walkthroughs (`creating-videos` skill); see its `README.md`
 - `tools/` — video tooling: `video-audio/` (narration), `video-build/` (MP4),
   `video-record/` (screen recordings and the local launch demo stack)
-- `docs/marketing/` — print-ready pre-launch flyer and die-cut stickers, with
+- `docs/marketing/` — print-ready pre-launch flyer, die-cut stickers and WhatsApp Status images, with
   `render.mjs` to regenerate them (see its `README.md`)
+- `docs/business-cards/` — print-ready business cards, one folder per person,
+  with `render.mjs` to regenerate them (see each folder's `README.md`)
 - `frontend/` — Angular workspace (ADR 0001); see `frontend/README.md`
   - `frontend/projects/components/` — `sh-*` design-system component library,
     one folder per CRD under `src/lib/<component>/`

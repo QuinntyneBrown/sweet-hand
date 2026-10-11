@@ -132,6 +132,7 @@ sweet-hand/
 │   ├── adr/                   architecture decision records
 │   ├── technical-debt/        technical-debt registers
 │   ├── marketing/             print-ready flyer and stickers
+│   ├── business-cards/        print-ready business cards
 │   └── videos/                narrated demo videos of the launch app
 ├── tools/          video tooling: narration, screen recordings, MP4 builds
 └── assets/         logo and shared imagery

@@ -11,10 +11,23 @@
   Page 1 = front, page 2 = back. Colours come from docs/design-system/tokens/tokens.css.
 -->
 <style>
+  /* Static weights: a variable font embeds in the PDF as Type 3, which print RIPs reject. */
   @font-face {
     font-family: "Figtree";
-    src: url("fonts/figtree-latin.woff2") format("woff2");
-    font-weight: 300 900;
+    src: url("fonts/figtree-500.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Figtree";
+    src: url("fonts/figtree-600.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Figtree";
+    src: url("fonts/figtree-700.ttf") format("truetype");
+    font-weight: 700;
     font-style: normal;
   }
   :root {
@@ -111,7 +124,7 @@
   .back .foot {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: flex-end;
     border-top: 0.5pt solid var(--stone-200);
     padding-top: 0.07in;
   }
@@ -121,7 +134,11 @@
     letter-spacing: -0.02em;
   }
   .back .foot .brand span { color: var(--pepper-600); }
+  .back .foot .contact { text-align: right; }
+  .back .foot .email,
   .back .foot .url {
+    display: block;
+    line-height: 1.35;
     font-weight: 600;
     font-size: 8pt;
     color: var(--stone-950);
@@ -139,16 +156,18 @@
       justify-content: center;
       padding: 32px 16px;
     }
+    body.proof { padding: 0; gap: 0; display: block; background: transparent; }
     .card { box-shadow: 0 8px 24px rgb(20 19 18 / 0.18); }
+    body.proof .card { box-shadow: none; }
     /* Trim line and safe zone guides */
-    .card::before, .card::after {
+    body:not(.proof) .card::before, body:not(.proof) .card::after {
       content: "";
       position: absolute;
       pointer-events: none;
       z-index: 2;
     }
-    .card::before { inset: var(--bleed); outline: 1px dashed rgb(0 160 255 / 0.9); }
-    .card::after  { inset: var(--safe);  outline: 1px dotted rgb(255 0 160 / 0.7); }
+    body:not(.proof) .card::before { inset: var(--bleed); outline: 1px dashed rgb(0 160 255 / 0.9); }
+    body:not(.proof) .card::after  { inset: var(--safe);  outline: 1px dotted rgb(255 0 160 / 0.7); }
   }
 </style>
 </head>
@@ -174,7 +193,10 @@
       </div>
       <div class="foot">
         <span class="brand">Sweet Hand<span>.</span></span>
-        <span class="url">sweethand.ca</span>
+        <span class="contact">
+          <span class="email">hello@sweethand.ca</span>
+          <span class="url">sweethand.ca</span>
+        </span>
       </div>
     </div>
   </section>

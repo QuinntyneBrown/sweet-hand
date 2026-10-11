@@ -1,10 +1,25 @@
 /* Shared by the flyer and the stickers. Colours are copied by value from
    docs/design-system/tokens/tokens.css (print files cannot @import the web
    tokens), named by their palette step so a token change is easy to follow. */
+/* Static instances of the variable face (figtree-latin.woff2), one per weight
+   in use. Chromium embeds a variable font in a PDF as Type 3, which many
+   print RIPs reject; static TrueType embeds as a normal subset font. */
 @font-face {
   font-family: "Figtree";
-  src: url("fonts/figtree-latin.woff2") format("woff2");
-  font-weight: 300 900;
+  src: url("fonts/figtree-500.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Figtree";
+  src: url("fonts/figtree-600.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Figtree";
+  src: url("fonts/figtree-700.ttf") format("truetype");
+  font-weight: 700;
   font-style: normal;
 }
 
