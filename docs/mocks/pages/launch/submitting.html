@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Launch · submitting — Sweet Hand mocks</title>
+<meta name="mock:kind" content="page">
+<meta name="mock:screen" content="launch">
+<meta name="mock:state" content="submitting">
+<meta name="mock:requirements" content="">
+<meta name="description" content="The form is sending: fields read-only, the button busy.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="page">
+<header class="site-header">
+  <a class="wordmark" href="default.html">Sweet Hand</a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__link site-nav__extra" href="#how">How it works</a>
+    <a class="site-nav__link site-nav__extra" href="#caterers">For caterers</a>
+    <a class="btn btn--sm" href="#notify">Get the launch email</a>
+  </nav>
+</header>
+
+<main id="main">
+<div class="container container--narrow">
+  <div class="page-intro">
+    <div class="photo-row" aria-hidden="true">
+      <span class="photo"><img src="../../assets/img/maracas-bay.jpg" alt="" width="72" height="72"></span>
+      <span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="" width="104" height="104"></span>
+      <span class="photo"><img src="../../assets/img/black-cake-co.jpg" alt="" width="72" height="72"></span>
+    </div>
+    <p class="overline">Opening soon in Toronto and the GTA</p>
+    <h1>Find someone with a sweet hand</h1>
+    <p class="subtitle">Caribbean caterers for weddings, christenings, nine-nights and Sunday lunches, all in one place. Browse by island, area and occasion, then send an enquiry. Free.</p>
+  </div>
+
+  <section class="well stack" id="notify" aria-labelledby="notify-title">
+  <div class="stack stack--sm"><h2 id="notify-title">Tell me when it opens</h2><p class="subtitle">Leave your email and we’ll send one message, the day Sweet Hand opens.</p></div>
+  <form class="form form--compact" action="success.html" method="post" novalidate>
+    <fieldset class="field"><legend class="field__label">I’m…</legend><div class="option-grid"><label class="choice choice--card"><input type="radio" id="role-event" name="role" value="customer" required disabled><span class="choice__text"><span>Planning an event</span><small>A wedding, birthday, repast or Sunday lunch</small></span></label><label class="choice choice--card"><input type="radio" id="role-caterer" name="role" value="caterer" checked disabled><span class="choice__text"><span>A caterer</span><small>I cook Caribbean food for events</small></span></label></div></fieldset>
+    <div class="field"><label class="field__label" for="business">Business name <span class="text-subtle">(optional)</span></label><input class="input input--lg" id="business" name="business" type="text" autocomplete="organization" maxlength="60" aria-describedby="business-help" value="Pelau House" readonly><span class="field__help" id="business-help">So your early profile link greets you by name.</span><span class="visually-hidden" role="status"></span></div>
+    <div class="field"><label class="field__label" for="email">Email</label><input class="input input--lg" id="email" name="email" type="email" autocomplete="email" spellcheck="false" required value="kendra@pelauhouse.example" readonly><span class="visually-hidden" role="status"></span></div>
+    <div class="field"><label class="choice"><input type="checkbox" id="consent" name="consent" required aria-describedby="consent-summary" checked disabled><span class="choice__text"><span>Email me when Sweet Hand opens</span></span></label><p class="consent-summary" id="consent-summary">One email on launch day, nothing else. Caterers also get one early link to set up their profile. We delete your address 30 days after launch. <a href="#privacy">How we use your email</a></p><span class="visually-hidden" role="status"></span></div>
+    <button class="btn btn--primary btn--lg btn--block" type="submit" aria-busy="true" aria-disabled="true">Get the launch email</button><p class="visually-hidden" role="status">Adding you to the list</p>
+  </form>
+  </section>
+</div>
+
+<section class="container section-gap" aria-labelledby="taste-title">
+  <div class="stack stack--sm section">
+    <h2 id="taste-title">Every island, every table</h2>
+    <p class="subtitle measure">Jamaican, Trinidadian and Tobagonian, Guyanese, Haitian, Bajan, Grenadian, St. Lucian and more, cooked by the people who grew up on it.</p>
+  </div>
+  <ul class="occasion-grid">
+      <li><div class="caterer-card"><span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="" width="280" height="280"></span><span class="caterer-card__name">Chicken pelau</span><span class="caterer-card__meta">Trinidadian &amp; Tobagonian</span></div></li>
+      <li><div class="caterer-card"><span class="photo"><img src="../../assets/img/cook-up.jpg" alt="" width="280" height="280"></span><span class="caterer-card__name">Cook-up rice</span><span class="caterer-card__meta">Guyanese</span></div></li>
+      <li><div class="caterer-card"><span class="photo"><img src="../../assets/img/ti-kay.jpg" alt="" width="280" height="280"></span><span class="caterer-card__name">Shrimp and tomato rice</span><span class="caterer-card__meta">Haitian</span></div></li>
+      <li><div class="caterer-card"><span class="photo"><img src="../../assets/img/black-cake-co.jpg" alt="" width="280" height="280"></span><span class="caterer-card__name">Black cake</span><span class="caterer-card__meta">Jamaican</span></div></li>
+      <li><div class="caterer-card"><span class="photo"><img src="../../assets/img/sugar-dumplin.jpg" alt="" width="280" height="280" loading="lazy"></span><span class="caterer-card__name">Sugar dumplings</span><span class="caterer-card__meta">Antiguan &amp; Barbudan</span></div></li>
+      <li><div class="caterer-card"><span class="photo"><img src="../../assets/img/sunday-pot.jpg" alt="" width="280" height="280" loading="lazy"></span><span class="caterer-card__name">Spiced rice</span><span class="caterer-card__meta">St. Lucian</span></div></li>
+      <li><div class="caterer-card"><span class="photo"><img src="../../assets/img/scotch-bonnet-social.jpg" alt="" width="280" height="280" loading="lazy"></span><span class="caterer-card__name">Curry chicken</span><span class="caterer-card__meta">Jamaican</span></div></li>
+      <li><div class="caterer-card"><span class="photo"><img src="../../assets/img/sorrel-and-spice.jpg" alt="" width="280" height="280" loading="lazy"></span><span class="caterer-card__name">Celebration cake</span><span class="caterer-card__meta">Grenadian</span></div></li>
+  </ul>
+</section>
+
+<section class="container section-gap" id="how" aria-labelledby="how-title">
+  <h2 id="how-title" class="section">How it will work</h2>
+  <div class="grid grid--auto">
+    <div class="stack stack--sm"><h3>1. Browse</h3><p class="text-muted">Filter caterers by island, by area from Oshawa to Oakville, and by occasion. No account needed.</p></div>
+    <div class="stack stack--sm"><h3>2. Enquire</h3><p class="text-muted">Send your date, guest count and what you’d love to eat. The caterer replies in your Sweet Hand inbox.</p></div>
+    <div class="stack stack--sm"><h3>3. Agree it together</h3><p class="text-muted">Settle the menu and price directly with the caterer. No fees, and no money moves through Sweet Hand.</p></div>
+  </div>
+</section>
+
+<section class="container container--narrow section-gap" id="caterers" aria-labelledby="caterers-title">
+  <div class="stack">
+    <span class="photo photo--md"><img src="../../assets/img/demerara-kitchen.jpg" alt="" width="96" height="96" loading="lazy"></span>
+    <h2 id="caterers-title">Cook for events? Be there on day one.</h2>
+    <div class="prose">
+      <p>Listing is free. Join the list as a caterer and we’ll send you an early link to build your profile, so customers can find you the day we open.</p>
+      <p>You’ll need photos of your own food, a few sample dishes, and a current food handler certificate. Our team reviews every profile before it goes live.</p>
+    </div>
+    <div class="cluster"><a class="btn" href="caterer.html#notify">Join as a caterer</a></div>
+  </div>
+</section>
+
+<section class="container container--narrow section-gap" id="privacy" aria-labelledby="privacy-title">
+  <h2 id="privacy-title" class="section">Your email, briefly</h2>
+  <ul class="prose">
+    <li>We use it to confirm your sign-up and send one email when Sweet Hand opens. Caterers also get one link to set up a profile.</li>
+    <li>We delete it 30 days after launch, or the moment you remove it.</li>
+    <li>It’s stored in Canada and never sold or shared.</li>
+    <li>Questions? Write to <a href="mailto:privacy@sweethand.example">privacy@sweethand.example</a>.</li>
+  </ul>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__brand"><strong>Sweet Hand</strong><span>Caribbean caterers in Toronto and the GTA. Opening soon.</span></div>
+  <nav aria-label="Footer">
+    <ul>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#caterers">For caterers</a></li>
+      <li><a href="#privacy">Privacy</a></li>
+    </ul>
+  </nav>
+</footer>
+</div>
+
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Launch</span>
+  <ul class="mock-bar__states">
+    <li><a href="default.html">default</a></li>
+    <li><a href="caterer.html">caterer</a></li>
+    <li><a href="invalid.html">invalid</a></li>
+    <li><a href="submitting.html" aria-current="page">submitting</a></li>
+    <li><a href="error.html">error</a></li>
+    <li><a href="success.html">success</a></li>
+    <li><a href="confirmed.html">confirmed</a></li>
+    <li><a href="link-expired.html">link-expired</a></li>
+    <li><a href="unsubscribed.html">unsubscribed</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>
