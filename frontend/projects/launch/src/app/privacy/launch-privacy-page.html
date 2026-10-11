@@ -1,0 +1,51 @@
+<article class="container" style="max-width: var(--layout-measure); margin-inline: auto">
+  <div class="page-intro">
+    <h1 i18n="@@launch.privacy.heading">Privacy notice</h1>
+    <p class="subtitle" i18n="@@launch.privacy.subtitle">Before Sweet Hand opens</p>
+  </div>
+  <div class="prose">
+    <p i18n="@@launch.privacy.intro">Sweet Hand hasn’t opened yet. Until it does, the only personal information we collect is what you give us to join the launch list. We follow Canada’s Personal Information Protection and Electronic Documents Act (PIPEDA) and Canada’s Anti-Spam Legislation (CASL).</p>
+
+    <h2 id="launch-list" i18n="@@launch.privacy.listHeading">The launch list</h2>
+    <h3 i18n="@@launch.privacy.purposeHeading">Why we collect it</h3>
+    <p i18n="@@launch.privacy.purpose">To send you one email on the day Sweet Hand opens. We never use the list for anything else, never link it to an account, and never share it with caterers.</p>
+    <h3 i18n="@@launch.privacy.dataHeading">What we keep</h3>
+    <ul>
+      <li i18n="@@launch.privacy.dataEmail">Your email address, and whether you’re planning an event or a caterer.</li>
+      <li i18n="@@launch.privacy.dataBusiness">Your business name, if you’re a caterer and chose to give it.</li>
+      <li i18n="@@launch.privacy.dataConsent">A record of your consent: the words you agreed to, this notice’s version, the page, and when you signed up and confirmed.</li>
+    </ul>
+    <h3 i18n="@@launch.privacy.processorHeading">Who processes it, and where</h3>
+    <p i18n="@@launch.privacy.processor">Our email provider sends the confirmation and launch-day emails. The list, its backups and our email provider are all in Canada.</p>
+    <h3 i18n="@@launch.privacy.retentionHeading">How long we keep it</h3>
+  </div>
+  <div class="table-wrap" style="margin-block: var(--space-6)">
+    <table class="table">
+      <caption class="visually-hidden" i18n="@@launch.privacy.retentionCaption">How long Sweet Hand keeps the launch list</caption>
+      <thead>
+        <tr>
+          <th scope="col" i18n="@@launch.privacy.retentionInformation">Information</th>
+          <th scope="col" i18n="@@launch.privacy.retentionKept">Kept for</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row" i18n="@@launch.privacy.retentionUnconfirmed">An address you haven’t confirmed</th>
+          <td i18n="@@launch.privacy.retentionUnconfirmedFor">48 hours after the last confirmation email</td>
+        </tr>
+        <tr>
+          <th scope="row" i18n="@@launch.privacy.retentionConfirmed">A confirmed address</th>
+          <td i18n="@@launch.privacy.retentionConfirmedFor">30 days after launch day, or at once if you remove it</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose">
+    <h3 i18n="@@launch.privacy.leaveHeading">How to leave the list</h3>
+    <p i18n="@@launch.privacy.leave">Use the removal link in any email we send, or “Remove my email” after you confirm. There’s no sign-in and no second step: your details are deleted at once, and from backups within 35 days.</p>
+    <h2 i18n="@@launch.privacy.cookiesHeading">Cookies</h2>
+    <p i18n="@@launch.privacy.cookies">Opening the page sets no cookies. When you sign up, confirm or leave, we set a security token cookie that stops other sites acting as you. There are no analytics, advertising or tracking cookies.</p>
+    <h2 i18n="@@launch.privacy.contactHeading">Contact us</h2>
+    <p><ng-container i18n="@@launch.privacy.contact">Write to</ng-container> <a [href]="'mailto:' + config.contactEmail">{{ config.contactEmail }}</a>.</p>
+  </div>
+</article>

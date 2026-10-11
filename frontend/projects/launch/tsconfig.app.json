@@ -1,0 +1,8 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/launch",
+    "types": ["node", "@angular/localize"]
+  },
+  "include": ["src/**/*.ts"]
+}

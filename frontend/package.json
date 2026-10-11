@@ -3,13 +3,18 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently -k -n backend,sweet-hand \"npm run backend\" \"ng serve\"",
+    "start": "concurrently -k -n backend,sweet-hand \"npm run backend\" \"ng serve sweet-hand\"",
     "build": "ng build sweet-hand",
     "backend": "npm --prefix ../backend start",
     "e2e": "playwright test",
     "lint": "ng lint sweet-hand",
     "extract-i18n": "ng extract-i18n sweet-hand",
-    "typecheck": "tsc -p projects/api/tsconfig.lib.json --noEmit && tsc -p projects/sweet-hand/tsconfig.app.json --noEmit && tsc -p e2e/tsconfig.json --noEmit"
+    "typecheck": "tsc -p projects/api/tsconfig.lib.json --noEmit && tsc -p projects/sweet-hand/tsconfig.app.json --noEmit && tsc -p projects/launch/tsconfig.app.json --noEmit && tsc -p e2e/tsconfig.json --noEmit",
+    "start:launch": "concurrently -k -n backend,launch \"npm run backend\" \"ng serve launch\"",
+    "build:launch": "ng build launch && node scripts/check-launch-size.mjs",
+    "lint:launch": "ng lint launch",
+    "test:launch": "playwright test --project=launch",
+    "extract-i18n:launch": "ng extract-i18n launch"
   },
   "private": true,
   "packageManager": "npm@10.9.4",
@@ -21,7 +26,9 @@
     "@angular/forms": "^21.2.0",
     "@angular/localize": "^21.2.0",
     "@angular/platform-browser": "^21.2.0",
+    "@angular/platform-server": "^21.2.25",
     "@angular/router": "^21.2.0",
+    "@angular/ssr": "^21.2.26",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

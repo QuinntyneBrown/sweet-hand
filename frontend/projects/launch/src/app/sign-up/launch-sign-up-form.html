@@ -1,0 +1,36 @@
+<h2 id="notify-title" i18n="@@launch.signUp.heading">Get the launch email</h2>
+<form class="form form--compact" novalidate (submit)="submit($event)">
+  <fieldset class="field">
+    <legend class="field__label" i18n="@@launch.signUp.roleLegend">I’m…</legend>
+    <div class="option-grid">
+      <label class="choice choice--card"
+        ><input type="radio" id="role-event" name="role" value="customer" required [checked]="values().role === 'customer'" (change)="chooseRole('customer')" /><span class="choice__text"
+          ><span i18n="@@launch.signUp.roleCustomer">Planning an event</span></span
+        ></label
+      ><label class="choice choice--card"
+        ><input type="radio" id="role-caterer" name="role" value="caterer" [checked]="values().role === 'caterer'" (change)="chooseRole('caterer')" /><span class="choice__text"
+          ><span i18n="@@launch.signUp.roleCaterer">A caterer</span></span
+        ></label
+      >
+    </div>
+  </fieldset>
+  @if (values().role === 'caterer') {
+    <div class="field">
+      <label class="field__label" for="business" i18n="@@launch.signUp.businessName">Business name <span class="text-subtle">(optional)</span></label>
+      <input class="input input--lg" id="business" name="business" type="text" autocomplete="organization" maxlength="60" [value]="values().businessName" (input)="setBusinessName($any($event.target).value)" />
+    </div>
+  }
+  <div class="field">
+    <label class="field__label" for="email" i18n="@@launch.signUp.email">Email</label>
+    <input class="input input--lg" id="email" name="email" type="email" autocomplete="email" spellcheck="false" required [value]="values().email" (input)="setEmail($any($event.target).value)" />
+  </div>
+  <div class="field">
+    <label class="choice"
+      ><input type="checkbox" id="consent" name="consent" required aria-describedby="consent-summary" [checked]="values().consent" (change)="setConsent($any($event.target).checked)" /><span class="choice__text"
+        ><span i18n="@@launch.signUp.consent">Email me when Sweet Hand opens</span></span
+      ></label
+    >
+    <p class="consent-summary" id="consent-summary"><ng-container i18n="@@launch.signUp.consentSummary">One email, nothing else.</ng-container> <a routerLink="/privacy" i18n="@@launch.signUp.privacy">Privacy</a></p>
+  </div>
+  <button class="btn btn--primary btn--lg btn--block" type="submit" i18n="@@launch.signUp.submit">Get the launch email</button>
+</form>

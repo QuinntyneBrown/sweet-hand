@@ -193,6 +193,8 @@ export * from './lib/services/http-reports.service';
 export * from './lib/services/http-reviews.service';
 export * from './lib/services/http-session.service';
 export * from './lib/services/identity.service';
+export * from './lib/services/http-launch-list.service';
+export * from './lib/services/launch-list.service';
 export * from './lib/services/local-bot-challenge.service';
 export * from './lib/services/local-security-key.service';
 export * from './lib/services/metrics.service';

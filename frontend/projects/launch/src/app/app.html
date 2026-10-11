@@ -1,0 +1,23 @@
+<a class="skip-link" href="#main" i18n="@@launch.skipLink">Skip to main content</a>
+<div class="page">
+  <header class="site-header">
+    <a class="wordmark" routerLink="/" i18n="@@launch.brand">Sweet Hand</a>
+    <nav class="site-nav" aria-label="Primary" i18n-aria-label="@@launch.nav.primary">
+      <a class="btn btn--sm" [href]="onLaunchPage ? '#notify' : '/#notify'" (click)="goToForm($event)" i18n="@@launch.header.getEmail">Get the launch email</a>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <router-outlet />
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__brand"><strong i18n="@@launch.brand">Sweet Hand</strong></div>
+    <nav aria-label="Footer" i18n-aria-label="@@launch.nav.footer">
+      <ul>
+        <li><a [routerLink]="config.privacyPath" i18n="@@launch.footer.privacy">Privacy</a></li>
+        <li><a [href]="'mailto:' + config.contactEmail" i18n="@@launch.footer.contact">Contact</a></li>
+      </ul>
+    </nav>
+  </footer>
+</div>

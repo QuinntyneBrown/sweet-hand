@@ -1,0 +1,6 @@
+/* At 320 px the wordmark and the header button only just fit: tighten the button's padding (L2-106.1). */
+@media (max-width: 22.5rem) {
+  .site-nav .btn {
+    padding-inline: var(--space-2);
+  }
+}
