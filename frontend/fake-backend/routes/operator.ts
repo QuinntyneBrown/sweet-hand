@@ -17,7 +17,9 @@ import type {
   CatererStatusFilter,
   CertificateView,
   DecisionResult,
+  EditableField,
   NameChangeReviewView,
+  RemoveItemResult,
   OwnerView,
   PublicProfileView,
   ReviewHistoryView,
@@ -412,7 +414,7 @@ export function audit(
   return entry;
 }
 
-export function email(store: Store, to: string, kind: string, extra: { reason?: string; link?: string } = {}): void {
+export function email(store: Store, to: string, kind: string, extra: { reason?: string; link?: string; replaceBy?: string } = {}): void {
   store.operator.moderation.emails.push({ to, kind, at: store.now.toISOString(), ...extra });
 }
 
@@ -703,8 +705,119 @@ function registerStatusActions(r: Router<Store>): void {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Operator edits (edit-profile-as-operator design, L2-057)
+// ---------------------------------------------------------------------------
+
+/** The publish minimums of L2-039 that an operator removal may break (L2-057.2). */
+const MIN_PHOTOS = 3;
+const MIN_DISHES = 3;
+const REPLACE_WITHIN_DAYS = 14;
+
+type EditResult = { before: unknown; after: unknown } | { errors: Record<string, string[]> };
+
+/** Validates and applies one field, with the rules the caterer's editor uses. */
+function applyEdit(store: Store, c: Caterer, field: EditableField, value: unknown): EditResult {
+  const names = (v: unknown) =>
+    (Array.isArray(v) ? v : String(v ?? '').split(','))
+      .map((x) => String(x).trim())
+      .filter(Boolean);
+  switch (field) {
+    case 'name': {
+      const name = trimmed(value);
+      if (!name) return { errors: { value: ['Enter the business name'] } };
+      const before = { name: c.name, slug: c.slug };
+      if (name !== c.name) {
+        c.previousSlugs.push(c.slug);
+        c.name = name;
+        c.slug = slugify(name.replace(/[’']/g, ''));
+      }
+      return { before, after: { name: c.name, slug: c.slug } };
+    }
+    case 'description': {
+      const text = typeof value === 'string' ? value.trim() : '';
+      const n = [...text].length;
+      if (n < 50 || n > 2000) return { errors: { value: ['Write 50 to 2,000 characters'] } };
+      const before = { description: c.description };
+      c.description = text;
+      return { before, after: { description: text } };
+    }
+    case 'guests': {
+      const v = (value ?? {}) as { min?: unknown; max?: unknown };
+      const min = Number(v.min);
+      const max = Number(v.max);
+      if (!Number.isInteger(min) || min < 1) return { errors: { min: ['Enter the fewest guests as a whole number'] } };
+      if (!Number.isInteger(max) || max < min) return { errors: { max: ['Make the most guests at least the fewest'] } };
+      const before = { minGuests: c.minGuests, maxGuests: c.maxGuests };
+      c.minGuests = min;
+      c.maxGuests = max;
+      return { before, after: { minGuests: min, maxGuests: max } };
+    }
+    case 'cuisines':
+    case 'areas':
+    case 'occasions': {
+      const list = names(value);
+      const known: { id: string; name: string }[] =
+        field === 'cuisines' ? store.cuisines.filter((x) => !x.retired) : field === 'areas' ? store.regions.flatMap((rg) => rg.areas) : OCCASIONS;
+      const listName = field === 'cuisines' ? 'cuisine' : field === 'areas' ? 'service area' : 'occasion';
+      const unknown = list.find((n) => !known.some((k) => k.name.toLocaleLowerCase('en-CA') === n.toLocaleLowerCase('en-CA')));
+      if (!list.length) return { errors: { value: [`Choose at least one ${listName}`] } };
+      if (unknown) return { errors: { value: [`“${unknown}” isn’t on the ${listName} list`] } };
+      if (field === 'cuisines' && list.length > 5) return { errors: { value: ['Choose up to 5 cuisines'] } };
+      const ids = list.map((n) => known.find((k) => k.name.toLocaleLowerCase('en-CA') === n.toLocaleLowerCase('en-CA'))!.id);
+      const before = { [field]: [...c[field]] };
+      c[field] = ids;
+      return { before, after: { [field]: ids } };
+    }
+    default:
+      return { errors: { field: ['Choose a field'] } };
+  }
+}
+
+function registerEdits(r: Router<Store>): void {
+  r.patch('/api/operator/profiles/:id', (ctx) => {
+    const t = target(ctx);
+    if (!('c' in t)) return t;
+    const { who, c } = t;
+    const store = ctx.store;
+    const reason = trimmed(ctx.body?.reason);
+    if (c.status === 'Removed') return stale(c);
+    const result = applyEdit(store, c, ctx.body?.field as EditableField, ctx.body?.value);
+    if ('errors' in result) return invalid(reason ? result.errors : { ...result.errors, reason: ['Add a reason for this change'] });
+    if (!reason) return reasonRequired();
+    store.operator.moderation.updatedAt[c.id] = store.now.toISOString();
+    audit(store, who, 'Edit', 'CatererProfile', c.id, reason, result.before, result.after);
+    email(store, catererOwner(store, c).email, 'operator-edit', { reason });
+    return ok(catererRecord(store, c));
+  });
+
+  const removeItem = (kind: 'photo' | 'dish') => (ctx: Ctx<Store>) => {
+    const t = target(ctx);
+    if (!('c' in t)) return t;
+    const { who, c } = t;
+    const store = ctx.store;
+    const reason = trimmed(ctx.body?.reason);
+    if (!reason) return reasonRequired();
+    if (c.status === 'Removed') return stale(c);
+    const list: { id: string }[] = kind === 'photo' ? c.photos : c.dishes;
+    const item = list.find((x) => x.id === ctx.params['item']);
+    if (!item) return notFound();
+    list.splice(list.indexOf(item), 1);
+    const short = kind === 'photo' ? c.photos.length < MIN_PHOTOS : c.dishes.length < MIN_DISHES;
+    const replaceBy = short ? torontoDate(new Date(store.now.getTime() + REPLACE_WITHIN_DAYS * DAY_MS)) : null;
+    store.operator.moderation.updatedAt[c.id] = store.now.toISOString();
+    audit(store, who, kind === 'photo' ? 'Remove photo' : 'Remove dish', 'CatererProfile', c.id, reason, { [kind]: item }, null);
+    email(store, catererOwner(store, c).email, kind === 'photo' ? 'operator-removed-photo' : 'operator-removed-dish', { reason, ...(replaceBy ? { replaceBy } : {}) });
+    const view: RemoveItemResult = { replaceBy };
+    return ok(view);
+  };
+  r.delete('/api/operator/profiles/:id/photos/:item', removeItem('photo'));
+  r.delete('/api/operator/profiles/:id/menu-items/:item', removeItem('dish'));
+}
+
 /** Fake endpoints of the operator area. */
 export function registerOperator(r: Router<Store>): void {
+  registerEdits(r);
   registerStatusActions(r);
   registerCaterers(r);
   registerQueue(r);

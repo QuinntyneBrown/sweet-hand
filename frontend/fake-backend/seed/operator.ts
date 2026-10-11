@@ -68,6 +68,8 @@ export interface ModerationEmail {
   at: string;
   reason?: string;
   link?: string;
+  /** When a removed photo or dish must be replaced by (L2-057.2), YYYY-MM-DD. */
+  replaceBy?: string;
 }
 
 export interface ModerationState {

@@ -9,6 +9,7 @@ import { summaryHeading } from '../../../../core/forms/validation';
 import { reasonError } from '../decisions/decision-text';
 import { ReasonDialog } from '../decisions/reason-dialog';
 import { RemoveDialog } from '../decisions/remove-dialog';
+import { OperatorEditDialog, type EditOutcome } from '../decisions/operator-edit-dialog';
 import { shortDate } from '../../../../core/format/format';
 import { Session } from '../../../../core/session/session';
 import { guestRange } from '../../../discovery/caterer/caterer-view';
@@ -38,7 +39,7 @@ export type RecordDialog = 'edit' | 'suspend' | 'reinstate' | 'remove';
  */
 @Component({
   selector: 'app-caterer-record-page',
-  imports: [RouterLink, Alert, BackLink, Button, Checklist, ChecklistItem, EMPTY_STATE, Icon, PhotoRow, Status, ReasonDialog, RemoveDialog],
+  imports: [RouterLink, Alert, BackLink, Button, Checklist, ChecklistItem, EMPTY_STATE, Icon, PhotoRow, Status, ReasonDialog, RemoveDialog, OperatorEditDialog],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './caterer-record.page.html',
   styleUrl: './caterer-record.page.css',
@@ -157,6 +158,24 @@ export class CatererRecordPage {
     this.toasts.show(toast);
     this.record.reload();
     void this.session.refresh();
+  }
+
+  /** An operator edit is live; removals below the minimums give the caterer 14 days (L2-057.1–2). */
+  protected edited(outcome: EditOutcome): void {
+    const r = this.r();
+    const first = firstName(r.owner.name);
+    this.dialog.set(null);
+    const live = $localize`:@@edit.toastText:Live within a minute. ${first}:name: has been emailed your reason.`;
+    if (outcome.kind === 'edit') {
+      this.toasts.show({ title: $localize`:@@edit.toastTitle:Change saved`, text: live });
+    } else {
+      const title = outcome.kind === 'photo' ? $localize`:@@edit.photoRemoved:Photo removed` : $localize`:@@edit.dishRemoved:Dish removed`;
+      const text = outcome.replaceBy
+        ? $localize`:@@edit.belowMinimum:${r.name}:business: is below the minimum now. ${first}:name: has until ${shortDate(outcome.replaceBy)}:date: to add a replacement.`
+        : live;
+      this.toasts.show({ title, text });
+    }
+    this.record.reload();
   }
 
   /** The server did not answer: nothing changed; Try again reopens the dialog with the reason (admin-toast/danger). */

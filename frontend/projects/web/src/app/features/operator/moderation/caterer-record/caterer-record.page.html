@@ -260,5 +260,6 @@
   >
     <p slot="after" class="text-caption" i18n="@@reinstate.caption">Enquiries closed by the suspension stay closed.</p>
   </app-reason-dialog>
+  <app-operator-edit-dialog [open]="dialog() === 'edit'" [record]="r" [returnFocus]="opener()" (dismissed)="dialog.set(null)" (done)="edited($event)" />
   <app-remove-dialog [open]="dialog() === 'remove'" [record]="r" [returnFocus]="opener()" (dismissed)="dialog.set(null)" (done)="changed('removed', $event)" />
 }
