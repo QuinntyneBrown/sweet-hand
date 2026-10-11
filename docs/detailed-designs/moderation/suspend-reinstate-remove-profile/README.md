@@ -21,8 +21,9 @@ lifecycle described in decide-profile-approval (`L2-046`).
 
 The slice runs from an operator screen to the database, object storage, the CDN
 and the email provider, and also covers the public caterer page response.
-Technology choices for every container are `<TO SUPPLY>` pending architecture
-decision records (ADRs) in `docs/adr/`.
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`.
 
 **Transitions used (`L2-046`).** `Published` → `Suspended` (operator, with a
 reason); `Suspended` → `Published` (operator, reinstate); any status except

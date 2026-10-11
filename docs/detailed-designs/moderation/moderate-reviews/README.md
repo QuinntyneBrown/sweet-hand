@@ -19,8 +19,9 @@ set. Writing and showing reviews belong to the reviews subsystem.
 ## Description
 
 The slice runs from an operator screen to the database and the email provider.
-Technology choices for every container are `<TO SUPPLY>` pending architecture
-decision records (ADRs) in `docs/adr/`.
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`.
 
 **Review status transitions.** `Review` allows these operator transitions and
 returns HTTP 409 for any other:

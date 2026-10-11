@@ -21,8 +21,8 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(repo, "CatererProfileRepository", "Infrastructure", "Profiles, history, snapshots")
   Component(jobs, "JobQueue", "Infrastructure", "Transactional outbox")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles, history, audit log")
-ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Notification jobs")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Profiles, history, audit log")
+ContainerQueue(queue, "Job queue", "pg-boss (PostgreSQL)", "Notification jobs")
 
 Rel(operator, screen, "Uses", "HTTPS")
 Rel(screen, approveDlg, "Opens")

@@ -21,9 +21,9 @@ its entry in the same unit of work as the action itself. Entries are kept for
 ## Description
 
 The slice runs from the Admin audit log screen to the database, and includes
-the shared write path used by every operator command. Technology choices for
-every container are `<TO SUPPLY>` pending architecture decision records (ADRs)
-in `docs/adr/`.
+the shared write path used by every operator command. Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`.
 
 **Frontend — Sweet Hand web application**
 

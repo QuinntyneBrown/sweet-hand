@@ -19,8 +19,8 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(repos, "Repositories", "Infrastructure", "ReviewQueue, CatererProfile, ProfileEdit")
   Component(objStore, "ObjectStore", "Infrastructure", "Time-limited certificate URLs")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Queue items, profiles, snapshots, edits")
-ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Certificate files")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Queue items, profiles, snapshots, edits")
+ContainerDb(storage, "Object storage", "S3-compatible object storage", "Certificate files")
 
 Rel(operator, queuePage, "Uses", "HTTPS")
 Rel(queuePage, client, "Loads queue")

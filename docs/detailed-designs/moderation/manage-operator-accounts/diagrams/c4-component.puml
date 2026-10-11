@@ -23,7 +23,7 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(sessions, "SessionStore", "Infrastructure", "Server-side sessions")
   Component(logs, "AuditLog / SecurityLog", "Infrastructure", "Audit and security events")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Accounts, sessions, audit log")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Accounts, sessions, audit log")
 
 Rel(admin, accountsPage, "Uses", "HTTPS")
 Rel(operator, nav, "Sees items for their permissions")

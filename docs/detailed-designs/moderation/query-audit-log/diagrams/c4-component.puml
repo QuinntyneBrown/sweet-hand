@@ -20,7 +20,7 @@ Container_Boundary(api, "Sweet Hand API") {
 Container_Boundary(worker, "Sweet Hand background worker") {
   Component(retention, "RetentionJob", "Scheduled job", "Deletes entries older than 7 years")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Audit table: INSERT and SELECT for the application account")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Audit table: INSERT and SELECT for the application account")
 
 Rel(admin, page, "Uses", "HTTPS")
 Rel(page, dialog, "Opens entry")
