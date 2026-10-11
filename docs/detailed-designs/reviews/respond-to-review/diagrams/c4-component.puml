@@ -21,8 +21,8 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(revRepo, "ReviewRepository", "Repository", "Reviews and responses")
   Component(jobQueue, "JobQueue", "Infrastructure", "Enqueues jobs in the unit of work")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Reviews and responses")
-ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent queue of background jobs")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Reviews and responses")
+ContainerQueue(queue, "Job queue", "pg-boss (PostgreSQL)", "Persistent queue of background jobs")
 Container_Boundary(worker, "Sweet Hand background worker") {
   Component(job, "SendNotificationJob", "Job", "Emails the reviewer")
 }
@@ -47,5 +47,5 @@ Rel(postH, jobQueue, "Enqueues notification")
 Rel(revRepo, db, "Reads and writes")
 Rel(jobQueue, queue, "Writes")
 Rel(job, queue, "Reads")
-Rel(job, email, "Sends", "<TO SUPPLY>")
+Rel(job, email, "Sends", "HTTPS")
 @enduml

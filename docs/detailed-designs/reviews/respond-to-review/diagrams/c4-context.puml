@@ -9,6 +9,6 @@ System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers w
 System_Ext(email, "Email provider", "Sends transactional email")
 
 Rel(caterer, sweethand, "Posts, edits and deletes review responses using", "HTTPS")
-Rel(sweethand, email, "Sends response notification via", "<TO SUPPLY>")
+Rel(sweethand, email, "Sends response notification via", "HTTPS")
 Rel(email, customer, "Delivers response notification to", "Email")
 @enduml

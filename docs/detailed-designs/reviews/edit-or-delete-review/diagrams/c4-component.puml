@@ -20,7 +20,7 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(screen, "ReviewContentScreen", "Domain service", "Detects URL, email and phone")
   Component(repo, "ReviewRepository", "Repository", "Reviews, responses, summary, queue items")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Reviews and rating summaries")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Reviews and rating summaries")
 
 Rel(customer, page, "Uses", "HTTPS")
 Rel(page, editDlg, "Opens")
