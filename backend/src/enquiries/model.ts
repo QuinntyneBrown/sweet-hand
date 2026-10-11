@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import type { Document, Transaction } from '../platform/database.ts';
 import type { EnquiryStatus } from '@contract/enquiry-status.ts';
 import type { FitWarning } from '@contract/fit-warning.ts';
@@ -36,3 +37,14 @@ export interface Enquiry extends Document {
 }
 
 export const enquiries = (tx: Transaction) => tx.collection<Enquiry>('enquiries');
+
+/**
+ * A UUIDv4-shaped id derived from a fixed name, for seeded records only, so
+ * seeding stays idempotent. Records created at run time use `randomUUID()`
+ * (L2-034.2).
+ */
+export function stableUuid(name: string): string {
+  const h = createHash('sha256').update(`sweet-hand:${name}`).digest('hex');
+  const variant = ((parseInt(h[16], 16) & 0x3) | 0x8).toString(16);
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-4${h.slice(13, 16)}-${variant}${h.slice(17, 20)}-${h.slice(20, 32)}`;
+}
