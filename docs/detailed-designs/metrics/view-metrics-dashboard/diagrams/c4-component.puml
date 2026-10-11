@@ -23,7 +23,7 @@ Container_Boundary(worker, "Sweet Hand background worker") {
   Component(job, "AggregateMetricsJob", "Scheduled job", "Recomputes recent days")
   Component(aggregator, "DailyMetricsAggregator", "Domain service", "Counts one day from source records")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Source records and daily aggregates")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Source records and daily aggregates")
 
 Rel(operator, page, "Uses", "HTTPS")
 Rel(page, chart, "Renders")

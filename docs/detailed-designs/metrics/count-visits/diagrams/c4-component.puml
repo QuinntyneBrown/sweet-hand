@@ -22,7 +22,7 @@ Container_Boundary(api, "Sweet Hand API") {
 Container_Boundary(worker, "Sweet Hand background worker") {
   Component(rotate, "RotateDailySaltJob", "Scheduled job", "Deletes salts for earlier days")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Hashed visit analytics and daily salt")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Hashed visit analytics and daily salt")
 
 Rel(visitor, beacon, "Loads page with", "HTTPS")
 Rel(beacon, client, "Reports visit")

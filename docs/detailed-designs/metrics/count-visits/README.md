@@ -29,8 +29,10 @@ Terms used in this document:
 
 ## Description
 
-Technology choices for every component below are `<TO SUPPLY>`, pending
-architecture decision records in `docs/adr/`. The components are named by role.
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`. The components are named by
+role.
 
 Public pages are served through the CDN, which caches HTML for 60 seconds or
 less (`L2-087 AC4`). A cached page never reaches the application servers, so

@@ -5,11 +5,11 @@ title Containers — Export metrics as CSV
 
 Person(operator, "Operator", "Member of the Sweet Hand team")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Metrics dashboard with the Export CSV control")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Builds the report and writes the CSV")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Daily metric aggregates")
+  Container(web, "Sweet Hand web application", "Angular 21", "Metrics dashboard with the Export CSV control")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "Builds the report and writes the CSV")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Daily metric aggregates")
 }
 Rel(operator, web, "Activates Export CSV", "HTTPS")
 Rel(web, api, "Requests CSV download", "HTTPS")
-Rel(api, db, "Reads daily aggregates", "<TO SUPPLY>")
+Rel(api, db, "Reads daily aggregates", "Drizzle ORM (SQL)")
 @enduml
