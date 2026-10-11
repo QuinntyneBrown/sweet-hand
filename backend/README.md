@@ -49,7 +49,9 @@ test/
 - **Every route declares an endpoint policy**: `anonymous` (an explicit,
   commented choice), `roles(...)`, `signedIn` or `admins`. The authorisation
   test checks every protected route returns 401 to visitors and 403 to roles
-  it does not allow (L2-079.3).
+  it does not allow (L2-079.3). A route may pass a `refusal` option to
+  give its 403 a specific body (Admin-only routes name the Admins to ask,
+  L2-056.5); the pipeline still makes the decision and logs it.
 - **Records are scoped to the caller.** A record the caller may not see is a
   404 identical to a missing one. Bodies are read field by field into
   commands, so fields such as `status` or `ownerId` are ignored (L2-079.2).

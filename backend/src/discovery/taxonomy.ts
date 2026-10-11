@@ -9,6 +9,10 @@ export interface Cuisine extends Document {
   addedAt: string;
   /** Display order: the seeded list, then additions in the order they were made. */
   position: number;
+  /** The operator (user id) who added it after launch (L2-007.4). */
+  addedBy?: string;
+  /** When an operator retired it (L2-007.5). */
+  retiredAt?: string;
 }
 
 export const CUISINE_NAMES = [

@@ -11,6 +11,7 @@ import { seedEnquiries } from './enquiries.ts';
 import { seedReviewEnquiries } from './review-enquiries.ts';
 import { seedReports } from './reports.ts';
 import { seedCuisines } from '../discovery/taxonomy.ts';
+import { seedAudit, seedBreaches, seedDailyMetrics, seedMetricsState, seedOperatorActivity } from './operator-settings.ts';
 
 export async function castDocuments(): Promise<Record<string, Document[]>> {
   return {
@@ -22,6 +23,11 @@ export async function castDocuments(): Promise<Record<string, Document[]>> {
     reviews: seedReviews(),
     enquiries: [...seedEnquiries(), ...seedReviewEnquiries()],
     reports: seedReports(),
+    breaches: seedBreaches(),
+    operatorActivity: seedOperatorActivity(),
+    audit: seedAudit(),
+    dailyMetrics: seedDailyMetrics(),
+    metricsState: seedMetricsState(),
   };
 }
 
