@@ -94,7 +94,7 @@ test.describe('Delete my account', () => {
     await expect(account.toast).toContainText('Your account is deleted');
     await expect(account.toast).toContainText('We’ve sent a confirmation email. Thank you for using Sweet Hand.');
     const { account: state } = await backend.state();
-    expect(state.outbox).toContainEqual(expect.objectContaining({ to: cast.marcia.email, kind: 'account-deleted' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: cast.marcia.email, kind: 'account-deleted' }));
 
     const signIn = new SignInPage(page);
     await signIn.open();

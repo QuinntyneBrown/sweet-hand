@@ -92,8 +92,7 @@ test.describe('Choose a new password', () => {
     await expect(reset.subtitle).toHaveText('You’re signed out on every device for safety. Sign in with your new password.');
     await expect(reset.header.accountButton).toHaveCount(0);
     await reset.expectNoAccessibilityViolations();
-    const { account } = await backend.state();
-    expect(account.outbox).toContainEqual(expect.objectContaining({ to: cast.marcia.email, kind: 'password-changed' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: cast.marcia.email, kind: 'password-changed' }));
 
     await reset.link('Sign in').click();
     const signIn = new SignInPage(page);

@@ -58,8 +58,7 @@ test.describe('Verify email', () => {
     await expect(page).toHaveURL(/\/verify-email\/sent$/);
     await expect(verify.heading).toHaveText('Check your email');
     await expect(verify.subtitle).toHaveText(`We sent a new link to ${cast.marcia.email}. It works for 24 hours.`);
-    const { account } = await backend.state();
-    expect(account.outbox.filter((m: { kind: string }) => m.kind === 'verify-email')).toHaveLength(2);
+    expect((await backend.emails()).filter((m: { kind: string }) => m.kind === 'verify-email')).toHaveLength(2);
   });
 
   test('when verifying fails on our side the link still works and can be tried again', async ({ page, backend }) => {
@@ -94,15 +93,13 @@ test.describe('Verify email', () => {
     await expect(verify.button('Resend email')).toBeDisabled();
     await expect(verify.button('Resend email')).toHaveAccessibleDescription('You can resend in 60 seconds. Check your spam folder too.');
     await verify.expectNoAccessibilityViolations();
-    let { account } = await backend.state();
-    expect(account.outbox.filter((m: { to: string; kind: string }) => m.to === 'priya.singh@example.com' && m.kind === 'verify-email')).toHaveLength(2);
+    expect((await backend.emails()).filter((m: { to: string; kind: string }) => m.to === 'priya.singh@example.com' && m.kind === 'verify-email')).toHaveLength(2);
 
     await page.clock.runFor(60_000);
     await expect(verify.button('Resend email')).toBeEnabled();
     await verify.button('Resend email').click();
     await expect(verify.button('Resend email')).toBeDisabled();
-    ({ account } = await backend.state());
-    expect(account.outbox.filter((m: { to: string; kind: string }) => m.to === 'priya.singh@example.com' && m.kind === 'verify-email')).toHaveLength(3);
+    expect((await backend.emails()).filter((m: { to: string; kind: string }) => m.to === 'priya.singh@example.com' && m.kind === 'verify-email')).toHaveLength(3);
   });
 
   test('a new caterer can have the link sent again from the welcome screen', async ({ page }) => {

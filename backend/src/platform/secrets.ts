@@ -23,8 +23,8 @@ export async function verifyAgainstNothing(password: string): Promise<false> {
   return false;
 }
 
-/** 256 random bits, URL-safe (session cookies, links). */
-export const randomToken = (): string => randomBytes(32).toString('base64url');
+/** 256 random bits as hex (session cookies, links). */
+export const randomToken = (): string => randomBytes(32).toString('hex');
 
 export const sha256 = (value: string): string => createHash('sha256').update(value).digest('hex');
 

@@ -37,7 +37,7 @@ test.describe('Profile decisions', () => {
     expect(await audit.appended()).toEqual([
       expect.objectContaining({ operatorId: 'user-leah', action: 'Approve', targetType: 'CatererProfile', targetId: 'cat-910', before: { status: 'Pending review' }, after: { status: 'Published' } }),
     ]);
-    expect(state.operator.moderation.emails).toContainEqual(expect.objectContaining({ to: 'beverley@auntiebevs.example', kind: 'profile-approved', link: '/caterers/auntie-bevs-kitchen' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: 'beverley@auntiebevs.example', kind: 'profile-approved', link: '/caterers/auntie-bevs-kitchen' }));
 
     const listing = new ListingPage(page);
     await listing.open();
@@ -157,7 +157,7 @@ test.describe('Profile decisions', () => {
     const bev = state.caterers.find((c: { id: string }) => c.id === 'cat-910');
     expect(bev.status).toBe('Changes requested');
     expect(bev.statusReason).toBe('Photos 2 and 5 show stock images');
-    expect(state.operator.moderation.emails).toContainEqual(expect.objectContaining({ to: 'beverley@auntiebevs.example', kind: 'changes-requested', reason: 'Photos 2 and 5 show stock images' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: 'beverley@auntiebevs.example', kind: 'changes-requested', reason: 'Photos 2 and 5 show stock images' }));
     expect(await audit.appended()).toEqual([
       expect.objectContaining({ operatorId: 'user-tomas', action: 'Request changes', targetId: 'cat-910', reason: 'Photos 2 and 5 show stock images', after: { status: 'Changes requested' } }),
     ]);

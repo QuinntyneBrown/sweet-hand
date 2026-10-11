@@ -171,8 +171,7 @@ test.describe('Sign-in protection', () => {
     await expect(signIn.password).toHaveAttribute('readonly', '');
     await expect(signIn.submit).toBeDisabled();
     await expect(page).toHaveURL(/\/sign-in$/);
-    const { account } = await backend.state();
-    expect(account.outbox).toContainEqual(expect.objectContaining({ to: cast.marcia.email, kind: 'sign-in-paused' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: cast.marcia.email, kind: 'sign-in-paused' }));
     await signIn.expectNoAccessibilityViolations();
   });
 

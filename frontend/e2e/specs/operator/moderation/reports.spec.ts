@@ -105,8 +105,8 @@ test.describe('Handling reports', () => {
     const state = await backend.state();
     expect(state.reports.filter((r: { targetId: string; status: string }) => r.targetId === 'review-devon-maracas' && r.status === 'Open')).toEqual([]);
     expect(await audit.appended()).toEqual([expect.objectContaining({ action: 'Dismiss reports', targetType: 'Report', targetId: 'R-2041' })]);
-    expect(state.operator.moderation.emails).toContainEqual(expect.objectContaining({ to: 'priya.r@example.com', kind: 'report-reviewed' }));
-    expect(state.operator.moderation.emails.find((e: { kind: string; reason?: string }) => e.kind === 'report-reviewed')?.reason).toBeUndefined();
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: 'priya.r@example.com', kind: 'report-reviewed' }));
+    expect((await backend.emails()).find((e: { kind: string; reason?: string }) => e.kind === 'report-reviewed')?.reason).toBeUndefined();
   });
 
   test('L2-055.4 L2-055.5: taking action hides the review, links the report to it and tells the author why', async ({ page, backend }) => {
@@ -139,7 +139,7 @@ test.describe('Handling reports', () => {
     const hide = (await audit.appended()).find((a: { action: string }) => a.action === 'Hide review');
     expect(hide).toEqual(expect.objectContaining({ targetType: 'Review', targetId: 'review-devon-maracas', reason: 'Personal attack on the owner’s family, not a review of the food.' }));
     expect(state.reports.find((r: { id: string }) => r.id === 'R-2041').resolution).toEqual(expect.objectContaining({ outcome: 'hidden', auditId: hide.id }));
-    expect(state.operator.moderation.emails).toContainEqual(expect.objectContaining({ to: 'devon.w@example.com', kind: 'review-hidden' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: 'devon.w@example.com', kind: 'review-hidden' }));
 
     const caterer = new CatererPage(page);
     await caterer.open('maracas-bay');

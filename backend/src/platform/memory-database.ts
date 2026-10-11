@@ -22,6 +22,14 @@ export class MemoryDatabase implements Database {
     return run;
   }
 
+  /** Every collection's documents, ordered by id (test-control state, ADR 0008). */
+  async snapshot(): Promise<Record<string, unknown[]>> {
+    await this.queue;
+    const out: Record<string, unknown[]> = {};
+    for (const [name, rows] of this.tables) out[name] = [...rows.keys()].sort().map((id) => JSON.parse(rows.get(id)!));
+    return out;
+  }
+
   async ping(): Promise<boolean> {
     return true;
   }

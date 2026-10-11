@@ -49,8 +49,8 @@ test.describe('Suspending, reinstating and removing caterers', () => {
     ]);
     const pelau = state.enquiries.filter((e: { catererId: string }) => e.catererId === 'cat-001');
     expect(pelau.filter((e: { status: string }) => e.status === 'Open' || e.status === 'Replied')).toEqual([]);
-    expect(state.operator.moderation.emails).toContainEqual(expect.objectContaining({ to: 'kendra@pelauhouse.example', kind: 'caterer-suspended', reason: REASON }));
-    expect(state.operator.moderation.emails).toContainEqual(expect.objectContaining({ to: 'marcia.t@example.com', kind: 'caterer-unavailable' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: 'kendra@pelauhouse.example', kind: 'caterer-suspended', reason: REASON }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: 'marcia.t@example.com', kind: 'caterer-unavailable' }));
 
     const caterer = new CatererPage(page);
     await caterer.open('pelau-house');
