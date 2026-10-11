@@ -63,6 +63,18 @@ describe('identity and transport hardening (identity-and-security designs)', () 
       assert.throws(() => withEnv({ ...production, [missing]: undefined }, loadConfig), new RegExp(missing));
     }
     assert.equal(withEnv(production, loadConfig).allowedOrigins[0], 'https://sweethand.example');
+    assert.equal(withEnv(production, loadConfig).botChallenge, 'turnstile');
+  });
+
+  it('Given a real database and no Turnstile secret, when the API starts with BOT_CHALLENGE=off, then it starts with bot protection off, and any other value is refused (L2-104.9)', () => {
+    const production = {
+      DATABASE_URL: 'postgres://localhost/sweethand', TEST_CONTROL: undefined,
+      ALLOWED_ORIGINS: 'https://sweethand.example', IP_HASH_SECRET: 'k', TURNSTILE_SECRET: undefined,
+      ACS_EMAIL_ENDPOINT: 'https://acs.example', ACS_EMAIL_SENDER: 'hello@sweethand.example',
+    };
+    assert.throws(() => withEnv({ ...production, BOT_CHALLENGE: undefined }, loadConfig), /TURNSTILE_SECRET/);
+    assert.throws(() => withEnv({ ...production, BOT_CHALLENGE: 'disabled' }, loadConfig), /BOT_CHALLENGE/);
+    assert.equal(withEnv({ ...production, BOT_CHALLENGE: 'off' }, loadConfig).botChallenge, 'off');
   });
 
   it('Given the API behind a TLS proxy, when a request arrives over plain HTTP, then it is redirected to HTTPS with 301 (L2-081.1)', async () => {

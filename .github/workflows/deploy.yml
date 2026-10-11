@@ -33,14 +33,24 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
       - name: Assert the production subscription
-        run: test "$(az account show --query id -o tsv)" = "4a1b5113-89f9-4d27-acfe-581493385536"
-      - name: Require production configuration
+        run: |
+          test "$(az account show --query id -o tsv)" = "4a1b5113-89f9-4d27-acfe-581493385536"
+          az extension add --name containerapp --only-show-errors
+      - name: Choose the bot challenge
+        # Both Turnstile values turn the challenge on. Neither is the documented, temporary
+        # opt-out before the widget exists (L2-104.9); one without the other is a mistake.
         env:
           TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
           TURNSTILE_SECRET: ${{ secrets.TURNSTILE_SECRET }}
         run: |
-          test -n "$TURNSTILE_SITE_KEY" || { echo "::error::Set the production variable TURNSTILE_SITE_KEY"; exit 1; }
-          test -n "$TURNSTILE_SECRET" || { echo "::error::Set the production secret TURNSTILE_SECRET"; exit 1; }
+          if [ -n "$TURNSTILE_SITE_KEY" ] && [ -n "$TURNSTILE_SECRET" ]; then
+            echo "BOT_CHALLENGE=turnstile" >> "$GITHUB_ENV"
+          elif [ -z "$TURNSTILE_SITE_KEY" ] && [ -z "$TURNSTILE_SECRET" ]; then
+            echo "BOT_CHALLENGE=off" >> "$GITHUB_ENV"
+            echo "::warning::Bot protection is OFF: set the production variable TURNSTILE_SITE_KEY and secret TURNSTILE_SECRET to turn Cloudflare Turnstile on"
+          else
+            echo "::error::Set both the production variable TURNSTILE_SITE_KEY and the secret TURNSTILE_SECRET, or neither"; exit 1
+          fi
       - name: Link the email domain once Azure has verified it
         run: |
           az extension add --name communication --only-show-errors
@@ -51,7 +61,7 @@ jobs:
       - name: Apply foundation
         run: |
           az deployment group create --resource-group "$RESOURCE_GROUP" --name "foundation-$IMAGE_TAG" --template-file infra/main.bicep \
-            --parameters linkEmailDomain="$LINK_EMAIL" deployApi=false deployMigration=false postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
+            --parameters linkEmailDomain="$LINK_EMAIL" deployApi=false deployMigration=false botChallenge="$BOT_CHALLENGE" postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
       - name: Build and scan the immutable API image
         run: |
           ACR=$(az deployment group show -g "$RESOURCE_GROUP" -n "foundation-$IMAGE_TAG" --query properties.outputs.acrName.value -o tsv)
@@ -61,7 +71,7 @@ jobs:
         run: |
           IMAGE="$ACR.azurecr.io/sweet-hand-api:$IMAGE_TAG"
           az deployment group create --resource-group "$RESOURCE_GROUP" --name "migration-$IMAGE_TAG" --template-file infra/main.bicep \
-            --parameters linkEmailDomain="$LINK_EMAIL" deployApi=false deployMigration=true containerImage="$IMAGE" postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
+            --parameters linkEmailDomain="$LINK_EMAIL" deployApi=false deployMigration=true containerImage="$IMAGE" botChallenge="$BOT_CHALLENGE" postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
       - name: Run explicit migrations
         run: |
           EXECUTION=$(az containerapp job start -g "$RESOURCE_GROUP" -n caj-swh-migrate --query name -o tsv)
@@ -80,7 +90,7 @@ jobs:
         run: |
           IMAGE="$ACR.azurecr.io/sweet-hand-api:$IMAGE_TAG"
           az deployment group create --resource-group "$RESOURCE_GROUP" --name "release-$IMAGE_TAG" --template-file infra/main.bicep \
-            --parameters linkEmailDomain="$LINK_EMAIL" deployApi=true deployMigration=true containerImage="$IMAGE" postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
+            --parameters linkEmailDomain="$LINK_EMAIL" deployApi=true deployMigration=true containerImage="$IMAGE" botChallenge="$BOT_CHALLENGE" postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
       - name: Link the same-origin API
         run: |
           API_ID=$(az containerapp show -g "$RESOURCE_GROUP" -n ca-swh-api --query id -o tsv)
@@ -110,11 +120,20 @@ jobs:
           skip_app_build: true
           skip_api_build: true
       - name: Production smoke checks
+        # The Static Web Apps default hostname always serves the release; sweethand.ca joins once its DNS validates.
         run: |
-          curl --fail --retry 12 --retry-delay 10 https://sweethand.ca/
-          curl --fail https://sweethand.ca/privacy
-          curl --fail https://sweethand.ca/api/public/launch-list
-          test "$(curl -s -o /dev/null -w '%{http_code}' https://sweethand.ca/api/caterers)" = 404
+          ORIGINS="https://$(az staticwebapp show -g "$RESOURCE_GROUP" -n swa-sweethand-launch-prod --query defaultHostname -o tsv)"
+          if [ "$(az staticwebapp hostname show -g "$RESOURCE_GROUP" -n swa-sweethand-launch-prod --hostname sweethand.ca --query status -o tsv 2>/dev/null)" = Ready ]; then
+            ORIGINS="$ORIGINS https://sweethand.ca"
+          else
+            echo "::warning::sweethand.ca is not validated for Static Web Apps yet; the release is live only at $ORIGINS"
+          fi
+          for ORIGIN in $ORIGINS; do
+            curl --fail --retry 12 --retry-delay 10 "$ORIGIN/"
+            curl --fail "$ORIGIN/privacy"
+            curl --fail "$ORIGIN/api/public/launch-list"
+            test "$(curl -s -o /dev/null -w '%{http_code}' "$ORIGIN/api/caterers")" = 404
+          done
       - name: Restore the preceding API image
         if: failure() && env.PREVIOUS_IMAGE != ''
         run: |

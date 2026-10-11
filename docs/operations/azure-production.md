@@ -48,7 +48,11 @@ The `www` validation token (`_da8v0sbxnclttmujbt1xbxtm3prox09`) is satisfied by 
 
 Azure Communication Services cannot send from `hello@sweethand.ca` until the domain is linked. After the DNS records publish, run `az communication email domain initiate-verification` for `Domain`, `SPF`, `DKIM` and `DKIM2`; once `az communication email domain show` reports each as `Verified`, the next Deploy production run links the domain (`linkEmailDomain=true`). Until then delivery warns and leaves it unlinked, so a foundation run cannot fail on an unverified domain.
 
-Namecheap forwarding shall keep `hello@sweethand.ca` delivering to the monitored inbox. Cloudflare Turnstile shall use a managed widget restricted to `sweethand.ca` and `www.sweethand.ca`. Store the public site key as GitHub environment variable `TURNSTILE_SITE_KEY` and its secret as `TURNSTILE_SECRET`.
+Namecheap forwarding shall keep `hello@sweethand.ca` delivering to the monitored inbox. Cloudflare Turnstile shall use a managed widget allowing `sweethand.ca`, `www.sweethand.ca` and the Static Web Apps default hostname `happy-ocean-03d99600f.3.azurestaticapps.net`. Store the public site key as GitHub environment variable `TURNSTILE_SITE_KEY` and its secret as `TURNSTILE_SECRET`.
+
+Until the Turnstile widget exists, leave both unset: delivery then deploys with `botChallenge=off` (API `BOT_CHALLENGE=off`), warns on every run, and the launch form uses the local stand-in token with no bot protection (L2-104.9). Setting both values turns Turnstile on at the next deployment; setting only one stops delivery.
+
+The API accepts the Static Web Apps default hostname as an origin and Turnstile hostname alongside `sweethand.ca`, so the release is usable before the custom domain validates.
 
 The email footer uses this runtime configuration and does not expose a maker address:
 
@@ -63,7 +67,11 @@ The email footer uses this runtime configuration and does not expose a maker add
 5. Bicep updates the API only after migration. Container Apps readiness gates the single active revision.
 6. Static Web Apps receives the prerendered launch files. Smoke checks cover `/`, `/privacy`, the public launch-list status and a concealed product endpoint.
 
-Delivery stops before touching Azure when `TURNSTILE_SITE_KEY` or `TURNSTILE_SECRET` is missing from the `production` environment.
+Delivery stops before touching Azure when only one of `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET` is set in the `production` environment. Smoke checks always run against the Static Web Apps default hostname and add `sweethand.ca` once Azure reports its custom domain `Ready`.
+
+The GitHub deployer (`github-sweethand-production`) holds Contributor on `rg-sweethand-prod` and nothing more. The API identity's role assignments live in `infra/roles.bicep`; a subscription Owner applies them once, in an MFA session, with `az deployment group create -g rg-sweethand-prod --template-file infra/roles.bicep`, and again only when that file changes.
+
+GitHub's OIDC subject for this repository includes the owner and repository IDs (`repo:QuinntyneBrown@1749159/sweet-hand@1413231887:environment:production`). The `github-sweethand-production` app registration holds a federated credential for that exact subject; a credential with the plain `repo:QuinntyneBrown/sweet-hand:environment:production` subject is not matched.
 
 If any step after promotion fails, the workflow redeploys the API image that was serving before the run (`az containerapp update --image <previous>`), which creates a new revision from the known-good image; the app runs in single-revision mode, so a traffic split is not available. To roll back by hand, read the image of an earlier revision with `az containerapp revision list -g rg-sweethand-prod -n ca-swh-api -o table` and apply it the same way. Re-run smoke checks. For a static rollback, rerun the last successful Deploy production workflow for the known commit. Database migrations shall remain backward compatible with the preceding image.
 

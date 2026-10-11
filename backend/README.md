@@ -26,10 +26,12 @@ database), `ALLOWED_ORIGINS` (comma-separated, for the CSRF origin check),
 `TRUST_PROXY` (behind it, plain HTTP is redirected to HTTPS), `IP_HASH_SECRET`,
 `TEST_CONTROL` (test mode, refused with a database), and for the launch list
 `SITE_URL`, `CONTACT_EMAIL`, `OPERATOR_MAILING_ADDRESS`, `EMAILS_PER_TICK`,
-`PRELAUNCH_MODE`, `TURNSTILE_SECRET`, `TURNSTILE_HOSTNAMES`,
+`PRELAUNCH_MODE`, `BOT_CHALLENGE`, `TURNSTILE_SECRET`, `TURNSTILE_HOSTNAMES`,
 `ACS_EMAIL_ENDPOINT` and `ACS_EMAIL_SENDER`. With a database, the origin,
 IP-hash, Turnstile and Azure email settings are required and startup fails
-without them. Production uses managed identity for Azure email; no connection
+without them. `BOT_CHALLENGE=off` is the one exception: it is the operator's
+explicit, temporary choice before the Turnstile widget exists, keeps the
+local stand-in verifier in production and is logged at startup (L2-104.9). Production uses managed identity for Azure email; no connection
 string is stored.
 
 Background work runs in the API process (ADR 0008): every 15 seconds it sends

@@ -3,7 +3,14 @@
 // Description: Production verifies Turnstile tokens and never accepts local development tokens.
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { LocalChallengeVerifier, TurnstileChallengeVerifier } from '../../src/platform/bot-challenge.ts';
+import { LocalChallengeVerifier, TurnstileChallengeVerifier, createChallengeVerifier } from '../../src/platform/bot-challenge.ts';
+
+test('production composes the Turnstile verifier, falls back to the local verifier only with BOT_CHALLENGE=off, and development always uses the local verifier (L2-104.9)', () => {
+  const production = { databaseUrl: 'postgres://localhost/sweethand', turnstileSecret: 'secret', turnstileHostnames: ['sweethand.ca'] };
+  assert.ok(createChallengeVerifier({ ...production, botChallenge: 'turnstile' }) instanceof TurnstileChallengeVerifier);
+  assert.ok(createChallengeVerifier({ ...production, botChallenge: 'off', turnstileSecret: undefined }) instanceof LocalChallengeVerifier);
+  assert.ok(createChallengeVerifier({ ...production, databaseUrl: undefined, botChallenge: 'turnstile', turnstileSecret: undefined }) instanceof LocalChallengeVerifier);
+});
 
 test('the local verifier accepts only the requested local action', async () => {
   const verifier = new LocalChallengeVerifier();

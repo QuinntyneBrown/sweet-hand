@@ -10,8 +10,11 @@ param containerImage string = 'mcr.microsoft.com/azuredocs/containerapps-hellowo
 param postgresAdminPassword string
 @secure()
 param ipHashSecret string
+@description('turnstile verifies sign-ups with Cloudflare; off is the explicit, temporary operator choice before the widget exists (L2-104.9).')
+@allowed(['turnstile', 'off'])
+param botChallenge string = 'turnstile'
 @secure()
-param turnstileSecret string
+param turnstileSecret string = ''
 param turnstileHostnames string = 'sweethand.ca,www.sweethand.ca'
 param postgresAdmin string = 'sweethand_migrate'
 param contactEmail string = 'hello@sweethand.ca'
@@ -102,15 +105,8 @@ resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' 
   location: location
 }
 
-resource acrPull 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(acr.id, identity.id, 'acrpull')
-  scope: acr
-  properties: {
-    principalId: identity.properties.principalId
-    principalType: 'ServicePrincipal'
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '7f951dda-4ed3-4680-a7ca-43fe172d538d')
-  }
-}
+// The identity's role assignments (AcrPull, Key Vault Secrets User, Communication and
+// Email Service Owner) live in roles.bicep, applied once by an Owner.
 
 resource vault 'Microsoft.KeyVault/vaults@2023-07-01' = {
   name: vaultName
@@ -126,16 +122,6 @@ resource vault 'Microsoft.KeyVault/vaults@2023-07-01' = {
   }
 }
 
-resource vaultReader 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(vault.id, identity.id, 'secrets-user')
-  scope: vault
-  properties: {
-    principalId: identity.properties.principalId
-    principalType: 'ServicePrincipal'
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '4633458b-17de-408a-b874-0445c86b69e6')
-  }
-}
-
 resource databaseUrlSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
   parent: vault
   name: 'database-url'
@@ -146,7 +132,7 @@ resource ipHashSecretResource 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
   name: 'ip-hash-secret'
   properties: { value: ipHashSecret }
 }
-resource turnstileSecretResource 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
+resource turnstileSecretResource 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = if (botChallenge == 'turnstile') {
   parent: vault
   name: 'turnstile-secret'
   properties: { value: turnstileSecret }
@@ -172,6 +158,13 @@ resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2024-08-01' = {
     authConfig: { activeDirectoryAuth: 'Disabled', passwordAuth: 'Enabled' }
   }
   dependsOn: [privateDnsLink]
+}
+
+// The database the connection string names; migrations create everything inside it.
+resource sweethandDb 'Microsoft.DBforPostgreSQL/flexibleServers/databases@2024-08-01' = {
+  parent: postgres
+  name: 'sweethand'
+  properties: { charset: 'UTF8', collation: 'en_US.utf8' }
 }
 
 resource environment 'Microsoft.App/managedEnvironments@2024-03-01' = {
@@ -221,16 +214,6 @@ resource emailSender 'Microsoft.Communication/emailServices/domains/senderUserna
   properties: { username: 'hello', displayName: 'Sweet Hand' }
 }
 
-resource communicationContributor 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(communication.id, identity.id, 'communication-contributor')
-  scope: communication
-  properties: {
-    principalId: identity.properties.principalId
-    principalType: 'ServicePrincipal'
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '09976791-48a7-449e-bb21-39d1a415f350')
-  }
-}
-
 resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApi) {
   name: apiName
   location: location
@@ -241,23 +224,25 @@ resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApi) {
       activeRevisionsMode: 'Single'
       ingress: { external: true, targetPort: 4300, transport: 'auto', allowInsecure: false }
       registries: [{ server: acr.properties.loginServer, identity: identity.id }]
-      secrets: [
+      secrets: concat([
         { name: 'database-url', keyVaultUrl: databaseUrlSecret.properties.secretUriWithVersion, identity: identity.id }
         { name: 'ip-hash-secret', keyVaultUrl: ipHashSecretResource.properties.secretUriWithVersion, identity: identity.id }
-        { name: 'turnstile-secret', keyVaultUrl: turnstileSecretResource.properties.secretUriWithVersion, identity: identity.id }
-      ]
+      ], botChallenge == 'turnstile' ? [
+        { name: 'turnstile-secret', keyVaultUrl: turnstileSecretResource!.properties.secretUriWithVersion, identity: identity.id }
+      ] : [])
     }
     template: {
       containers: [{
         name: 'api'
         image: containerImage
         resources: { cpu: json('0.5'), memory: '1Gi' }
-        env: [
+        // The Static Web Apps default hostname stays a valid origin so the site works before the custom domain validates.
+        env: concat([
           { name: 'DATABASE_URL', secretRef: 'database-url' }
           { name: 'IP_HASH_SECRET', secretRef: 'ip-hash-secret' }
-          { name: 'TURNSTILE_SECRET', secretRef: 'turnstile-secret' }
-          { name: 'TURNSTILE_HOSTNAMES', value: turnstileHostnames }
-          { name: 'ALLOWED_ORIGINS', value: 'https://sweethand.ca,https://www.sweethand.ca' }
+          { name: 'BOT_CHALLENGE', value: botChallenge }
+          { name: 'TURNSTILE_HOSTNAMES', value: '${turnstileHostnames},${swa.properties.defaultHostname}' }
+          { name: 'ALLOWED_ORIGINS', value: 'https://sweethand.ca,https://www.sweethand.ca,https://${swa.properties.defaultHostname}' }
           { name: 'TRUST_PROXY', value: 'true' }
           { name: 'PRELAUNCH_MODE', value: 'true' }
           { name: 'SECURE_COOKIES', value: 'true' }
@@ -268,7 +253,7 @@ resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApi) {
           { name: 'ACS_EMAIL_SENDER', value: contactEmail }
           { name: 'APPLICATIONINSIGHTS_CONNECTION_STRING', value: insights.properties.ConnectionString }
           { name: 'AZURE_CLIENT_ID', value: identity.properties.clientId }
-        ]
+        ], botChallenge == 'turnstile' ? [{ name: 'TURNSTILE_SECRET', secretRef: 'turnstile-secret' }] : [])
         probes: [
           { type: 'Liveness', httpGet: { path: '/health/live', port: 4300, scheme: 'HTTP' }, initialDelaySeconds: 15, periodSeconds: 20 }
           { type: 'Readiness', httpGet: { path: '/health/ready', port: 4300, scheme: 'HTTP' }, initialDelaySeconds: 10, periodSeconds: 10 }
@@ -277,7 +262,7 @@ resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApi) {
       scale: { minReplicas: 1, maxReplicas: 1 }
     }
   }
-  dependsOn: [acrPull, vaultReader, postgres, communicationContributor]
+  dependsOn: [sweethandDb]
 }
 
 resource migrate 'Microsoft.App/jobs@2024-03-01' = if (deployMigration) {
@@ -296,7 +281,7 @@ resource migrate 'Microsoft.App/jobs@2024-03-01' = if (deployMigration) {
     }
     template: { containers: [{ name: 'migrate', image: containerImage, command: ['npm'], args: ['run', 'migrate'], resources: { cpu: json('0.5'), memory: '1Gi' }, env: [{ name: 'DATABASE_URL', secretRef: 'database-url' }] }] }
   }
-  dependsOn: [acrPull, vaultReader, postgres]
+  dependsOn: [sweethandDb]
 }
 
 resource budget 'Microsoft.Consumption/budgets@2023-11-01' = {
