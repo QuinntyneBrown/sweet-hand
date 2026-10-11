@@ -326,3 +326,23 @@ export function sectionsLeft(p: OwnProfileView): string | null {
     ? $localize`:@@checklist.oneLeft:1 section left: ${words[0]}:section:`
     : $localize`:@@checklist.manyLeft:${words.length}:count: sections left: ${joinWords(words)}:sections:`;
 }
+
+/** "Go to photos": the way to the first section an operator flagged. */
+export function attentionAction(key: ChecklistKey): string {
+  switch (key) {
+    case 'photos':
+      return $localize`:@@dashboard.goPhotos:Go to photos`;
+    case 'menu':
+      return $localize`:@@dashboard.goMenu:Go to menu`;
+    case 'certificate':
+      return $localize`:@@dashboard.goCertificate:Go to food safety`;
+    case 'cuisines':
+    case 'areas':
+      return $localize`:@@dashboard.goCuisines:Go to cuisines and areas`;
+    case 'guests':
+    case 'occasions':
+      return $localize`:@@dashboard.goEvents:Go to guests and occasions`;
+    default:
+      return $localize`:@@dashboard.goDetails:Go to business details`;
+  }
+}
