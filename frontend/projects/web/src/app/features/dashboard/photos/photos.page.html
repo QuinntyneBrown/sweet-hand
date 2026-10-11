@@ -1,0 +1,163 @@
+<app-dashboard-layout current="photos" [status]="data.status()" [previewLabel]="data.state().kind === 'ready' ? previewLabel() : null">
+  <sh-back-link href="/dashboard" [untilLg]="true"><ng-container i18n="@@nav.overview">Overview</ng-container></sh-back-link>
+  <div class="page-intro">
+    <h1 i18n="@@nav.photos">Photos</h1>
+    @switch (data.state().kind) {
+      @case ('loading') {
+        <p class="subtitle">
+          <span class="visually-hidden" role="status" i18n="@@photos.loading">Loading your photos</span
+          ><span class="skeleton skeleton--text" style="width: var(--layout-sidebar-width)" aria-hidden="true"></span>
+        </p>
+      }
+      @case ('error') {
+        <p class="subtitle">{{ data.profile()?.name }}</p>
+      }
+      @case ('ready') {
+        <p class="subtitle">{{ subtitle() }}</p>
+        <p class="cluster">
+          <sh-status [tone]="data.statusTone()" [label]="data.statusText()" />
+          @if (!data.readOnly() && (photos().length || uploads().length)) {
+            <sh-save-status [inline]="true" [state]="uploads().length ? 'saving' : 'saved'" [text]="saveText()" />
+          }
+        </p>
+      }
+    }
+  </div>
+
+  @switch (data.state().kind) {
+    @case ('loading') {
+      <div class="toolbar" aria-hidden="true"><span class="skeleton skeleton--rect skeleton--pill" style="width: var(--space-32); height: var(--control-height-md)"></span></div>
+      <sh-photo-manager label="Loading your photos" i18n-label="@@photos.loading" [busy]="true" />
+    }
+    @case ('error') {
+      <sh-empty-state
+        tone="error"
+        heading="We couldn’t load your photos"
+        i18n-heading="@@photos.errorTitle"
+        text="Nothing you saved is lost. This is a problem on our side, and trying again usually fixes it."
+        i18n-text="@@section.errorText"
+        [reference]="data.errorReference()"
+        referenceLabel="Reference"
+        i18n-referenceLabel="@@common.reference"
+      >
+        <svg slot="icon" shIcon="danger"></svg>
+        <ng-container slot="actions">
+          <button class="btn btn--primary" type="button" (click)="reload()">
+            <svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container>
+          </button>
+          <a class="btn" routerLink="/dashboard" i18n="@@section.backToOverview">Back to overview</a>
+        </ng-container>
+      </sh-empty-state>
+    }
+    @case ('ready') {
+      @if (data.profile(); as p) {
+        @if (data.readOnly()) {
+          <app-status-notice [profile]="p" variant="list" (withdrawRequested)="withdrawOpen.set(true)" />
+          <div style="height: var(--space-8)"></div>
+        }
+        @if (uploadErrors().length) {
+          <div #uploadErrorsBox class="form-summary" role="alert" tabindex="-1" id="upload-errors" aria-labelledby="upload-errors-title">
+            <h2 id="upload-errors-title">{{ errorsHeading() }}</h2>
+            <ul>
+              @for (e of uploadErrors(); track $index) {
+                <li><strong>{{ e.fileName }}</strong>: {{ e.message }}</li>
+              }
+            </ul>
+          </div>
+        }
+        @if (processing()) {
+          <sh-alert live="polite" title="Photos are taking longer than usual" i18n-title="@@photos.slowTitle"
+            ><ng-container i18n="@@photos.slowText">Your new photo is saved. It will appear on your page by itself as soon as it’s ready. You don’t need to upload it again.</ng-container></sh-alert
+          >
+          <div style="height: var(--space-6)"></div>
+        }
+        @if (empty()) {
+          <div class="empty">
+            <div class="photo-row" aria-hidden="true">
+              <span class="photo photo--placeholder"><svg shIcon="camera"></svg></span><span class="photo photo--placeholder"><svg shIcon="camera"></svg></span
+              ><span class="photo photo--placeholder"><svg shIcon="camera"></svg></span>
+            </div>
+            <h2 class="empty__title" i18n="@@photos.emptyTitle">Show people your food</h2>
+            <p class="empty__text" i18n="@@photos.emptyText">Add at least 3 photos of dishes you cook. The first one becomes the round photo on your listing card.</p>
+            <div class="empty__actions">
+              <sh-file-upload [accept]="photoTypes" [multiple]="true" variant="primary" size="lg" inputId="photo-upload" describedBy="upload-help" (filesSelected)="upload($event)"
+                ><svg shIcon="camera"></svg><ng-container i18n="@@photos.add">Add photos</ng-container></sh-file-upload
+              >
+            </div>
+            <span class="field__help" id="upload-help" i18n="@@photos.limits">JPEG, PNG, WebP or HEIC · under 15 MB · at least 800 pixels on the shorter side</span>
+          </div>
+        } @else {
+          @if (!data.readOnly()) {
+            <div class="toolbar">
+              <div class="stack stack--sm">
+                <span class="cluster">
+                  <sh-file-upload [accept]="photoTypes" [multiple]="true" variant="primary" inputId="photo-upload" describedBy="upload-help" [disabled]="full()" (filesSelected)="upload($event)"
+                    ><svg shIcon="camera"></svg><ng-container i18n="@@photos.add">Add photos</ng-container></sh-file-upload
+                  >
+                </span>
+                @if (full()) {
+                  <span class="field__help" id="upload-help" i18n="@@photos.full">You can have up to 30 photos. Remove one to add another.</span>
+                } @else {
+                  <span class="field__help" id="upload-help" i18n="@@photos.limits">JPEG, PNG, WebP or HEIC · under 15 MB · at least 800 pixels on the shorter side</span>
+                }
+              </div>
+            </div>
+          }
+          <sh-photo-manager label="Photos, in the order they appear on your page" i18n-label="@@photos.listLabel" [announcement]="announcement()">
+            @for (photo of photos(); track photo.id; let i = $index) {
+              <li
+                sh-photo-tile
+                [mode]="data.readOnly() ? 'readonly' : photo.state === 'Processing' ? 'processing' : 'editable'"
+                [position]="i + 1"
+                [total]="photos().length"
+                [photo]="photo.image"
+                [caption]="photo.caption"
+                [fileName]="photo.fileName ?? ''"
+                [labels]="labels"
+                (moveRequested)="move($event)"
+                (editRequested)="openDetails($event.position)"
+              ></li>
+            }
+            @for (u of uploads(); track u.key) {
+              <li
+                sh-photo-tile
+                mode="uploading"
+                [position]="photos().length + $index + 1"
+                [total]="photos().length + uploads().length"
+                [fileName]="u.file.name"
+                [progress]="u.progress"
+                [labels]="labels"
+                (cancelRequested)="cancelUpload($event.fileName)"
+              ></li>
+            }
+          </sh-photo-manager>
+        }
+      }
+    }
+  }
+  @if (data.card(); as c) {
+    <app-listing-preview slot="preview" [card]="c" [href]="previewHref()" />
+  }
+</app-dashboard-layout>
+
+<app-photo-details-dialog
+  [open]="!!details()"
+  [photo]="details()"
+  [position]="detailsPosition()"
+  [total]="photos().length"
+  (closed)="detailsId.set(null)"
+  (saved)="detailsSaved($event)"
+  (replaced)="replaced($event)"
+  (removeRequested)="askToRemove()"
+/>
+<app-remove-photo-dialog
+  [open]="!!removing()"
+  [photo]="removing()"
+  [blocked]="removeBlocked()"
+  [returnFocus]="removeReturnFocus()"
+  (closed)="removeId.set(null)"
+  (removed)="removed($event)"
+/>
+@if (data.profile(); as p) {
+  <app-withdraw-dialog [open]="withdrawOpen()" [business]="p.name" (closed)="withdrawOpen.set(false)" (withdrawn)="withdrawn($event)" />
+}
