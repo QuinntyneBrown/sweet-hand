@@ -41,6 +41,10 @@ const app = createApp({
   config,
 });
 const server = createServer(app);
+// Outlive the idle timeout of clients and load balancers that reuse connections,
+// so a reused socket is never closed under a request (Node's default is 5 s).
+server.keepAliveTimeout = 65_000;
+server.headersTimeout = 66_000;
 
 // The email worker (L2-030). In test mode emails stay queued so specs can read them.
 let dispatching = false;
