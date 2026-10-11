@@ -1,29 +1,9 @@
 import type { Review } from '../reviews/model.ts';
 
 /**
- * A replied enquiry whose event has passed: what makes a customer eligible to
- * review (L2-049), until the enquiries seed carries these events.
- */
-export interface ReviewableEvent {
-  userId: string;
-  catererId: string;
-  enquiryId: string;
-  eventDate: string;
-  replied: boolean;
-}
-
-/**
  * Fictional reviews from docs/mocks/README.md ("Cast and catalog"). All people
  * are fictional. Pelau House has 23 published reviews averaging 4.7 (sum 108).
  */
-
-
-export const REVIEWABLE_EVENTS: ReviewableEvent[] = [
-  // Jean-Robert Pierre: replied enquiry to Pelau House for Sun 6 Sep (can-review).
-  { userId: 'user-jean-robert', catererId: 'cat-001', enquiryId: 'enq-jean-robert-pelau', eventDate: '2026-09-06', replied: true },
-  // Marcia Thompson's August event, which her review of Pelau House is about.
-  { userId: 'user-marcia', catererId: 'cat-001', enquiryId: 'enq-marcia-pelau-aug', eventDate: '2026-08-05', replied: true },
-];
 
 const PELAU = 'cat-001';
 
