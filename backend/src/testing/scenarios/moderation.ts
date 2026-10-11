@@ -1,5 +1,9 @@
 import { caterers } from '../../caterers/model.ts';
 import { profileEdits } from '../../moderation/model.ts';
+import { hiddenReview } from '../../moderation/report-handling.ts';
+import { enquiries } from '../../enquiries/model.ts';
+import { reports } from '../../reports/model.ts';
+import { reviews } from '../../reviews/model.ts';
 import type { Scenarios } from '../scenario.ts';
 
 /** Named arrangements of the operator moderation specs (frontend/e2e/specs/operator/moderation). */
@@ -19,5 +23,25 @@ export const moderationScenarios: Scenarios = {
   /** No caterer edited a published profile in the last 30 days (admin-changes/empty). */
   'no-recent-changes': async ({ tx }) => {
     for (const e of await profileEdits(tx).all()) await profileEdits(tx).delete(e.id);
+  },
+  /** A third report in 7 days hides Devon W.'s review automatically (L2-055.2; admin-report/auto-hidden). */
+  'third-report': async ({ tx }) => {
+    const at = '2026-10-10T12:05:00.000Z';
+    await reports(tx).put({
+      id: 'R-2049',
+      targetKind: 'Review',
+      targetId: 'review-devon-maracas',
+      reason: 'Fake or spam',
+      details: 'Copy-paste review. I’ve seen it on other pages.',
+      reporterUserId: 'user-andre',
+      createdAt: at,
+      status: 'Open',
+    });
+    const review = await reviews(tx).get('review-devon-maracas');
+    if (review) await reviews(tx).put(hiddenReview(review, null, '', new Date(at), 3));
+  },
+  /** Devon's review no longer links to an enquiry (L2-034.4). */
+  'unlink-review-enquiry': async ({ tx }) => {
+    for (const e of await enquiries(tx).find({ customerId: 'user-devon', catererId: 'cat-009' })) await enquiries(tx).delete(e.id);
   },
 };
