@@ -4,6 +4,7 @@ import { endSession, listSessions } from './active-sessions.ts';
 import { updateDetails } from './details.ts';
 import { changePassword } from './password.ts';
 import { requestDataExport } from './data-export.ts';
+import { deleteAccount } from './deletion.ts';
 
 /** The signed-in person's own account (docs/detailed-designs/privacy, identity-and-security/manage-sessions). */
 export const accountArea: Area = (r) => {
@@ -14,4 +15,5 @@ export const accountArea: Area = (r) => {
   r.delete('/api/me/sessions/:id', signedIn, endSession);
   // Operators' accounts are managed by an Admin (moderation), not exported or deleted here.
   r.post('/api/me/data-exports', roles('Customer', 'Caterer'), requestDataExport);
+  r.post('/api/me/deletion', roles('Customer', 'Caterer'), deleteAccount);
 };

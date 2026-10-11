@@ -20,7 +20,8 @@ export const FAILURE_WINDOW_MS = 15 * MINUTE;
 export const NETWORK_FAILURES = 20;
 export const NETWORK_FAILURE_KIND = 'sign-in-failure';
 
-async function recordFailure(req: Request, user: User | undefined): Promise<void> {
+/** A wrong password for the account: counts toward the account's pause and the network's challenge (L2-076.4, L2-076.5). */
+export async function recordFailure(req: Request, user: User | undefined): Promise<void> {
   await recordEvent(req.tx, NETWORK_FAILURE_KIND, req.ip, req.now, FAILURE_WINDOW_MS);
   await recordSecurityEvent(req, 'sign-in-failure', { userId: user?.id });
   if (!user) return;
