@@ -5,7 +5,7 @@ import { ProtectedAction } from './protected-action';
 /**
  * Stands in for the provider until one is chosen (rate-limit-and-challenge
  * design: provider `<TO SUPPLY>`). It sets no cookie and calls no third party;
- * the backend's local verifier accepts its tokens (ADR 0008).
+ * the backend's local verifier accepts its tokens (ADR 0009).
  */
 @Injectable()
 export class LocalBotChallengeService extends BotChallengeService {

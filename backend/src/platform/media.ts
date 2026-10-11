@@ -55,7 +55,7 @@ export class MemoryMediaStore implements MediaStore {
   }
 }
 
-/** Media in PostgreSQL's `media` table (ADR 0007). */
+/** Media in PostgreSQL's `media` table (ADR 0008). */
 export class PostgresMediaStore implements MediaStore {
   private readonly pool: pg.Pool;
 

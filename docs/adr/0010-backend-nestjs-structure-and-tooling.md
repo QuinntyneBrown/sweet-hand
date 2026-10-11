@@ -1,14 +1,14 @@
-# 0009 — The backend's HTTP layer is NestJS
+# 0010 — NestJS application structure and tooling
 
-- Status: Accepted (supersedes the HTTP and tooling parts of ADR 0006)
+- Status: Accepted (refines ADR 0006, which chooses NestJS)
 - Date: 2026-10-11
 
 ## Context
 
-ADR 0006 built the API on `node:http` with a router of our own and ran the
-TypeScript with Node's type stripping. The team wants the conventional
-structure, dependency injection and ecosystem of NestJS. NestJS relies on
-decorators and their type metadata, which Node's type stripping cannot run.
+ADR 0006 chooses NestJS on Node.js 22. The backend was first built on
+`node:http` with a router of our own, run by Node's type stripping, and then
+moved to NestJS area by area. NestJS relies on decorators and their type
+metadata, which Node's type stripping cannot run.
 
 ## Decision
 
@@ -26,7 +26,9 @@ decorators and their type metadata, which Node's type stripping cannot run.
   database transaction around each handler. Use cases keep returning a
   `Reply` (status, body, headers); the interceptor writes it.
 - The persistence port, adapters, seed, test mode and the HTTP-level
-  acceptance tests (ADRs 0007, 0008) do not change.
+  acceptance tests (ADRs 0008, 0009) do not change. Areas do not use NestJS
+  providers for their use cases yet; ADR 0007's repository ports as
+  injectable abstract classes are not adopted (see ADR 0008).
 - TypeScript runs through SWC (`node --import @swc-node/register/esm-register`)
   in development, tests and production, with `experimentalDecorators` and
   `emitDecoratorMetadata`. There is still no separate build output, so

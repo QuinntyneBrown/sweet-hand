@@ -4,7 +4,7 @@ import { API_URL, WEB_URL } from './ports';
 import type { FaultOptions } from './fault-options';
 
 const CONTROL = `${API_URL}/__test`;
-/** Names the test's own backend environment on every request (ADR 0008). */
+/** Names the test's own backend environment on every request (ADR 0009). */
 export const SESSION_HEADER = 'x-test-session';
 
 /** `GET /api/public/caterers*` style patterns: method or `*`, then a path with `*` globs. */
@@ -17,7 +17,7 @@ function matches(fault: { method: string; path: string }, method: string, path: 
 const isBackendPath = (path: string) => path.startsWith('/api/') || path.startsWith('/media/');
 
 /**
- * The test's handle on its own isolated backend environment (ADR 0008). Tests
+ * The test's handle on its own isolated backend environment (ADR 0009). Tests
  * arrange state and failures through intent-named methods; they never touch
  * routes. State lives in the backend's test session; faults and the request
  * log live here, on the browser context's network.

@@ -31,7 +31,7 @@ useSecureCookies(config.secureCookies);
 // Local development without a database starts from the fictional cast.
 if (!config.databaseUrl && !config.testControl) await seedDatabase(env.db);
 
-// Test mode (ADR 0008): one isolated, seeded environment per x-test-session header.
+// Test mode (ADR 0009): one isolated, seeded environment per x-test-session header.
 const testEnvs = config.testControl ? new TestEnvironments() : undefined;
 const app = await createApiApp({
   environments: testEnvs ?? { resolve: () => env },

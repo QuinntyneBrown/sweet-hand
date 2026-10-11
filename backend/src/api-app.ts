@@ -8,13 +8,13 @@ import { productControllers, productHooks } from './product.ts';
 export interface ApiAppOptions {
   environments: Environments;
   config?: Partial<Pick<Config, 'secureCookies' | 'allowedOrigins' | 'trustProxy'>>;
-  /** Handled before any route: the test-control API in test mode (ADR 0008). */
+  /** Handled before any route: the test-control API in test mode (ADR 0009). */
   control?: (req: IncomingMessage, res: ServerResponse) => Promise<boolean>;
   /** Overrides, for tests that add probe controllers. */
   controllers?: Type<unknown>[];
 }
 
-/** The Sweet Hand API (ADR 0009): product controllers and request hooks, shared by main.ts and the acceptance tests. */
+/** The Sweet Hand API (ADR 0010): product controllers and request hooks, shared by main.ts and the acceptance tests. */
 export async function createApiApp(options: ApiAppOptions): Promise<INestApplication> {
   const control = options.control;
   return createNestApp({

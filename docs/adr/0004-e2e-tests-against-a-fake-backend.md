@@ -1,6 +1,6 @@
 # 0004 — Frontend acceptance tests run in Playwright against a fake backend
 
-- Status: Superseded in part by ADR 0008 (the fake backend is removed; the
+- Status: Superseded in part by ADR 0009 (the fake backend is removed; the
   Playwright conventions here still hold)
 - Date: 2026-10-10
 

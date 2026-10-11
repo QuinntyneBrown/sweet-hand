@@ -24,5 +24,5 @@ export function productHooks(): Pick<PipelineOptions, 'authenticate' | 'onDenied
   };
 }
 
-/** Every feature area's NestJS controller (ADR 0009). */
+/** Every feature area's NestJS controller (ADR 0010). */
 export const productControllers: Type<unknown>[] = [HealthController, DiscoveryController, IdentityController, EnquiriesController, ReviewsController, ReportsController, AccountController, OperatorSettingsController, CatererProfileController, ModerationController];

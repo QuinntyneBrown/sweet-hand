@@ -1,13 +1,15 @@
-# 0008 — Acceptance tests run against the real backend in test mode
+# 0009 — Acceptance tests run against the real backend in test mode
 
-- Status: Accepted (supersedes the fake-backend parts of ADR 0004)
+- Status: Accepted (supersedes the fake-backend parts of ADR 0004, and the
+  bullet of ADR 0007 that keeps `frontend/fake-backend/`: the fake backend has
+  been removed)
 - Date: 2026-10-11
 
 ## Context
 
 ADR 0004 ran the Playwright suite against a fake backend in `frontend/` because
 no backend existed. The real backend now exists (ADR 0006). Acceptance tests
-must fake the database and never run a real one (ADR 0007), and each test
+must fake the database and never run a real one (ADR 0008), and each test
 needs isolated state, a fixed clock and named arrangements ("scenarios").
 
 ## Decision

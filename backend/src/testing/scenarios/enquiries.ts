@@ -36,7 +36,7 @@ const customerName = (i: number) =>
 
 const reply = (by: Party, at: string, text: string): EnquiryEvent => ({ id: randomUUID(), kind: 'reply', by, at: new Date(at).toISOString(), text });
 
-/** Named enquiry arrangements the Playwright suite asks for (ADR 0008), matching the fake backend's. */
+/** Named enquiry arrangements the Playwright suite asks for (ADR 0009), matching the fake backend's. */
 export const enquiriesScenarios: Scenarios = {
   /** The id of one enquiry, by customer email (or 'former') and caterer slug. */
   'enquiry-id': async (ctx, args: { customer?: string; caterer: string }) => ({ id: (await find(ctx, args)).id }),

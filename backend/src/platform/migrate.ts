@@ -1,5 +1,5 @@
 /**
- * Applies pending SQL migrations (ADR 0007). Run explicitly with
+ * Applies pending SQL migrations (ADR 0008). Run explicitly with
  * `npm run migrate`; the application never migrates on startup.
  */
 import { readdir, readFile } from 'node:fs/promises';

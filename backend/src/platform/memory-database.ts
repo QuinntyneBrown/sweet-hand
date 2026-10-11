@@ -3,7 +3,7 @@ import { matches, type Collection, type Database, type Document, type Transactio
 type Tables = Map<string, Map<string, string>>;
 
 /**
- * The fake database (ADR 0007): documents are kept as JSON text so no caller
+ * The fake database (ADR 0008): documents are kept as JSON text so no caller
  * can alias stored state. Transactions are serialised and copy-on-write:
  * writes land in an overlay that replaces the tables only on success.
  */
@@ -22,7 +22,7 @@ export class MemoryDatabase implements Database {
     return run;
   }
 
-  /** Every collection's documents, ordered by id (test-control state, ADR 0008). */
+  /** Every collection's documents, ordered by id (test-control state, ADR 0009). */
   async snapshot(): Promise<Record<string, unknown[]>> {
     await this.queue;
     const out: Record<string, unknown[]> = {};

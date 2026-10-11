@@ -85,7 +85,7 @@ describe('review queue (L2-047, L2-055.1)', async () => {
   });
 });
 
-describe('review queue arrangements for the Playwright suite (ADR 0008)', () => {
+describe('review queue arrangements for the Playwright suite (ADR 0009)', () => {
   it('Given the long queue, when an operator opens it, then 34 items wait in pages of 20 and 9 are late', async () => {
     const api = await startApi();
     await putCastReports(api);

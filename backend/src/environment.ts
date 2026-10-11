@@ -8,7 +8,7 @@ import { PassThroughImageProcessing, type ImageProcessing } from './platform/ima
 
 /**
  * Everything a request runs against. Production has one; the test-control API
- * (ADR 0008) keeps one per test session so tests never share state.
+ * (ADR 0009) keeps one per test session so tests never share state.
  */
 export interface Environment {
   db: Database;
@@ -24,7 +24,7 @@ export interface Environment {
   catalogDay?: string;
 }
 
-/** A fresh environment on the fake database with the cast's clock (ADR 0007), seeded with the cast unless asked not to. */
+/** A fresh environment on the fake database with the cast's clock (ADR 0008), seeded with the cast unless asked not to. */
 export type TestEnvironment = Environment & { clock: FixedClock; db: MemoryDatabase; media: MemoryMediaStore; images: PassThroughImageProcessing };
 
 export async function testEnvironment(options: { seed?: boolean } = {}): Promise<TestEnvironment> {

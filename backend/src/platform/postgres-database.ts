@@ -5,7 +5,7 @@ const SERIALIZATION_FAILURE = '40001';
 const ATTEMPTS = 3;
 
 /**
- * PostgreSQL adapter of the persistence port (ADR 0007). Every transaction is
+ * PostgreSQL adapter of the persistence port (ADR 0008). Every transaction is
  * SERIALIZABLE and retried on a serialisation failure. Parameterised queries
  * only (L2-080.2). Never runs during automated tests.
  */

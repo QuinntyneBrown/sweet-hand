@@ -1,5 +1,5 @@
 /**
- * The test-control API (ADR 0008), mounted only when TEST_CONTROL is on and
+ * The test-control API (ADR 0009), mounted only when TEST_CONTROL is on and
  * the database is the in-memory fake. Each `x-test-session` header value gets
  * its own environment: database, clock and media store, seeded with the cast.
  */

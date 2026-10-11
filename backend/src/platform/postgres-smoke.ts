@@ -1,5 +1,5 @@
 /**
- * Hand check of the PostgreSQL adapter (ADR 0007): runs the same operations on
+ * Hand check of the PostgreSQL adapter (ADR 0008): runs the same operations on
  * PostgreSQL and on the in-memory fake and compares the results. Not part of
  * the automated suite, which never starts a database.
  *

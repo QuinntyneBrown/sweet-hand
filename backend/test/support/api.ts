@@ -1,6 +1,6 @@
 /**
  * Acceptance-test harness: the real HTTP API on an ephemeral port, backed by
- * the in-memory fake database (ADR 0007). No database server runs.
+ * the in-memory fake database (ADR 0008). No database server runs.
  */
 import { after } from 'node:test';
 import type { AddressInfo } from 'node:net';

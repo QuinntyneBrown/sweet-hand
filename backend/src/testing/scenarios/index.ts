@@ -9,7 +9,7 @@ import { operatorSettingsScenarios } from './operator-settings.ts';
 import { catererProfileScenarios } from './caterer-profile.ts';
 import { moderationScenarios } from './moderation.ts';
 
-/** Every area's scenarios (ADR 0008). Names are unique across areas. */
+/** Every area's scenarios (ADR 0009). Names are unique across areas. */
 export const allScenarios: Scenarios = {
   ...identityScenarios,
   ...discoveryScenarios,

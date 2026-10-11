@@ -1,6 +1,11 @@
-# 0007 — Persistence: document collections on PostgreSQL, faked in memory for tests
+# 0008 — Persistence as implemented: document collections on PostgreSQL, faked in memory for tests
 
-- Status: Accepted
+- Status: Accepted for the current implementation; **conflicts with ADR 0006
+  (data access through Drizzle ORM, files in S3-compatible object storage,
+  pg-boss queue) and ADR 0007 (one repository port per aggregate)**. Those
+  ADRs were recorded while this backend was being built on another branch.
+  Which way to reconcile, migrating the code to Drizzle repositories or
+  amending ADRs 0006 and 0007, is an open decision.
 - Date: 2026-10-11
 
 ## Context

@@ -10,7 +10,7 @@ import { PIPELINE_OPTIONS, type PipelineOptions } from './options.ts';
 
 export interface NestAppOptions extends PipelineOptions {
   controllers: Type<unknown>[];
-  /** Express middleware tried before the app's routes (the test-control API, ADR 0008). */
+  /** Express middleware tried before the app's routes (the test-control API, ADR 0009). */
   before?: (req: ExpressRequest, res: Response, next: () => void) => void;
 }
 
@@ -26,7 +26,7 @@ class ApiModule implements NestModule {
 }
 
 /**
- * The API as a NestJS application (ADR 0009), not yet listening. The request
+ * The API as a NestJS application (ADR 0010), not yet listening. The request
  * pipeline: context middleware, then the rate-limit, CSRF, body and endpoint
  * policy guards in that order, then the handler in one transaction.
  */

@@ -1,9 +1,10 @@
 # Sweet Hand backend
 
 The HTTP API: NestJS on Node.js 22, TypeScript run through SWC (ADRs 0006,
-0009), PostgreSQL in production and an in-memory fake database in every
-automated test (ADR 0007). The frontend's Playwright suite runs against this
-API in test mode (ADR 0008).
+0010), PostgreSQL in production and an in-memory fake database in every
+automated test (ADR 0008; it differs from ADRs 0006 and 0007 on data access,
+see ADR 0008's status). The frontend's Playwright suite runs against this
+API in test mode (ADR 0009).
 
 ## Commands
 

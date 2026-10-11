@@ -1,5 +1,5 @@
 /**
- * The persistence port (ADR 0007). The application sees collections of JSON
+ * The persistence port (ADR 0008). The application sees collections of JSON
  * documents keyed by `id`; PostgreSQL implements it in production and an
  * in-memory fake in every automated test.
  */

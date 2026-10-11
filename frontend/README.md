@@ -1,7 +1,7 @@
 # Sweet Hand frontend
 
 Angular 21 workspace (ADR 0001) with three projects and the Playwright
-acceptance suite. The API it talks to is `../backend`, a NestJS application (ADRs 0006–0009).
+acceptance suite. The API it talks to is `../backend`, a NestJS application (ADRs 0006, 0010).
 
 ```
 frontend/
@@ -20,7 +20,7 @@ Run everything from `frontend/` (Node 22.18+), after `npm install` in both
 |---|---|
 | `npm install` | Install dependencies |
 | `npm start` | The backend on :4300 (in-memory database seeded with the cast) and the dev server on :4200 (proxy in `proxy.conf.mjs`) |
-| `npm run e2e` | Acceptance suite, Chromium only, against the backend in test mode (ADR 0008); starts both servers unless already running |
+| `npm run e2e` | Acceptance suite, Chromium only, against the backend in test mode (ADR 0009); starts both servers unless already running |
 | `npm run lint` | ESLint, including the i18n rule (ADR 0005) |
 | `npm run typecheck` | `tsc` for the API library, the app and the e2e suite |
 | `npm run build` | Production build |
@@ -51,7 +51,7 @@ Every production behaviour change goes slice by slice:
 Never weaken a test to make it pass, and never write architecture tests
 (structure, naming, traceability). Tests prove behaviour only.
 
-## E2E conventions (ADRs 0004, 0008)
+## E2E conventions (ADRs 0004, 0009)
 
 - Import `test` and `expect` from `e2e/support/test`. Each test gets its own
   seeded backend environment (in-memory database, `x-test-session` header)
@@ -81,17 +81,9 @@ Never weaken a test to make it pass, and never write architecture tests
 - Seed data is the fictional cast in `docs/mocks/README.md`. Never use real
   people, businesses or addresses.
 
-## Backend in test mode (ADR 0008)
+## Backend in test mode (ADR 0009)
 
-- `server.ts` routes `/api/*` to handlers registered in `routes/index.ts`.
-  Each area has `routes/<area>.ts` (`registerX` + `xScenarios`) and seed data
-  in `seed/<area>.ts`; the store (`lib/store.ts`) holds one copy per test.
-- Wire types live in `projects/api/src/lib/models/`, one type per file, and
-  are imported by the fake with `import type`, so both sides share one
-  contract. The real backend (ADR 0006) imports them the same way.
-- Validation errors: `invalid({ field: ['message'] })` → HTTP 400 problem body
-  `{ title, errors }`; field names match the form control names.
-- `npm run e2e` starts `node ../backend/src/main.ts` with `TEST_CONTROL=1`:
+- `npm run e2e` starts the backend (`npm --prefix ../backend start`) with `TEST_CONTROL=1`:
   no database server, one seeded in-memory environment per test session, and
   the `/__test/` control API the fixture uses. Faults and the request log live
   in the fixture, on the browser context's network.

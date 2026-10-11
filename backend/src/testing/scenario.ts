@@ -10,7 +10,7 @@ export interface ScenarioContext {
 
 /**
  * A named state change the Playwright suite asks for (`backend.scenario(name,
- * args)`), so tests state intent instead of poking data (ADR 0008). Each area
+ * args)`), so tests state intent instead of poking data (ADR 0009). Each area
  * exports its own map from `src/testing/scenarios/<area>.ts`.
  */
 export type Scenario = (ctx: ScenarioContext, args: any) => Promise<unknown> | unknown;

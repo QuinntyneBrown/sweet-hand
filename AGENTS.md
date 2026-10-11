@@ -37,10 +37,7 @@ keep it accurate:
     system pages), `features/<area>/` (pages, routes, providers)
   - `frontend/e2e/` — Playwright: `support/` (fixtures, cast, ports),
     `pages/` (page objects), `specs/<area>/`
-- `backend/` — planned (ADRs 0006–0007): NestJS API and background worker;
-  not created yet
-
-- `backend/` — the HTTP API (ADRs 0006–0008); see `backend/README.md`
+- `backend/` — the HTTP API, NestJS (ADRs 0006–0010); see `backend/README.md`
   - `backend/src/<area>/` — the area's documents (`model.ts`), use cases and
     NestJS controller (`<area>.controller.ts`); `backend/src/platform/` —
     persistence port and adapters, clock, outbox, audit and security logs;
@@ -78,11 +75,10 @@ Frontend (ADRs 0001–0005):
   convenience, not security.
 - All user-facing text is marked for Angular i18n (ADR 0005); lint fails on
   unmarked template text.
-- The backend (`backend/`, ADR 0006) is not built yet. The fake backend
-  implements the same HTTP contract, with wire types shared from
-  `projects/api/src/lib/models/`; the real backend imports them the same way.
+- The backend (`backend/`) implements the HTTP contract, importing the wire
+  types from `projects/api/src/lib/models/` with `import type`.
 
-Backend (ADRs 0006–0007, planned in `backend/`):
+Backend, as decided (ADRs 0006–0007):
 
 - NestJS on Node.js 22 and TypeScript. One codebase, two entry points: the
   API (HTTP) and the background worker (queued and scheduled jobs).
@@ -101,35 +97,35 @@ Backend (ADRs 0006–0007, planned in `backend/`):
   PostgreSQL.
 - Wire models are imported from `frontend/projects/api/src/lib/models/` with
   `import type`.
-Backend (ADRs 0006–0008):
-- TypeScript on Node.js 22 (type stripping, no web framework) in `backend/`.
-Backend (ADRs 0006–0009):
-- NestJS 11 (Express adapter) on Node.js 22 in `backend/`; TypeScript runs
-  through SWC with decorators, with no build output (ADR 0009).
-  Responses are typed with the frontend's wire models through
-  `import type` (`@contract/*` → `frontend/projects/api/src/lib/models/`).
-- Feature areas under `backend/src/<area>/`: use cases and domain functions
-  hold the rules and take a framework-free request context; the area's
-  controller only maps routes to them. Every route declares an endpoint
-  policy with `@UsePolicy` (`anonymous` by explicit choice, `roles(...)`,
-  `signedIn`, `admins`); a route without one is refused, and a catalog-driven
-  test checks every protected route refuses the roles it does not allow.
-- The pipeline is NestJS middleware, guards (rate limit, CSRF, body limits,
-  endpoint policy), a transaction interceptor and a problem filter.
-- Persistence is a port of JSON document collections (`get`, `find` on
-  top-level scalars, `all`, `put`, `delete`) with one transaction per
-  request: PostgreSQL in production, an in-memory fake in every automated
-  test. The real database never runs during tests. Migrations run only
+
+Backend, as built (ADRs 0008–0010) — where it differs from ADRs 0006–0007:
+
+- NestJS 11 (Express adapter); TypeScript runs through SWC with decorators,
+  with no build output (ADR 0010). Use cases and domain functions take a
+  framework-free request context and return a reply; each area's controller
+  only maps routes to them. Every route declares `@UsePolicy` (`anonymous`
+  by explicit choice, `roles(...)`, `signedIn`, `admins`); a route without
+  one is refused, and a catalog-driven test checks every protected route
+  refuses the roles it does not allow. The pipeline is NestJS middleware,
+  guards (rate limit, CSRF, body limits, endpoint policy), a transaction
+  interceptor and a problem filter.
+- **Differs from ADR 0006/0007:** persistence is one port of JSON document
+  collections (`get`, `find` on top-level scalars, `all`, `put`, `delete`)
+  with one transaction per request, not Drizzle repositories per aggregate;
+  files live in a PostgreSQL `media` table, not object storage; emails use a
+  transactional outbox table and an in-process worker, not pg-boss; there is
+  no separate worker entry point and no `sharp` image processing yet. ADR
+  0008 records this and leaves the reconciliation open. Migrations run only
   through `npm run migrate`; `npm run seed` loads the fictional cast and is
-  idempotent.
+  idempotent. The real database never runs during tests.
 - Sessions are opaque random tokens whose hash is stored; passwords are
-  Argon2id; email and reset tokens are stored hashed. Emails go to a
-  transactional outbox delivered by a worker; operator actions go to the
-  append-only audit log; security events to the security log.
+  Argon2id; email and reset tokens are stored hashed. Operator actions go to
+  the append-only audit log; security events to the security log.
 - Acceptance tests: `backend/test/` calls the API over HTTP against the
   in-memory database. The Playwright suite runs against the backend in test
-  mode (`TEST_CONTROL=1`, ADR 0008): one seeded in-memory environment per
+  mode (`TEST_CONTROL=1`, ADR 0009): one seeded in-memory environment per
   test, a `/__test/` control API for scenarios, sign-in, clock and state.
+  `frontend/fake-backend/` has been removed.
 - Providers still `<TO SUPPLY>` in the designs (bot protection, security
   keys, email delivery, image processing) sit behind ports with local
   stand-ins.
@@ -241,7 +237,7 @@ aligned until the entire feature or behavior change is complete.
 
 Back end: integration tests against the API (ADR 0007: NestJS app in-process, in-memory repositories). Front end: Playwright, using the
 Back end: integration tests against the API, on the in-memory fake database;
-the real database never runs during tests (ADR 0007). Front end: Playwright, using the
+the real database never runs during tests (ADRs 0007, 0008). Front end: Playwright, using the
 Page Object Model - one page object per screen, owning the selectors and the
 interactions. Tests state intent; page objects know the DOM. Never put a
 selector in a test.

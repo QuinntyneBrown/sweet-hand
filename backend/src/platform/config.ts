@@ -9,7 +9,7 @@ export interface Config {
   allowedOrigins: string[];
   /** Trust `X-Forwarded-For` and `X-Correlation-ID` from the load balancer. */
   trustProxy: boolean;
-  /** Mount the test-control API (ADR 0008). Refused with a real database. */
+  /** Mount the test-control API (ADR 0009). Refused with a real database. */
   testControl: boolean;
   /** Where uploaded media live when there is no database (local development). */
   mediaDir?: string;

@@ -8,7 +8,7 @@ import { prepareReply } from './reply.ts';
 
 /**
  * Runs the handler in one database transaction: its writes commit together
- * when it returns a reply, and none do when it throws (ADR 0007). Then writes
+ * when it returns a reply, and none do when it throws (ADR 0008). Then writes
  * the reply's status, headers and cookies.
  */
 @Injectable()

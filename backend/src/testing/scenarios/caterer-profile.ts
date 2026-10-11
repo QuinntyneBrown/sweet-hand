@@ -62,7 +62,7 @@ function bevCaterer(state: BevState, now: Date): Caterer {
   return caterer;
 }
 
-/** Caterer-profile scenarios the dashboard specs ask for (ADR 0008); names and arguments match the fake backend's. */
+/** Caterer-profile scenarios the dashboard specs ask for (ADR 0009); names and arguments match the fake backend's. */
 export const catererProfileScenarios: Scenarios = {
   /** Beverley's account (fictional) and her profile at the given step of setup. */
   beverley: async ({ tx, now }, { state }: { state: BevState }) => {
