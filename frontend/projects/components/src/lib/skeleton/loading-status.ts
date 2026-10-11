@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   selector: 'sh-loading-status',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `<p class="visually-hidden" role="status">{{ loading() ? loadingLabel() : (doneLabel() ?? '') }}</p>`,
+  templateUrl: './loading-status.html',
 })
 export class LoadingStatus {
   readonly loading = input(false);

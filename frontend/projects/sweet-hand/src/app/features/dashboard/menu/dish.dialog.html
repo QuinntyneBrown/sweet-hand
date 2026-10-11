@@ -1,0 +1,62 @@
+<sh-dialog
+  [open]="open()"
+  size="form"
+  [form]="true"
+  [title]="dish() ? editTitle : addTitle"
+  [description]="description()"
+  closeLabel="Close"
+  i18n-closeLabel="@@common.close"
+  cancelLabel="Cancel"
+  i18n-cancelLabel="@@common.cancel"
+  [busy]="busy()"
+  [busyMessage]="busyMessage()"
+  (dismissed)="closed.emit()"
+  (submitted)="save()"
+>
+  @if (failed()) {
+    <sh-alert tone="danger" live="assertive" [title]="failedTitle()"
+      ><ng-container i18n="@@dish.failedText">Your entries are still here. Check your connection and try again.</ng-container></sh-alert
+    >
+  }
+  <sh-form-summary [heading]="summaryHeading()" [headingLevel]="3" [items]="summary()" [attempt]="attempt()" summaryId="dish-errors" />
+  <sh-form-field label="Dish name" i18n-label="@@dish.name" controlId="dish-name" [error]="errors().name" [help]="errors().name ? null : nameHelp">
+    <sh-text-field name="name" [maxlength]="80" [required]="true" [autofocus]="true" [readonly]="busy()" [value]="name()" (valueChange)="name.set($event)" />
+  </sh-form-field>
+  <sh-form-field
+    label="Description"
+    i18n-label="@@dish.description"
+    optionalMarker="(optional)"
+    i18n-optionalMarker="@@field.optional"
+    controlId="dish-desc"
+    [error]="errors().description"
+    [counter]="counter()"
+    [counterOver]="desc().trim().length > 300"
+  >
+    <sh-textarea name="description" [rows]="3" [readonly]="busy()" [value]="desc()" (valueChange)="desc.set($event)" />
+  </sh-form-field>
+  <sh-fieldset legend="Dietary tags" i18n-legend="@@dish.tags" optionalMarker="(optional)" i18n-optionalMarker="@@field.optional">
+    <div class="option-grid">
+      @for (tag of allTags; track tag) {
+        <label class="choice"
+          ><input type="checkbox" name="tags" [value]="tag" [checked]="tags().has(tag)" [disabled]="busy()" (change)="toggle(tag, $any($event.target).checked)" /><span class="choice__text"
+            ><span>{{ tagLabels[tag] }}</span></span
+          ></label
+        >
+      }
+    </div>
+  </sh-fieldset>
+  <sh-form-field
+    label="Price guidance"
+    i18n-label="@@dish.price"
+    optionalMarker="(optional)"
+    i18n-optionalMarker="@@field.optional"
+    controlId="dish-price"
+    [error]="errors().price"
+    [help]="errors().price ? null : priceHelp"
+  >
+    <sh-text-field name="price" [maxlength]="80" [readonly]="busy()" [value]="price()" (valueChange)="price.set($event)" />
+  </sh-form-field>
+  <button slot="footer" class="btn btn--primary" type="submit" [attr.aria-busy]="busy() ? 'true' : null" [attr.aria-disabled]="busy() ? 'true' : null">
+    {{ submitLabel() }}
+  </button>
+</sh-dialog>

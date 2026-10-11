@@ -9,48 +9,7 @@ import { CatererProfileService, type OwnPhotoView, type OwnProfileView } from '@
   selector: 'app-remove-photo-dialog',
   imports: [Alert, Dialog, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <sh-dialog
-      [open]="open()"
-      size="sm"
-      [title]="blocked() ? blockedTitle : title"
-      [description]="description()"
-      [tone]="blocked() ? 'warning' : null"
-      closeLabel="Close"
-      i18n-closeLabel="@@common.close"
-      [cancelLabel]="blocked() ? gotIt : cancel"
-      initialFocus="cancel"
-      [busy]="busy()"
-      [busyMessage]="busyMessage"
-      [returnFocus]="returnFocus()"
-      (dismissed)="closed.emit()"
-    >
-      <svg slot="icon" shIcon="warning"></svg>
-      @if (failed()) {
-        <sh-alert tone="danger" live="assertive" title="The photo wasn’t removed" i18n-title="@@removePhoto.failedTitle"
-          ><ng-container i18n="@@removePhoto.failedText">We couldn’t reach Sweet Hand. Try again in a moment.</ng-container></sh-alert
-        >
-      }
-      @if (!blocked() && photo()?.image; as image) {
-        <div class="dialog__photo">
-          <span class="photo"><img [src]="image.src" alt="" width="160" height="160" /></span>
-        </div>
-      }
-      @if (!blocked()) {
-        <button
-          slot="footer"
-          class="btn btn--danger"
-          type="button"
-          [attr.aria-busy]="busy() ? 'true' : null"
-          [attr.aria-disabled]="busy() ? 'true' : null"
-          (click)="remove()"
-          i18n="@@removePhoto.confirm"
-        >
-          Remove photo
-        </button>
-      }
-    </sh-dialog>
-  `,
+  templateUrl: './remove-photo.dialog.html',
 })
 export class RemovePhotoDialog {
   private readonly api = inject(CatererProfileService);

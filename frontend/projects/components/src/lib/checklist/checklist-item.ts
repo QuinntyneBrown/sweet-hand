@@ -15,16 +15,7 @@ import { Checklist } from './checklist';
   imports: [Check],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '[attr.data-missing]': "status() === 'missing' ? '' : null", '[attr.data-highlight]': "highlight() ? '' : null" },
-  template: `
-    @if (status(); as s) {
-      <sh-check [status]="s" />
-    } @else {
-      <ng-content select="[slot=icon]" />
-    }
-    <span
-      >@if (prefix()) {<span class="visually-hidden">{{ prefix() }}</span>}<ng-content
-    /></span>
-  `,
+  templateUrl: './checklist-item.html',
 })
 export class ChecklistItem {
   readonly status = input.required<CheckStatus | null>();

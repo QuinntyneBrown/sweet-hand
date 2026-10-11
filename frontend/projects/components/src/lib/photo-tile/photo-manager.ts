@@ -5,20 +5,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
   selector: 'sh-photo-manager',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <ul class="photo-manager" [attr.aria-label]="label()" [attr.aria-busy]="busy() ? 'true' : null">
-      @if (busy()) {
-        @for (i of skeletons(); track i) {
-          <li class="photo-tile photo-tile--skeleton" aria-hidden="true">
-            <span class="photo"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text"></span>
-          </li>
-        }
-      } @else {
-        <ng-content />
-      }
-    </ul>
-    <p class="visually-hidden" role="status" aria-live="polite">{{ announcement() }}</p>
-  `,
+  templateUrl: './photo-manager.html',
 })
 export class PhotoManager {
   readonly label = input.required<string>();

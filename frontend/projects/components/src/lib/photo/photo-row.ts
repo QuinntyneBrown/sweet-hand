@@ -8,27 +8,7 @@ import type { RowPhoto } from './row-photo';
   imports: [Photo],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: block' },
-  template: `
-    @if (variant() === 'strip') {
-      <div class="photo-row photo-row--strip" [attr.aria-hidden]="busy() ? 'true' : null">
-        @if (busy()) {
-          @for (i of skeletons(); track i) {
-            <span class="photo"><span class="skeleton skeleton--circle"></span></span>
-          }
-        } @else {
-          @for (p of photos(); track $index) {
-            <sh-photo [src]="p.src" [alt]="p.alt" [width]="p.width" [height]="p.height" [failedLabel]="''" />
-          }
-        }
-      </div>
-    } @else {
-      <div class="photo-row" aria-hidden="true">
-        @for (p of photos(); track $index) {
-          <sh-photo [src]="p.src" alt="" [width]="p.width" [height]="p.height" loading="eager" [failedLabel]="''" />
-        }
-      </div>
-    }
-  `,
+  templateUrl: './photo-row.html',
 })
 export class PhotoRow {
   readonly variant = input<'decorative' | 'strip'>('decorative');

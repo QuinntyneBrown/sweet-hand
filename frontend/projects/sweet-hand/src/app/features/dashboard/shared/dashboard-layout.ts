@@ -14,23 +14,7 @@ import { type OwnProfileStatus } from '@sweet-hand/api';
   imports: [CatererCard, SideNav],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <div [class]="previewLabel() || previewBusy() ? 'work-layout work-layout--preview' : 'work-layout'">
-      <sh-side-nav label="Dashboard" i18n-label="@@dashboard.nav" [groups]="nav()" />
-      <div class="work-main" [style.max-width]="narrow() ? '48rem' : null"><ng-content /></div>
-      @if (previewBusy()) {
-        <aside class="preview-pane" aria-hidden="true">
-          <span class="skeleton skeleton--text" style="width: 8rem"></span>
-          <sh-caterer-card [skeleton]="true" />
-        </aside>
-      } @else if (previewLabel()) {
-        <aside class="preview-pane" aria-labelledby="preview-title">
-          <h2 class="preview-pane__label" id="preview-title">{{ previewLabel() }}</h2>
-          <ng-content select="[slot=preview]" />
-        </aside>
-      }
-    </div>
-  `,
+  templateUrl: './dashboard-layout.html',
 })
 export class DashboardLayout {
   private readonly session = inject(Session);

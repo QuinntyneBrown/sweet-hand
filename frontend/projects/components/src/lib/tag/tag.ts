@@ -16,13 +16,7 @@ export function isAllergen(value: DietaryTag): boolean {
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (changed()) {
-      <li><ins class="diff-new"><span [class]="cls()">@if (allergen()) {<svg shIcon="warning"></svg>}{{ label() }}</span></ins></li>
-    } @else {
-      <li [class]="cls()">@if (allergen()) {<svg shIcon="warning"></svg>}{{ label() }}</li>
-    }
-  `,
+  templateUrl: './tag.html',
 })
 export class Tag {
   readonly value = input.required<DietaryTag>();

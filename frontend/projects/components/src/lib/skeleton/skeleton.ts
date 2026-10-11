@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, DestroyRef, computed, effect, injec
   selector: 'sh-skeleton',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `<span [class]="'skeleton skeleton--' + shape()" aria-hidden="true" [style.width]="width()" [style.height]="usesHeight() ? height() : null"></span>`,
+  templateUrl: './skeleton.html',
 })
 export class Skeleton {
   readonly shape = input<'text' | 'title' | 'circle' | 'rect' | 'pill'>('text');

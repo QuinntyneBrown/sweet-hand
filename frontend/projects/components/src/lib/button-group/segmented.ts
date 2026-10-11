@@ -12,31 +12,7 @@ import type { SegmentedItem } from './segmented-item';
   imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (loading()) {
-      <ul class="segmented" aria-hidden="true">
-        @for (i of skeletons(); track i) {
-          <li><span class="skeleton skeleton--text" style="width: 4rem"></span></li>
-        }
-      </ul>
-    } @else {
-      <ul class="segmented" [attr.aria-label]="ariaLabel()">
-        @for (item of rendered(); track item.value) {
-          <li>
-            @if (mode() === 'link') {
-              <a [routerLink]="item.tree" [attr.aria-current]="item.value === selected() ? 'page' : null" (click)="followed.emit({ value: item.value, event: $event })"
-                >{{ item.label }}@if (item.count !== null) {&ngsp;<span class="filter-list__count">{{ item.countText }}</span>}@if (item.hiddenSuffix) {<span class="visually-hidden">{{ item.hiddenSuffix }}</span>}</a
-              >
-            } @else {
-              <button type="button" [attr.aria-pressed]="item.value === selected() ? 'true' : 'false'" [disabled]="!!item.disabled" (click)="press(item.value)"
-                >{{ item.label }}@if (item.count !== null) {&ngsp;<span class="filter-list__count">{{ item.countText }}</span>}@if (item.hiddenSuffix) {<span class="visually-hidden">{{ item.hiddenSuffix }}</span>}</button
-              >
-            }
-          </li>
-        }
-      </ul>
-    }
-  `,
+  templateUrl: './segmented.html',
 })
 export class Segmented {
   readonly ariaLabel = input.required<string>();

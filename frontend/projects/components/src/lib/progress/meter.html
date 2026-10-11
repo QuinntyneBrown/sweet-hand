@@ -1,0 +1,4 @@
+<div class="meter">
+  <div class="meter__label"><span [id]="labelId">{{ label() }}</span><span>{{ valueText() }}</span></div>
+  <sh-progress [value]="value()" [max]="max()" [valueText]="valueText()" [labelledBy]="labelId" />
+</div>

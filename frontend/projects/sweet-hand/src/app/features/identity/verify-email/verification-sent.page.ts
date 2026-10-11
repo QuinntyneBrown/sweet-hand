@@ -17,26 +17,7 @@ export const RESEND_PAUSE_MS = 60_000;
   selector: 'app-verification-sent-page',
   imports: [RouterLink, AuthPhotos, Button],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div class="auth">
-      <div class="auth__head">
-        <app-auth-photos [photos]="['sugar-dumplin', 'black-cake-co', 'cou-cou']" />
-        <h1 i18n="@@verifySent.title">Check your email</h1>
-        @if (email(); as address) {
-          <p class="subtitle" i18n="@@verifySent.subtitle">We sent a new link to <strong>{{ address }}</strong>. It works for 24 hours.</p>
-        } @else {
-          <p class="subtitle" i18n="@@verifySent.subtitleNoEmail">We sent a new link to your email address. It works for 24 hours.</p>
-        }
-      </div>
-      <div class="stack">
-        <a class="btn btn--primary btn--lg btn--block" routerLink="/caterers" i18n="@@verify.browse">Browse caterers</a>
-        <sh-button size="lg" [block]="true" [disabled]="paused()" describedBy="resend-help" (activated)="send()"
-          ><ng-container i18n="@@register.success.resend">Resend email</ng-container></sh-button
-        >
-        <span class="field__help" id="resend-help" i18n="@@verifySent.help">You can resend in 60 seconds. Check your spam folder too.</span>
-      </div>
-    </div>
-  `,
+  templateUrl: './verification-sent.page.html',
 })
 export class VerificationSentPage {
   private readonly api = inject(IdentityService);

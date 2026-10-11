@@ -9,15 +9,7 @@ import type { StatusTone } from './status-tone';
   selector: 'sh-status',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (skeleton()) {
-      <span class="skeleton skeleton--text" style="width: 5rem" aria-hidden="true"></span>
-    } @else if (block()) {
-      <p [class]="cls()">{{ text() }}</p>
-    } @else {
-      <span [class]="cls()">{{ text() }}</span>
-    }
-  `,
+  templateUrl: './status.html',
 })
 export class Status {
   readonly tone = input<StatusTone | null>(null);

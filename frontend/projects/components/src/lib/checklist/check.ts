@@ -12,19 +12,7 @@ import type { CheckStatus } from './check-status';
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @switch (status()) {
-      @case ('done') {
-        <span class="check check--done" aria-hidden="true"><svg shIcon="check"></svg></span>
-      }
-      @case ('attention') {
-        <span class="check check--error" aria-hidden="true"><svg shIcon="exclamation"></svg></span>
-      }
-      @default {
-        <span class="check" aria-hidden="true"></span>
-      }
-    }
-  `,
+  templateUrl: './check.html',
 })
 export class Check {
   readonly status = input.required<CheckStatus>();

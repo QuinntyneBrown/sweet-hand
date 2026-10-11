@@ -10,48 +10,8 @@ import type { ChartPoint } from './chart-point';
   selector: 'sh-bar-chart',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <div [class]="dense() ? 'bar-chart bar-chart--dense' : 'bar-chart'" role="img" [attr.aria-label]="imageLabel()">
-      @for (b of bars(); track $index) {
-        <span [class]="b.accent ? 'bar-chart__bar bar-chart__bar--accent' : 'bar-chart__bar'" [style.--value]="b.height"></span>
-      }
-    </div>
-    <div class="bar-chart__axis" aria-hidden="true">
-      @for (a of axis(); track $index) {
-        <span>{{ a }}</span>
-      }
-    </div>
-  `,
-  styles: `
-    .bar-chart--dense:has(> :nth-child(32)) {
-      gap: 0;
-    }
-    .bar-chart--dense + .bar-chart__axis {
-      gap: var(--space-0-5);
-    }
-    .bar-chart--dense:has(> :nth-child(32)) + .bar-chart__axis {
-      gap: 0;
-    }
-    .bar-chart__axis span {
-      flex: 1;
-      min-width: 0;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .bar-chart--dense + .bar-chart__axis span {
-      overflow: visible;
-      text-align: left;
-    }
-    @media (forced-colors: active) {
-      .bar-chart__bar {
-        forced-color-adjust: none;
-        background: CanvasText;
-      }
-      .bar-chart__bar--accent {
-        background: Highlight;
-      }
-    }
-  `,
+  templateUrl: './bar-chart.html',
+  styleUrl: './bar-chart.css',
 })
 export class BarChart {
   readonly label = input.required<string>();

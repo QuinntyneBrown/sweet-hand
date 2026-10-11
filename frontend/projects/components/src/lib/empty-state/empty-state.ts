@@ -11,44 +11,8 @@ import { ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, comp
   encapsulation: ViewEncapsulation.Emulated,
   host: { style: 'display: contents' },
   // Slot wrappers with nothing projected are not shown ("No input renders an empty wrapper").
-  styles: `
-    .empty__icon:empty,
-    .photo-row:empty,
-    .empty__actions:empty {
-      display: none;
-    }
-  `,
-  template: `
-    <div [class]="cls()" [attr.role]="role()">
-      <div class="photo-row" aria-hidden="true"><ng-content select="[slot=photos]" /></div>
-      <div class="empty__icon" aria-hidden="true"><ng-content select="[slot=icon]" /></div>
-      @switch (headingLevel()) {
-        @case (1) {
-          <h1 class="empty__title" [attr.id]="headingId()">{{ heading() }}</h1>
-        }
-        @case (3) {
-          <h3 class="empty__title" [attr.id]="headingId()">{{ heading() }}</h3>
-        }
-        @case (4) {
-          <h4 class="empty__title" [attr.id]="headingId()">{{ heading() }}</h4>
-        }
-        @case (null) {
-          <p class="empty__title" [attr.id]="headingId()">{{ heading() }}</p>
-        }
-        @default {
-          <h2 class="empty__title" [attr.id]="headingId()">{{ heading() }}</h2>
-        }
-      }
-      @if (text()) {
-        <p class="empty__text">{{ text() }}</p>
-      }
-      <div #actions class="empty__actions"><ng-content select="[slot=actions]" /></div>
-      <ng-content select="[slot=note]" />
-      @if (reference()) {
-        <p class="text-caption">{{ referenceLabel() }} <code>{{ reference() }}</code></p>
-      }
-    </div>
-  `,
+  styleUrl: './empty-state.css',
+  templateUrl: './empty-state.html',
 })
 export class EmptyState {
   readonly heading = input.required<string>();

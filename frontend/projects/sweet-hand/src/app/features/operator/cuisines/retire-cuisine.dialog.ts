@@ -8,50 +8,7 @@ import { type CuisineUsage, type OperatorCuisine, OperatorSettingsService } from
   selector: 'app-retire-cuisine-dialog',
   imports: [Alert, Button, Dialog, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <sh-dialog
-      [open]="open()"
-      tone="danger"
-      [title]="title()"
-      description="It leaves the listing filter and the choices on new and edited profiles."
-      i18n-description="@@retireCuisine.description"
-      closeLabel="Close"
-      i18n-closeLabel="@@common.close"
-      cancelLabel="Cancel"
-      i18n-cancelLabel="@@common.cancel"
-      initialFocus="cancel"
-      [busy]="busy()"
-      [busyMessage]="retiring()"
-      [returnFocus]="returnFocus()"
-      (dismissed)="closed.emit()"
-    >
-      <svg slot="icon" shIcon="warning"></svg>
-      @if (failed()) {
-        <sh-alert tone="danger" live="assertive" [title]="failedTitle()"
-          ><ng-container i18n="@@retireCuisine.failedText">It’s still active everywhere. Try again in a moment.</ng-container></sh-alert
-        >
-      }
-      @if (usage(); as u) {
-        @if (u.caterers.length) {
-          <sh-alert tone="warning" [title]="warningTitle()"
-            ><ng-container i18n="@@retireCuisine.warningText">They keep it on their pages. It just won’t be offered to anyone new.</ng-container></sh-alert
-          >
-          <ul class="dialog-people" [attr.aria-label]="peopleLabel()">
-            @for (c of u.caterers; track c.slug) {
-              <li><span class="photo"><img [src]="c.photo" alt="" width="80" height="80" /></span>{{ c.name }}</li>
-            }
-          </ul>
-        } @else {
-          <p>{{ unusedText() }}</p>
-        }
-      } @else if (usageFailed()) {
-        <p i18n="@@retireCuisine.usageFailed">We couldn’t check which caterers use it. Caterers who use it keep it on their pages.</p>
-      } @else {
-        <p><span class="skeleton skeleton--text" aria-hidden="true"></span></p>
-      }
-      <sh-button slot="footer" variant="danger" [busy]="busy()" (activated)="retire()"><ng-container i18n="@@retireCuisine.submit">Retire cuisine</ng-container></sh-button>
-    </sh-dialog>
-  `,
+  templateUrl: './retire-cuisine.dialog.html',
 })
 export class RetireCuisineDialog {
   private readonly api = inject(OperatorSettingsService);

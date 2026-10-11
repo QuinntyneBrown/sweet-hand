@@ -14,61 +14,7 @@ import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
   selector: 'app-decline-enquiry-dialog',
   imports: [Button, Dialog, FormField, FormSummary, Icon, Textarea],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <sh-dialog
-      [open]="open()"
-      [title]="title()"
-      [description]="description()"
-      [form]="true"
-      closeLabel="Close"
-      i18n-closeLabel="@@common.close"
-      cancelLabel="Cancel"
-      i18n-cancelLabel="@@common.cancel"
-      [busy]="busy()"
-      [busyMessage]="busyMessage()"
-      [returnFocus]="returnFocus()"
-      (dismissed)="dismissed.emit()"
-      (submitted)="confirm()"
-    >
-      @if (conflict()) {
-        <div class="alert alert--warning">
-          <svg shIcon="warning"></svg>
-          <div class="alert__body">
-            <p class="alert__title">{{ conflictTitle() }}</p>
-            <p>{{ conflictText() }}</p>
-          </div>
-        </div>
-      } @else {
-        @if (failed()) {
-          <div class="alert alert--danger" role="alert">
-            <svg shIcon="danger"></svg>
-            <div class="alert__body">
-              <p class="alert__title" i18n="@@decline.failedTitle">We couldn’t decline the enquiry</p>
-              <p>{{ failedText() }}</p>
-            </div>
-          </div>
-        }
-        <sh-form-summary heading="Check your note" i18n-heading="@@decline.summary" [headingLevel]="3" summaryId="summary" [items]="summary()" [attempt]="attempt()" />
-        <sh-form-field
-          [label]="noteLabel()"
-          controlId="note"
-          optionalMarker="(optional)"
-          i18n-optionalMarker="@@field.optional"
-          [help]="help()"
-          [error]="error()"
-          [counter]="counter()"
-          [counterOver]="over()"
-        >
-          <sh-textarea name="note" [rows]="3" [(value)]="note" [readonly]="busy()" />
-        </sh-form-field>
-      }
-      @if (conflict()) {
-        <sh-button slot="footer" variant="primary" (activated)="closeInstead.emit()"><ng-container i18n="@@decline.closeInstead">Close enquiry instead</ng-container></sh-button>
-      } @else {
-        <sh-button slot="footer" type="submit" variant="danger" [busy]="busy()"><ng-container i18n="@@decline.confirm">Decline enquiry</ng-container></sh-button>
-      }
-    </sh-dialog>
-  `,
+  templateUrl: './decline-enquiry-dialog.html',
 })
 export class DeclineEnquiryDialog {
   private readonly api = inject(EnquiriesService);

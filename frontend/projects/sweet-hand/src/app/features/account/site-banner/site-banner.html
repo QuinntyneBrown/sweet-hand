@@ -1,0 +1,42 @@
+@if (banner(); as b) {
+  @switch (b.kind) {
+    @case ('degraded') {
+      <sh-alert [banner]="true" tone="danger" live="assertive" title="Some things aren’t working right now" i18n-title="@@banner.degradedTitle"
+        ><ng-container i18n="@@banner.degradedText">New messages may take a few minutes to appear. Nothing you send is lost.</ng-container></sh-alert
+      >
+    }
+    @case ('bounced') {
+      <sh-alert [banner]="true" tone="warning" live="polite" [title]="bouncedTitle()" [dismissible]="true" dismissLabel="Dismiss email notice" i18n-dismissLabel="@@banner.dismissEmail" (dismissed)="dismiss('bounced')"
+        ><ng-container i18n="@@banner.bouncedText">Update your email so caterers’ replies reach you.</ng-container
+        ><span slot="actions" class="alert__actions"
+          ><button type="button" class="btn btn--link btn--sm" aria-haspopup="dialog" (click)="updateEmail()" i18n="@@account.updateEmail">Update email</button></span
+        ></sh-alert
+      >
+    }
+    @case ('unverified') {
+      <sh-alert [banner]="true" tone="warning" live="polite" title="Verify your email to send enquiries" i18n-title="@@banner.verifyTitle"
+        >{{ unverifiedText() }}<span slot="actions" class="alert__actions"
+          ><button type="button" class="btn btn--link btn--sm" (click)="resend()" i18n="@@banner.resend">Resend verification email</button></span
+        ></sh-alert
+      >
+    }
+    @case ('verified') {
+      <sh-alert [banner]="true" tone="success" live="polite" title="Email verified" i18n-title="@@banner.verifiedTitle" [dismissible]="true" dismissLabel="Dismiss" i18n-dismissLabel="@@toast.dismiss" (dismissed)="dismiss('verified')"
+        ><ng-container i18n="@@banner.verifiedText">You can now send enquiries to caterers.</ng-container></sh-alert
+      >
+    }
+    @case ('maintenance') {
+      <sh-alert
+        [banner]="true"
+        live="polite"
+        title="Scheduled maintenance"
+        i18n-title="@@banner.maintenanceTitle"
+        [dismissible]="true"
+        dismissLabel="Dismiss maintenance notice"
+        i18n-dismissLabel="@@banner.dismissMaintenance"
+        (dismissed)="dismissMaintenance()"
+        >{{ maintenanceText() }}</sh-alert
+      >
+    }
+  }
+}

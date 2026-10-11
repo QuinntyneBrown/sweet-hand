@@ -11,49 +11,7 @@ import { type DecisionResult, OperatorModerationService, type ProfileReviewView 
   selector: 'app-approve-dialog',
   imports: [Alert, ButtonAnchor, Checklist, ChecklistItem, Dialog],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <sh-dialog
-      [open]="open()"
-      [title]="title()"
-      [description]="description()"
-      [photo]="photo()"
-      [form]="true"
-      closeLabel="Close"
-      i18n-closeLabel="@@common.close"
-      cancelLabel="Cancel"
-      i18n-cancelLabel="@@common.cancel"
-      [busy]="busy()"
-      [busyMessage]="busyMessage()"
-      [returnFocus]="returnFocus()"
-      (dismissed)="dismissed.emit()"
-      (submitted)="approve()"
-    >
-      @if (conflict(); as c) {
-        <sh-alert tone="warning" live="assertive" title="This profile changed while you were looking" i18n-title="@@decision.conflictTitle">{{ c }}</sh-alert>
-      } @else if (failed()) {
-        <sh-alert tone="danger" live="assertive" [title]="failedTitle()">{{ failedText() }}</sh-alert>
-      }
-      <sh-checklist [statusLabels]="checkLabels">
-        @for (line of lines(); track $index) {
-          <li sh-checklist-item status="done">{{ line }}</li>
-        }
-      </sh-checklist>
-      @if (conflict()) {
-        <sh-button-anchor slot="footer" variant="primary" href="/admin/queue"><ng-container i18n="@@review.backToQueue">Back to review queue</ng-container></sh-button-anchor>
-      } @else {
-        <button
-          slot="footer"
-          class="btn btn--primary"
-          type="submit"
-          autofocus
-          [attr.aria-busy]="busy() ? 'true' : null"
-          [attr.aria-disabled]="busy() ? 'true' : null"
-        >
-          {{ failed() ? tryAgain : submitLabel() }}
-        </button>
-      }
-    </sh-dialog>
-  `,
+  templateUrl: './approve-dialog.html',
 })
 export class ApproveDialog {
   private readonly api = inject(OperatorModerationService);

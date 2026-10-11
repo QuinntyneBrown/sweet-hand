@@ -14,27 +14,8 @@ import type { DishListContext } from './dish-list-context';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: block' },
   providers: [{ provide: DISH_LIST, useExisting: forwardRef(() => DishList) }],
-  template: `
-    <ul class="dish-list" [id]="listId()" [attr.aria-busy]="busy() ? 'true' : null">
-      @if (busy()) {
-        @for (i of skeletons(); track i) {
-          <li class="dish dish--skeleton" aria-hidden="true"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></li>
-        }
-      } @else {
-        @for (d of dishes(); track d) {
-          <ng-container *ngTemplateOutlet="d.item()" />
-        }
-      }
-    </ul>
-    @if (!busy() && toggleable()) {
-      <p class="dish-list__toggle">
-        <sh-button [expanded]="expanded()" [controls]="listId()" (activated)="toggle()">{{ expanded() ? showFewerLabel() : showAllLabel() }}</sh-button>
-      </p>
-      <p class="visually-hidden" role="status" aria-live="polite">{{ announcement() }}</p>
-    }
-    <ng-content />
-  `,
-  styles: `.dish-list__toggle { margin-top: var(--space-6); }`,
+  templateUrl: './dish-list.html',
+  styleUrl: './dish-list.css',
 })
 export class DishList implements DishListContext {
   readonly listId = input.required<string>();

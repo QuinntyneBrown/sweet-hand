@@ -1,0 +1,5 @@
+@if (changed()) {
+  <li><ins class="diff-new"><span [class]="cls()">@if (allergen()) {<svg shIcon="warning"></svg>}{{ label() }}</span></ins></li>
+} @else {
+  <li [class]="cls()">@if (allergen()) {<svg shIcon="warning"></svg>}{{ label() }}</li>
+}

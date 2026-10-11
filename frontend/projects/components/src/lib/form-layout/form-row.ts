@@ -5,6 +5,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'sh-form-row',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `<div class="field-row"><ng-content /></div>`,
+  templateUrl: './form-row.html',
 })
 export class FormRow {}

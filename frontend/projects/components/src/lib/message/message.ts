@@ -9,44 +9,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, computed, inject, input
   selector: 'sh-message',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents', role: 'listitem' },
-  template: `
-    <li role="none" [class]="cls()">
-      @if (kind() === 'system') {
-        {{ text() }}
-        @if (time()) {
-          <span class="message__meta">
-            @if (datetime()) {
-              <time [attr.datetime]="datetime()">{{ time() }}</time>
-            } @else {
-              {{ time() }}
-            }
-          </span>
-        }
-        <ng-content />
-      } @else {
-        <span class="visually-hidden">{{ prefix() }}</span>
-        <p class="message__bubble">{{ text() }}</p>
-        @switch (delivery()) {
-          @case ('pending') {
-            <span class="message__meta" role="status">{{ sender() }} · {{ sendingLabel() }}</span>
-          }
-          @case ('failed') {
-            <span class="message__meta">{{ failedLabel() }} · <button class="btn btn--link btn--sm" type="button" (click)="retried.emit()">{{ retryLabel() }}</button></span>
-          }
-          @default {
-            <span class="message__meta"
-              >{{ sender() }} ·
-              @if (datetime()) {
-                <time [attr.datetime]="datetime()">{{ time() }}</time>
-              } @else {
-                {{ time() }}
-              }
-            </span>
-          }
-        }
-      }
-    </li>
-  `,
+  templateUrl: './message.html',
 })
 export class Message {
   readonly kind = input.required<'theirs' | 'mine' | 'system'>();

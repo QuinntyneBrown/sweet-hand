@@ -7,7 +7,7 @@ import { Icon } from '../icon/icon';
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `<span class="changed-flag">@if (icon()) {<svg class="icon--sm" shIcon="info"></svg>}<ng-content /></span>`,
+  templateUrl: './changed-flag.html',
 })
 export class ChangedFlag {
   readonly icon = input(false);

@@ -1,0 +1,37 @@
+<sh-dialog
+  [open]="open()"
+  size="form"
+  [form]="true"
+  title="Edit your details"
+  i18n-title="@@editDetails.title"
+  description="Name, email and phone for your Sweet Hand account."
+  i18n-description="@@editDetails.description"
+  closeLabel="Close"
+  i18n-closeLabel="@@common.close"
+  cancelLabel="Cancel"
+  i18n-cancelLabel="@@common.cancel"
+  [busy]="busy()"
+  [busyMessage]="saving"
+  [returnFocus]="returnFocus()"
+  (dismissed)="closed.emit()"
+  (submitted)="save()"
+>
+  @if (failed()) {
+    <sh-alert tone="danger" live="assertive" title="Your details weren’t saved" i18n-title="@@editDetails.failedTitle"
+      ><ng-container i18n="@@editDetails.failedText">We couldn’t reach Sweet Hand. Your changes are still here; try again.</ng-container></sh-alert
+    >
+  }
+  <sh-form-summary [heading]="summaryTitle()" [headingLevel]="3" [items]="summary()" [attempt]="attempt()" summaryId="details-summary" />
+  <div [formGroup]="form" style="display: contents">
+    <sh-form-field [label]="nameLabel()" controlId="name" [error]="errors().name" help="2 to 50 characters. Caterers see this name." i18n-help="@@editDetails.nameHelp">
+      <sh-text-field formControlName="name" name="name" autocomplete="name" [maxlength]="50" [readonly]="busy()" />
+    </sh-form-field>
+    <sh-form-field label="Email" i18n-label="@@field.email" controlId="email" [error]="errors().email" help="Changing it sends a verification link to the new address." i18n-help="@@editDetails.emailHelp">
+      <sh-text-field formControlName="email" type="email" name="email" autocomplete="email" [spellcheck]="false" [readonly]="busy()" />
+    </sh-form-field>
+    <sh-form-field label="Phone" i18n-label="@@field.phone" optionalMarker="(optional)" i18n-optionalMarker="@@field.optional" controlId="phone" [error]="errors().phone" help="Private. Shared only in a thread when you choose." i18n-help="@@editDetails.phoneHelp">
+      <sh-text-field formControlName="phone" type="tel" name="phone" autocomplete="tel" inputmode="tel" [readonly]="busy()" />
+    </sh-form-field>
+  </div>
+  <sh-button slot="footer" type="submit" variant="primary" [busy]="busy()"><ng-container i18n="@@editDetails.save">Save details</ng-container></sh-button>
+</sh-dialog>

@@ -12,26 +12,7 @@ import { Icon } from '../icon/icon';
   imports: [RouterLink, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '[class.list__item]': '!href()' },
-  template: `
-    @if (href(); as link) {
-      <a class="list__item list__item--interactive" [routerLink]="link" [attr.aria-current]="current() ? 'true' : null"
-        ><span class="list__body"
-          ><span class="list__title">{{ title() }}</span>
-          @if (meta()) {
-            <span class="list__meta">{{ meta() }}</span>
-          }</span
-        ><svg shIcon="chevron-right"></svg
-      ></a>
-    } @else {
-      <div class="list__body">
-        <div class="list__title">{{ title() }}</div>
-        @if (meta()) {
-          <div class="list__meta">{{ meta() }}</div>
-        }
-      </div>
-      <ng-content select="[slot=end]" />
-    }
-  `,
+  templateUrl: './list-item.html',
 })
 export class ListItem {
   readonly title = input.required<string>();

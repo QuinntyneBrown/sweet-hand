@@ -8,20 +8,7 @@ import type { CardModel } from './card-model';
   imports: [CatererCard],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <sh-caterer-card
-      [href]="href()"
-      [name]="card().name"
-      [cuisine]="card().cuisine"
-      [area]="card().area"
-      [photo]="card().photo"
-      loading="eager"
-      placeholderLabel="Cover photo"
-      i18n-placeholderLabel="@@preview.coverPhoto"
-      failedLabel="Photo unavailable"
-      i18n-failedLabel="@@preview.photoFailed"
-    />
-  `,
+  templateUrl: './listing-preview.html',
 })
 export class ListingPreview {
   readonly card = input.required<CardModel>();

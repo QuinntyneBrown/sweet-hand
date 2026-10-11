@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   selector: 'sh-table-na',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `<span class="na" aria-hidden="true">—</span><span class="visually-hidden">{{ label() }}</span>`,
+  templateUrl: './table-na.html',
 })
 export class TableNa {
   readonly label = input.required<string>();

@@ -1,0 +1,12 @@
+<div class="file-row" role="group" [attr.aria-labelledby]="labelledBy()" [attr.aria-label]="labelledBy() ? null : ariaLabel()" [attr.data-state]="state() === 'failed' ? 'failed' : null">
+  <svg shIcon="document"></svg>
+  <span class="file-row__name"><span>{{ fileName() }}</span><span class="file-row__meta">{{ meta() }}</span></span>
+  <span class="cluster">
+    <sh-file-upload [accept]="accept()" size="sm" [disabled]="disabled()" (filesSelected)="replaceSelected.emit($event[0])"
+      >{{ replaceLabel() }}<span class="visually-hidden">&ngsp;{{ fileName() }}</span></sh-file-upload
+    >
+    <button class="btn btn--sm btn--ghost" type="button" [disabled]="disabled()" (click)="removed.emit()">
+      {{ removeLabel() }}<span class="visually-hidden">&ngsp;{{ fileName() }}</span>
+    </button>
+  </span>
+</div>

@@ -13,50 +13,7 @@ let nextId = 0;
   selector: 'sh-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: block' },
-  template: `
-    @if (busy()) {
-      <p class="visually-hidden" role="status">{{ busyLabel() }}</p>
-    }
-    <div
-      class="table-wrap"
-      [attr.tabindex]="isRegion() ? 0 : null"
-      [attr.role]="isRegion() ? 'region' : null"
-      [attr.aria-labelledby]="isRegion() ? captionId : null"
-      [attr.aria-busy]="busy() ? 'true' : null"
-    >
-      <table [class]="isDense() ? 'table table--dense' : 'table'">
-        <caption [class.visually-hidden]="!captionVisible()" [id]="captionId">{{ caption() }}</caption>
-        <thead>
-          <tr>
-            @for (c of columns(); track c.key) {
-              @if (c.actions) {
-                <th scope="col"><span class="visually-hidden">{{ c.label }}</span></th>
-              } @else if (c.sortable) {
-                <th scope="col" [class.num]="!!c.numeric" [attr.aria-sort]="sortOf(c)">
-                  <button type="button" (click)="requestSort(c)">{{ c.label }}</button>
-                </th>
-              } @else {
-                <th scope="col" [class.num]="!!c.numeric">{{ c.label }}</th>
-              }
-            }
-          </tr>
-        </thead>
-        <tbody>
-          @if (busy()) {
-            @for (r of skeletons(); track r) {
-              <tr aria-hidden="true">
-                @for (c of columns(); track c.key) {
-                  <td><span class="skeleton skeleton--text"></span></td>
-                }
-              </tr>
-            }
-          } @else {
-            <ng-content />
-          }
-        </tbody>
-      </table>
-    </div>
-  `,
+  templateUrl: './table.html',
 })
 export class Table {
   readonly caption = input.required<string>();

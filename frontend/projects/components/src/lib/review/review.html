@@ -1,0 +1,50 @@
+@if (!inList) {
+  <ng-container *ngTemplateOutlet="item" />
+}
+<ng-template #item>
+  @if (skeleton() === 'operator') {
+    <li class="review" aria-hidden="true">
+      <div class="review__head"><span class="photo photo--xs"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text" style="width: 40%"></span></div>
+      <span class="skeleton skeleton--text" style="width: 30%"></span><span class="skeleton skeleton--text" style="width: 90%"></span><span class="skeleton skeleton--text" style="width: 60%"></span>
+      <span class="skeleton skeleton--rect" style="height: var(--control-height-sm)"></span>
+    </li>
+  } @else if (skeleton() === 'public') {
+    <li class="review" aria-hidden="true">
+      <span class="skeleton skeleton--text" style="width: 12rem"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text" style="width: 70%"></span>
+    </li>
+  } @else {
+    <li class="review">
+      <div class="review__head">
+        @if (variant() === 'operator' && catererPhoto(); as photo) {
+          <span class="photo photo--xs"><img [src]="photo.src" alt="" [width]="photo.width" [height]="photo.height" /></span>
+        }
+        <span class="review__author">{{ author() }}</span>
+        @if (variant() === 'own' && ownLabel()) {
+          <span class="badge">{{ ownLabel() }}</span>
+        }
+        <span class="review__date">{{ dateLine() }}</span>
+        <sh-stars [value]="rating()" [label]="ratingLabel()" />
+      </div>
+      @if (variant() === 'operator' && moderation(); as m) {
+        <p class="cluster">
+          <span [class]="'status status--' + m.tone">{{ m.detail ? m.label + ' · ' + m.detail : m.label }}</span><span class="text-caption">{{ m.time }}</span>
+        </p>
+      }
+      <p class="review__body">@for (part of bodyParts(); track $index) {@if (part.mark) {<mark class="diff-new">{{ part.text }}</mark>} @else {<ng-container>{{ part.text }}</ng-container>}}</p>
+      @if (response(); as r) {
+        <div class="review__response">
+          <span class="review__response-label">{{ r.label }}</span>
+          <p class="review__body">{{ r.body }}</p>
+        </div>
+      } @else if (variant() === 'caterer' && awaitingLabel()) {
+        <p class="status status--pending">{{ awaitingLabel() }}</p>
+      }
+      @if (variant() === 'own' && editWindowLabel()) {
+        <p class="text-caption">{{ editWindowLabel() }}</p>
+      }
+      @if (variant() !== 'public' && actions().length) {
+        <div class="review__actions"><ng-content select="[slot=actions]" /></div>
+      }
+    </li>
+  }
+</ng-template>

@@ -5,21 +5,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
   selector: 'sh-inbox-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <ul class="inbox-list" [attr.aria-label]="busy() ? loadingLabel() : label()" [attr.aria-busy]="busy() ? 'true' : null">
-      @if (busy()) {
-        @for (i of skeletons(); track i) {
-          <li class="inbox-skeleton-row" aria-hidden="true">
-            <span class="skeleton skeleton--circle"></span><span class="skeleton skeleton--text" style="width: 50%"></span
-            ><span class="skeleton skeleton--text" style="width: 3rem"></span><span class="skeleton skeleton--text" style="width: 70%"></span
-            ><span class="skeleton skeleton--text" style="width: 4rem"></span>
-          </li>
-        }
-      } @else {
-        <ng-content />
-      }
-    </ul>
-  `,
+  templateUrl: './inbox-list.html',
 })
 export class InboxList {
   readonly label = input.required<string>();

@@ -1,0 +1,10 @@
+@if (busy()) {
+  <p class="visually-hidden" role="status">{{ busyLabel() }}</p>
+  <div class="timeline" aria-hidden="true">
+    @for (i of skeletons(); track i) {
+      <div><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></div>
+    }
+  </div>
+} @else {
+  <ol class="timeline" [attr.aria-label]="label()"><ng-content /></ol>
+}

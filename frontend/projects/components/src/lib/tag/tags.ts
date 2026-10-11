@@ -14,26 +14,8 @@ import { DIETARY_TAGS, isAllergen } from './tag';
   imports: [Icon, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (skeleton()) {
-      <ul class="tags" aria-hidden="true">
-        <li class="skeleton skeleton--text tag-skeleton" style="width: 4rem"></li>
-        <li class="skeleton skeleton--text tag-skeleton" style="width: 6rem"></li>
-      </ul>
-    } @else if (sorted().length) {
-      <ul class="tags">
-        @for (value of sorted(); track value) {
-          @if (changed().includes(value)) {
-            <li><ins class="diff-new"><span [class]="cls(value)"><ng-container *ngTemplateOutlet="body; context: { $implicit: value }" /></span></ins></li>
-          } @else {
-            <li [class]="cls(value)"><ng-container *ngTemplateOutlet="body; context: { $implicit: value }" /></li>
-          }
-        }
-      </ul>
-    }
-    <ng-template #body let-value>@if (allergen(value)) {<svg shIcon="warning"></svg>}{{ label(value) }}</ng-template>
-  `,
-  styles: `.tag-skeleton { border-radius: var(--radius-full); }`,
+  templateUrl: './tags.html',
+  styleUrl: './tags.css',
 })
 export class Tags {
   readonly values = input<readonly string[]>([]);

@@ -1,0 +1,72 @@
+<div class="filter-bar only-md">
+  <sh-filter-dropdown
+    [open]="open() === 'cuisine'"
+    panelId="menu-cuisine"
+    title="Cuisine"
+    i18n-title="@@filters.cuisine"
+    [resultCount]="totalText()"
+    clearLabel="Clear"
+    i18n-clearLabel="@@filters.clearGroup"
+    [clearDisabled]="!cuisineCount()"
+    (cleared)="cuisinesCleared.emit()"
+    (closed)="open.set(null)"
+  >
+    <sh-filter-trigger
+      slot="trigger"
+      label="Cuisine"
+      i18n-label="@@filters.cuisine"
+      controls="menu-cuisine"
+      [expanded]="open() === 'cuisine'"
+      [count]="cuisineCount()"
+      countLabel="selected"
+      i18n-countLabel="@@filters.selected"
+      [disabled]="disabled()"
+      (activated)="toggle('cuisine')"
+    />
+    <fieldset class="filter-group">
+      <legend class="visually-hidden" i18n="@@filters.cuisines">Cuisines</legend>
+      @for (o of cuisines(); track o.value) {
+        <sh-checkbox name="cuisine" [value]="o.value" [checked]="o.pressed" [disabled]="isDisabled(o)" [description]="countText(o)" (checkedChange)="cuisineToggled.emit({ value: o.value, pressed: $event })">{{
+          o.label
+        }}</sh-checkbox>
+      }
+    </fieldset>
+  </sh-filter-dropdown>
+
+  <sh-filter-dropdown
+    [open]="open() === 'area'"
+    panelId="menu-area"
+    title="Area"
+    i18n-title="@@filters.area"
+    [resultCount]="totalText()"
+    clearLabel="Clear"
+    i18n-clearLabel="@@filters.clearGroup"
+    [clearDisabled]="!areaCount()"
+    (cleared)="areasCleared.emit()"
+    (closed)="open.set(null)"
+  >
+    <sh-filter-trigger
+      slot="trigger"
+      label="Area"
+      i18n-label="@@filters.area"
+      controls="menu-area"
+      [expanded]="open() === 'area'"
+      [count]="areaCount()"
+      countLabel="selected"
+      i18n-countLabel="@@filters.selected"
+      [disabled]="disabled()"
+      (activated)="toggle('area')"
+    />
+    <div class="filter-group">
+      <app-area-field [areas]="serviceAreas()" (areaChosen)="areaChosen.emit($event)" />
+      <fieldset class="filter-group">
+        <legend class="visually-hidden" i18n="@@filters.regions">Regions</legend>
+        @for (o of areas(); track o.value) {
+          <sh-checkbox name="region" [value]="o.value" [checked]="o.pressed" [disabled]="isDisabled(o)" [description]="countText(o)" (checkedChange)="areaToggled.emit({ value: o.value, pressed: $event })">{{
+            o.label
+          }}</sh-checkbox>
+        }
+      </fieldset>
+    </div>
+  </sh-filter-dropdown>
+</div>

@@ -1,0 +1,33 @@
+<sh-dialog
+  [open]="open()"
+  [title]="title"
+  [description]="description()"
+  size="sm"
+  tone="danger"
+  closeLabel="Close"
+  i18n-closeLabel="@@common.close"
+  cancelLabel="Keep it open"
+  i18n-cancelLabel="@@close.keepOpen"
+  initialFocus="cancel"
+  [busy]="busy()"
+  [busyMessage]="busyMessage"
+  [returnFocus]="returnFocus()"
+  (dismissed)="dismissed.emit()"
+>
+  <svg slot="icon" shIcon="warning"></svg>
+  @if (failed()) {
+    <div class="alert alert--danger" role="alert">
+      <svg shIcon="danger"></svg>
+      <div class="alert__body">
+        <span class="alert__title" i18n="@@close.failedTitle">We couldn’t close the enquiry</span>&ngsp;<span i18n="@@close.failedText">It’s still open. Check your connection and try again.</span>
+      </div>
+    </div>
+  }
+  <sh-button slot="footer" variant="danger" [busy]="busy()" (activated)="confirm()">
+    @if (failed()) {
+      <ng-container i18n="@@common.tryAgain">Try again</ng-container>
+    } @else {
+      <ng-container i18n="@@thread.close">Close enquiry</ng-container>
+    }
+  </sh-button>
+</sh-dialog>

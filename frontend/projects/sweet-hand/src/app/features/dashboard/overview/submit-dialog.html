@@ -1,0 +1,80 @@
+<sh-dialog
+  [open]="open()"
+  [title]="title()"
+  [description]="description()"
+  [tone]="tone()"
+  closeLabel="Close"
+  i18n-closeLabel="@@common.close"
+  [cancelLabel]="step() === 'success' ? null : step() === 'invalid' ? closeText : notYet"
+  [busy]="busy()"
+  [busyMessage]="busyMessage()"
+  (dismissed)="closed.emit()"
+>
+  @switch (tone()) {
+    @case ('success') {
+      <svg slot="icon" shIcon="success"></svg>
+    }
+    @case ('warning') {
+      <svg slot="icon" shIcon="warning"></svg>
+    }
+    @default {
+      <svg slot="icon" shIcon="info"></svg>
+    }
+  }
+  @switch (step()) {
+    @case ('invalid') {
+      <div class="form-summary" role="alert" aria-labelledby="submit-summary-title">
+        <h3 id="submit-summary-title">{{ summaryTitle() }}</h3>
+        <ul>
+          @for (f of failures(); track f.key) {
+            <li>
+              <a [routerLink]="href(f.key)">{{ text(f.key) }}</a>@if (f.detail) {&ngsp;({{ f.detail }})}
+            </li>
+          }
+        </ul>
+      </div>
+      <p class="text-muted" i18n="@@submit.highlighted">These are highlighted on your checklist too. Everything else is ready.</p>
+    }
+    @case ('success') {
+      <sh-timeline label="What happens next" i18n-label="@@submit.next" form="steps">
+        <li sh-timeline-entry event="Now" i18n-event="@@submit.stepNow" [detail]="stepNow"></li>
+        <li sh-timeline-entry event="Within 3 business days" i18n-event="@@submit.stepDays" [detail]="stepEmail()"></li>
+        <li sh-timeline-entry event="Approved" i18n-event="@@submit.stepApproved" [detail]="stepApproved()"></li>
+      </sh-timeline>
+    }
+    @default {
+      @if (failed()) {
+        <sh-alert tone="danger" live="assertive" title="We couldn’t send your profile" i18n-title="@@submit.failedTitle"
+          ><ng-container i18n="@@submit.failedText">The connection dropped before we got it. Your profile is still a draft and nothing is lost.</ng-container></sh-alert
+        >
+      }
+      <p class="cluster"><sh-check status="done" /><ng-container i18n="@@submit.allDone">All 10 sections are complete.</ng-container></p>
+      <p class="text-muted" i18n="@@submit.readOnly">You can’t edit your profile while we review it. You can withdraw the submission at any time.</p>
+    }
+  }
+  @switch (step()) {
+    @case ('invalid') {
+      <a #fix slot="footer" class="btn btn--primary" [routerLink]="href(failures()[0]?.key ?? 'photos')" autofocus>{{ fixLabel() }}</a>
+    }
+    @case ('success') {
+      <a #back slot="footer" class="btn btn--primary" routerLink="/dashboard" autofocus (click)="closed.emit()" i18n="@@submit.backToOverview">Back to overview</a>
+    }
+    @default {
+      <button
+        slot="footer"
+        class="btn btn--primary"
+        type="button"
+        autofocus
+        [attr.aria-busy]="busy() ? 'true' : null"
+        [attr.aria-disabled]="busy() ? 'true' : null"
+        (click)="!busy() && confirmed.emit()"
+      >
+        @if (failed()) {
+          <svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container>
+        } @else {
+          <ng-container i18n="@@submit.action">Submit for review</ng-container>
+        }
+      </button>
+    }
+  }
+</sh-dialog>

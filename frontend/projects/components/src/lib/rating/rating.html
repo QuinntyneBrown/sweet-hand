@@ -1,0 +1,7 @@
+@if (count() > 0) {
+  @if (variant() === 'inline') {
+    <span class="visually-hidden">{{ ratedPrefix() }} </span>{{ text() }}
+  } @else {
+    <span class="rating"><span class="stars" aria-hidden="true"><svg shIcon="star"></svg></span><span class="rating__summary">{{ text() }}</span></span>
+  }
+}

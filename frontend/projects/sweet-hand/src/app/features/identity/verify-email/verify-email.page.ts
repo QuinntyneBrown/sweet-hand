@@ -15,14 +15,7 @@ import type { View } from './view';
   imports: [RouterLink, Alert, AuthPhotos, Button, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './verify-email.page.html',
-  styles: `
-    .verify__title-skeleton {
-      width: 80%;
-    }
-    .verify__button-skeleton {
-      height: var(--control-height-lg);
-    }
-  `,
+  styleUrl: './verify-email.page.css',
 })
 export class VerifyEmailPage {
   private readonly api = inject(IdentityService);

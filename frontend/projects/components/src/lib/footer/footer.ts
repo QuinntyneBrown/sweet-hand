@@ -8,18 +8,7 @@ import type { FooterLink } from './footer-link';
   imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <footer class="site-footer">
-      <div class="site-footer__brand"><strong>{{ brandName() }}</strong><span>{{ line() }}</span></div>
-      <nav [attr.aria-label]="label()">
-        <ul>
-          @for (link of links(); track link.href) {
-            <li><a [routerLink]="link.href" [attr.aria-current]="link.current ? 'page' : null">{{ link.label }}</a></li>
-          }
-        </ul>
-      </nav>
-    </footer>
-  `,
+  templateUrl: './footer.html',
 })
 export class Footer {
   readonly brandName = input.required<string>();

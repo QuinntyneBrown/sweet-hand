@@ -10,22 +10,7 @@ import type { SummaryItem } from './summary-item';
   selector: 'sh-form-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (items().length) {
-      <div #box class="form-summary" role="alert" tabindex="-1" [id]="summaryId()" [attr.aria-labelledby]="summaryId() + '-title'">
-        @if (headingLevel() === 3) {
-          <h3 [id]="summaryId() + '-title'">{{ heading() }}</h3>
-        } @else {
-          <h2 [id]="summaryId() + '-title'">{{ heading() }}</h2>
-        }
-        <ul>
-          @for (item of items(); track item.controlId) {
-            <li><a [href]="'#' + item.controlId" (click)="go($event, item.controlId)">{{ item.message }}</a></li>
-          }
-        </ul>
-      </div>
-    }
-  `,
+  templateUrl: './form-summary.html',
 })
 export class FormSummary {
   readonly heading = input.required<string>();

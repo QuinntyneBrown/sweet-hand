@@ -11,34 +11,7 @@ import { Icon } from '../icon/icon';
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (inline()) {
-      <span [class]="cls()">@switch (state()) {
-          @case ('saving') {
-            <span class="dot dot--pulse" aria-hidden="true"></span>
-          }
-          @case ('error') {
-            <svg class="icon--sm" shIcon="danger"></svg>
-          }
-          @default {
-            <svg class="icon--sm" shIcon="success"></svg>
-          }
-        }{{ text() }}</span
-      >
-    } @else {
-      <p [class]="cls()" role="status">@switch (state()) {
-          @case ('saving') {
-            <span class="dot dot--pulse" aria-hidden="true"></span>
-          }
-          @case ('error') {
-            <svg class="icon--sm" shIcon="danger"></svg>
-          }
-          @default {
-            <svg class="icon--sm" shIcon="success"></svg>
-          }
-        }{{ text() }}</p>
-    }
-  `,
+  templateUrl: './save-status.html',
 })
 export class SaveStatus {
   readonly state = input<'saved' | 'saving' | 'error'>('saved');

@@ -1,0 +1,41 @@
+<sh-dialog
+  [open]="open()"
+  [form]="true"
+  title="Add operator"
+  i18n-title="@@addOperator.title"
+  description="Invite someone from the Sweet Hand team."
+  i18n-description="@@addOperator.description"
+  closeLabel="Close"
+  i18n-closeLabel="@@common.close"
+  cancelLabel="Cancel"
+  i18n-cancelLabel="@@common.cancel"
+  [busy]="busy()"
+  [busyMessage]="sending"
+  [returnFocus]="returnFocus()"
+  (dismissed)="closed.emit()"
+  (submitted)="send()"
+>
+  @if (failed()) {
+    <sh-alert tone="danger" live="assertive" title="We couldn’t send the invitation" i18n-title="@@addOperator.failedTitle"
+      ><ng-container i18n="@@addOperator.failedText">No account was created. Your entries are kept; try again.</ng-container></sh-alert
+    >
+  }
+  <sh-form-summary [heading]="summaryTitle()" [headingLevel]="3" [items]="summary()" [attempt]="attempt()" summaryId="add-operator-summary" />
+  <sh-form-field label="Full name" i18n-label="@@addOperator.name" controlId="op-name" [error]="errors().name ?? null">
+    <sh-text-field [formControl]="name" name="name" autocomplete="off" [required]="true" [readonly]="busy()" [autofocus]="true" />
+  </sh-form-field>
+  <sh-form-field label="Work email" i18n-label="@@addOperator.email" controlId="op-email" [error]="errors().email ?? null">
+    <sh-text-field [formControl]="email" type="email" name="email" autocomplete="off" [spellcheck]="false" [required]="true" [readonly]="busy()" />
+  </sh-form-field>
+  <sh-radio-group name="role" [(value)]="role" [disabled]="busy()">
+    <span slot="legend" i18n="@@addOperator.role">Role</span>
+    <sh-radio value="operator" inputId="role-operator" description="Reviews profiles, reviews and reports" i18n-description="@@addOperator.operatorHelp" i18n="@@addOperator.operator"
+      >Operator</sh-radio
+    >
+    <sh-radio value="admin" inputId="role-admin" description="Also manages operators and the full audit log" i18n-description="@@addOperator.adminHelp" i18n="@@addOperator.admin"
+      >Admin</sh-radio
+    >
+  </sh-radio-group>
+  <p class="private-note" i18n="@@addOperator.note">They set a password and a second step (authenticator app or security key) the first time they sign in.</p>
+  <sh-button slot="footer" type="submit" variant="primary" [busy]="busy()"><ng-container i18n="@@addOperator.submit">Send invitation</ng-container></sh-button>
+</sh-dialog>

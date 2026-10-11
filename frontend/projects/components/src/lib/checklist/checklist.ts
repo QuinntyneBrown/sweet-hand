@@ -8,14 +8,7 @@ import type { CheckStatusLabels } from './check-status-labels';
   imports: [NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (ordered()) {
-      <ol class="checklist" [attr.aria-labelledby]="ariaLabelledby()"><ng-container *ngTemplateOutlet="items" /></ol>
-    } @else {
-      <ul class="checklist" [attr.aria-labelledby]="ariaLabelledby()"><ng-container *ngTemplateOutlet="items" /></ul>
-    }
-    <ng-template #items><ng-content /></ng-template>
-  `,
+  templateUrl: './checklist.html',
 })
 export class Checklist {
   readonly ordered = input(false);

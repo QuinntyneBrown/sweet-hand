@@ -13,16 +13,7 @@ import type { PopoverDismissal } from '../popover/popover-dismissal';
   changeDetection: ChangeDetectionStrategy.OnPush,
   // The title input must not become a tooltip on the host.
   host: { style: 'display: contents', '[attr.title]': 'null' },
-  template: `
-    <sh-popover variant="filter" [open]="open()" [panelId]="panelId()" [heading]="title()" (dismissed)="closed.emit($event)">
-      <ng-container ngProjectAs="[slot=trigger]"><ng-content select="[slot=trigger]" /></ng-container>
-      <ng-content />
-      <div class="cluster cluster--between">
-        <button class="btn btn--link btn--sm" type="button" [disabled]="clearDisabled()" (click)="cleared.emit()">{{ clearLabel() }}</button>
-        <span class="result-count" role="status">{{ resultCount() }}</span>
-      </div>
-    </sh-popover>
-  `,
+  templateUrl: './filter-dropdown.html',
 })
 export class FilterDropdown {
   readonly open = input(false);

@@ -15,68 +15,7 @@ import { ThreadActionsSlot } from './thread-actions-slot';
   imports: [RouterLink, Icon, Status],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <article class="thread" [attr.aria-labelledby]="titleId()" [attr.aria-busy]="busy() ? 'true' : null">
-      @if (backLink(); as b) {
-        <a class="eyebrow until-lg" [routerLink]="b.href"><svg shIcon="chevron-left" class="icon--sm"></svg>{{ b.label }}</a>
-      }
-      @if (busy()) {
-        <div class="thread__head">
-          <span class="skeleton skeleton--circle" style="width: 3.5rem; height: 3.5rem" aria-hidden="true"></span>
-          <div class="thread__title">
-            @if (headingLevel() === 1) {
-              <h1 [id]="titleId()" tabindex="-1"><span class="visually-hidden">{{ loadingLabel() }}</span><span class="skeleton skeleton--text" style="width: 10rem" aria-hidden="true"></span></h1>
-            } @else {
-              <h2 [id]="titleId()" tabindex="-1"><span class="visually-hidden">{{ loadingLabel() }}</span><span class="skeleton skeleton--text" style="width: 10rem" aria-hidden="true"></span></h2>
-            }
-            <span class="skeleton skeleton--text" style="width: 6rem" aria-hidden="true"></span>
-          </div>
-        </div>
-        <div class="enquiry-summary" aria-hidden="true">
-          <span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span>
-        </div>
-        <div class="message" aria-hidden="true"><span class="skeleton skeleton--rect" style="height: 4.5rem; width: 22rem; max-width: 100%"></span></div>
-      } @else {
-        <div class="thread__head">
-          @switch (party().kind) {
-            @case ('photo') {
-              <span class="photo"><img [src]="photoSrc()" alt="" width="56" height="56" /></span>
-            }
-            @case ('initials') {
-              <span class="avatar" aria-hidden="true">{{ initialsText() }}</span>
-            }
-            @default {
-              <span class="avatar" aria-hidden="true"
-                ><svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></svg
-              ></span>
-            }
-          }
-          <div class="thread__title">
-            @if (headingLevel() === 1) {
-              <h1 #heading [id]="titleId()" tabindex="-1">{{ title() }}</h1>
-            } @else {
-              <h2 #heading [id]="titleId()" tabindex="-1">{{ title() }}</h2>
-            }
-            <p class="thread__status">
-              <sh-status [tone]="statusTone()" [label]="statusLabel()" />
-              @if (viewLink(); as v) {
-                <a class="link--standalone" [routerLink]="v.href">{{ v.label }}</a>
-              }
-              @if (subline()) {
-                <span>{{ subline() }}</span>
-              }
-            </p>
-          </div>
-        </div>
-        @if (actions().length) {
-          <div class="thread__actions"><ng-content select="[slot=actions]" /></div>
-        }
-        <ng-content select="[slot=summary]" />
-        <ng-content />
-        <ng-content select="[slot=ending]" />
-      }
-    </article>
-  `,
+  templateUrl: './thread.html',
 })
 export class Thread {
   readonly title = input('');

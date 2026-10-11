@@ -9,12 +9,7 @@ let nextId = 0;
   imports: [Progress],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <div class="meter">
-      <div class="meter__label"><span [id]="labelId">{{ label() }}</span><span>{{ valueText() }}</span></div>
-      <sh-progress [value]="value()" [max]="max()" [valueText]="valueText()" [labelledBy]="labelId" />
-    </div>
-  `,
+  templateUrl: './meter.html',
 })
 export class Meter {
   readonly label = input.required<string>();

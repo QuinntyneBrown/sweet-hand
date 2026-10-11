@@ -48,7 +48,7 @@ export const ICONS = {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'svg[shIcon]',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '',
+  templateUrl: './icon.html',
   host: {
     class: 'icon',
     'aria-hidden': 'true',

@@ -10,19 +10,7 @@ import { classes } from './button';
   imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <a
-      [class]="cls()"
-      [routerLink]="disabled() ? null : href()"
-      [queryParams]="queryParams()"
-      [attr.aria-disabled]="disabled() ? 'true' : null"
-      [attr.aria-label]="ariaLabel()"
-      [attr.aria-describedby]="describedBy()"
-      (click)="onClick($event)"
-    >
-      <ng-content />
-    </a>
-  `,
+  templateUrl: './button-anchor.html',
 })
 export class ButtonAnchor {
   readonly variant = input<Variant>('secondary');

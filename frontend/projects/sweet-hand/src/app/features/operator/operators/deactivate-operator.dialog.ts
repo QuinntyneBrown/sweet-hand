@@ -14,38 +14,7 @@ export const confirms = (typed: string, name: string) => typed.replace(/\s+/g, '
   selector: 'app-deactivate-operator-dialog',
   imports: [ReactiveFormsModule, Alert, Button, Dialog, FormField, Icon, TextField],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    @if (account(); as a) {
-      <sh-dialog
-        [open]="open()"
-        tone="danger"
-        [title]="title()"
-        [description]="description()"
-        closeLabel="Close"
-        i18n-closeLabel="@@common.close"
-        cancelLabel="Cancel"
-        i18n-cancelLabel="@@common.cancel"
-        [busy]="busy()"
-        [busyMessage]="busyText()"
-        [returnFocus]="returnFocus()"
-        (dismissed)="closed.emit()"
-      >
-        <svg slot="icon" shIcon="warning"></svg>
-        @if (failed()) {
-          <sh-alert tone="danger" live="assertive" [title]="failedTitle()"
-            ><ng-container i18n="@@deactivateOperator.failedText">Their account is still active. Try again in a moment.</ng-container></sh-alert
-          >
-        }
-        <p i18n="@@deactivateOperator.audit">Their past actions stay in the audit log.</p>
-        <sh-form-field [label]="confirmLabel()" controlId="confirm-name">
-          <sh-text-field [formControl]="typed" name="confirm" autocomplete="off" [spellcheck]="false" [readonly]="busy()" />
-        </sh-form-field>
-        <sh-button slot="footer" variant="danger" [busy]="busy()" [disabled]="!matches()" [disabledFocusable]="true" (activated)="deactivate()"
-          ><ng-container i18n="@@deactivateOperator.submit">Deactivate</ng-container></sh-button
-        >
-      </sh-dialog>
-    }
-  `,
+  templateUrl: './deactivate-operator.dialog.html',
 })
 export class DeactivateOperatorDialog {
   private readonly api = inject(OperatorSettingsService);

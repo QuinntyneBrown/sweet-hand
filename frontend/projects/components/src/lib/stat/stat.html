@@ -1,0 +1,28 @@
+@if (inGrid) {
+  <dt class="stat__label">{{ label() }}</dt>
+  <dd class="stat__value">
+    @if (value() === null) {
+      <span aria-hidden="true">–</span><span class="visually-hidden">{{ missingLabel() }}</span>
+    } @else {
+      {{ value() }}@if (valueContext()) {<span class="visually-hidden">{{ valueContext() }}</span>}
+    }
+  </dd>
+  @if (value() === null) {
+    <dd class="text-caption" aria-hidden="true">{{ missingLabel() }}</dd>
+  }
+  @if (delta()) {
+    <dd [class]="deltaClass()">@if (direction()) {<svg class="icon--sm" [shIcon]="direction() === 'up' ? 'arrow-up' : 'arrow-down'"></svg>}{{ delta() }}</dd>
+  }
+} @else {
+  <span class="stat__label">{{ label() }}</span>
+  <span class="stat__value">
+    @if (value() === null) {
+      <span aria-hidden="true">–</span><span class="visually-hidden">{{ missingLabel() }}</span>
+    } @else {
+      {{ value() }}@if (valueContext()) {<span class="visually-hidden">{{ valueContext() }}</span>}
+    }
+  </span>
+  @if (delta()) {
+    <span [class]="deltaClass()">@if (direction()) {<svg class="icon--sm" [shIcon]="direction() === 'up' ? 'arrow-up' : 'arrow-down'"></svg>}{{ delta() }}</span>
+  }
+}

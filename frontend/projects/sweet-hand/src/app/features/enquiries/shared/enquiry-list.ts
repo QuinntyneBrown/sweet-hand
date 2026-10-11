@@ -13,54 +13,7 @@ import { type InboxFilter, type InboxPageView, type InboxRowView, type Party } f
   imports: [RouterLink, EMPTY_STATE, Icon, InboxList, InboxRow, Pagination, Segmented],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (filterable()) {
-      <sh-segmented ariaLabel="Filter by status" i18n-ariaLabel="@@inbox.filterLabel" [items]="filterItems()" [selected]="filter() ?? 'all'" [loading]="!view() && viewer() === 'caterer'" />
-    }
-    @if (empty(); as e) {
-      <sh-empty-state size="compact" [heading]="e.heading" [text]="e.text">
-        @if (viewer() === 'caterer') {
-          <svg slot="icon" shIcon="mail"></svg>
-        }
-        <a slot="actions" class="btn" [routerLink]="basePath()" i18n="@@inbox.showAll">Show all enquiries</a>
-      </sh-empty-state>
-    } @else {
-    <sh-inbox-list [label]="label()" [busy]="!view()" loadingLabel="Loading your enquiries" i18n-loadingLabel="@@inbox.loading" [skeletonCount]="viewer() === 'caterer' ? 6 : 4">
-      @for (row of rows(); track row.id) {
-        <sh-inbox-row
-          [href]="row.href"
-          [name]="row.name"
-          [picture]="row.picture"
-          [time]="row.time"
-          [datetime]="row.datetime"
-          [summary]="row.summary"
-          [statusTone]="row.tone"
-          [statusLabel]="row.statusLabel"
-          [unread]="row.unread"
-          unreadLabel="Unread."
-          i18n-unreadLabel="@@inbox.unread"
-          [current]="row.id === currentId() ? currentKind() : null"
-        />
-      }
-    </sh-inbox-list>
-    }
-    @if (view(); as v) {
-      <sh-pagination
-        [page]="v.page"
-        [pageCount]="v.pageCount"
-        [hrefFor]="hrefFor"
-        label="Pagination"
-        i18n-label="@@pagination.label"
-        [summary]="summary()"
-        previousLabel="Previous page"
-        i18n-previousLabel="@@pagination.previous"
-        nextLabel="Next page"
-        i18n-nextLabel="@@pagination.next"
-        [pageLabel]="pageName"
-        [compact]="true"
-      />
-    }
-  `,
+  templateUrl: './enquiry-list.html',
 })
 export class EnquiryList {
   readonly view = input<InboxPageView | undefined>(undefined);

@@ -1,0 +1,5 @@
+<div class="photo-row">
+  @for (slug of photos(); track $index) {
+    <span class="photo"><img [src]="'/media/' + slug + '.jpg?w=400&fm=jpeg'" alt="" width="104" height="104" /></span>
+  }
+</div>

@@ -10,15 +10,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   selector: 'div[sh-sticky-cta]',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'sticky-cta', role: 'region', '[attr.aria-label]': 'regionLabel()' },
-  template: `
-    <div class="sticky-cta__text">
-      <strong>{{ heading() }}</strong>
-      @if (detail()) {
-        <span>{{ detail() }}</span>
-      }
-    </div>
-    <ng-content />
-  `,
+  templateUrl: './sticky-cta.html',
 })
 export class StickyCta {
   readonly regionLabel = input.required<string>();

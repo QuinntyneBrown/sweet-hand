@@ -36,65 +36,8 @@ export function deletionLines(account: AccountView): string[] {
   selector: 'app-delete-account-dialog',
   imports: [ReactiveFormsModule, Alert, Dialog, FormField, FormSummary, Icon, TextField],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <sh-dialog
-      [open]="open()"
-      size="form"
-      [form]="true"
-      tone="danger"
-      [title]="title()"
-      [description]="description()"
-      closeLabel="Close"
-      i18n-closeLabel="@@common.close"
-      cancelLabel="Cancel"
-      i18n-cancelLabel="@@common.cancel"
-      [busy]="busy()"
-      [busyMessage]="deleting"
-      [returnFocus]="returnFocus()"
-      (dismissed)="closed.emit()"
-      (submitted)="delete()"
-    >
-      <svg slot="icon" shIcon="trash"></svg>
-      @if (failed()) {
-        <sh-alert tone="danger" live="assertive" title="Your account wasn’t deleted" i18n-title="@@delete.failedTitle"
-          ><ng-container i18n="@@delete.failedText">Nothing has been deleted. Try again, or email privacy&#64;sweethand.example.</ng-container></sh-alert
-        >
-      }
-      <sh-form-summary [heading]="summaryTitle()" [headingLevel]="3" [items]="summary()" [attempt]="attempt()" summaryId="delete-summary" />
-      <div>
-        <p class="field__label" i18n="@@delete.whatsDeleted">What’s deleted</p>
-        <ul class="delete-account__list">
-          @for (line of lines(); track $index) {
-            <li>{{ line }}</li>
-          }
-        </ul>
-      </div>
-      @if (account().business) {
-        <p class="text-muted" i18n="@@delete.keptCaterer">Customers keep the messages in their threads. Backups age out within 35 days.</p>
-      } @else {
-        <p class="text-muted" i18n="@@delete.keptCustomer">Caterers keep your messages in their threads, signed “Former Sweet Hand user”. Everything is gone from our systems within 30 days and from backups within 35.</p>
-      }
-      <sh-form-field [label]="passwordLabel()" controlId="delete-password" [error]="error()">
-        <sh-text-field [formControl]="password" type="password" name="password" autocomplete="current-password" [readonly]="busy()" />
-      </sh-form-field>
-      <button
-        slot="footer"
-        class="btn btn--danger"
-        type="submit"
-        [attr.aria-busy]="busy() ? 'true' : null"
-        [attr.aria-disabled]="busy() ? 'true' : null"
-        i18n="@@delete.submit"
-      >
-        Delete my account
-      </button>
-    </sh-dialog>
-  `,
-  styles: `
-    .delete-account__list {
-      padding-left: var(--space-5);
-      margin-top: var(--space-2);
-    }
-  `,
+  templateUrl: './delete-account.dialog.html',
+  styleUrl: './delete-account.dialog.css',
 })
 export class DeleteAccountDialog {
   private readonly api = inject(AccountService);

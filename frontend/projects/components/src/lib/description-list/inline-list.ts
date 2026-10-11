@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   selector: 'sh-inline-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `<ul class="inline-list">@for (item of items(); track $index) {<li>{{ item }}</li>}</ul>`,
+  templateUrl: './inline-list.html',
 })
 export class InlineList {
   readonly items = input.required<readonly string[]>();

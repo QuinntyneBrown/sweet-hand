@@ -8,13 +8,7 @@ import type { IconName } from '../icon/icon-name';
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (inline()) {
-      <span class="private-note"><svg class="icon--sm" [shIcon]="iconName()"></svg>{{ text() }}</span>
-    } @else {
-      <p class="private-note"><svg class="icon--sm" [shIcon]="iconName()"></svg>{{ text() }}</p>
-    }
-  `,
+  templateUrl: './private-note.html',
 })
 export class PrivateNote {
   readonly icon = input<'lock' | 'shield' | 'info'>('lock');

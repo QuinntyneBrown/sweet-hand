@@ -17,46 +17,7 @@ import { DiscoveryService, type ListingPageView, type ListingQuery, type Service
   imports: [ActiveFilters, AreaField, Button, Checkbox, Sheet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <sh-sheet
-      [open]="open()"
-      title="Filters"
-      i18n-title="@@filters.sheetTitle"
-      [count]="pendingCount() || null"
-      countLabel="active"
-      i18n-countLabel="@@filters.activeCount"
-      closeLabel="Close filters"
-      i18n-closeLabel="@@filters.close"
-      bodyAs="form"
-      formId="filters-form"
-      [hasFooter]="true"
-      [busy]="busy()"
-      [returnFocus]="returnFocus()"
-      (dismissed)="dismissed.emit()"
-      (submitted)="apply()"
-    >
-      <fieldset class="filter-group">
-        <legend class="filter-group__title" i18n="@@filters.cuisine">Cuisine</legend>
-        @for (o of cuisines(); track o.value) {
-          <sh-checkbox name="cuisine" [value]="o.value" [checked]="o.pressed" [disabled]="busy() || isDisabled(o)" [description]="countText(o)" (checkedChange)="toggleCuisine(o.value, $event)">{{
-            o.label
-          }}</sh-checkbox>
-        }
-      </fieldset>
-      <fieldset class="filter-group">
-        <legend class="filter-group__title" i18n="@@filters.area">Area</legend>
-        <app-area-field [ownForm]="false" [areas]="serviceAreas()" [readonly]="busy()" (areaChosen)="addArea($event)" />
-        <sh-active-filters label="Selected areas" i18n-label="@@filters.selectedAreas" [chips]="areaChips()" [removeLabel]="removeLabel" [disabled]="busy()" (removed)="removeArea($event)" />
-        @for (o of regions(); track o.value) {
-          <sh-checkbox name="region" [value]="o.value" [checked]="o.pressed" [disabled]="busy() || isDisabled(o)" [description]="countText(o)" (checkedChange)="toggleRegion(o.value, $event)">{{
-            o.label
-          }}</sh-checkbox>
-        }
-      </fieldset>
-      <sh-button slot="footer" [disabled]="busy()" (activated)="clear()"><ng-container i18n="@@filters.clearGroup">Clear</ng-container></sh-button>
-      <sh-button slot="footer" type="submit" form="filters-form" variant="primary" [busy]="busy()">{{ applyLabel() }}</sh-button>
-    </sh-sheet>
-  `,
+  templateUrl: './listing-filters-sheet.html',
 })
 export class ListingFiltersSheet {
   readonly open = input(false);

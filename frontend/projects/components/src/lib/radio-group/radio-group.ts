@@ -21,24 +21,8 @@ let nextId = 0;
     { provide: RADIO_GROUP, useExisting: forwardRef(() => RadioGroup) },
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => RadioGroup), multi: true },
   ],
-  template: `
-    <fieldset class="stack stack--sm" [attr.aria-describedby]="describedBy()">
-      <legend [class.visually-hidden]="legendHidden()"><ng-content select="[slot=legend]" /></legend>
-      @if (help()) {
-        <p class="field__help" [id]="ids.help">{{ help() }}</p>
-      }
-      @if (error()) {
-        <p class="field__error" [id]="ids.error">{{ error() }}</p>
-      }
-      @if (layout() === 'horizontal' && variant() === 'plain') {
-        <div class="cluster radio-group__row"><ng-container *ngTemplateOutlet="options" /></div>
-      } @else {
-        <ng-container *ngTemplateOutlet="options" />
-      }
-    </fieldset>
-    <ng-template #options><ng-content /></ng-template>
-  `,
-  styles: `.radio-group__row { gap: var(--space-2) var(--space-6); }`,
+  templateUrl: './radio-group.html',
+  styleUrl: './radio-group.css',
 })
 export class RadioGroup implements RadioGroupContext, ControlValueAccessor {
   readonly name = input.required<string>();

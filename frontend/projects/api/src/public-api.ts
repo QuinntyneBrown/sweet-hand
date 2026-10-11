@@ -1,12 +1,14 @@
 /*
  * Public API surface of @sweet-hand/api: every service that talks to the
- * backend, its contract, and the wire models they exchange.
+ * backend and the wire models they exchange.
  *
- * Each service has a contract (`ICatererProfileService` and its DI token
- * `CATERER_PROFILE_SERVICE`) and one implementation (`CatererProfileService`).
- * The application registers `{ provide: CATERER_PROFILE_SERVICE, useClass:
- * CatererProfileService }`; pages inject only the token. Models are shared
- * with the fake backend.
+ * Each service is an abstract class that is also its DI token
+ * (`CatererProfileService` in `caterer-profile.service.ts`) with one
+ * implementation (`HttpCatererProfileService` in
+ * `http-caterer-profile.service.ts`). The application registers
+ * `{ provide: CatererProfileService, useClass: HttpCatererProfileService }`;
+ * pages inject only the abstract class. Models are one type per file and are
+ * shared with the fake backend.
  */
 
 // Models

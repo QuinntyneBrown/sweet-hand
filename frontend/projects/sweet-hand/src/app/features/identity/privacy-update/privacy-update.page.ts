@@ -22,11 +22,7 @@ function dayMonthYear(date: string): string {
   imports: [RouterLink, Alert, AuthPhotos, Button],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './privacy-update.page.html',
-  styles: `
-    .privacy-update__changes {
-      padding-left: var(--space-5);
-    }
-  `,
+  styleUrl: './privacy-update.page.css',
 })
 export class PrivacyUpdatePage {
   private readonly api = inject(PrivacyService);

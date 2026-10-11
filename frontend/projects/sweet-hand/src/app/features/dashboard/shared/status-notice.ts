@@ -13,25 +13,7 @@ import { type OwnProfileView } from '@sweet-hand/api';
   imports: [RouterLink, Alert],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (profile().status === 'Pending review') {
-      <sh-alert live="polite" [title]="pendingTitle()"
-        >{{ pendingText() }}
-        <div slot="actions" class="alert__actions">
-          <button #withdrawButton class="btn btn--sm" type="button" aria-haspopup="dialog" (click)="withdrawRequested.emit(withdrawButton)" i18n="@@statusNotice.withdraw">
-            Withdraw submission
-          </button>
-        </div>
-      </sh-alert>
-    } @else if (profile().status === 'Suspended') {
-      <sh-alert tone="danger" live="assertive" title="Your profile is suspended" i18n-title="@@suspended.title"
-        >{{ suspendedText() }}
-        <div slot="actions" class="alert__actions">
-          <a [routerLink]="certificateHref" i18n="@@suspended.upload">Upload a new certificate</a>
-        </div>
-      </sh-alert>
-    }
-  `,
+  templateUrl: './status-notice.html',
 })
 export class StatusNotice {
   readonly profile = input.required<OwnProfileView>();

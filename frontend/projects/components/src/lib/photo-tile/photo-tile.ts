@@ -15,60 +15,7 @@ import type { TilePhoto } from './tile-photo';
   imports: [Icon, Progress],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'photo-tile' },
-  template: `
-    @switch (mode()) {
-      @case ('uploading') {
-        <span [class]="photo() ? 'photo' : 'photo photo--placeholder'"
-          >@if (photo(); as p) {<img [src]="p.src" alt="" width="160" height="160" />} @else {<svg shIcon="upload"></svg>}<span
-            class="photo-tile__progress"
-            aria-hidden="true"
-            >{{ progress() }}%</span
-          ></span
-        >
-        <p class="photo-tile__caption">{{ fileName() }}</p>
-        <sh-progress [value]="progress()" [label]="fill(labels().uploading)" [valueText]="fill(labels().uploadingValue)" />
-        <button class="btn btn--link btn--sm" type="button" (click)="cancelRequested.emit({ fileName: fileName() })">
-          {{ labels().cancel }}<span class="visually-hidden">{{ fill(labels().cancelObject) }}</span>
-        </button>
-      }
-      @case ('processing') {
-        <span class="photo photo--placeholder"><svg shIcon="clock"></svg></span>
-        <p class="photo-tile__caption">{{ caption() || fileName() }}</p>
-        <span class="status status--pending">{{ labels().processing }}</span>
-      }
-      @default {
-        <span class="photo"
-          >@if (photo(); as p) {<img [src]="p.src" alt="" [width]="p.width" [height]="p.height" [attr.loading]="position() > 6 ? 'lazy' : null" />}@if (position() === 1) {<span
-              class="photo-tile__cover"
-              >{{ labels().cover }}</span
-            >}</span
-        >
-        @if (caption() || mode() === 'readonly') {
-          <p class="photo-tile__caption">{{ caption() }}</p>
-        } @else {
-          <p class="photo-tile__caption photo-tile__caption--missing">{{ labels().missingCaption }}</p>
-        }
-        @if (mode() === 'editable') {
-          <div class="photo-tile__move">
-            <button #up class="icon-btn" type="button" [attr.aria-label]="fill(labels().moveUp)" [attr.aria-disabled]="position() === 1 ? 'true' : null" (click)="move('up')">
-              <svg shIcon="arrow-up"></svg>
-            </button>
-            <button #down class="icon-btn" type="button" [attr.aria-label]="fill(labels().moveDown)" [attr.aria-disabled]="position() === total() ? 'true' : null" (click)="move('down')">
-              <svg shIcon="arrow-down"></svg>
-            </button>
-          </div>
-          <button #edit class="btn btn--link btn--sm" type="button" aria-haspopup="dialog" (click)="editRequested.emit({ position: position() })">
-            @if (caption()) {
-              {{ labels().edit }}<span class="visually-hidden">{{ fill(labels().editObject) }}</span>
-            } @else {
-              {{ labels().addCaption }}<span class="visually-hidden">{{ fill(labels().addCaptionObject) }}</span>
-            }
-          </button>
-          <ng-content select="[slot=actions]" />
-        }
-      }
-    }
-  `,
+  templateUrl: './photo-tile.html',
 })
 export class PhotoTile {
   readonly mode = input<'editable' | 'readonly' | 'uploading' | 'processing'>('editable');

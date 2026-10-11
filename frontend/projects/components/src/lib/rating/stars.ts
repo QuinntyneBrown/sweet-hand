@@ -7,15 +7,7 @@ import { Icon } from '../icon/icon';
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (valid()) {
-      <span class="stars" role="img" [attr.aria-label]="label()">
-        @for (i of five; track i) {
-          <svg shIcon="star" [class.icon--empty]="i >= value()"></svg>
-        }
-      </span>
-    }
-  `,
+  templateUrl: './stars.html',
 })
 export class Stars {
   readonly value = input.required<number>();

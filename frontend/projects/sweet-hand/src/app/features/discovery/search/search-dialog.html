@@ -1,0 +1,45 @@
+<sh-dialog
+  [open]="open()"
+  title="Where’s your event?"
+  i18n-title="@@search.title"
+  closeLabel="Close"
+  i18n-closeLabel="@@common.close"
+  cancelLabel="Cancel"
+  i18n-cancelLabel="@@common.cancel"
+  [form]="true"
+  formRole="search"
+  describedByIds="q-help"
+  [busy]="busy()"
+  [busyMessage]="busyMessage()"
+  [returnFocus]="returnFocus()"
+  (dismissed)="close()"
+  (submitted)="submit()"
+>
+  <sh-form-field label="Area or postal code" i18n-label="@@search.label" [labelHidden]="true" controlId="q" help="An area like Scarborough, or a postal code like M1B 2K3." i18n-help="@@search.help" [error]="error()" [warning]="warning()">
+    <sh-combobox
+      [areas]="options()"
+      [(value)]="text"
+      placeholder="Area or postal code"
+      i18n-placeholder="@@search.label"
+      listLabel="Matching areas"
+      i18n-listLabel="@@search.listLabel"
+      noMatchText="No matching areas"
+      i18n-noMatchText="@@search.noMatch"
+      [matchCountText]="matchCountText"
+      [readonly]="busy()"
+      [autofocus]="true"
+      (areaChosen)="goToArea($event.value)"
+    />
+  </sh-form-field>
+  @if (!text().trim() || error() || warning() || busy()) {
+    <div class="filter-group" role="group" aria-labelledby="q-regions">
+      <h3 class="filter-group__title" id="q-regions" i18n="@@search.regions">Or choose a whole region</h3>
+      <ul class="filter-list">
+        @for (r of regions; track r.id) {
+          <li><a class="filter-list__item" routerLink="/caterers" [queryParams]="regionParams(r.id)" (click)="closed.emit()">{{ r.name }}</a></li>
+        }
+      </ul>
+    </div>
+  }
+  <sh-button slot="footer" type="submit" variant="primary" [busy]="busy()"><ng-container i18n="@@search.submit">Show caterers</ng-container></sh-button>
+</sh-dialog>

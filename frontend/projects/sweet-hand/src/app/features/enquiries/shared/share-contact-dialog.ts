@@ -9,47 +9,7 @@ import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
   selector: 'app-share-contact-dialog',
   imports: [Button, Dialog, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <sh-dialog
-      [open]="open()"
-      [title]="title"
-      [description]="description()"
-      size="sm"
-      tone="info"
-      closeLabel="Close"
-      i18n-closeLabel="@@common.close"
-      cancelLabel="Cancel"
-      i18n-cancelLabel="@@common.cancel"
-      initialFocus="cancel"
-      [busy]="busy()"
-      [busyMessage]="busyMessage"
-      [returnFocus]="returnFocus()"
-      (dismissed)="dismissed.emit()"
-    >
-      <svg slot="icon" shIcon="lock"></svg>
-      @if (failed()) {
-        <div class="alert alert--danger" role="alert">
-          <svg shIcon="danger"></svg>
-          <div class="alert__body">
-            <span class="alert__title" i18n="@@share.failedTitle">We couldn’t share your details</span>&ngsp;<span i18n="@@share.failedText">Nothing was shared. Check your connection and try again.</span>
-          </div>
-        </div>
-      }
-      <div class="contact-card">
-        <strong>{{ willSee() }}</strong><span>{{ thread().myContact.email }}</span>
-        @if (thread().myContact.phone) {
-          <span>{{ thread().myContact.phone }}</span>
-        }
-      </div>
-      <sh-button slot="footer" variant="primary" [busy]="busy()" (activated)="confirm()">
-        @if (failed()) {
-          <ng-container i18n="@@common.tryAgain">Try again</ng-container>
-        } @else {
-          <ng-container i18n="@@share.confirm">Share details</ng-container>
-        }
-      </sh-button>
-    </sh-dialog>
-  `,
+  templateUrl: './share-contact-dialog.html',
 })
 export class ShareContactDialog {
   private readonly api = inject(EnquiriesService);

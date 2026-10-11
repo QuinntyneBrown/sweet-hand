@@ -16,55 +16,7 @@ import { conflictText } from './decision-text';
   imports: [Alert, ButtonAnchor, Dialog, FormField, FormSummary, Icon, Textarea],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <sh-dialog
-      [open]="open()"
-      [title]="title()"
-      [description]="description()"
-      [photo]="photo()"
-      [tone]="tone()"
-      [form]="true"
-      closeLabel="Close"
-      i18n-closeLabel="@@common.close"
-      cancelLabel="Cancel"
-      i18n-cancelLabel="@@common.cancel"
-      [busy]="busy()"
-      [busyMessage]="busyMessage()"
-      [returnFocus]="returnFocus()"
-      (dismissed)="dismissed.emit()"
-      (submitted)="submit()"
-    >
-      @if (icon(); as i) {
-        <svg slot="icon" [shIcon]="i"></svg>
-      }
-      @if (conflict(); as c) {
-        <sh-alert tone="warning" live="assertive" title="This profile changed while you were looking" i18n-title="@@decision.conflictTitle">{{ c }}</sh-alert>
-      } @else if (refused() && forbiddenTitle()) {
-        <sh-alert tone="danger" live="assertive" [title]="forbiddenTitle()!">{{ forbiddenText() }}</sh-alert>
-      } @else if (failed()) {
-        <sh-alert tone="danger" live="assertive" [title]="failedTitle()">{{ failedText() }}</sh-alert>
-      }
-      <sh-form-summary [heading]="summaryHeading()" [headingLevel]="3" summaryId="dlg-summary" [items]="summary()" [attempt]="attempt()" />
-      <ng-content select="[slot=before]" />
-      <sh-form-field [label]="label()" [controlId]="controlId()" [help]="help()" [error]="error()">
-        <sh-textarea [name]="controlId()" [rows]="rows()" [required]="true" [(value)]="reason" [readonly]="busy()" [autofocus]="true" />
-      </sh-form-field>
-      <ng-content select="[slot=after]" />
-      @if (conflict()) {
-        <sh-button-anchor slot="footer" variant="primary" [href]="conflictHref()">{{ conflictLink() }}</sh-button-anchor>
-      } @else {
-        <button
-          slot="footer"
-          [class]="submitVariant() === 'danger' ? 'btn btn--danger' : 'btn btn--primary'"
-          type="submit"
-          [attr.aria-busy]="busy() ? 'true' : null"
-          [attr.aria-disabled]="busy() ? 'true' : null"
-        >
-          {{ failed() && retryLabel() ? retryLabel() : submitLabel() }}
-        </button>
-      }
-    </sh-dialog>
-  `,
+  templateUrl: './reason-dialog.html',
 })
 export class ReasonDialog<T = unknown> {
   readonly open = input(false);

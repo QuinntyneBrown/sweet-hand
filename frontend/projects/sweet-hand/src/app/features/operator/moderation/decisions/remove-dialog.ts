@@ -17,77 +17,7 @@ import { type CatererRecordView, type DecisionResult, OperatorModerationService 
   selector: 'app-remove-dialog',
   imports: [Alert, ButtonAnchor, Checklist, ChecklistItem, Dialog, FormField, FormSummary, Icon, Textarea],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <sh-dialog
-      [open]="open()"
-      [title]="title()"
-      description="This can’t be undone. To hide it for now, suspend it instead."
-      i18n-description="@@remove.description"
-      tone="danger"
-      [form]="true"
-      closeLabel="Close"
-      i18n-closeLabel="@@common.close"
-      cancelLabel="Cancel"
-      i18n-cancelLabel="@@common.cancel"
-      [busy]="busy()"
-      [busyMessage]="busyMessage()"
-      [returnFocus]="returnFocus()"
-      (dismissed)="dismissed.emit()"
-      (submitted)="remove()"
-    >
-      <svg slot="icon" shIcon="trash"></svg>
-      @if (conflict(); as c) {
-        <sh-alert tone="warning" live="assertive" title="This profile changed while you were looking" i18n-title="@@decision.conflictTitle">{{ c }}</sh-alert>
-      } @else if (failed()) {
-        <sh-alert tone="danger" live="assertive" [title]="failedTitle()"
-          ><ng-container i18n="@@decision.failedKept">Nothing has changed. Check your connection and try again; your reason is kept.</ng-container></sh-alert
-        >
-      }
-      <sh-form-summary [heading]="summaryTitle()" [headingLevel]="3" summaryId="dlg-summary" [items]="summary()" [attempt]="attempt()" />
-      <sh-checklist [statusLabels]="noLabels">
-        @for (line of lines(); track $index) {
-          <li sh-checklist-item [status]="null">{{ line }}</li>
-        }
-      </sh-checklist>
-      <sh-form-field [label]="reasonLabel()" controlId="reason" help="Kept in the audit log for 7 years." i18n-help="@@remove.reasonHelp" [error]="reasonErr()">
-        <sh-textarea name="reason" [rows]="2" [required]="true" [(value)]="reason" [readonly]="busy()" [autofocus]="true" />
-      </sh-form-field>
-      <div class="field">
-        <label class="field__label" for="confirm-name" i18n="@@remove.confirmLabel">Type <strong>{{ record().name }}</strong> to confirm</label>
-        <input
-          class="input"
-          id="confirm-name"
-          name="confirm"
-          type="text"
-          autocomplete="off"
-          spellcheck="false"
-          [value]="confirm()"
-          [readOnly]="busy()"
-          [attr.aria-invalid]="confirmErr() ? 'true' : null"
-          [attr.aria-describedby]="confirmErr() ? 'confirm-name-error confirm-help' : 'confirm-help'"
-          (input)="confirm.set($any($event.target).value)"
-        />
-        @if (confirmErr()) {
-          <span class="field__error" id="confirm-name-error">{{ confirmErr() }}</span>
-        }
-        <span class="field__help" id="confirm-help" i18n="@@remove.confirmHelp">The button stays off until the name matches.</span>
-      </div>
-      @if (conflict()) {
-        <sh-button-anchor slot="footer" variant="primary" href="/admin/caterers"><ng-container i18n="@@record.backToCaterers">Back to caterers</ng-container></sh-button-anchor>
-      } @else {
-        <button
-          slot="footer"
-          class="btn btn--danger"
-          type="submit"
-          [attr.aria-busy]="busy() ? 'true' : null"
-          [attr.aria-disabled]="busy() || !matches() ? 'true' : null"
-          i18n="@@remove.submit"
-        >
-          Remove permanently
-        </button>
-      }
-    </sh-dialog>
-  `,
+  templateUrl: './remove-dialog.html',
 })
 export class RemoveDialog {
   private readonly api = inject(OperatorModerationService);

@@ -8,21 +8,7 @@ import { Icon } from '../icon/icon';
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'edit-row' },
-  template: `
-    <div class="edit-row__body"><ng-content /></div>
-    @if (!readOnly()) {
-      <div class="edit-row__actions">
-        <button #up class="icon-btn" type="button" [attr.aria-label]="moveUpLabel()" [attr.aria-disabled]="first() ? 'true' : null" (click)="!first() && movedUp.emit()">
-          <svg shIcon="arrow-up"></svg>
-        </button>
-        <button #down class="icon-btn" type="button" [attr.aria-label]="moveDownLabel()" [attr.aria-disabled]="last() ? 'true' : null" (click)="!last() && movedDown.emit()">
-          <svg shIcon="arrow-down"></svg>
-        </button>
-        <button class="icon-btn" type="button" aria-haspopup="dialog" [attr.aria-label]="editLabel()" (click)="editRequested.emit()"><svg shIcon="edit"></svg></button>
-        <button class="icon-btn" type="button" aria-haspopup="dialog" [attr.aria-label]="removeLabel()" (click)="removeRequested.emit()"><svg shIcon="trash"></svg></button>
-      </div>
-    }
-  `,
+  templateUrl: './edit-row.html',
 })
 export class EditRow {
   readonly name = input.required<string>();

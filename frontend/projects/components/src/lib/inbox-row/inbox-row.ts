@@ -14,29 +14,7 @@ import type { InboxRowPicture } from './inbox-row-picture';
   imports: [RouterLink, Status],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents', role: 'listitem' },
-  template: `
-    <li role="none">
-      <a #link [class]="cls()" [routerLink]="href()" [attr.aria-current]="current()" (click)="opened.emit($event)"
-        >@switch (picture().kind) {
-          @case ('photo') {
-            <span class="photo"><img [src]="photoSrc()" alt="" width="48" height="48" loading="lazy" /></span>
-          }
-          @case ('initials') {
-            <span class="avatar" aria-hidden="true">{{ initialsText() }}</span>
-          }
-          @default {
-            <span class="avatar" aria-hidden="true"
-              ><svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></svg
-            ></span>
-          }
-        }<span class="inbox-row__name"
-          >@if (unread()) {<span class="unread-dot" aria-hidden="true"></span><span class="visually-hidden">{{ unreadText() }}</span>}{{ name() }}</span
-        ><span class="inbox-row__time"
-          >@if (datetime()) {<time [attr.datetime]="datetime()">{{ time() }}</time>} @else {{{ time() }}}</span
-        ><span class="inbox-row__meta">{{ summary() }}</span><sh-status [tone]="statusTone()" [label]="statusLabel()" extraClass="inbox-row__status"
-      /></a>
-    </li>
-  `,
+  templateUrl: './inbox-row.html',
 })
 export class InboxRow {
   readonly href = input.required<string>();

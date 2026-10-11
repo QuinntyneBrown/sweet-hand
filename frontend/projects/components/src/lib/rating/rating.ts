@@ -16,15 +16,7 @@ export function formatAverage(average: number, locale: string): string {
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (count() > 0) {
-      @if (variant() === 'inline') {
-        <span class="visually-hidden">{{ ratedPrefix() }} </span>{{ text() }}
-      } @else {
-        <span class="rating"><span class="stars" aria-hidden="true"><svg shIcon="star"></svg></span><span class="rating__summary">{{ text() }}</span></span>
-      }
-    }
-  `,
+  templateUrl: './rating.html',
 })
 export class RatingSummary {
   readonly variant = input<'head' | 'inline'>('head');

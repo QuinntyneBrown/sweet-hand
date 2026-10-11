@@ -11,13 +11,7 @@ import { Chip } from './chip';
   selector: 'sh-chip-group',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (filled()) {
-      <div #row class="active-filters" role="group" [attr.aria-label]="label()">
-        <ng-content />
-      </div>
-    }
-  `,
+  templateUrl: './chip-group.html',
 })
 export class ChipGroup {
   readonly label = input.required<string>();

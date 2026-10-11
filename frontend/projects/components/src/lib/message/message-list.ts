@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   selector: 'sh-message-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `<ol class="messages" [attr.aria-label]="label()"><ng-content /></ol>`,
+  templateUrl: './message-list.html',
 })
 export class MessageList {
   readonly label = input.required<string>();

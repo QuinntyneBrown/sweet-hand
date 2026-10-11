@@ -11,30 +11,7 @@ let nextId = 0;
   selector: 'sh-fieldset',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <fieldset class="stack" [attr.aria-describedby]="describedBy()">
-      <legend
-        >@switch (legendHeading()) {
-          @case ('h2') {
-            <h2>{{ legend() }}</h2>
-          }
-          @case ('h3') {
-            <h3>{{ legend() }}</h3>
-          }
-          @default {
-            {{ legend() }}
-          }
-        }@if (optionalMarker()) {&ngsp;<span class="optional">{{ optionalMarker() }}</span>}</legend
-      >
-      @if (error()) {
-        <span class="field__error" [id]="id() + '-error'">{{ error() }}</span>
-      }
-      @if (help()) {
-        <span class="field__help" [id]="id() + '-help'">{{ help() }}</span>
-      }
-      <ng-content />
-    </fieldset>
-  `,
+  templateUrl: './form-layout.html',
 })
 export class Fieldset {
   readonly legend = input.required<string>();

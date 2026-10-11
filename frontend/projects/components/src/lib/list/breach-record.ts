@@ -6,23 +6,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   selector: 'li[sh-breach-record]',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'breach' },
-  template: `
-    <div class="breach__head">
-      @switch (headingLevel()) {
-        @case (3) {
-          <h3 class="breach__title">{{ title() }}</h3>
-        }
-        @case (4) {
-          <h4 class="breach__title">{{ title() }}</h4>
-        }
-        @default {
-          <h2 class="breach__title">{{ title() }}</h2>
-        }
-      }
-      <p class="breach__when">{{ when() }}</p>
-    </div>
-    <ng-content />
-  `,
+  templateUrl: './breach-record.html',
 })
 export class BreachRecord {
   readonly title = input.required<string>();

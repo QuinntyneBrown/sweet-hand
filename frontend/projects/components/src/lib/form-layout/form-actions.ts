@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   selector: 'sh-form-actions',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `<div [class]="sticky() ? 'form-actions form-actions--sticky' : 'form-actions'"><ng-content /></div>`,
+  templateUrl: './form-actions.html',
 })
 export class FormActions {
   readonly sticky = input(false);

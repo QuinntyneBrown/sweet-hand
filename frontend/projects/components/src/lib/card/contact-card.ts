@@ -5,17 +5,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   selector: 'sh-contact-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <div class="contact-card">
-      <strong>{{ heading() }}</strong>
-      @if (email()) {
-        <span>{{ email() }}</span>
-      }
-      @if (phone()) {
-        <span>{{ phone() }}</span>
-      }
-    </div>
-  `,
+  templateUrl: './contact-card.html',
 })
 export class ContactCard {
   readonly heading = input.required<string>();

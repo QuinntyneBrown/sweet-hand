@@ -12,36 +12,7 @@ import type { Size } from './size';
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (status() === 'pending') {
-      @if (pendingIndicator() === 'spinner') {
-        <span [class]="cls() + ' photo--placeholder'" [attr.role]="standaloneLabel() ? 'img' : null" [attr.aria-label]="standaloneLabel()"><span class="spinner spinner--lg"></span></span>
-      } @else {
-        <span [class]="cls()" [attr.role]="standaloneLabel() ? 'img' : null" [attr.aria-label]="standaloneLabel()"><span class="skeleton skeleton--circle"></span></span>
-      }
-    } @else if (status() === 'processing') {
-      <span [class]="cls() + ' photo--placeholder'"><svg shIcon="clock"></svg>@if (showsLabel() && processingLabel()) {<span class="photo__label">{{ processingLabel() }}</span>}</span>
-    } @else if (failed()) {
-      <span [class]="cls() + ' photo--failed'" [attr.role]="standaloneLabel() ? 'img' : null" [attr.aria-label]="standaloneLabel()"
-        ><svg shIcon="plate"></svg>@if (showsLabel() && !standaloneLabel()) {<span class="photo__label">{{ failedLabel() }}</span>}</span
-      >
-    } @else if (src()) {
-      <span [class]="cls()"
-        ><img
-          [src]="src()"
-          [attr.srcset]="srcset()"
-          [attr.sizes]="sizes()"
-          [alt]="alt()"
-          [width]="width()"
-          [height]="height()"
-          [attr.loading]="loading() === 'lazy' ? 'lazy' : null"
-          (load)="loaded.emit({ src: src()! })"
-          (error)="fail()"
-      /></span>
-    } @else {
-      <span [class]="cls() + ' photo--placeholder'"><svg shIcon="plate"></svg>@if (showsLabel() && placeholderLabel()) {<span class="photo__label">{{ placeholderLabel() }}</span>}</span>
-    }
-  `,
+  templateUrl: './photo.html',
 })
 export class Photo {
   readonly src = input<string | null>(null);

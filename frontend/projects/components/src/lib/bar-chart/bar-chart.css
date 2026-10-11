@@ -1,0 +1,28 @@
+.bar-chart--dense:has(> :nth-child(32)) {
+  gap: 0;
+}
+.bar-chart--dense + .bar-chart__axis {
+  gap: var(--space-0-5);
+}
+.bar-chart--dense:has(> :nth-child(32)) + .bar-chart__axis {
+  gap: 0;
+}
+.bar-chart__axis span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.bar-chart--dense + .bar-chart__axis span {
+  overflow: visible;
+  text-align: left;
+}
+@media (forced-colors: active) {
+  .bar-chart__bar {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+  .bar-chart__bar--accent {
+    background: Highlight;
+  }
+}

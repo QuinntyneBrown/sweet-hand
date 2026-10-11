@@ -20,52 +20,7 @@ const LIST_CLASS: Record<ListFamily, string> = {
   imports: [NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: block' },
-  template: `
-    @if (isOrdered()) {
-      <ol #listEl [class]="listClass()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="busy() ? null : labelledBy()" [attr.aria-busy]="busy() ? 'true' : null">
-        <ng-container *ngTemplateOutlet="rows" />
-      </ol>
-    } @else {
-      <ul #listEl [class]="listClass()" [attr.aria-label]="ariaLabel()" [attr.aria-labelledby]="busy() ? null : labelledBy()" [attr.aria-busy]="busy() ? 'true' : null">
-        <ng-container *ngTemplateOutlet="rows" />
-      </ul>
-    }
-    <p class="visually-hidden" role="status">{{ busy() ? busyLabel() : (announcement() ?? '') }}</p>
-    <ng-template #rows>
-      @if (busy()) {
-        @for (i of skeletons(); track i) {
-          @switch (family()) {
-            @case ('settings') {
-              <li class="admin-row admin-row--skeleton" aria-hidden="true">
-                @if (skeletonAvatar()) {
-                  <span class="avatar skeleton skeleton--circle"></span>
-                }
-                <span class="admin-row__body"><span class="skeleton skeleton--title"></span><span class="skeleton skeleton--text"></span></span>
-                @if (hasSkeletonAction()) {
-                  <span class="admin-row__actions"><span class="skeleton skeleton--rect"></span></span>
-                }
-              </li>
-            }
-            @case ('editable') {
-              <li class="edit-row edit-row--skeleton" aria-hidden="true">
-                <div class="edit-row__body"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></div>
-              </li>
-            }
-            @case ('breach') {
-              <li class="breach" aria-hidden="true"><span class="skeleton skeleton--title"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--rect"></span></li>
-            }
-            @default {
-              <li class="list__item" aria-hidden="true">
-                <div class="list__body"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></div>
-              </li>
-            }
-          }
-        }
-      } @else {
-        <ng-content />
-      }
-    </ng-template>
-  `,
+  templateUrl: './list.html',
 })
 export class List {
   readonly family = input<ListFamily>('list');

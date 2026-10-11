@@ -7,8 +7,7 @@ import { NgTemplateOutlet } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
   imports: [NgTemplateOutlet],
-  template: `@if (kind() === 'old') {<del class="diff-old"><ng-container *ngTemplateOutlet="text" /></del>} @else {<ins class="diff-new"><ng-container *ngTemplateOutlet="text" /></ins>}
-    <ng-template #text><ng-content /></ng-template>`,
+  templateUrl: './change-value.html',
 })
 export class ChangeValue {
   readonly kind = input.required<'old' | 'new'>();

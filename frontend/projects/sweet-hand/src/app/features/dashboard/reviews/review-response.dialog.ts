@@ -11,62 +11,7 @@ import type { Outcome } from './outcome';
   selector: 'app-review-response-dialog',
   imports: [Alert, Dialog, FormField, FormSummary, Icon, Stars, Textarea, Well],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <sh-dialog
-      [open]="open()"
-      size="form"
-      [form]="true"
-      [title]="title()"
-      [description]="description()"
-      closeLabel="Close"
-      i18n-closeLabel="@@common.close"
-      cancelLabel="Cancel"
-      i18n-cancelLabel="@@common.cancel"
-      [busy]="busy() !== null"
-      [busyMessage]="busyMessage()"
-      (dismissed)="closed.emit()"
-      (submitted)="save()"
-    >
-      @if (failed()) {
-        <sh-alert tone="danger" live="assertive" [title]="failedTitle()"
-          ><ng-container i18n="@@response.failedText">We couldn’t reach Sweet Hand. Your text is still here; try again.</ng-container></sh-alert
-        >
-      } @else if (conflicted()) {
-        <sh-alert live="polite" title="You’ve already responded to this review" i18n-title="@@response.conflictTitle"
-          ><ng-container i18n="@@response.conflictText">Edit your response below instead.</ng-container></sh-alert
-        >
-      }
-      <sh-form-summary [heading]="summaryHeading()" [headingLevel]="3" [items]="summary()" [attempt]="attempt()" summaryId="response-summary" />
-      @if (review(); as r) {
-        <sh-well as="figure">
-          <div class="review__head">
-            <span class="review__author">{{ r.author }}</span><span class="review__date">{{ eventLabel() }}</span>
-            <sh-stars [value]="r.rating" [label]="ratingLabel()" />
-          </div>
-          <blockquote class="review__body" style="margin: var(--space-2) 0 0">{{ r.text }}</blockquote>
-        </sh-well>
-      }
-      <sh-form-field label="Your response" i18n-label="@@response.label" controlId="response" [error]="error()" [help]="help()" [counter]="counter()" [counterOver]="text().trim().length > 1000">
-        <sh-textarea name="response" [rows]="4" [required]="true" [autofocus]="true" [readonly]="busy() !== null" [value]="text()" (valueChange)="text.set($event)" />
-      </sh-form-field>
-      @if (editing()) {
-        <button
-          #deleteButton
-          slot="footer-start"
-          class="btn btn--ghost push-start"
-          type="button"
-          [disabled]="busy() !== null"
-          [attr.aria-busy]="busy() === 'delete' ? 'true' : null"
-          (click)="deleteResponse()"
-        >
-          <svg shIcon="trash"></svg>{{ confirming() ? confirmLabel : deleteLabel }}
-        </button>
-      }
-      <button slot="footer" class="btn btn--primary" type="submit" [attr.aria-busy]="busy() === 'save' ? 'true' : null" [attr.aria-disabled]="busy() ? 'true' : null">
-        {{ submitLabel() }}
-      </button>
-    </sh-dialog>
-  `,
+  templateUrl: './review-response.dialog.html',
 })
 export class ReviewResponseDialog {
   private readonly api = inject(CatererProfileService);

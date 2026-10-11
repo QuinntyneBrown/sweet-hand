@@ -1,0 +1,8 @@
+@if (status(); as s) {
+  <sh-check [status]="s" />
+} @else {
+  <ng-content select="[slot=icon]" />
+}
+<span
+  >@if (prefix()) {<span class="visually-hidden">{{ prefix() }}</span>}<ng-content
+/></span>

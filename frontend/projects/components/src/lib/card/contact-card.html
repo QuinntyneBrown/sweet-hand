@@ -1,0 +1,9 @@
+<div class="contact-card">
+  <strong>{{ heading() }}</strong>
+  @if (email()) {
+    <span>{{ email() }}</span>
+  }
+  @if (phone()) {
+    <span>{{ phone() }}</span>
+  }
+</div>

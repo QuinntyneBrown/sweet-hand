@@ -11,31 +11,7 @@ import type { StarValue } from './star-value';
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <fieldset [disabled]="disabled()">
-      <legend>{{ legend() }}</legend>
-      <div class="star-input" (pointerleave)="hover.set(null)">
-        @for (n of stars; track n) {
-          <input
-            type="radio"
-            [attr.name]="name()"
-            [id]="idPrefix() + '-' + n"
-            [value]="n"
-            [checked]="value() === n"
-            [attr.aria-invalid]="error() ? 'true' : null"
-            [attr.aria-describedby]="error() ? idPrefix() + '-error' : null"
-            [attr.autofocus]="autofocus() && n === (value() ?? 1) ? '' : null"
-            (change)="choose(n)"
-          /><label [for]="idPrefix() + '-' + n" [attr.data-filled]="n <= (hover() ?? value() ?? 0) ? '' : null" (pointerenter)="disabled() ? null : hover.set(n)"
-            ><span class="visually-hidden">{{ starLabels()[n - 1] }}</span><svg shIcon="star"></svg
-          ></label>
-        }
-      </div>
-      @if (error()) {
-        <span class="field__error" [id]="idPrefix() + '-error'">{{ error() }}</span>
-      }
-    </fieldset>
-  `,
+  templateUrl: './star-input.html',
 })
 export class StarInput {
   readonly value = model<StarValue | null>(null);

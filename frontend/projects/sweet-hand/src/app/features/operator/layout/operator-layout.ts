@@ -11,12 +11,7 @@ import { operatorNavGroups } from './operator-nav';
   selector: 'app-operator-layout',
   imports: [RouterOutlet, SideNav],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div class="work-layout">
-      <sh-side-nav label="Operator" i18n-label="@@operatorNav.label" [groups]="groups()" />
-      <div class="work-main"><router-outlet /></div>
-    </div>
-  `,
+  templateUrl: './operator-layout.html',
 })
 export class OperatorLayout {
   private readonly session = inject(Session);

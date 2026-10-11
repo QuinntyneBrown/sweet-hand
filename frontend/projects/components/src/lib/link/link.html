@@ -1,0 +1,10 @@
+@if (appPath()) {
+  <a [class]="cls()" [routerLink]="href()" [attr.aria-current]="current() ? 'page' : null" (click)="followed.emit($event)"><ng-container *ngTemplateOutlet="content" /></a>
+} @else {
+  <a [class]="cls()" [href]="href()" [attr.aria-current]="current() ? 'page' : null" (click)="followed.emit($event)"><ng-container *ngTemplateOutlet="content" /></a>
+}
+<ng-template #content
+  ><ng-content />@if (external()) {<span class="visually-hidden">{{ externalLabel() }}</span
+    ><svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8M17 14v5H5V7h5" /></svg>
+  } @else {<ng-content select="[slot=icon]" />}</ng-template
+>

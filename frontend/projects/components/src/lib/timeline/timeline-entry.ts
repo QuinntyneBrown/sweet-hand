@@ -7,29 +7,7 @@ import type { TimelineForm } from './timeline-form';
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'li[sh-timeline-entry]',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    @switch (form()) {
-      @case ('steps') {
-        <strong>{{ event() }}</strong><span class="text-muted">{{ detail() }}</span>
-      }
-      @case ('sentence') {
-        <time class="timeline__when" [attr.datetime]="datetime()">{{ when() }}</time><span>{{ event() }}</span>
-        @if (reason()) {
-          <span class="text-muted text-sm">{{ quotedReason() }}</span>
-        }
-      }
-      @default {
-        <time class="timeline__when" [attr.datetime]="datetime()">{{ when() }}</time
-        ><span
-          ><strong>{{ event() }}</strong
-          >@if (actor()) {&ngsp;· {{ actor() }}}</span
-        >
-        @if (reason()) {
-          <span class="text-muted text-sm">{{ quotedReason() }}</span>
-        }
-      }
-    }
-  `,
+  templateUrl: './timeline-entry.html',
 })
 export class TimelineEntry {
   private readonly timeline = inject(Timeline, { optional: true });

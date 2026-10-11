@@ -8,7 +8,7 @@ import { Icon } from '../icon/icon';
   imports: [RouterLink, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `<a [class]="untilLg() ? 'eyebrow until-lg' : 'eyebrow'" [routerLink]="href()" (click)="followed.emit($event)"><svg class="icon--sm" shIcon="chevron-left"></svg><ng-content /></a>`,
+  templateUrl: './back-link.html',
 })
 export class BackLink {
   readonly href = input.required<string>();

@@ -5,6 +5,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'sh-table-row-actions',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `<div class="row-actions"><ng-content /></div>`,
+  templateUrl: './table-row-actions.html',
 })
 export class TableRowActions {}

@@ -11,23 +11,7 @@ import type { SideNavItem } from './side-nav-item';
   imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <nav class="side-nav" [attr.aria-label]="label()">
-      @for (group of nonEmpty(); track $index) {
-        <ul class="filter-list">
-          @for (item of group; track item.href) {
-            <li>
-              <a class="filter-list__item" [routerLink]="item.href" [attr.aria-current]="item.current ? 'page' : null"
-                >{{ item.label }}@if (item.count) {&ngsp;<span class="filter-list__count"
-                    >@if (item.countLabel) {<span aria-hidden="true">{{ item.count }}</span><span class="visually-hidden">{{ item.countLabel }}</span>} @else {<ng-container>{{ item.count }}</ng-container>}</span
-                  >}</a
-              >
-            </li>
-          }
-        </ul>
-      }
-    </nav>
-  `,
+  templateUrl: './side-nav.html',
 })
 export class SideNav {
   readonly label = input.required<string>();

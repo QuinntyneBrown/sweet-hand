@@ -9,26 +9,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
   selector: 'sh-progress',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (value() === null) {
-      <div class="progress progress--indeterminate" role="progressbar" [attr.aria-label]="labelledBy() ? null : label()" [attr.aria-labelledby]="labelledBy()" aria-busy="true">
-        <div class="progress__bar"></div>
-      </div>
-    } @else {
-      <div
-        [class]="cls()"
-        role="progressbar"
-        [attr.aria-label]="labelledBy() ? null : label()"
-        [attr.aria-labelledby]="labelledBy()"
-        [attr.aria-valuemin]="min()"
-        [attr.aria-valuemax]="max()"
-        [attr.aria-valuenow]="clamped()"
-        [attr.aria-valuetext]="valueText()"
-      >
-        <div class="progress__bar" [style.--value]="percent()"></div>
-      </div>
-    }
-  `,
+  templateUrl: './progress.html',
 })
 export class Progress {
   readonly value = input<number | null>(null);

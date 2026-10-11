@@ -1,0 +1,15 @@
+<fieldset class="stack stack--sm" [attr.aria-describedby]="describedBy()">
+  <legend [class.visually-hidden]="legendHidden()"><ng-content select="[slot=legend]" /></legend>
+  @if (help()) {
+    <p class="field__help" [id]="ids.help">{{ help() }}</p>
+  }
+  @if (error()) {
+    <p class="field__error" [id]="ids.error">{{ error() }}</p>
+  }
+  @if (layout() === 'horizontal' && variant() === 'plain') {
+    <div class="cluster radio-group__row"><ng-container *ngTemplateOutlet="options" /></div>
+  } @else {
+    <ng-container *ngTemplateOutlet="options" />
+  }
+</fieldset>
+<ng-template #options><ng-content /></ng-template>

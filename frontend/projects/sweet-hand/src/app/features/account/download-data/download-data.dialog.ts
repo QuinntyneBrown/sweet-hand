@@ -36,61 +36,7 @@ export function exportLines(account: AccountView): string[] {
   selector: 'app-download-data-dialog',
   imports: [Alert, Checklist, ChecklistItem, Dialog, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <sh-dialog
-      [open]="open()"
-      size="form"
-      [form]="!requested()"
-      [tone]="requested() ? 'success' : null"
-      [title]="requested() ? requestedTitle : title"
-      [description]="requested() ? requestedDescription : description"
-      closeLabel="Close"
-      i18n-closeLabel="@@common.close"
-      [cancelLabel]="requested() ? null : cancel"
-      [busy]="busy()"
-      [busyMessage]="requesting"
-      [returnFocus]="returnFocus()"
-      (dismissed)="close()"
-      (submitted)="request()"
-    >
-      <svg slot="icon" shIcon="success"></svg>
-      @if (requested()) {
-        <p i18n="@@download.preparing">We’re preparing your file. We’ll email a download link to <strong>{{ account().email }}</strong> within 24 hours.</p>
-        <p class="text-muted" i18n="@@download.linkRule">The link works for 7 days, and only when you’re signed in as {{ firstName() }}.</p>
-      } @else {
-        @if (failed()) {
-          <sh-alert tone="danger" live="assertive" title="Your export wasn’t requested" i18n-title="@@download.failedTitle"
-            ><ng-container i18n="@@download.failedText">Something went wrong on our side. Try again in a moment.</ng-container></sh-alert
-          >
-        }
-        <sh-checklist [prefixes]="false">
-          @for (line of lines(); track $index) {
-            <li sh-checklist-item [status]="null">{{ line }}</li>
-          }
-        </sh-checklist>
-        @if (account().role === 'Caterer') {
-          <p class="text-muted" i18n="@@download.contactsCaterer">Customers’ contact details are included only where they shared them with you.</p>
-        } @else {
-          <p class="text-muted" i18n="@@download.contacts">Caterers’ contact details are included only where they shared them with you.</p>
-        }
-      }
-      @if (requested()) {
-        <button #done slot="footer" class="btn btn--primary" type="button" (click)="close()" i18n="@@download.done">Done</button>
-      } @else {
-        <button
-          slot="footer"
-          class="btn btn--primary"
-          type="submit"
-          autofocus
-          [attr.aria-busy]="busy() ? 'true' : null"
-          [attr.aria-disabled]="busy() ? 'true' : null"
-          i18n="@@download.request"
-        >
-          Request export
-        </button>
-      }
-    </sh-dialog>
-  `,
+  templateUrl: './download-data.dialog.html',
 })
 export class DownloadDataDialog {
   private readonly api = inject(AccountService);

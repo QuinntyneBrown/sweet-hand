@@ -8,9 +8,7 @@ import { ChipGroup } from './chip-group';
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `<span class="chip chip--filter"
-    ><ng-content /><button #remove class="remove" type="button" [attr.aria-label]="removeLabel()" [disabled]="removeDisabled()" (click)="onRemove()"><svg shIcon="close" class="icon--sm"></svg></button
-  ></span>`,
+  templateUrl: './filter-chip.html',
 })
 export class FilterChip {
   readonly removeLabel = input.required<string>();

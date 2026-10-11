@@ -1,0 +1,42 @@
+<sh-dialog
+  [open]="open()"
+  size="sm"
+  [title]="title()"
+  [description]="description()"
+  [tone]="blocked() ? 'warning' : 'danger'"
+  closeLabel="Close"
+  i18n-closeLabel="@@common.close"
+  cancelLabel="Cancel"
+  i18n-cancelLabel="@@common.cancel"
+  [initialFocus]="blocked() ? 'auto' : 'cancel'"
+  [busy]="busy()"
+  [busyMessage]="busyMessage()"
+  [returnFocus]="returnFocus()"
+  (dismissed)="closed.emit()"
+>
+  @if (blocked()) {
+    <svg slot="icon" shIcon="warning"></svg>
+  } @else {
+    <svg slot="icon" shIcon="trash"></svg>
+  }
+  @if (failed()) {
+    <sh-alert tone="danger" live="assertive" title="The dish wasn’t removed" i18n-title="@@removeDish.failedTitle"
+      ><ng-container i18n="@@removeDish.failedText">We couldn’t reach Sweet Hand. Try again in a moment.</ng-container></sh-alert
+    >
+  }
+  @if (blocked()) {
+    <button slot="footer" class="btn btn--primary" type="button" autofocus (click)="addRequested.emit()" i18n="@@removeDish.add">Add a dish</button>
+  } @else {
+    <button
+      slot="footer"
+      class="btn btn--danger"
+      type="button"
+      [attr.aria-busy]="busy() ? 'true' : null"
+      [attr.aria-disabled]="busy() ? 'true' : null"
+      (click)="remove()"
+      i18n="@@removeDish.action"
+    >
+      Remove dish
+    </button>
+  }
+</sh-dialog>

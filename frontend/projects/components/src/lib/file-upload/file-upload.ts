@@ -12,28 +12,7 @@ let nextId = 0;
   selector: 'sh-file-upload',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <input
-      #input
-      class="file-input visually-hidden"
-      [id]="id()"
-      type="file"
-      [attr.accept]="accept()"
-      [multiple]="multiple()"
-      [disabled]="disabled()"
-      [attr.aria-describedby]="describedByIds()"
-      [attr.name]="name()"
-      (change)="picked($event)"
-    /><label
-      [class]="labelClass()"
-      [for]="id()"
-      [attr.data-state]="dragging() ? 'dragging' : null"
-      (dragover)="dragOver($event)"
-      (dragleave)="dragging.set(false)"
-      (drop)="dropped($event)"
-      >@if (dragging() && dropLabel()) {{{ dropLabel() }}} @else {<ng-content />}</label
-    >
-  `,
+  templateUrl: './file-upload.html',
 })
 export class FileUpload {
   private readonly field = inject(FIELD_CONTEXT, { optional: true });

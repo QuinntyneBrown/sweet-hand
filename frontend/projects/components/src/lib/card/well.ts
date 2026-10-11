@@ -7,23 +7,7 @@ import { NgTemplateOutlet } from '@angular/common';
   imports: [NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @switch (tag()) {
-      @case ('fieldset') {
-        <fieldset [class]="cls()">
-          <legend [class]="legendHidden() ? 'visually-hidden' : null">{{ legend() }}</legend>
-          <ng-container *ngTemplateOutlet="body" />
-        </fieldset>
-      }
-      @case ('figure') {
-        <figure [class]="cls()"><ng-container *ngTemplateOutlet="body" /></figure>
-      }
-      @default {
-        <div [class]="cls()"><ng-container *ngTemplateOutlet="body" /></div>
-      }
-    }
-    <ng-template #body><ng-content /></ng-template>
-  `,
+  templateUrl: './well.html',
 })
 export class Well {
   readonly as = input<'div' | 'figure' | 'fieldset'>('div');

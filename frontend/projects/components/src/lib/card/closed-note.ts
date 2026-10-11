@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   selector: 'sh-closed-note',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `<p class="closed-note">{{ text() }}</p>`,
+  templateUrl: './closed-note.html',
 })
 export class ClosedNote {
   readonly text = input.required<string>();

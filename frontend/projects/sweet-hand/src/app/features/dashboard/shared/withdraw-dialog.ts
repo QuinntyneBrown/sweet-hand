@@ -9,31 +9,7 @@ import { CatererProfileService, type OwnProfileView } from '@sweet-hand/api';
   selector: 'app-withdraw-dialog',
   imports: [Alert, Button, Dialog],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <sh-dialog
-      [open]="open()"
-      size="sm"
-      title="Withdraw your submission?"
-      i18n-title="@@withdraw.title"
-      [description]="description()"
-      closeLabel="Close"
-      i18n-closeLabel="@@common.close"
-      cancelLabel="Keep it in review"
-      i18n-cancelLabel="@@withdraw.keep"
-      initialFocus="cancel"
-      [busy]="busy()"
-      [busyMessage]="busyMessage"
-      [returnFocus]="returnFocus()"
-      (dismissed)="closed.emit()"
-    >
-      @if (failed()) {
-        <sh-alert tone="danger" live="assertive" title="Your submission wasn’t withdrawn" i18n-title="@@withdraw.failedTitle"
-          ><ng-container i18n="@@withdraw.failedText">We couldn’t reach Sweet Hand. Your profile is still in review; try again.</ng-container></sh-alert
-        >
-      }
-      <sh-button slot="footer" variant="primary" [busy]="busy()" (activated)="withdraw()"><ng-container i18n="@@withdraw.action">Withdraw submission</ng-container></sh-button>
-    </sh-dialog>
-  `,
+  templateUrl: './withdraw-dialog.html',
 })
 export class WithdrawDialog {
   private readonly api = inject(CatererProfileService);

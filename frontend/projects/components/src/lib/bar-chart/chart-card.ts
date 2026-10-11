@@ -17,57 +17,8 @@ let nextId = 0;
   imports: [Alert, BarChart, Button, Table],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    @if (busy()) {
-      <div class="chart-card" aria-hidden="true">
-        <div class="chart-card__head"><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span></div>
-        <span class="skeleton skeleton--rect"></span>
-      </div>
-    } @else {
-      <section class="chart-card" [attr.aria-labelledby]="headingId">
-        <div class="chart-card__head">
-          <h3 [id]="headingId" tabindex="-1">{{ title() }}</h3>
-          @if (total() && !failed()) {
-            <span class="chart-card__total">{{ total() }}</span>
-          }
-        </div>
-        @if (failed()) {
-          <sh-alert tone="danger" [title]="failedTitle()"
-            >{{ failedText() }}
-            <div slot="actions" class="alert__actions">
-              <sh-button size="sm" (activated)="retry()">{{ retryLabel() }}</sh-button>
-            </div></sh-alert
-          >
-        } @else {
-          <sh-bar-chart [label]="label()" [points]="points()" [scale]="scale()" [current]="current()" [soFarLabel]="soFarLabel()" />
-          <details #details [open]="tableOpen()" (toggle)="toggled(details.open)">
-            <summary #summary>{{ tableLabel() }}</summary>
-            @if (tableShown()) {
-              <sh-table [caption]="label()" [columns]="columns()">
-                @for (p of points(); track $index) {
-                  <tr>
-                    <th scope="row">{{ p.row }}</th>
-                    <td class="num">{{ p.display }}</td>
-                  </tr>
-                }
-              </sh-table>
-            }
-          </details>
-        }
-      </section>
-    }
-  `,
-  styles: `
-    .chart-card[aria-hidden='true'] .chart-card__head .skeleton--text:first-child {
-      width: 40%;
-    }
-    .chart-card[aria-hidden='true'] .chart-card__head .skeleton--text:last-child {
-      width: 15%;
-    }
-    .chart-card[aria-hidden='true'] > .skeleton--rect {
-      height: calc(var(--space-32) + var(--space-16));
-    }
-  `,
+  templateUrl: './chart-card.html',
+  styleUrl: './chart-card.css',
 })
 export class ChartCard {
   readonly title = input.required<string>();

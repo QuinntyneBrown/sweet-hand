@@ -15,45 +15,7 @@ const NO_ERRORS: Errors = { current: null, new: null, confirm: null };
   selector: 'app-change-password-dialog',
   imports: [ReactiveFormsModule, Alert, Button, Dialog, FormField, FormSummary, PrivateNote, TextField],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <sh-dialog
-      [open]="open()"
-      size="form"
-      [form]="true"
-      title="Change password"
-      i18n-title="@@changePassword.title"
-      [description]="lastChanged()"
-      closeLabel="Close"
-      i18n-closeLabel="@@common.close"
-      cancelLabel="Cancel"
-      i18n-cancelLabel="@@common.cancel"
-      [busy]="busy()"
-      [busyMessage]="changing"
-      [returnFocus]="returnFocus()"
-      (dismissed)="closed.emit()"
-      (submitted)="change()"
-    >
-      @if (failed()) {
-        <sh-alert tone="danger" live="assertive" title="Your password wasn’t changed" i18n-title="@@changePassword.failedTitle"
-          ><ng-container i18n="@@changePassword.failedText">Something went wrong on our side. Your old password still works; try again.</ng-container></sh-alert
-        >
-      }
-      <sh-form-summary [heading]="summaryTitle()" [headingLevel]="3" [items]="summary()" [attempt]="attempt()" summaryId="password-summary" />
-      <div [formGroup]="form" style="display: contents">
-        <sh-form-field label="Current password" i18n-label="@@changePassword.current" controlId="current" [error]="errors().current">
-          <sh-text-field formControlName="current" type="password" name="current" autocomplete="current-password" [readonly]="busy()" />
-        </sh-form-field>
-        <sh-form-field label="New password" i18n-label="@@field.newPassword" controlId="new" [error]="errors().new" help="12 to 128 characters. Avoid common passwords." i18n-help="@@changePassword.newHelp">
-          <sh-text-field formControlName="new" type="password" name="new" autocomplete="new-password" [readonly]="busy()" />
-        </sh-form-field>
-        <sh-form-field label="Confirm new password" i18n-label="@@changePassword.confirm" controlId="confirm" [error]="errors().confirm">
-          <sh-text-field formControlName="confirm" type="password" name="confirm" autocomplete="new-password" [readonly]="busy()" />
-        </sh-form-field>
-      </div>
-      <sh-private-note icon="shield" text="You’ll stay signed in here. Your other devices will be signed out." i18n-text="@@changePassword.note" />
-      <sh-button slot="footer" type="submit" variant="primary" [busy]="busy()"><ng-container i18n="@@changePassword.submit">Change password</ng-container></sh-button>
-    </sh-dialog>
-  `,
+  templateUrl: './change-password.dialog.html',
 })
 export class ChangePasswordDialog {
   private readonly api = inject(AccountService);

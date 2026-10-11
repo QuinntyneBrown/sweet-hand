@@ -13,16 +13,7 @@ import { FilterChip } from '../chip/filter-chip';
   imports: [ChipGroup, FilterChip, ButtonAnchor],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <sh-chip-group [label]="label()" (emptied)="emptied.emit()">
-      @for (chip of chips(); track chip.value) {
-        <sh-filter-chip [removeLabel]="removeLabel()(chip.label)" [removeDisabled]="disabled()" (removed)="removed.emit(chip.value)">{{ chip.label }}</sh-filter-chip>
-      }
-      @if (chips().length && clearLabel() && clearHref()) {
-        <sh-button-anchor variant="link" size="sm" [href]="clearHref()!" [disabled]="disabled()">{{ clearLabel() }}</sh-button-anchor>
-      }
-    </sh-chip-group>
-  `,
+  templateUrl: './active-filters.html',
 })
 export class ActiveFilters {
   readonly label = input.required<string>();

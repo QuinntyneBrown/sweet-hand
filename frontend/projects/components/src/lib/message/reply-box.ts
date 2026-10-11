@@ -12,49 +12,8 @@ import { Textarea, graphemeLength } from '../form/textarea';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
   // The field takes the room; Send keeps its 44 px target on phones (L2-065.1, message AC-26).
-  styles: ['.reply-box__row > .btn { flex: none; }'],
-  template: `
-    <form class="reply-box" novalidate (submit)="onSubmit($event)">
-      @if (error() && summaryTitle()) {
-        <div #summary class="form-summary" role="alert" tabindex="-1" [id]="fieldId() + '-summary'">
-          <h3>{{ summaryTitle() }}</h3>
-          <ul>
-            <li><a [href]="'#' + fieldId()" (click)="goToField($event)">{{ error() }}</a></li>
-          </ul>
-        </div>
-      }
-      <label class="reply-box__label" [for]="fieldId()">{{ label() }}</label>
-      <div class="reply-box__row">
-        <sh-textarea
-          #field
-          variant="reply"
-          [inputId]="fieldId()"
-          [name]="fieldId()"
-          [rows]="2"
-          [(value)]="value"
-          [readonly]="busy()"
-          [invalid]="!!error()"
-          [describedBy]="describedBy()"
-          (submitRequested)="send()"
-        />
-        @if (sendStyle() === 'icon') {
-          <button class="btn btn--primary btn--icon" type="submit" [attr.aria-label]="sendLabel()" [attr.aria-busy]="busy() ? 'true' : null" [attr.aria-disabled]="busy() ? 'true' : null">
-            <svg shIcon="send"></svg>
-          </button>
-        } @else {
-          <button class="btn btn--primary" type="submit" [attr.aria-busy]="busy() ? 'true' : null" [attr.aria-disabled]="busy() ? 'true' : null"><svg shIcon="send"></svg>{{ sendLabel() }}</button>
-        }
-      </div>
-      <span class="cluster cluster--between">
-        @if (error()) {
-          <span class="field__error" [id]="fieldId() + '-error'">{{ error() }}</span>
-        } @else {
-          <span class="field__help" [id]="fieldId() + '-help'">{{ help() }}</span>
-        }
-        <span class="field__counter" [id]="fieldId() + '-count'" [attr.data-over]="over() ? '' : null">{{ counterLabel() }}</span>
-      </span>
-    </form>
-  `,
+  styleUrl: './reply-box.css',
+  templateUrl: './reply-box.html',
 })
 export class ReplyBox {
   readonly label = input.required<string>();

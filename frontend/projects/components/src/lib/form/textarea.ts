@@ -30,28 +30,7 @@ export function graphemeLength(text: string): number {
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => Textarea), multi: true }],
-  template: `
-    <textarea
-      #el
-      [class]="variant() === 'reply' ? 'textarea reply-box__input' : 'textarea'"
-      [id]="id()"
-      [value]="value()"
-      [attr.name]="name()"
-      [attr.rows]="rows()"
-      [required]="required()"
-      [attr.minlength]="minlength()"
-      [disabled]="disabled() || formDisabled()"
-      [readOnly]="readonly()"
-      [attr.autofocus]="autofocus() ? '' : null"
-      [attr.spellcheck]="spellcheck() === null ? null : spellcheck()"
-      [attr.aria-invalid]="isInvalid() ? 'true' : null"
-      [attr.aria-describedby]="describedByIds()"
-      [attr.aria-label]="ariaLabel()"
-      (input)="onInput($event)"
-      (blur)="onBlur($event)"
-      (keydown)="onKeydown($event)"
-    ></textarea>
-  `,
+  templateUrl: './textarea.html',
 })
 export class Textarea implements ControlValueAccessor {
   readonly variant = input<'plain' | 'reply'>('plain');

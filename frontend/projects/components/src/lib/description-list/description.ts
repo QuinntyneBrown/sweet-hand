@@ -14,32 +14,7 @@ import { DescriptionEnd } from './description-end';
   imports: [NgTemplateOutlet, ValueWatch],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: none' },
-  template: `
-    <ng-template #pair>
-      @if (wrapped()) {
-        <div [class]="message() ? 'enquiry-summary__message' : null"><ng-container *ngTemplateOutlet="cells" /></div>
-      } @else {
-        <ng-container *ngTemplateOutlet="cells" />
-      }
-    </ng-template>
-    <ng-template #cells>
-      <dt>{{ term() }}</dt>
-      <dd [class.text-muted]="missing()" (shValueWatch)="empty.set($event)">
-        @if (end()) {
-          <span><ng-container *ngTemplateOutlet="value" /></span><ng-content select="[slot=end]" />
-        } @else {
-          <ng-container *ngTemplateOutlet="value" />
-        }
-        @if (missing()) {
-          <span data-missing>{{ missingText() }}</span>
-        }
-        @if (message() && by()) {
-          <p class="enquiry-summary__by">{{ by() }}</p>
-        }
-      </dd>
-    </ng-template>
-    <ng-template #value><ng-content /></ng-template>
-  `,
+  templateUrl: './description.html',
 })
 export class Description {
   readonly term = input.required<string>();

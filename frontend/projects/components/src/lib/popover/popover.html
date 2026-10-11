@@ -1,0 +1,31 @@
+<div #anchor class="menu-anchor" (keydown)="onKeydown($event)" (focusout)="onFocusOut($event)">
+  <ng-content select="[slot=trigger]" />
+  @if (open()) {
+    <div
+      #panel
+      [class]="variant() === 'filter' ? 'filter-dropdown' : 'popover'"
+      [style.left]="align() === 'end' ? 'auto' : null"
+      [style.right]="align() === 'end' ? '0' : null"
+      [id]="id()"
+      role="dialog"
+      [attr.aria-labelledby]="heading() ? headingId : null"
+      [attr.aria-label]="heading() ? null : ariaLabel()"
+    >
+      @if (heading()) {
+        @if (variant() === 'filter') {
+          @if (headingLevel() === 3) {
+            <h3 class="filter-group__title" [id]="headingId">{{ heading() }}</h3>
+          } @else {
+            <h2 class="filter-group__title" [id]="headingId">{{ heading() }}</h2>
+          }
+        } @else {
+          <p class="popover__title" [id]="headingId">{{ heading() }}</p>
+        }
+      }
+      <ng-content />
+      @if (variant() === 'default') {
+        <div class="popover__actions"><ng-content select="[slot=actions]" /></div>
+      }
+    </div>
+  }
+</div>

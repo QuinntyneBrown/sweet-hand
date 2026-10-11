@@ -1,0 +1,16 @@
+@if (skeleton()) {
+  <aside class="enquiry-panel only-lg" aria-hidden="true">
+    <span class="skeleton skeleton--text"></span>
+    <span class="skeleton skeleton--text"></span>
+    <span class="skeleton skeleton--text"></span>
+    <span class="skeleton skeleton--rect"></span>
+  </aside>
+} @else {
+  <aside class="enquiry-panel only-lg" [attr.aria-label]="label()">
+    <ng-content />
+    <ng-content select="[slot=action]" />
+    @if (note()) {
+      <p class="enquiry-panel__note">{{ note() }}</p>
+    }
+  </aside>
+}

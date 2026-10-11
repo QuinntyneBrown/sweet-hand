@@ -16,15 +16,17 @@ API clients behind contracts. The backend is not built yet.
 
 - The frontend is an Angular workspace in `frontend/` (Angular 21, the current
   LTS line that runs on the project's Node 22 toolchain).
-- Two projects:
+- Three projects:
   - `projects/components` — the design-system component library. Every
     component is standalone, uses the `sh-` prefix, keeps the mocks' class
     names and ARIA semantics, and has no knowledge of the Sweet Hand API.
-  - `projects/web` — the product application. It imports the library from
-    source through the `@sweet-hand/components` path alias (no separate
-    library build step).
-- Application structure in `projects/web/src/app/`:
-  - `core/` — API contracts and their HTTP implementations, session state,
+  - `projects/api` — every service that talks to the backend (abstract
+    contract plus `Http…` implementation) and the wire models.
+  - `projects/sweet-hand` — the product application. It imports both
+    libraries from source through the `@sweet-hand/components` and
+    `@sweet-hand/api` path aliases (no separate library build step).
+- Application structure in `projects/sweet-hand/src/app/`:
+  - `core/` — session state,
     formatting (en-CA, CAD, `America/Toronto`), validation rules shared by
     several features.
   - `shell/` — header, footer, site and account menus, toasts, error pages.

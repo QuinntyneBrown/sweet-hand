@@ -28,26 +28,7 @@ export const DESCRIPTION_LIST = new InjectionToken<DescriptionListContext>('DESC
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: block' },
   providers: [{ provide: DESCRIPTION_LIST, useExisting: forwardRef(() => DescriptionList) }],
-  template: `
-    @if (busy()) {
-      <div [class]="cls()" aria-hidden="true">
-        @for (i of skeletons(); track i) {
-          <span class="skeleton skeleton--text"></span>
-        }
-      </div>
-      <p class="visually-hidden" role="status">{{ busyLabel() }}</p>
-    } @else {
-      <dl [class]="cls()">
-        @for (d of descriptions(); track d) {
-          <ng-container *ngTemplateOutlet="d.pair()" />
-        }
-      </dl>
-      @if (layout() === 'certificate') {
-        <p class="text-caption">{{ statement() }}</p>
-      }
-    }
-    <ng-content />
-  `,
+  templateUrl: './description-list.html',
 })
 export class DescriptionList implements DescriptionListContext {
   readonly layout = input<DescriptionLayout>('plain');

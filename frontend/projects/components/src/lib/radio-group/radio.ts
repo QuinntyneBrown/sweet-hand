@@ -9,24 +9,7 @@ import { RADIO_GROUP } from './radio-group';
   selector: 'sh-radio',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <label [class]="group.variant() === 'card' ? 'choice choice--card' : 'choice'"
-      ><input
-        #input
-        type="radio"
-        [attr.name]="group.name()"
-        [value]="value()"
-        [attr.id]="inputId()"
-        [checked]="group.value() === value()"
-        [required]="group.required()"
-        [disabled]="group.isDisabled() || disabled()"
-        [attr.aria-invalid]="group.invalid() ? 'true' : null"
-        [attr.autofocus]="group.autofocus() && group.isAutofocusTarget(self) ? '' : null"
-        (change)="group.choose(value())" /><span class="choice__text"
-        ><span><ng-content /></span>@if (description()) {<small>{{ description() }}</small>}</span
-      ></label
-    >
-  `,
+  templateUrl: './radio.html',
 })
 export class Radio {
   readonly value = input.required<string>();

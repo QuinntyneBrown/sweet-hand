@@ -23,26 +23,7 @@ export function classes(variant: Variant, size: Size, block: boolean, wrap: bool
   selector: 'sh-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
-  template: `
-    <button
-      #el
-      [class]="cls()"
-      [type]="type()"
-      [attr.form]="form()"
-      [disabled]="disabled() && !disabledFocusable()"
-      [attr.aria-disabled]="busy() || (disabled() && disabledFocusable()) ? 'true' : null"
-      [attr.aria-busy]="busy() ? 'true' : null"
-      [attr.aria-pressed]="pressed() === null ? null : pressed()"
-      [attr.aria-expanded]="expanded() === null ? null : expanded()"
-      [attr.aria-controls]="controls()"
-      [attr.aria-haspopup]="haspopup()"
-      [attr.aria-label]="ariaLabel()"
-      [attr.aria-describedby]="describedBy()"
-      (click)="onClick($event)"
-    >
-      <ng-content />
-    </button>
-  `,
+  templateUrl: './button.html',
 })
 export class Button {
   readonly variant = input<Variant>('secondary');

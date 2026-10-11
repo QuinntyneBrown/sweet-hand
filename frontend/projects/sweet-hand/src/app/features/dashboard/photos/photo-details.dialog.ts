@@ -10,75 +10,7 @@ import { CatererProfileService, type OwnPhotoView, type OwnProfileView } from '@
   selector: 'app-photo-details-dialog',
   imports: [Alert, Checkbox, Dialog, FileUpload, FormField, FormSummary, Icon, Textarea],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <sh-dialog
-      [open]="open()"
-      [form]="true"
-      title="Photo details"
-      i18n-title="@@photoDetails.title"
-      [description]="positionText()"
-      closeLabel="Close"
-      i18n-closeLabel="@@common.close"
-      cancelLabel="Cancel"
-      i18n-cancelLabel="@@common.cancel"
-      [busy]="busy()"
-      [busyMessage]="busyMessage()"
-      (dismissed)="closed.emit()"
-      (submitted)="save()"
-    >
-      @if (failed()) {
-        <sh-alert tone="danger" live="assertive" [title]="failedTitle()"
-          ><ng-container i18n="@@photoDetails.failedText">Your caption is still here. Check your connection and try again.</ng-container></sh-alert
-        >
-      }
-      <sh-form-summary heading="Fix 1 thing to save" i18n-heading="@@photoDetails.fixOne" [headingLevel]="3" [items]="summary()" [attempt]="attempt()" summaryId="photo-summary" />
-      @if (photo()?.image; as image) {
-        <div class="dialog__photo">
-          <span class="photo"><img [src]="image.src" [alt]="photo()!.caption" width="160" height="160" /></span>
-        </div>
-      }
-      <sh-form-field
-        label="Caption"
-        i18n-label="@@photoDetails.caption"
-        controlId="caption"
-        [error]="captionError()"
-        [help]="captionError() ? null : captionHelp"
-        [counter]="counter()"
-        [counterOver]="caption().trim().length > 125"
-      >
-        <sh-textarea name="caption" [rows]="2" [autofocus]="true" [readonly]="busy()" [value]="caption()" (valueChange)="caption.set($event)" />
-      </sh-form-field>
-      <sh-checkbox
-        name="cover"
-        [checked]="cover()"
-        (checkedChange)="cover.set($event)"
-        [disabled]="busy() || position() === 1"
-        description="Shown on your listing card and when your page is shared"
-        i18n-description="@@photoDetails.coverHelp"
-        ><ng-container i18n="@@photoDetails.cover">Use as cover photo</ng-container></sh-checkbox
-      >
-      <div class="field">
-        <span class="cluster">
-          <sh-file-upload [accept]="photoTypes" inputId="replace" describedBy="replace-help" [disabled]="busy()" (filesSelected)="replace($event[0])"
-            ><svg shIcon="camera"></svg><ng-container i18n="@@photoDetails.replace">Replace photo</ng-container></sh-file-upload
-          >
-        </span>
-        <span class="field__help" id="replace-help" i18n="@@photoDetails.replaceHelp">The new photo keeps this one’s place and caption</span>
-      </div>
-      <p>
-        <button class="btn btn--link btn--sm" type="button" aria-haspopup="dialog" [disabled]="busy()" (click)="removeRequested.emit()">
-          <svg shIcon="trash"></svg><ng-container i18n="@@photoDetails.remove">Remove photo</ng-container>
-        </button>
-      </p>
-      <button slot="footer" class="btn btn--primary" type="submit" [attr.aria-busy]="busy() ? 'true' : null" [attr.aria-disabled]="busy() ? 'true' : null">
-        @if (failed()) {
-          <ng-container i18n="@@common.tryAgain">Try again</ng-container>
-        } @else {
-          <ng-container i18n="@@common.save">Save</ng-container>
-        }
-      </button>
-    </sh-dialog>
-  `,
+  templateUrl: './photo-details.dialog.html',
 })
 export class PhotoDetailsDialog {
   private readonly api = inject(CatererProfileService);

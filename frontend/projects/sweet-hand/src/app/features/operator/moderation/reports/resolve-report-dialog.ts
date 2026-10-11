@@ -15,67 +15,7 @@ import { OperatorModerationService, type ReportGroupView, type ResolveAction } f
   selector: 'app-resolve-report-dialog',
   imports: [Alert, Dialog, FormField, FormSummary, Radio, RadioGroup, Textarea],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <sh-dialog
-      [open]="open()"
-      title="Resolve report"
-      i18n-title="@@resolve.title"
-      [description]="description()"
-      [form]="true"
-      closeLabel="Close"
-      i18n-closeLabel="@@common.close"
-      cancelLabel="Cancel"
-      i18n-cancelLabel="@@common.cancel"
-      [busy]="busy()"
-      [busyMessage]="busyMessage()"
-      [returnFocus]="returnFocus()"
-      (dismissed)="dismissed.emit()"
-      (submitted)="resolve()"
-    >
-      @if (conflict(); as c) {
-        <sh-alert tone="warning" live="assertive" title="This report changed while you were looking" i18n-title="@@resolve.conflictTitle">{{ c }}</sh-alert>
-      } @else if (failed()) {
-        <sh-alert tone="danger" live="assertive" title="We couldn’t resolve this report" i18n-title="@@resolve.failedTitle"
-          ><ng-container i18n="@@decision.failedKept">Nothing has changed. Check your connection and try again; your reason is kept.</ng-container></sh-alert
-        >
-      }
-      <sh-form-summary [heading]="summaryTitle" [headingLevel]="3" summaryId="dlg-summary" [items]="summary()" [attempt]="attempt()" />
-      <sh-radio-group name="decision" [(value)]="decision" [disabled]="busy()" [autofocus]="true">
-        <span slot="legend" i18n="@@resolve.decision">Decision</span>
-        <sh-radio value="dismiss" description="Nothing breaks the rules. Any automatic hiding is undone." i18n-description="@@resolve.dismissHelp"
-          ><ng-container i18n="@@resolve.dismiss">Dismiss</ng-container></sh-radio
-        >
-        <sh-radio value="action" [description]="actionHelp()"><ng-container i18n="@@resolve.takeAction">Take action</ng-container></sh-radio>
-      </sh-radio-group>
-      @if (decision() === 'action') {
-        <sh-radio-group name="act" [(value)]="act" [disabled]="busy()">
-          <span slot="legend" i18n="@@resolve.action">Action</span>
-          @if (isReview()) {
-            <sh-radio value="hide" description="Reversible. It leaves the page and the rating within a minute." i18n-description="@@resolve.hideHelp"
-              ><ng-container i18n="@@resolve.hide">Hide the review</ng-container></sh-radio
-            >
-            <sh-radio value="remove-review" description="Permanent. Only the audit entry remains." i18n-description="@@resolve.removeReviewHelp"
-              ><ng-container i18n="@@resolve.removeReview">Remove the review</ng-container></sh-radio
-            >
-          } @else {
-            <sh-radio value="suspend" description="Hidden from the listing until reinstated." i18n-description="@@resolve.suspendHelp"
-              ><ng-container i18n="@@resolve.suspend">Suspend the caterer</ng-container></sh-radio
-            >
-            <sh-radio value="remove" description="Permanent. The page returns “gone”." i18n-description="@@resolve.removeHelp"
-              ><ng-container i18n="@@resolve.remove">Remove the caterer</ng-container></sh-radio
-            >
-          }
-        </sh-radio-group>
-      }
-      <sh-form-field [label]="noteLabel()" controlId="note" [help]="noteHelp()" [error]="error()">
-        <sh-textarea name="note" [rows]="2" [required]="true" [(value)]="note" [readonly]="busy()" />
-      </sh-form-field>
-      <p class="text-caption" i18n="@@resolve.caption">The signed-in reporter is emailed that their report was reviewed. The email doesn’t say what you decided.</p>
-      <button slot="footer" class="btn btn--primary" type="submit" [attr.aria-busy]="busy() ? 'true' : null" [attr.aria-disabled]="busy() ? 'true' : null">
-        {{ submitLabel() }}
-      </button>
-    </sh-dialog>
-  `,
+  templateUrl: './resolve-report-dialog.html',
 })
 export class ResolveReportDialog {
   private readonly api = inject(OperatorModerationService);

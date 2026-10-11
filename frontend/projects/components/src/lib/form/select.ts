@@ -12,35 +12,7 @@ let nextId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: contents' },
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => Select), multi: true }],
-  template: `
-    <select
-      #el
-      [class]="size() === 'md' ? 'select' : 'select select--' + size()"
-      [id]="id()"
-      [attr.name]="name()"
-      [required]="required()"
-      [disabled]="disabled() || formDisabled()"
-      [attr.aria-invalid]="isInvalid() ? 'true' : null"
-      [attr.aria-describedby]="field?.describedBy() ?? null"
-      [attr.aria-label]="ariaLabel()"
-      (change)="onSelect($event)"
-      (blur)="onTouched()"
-    >
-      @if (placeholder() !== null) {
-        <option value="" [selected]="value() === ''">{{ placeholder() }}</option>
-      }
-      @for (o of options(); track o.value) {
-        <option [value]="o.value" [disabled]="!!o.disabled" [selected]="o.value === value()">{{ o.label }}</option>
-      }
-      @for (g of groups(); track g.label) {
-        <optgroup [label]="g.label">
-          @for (o of g.options; track o.value) {
-            <option [value]="o.value" [disabled]="!!o.disabled" [selected]="o.value === value()">{{ o.label }}</option>
-          }
-        </optgroup>
-      }
-    </select>
-  `,
+  templateUrl: './select.html',
 })
 export class Select implements ControlValueAccessor {
   readonly options = input<SelectOption[]>([]);
