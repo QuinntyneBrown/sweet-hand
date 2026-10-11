@@ -4,7 +4,10 @@ import { authenticate } from './identity/sessions.ts';
 import { recordSecurityEvent } from './platform/security-log.ts';
 import { raiseAlert } from './platform/alerts.ts';
 import { recordEvent, recentEvents } from './platform/throttle.ts';
-import type { Request } from './http/endpoint.ts';
+import type { Reply, Request } from './http/endpoint.ts';
+import { problem } from './http/problems.ts';
+import { liveUser } from './identity/model.ts';
+import { privacyUpdateRequired } from './identity/privacy.ts';
 import { HealthController } from './health/health.controller.ts';
 import { DiscoveryController } from './discovery/discovery.controller.ts';
 import { ModerationController } from './moderation/moderation.controller.ts';
@@ -17,7 +20,7 @@ import { EnquiriesController } from './enquiries/enquiries.controller.ts';
 import { IdentityController } from './identity/identity.controller.ts';
 
 /** The product's request hooks: who is calling, and what a refusal records. */
-export function productHooks(): Pick<PipelineOptions, 'authenticate' | 'onDenied'> {
+export function productHooks(): Pick<PipelineOptions, 'authenticate' | 'onDenied' | 'gate'> {
   return {
     authenticate,
     // Authorisation failures are security events (L2-079.4); a missing session is not.
@@ -26,7 +29,23 @@ export function productHooks(): Pick<PipelineOptions, 'authenticate' | 'onDenied
       await recordSecurityEvent(req, 'authorization-failure', { targetId: targetId ?? Object.values(req.params)[0] });
       await watchAuthorisationFailures(req);
     },
+    gate: consentGate,
   };
+}
+
+/** What an account that owes re-consent can still reach: sign-out and accepting the notice (public routes need no gate). */
+const BEFORE_CONSENT = new Set(['/api/identity/sign-out', '/api/me/consents']);
+
+/**
+ * ConsentGate: an account that owes re-consent to a substantially changed
+ * notice is refused everything else until it accepts (L2-070.4). Operators
+ * accept through their own onboarding, so the gate leaves them alone.
+ */
+async function consentGate(req: Request): Promise<Reply | undefined> {
+  if (!req.actor || req.actor.role === 'Operator' || BEFORE_CONSENT.has(req.path)) return undefined;
+  const user = await liveUser(req.tx, req.actor.userId);
+  if (!user || !(await privacyUpdateRequired(req.tx, user))) return undefined;
+  return problem(403, 'Accept the updated privacy notice to continue', { type: 'privacy-update-required' });
 }
 
 const FAILURE_WINDOW_MS = 5 * 60_000;

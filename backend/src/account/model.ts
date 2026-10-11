@@ -9,6 +9,9 @@ export interface DataExport extends Document {
   userId: string;
   requestedAt: string;
   status: 'Requested' | 'Ready' | 'Failed';
+  readyAt?: string;
+  /** 7 days after the file was made (L2-071.3). */
+  expiresAt?: string;
 }
 
 export const dataExports = (tx: Transaction) => tx.collection<DataExport>('dataExports');

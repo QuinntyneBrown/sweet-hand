@@ -128,7 +128,7 @@ export class EndpointPolicyGuard implements CanActivate {
       ctx.tx = tx;
       ctx.actor = await this.options.authenticate?.(ctx);
       const verdict = permits(policy, ctx.actor);
-      if (verdict === 200) return undefined;
+      if (verdict === 200) return policy?.kind === 'anonymous' || !ctx.actor ? undefined : await this.options.gate?.(ctx);
       await this.options.onDenied?.(ctx, verdict);
       if (verdict === 401) return unauthorized();
       const custom = await refusal?.(ctx);

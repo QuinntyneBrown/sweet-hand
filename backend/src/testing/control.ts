@@ -11,6 +11,7 @@ import { findUserByEmail, sessions } from '../identity/model.ts';
 import { randomToken, sha256 } from '../platform/secrets.ts';
 import { allScenarios } from './scenarios/index.ts';
 import { runDailyMaintenance } from '../maintenance/daily.ts';
+import { generateDataExports } from '../account/data-export.ts';
 import { processWaitingPhotos } from '../caterer-profile/processing.ts';
 
 export const SESSION_HEADER = 'x-test-session';
@@ -98,8 +99,10 @@ export function testControl(envs: TestEnvironments): (req: IncomingMessage, res:
           return send(res, 204);
         }
         case 'POST /background': {
-          // One tick of the frequent background work that needs no email provider: waiting photos.
-          await processWaitingPhotos(await envs.forKey(key));
+          // One tick of the frequent background work that needs no email provider: waiting photos and data exports.
+          const env = await envs.forKey(key);
+          await processWaitingPhotos(env);
+          await generateDataExports(env);
           return send(res, 204);
         }
         case 'GET /state': {

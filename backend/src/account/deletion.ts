@@ -13,6 +13,7 @@ import { accountTokens, liveUser, users, type User } from '../identity/model.ts'
 import { clearSessionCookie, currentUser, endSessionsOf } from '../identity/sessions.ts';
 import { recordFailure } from '../identity/sign-in.ts';
 import { savedEnquiries } from '../identity/verification.ts';
+import { consents } from '../identity/privacy.ts';
 import { isOpenEnquiry } from './account-view.ts';
 import { dataExports } from './model.ts';
 
@@ -114,6 +115,7 @@ export async function processDeletion(req: Request, user: User): Promise<void> {
   for (const t of await accountTokens(req.tx).find({ userId: user.id })) await accountTokens(req.tx).delete(t.id);
   for (const x of await dataExports(req.tx).find({ userId: user.id })) await dataExports(req.tx).delete(x.id);
   await savedEnquiries(req.tx).delete(user.id);
+  for (const c of await consents(req.tx).find({ userId: user.id })) await consents(req.tx).delete(c.id);
   await users(req.tx).put({
     id: user.id,
     role: user.role,

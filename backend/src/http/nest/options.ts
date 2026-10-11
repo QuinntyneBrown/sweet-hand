@@ -1,4 +1,4 @@
-import type { Actor, Request } from '../endpoint.ts';
+import type { Actor, Reply, Request } from '../endpoint.ts';
 import type { Config } from '../../platform/config.ts';
 import type { Environment } from '../../environment.ts';
 import type { IncomingMessage } from 'node:http';
@@ -22,6 +22,8 @@ export interface PipelineOptions {
   config: Pick<Config, 'secureCookies' | 'allowedOrigins' | 'trustProxy'>;
   authenticate?: Authenticator;
   onDenied?: DenialRecorder;
+  /** Runs after a signed-in caller passes the endpoint policy; a reply refuses the request (for example, the consent gate). */
+  gate?: (req: Request) => Promise<Reply | undefined>;
 }
 
 export const PIPELINE_OPTIONS = Symbol('PIPELINE_OPTIONS');
