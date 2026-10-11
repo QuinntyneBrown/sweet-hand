@@ -3,7 +3,8 @@ import { conflict, forbidden, invalid, notFound, ok, unauthorized, type Ctx, typ
 import { currentUser, newId, torontoDate, type Store } from '../lib/store.ts';
 import type { User } from '../seed/users.ts';
 import type { Review } from '../seed/reviews.ts';
-import { KNOWN_TARGETS, longAudit, type InvitedOperator } from '../seed/operator-settings.ts';
+import { KNOWN_TARGETS, longAudit, type DailyMetrics, type InvitedOperator } from '../seed/operator-settings.ts';
+import type { EnquiryMetrics, Granularity, MetricsBucket, MetricsReport } from '../../projects/web/src/app/core/api/metrics.models.ts';
 import { slugify, type Cuisine } from '../seed/taxonomy.ts';
 import type {
   AddCuisineRequest,
@@ -75,6 +76,7 @@ export function registerOperatorSettings(r: Router<Store>): void {
   registerAccounts(r);
   registerAudit(r);
   registerModeration(r);
+  registerMetrics(r);
   r.get('/api/operator/cuisines', (ctx) => {
     const me = operator(ctx);
     if (isReply(me)) return me;
@@ -455,6 +457,153 @@ function registerModeration(r: Router<Store>): void {
   });
 }
 
+const DAY_MS = 24 * 60 * 60 * 1000;
+const addDays = (date: string, n: number) => new Date(Date.parse(`${date}T12:00:00Z`) + n * DAY_MS).toISOString().slice(0, 10);
+const DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+/** The same day 24 months earlier: the earliest From a range may have (L2-061.2). */
+function twoYearsBefore(date: string): string {
+  const [y, m, d] = date.split('-').map(Number);
+  return `${y - 2}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+}
+
+function bucketOf(date: string, granularity: Granularity): string {
+  if (granularity === 'day') return date;
+  if (granularity === 'month') return `${date.slice(0, 7)}-01`;
+  const weekday = (new Date(`${date}T12:00:00Z`).getUTCDay() + 6) % 7;
+  return addDays(date, -weekday);
+}
+
+type Range = { from: string; to: string; granularity: Granularity };
+
+/** MetricsRange: a valid range of 24 months or less, up to today (view-metrics-dashboard). */
+function metricsRange(ctx: Ctx<Store>): Range | Reply {
+  const from = ctx.query.get('from') ?? '';
+  const to = ctx.query.get('to') ?? '';
+  const g = ctx.query.get('granularity');
+  const granularity: Granularity = g === 'day' || g === 'month' ? g : 'week';
+  const today = torontoDate(ctx.store.now);
+  if (!DATE.test(from)) return invalid({ from: ['Enter a From date'] });
+  if (!DATE.test(to)) return invalid({ to: ['Enter a To date'] });
+  if (to > today || from > today) return invalid({ [to > today ? 'to' : 'from']: ['Choose dates up to today'] });
+  if (from > to) return invalid({ from: ['Choose a From date on or before the To date'] });
+  if (from < twoYearsBefore(to)) return invalid({ from: ['Choose a range of 24 months or less'] });
+  return { from, to, granularity };
+}
+
+function bucketsFor(store: Store, r: Range): { buckets: MetricsBucket[]; days: Map<string, string[]> } {
+  const today = torontoDate(store.now);
+  const days = new Map<string, string[]>();
+  for (let d = r.from; d <= r.to; d = addDays(d, 1)) {
+    const key = bucketOf(d, r.granularity);
+    days.set(key, [...(days.get(key) ?? []), d]);
+  }
+  const buckets = [...days.keys()].map((start) => ({ start, current: days.get(start)!.includes(today) || bucketOf(today, r.granularity) === start }));
+  return { buckets, days };
+}
+
+function dailyBy(store: Store): Map<string, DailyMetrics> {
+  return new Map(store.operatorSettings.metrics.map((m) => [m.date, m]));
+}
+
+/** Caterers by status at the end of a day: Published from the history, the rest as today. */
+function statusesAt(store: Store, date: string): { status: string; count: number }[] {
+  const later = store.operatorSettings.metrics.filter((m) => m.date > date).reduce((n, m) => n + m.published, 0);
+  return [{ status: 'Published', count: store.operatorSettings.publishedToday - later }, ...store.operatorSettings.otherStatuses];
+}
+
+function metricsReport(store: Store, r: Range): MetricsReport {
+  const { buckets, days } = bucketsFor(store, r);
+  const daily = dailyBy(store);
+  const sum = (key: 'listing' | 'caterer' | 'unique' | 'published') => buckets.map((b) => days.get(b.start)!.reduce((n, d) => n + (daily.get(d)?.[key] ?? 0), 0));
+  return {
+    from: r.from,
+    to: r.to,
+    granularity: r.granularity,
+    countingSince: store.operatorSettings.metricsStart,
+    hasData: r.to >= store.operatorSettings.metricsStart,
+    buckets,
+    listingVisits: sum('listing'),
+    catererVisits: sum('caterer'),
+    uniqueVisitors: sum('unique'),
+    newPublished: sum('published'),
+    statuses: statusesAt(store, r.to),
+  };
+}
+
+function enquiryMetrics(store: Store, r: Range): EnquiryMetrics {
+  const { buckets, days } = bucketsFor(store, r);
+  const daily = dailyBy(store);
+  // An enquiry counts toward the share once 48 hours have passed (view-metrics-dashboard).
+  const due = addDays(torontoDate(store.now), -3);
+  const tally = (list: string[]) =>
+    list.reduce(
+      (t, d) => {
+        const m = daily.get(d);
+        if (!m) return t;
+        return { enquiries: t.enquiries + m.enquiries, eligible: t.eligible + (d <= due ? m.enquiries : 0), replied: t.replied + (d <= due ? m.replied : 0) };
+      },
+      { enquiries: 0, eligible: 0, replied: 0 },
+    );
+  const share = (t: { eligible: number; replied: number }) => (t.eligible ? Math.round((t.replied / t.eligible) * 100) : null);
+  const perBucket = buckets.map((b) => tally(days.get(b.start)!));
+  return { buckets, enquiries: perBucket.map((t) => t.enquiries), repliedShare: perBucket.map(share), repliedOverall: share(tally(buckets.flatMap((b) => days.get(b.start)!))) };
+}
+
+/** CsvFormulaGuard: a value starting with =, +, -, @, tab or carriage return is read as text; every field is quoted (L2-063.2). */
+export function csvField(value: string | number | null): string {
+  let text = value === null ? '' : String(value);
+  if (/^[=+\-@\t\r]/.test(text)) text = `'${text}`;
+  return `"${text.replace(/"/g, '""')}"`;
+}
+
+/** view-metrics-dashboard and export-metrics (L2-061, L2-063). */
+function registerMetrics(r: Router<Store>): void {
+  r.get('/api/operator/metrics', (ctx) => {
+    const me = operator(ctx);
+    if (isReply(me)) return me;
+    const range = metricsRange(ctx);
+    return 'status' in range ? range : ok(metricsReport(ctx.store, range));
+  });
+
+  r.get('/api/operator/metrics/enquiries', (ctx) => {
+    const me = operator(ctx);
+    if (isReply(me)) return me;
+    const range = metricsRange(ctx);
+    return 'status' in range ? range : ok(enquiryMetrics(ctx.store, range));
+  });
+
+  /** One row per bucket, one column per metric and per status; UTF-8, not cacheable (L2-063.1). */
+  r.get('/api/operator/metrics/export.csv', (ctx) => {
+    const me = operator(ctx);
+    if (isReply(me)) return me;
+    const range = metricsRange(ctx);
+    if ('status' in range) return range;
+    const store = ctx.store;
+    const report = metricsReport(store, range);
+    const enquiries = enquiryMetrics(store, range);
+    const statusNames = report.statuses.map((s) => s.status);
+    const header = ['Period start', 'Listing page visits', 'Caterer page visits', 'Unique visitors', 'Enquiries', 'Replied within 48 hours (%)', 'New caterers published', ...statusNames];
+    const rows = report.buckets.map((b, i) => {
+      // Caterers by status at the end of each bucket (export-metrics).
+      const last = report.buckets[i + 1] ? addDays(report.buckets[i + 1].start, -1) : range.to;
+      const statuses = statusesAt(store, last);
+      return [b.start, report.listingVisits[i], report.catererVisits[i], report.uniqueVisitors[i], enquiries.enquiries[i], enquiries.repliedShare[i], report.newPublished[i], ...statuses.map((s) => s.count)];
+    });
+    const csv = [header, ...rows].map((row) => row.map(csvField).join(',')).join('\r\n') + '\r\n';
+    const period = { day: 'daily', week: 'weekly', month: 'monthly' }[range.granularity];
+    return {
+      status: 200,
+      raw: csv,
+      headers: {
+        'content-type': 'text/csv; charset=utf-8',
+        'content-disposition': `attachment; filename="sweet-hand-metrics-${range.from}-to-${range.to}-${period}.csv"`,
+        'cache-control': 'no-store',
+      },
+    };
+  });
+}
+
 function usage(store: Store, cuisine: Cuisine): CuisineUsage {
   const caterers = store.caterers
     .filter((x) => x.status === 'Published' && x.cuisines.includes(cuisine.id))
@@ -476,6 +625,10 @@ export const operatorSettingsScenarios: Record<string, (store: Store, args: any)
   /** docs/mocks/pages/admin-audit/long.html: 1,284 entries over the past year. */
   'audit-long': (store) => {
     store.audit.splice(0, store.audit.length, ...longAudit(store.now));
+  },
+  /** A stored label that spreadsheet software would run as a formula, for the export's guard (L2-063.2). */
+  'metrics-formula-in-data': (store) => {
+    store.operatorSettings.otherStatuses[0]!.status = '=HYPERLINK("https://example.com","Pending review")';
   },
   /** docs/mocks/pages/admin-reviews/empty.html: nothing held, nothing hidden. */
   'no-reviews-to-moderate': (store) => {

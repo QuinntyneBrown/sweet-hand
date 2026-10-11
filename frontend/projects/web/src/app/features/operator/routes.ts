@@ -11,6 +11,7 @@ export const operatorPages: Routes = [
   { path: 'operators', loadComponent: () => import('./operators/operators.page').then((m) => m.OperatorsPage), title: $localize`:@@operators.documentTitle:Operators · Sweet Hand` },
   { path: 'audit', loadComponent: () => import('./audit/audit.page').then((m) => m.AuditPage), title: $localize`:@@audit.documentTitle:Audit log · Sweet Hand` },
   { path: 'reviews', loadComponent: () => import('./reviews/reviews.page').then((m) => m.ReviewsPage), title: $localize`:@@reviewsAdmin.documentTitle:Reviews · Sweet Hand` },
+  { path: 'metrics', loadComponent: () => import('./metrics/metrics.page').then((m) => m.MetricsPage), title: $localize`:@@metrics.documentTitle:Metrics · Sweet Hand` },
 ];
 
 /** Routes of the operator area; every page needs the role (L2-079). */

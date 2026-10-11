@@ -56,3 +56,5 @@ export * from './lib/rating/rating';
 export * from './lib/review/review';
 export * from './lib/radio-group/radio-group';
 export * from './lib/table/table';
+export * from './lib/stat/stat';
+export * from './lib/bar-chart/bar-chart';
