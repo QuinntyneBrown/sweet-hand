@@ -3,6 +3,13 @@ import { identityArea } from './identity/routes.ts';
 import { discoveryArea } from './discovery/routes.ts';
 import { mediaArea } from './discovery/media-routes.ts';
 import { accountArea } from './account/routes.ts';
+import { enquiriesArea } from './enquiries/routes.ts';
 
 /** Every product feature area, in registration order. */
-export const productAreas: Area[] = [identityArea, discoveryArea, mediaArea, accountArea];
+export const productAreas: Area[] = [
+  identityArea,
+  discoveryArea,
+  mediaArea,
+  accountArea,
+  enquiriesArea,
+];
