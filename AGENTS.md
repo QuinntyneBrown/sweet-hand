@@ -31,18 +31,26 @@ keep it accurate:
     one folder per CRD under `src/lib/<component>/`
   - `frontend/projects/api/` — `@sweet-hand/api`: every service that talks
     to the backend (`src/lib/services/`) and the wire models they exchange
-    (`src/lib/models/`, shared with the fake backend)
+    (`src/lib/models/`, shared with the backend as type-only imports)
   - `frontend/projects/sweet-hand/` — the product application: `core/`
     (session, formatting, form helpers), `shell/` (header, footer, menus,
     system pages), `features/<area>/` (pages, routes, providers)
-  - `frontend/fake-backend/` — in-memory implementation of the HTTP API for
-    development and acceptance tests (ADR 0004)
   - `frontend/e2e/` — Playwright: `support/` (fixtures, cast, ports),
     `pages/` (page objects), `specs/<area>/`
 - `backend/` — planned (ADRs 0006–0007): NestJS API and background worker;
   not created yet
 
-See `README.md` and `frontend/README.md` for setup and development commands.
+- `backend/` — the HTTP API (ADRs 0006–0008); see `backend/README.md`
+  - `backend/src/<area>/` — the area's documents (`model.ts`), use cases and
+    `routes.ts`; `backend/src/platform/` — persistence port and adapters,
+    clock, outbox, audit and security logs; `backend/src/http/` — router,
+    endpoint policies, problems
+  - `backend/src/seed/` — the fictional cast; `backend/src/testing/` — test
+    mode only: per-session environments, `/__test/` control API, scenarios
+  - `backend/test/<area>/` — acceptance tests against the API
+
+See `README.md`, `frontend/README.md` and `backend/README.md` for setup and
+development commands.
 
 ## Architecture
 
@@ -92,6 +100,32 @@ Backend (ADRs 0006–0007, planned in `backend/`):
   PostgreSQL.
 - Wire models are imported from `frontend/projects/api/src/lib/models/` with
   `import type`.
+Backend (ADRs 0006–0008):
+- TypeScript on Node.js 22 (type stripping, no web framework) in `backend/`.
+  Responses are typed with the frontend's wire models through
+  `import type` (`@contract/*` → `frontend/projects/api/src/lib/models/`).
+- Feature areas under `backend/src/<area>/`: use cases and domain functions
+  hold the rules; `routes.ts` only maps HTTP to them. Every route declares an
+  endpoint policy (`anonymous` by explicit choice, `roles(...)`, `signedIn`,
+  `admins`); a catalog-driven test checks every protected route refuses the
+  roles it does not allow.
+- Persistence is a port of JSON document collections (`get`, `find` on
+  top-level scalars, `all`, `put`, `delete`) with one transaction per
+  request: PostgreSQL in production, an in-memory fake in every automated
+  test. The real database never runs during tests. Migrations run only
+  through `npm run migrate`; `npm run seed` loads the fictional cast and is
+  idempotent.
+- Sessions are opaque random tokens whose hash is stored; passwords are
+  Argon2id; email and reset tokens are stored hashed. Emails go to a
+  transactional outbox delivered by a worker; operator actions go to the
+  append-only audit log; security events to the security log.
+- Acceptance tests: `backend/test/` calls the API over HTTP against the
+  in-memory database. The Playwright suite runs against the backend in test
+  mode (`TEST_CONTROL=1`, ADR 0008): one seeded in-memory environment per
+  test, a `/__test/` control API for scenarios, sign-in, clock and state.
+- Providers still `<TO SUPPLY>` in the designs (bot protection, security
+  keys, email delivery, image processing) sit behind ports with local
+  stand-ins.
 
 These rules hold whatever the stack:
 
@@ -199,6 +233,8 @@ the requirement, detailed design, mock, criteria, tests, and implementation
 aligned until the entire feature or behavior change is complete.
 
 Back end: integration tests against the API (ADR 0007: NestJS app in-process, in-memory repositories). Front end: Playwright, using the
+Back end: integration tests against the API, on the in-memory fake database;
+the real database never runs during tests (ADR 0007). Front end: Playwright, using the
 Page Object Model - one page object per screen, owning the selectors and the
 interactions. Tests state intent; page objects know the DOM. Never put a
 selector in a test.

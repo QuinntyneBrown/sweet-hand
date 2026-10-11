@@ -3,13 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently -k -n fake-backend,sweet-hand \"npm run fake-backend\" \"ng serve\"",
+    "start": "concurrently -k -n backend,sweet-hand \"npm run backend\" \"ng serve\"",
     "build": "ng build sweet-hand",
-    "fake-backend": "node fake-backend/server.ts",
+    "backend": "node ../backend/src/main.ts",
     "e2e": "playwright test",
     "lint": "ng lint sweet-hand",
     "extract-i18n": "ng extract-i18n sweet-hand",
-    "typecheck": "tsc -p projects/api/tsconfig.lib.json --noEmit && tsc -p projects/sweet-hand/tsconfig.app.json --noEmit && tsc -p e2e/tsconfig.json --noEmit && tsc -p fake-backend/tsconfig.json --noEmit"
+    "typecheck": "tsc -p projects/api/tsconfig.lib.json --noEmit && tsc -p projects/sweet-hand/tsconfig.app.json --noEmit && tsc -p e2e/tsconfig.json --noEmit"
   },
   "private": true,
   "packageManager": "npm@10.9.4",

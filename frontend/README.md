@@ -1,28 +1,28 @@
 # Sweet Hand frontend
 
-Angular 21 workspace (ADR 0001) with three projects, a fake backend and the
-Playwright acceptance suite.
+Angular 21 workspace (ADR 0001) with three projects and the Playwright
+acceptance suite. The API it talks to is `../backend` (ADRs 0006–0008).
 
 ```
 frontend/
   projects/components/   sh-* design-system components (docs/specs/components)
   projects/api/          @sweet-hand/api: backend services and wire models
   projects/sweet-hand/   the product application
-  fake-backend/          in-memory HTTP API for development and e2e (ADR 0004)
   e2e/                   Playwright: support/, pages/ (page objects), specs/
 ```
 
 ## Commands
 
-Run everything from `frontend/` (Node 22.12+).
+Run everything from `frontend/` (Node 22.18+), after `npm install` in both
+`frontend/` and `../backend/`.
 
 | Command | What it does |
 |---|---|
 | `npm install` | Install dependencies |
-| `npm start` | Fake backend on :4300 and the dev server on :4200 (proxy in `proxy.conf.mjs`) |
-| `npm run e2e` | Acceptance suite, Chromium only; starts both servers unless already running |
+| `npm start` | The backend on :4300 (in-memory database seeded with the cast) and the dev server on :4200 (proxy in `proxy.conf.mjs`) |
+| `npm run e2e` | Acceptance suite, Chromium only, against the backend in test mode (ADR 0008); starts both servers unless already running |
 | `npm run lint` | ESLint, including the i18n rule (ADR 0005) |
-| `npm run typecheck` | `tsc` for the API library, the app, the e2e suite and the fake backend |
+| `npm run typecheck` | `tsc` for the API library, the app and the e2e suite |
 | `npm run build` | Production build |
 | `npm run extract-i18n` | Writes `projects/sweet-hand/src/locale/messages.xlf` |
 
@@ -43,39 +43,45 @@ Every production behaviour change goes slice by slice:
 2. Write Given/When/Then acceptance criteria as Playwright tests in
    `e2e/specs/<area>/`, naming the L2 or CRD criterion in the test title.
 3. Run them and see them fail for the expected reason.
-4. Implement just enough: page, API contract, fake endpoint, components.
+4. Implement just enough: page, API contract, components, and the backend
+   endpoint with its own API acceptance tests (`backend/README.md`).
 5. Run the slice, then the whole suite, `npm run lint` and `npm run typecheck`.
 6. Commit. Next slice.
 
 Never weaken a test to make it pass, and never write architecture tests
 (structure, naming, traceability). Tests prove behaviour only.
 
-## E2E conventions (ADR 0004)
+## E2E conventions (ADRs 0004, 0008)
 
-- Import `test` and `expect` from `e2e/support/test`. Each test gets an
-  isolated fake backend and a browser clock fixed at Saturday 10 October 2026,
-  10:00 a.m. Toronto.
+- Import `test` and `expect` from `e2e/support/test`. Each test gets its own
+  seeded backend environment (in-memory database, `x-test-session` header)
+  and a browser clock fixed at Saturday 10 October 2026, 10:00 a.m. Toronto;
+  the backend's clock starts at the same instant.
 - **No selectors in tests.** One page object per screen in `e2e/pages/`
   (extending `BasePage`); shared overlays (header, menus, search) live in
   `e2e/pages/shell.ts`. Prefer roles and accessible names; fall back to the
   mocks' class names.
 - Arrange state through the `backend` fixture:
   - `backend.signInAs('marcia')` (cast in `e2e/support/cast.ts`)
-  - `backend.scenario('name', args)` — named store changes, defined next to the
-    area's fake routes (`fake-backend/routes/<area>.ts`, `xScenarios`)
+  - `backend.scenario('name', args)` — named state changes, defined in
+    `backend/src/testing/scenarios/<area>.ts`
   - `backend.fail('GET /api/path*', { status, body, times, network, delayMs })`
   - `backend.hold('POST /api/path')` then `backend.release()` for busy states
-  - `backend.requests()` and `backend.state()` to assert what was sent
+  - `backend.requests()` (what the browser sent) and `backend.state()` (every
+    collection of the test's database) to assert on effects
+  - `backend.emails()` for the emails the platform queued, oldest first
+  - `backend.setNow(iso)` to move the backend's clock; authenticator codes
+    follow it (`operatorCodeAt(iso)` in `e2e/support/operator-code.ts`)
   - `const audit = await backend.watchAudit()` after arranging, then
     `await audit.appended()` for the audit entries the test's actions added
     (the log is seeded, so never assert on the whole `state().audit`)
 - `page.clock.runFor(ms)` advances timers (polling, toasts).
 - Call `expectNoAccessibilityViolations()` in the states a test covers (L2-066)
   and `usePhone()` for phone layouts.
-- Fake data is the fictional cast in `docs/mocks/README.md`. Never use real
+- Seed data is the fictional cast in `docs/mocks/README.md`. Never use real
   people, businesses or addresses.
 
-## Fake backend
+## Backend in test mode (ADR 0008)
 
 - `server.ts` routes `/api/*` to handlers registered in `routes/index.ts`.
   Each area has `routes/<area>.ts` (`registerX` + `xScenarios`) and seed data
@@ -85,9 +91,15 @@ Never weaken a test to make it pass, and never write architecture tests
   contract. The real backend (ADR 0006) imports them the same way.
 - Validation errors: `invalid({ field: ['message'] })` → HTTP 400 problem body
   `{ title, errors }`; field names match the form control names.
+- `npm run e2e` starts `node ../backend/src/main.ts` with `TEST_CONTROL=1`:
+  no database server, one seeded in-memory environment per test session, and
+  the `/__test/` control API the fixture uses. Faults and the request log live
+  in the fixture, on the browser context's network.
+- Wire types live in `projects/api/src/lib/models/`, one type per file; the
+  backend imports them with `import type`, so both sides share one contract.
+- Validation errors are HTTP 400 problem bodies `{ title, errors }`; field
+  names match the form control names.
 - State-changing requests need the CSRF header; Angular's HttpClient adds it.
-- The fake runs with Node type stripping: erasable TypeScript only (no enums,
-  no parameter properties), `.ts` extensions in relative imports.
 
 ## Application conventions
 

@@ -88,5 +88,5 @@ Follow the `implementing-incrementally` skill, one thin slice at a time:
 
 The frontend's Playwright suite is the end-to-end check. Run an area's specs
 against this API with
-`cd ../frontend && E2E_BACKEND=real npx playwright test e2e/specs/<area>`.
+`cd ../frontend && npx playwright test e2e/specs/<area>`.
 Scenarios the specs ask for live in `src/testing/scenarios/<area>.ts`.
