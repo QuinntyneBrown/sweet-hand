@@ -4,8 +4,8 @@ import { torontoDate, type Store } from '../lib/store.ts';
 import { photoView } from '../lib/views.ts';
 import { FSA_TO_AREA, OCCASION_PHOTOS, OCCASIONS, slugify } from '../seed/taxonomy.ts';
 import type { Caterer } from '../seed/caterers.ts';
-import type { ListingPageView, OccasionTile, ServiceArea } from '../../projects/web/src/app/core/api/discovery.models.ts';
-import type { CatererGoneView, CatererPageView, CatererRegionView, DietaryTag } from '../../projects/web/src/app/core/api/caterer-page.models.ts';
+import type { ListingPageView, OccasionTile, ServiceArea } from '../../projects/api/src/lib/models/discovery.models.ts';
+import type { CatererGoneView, CatererPageView, CatererRegionView, DietaryTag } from '../../projects/api/src/lib/models/caterer-page.models.ts';
 import { ratingSummary } from './reviews.ts';
 
 const PAGE_SIZE = 24;

@@ -4,7 +4,7 @@
  * for every store, so tests look them up instead of hard-coding them.
  */
 import { randomUUID } from 'node:crypto';
-import type { EnquiryStatus, FitWarning, Party } from '../../projects/web/src/app/core/api/enquiries.models.ts';
+import type { EnquiryStatus, FitWarning, Party } from '../../projects/api/src/lib/models/enquiries.models.ts';
 
 export interface EnquiryEvent {
   id: string;

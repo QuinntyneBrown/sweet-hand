@@ -4,7 +4,7 @@
  * aggregates (docs/mocks/README.md: metrics start 3 Aug 2026; 12 enquiries in
  * the week of 28 Sep 2026). Every person and record is fictional.
  */
-import type { AuditEntry, BreachRecord } from '../../projects/web/src/app/core/api/operator-settings.models.ts';
+import type { AuditEntry, BreachRecord } from '../../projects/api/src/lib/models/operator-settings.models.ts';
 
 export interface DailyMetrics {
   /** YYYY-MM-DD in Toronto. */

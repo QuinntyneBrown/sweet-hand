@@ -24,7 +24,7 @@ import type {
   SentEnquiryView,
   ThreadEntryView,
   ThreadView,
-} from '../../projects/web/src/app/core/api/enquiries.models.ts';
+} from '../../projects/api/src/lib/models/enquiries.models.ts';
 
 const PAGE_SIZE = 20;
 const REPLY_MAX = 2000;

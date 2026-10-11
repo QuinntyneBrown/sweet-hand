@@ -5,8 +5,8 @@ import type { User } from '../seed/users.ts';
 import type { AccountToken } from '../seed/account.ts';
 import { slugify } from '../seed/taxonomy.ts';
 import { endSession, endSessions } from './session.ts';
-import type { ConsentRequest, PrivacyNotice } from '../../projects/web/src/app/core/api/privacy.models.ts';
-import type { SecondFactorRequest, EmailVerified, ResendVerificationRequest, VerificationSent, PasswordResetLink, PasswordResetRequest, ResetPasswordRequest, RegisterCatererRequest, RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/web/src/app/core/api/identity.models.ts';
+import type { ConsentRequest, PrivacyNotice } from '../../projects/api/src/lib/models/privacy.models.ts';
+import type { SecondFactorRequest, EmailVerified, ResendVerificationRequest, VerificationSent, PasswordResetLink, PasswordResetRequest, ResetPasswordRequest, RegisterCatererRequest, RegisterRequest, SignInLocked, SignInRequest, SignInResult } from '../../projects/api/src/lib/models/identity.models.ts';
 
 const MINUTE = 60_000;
 /** 5 failed sign-ins for one account within 15 minutes pause it for 15 minutes (L2-076.4). */

@@ -7,7 +7,7 @@
 import { randomUUID } from 'node:crypto';
 import type { Enquiry } from './enquiries.ts';
 import type { ProfileStatus } from './caterers.ts';
-import type { ChangedField, ChangeValue } from '../../projects/web/src/app/core/api/operator-moderation.models.ts';
+import type { ChangedField, ChangeValue } from '../../projects/api/src/lib/models/operator-moderation.models.ts';
 
 export interface OperatorState {
   moderation: ModerationState;

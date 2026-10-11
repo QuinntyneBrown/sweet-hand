@@ -5,7 +5,7 @@ import { currentUser, newId, torontoDate, type Store } from '../lib/store.ts';
 import type { User } from '../seed/users.ts';
 import type { Review } from '../seed/reviews.ts';
 import { KNOWN_TARGETS, longAudit, type DailyMetrics, type InvitedOperator } from '../seed/operator-settings.ts';
-import type { EnquiryMetrics, Granularity, MetricsBucket, MetricsReport } from '../../projects/web/src/app/core/api/metrics.models.ts';
+import type { EnquiryMetrics, Granularity, MetricsBucket, MetricsReport } from '../../projects/api/src/lib/models/metrics.models.ts';
 import { slugify, type Cuisine } from '../seed/taxonomy.ts';
 import type {
   AddCuisineRequest,
@@ -25,7 +25,7 @@ import type {
   OperatorAccount,
   OperatorCuisine,
   RecordBreachRequest,
-} from '../../projects/web/src/app/core/api/operator-settings.models.ts';
+} from '../../projects/api/src/lib/models/operator-settings.models.ts';
 
 /**
  * Fake endpoints of the operator console's settings and moderation screens:

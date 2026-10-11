@@ -36,7 +36,7 @@ import type {
   QueueItemView,
   QueuePageView,
   ReportReason,
-} from '../../projects/web/src/app/core/api/operator-moderation.models.ts';
+} from '../../projects/api/src/lib/models/operator-moderation.models.ts';
 import { areaName, cuisineName } from './discovery.ts';
 import { ratingSummary, reviewerLabel } from './reviews.ts';
 

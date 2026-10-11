@@ -1,7 +1,7 @@
 import type { Router } from '../lib/router.ts';
 import { ok } from '../lib/http.ts';
 import { currentUser, newId, type Store } from '../lib/store.ts';
-import type { SessionUser, SessionView } from '../../projects/web/src/app/core/api/session.models.ts';
+import type { SessionUser, SessionView } from '../../projects/api/src/lib/models/session.models.ts';
 import type { User } from '../seed/users.ts';
 import { privacyUpdateRequired } from './identity.ts';
 import { unreadThreads } from './enquiries.ts';

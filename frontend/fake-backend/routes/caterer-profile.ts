@@ -18,7 +18,7 @@ import type {
   OwnReviewView,
   ReferenceDataView,
   SubmissionProblem,
-} from '../../projects/web/src/app/core/api/caterer-profile.models.ts';
+} from '../../projects/api/src/lib/models/caterer-profile.models.ts';
 
 // ---------------------------------------------------------------------------
 // Limits and messages (L2-007, L2-010, L2-020, L2-021, L2-039 to L2-044, L2-052)

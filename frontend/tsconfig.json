@@ -4,7 +4,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@sweet-hand/components": ["./projects/components/src/public-api.ts"]
+      "@sweet-hand/components": ["./projects/components/src/public-api.ts"],
+      "@sweet-hand/api": ["./projects/api/src/public-api.ts"]
     },
     "strict": true,
     "noImplicitOverride": true,
@@ -27,10 +28,13 @@
   "files": [],
   "references": [
     {
-      "path": "./projects/web/tsconfig.app.json"
+      "path": "./projects/sweet-hand/tsconfig.app.json"
     },
     {
       "path": "./projects/components/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/api/tsconfig.lib.json"
     }
   ]
 }

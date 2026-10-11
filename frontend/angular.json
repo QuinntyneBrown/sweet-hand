@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "web": {
+    "sweet-hand": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -34,25 +34,25 @@
           "skipTests": true
         }
       },
-      "root": "projects/web",
-      "sourceRoot": "projects/web/src",
+      "root": "projects/sweet-hand",
+      "sourceRoot": "projects/sweet-hand/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "projects/web/src/main.ts",
-            "tsConfig": "projects/web/tsconfig.app.json",
+            "browser": "projects/sweet-hand/src/main.ts",
+            "tsConfig": "projects/sweet-hand/tsconfig.app.json",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/web/public"
+                "input": "projects/sweet-hand/public"
               }
             ],
             "styles": [
               "../docs/design-system/tokens/tokens.css",
               "../docs/design-system/assets/components.css",
-              "projects/web/src/styles.css"
+              "projects/sweet-hand/src/styles.css"
             ],
             "polyfills": [
               "@angular/localize/init"
@@ -86,10 +86,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "web:build:production"
+              "buildTarget": "sweet-hand:build:production"
             },
             "development": {
-              "buildTarget": "web:build:development"
+              "buildTarget": "sweet-hand:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -100,18 +100,19 @@
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n",
           "options": {
-            "buildTarget": "web:build",
-            "outputPath": "projects/web/src/locale"
+            "buildTarget": "sweet-hand:build",
+            "outputPath": "projects/sweet-hand/src/locale"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/web/src/**/*.ts",
-              "projects/web/src/**/*.html",
+              "projects/sweet-hand/src/**/*.ts",
+              "projects/sweet-hand/src/**/*.html",
               "projects/components/src/**/*.ts",
-              "projects/components/src/**/*.html"
+              "projects/components/src/**/*.html",
+              "projects/api/src/**/*.ts"
             ]
           }
         }
@@ -134,6 +135,26 @@
             },
             "development": {
               "tsConfig": "projects/components/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        }
+      }
+    },
+    "api": {
+      "projectType": "library",
+      "root": "projects/api",
+      "sourceRoot": "projects/api/src",
+      "prefix": "sh",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/api/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/api/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"

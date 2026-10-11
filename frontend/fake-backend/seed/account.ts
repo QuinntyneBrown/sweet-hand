@@ -1,4 +1,4 @@
-import type { SiteNotice } from '../../projects/web/src/app/core/api/notices.models.ts';
+import type { SiteNotice } from '../../projects/api/src/lib/models/notices.models.ts';
 
 /** Account state: emails sent, sign-in attempts, sessions, tokens, privacy notice and data exports. */
 

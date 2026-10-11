@@ -2,7 +2,7 @@ import type { Router } from '../lib/router.ts';
 import { forbidden, invalid, notFound, ok, unauthorized, type Ctx, type Reply } from '../lib/http.ts';
 import { currentUser, type Store } from '../lib/store.ts';
 import type { User } from '../seed/users.ts';
-import type { AccountView, ActiveSession, ChangePasswordRequest, UpdateDetailsRequest } from '../../projects/web/src/app/core/api/account.models.ts';
+import type { AccountView, ActiveSession, ChangePasswordRequest, UpdateDetailsRequest } from '../../projects/api/src/lib/models/account.models.ts';
 import { findUser, identityScenarios, passwordProblem, sendEmail, sendVerification } from './identity.ts';
 import { endSession, endSessions, sessionRecord } from './session.ts';
 
