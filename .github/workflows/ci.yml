@@ -13,7 +13,6 @@ jobs:
     timeout-minutes: 45
     env:
       CI: 'true'
-      E2E_WORKERS: '4'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -43,9 +42,43 @@ jobs:
           npm run extract-i18n --prefix frontend
           npm run extract-i18n:launch --prefix frontend
           git diff --exit-code -- frontend/projects/sweet-hand/src/locale frontend/projects/launch/src/locale
-      - name: Install Chromium
-        working-directory: frontend
-        run: npx playwright install --with-deps chromium
+      - name: Build production container
+        run: docker build -f backend/Dockerfile -t sweet-hand-api:${{ github.sha }} .
+      - name: Scan production container
+        uses: aquasecurity/trivy-action@v0.35.0
+        with:
+          image-ref: sweet-hand-api:${{ github.sha }}
+          severity: CRITICAL
+          ignore-unfixed: true
+          exit-code: '1'
+      - name: Verify the container runs without root
+        run: test "$(docker image inspect sweet-hand-api:${{ github.sha }} --format '{{.Config.User}}')" = node
+
+  e2e:
+    # The official Playwright image pins Chromium and its system fonts, so layout
+    # checks (no horizontal scroll, chart label density) match local runs of the
+    # same image instead of whatever fonts the hosted runner ships.
+    runs-on: ubuntu-24.04
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.1-noble
+      options: --ipc=host
+    timeout-minutes: 45
+    env:
+      CI: 'true'
+      E2E_WORKERS: '4'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.18.0'
+          cache: npm
+          cache-dependency-path: |
+            backend/package-lock.json
+            frontend/package-lock.json
+      - name: Install locked dependencies
+        run: |
+          npm ci --prefix backend
+          npm ci --prefix frontend
       - name: Chromium acceptance tests
         working-directory: frontend
         run: npm run e2e
@@ -58,17 +91,6 @@ jobs:
             frontend/playwright-report
             frontend/test-results
           retention-days: 14
-      - name: Build production container
-        run: docker build -f backend/Dockerfile -t sweet-hand-api:${{ github.sha }} .
-      - name: Scan production container
-        uses: aquasecurity/trivy-action@v0.35.0
-        with:
-          image-ref: sweet-hand-api:${{ github.sha }}
-          severity: CRITICAL
-          ignore-unfixed: true
-          exit-code: '1'
-      - name: Verify the container runs without root
-        run: test "$(docker image inspect sweet-hand-api:${{ github.sha }} --format '{{.Config.User}}')" = node
 
   secrets:
     runs-on: ubuntu-24.04

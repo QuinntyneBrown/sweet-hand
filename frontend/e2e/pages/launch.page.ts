@@ -227,10 +227,8 @@ export class LaunchPage {
   // Checks
 
   async expectNoHorizontalScroll() {
-    // Measured until layout settles: under a loaded CI runner the first frame after navigation or resize can still be unstyled.
-    await expect
-      .poll(() => this.page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth))
-      .toBeLessThanOrEqual(0);
+    const overflow = await this.page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow).toBeLessThanOrEqual(0);
   }
 
   /** axe-core with WCAG 2.2 A and AA rules, at XS and XL, in the light and dark themes (L2-107.1). */
