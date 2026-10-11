@@ -69,9 +69,10 @@ export interface Caterer extends Document {
 
 export const caterers = (tx: Transaction) => tx.collection<Caterer>('caterers');
 
-/** "Pimento & Thyme" → "pimento-and-thyme". */
+/** "Pimento & Thyme" → "pimento-and-thyme"; "Auntie Bev’s Kitchen" → "auntie-bevs-kitchen". */
 export function slugify(name: string): string {
   return name
+    .replace(/[’']/g, '')
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
