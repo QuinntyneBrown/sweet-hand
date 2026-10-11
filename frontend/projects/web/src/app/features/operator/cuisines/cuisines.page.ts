@@ -18,19 +18,19 @@ import { RetireCuisineDialog } from './retire-cuisine.dialog';
     <div class="page-intro" [attr.aria-busy]="loading() ? 'true' : null">
       <div class="page-intro__row">
         <div>
-          <h1 id="cuisines-title" tabindex="-1" i18n="@@cuisines.title">Cuisines</h1>
+          <h1 id="cuisines-title" tabindex="-1" i18n="@@operatorCuisines.title">Cuisines</h1>
           @if (loading()) {
             <p class="subtitle"><span class="skeleton skeleton--text" style="width: 60%" aria-hidden="true"></span></p>
           } @else if (cuisines()) {
             <p class="subtitle">{{ subtitle() }}</p>
           } @else {
-            <p class="subtitle" i18n="@@cuisines.subtitlePlain">Shown in filters and caterer profiles</p>
+            <p class="subtitle" i18n="@@operatorCuisines.subtitlePlain">Shown in filters and caterer profiles</p>
           }
         </div>
         @if (loading()) {
           <span class="skeleton skeleton--rect skeleton--pill" style="width: var(--space-32); height: var(--control-height-md)" aria-hidden="true"></span>
         } @else if (cuisines()) {
-          <sh-button variant="primary" haspopup="dialog" (activated)="openAdd($event)" i18n="@@cuisines.add">Add cuisine</sh-button>
+          <sh-button variant="primary" haspopup="dialog" (activated)="openAdd($event)" i18n="@@operatorCuisines.add">Add cuisine</sh-button>
         }
       </div>
     </div>
@@ -38,9 +38,9 @@ import { RetireCuisineDialog } from './retire-cuisine.dialog';
       <sh-empty-state
         tone="error"
         heading="We couldn’t load the cuisine list"
-        i18n-heading="@@cuisines.errorTitle"
+        i18n-heading="@@operatorCuisines.errorTitle"
         text="Nothing has changed: filters and caterer profiles still show the current list. Try again in a moment."
-        i18n-text="@@cuisines.errorText"
+        i18n-text="@@operatorCuisines.errorText"
         [reference]="f.reference"
         referenceLabel="Reference"
         i18n-referenceLabel="@@common.reference"
@@ -52,20 +52,20 @@ import { RetireCuisineDialog } from './retire-cuisine.dialog';
         </ng-container>
       </sh-empty-state>
     } @else {
-      <sh-list family="settings" label="Cuisines, A to Z" i18n-label="@@cuisines.listLabel" [busy]="loading()" busyLabel="Loading cuisines" i18n-busyLabel="@@cuisines.loading" [skeletonCount]="10">
+      <sh-list family="settings" label="Cuisines, A to Z" i18n-label="@@operatorCuisines.listLabel" [busy]="loading()" busyLabel="Loading cuisines" i18n-busyLabel="@@operatorCuisines.loading" [skeletonCount]="10">
         @for (c of rows(); track c.id) {
           <li sh-admin-row [title]="c.name" [meta]="c.meta">
             @if (c.isNew) {
-              <span slot="badge" class="badge badge--info" i18n="@@cuisines.new">New</span>
+              <span slot="badge" class="badge badge--info" i18n="@@operatorCuisines.new">New</span>
             }
             @if (!c.retired) {
-              <sh-button slot="actions" variant="ghost" size="sm" haspopup="dialog" [ariaLabel]="c.retireLabel" (activated)="openRetire(c, $event)" i18n="@@cuisines.retire">Retire</sh-button>
+              <sh-button slot="actions" variant="ghost" size="sm" haspopup="dialog" [ariaLabel]="c.retireLabel" (activated)="openRetire(c, $event)" i18n="@@operatorCuisines.retire">Retire</sh-button>
             }
           </li>
         }
       </sh-list>
       @if (!loading()) {
-        <p class="text-caption" style="margin-top: var(--space-6)" i18n="@@cuisines.note">Retired cuisines leave the filter and new profile choices. Caterers who already use one keep it on their page.</p>
+        <p class="text-caption" style="margin-top: var(--space-6)" i18n="@@operatorCuisines.note">Retired cuisines leave the filter and new profile choices. Caterers who already use one keep it on their page.</p>
       }
     }
     <app-add-cuisine-dialog [open]="adding()" [existing]="names()" [returnFocus]="opener()" (closed)="adding.set(false)" (added)="added($event)" />
@@ -92,7 +92,7 @@ export class CuisinesPage {
       ...c,
       meta: cuisineMeta(c),
       isNew: isNew(c),
-      retireLabel: $localize`:@@cuisines.retireNamed:Retire ${c.name}:name:`,
+      retireLabel: $localize`:@@operatorCuisines.retireNamed:Retire ${c.name}:name:`,
     })),
   );
 
@@ -126,7 +126,7 @@ export class CuisinesPage {
     this.cuisines.update((all) => [...(all ?? []), cuisine].sort((a, b) => a.name.localeCompare(b.name, 'en-CA')));
     this.toasts.show({
       tone: 'success',
-      title: $localize`:@@cuisines.added:${cuisine.name}:name: added`,
+      title: $localize`:@@operatorCuisines.added:${cuisine.name}:name: added`,
       text: $localize`:@@addCuisine.note:Caterers can choose it straight away, and the listing filter offers it.`,
     });
   }
@@ -140,10 +140,10 @@ export class CuisinesPage {
     const names = usage.caterers.map((c) => c.name);
     this.toasts.show({
       tone: 'success',
-      title: $localize`:@@cuisines.retiredTitle:${usage.cuisine.name}:name: is retired`,
+      title: $localize`:@@operatorCuisines.retiredTitle:${usage.cuisine.name}:name: is retired`,
       text: names.length
-        ? $localize`:@@cuisines.retiredKeep:${new Intl.ListFormat('en-CA', { style: 'long', type: 'conjunction' }).format(names)}:caterers: keep it on their pages.`
-        : $localize`:@@cuisines.retiredUnused:It’s no longer offered in filters or profiles.`,
+        ? $localize`:@@operatorCuisines.retiredKeep:${new Intl.ListFormat('en-CA', { style: 'long', type: 'conjunction' }).format(names)}:caterers: keep it on their pages.`
+        : $localize`:@@operatorCuisines.retiredUnused:It’s no longer offered in filters or profiles.`,
     });
   }
 }

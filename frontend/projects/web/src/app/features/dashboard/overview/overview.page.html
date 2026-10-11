@@ -189,7 +189,7 @@
                   <sh-section-list [items]="checklist()" [statusLabels]="checkLabels" />
                 </div>
                 <div class="cluster" style="margin-top: var(--space-8)">
-                  <button #submitButton class="btn btn--primary" type="button" aria-haspopup="dialog" [attr.aria-busy]="submitBusy() && !submitStep() ? 'true' : null" (click)="startSubmit()" i18n="@@submit.action">
+                  <button #submitButton class="btn btn--primary" type="button" aria-haspopup="dialog" [attr.aria-busy]="submitBusy() && !submitStep() ? 'true' : null" (click)="startSubmit()" i18n="@@overview.submit">
                     Submit for review
                   </button>
                   @if (leftText()) {

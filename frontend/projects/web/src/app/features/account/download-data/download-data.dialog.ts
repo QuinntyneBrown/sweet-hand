@@ -58,7 +58,6 @@ export function exportLines(account: AccountView): string[] {
       @if (requested()) {
         <p i18n="@@download.preparing">We’re preparing your file. We’ll email a download link to <strong>{{ account().email }}</strong> within 24 hours.</p>
         <p class="text-muted" i18n="@@download.linkRule">The link works for 7 days, and only when you’re signed in as {{ firstName() }}.</p>
-        <button #done slot="footer" class="btn btn--primary" type="button" (click)="close()" i18n="@@download.done">Done</button>
       } @else {
         @if (failed()) {
           <sh-alert tone="danger" live="assertive" title="Your export wasn’t requested" i18n-title="@@download.failedTitle"
@@ -75,6 +74,10 @@ export function exportLines(account: AccountView): string[] {
         } @else {
           <p class="text-muted" i18n="@@download.contacts">Caterers’ contact details are included only where they shared them with you.</p>
         }
+      }
+      @if (requested()) {
+        <button #done slot="footer" class="btn btn--primary" type="button" (click)="close()" i18n="@@download.done">Done</button>
+      } @else {
         <button
           slot="footer"
           class="btn btn--primary"

@@ -45,7 +45,7 @@ import { problemOf } from '../../../core/forms/problem';
           [attr.aria-busy]="busy() ? 'true' : null"
           [attr.aria-disabled]="busy() ? 'true' : null"
           (click)="remove()"
-          i18n="@@photoDetails.remove"
+          i18n="@@removePhoto.confirm"
         >
           Remove photo
         </button>

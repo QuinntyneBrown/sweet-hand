@@ -18,7 +18,7 @@ import { SECTION_HREF } from './profile-text';
       <sh-alert live="polite" [title]="pendingTitle()"
         >{{ pendingText() }}
         <div slot="actions" class="alert__actions">
-          <button #withdrawButton class="btn btn--sm" type="button" aria-haspopup="dialog" (click)="withdrawRequested.emit(withdrawButton)" i18n="@@withdraw.action">
+          <button #withdrawButton class="btn btn--sm" type="button" aria-haspopup="dialog" (click)="withdrawRequested.emit(withdrawButton)" i18n="@@statusNotice.withdraw">
             Withdraw submission
           </button>
         </div>
