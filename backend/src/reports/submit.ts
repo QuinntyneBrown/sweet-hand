@@ -39,6 +39,21 @@ export async function nextReportId(tx: Transaction): Promise<string> {
   return `R-${Math.max(2099, ...numbers) + 1}`;
 }
 
+const WEEK = 7 * 24 * HOUR;
+/** Distinct signed-in reporters within 7 days that hide a review until an operator resolves the reports (L2-055.2). */
+const HIDING_REPORTERS = 3;
+
+/** Open reports on the review from 3 different signed-in users in the last 7 days hide it automatically. */
+async function hideAfterReports(tx: Transaction, now: Date, reviewId: string): Promise<void> {
+  const recent = (await reports(tx).find({ targetId: reviewId, status: 'Open' })).filter((r) => r.reporterUserId && now.getTime() - Date.parse(r.createdAt) <= WEEK);
+  const reporters = new Set(recent.map((r) => r.reporterUserId)).size;
+  if (reporters < HIDING_REPORTERS) return;
+  const review = await reviews(tx).get(reviewId);
+  if (review?.status !== 'Published') return;
+  const at = now.toISOString();
+  await reviews(tx).put({ ...review, status: 'Hidden', hiddenBy: 'reports', hiddenAt: at, hidden: { by: null, reports: reporters, reason: '', at } });
+}
+
 /** POST /api/reports (report-content design): anyone may report a published caterer or review. */
 export async function submitReport(req: Request): Promise<Reply> {
   const recent = await recentEvents(req.tx, REPORT_KIND, req.ip, req.now, HOUR);
@@ -84,5 +99,6 @@ export async function submitReport(req: Request): Promise<Reply> {
   };
   await reports(req.tx).put(report);
   await recordEvent(req.tx, REPORT_KIND, req.ip, req.now, HOUR);
+  if (target.kind === 'Review') await hideAfterReports(req.tx, req.now, target.id);
   return { status: 201, body: { id: report.id } };
 }
