@@ -5,9 +5,9 @@ title Containers — Manage the cuisine list
 
 Person(operator, "Operator", "Maintains the cuisine catalogue")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Operator cuisine screen and dialogs")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Operator cuisine endpoints and catalogue rules")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Cuisine catalogue, caterer selections, audit log")
+  Container(web, "Sweet Hand web application", "Angular 21", "Operator cuisine screen and dialogs")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "Operator cuisine endpoints and catalogue rules")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Cuisine catalogue, caterer selections, audit log")
 }
 Rel(operator, web, "Uses", "HTTPS")
 Rel(web, api, "Calls /api/operator/cuisines", "JSON/HTTPS")

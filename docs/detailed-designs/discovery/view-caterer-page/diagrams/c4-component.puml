@@ -23,7 +23,7 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(redirects, "SlugRedirectRepository", "Repository", "Retired slugs")
   Component(images, "ImageUrlBuilder", "Infrastructure", "CDN derivative URLs")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles and redirects")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Profiles and redirects")
 
 Rel(visitor, page, "Opens /caterers/{slug}", "HTTPS")
 Rel(page, meta, "Renders")

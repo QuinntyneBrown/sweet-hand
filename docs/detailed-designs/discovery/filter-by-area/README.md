@@ -30,8 +30,10 @@ presentations are described in `filter-by-cuisine`.
 
 ## Description
 
-Technology choices are `<TO SUPPLY>` pending architecture decision records in
-`docs/adr/`. The components below are described by role.
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`. The components below are
+described by role.
 
 **Service area model.** The initial list, loaded by an idempotent seed through an
 explicit command:

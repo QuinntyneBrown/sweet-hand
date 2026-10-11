@@ -5,9 +5,9 @@ title Containers — Search the listing by postal code
 
 Person(visitor, "Visitor", "Enters a postal code")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Postal code input; validates format and extracts the FSA")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Resolves FSA to a service area; redacts logs")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "FSA mapping and caterer service areas")
+  Container(web, "Sweet Hand web application", "Angular 21", "Postal code input; validates format and extracts the FSA")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "Resolves FSA to a service area; redacts logs")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "FSA mapping and caterer service areas")
 }
 Rel(visitor, web, "Enters postal code", "HTTPS")
 Rel(web, api, "GET /api/public/caterers?fsa=M1B", "JSON/HTTPS")

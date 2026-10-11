@@ -20,7 +20,7 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(images, "ImageUrlBuilder", "Infrastructure", "Builds CDN derivative URLs")
   Component(clock, "Clock", "Infrastructure", "Current date in America/Toronto")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Caterer profiles")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Caterer profiles")
 
 Rel(visitor, page, "Opens", "HTTPS")
 Rel(page, state, "Reads and pushes state")

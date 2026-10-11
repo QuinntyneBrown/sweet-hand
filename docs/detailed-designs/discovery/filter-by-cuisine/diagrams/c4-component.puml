@@ -20,7 +20,7 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(repo, "CatererProfileRepository", "Repository", "Matching caterers and grouped counts")
   Component(cuisines, "CuisineRepository", "Repository", "Active cuisine catalogue")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles and cuisines")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Profiles and cuisines")
 
 Rel(visitor, filters, "Selects cuisines")
 Rel(page, filters, "Renders")

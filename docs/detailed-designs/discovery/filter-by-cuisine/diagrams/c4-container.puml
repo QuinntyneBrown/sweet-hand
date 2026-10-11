@@ -5,9 +5,9 @@ title Containers — Filter the listing by cuisine
 
 Person(visitor, "Visitor", "Browses caterers without signing in")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Filter controls, chips and in-place result updates")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Filter matching and facet counts")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Caterer profiles and cuisine catalogue")
+  Container(web, "Sweet Hand web application", "Angular 21", "Filter controls, chips and in-place result updates")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "Filter matching and facet counts")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Caterer profiles and cuisine catalogue")
 }
 Rel(visitor, web, "Selects cuisines", "HTTPS")
 Rel(web, api, "GET /api/public/caterers?cuisine=…", "JSON/HTTPS")
