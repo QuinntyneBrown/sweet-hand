@@ -85,7 +85,17 @@ export async function declineEnquiry(req: Request): Promise<Reply> {
   return ok(await threadView(req.tx, e, party, req.now));
 }
 
-/** POST /api/enquiries/:id/close: either party closes an Open or Replied enquiry (L2-033). */
+/** POST /api/enquiries/:id/contact-shares: reveals the caller's own contact details to the other party in this thread only (L2-035). */
+export async function shareContact(req: Request): Promise<Reply> {
+  const { e, party } = await loadThread(req);
+  if (!isActive(e)) return conflict('This enquiry is closed', { status: e.status });
+  if (!e.events.some((ev) => ev.kind === 'shared' && ev.by === party)) appendEvent(e, req.now, randomUUID(), { kind: 'shared', by: party });
+  markRead(e, party, req.now);
+  await enquiries(req.tx).put(e);
+  return ok(await threadView(req.tx, e, party, req.now));
+}
+
+/** POST /api/enquiries/:id/close:either party closes an Open or Replied enquiry (L2-033). */
 export async function closeEnquiry(req: Request): Promise<Reply> {
   const { e, party } = await loadThread(req);
   if (!isActive(e)) return conflict('This enquiry is already closed', { status: e.status });
