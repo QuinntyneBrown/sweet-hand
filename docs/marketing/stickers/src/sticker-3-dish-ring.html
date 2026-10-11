@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<title>Sweet Hand sticker — Dish ring</title>
+<link rel="stylesheet" href="stickers.css">
+</head>
+<body>
+<div class="stage">
+  <svg class="sticker" viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg" style="--cut-extra: 130px">
+    <title>Sweet Hand round plate with dish names</title>
+    <defs>
+      <!-- Dish names run clockwise round the plate, tops outward. -->
+      <path id="dishRing" fill="none" d="M 450 215 A 235 235 0 1 1 449.99 215" />
+      <!-- Edge URL along the bottom of the rim, left to right (counter-clockwise on
+           screen). Plate art edge is r 347 (r 335 + half the 24px ring); rim to r 412. Letters grow toward the
+           centre from the baseline, so the baseline sits at r 390 to keep caps 22px clear of the art. -->
+      <path id="urlArc" fill="none" d="M 60 450 A 390 390 0 0 0 840 450" />
+    </defs>
+
+    <!-- Die-cut silhouette -->
+    <g>
+      <circle class="keyline" cx="450" cy="450" r="335" style="--art-stroke: 24px" />
+    </g>
+
+    <!-- Plate -->
+    <circle cx="450" cy="450" r="335" fill="#ffffff" stroke="#b5381f" stroke-width="24" />
+    <text font-family="Figtree" font-weight="600" font-size="35" fill="#141312">
+      <textPath href="#dishRing" textLength="1440" lengthAdjust="spacing">Doubles · Roti · Oxtail · Jerk · Patties · Pepper sauce · Black cake · Sorrel ·</textPath>
+    </text>
+
+    <text class="wm" x="450" y="445" text-anchor="middle" font-size="108" fill="#141312">Sweet</text>
+    <text class="wm" x="450" y="545" text-anchor="middle" font-size="108" fill="#141312">Hand<tspan fill="#b5381f">.</tspan></text>
+
+    <text class="edge-url" text-anchor="middle"><textPath href="#urlArc" startOffset="50%">SWEETHAND.CA</textPath></text>
+  </svg>
+</div>
+</body>
+</html>

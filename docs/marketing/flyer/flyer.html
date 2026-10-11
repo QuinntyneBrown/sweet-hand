@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<title>Sweet Hand — Pre-launch flyer</title>
+<link rel="stylesheet" href="../assets/print.css">
+<!--
+  Print spec
+  Trim:  5in x 7in
+  Bleed: 0.125in each side -> page 5.25in x 7.25in
+  Safe:  0.125in inside trim (0.25in from page edge)
+  Page 1 = front (eaters), page 2 = back (makers). Flip on the long edge.
+  The pepper band sits on the right of the front and the left of the back, so
+  it lines up on both sides of the sheet.
+  Colours come from docs/design-system/tokens/tokens.css via ../assets/print.css.
+-->
+<style>
+  :root {
+    --bleed: 0.125in;
+    --safe: 0.25in;       /* bleed + 0.125in safe margin */
+    --band: 0.325in;      /* pepper band, runs into the bleed */
+    --clear: 0.55in;      /* safe margin on the band side */
+  }
+  @page { size: 5.25in 7.25in; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #e9e6e1; }
+  body {
+    font-family: "Figtree", system-ui, sans-serif;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .sheet {
+    position: relative;
+    width: 5.25in;
+    height: 7.25in;
+    overflow: hidden;
+    break-after: page;
+    page-break-after: always;
+  }
+  .sheet:last-child { break-after: auto; page-break-after: auto; }
+  .band {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: var(--band);
+    background: var(--pepper-600);
+  }
+  .safe {
+    position: absolute;
+    top: var(--safe);
+    bottom: var(--safe);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .wordmark {
+    font-weight: 700;
+    font-size: 20pt;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .wordmark span { color: var(--pepper-500); }
+  .rule {
+    width: 0.4in;
+    height: 2pt;
+    background: var(--pepper-500);
+  }
+
+  .qr {
+    display: block;
+    width: 1.2in;
+    height: 1.2in;
+    flex: none;
+  }
+  .cta { display: flex; align-items: center; gap: 0.16in; }
+  .front .qr { margin-left: -0.145in; }  /* optical: line the code, not its quiet zone, up with the text */
+  .cta .url { font-weight: 700; font-size: 16pt; letter-spacing: -0.01em; line-height: 1.1; }
+  .cta .soon { margin-top: 0.05in; font-weight: 500; font-size: 10pt; line-height: 1.3; }
+
+  /* ---------- Front: eaters ---------- */
+  .front { background: var(--white); color: var(--stone-950); }
+  .front .band { right: 0; }
+  .front .safe { left: var(--safe); right: var(--clear); }
+  .front h1 {
+    font-weight: 700;
+    font-size: 40pt;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+  }
+  .front .lead {
+    margin-top: 0.2in;
+    max-width: 3.3in;
+    font-weight: 500;
+    font-size: 11.5pt;
+    line-height: 1.4;
+    color: var(--stone-700);
+  }
+  .front .dishes {
+    margin-top: 0.32in;
+    list-style: none;
+    columns: 2;
+    column-gap: 0.3in;
+    font-weight: 500;
+    font-size: 16pt;
+    line-height: 1.55;
+    letter-spacing: -0.01em;
+  }
+  .front .dishes li[aria-current] { color: var(--pepper-600); font-weight: 700; }
+  .front .cta .soon { color: var(--stone-600); }
+
+  /* ---------- Back: makers ---------- */
+  .back { background: var(--stone-950); color: var(--white); }
+  .back .band { left: 0; }
+  .back .safe { left: var(--clear); right: var(--safe); }
+  .back h2 {
+    font-weight: 700;
+    font-size: 32pt;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+  .back h2 span { display: block; margin-top: 0.12in; color: #d6d2cc; }
+  .back .facts {
+    margin-top: 0.3in;
+    list-style: none;
+    font-weight: 500;
+    font-size: 12.5pt;
+    line-height: 1.35;
+  }
+  .back .facts li { padding: 0.09in 0; border-top: 0.5pt solid var(--stone-700); }
+  .back .facts li:last-child { border-bottom: 0.5pt solid var(--stone-700); }
+  .back .join { margin-top: 0.22in; font-weight: 700; font-size: 15pt; letter-spacing: -0.01em; }
+  .back .join::after {
+    content: "";
+    display: block;
+    width: 0.4in;
+    height: 2pt;
+    margin-top: 0.08in;
+    background: var(--pepper-500);
+  }
+  .back .cta .url { font-size: 15pt; }
+  .back .cta .soon { color: var(--stone-350); }
+
+  /* ---------- Screen preview only ---------- */
+  @media screen {
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+    body.proof { padding: 0; gap: 0; display: block; background: transparent; }
+    .sheet { box-shadow: 0 8px 24px rgb(20 19 18 / 0.18); }
+    body.proof .sheet { box-shadow: none; }
+    /* Trim line and safe zone guides */
+    body:not(.proof) .sheet::before,
+    body:not(.proof) .sheet::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      z-index: 2;
+    }
+    body:not(.proof) .sheet::before { inset: var(--bleed); outline: 1px dashed rgb(0 160 255 / 0.9); }
+    body:not(.proof) .sheet::after  { inset: var(--safe);  outline: 1px dotted rgb(255 0 160 / 0.7); }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Front: for eaters -->
+  <section class="sheet front" aria-label="Front">
+    <div class="band" aria-hidden="true"></div>
+    <div class="safe">
+      <div class="wordmark">Sweet Hand<span>.</span></div>
+      <div>
+        <h1>Someone with a sweet hand.</h1>
+        <p class="lead">Caribbean home cooks and small-batch makers of Toronto and the GTA.</p>
+        <ul class="dishes">
+          <li aria-current="true">Doubles</li>
+          <li>Roti</li>
+          <li>Oxtail</li>
+          <li>Jerk</li>
+          <li>Patties</li>
+          <li>Pepper sauce</li>
+          <li>Black cake</li>
+          <li>Sorrel</li>
+        </ul>
+      </div>
+      <div class="cta">
+        <img class="qr" src="../assets/qr-sweethand-ca.svg" alt="QR code for sweethand.ca">
+        <div>
+          <p class="url">sweethand.ca</p>
+          <p class="soon">Coming soon.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back: for makers -->
+  <section class="sheet back" aria-label="Back">
+    <div class="band" aria-hidden="true"></div>
+    <div class="safe">
+      <div class="wordmark">Sweet Hand<span>.</span></div>
+      <div>
+        <h2>You have a<br>sweet hand. <span>Let Toronto find it.</span></h2>
+        <ul class="facts">
+          <li>Free to list.</li>
+          <li>You set the menu, the batches and the days.</li>
+          <li>Your home address stays private.</li>
+        </ul>
+        <p class="join">Cater with Sweet Hand</p>
+      </div>
+      <div class="cta">
+        <img class="qr" src="../assets/qr-sweethand-ca.svg" alt="QR code for sweethand.ca">
+        <div>
+          <p class="url">sweethand.ca</p>
+          <p class="soon">Coming soon.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

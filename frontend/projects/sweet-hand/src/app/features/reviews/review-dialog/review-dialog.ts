@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Injector, afterNextRender, computed, inject, input, output, signal, viewChild } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { Alert, Button, Dialog, FormField, FormSummary, Icon, StarInput, Textarea, graphemeLength, type SummaryItem } from '@sweet-hand/components';
+import { Alert, Button, Dialog, FormField, FormSummary, Icon, StarInput, Textarea, graphemeLength } from '@sweet-hand/components';
 import { count, monthYear, shortDate } from '../../../core/format/format';
-import { summaryHeading } from '../../../core/forms/validation';
+import { summaryFrom, summaryHeading } from '../../../core/forms/validation';
 import { Session } from '../../../core/session/session';
 import { STAR_LABELS, TEXT_MAX, reviewErrors, type ReviewErrors } from './review-rules';
 import { type ReviewResult, ReviewsService } from '@sweet-hand/api';
@@ -10,6 +10,7 @@ import type { ReviewDialogSubject } from './review-dialog-subject';
 import type { ReviewDialogOutcome } from './review-dialog-outcome';
 import type { Step } from './step';
 import { FormDialogState } from '../../../core/forms/form-dialog-state';
+import { applyProblem } from '../../../core/forms/problem';
 
 /**
  * Write or edit a review (docs/detailed-designs/reviews/write-review and
@@ -67,10 +68,7 @@ export class ReviewDialog {
   });
   protected readonly length = computed(() => graphemeLength(this.text()));
   protected readonly counter = computed(() => `${count(this.length())} / ${count(TEXT_MAX)}`);
-  protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.state.errors();
-    return [e.rating && { controlId: 'star-1', message: e.rating }, e.text && { controlId: 'text', message: e.text }].filter(Boolean) as SummaryItem[];
-  });
+  protected readonly summary = computed(() => summaryFrom(this.state.errors(), { rating: 'star-1', text: 'text' }));
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@review.action:post your review`));
   protected readonly busyMessage = computed(() => (this.editing() ? $localize`:@@review.saving:Saving your review` : $localize`:@@review.posting:Posting your review`));
   protected readonly liveTitle = computed(() => {
@@ -103,9 +101,7 @@ export class ReviewDialog {
         else this.show('live');
       },
       (status, problem) => {
-        if (status === 400 && problem.errors) {
-          return this.state.reject({ rating: problem.errors['rating']?.[0] ?? null, text: problem.errors['text']?.[0] ?? null });
-        }
+        if (applyProblem(this.state, status, problem, ['rating', 'text'])) return true;
         if (status !== 409) return false;
         // Already reviewed (L2-049.4): the page refreshes and offers Edit on the existing review.
         this.closed.emit('saved');

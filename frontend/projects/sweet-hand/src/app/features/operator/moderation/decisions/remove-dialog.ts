@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, computed, inject, input, output, si
 import { firstValueFrom } from 'rxjs';
 import { Alert, ButtonAnchor, Checklist, ChecklistItem, Dialog, FormField, FormSummary, Icon, Textarea, type CheckStatusLabels, type SummaryItem } from '@sweet-hand/components';
 import { count } from '../../../../core/format/format';
-import { summaryHeading } from '../../../../core/forms/validation';
+import { summaryFrom, summaryHeading } from '../../../../core/forms/validation';
 import { firstName } from '../moderation-text';
 import { conflictText, reasonError } from './decision-text';
 import { type CatererRecordView, type DecisionResult, OperatorModerationService } from '@sweet-hand/api';
 import { FormDialogState } from '../../../../core/forms/form-dialog-state';
 import { paths } from '../../../../core/routing/paths';
+import { applyProblem } from '../../../../core/forms/problem';
 
 /**
  * "Remove Pelau House permanently?" with a reason and the business name typed
@@ -50,11 +51,7 @@ export class RemoveDialog {
   protected readonly failedTitle = computed(() => $localize`:@@remove.failedTitle:We couldn’t remove ${this.record().name}:name:`);
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@remove.action:remove ${this.record().name}:name:`));
   protected readonly summary = computed<SummaryItem[]>(() => {
-    const items: SummaryItem[] = [];
-    const { reason: r, confirm: c } = this.state.errors();
-    if (r) items.push({ controlId: 'reason', message: r });
-    if (c) items.push({ controlId: 'confirm-name', message: c });
-    return items;
+    return summaryFrom(this.state.errors(), { reason: 'reason', confirm: 'confirm-name' });
   });
   protected readonly lines = computed(() => {
     const r = this.record();
@@ -84,9 +81,7 @@ export class RemoveDialog {
     await this.state.submit(
       async () => this.done.emit(await firstValueFrom(this.api.remove(this.record().id, this.reason().trim(), this.confirm()))),
       (status, problem) => {
-        if (status === 400 && problem.errors) {
-          return this.state.reject({ reason: problem.errors['reason']?.[0] ?? null, confirm: problem.errors['confirm']?.[0] ?? null });
-        }
+        if (applyProblem(this.state, status, problem, ['reason', 'confirm'])) return true;
         if (status !== 409) return false;
         this.conflict.set(conflictText(name, problem));
         return true;

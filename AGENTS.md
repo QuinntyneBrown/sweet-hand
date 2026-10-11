@@ -15,6 +15,11 @@ cooking is just that good.
 The repository is at an early stage. Record the layout here as it lands, and
 keep it accurate:
 
+- `README.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`,
+  `SUPPORT.md`, `LICENSE` (MIT) — the open-source front door; keep the README's
+  commands and layout in step with the sub-project READMEs
+- `.github/` — pull request template and issue forms
+- `assets/logo/` — the logo (light and dark lockups, square mark)
 - `docs/specs/` — L1/L2 requirements (`engineering-requirements` skill)
 - `docs/specs/components/` — component requirements documents (CRDs), one
   `<component>.md` and `<component>.html` pair per component, tracing to L2
@@ -26,23 +31,31 @@ keep it accurate:
 - `docs/technical-debt/` — technical-debt registers with resolution strategies
   (`frontend.md`); close an item by deleting its entry in the PR that resolves it
 - `docs/videos/` — narrated walkthroughs (`creating-videos` skill)
+- `docs/marketing/` — print-ready pre-launch flyer and die-cut stickers, with
+  `render.mjs` to regenerate them (see its `README.md`)
 - `frontend/` — Angular workspace (ADR 0001); see `frontend/README.md`
   - `frontend/projects/components/` — `sh-*` design-system component library,
     one folder per CRD under `src/lib/<component>/`
   - `frontend/projects/api/` — `@sweet-hand/api`: every service that talks
     to the backend (`src/lib/services/`) and the wire models they exchange
-    (`src/lib/models/`, shared with the fake backend)
+    (`src/lib/models/`, shared with the backend as type-only imports)
   - `frontend/projects/sweet-hand/` — the product application: `core/`
     (session, formatting, form helpers), `shell/` (header, footer, menus,
     system pages), `features/<area>/` (pages, routes, providers)
-  - `frontend/fake-backend/` — in-memory implementation of the HTTP API for
-    development and acceptance tests (ADR 0004)
   - `frontend/e2e/` — Playwright: `support/` (fixtures, cast, ports),
     `pages/` (page objects), `specs/<area>/`
-- `backend/` — planned (ADRs 0006–0007): NestJS API and background worker;
-  not created yet
+- `backend/` — the HTTP API, NestJS (ADRs 0006–0010); see `backend/README.md`
+  - `backend/src/<area>/` — the area's documents (`model.ts`), use cases and
+    NestJS controller (`<area>.controller.ts`); `backend/src/platform/` —
+    persistence port and adapters, clock, outbox, audit and security logs;
+    `backend/src/http/` — request context, endpoint policies, problems, and
+    the NestJS request pipeline (`http/nest/`)
+  - `backend/src/seed/` — the fictional cast; `backend/src/testing/` — test
+    mode only: per-session environments, `/__test/` control API, scenarios
+  - `backend/test/<area>/` — acceptance tests against the API
 
-See `README.md` and `frontend/README.md` for setup and development commands.
+See `README.md`, `frontend/README.md` and `backend/README.md` for setup and
+development commands.
 
 ## Architecture
 
@@ -69,11 +82,10 @@ Frontend (ADRs 0001–0005):
   convenience, not security.
 - All user-facing text is marked for Angular i18n (ADR 0005); lint fails on
   unmarked template text.
-- The backend (`backend/`, ADR 0006) is not built yet. The fake backend
-  implements the same HTTP contract, with wire types shared from
-  `projects/api/src/lib/models/`; the real backend imports them the same way.
+- The backend (`backend/`) implements the HTTP contract, importing the wire
+  types from `projects/api/src/lib/models/` with `import type`.
 
-Backend (ADRs 0006–0007, planned in `backend/`):
+Backend, as decided (ADRs 0006–0007):
 
 - NestJS on Node.js 22 and TypeScript. One codebase, two entry points: the
   API (HTTP) and the background worker (queued and scheduled jobs).
@@ -92,6 +104,38 @@ Backend (ADRs 0006–0007, planned in `backend/`):
   PostgreSQL.
 - Wire models are imported from `frontend/projects/api/src/lib/models/` with
   `import type`.
+
+Backend, as built (ADRs 0008–0010) — where it differs from ADRs 0006–0007:
+
+- NestJS 11 (Express adapter); TypeScript runs through SWC with decorators,
+  with no build output (ADR 0010). Use cases and domain functions take a
+  framework-free request context and return a reply; each area's controller
+  only maps routes to them. Every route declares `@UsePolicy` (`anonymous`
+  by explicit choice, `roles(...)`, `signedIn`, `admins`); a route without
+  one is refused, and a catalog-driven test checks every protected route
+  refuses the roles it does not allow. The pipeline is NestJS middleware,
+  guards (rate limit, CSRF, body limits, endpoint policy), a transaction
+  interceptor and a problem filter.
+- **Differs from ADR 0006/0007:** persistence is one port of JSON document
+  collections (`get`, `find` on top-level scalars, `all`, `put`, `delete`)
+  with one transaction per request, not Drizzle repositories per aggregate;
+  files live in a PostgreSQL `media` table, not object storage; emails use a
+  transactional outbox table and an in-process worker, not pg-boss; there is
+  no separate worker entry point and no `sharp` image processing yet. ADR
+  0008 records this and leaves the reconciliation open. Migrations run only
+  through `npm run migrate`; `npm run seed` loads the fictional cast and is
+  idempotent. The real database never runs during tests.
+- Sessions are opaque random tokens whose hash is stored; passwords are
+  Argon2id; email and reset tokens are stored hashed. Operator actions go to
+  the append-only audit log; security events to the security log.
+- Acceptance tests: `backend/test/` calls the API over HTTP against the
+  in-memory database. The Playwright suite runs against the backend in test
+  mode (`TEST_CONTROL=1`, ADR 0009): one seeded in-memory environment per
+  test, a `/__test/` control API for scenarios, sign-in, clock and state.
+  `frontend/fake-backend/` has been removed.
+- Providers still `<TO SUPPLY>` in the designs (bot protection, security
+  keys, email delivery, image processing) sit behind ports with local
+  stand-ins.
 
 These rules hold whatever the stack:
 
@@ -201,6 +245,8 @@ the requirement, detailed design, mock, criteria, tests, and implementation
 aligned until the entire feature or behavior change is complete.
 
 Back end: integration tests against the API (ADR 0007: NestJS app in-process, in-memory repositories). Front end: Playwright, using the
+Back end: integration tests against the API, on the in-memory fake database;
+the real database never runs during tests (ADRs 0007, 0008). Front end: Playwright, using the
 Page Object Model - one page object per screen, owning the selectors and the
 interactions. Tests state intent; page objects know the DOM. Never put a
 selector in a test.

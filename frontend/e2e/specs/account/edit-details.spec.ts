@@ -120,6 +120,6 @@ test.describe('Edit your details', () => {
     await expect(account.statusOf('Email')).toHaveText('Not verified');
     await expect(account.toast).toContainText('We sent a verification link to marcia.thompson@example.com.');
     const { account: state } = await backend.state();
-    expect(state.outbox).toContainEqual(expect.objectContaining({ to: 'marcia.thompson@example.com', kind: 'verify-email' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: 'marcia.thompson@example.com', kind: 'verify-email' }));
   });
 });

@@ -1,5 +1,7 @@
 import { test, expect } from '../../support/test';
 import { ListingPage } from '../../pages/listing.page';
+import { OperatorConsolePage } from '../../pages/operator-console.page';
+import { SignInPage } from '../../pages/sign-in.page';
 
 test.describe('Site header and footer', () => {
   test('site-header AC-1, footer: a visitor sees the public header and footer', async ({ page }) => {
@@ -160,7 +162,7 @@ test.describe('Account menu', () => {
     await expect(listing.header.accountButton).toBeFocused();
   });
 
-  test('L2-078.4: signing out ends the session and lands on the listing as a visitor', async ({ page, backend }) => {
+  test('L2-078.4, L2-078.6: signing out ends the session and lands on the listing as a visitor', async ({ page, backend }) => {
     await backend.signInAs('marcia');
     const listing = new ListingPage(page);
     await listing.open();
@@ -171,5 +173,19 @@ test.describe('Account menu', () => {
     await expect(page).toHaveURL(/\/caterers$/);
     await expect(listing.header.link('Sign in')).toBeVisible();
     await expect(listing.header.accountButton).toHaveCount(0);
+  });
+
+  test('L2-078.6: an operator who signs out is on the sign-in page', async ({ page, backend }) => {
+    await backend.signInAs('leah');
+    const queue = new OperatorConsolePage(page);
+    await queue.open('/admin/queue');
+
+    await queue.header.accountButton.click();
+    await queue.accountMenu.signOut();
+
+    const signIn = new SignInPage(page);
+    await expect(page).toHaveURL(/\/sign-in$/);
+    await expect(signIn.submit).toBeVisible();
+    await expect(signIn.header.accountButton).toHaveCount(0);
   });
 });

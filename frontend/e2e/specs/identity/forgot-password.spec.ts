@@ -75,8 +75,7 @@ test.describe('Forgot password', () => {
     await forgot.expectNoAccessibilityViolations();
     const sent = (await backend.requests()).find((r) => r.path === '/api/identity/password-reset-requests');
     expect(sent?.body).toMatchObject({ email: cast.marcia.email, challengeToken: expect.any(String) });
-    const { account } = await backend.state();
-    expect(account.outbox).toContainEqual(expect.objectContaining({ to: cast.marcia.email, kind: 'password-reset', link: expect.stringMatching(/^\/reset-password\//) }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: cast.marcia.email, kind: 'password-reset', link: expect.stringMatching(/^\/reset-password\//) }));
   });
 
   test('L2-077.1: an email without an account sees exactly the same message, and nothing is sent', async ({ page, backend }) => {
@@ -87,8 +86,7 @@ test.describe('Forgot password', () => {
 
     await expect(forgot.heading).toHaveText('Check your email');
     await expect(forgot.subtitle).toHaveText('If an account exists, we’ve sent a reset link. It works once, for 30 minutes.');
-    const { account } = await backend.state();
-    expect(account.outbox).toHaveLength(0);
+    expect(await backend.emails()).toHaveLength(0);
   });
 
   test('"try a different email" goes back to the form', async ({ page }) => {

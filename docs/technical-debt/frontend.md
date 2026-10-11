@@ -68,7 +68,7 @@ AGENTS.md requires: criterion, failing acceptance test, then code.
 | T-08 | Libraries are not publishable packages | Tooling | Low | S |
 | T-09 | Initial bundle close to its budget with no per-route tracking | Tooling | Low | S |
 | T-10 | ~~Dialog lifecycle boilerplate copied into 28 dialogs~~ **Fixed** | App | High | L |
-| T-11 | Problem-body to error-summary mapping hand-written in 12 files | App | High | M |
+| T-11 | ~~Problem-body to error-summary mapping hand-written in 12 files~~ **Fixed** | App | High | M |
 | T-12 | HTTP status branching repeated per page | App | Medium | M |
 | T-13 | Two form styles, manual validation, scattered rule files | App | Medium | L |
 | T-14 | Focus management hand-rolled per page | App | Medium | M |
@@ -77,7 +77,7 @@ AGENTS.md requires: criterion, failing acceptance test, then code.
 | T-17 | ~~Route paths, titles and role landing pages as scattered literals~~ **Fixed** | App | High | M |
 | T-18 | Every feature's routes and providers loaded eagerly; order-dependent flat route list | App | Medium | M |
 | T-19 | `requireAdmin` unused; admin pages rely on runtime 403 | App | Medium | S |
-| T-20 | Operator sign-out always lands on `/caterers` | App | High | S |
+| T-20 | ~~Operator sign-out always lands on `/caterers`~~ **Fixed** | App | High | S |
 | T-21 | Session bootstrap swallows failures; privacy redirect lives in a service | App | Medium | M |
 | T-22 | Effects used for state synchronisation (36 writes inside `effect`) | App | Medium | M |
 | T-23 | Three god components (`photos`, `overview`, `enquiry-form-dialog`) | App | Medium | L |
@@ -344,7 +344,21 @@ field, and a fix to the reset sequence has to be made 28 times.
 **Done when** no dialog in `features/` declares `attempt`, `busy` or `failed`
 itself, and the effect pattern appears once in `core/forms/`.
 
-### T-11 Problem-body to error-summary mapping hand-written in 12 files — High, M
+### T-11 Problem-body to error-summary mapping hand-written in 12 files — High, M — Fixed
+
+**Status. Fixed** on 2026-10-11. `core/forms/problem.ts` is the only module
+that reads `problem.errors`: `hasFieldErrors`, `fieldError` (a field's first
+message, trying several wire names in turn), `fieldErrors` (one message or null
+per form field, with a map for fields the API spells differently, such as the
+certificate's `expires` and the enquiry form's `eventDate`) and
+`applyProblem(state, status, problem, fields)`, which a `FormDialogState`
+submit handler returns to show the server's field errors through `reject`.
+`summaryFrom(errors, controls)` in `core/forms/validation.ts` builds the error
+summary from a list of fields or a field-to-control-id map; every hand-written
+summary over several fields uses it, and the non-null assertions it needed are
+gone. `enquiry-rules.ts` keeps only the wire names (`SERVER_FIELD`);
+`serverErrors` is removed. The `summaryHeading` calls are unchanged. The
+evidence below is kept as the record of what was removed.
 
 **Evidence.** `core/forms/problem.ts` parses the body but never maps `errors`
 to control ids. The idiom `FIELDS.filter((f) => e[f]).map((f) => ({ controlId:
@@ -506,7 +520,13 @@ and render a fallback.
 generic outcome from T-12. **Behaviour change**: the redirect to `/403` for a
 non-admin operator needs a criterion and an acceptance test first.
 
-### T-20 Operator sign-out always lands on `/caterers` — High, S
+### T-20 Operator sign-out always lands on `/caterers` — High, S — Fixed
+
+**Status. Fixed** on 2026-10-11. `app.ts` `signOut()` reads the user's role
+before awaiting `session.signOut()`, so an operator lands on `/sign-in` and
+customers and caterers on `/caterers`. L2-078.6 states where each role lands,
+and `e2e/specs/shell/header-and-footer.spec.ts` covers operator sign-out. The
+evidence below is kept as the record of what was wrong.
 
 **Evidence.** `app.ts` `signOut()` awaits `session.signOut()`, which resets the
 view to visitor, then reads `this.user()?.role === 'Operator'` to choose the

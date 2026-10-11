@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<title>Sweet Hand sticker — You have a sweet hand</title>
+<link rel="stylesheet" href="stickers.css">
+</head>
+<body>
+<div class="stage">
+  <svg class="sticker" viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg" style="--cut-extra: 130px">
+    <title>You have a sweet hand speech bubble</title>
+    <defs>
+      <!-- Edge URL above the bubble: the tail takes the bottom run, so the straight
+           top edge carries the URL. Bubble top is y 200, rim to y 135. -->
+      <path id="urlLine" fill="none" d="M 250 176 L 650 176" />
+    </defs>
+
+    <!-- Die-cut silhouette: bubble and tail overlap, so the union is one piece -->
+    <g>
+      <rect class="keyline" x="90" y="200" width="720" height="420" rx="80" />
+      <path class="keyline" d="M 190 600 L 150 760 L 340 600 Z" />
+    </g>
+
+    <!-- Bubble -->
+    <rect x="90" y="200" width="720" height="420" rx="80" fill="#b5381f" />
+    <path d="M 190 600 L 150 760 L 340 600 Z" fill="#b5381f" stroke="#b5381f" stroke-width="6" stroke-linejoin="round" />
+    <text class="wm" x="450" y="375" text-anchor="middle" font-size="112" fill="#ffffff">You have</text>
+    <text class="wm" x="450" y="490" text-anchor="middle" font-size="112" fill="#ffffff">a sweet hand.</text>
+    <text class="wm" x="450" y="574" text-anchor="middle" font-size="44" fill="#ffffff" fill-opacity="0.85">Sweet Hand<tspan fill="#141312">.</tspan></text>
+
+    <text class="edge-url" text-anchor="middle"><textPath href="#urlLine" startOffset="50%">SWEETHAND.CA</textPath></text>
+  </svg>
+</div>
+</body>
+</html>

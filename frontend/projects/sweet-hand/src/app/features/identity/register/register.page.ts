@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal, viewChild
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { Alert, Button, Checkbox, FormField, FormSummary, LabelAction, TextField, type SummaryItem } from '@sweet-hand/components';
-import { problemOf, reference } from '../../../core/forms/problem';
-import { emailError, summaryHeading } from '../../../core/forms/validation';
+import { Alert, Button, Checkbox, FormField, FormSummary, LabelAction, TextField } from '@sweet-hand/components';
+import { fieldError, problemOf, reference } from '../../../core/forms/problem';
+import { emailError, summaryFrom, summaryHeading } from '../../../core/forms/validation';
 import { AuthPhotos } from '../auth-photos';
 import { displayNameError, newPasswordError } from '../rules';
 import { BotChallengeService, IdentityService } from '@sweet-hand/api';
@@ -44,13 +44,8 @@ export class RegisterPage {
   protected readonly creating = $localize`:@@register.busy:Creating your account`;
   private readonly alert = viewChild(Alert);
 
-  protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.errors();
-    const short = this.summaryText();
-    return (['name', 'email', 'password', 'consent'] as const)
-      .filter((f) => e[f])
-      .map((f) => ({ controlId: f, message: short[f] ?? e[f]! }));
-  });
+  // A shorter message for the summary, when there is one, stands in for the field's.
+  protected readonly summary = computed(() => summaryFrom({ ...this.errors(), ...this.summaryText() }, ['name', 'email', 'password', 'consent']));
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@register.action:create your account`));
 
   protected async submit(): Promise<void> {
@@ -77,7 +72,7 @@ export class RegisterPage {
       this.sentTo.set(email.trim());
     } catch (error) {
       const { status, problem } = problemOf(error);
-      if (status === 400 && problem.errors?.['password']) {
+      if (status === 400 && fieldError(problem, 'password')) {
         // The only rule the form cannot check itself: the breached-password list (L2-076.1).
         this.errors.set({
           ...NO_ERRORS,

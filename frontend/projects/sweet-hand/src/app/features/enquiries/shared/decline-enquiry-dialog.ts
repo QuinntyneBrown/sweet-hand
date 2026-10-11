@@ -5,6 +5,7 @@ import { count } from '../../../core/format/format';
 import { NOTE_MAX, noteError, otherShortName } from '../thread-view';
 import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
 import { FormDialogState } from '../../../core/forms/form-dialog-state';
+import { fieldError } from '../../../core/forms/problem';
 
 /**
  * "Decline Priya’s enquiry?" with an optional note of up to 500 characters
@@ -62,7 +63,7 @@ export class DeclineEnquiryDialog {
     await this.state.submit(
       async () => this.done.emit(await firstValueFrom(this.api.decline(this.thread().id, this.note().trim()))),
       async (status, problem) => {
-        if (status === 400) return this.state.reject(problem.errors?.['note']?.[0] ?? null);
+        if (status === 400) return this.state.reject(fieldError(problem, 'note'));
         if (status !== 409) return false;
         this.conflict.set(true);
         const fresh = await firstValueFrom(this.api.thread(this.thread().id, { markRead: false })).catch(() => null);

@@ -1,4 +1,4 @@
-/** Wire types for site-wide notices (ADR 0003). Shared with the fake backend; keep import-free. */
+/** Wire types for site-wide notices (ADR 0003). Shared with the backend; keep import-free. */
 
 /** Something everyone should know about Sweet Hand itself (L2-088, L2-091). */
 export type SiteNotice =

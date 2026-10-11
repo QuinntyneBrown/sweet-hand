@@ -5,6 +5,8 @@ import { DIETARY_LABELS } from '../../discovery/caterer/dietary-labels';
 import { CatererProfileService, type DietaryTagId, type OwnDishView, type OwnProfileView } from '@sweet-hand/api';
 import type { Errors } from './errors';
 import { FormDialogState } from '../../../core/forms/form-dialog-state';
+import { summaryFrom } from '../../../core/forms/validation';
+import { applyProblem } from '../../../core/forms/problem';
 
 const NONE: Errors = { name: null, description: null, price: null };
 
@@ -59,11 +61,7 @@ export class DishDialog {
   protected readonly summary = computed<SummaryItem[]>(() => {
     const e = this.state.errors();
     const priceSummary = $localize`:@@dish.priceError:Keep price guidance to 60 characters`;
-    return [
-      e.name && { controlId: 'dish-name', message: e.name },
-      e.description && { controlId: 'dish-desc', message: e.description },
-      e.price && { controlId: 'dish-price', message: priceSummary },
-    ].filter(Boolean) as SummaryItem[];
+    return summaryFrom({ ...e, price: e.price && priceSummary }, { name: 'dish-name', description: 'dish-desc', price: 'dish-price' });
   });
   protected readonly summaryHeading = computed(() => {
     const n = this.summary().length;
@@ -103,10 +101,7 @@ export class DishDialog {
     const d = this.dish();
     await this.state.submit(
       async () => this.saved.emit(await firstValueFrom(d ? this.api.updateDish(d.id, request) : this.api.addDish(request))),
-      (status, problem) =>
-        status === 400 &&
-        !!problem.errors &&
-        this.state.reject({ name: problem.errors['name']?.[0] ?? null, description: problem.errors['description']?.[0] ?? null, price: problem.errors['price']?.[0] ?? null }),
+      (status, problem) => applyProblem(this.state, status, problem, ['name', 'description', 'price']),
     );
   }
 }

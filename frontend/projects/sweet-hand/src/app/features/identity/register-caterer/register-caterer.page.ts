@@ -13,10 +13,9 @@ import {
   LabelAction,
   TextField,
   type CheckStatusLabels,
-  type SummaryItem,
 } from '@sweet-hand/components';
-import { problemOf, reference } from '../../../core/forms/problem';
-import { emailError, summaryHeading } from '../../../core/forms/validation';
+import { fieldError, problemOf, reference } from '../../../core/forms/problem';
+import { emailError, summaryFrom, summaryHeading } from '../../../core/forms/validation';
 import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
 import { businessNameError, contactNameError, newPasswordError, normalisePhone, phoneError } from '../rules';
@@ -66,10 +65,7 @@ export class RegisterCatererPage {
   protected readonly creating = $localize`:@@registerCaterer.busy:Creating your caterer account`;
   private readonly alert = viewChild(Alert);
 
-  protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.errors();
-    return FIELDS.filter((f) => e[f]).map((f) => ({ controlId: f, message: e[f]! }));
-  });
+  protected readonly summary = computed(() => summaryFrom(this.errors(), FIELDS));
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@registerCaterer.action:create your caterer account`));
 
   protected async submit(): Promise<void> {
@@ -110,7 +106,7 @@ export class RegisterCatererPage {
       this.done.set({ firstName: v.contact.trim().split(/\s+/)[0], business: v.business.trim(), email: v.email.trim() });
     } catch (error) {
       const { status, problem } = problemOf(error);
-      if (status === 400 && problem.errors?.['password']) {
+      if (status === 400 && fieldError(problem, 'password')) {
         this.errors.set({
           ...NO_ERRORS,
           password: $localize`:@@register.passwordCommon:This password is too common. Choose one that’s harder to guess, at least 12 characters.`,

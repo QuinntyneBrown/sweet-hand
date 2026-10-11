@@ -8,7 +8,7 @@
  * `http-caterer-profile.service.ts`). The application registers
  * `{ provide: CatererProfileService, useClass: HttpCatererProfileService }`;
  * pages inject only the abstract class. Models are one type per file and are
- * shared with the fake backend.
+ * shared with the backend.
  */
 
 // Models

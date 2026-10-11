@@ -2,7 +2,7 @@
 
 Sweet Hand detailed designs, one folder per vertically sliced feature, grouped by subsystem. Each feature `README.md` holds an Overview, a Description, the level-2 (L2) requirements it realizes from `docs/specs/L2.md`, and rendered C4, class and sequence diagrams.
 
-Technology choices follow the ADRs in `docs/adr/`: Angular 21 on the front end (ADR 0001); NestJS on Node.js, PostgreSQL through Drizzle ORM and S3-compatible object storage on the back end (ADR 0006); backend tests against in-memory repositories (ADR 0007). Hosting, CI, secret store, CDN and third-party providers remain `<TO SUPPLY>`. Diagram sources are the `.puml` files in each `diagrams/` folder, rendered to sibling `.png` files.
+Technology choices follow the ADRs in `docs/adr/`: Angular 21 on the front end (ADR 0001); NestJS on Node.js, PostgreSQL through Drizzle ORM and S3-compatible object storage on the back end (ADR 0006); backend tests against in-memory repositories (ADR 0007). The code in `backend/` differs from these designs on data access: it persists JSON document collections in PostgreSQL, keeps files in PostgreSQL and has no separate worker yet (ADR 0008, reconciliation open). Hosting, CI, secret store, CDN and third-party providers remain `<TO SUPPLY>`. Diagram sources are the `.puml` files in each `diagrams/` folder, rendered to sibling `.png` files.
 
 ## discovery
 

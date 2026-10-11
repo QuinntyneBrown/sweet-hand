@@ -133,11 +133,11 @@ test.describe('Register as a caterer', () => {
     await expect(join.header.accountButton).toHaveAccessibleName('Account menu for Beverley Campbell');
     await join.expectNoAccessibilityViolations();
 
-    const { users, caterers, account } = await backend.state();
+    const { users, caterers } = await backend.state();
     const user = users.find((u: { email: string }) => u.email === beverley.email);
     expect(user).toMatchObject({ role: 'Caterer', displayName: 'Beverley Campbell', phone: '+19055550164', emailVerified: false, acceptedPrivacyVersion: '2026-03' });
     expect(caterers.find((c: { id: string }) => c.id === user.catererId)).toMatchObject({ name: 'Auntie Bev’s Kitchen', status: 'Draft' });
-    expect(account.outbox).toContainEqual(expect.objectContaining({ to: beverley.email, kind: 'verify-email' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: beverley.email, kind: 'verify-email' }));
 
     await join.link('Set up your profile').click();
     await expect(page).toHaveURL(/\/dashboard$/);
@@ -151,8 +151,8 @@ test.describe('Register as a caterer', () => {
 
     await expect(join.heading).toHaveText('Welcome, Beverley');
     await expect(join.subtitle).toContainText(`We sent a link to ${cast.marcia.email}`);
-    const { users, account } = await backend.state();
+    const { users } = await backend.state();
     expect(users.filter((u: { email: string }) => u.email === cast.marcia.email)).toHaveLength(1);
-    expect(account.outbox).toContainEqual(expect.objectContaining({ to: cast.marcia.email, kind: 'registration-attempt' }));
+    expect(await backend.emails()).toContainEqual(expect.objectContaining({ to: cast.marcia.email, kind: 'registration-attempt' }));
   });
 });

@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, Injector, afterNextRender, computed, inject, signal, viewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { Alert, BackLink, EMPTY_STATE, FileRow, FileUpload, FormActions, FormField, FormRow, FormSummary, Icon, PrivateNote, SaveStatus, Status, TextField, type SummaryItem } from '@sweet-hand/components';
+import { Alert, BackLink, EMPTY_STATE, FileRow, FileUpload, FormActions, FormField, FormRow, FormSummary, Icon, PrivateNote, SaveStatus, Status, TextField } from '@sweet-hand/components';
 import { longDate, torontoToday } from '../../../core/format/format';
-import { problemOf } from '../../../core/forms/problem';
-import { summaryHeading } from '../../../core/forms/validation';
+import { fieldError, fieldErrors, hasFieldErrors, problemOf } from '../../../core/forms/problem';
+import { summaryFrom, summaryHeading } from '../../../core/forms/validation';
 import { DashboardLayout } from '../shared/dashboard-layout';
 import { ListingPreview } from '../shared/listing-preview';
 import { ProfileData } from '../shared/profile-data';
@@ -92,10 +92,7 @@ export class CertificatePage {
           : $localize`:@@certificate.expiringText:That’s ${days}:days: days from today. Add your renewed certificate here to keep your profile published.`,
     };
   });
-  protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.errors();
-    return (['holder', 'issuer', 'number', 'expiry'] as const).filter((f) => e[f]).map((f) => ({ controlId: f, message: e[f]! }));
-  });
+  protected readonly summary = computed(() => summaryFrom(this.errors(), ['holder', 'issuer', 'number', 'expiry']));
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@certificate.action:save`));
   protected readonly readOnlyRows = computed(() => {
     const c = this.certificate();
@@ -169,7 +166,7 @@ export class CertificatePage {
         try {
           cert = await firstValueFrom(this.api.uploadCertificateFile(await readUpload(copy.file)));
         } catch (error) {
-          const message = problemOf(error).problem.errors?.['file']?.[0];
+          const message = fieldError(problemOf(error).problem, 'file');
           if (!message) throw error;
           refused = { kind: 'failed', file: copy.file, name: copy.file.name, message };
         }
@@ -182,9 +179,8 @@ export class CertificatePage {
       if (refused) this.copy.set(refused);
     } catch (error) {
       const { status, problem } = problemOf(error);
-      if (status === 400 && problem.errors) {
-        const e = problem.errors;
-        this.errors.set({ holder: e['holder']?.[0] ?? null, issuer: e['issuer']?.[0] ?? null, number: e['number']?.[0] ?? null, expiry: e['expires']?.[0] ?? null });
+      if (status === 400 && hasFieldErrors(problem)) {
+        this.errors.set(fieldErrors(problem, ['holder', 'issuer', 'number', 'expiry'], { expiry: 'expires' }));
         this.attempt.update((n) => n + 1);
       } else {
         this.failed.set(true);

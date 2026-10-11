@@ -1,5 +1,5 @@
 import { test, expect, TODAY } from '../../../support/test';
-import { Backend } from '../../../support/backend';
+import { Backend, SESSION_HEADER } from '../../../support/backend';
 import { OperatorAccountsPage } from '../../../pages/operator-accounts.page';
 import { OperatorConsolePage } from '../../../pages/operator-console.page';
 
@@ -50,8 +50,10 @@ test.describe('Operator accounts', () => {
     await expect(operators.addButton).toHaveCount(0);
     await expect(operators.sideNavLink('Operators')).toHaveCount(0);
     await operators.expectNoAccessibilityViolations();
-    const { operatorSettings } = await backend.state();
-    expect(operatorSettings.securityEvents).toMatchObject([{ userId: 'user-tomas', path: '/api/operator/accounts' }]);
+    const state = await backend.state();
+    // Every refused request is an authorization-failure security event (L2-079.4, L2-084).
+    const refused = state.securityEvents.filter((e: { type: string }) => e.type === 'authorization-failure');
+    expect(refused).toMatchObject([{ userId: 'user-tomas', path: '/api/operator/accounts' }]);
   });
 
   test('while the list loads, avatar and text skeletons stand in', async ({ page, backend }) => {
@@ -214,7 +216,7 @@ test.describe('Deactivate an operator', () => {
   });
 
   test('L2-056.4: deactivating an operator ends their sessions; their row says so', async ({ page, backend, browser, request }) => {
-    const tomasContext = await browser.newContext({ extraHTTPHeaders: { 'x-fake-session': backend.session } });
+    const tomasContext = await browser.newContext({ extraHTTPHeaders: { [SESSION_HEADER]: backend.session } });
     const tomasBackend = new Backend(request, tomasContext, backend.session);
     await tomasBackend.signInAs('tomas');
     const tomasPage = await tomasContext.newPage();

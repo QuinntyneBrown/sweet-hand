@@ -1800,7 +1800,20 @@
       "kind": "page",
       "title": "Launch (pre-launch site)",
       "route": "/ (launch app)",
-      "requirements": [],
+      "requirements": [
+        "L2-093",
+        "L2-094",
+        "L2-095",
+        "L2-096",
+        "L2-097",
+        "L2-098",
+        "L2-099",
+        "L2-100",
+        "L2-103",
+        "L2-105",
+        "L2-106",
+        "L2-107"
+      ],
       "states": [
         "default",
         "caterer",

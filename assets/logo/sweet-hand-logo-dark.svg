@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="120" viewBox="0 0 540 120" role="img" aria-labelledby="title">
+  <title id="title">Sweet Hand</title>
+  <!-- Mark: a steaming bowl whose steam rises as a heart, on a pepper-red tile -->
+  <rect x="4" y="4" width="112" height="112" rx="28" fill="#b5381f"/>
+  <path d="M60 58 C 60 58 40 46 40 34 C 40 26 46 21 52 21 C 56 21 59 23 60 27 C 61 23 64 21 68 21 C 74 21 80 26 80 34 C 80 46 60 58 60 58 Z" fill="#ffffff"/>
+  <path d="M26 66 H 94 C 94 85 79 98 60 98 C 41 98 26 85 26 66 Z" fill="#ffffff"/>
+  <rect x="44" y="99" width="32" height="5" rx="2.5" fill="#ffffff"/>
+  <text x="140" y="74" font-family="Figtree, 'Avenir Next', Avenir, 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="52" font-weight="700" letter-spacing="-1.5" fill="#f7f5f2">Sweet Hand</text>
+  <text x="142" y="102" font-family="Figtree, 'Avenir Next', Avenir, 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="500" fill="#ccc6bd">Caribbean home cooks · Toronto &amp; the GTA</text>
+</svg>

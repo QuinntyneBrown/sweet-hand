@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { BackLink, EMPTY_STATE, FormField, FormSummary, Fieldset, Icon, PrivateNote, SaveStatus, Select, type SelectOption, type SummaryItem } from '@sweet-hand/components';
-import { problemOf } from '../../../core/forms/problem';
+import { fieldErrors, hasFieldErrors, problemOf } from '../../../core/forms/problem';
+import { summaryFrom } from '../../../core/forms/validation';
 import { Autosave } from '../shared/autosave';
 import { DashboardLayout } from '../shared/dashboard-layout';
 import { ListingPreview } from '../shared/listing-preview';
@@ -58,12 +59,7 @@ export class CuisinesPage {
     const e = this.errors();
     const firstCuisine = this.selectedCuisines()[0]?.id ?? this.allCuisines()[0]?.id;
     const firstArea = this.refData().regions[0]?.areas[0]?.id;
-    return [
-      e.cuisines && { controlId: `c-${firstCuisine}`, message: e.cuisines },
-      e.primaryCuisine && { controlId: `pc-${this.selectedCuisines()[0]?.id}`, message: e.primaryCuisine },
-      e.areas && { controlId: `a-${firstArea}`, message: e.areas },
-      e.primaryArea && { controlId: 'primary-area', message: e.primaryArea },
-    ].filter(Boolean) as SummaryItem[];
+    return summaryFrom(e, { cuisines: `c-${firstCuisine}`, primaryCuisine: `pc-${this.selectedCuisines()[0]?.id}`, areas: `a-${firstArea}`, primaryArea: 'primary-area' });
   });
   protected readonly summaryHeading = computed(() => fixHeading(this.summary().length));
   protected readonly statusText = computed(() => (this.autosave.state() === 'invalid' ? notSavedText(this.summary().length) : this.autosave.text()));
@@ -199,9 +195,8 @@ export class CuisinesPage {
       return 'saved';
     } catch (error) {
       const { status, problem } = problemOf(error);
-      if (status === 400 && problem.errors) {
-        const e = problem.errors;
-        this.errors.set({ cuisines: e['cuisines']?.[0] ?? null, primaryCuisine: e['primaryCuisine']?.[0] ?? null, areas: e['areas']?.[0] ?? null, primaryArea: e['primaryArea']?.[0] ?? null });
+      if (status === 400 && hasFieldErrors(problem)) {
+        this.errors.set(fieldErrors(problem, ['cuisines', 'primaryCuisine', 'areas', 'primaryArea']));
         this.attempt.update((x) => x + 1);
         return 'invalid';
       }

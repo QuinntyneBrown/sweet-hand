@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-labelledby="title">
+  <title id="title">Sweet Hand</title>
+  <rect x="4" y="4" width="112" height="112" rx="28" fill="#b5381f"/>
+  <path d="M60 58 C 60 58 40 46 40 34 C 40 26 46 21 52 21 C 56 21 59 23 60 27 C 61 23 64 21 68 21 C 74 21 80 26 80 34 C 80 46 60 58 60 58 Z" fill="#ffffff"/>
+  <path d="M26 66 H 94 C 94 85 79 98 60 98 C 41 98 26 85 26 66 Z" fill="#ffffff"/>
+  <rect x="44" y="99" width="32" height="5" rx="2.5" fill="#ffffff"/>
+</svg>

@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Button, FormField, FormSummary, LabelAction, TextField, type SummaryItem } from '@sweet-hand/components';
-import { problemOf, reference } from '../../../core/forms/problem';
+import { fieldError, problemOf, reference } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
 import { Session } from '../../../core/session/session';
 import { AuthPhotos } from '../auth-photos';
@@ -84,7 +84,7 @@ export class ResetPasswordPage {
       const { status, problem: body } = problemOf(error);
       if (status === 410) {
         this.view.set({ kind: 'expired' });
-      } else if (status === 400 && body.errors?.['password']) {
+      } else if (status === 400 && fieldError(body, 'password')) {
         const common = $localize`:@@register.passwordCommon:This password is too common. Choose one that’s harder to guess, at least 12 characters.`;
         this.error.set({ field: common, summary: $localize`:@@register.passwordCommonShort:This password is too common` });
         this.attempt.update((n) => n + 1);

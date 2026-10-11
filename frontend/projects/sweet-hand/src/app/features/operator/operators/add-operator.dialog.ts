@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
-import { Alert, Button, Dialog, FormField, FormSummary, Radio, RadioGroup, TextField, type SummaryItem } from '@sweet-hand/components';
-import { summaryHeading } from '../../../core/forms/validation';
+import { Alert, Button, Dialog, FormField, FormSummary, Radio, RadioGroup, TextField } from '@sweet-hand/components';
+import { summaryFrom, summaryHeading } from '../../../core/forms/validation';
 import { type OperatorAccount, OperatorSettingsService } from '@sweet-hand/api';
 import type { Field } from './field';
 import { FormDialogState } from '../../../core/forms/form-dialog-state';
+import { fieldError } from '../../../core/forms/problem';
 
 const CONTROL: Record<Field, string> = { name: 'op-name', email: 'op-email' };
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -39,10 +40,7 @@ export class AddOperatorDialog {
     },
   });
   protected readonly sending = $localize`:@@addOperator.busy:Sending the invitation`;
-  protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.state.errors();
-    return (['name', 'email'] as const).filter((f) => e[f]).map((f) => ({ controlId: CONTROL[f], message: e[f]! }));
-  });
+  protected readonly summary = computed(() => summaryFrom(this.state.errors(), CONTROL));
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@addOperator.action:send the invitation`));
 
   protected async send(): Promise<void> {
@@ -57,7 +55,7 @@ export class AddOperatorDialog {
     await this.state.submit(
       async () => this.added.emit(await firstValueFrom(this.api.addOperator({ name, email, role: this.role() === 'admin' ? 'admin' : 'operator' }))),
       (status, problem) =>
-        status === 400 && !!problem.errors?.['email'] && this.state.reject({ email: $localize`:@@addOperator.emailTaken:This email already has a Sweet Hand account` }),
+        status === 400 && !!fieldError(problem, 'email') && this.state.reject({ email: $localize`:@@addOperator.emailTaken:This email already has a Sweet Hand account` }),
     );
   }
 }

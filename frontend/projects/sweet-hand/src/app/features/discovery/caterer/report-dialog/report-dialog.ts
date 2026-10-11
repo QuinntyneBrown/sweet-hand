@@ -6,6 +6,7 @@ import { DETAILS_MAX, REPORT_REASONS, reportErrors } from './report-rules';
 import { BotChallengeService, type ReportReason, type ReportRequest, ReportsService } from '@sweet-hand/api';
 import type { Step } from './step';
 import { FormDialogState } from '../../../../core/forms/form-dialog-state';
+import { fieldError } from '../../../../core/forms/problem';
 
 /**
  * "Report this listing" (docs/detailed-designs/moderation/report-content,
@@ -92,8 +93,8 @@ export class ReportDialog {
           this.finish('duplicate');
         } else if (status === 429) {
           this.limited.set(true);
-        } else if (status === 400 && problem.errors?.['details']) {
-          this.state.errors.set({ reason: null, details: problem.errors['details'][0] });
+        } else if (status === 400 && fieldError(problem, 'details')) {
+          this.state.errors.set({ reason: null, details: fieldError(problem, 'details') });
           this.afterRender(() => this.detailsField()?.focusControl());
         } else {
           return false;
