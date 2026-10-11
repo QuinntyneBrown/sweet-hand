@@ -31,6 +31,8 @@ Static public files use Azure's global edge. Cloudflare processes only the bot c
 
 Namecheap remains authoritative. Preserve all Namecheap forwarding MX records. Replace the parking A and `www` records with the Static Web Apps validation records, add Azure Communication Services domain-verification and DKIM records, merge the Azure SPF include into the existing single SPF record, and add `_dmarc` with `v=DMARC1; p=none; rua=mailto:hello@sweethand.ca`.
 
+Azure Communication Services cannot send from `hello@sweethand.ca` until the domain is linked. After the DNS records publish, run `az communication email domain initiate-verification` for `Domain`, `SPF`, `DKIM` and `DKIM2`; once `az communication email domain show` reports each as `Verified`, the next Deploy production run links the domain (`linkEmailDomain=true`). Until then delivery warns and leaves it unlinked, so a foundation run cannot fail on an unverified domain.
+
 Namecheap forwarding shall keep `hello@sweethand.ca` delivering to the monitored inbox. Cloudflare Turnstile shall use a managed widget restricted to `sweethand.ca` and `www.sweethand.ca`. Store the public site key as GitHub environment variable `TURNSTILE_SITE_KEY` and its secret as `TURNSTILE_SECRET`.
 
 The email footer uses this runtime configuration and does not expose a maker address:
@@ -46,7 +48,9 @@ The email footer uses this runtime configuration and does not expose a maker add
 5. Bicep updates the API only after migration. Container Apps readiness gates the single active revision.
 6. Static Web Apps receives the prerendered launch files. Smoke checks cover `/`, `/privacy`, the public launch-list status and a concealed product endpoint.
 
-For an API rollback, list revisions with `az containerapp revision list -g rg-sweethand-prod -n ca-swh-api -o table`, then activate the preceding healthy revision with `az containerapp revision activate`. Re-run smoke checks. For a static rollback, rerun the last successful Deploy production workflow for the known commit. Database migrations shall remain backward compatible with the preceding image.
+Delivery stops before touching Azure when `TURNSTILE_SITE_KEY` or `TURNSTILE_SECRET` is missing from the `production` environment.
+
+If any step after promotion fails, the workflow redeploys the API image that was serving before the run (`az containerapp update --image <previous>`), which creates a new revision from the known-good image; the app runs in single-revision mode, so a traffic split is not available. To roll back by hand, read the image of an earlier revision with `az containerapp revision list -g rg-sweethand-prod -n ca-swh-api -o table` and apply it the same way. Re-run smoke checks. For a static rollback, rerun the last successful Deploy production workflow for the known commit. Database migrations shall remain backward compatible with the preceding image.
 
 ## Recovery
 
@@ -67,4 +71,4 @@ Estimate dated 2026-10-11, in CAD before tax:
 | Cloudflare Turnstile | $0 |
 | **Expected total** | **$78–121** |
 
-The estimate excludes Namecheap fees, tax, support, unusual egress and a future cross-region database replica. The registry tier makes the upper estimate exceed the original CAD 100 target under sustained Container Apps or log usage. A resource-group-filtered CAD 100 monthly budget sends actual-cost notices at 50%, 80% and 100% and a forecast notice at 100%.
+The estimate excludes Namecheap fees, tax, support, unusual egress and a future cross-region database replica. The registry tier makes the upper estimate exceed the original CAD 100 target under sustained Container Apps or log usage. `infra/main.bicep` declares the resource-group-scoped CAD 100 monthly budget (`budget-swh-prod`): it sends actual-cost notices at 50%, 80% and 100% and a forecast notice at 100%.

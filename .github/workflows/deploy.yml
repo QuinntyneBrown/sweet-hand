@@ -34,10 +34,24 @@ jobs:
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
       - name: Assert the production subscription
         run: test "$(az account show --query id -o tsv)" = "4a1b5113-89f9-4d27-acfe-581493385536"
+      - name: Require production configuration
+        env:
+          TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
+          TURNSTILE_SECRET: ${{ secrets.TURNSTILE_SECRET }}
+        run: |
+          test -n "$TURNSTILE_SITE_KEY" || { echo "::error::Set the production variable TURNSTILE_SITE_KEY"; exit 1; }
+          test -n "$TURNSTILE_SECRET" || { echo "::error::Set the production secret TURNSTILE_SECRET"; exit 1; }
+      - name: Link the email domain once Azure has verified it
+        run: |
+          az extension add --name communication --only-show-errors
+          EMAIL=$(az resource list -g "$RESOURCE_GROUP" --resource-type Microsoft.Communication/emailServices --query "[0].name" -o tsv)
+          STATES=$(az communication email domain show -g "$RESOURCE_GROUP" --email-service-name "$EMAIL" -n sweethand.ca --only-show-errors \
+            --query "[verificationStates.Domain.status, verificationStates.SPF.status, verificationStates.DKIM.status, verificationStates.DKIM2.status]" -o tsv | sort -u)
+          if [ "$STATES" = Verified ]; then echo "LINK_EMAIL=true" >> "$GITHUB_ENV"; else echo "LINK_EMAIL=false" >> "$GITHUB_ENV"; echo "::warning::sweethand.ca is not verified for Azure email yet; launch emails will not send"; fi
       - name: Apply foundation
         run: |
           az deployment group create --resource-group "$RESOURCE_GROUP" --name "foundation-$IMAGE_TAG" --template-file infra/main.bicep \
-            --parameters deployApi=false deployMigration=false postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
+            --parameters linkEmailDomain="$LINK_EMAIL" deployApi=false deployMigration=false postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
       - name: Build and scan the immutable API image
         run: |
           ACR=$(az deployment group show -g "$RESOURCE_GROUP" -n "foundation-$IMAGE_TAG" --query properties.outputs.acrName.value -o tsv)
@@ -47,7 +61,7 @@ jobs:
         run: |
           IMAGE="$ACR.azurecr.io/sweet-hand-api:$IMAGE_TAG"
           az deployment group create --resource-group "$RESOURCE_GROUP" --name "migration-$IMAGE_TAG" --template-file infra/main.bicep \
-            --parameters deployApi=false deployMigration=true containerImage="$IMAGE" postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
+            --parameters linkEmailDomain="$LINK_EMAIL" deployApi=false deployMigration=true containerImage="$IMAGE" postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
       - name: Run explicit migrations
         run: |
           EXECUTION=$(az containerapp job start -g "$RESOURCE_GROUP" -n caj-swh-migrate --query name -o tsv)
@@ -58,15 +72,22 @@ jobs:
             sleep 10
           done
           exit 1
+      - name: Record the serving API image
+        run: |
+          PREVIOUS=$(az containerapp show -g "$RESOURCE_GROUP" -n ca-swh-api --query "properties.template.containers[0].image" -o tsv 2>/dev/null || true)
+          echo "PREVIOUS_IMAGE=$PREVIOUS" >> "$GITHUB_ENV"
       - name: Promote the migrated API image
         run: |
           IMAGE="$ACR.azurecr.io/sweet-hand-api:$IMAGE_TAG"
           az deployment group create --resource-group "$RESOURCE_GROUP" --name "release-$IMAGE_TAG" --template-file infra/main.bicep \
-            --parameters deployApi=true deployMigration=true containerImage="$IMAGE" postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
+            --parameters linkEmailDomain="$LINK_EMAIL" deployApi=true deployMigration=true containerImage="$IMAGE" postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
       - name: Link the same-origin API
         run: |
           API_ID=$(az containerapp show -g "$RESOURCE_GROUP" -n ca-swh-api --query id -o tsv)
-          az staticwebapp backends link -g "$RESOURCE_GROUP" -n swa-sweethand-launch-prod --backend-resource-id "$API_ID" --backend-region canadacentral || true
+          LINKED=$(az staticwebapp backends show -g "$RESOURCE_GROUP" -n swa-sweethand-launch-prod --query "[?backendResourceId=='$API_ID'] | length(@)" -o tsv 2>/dev/null || echo 0)
+          if [ "$LINKED" != 1 ]; then
+            az staticwebapp backends link -g "$RESOURCE_GROUP" -n swa-sweethand-launch-prod --backend-resource-id "$API_ID" --backend-region canadacentral
+          fi
       - uses: actions/setup-node@v4
         with:
           node-version: '22.18.0'
@@ -94,3 +115,8 @@ jobs:
           curl --fail https://sweethand.ca/privacy
           curl --fail https://sweethand.ca/api/public/launch-list
           test "$(curl -s -o /dev/null -w '%{http_code}' https://sweethand.ca/api/caterers)" = 404
+      - name: Restore the preceding API image
+        if: failure() && env.PREVIOUS_IMAGE != ''
+        run: |
+          az containerapp update -g "$RESOURCE_GROUP" -n ca-swh-api --image "$PREVIOUS_IMAGE"
+          echo "::error::Deployment failed; the API was restored to $PREVIOUS_IMAGE. Re-run the last good Deploy production run to restore the launch site."

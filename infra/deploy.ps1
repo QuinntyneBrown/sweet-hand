@@ -26,4 +26,9 @@ do {
 } while ($status -notin @('Succeeded', 'Failed'))
 if ($status -ne 'Succeeded') { throw "Migration execution $execution failed" }
 az deployment group create --name sweethand-production @common --parameters deployApi=true deployMigration=true "containerImage=$image" | Out-Null
-Write-Output "Azure foundation and compute deployed. Link the Static Web App backend after the migration job succeeds."
+$apiId = az containerapp show --resource-group $ResourceGroup --name ca-swh-api --query id -o tsv
+$linked = az staticwebapp backends show --resource-group $ResourceGroup --name swa-sweethand-launch-prod --query "[?backendResourceId=='$apiId'] | length(@)" -o tsv 2>$null
+if ($linked -ne '1') {
+  az staticwebapp backends link --resource-group $ResourceGroup --name swa-sweethand-launch-prod --backend-resource-id $apiId --backend-region $Location | Out-Null
+}
+Write-Output "Azure foundation, migrations and API deployed; /api is linked to the Static Web App."
