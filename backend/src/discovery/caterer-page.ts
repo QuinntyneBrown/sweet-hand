@@ -8,6 +8,7 @@ import type { CatererPageView } from '@contract/caterer-page-view.ts';
 import type { DietaryTag } from '@contract/dietary-tag.ts';
 import { allCuisines, areaName, occasionName, REGION_LIST } from './taxonomy.ts';
 import { catererPhotoView } from './photos.ts';
+import { readyPhotos } from '../caterer-profile/processing.ts';
 
 /** The allow-listed public view (L2-014): only approved display fields, never contact details or the certificate. */
 export async function catererPageView(tx: Transaction, c: Caterer): Promise<CatererPageView> {
@@ -20,7 +21,7 @@ export async function catererPageView(tx: Transaction, c: Caterer): Promise<Cate
     minGuests: c.minGuests,
     maxGuests: c.maxGuests,
     occasions: c.occasions.map(occasionName),
-    photos: c.photos.map(catererPhotoView),
+    photos: readyPhotos(c).map(catererPhotoView),
     dishes: c.dishes.map((d) => ({ name: d.name, description: d.description ?? null, price: d.price ?? null, tags: d.tags as DietaryTag[] })),
     regions: REGION_LIST.map((rg) => ({ name: rg.name, areas: c.areas.filter((id) => rg.areas.some((a) => a.id === id)).map(areaName) })).filter(
       (rg) => rg.areas.length > 0,

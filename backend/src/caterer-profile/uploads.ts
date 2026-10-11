@@ -33,8 +33,31 @@ export function sniff(bytes: Buffer): FileKind | undefined {
   return undefined;
 }
 
-/** Width and height from a PNG header or a JPEG start-of-frame marker; undefined when unknown. */
+/** Width and height of a WebP: lossy (VP8), lossless (VP8L) or extended (VP8X) header. */
+function webpSize(bytes: Buffer): { width: number; height: number } | undefined {
+  const chunk = bytes.toString('latin1', 12, 16);
+  if (chunk === 'VP8X' && bytes.length >= 30) return { width: 1 + bytes.readUIntLE(24, 3), height: 1 + bytes.readUIntLE(27, 3) };
+  if (chunk === 'VP8L' && bytes.length >= 25 && bytes[20] === 0x2f) {
+    const bits = bytes.readUInt32LE(21);
+    return { width: 1 + (bits & 0x3fff), height: 1 + ((bits >>> 14) & 0x3fff) };
+  }
+  if (chunk === 'VP8 ' && bytes.length >= 30 && bytes[23] === 0x9d && bytes[24] === 0x01 && bytes[25] === 0x2a) {
+    return { width: bytes.readUInt16LE(26) & 0x3fff, height: bytes.readUInt16LE(28) & 0x3fff };
+  }
+  return undefined;
+}
+
+/** Width and height of a HEIC from its image spatial extents (`ispe`) property. */
+function heicSize(bytes: Buffer): { width: number; height: number } | undefined {
+  const at = bytes.indexOf('ispe', 0, 'latin1');
+  if (at < 0 || at + 16 > bytes.length) return undefined;
+  return { width: bytes.readUInt32BE(at + 8), height: bytes.readUInt32BE(at + 12) };
+}
+
+/** Width and height from the file's own header (PNG, JPEG, WebP, HEIC); undefined when it cannot be read. */
 export function dimensions(bytes: Buffer, kind: FileKind): { width: number; height: number } | undefined {
+  if (kind === 'WEBP') return webpSize(bytes);
+  if (kind === 'HEIC') return heicSize(bytes);
   if (kind === 'PNG' && bytes.length >= 24) return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) };
   if (kind === 'JPEG') {
     let i = 2;

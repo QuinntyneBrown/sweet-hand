@@ -15,7 +15,8 @@ export type SecurityEventType =
   | 'session-revoked'
   | 'authorization-failure'
   | 'rate-limit-block'
-  | 'operator-action';
+  | 'operator-action'
+  | 'upload-rejected';
 
 /**
  * A security-relevant event (L2-084.1): type, user, hashed IP, time and

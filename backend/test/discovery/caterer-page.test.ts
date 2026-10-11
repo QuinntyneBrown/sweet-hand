@@ -17,7 +17,7 @@ describe('caterer page (L2-013, L2-014, L2-015, L2-018)', async () => {
       { name: 'City of Toronto', areas: ['Scarborough', 'East York', 'North York'] },
       { name: 'Durham', areas: ['Pickering', 'Ajax'] },
     ]);
-    assert.equal(res.body.photos[0].viewerSrc, '/media/pelau-house.jpg?w=1200&fm=jpeg');
+    assert.equal(res.body.photos[0].viewerSrc, '/media/pelau-house.jpg?w=2000&fm=jpeg');
     assert.deepEqual(res.body.dishes[0], { name: 'Chicken pelau', description: 'Browned in burnt sugar, cooked down with pigeon peas, rice and coconut milk.', price: 'From $16 per person', tags: ['gluten-free', 'dairy-free'] });
     assert.equal(JSON.stringify(res.body).includes('hello@pelauhouse.example'), false, 'no contact details (L2-014)');
     assert.equal(JSON.stringify(res.body).includes('FH-2024-118734'), false, 'no certificate');

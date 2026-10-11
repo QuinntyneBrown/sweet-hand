@@ -1,11 +1,12 @@
 /** Operator edits to a caterer's profile, each with a reason (edit-profile-as-operator design, L2-057, L2-060). */
+import { discardPhotoMedia } from '../caterer-profile/processing.ts';
 import type { Request, Reply } from '../http/endpoint.ts';
 import { invalid, notFound, ok } from '../http/problems.ts';
 import type { Transaction } from '../platform/database.ts';
 import { recordAudit } from '../platform/audit.ts';
 import { torontoDate } from '../discovery/listing.ts';
 import { ALL_AREAS, allCuisines, OCCASIONS } from '../discovery/taxonomy.ts';
-import { caterers, withAddressFor, type Caterer } from '../caterers/model.ts';
+import { caterers, withAddressFor, type Caterer, type Photo } from '../caterers/model.ts';
 import { touchRecord } from './model.ts';
 import { emailOwner, stale, targetCaterer } from './lifecycle.ts';
 import { catererRecord } from './records.ts';
@@ -95,6 +96,8 @@ const removeItem =
     const short = kind === 'photo' ? next.photos.length < MIN_PHOTOS : next.dishes.length < MIN_DISHES;
     const replaceBy = short ? torontoDate(new Date(req.now.getTime() + REPLACE_WITHIN_DAYS * DAY_MS)) : null;
     await caterers(req.tx).put(next);
+    // A removed photo is no longer served (edit-profile-as-operator design).
+    if (kind === 'photo') await discardPhotoMedia(req, (item as Photo).file);
     await touchRecord(req.tx, c.id, req.now);
     await recordAudit(req, { operatorId: req.actor!.userId, action: kind === 'photo' ? 'Remove photo' : 'Remove dish', targetType: 'CatererProfile', targetId: c.id, reason, before: { [kind]: item }, after: null });
     await emailOwner(req, next, kind === 'photo' ? 'operator-removed-photo' : 'operator-removed-dish', { reason, ...(replaceBy ? { replaceBy } : {}) });

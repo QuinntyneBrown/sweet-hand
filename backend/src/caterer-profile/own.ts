@@ -19,7 +19,7 @@ export async function loadOwn(req: Request): Promise<Own> {
   const caterer = user?.catererId ? await caterers(req.tx).get(user.catererId) : undefined;
   if (!user || !caterer) return fail(notFound());
   // Photos still processing are finished as soon as the image service is back (L2-091.2).
-  if (await settleProcessing(req, caterer)) await caterers(req.tx).put(caterer);
+  if (await settleProcessing(req.env, caterer)) await caterers(req.tx).put(caterer);
   return { user, caterer };
 }
 

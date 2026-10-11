@@ -10,6 +10,9 @@ export interface Photo {
   processing?: boolean;
   /** The name an uploaded photo arrived with (manage-photos design). */
   fileName?: string;
+  /** A replacement waiting for the image service; `file` stays on the page until it is ready (L2-042.2). */
+  pendingFile?: string;
+  pendingFileName?: string;
 }
 
 export interface Dish {

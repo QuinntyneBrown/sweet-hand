@@ -1,3 +1,4 @@
+import { readyPhotos } from '../caterer-profile/processing.ts';
 import { areaOfFsa, fsaOf, invalidPostalCode, isFsa, outsideServiceArea } from './postal-code.ts';
 import type { Request, Reply } from '../http/endpoint.ts';
 import { ok } from '../http/problems.ts';
@@ -90,7 +91,7 @@ export async function listCaterers(req: Request): Promise<Reply> {
       name: c.name,
       primaryCuisine: names.get(c.cuisines[0]) ?? c.cuisines[0],
       primaryArea: areaName(c.areas[0]),
-      cover: photoView(c.photos[0] ?? { file: 'missing-photo.jpg', caption: c.name }),
+      cover: photoView(readyPhotos(c)[0] ?? { file: 'missing-photo.jpg', caption: c.name }),
     })),
     total: matching.length,
     page,

@@ -27,7 +27,8 @@ export function photoView(photo: Photo): OwnPhotoView {
     id: photo.id,
     caption: photo.caption,
     fileName: photo.fileName ?? null,
-    state: photo.processing ? 'Processing' : 'Ready',
+    // A replacement waiting for the image service shows as Processing over the current image (L2-042.2).
+    state: photo.processing || photo.pendingFile ? 'Processing' : 'Ready',
     image: photo.processing ? null : rendition(photo, 160),
   };
 }

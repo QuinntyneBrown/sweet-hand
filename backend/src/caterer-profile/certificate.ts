@@ -1,3 +1,4 @@
+import { flaggedUpload } from './processing.ts';
 import { randomUUID } from 'node:crypto';
 import type { Reply, Request } from '../http/endpoint.ts';
 import { conflict, invalid, notFound, ok } from '../http/problems.ts';
@@ -51,6 +52,9 @@ export async function uploadCertificateFile(req: Request): Promise<Reply> {
   const kind = file && sniff(file.bytes);
   if (!file || !kind || kind === 'WEBP' || kind === 'HEIC') return invalid({ file: [NOT_A_COPY] });
   if (file.bytes.length > CERTIFICATE_BYTES) return invalid({ file: ['Certificate copies must be a PDF, JPEG or PNG of up to 10 MB'] });
+  // Scanned before it is stored (provide-food-handler-certificate design).
+  const flagged = await flaggedUpload(req, file.bytes);
+  if (flagged) return flagged;
   // Private media is never served by the public media route.
   const mediaId = `${PRIVATE_MEDIA}certificate-${randomUUID()}.${EXTENSIONS[kind]}`;
   await req.env.media.put(mediaId, { contentType: CONTENT_TYPES[kind], bytes: file.bytes });

@@ -5,6 +5,7 @@ import { MemoryDatabase } from './platform/memory-database.ts';
 import { MemoryMediaStore, type MediaStore } from './platform/media.ts';
 import { seedDatabase } from './seed/index.ts';
 import { PassThroughImageProcessing, type ImageProcessing } from './platform/image-processing.ts';
+import { SignatureScanner, type MalwareScanner } from './platform/malware-scanner.ts';
 
 /**
  * Everything a request runs against. Production has one; the test-control API
@@ -16,6 +17,8 @@ export interface Environment {
   media: MediaStore;
   /** The image service that checks and re-encodes uploaded photos (L2-041). */
   images: ImageProcessing;
+  /** Scans uploads before they are stored (L2-041.6). */
+  scanner: MalwareScanner;
   /**
    * A Toronto date (YYYY-MM-DD) on which the listing keeps catalog order
    * instead of the daily seeded order, so test environments read like the
@@ -28,7 +31,7 @@ export interface Environment {
 export type TestEnvironment = Environment & { clock: FixedClock; db: MemoryDatabase; media: MemoryMediaStore; images: PassThroughImageProcessing };
 
 export async function testEnvironment(options: { seed?: boolean } = {}): Promise<TestEnvironment> {
-  const env = { db: new MemoryDatabase(), clock: new FixedClock(), media: new MemoryMediaStore(), images: new PassThroughImageProcessing(), catalogDay: CAST_NOW.slice(0, 10) };
+  const env = { db: new MemoryDatabase(), clock: new FixedClock(), media: new MemoryMediaStore(), images: new PassThroughImageProcessing(), scanner: new SignatureScanner(), catalogDay: CAST_NOW.slice(0, 10) };
   if (options.seed !== false) await seedDatabase(env.db);
   return env;
 }

@@ -1,4 +1,5 @@
 /** Suspend, reinstate and remove (suspend-reinstate-remove-profile design, L2-058, L2-046.3, L2-060). */
+import { discardPhotoMedia } from '../caterer-profile/processing.ts';
 import type { Request, Reply } from '../http/endpoint.ts';
 import { fail, invalid, ok } from '../http/problems.ts';
 import { recordAudit, type AuditEntry } from '../platform/audit.ts';
@@ -23,6 +24,11 @@ export async function removeCaterer(req: Request, c: Caterer, reason: string): P
   if (c.status === 'Removed') stale(c);
   await closeOpenEnquiries(req, c);
   const caterer = await transition(req, c, 'Removed', 'removed', reason, { statusReason: reason });
+  // Its photos are no longer served (L2-058.4).
+  for (const photo of c.photos) {
+    await discardPhotoMedia(req, photo.file);
+    if (photo.pendingFile) await discardPhotoMedia(req, photo.pendingFile);
+  }
   const entry = await recordAudit(req, { operatorId: req.actor!.userId, action: 'Remove', targetType: 'CatererProfile', targetId: c.id, reason, before: { status: c.status }, after: { status: 'Removed' } });
   await emailOwner(req, caterer, 'caterer-removed', { reason });
   return { caterer, entry };
