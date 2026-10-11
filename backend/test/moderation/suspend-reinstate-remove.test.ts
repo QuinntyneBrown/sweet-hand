@@ -1,10 +1,9 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { documents, outbox, signedInClient, startApi, type Api } from '../support/api.ts';
-import { put } from './support.ts';
+import { auditOf, onlyEnquiries } from './support.ts';
 
 const REASON = 'Food safety concern under investigation after report R-2047. Please send your latest inspection notice.';
-const auditOf = async (api: Api) => (await documents(api, 'audit')).sort((a, b) => a.seq - b.seq);
 const caterer = async (api: Api, id: string) => (await documents(api, 'caterers')).find((c) => c.id === id);
 
 const enquiry = (id: string, customerId: string, status: string) => ({
@@ -24,7 +23,7 @@ const enquiry = (id: string, customerId: string, status: string) => ({
 });
 
 async function withPelauEnquiries(api: Api) {
-  await put(api, 'enquiries', enquiry('enq-t1', 'user-marcia', 'Open'), enquiry('enq-t2', 'user-priya', 'Replied'), enquiry('enq-t3', 'user-andre', 'Declined'));
+  await onlyEnquiries(api, 'cat-001', enquiry('enq-t1', 'user-marcia', 'Open'), enquiry('enq-t2', 'user-priya', 'Replied'), enquiry('enq-t3', 'user-andre', 'Declined'));
 }
 
 describe('suspending, reinstating and removing caterers (L2-058, L2-060)', () => {

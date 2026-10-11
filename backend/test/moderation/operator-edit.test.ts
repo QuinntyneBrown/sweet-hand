@@ -1,10 +1,10 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { documents, outbox, signedInClient, startApi, type Api } from '../support/api.ts';
+import { auditOf } from './support.ts';
 
 const WITHOUT_PHONE =
   'Kendra Baptiste learned to burn sugar for pelau in her grandmother’s kitchen in Couva.\n\nEverything is cooked the morning of your event and arrives hot, with chafing dishes and serving spoons.';
-const auditOf = async (api: Api) => (await documents(api, 'audit')).sort((a, b) => a.seq - b.seq);
 const caterer = async (api: Api, id: string) => (await documents(api, 'caterers')).find((c) => c.id === id);
 
 describe('operator edits to caterer profiles (L2-057)', () => {

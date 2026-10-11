@@ -1,11 +1,10 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { documents, outbox, signedInClient, startApi, type Api } from '../support/api.ts';
-import { scenario } from './support.ts';
+import { auditOf, scenario } from './support.ts';
 
 const OLD = 'Everything is cooked the morning of your event and arrives hot, with chafing dishes.';
 const NEW = 'Everything is cooked the morning of your event and arrives hot, with chafing dishes and serving spoons. Doubles and aloo pie are made to order for groups of 40 or more.';
-const auditOf = async (api: Api) => (await documents(api, 'audit')).sort((a, b) => a.seq - b.seq);
 const caterer = async (api: Api, id: string) => (await documents(api, 'caterers')).find((c) => c.id === id);
 
 describe('recent changes and revert (L2-047.4, L2-057.3)', () => {

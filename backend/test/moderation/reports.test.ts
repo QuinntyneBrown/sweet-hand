@@ -1,9 +1,8 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { documents, outbox, signedInClient, startApi, type Api } from '../support/api.ts';
-import { putCastReports, scenario } from './support.ts';
+import { auditOf, putCastReports, scenario } from './support.ts';
 
-const auditOf = async (api: Api) => (await documents(api, 'audit')).sort((a, b) => a.seq - b.seq);
 const find = async (api: Api, collection: string, id: string) => (await documents(api, collection)).find((d) => d.id === id);
 
 async function arranged() {
@@ -130,8 +129,11 @@ describe('handling reports (L2-055, L2-034.3–4)', () => {
     assert.equal(res.body.caterer, 'Maracas Bay');
     assert.match(res.body.message, /we need curry duck, buss up shut and macaroni pie for 35/);
     assert.deepEqual(res.body.entries.map((e: any) => e.from), ['caterer', 'customer']);
-    assert.deepEqual((await auditOf(api)).map((a) => [a.operatorId, a.action, a.targetType, a.targetId, a.reason, a.after]), [
-      ['user-leah', 'Open enquiry', 'Enquiry', 'enq-devon-maracas', 'Checking whether the event in the review happened.', { reportId: 'R-2041' }],
+    const devons = (await documents(api, 'enquiries')).filter((e) => e.customerId === 'user-devon' && e.catererId === 'cat-009');
+    const opened = (await auditOf(api))[0];
+    assert.ok(devons.some((e) => e.id === opened.targetId), 'the audit names Devon’s enquiry to Maracas Bay');
+    assert.deepEqual((await auditOf(api)).map((a) => [a.operatorId, a.action, a.targetType, a.reason, a.after]), [
+      ['user-leah', 'Open enquiry', 'Enquiry', 'Checking whether the event in the review happened.', { reportId: 'R-2041' }],
     ]);
   });
 

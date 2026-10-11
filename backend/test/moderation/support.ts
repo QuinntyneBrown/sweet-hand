@@ -6,6 +6,7 @@
 import type { Api } from '../support/api.ts';
 import { allScenarios } from '../../src/testing/scenarios/index.ts';
 import type { Report } from '../../src/reports/model.ts';
+import { CAST_NOW } from '../../src/platform/clock.ts';
 
 /** Puts documents straight into the test's fake database. */
 export function put(api: Api, collection: string, ...docs: { id: string }[]): Promise<void> {
@@ -62,3 +63,21 @@ export const CAST_REPORTS: Report[] = [
 ];
 
 export const putCastReports = (api: Api) => put(api, 'reports', ...CAST_REPORTS);
+
+/**
+ * Audit entries the test's own actions wrote: the seeded history is older than
+ * the test clock's start, so it is left out.
+ */
+export async function auditOf(api: Api): Promise<any[]> {
+  const docs = await api.env.db.transaction((tx) => tx.collection<any>('audit').all());
+  return docs.filter((a) => a.at >= CAST_NOW).sort((a, b) => a.at.localeCompare(b.at) || a.seq - b.seq);
+}
+
+/** Makes `docs` the caterer's only enquiries, whatever the enquiries area seeds. */
+export function onlyEnquiries(api: Api, catererId: string, ...docs: { id: string }[]): Promise<void> {
+  return api.env.db.transaction(async (tx) => {
+    const all = tx.collection<{ id: string; catererId: string }>('enquiries');
+    for (const e of await all.find({ catererId })) await all.delete(e.id);
+    for (const doc of docs) await tx.collection<{ id: string }>('enquiries').put(doc);
+  });
+}

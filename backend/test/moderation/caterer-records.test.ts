@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { signedInClient, startApi } from '../support/api.ts';
-import { put, putCastReports, scenario } from './support.ts';
+import { onlyEnquiries, putCastReports, scenario } from './support.ts';
 
 describe('caterer list and record (L2-046, L2-014, L2-058)', async () => {
   const api = await startApi();
@@ -50,7 +50,7 @@ describe('caterer list and record (L2-046, L2-014, L2-058)', async () => {
   });
 
   it('Given a published caterer, when an operator opens its record, then the owner, profile, certificate, activity and history are shown (L2-014, L2-046.4)', async () => {
-    await put(api, 'enquiries', {
+    await onlyEnquiries(api, 'cat-001', {
       id: 'enq-test-pelau',
       customerId: 'user-marcia',
       catererId: 'cat-001',

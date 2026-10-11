@@ -7,7 +7,6 @@ import { reinstate, remove, suspend } from './status-actions.ts';
 import { editProfile, removeDish, removePhoto } from './operator-edits.ts';
 import { recentChanges, revertChange } from './recent-changes.ts';
 import { openLinkedEnquiry, openReport, resolveReport } from './report-handling.ts';
-import { moderateReview, reviewsToModerate } from './review-moderation.ts';
 import { certificateFile, certificateFileLink, profileForReview } from './profile-review.ts';
 
 const operators = roles('Operator');
@@ -37,8 +36,6 @@ export const moderationArea: Area = (r) => {
   r.get('/api/operator/reports/:id', operators, openReport);
   r.post('/api/operator/reports/:id/resolve', operators, resolveReport);
   r.post('/api/operator/reports/:id/enquiry', operators, openLinkedEnquiry);
-  r.get('/api/operator/reviews', operators, reviewsToModerate);
-  r.post('/api/operator/reviews/:id/:action', operators, moderateReview);
   r.post('/api/operator/profiles/:id/name/approve', operators, approveName);
   r.post('/api/operator/profiles/:id/name/request-changes', operators, declineName);
 };

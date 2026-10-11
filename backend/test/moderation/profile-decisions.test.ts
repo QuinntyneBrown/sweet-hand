@@ -1,9 +1,8 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { documents, outbox, signedInClient, startApi, type Api } from '../support/api.ts';
-import { scenario } from './support.ts';
+import { auditOf, scenario } from './support.ts';
 
-const auditOf = async (api: Api) => (await documents(api, 'audit')).sort((a, b) => a.seq - b.seq);
 const caterer = async (api: Api, id: string) => (await documents(api, 'caterers')).find((c) => c.id === id);
 
 describe('approval decisions (L2-046, L2-048, L2-060)', () => {
