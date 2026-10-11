@@ -8,16 +8,17 @@ import { seedPrivacyNotice, seedSessions } from './account.ts';
 import { seedCaterers } from './caterers.ts';
 import { seedReviews } from './reviews.ts';
 import { seedCuisines } from '../discovery/taxonomy.ts';
+import { withModerationCast } from './moderation.ts';
 
 export async function castDocuments(): Promise<Record<string, Document[]>> {
-  return {
+  return withModerationCast({
     users: await seedUsers(),
     sessions: seedSessions(),
     settings: [seedPrivacyNotice()],
     caterers: seedCaterers(),
     cuisines: seedCuisines(),
     reviews: seedReviews(),
-  };
+  });
 }
 
 /** Idempotent: inserts only documents whose id is not there yet, so it is safe to re-run. */

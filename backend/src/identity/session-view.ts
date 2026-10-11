@@ -10,7 +10,7 @@ import { privacyUpdateRequired } from './privacy.ts';
 /** Counts other areas contribute to the session view (unread threads, review queue). */
 export interface SessionCounters {
   unread?: (tx: Transaction, user: User) => Promise<number>;
-  queueCount?: (tx: Transaction) => Promise<number>;
+  queueCount?: (tx: Transaction, now: Date) => Promise<number>;
 }
 
 const counters: SessionCounters = {};
@@ -47,7 +47,7 @@ export async function sessionView(req: Request): Promise<Reply> {
   const view: SessionView = {
     user: await sessionUser(req.tx, user),
     unread: user.role === 'Operator' ? 0 : ((await counters.unread?.(req.tx, user)) ?? 0),
-    queueCount: user.role === 'Operator' ? ((await counters.queueCount?.(req.tx)) ?? 0) : 0,
+    queueCount: user.role === 'Operator' ? ((await counters.queueCount?.(req.tx, req.now)) ?? 0) : 0,
   };
   if (await privacyUpdateRequired(req.tx, user)) view.privacyUpdateRequired = true;
   return ok(view);
