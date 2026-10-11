@@ -9,6 +9,7 @@ import { productOptions } from './product.ts';
 import { useSecureCookies } from './identity/sessions.ts';
 import { seedDatabase } from './seed/index.ts';
 import { TestEnvironments, testControl } from './testing/control.ts';
+import { dispatchDueEmails, logGateway } from './platform/email-dispatch.ts';
 import { loadConfig } from './platform/config.ts';
 import { systemClock } from './platform/clock.ts';
 import { MemoryDatabase } from './platform/memory-database.ts';
@@ -37,8 +38,23 @@ const app = createApp({
   config,
 });
 const server = createServer(app);
+
+// The email worker (L2-030). In test mode emails stay queued so specs can read them.
+let dispatching = false;
+const worker = testEnvs
+  ? undefined
+  : setInterval(() => {
+      if (dispatching) return;
+      dispatching = true;
+      void dispatchDueEmails(env, logGateway)
+        .catch((err) => console.error(err))
+        .finally(() => (dispatching = false));
+    }, 15_000);
 server.listen(config.port, () => console.log(`Sweet Hand API on http://localhost:${config.port}${config.databaseUrl ? '' : config.testControl ? ' (test mode)' : ' (in-memory database)'}`));
 
-const stop = () => server.close(() => void env.db.close().then(() => process.exit(0)));
+const stop = () => {
+  if (worker) clearInterval(worker);
+  server.close(() => void env.db.close().then(() => process.exit(0)));
+};
 process.on('SIGTERM', stop);
 process.on('SIGINT', stop);
