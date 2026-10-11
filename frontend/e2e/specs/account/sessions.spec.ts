@@ -4,6 +4,7 @@ import { AccountPage } from '../../pages/account.page';
 import { SignInPage } from '../../pages/sign-in.page';
 import { cast, SEED_PASSWORD } from '../../support/cast';
 import { WEB_URL } from '../../support/ports';
+import { SESSION_HEADER } from '../../support/backend';
 
 test.describe('Signed-in devices', () => {
   test('L2-078.5 list CRD AC-2: each other device has a "Sign out" that names it and opens a confirmation', async ({ page, backend }) => {
@@ -68,7 +69,7 @@ test.describe('Signed-in devices', () => {
   });
 
   test('L2-078.4: a device signed out from the account page can no longer use its old session', async ({ page, backend, browser }) => {
-    const phone = await browser.newContext({ ...devices['Desktop Chrome'], baseURL: WEB_URL, extraHTTPHeaders: { 'x-fake-session': backend.session } });
+    const phone = await browser.newContext({ ...devices['Desktop Chrome'], baseURL: WEB_URL, extraHTTPHeaders: { [SESSION_HEADER]: backend.session } });
     const otherPage = await phone.newPage();
     const otherSignIn = new SignInPage(otherPage);
     await otherSignIn.open();

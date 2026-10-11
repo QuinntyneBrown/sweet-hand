@@ -1,6 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { documents, signedInClient, startApi } from '../support/api.ts';
+import { sha256 } from '../../src/platform/secrets.ts';
 
 const WINDOWS_CHROME = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36';
 
@@ -47,5 +48,18 @@ describe('active sessions (L2-078.4, L2-078.5)', () => {
 
     assert.equal(res.status, 404);
     assert.ok((await documents(api, 'sessions')).some((s) => s.id === 'ses-marcia-iphone'));
+  });
+
+  it('Given a session started without a known device (test control), when the browser first uses it, then the device comes from that browser', async () => {
+    const api = await startApi();
+    await api.env.db.transaction((tx) =>
+      tx.collection<any>('sessions').put({ id: 'ses-arranged', tokenHash: sha256('arranged-token'), userId: 'user-andre', device: '', createdAt: '2026-10-10T14:00:00.000Z', lastActiveAt: '2026-10-10T14:00:00.000Z' }),
+    );
+    const andre = api.client();
+    andre.cookies.set('sh_session', 'arranged-token');
+
+    const res = await andre.get('/api/me/sessions', { 'user-agent': WINDOWS_CHROME });
+
+    assert.deepEqual(res.body.map((s: { device: string }) => s.device), ['Chrome on Windows']);
   });
 });
