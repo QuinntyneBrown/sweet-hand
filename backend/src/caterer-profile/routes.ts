@@ -2,6 +2,7 @@ import { roles, type Area } from '../http/router.ts';
 import { ownProfile, referenceData } from './profile.ts';
 import { saveSection } from './sections.ts';
 import { addDish, removeDish, reorderDishes, updateDish } from './menu.ts';
+import { CERTIFICATE_BODY_BYTES, removeCertificateFile, saveCertificate, uploadCertificateFile } from './certificate.ts';
 import { PHOTO_BODY_BYTES, removePhoto, reorderPhotos, replacePhoto, restorePhoto, updatePhoto, uploadPhoto } from './photos.ts';
 
 const caterer = roles('Caterer');
@@ -19,6 +20,11 @@ export const catererProfileArea: Area = (r) => {
   r.patch('/api/caterer/profile/photos/:id', caterer, updatePhoto);
   r.delete('/api/caterer/profile/photos/:id', caterer, removePhoto);
   r.post('/api/caterer/profile/photos/:id/restoration', caterer, restorePhoto);
+
+  // Food handler certificate (provide-food-handler-certificate design)
+  r.put('/api/caterer/profile/certificate', caterer, saveCertificate);
+  r.post('/api/caterer/profile/certificate/file', caterer, uploadCertificateFile, { maxBodyBytes: CERTIFICATE_BODY_BYTES });
+  r.delete('/api/caterer/profile/certificate/file', caterer, removeCertificateFile);
 
   // Menu (manage-menu design); `order` is registered before `:id`.
   r.post('/api/caterer/profile/menu-items', caterer, addDish);
