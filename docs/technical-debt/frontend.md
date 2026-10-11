@@ -74,7 +74,7 @@ AGENTS.md requires: criterion, failing acceptance test, then code.
 | T-14 | Focus management hand-rolled per page | App | Medium | M |
 | T-15 | Five independent 60-second pollers | App | Medium | M |
 | T-16 | Two `Connectivity` services | App | Low | S |
-| T-17 | Route paths, titles and role landing pages as scattered literals | App | High | M |
+| T-17 | ~~Route paths, titles and role landing pages as scattered literals~~ **Fixed** | App | High | M |
 | T-18 | Every feature's routes and providers loaded eagerly; order-dependent flat route list | App | Medium | M |
 | T-19 | `requireAdmin` unused; admin pages rely on runtime 403 | App | Medium | S |
 | T-20 | Operator sign-out always lands on `/caterers` | App | High | S |
@@ -439,7 +439,22 @@ both wrap `navigator.onLine` with different APIs.
 **Resolution.** Keep one root-provided `Connectivity` in `core/`, expose
 `online` and `backOnline` signals, delete the other.
 
-### T-17 Route paths, titles and role landing pages as scattered literals — High, M
+### T-17 Route paths, titles and role landing pages as scattered literals — High, M — Fixed
+
+**Status. Fixed** on 2026-10-11. `core/routing/paths.ts` holds every app
+address as typed builders (`paths.caterer(slug)`, `paths.admin.queue`, …),
+`landingFor(role)`, `homeFor(role)` and `catererSlugOf(url)`. Guards, the
+shell, pages and dialogs navigate through it, templates read it through a
+`paths` field, and `enquiry-draft-store` no longer parses return URLs with its
+own regex. `PageTitleStrategy` (registered in `app.config.ts`) adds the site's
+name through `documentTitle()`, so route titles are the page name only; `/join`
+opts out with `data: { titleSuffix: false }` because its title already names
+Sweet Hand, and the caterer page uses `documentTitle()` for the titles it sets
+itself. Container pages use `page()` (`core/routing/page.ts`) and system pages
+and the per-area not-found routes use `system()` (`shell/system-route.ts`).
+Outside `paths.ts` and the `routes.ts` files the only `/`-prefixed strings left
+are `/media/` image addresses, which are not routes. The evidence below is kept
+as the record of what was removed.
 
 **Evidence.** `routerLink="/admin/queue"` 17 times, `"/caterers"` 16,
 `"/dashboard"` 13, `"/sign-in"` 8, plus about 20 `navigate([...])` literals.

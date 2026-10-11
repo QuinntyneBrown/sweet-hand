@@ -141,6 +141,8 @@ Detailed conventions are in `frontend/README.md`. In short:
   use `host: { style: 'display: contents' }`.
 - Routes live in `features/<area>/routes.ts`; `data.mainClass` gives `<main>`
   the mock's classes, `data.chrome: 'minimal'` the wordmark-only header.
+- App paths, titles and role landing pages come from `core/routing/paths.ts`
+  and `PageTitleStrategy`; never type a path or the " · Sweet Hand" suffix.
 - Dates and times are always shown in `America/Toronto` through
   `core/format/format.ts`.
 - Components preserve the mock design's class names and accessible state

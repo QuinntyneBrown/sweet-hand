@@ -103,6 +103,12 @@ Never weaken a test to make it pass, and never write architecture tests
   `requireRole(...)` / `requireAdmin` from `core/session/guards.ts`.
   `data.mainClass` sets the classes of `<main>` from the mock; `data.chrome:
   'minimal'` shows the wordmark-only header.
+  Container pages use `page()` (`core/routing/page.ts`), system pages and
+  not-found children `system()` (`shell/system-route.ts`). A route `title` is
+  the page name only; `PageTitleStrategy` adds " · Sweet Hand".
+- Never type an app path: link and navigate through `paths` and
+  `landingFor(role)` in `core/routing/paths.ts`; templates read them through a
+  `protected readonly paths = paths` field.
 - Business rules (validation, eligibility, view models) live in plain
   TypeScript beside the page, never in templates or library components.
 - Dates, times and counts: `core/format/format.ts` (America/Toronto, en-CA:

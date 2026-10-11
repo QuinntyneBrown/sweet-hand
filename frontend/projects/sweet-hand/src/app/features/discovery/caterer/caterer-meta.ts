@@ -2,6 +2,7 @@ import { DOCUMENT, Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { previewText } from './caterer-view';
 import { type CatererPageView } from '@sweet-hand/api';
+import { documentTitle } from '../../../core/routing/document-title';
 
 const OG = ['og:title', 'og:description', 'og:image', 'og:url', 'og:type'];
 
@@ -20,7 +21,7 @@ export class CatererPageMetadata {
     const origin = this.document.location.origin;
     const url = `${origin}/caterers/${c.slug}`;
     const description = previewText(c.description);
-    this.title.setTitle($localize`:@@caterer.documentTitle:${c.name}:name: · Sweet Hand`);
+    this.title.setTitle(documentTitle(c.name));
     this.meta.updateTag({ name: 'description', content: description });
     this.meta.updateTag({ property: 'og:type', content: 'website' });
     this.meta.updateTag({ property: 'og:title', content: c.name });
