@@ -8,7 +8,7 @@
   i18n-closeLabel="@@common.close"
   [cancelLabel]="step() === 'form' ? cancelText : null"
   [form]="step() === 'form'"
-  [busy]="busy()"
+  [busy]="state.busy()"
   [busyMessage]="sending"
   [returnFocus]="returnFocus()"
   (dismissed)="closed.emit()"
@@ -33,16 +33,16 @@
       </div>
     }
     @default {
-      @if (failure() === 'server') {
+      @if (state.failed()) {
         <sh-alert tone="danger" live="assertive" title="Your report wasn’t sent" i18n-title="@@report.failedTitle"
           ><ng-container i18n="@@report.failedText">Something went wrong on our side. Try again in a moment.</ng-container></sh-alert
         >
-      } @else if (failure() === 'limit') {
+      } @else if (limited()) {
         <sh-alert tone="danger" live="assertive" title="Too many reports from this connection" i18n-title="@@report.limitTitle"
           ><ng-container i18n="@@report.limitText">Try again in an hour. Your details are still here.</ng-container></sh-alert
         >
       }
-      <sh-radio-group name="reason" [value]="reason()" (valueChange)="choose($event!)" [error]="errors().reason" [disabled]="busy()" [autofocus]="true">
+      <sh-radio-group name="reason" [value]="reason()" (valueChange)="choose($event!)" [error]="state.errors().reason" [disabled]="state.busy()" [autofocus]="true">
         <span slot="legend" i18n="@@report.reason">Reason</span>
         @for (r of reasons; track r.value) {
           <sh-radio [value]="r.value" [description]="r.hint">{{ r.label }}</sh-radio>
@@ -57,16 +57,16 @@
         i18n-help="@@report.detailsHelp"
         [counter]="counter()"
         [counterOver]="length() > 1000"
-        [error]="errors().details"
+        [error]="state.errors().details"
       >
-        <sh-textarea name="details" [rows]="3" [(value)]="details" [readonly]="busy()" />
+        <sh-textarea name="details" [rows]="3" [(value)]="details" [readonly]="state.busy()" />
       </sh-form-field>
     }
   }
 
   @if (step() === 'form') {
-    <sh-button slot="footer" type="submit" variant="primary" [busy]="busy()" [disabled]="failure() === 'limit'"
-      >@if (failure() === 'server') {<ng-container i18n="@@common.tryAgain">Try again</ng-container>} @else {<ng-container i18n="@@report.send">Send report</ng-container>}</sh-button
+    <sh-button slot="footer" type="submit" variant="primary" [busy]="state.busy()" [disabled]="limited()"
+      >@if (state.failed()) {<ng-container i18n="@@common.tryAgain">Try again</ng-container>} @else {<ng-container i18n="@@report.send">Send report</ng-container>}</sh-button
     >
   } @else {
     <sh-button #done slot="footer" variant="primary" (activated)="closed.emit()"><ng-container i18n="@@common.done">Done</ng-container></sh-button>

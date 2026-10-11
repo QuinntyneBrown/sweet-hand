@@ -1,14 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Dialog, FormField, FormSummary, Select, TextField, Textarea, graphemeLength, type SelectOption, type SummaryItem } from '@sweet-hand/components';
 import { count } from '../../../../core/format/format';
-import { problemOf } from '../../../../core/forms/problem';
 import { summaryHeading } from '../../../../core/forms/validation';
 import { firstName } from '../moderation-text';
 import { reasonError } from './decision-text';
 import { type CatererRecordView, type EditableField, type OperatorEditRequest, OperatorModerationService } from '@sweet-hand/api';
 import type { EditField } from './edit-field';
 import type { EditOutcome } from './edit-outcome';
+import { FormDialogState } from '../../../../core/forms/form-dialog-state';
 
 const DESCRIPTION_MAX = 2000;
 
@@ -48,10 +48,13 @@ export class OperatorEditDialog {
   protected readonly max = signal('');
   protected readonly item = signal('');
   protected readonly reason = signal('');
-  protected readonly errors = signal<Record<string, string>>({});
-  protected readonly attempt = signal(0);
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
+  protected readonly state = new FormDialogState<Record<string, string>>(this.open, {
+    noErrors: {},
+    reset: () => {
+      this.reason.set('');
+      this.choose('description');
+    },
+  });
 
   protected readonly title = computed(() => $localize`:@@edit.title:Edit ${this.record().name}:name:`);
   protected readonly description = computed(() => $localize`:@@edit.descriptionLine:Live within a minute. ${firstName(this.record().owner.name)}:name: is emailed your reason.`);
@@ -71,28 +74,16 @@ export class OperatorEditDialog {
         : $localize`:@@edit.save:Save change`,
   );
   protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.errors();
+    const e = this.state.errors();
     return (['value', 'min', 'max', 'reason'] as const).filter((k) => e[k]).map((k) => ({ controlId: k, message: e[k] }));
   });
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@edit.action:save the change`));
-
-  constructor() {
-    effect(() => {
-      if (!this.open()) return;
-      untracked(() => {
-        this.reason.set('');
-        this.failed.set(false);
-        this.attempt.set(0);
-        this.choose('description');
-      });
-    });
-  }
 
   /** A new field starts from the profile's current value. */
   protected choose(field: EditField): void {
     const p = this.record().profile;
     this.field.set(field);
-    this.errors.set({});
+    this.state.errors.set({});
     this.text.set(
       field === 'name'
         ? this.record().name
@@ -145,36 +136,25 @@ export class OperatorEditDialog {
   }
 
   protected async save(): Promise<void> {
-    if (this.busy()) return;
-    const errors = this.validate();
-    this.errors.set(errors);
-    this.failed.set(false);
-    if (Object.keys(errors).length) {
-      this.attempt.update((n) => n + 1);
-      return;
-    }
-    this.busy.set(true);
+    if (this.state.busy()) return;
+    if (!this.state.validate(this.validate())) return;
     const f = this.field();
-    try {
-      if (f === 'photo' || f === 'dish') {
-        const result = await firstValueFrom(this.api.removeItem(this.record().id, { kind: f, id: this.item() }, this.reason().trim()));
-        this.done.emit({ kind: f, replaceBy: result.replaceBy });
-      } else {
-        await firstValueFrom(this.api.edit(this.record().id, this.request()));
-        this.done.emit({ kind: 'edit' });
-      }
-    } catch (e) {
-      const { status, problem } = problemOf(e);
-      if (status === 400 && problem.errors) {
+    await this.state.submit(
+      async () => {
+        if (f === 'photo' || f === 'dish') {
+          const result = await firstValueFrom(this.api.removeItem(this.record().id, { kind: f, id: this.item() }, this.reason().trim()));
+          this.done.emit({ kind: f, replaceBy: result.replaceBy });
+        } else {
+          await firstValueFrom(this.api.edit(this.record().id, this.request()));
+          this.done.emit({ kind: 'edit' });
+        }
+      },
+      (status, problem) => {
+        if (status !== 400 || !problem.errors) return false;
         const mapped: Record<string, string> = {};
         for (const [k, v] of Object.entries(problem.errors)) mapped[k === 'field' ? 'value' : k] = v[0];
-        this.errors.set(mapped);
-        this.attempt.update((n) => n + 1);
-      } else {
-        this.failed.set(true);
-      }
-    } finally {
-      this.busy.set(false);
-    }
+        return this.state.reject(mapped);
+      },
+    );
   }
 }

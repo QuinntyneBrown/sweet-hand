@@ -8,7 +8,7 @@
   closeLabel="Close"
   i18n-closeLabel="@@common.close"
   [cancelLabel]="requested() ? null : cancel"
-  [busy]="busy()"
+  [busy]="state.busy()"
   [busyMessage]="requesting"
   [returnFocus]="returnFocus()"
   (dismissed)="close()"
@@ -19,7 +19,7 @@
     <p i18n="@@download.preparing">We’re preparing your file. We’ll email a download link to <strong>{{ account().email }}</strong> within 24 hours.</p>
     <p class="text-muted" i18n="@@download.linkRule">The link works for 7 days, and only when you’re signed in as {{ firstName() }}.</p>
   } @else {
-    @if (failed()) {
+    @if (state.failed()) {
       <sh-alert tone="danger" live="assertive" title="Your export wasn’t requested" i18n-title="@@download.failedTitle"
         ><ng-container i18n="@@download.failedText">Something went wrong on our side. Try again in a moment.</ng-container></sh-alert
       >
@@ -43,8 +43,8 @@
       class="btn btn--primary"
       type="submit"
       autofocus
-      [attr.aria-busy]="busy() ? 'true' : null"
-      [attr.aria-disabled]="busy() ? 'true' : null"
+      [attr.aria-busy]="state.busy() ? 'true' : null"
+      [attr.aria-disabled]="state.busy() ? 'true' : null"
       i18n="@@download.request"
     >
       Request export

@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, Component, Injector, afterNextRender, computed, effect, inject, input, output, signal, untracked, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, afterNextRender, computed, inject, input, output, signal, viewChild } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Button, Dialog, FormField, FormSummary, Icon, StarInput, Textarea, graphemeLength, type SummaryItem } from '@sweet-hand/components';
 import { count, monthYear, shortDate } from '../../../core/format/format';
-import { problemOf } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
 import { Session } from '../../../core/session/session';
 import { STAR_LABELS, TEXT_MAX, reviewErrors, type ReviewErrors } from './review-rules';
@@ -10,6 +9,7 @@ import { type ReviewResult, ReviewsService } from '@sweet-hand/api';
 import type { ReviewDialogSubject } from './review-dialog-subject';
 import type { ReviewDialogOutcome } from './review-dialog-outcome';
 import type { Step } from './step';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 /**
  * Write or edit a review (docs/detailed-designs/reviews/write-review and
@@ -37,11 +37,18 @@ export class ReviewDialog {
   protected readonly step = signal<Step>('form');
   protected readonly rating = signal<1 | 2 | 3 | 4 | 5 | null>(null);
   protected readonly text = signal('');
-  protected readonly errors = signal<ReviewErrors>({ rating: null, text: null });
-  protected readonly attempt = signal(0);
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
   protected readonly result = signal<ReviewResult | null>(null);
+  // Each opening starts from the subject: empty to write, prefilled to edit.
+  protected readonly state = new FormDialogState<ReviewErrors, ReviewDialogSubject | null>(this.open, {
+    noErrors: { rating: null, text: null },
+    from: this.subject,
+    reset: (s) => {
+      this.step.set('form');
+      this.result.set(null);
+      this.rating.set(s?.mode === 'edit' ? (s.rating as 1 | 2 | 3 | 4 | 5) : null);
+      this.text.set(s?.mode === 'edit' ? s.text : '');
+    },
+  });
 
   protected readonly editing = computed(() => this.subject()?.mode === 'edit');
   protected readonly title = computed(() => (this.editing() ? $localize`:@@review.editTitle:Edit your review` : $localize`:@@review.writeTitle:Write a review`));
@@ -61,7 +68,7 @@ export class ReviewDialog {
   protected readonly length = computed(() => graphemeLength(this.text()));
   protected readonly counter = computed(() => `${count(this.length())} / ${count(TEXT_MAX)}`);
   protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.errors();
+    const e = this.state.errors();
     return [e.rating && { controlId: 'star-1', message: e.rating }, e.text && { controlId: 'text', message: e.text }].filter(Boolean) as SummaryItem[];
   });
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@review.action:post your review`));
@@ -81,57 +88,30 @@ export class ReviewDialog {
 
   private readonly outcomeButton = viewChild('outcome', { read: Button });
 
-  constructor() {
-    // Each opening starts from the subject: empty to write, prefilled to edit.
-    effect(() => {
-      const open = this.open();
-      const s = this.subject();
-      untracked(() => {
-        if (!open) return;
-        this.step.set('form');
-        this.errors.set({ rating: null, text: null });
-        this.attempt.set(0);
-        this.failed.set(false);
-        this.result.set(null);
-        this.rating.set(s?.mode === 'edit' ? (s.rating as 1 | 2 | 3 | 4 | 5) : null);
-        this.text.set(s?.mode === 'edit' ? s.text : '');
-      });
-    });
-  }
-
   protected async submit(): Promise<void> {
     const s = this.subject();
-    if (this.busy() || !s) return;
-    this.failed.set(false);
-    const errors = reviewErrors(this.rating(), this.length());
-    this.errors.set(errors);
-    if (errors.rating || errors.text) {
-      this.attempt.update((n) => n + 1);
-      return;
-    }
-    this.busy.set(true);
-    try {
-      const body = { rating: this.rating()!, text: this.text().trim() };
-      const result = await firstValueFrom(s.mode === 'edit' ? this.api.update(s.reviewId, body) : this.api.create(s.slug, body));
-      this.result.set(result);
-      this.saved.emit(result);
-      if (result.status === 'Held') this.show('held');
-      else if (s.mode === 'edit') this.closed.emit('saved');
-      else this.show('live');
-    } catch (error) {
-      const { status, problem } = problemOf(error);
-      if (status === 400 && problem.errors) {
-        this.errors.set({ rating: problem.errors['rating']?.[0] ?? null, text: problem.errors['text']?.[0] ?? null });
-        this.attempt.update((n) => n + 1);
-      } else if (status === 409) {
+    if (this.state.busy() || !s) return;
+    if (!this.state.validate(reviewErrors(this.rating(), this.length()))) return;
+    await this.state.submit(
+      async () => {
+        const body = { rating: this.rating()!, text: this.text().trim() };
+        const result = await firstValueFrom(s.mode === 'edit' ? this.api.update(s.reviewId, body) : this.api.create(s.slug, body));
+        this.result.set(result);
+        this.saved.emit(result);
+        if (result.status === 'Held') this.show('held');
+        else if (s.mode === 'edit') this.closed.emit('saved');
+        else this.show('live');
+      },
+      (status, problem) => {
+        if (status === 400 && problem.errors) {
+          return this.state.reject({ rating: problem.errors['rating']?.[0] ?? null, text: problem.errors['text']?.[0] ?? null });
+        }
+        if (status !== 409) return false;
         // Already reviewed (L2-049.4): the page refreshes and offers Edit on the existing review.
         this.closed.emit('saved');
-      } else {
-        this.failed.set(true);
-      }
-    } finally {
-      this.busy.set(false);
-    }
+        return true;
+      },
+    );
   }
 
   protected finish(): void {

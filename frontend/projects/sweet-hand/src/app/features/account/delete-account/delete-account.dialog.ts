@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Dialog, FormField, FormSummary, Icon, TextField, type SummaryItem } from '@sweet-hand/components';
-import { problemOf } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
 import { AccountService, type AccountView } from '@sweet-hand/api';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 /** "Priya, Andre and Marcia" */
 const listOf = (names: string[]) => new Intl.ListFormat('en-CA', { style: 'long', type: 'conjunction' }).format(names);
@@ -50,10 +50,7 @@ export class DeleteAccountDialog {
   readonly deleted = output<void>();
 
   protected readonly password = new FormControl('', { nonNullable: true });
-  protected readonly error = signal<string | null>(null);
-  protected readonly attempt = signal(0);
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
+  protected readonly state = new FormDialogState<string | null>(this.open, { noErrors: null, reset: () => this.password.reset() });
   protected readonly deleting = $localize`:@@delete.busy:Deleting your account`;
   protected readonly lines = computed(() => deletionLines(this.account()));
   protected readonly title = computed(() => {
@@ -67,46 +64,27 @@ export class DeleteAccountDialog {
   );
   protected readonly passwordLabel = computed(() => $localize`:@@delete.passwordLabel:Enter your password for ${this.account().email}:email:`);
   protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.error();
+    const e = this.state.errors();
     return e ? [{ controlId: 'delete-password', message: e }] : [];
   });
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@delete.action:delete your account`));
 
-  constructor() {
-    effect(() => {
-      if (this.open())
-        untracked(() => {
-          this.password.reset();
-          this.error.set(null);
-          this.failed.set(false);
-          this.attempt.set(0);
-        });
-    });
-  }
-
   protected async delete(): Promise<void> {
-    if (this.busy()) return;
+    if (this.state.busy()) return;
     const password = this.password.value;
-    this.failed.set(false);
+    this.state.failed.set(false);
     if (!password) {
       // Enter in an empty field never deletes anything.
-      this.error.set($localize`:@@delete.passwordRequired:Enter your password`);
+      this.state.errors.set($localize`:@@delete.passwordRequired:Enter your password`);
       return;
     }
-    this.error.set(null);
-    this.busy.set(true);
-    try {
-      await firstValueFrom(this.api.deleteAccount({ password }));
-      this.deleted.emit();
-    } catch (error) {
-      if (problemOf(error).status === 400) {
-        this.error.set($localize`:@@delete.wrongPassword:That password isn’t right. Try again.`);
-        this.attempt.update((n) => n + 1);
-      } else {
-        this.failed.set(true);
-      }
-    } finally {
-      this.busy.set(false);
-    }
+    this.state.errors.set(null);
+    await this.state.submit(
+      async () => {
+        await firstValueFrom(this.api.deleteAccount({ password }));
+        this.deleted.emit();
+      },
+      (status) => status === 400 && this.state.reject($localize`:@@delete.wrongPassword:That password isn’t right. Try again.`),
+    );
   }
 }

@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Button, Dialog, FormField, FormSummary, TextField, type SummaryItem } from '@sweet-hand/components';
-import { problemOf } from '../../../core/forms/problem';
 import { emailError, summaryHeading } from '../../../core/forms/validation';
 import { displayNameError, normalisePhone, phoneError } from '../../identity/rules';
 import { AccountService, type AccountView } from '@sweet-hand/api';
 import type { Errors } from './errors';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 const NO_ERRORS: Errors = { name: null, email: null, phone: null };
 
@@ -39,62 +39,38 @@ export class EditDetailsDialog {
     email: new FormControl('', { nonNullable: true }),
     phone: new FormControl('', { nonNullable: true }),
   });
-  protected readonly errors = signal<Errors>(NO_ERRORS);
-  protected readonly attempt = signal(0);
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
+  // Each time the dialog opens it starts from the saved values.
+  protected readonly state = new FormDialogState(this.open, {
+    noErrors: NO_ERRORS,
+    from: this.account,
+    reset: (a) => this.form.setValue({ name: a.displayName, email: a.email, phone: a.phone ?? '' }),
+  });
   protected readonly saving = $localize`:@@editDetails.busy:Saving your details`;
   protected readonly nameLabel = computed(() =>
     this.account().role === 'Caterer' ? $localize`:@@account.contactName:Contact name` : $localize`:@@account.displayName:Display name`,
   );
 
   protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.errors();
+    const e = this.state.errors();
     return (['name', 'email', 'phone'] as const).filter((f) => e[f]).map((f) => ({ controlId: f, message: e[f]! }));
   });
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@editDetails.action:save your details`));
 
-  constructor() {
-    // Each time the dialog opens it starts from the saved values.
-    effect(() => {
-      if (!this.open()) return;
-      const a = this.account();
-      untracked(() => {
-        this.form.setValue({ name: a.displayName, email: a.email, phone: a.phone ?? '' });
-        this.errors.set(NO_ERRORS);
-        this.failed.set(false);
-        this.attempt.set(0);
-      });
-    });
-  }
-
   protected async save(): Promise<void> {
-    if (this.busy()) return;
+    if (this.state.busy()) return;
     const { name, email, phone } = this.form.getRawValue();
     const errors: Errors = { name: displayNameError(name), email: emailError(email), phone: phone.trim() ? phoneError(phone) : null };
-    this.failed.set(false);
-    this.errors.set(errors);
-    if (errors.name || errors.email || errors.phone) {
-      this.attempt.update((n) => n + 1);
-      return;
-    }
+    if (!this.state.validate(errors)) return;
     const before = this.account();
     const request = { displayName: name.trim(), email: email.trim(), phone: phone.trim() ? displayPhone(normalisePhone(phone)!) : null };
-    this.busy.set(true);
-    try {
-      const account = await firstValueFrom(this.api.updateDetails(request));
-      this.saved.emit({ account, message: this.message(before, account) });
-    } catch (error) {
-      const { status, problem } = problemOf(error);
-      if (status === 400 && problem.errors?.['email']) {
-        this.errors.set({ ...NO_ERRORS, email: $localize`:@@editDetails.emailTaken:Use a different email address` });
-        this.attempt.update((n) => n + 1);
-      } else {
-        this.failed.set(true);
-      }
-    } finally {
-      this.busy.set(false);
-    }
+    await this.state.submit(
+      async () => {
+        const account = await firstValueFrom(this.api.updateDetails(request));
+        this.saved.emit({ account, message: this.message(before, account) });
+      },
+      (status, problem) =>
+        status === 400 && !!problem.errors?.['email'] && this.state.reject({ ...NO_ERRORS, email: $localize`:@@editDetails.emailTaken:Use a different email address` }),
+    );
   }
 
   private message(before: AccountView, after: AccountView): string {

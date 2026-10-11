@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
 import { firstValueFrom, type Observable } from 'rxjs';
 import { Alert, ButtonAnchor, Dialog, FormField, FormSummary, Icon, Textarea, type IconName, type SummaryItem } from '@sweet-hand/components';
-import { problemOf } from '../../../../core/forms/problem';
 import { conflictText } from './decision-text';
+import { FormDialogState } from '../../../../core/forms/form-dialog-state';
 
 /**
  * The shared shape of an operator decision that needs a written reason
@@ -57,64 +57,41 @@ export class ReasonDialog<T = unknown> {
   readonly done = output<{ result: T; reason: string }>();
 
   protected readonly reason = signal('');
-  protected readonly error = signal<string | null>(null);
-  protected readonly attempt = signal(0);
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
   protected readonly conflict = signal<string | null>(null);
   protected readonly refused = signal(false);
+  protected readonly state = new FormDialogState<string | null>(this.open, {
+    noErrors: null,
+    reset: () => {
+      this.reason.set(this.initialReason());
+      this.conflict.set(null);
+      this.refused.set(false);
+    },
+  });
   protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.error();
+    const e = this.state.errors();
     return e ? [{ controlId: this.controlId(), message: e }] : [];
   });
 
-  constructor() {
-    effect(() => {
-      if (!this.open()) return;
-      untracked(() => {
-        this.reason.set(this.initialReason());
-        this.error.set(null);
-        this.failed.set(false);
-        this.conflict.set(null);
-        this.refused.set(false);
-        this.attempt.set(0);
-      });
-    });
-  }
-
   protected async submit(): Promise<void> {
-    if (this.busy() || this.conflict()) return;
+    if (this.state.busy() || this.conflict()) return;
     const reason = this.reason();
-    const error = this.validate()(reason);
-    this.error.set(error);
-    this.failed.set(false);
     this.refused.set(false);
-    if (error) {
-      this.attempt.update((n) => n + 1);
-      return;
-    }
-    this.busy.set(true);
-    try {
-      const result = await firstValueFrom(this.action()(reason.trim()));
-      this.done.emit({ result, reason: reason.trim() });
-    } catch (e) {
-      const { status, problem } = problemOf(e);
-      const fieldError = problem.errors?.[this.controlId()]?.[0] ?? problem.errors?.['reason']?.[0];
-      if (status === 400 && fieldError) {
-        this.error.set(fieldError);
-        this.attempt.update((n) => n + 1);
-      } else if (status === 409) {
-        this.conflict.set(conflictText(this.name(), problem));
-      } else if (status === 403 && this.forbiddenTitle()) {
-        this.refused.set(true);
-      } else if (this.toastWhenUnreachable() && (status === 0 || (status >= 500 && !problem.title))) {
+    if (!this.state.validate(this.validate()(reason))) return;
+    await this.state.submit(
+      async () => {
+        const result = await firstValueFrom(this.action()(reason.trim()));
+        this.done.emit({ result, reason: reason.trim() });
+      },
+      (status, problem) => {
+        const fieldError = problem.errors?.[this.controlId()]?.[0] ?? problem.errors?.['reason']?.[0];
+        if (status === 400 && fieldError) return this.state.reject(fieldError);
+        if (status === 409) this.conflict.set(conflictText(this.name(), problem));
+        else if (status === 403 && this.forbiddenTitle()) this.refused.set(true);
         // No answer from the API: the connection dropped, or a proxy gave up on it.
-        this.unreachable.emit(reason);
-      } else {
-        this.failed.set(true);
-      }
-    } finally {
-      this.busy.set(false);
-    }
+        else if (this.toastWhenUnreachable() && (status === 0 || (status >= 500 && !problem.title))) this.unreachable.emit(reason);
+        else return false;
+        return true;
+      },
+    );
   }
 }

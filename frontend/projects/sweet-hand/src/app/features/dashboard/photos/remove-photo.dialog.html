@@ -8,13 +8,13 @@
   i18n-closeLabel="@@common.close"
   [cancelLabel]="blocked() ? gotIt : cancel"
   initialFocus="cancel"
-  [busy]="busy()"
+  [busy]="state.busy()"
   [busyMessage]="busyMessage"
   [returnFocus]="returnFocus()"
   (dismissed)="closed.emit()"
 >
   <svg slot="icon" shIcon="warning"></svg>
-  @if (failed()) {
+  @if (state.failed()) {
     <sh-alert tone="danger" live="assertive" title="The photo wasn’t removed" i18n-title="@@removePhoto.failedTitle"
       ><ng-container i18n="@@removePhoto.failedText">We couldn’t reach Sweet Hand. Try again in a moment.</ng-container></sh-alert
     >
@@ -29,8 +29,8 @@
       slot="footer"
       class="btn btn--danger"
       type="button"
-      [attr.aria-busy]="busy() ? 'true' : null"
-      [attr.aria-disabled]="busy() ? 'true' : null"
+      [attr.aria-busy]="state.busy() ? 'true' : null"
+      [attr.aria-disabled]="state.busy() ? 'true' : null"
       (click)="remove()"
       i18n="@@removePhoto.confirm"
     >

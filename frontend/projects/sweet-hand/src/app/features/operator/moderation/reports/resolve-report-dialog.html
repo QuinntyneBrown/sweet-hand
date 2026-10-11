@@ -8,7 +8,7 @@
   i18n-closeLabel="@@common.close"
   cancelLabel="Cancel"
   i18n-cancelLabel="@@common.cancel"
-  [busy]="busy()"
+  [busy]="state.busy()"
   [busyMessage]="busyMessage()"
   [returnFocus]="returnFocus()"
   (dismissed)="dismissed.emit()"
@@ -16,13 +16,13 @@
 >
   @if (conflict(); as c) {
     <sh-alert tone="warning" live="assertive" title="This report changed while you were looking" i18n-title="@@resolve.conflictTitle">{{ c }}</sh-alert>
-  } @else if (failed()) {
+  } @else if (state.failed()) {
     <sh-alert tone="danger" live="assertive" title="We couldn’t resolve this report" i18n-title="@@resolve.failedTitle"
       ><ng-container i18n="@@decision.failedKept">Nothing has changed. Check your connection and try again; your reason is kept.</ng-container></sh-alert
     >
   }
-  <sh-form-summary [heading]="summaryTitle" [headingLevel]="3" summaryId="dlg-summary" [items]="summary()" [attempt]="attempt()" />
-  <sh-radio-group name="decision" [(value)]="decision" [disabled]="busy()" [autofocus]="true">
+  <sh-form-summary [heading]="summaryTitle" [headingLevel]="3" summaryId="dlg-summary" [items]="summary()" [attempt]="state.attempt()" />
+  <sh-radio-group name="decision" [(value)]="decision" [disabled]="state.busy()" [autofocus]="true">
     <span slot="legend" i18n="@@resolve.decision">Decision</span>
     <sh-radio value="dismiss" description="Nothing breaks the rules. Any automatic hiding is undone." i18n-description="@@resolve.dismissHelp"
       ><ng-container i18n="@@resolve.dismiss">Dismiss</ng-container></sh-radio
@@ -30,7 +30,7 @@
     <sh-radio value="action" [description]="actionHelp()"><ng-container i18n="@@resolve.takeAction">Take action</ng-container></sh-radio>
   </sh-radio-group>
   @if (decision() === 'action') {
-    <sh-radio-group name="act" [(value)]="act" [disabled]="busy()">
+    <sh-radio-group name="act" [(value)]="act" [disabled]="state.busy()">
       <span slot="legend" i18n="@@resolve.action">Action</span>
       @if (isReview()) {
         <sh-radio value="hide" description="Reversible. It leaves the page and the rating within a minute." i18n-description="@@resolve.hideHelp"
@@ -49,11 +49,11 @@
       }
     </sh-radio-group>
   }
-  <sh-form-field [label]="noteLabel()" controlId="note" [help]="noteHelp()" [error]="error()">
-    <sh-textarea name="note" [rows]="2" [required]="true" [(value)]="note" [readonly]="busy()" />
+  <sh-form-field [label]="noteLabel()" controlId="note" [help]="noteHelp()" [error]="state.errors()">
+    <sh-textarea name="note" [rows]="2" [required]="true" [(value)]="note" [readonly]="state.busy()" />
   </sh-form-field>
   <p class="text-caption" i18n="@@resolve.caption">The signed-in reporter is emailed that their report was reviewed. The email doesn’t say what you decided.</p>
-  <button slot="footer" class="btn btn--primary" type="submit" [attr.aria-busy]="busy() ? 'true' : null" [attr.aria-disabled]="busy() ? 'true' : null">
+  <button slot="footer" class="btn btn--primary" type="submit" [attr.aria-busy]="state.busy() ? 'true' : null" [attr.aria-disabled]="state.busy() ? 'true' : null">
     {{ submitLabel() }}
   </button>
 </sh-dialog>

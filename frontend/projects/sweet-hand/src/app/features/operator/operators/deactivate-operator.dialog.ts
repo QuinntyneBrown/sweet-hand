@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Button, Dialog, FormField, Icon, TextField } from '@sweet-hand/components';
 import { firstName } from './operators-view';
 import { type OperatorAccount, OperatorSettingsService } from '@sweet-hand/api';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 /** The typed name matches, ignoring case and spacing (docs/mocks/dialogs/deactivate-operator). */
 export const confirms = (typed: string, name: string) => typed.replace(/\s+/g, ' ').trim().toLocaleLowerCase('en-CA') === name.toLocaleLowerCase('en-CA');
@@ -28,8 +29,7 @@ export class DeactivateOperatorDialog {
 
   protected readonly typed = new FormControl('', { nonNullable: true });
   private readonly typedValue = toSignal(this.typed.valueChanges, { initialValue: '' });
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
+  protected readonly state = new FormDialogState(this.open, { noErrors: null, reset: () => this.typed.reset() });
   private readonly name = computed(() => this.account()?.name ?? '');
   protected readonly matches = computed(() => confirms(this.typedValue(), this.name()));
   protected readonly title = computed(() => $localize`:@@deactivateOperator.title:Deactivate ${this.name()}:name:?`);
@@ -40,27 +40,11 @@ export class DeactivateOperatorDialog {
   protected readonly busyText = computed(() => $localize`:@@deactivateOperator.busy:Deactivating ${this.name()}:name:`);
   protected readonly failedTitle = computed(() => $localize`:@@deactivateOperator.failedTitle:We couldn’t deactivate ${this.name()}:name:`);
 
-  constructor() {
-    effect(() => {
-      if (this.open())
-        untracked(() => {
-          this.typed.reset();
-          this.failed.set(false);
-        });
-    });
-  }
-
   protected async deactivate(): Promise<void> {
     const account = this.account();
-    if (this.busy() || !account || !this.matches()) return;
-    this.failed.set(false);
-    this.busy.set(true);
-    try {
+    if (this.state.busy() || !account || !this.matches()) return;
+    await this.state.submit(async () => {
       this.deactivated.emit(await firstValueFrom(this.api.deactivateOperator(account.id)));
-    } catch {
-      this.failed.set(true);
-    } finally {
-      this.busy.set(false);
-    }
+    });
   }
 }

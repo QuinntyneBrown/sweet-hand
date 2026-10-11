@@ -9,15 +9,15 @@
   cancelLabel="Keep it in review"
   i18n-cancelLabel="@@withdraw.keep"
   initialFocus="cancel"
-  [busy]="busy()"
+  [busy]="state.busy()"
   [busyMessage]="busyMessage"
   [returnFocus]="returnFocus()"
   (dismissed)="closed.emit()"
 >
-  @if (failed()) {
+  @if (state.failed()) {
     <sh-alert tone="danger" live="assertive" title="Your submission wasn’t withdrawn" i18n-title="@@withdraw.failedTitle"
       ><ng-container i18n="@@withdraw.failedText">We couldn’t reach Sweet Hand. Your profile is still in review; try again.</ng-container></sh-alert
     >
   }
-  <sh-button slot="footer" variant="primary" [busy]="busy()" (activated)="withdraw()"><ng-container i18n="@@withdraw.action">Withdraw submission</ng-container></sh-button>
+  <sh-button slot="footer" variant="primary" [busy]="state.busy()" (activated)="withdraw()"><ng-container i18n="@@withdraw.action">Withdraw submission</ng-container></sh-button>
 </sh-dialog>

@@ -222,7 +222,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/operators/add-operator.dialog.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="validation.fixOne" datatype="html">
@@ -352,7 +352,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">74</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/menu.page.html</context>
@@ -376,7 +376,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">70</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/reviews.page.html</context>
@@ -488,7 +488,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/approve-dialog.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">27</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/profile-review/profile-review.page.html</context>
@@ -504,7 +504,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">40</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/reviews.page.html</context>
@@ -587,7 +587,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/edit-details/edit-details.dialog.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="account.displayName" datatype="html">
@@ -598,7 +598,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/edit-details/edit-details.dialog.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="field.email" datatype="html">
@@ -1398,7 +1398,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/remove-photo.dialog.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">29</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.html</context>
@@ -1406,7 +1406,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/caterer/report-dialog/report-dialog.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">66</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/search/search-dialog.html</context>
@@ -1470,7 +1470,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/review-dialog/review-dialog.ts</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="changePassword.failedTitle" datatype="html">
@@ -1537,42 +1537,42 @@
         <source>Changing your password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/change-password/change-password.dialog.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="changePassword.action" datatype="html">
         <source>change your password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/change-password/change-password.dialog.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="changePassword.currentRequired" datatype="html">
         <source>Enter your current password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/change-password/change-password.dialog.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="changePassword.mismatch" datatype="html">
         <source>The passwords don’t match</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/change-password/change-password.dialog.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="changePassword.wrongCurrent" datatype="html">
         <source>That password isn’t right. Try again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/change-password/change-password.dialog.ts</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="changePassword.breached" datatype="html">
         <source>This password appears in lists of breached passwords. Choose a different one.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/change-password/change-password.dialog.ts</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="delete.failedTitle" datatype="html">
@@ -1691,63 +1691,63 @@
         <source>Deleting your account</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/delete-account/delete-account.dialog.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="delete.titleCaterer" datatype="html">
         <source>Delete <x id="business" equiv-text="business.name"/> and your account?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/delete-account/delete-account.dialog.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="delete.title" datatype="html">
         <source>Delete your account?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/delete-account/delete-account.dialog.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="delete.descriptionCaterer" datatype="html">
         <source>This can’t be undone. You’ll be signed out.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/delete-account/delete-account.dialog.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="delete.description" datatype="html">
         <source>This can’t be undone. You’ll be signed out and get a confirmation email.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/delete-account/delete-account.dialog.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="delete.passwordLabel" datatype="html">
         <source>Enter your password for <x id="email" equiv-text="this.account().email"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/delete-account/delete-account.dialog.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="delete.action" datatype="html">
         <source>delete your account</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/delete-account/delete-account.dialog.ts</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="delete.passwordRequired" datatype="html">
         <source>Enter your password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/delete-account/delete-account.dialog.ts</context>
-          <context context-type="linenumber">93</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="delete.wrongPassword" datatype="html">
         <source>That password isn’t right. Try again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/delete-account/delete-account.dialog.ts</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.preparing" datatype="html">
@@ -1810,98 +1810,98 @@
         <source>Your account, profile and consent records</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.photo" datatype="html">
         <source>1 full-size photo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.photos" datatype="html">
         <source><x id="count" equiv-text="c.photos"/> full-size photos</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.dish" datatype="html">
         <source>1 dish and your food handler certificate details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.dishes" datatype="html">
         <source><x id="count" equiv-text="c.dishes"/> dishes and your food handler certificate details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.profile" datatype="html">
         <source>Your profile and consent records</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.enquiry" datatype="html">
         <source>1 enquiry and every message in it</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.enquiries" datatype="html">
         <source><x id="count" equiv-text="c.enquiries"/> enquiries and every message in them</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.response" datatype="html">
         <source>1 response to a review</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.responses" datatype="html">
         <source><x id="count" equiv-text="c.reviewResponses"/> responses to reviews</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.review" datatype="html">
         <source>1 review you wrote</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.reviews" datatype="html">
         <source><x id="count" equiv-text="c.reviews"/> reviews you wrote</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.report" datatype="html">
         <source>1 report you sent</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.reports" datatype="html">
         <source><x id="count" equiv-text="c.reports"/> reports you sent</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/download-data/download-data.dialog.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="download.title" datatype="html">
@@ -2026,56 +2026,56 @@
         <source>Saving your details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/edit-details/edit-details.dialog.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="editDetails.action" datatype="html">
         <source>save your details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/edit-details/edit-details.dialog.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="editDetails.emailTaken" datatype="html">
         <source>Use a different email address</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/edit-details/edit-details.dialog.ts</context>
-          <context context-type="linenumber">90</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="editDetails.savedEmail" datatype="html">
         <source>We sent a verification link to <x id="email" equiv-text="after.email"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/edit-details/edit-details.dialog.ts</context>
-          <context context-type="linenumber">101</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="editDetails.savedPhone" datatype="html">
         <source>Your phone number is now <x id="phone" equiv-text="after.phone"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/edit-details/edit-details.dialog.ts</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="editDetails.savedNoPhone" datatype="html">
         <source>Your phone number is removed.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/edit-details/edit-details.dialog.ts</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="editDetails.savedName" datatype="html">
         <source>Your name is now <x id="name" equiv-text="after.displayName"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/edit-details/edit-details.dialog.ts</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="editDetails.savedNothing" datatype="html">
         <source>Nothing changed.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/account/edit-details/edit-details.dialog.ts</context>
-          <context context-type="linenumber">106</context>
+          <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="endSession.description" datatype="html">
@@ -3157,70 +3157,70 @@
         <source><x id="name" equiv-text="d.name"/> · dish <x id="n" equiv-text="this.position()"/> of <x id="total" equiv-text="this.total()"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dish.addDesc" datatype="html">
         <source>It goes to the end of your menu. You can move it after.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dish.counter" datatype="html">
         <source><x id="count" equiv-text="this.desc().trim().length"/> / 300</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dish.priceError" datatype="html">
         <source>Keep price guidance to 60 characters</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dish.fixOneSave" datatype="html">
         <source>Fix 1 thing to save this dish</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dish.fixManySave" datatype="html">
         <source>Fix <x id="count" equiv-text="n"/> things to save this dish</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dish.fixOneAdd" datatype="html">
         <source>Fix 1 thing to add this dish</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dish.fixManyAdd" datatype="html">
         <source>Fix <x id="count" equiv-text="n"/> things to add this dish</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="common.saveChanges" datatype="html">
         <source>Save changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dish.add" datatype="html">
         <source>Add dish</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">75</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/menu.page.html</context>
@@ -3231,49 +3231,49 @@
         <source>Saving the dish</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dish.adding" datatype="html">
         <source>Adding the dish</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dish.failedSave" datatype="html">
         <source>We couldn’t save “<x id="name" equiv-text="name"/>”</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dish.failedAdd" datatype="html">
         <source>We couldn’t add “<x id="name" equiv-text="name"/>”</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dish.nameError" datatype="html">
         <source>Dish names are 2–80 characters</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">107</context>
+          <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dish.descriptionError" datatype="html">
         <source>Keep the description to 300 characters</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">108</context>
+          <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dish.priceLong" datatype="html">
         <source>Keep price guidance to 60 characters (this is <x id="count" equiv-text="price.length"/>)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/menu/dish.dialog.ts</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
       <trans-unit id="menu.loading" datatype="html">
@@ -4298,56 +4298,56 @@
         <source>Describe the food for people who can’t see the photo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/photo-details.dialog.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="photoDetails.position" datatype="html">
         <source>Photo <x id="n" equiv-text="this.position()"/> of <x id="total" equiv-text="this.total()"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/photo-details.dialog.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="photoDetails.counter" datatype="html">
         <source><x id="count" equiv-text="this.caption().trim().length"/> / 125</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/photo-details.dialog.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="photoDetails.replacing" datatype="html">
         <source>Replacing the photo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/photo-details.dialog.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="photoDetails.busy" datatype="html">
         <source>Saving the photo details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/photo-details.dialog.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="photoDetails.replaceFailed" datatype="html">
         <source>We couldn’t replace this photo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/photo-details.dialog.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="photoDetails.failedTitle" datatype="html">
         <source>We couldn’t save this photo’s details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/photo-details.dialog.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="photoDetails.captionError" datatype="html">
         <source>Captions describe the photo in 5–125 characters</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/photo-details.dialog.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="photos.sizeError" datatype="html">
@@ -4785,42 +4785,42 @@
         <source>Remove this photo?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/remove-photo.dialog.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="removePhoto.blockedTitle" datatype="html">
         <source>Keep at least 3 photos</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/remove-photo.dialog.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="common.gotIt" datatype="html">
         <source>Got it</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/remove-photo.dialog.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="removePhoto.busy" datatype="html">
         <source>Removing the photo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/remove-photo.dialog.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="removePhoto.blockedText" datatype="html">
         <source>Published profiles need at least 3 photos. Add another photo before you remove this one.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/remove-photo.dialog.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="removePhoto.text" datatype="html">
         <source>“<x id="caption" equiv-text="this.photo()?.caption || this.photo()?.fileName || &apos;&apos;"/>” leaves your page within a minute.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/photos/remove-photo.dialog.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.failedText" datatype="html">
@@ -4855,63 +4855,63 @@
         <source>Delete response</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.confirmDelete" datatype="html">
         <source>Delete for good?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.editTitle" datatype="html">
         <source>Edit your response</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.title" datatype="html">
         <source>Respond to <x id="author" equiv-text="this.review()?.author ?? &apos;&apos;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.editDesc" datatype="html">
         <source>Posted <x id="date" equiv-text="shortDate(e.createdAt)"/>. You can edit or delete it any time.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.desc" datatype="html">
         <source>One public response per review.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.help" datatype="html">
         <source>Public on your page as “Response from <x id="business" equiv-text="this.business()"/>”. <x id="name" equiv-text="this.firstName()"/> gets an email.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.counter" datatype="html">
         <source><x id="count" equiv-text="count(this.text().trim().length)"/> / 1,000</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.eventIn" datatype="html">
         <source>Event in <x id="month" equiv-text="monthYear(`${this.review()!.eventMonth}-15`)"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">63</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/reviews.page.ts</context>
@@ -4922,7 +4922,7 @@
         <source><x id="rating" equiv-text="this.review()?.rating ?? 0"/> out of 5</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">64</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/reviews.page.ts</context>
@@ -4933,74 +4933,70 @@
         <source>Fix 1 thing to save your response</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.fixPost" datatype="html">
         <source>Fix 1 thing to post your response</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.save" datatype="html">
         <source>Save response</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.post" datatype="html">
         <source>Post response</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.deleting" datatype="html">
         <source>Deleting your response</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.saving" datatype="html">
         <source>Saving your response</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.posting" datatype="html">
         <source>Posting your response</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.saveFailed" datatype="html">
         <source>Your response wasn’t saved</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.postFailed" datatype="html">
         <source>Your response wasn’t posted</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="response.error" datatype="html">
         <source>Write a response, up to 1,000 characters</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">95</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/sweet-hand/src/app/features/dashboard/reviews/review-response.dialog.ts</context>
-          <context context-type="linenumber">113</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reviews.loading" datatype="html">
@@ -6536,14 +6532,14 @@
         <source>(needed for “Other”)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/caterer/report-dialog/report-dialog.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="common.optional" datatype="html">
         <source>(optional)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/caterer/report-dialog/report-dialog.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">52</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/enquiry-form/enquiry-form-dialog.html</context>
@@ -6554,21 +6550,21 @@
         <source>Your report from <x id="date" equiv-text="shortDate(at)"/> is still with our team. We’ll email you when it’s been reviewed.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/caterer/report-dialog/report-dialog.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="report.sentText" datatype="html">
         <source>We review every report. <x id="name" equiv-text="this.target().name"/> won’t be told who sent it.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/caterer/report-dialog/report-dialog.ts</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="report.busy" datatype="html">
         <source>Sending your report</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/caterer/report-dialog/report-dialog.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="report.reason.inaccurate" datatype="html">
@@ -6784,14 +6780,14 @@
         <source>Show 1 caterer</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/listing/listing-filters-sheet.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filters.showMany" datatype="html">
         <source>Show <x id="count" equiv-text="caterersCount(total)"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/listing/listing-filters-sheet.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filters.remove" datatype="html">
@@ -7277,7 +7273,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/search/search-dialog.ts</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="search.outOfArea" datatype="html">
@@ -7288,7 +7284,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/search/search-dialog.ts</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="search.oneMatch" datatype="html">
@@ -7337,7 +7333,7 @@
         <source>Finding caterers near <x id="postal" equiv-text="this.text().trim().toUpperCase()"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/discovery/search/search-dialog.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="about.title" datatype="html">
@@ -8836,21 +8832,21 @@
         <source>Close this enquiry?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/shared/close-enquiry-dialog.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="close.busy" datatype="html">
         <source>Closing the enquiry</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/shared/close-enquiry-dialog.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="close.text" datatype="html">
         <source>You and <x id="name" equiv-text="otherShortName(this.thread())"/> won’t be able to send more messages. The conversation stays in your inbox.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/shared/close-enquiry-dialog.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="decline.failedTitle" datatype="html">
@@ -9226,35 +9222,35 @@
         <source>Share your contact details?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/shared/share-contact-dialog.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="share.busy" datatype="html">
         <source>Sharing your contact details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/shared/share-contact-dialog.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="share.text" datatype="html">
         <source>Your email and phone will show to <x id="name" equiv-text="name"/> in this enquiry only. Other caterers and other enquiries stay private. You can’t take this back.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/shared/share-contact-dialog.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="share.textCaterer" datatype="html">
         <source>Your business email and phone will show to <x id="name" equiv-text="name"/> in this enquiry only. Your other enquiries stay private. You can’t take this back.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/shared/share-contact-dialog.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="share.willSee" datatype="html">
         <source><x id="name" equiv-text="otherShortName(this.thread())"/> will see</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/enquiries/shared/share-contact-dialog.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="thread.replyEmpty" datatype="html">
@@ -11596,14 +11592,14 @@
         <source>Saving the record</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/breaches/record-breach.dialog.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="recordBreach.action" datatype="html">
         <source>save the record</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/breaches/record-breach.dialog.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="addCuisine.title" datatype="html">
@@ -11663,21 +11659,21 @@
         <source>Adding the cuisine</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/cuisines/add-cuisine.dialog.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="addCuisine.failedTitle" datatype="html">
-        <source>We couldn’t add <x id="name" equiv-text="this.failedName() ?? &apos;&apos;"/></source>
+        <source>We couldn’t add <x id="name" equiv-text="this.failedName()"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/cuisines/add-cuisine.dialog.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="addCuisine.action" datatype="html">
         <source>add the cuisine</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/cuisines/add-cuisine.dialog.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="addCuisine.nameRequired" datatype="html">
@@ -11915,49 +11911,49 @@
         <source>Retire <x id="name" equiv-text="this.cuisine().name"/>?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/cuisines/retire-cuisine.dialog.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="retireCuisine.busy" datatype="html">
         <source>Retiring <x id="name" equiv-text="this.cuisine().name"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/cuisines/retire-cuisine.dialog.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="retireCuisine.failedTitle" datatype="html">
         <source>We couldn’t retire <x id="name" equiv-text="this.cuisine().name"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/cuisines/retire-cuisine.dialog.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="retireCuisine.people" datatype="html">
         <source>Caterers using <x id="name" equiv-text="this.cuisine().name"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/cuisines/retire-cuisine.dialog.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="retireCuisine.unused" datatype="html">
         <source>No published caterers use <x id="name" equiv-text="this.cuisine().name"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/cuisines/retire-cuisine.dialog.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="retireCuisine.warningOne" datatype="html">
         <source>1 published caterer uses <x id="name" equiv-text="name"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/cuisines/retire-cuisine.dialog.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="retireCuisine.warning" datatype="html">
         <source><x id="count" equiv-text="n"/> published caterers use <x id="name" equiv-text="name"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/cuisines/retire-cuisine.dialog.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="operatorNav.label" datatype="html">
@@ -13068,11 +13064,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/operator-edit-dialog.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">61</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="suspend.title" datatype="html">
@@ -13984,56 +13980,56 @@
         <source>Approve <x id="name" equiv-text="r.kind === &apos;name-change&apos; ? r.newName : r.name"/>?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/approve-dialog.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="approve.nameDescription" datatype="html">
         <source>The public page shows the new name within a minute and /caterers/<x id="slug" equiv-text="r.slug"/> redirects to /caterers/<x id="newSlug" equiv-text="r.newSlug"/>. <x id="owner" equiv-text="r.owner"/> gets an email.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/approve-dialog.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="approve.description" datatype="html">
         <source>The profile appears in the listing within a minute, and <x id="owner" equiv-text="r.contact.name"/> gets an email with a link to the public page.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/approve-dialog.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="approve.audited" datatype="html">
         <source>Recorded in the audit log under your name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/approve-dialog.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="approve.redirects" datatype="html">
         <source>The old address redirects to the new one</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/approve-dialog.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="approve.rulesPass" datatype="html">
         <source>All submission rules pass</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/approve-dialog.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="approve.certificateValid" datatype="html">
         <source>Certificate valid until <x id="date" equiv-text="fullDate(r.certificate.expires)"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/approve-dialog.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.approveName" datatype="html">
         <source>Approve name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/approve-dialog.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">54</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/profile-review/profile-review.page.html</context>
@@ -14044,7 +14040,7 @@
         <source>Approve and publish</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/approve-dialog.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">54</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/profile-review/profile-review.page.html</context>
@@ -14059,35 +14055,35 @@
         <source>Approving <x id="name" equiv-text="this.review().name"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/approve-dialog.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="approve.nameFailedTitle" datatype="html">
         <source>We couldn’t approve the name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/approve-dialog.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="approve.failedTitle" datatype="html">
         <source>We couldn’t approve the profile</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/approve-dialog.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="approve.nameFailedText" datatype="html">
         <source>The current name is still live and nothing was changed. Try again in a moment.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/approve-dialog.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="approve.failedText" datatype="html">
         <source>It is still pending and nothing was published. Try again in a moment.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/approve-dialog.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="decision.conflictText" datatype="html">
@@ -14119,7 +14115,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit.busy" datatype="html">
@@ -14221,91 +14217,91 @@
         <source>Edit <x id="name" equiv-text="this.record().name"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/operator-edit-dialog.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit.descriptionLine" datatype="html">
         <source>Live within a minute. <x id="name" equiv-text="firstName(this.record().owner.name)"/> is emailed your reason.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/operator-edit-dialog.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit.photoOption" datatype="html">
         <source>Photo <x id="n" equiv-text="i + 1"/>: <x id="caption" equiv-text="p.alt"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/operator-edit-dialog.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit.removePhoto" datatype="html">
         <source>Remove photo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/operator-edit-dialog.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit.removeDish" datatype="html">
         <source>Remove dish</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/operator-edit-dialog.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit.save" datatype="html">
         <source>Save change</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/operator-edit-dialog.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit.action" datatype="html">
         <source>save the change</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/operator-edit-dialog.ts</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit.nameRequired" datatype="html">
         <source>Enter the business name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/operator-edit-dialog.ts</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit.descriptionLength" datatype="html">
         <source>Write 50 to 2,000 characters</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/operator-edit-dialog.ts</context>
-          <context context-type="linenumber">119</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit.listRequired" datatype="html">
         <source>Choose at least one</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/operator-edit-dialog.ts</context>
-          <context context-type="linenumber">120</context>
+          <context context-type="linenumber">111</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit.minWhole" datatype="html">
         <source>Enter the fewest guests as a whole number</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/operator-edit-dialog.ts</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">115</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit.maxAtLeast" datatype="html">
         <source>Make the most guests at least the fewest</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/operator-edit-dialog.ts</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="linenumber">116</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit.chooseItem" datatype="html">
         <source>Choose which one to remove</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/operator-edit-dialog.ts</context>
-          <context context-type="linenumber">127</context>
+          <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove.description" datatype="html">
@@ -14347,98 +14343,98 @@
         <source>Remove <x id="name" equiv-text="this.record().name"/> permanently?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove.busy" datatype="html">
         <source>Removing <x id="name" equiv-text="this.record().name"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove.failedTitle" datatype="html">
         <source>We couldn’t remove <x id="name" equiv-text="this.record().name"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove.action" datatype="html">
         <source>remove <x id="name" equiv-text="this.record().name"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove.lineGone" datatype="html">
         <source>Its page returns “gone” and links back to the listing.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove.oneReview" datatype="html">
         <source>1 review</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove.reviews" datatype="html">
         <source><x id="count" equiv-text="count(reviews)"/> reviews</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove.onePhoto" datatype="html">
         <source>1 photo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove.photos" datatype="html">
         <source><x id="count" equiv-text="count(photos)"/> photos</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove.lineShown" datatype="html">
         <source><x id="reviews" equiv-text="rv"/> and <x id="photos" equiv-text="ph"/> stop showing within a minute.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove.lineOneEnquiry" datatype="html">
         <source>1 open enquiry closes; that customer is emailed.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove.lineEnquiries" datatype="html">
         <source><x id="count" equiv-text="open"/> open enquiries close; those customers are emailed.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove.lineExport" datatype="html">
         <source><x id="name" equiv-text="firstName(r.owner.name)"/> can still sign in to export their enquiry history.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="remove.nameMismatch" datatype="html">
         <source>Type the business name exactly: <x id="name" equiv-text="name"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/decisions/remove-dialog.ts</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="queue.waitingDay" datatype="html">
@@ -15922,147 +15918,147 @@
         <source>Fix 1 thing to resolve the report</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.aboutReview" datatype="html">
         <source><x id="author" equiv-text="t.author"/>’s review of <x id="caterer" equiv-text="t.caterer.name"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.oneReport" datatype="html">
         <source>1 report about <x id="item" equiv-text="about"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.reports" datatype="html">
         <source><x id="count" equiv-text="g.reports.length"/> reports about <x id="item" equiv-text="about"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.actionReview" datatype="html">
         <source>Hide or remove the review.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.actionCaterer" datatype="html">
         <source>Suspend or remove the caterer.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.reasonFor" datatype="html">
         <source>Reason (sent to <x id="name" equiv-text="this.recipient()"/>)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.note" datatype="html">
         <source>Note</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.reasonHelp" datatype="html">
         <source><x id="name" equiv-text="firstName(this.recipient())"/> gets an email with this reason.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.noteHelp" datatype="html">
         <source>Kept with the report and in the audit log. Not sent to anyone.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.submitDismiss" datatype="html">
         <source>Dismiss and resolve</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.submitRemoveReview" datatype="html">
         <source>Remove review and resolve</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.submitSuspend" datatype="html">
         <source>Suspend caterer and resolve</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.submitRemove" datatype="html">
         <source>Remove caterer and resolve</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.submitHide" datatype="html">
         <source>Hide review and resolve</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.busyDismiss" datatype="html">
         <source>Dismissing the report</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.busyRemoveReview" datatype="html">
         <source>Removing the review and resolving the report</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.busySuspend" datatype="html">
         <source>Suspending the caterer and resolving the report</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.busyRemove" datatype="html">
         <source>Removing the caterer and resolving the report</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.busyHide" datatype="html">
         <source>Hiding the review and resolving the report</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resolve.noteRequired" datatype="html">
         <source>Add a note explaining your decision</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/moderation/reports/resolve-report-dialog.ts</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">108</context>
         </context-group>
       </trans-unit>
       <trans-unit id="addOperator.title" datatype="html">
@@ -16160,35 +16156,35 @@
         <source>Sending the invitation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/operators/add-operator.dialog.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="addOperator.action" datatype="html">
         <source>send the invitation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/operators/add-operator.dialog.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="addOperator.nameRequired" datatype="html">
         <source>Enter their full name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/operators/add-operator.dialog.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="addOperator.emailRequired" datatype="html">
         <source>Enter their work email</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/operators/add-operator.dialog.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="addOperator.emailTaken" datatype="html">
         <source>This email already has a Sweet Hand account</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/operators/add-operator.dialog.ts</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="deactivateOperator.failedText" datatype="html">
@@ -16517,14 +16513,14 @@
         <source>Saving your decision</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reviewsAdmin.by" datatype="html">
         <source>by <x id="reviewer" equiv-text="this.review().reviewer"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/reviews.page.ts</context>
@@ -16535,70 +16531,70 @@
         <source>Approve <x id="reviewer" equiv-text="who"/>’s review?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="moderate.hideTitle" datatype="html">
         <source>Keep <x id="reviewer" equiv-text="who"/>’s review hidden?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="moderate.restoreTitle" datatype="html">
         <source>Restore <x id="reviewer" equiv-text="who"/>’s review?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="moderate.removeTitle" datatype="html">
         <source>Remove <x id="reviewer" equiv-text="who"/>’s review permanently?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="moderate.approveText" datatype="html">
         <source>It appears on <x id="caterer" equiv-text="caterer"/>’s page within a minute and counts toward the average.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="moderate.hideText" datatype="html">
         <source>It stays off <x id="caterer" equiv-text="caterer"/>’s page and out of the average. <x id="reviewer" equiv-text="who"/> is emailed your reason. You can restore it later.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="moderate.restoreText" datatype="html">
         <source>It reappears on <x id="caterer" equiv-text="caterer"/>’s page within a minute and counts toward the average again. <x id="reviewer" equiv-text="who"/> is emailed your reason.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="moderate.removeText" datatype="html">
         <source>It can’t be restored. Only the audit entry is kept. <x id="reviewer" equiv-text="who"/> is emailed your reason.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="moderate.approveSubmit" datatype="html">
         <source>Approve and publish</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reviewsAdmin.keepHidden" datatype="html">
         <source>Keep hidden</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">76</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/reviews.page.ts</context>
@@ -16609,35 +16605,35 @@
         <source>Restore review</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="moderate.removeSubmit" datatype="html">
         <source>Remove permanently</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="moderate.action" datatype="html">
         <source>save your decision</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">98</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="moderate.reasonRequired" datatype="html">
         <source>Add a reason for this decision</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">108</context>
         </context-group>
       </trans-unit>
       <trans-unit id="moderate.understandRequired" datatype="html">
         <source>Confirm you understand the review can’t be restored</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/operator/reviews/moderate-review.dialog.ts</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reviewsAdmin.yesterday" datatype="html">
@@ -17173,84 +17169,84 @@
         <source>Edit your review</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/review-dialog/review-dialog.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.writeTitle" datatype="html">
         <source>Write a review</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/review-dialog/review-dialog.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.editDesc" datatype="html">
         <source><x id="name" equiv-text="s.catererName"/> · you can edit until <x id="date" equiv-text="shortDate(s.editableUntil)"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/review-dialog/review-dialog.ts</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.writeDesc" datatype="html">
         <source><x id="name" equiv-text="s.catererName"/> · your event on <x id="date" equiv-text="shortDate(s.eventDate)"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/review-dialog/review-dialog.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.help" datatype="html">
         <source>20 to 2,000 characters. Shown as <x id="label" equiv-text="s.reviewerLabel"/>, event in <x id="month" equiv-text="month"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/review-dialog/review-dialog.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.action" datatype="html">
         <source>post your review</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/review-dialog/review-dialog.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.saving" datatype="html">
         <source>Saving your review</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/review-dialog/review-dialog.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.posting" datatype="html">
         <source>Posting your review</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/review-dialog/review-dialog.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.liveTitle" datatype="html">
         <source>Thanks, <x id="name" equiv-text="first"/>. Your review is live.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/review-dialog/review-dialog.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.liveText" datatype="html">
         <source>It’s on <x id="name" equiv-text="s.catererName"/>’s page now. You can edit it until <x id="date" equiv-text="shortDate(until)"/>, or delete it any time.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/review-dialog/review-dialog.ts</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.failedTitle" datatype="html">
         <source>Your review wasn’t posted</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/review-dialog/review-dialog.ts</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.failedEditTitle" datatype="html">
         <source>Your changes weren’t saved</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/sweet-hand/src/app/features/reviews/review-dialog/review-dialog.ts</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="review.ratingRequired" datatype="html">

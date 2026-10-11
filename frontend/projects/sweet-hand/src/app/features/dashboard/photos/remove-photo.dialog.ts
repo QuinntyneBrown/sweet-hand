@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Dialog, Icon } from '@sweet-hand/components';
-import { problemOf } from '../../../core/forms/problem';
 import { CatererProfileService, type OwnPhotoView, type OwnProfileView } from '@sweet-hand/api';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 /** Remove this photo? and Keep at least 3 photos (docs/mocks/dialogs/remove-photo; L2-042.4). */
 @Component({
@@ -23,8 +23,7 @@ export class RemovePhotoDialog {
   readonly closed = output<void>();
   readonly removed = output<{ profile: OwnProfileView; photo: OwnPhotoView }>();
 
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
+  protected readonly state = new FormDialogState(this.open, { noErrors: null });
   protected readonly title = $localize`:@@removePhoto.title:Remove this photo?`;
   protected readonly blockedTitle = $localize`:@@removePhoto.blockedTitle:Keep at least 3 photos`;
   protected readonly cancel = $localize`:@@common.cancel:Cancel`;
@@ -36,25 +35,19 @@ export class RemovePhotoDialog {
       : $localize`:@@removePhoto.text:“${this.photo()?.caption || this.photo()?.fileName || ''}:caption:” leaves your page within a minute.`,
   );
 
-  constructor() {
-    effect(() => {
-      if (this.open()) untracked(() => this.failed.set(false));
-    });
-  }
-
   protected async remove(): Promise<void> {
     const photo = this.photo();
-    if (!photo || this.busy()) return;
-    this.busy.set(true);
-    this.failed.set(false);
-    try {
-      const profile = await firstValueFrom(this.api.removePhoto(photo.id));
-      this.removed.emit({ profile, photo });
-    } catch (error) {
-      if (problemOf(error).status === 409) this.closed.emit();
-      else this.failed.set(true);
-    } finally {
-      this.busy.set(false);
-    }
+    if (!photo || this.state.busy()) return;
+    await this.state.submit(
+      async () => {
+        const profile = await firstValueFrom(this.api.removePhoto(photo.id));
+        this.removed.emit({ profile, photo });
+      },
+      (status) => {
+        if (status !== 409) return false;
+        this.closed.emit();
+        return true;
+      },
+    );
   }
 }

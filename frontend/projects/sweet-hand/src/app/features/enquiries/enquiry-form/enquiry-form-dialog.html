@@ -11,7 +11,7 @@
   i18n-closeLabel="@@common.close"
   [cancelLabel]="mode() === 'form' ? cancelText : null"
   [form]="mode() === 'form'"
-  [busy]="busy()"
+  [busy]="state.busy()"
   [busyMessage]="sendingText"
   [returnFocus]="request().trigger"
   (dismissed)="close()"
@@ -68,18 +68,18 @@
           </sh-alert>
         }
       }
-      <sh-form-summary [heading]="summaryTitle()" [headingLevel]="3" [items]="summary()" [attempt]="attempt()" />
+      <sh-form-summary [heading]="summaryTitle()" [headingLevel]="3" [items]="summary()" [attempt]="state.attempt()" />
       <div class="field-row">
-        <sh-form-field label="Event date" i18n-label="@@enquiryForm.date" controlId="date" help="At least 2 days from today" i18n-help="@@enquiryForm.dateHelp" [error]="errors().date ?? null">
-          <sh-text-field type="date" name="date" [min]="range.min" [max]="range.max" [required]="true" [readonly]="busy()" [value]="values().eventDate" (valueChange)="set('eventDate', $event)" />
+        <sh-form-field label="Event date" i18n-label="@@enquiryForm.date" controlId="date" help="At least 2 days from today" i18n-help="@@enquiryForm.dateHelp" [error]="state.errors().date ?? null">
+          <sh-text-field type="date" name="date" [min]="range.min" [max]="range.max" [required]="true" [readonly]="state.busy()" [value]="values().eventDate" (valueChange)="set('eventDate', $event)" />
         </sh-form-field>
-        <sh-form-field label="Guests" i18n-label="@@enquiryForm.guests" controlId="guests" [help]="guestsHelp()" [error]="errors().guests ?? null" [warning]="guestsWarning()">
-          <sh-text-field name="guests" inputmode="numeric" pattern="[0-9]*" autocomplete="off" [required]="true" [readonly]="busy()" [value]="values().guests" (valueChange)="set('guests', $event)" />
+        <sh-form-field label="Guests" i18n-label="@@enquiryForm.guests" controlId="guests" [help]="guestsHelp()" [error]="state.errors().guests ?? null" [warning]="guestsWarning()">
+          <sh-text-field name="guests" inputmode="numeric" pattern="[0-9]*" autocomplete="off" [required]="true" [readonly]="state.busy()" [value]="values().guests" (valueChange)="set('guests', $event)" />
         </sh-form-field>
       </div>
       <div class="field-row">
-        <sh-form-field label="Event area" i18n-label="@@enquiryForm.area" controlId="area" [error]="errors().area ?? null" [warning]="areaWarning()">
-          <sh-select name="area" placeholder="Choose an area" i18n-placeholder="@@enquiryForm.areaPlaceholder" [groups]="areaGroups()" [required]="true" [disabled]="busy()" [value]="values().area" (valueChange)="set('area', $event)" />
+        <sh-form-field label="Event area" i18n-label="@@enquiryForm.area" controlId="area" [error]="state.errors().area ?? null" [warning]="areaWarning()">
+          <sh-select name="area" placeholder="Choose an area" i18n-placeholder="@@enquiryForm.areaPlaceholder" [groups]="areaGroups()" [required]="true" [disabled]="state.busy()" [value]="values().area" (valueChange)="set('area', $event)" />
         </sh-form-field>
         <sh-form-field
           label="Postal code"
@@ -89,13 +89,13 @@
           controlId="postal"
           help="We keep only the first 3 characters"
           i18n-help="@@enquiryForm.postalHelp"
-          [error]="errors().postal ?? null"
+          [error]="state.errors().postal ?? null"
         >
-          <sh-text-field name="postal" autocomplete="postal-code" autocapitalize="characters" [maxlength]="7" [readonly]="busy()" [value]="values().postalCode" (valueChange)="set('postalCode', $event)" />
+          <sh-text-field name="postal" autocomplete="postal-code" autocapitalize="characters" [maxlength]="7" [readonly]="state.busy()" [value]="values().postalCode" (valueChange)="set('postalCode', $event)" />
         </sh-form-field>
       </div>
-      <sh-form-field label="Occasion" i18n-label="@@enquiryForm.occasion" controlId="occasion" [error]="errors().occasion ?? null">
-        <sh-select name="occasion" placeholder="Choose an occasion" i18n-placeholder="@@enquiryForm.occasionPlaceholder" [options]="occasions()" [required]="true" [disabled]="busy()" [value]="values().occasion" (valueChange)="set('occasion', $event)" />
+      <sh-form-field label="Occasion" i18n-label="@@enquiryForm.occasion" controlId="occasion" [error]="state.errors().occasion ?? null">
+        <sh-select name="occasion" placeholder="Choose an occasion" i18n-placeholder="@@enquiryForm.occasionPlaceholder" [options]="occasions()" [required]="true" [disabled]="state.busy()" [value]="values().occasion" (valueChange)="set('occasion', $event)" />
       </sh-form-field>
       <sh-form-field
         label="Message"
@@ -106,9 +106,9 @@
         [counter]="counter()"
         [counterOver]="over()"
         [counterAnnouncement]="overBy()"
-        [error]="errors().message ?? null"
+        [error]="state.errors().message ?? null"
       >
-        <sh-textarea name="message" [rows]="5" [required]="true" [readonly]="busy()" [value]="values().message" (valueChange)="set('message', $event)" />
+        <sh-textarea name="message" [rows]="5" [required]="true" [readonly]="state.busy()" [value]="values().message" (valueChange)="set('message', $event)" />
       </sh-form-field>
       <p class="private-note"><svg shIcon="lock" class="icon--sm"></svg>{{ privacyNote() }}</p>
     }
@@ -128,8 +128,8 @@
       </ng-container>
     }
     @default {
-      <sh-button slot="footer" type="submit" variant="primary" [busy]="busy()" [disabled]="limited()"
-        >@if (failed()) {<ng-container i18n="@@common.tryAgain">Try again</ng-container>} @else {<ng-container i18n="@@enquiryForm.send">Send enquiry</ng-container>}</sh-button
+      <sh-button slot="footer" type="submit" variant="primary" [busy]="state.busy()" [disabled]="limited()"
+        >@if (retry()) {<ng-container i18n="@@common.tryAgain">Try again</ng-container>} @else {<ng-container i18n="@@enquiryForm.send">Send enquiry</ng-container>}</sh-button
       >
     }
   }

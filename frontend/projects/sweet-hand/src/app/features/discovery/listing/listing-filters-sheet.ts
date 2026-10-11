@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, linkedSignal, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, linkedSignal, output, untracked } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ActiveFilters, Button, Checkbox, Sheet, delayedBusy, optionDisabled, type FilterOption } from '@sweet-hand/components';
 import { AreaField } from '../search/area-field';
@@ -32,7 +32,11 @@ export class ListingFiltersSheet {
   readonly dismissed = output<void>();
 
   private readonly api = inject(DiscoveryService);
-  protected readonly pending = signal<ListingQuery>({ cuisines: [], regions: [], areas: [], page: 1 });
+  /** The choices being made; each opening starts from the filters in force. */
+  protected readonly pending = linkedSignal<boolean, ListingQuery>({
+    source: this.open,
+    computation: () => ({ ...untracked(this.current), page: 1 }),
+  });
   /** The choices are those in force, whose results the listing already shows. */
   private readonly unchanged = computed(() => sameFilters(this.pending(), this.current()) && !!this.currentView());
   /** Only changed choices are counted. */
@@ -40,7 +44,7 @@ export class ListingFiltersSheet {
     params: () => (this.open() && !this.unchanged() ? { ...this.pending(), page: 1 } : undefined),
     stream: ({ params }) => this.api.listing(params),
   });
-  protected readonly busy = delayedBusy(this.counted.isLoading);
+  protected readonly counting = delayedBusy(this.counted.isLoading);
   /** The latest count; while the next one loads, the previous one; for the choices in force, the listing's results. */
   private readonly view = linkedSignal<{ v: ListingPageView | undefined; open: boolean; unchanged: boolean }, ListingPageView | undefined>({
     source: () => ({ v: this.counted.hasValue() ? this.counted.value() : undefined, open: this.open(), unchanged: this.unchanged() }),
@@ -59,13 +63,6 @@ export class ListingFiltersSheet {
     return total === 1 ? $localize`:@@filters.showOne:Show 1 caterer` : $localize`:@@filters.showMany:Show ${caterersCount(total)}:count:`;
   });
   protected readonly removeLabel = removeFilterLabel;
-
-  constructor() {
-    // Each opening starts from the filters in force.
-    effect(() => {
-      if (this.open()) untracked(() => this.pending.set({ ...this.current(), page: 1 }));
-    });
-  }
 
   protected isDisabled(o: FilterOption): boolean {
     return optionDisabled(o, false);
@@ -96,7 +93,7 @@ export class ListingFiltersSheet {
   }
 
   protected apply(): void {
-    if (this.busy()) return;
+    if (this.counting()) return;
     this.applied.emit(this.pending());
   }
 }

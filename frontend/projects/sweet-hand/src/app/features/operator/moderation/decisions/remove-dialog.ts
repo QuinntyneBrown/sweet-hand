@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Alert, ButtonAnchor, Checklist, ChecklistItem, Dialog, FormField, FormSummary, Icon, Textarea, type CheckStatusLabels, type SummaryItem } from '@sweet-hand/components';
 import { count } from '../../../../core/format/format';
-import { problemOf } from '../../../../core/forms/problem';
 import { summaryHeading } from '../../../../core/forms/validation';
 import { firstName } from '../moderation-text';
 import { conflictText, reasonError } from './decision-text';
 import { type CatererRecordView, type DecisionResult, OperatorModerationService } from '@sweet-hand/api';
+import { FormDialogState } from '../../../../core/forms/form-dialog-state';
 
 /**
  * "Remove Pelau House permanently?" with a reason and the business name typed
@@ -30,12 +30,15 @@ export class RemoveDialog {
 
   protected readonly reason = signal('');
   protected readonly confirm = signal('');
-  protected readonly reasonErr = signal<string | null>(null);
-  protected readonly confirmErr = signal<string | null>(null);
-  protected readonly attempt = signal(0);
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
   protected readonly conflict = signal<string | null>(null);
+  protected readonly state = new FormDialogState<{ reason: string | null; confirm: string | null }>(this.open, {
+    noErrors: { reason: null, confirm: null },
+    reset: () => {
+      this.reason.set('');
+      this.confirm.set('');
+      this.conflict.set(null);
+    },
+  });
   protected readonly noLabels: CheckStatusLabels = { done: '', missing: '', attention: '' };
 
   protected readonly matches = computed(() => this.confirm() === this.record().name);
@@ -46,8 +49,7 @@ export class RemoveDialog {
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@remove.action:remove ${this.record().name}:name:`));
   protected readonly summary = computed<SummaryItem[]>(() => {
     const items: SummaryItem[] = [];
-    const r = this.reasonErr();
-    const c = this.confirmErr();
+    const { reason: r, confirm: c } = this.state.errors();
     if (r) items.push({ controlId: 'reason', message: r });
     if (c) items.push({ controlId: 'confirm-name', message: c });
     return items;
@@ -69,47 +71,24 @@ export class RemoveDialog {
     return lines;
   });
 
-  constructor() {
-    effect(() => {
-      if (!this.open()) return;
-      untracked(() => {
-        this.reason.set('');
-        this.confirm.set('');
-        this.reasonErr.set(null);
-        this.confirmErr.set(null);
-        this.failed.set(false);
-        this.conflict.set(null);
-        this.attempt.set(0);
-      });
-    });
-  }
-
   protected async remove(): Promise<void> {
-    if (this.busy() || this.conflict()) return;
+    if (this.state.busy() || this.conflict()) return;
     const name = this.record().name;
-    this.reasonErr.set(reasonError(this.reason()));
-    this.confirmErr.set(this.matches() ? null : $localize`:@@remove.nameMismatch:Type the business name exactly: ${name}:name:`);
-    this.failed.set(false);
-    if (this.summary().length) {
-      this.attempt.update((n) => n + 1);
-      return;
-    }
-    this.busy.set(true);
-    try {
-      this.done.emit(await firstValueFrom(this.api.remove(this.record().id, this.reason().trim(), this.confirm())));
-    } catch (e) {
-      const { status, problem } = problemOf(e);
-      if (status === 400 && problem.errors) {
-        this.reasonErr.set(problem.errors['reason']?.[0] ?? null);
-        this.confirmErr.set(problem.errors['confirm']?.[0] ?? null);
-        this.attempt.update((n) => n + 1);
-      } else if (status === 409) {
+    const errors = {
+      reason: reasonError(this.reason()),
+      confirm: this.matches() ? null : $localize`:@@remove.nameMismatch:Type the business name exactly: ${name}:name:`,
+    };
+    if (!this.state.validate(errors)) return;
+    await this.state.submit(
+      async () => this.done.emit(await firstValueFrom(this.api.remove(this.record().id, this.reason().trim(), this.confirm()))),
+      (status, problem) => {
+        if (status === 400 && problem.errors) {
+          return this.state.reject({ reason: problem.errors['reason']?.[0] ?? null, confirm: problem.errors['confirm']?.[0] ?? null });
+        }
+        if (status !== 409) return false;
         this.conflict.set(conflictText(name, problem));
-      } else {
-        this.failed.set(true);
-      }
-    } finally {
-      this.busy.set(false);
-    }
+        return true;
+      },
+    );
   }
 }

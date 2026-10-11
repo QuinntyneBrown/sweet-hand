@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Button, Checkbox, Dialog, FormField, FormSummary, Radio, RadioGroup, TextField, Textarea, type SummaryItem } from '@sweet-hand/components';
 import { torontoToday } from '../../../core/format/format';
-import { problemOf } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
 import { breachErrors, type BreachField } from './breach-rules';
 import type { BreachErrors } from './breach-errors';
 import { type BreachInformation, type BreachRecord, OperatorSettingsService, type RecordBreachRequest } from '@sweet-hand/api';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 const INFORMATION: { value: BreachInformation; label: string }[] = [
   { value: 'Names', label: $localize`:@@recordBreach.names:Names` },
@@ -46,38 +46,28 @@ export class RecordBreachDialog {
   protected readonly information = signal<BreachInformation[]>([]);
   protected readonly risk = signal<string | null>(null);
   protected readonly decision = signal<string | null>(null);
-  protected readonly errors = signal<BreachErrors>({});
-  protected readonly attempt = signal(0);
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
+  protected readonly state = new FormDialogState<BreachErrors>(this.open, {
+    noErrors: {},
+    reset: () => {
+      for (const c of [this.date, this.what, this.people, this.riskNotes]) c.reset();
+      this.information.set([]);
+      this.risk.set(null);
+      this.decision.set(null);
+    },
+  });
   protected readonly saving = $localize`:@@recordBreach.busy:Saving the record`;
   protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.errors();
+    const e = this.state.errors();
     return (Object.keys(CONTROL) as BreachField[]).filter((f) => e[f]).map((f) => ({ controlId: CONTROL[f], message: e[f]! }));
   });
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@recordBreach.action:save the record`));
-
-  constructor() {
-    effect(() => {
-      if (this.open())
-        untracked(() => {
-          for (const c of [this.date, this.what, this.people, this.riskNotes]) c.reset();
-          this.information.set([]);
-          this.risk.set(null);
-          this.decision.set(null);
-          this.errors.set({});
-          this.failed.set(false);
-          this.attempt.set(0);
-        });
-    });
-  }
 
   protected toggle(value: BreachInformation, checked: boolean): void {
     this.information.update((all) => (checked ? [...all.filter((v) => v !== value), value] : all.filter((v) => v !== value)));
   }
 
   protected async save(): Promise<void> {
-    if (this.busy()) return;
+    if (this.state.busy()) return;
     const request: RecordBreachRequest = {
       date: this.date.value,
       what: this.what.value.trim(),
@@ -87,26 +77,13 @@ export class RecordBreachDialog {
       riskNotes: this.riskNotes.value.trim(),
       decision: this.decision() as RecordBreachRequest['decision'],
     };
-    this.failed.set(false);
-    const errors = breachErrors(request, this.today);
-    this.errors.set(errors);
-    if (Object.keys(errors).length) {
-      this.attempt.update((n) => n + 1);
-      return;
-    }
-    this.busy.set(true);
-    try {
-      this.recorded.emit(await firstValueFrom(this.api.recordBreach(request)));
-    } catch (error) {
-      const { status, problem } = problemOf(error);
-      if (status === 400 && problem.errors) {
-        this.errors.set(Object.fromEntries(Object.entries(problem.errors).map(([f, m]) => [f, m[0]])) as BreachErrors);
-        this.attempt.update((n) => n + 1);
-      } else {
-        this.failed.set(true);
-      }
-    } finally {
-      this.busy.set(false);
-    }
+    if (!this.state.validate(breachErrors(request, this.today))) return;
+    await this.state.submit(
+      async () => this.recorded.emit(await firstValueFrom(this.api.recordBreach(request))),
+      (status, problem) =>
+        status === 400 &&
+        !!problem.errors &&
+        this.state.reject(Object.fromEntries(Object.entries(problem.errors).map(([f, m]) => [f, m[0]])) as BreachErrors),
+    );
   }
 }

@@ -67,7 +67,7 @@ AGENTS.md requires: criterion, failing acceptance test, then code.
 | T-07 | Angular 21 and pinned Playwright behind current releases | Tooling | Medium | M |
 | T-08 | Libraries are not publishable packages | Tooling | Low | S |
 | T-09 | Initial bundle close to its budget with no per-route tracking | Tooling | Low | S |
-| T-10 | Dialog lifecycle boilerplate copied into 28 dialogs | App | High | L |
+| T-10 | ~~Dialog lifecycle boilerplate copied into 28 dialogs~~ **Fixed** | App | High | L |
 | T-11 | Problem-body to error-summary mapping hand-written in 12 files | App | High | M |
 | T-12 | HTTP status branching repeated per page | App | Medium | M |
 | T-13 | Two form styles, manual validation, scattered rule files | App | Medium | L |
@@ -304,7 +304,19 @@ the initial size on every build.
 
 ## B. Application (`projects/sweet-hand`)
 
-### T-10 Dialog lifecycle boilerplate copied into 28 dialogs — High, L
+### T-10 Dialog lifecycle boilerplate copied into 28 dialogs — High, L — Fixed
+
+**Status. Fixed** on 2026-10-11. `core/forms/form-dialog-state.ts` holds
+`attempt`, `busy`, `failed` and `errors`, the one open-reset `effect`, and
+`open()`, `validate()`, `reject()` and `submit()`. `submit()` hands each failed
+request's status and problem to the dialog's handler, the hook T-11's
+`applyProblem` plugs into. Every dialog in `features/` now creates one
+`FormDialogState` and declares only its own fields (through the `reset`
+option) and its own submit; `search-dialog` and `report-dialog` use it too, and
+`listing-filters-sheet` starts each opening from a `linkedSignal` instead of an
+effect. `overview/submit-dialog` still takes `busy` and `failed` as inputs: it
+is presentational and the overview page owns that state. The evidence below is
+kept as the record of what was removed.
 
 **Evidence.** 31 dialogs each declare `open = input(...)`, `closed = output()`,
 `attempt`, `busy`, `failed` signals, and 27 of them repeat the same

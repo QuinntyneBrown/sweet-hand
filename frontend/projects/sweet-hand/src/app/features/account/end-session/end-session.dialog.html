@@ -10,13 +10,13 @@
     i18n-closeLabel="@@common.close"
     cancelLabel="Cancel"
     i18n-cancelLabel="@@common.cancel"
-    [busy]="busy()"
+    [busy]="state.busy()"
     [busyMessage]="busyMessage()"
     [returnFocus]="returnFocus()"
     (dismissed)="closed.emit()"
     (submitted)="end()"
   >
-    @if (failed()) {
+    @if (state.failed()) {
       <sh-alert tone="danger" live="assertive" title="That device is still signed in" i18n-title="@@endSession.failedTitle"
         ><ng-container i18n="@@endSession.failedText">Something went wrong on our side. Try again in a moment.</ng-container></sh-alert
       >
@@ -32,8 +32,8 @@
       class="btn btn--primary"
       type="submit"
       autofocus
-      [attr.aria-busy]="busy() ? 'true' : null"
-      [attr.aria-disabled]="busy() ? 'true' : null"
+      [attr.aria-busy]="state.busy() ? 'true' : null"
+      [attr.aria-disabled]="state.busy() ? 'true' : null"
       i18n="@@endSession.submit"
     >
       Sign out device

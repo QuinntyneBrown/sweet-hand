@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Button, Dialog, Icon } from '@sweet-hand/components';
 import { otherShortName } from '../thread-view';
 import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 /** "Share your contact details?" (share-contact-details design; docs/mocks/dialogs/share-contact). */
 @Component({
@@ -30,25 +31,12 @@ export class ShareContactDialog {
       : $localize`:@@share.textCaterer:Your business email and phone will show to ${name}:name: in this enquiry only. Your other enquiries stay private. You can’t take this back.`;
   });
   protected readonly willSee = computed(() => $localize`:@@share.willSee:${otherShortName(this.thread())}:name: will see`);
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
-
-  constructor() {
-    effect(() => {
-      if (this.open()) untracked(() => this.failed.set(false));
-    });
-  }
+  protected readonly state = new FormDialogState(this.open, { noErrors: null });
 
   protected async confirm(): Promise<void> {
-    if (this.busy()) return;
-    this.busy.set(true);
-    this.failed.set(false);
-    try {
+    if (this.state.busy()) return;
+    await this.state.submit(async () => {
       this.done.emit(await firstValueFrom(this.api.shareContactDetails(this.thread().id)));
-    } catch {
-      this.failed.set(true);
-    } finally {
-      this.busy.set(false);
-    }
+    });
   }
 }

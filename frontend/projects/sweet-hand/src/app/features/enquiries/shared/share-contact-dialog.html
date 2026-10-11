@@ -9,13 +9,13 @@
   cancelLabel="Cancel"
   i18n-cancelLabel="@@common.cancel"
   initialFocus="cancel"
-  [busy]="busy()"
+  [busy]="state.busy()"
   [busyMessage]="busyMessage"
   [returnFocus]="returnFocus()"
   (dismissed)="dismissed.emit()"
 >
   <svg slot="icon" shIcon="lock"></svg>
-  @if (failed()) {
+  @if (state.failed()) {
     <div class="alert alert--danger" role="alert">
       <svg shIcon="danger"></svg>
       <div class="alert__body">
@@ -29,8 +29,8 @@
       <span>{{ thread().myContact.phone }}</span>
     }
   </div>
-  <sh-button slot="footer" variant="primary" [busy]="busy()" (activated)="confirm()">
-    @if (failed()) {
+  <sh-button slot="footer" variant="primary" [busy]="state.busy()" (activated)="confirm()">
+    @if (state.failed()) {
       <ng-container i18n="@@common.tryAgain">Try again</ng-container>
     } @else {
       <ng-container i18n="@@share.confirm">Share details</ng-container>

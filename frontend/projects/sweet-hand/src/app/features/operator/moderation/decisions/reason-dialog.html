@@ -9,7 +9,7 @@
   i18n-closeLabel="@@common.close"
   cancelLabel="Cancel"
   i18n-cancelLabel="@@common.cancel"
-  [busy]="busy()"
+  [busy]="state.busy()"
   [busyMessage]="busyMessage()"
   [returnFocus]="returnFocus()"
   (dismissed)="dismissed.emit()"
@@ -22,13 +22,13 @@
     <sh-alert tone="warning" live="assertive" title="This profile changed while you were looking" i18n-title="@@decision.conflictTitle">{{ c }}</sh-alert>
   } @else if (refused() && forbiddenTitle()) {
     <sh-alert tone="danger" live="assertive" [title]="forbiddenTitle()!">{{ forbiddenText() }}</sh-alert>
-  } @else if (failed()) {
+  } @else if (state.failed()) {
     <sh-alert tone="danger" live="assertive" [title]="failedTitle()">{{ failedText() }}</sh-alert>
   }
-  <sh-form-summary [heading]="summaryHeading()" [headingLevel]="3" summaryId="dlg-summary" [items]="summary()" [attempt]="attempt()" />
+  <sh-form-summary [heading]="summaryHeading()" [headingLevel]="3" summaryId="dlg-summary" [items]="summary()" [attempt]="state.attempt()" />
   <ng-content select="[slot=before]" />
-  <sh-form-field [label]="label()" [controlId]="controlId()" [help]="help()" [error]="error()">
-    <sh-textarea [name]="controlId()" [rows]="rows()" [required]="true" [(value)]="reason" [readonly]="busy()" [autofocus]="true" />
+  <sh-form-field [label]="label()" [controlId]="controlId()" [help]="help()" [error]="state.errors()">
+    <sh-textarea [name]="controlId()" [rows]="rows()" [required]="true" [(value)]="reason" [readonly]="state.busy()" [autofocus]="true" />
   </sh-form-field>
   <ng-content select="[slot=after]" />
   @if (conflict()) {
@@ -38,10 +38,10 @@
       slot="footer"
       [class]="submitVariant() === 'danger' ? 'btn btn--danger' : 'btn btn--primary'"
       type="submit"
-      [attr.aria-busy]="busy() ? 'true' : null"
-      [attr.aria-disabled]="busy() ? 'true' : null"
+      [attr.aria-busy]="state.busy() ? 'true' : null"
+      [attr.aria-disabled]="state.busy() ? 'true' : null"
     >
-      {{ failed() && retryLabel() ? retryLabel() : submitLabel() }}
+      {{ state.failed() && retryLabel() ? retryLabel() : submitLabel() }}
     </button>
   }
 </sh-dialog>

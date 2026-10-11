@@ -9,13 +9,13 @@
   cancelLabel="Cancel"
   i18n-cancelLabel="@@common.cancel"
   initialFocus="cancel"
-  [busy]="busy()"
+  [busy]="state.busy()"
   [busyMessage]="retiring()"
   [returnFocus]="returnFocus()"
   (dismissed)="closed.emit()"
 >
   <svg slot="icon" shIcon="warning"></svg>
-  @if (failed()) {
+  @if (state.failed()) {
     <sh-alert tone="danger" live="assertive" [title]="failedTitle()"
       ><ng-container i18n="@@retireCuisine.failedText">It’s still active everywhere. Try again in a moment.</ng-container></sh-alert
     >
@@ -38,5 +38,5 @@
   } @else {
     <p><span class="skeleton skeleton--text" aria-hidden="true"></span></p>
   }
-  <sh-button slot="footer" variant="danger" [busy]="busy()" (activated)="retire()"><ng-container i18n="@@retireCuisine.submit">Retire cuisine</ng-container></sh-button>
+  <sh-button slot="footer" variant="danger" [busy]="state.busy()" (activated)="retire()"><ng-container i18n="@@retireCuisine.submit">Retire cuisine</ng-container></sh-button>
 </sh-dialog>
