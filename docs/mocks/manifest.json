@@ -1794,6 +1794,28 @@
         "danger",
         "stacked"
       ]
+    },
+    {
+      "id": "launch",
+      "kind": "page",
+      "title": "Launch (pre-launch site)",
+      "route": "/ (launch app)",
+      "requirements": [],
+      "states": [
+        "default",
+        "caterer",
+        "invalid",
+        "submitting",
+        "error",
+        "success",
+        "confirmed",
+        "link-expired",
+        "unsubscribed"
+      ],
+      "not_applicable": {
+        "loading": "Prerendered at build time; no data loads after first paint.",
+        "empty": "Static content and a form; there is no collection that can be empty."
+      }
     }
   ]
 }
