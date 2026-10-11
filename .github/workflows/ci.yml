@@ -61,7 +61,7 @@ jobs:
       - name: Build production container
         run: docker build -f backend/Dockerfile -t sweet-hand-api:${{ github.sha }} .
       - name: Scan production container
-        uses: aquasecurity/trivy-action@0.29.0
+        uses: aquasecurity/trivy-action@v0.35.0
         with:
           image-ref: sweet-hand-api:${{ github.sha }}
           severity: CRITICAL
@@ -83,5 +83,5 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - uses: azure/setup-bicep@v2
-      - run: bicep build infra/main.bicep --stdout > /dev/null
+      - run: az bicep install
+      - run: az bicep build --file infra/main.bicep --stdout > /dev/null
