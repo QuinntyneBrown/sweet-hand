@@ -1,6 +1,6 @@
 # 0006 — Backend stack: TypeScript on Node.js, no web framework
 
-- Status: Accepted
+- Status: Accepted; HTTP layer and tooling superseded by ADR 0009 (NestJS, SWC)
 - Date: 2026-10-11
 
 ## Context

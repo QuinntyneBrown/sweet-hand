@@ -13,5 +13,7 @@ cover an area before changing it.
 | [0006](0006-backend-stack-nestjs-postgresql-drizzle.md) | Backend stack: NestJS on Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage | Accepted |
 | [0007](0007-backend-tests-against-in-memory-repositories.md) | Backend tests drive the API over HTTP against in-memory repositories | Accepted |
 | [0006](0006-backend-stack-node-typescript.md) | Backend stack: TypeScript on Node.js, no web framework | Accepted |
+| [0006](0006-backend-stack-node-typescript.md) | Backend stack: TypeScript on Node.js, no web framework | Superseded in part by 0009 |
 | [0007](0007-persistence-document-collections.md) | Persistence: document collections on PostgreSQL, faked in memory for tests | Accepted |
 | [0008](0008-acceptance-tests-against-the-backend-in-test-mode.md) | Acceptance tests run against the real backend in test mode | Accepted |
+| [0009](0009-backend-http-layer-nestjs.md) | The backend's HTTP layer is NestJS | Accepted |

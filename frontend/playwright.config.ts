@@ -29,7 +29,7 @@ export default defineConfig({
   webServer: [
     {
       // The backend in test mode (ADR 0008): in-memory database, one environment per test.
-      command: `PORT=${API_PORT} TEST_CONTROL=1 node ../backend/src/main.ts`,
+      command: `PORT=${API_PORT} TEST_CONTROL=1 npm --prefix ../backend start`,
       url: `${API_URL}/health/live`,
       reuseExistingServer: !process.env['CI'],
     },

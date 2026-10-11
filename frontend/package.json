@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "concurrently -k -n backend,sweet-hand \"npm run backend\" \"ng serve\"",
     "build": "ng build sweet-hand",
-    "backend": "node ../backend/src/main.ts",
+    "backend": "npm --prefix ../backend start",
     "e2e": "playwright test",
     "lint": "ng lint sweet-hand",
     "extract-i18n": "ng extract-i18n sweet-hand",
