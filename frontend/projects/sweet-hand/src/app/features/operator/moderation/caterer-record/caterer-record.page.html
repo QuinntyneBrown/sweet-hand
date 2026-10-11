@@ -1,4 +1,4 @@
-<sh-back-link href="/admin/caterers" i18n="@@nav.caterers">Caterers</sh-back-link>
+<sh-back-link [href]="paths.admin.caterers" i18n="@@nav.caterers">Caterers</sh-back-link>
 
 @if (failed()) {
   <sh-empty-state
@@ -14,7 +14,7 @@
   >
     <svg slot="icon" shIcon="danger"></svg>
     <button slot="actions" class="btn btn--primary" type="button" (click)="record.reload()" i18n="@@common.tryAgain">Try again</button>
-    <a slot="actions" class="btn" routerLink="/admin/caterers" i18n="@@record.backToCaterers">Back to caterers</a>
+    <a slot="actions" class="btn" [routerLink]="paths.admin.caterers" i18n="@@record.backToCaterers">Back to caterers</a>
   </sh-empty-state>
 } @else if (!view()) {
   <div class="thread__head record-head" aria-hidden="true">
@@ -43,7 +43,7 @@
       <p class="cluster">
         <sh-status [tone]="statusTone(r.status)" [label]="statusLabel(r.status)" />
         @if (r.status === 'Published') {
-          <a class="link--standalone" [routerLink]="'/caterers/' + r.slug" i18n="@@record.publicPage">Public page</a>
+          <a class="link--standalone" [routerLink]="paths.caterer(r.slug)" i18n="@@record.publicPage">Public page</a>
         } @else {
           <span class="text-muted" i18n="@@record.pageHidden">Public page hidden</span>
         }
@@ -78,7 +78,7 @@
     <div class="record-notice">
       <sh-alert tone="warning" [title]="expiredTitle()"
         >{{ expiredText() }}
-        <div slot="actions" class="alert__actions"><a routerLink="/admin/queue" i18n="@@record.backToQueue">Back to the queue</a></div>
+        <div slot="actions" class="alert__actions"><a [routerLink]="paths.admin.queue" i18n="@@record.backToQueue">Back to the queue</a></div>
       </sh-alert>
     </div>
   } @else if (r.pendingName) {
@@ -86,7 +86,7 @@
       <sh-alert tone="info" title="Name change waiting for review" i18n-title="@@record.nameWaitingTitle"
         >{{ nameWaiting() }}
         <div slot="actions" class="alert__actions">
-          <a class="link--standalone" [routerLink]="'/admin/review/' + r.id" i18n="@@record.reviewName">Review the name change</a>
+          <a class="link--standalone" [routerLink]="paths.admin.review(r.id)" i18n="@@record.reviewName">Review the name change</a>
         </div>
       </sh-alert>
     </div>
@@ -180,7 +180,7 @@
     <div class="caterer-section__head">
       <h2 id="hist-title" i18n="@@record.statusHistory">Status history</h2>
       @if (admin()) {
-        <a class="link--standalone" routerLink="/admin/audit" i18n="@@nav.auditLog">Audit log</a>
+        <a class="link--standalone" [routerLink]="paths.admin.audit" i18n="@@nav.auditLog">Audit log</a>
       }
     </div>
     <ol class="timeline" aria-label="Status history, newest first" i18n-aria-label="@@record.historyLabel">
@@ -218,7 +218,7 @@
     [summaryHeading]="suspendSummary()"
     [validate]="validateReason"
     [action]="suspendAction"
-    conflictHref="/admin/caterers"
+    [conflictHref]="paths.admin.caterers"
     conflictLink="Back to caterers"
     i18n-conflictLink="@@record.backToCaterers"
     [toastWhenUnreachable]="true"
@@ -251,7 +251,7 @@
     [summaryHeading]="reinstateSummary()"
     [validate]="validateReason"
     [action]="reinstateAction"
-    conflictHref="/admin/caterers"
+    [conflictHref]="paths.admin.caterers"
     conflictLink="Back to caterers"
     i18n-conflictLink="@@record.backToCaterers"
     [returnFocus]="opener()"

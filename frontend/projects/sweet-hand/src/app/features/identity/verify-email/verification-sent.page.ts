@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { Button } from '@sweet-hand/components';
 import { AuthPhotos } from '../auth-photos';
 import { IdentityService, type ResendVerificationRequest } from '@sweet-hand/api';
+import { paths } from '../../../core/routing/paths';
 
 /** How long "Resend email" stays paused after a link was sent. */
 export const RESEND_PAUSE_MS = 60_000;
@@ -20,6 +21,7 @@ export const RESEND_PAUSE_MS = 60_000;
   templateUrl: './verification-sent.page.html',
 })
 export class VerificationSentPage {
+  protected readonly paths = paths;
   private readonly api = inject(IdentityService);
   private readonly from: ResendVerificationRequest;
   private timer: ReturnType<typeof setTimeout> | undefined;

@@ -10,6 +10,7 @@ import { AuthPhotos } from '../auth-photos';
 import { PASSWORD_MIN, newPasswordError } from '../rules';
 import { IdentityService } from '@sweet-hand/api';
 import type { View } from './view';
+import { paths } from '../../../core/routing/paths';
 
 /** Choose a new password from a reset link, /reset-password/:token (L2-077.2, L2-077.4). */
 @Component({
@@ -19,6 +20,7 @@ import type { View } from './view';
   templateUrl: './reset-password.page.html',
 })
 export class ResetPasswordPage {
+  protected readonly paths = paths;
   private readonly api = inject(IdentityService);
   private readonly session = inject(Session);
 

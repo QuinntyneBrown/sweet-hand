@@ -1,4 +1,4 @@
-<sh-back-link href="/admin/queue" i18n="@@nav.reviewQueue">Review queue</sh-back-link>
+<sh-back-link [href]="paths.admin.queue" i18n="@@nav.reviewQueue">Review queue</sh-back-link>
 
 @if (failed()) {
   <sh-empty-state
@@ -14,7 +14,7 @@
   >
     <svg slot="icon" shIcon="danger"></svg>
     <button slot="actions" class="btn btn--primary" type="button" (click)="report.reload()" i18n="@@common.tryAgain">Try again</button>
-    <a slot="actions" class="btn" routerLink="/admin/queue" i18n="@@record.backToQueue">Back to the queue</a>
+    <a slot="actions" class="btn" [routerLink]="paths.admin.queue" i18n="@@record.backToQueue">Back to the queue</a>
   </sh-empty-state>
 } @else if (!view()) {
   <h1 class="visually-hidden" i18n="@@report.loadingHeading">Report</h1>
@@ -56,7 +56,7 @@
       <sh-alert tone="success" [title]="resolvedTitle()"
         >{{ resolvedText() }}
         @if (admin()) {
-          <div slot="actions" class="alert__actions"><a routerLink="/admin/audit" i18n="@@report.seeAudit">See the audit entry</a></div>
+          <div slot="actions" class="alert__actions"><a [routerLink]="paths.admin.audit" i18n="@@report.seeAudit">See the audit entry</a></div>
         }
       </sh-alert>
     </div>
@@ -96,7 +96,7 @@
           }
           <div class="thread__title">
             <p class="queue-item__title">
-              <a [routerLink]="'/admin/caterers/' + t.catererId">{{ t.name }}</a>
+              <a [routerLink]="paths.admin.caterer(t.catererId)">{{ t.name }}</a>
             </p>
             <p class="queue-item__meta">{{ t.cuisine }} · {{ t.area }} · {{ t.owner }}</p>
             <p><sh-status [tone]="statusTone(t.status)" [label]="statusLabel(t.status)" /></p>

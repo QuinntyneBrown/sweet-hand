@@ -13,6 +13,7 @@ import { StatusNotice } from '../shared/status-notice';
 import { WithdrawDialog } from '../shared/withdraw-dialog';
 import { CatererProfileService, type OwnProfileView } from '@sweet-hand/api';
 import type { Errors } from './errors';
+import { paths } from '../../../core/routing/paths';
 
 const NONE: Errors = { cuisines: null, primaryCuisine: null, areas: null, primaryArea: null };
 
@@ -24,6 +25,7 @@ const NONE: Errors = { cuisines: null, primaryCuisine: null, areas: null, primar
   templateUrl: './cuisines.page.html',
 })
 export class CuisinesPage {
+  protected readonly paths = paths;
   private readonly api = inject(CatererProfileService);
   protected readonly data = new ProfileData(this.api);
   protected readonly autosave = new Autosave(() => this.save(), () => this.data.published());

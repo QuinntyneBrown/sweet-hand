@@ -2,15 +2,15 @@
   @case ('not-found') {
     <sh-error-page heading="Page not found" i18n-heading="@@system.notFound.heading" text="We couldn’t find that page. It may have moved, or the caterer may no longer be listed." i18n-text="@@system.notFound.text" code="Error 404" i18n-code="@@system.notFound.code">
       <ng-container slot="photos" *ngTemplateOutlet="photos" />
-      <a slot="actions" class="btn btn--primary btn--lg" routerLink="/caterers" i18n="@@system.browseCaterers">Browse caterers</a>
+      <a slot="actions" class="btn btn--primary btn--lg" [routerLink]="paths.caterers" i18n="@@system.browseCaterers">Browse caterers</a>
     </sh-error-page>
   }
   @case ('forbidden') {
     <sh-error-page heading="No access" i18n-heading="@@system.forbidden.heading" text="Your account can’t open this page. If you think it should, ask a Sweet Hand admin." i18n-text="@@system.forbidden.text" code="Error 403" i18n-code="@@system.forbidden.code">
       <ng-container slot="photos" *ngTemplateOutlet="photos" />
       <ng-container slot="actions">
-        <a class="btn btn--primary btn--lg" routerLink="/caterers" i18n="@@system.goToSweetHand">Go to Sweet Hand</a>
-        <a class="btn btn--lg" routerLink="/sign-in" i18n="@@system.signInAnother">Sign in with another account</a>
+        <a class="btn btn--primary btn--lg" [routerLink]="paths.caterers" i18n="@@system.goToSweetHand">Go to Sweet Hand</a>
+        <a class="btn btn--lg" [routerLink]="paths.signIn" i18n="@@system.signInAnother">Sign in with another account</a>
       </ng-container>
     </sh-error-page>
   }
@@ -33,7 +33,7 @@
       <ng-container slot="photos" *ngTemplateOutlet="photos" />
       <ng-container slot="actions">
         <button class="btn btn--primary btn--lg" type="button" (click)="reload()"><svg shIcon="refresh"></svg><ng-container i18n="@@system.tryAgain">Try again</ng-container></button>
-        <a class="btn btn--lg" routerLink="/caterers" i18n="@@system.browseCaterers">Browse caterers</a>
+        <a class="btn btn--lg" [routerLink]="paths.caterers" i18n="@@system.browseCaterers">Browse caterers</a>
       </ng-container>
     </sh-error-page>
   }

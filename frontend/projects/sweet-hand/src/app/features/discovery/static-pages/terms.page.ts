@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { paths } from '../../../core/routing/paths';
 
 /** Terms, /terms (docs/mocks/pages/terms). */
 @Component({
@@ -8,4 +9,6 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './terms.page.html',
 })
-export class TermsPage {}
+export class TermsPage {
+  protected readonly paths = paths;
+}

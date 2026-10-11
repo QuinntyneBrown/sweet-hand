@@ -1,5 +1,5 @@
 <app-dashboard-layout current="menu" [status]="data.status()" [previewLabel]="data.state().kind === 'ready' ? previewLabel() : null">
-  <sh-back-link href="/dashboard" [untilLg]="true"><ng-container i18n="@@nav.overview">Overview</ng-container></sh-back-link>
+  <sh-back-link [href]="paths.dashboard.overview" [untilLg]="true"><ng-container i18n="@@nav.overview">Overview</ng-container></sh-back-link>
   <div class="page-intro">
     <h1 i18n="@@nav.menu">Menu</h1>
     @switch (data.state().kind) {
@@ -52,7 +52,7 @@
           <button class="btn btn--primary" type="button" (click)="reload()">
             <svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container>
           </button>
-          <a class="btn" routerLink="/dashboard" i18n="@@section.backToOverview">Back to overview</a>
+          <a class="btn" [routerLink]="paths.dashboard.overview" i18n="@@section.backToOverview">Back to overview</a>
         </ng-container>
       </sh-empty-state>
     }

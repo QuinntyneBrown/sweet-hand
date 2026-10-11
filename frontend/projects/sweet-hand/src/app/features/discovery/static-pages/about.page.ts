@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ButtonAnchor } from '@sweet-hand/components';
+import { paths } from '../../../core/routing/paths';
 
 /** About, /about: why Sweet Hand exists (docs/mocks/pages/about). */
 @Component({
@@ -8,4 +9,6 @@ import { ButtonAnchor } from '@sweet-hand/components';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './about.page.html',
 })
-export class AboutPage {}
+export class AboutPage {
+  protected readonly paths = paths;
+}

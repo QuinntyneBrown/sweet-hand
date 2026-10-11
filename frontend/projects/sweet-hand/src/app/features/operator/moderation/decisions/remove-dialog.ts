@@ -7,6 +7,7 @@ import { firstName } from '../moderation-text';
 import { conflictText, reasonError } from './decision-text';
 import { type CatererRecordView, type DecisionResult, OperatorModerationService } from '@sweet-hand/api';
 import { FormDialogState } from '../../../../core/forms/form-dialog-state';
+import { paths } from '../../../../core/routing/paths';
 
 /**
  * "Remove Pelau House permanently?" with a reason and the business name typed
@@ -20,6 +21,7 @@ import { FormDialogState } from '../../../../core/forms/form-dialog-state';
   templateUrl: './remove-dialog.html',
 })
 export class RemoveDialog {
+  protected readonly paths = paths;
   private readonly api = inject(OperatorModerationService);
 
   readonly open = input(false);

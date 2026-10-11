@@ -30,13 +30,13 @@
     <svg slot="icon" shIcon="danger"></svg>
     <ng-container slot="actions">
       <button class="btn btn--primary" type="button" (click)="load()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></button>
-      <a class="btn" routerLink="/admin/queue" i18n="@@operator.backToTheQueue">Back to the queue</a>
+      <a class="btn" [routerLink]="paths.admin.queue" i18n="@@operator.backToTheQueue">Back to the queue</a>
     </ng-container>
   </sh-empty-state>
 } @else if (report()?.hasData === false) {
   <sh-empty-state heading="No activity in this range" i18n-heading="@@metrics.emptyTitle" [text]="empty()">
     <svg slot="icon" shIcon="calendar"></svg>
-    <a slot="actions" class="btn btn--primary" routerLink="/admin/metrics" i18n="@@metrics.lastSixWeeks">Show the last 6 weeks</a>
+    <a slot="actions" class="btn btn--primary" [routerLink]="paths.admin.metrics" i18n="@@metrics.lastSixWeeks">Show the last 6 weeks</a>
   </sh-empty-state>
 } @else if (report(); as r) {
   <div class="metrics__stats">

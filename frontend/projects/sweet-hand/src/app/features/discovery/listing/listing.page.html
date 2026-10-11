@@ -10,7 +10,7 @@
 <div class="browse">
   <div class="browse__title">
     @if (occasion(); as o) {
-      <a class="eyebrow" routerLink="/occasions"><svg shIcon="chevron-left" class="icon--sm"></svg><ng-container i18n="@@nav.occasions">Occasions</ng-container></a>
+      <a class="eyebrow" [routerLink]="paths.occasions"><svg shIcon="chevron-left" class="icon--sm"></svg><ng-container i18n="@@nav.occasions">Occasions</ng-container></a>
       <h1>{{ o.name }}</h1>
     } @else {
       <h1 i18n="@@listing.title">Caterers</h1>
@@ -93,7 +93,7 @@
         [removeLabel]="removeFilterLabel"
         clearLabel="Clear filters"
         i18n-clearLabel="@@filters.clear"
-        clearHref="/caterers"
+        [clearHref]="paths.caterers"
         [disabled]="!online()"
         (removed)="removeChip($event)"
         (emptied)="focusResults()"
@@ -113,7 +113,7 @@
       >
         <svg slot="icon" shIcon="danger"></svg>
         <sh-button slot="actions" variant="primary" (activated)="retry()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></sh-button>
-        <sh-button-anchor slot="actions" href="/occasions"><ng-container i18n="@@listing.error.occasions">Browse occasions</ng-container></sh-button-anchor>
+        <sh-button-anchor slot="actions" [href]="paths.occasions"><ng-container i18n="@@listing.error.occasions">Browse occasions</ng-container></sh-button-anchor>
       </sh-empty-state>
     } @else if (firstRun()) {
       <sh-empty-state
@@ -126,19 +126,19 @@
         <span slot="photos" class="photo"><img src="/media/sunday-pot.jpg" alt="" width="72" height="72" /></span>
         <span slot="photos" class="photo"><img src="/media/pelau-house.jpg" alt="" width="104" height="104" /></span>
         <span slot="photos" class="photo"><img src="/media/sugar-dumplin.jpg" alt="" width="72" height="72" /></span>
-        <sh-button-anchor slot="actions" variant="primary" href="/join"><ng-container i18n="@@nav.join">Cater with Sweet Hand</ng-container></sh-button-anchor>
+        <sh-button-anchor slot="actions" variant="primary" [href]="paths.join"><ng-container i18n="@@nav.join">Cater with Sweet Hand</ng-container></sh-button-anchor>
       </sh-empty-state>
     } @else if (noResults(); as text) {
       <sh-empty-state heading="No caterers match these filters" i18n-heading="@@listing.noResults.title" [headingLevel]="3" [text]="text">
         <svg slot="icon" shIcon="search"></svg>
-        <sh-button-anchor slot="actions" variant="primary" href="/caterers"><ng-container i18n="@@filters.clear">Clear filters</ng-container></sh-button-anchor>
+        <sh-button-anchor slot="actions" variant="primary" [href]="paths.caterers"><ng-container i18n="@@filters.clear">Clear filters</ng-container></sh-button-anchor>
       </sh-empty-state>
     } @else {
       <sh-caterer-grid [busy]="busy()">
         @for (c of current()?.items ?? []; track c.slug) {
           <li>
             <sh-caterer-card
-              [href]="'/caterers/' + c.slug"
+              [href]="paths.caterer(c.slug)"
               [name]="c.name"
               [cuisine]="c.primaryCuisine"
               [area]="c.primaryArea"

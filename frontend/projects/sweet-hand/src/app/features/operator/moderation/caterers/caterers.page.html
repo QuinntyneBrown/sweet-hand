@@ -40,7 +40,7 @@
   >
     <svg slot="icon" shIcon="danger"></svg>
     <button slot="actions" class="btn btn--primary" type="button" (click)="list.reload()" i18n="@@common.tryAgain">Try again</button>
-    <a slot="actions" class="btn" routerLink="/admin/queue" i18n="@@caterers.toQueue">Go to the review queue</a>
+    <a slot="actions" class="btn" [routerLink]="paths.admin.queue" i18n="@@caterers.toQueue">Go to the review queue</a>
   </sh-empty-state>
 } @else if (view()?.counts?.all === 0) {
   <sh-empty-state
@@ -50,12 +50,12 @@
     i18n-text="@@caterers.emptyText"
   >
     <svg slot="icon" shIcon="plate"></svg>
-    <a slot="actions" class="btn" routerLink="/join" i18n="@@caterers.signUpPage">See the caterer sign-up page</a>
+    <a slot="actions" class="btn" [routerLink]="paths.join" i18n="@@caterers.signUpPage">See the caterer sign-up page</a>
   </sh-empty-state>
 } @else if (view()?.total === 0) {
   <sh-empty-state [heading]="none().heading" [text]="none().text">
     <svg slot="icon" shIcon="search"></svg>
-    <a slot="actions" class="btn" routerLink="/admin/caterers" i18n="@@filters.clear">Clear filters</a>
+    <a slot="actions" class="btn" [routerLink]="paths.admin.caterers" i18n="@@filters.clear">Clear filters</a>
   </sh-empty-state>
 } @else {
   <sh-queue [stack]="true" [busy]="!view()" busyLabel="Loading caterers" i18n-busyLabel="@@caterers.loading" [skeletonCount]="8">

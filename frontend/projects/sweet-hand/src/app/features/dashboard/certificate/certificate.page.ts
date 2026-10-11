@@ -16,6 +16,7 @@ import { readUpload } from '../photos/photo-rules';
 import { CatererProfileService, type CertificateView, type OwnProfileView } from '@sweet-hand/api';
 import type { Errors } from './errors';
 import type { Copy } from './copy';
+import { paths } from '../../../core/routing/paths';
 
 const NONE: Errors = { holder: null, issuer: null, number: null, expiry: null };
 
@@ -43,6 +44,7 @@ function typeOf(file: File): string {
   templateUrl: './certificate.page.html',
 })
 export class CertificatePage {
+  protected readonly paths = paths;
   private readonly api = inject(CatererProfileService);
   private readonly injector = inject(Injector);
   protected readonly data = new ProfileData(this.api);

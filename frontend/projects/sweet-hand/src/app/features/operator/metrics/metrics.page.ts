@@ -26,6 +26,7 @@ import { problemOf, reference } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
 import { charts, emptyText, lastSixWeeks, percent, publishedDelta, rangeError, rangeSubtitle, statusCaption, statusName, sum } from './metrics-view';
 import { type EnquiryMetrics, type Granularity, type MetricsQuery, type MetricsReport, MetricsService } from '@sweet-hand/api';
+import { paths } from '../../../core/routing/paths';
 
 /** The metrics dashboard, /admin/metrics (docs/mocks/pages/admin-metrics; MetricsDashboardPage, L2-061, L2-063). */
 @Component({
@@ -36,6 +37,7 @@ import { type EnquiryMetrics, type Granularity, type MetricsQuery, type MetricsR
   styleUrl: './metrics.page.css',
 })
 export class MetricsPage {
+  protected readonly paths = paths;
   private readonly api = inject(MetricsService);
   private readonly router = inject(Router);
   private readonly toasts = inject(ToastNotifier);
@@ -164,7 +166,7 @@ export class MetricsPage {
       this.attempt.update((n) => n + 1);
       return;
     }
-    void this.router.navigate(['/admin/metrics'], { queryParams: { from: v.from, to: v.to, by: v.by as Granularity } });
+    void this.router.navigate([paths.admin.metrics], { queryParams: { from: v.from, to: v.to, by: v.by as Granularity } });
   }
 
   protected async exportCsv(): Promise<void> {

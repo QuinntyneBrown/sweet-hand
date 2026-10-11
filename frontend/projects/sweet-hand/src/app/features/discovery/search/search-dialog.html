@@ -36,7 +36,7 @@
       <h3 class="filter-group__title" id="q-regions" i18n="@@search.regions">Or choose a whole region</h3>
       <ul class="filter-list">
         @for (r of regions; track r.id) {
-          <li><a class="filter-list__item" routerLink="/caterers" [queryParams]="regionParams(r.id)" (click)="closed.emit()">{{ r.name }}</a></li>
+          <li><a class="filter-list__item" [routerLink]="paths.caterers" [queryParams]="regionParams(r.id)" (click)="closed.emit()">{{ r.name }}</a></li>
         }
       </ul>
     </div>

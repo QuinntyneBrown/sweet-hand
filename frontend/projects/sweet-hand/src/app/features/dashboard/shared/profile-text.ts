@@ -2,6 +2,7 @@ import type { CheckStatusLabels, SectionLinkItem, SideNavItem, StatusTone } from
 import { shortDate } from '../../../core/format/format';
 import { type ChecklistKey, type OwnProfileStatus, type OwnProfileView, type ReferenceDataView } from '@sweet-hand/api';
 import type { CardModel } from './card-model';
+import { paths } from '../../../core/routing/paths';
 
 /**
  * Words and view models of the caterer dashboard (set-up-profile,
@@ -12,21 +13,21 @@ import type { CardModel } from './card-model';
 export type NavKey = 'overview' | 'details' | 'cuisines' | 'events' | 'photos' | 'menu' | 'food-safety' | 'reviews';
 
 export const SECTION_HREF: Record<Exclude<NavKey, 'overview'>, string> = {
-  details: '/dashboard/profile/details',
-  cuisines: '/dashboard/profile/cuisines',
-  events: '/dashboard/profile/events',
-  photos: '/dashboard/profile/photos',
-  menu: '/dashboard/profile/menu',
-  'food-safety': '/dashboard/profile/food-safety',
-  reviews: '/dashboard/reviews',
+  details: paths.dashboard.details,
+  cuisines: paths.dashboard.cuisines,
+  events: paths.dashboard.events,
+  photos: paths.dashboard.photos,
+  menu: paths.dashboard.menu,
+  'food-safety': paths.dashboard.foodSafety,
+  reviews: paths.dashboard.reviews,
 };
 
 /** The dashboard's side navigation; a removed caterer keeps only the overview, enquiry history and account (L2-058.5). */
 export function dashboardNav(current: NavKey, status: OwnProfileStatus | null, unread: number): SideNavItem[][] {
-  const overview: SideNavItem = { label: $localize`:@@nav.overview:Overview`, href: '/dashboard', current: current === 'overview' };
-  const account: SideNavItem = { label: $localize`:@@nav.account:Account`, href: '/account' };
+  const overview: SideNavItem = { label: $localize`:@@nav.overview:Overview`, href: paths.dashboard.overview, current: current === 'overview' };
+  const account: SideNavItem = { label: $localize`:@@nav.account:Account`, href: paths.account };
   if (status === 'Removed') {
-    return [[overview], [{ label: $localize`:@@nav.enquiryHistory:Enquiry history`, href: '/dashboard/enquiries' }, account]];
+    return [[overview], [{ label: $localize`:@@nav.enquiryHistory:Enquiry history`, href: paths.dashboard.enquiries }, account]];
   }
   const item = (key: Exclude<NavKey, 'overview'>, label: string): SideNavItem => ({ label, href: SECTION_HREF[key], current: current === key });
   return [
@@ -40,7 +41,7 @@ export function dashboardNav(current: NavKey, status: OwnProfileStatus | null, u
       item('food-safety', $localize`:@@nav.foodSafety:Food safety`),
     ],
     [
-      { label: $localize`:@@nav.enquiries:Enquiries`, href: '/dashboard/enquiries', count: unread ? $localize`:@@nav.unread:${unread}:count: unread` : undefined },
+      { label: $localize`:@@nav.enquiries:Enquiries`, href: paths.dashboard.enquiries, count: unread ? $localize`:@@nav.unread:${unread}:count: unread` : undefined },
       item('reviews', $localize`:@@nav.reviews:Reviews`),
       account,
     ],
@@ -175,7 +176,7 @@ export function publishedSections(p: OwnProfileView, reviews: { total: number; u
 
 /** Where each submission rule is fixed. */
 export const RULE_HREF: Record<ChecklistKey, string> = {
-  email: '/account',
+  email: paths.account,
   name: SECTION_HREF.details,
   description: SECTION_HREF.details,
   cuisines: SECTION_HREF.cuisines,

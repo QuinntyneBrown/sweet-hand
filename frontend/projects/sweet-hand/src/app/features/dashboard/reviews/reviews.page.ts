@@ -10,6 +10,7 @@ import { ProfileBanner } from '../shared/profile-banner';
 import { ReviewResponseDialog } from './review-response.dialog';
 import { CatererProfileService, type OwnProfileView, type OwnReviewPageView, type OwnReviewView } from '@sweet-hand/api';
 import type { ViewState } from './view-state';
+import { paths } from '../../../core/routing/paths';
 
 /** The caterer's reviews, /dashboard/reviews (docs/mocks/pages/dashboard-reviews; respond-to-review, CatererReviewsScreen, L2-052). */
 @Component({
@@ -19,6 +20,7 @@ import type { ViewState } from './view-state';
   templateUrl: './reviews.page.html',
 })
 export class ReviewsPage {
+  protected readonly paths = paths;
   private readonly api = inject(CatererProfileService);
   private readonly session = inject(Session);
   private readonly toasts = inject(ToastNotifier);

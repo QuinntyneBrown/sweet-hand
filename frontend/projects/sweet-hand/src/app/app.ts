@@ -20,6 +20,7 @@ import {
   siteMenuLinks,
   smallLinks,
 } from './shell/navigation';
+import { paths } from './core/routing/paths';
 
 /** The application shell: skip link, header, the page's main landmark, footer and the shell's overlays. */
 @Component({
@@ -54,7 +55,7 @@ export class App {
   /** Mid-authentication pages show only the wordmark (site-header D-4). */
   protected readonly minimal = computed(() => this.leaf().data['chrome'] === 'minimal');
   /** Mid sign-in pages and the account page (which shows them itself) get no email banners. */
-  protected readonly quietBanner = computed(() => this.minimal() || this.leaf().url.split(/[?#]/)[0] === '/account');
+  protected readonly quietBanner = computed(() => this.minimal() || this.leaf().url.split(/[?#]/)[0] === paths.account);
 
   protected readonly user = this.session.user;
   protected readonly home = computed(() => homeHref(this.user()));
@@ -79,9 +80,9 @@ export class App {
   protected readonly accountItems = computed<MenuItemEntry[]>(() => {
     const role = this.user()?.role;
     const items: MenuItemEntry[] = [];
-    if (role === 'Customer') items.push({ kind: 'item', id: 'inbox', label: $localize`:@@nav.inbox:Inbox`, href: '/inbox', icon: 'mail' });
-    if (role === 'Caterer') items.push({ kind: 'item', id: 'dashboard', label: $localize`:@@nav.dashboard:Dashboard`, href: '/dashboard', icon: 'plate' });
-    items.push({ kind: 'item', id: 'account', label: $localize`:@@nav.account:Account`, href: '/account', icon: 'lock' });
+    if (role === 'Customer') items.push({ kind: 'item', id: 'inbox', label: $localize`:@@nav.inbox:Inbox`, href: paths.inbox, icon: 'mail' });
+    if (role === 'Caterer') items.push({ kind: 'item', id: 'dashboard', label: $localize`:@@nav.dashboard:Dashboard`, href: paths.dashboard.overview, icon: 'plate' });
+    items.push({ kind: 'item', id: 'account', label: $localize`:@@nav.account:Account`, href: paths.account, icon: 'lock' });
     items.push({ kind: 'item', id: 'sign-out', label: $localize`:@@nav.signOut:Sign out`, icon: 'sign-out' });
     return items;
   });
@@ -121,6 +122,6 @@ export class App {
   protected async signOut(): Promise<void> {
     this.menuOpen.set(false);
     await this.session.signOut();
-    await this.router.navigateByUrl(this.user()?.role === 'Operator' ? '/sign-in' : '/caterers');
+    await this.router.navigateByUrl(this.user()?.role === 'Operator' ? paths.signIn : paths.caterers);
   }
 }

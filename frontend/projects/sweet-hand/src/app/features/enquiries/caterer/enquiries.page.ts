@@ -8,6 +8,7 @@ import { EnquiryThread } from '../shared/enquiry-thread';
 import { LastThread } from '../shared/last-thread';
 import { catererFilteredSubtitle, inboxSubtitle, readFilter, readPage } from '../enquiry-text';
 import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
+import { paths } from '../../../core/routing/paths';
 
 /**
  * A caterer's enquiries, /dashboard/enquiries (browse-inbox design): the list,
@@ -20,6 +21,7 @@ import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
   templateUrl: './enquiries.page.html',
 })
 export class EnquiriesPage {
+  protected readonly paths = paths;
   private readonly api = inject(EnquiriesService);
   private readonly params = toSignal(inject(ActivatedRoute).queryParamMap, { requireSync: true });
   private readonly lastThread = inject(LastThread);
@@ -46,7 +48,7 @@ export class EnquiriesPage {
   protected readonly emptyText = computed(
     () => $localize`:@@enquiries.emptyText:When a customer asks about an event, it lands here and we email ${this.user()?.email ?? ''}:email:.`,
   );
-  protected readonly pageHref = computed(() => `/caterers/${this.user()?.caterer?.slug ?? ''}`);
+  protected readonly pageHref = computed(() => paths.caterer(this.user()?.caterer?.slug ?? ''));
 
   /** The enquiry beside the list: the first unread on this page, else the newest. Previewing does not mark it read. */
   protected readonly selectedId = computed(() => {

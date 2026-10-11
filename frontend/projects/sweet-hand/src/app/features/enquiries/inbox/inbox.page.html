@@ -25,7 +25,7 @@
           <svg slot="icon" shIcon="danger"></svg>
           <ng-container slot="actions">
             <button class="btn btn--primary" type="button" (click)="retry()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></button>
-            <a class="btn" routerLink="/caterers" i18n="@@inbox.browseCaterers">Browse caterers</a>
+            <a class="btn" [routerLink]="paths.caterers" i18n="@@inbox.browseCaterers">Browse caterers</a>
           </ng-container>
         </sh-empty-state>
       } @else {
@@ -35,7 +35,7 @@
             <span class="photo"><img src="/media/pelau-house.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
             <span class="photo"><img src="/media/black-cake-co.jpg?w=400&fm=jpeg" alt="" width="72" height="72" /></span>
           </ng-container>
-          <a slot="actions" class="btn btn--primary" routerLink="/caterers" i18n="@@inbox.browseCaterers">Browse caterers</a>
+          <a slot="actions" class="btn btn--primary" [routerLink]="paths.caterers" i18n="@@inbox.browseCaterers">Browse caterers</a>
         </sh-empty-state>
       }
     </section>
@@ -53,7 +53,7 @@
           </p>
         }
       </div>
-      <app-enquiry-list [view]="view()" viewer="customer" basePath="/inbox" label="Your enquiries" i18n-label="@@inbox.listLabel" [filter]="filter()" />
+      <app-enquiry-list [view]="view()" viewer="customer" [basePath]="paths.inbox" label="Your enquiries" i18n-label="@@inbox.listLabel" [filter]="filter()" />
     </section>
     <div class="inbox-layout__thread">
       @if (view()) {

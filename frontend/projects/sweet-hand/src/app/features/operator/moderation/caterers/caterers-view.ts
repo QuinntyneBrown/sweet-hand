@@ -2,6 +2,7 @@ import type { SegmentedItem, StatusTone } from '@sweet-hand/components';
 import { count } from '../../../../core/format/format';
 import { profileStatusLabel, profileStatusTone, updatedOn } from '../moderation-text';
 import { type CatererFlag, type CatererRowView, type CatererStatusFilter, type CaterersPageView, type ProfileStatus } from '@sweet-hand/api';
+import { paths } from '../../../../core/routing/paths';
 
 const FILTERS: CatererStatusFilter[] = ['draft', 'pending', 'changes', 'published', 'suspended', 'removed'];
 const STATUS_OF: Record<CatererStatusFilter, ProfileStatus> = {
@@ -22,7 +23,7 @@ export const statusOfFilter = (f: CatererStatusFilter): ProfileStatus => STATUS_
 /** "/admin/caterers?status=suspended&q=Pelau&page=2" */
 export function caterersHref(query: { status?: CatererStatusFilter | null; q?: string | null; page?: number }): string {
   const parts = [query.status && `status=${query.status}`, query.q && `q=${encodeURIComponent(query.q)}`, query.page && query.page > 1 && `page=${query.page}`].filter(Boolean);
-  return parts.length ? `/admin/caterers?${parts.join('&')}` : '/admin/caterers';
+  return parts.length ? `${paths.admin.caterers}?${parts.join('&')}` : paths.admin.caterers;
 }
 
 export function statusFilters(view: CaterersPageView | undefined, q: string): SegmentedItem[] {
@@ -70,7 +71,7 @@ function flagText(flag: CatererFlag | null, openReports: number): string | null 
 export function catererRow(c: CatererRowView, now: Date = new Date()): CatererRow {
   return {
     id: c.id,
-    href: c.status === 'Pending review' ? `/admin/review/${c.id}` : `/admin/caterers/${c.id}`,
+    href: c.status === 'Pending review' ? paths.admin.review(c.id) : paths.admin.caterer(c.id),
     name: c.name,
     photo: c.photo ? { src: c.photo, width: 56, height: 56 } : null,
     statusTone: profileStatusTone(c.status),

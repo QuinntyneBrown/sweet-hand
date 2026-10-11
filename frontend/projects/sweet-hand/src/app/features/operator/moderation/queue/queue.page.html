@@ -14,13 +14,13 @@
     <ng-container i18n="@@queue.errorText">Nothing has been changed. Try again in a moment.</ng-container>
     <div slot="actions" class="alert__actions">
       <button class="btn btn--sm" type="button" (click)="queue.reload()" i18n="@@common.retry">Retry</button>
-      <a routerLink="/admin/changes" i18n="@@queue.goToChanges">Go to recent changes</a>
+      <a [routerLink]="paths.admin.changes" i18n="@@queue.goToChanges">Go to recent changes</a>
     </div>
   </sh-alert>
 } @else if (empty()) {
   <sh-empty-state heading="All caught up" i18n-heading="@@queue.emptyTitle" text="New profiles, name changes, expired certificates, reports and held reviews appear here, oldest first." i18n-text="@@queue.emptyText">
     <svg slot="icon" shIcon="check"></svg>
-    <a slot="actions" class="btn" routerLink="/admin/changes" i18n="@@queue.seeChanges">See recent changes</a>
+    <a slot="actions" class="btn" [routerLink]="paths.admin.changes" i18n="@@queue.seeChanges">See recent changes</a>
   </sh-empty-state>
 } @else {
   <sh-segmented ariaLabel="Filter by kind" i18n-ariaLabel="@@queue.filterLabel" [items]="filters()" [selected]="filter() ?? 'all'" [loading]="!view()" />

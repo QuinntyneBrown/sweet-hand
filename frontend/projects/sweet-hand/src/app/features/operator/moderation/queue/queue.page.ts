@@ -6,6 +6,7 @@ import { Session } from '../../../../core/session/session';
 import { pageName, pageSummary, readPage, readQueueFilter } from '../moderation-text';
 import { arrivalText, queueFilters, queueHref, queueRow, queueSubtitle } from './queue-view';
 import { OperatorModerationService, type QueuePageView } from '@sweet-hand/api';
+import { paths } from '../../../../core/routing/paths';
 
 /** How often an open queue checks for new items (admin-toast/info). */
 export const QUEUE_REFRESH_MS = 60_000;
@@ -18,6 +19,7 @@ export const QUEUE_REFRESH_MS = 60_000;
   templateUrl: './queue.page.html',
 })
 export class ReviewQueuePage {
+  protected readonly paths = paths;
   private readonly api = inject(OperatorModerationService);
   private readonly toasts = inject(ToastNotifier);
   private readonly session = inject(Session);
@@ -46,7 +48,7 @@ export class ReviewQueuePage {
   protected readonly hrefFor = (page: number): string => {
     const kind = this.filter();
     const query = [kind && `kind=${kind}`, page > 1 && `page=${page}`].filter(Boolean).join('&');
-    return query ? `/admin/queue?${query}` : '/admin/queue';
+    return query ? `${paths.admin.queue}?${query}` : paths.admin.queue;
   };
 
   /** Ids seen on this filter and page; a poll that brings new ones announces the newest (admin-toast/info). */

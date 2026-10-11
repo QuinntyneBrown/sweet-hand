@@ -34,6 +34,7 @@ import { ReportDialog } from './report-dialog/report-dialog';
 import { Connectivity } from './connectivity';
 import { type CatererGoneView, CatererPageService, type CatererPageView } from '@sweet-hand/api';
 import type { PageState } from './page-state';
+import { paths } from '../../../core/routing/paths';
 
 /** What the enquiry form needs to know about the caterer (L2-024, L2-026.2). */
 function enquiryTarget(v: CatererPageView): EnquiryTarget {
@@ -76,6 +77,7 @@ const ERROR_PHOTOS: RowPhoto[] = [
   styleUrl: './caterer.page.css',
 })
 export class CatererPage {
+  protected readonly paths = paths;
   readonly slug = input.required<string>();
 
   private readonly api = inject(CatererPageService);
@@ -137,7 +139,7 @@ export class CatererPage {
       if (!v) return;
       // A retired slug answered 301 and the browser followed it: show the current address (L2-018.3).
       if (v.slug !== untracked(this.slug)) {
-        void this.router.navigate(['/caterers', v.slug], { replaceUrl: true });
+        void this.router.navigate([paths.caterers, v.slug], { replaceUrl: true });
         return;
       }
       this.metadata.write(v);
@@ -149,7 +151,7 @@ export class CatererPage {
         this.main.set(state === 'ready' ? ['container', 'has-sticky-cta'] : state === 'gone' || state === 'not-found' ? [] : ['container']);
         if (state === 'gone') this.title.setTitle($localize`:@@caterer.gone.title:Caterer has left · Sweet Hand`);
         // Unpublished and unknown caterers get the one "Page not found" at the same address (L2-014.2).
-        if (state === 'not-found') void this.router.navigateByUrl('/404', { skipLocationChange: true });
+        if (state === 'not-found') void this.router.navigateByUrl(paths.system.notFound, { skipLocationChange: true });
       });
     });
     inject(DestroyRef).onDestroy(() => this.metadata.clear());

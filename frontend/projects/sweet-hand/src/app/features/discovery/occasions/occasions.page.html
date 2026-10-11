@@ -16,7 +16,7 @@
   >
     <svg slot="icon" shIcon="danger"></svg>
     <sh-button slot="actions" variant="primary" (activated)="tiles.reload()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></sh-button>
-    <sh-button-anchor slot="actions" href="/caterers"><ng-container i18n="@@occasions.error.browse">Browse all caterers</ng-container></sh-button-anchor>
+    <sh-button-anchor slot="actions" [href]="paths.caterers"><ng-container i18n="@@occasions.error.browse">Browse all caterers</ng-container></sh-button-anchor>
   </sh-empty-state>
 } @else {
   <sh-caterer-grid variant="occasions" [busy]="busy()" [skeletonCount]="8" [eagerCount]="{ xs: 2, sm: 3, lg: 4 }">
@@ -24,7 +24,7 @@
       <li>
         <sh-caterer-card
           variant="occasion"
-          [href]="'/caterers?occasion=' + o.id"
+          [href]="paths.caterers + '?occasion=' + o.id"
           [name]="o.name"
           [meta]="countText(o.count)"
           [photo]="o.photo"

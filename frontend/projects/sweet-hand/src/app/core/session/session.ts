@@ -3,6 +3,7 @@ import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { firstValueFrom } from 'rxjs';
 import { SessionService, type SessionView } from '@sweet-hand/api';
+import { paths } from '../routing/paths';
 
 /** How often the header's unread and queue counts refresh (L2-029.3). */
 export const SESSION_REFRESH_MS = 60_000;
@@ -34,8 +35,8 @@ export class Session {
     // Until a changed notice is accepted, every page but the notice itself leads to it (L2-070.4).
     this.router.events.pipe(filter((e) => e instanceof NavigationStart)).subscribe((e) => {
       const path = e.url.split(/[?#]/)[0];
-      if (this.privacyUpdateRequired() && path !== '/privacy/accept' && path !== '/privacy') {
-        void this.router.navigate(['/privacy/accept'], { queryParams: { returnUrl: e.url } });
+      if (this.privacyUpdateRequired() && path !== paths.privacyAccept && path !== paths.privacy) {
+        void this.router.navigate([paths.privacyAccept], { queryParams: { returnUrl: e.url } });
       }
     });
   }
@@ -61,7 +62,7 @@ export class Session {
     if (next.expired) {
       this.expiredAs.set(next.expired);
       // Signed out while on a page: sign in again and come back to it (L2-078.3).
-      if (wasSignedIn) await this.router.navigate(['/sign-in'], { queryParams: { returnUrl: this.router.url } });
+      if (wasSignedIn) await this.router.navigate([paths.signIn], { queryParams: { returnUrl: this.router.url } });
     }
   }
 

@@ -34,6 +34,7 @@ import type { EnquiryFormRequest } from './enquiry-form-request';
 import type { Mode } from './mode';
 import type { Notice } from './notice';
 import { FormDialogState } from '../../../core/forms/form-dialog-state';
+import { paths } from '../../../core/routing/paths';
 
 /**
  * "Send an enquiry" (docs/detailed-designs/enquiries/send-enquiry,
@@ -46,6 +47,7 @@ import { FormDialogState } from '../../../core/forms/form-dialog-state';
   templateUrl: './enquiry-form-dialog.html',
 })
 export class EnquiryFormDialog implements OnInit {
+  protected readonly paths = paths;
   readonly request = input.required<EnquiryFormRequest>();
   readonly closed = output<void>();
 
@@ -144,7 +146,7 @@ export class EnquiryFormDialog implements OnInit {
       ? $localize`:@@enquiryForm.wrongAccountCaterer:You’re signed in as ${user.displayName}:name: for ${user.caterer?.name ?? ''}:business:. Caterer accounts can’t send enquiries to other caterers.`
       : $localize`:@@enquiryForm.wrongAccountOperator:You’re signed in as ${user.displayName}:name:, a Sweet Hand operator. Operator accounts can’t send enquiries.`;
   });
-  protected readonly catererUrl = computed(() => `/caterers/${this.caterer().slug}`);
+  protected readonly catererUrl = computed(() => paths.caterer(this.caterer().slug));
 
   protected readonly sentTitle = computed(() => $localize`:@@enquiryForm.sentTitle:Enquiry sent to ${this.sent()?.caterer.name ?? ''}:name:`);
   protected readonly sentText = computed(() => {
@@ -264,8 +266,8 @@ export class EnquiryFormDialog implements OnInit {
   private signInFirst(values: EnquiryFormValues): void {
     const { slug, name, photo } = this.caterer();
     this.drafts.save({ caterer: { slug, name, photo }, values });
-    const returnUrl = `/caterers/${encodeURIComponent(slug)}?${RESUME_PARAM}=${RESUME_VALUE}`;
-    void this.router.navigate(['/sign-in'], { queryParams: { returnUrl } });
+    const returnUrl = `${paths.caterer(slug)}?${RESUME_PARAM}=${RESUME_VALUE}`;
+    void this.router.navigate([paths.signIn], { queryParams: { returnUrl } });
   }
 
   protected async resend(): Promise<void> {

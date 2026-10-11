@@ -16,7 +16,7 @@
         <ng-container i18n="@@enquiries.errorText">Your enquiries are safe. Check your connection and try again.</ng-container>
         <div slot="actions" class="alert__actions">
           <button class="btn btn--sm" type="button" (click)="retry()" i18n="@@common.retry">Retry</button>
-          <a routerLink="/dashboard" i18n="@@enquiries.backToOverview">Back to overview</a>
+          <a [routerLink]="paths.dashboard.overview" i18n="@@enquiries.backToOverview">Back to overview</a>
         </div>
       </sh-alert>
     </section>
@@ -40,7 +40,7 @@
       @if (!view()) {
         <p class="visually-hidden" role="status" i18n="@@enquiries.loading">Loading enquiries</p>
       }
-      <app-enquiry-list [view]="view()" viewer="caterer" basePath="/dashboard/enquiries" [label]="listLabel()" [filter]="filter()" [currentId]="selectedId()" currentKind="true" />
+      <app-enquiry-list [view]="view()" viewer="caterer" [basePath]="paths.dashboard.enquiries" [label]="listLabel()" [filter]="filter()" [currentId]="selectedId()" currentKind="true" />
     </section>
     @if (!noResults()) {
       <div class="inbox-layout__thread">

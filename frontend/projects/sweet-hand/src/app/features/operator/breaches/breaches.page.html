@@ -31,7 +31,7 @@
     <svg slot="icon" shIcon="danger"></svg>
     <ng-container slot="actions">
       <button class="btn btn--primary" type="button" (click)="load()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></button>
-      <a class="btn btn--ghost" routerLink="/admin/queue" i18n="@@operator.backToQueue">Back to review queue</a>
+      <a class="btn btn--ghost" [routerLink]="paths.admin.queue" i18n="@@operator.backToQueue">Back to review queue</a>
     </ng-container>
   </sh-empty-state>
 } @else if (records()?.length === 0) {

@@ -1,5 +1,6 @@
 import type { FooterLink, SiteNavLink, SiteNavShortcut } from '@sweet-hand/components';
 import { type SessionUser } from '@sweet-hand/api';
+import { homeFor, paths } from '../core/routing/paths';
 
 /** What the shell offers each role (site-header, site-menu and footer mocks). */
 
@@ -27,9 +28,7 @@ const waiting = (n: number) =>
   n === 1 ? $localize`:@@nav.itemWaiting:${n}:count: item waiting` : $localize`:@@nav.itemsWaiting:${n}:count: items waiting`;
 
 export function homeHref(user: SessionUser | null): string {
-  if (user?.role === 'Caterer') return '/dashboard';
-  if (user?.role === 'Operator') return '/admin/queue';
-  return '/caterers';
+  return homeFor(user?.role);
 }
 
 export function areaTag(user: SessionUser | null): string | null {
@@ -39,21 +38,21 @@ export function areaTag(user: SessionUser | null): string | null {
 }
 
 const catererPage = (user: SessionUser) =>
-  user.caterer?.status === 'Published' ? `/caterers/${user.caterer.slug}` : null;
+  user.caterer?.status === 'Published' ? paths.caterer(user.caterer.slug) : null;
 
 export function headerLinks(user: SessionUser | null, unreadCount: number, queue: number): SiteNavLink[] {
   const caterers = $localize`:@@nav.caterers:Caterers`;
   switch (user?.role) {
     case 'Customer':
       return [
-        { label: caterers, href: '/caterers' },
-        { label: $localize`:@@nav.occasions:Occasions`, href: '/occasions' },
-        { label: $localize`:@@nav.inbox:Inbox`, href: '/inbox', count: unreadCount, countLabel: unreadEnquiries(unreadCount) },
+        { label: caterers, href: paths.caterers },
+        { label: $localize`:@@nav.occasions:Occasions`, href: paths.occasions },
+        { label: $localize`:@@nav.inbox:Inbox`, href: paths.inbox, count: unreadCount, countLabel: unreadEnquiries(unreadCount) },
       ];
     case 'Caterer': {
       const links: SiteNavLink[] = [
-        { label: $localize`:@@nav.dashboard:Dashboard`, href: '/dashboard' },
-        { label: $localize`:@@nav.enquiries:Enquiries`, href: '/dashboard/enquiries', count: unreadCount, countLabel: unread(unreadCount) },
+        { label: $localize`:@@nav.dashboard:Dashboard`, href: paths.dashboard.overview },
+        { label: $localize`:@@nav.enquiries:Enquiries`, href: paths.dashboard.enquiries, count: unreadCount, countLabel: unread(unreadCount) },
       ];
       const page = catererPage(user);
       if (page) links.push({ label: $localize`:@@nav.myPage:My page`, href: page });
@@ -61,23 +60,23 @@ export function headerLinks(user: SessionUser | null, unreadCount: number, queue
     }
     case 'Operator':
       return [
-        { label: $localize`:@@nav.queue:Queue`, href: '/admin/queue', count: queue, countLabel: waiting(queue) },
-        { label: caterers, href: '/admin/caterers' },
-        { label: $localize`:@@nav.metrics:Metrics`, href: '/admin/metrics' },
+        { label: $localize`:@@nav.queue:Queue`, href: paths.admin.queue, count: queue, countLabel: waiting(queue) },
+        { label: caterers, href: paths.admin.caterers },
+        { label: $localize`:@@nav.metrics:Metrics`, href: paths.admin.metrics },
       ];
     default:
       return [
-        { label: caterers, href: '/caterers' },
-        { label: $localize`:@@nav.occasions:Occasions`, href: '/occasions' },
-        { label: $localize`:@@nav.signIn:Sign in`, href: '/sign-in' },
+        { label: caterers, href: paths.caterers },
+        { label: $localize`:@@nav.occasions:Occasions`, href: paths.occasions },
+        { label: $localize`:@@nav.signIn:Sign in`, href: paths.signIn },
       ];
   }
 }
 
 export function inboxShortcut(user: SessionUser | null, unreadCount: number): SiteNavShortcut | null {
-  if (user?.role === 'Customer') return { label: $localize`:@@nav.inbox:Inbox`, href: '/inbox', count: unreadCount, countLabel: unread(unreadCount) };
+  if (user?.role === 'Customer') return { label: $localize`:@@nav.inbox:Inbox`, href: paths.inbox, count: unreadCount, countLabel: unread(unreadCount) };
   if (user?.role === 'Caterer')
-    return { label: $localize`:@@nav.enquiries:Enquiries`, href: '/dashboard/enquiries', count: unreadCount, countLabel: unread(unreadCount) };
+    return { label: $localize`:@@nav.enquiries:Enquiries`, href: paths.dashboard.enquiries, count: unreadCount, countLabel: unread(unreadCount) };
   return null;
 }
 
@@ -85,50 +84,50 @@ export function siteMenuLinks(user: SessionUser | null, unreadCount: number, que
   switch (user?.role) {
     case 'Customer':
       return [
-        { label: $localize`:@@nav.caterers:Caterers`, href: '/caterers' },
-        { label: $localize`:@@nav.occasions:Occasions`, href: '/occasions' },
-        { label: $localize`:@@nav.inbox:Inbox`, href: '/inbox', count: unreadCount, countLabel: unreadEnquiries(unreadCount) },
-        { label: $localize`:@@nav.account:Account`, href: '/account' },
+        { label: $localize`:@@nav.caterers:Caterers`, href: paths.caterers },
+        { label: $localize`:@@nav.occasions:Occasions`, href: paths.occasions },
+        { label: $localize`:@@nav.inbox:Inbox`, href: paths.inbox, count: unreadCount, countLabel: unreadEnquiries(unreadCount) },
+        { label: $localize`:@@nav.account:Account`, href: paths.account },
       ];
     case 'Caterer': {
       const links: MenuLink[] = [
-        { label: $localize`:@@nav.overview:Overview`, href: '/dashboard' },
-        { label: $localize`:@@nav.enquiries:Enquiries`, href: '/dashboard/enquiries', count: unreadCount, countLabel: unread(unreadCount) },
-        { label: $localize`:@@nav.businessDetails:Business details`, href: '/dashboard/profile/details' },
-        { label: $localize`:@@nav.cuisinesAreas:Cuisines and areas`, href: '/dashboard/profile/cuisines' },
-        { label: $localize`:@@nav.guestsOccasions:Guests and occasions`, href: '/dashboard/profile/events' },
-        { label: $localize`:@@nav.photos:Photos`, href: '/dashboard/profile/photos' },
-        { label: $localize`:@@nav.menu:Menu`, href: '/dashboard/profile/menu' },
-        { label: $localize`:@@nav.foodSafety:Food safety`, href: '/dashboard/profile/food-safety' },
-        { label: $localize`:@@nav.reviews:Reviews`, href: '/dashboard/reviews' },
+        { label: $localize`:@@nav.overview:Overview`, href: paths.dashboard.overview },
+        { label: $localize`:@@nav.enquiries:Enquiries`, href: paths.dashboard.enquiries, count: unreadCount, countLabel: unread(unreadCount) },
+        { label: $localize`:@@nav.businessDetails:Business details`, href: paths.dashboard.details },
+        { label: $localize`:@@nav.cuisinesAreas:Cuisines and areas`, href: paths.dashboard.cuisines },
+        { label: $localize`:@@nav.guestsOccasions:Guests and occasions`, href: paths.dashboard.events },
+        { label: $localize`:@@nav.photos:Photos`, href: paths.dashboard.photos },
+        { label: $localize`:@@nav.menu:Menu`, href: paths.dashboard.menu },
+        { label: $localize`:@@nav.foodSafety:Food safety`, href: paths.dashboard.foodSafety },
+        { label: $localize`:@@nav.reviews:Reviews`, href: paths.dashboard.reviews },
       ];
       const page = catererPage(user);
       if (page) links.push({ label: $localize`:@@nav.myPage:My page`, href: page });
-      links.push({ label: $localize`:@@nav.account:Account`, href: '/account' });
+      links.push({ label: $localize`:@@nav.account:Account`, href: paths.account });
       return links;
     }
     case 'Operator': {
       const links: MenuLink[] = [
-        { label: $localize`:@@nav.reviewQueue:Review queue`, href: '/admin/queue', count: queue, countLabel: waiting(queue) },
-        { label: $localize`:@@nav.recentChanges:Recent changes`, href: '/admin/changes' },
-        { label: $localize`:@@nav.caterers:Caterers`, href: '/admin/caterers' },
-        { label: $localize`:@@nav.reviews:Reviews`, href: '/admin/reviews' },
-        { label: $localize`:@@nav.metrics:Metrics`, href: '/admin/metrics' },
+        { label: $localize`:@@nav.reviewQueue:Review queue`, href: paths.admin.queue, count: queue, countLabel: waiting(queue) },
+        { label: $localize`:@@nav.recentChanges:Recent changes`, href: paths.admin.changes },
+        { label: $localize`:@@nav.caterers:Caterers`, href: paths.admin.caterers },
+        { label: $localize`:@@nav.reviews:Reviews`, href: paths.admin.reviews },
+        { label: $localize`:@@nav.metrics:Metrics`, href: paths.admin.metrics },
       ];
       // Admin-only items are not offered to other operators (L2-056.5).
-      if (user.admin) links.push({ label: $localize`:@@nav.auditLog:Audit log`, href: '/admin/audit' });
-      links.push({ label: $localize`:@@nav.cuisines:Cuisines`, href: '/admin/cuisines' });
-      if (user.admin) links.push({ label: $localize`:@@nav.operators:Operators`, href: '/admin/operators' });
-      links.push({ label: $localize`:@@nav.breaches:Breach register`, href: '/admin/breaches' });
+      if (user.admin) links.push({ label: $localize`:@@nav.auditLog:Audit log`, href: paths.admin.audit });
+      links.push({ label: $localize`:@@nav.cuisines:Cuisines`, href: paths.admin.cuisines });
+      if (user.admin) links.push({ label: $localize`:@@nav.operators:Operators`, href: paths.admin.operators });
+      links.push({ label: $localize`:@@nav.breaches:Breach register`, href: paths.admin.breaches });
       return links;
     }
     default:
       return [
-        { label: $localize`:@@nav.caterers:Caterers`, href: '/caterers' },
-        { label: $localize`:@@nav.occasions:Occasions`, href: '/occasions' },
-        { label: $localize`:@@nav.signIn:Sign in`, href: '/sign-in' },
-        { label: $localize`:@@nav.register:Create an account`, href: '/register' },
-        { label: $localize`:@@nav.join:Cater with Sweet Hand`, href: '/join' },
+        { label: $localize`:@@nav.caterers:Caterers`, href: paths.caterers },
+        { label: $localize`:@@nav.occasions:Occasions`, href: paths.occasions },
+        { label: $localize`:@@nav.signIn:Sign in`, href: paths.signIn },
+        { label: $localize`:@@nav.register:Create an account`, href: paths.register },
+        { label: $localize`:@@nav.join:Cater with Sweet Hand`, href: paths.join },
       ];
   }
 }
@@ -142,16 +141,16 @@ export function signedInLine(user: SessionUser): string {
 
 export function smallLinks(user: SessionUser | null): FooterLink[] {
   const links: FooterLink[] = [
-    { label: $localize`:@@footer.privacy:Privacy`, href: '/privacy' },
-    { label: $localize`:@@footer.terms:Terms`, href: '/terms' },
+    { label: $localize`:@@footer.privacy:Privacy`, href: paths.privacy },
+    { label: $localize`:@@footer.terms:Terms`, href: paths.terms },
   ];
-  if (user?.role !== 'Operator') links.unshift({ label: $localize`:@@footer.about:About`, href: '/about' });
+  if (user?.role !== 'Operator') links.unshift({ label: $localize`:@@footer.about:About`, href: paths.about });
   return links;
 }
 
 export function footerLinks(user: SessionUser | null): FooterLink[] {
   const links = smallLinks(user);
-  if (!user || user.role === 'Customer') links.splice(1, 0, { label: $localize`:@@footer.caterWithUs:Cater with us`, href: '/join' });
+  if (!user || user.role === 'Customer') links.splice(1, 0, { label: $localize`:@@footer.caterWithUs:Cater with us`, href: paths.join });
   return links;
 }
 

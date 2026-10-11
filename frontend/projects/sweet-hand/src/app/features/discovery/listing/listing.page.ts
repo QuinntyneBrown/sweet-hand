@@ -41,6 +41,7 @@ import { Connectivity } from './connectivity';
 import { ListingCache } from './listing-cache';
 import { activeFilterCount, knownQuery, readListingQuery, toQueryParams, withArea, withCuisine, withRegion, withoutCuisines } from './listing-query';
 import { DiscoveryService, type ListingPageView, type ListingQuery } from '@sweet-hand/api';
+import { paths } from '../../../core/routing/paths';
 
 /** The caterer listing, /caterers (docs/detailed-designs/discovery/browse-listing). */
 @Component({
@@ -50,6 +51,7 @@ import { DiscoveryService, type ListingPageView, type ListingQuery } from '@swee
   templateUrl: './listing.page.html',
 })
 export class ListingPage {
+  protected readonly paths = paths;
   private readonly api = inject(DiscoveryService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -213,10 +215,10 @@ export class ListingPage {
   }
 
   private go(q: ListingQuery): void {
-    void this.router.navigate(['/caterers'], { queryParams: toQueryParams(q) });
+    void this.router.navigate([paths.caterers], { queryParams: toQueryParams(q) });
   }
 
   private href(q: ListingQuery): string {
-    return this.router.serializeUrl(this.router.createUrlTree(['/caterers'], { queryParams: toQueryParams(q) }));
+    return this.router.serializeUrl(this.router.createUrlTree([paths.caterers], { queryParams: toQueryParams(q) }));
   }
 }

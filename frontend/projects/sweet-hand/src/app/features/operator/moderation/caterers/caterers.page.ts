@@ -7,6 +7,7 @@ import { pageName, pageSummary, readPage } from '../moderation-text';
 import { caterersHref, caterersSubtitle, catererRow, noResults, readStatusFilter, statusFilters, statusOfFilter } from './caterers-view';
 import { profileStatusLabel } from '../moderation-text';
 import { type CaterersPageView, OperatorModerationService } from '@sweet-hand/api';
+import { paths } from '../../../../core/routing/paths';
 
 /** Every caterer in every status, /admin/caterers (suspend-reinstate-remove-profile design; docs/mocks/pages/admin-caterers). */
 @Component({
@@ -17,6 +18,7 @@ import { type CaterersPageView, OperatorModerationService } from '@sweet-hand/ap
   styleUrl: './caterers.page.css',
 })
 export class OperatorCaterersPage {
+  protected readonly paths = paths;
   private readonly api = inject(OperatorModerationService);
   private readonly router = inject(Router);
   private readonly params = toSignal(inject(ActivatedRoute).queryParamMap, { requireSync: true });

@@ -2,6 +2,7 @@ import type { QueueItemMedia, SegmentedItem } from '@sweet-hand/components';
 import { count } from '../../../../core/format/format';
 import { fullDate, profileStatusLabel, waitingFor } from '../moderation-text';
 import { type HoldReason, type QueueFilter, type QueueItemView, type QueuePageView } from '@sweet-hand/api';
+import { paths } from '../../../../core/routing/paths';
 
 /** One row of the review queue as the page renders it (queue-item CRD). */
 export interface QueueRow {
@@ -23,13 +24,13 @@ export function queueHref(item: QueueItemView): string {
     case 'profile':
     case 'resubmitted':
     case 'name-change':
-      return `/admin/review/${item.targetId}`;
+      return paths.admin.review(item.targetId);
     case 'certificate':
-      return `/admin/caterers/${item.targetId}`;
+      return paths.admin.caterer(item.targetId);
     case 'reports':
-      return `/admin/reports/${item.targetId}`;
+      return paths.admin.report(item.targetId);
     case 'held-review':
-      return '/admin/reviews';
+      return paths.admin.reviews;
   }
 }
 
@@ -112,13 +113,13 @@ export function queueSubtitle(view: QueuePageView, filter: QueueFilter | null): 
 export function queueFilters(view: QueuePageView | undefined): SegmentedItem[] {
   const c = view?.counts;
   const items: SegmentedItem[] = [
-    { value: 'all', label: $localize`:@@queue.filterAll:All`, count: c?.all ?? null, href: '/admin/queue' },
-    { value: 'profiles', label: $localize`:@@queue.filterProfiles:Profiles`, count: c?.profiles ?? null, href: '/admin/queue?kind=profiles' },
-    { value: 'name-changes', label: $localize`:@@queue.filterNameChanges:Name changes`, count: c?.nameChanges ?? null, href: '/admin/queue?kind=name-changes' },
-    { value: 'certificates', label: $localize`:@@queue.filterCertificates:Certificates`, count: c?.certificates ?? null, href: '/admin/queue?kind=certificates' },
-    { value: 'reports', label: $localize`:@@queue.filterReports:Reports`, count: c?.reports ?? null, href: '/admin/queue?kind=reports' },
+    { value: 'all', label: $localize`:@@queue.filterAll:All`, count: c?.all ?? null, href: paths.admin.queue },
+    { value: 'profiles', label: $localize`:@@queue.filterProfiles:Profiles`, count: c?.profiles ?? null, href: `${paths.admin.queue}?kind=profiles` },
+    { value: 'name-changes', label: $localize`:@@queue.filterNameChanges:Name changes`, count: c?.nameChanges ?? null, href: `${paths.admin.queue}?kind=name-changes` },
+    { value: 'certificates', label: $localize`:@@queue.filterCertificates:Certificates`, count: c?.certificates ?? null, href: `${paths.admin.queue}?kind=certificates` },
+    { value: 'reports', label: $localize`:@@queue.filterReports:Reports`, count: c?.reports ?? null, href: `${paths.admin.queue}?kind=reports` },
   ];
-  if (c?.heldReviews) items.push({ value: 'held-reviews', label: $localize`:@@queue.filterHeldReviews:Held reviews`, count: c.heldReviews, href: '/admin/reviews' });
+  if (c?.heldReviews) items.push({ value: 'held-reviews', label: $localize`:@@queue.filterHeldReviews:Held reviews`, count: c.heldReviews, href: paths.admin.reviews });
   return items;
 }
 

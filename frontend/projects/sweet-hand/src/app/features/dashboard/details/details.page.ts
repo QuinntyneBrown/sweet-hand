@@ -13,6 +13,7 @@ import { WithdrawDialog } from '../shared/withdraw-dialog';
 import { fixHeading, notSavedText } from '../shared/section-text';
 import { CatererProfileService, type OwnProfileView } from '@sweet-hand/api';
 import type { Errors } from './errors';
+import { paths } from '../../../core/routing/paths';
 
 /** Business details, /dashboard/profile/details (docs/mocks/pages/profile-details; set-up-profile and edit-published-profile designs). */
 @Component({
@@ -22,6 +23,7 @@ import type { Errors } from './errors';
   templateUrl: './details.page.html',
 })
 export class DetailsPage {
+  protected readonly paths = paths;
   private readonly api = inject(CatererProfileService);
   protected readonly data = new ProfileData(this.api);
   protected readonly autosave = new Autosave(() => this.save(), () => this.data.published());

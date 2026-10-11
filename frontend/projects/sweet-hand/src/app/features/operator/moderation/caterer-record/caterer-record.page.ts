@@ -31,6 +31,7 @@ import {
 } from './record-view';
 import { type CatererRecordView, type DecisionResult, OperatorModerationService } from '@sweet-hand/api';
 import type { RecordDialog } from './record-dialog';
+import { paths } from '../../../../core/routing/paths';
 
 /**
  * One caterer's record for operators, /admin/caterers/:id
@@ -44,6 +45,7 @@ import type { RecordDialog } from './record-dialog';
   styleUrl: './caterer-record.page.css',
 })
 export class CatererRecordPage {
+  protected readonly paths = paths;
   private readonly api = inject(OperatorModerationService);
   private readonly session = inject(Session);
   private readonly toasts = inject(ToastNotifier);
@@ -84,7 +86,7 @@ export class CatererRecordPage {
   protected readonly areas = computed(() => withPrimary(this.r().profile.areas));
   protected readonly guests = computed(() => guestRange(this.r().profile.minGuests, this.r().profile.maxGuests));
   protected readonly dishes = computed(() => dishCount(this.r().profile.dishes.length));
-  protected readonly address = computed(() => `/caterers/${this.r().slug}`);
+  protected readonly address = computed(() => paths.caterer(this.r().slug));
   protected readonly enquiries = computed(() => enquiryLine(this.r()));
   protected readonly reviews = computed(() => reviewLine(this.r()));
   protected readonly reports = computed(() => reportLine(this.r()));

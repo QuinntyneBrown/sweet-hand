@@ -13,6 +13,7 @@ import { StatusNotice } from '../shared/status-notice';
 import { WithdrawDialog } from '../shared/withdraw-dialog';
 import { CatererProfileService, type OwnProfileView } from '@sweet-hand/api';
 import type { Errors } from './errors';
+import { paths } from '../../../core/routing/paths';
 
 const NONE: Errors = { minGuests: null, maxGuests: null, occasions: null };
 
@@ -30,6 +31,7 @@ function wholeGuests(text: string): string | null {
   templateUrl: './events.page.html',
 })
 export class EventsPage {
+  protected readonly paths = paths;
   private readonly api = inject(CatererProfileService);
   protected readonly data = new ProfileData(this.api);
   protected readonly autosave = new Autosave(() => this.save(), () => this.data.published());

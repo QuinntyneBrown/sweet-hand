@@ -50,7 +50,7 @@
         @case ('duplicate') {
           <sh-alert tone="danger" live="assertive" [title]="duplicateTitle">
             <div slot="actions" class="alert__actions">
-              <a [routerLink]="['/inbox', duplicateId()]" i18n="@@enquiryForm.viewEnquiry">View your enquiry</a>
+              <a [routerLink]="[paths.inbox, duplicateId()]" i18n="@@enquiryForm.viewEnquiry">View your enquiry</a>
             </div>
           </sh-alert>
         }
@@ -118,13 +118,13 @@
     @case ('wrong-account') {
       <ng-container slot="footer">
         <sh-button (activated)="close()"><ng-container i18n="@@common.close">Close</ng-container></sh-button>
-        <a class="btn btn--primary" routerLink="/sign-in" [queryParams]="{ returnUrl: catererUrl() }" i18n="@@enquiryForm.switchAccount">Switch account</a>
+        <a class="btn btn--primary" [routerLink]="paths.signIn" [queryParams]="{ returnUrl: catererUrl() }" i18n="@@enquiryForm.switchAccount">Switch account</a>
       </ng-container>
     }
     @case ('sent') {
       <ng-container slot="footer">
         <sh-button (activated)="close()">{{ backLabel() }}</sh-button>
-        <a #inboxLink class="btn btn--primary" [routerLink]="['/inbox', sent()?.id]" i18n="@@enquiryForm.goToInbox">Go to your inbox</a>
+        <a #inboxLink class="btn btn--primary" [routerLink]="[paths.inbox, sent()?.id]" i18n="@@enquiryForm.goToInbox">Go to your inbox</a>
       </ng-container>
     }
     @default {
