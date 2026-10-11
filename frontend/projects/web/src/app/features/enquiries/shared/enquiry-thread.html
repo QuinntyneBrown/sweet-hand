@@ -1,0 +1,116 @@
+<sh-thread
+  [title]="title()"
+  [headingLevel]="headingLevel()"
+  [party]="party()"
+  [statusTone]="tone()"
+  [statusLabel]="status()"
+  [viewLink]="viewLink()"
+  [subline]="subline()"
+  [backLink]="backLink()"
+>
+  @if (actions().shared) {
+    <span slot="actions" class="inline-status inline-status--success" role="status"
+      ><svg shIcon="success" class="icon--sm"></svg><ng-container i18n="@@thread.shared">Contact details shared</ng-container></span
+    >
+  }
+  @if (actions().share) {
+    <button slot="actions" [class]="customerView() ? 'btn btn--sm' : 'btn btn--link btn--sm'" type="button" aria-haspopup="dialog" (click)="openDialog('share', $event)" i18n="@@thread.share">Share my contact details</button>
+  }
+  @if (actions().decline) {
+    <button slot="actions" class="btn btn--sm" type="button" aria-haspopup="dialog" (click)="openDialog('decline', $event)" i18n="@@thread.decline">Decline</button>
+  }
+  @if (actions().close) {
+    <button slot="actions" [class]="customerView() ? 'btn btn--sm btn--ghost' : 'btn btn--sm'" type="button" aria-haspopup="dialog" (click)="openDialog('close', $event)" i18n="@@thread.close">Close enquiry</button>
+  }
+
+  <dl slot="summary" class="enquiry-summary">
+    @for (row of summary(); track row.term) {
+      <div>
+        <dt>{{ row.term }}</dt>
+        <dd>{{ row.value }}</dd>
+      </div>
+    }
+    @if (customerView()) {
+      <div class="enquiry-summary__message">
+        <dt i18n="@@thread.yourEnquiry">Your enquiry</dt>
+        <dd>
+          <p class="measure">{{ thread().message }}</p>
+          <p class="enquiry-summary__by">{{ enquiryBy() }}</p>
+        </dd>
+      </div>
+    }
+  </dl>
+  @for (w of warnings(); track w) {
+    <span slot="summary" class="field__warning">{{ w }}</span>
+  }
+
+  @if (hasMessages()) {
+    <sh-message-list label="Messages" i18n-label="@@thread.messages">
+      @for (m of entries(); track m.id) {
+        <sh-message [kind]="m.kind" [sender]="m.sender" [text]="m.text" [time]="m.time" [datetime]="m.datetime">
+          @if (m.contact; as c) {
+            <div class="contact-card">
+              <strong>{{ c.title }}</strong><span>{{ c.email }}</span>
+              @if (c.phone) {
+                <span>{{ c.phone }}</span>
+              }
+            </div>
+          }
+        </sh-message>
+      }
+      @for (o of outbox(); track o.id) {
+        <sh-message
+          kind="mine"
+          [sender]="you"
+          [text]="o.text"
+          [delivery]="o.state"
+          sendingLabel="Sending…"
+          i18n-sendingLabel="@@thread.sending"
+          failedLabel="Not sent"
+          i18n-failedLabel="@@thread.notSent"
+          retryLabel="Try again"
+          i18n-retryLabel="@@common.tryAgain"
+          (retried)="retry(o.id)"
+        />
+      }
+    </sh-message-list>
+  }
+
+  @if (waiting()) {
+    <p slot="ending" class="closed-note">{{ waitingText() }}</p>
+  }
+  @if (customerView() && canReply() && !thread().sharedByMe) {
+    <p slot="ending" class="private-note"><svg shIcon="lock" class="icon--sm"></svg>{{ privateText() }}</p>
+  }
+  @if (canReply()) {
+    <sh-reply-box
+      slot="ending"
+      [label]="replyLabel()"
+      [help]="replyHelp()"
+      [(value)]="draft"
+      [counterLabel]="counter()"
+      [error]="replyErrorText()"
+      [summaryTitle]="customerView() ? summaryTitle : null"
+      [sendLabel]="sendLabel()"
+      [sendStyle]="customerView() ? 'icon' : 'text'"
+      [busy]="sending()"
+      (submitted)="send($event)"
+    />
+  } @else if (gone()) {
+    <p slot="ending" class="closed-note" i18n="@@thread.gone">This person has left Sweet Hand, so replies can’t be delivered.</p>
+  } @else {
+    <p slot="ending" class="closed-note" i18n="@@thread.closedNote">This enquiry is closed.</p>
+  }
+</sh-thread>
+
+<app-share-contact-dialog [open]="dialog() === 'share'" [thread]="thread()" [returnFocus]="returnTo()" (done)="acted($event)" (dismissed)="closeDialog()" />
+<app-close-enquiry-dialog [open]="dialog() === 'close'" [thread]="thread()" [returnFocus]="returnTo()" (done)="acted($event)" (dismissed)="closeDialog()" />
+<app-decline-enquiry-dialog
+  [open]="dialog() === 'decline'"
+  [thread]="thread()"
+  [returnFocus]="returnTo()"
+  (done)="acted($event)"
+  (updated)="thread.set($event)"
+  (closeInstead)="closeInstead()"
+  (dismissed)="closeDialog()"
+/>

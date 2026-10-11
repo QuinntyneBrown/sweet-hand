@@ -1,0 +1,136 @@
+<sh-dialog
+  [open]="true"
+  title="Send an enquiry"
+  i18n-title="@@enquiryForm.title"
+  [description]="recipient()"
+  descriptionRole="recipient"
+  size="form"
+  [fullScreenOnPhone]="true"
+  [photo]="caterer().photo"
+  closeLabel="Close"
+  i18n-closeLabel="@@common.close"
+  [cancelLabel]="mode() === 'form' ? cancelText : null"
+  [form]="mode() === 'form'"
+  [busy]="busy()"
+  [busyMessage]="sendingText"
+  [returnFocus]="request().trigger"
+  (dismissed)="close()"
+  (submitted)="submit()"
+>
+  @switch (mode()) {
+    @case ('wrong-account') {
+      <sh-empty-state size="compact" [headingLevel]="null" heading="Sign in with a customer account to send enquiries" i18n-heading="@@enquiryForm.wrongAccount" [text]="wrongAccountText()"
+        ><svg slot="icon" shIcon="lock"></svg
+      ></sh-empty-state>
+    }
+    @case ('sent') {
+      <sh-empty-state size="compact" tone="success" [headingLevel]="null" [heading]="sentTitle()" [text]="sentText()"><svg slot="icon" shIcon="success"></svg></sh-empty-state>
+      @if (sent(); as s) {
+        <sh-description-list layout="enquiry-summary">
+          <sh-description term="Date" i18n-term="@@enquiryForm.summaryDate">{{ sentDate() }}</sh-description>
+          <sh-description term="Guests" i18n-term="@@enquiryForm.guests">{{ s.guests }}</sh-description>
+          <sh-description term="Area" i18n-term="@@enquiryForm.summaryArea">{{ s.area }}</sh-description>
+          <sh-description term="Occasion" i18n-term="@@enquiryForm.occasion">{{ s.occasion }}</sh-description>
+        </sh-description-list>
+      }
+    }
+    @default {
+      @switch (notice()?.kind) {
+        @case ('restored') {
+          <sh-alert tone="info" [title]="welcomeTitle()"><ng-container i18n="@@enquiryForm.welcomeText">We kept everything you typed before signing in.</ng-container></sh-alert>
+        }
+        @case ('unverified') {
+          <sh-alert tone="warning" live="polite" [title]="unverifiedTitle"
+            >{{ unverifiedText() }}
+            <div slot="actions" class="alert__actions">
+              <sh-button size="sm" (activated)="resend()"><ng-container i18n="@@enquiryForm.resend">Resend verification email</ng-container></sh-button>
+            </div>
+          </sh-alert>
+        }
+        @case ('duplicate') {
+          <sh-alert tone="danger" live="assertive" [title]="duplicateTitle">
+            <div slot="actions" class="alert__actions">
+              <a [routerLink]="['/inbox', duplicateId()]" i18n="@@enquiryForm.viewEnquiry">View your enquiry</a>
+            </div>
+          </sh-alert>
+        }
+        @case ('limit') {
+          <sh-alert tone="danger" live="assertive" [title]="limitTitle()"
+            ><ng-container i18n="@@enquiryForm.limitText">Limits keep caterers’ inboxes free of spam. Your message is still here if you’d like to copy it.</ng-container></sh-alert
+          >
+        }
+        @case ('failed') {
+          <sh-alert tone="danger" live="assertive" [title]="notSentTitle"
+            ><ng-container i18n="@@enquiryForm.failedText">Something went wrong on our side. Everything you typed is still here.</ng-container>
+            @if (failureReference(); as ref) {
+              <p slot="actions" class="text-caption"><ng-container i18n="@@system.reference">Reference</ng-container> <code>{{ ref }}</code></p>
+            }
+          </sh-alert>
+        }
+      }
+      <sh-form-summary [heading]="summaryTitle()" [headingLevel]="3" [items]="summary()" [attempt]="attempt()" />
+      <div class="field-row">
+        <sh-form-field label="Event date" i18n-label="@@enquiryForm.date" controlId="date" help="At least 2 days from today" i18n-help="@@enquiryForm.dateHelp" [error]="errors().date ?? null">
+          <sh-text-field type="date" name="date" [min]="range.min" [max]="range.max" [required]="true" [readonly]="busy()" [value]="values().eventDate" (valueChange)="set('eventDate', $event)" />
+        </sh-form-field>
+        <sh-form-field label="Guests" i18n-label="@@enquiryForm.guests" controlId="guests" [help]="guestsHelp()" [error]="errors().guests ?? null" [warning]="guestsWarning()">
+          <sh-text-field name="guests" inputmode="numeric" pattern="[0-9]*" autocomplete="off" [required]="true" [readonly]="busy()" [value]="values().guests" (valueChange)="set('guests', $event)" />
+        </sh-form-field>
+      </div>
+      <div class="field-row">
+        <sh-form-field label="Event area" i18n-label="@@enquiryForm.area" controlId="area" [error]="errors().area ?? null" [warning]="areaWarning()">
+          <sh-select name="area" placeholder="Choose an area" i18n-placeholder="@@enquiryForm.areaPlaceholder" [groups]="areaGroups()" [required]="true" [disabled]="busy()" [value]="values().area" (valueChange)="set('area', $event)" />
+        </sh-form-field>
+        <sh-form-field
+          label="Postal code"
+          i18n-label="@@enquiryForm.postal"
+          optionalMarker="(optional)"
+          i18n-optionalMarker="@@common.optional"
+          controlId="postal"
+          help="We keep only the first 3 characters"
+          i18n-help="@@enquiryForm.postalHelp"
+          [error]="errors().postal ?? null"
+        >
+          <sh-text-field name="postal" autocomplete="postal-code" autocapitalize="characters" [maxlength]="7" [readonly]="busy()" [value]="values().postalCode" (valueChange)="set('postalCode', $event)" />
+        </sh-form-field>
+      </div>
+      <sh-form-field label="Occasion" i18n-label="@@enquiryForm.occasion" controlId="occasion" [error]="errors().occasion ?? null">
+        <sh-select name="occasion" placeholder="Choose an occasion" i18n-placeholder="@@enquiryForm.occasionPlaceholder" [options]="occasions()" [required]="true" [disabled]="busy()" [value]="values().occasion" (valueChange)="set('occasion', $event)" />
+      </sh-form-field>
+      <sh-form-field
+        label="Message"
+        i18n-label="@@enquiryForm.message"
+        controlId="message"
+        help="What you’d like to eat, serving style, timing"
+        i18n-help="@@enquiryForm.messageHelp"
+        [counter]="counter()"
+        [counterOver]="over()"
+        [counterAnnouncement]="overBy()"
+        [error]="errors().message ?? null"
+      >
+        <sh-textarea name="message" [rows]="5" [required]="true" [readonly]="busy()" [value]="values().message" (valueChange)="set('message', $event)" />
+      </sh-form-field>
+      <p class="private-note"><svg shIcon="lock" class="icon--sm"></svg>{{ privacyNote() }}</p>
+    }
+  }
+
+  @switch (mode()) {
+    @case ('wrong-account') {
+      <ng-container slot="footer">
+        <sh-button (activated)="close()"><ng-container i18n="@@common.close">Close</ng-container></sh-button>
+        <a class="btn btn--primary" routerLink="/sign-in" [queryParams]="{ returnUrl: catererUrl() }" i18n="@@enquiryForm.switchAccount">Switch account</a>
+      </ng-container>
+    }
+    @case ('sent') {
+      <ng-container slot="footer">
+        <sh-button (activated)="close()">{{ backLabel() }}</sh-button>
+        <a #inboxLink class="btn btn--primary" [routerLink]="['/inbox', sent()?.id]" i18n="@@enquiryForm.goToInbox">Go to your inbox</a>
+      </ng-container>
+    }
+    @default {
+      <sh-button slot="footer" type="submit" variant="primary" [busy]="busy()" [disabled]="limited()"
+        >@if (failed()) {<ng-container i18n="@@common.tryAgain">Try again</ng-container>} @else {<ng-container i18n="@@enquiryForm.send">Send enquiry</ng-container>}</sh-button
+      >
+    }
+  }
+</sh-dialog>

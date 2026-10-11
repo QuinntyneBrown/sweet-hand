@@ -1,0 +1,265 @@
+<sh-back-link href="/admin/caterers" i18n="@@nav.caterers">Caterers</sh-back-link>
+
+@if (failed()) {
+  <sh-empty-state
+    tone="error"
+    [headingLevel]="1"
+    heading="We couldn’t load this caterer"
+    i18n-heading="@@record.errorTitle"
+    text="The record didn’t come back from the server. Nothing has changed. Try again, or go back to the list."
+    i18n-text="@@record.errorText"
+    [reference]="errorReference()"
+    referenceLabel="Reference"
+    i18n-referenceLabel="@@system.reference"
+  >
+    <svg slot="icon" shIcon="danger"></svg>
+    <button slot="actions" class="btn btn--primary" type="button" (click)="record.reload()" i18n="@@common.tryAgain">Try again</button>
+    <a slot="actions" class="btn" routerLink="/admin/caterers" i18n="@@record.backToCaterers">Back to caterers</a>
+  </sh-empty-state>
+} @else if (!view()) {
+  <div class="thread__head record-head" aria-hidden="true">
+    <span class="photo photo--md"><span class="skeleton skeleton--circle"></span></span>
+    <div class="thread__title"><span class="skeleton skeleton--title record-skeleton--70"></span><span class="skeleton skeleton--text record-skeleton--30"></span></div>
+  </div>
+  <h1 class="visually-hidden" i18n="@@record.loadingHeading">Caterer record</h1>
+  <p class="visually-hidden" role="status" i18n="@@record.loading">Loading caterer record</p>
+  <div class="cluster" aria-hidden="true">
+    <span class="skeleton skeleton--rect record-skeleton--button"></span><span class="skeleton skeleton--rect record-skeleton--button"></span>
+  </div>
+  <section class="caterer-section stack" aria-hidden="true">
+    <span class="skeleton skeleton--title record-skeleton--30"></span>
+    <sh-photo-row variant="strip" [photos]="[]" [busy]="true" />
+    <div><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text record-skeleton--70"></span></div>
+  </section>
+} @else if (view(); as r) {
+  <div class="thread__head record-head">
+    @if (r.photo) {
+      <span class="photo photo--md"><img [src]="r.photo" alt="" width="96" height="96" /></span>
+    } @else {
+      <span class="photo photo--md photo--placeholder"><svg shIcon="plate"></svg></span>
+    }
+    <div class="thread__title">
+      <h1 class="record-title">{{ r.name }}</h1>
+      <p class="cluster">
+        <sh-status [tone]="statusTone(r.status)" [label]="statusLabel(r.status)" />
+        @if (r.status === 'Published') {
+          <a class="link--standalone" [routerLink]="'/caterers/' + r.slug" i18n="@@record.publicPage">Public page</a>
+        } @else {
+          <span class="text-muted" i18n="@@record.pageHidden">Public page hidden</span>
+        }
+      </p>
+    </div>
+  </div>
+
+  @if (r.status !== 'Removed') {
+    <div class="cluster record-actions">
+      @if (r.status === 'Suspended') {
+        <sh-button variant="primary" haspopup="dialog" (activated)="openDialog('reinstate', $event)"><ng-container i18n="@@record.reinstate">Reinstate</ng-container></sh-button>
+      }
+      <sh-button haspopup="dialog" (activated)="openDialog('edit', $event)"><ng-container i18n="@@record.edit">Edit</ng-container></sh-button>
+      @if (r.status === 'Published') {
+        <sh-button [variant]="expired() ? 'primary' : 'secondary'" haspopup="dialog" (activated)="openDialog('suspend', $event)"
+          ><ng-container i18n="@@record.suspend">Suspend</ng-container></sh-button
+        >
+      }
+      <sh-button variant="ghost" haspopup="dialog" (activated)="openDialog('remove', $event)"><ng-container i18n="@@record.remove">Remove</ng-container></sh-button>
+    </div>
+  }
+
+  @if (r.removal) {
+    <div class="record-notice">
+      <sh-alert tone="info" [title]="removedTitle()">{{ removedText() }}</sh-alert>
+    </div>
+  } @else if (r.suspension) {
+    <div class="record-notice">
+      <sh-alert tone="danger" [title]="suspendedTitle()">{{ suspendedText() }}</sh-alert>
+    </div>
+  } @else if (expired()) {
+    <div class="record-notice">
+      <sh-alert tone="warning" [title]="expiredTitle()"
+        >{{ expiredText() }}
+        <div slot="actions" class="alert__actions"><a routerLink="/admin/queue" i18n="@@record.backToQueue">Back to the queue</a></div>
+      </sh-alert>
+    </div>
+  } @else if (r.pendingName) {
+    <div class="record-notice">
+      <sh-alert tone="info" title="Name change waiting for review" i18n-title="@@record.nameWaitingTitle"
+        >{{ nameWaiting() }}
+        <div slot="actions" class="alert__actions">
+          <a class="link--standalone" [routerLink]="'/admin/review/' + r.id" i18n="@@record.reviewName">Review the name change</a>
+        </div>
+      </sh-alert>
+    </div>
+  }
+
+  <section class="caterer-section" aria-labelledby="owner-title">
+    <h2 id="owner-title" i18n="@@record.owner">Owner</h2>
+    <dl class="kv">
+      <dt i18n="@@review.contact">Contact</dt>
+      <dd>{{ r.owner.name }}</dd>
+      <dt i18n="@@review.email">Email</dt>
+      <dd>{{ r.owner.email }}</dd>
+      @if (r.owner.phone) {
+        <dt i18n="@@review.phone">Phone</dt>
+        <dd>{{ r.owner.phone }}</dd>
+      }
+      <dt i18n="@@record.since">On Sweet Hand since</dt>
+      <dd>{{ since() }}</dd>
+    </dl>
+    <p class="private-note record-note"><svg class="icon--sm" shIcon="lock"></svg><ng-container i18n="@@record.operatorsOnly">Operators only. Never shown on public pages.</ng-container></p>
+  </section>
+
+  <section class="caterer-section" aria-labelledby="profile-title">
+    <h2 id="profile-title" i18n="@@record.profile">Profile</h2>
+    <div class="stack">
+      @if (photos().length) {
+        <sh-photo-row variant="strip" [photos]="photos()" />
+      }
+      <dl class="kv">
+        <dt i18n="@@record.cuisines">Cuisines</dt>
+        <dd>{{ cuisines() }}</dd>
+        <dt i18n="@@record.areas">Areas</dt>
+        <dd>{{ areas() }}</dd>
+        <dt i18n="@@caterer.guests">Guests</dt>
+        <dd>{{ guests() }}</dd>
+        <dt i18n="@@caterer.occasions">Occasions</dt>
+        <dd>{{ r.profile.occasions.join(', ') }}</dd>
+        <dt i18n="@@caterer.menu">Menu</dt>
+        <dd>{{ dishes() }}</dd>
+        <dt i18n="@@record.address">Address</dt>
+        <dd>{{ address() }}</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="caterer-section" aria-labelledby="cert-title">
+    <div class="caterer-section__head">
+      <h2 id="cert-title" i18n="@@review.certificate">Food handler certificate</h2>
+      @if (r.certificate; as c) {
+        @if (c.expired) {
+          <sh-status tone="suspended" label="Expired" i18n-label="@@record.expired" />
+        } @else {
+          <sh-status tone="published" label="Valid" i18n-label="@@record.valid" />
+        }
+      }
+    </div>
+    @if (r.certificate; as c) {
+      <dl class="certificate">
+        <dt i18n="@@review.holder">Holder</dt>
+        <dd>{{ c.holder }}</dd>
+        <dt i18n="@@review.issuedBy">Issued by</dt>
+        <dd>{{ c.issuer }}</dd>
+        <dt i18n="@@review.number">Number</dt>
+        <dd>{{ c.number }}</dd>
+        <dt i18n="@@review.expires">Expires</dt>
+        <dd><time [attr.datetime]="c.expires">{{ fullDate(c.expires) }}</time></dd>
+        @if (c.fileName) {
+          <dt i18n="@@record.copy">Copy</dt>
+          <dd><sh-button variant="link" size="sm" [wrap]="true" (activated)="openCertificate()">{{ copyLabel() }}</sh-button></dd>
+        }
+      </dl>
+      <p class="text-caption record-note">{{ statement() }}</p>
+    } @else {
+      <p class="text-muted" i18n="@@review.noCertificate">No certificate given.</p>
+    }
+  </section>
+
+  <section class="caterer-section" aria-labelledby="act-title">
+    <h2 id="act-title" i18n="@@record.activity">Activity</h2>
+    <dl class="kv">
+      <dt i18n="@@record.enquiriesTerm">Enquiries</dt>
+      <dd>{{ enquiries() }}</dd>
+      <dt i18n="@@record.reviewsTerm">Reviews</dt>
+      <dd>{{ reviews() }}</dd>
+      <dt i18n="@@record.reportsTerm">Reports</dt>
+      <dd>{{ reports() }}</dd>
+    </dl>
+  </section>
+
+  <section class="caterer-section" aria-labelledby="hist-title">
+    <div class="caterer-section__head">
+      <h2 id="hist-title" i18n="@@record.statusHistory">Status history</h2>
+      @if (admin()) {
+        <a class="link--standalone" routerLink="/admin/audit" i18n="@@nav.auditLog">Audit log</a>
+      }
+    </div>
+    <ol class="timeline" aria-label="Status history, newest first" i18n-aria-label="@@record.historyLabel">
+      @for (h of r.history; track $index) {
+        <li>
+          <time class="timeline__when" [attr.datetime]="h.at">{{ dayTime(h.at) }}</time><span
+            ><strong>{{ statusLabel(h.status) }}</strong> · {{ h.by }}</span
+          >@if (historyNote(h)) {<span class="text-muted text-sm">{{ historyNote(h) }}</span>}
+        </li>
+      }
+    </ol>
+    <p class="text-caption record-caption" i18n="@@record.historyFixed">History entries can’t be edited.</p>
+  </section>
+}
+
+@if (view(); as r) {
+  <app-reason-dialog
+    [open]="dialog() === 'suspend'"
+    [title]="suspendTitle()"
+    description="It leaves the listing within a minute and its page returns “not found”. You can reinstate it later."
+    i18n-description="@@suspend.description"
+    tone="danger"
+    icon="danger"
+    [name]="r.name"
+    [label]="reasonLabel()"
+    help="Be specific: what happened and what they can do about it."
+    i18n-help="@@suspend.help"
+    [initialReason]="keptReason()"
+    submitLabel="Suspend caterer"
+    i18n-submitLabel="@@suspend.submit"
+    submitVariant="danger"
+    [busyMessage]="suspendBusy()"
+    [failedTitle]="suspendFailed()"
+    [failedText]="failedKept"
+    [summaryHeading]="suspendSummary()"
+    [validate]="validateReason"
+    [action]="suspendAction"
+    conflictHref="/admin/caterers"
+    conflictLink="Back to caterers"
+    i18n-conflictLink="@@record.backToCaterers"
+    [toastWhenUnreachable]="true"
+    [returnFocus]="opener()"
+    (dismissed)="dialog.set(null)"
+    (unreachable)="unreachable($event)"
+    (done)="changed('suspended', $event.result)"
+  >
+    <sh-checklist slot="before" [statusLabels]="noLabels">
+      @for (line of suspendLines(); track $index) {
+        <li sh-checklist-item [status]="null">{{ line }}</li>
+      }
+    </sh-checklist>
+  </app-reason-dialog>
+  <app-reason-dialog
+    [open]="dialog() === 'reinstate'"
+    [title]="reinstateTitle()"
+    [description]="reinstateDescription()"
+    tone="success"
+    icon="success"
+    [name]="r.name"
+    [label]="reasonLabel()"
+    help="Say what changed since the suspension."
+    i18n-help="@@reinstate.help"
+    submitLabel="Reinstate"
+    i18n-submitLabel="@@record.reinstate"
+    [busyMessage]="reinstateBusy()"
+    [failedTitle]="reinstateFailed()"
+    [failedText]="failedKept"
+    [summaryHeading]="reinstateSummary()"
+    [validate]="validateReason"
+    [action]="reinstateAction"
+    conflictHref="/admin/caterers"
+    conflictLink="Back to caterers"
+    i18n-conflictLink="@@record.backToCaterers"
+    [returnFocus]="opener()"
+    (dismissed)="dialog.set(null)"
+    (done)="changed('reinstated', $event.result)"
+  >
+    <p slot="after" class="text-caption" i18n="@@reinstate.caption">Enquiries closed by the suspension stay closed.</p>
+  </app-reason-dialog>
+  <app-operator-edit-dialog [open]="dialog() === 'edit'" [record]="r" [returnFocus]="opener()" (dismissed)="dialog.set(null)" (done)="edited($event)" />
+  <app-remove-dialog [open]="dialog() === 'remove'" [record]="r" [returnFocus]="opener()" (dismissed)="dialog.set(null)" (done)="changed('removed', $event)" />
+}

@@ -1,0 +1,181 @@
+@if (!online()) {
+  <div class="alert alert--warning banner" role="status">
+    <svg shIcon="offline"></svg>
+    <div class="alert__body">
+      <span class="alert__title" i18n="@@offline.title">You’re offline</span>
+      <span i18n="@@listing.offline.text">Showing caterers from your last visit. Filters work again when you reconnect.</span>
+    </div>
+  </div>
+}
+<div class="browse">
+  <div class="browse__title">
+    @if (occasion(); as o) {
+      <a class="eyebrow" routerLink="/occasions"><svg shIcon="chevron-left" class="icon--sm"></svg><ng-container i18n="@@nav.occasions">Occasions</ng-container></a>
+      <h1>{{ o.name }}</h1>
+    } @else {
+      <h1 i18n="@@listing.title">Caterers</h1>
+    }
+    <p class="result-count" role="status" aria-live="polite">
+      @if (busy()) {
+        <span class="visually-hidden" i18n="@@listing.loading">Loading caterers</span><sh-skeleton width="var(--space-24)" />
+      } @else if (current(); as v) {
+        @if (occasion(); as o) {
+          <ng-container i18n="@@listing.occasionCount">{v.total, plural, =1 {1 caterer takes on {{ o.lowerName }}} other {{{ formatCount(v.total) }} caterers take on {{ o.lowerName }}}}</ng-container>
+        } @else {
+          <ng-container i18n="@@listing.resultCount">{v.total, plural, =1 {1 caterer} other {{{ formatCount(v.total) }} caterers}}</ng-container>
+        }
+        @if (savedText(); as saved) {<span>{{ saved }}</span>}
+      }
+    </p>
+  </div>
+
+  <aside class="browse__aside" aria-label="Filters" i18n-aria-label="@@filters.title">
+    <sh-filter-group
+      title="Cuisine"
+      i18n-title="@@filters.cuisine"
+      allLabel="All"
+      i18n-allLabel="@@filters.all"
+      [allHref]="allCuisinesHref()"
+      [options]="cuisines()"
+      [moreLabel]="moreCuisines"
+      fewerLabel="Fewer cuisines"
+      i18n-fewerLabel="@@filters.fewerCuisines"
+      [countNoun]="caterersNoun"
+      [disabled]="filtersDisabled()"
+      (toggled)="toggleCuisine($event)"
+    />
+    <sh-filter-group title="Area" i18n-title="@@filters.area" [options]="areas()" [countNoun]="caterersNoun" [disabled]="filtersDisabled()" (toggled)="toggleArea($event)">
+      <app-area-field slot="before-list" [areas]="serviceAreas()" [disabled]="filtersDisabled()" (areaChosen)="addArea($event)" />
+    </sh-filter-group>
+  </aside>
+
+  <section class="browse__results" aria-labelledby="results-title">
+    <h2 #resultsHeading class="visually-hidden" id="results-title" tabindex="-1" i18n="@@listing.results">Results</h2>
+    <div class="browse__head" [class.until-lg]="!chips().length">
+      <div class="mobile-browse-bar only-xs-sm">
+        <sh-filter-trigger
+          label="Filters"
+          i18n-label="@@filters.sheetTitle"
+          mode="dialog"
+          [count]="activeCount()"
+          countLabel="active"
+          i18n-countLabel="@@filters.activeCount"
+          [disabled]="filtersDisabled()"
+          (activated)="sheetOpen.set(true)"
+        >
+          <svg slot="icon" shIcon="filters"></svg>
+        </sh-filter-trigger>
+        <sh-button #areaButton variant="ghost" haspopup="dialog" [disabled]="filtersDisabled()" (activated)="searchOpen.set(true)"
+          ><svg shIcon="pin"></svg
+          >@if (activeCount()) {
+            <ng-container i18n="@@filters.area">Area</ng-container>
+          } @else {
+            <ng-container i18n="@@search.label">Area or postal code</ng-container>
+          }</sh-button
+        >
+      </div>
+      <app-listing-filter-bar
+        [cuisines]="cuisines()"
+        [areas]="areas()"
+        [serviceAreas]="serviceAreas()"
+        [total]="shown()?.total ?? null"
+        [disabled]="filtersDisabled()"
+        (cuisineToggled)="toggleCuisine($event)"
+        (areaToggled)="toggleArea($event)"
+        (areaChosen)="addArea($event)"
+        (cuisinesCleared)="clearCuisines()"
+        (areasCleared)="clearAreas()"
+      />
+      <sh-active-filters
+        label="Active filters"
+        i18n-label="@@filters.active"
+        [chips]="chips()"
+        [removeLabel]="removeFilterLabel"
+        clearLabel="Clear filters"
+        i18n-clearLabel="@@filters.clear"
+        clearHref="/caterers"
+        [disabled]="!online()"
+        (removed)="removeChip($event)"
+        (emptied)="focusResults()"
+      />
+    </div>
+    @if (failure(); as f) {
+      <sh-empty-state
+        tone="error"
+        heading="We couldn’t load caterers"
+        i18n-heading="@@listing.error.title"
+        [headingLevel]="3"
+        text="Something went wrong on our side. Your filters are kept."
+        i18n-text="@@listing.error.text"
+        [reference]="f.reference"
+        referenceLabel="Reference"
+        i18n-referenceLabel="@@system.reference"
+      >
+        <svg slot="icon" shIcon="danger"></svg>
+        <sh-button slot="actions" variant="primary" (activated)="retry()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></sh-button>
+        <sh-button-anchor slot="actions" href="/occasions"><ng-container i18n="@@listing.error.occasions">Browse occasions</ng-container></sh-button-anchor>
+      </sh-empty-state>
+    } @else if (firstRun()) {
+      <sh-empty-state
+        heading="The first caterers are on their way"
+        i18n-heading="@@listing.empty.title"
+        [headingLevel]="3"
+        text="We’re reviewing caterers from across Toronto and the GTA. Check back soon."
+        i18n-text="@@listing.empty.text"
+      >
+        <span slot="photos" class="photo"><img src="/media/sunday-pot.jpg" alt="" width="72" height="72" /></span>
+        <span slot="photos" class="photo"><img src="/media/pelau-house.jpg" alt="" width="104" height="104" /></span>
+        <span slot="photos" class="photo"><img src="/media/sugar-dumplin.jpg" alt="" width="72" height="72" /></span>
+        <sh-button-anchor slot="actions" variant="primary" href="/join"><ng-container i18n="@@nav.join">Cater with Sweet Hand</ng-container></sh-button-anchor>
+      </sh-empty-state>
+    } @else if (noResults(); as text) {
+      <sh-empty-state heading="No caterers match these filters" i18n-heading="@@listing.noResults.title" [headingLevel]="3" [text]="text">
+        <svg slot="icon" shIcon="search"></svg>
+        <sh-button-anchor slot="actions" variant="primary" href="/caterers"><ng-container i18n="@@filters.clear">Clear filters</ng-container></sh-button-anchor>
+      </sh-empty-state>
+    } @else {
+      <sh-caterer-grid [busy]="busy()">
+        @for (c of current()?.items ?? []; track c.slug) {
+          <li>
+            <sh-caterer-card
+              [href]="'/caterers/' + c.slug"
+              [name]="c.name"
+              [cuisine]="c.primaryCuisine"
+              [area]="c.primaryArea"
+              [photo]="c.cover"
+              failedLabel="Photo unavailable"
+              i18n-failedLabel="@@photo.unavailable"
+            />
+          </li>
+        }
+      </sh-caterer-grid>
+      @if (current(); as v) {
+        <sh-pagination
+          [page]="v.page"
+          [pageCount]="v.pageCount"
+          [hrefFor]="hrefFor"
+          [summary]="summary()"
+          label="Pagination"
+          i18n-label="@@pagination.label"
+          previousLabel="Previous page"
+          i18n-previousLabel="@@pagination.previous"
+          nextLabel="Next page"
+          i18n-nextLabel="@@pagination.next"
+          [pageLabel]="pageLabel"
+          [unavailablePages]="unavailablePages()"
+        />
+      }
+    }
+  </section>
+</div>
+
+<app-listing-filters-sheet
+  [open]="sheetOpen()"
+  [current]="known()"
+  [currentView]="shown()"
+  [serviceAreas]="serviceAreas()"
+  [returnFocus]="filtersTrigger()?.element ?? null"
+  (applied)="applySheet($event)"
+  (dismissed)="sheetOpen.set(false)"
+/>
+<app-search-dialog [open]="searchOpen()" [current]="known()" [returnFocus]="areaSearchButton()?.element ?? null" (closed)="searchOpen.set(false)" />

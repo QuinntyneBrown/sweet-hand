@@ -1,0 +1,192 @@
+<app-dashboard-layout current="cuisines" [status]="data.status()" [previewLabel]="data.state().kind === 'ready' ? data.previewLabel() : null">
+  <sh-back-link href="/dashboard" [untilLg]="true"><ng-container i18n="@@nav.overview">Overview</ng-container></sh-back-link>
+  <div class="page-intro">
+    <h1 id="page-title" i18n="@@nav.cuisinesAreas">Cuisines and areas</h1>
+    @switch (data.state().kind) {
+      @case ('loading') {
+        <p class="visually-hidden" role="status" i18n="@@cuisines.loading">Loading cuisines and areas</p>
+      }
+      @case ('ready') {
+        @if (data.readOnly()) {
+          <p class="subtitle">{{ subtitle() }}</p>
+          <sh-private-note text="Read-only" i18n-text="@@section.readOnly" />
+        } @else {
+          <p class="subtitle">{{ subtitle() }}</p>
+          <sh-save-status [state]="saveState()" [text]="statusText()" />
+        }
+      }
+    }
+  </div>
+
+  @switch (data.state().kind) {
+    @case ('loading') {
+      <div class="form" aria-hidden="true">
+        <span class="skeleton skeleton--title" style="width: 8rem"></span>
+        <div class="option-grid">
+          @for (i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track i) {
+            <span class="skeleton skeleton--text" style="width: 10rem"></span>
+          }
+        </div>
+        <span class="skeleton skeleton--title" style="width: 12rem; margin-top: var(--space-8)"></span>
+        <div class="option-grid">
+          @for (i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track i) {
+            <span class="skeleton skeleton--text" style="width: 10rem"></span>
+          }
+        </div>
+      </div>
+    }
+    @case ('error') {
+      <sh-empty-state
+        tone="error"
+        heading="We couldn’t load cuisines and areas"
+        i18n-heading="@@cuisines.errorTitle"
+        text="Your choices are safe. Try again in a moment."
+        i18n-text="@@cuisines.errorText"
+        [reference]="data.errorReference()"
+        referenceLabel="Reference"
+        i18n-referenceLabel="@@common.reference"
+      >
+        <svg slot="icon" shIcon="danger"></svg>
+        <ng-container slot="actions">
+          <button class="btn btn--primary" type="button" (click)="load()">
+            <svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container>
+          </button>
+          <a class="btn" routerLink="/dashboard" i18n="@@section.backToOverview">Back to overview</a>
+        </ng-container>
+      </sh-empty-state>
+    }
+    @case ('ready') {
+      @if (data.profile(); as p) {
+        @if (data.readOnly()) {
+          <app-status-notice [profile]="p" (withdrawRequested)="withdrawOpen.set(true)" />
+          <dl class="kv" style="margin-top: var(--space-8)">
+            @for (row of readOnlyRows(); track row.term) {
+              <dt>{{ row.term }}</dt>
+              <dd>
+                <span
+                  >@if (row.primary) {{{ row.primary }}&ngsp;<span class="primary-pick" i18n="@@cuisines.primaryTag">Primary</span>}@if (row.rest) {{{ row.rest }}}</span
+                >
+              </dd>
+            }
+          </dl>
+        } @else {
+          <sh-form-summary [heading]="summaryHeading()" [items]="summary()" [attempt]="attempt()" />
+          <form class="form" style="margin-top: var(--space-6)" aria-labelledby="page-title" novalidate (submit)="$event.preventDefault(); autosave.flush()">
+            <sh-fieldset
+              legend="Cuisines"
+              i18n-legend="@@checklist.cuisines"
+              legendHeading="h2"
+              fieldId="cuisines"
+              help="Choose 1 to 5 islands or traditions you cook from."
+              i18n-help="@@cuisines.help"
+              [error]="errors().cuisines"
+            >
+              <div class="option-grid">
+                @for (c of allCuisines(); track c.id) {
+                  <label class="choice"
+                    ><input
+                      type="checkbox"
+                      name="cuisine"
+                      [id]="'c-' + c.id"
+                      [value]="c.id"
+                      [checked]="cuisines().has(c.id)"
+                      [attr.aria-invalid]="errors().cuisines && cuisines().has(c.id) ? 'true' : null"
+                      (change)="toggleCuisine(c.id, $any($event.target).checked)" /><span class="choice__text"
+                      ><span>{{ c.name }}</span></span
+                    ></label
+                  >
+                }
+              </div>
+            </sh-fieldset>
+            @if (selectedCuisines().length) {
+              <sh-fieldset legend="Primary cuisine" i18n-legend="@@cuisines.primaryLegend" fieldId="primary-cuisine" help="Shown on your listing card." i18n-help="@@cuisines.primaryHelp" [error]="errors().primaryCuisine">
+                @for (c of selectedCuisines(); track c.id) {
+                  <label class="choice"
+                    ><input
+                      type="radio"
+                      name="primary_cuisine"
+                      [id]="'pc-' + c.id"
+                      [value]="c.id"
+                      [checked]="primaryCuisine() === c.id"
+                      [attr.aria-invalid]="errors().primaryCuisine ? 'true' : null"
+                      (change)="choosePrimaryCuisine(c.id)" /><span class="choice__text">{{ c.name }}</span></label
+                  >
+                }
+              </sh-fieldset>
+            }
+            <div style="margin-top: var(--space-8)">
+              <sh-fieldset
+                legend="Areas you serve"
+                i18n-legend="@@checklist.areas"
+                legendHeading="h2"
+                fieldId="areas"
+                help="Tick a whole region or single areas. Customers outside these areas can still ask; they’ll see a note."
+                i18n-help="@@cuisines.areasHelp"
+                [error]="errors().areas"
+              >
+                @for (region of regions(); track region.id) {
+                  <fieldset class="stack stack--sm">
+                    <legend>{{ region.name }}</legend>
+                    <label class="choice"
+                      ><input
+                        type="checkbox"
+                        [value]="region.id"
+                        [checked]="region.all"
+                        [indeterminate]="region.some"
+                        [attr.aria-describedby]="'region-' + region.id + '-count'"
+                        (change)="toggleRegion(region.id)" /><span class="choice__text"
+                        ><span i18n="@@cuisines.allOf">All of {{ region.name }}</span><small [id]="'region-' + region.id + '-count'">{{ region.countText }}</small></span
+                      ></label
+                    >
+                    <div class="option-grid" style="padding-left: var(--space-8)">
+                      @for (a of region.areas; track a.id) {
+                        <label class="choice"
+                          ><input
+                            type="checkbox"
+                            name="area"
+                            [id]="'a-' + a.id"
+                            [value]="a.id"
+                            [checked]="areas().has(a.id)"
+                            [attr.aria-invalid]="errors().areas ? 'true' : null"
+                            (change)="toggleArea(a.id, $any($event.target).checked)" /><span class="choice__text"
+                            ><span>{{ a.name }}</span></span
+                          ></label
+                        >
+                      }
+                    </div>
+                  </fieldset>
+                }
+              </sh-fieldset>
+            </div>
+            <sh-form-field
+              label="Primary area"
+              i18n-label="@@cuisines.primaryAreaLabel"
+              controlId="primary-area"
+              [error]="errors().primaryArea"
+              help="Shown on your listing card. Pick the area closest to your kitchen; we never show your address."
+              i18n-help="@@cuisines.primaryAreaHelp"
+              (focusout)="autosave.flush()"
+            >
+              <sh-select
+                name="primary_area"
+                [options]="areaOptions()"
+                placeholder="Choose your primary area"
+                i18n-placeholder="@@cuisines.choosePrimaryArea"
+                [value]="primaryArea() ?? ''"
+                (changed)="choosePrimaryArea($event)"
+              />
+            </sh-form-field>
+          </form>
+          <p style="margin-top: var(--space-8)"><a class="btn" routerLink="/dashboard" i18n="@@section.done">Done</a></p>
+        }
+      }
+    }
+  }
+  @if (card(); as c) {
+    <app-listing-preview slot="preview" [card]="c" />
+  }
+</app-dashboard-layout>
+
+@if (data.profile(); as p) {
+  <app-withdraw-dialog [open]="withdrawOpen()" [business]="p.name" (closed)="withdrawOpen.set(false)" (withdrawn)="withdrawn($event)" />
+}

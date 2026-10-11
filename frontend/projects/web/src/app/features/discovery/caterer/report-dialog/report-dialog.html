@@ -1,0 +1,74 @@
+<sh-dialog
+  [open]="open()"
+  title="Report this listing"
+  i18n-title="@@report.title"
+  [description]="target().name"
+  tone="info"
+  closeLabel="Close"
+  i18n-closeLabel="@@common.close"
+  [cancelLabel]="step() === 'form' ? cancelText : null"
+  [form]="step() === 'form'"
+  [busy]="busy()"
+  [busyMessage]="sending"
+  [returnFocus]="returnFocus()"
+  (dismissed)="closed.emit()"
+  (submitted)="submit()"
+  (closed)="reset()"
+>
+  <svg slot="icon" shIcon="flag"></svg>
+
+  @switch (step()) {
+    @case ('sent') {
+      <div class="empty empty--compact empty--success" role="status">
+        <div class="empty__icon" aria-hidden="true"><svg shIcon="success"></svg></div>
+        <p class="empty__title" i18n="@@report.sentTitle">Thanks — our team will look into this</p>
+        <p class="empty__text">{{ sentText() }}</p>
+      </div>
+    }
+    @case ('duplicate') {
+      <div class="empty empty--compact empty--info" role="status">
+        <div class="empty__icon" aria-hidden="true"><svg shIcon="info"></svg></div>
+        <p class="empty__title" i18n="@@report.duplicateTitle">You’ve already reported this</p>
+        <p class="empty__text">{{ duplicateText() }}</p>
+      </div>
+    }
+    @default {
+      @if (failure() === 'server') {
+        <sh-alert tone="danger" live="assertive" title="Your report wasn’t sent" i18n-title="@@report.failedTitle"
+          ><ng-container i18n="@@report.failedText">Something went wrong on our side. Try again in a moment.</ng-container></sh-alert
+        >
+      } @else if (failure() === 'limit') {
+        <sh-alert tone="danger" live="assertive" title="Too many reports from this connection" i18n-title="@@report.limitTitle"
+          ><ng-container i18n="@@report.limitText">Try again in an hour. Your details are still here.</ng-container></sh-alert
+        >
+      }
+      <sh-radio-group name="reason" [value]="reason()" (valueChange)="choose($event!)" [error]="errors().reason" [disabled]="busy()" [autofocus]="true">
+        <span slot="legend" i18n="@@report.reason">Reason</span>
+        @for (r of reasons; track r.value) {
+          <sh-radio [value]="r.value" [description]="r.hint">{{ r.label }}</sh-radio>
+        }
+      </sh-radio-group>
+      <sh-form-field
+        label="Details"
+        i18n-label="@@report.details"
+        controlId="details"
+        [optionalMarker]="detailsMarker()"
+        help="The caterer never sees who reported them."
+        i18n-help="@@report.detailsHelp"
+        [counter]="counter()"
+        [counterOver]="length() > 1000"
+        [error]="errors().details"
+      >
+        <sh-textarea name="details" [rows]="3" [(value)]="details" [readonly]="busy()" />
+      </sh-form-field>
+    }
+  }
+
+  @if (step() === 'form') {
+    <sh-button slot="footer" type="submit" variant="primary" [busy]="busy()" [disabled]="failure() === 'limit'"
+      >@if (failure() === 'server') {<ng-container i18n="@@common.tryAgain">Try again</ng-container>} @else {<ng-container i18n="@@report.send">Send report</ng-container>}</sh-button
+    >
+  } @else {
+    <sh-button #done slot="footer" variant="primary" (activated)="closed.emit()"><ng-container i18n="@@common.done">Done</ng-container></sh-button>
+  }
+</sh-dialog>

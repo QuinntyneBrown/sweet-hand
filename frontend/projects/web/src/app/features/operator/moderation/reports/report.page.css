@@ -1,0 +1,52 @@
+.report-intro {
+  margin-top: var(--space-4);
+  margin-bottom: 0;
+}
+.report-actions,
+.report-notice {
+  margin-top: var(--space-6);
+}
+.report-first {
+  margin-top: var(--space-10);
+}
+.report-certificate {
+  margin-top: var(--space-6);
+}
+.report-note {
+  margin-top: var(--space-4);
+}
+.report-note--sm {
+  margin-top: var(--space-2);
+}
+.report-open,
+.report-thread {
+  margin-top: var(--space-4);
+}
+.report-well {
+  margin-top: var(--space-6);
+}
+.report-skeleton--80 {
+  width: 80%;
+}
+.report-skeleton--40 {
+  width: 40%;
+}
+.report-skeleton--35 {
+  width: 35%;
+}
+.report-skeleton--25 {
+  width: 25%;
+}
+.report-skeleton--60 {
+  width: 60%;
+}
+.report-skeleton--70 {
+  width: 70%;
+}
+.report-skeleton--90 {
+  width: 90%;
+}
+.report-skeleton--button {
+  width: 9rem;
+  height: var(--control-height-md);
+}

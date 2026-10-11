@@ -1,0 +1,74 @@
+@if (done(); as d) {
+  <div class="auth">
+    <div class="auth__head">
+      <app-auth-photos [photos]="['green-fig-catering', 'auntie-merles-table', 'island-pot']" />
+      <h1 i18n="@@registerCaterer.success.title">Welcome, {{ d.firstName }}</h1>
+      <p class="subtitle" i18n="@@registerCaterer.success.subtitle">
+        Your account for {{ d.business }} is ready. We sent a link to <strong>{{ d.email }}</strong>; verify it before you submit your profile for review.
+      </p>
+    </div>
+    <div class="stack">
+      <sh-checklist [ordered]="true" [statusLabels]="statusWords">
+        <li sh-checklist-item status="done"><ng-container i18n="@@registerCaterer.step.created">Account created</ng-container></li>
+        <li sh-checklist-item status="missing"><ng-container i18n="@@registerCaterer.step.verify">Verify your email</ng-container></li>
+        <li sh-checklist-item status="missing"><ng-container i18n="@@registerCaterer.step.profile">Add photos, menu and food safety certificate</ng-container></li>
+        <li sh-checklist-item status="missing"><ng-container i18n="@@registerCaterer.step.submit">Submit for review (about 3 business days)</ng-container></li>
+      </sh-checklist>
+      <a class="btn btn--primary btn--lg btn--block" routerLink="/dashboard" i18n="@@registerCaterer.success.setUp">Set up your profile</a>
+    </div>
+    <p class="auth__alt" i18n="@@registerCaterer.success.alt">Didn’t get the email? <a routerLink="/verify-email/sent" [state]="{ email: d.email }">Resend it</a></p>
+  </div>
+} @else {
+  <div class="auth">
+    <div class="auth__head">
+      <app-auth-photos [photos]="['maracas-bay', 'pelau-house', 'cook-up']" />
+      <h1 i18n="@@registerCaterer.title">Cater with Sweet Hand</h1>
+      <p class="subtitle" i18n="@@registerCaterer.subtitle">Free to list. Customers find you by cuisine and area and send enquiries straight to you.</p>
+    </div>
+
+    @if (failure(); as f) {
+      <sh-alert tone="danger" live="assertive" title="We couldn’t create your account" i18n-title="@@register.serverErrorTitle">{{ serverText(f.reference) }}</sh-alert>
+    }
+
+    <sh-form-summary [heading]="summaryTitle()" [items]="summary()" [attempt]="attempt()" />
+
+    <form class="form form--compact" novalidate [formGroup]="form" (ngSubmit)="submit()">
+      <sh-form-field label="Business name" i18n-label="@@registerCaterer.business" controlId="business" [error]="errors().business" help="As customers will see it. 2 to 80 characters." i18n-help="@@registerCaterer.businessHelp">
+        <sh-text-field formControlName="business" size="lg" name="business" autocomplete="organization" [minlength]="2" [maxlength]="80" [required]="true" [autofocus]="true" [readonly]="busy()" />
+      </sh-form-field>
+      <sh-form-field label="Your name" i18n-label="@@register.name" controlId="contact" [error]="errors().contact">
+        <sh-text-field formControlName="contact" size="lg" name="contact" autocomplete="name" [minlength]="2" [maxlength]="50" [required]="true" [readonly]="busy()" />
+      </sh-form-field>
+      <div class="field-row">
+        <sh-form-field label="Email" i18n-label="@@field.email" controlId="email" [error]="errors().email">
+          <sh-text-field formControlName="email" type="email" size="lg" name="email" autocomplete="email" [spellcheck]="false" [required]="true" [readonly]="busy()" />
+        </sh-form-field>
+        <sh-form-field label="Phone" i18n-label="@@field.phone" controlId="phone" [error]="errors().phone" help="10-digit Canadian number" i18n-help="@@registerCaterer.phoneHelp">
+          <sh-text-field formControlName="phone" type="tel" size="lg" name="phone" autocomplete="tel" inputmode="tel" [required]="true" [readonly]="busy()" />
+        </sh-form-field>
+      </div>
+      <sh-form-field label="Password" i18n-label="@@field.password" controlId="password" [error]="errors().password" help="At least 12 characters. Avoid common passwords." i18n-help="@@field.newPasswordHelp">
+        <sh-button slot="labelAction" variant="link" size="sm" [pressed]="revealed()" controls="password" (activated)="revealed.set(!revealed())"
+          ><ng-container i18n="@@field.showPassword">Show</ng-container></sh-button
+        >
+        <sh-text-field formControlName="password" type="password" size="lg" name="password" autocomplete="new-password" [minlength]="12" [maxlength]="128" [required]="true" [revealed]="revealed()" [readonly]="busy()" />
+      </sh-form-field>
+      <fieldset class="stack stack--sm">
+        <legend i18n="@@registerCaterer.confirmations">Before you start</legend>
+        <sh-form-field controlId="sells" [error]="errors().sells">
+          <sh-checkbox formControlName="sells" name="sells" [required]="true"><ng-container i18n="@@registerCaterer.sells">I sell Caribbean food in Toronto or the GTA</ng-container></sh-checkbox>
+        </sh-form-field>
+        <sh-form-field controlId="terms" [error]="errors().terms">
+          <sh-checkbox formControlName="terms" name="terms" [required]="true" [hasSummary]="true"
+            ><ng-container i18n="@@registerCaterer.terms">I accept the <a routerLink="/terms">caterer terms</a> and the <a routerLink="/privacy">privacy notice</a></ng-container>
+            <p slot="summary" class="consent-summary" id="terms-summary" i18n="@@registerCaterer.termsSummary">We use your contact details to run your account and reach you about your listing. Customers never see your email or phone unless you share them in a conversation. Everything is stored in Canada.</p>
+          </sh-checkbox>
+        </sh-form-field>
+      </fieldset>
+
+      <sh-button type="submit" variant="primary" size="lg" [block]="true" [busy]="busy()"><ng-container i18n="@@registerCaterer.submit">Create caterer account</ng-container></sh-button>
+      <p class="visually-hidden" role="status">{{ busy() ? creating : '' }}</p>
+    </form>
+    <p class="auth__alt" i18n="@@registerCaterer.alt">Already listed? <a routerLink="/sign-in">Sign in</a> · Looking for food? <a routerLink="/register">Create a customer account</a></p>
+  </div>
+}

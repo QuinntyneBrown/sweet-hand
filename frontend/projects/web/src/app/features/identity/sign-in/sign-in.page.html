@@ -1,0 +1,78 @@
+<div class="auth">
+  <div class="auth__head">
+    @if (returning(); as r) {
+      <div class="dialog__caterer">
+        <span class="photo"><img [src]="r.caterer.photo" alt="" width="56" height="56" /></span><span class="dialog__caterer-name">{{ r.caterer.name }}</span>
+      </div>
+      <h1 i18n="@@signIn.returnTitle">Sign in to send your enquiry</h1>
+      <p class="subtitle">{{ returnSubtitle() }}</p>
+    } @else {
+    <app-auth-photos [photos]="photos()" />
+    <h1 i18n="@@signIn.title">Sign in</h1>
+    @if (!expired()) {
+      <p class="subtitle" i18n="@@signIn.subtitle">Welcome back. Your inbox and saved enquiries are waiting.</p>
+    }
+    }
+  </div>
+
+  @if (failure(); as f) {
+    @if (f.kind === 'locked') {
+      <sh-alert tone="warning" live="polite" title="Sign-in is paused for this account" i18n-title="@@signIn.lockedTitle">
+        {{ lockedText(f.until) }}
+        <div slot="actions" class="alert__actions"><a routerLink="/forgot-password" i18n="@@signIn.resetPassword">Reset your password</a></div>
+      </sh-alert>
+    } @else {
+      <sh-alert tone="danger" live="assertive" title="We couldn’t sign you in just now" i18n-title="@@signIn.serverErrorTitle">
+        {{ serverText(f.reference) }}
+        <div slot="actions" class="alert__actions">
+          <sh-button size="sm" (activated)="submit()"><ng-container i18n="@@common.tryAgain">Try again</ng-container></sh-button>
+          <a routerLink="/caterers" i18n="@@signIn.keepBrowsing">Keep browsing</a>
+        </div>
+      </sh-alert>
+    }
+  } @else if (expired()) {
+    <sh-alert live="polite" title="You were signed out" i18n-title="@@signIn.expiredTitle"
+      ><ng-container i18n="@@signIn.expiredText">Operator sessions end after 30 minutes without activity. Sign in again to pick up where you left off.</ng-container></sh-alert
+    >
+  } @else if (challenge()) {
+    <sh-alert live="polite" title="One quick check first" i18n-title="@@signIn.challengeTitle"
+      ><ng-container i18n="@@signIn.challengeText">We’ve seen a lot of sign-in attempts from your network. Confirm you’re a person and we’ll sign you in.</ng-container></sh-alert
+    >
+  }
+
+  <sh-form-summary [heading]="summaryTitle()" [items]="summary()" [attempt]="attempt()" />
+
+  <form class="form form--compact" novalidate [formGroup]="form" (ngSubmit)="submit()">
+    <sh-form-field label="Email" i18n-label="@@field.email" controlId="email" [error]="errors().email">
+      <sh-text-field formControlName="email" type="email" size="lg" name="email" autocomplete="email" [spellcheck]="false" [required]="true" [autofocus]="true" [readonly]="busy() || locked()" />
+    </sh-form-field>
+    <sh-form-field label="Password" i18n-label="@@field.password" controlId="password" [error]="errors().password">
+      <sh-button slot="labelAction" variant="link" size="sm" [pressed]="revealed()" controls="password" (activated)="revealed.set(!revealed())"
+        ><ng-container i18n="@@field.showPassword">Show</ng-container></sh-button
+      >
+      <sh-text-field formControlName="password" type="password" size="lg" name="password" autocomplete="current-password" [required]="true" [revealed]="revealed()" [readonly]="busy() || locked()" />
+    </sh-form-field>
+    @if (challenge()) {
+      <sh-well as="fieldset" legend="Quick check" i18n-legend="@@botCheck.legend" [legendHidden]="true">
+        <sh-form-field controlId="human" [error]="errors().human">
+          <sh-checkbox formControlName="human" name="human" [required]="true" describedBy="human-help"><ng-container i18n="@@botCheck.label">I’m a person, not a bot</ng-container></sh-checkbox>
+        </sh-form-field>
+        <p class="text-caption" id="human-help" i18n="@@botCheck.help">A privacy-friendly check. No tracking cookies, nothing shared with advertisers.</p>
+      </sh-well>
+    }
+
+    <sh-button type="submit" variant="primary" size="lg" [block]="true" [busy]="busy()" [disabled]="locked()"><ng-container i18n="@@signIn.submit">Sign in</ng-container></sh-button>
+    <p class="visually-hidden" role="status">{{ busy() ? signingIn : '' }}</p>
+    <p><a class="link--standalone" routerLink="/forgot-password" i18n="@@signIn.forgot">Forgot your password?</a></p>
+  </form>
+  @if (returning()) {
+    <!-- Registration comes back to the enquiry too (L2-023.1). -->
+    <p class="auth__alt" i18n="@@signIn.returnAlt">
+      New to Sweet Hand? <a routerLink="/register" [queryParams]="{ returnUrl: returnUrl() }">Create an account</a>. It takes a minute and your details stay private.
+    </p>
+  } @else if (expired()) {
+    <p class="auth__alt" i18n="@@signIn.altOperator">Not an operator? <a routerLink="/caterers">Browse caterers</a></p>
+  } @else {
+    <p class="auth__alt" i18n="@@signIn.alt">New to Sweet Hand? <a class="link--standalone" routerLink="/register">Create an account</a> · Caterers: <a routerLink="/join">list your business</a></p>
+  }
+</div>

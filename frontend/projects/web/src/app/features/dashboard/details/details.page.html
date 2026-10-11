@@ -1,0 +1,100 @@
+<app-dashboard-layout current="details" [status]="data.status()" [previewLabel]="data.state().kind === 'ready' ? previewLabel() : null" [previewBusy]="data.state().kind === 'loading'">
+  <sh-back-link href="/dashboard" [untilLg]="true"><ng-container i18n="@@nav.overview">Overview</ng-container></sh-back-link>
+  <div class="page-intro">
+    <h1 id="page-title" i18n="@@nav.businessDetails">Business details</h1>
+    @switch (data.state().kind) {
+      @case ('loading') {
+        <p class="visually-hidden" role="status" i18n="@@details.loading">Loading your business details</p>
+      }
+      @case ('ready') {
+        @if (data.readOnly()) {
+          <sh-private-note text="Read-only" i18n-text="@@section.readOnly" />
+        } @else {
+          <sh-save-status [state]="saveState()" [text]="statusText()" />
+        }
+      }
+    }
+  </div>
+
+  @switch (data.state().kind) {
+    @case ('loading') {
+      <div class="form" aria-hidden="true">
+        <div class="field">
+          <span class="skeleton skeleton--text" style="width: 8rem"></span><span class="skeleton skeleton--rect" style="height: var(--control-height-md)"></span>
+        </div>
+        <div class="field">
+          <span class="skeleton skeleton--text" style="width: 6rem"></span><span class="skeleton skeleton--rect" style="height: 14rem"></span>
+        </div>
+      </div>
+    }
+    @case ('error') {
+      <sh-empty-state
+        tone="error"
+        heading="We couldn’t load your business details"
+        i18n-heading="@@details.errorTitle"
+        text="Nothing you saved is lost. Try again, or go back to your overview."
+        i18n-text="@@details.errorText"
+        [reference]="data.errorReference()"
+        referenceLabel="Reference"
+        i18n-referenceLabel="@@common.reference"
+      >
+        <svg slot="icon" shIcon="danger"></svg>
+        <ng-container slot="actions">
+          <button class="btn btn--primary" type="button" (click)="load()">
+            <svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container>
+          </button>
+          <a class="btn" routerLink="/dashboard" i18n="@@section.backToOverview">Back to overview</a>
+        </ng-container>
+      </sh-empty-state>
+    }
+    @case ('ready') {
+      @if (data.profile(); as p) {
+        @if (data.readOnly()) {
+          <app-status-notice [profile]="p" variant="details" (withdrawRequested)="openWithdraw($event)" />
+          <div class="form" style="margin-top: var(--space-8)">
+            <sh-form-field label="Business name" i18n-label="@@details.name" [readOnlyValue]="p.name" />
+            <sh-form-field label="Description" i18n-label="@@details.description" [readOnlyValue]="paragraphs()" />
+          </div>
+        } @else {
+          @if (p.pendingName) {
+            <sh-alert live="polite" title="Name change waiting for review" i18n-title="@@nameChange.title">{{ pendingText() }}</sh-alert>
+          }
+          <sh-form-summary [heading]="summaryHeading()" [items]="summary()" [attempt]="attempt()" />
+          <form class="form" style="margin-top: var(--space-6)" aria-labelledby="page-title" novalidate (submit)="$event.preventDefault(); autosave.flush()">
+            <sh-form-field label="Business name" i18n-label="@@details.name" controlId="name" [error]="errors().name" [help]="nameHelp()">
+              <sh-text-field
+                name="business_name"
+                autocomplete="organization"
+                [maxlength]="80"
+                [required]="true"
+                [value]="name()"
+                (valueChange)="changed('name', $event)"
+                (blurred)="autosave.flush()"
+              />
+            </sh-form-field>
+            <sh-form-field
+              label="Description"
+              i18n-label="@@details.description"
+              controlId="description"
+              [error]="errors().description"
+              help="50–2,000 characters. Leave a blank line between paragraphs."
+              i18n-help="@@details.descriptionHelp"
+              [counter]="counter()"
+              [counterOver]="description().trim().length > 2000"
+            >
+              <sh-textarea name="description" [rows]="9" [required]="true" [value]="description()" (valueChange)="changed('description', $event)" (blurred)="autosave.flush()" />
+            </sh-form-field>
+          </form>
+          <p style="margin-top: var(--space-8)"><a class="btn" routerLink="/dashboard" i18n="@@section.done">Done</a></p>
+        }
+      }
+    }
+  }
+  @if (card(); as c) {
+    <app-listing-preview slot="preview" [card]="c" />
+  }
+</app-dashboard-layout>
+
+@if (data.profile(); as p) {
+  <app-withdraw-dialog [open]="withdrawOpen()" [business]="p.name" [returnFocus]="null" (closed)="withdrawOpen.set(false)" (withdrawn)="withdrawn($event)" />
+}

@@ -1,0 +1,170 @@
+@if (state() === 'gone') {
+  <sh-error-page
+    heading="This caterer has left Sweet Hand"
+    i18n-heading="@@caterer.gone.heading"
+    [text]="goneText()"
+    code="Error 410"
+    i18n-code="@@caterer.gone.code"
+  >
+    <ng-container slot="photos">
+      <span class="photo"><img src="/media/cou-cou.jpg?w=400&fm=jpeg" alt="" width="72" height="72" /></span>
+      <span class="photo"><img src="/media/ti-kay.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
+      <span class="photo"><img src="/media/sugar-dumplin.jpg?w=400&fm=jpeg" alt="" width="72" height="72" /></span>
+    </ng-container>
+    <ng-container slot="actions">
+      <a class="btn btn--primary btn--lg" routerLink="/caterers" i18n="@@system.browseCaterers">Browse caterers</a>
+      <a class="btn btn--lg" routerLink="/occasions" i18n="@@caterer.gone.byOccasion">Browse by occasion</a>
+    </ng-container>
+  </sh-error-page>
+} @else if (state() !== 'not-found') {
+  <sh-back-link href="/caterers" i18n="@@caterer.back">Caterers</sh-back-link>
+}
+
+@if (view() && !connection.online()) {
+  <div id="offline-note">
+    <sh-alert tone="warning" live="polite" [banner]="true" title="You’re offline" i18n-title="@@caterer.offline.title"
+      ><ng-container i18n="@@caterer.offline.text">This is the copy saved from your last visit. Sending an enquiry or a report needs a connection.</ng-container></sh-alert
+    >
+  </div>
+} @else if (view() && connection.backOnline()) {
+  <sh-alert tone="success" live="polite" [banner]="true" title="Back online" i18n-title="@@caterer.online.title"
+    ><ng-container i18n="@@caterer.online.text">You can send enquiries and reports again.</ng-container></sh-alert
+  >
+}
+
+@if (state() === 'loading') {
+  <div class="caterer-layout" aria-busy="true">
+    <div>
+      <sh-gallery [photos]="[]" [busy]="true" label="Photos" i18n-label="@@gallery.label" [openLabel]="openPhotoLabel" [moreLabel]="morePhotosLabel" failedSuffix="" failedLabel="" />
+      <div class="caterer-head">
+        <h1><span class="visually-hidden" i18n="@@caterer.loading">Loading caterer</span><span class="skeleton skeleton--text skeleton--name" aria-hidden="true"></span></h1>
+        <span class="skeleton skeleton--text skeleton--meta" aria-hidden="true"></span>
+      </div>
+      <div class="measure description" aria-hidden="true">
+        <span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text"></span>
+      </div>
+      <section class="caterer-section" aria-hidden="true">
+        <span class="skeleton skeleton--title skeleton--heading"></span>
+        <sh-dish-list class="menu-skeleton" listId="dish-list" [busy]="true" />
+      </section>
+    </div>
+    <aside class="enquiry-panel only-lg" aria-hidden="true">
+      <span class="skeleton skeleton--text" style="width: 5rem"></span><span class="skeleton skeleton--text" style="width: 12rem"></span>
+      <span class="skeleton skeleton--text" style="width: 6rem"></span><span class="skeleton skeleton--text"></span><span class="skeleton skeleton--text" style="width: 70%"></span>
+      <span class="skeleton skeleton--rect skeleton--pill" style="height: var(--control-height-lg)"></span>
+    </aside>
+  </div>
+  <p class="visually-hidden" role="status" i18n="@@caterer.loading">Loading caterer</p>
+}
+
+@if (state() === 'error') {
+  <div class="empty empty--error">
+    <sh-photo-row [photos]="errorPhotos" />
+    <h1 class="empty__title" i18n="@@caterer.error.title">We couldn’t load this caterer</h1>
+    <p class="empty__text" i18n="@@caterer.error.text">Something went wrong on our side. Try again in a moment — the rest of Sweet Hand still works.</p>
+    <div class="empty__actions">
+      <sh-button variant="primary" (activated)="caterer.reload()"><svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container></sh-button>
+      <a class="btn" routerLink="/caterers" i18n="@@caterer.error.back">Back to caterers</a>
+    </div>
+    @if (errorReference(); as ref) {
+      <p class="text-caption"><ng-container i18n="@@system.reference">Reference</ng-container> <code>{{ ref }}</code></p>
+    }
+  </div>
+}
+
+@if (view(); as c) {
+  <div class="caterer-layout">
+    <div>
+      <sh-gallery
+        [photos]="c.photos"
+        label="Photos"
+        i18n-label="@@gallery.label"
+        [openLabel]="openPhotoLabel"
+        [moreLabel]="morePhotosLabel"
+        failedSuffix=" (did not load)"
+        i18n-failedSuffix="@@gallery.failedSuffix"
+        failedLabel="Photo unavailable"
+        i18n-failedLabel="@@photo.unavailable"
+        (opened)="viewerAt.set($event.index)"
+      />
+
+      <div class="caterer-head">
+        <h1>{{ c.name }}</h1>
+        <ul class="caterer-head__meta">
+          @for (cuisine of c.cuisines; track cuisine) {
+            <li>{{ cuisine }}</li>
+          }
+          @if (c.rating.count > 0) {
+            <li>
+              <a [routerLink]="[]" fragment="reviews"><sh-rating-summary variant="inline" [average]="c.rating.average" [count]="c.rating.count" [countLabel]="reviewCount(c.rating.count)" ratedPrefix="Rated" i18n-ratedPrefix="@@reviews.rated" /></a>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <div class="prose measure description">
+        @for (p of paragraphs(); track $index) {
+          <p>{{ p }}</p>
+        }
+      </div>
+
+      <sh-description-list layout="facts" class="until-lg facts">
+        <sh-description term="Guests" i18n-term="@@caterer.guests">{{ guests() }}</sh-description>
+        <sh-description term="Occasions" i18n-term="@@caterer.occasions"><sh-inline-list [items]="c.occasions" /></sh-description>
+      </sh-description-list>
+
+      <section class="caterer-section" aria-labelledby="menu-title">
+        <div class="caterer-section__head">
+          <h2 id="menu-title" i18n="@@caterer.menu">Menu</h2>
+          <span class="result-count" i18n="@@caterer.dishCount">{c.dishes.length, plural, =1 {1 dish} other {{{c.dishes.length}} dishes}}</span>
+        </div>
+        <sh-dish-list listId="dish-list" [(expanded)]="allDishes" [showAllLabel]="showAllDishes()" showFewerLabel="Show fewer dishes" i18n-showFewerLabel="@@caterer.showFewerDishes" [expandedAnnouncement]="dishesShown()">
+          @for (d of c.dishes; track $index) {
+            <sh-dish [name]="d.name" [price]="d.price" [description]="d.description" [tags]="d.tags" [tagLabels]="tagLabels" />
+          }
+        </sh-dish-list>
+      </section>
+
+      <section class="caterer-section" aria-labelledby="areas-title">
+        <h2 id="areas-title" i18n="@@caterer.areasServed">Areas served</h2>
+        <sh-description-list layout="regions">
+          @for (r of c.regions; track r.name) {
+            <sh-description [term]="r.name">{{ r.areas.join(', ') }}</sh-description>
+          }
+        </sh-description-list>
+      </section>
+
+      <app-reviews-section [slug]="c.slug" [catererName]="c.name" [rating]="c.rating" (changed)="caterer.reload()" />
+
+      <div class="caterer-section until-lg">
+        <sh-button variant="primary" size="lg" [block]="true" haspopup="dialog" [disabled]="offline()" [describedBy]="offline() ? 'offline-note' : null" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>
+      </div>
+      <p class="report-listing">
+        <sh-button variant="link" size="sm" haspopup="dialog" [disabled]="offline()" (activated)="openReport($event)"><svg shIcon="flag"></svg><ng-container i18n="@@caterer.report">Report this listing</ng-container></sh-button>
+      </p>
+    </div>
+
+    <aside class="enquiry-panel only-lg" aria-label="Enquire" i18n-aria-label="@@caterer.enquireRegion">
+      <sh-description-list layout="facts">
+        <sh-description term="Guests" i18n-term="@@caterer.guests">{{ guests() }}</sh-description>
+        <sh-description term="Occasions" i18n-term="@@caterer.occasions"><sh-inline-list [items]="c.occasions" /></sh-description>
+      </sh-description-list>
+      <sh-button variant="primary" size="lg" [block]="true" haspopup="dialog" [disabled]="offline()" [describedBy]="offline() ? 'offline-note' : null" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>
+      @if (offline()) {
+        <p class="enquiry-panel__note" i18n="@@caterer.enquireNoteOffline">You’re offline. Send an enquiry as soon as you’re back online.</p>
+      } @else {
+        <p class="enquiry-panel__note" i18n="@@caterer.enquireNote">Free to ask. Your email and phone stay private until you choose to share them.</p>
+      }
+    </aside>
+  </div>
+
+  @if (viewerAt() !== null) {
+    <sh-photo-viewer [photos]="c.photos" [index]="viewerAt()!" (indexChange)="viewerAt.set($event)" [title]="photosTitle()" [countLabel]="photoCountLabel" [labels]="viewerLabels" (closed)="closeViewer($event.index)" />
+  }
+
+  <app-report-dialog [open]="reportFrom() !== null" [target]="{ kind: 'CatererProfile', id: c.slug, name: c.name }" [returnFocus]="reportFrom()" (closed)="reportFrom.set(null)" />
+
+  <div sh-sticky-cta regionLabel="Enquire" i18n-regionLabel="@@caterer.enquireRegion" [heading]="c.name" [detail]="guests()">
+    <sh-button variant="primary" haspopup="dialog" [disabled]="offline()" [describedBy]="offline() ? 'offline-note' : null" (activated)="enquire($event)"><ng-container i18n="@@caterer.enquire">Send an enquiry</ng-container></sh-button>
+  </div>
+}

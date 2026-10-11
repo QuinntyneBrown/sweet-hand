@@ -1,0 +1,41 @@
+/* Spacing the mocks set inline (docs/mocks/pages/account). */
+.account {
+  max-width: 48rem;
+}
+
+.account .caterer-section--first {
+  margin-top: 0;
+}
+
+.account__intro-row {
+  gap: var(--space-5);
+}
+
+.account__lead {
+  margin-bottom: var(--space-4);
+}
+
+.account__banner {
+  margin-bottom: var(--space-10);
+}
+
+.account__skeleton-line {
+  width: 16rem;
+}
+
+.account__skeleton-title {
+  width: 10rem;
+  margin-bottom: var(--space-6);
+}
+
+.account__skeleton-title--wide {
+  width: 12rem;
+}
+
+.account__skeleton-term {
+  width: 7rem;
+}
+
+.account__skeleton-value {
+  width: 14rem;
+}

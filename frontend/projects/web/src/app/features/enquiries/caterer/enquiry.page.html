@@ -1,0 +1,35 @@
+<div class="inbox-layout">
+  <section class="inbox-layout__list only-lg" aria-label="Enquiry list" i18n-aria-label="@@enquiries.listRegion">
+    <app-enquiry-list [view]="listView()" viewer="caterer" basePath="/dashboard/enquiries" [label]="listLabel()" [filterable]="false" [currentId]="id()" currentKind="true" />
+  </section>
+  <div class="enquiry-column">
+    @if (thread(); as t) {
+      <app-enquiry-thread [thread]="t" (threadChange)="changed($event)" [headingLevel]="1" [backLink]="backLink" />
+    } @else if (failure(); as f) {
+      @if (f.notFound) {
+        <article class="thread" aria-labelledby="thread-title">
+          <a class="eyebrow until-lg" routerLink="/dashboard/enquiries"><svg shIcon="chevron-left" class="icon--sm"></svg><ng-container i18n="@@nav.enquiries">Enquiries</ng-container></a>
+          <sh-empty-state [headingLevel]="1" headingId="thread-title" heading="We can’t find that enquiry" i18n-heading="@@thread.notFoundTitle" text="The link may be old, or it belongs to a different account." i18n-text="@@thread.notFoundText">
+            <ng-container slot="photos">
+              <span class="photo"><img src="/media/cook-up.jpg?w=400&fm=jpeg" alt="" width="72" height="72" /></span>
+              <span class="photo"><img src="/media/sunday-pot.jpg?w=400&fm=jpeg" alt="" width="104" height="104" /></span>
+              <span class="photo"><img src="/media/sorrel-and-spice.jpg?w=400&fm=jpeg" alt="" width="72" height="72" /></span>
+            </ng-container>
+            <a slot="actions" class="btn btn--primary" routerLink="/dashboard/enquiries" i18n="@@enquiries.backToEnquiries">Back to enquiries</a>
+          </sh-empty-state>
+        </article>
+      } @else {
+        <h1 class="visually-hidden" i18n="@@enquiries.enquiry">Enquiry</h1>
+        <sh-alert tone="danger" live="assertive" title="We couldn’t load this enquiry" i18n-title="@@thread.errorTitle">
+          <ng-container i18n="@@enquiries.threadErrorText">Nothing has been lost. Check your connection and try again.</ng-container>
+          <div slot="actions" class="alert__actions">
+            <button class="btn btn--sm" type="button" (click)="retry()" i18n="@@common.retry">Retry</button>
+            <a routerLink="/dashboard/enquiries" i18n="@@enquiries.backToEnquiries">Back to enquiries</a>
+          </div>
+        </sh-alert>
+      }
+    } @else {
+      <sh-thread [busy]="true" loadingLabel="Loading enquiry" i18n-loadingLabel="@@thread.loading" [backLink]="backLink" />
+    }
+  </div>
+</div>

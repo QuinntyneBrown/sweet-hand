@@ -1,0 +1,7 @@
+/* The mock's inline list reset for the small links in the site menu. */
+.site-menu__small {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0 var(--space-5);
+}

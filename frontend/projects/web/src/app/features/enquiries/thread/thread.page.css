@@ -1,0 +1,4 @@
+/* The thread column stacks its one child full width (the mocks put the column class on the article itself). */
+.inbox-layout__thread {
+  flex-direction: column;
+}

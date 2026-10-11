@@ -1,0 +1,250 @@
+<app-dashboard-layout current="overview" [status]="status()" [previewLabel]="previewLabel()" [previewBusy]="state().kind === 'loading'">
+  @switch (state().kind) {
+    @case ('loading') {
+      <div class="page-intro" aria-busy="true">
+        <h1>
+          <span class="visually-hidden" i18n="@@dashboard.loading">Loading your dashboard</span
+          ><span class="skeleton skeleton--text" style="width: 16rem" aria-hidden="true"></span>
+        </h1>
+        <span class="skeleton skeleton--text" style="width: 9rem" aria-hidden="true"></span>
+      </div>
+      <sh-stat-grid [busy]="true" busyLabel="Loading your numbers" i18n-busyLabel="@@dashboard.loadingNumbers" />
+      <section class="caterer-section" aria-hidden="true">
+        <div class="caterer-section__head"><span class="skeleton skeleton--title" style="width: 12rem"></span></div>
+        <sh-inbox-list label="" [busy]="true" loadingLabel="Loading your enquiries" i18n-loadingLabel="@@inbox.loading" [skeletonCount]="3" />
+      </section>
+    }
+    @case ('error') {
+      <div class="page-intro">
+        <h1>{{ business()?.name }}</h1>
+      </div>
+      <sh-empty-state
+        tone="error"
+        heading="We couldn’t load your dashboard"
+        i18n-heading="@@dashboard.errorTitle"
+        text="Your profile and enquiries are safe. This is on our side; try again in a moment."
+        i18n-text="@@dashboard.errorText"
+        [reference]="errorReference()"
+        referenceLabel="Reference"
+        i18n-referenceLabel="@@common.reference"
+      >
+        <svg slot="icon" shIcon="danger"></svg>
+        <ng-container slot="actions">
+          <button class="btn btn--primary" type="button" (click)="load()">
+            <svg shIcon="refresh"></svg><ng-container i18n="@@common.tryAgain">Try again</ng-container>
+          </button>
+          <a class="btn" [routerLink]="pageHref()" i18n="@@dashboard.viewPage">View your page</a>
+        </ng-container>
+      </sh-empty-state>
+    }
+    @case ('ready') {
+      @if (ready(); as r) {
+        @if (showLive()) {
+          <sh-alert [banner]="true" tone="success" live="polite" [title]="liveTitle()" [dismissible]="true" dismissLabel="Dismiss" i18n-dismissLabel="@@toast.dismiss" (dismissed)="dismissLive()"
+            ><ng-container i18n="@@banner.liveText">Customers can find you in the listing now.</ng-container
+            ><span slot="actions" class="alert__actions"><a class="link--standalone" [routerLink]="pageHref()" i18n="@@dashboard.viewPage">View your page</a></span></sh-alert
+          >
+        }
+        <div class="page-intro">
+          <h1>{{ r.profile.name }}</h1>
+          <p class="cluster">
+            <sh-status [tone]="tone()" [label]="statusText()" />
+            @if (r.profile.status === 'Published') {
+              <a class="link--standalone" [routerLink]="pageHref()" i18n="@@dashboard.viewPage">View your page</a>
+            } @else if (r.profile.status === 'Draft' && !firstRun()) {
+              <sh-save-status [inline]="true" text="Saved" i18n-text="@@autosave.saved" />
+            } @else if (statusDate()) {
+              <span class="text-caption">{{ statusDate() }}</span>
+            }
+          </p>
+        </div>
+
+        @switch (r.profile.status) {
+          @case ('Published') {
+            @if (r.profile.pendingName) {
+              <sh-alert live="polite" title="Name change waiting for review" i18n-title="@@nameChange.title"
+                >{{ renameText() }}
+                <div slot="actions" class="alert__actions">
+                  <a class="link--standalone" routerLink="/dashboard/profile/details" i18n="@@nameChange.see">See the change</a>
+                </div>
+              </sh-alert>
+              <div style="margin-top: var(--space-10)"></div>
+            }
+            <sh-stat-grid>
+              <div sh-stat label="Unread enquiries" i18n-label="@@dashboard.statUnread" [value]="'' + r.inbox.unread"></div>
+              <div sh-stat label="Open enquiries" i18n-label="@@dashboard.statOpen" [value]="openCount()"></div>
+              <div
+                sh-stat
+                label="Rating"
+                i18n-label="@@dashboard.statRating"
+                [value]="rating()"
+                valueContext=" out of 5"
+                i18n-valueContext="@@rating.outOf5"
+                missingLabel="No reviews yet"
+                i18n-missingLabel="@@dashboard.noReviews"
+              ></div>
+              <div sh-stat label="Reviews" i18n-label="@@dashboard.statReviews" [value]="'' + r.reviews.total"></div>
+            </sh-stat-grid>
+
+            <section class="caterer-section" aria-labelledby="latest-title">
+              <div class="caterer-section__head">
+                <h2 id="latest-title" i18n="@@dashboard.latest">Latest enquiries</h2>
+                <a class="link--standalone" routerLink="/dashboard/enquiries"
+                  ><ng-container i18n="@@dashboard.allEnquiries">All enquiries</ng-container><svg class="icon--sm" shIcon="chevron-right"></svg
+                ></a>
+              </div>
+              @if (rows().length) {
+                <sh-inbox-list [label]="listLabel()">
+                  @for (row of rows(); track row.id) {
+                    <sh-inbox-row
+                      [href]="row.href"
+                      [name]="row.name"
+                      [picture]="row.picture"
+                      [time]="row.time"
+                      [datetime]="row.datetime"
+                      [summary]="row.summary"
+                      [statusTone]="row.tone"
+                      [statusLabel]="row.statusLabel"
+                      [unread]="row.unread"
+                      unreadLabel="Unread."
+                      i18n-unreadLabel="@@inbox.unread"
+                    />
+                  }
+                </sh-inbox-list>
+              } @else {
+                <sh-empty-state
+                  size="compact"
+                  heading="No enquiries yet"
+                  i18n-heading="@@inbox.emptyTitle"
+                  text="Customers can find you now. New enquiries show up here and in your email."
+                  i18n-text="@@dashboard.noEnquiriesText"
+                />
+              }
+            </section>
+
+            <section class="caterer-section until-lg" aria-labelledby="profile-title">
+              <h2 id="profile-title" i18n="@@dashboard.yourProfile">Your profile</h2>
+              <sh-section-list [items]="sections()" [statusLabels]="checkLabels" />
+            </section>
+          }
+
+          @case ('Removed') {
+            <sh-alert tone="danger" live="polite" title="Your profile was removed from Sweet Hand" i18n-title="@@dashboard.removedTitle">{{ removedText() }}</sh-alert>
+            <section class="caterer-section" aria-labelledby="history-title">
+              <h2 id="history-title" i18n="@@dashboard.records">Your records</h2>
+              <p class="text-muted" style="margin-top: var(--space-2)" i18n="@@dashboard.recordsText">
+                You can still read your past enquiries and download everything we hold about you.
+              </p>
+              <div class="cluster" style="margin-top: var(--space-6)">
+                <a class="btn" routerLink="/dashboard/enquiries" i18n="@@nav.enquiryHistory">Enquiry history</a>
+                <button #download class="btn btn--primary" type="button" aria-haspopup="dialog" (click)="openDownload(download)">
+                  <svg shIcon="download"></svg><ng-container i18n="@@dashboard.downloadData">Download my data</ng-container>
+                </button>
+              </div>
+            </section>
+          }
+
+          @default {
+            @switch (r.profile.status) {
+              @case ('Pending review') {
+                <sh-alert live="polite" title="Thanks — we’ll review your profile within 3 business days" i18n-title="@@submit.thanks">{{ pendingText() }}</sh-alert>
+              }
+              @case ('Changes requested') {
+                <sh-alert tone="warning" live="polite" title="We need a couple of changes before your profile goes live" i18n-title="@@dashboard.changesTitle"
+                  >{{ reasonText() }}
+                  @if (attentionLink(); as a) {
+                    <div slot="actions" class="alert__actions"><a [routerLink]="a.href">{{ a.label }}</a></div>
+                  }
+                </sh-alert>
+              }
+              @case ('Suspended') {
+                <sh-alert tone="danger" live="assertive" title="Your profile is hidden from customers" i18n-title="@@dashboard.suspendedTitle">{{ suspendedText() }}</sh-alert>
+                @if (!certificateDone()) {
+                  <div class="cluster" style="margin-top: var(--space-6)">
+                    <a class="btn btn--primary" routerLink="/dashboard/profile/food-safety" i18n="@@suspended.upload">Upload a new certificate</a>
+                  </div>
+                }
+              }
+            }
+
+            @if (firstRun()) {
+              <section aria-labelledby="setup-title">
+                <div class="stack" style="margin-bottom: var(--space-8)">
+                  <h2 id="setup-title">{{ welcome() }}</h2>
+                  <p class="text-muted" i18n="@@setup.welcomeText">
+                    Build your profile one section at a time. We save as you go, so you can stop and come back on any device. When everything is ticked, send it to us for review.
+                  </p>
+                  <p><a class="btn btn--primary" routerLink="/dashboard/profile/details" i18n="@@setup.start">Start with your description</a></p>
+                </div>
+                <sh-meter label="Ready to submit" i18n-label="@@setup.ready" [value]="doneCount()" [max]="10" [valueText]="meterText()" />
+                <div style="margin-top: var(--space-6)">
+                  <sh-section-list [items]="checklist()" [statusLabels]="checkLabels" />
+                </div>
+              </section>
+            } @else if (r.profile.status === 'Draft') {
+              <section aria-labelledby="setup-title">
+                <h2 class="visually-hidden" id="setup-title" i18n="@@setup.checklist">Profile checklist</h2>
+                <sh-meter label="Ready to submit" i18n-label="@@setup.ready" [value]="doneCount()" [max]="10" [valueText]="meterText()" />
+                <div style="margin-top: var(--space-6)">
+                  <sh-section-list [items]="checklist()" [statusLabels]="checkLabels" />
+                </div>
+                <div class="cluster" style="margin-top: var(--space-8)">
+                  <button #submitButton class="btn btn--primary" type="button" aria-haspopup="dialog" [attr.aria-busy]="submitBusy() && !submitStep() ? 'true' : null" (click)="startSubmit()" i18n="@@overview.submit">
+                    Submit for review
+                  </button>
+                  @if (leftText()) {
+                    <span class="text-caption">{{ leftText() }}</span>
+                  }
+                </div>
+              </section>
+            } @else {
+              <section class="caterer-section" aria-labelledby="setup-title" style="margin-top: var(--space-10)">
+                <h2 id="setup-title" i18n="@@dashboard.yourProfile">Your profile</h2>
+                @if (r.profile.status === 'Suspended') {
+                  <div style="margin-top: var(--space-2)">
+                    <sh-private-note text="Read-only while suspended, apart from your certificate." i18n-text="@@dashboard.suspendedNote" />
+                  </div>
+                }
+                <div style="margin-top: var(--space-4)">
+                  <sh-section-list [items]="checklist()" [statusLabels]="checkLabels" />
+                </div>
+                @if (r.profile.status === 'Pending review') {
+                  <div class="cluster" style="margin-top: var(--space-8)">
+                    <button class="btn" type="button" aria-haspopup="dialog" (click)="withdrawOpen.set(true)" i18n="@@withdraw.action">Withdraw submission</button>
+                    <span class="text-caption" i18n="@@withdraw.caption">Withdraw to make changes. You’ll need to submit again.</span>
+                  </div>
+                } @else if (r.profile.status === 'Changes requested') {
+                  <div class="cluster" style="margin-top: var(--space-8)">
+                    <button class="btn btn--primary" type="button" aria-haspopup="dialog" (click)="startSubmit()" i18n="@@submit.resubmit">Resubmit for review</button>
+                    <span class="text-caption" i18n="@@submit.resubmitCaption">We’ll look at what changed first.</span>
+                  </div>
+                }
+              </section>
+            }
+          }
+        }
+      }
+    }
+  }
+  @if (card(); as c) {
+    <app-listing-preview slot="preview" [card]="c" [href]="previewHref()" />
+  }
+</app-dashboard-layout>
+
+@if (profile(); as p) {
+  <app-submit-dialog
+    [open]="submitStep() !== null"
+    [step]="submitStep() ?? 'confirm'"
+    [business]="p.name"
+    [email]="p.email"
+    [failures]="failures()"
+    [busy]="submitBusy()"
+    [failed]="submitFailed()"
+    (confirmed)="submit()"
+    (closed)="closeSubmit()"
+  />
+  <app-withdraw-dialog [open]="withdrawOpen()" [business]="p.name" (closed)="withdrawOpen.set(false)" (withdrawn)="withdrawn($event)" />
+}
+@if (account(); as a) {
+  <app-download-data-dialog [open]="downloadOpen()" [account]="a" [returnFocus]="downloadOpener()" (closed)="downloadOpen.set(false)" (exportRequested)="account.set($event)" />
+}

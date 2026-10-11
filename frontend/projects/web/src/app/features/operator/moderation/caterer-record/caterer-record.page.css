@@ -1,0 +1,25 @@
+.record-head {
+  margin-block: var(--space-4) var(--space-6);
+}
+.record-title {
+  font: var(--text-h1);
+}
+.record-notice {
+  margin-top: var(--space-6);
+}
+.record-note {
+  margin-top: var(--space-3);
+}
+.record-caption {
+  margin-top: var(--space-4);
+}
+.record-skeleton--70 {
+  width: 70%;
+}
+.record-skeleton--30 {
+  width: 30%;
+}
+.record-skeleton--button {
+  width: 5rem;
+  height: var(--control-height-md);
+}
