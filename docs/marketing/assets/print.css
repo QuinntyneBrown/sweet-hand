@@ -1,0 +1,22 @@
+/* Shared by the flyer and the stickers. Colours are copied by value from
+   docs/design-system/tokens/tokens.css (print files cannot @import the web
+   tokens), named by their palette step so a token change is easy to follow. */
+@font-face {
+  font-family: "Figtree";
+  src: url("fonts/figtree-latin.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+}
+
+:root {
+  --stone-950: #141312;
+  --stone-700: #4d4b48;
+  --stone-600: #6b6863;
+  --stone-350: #b8b2a8;
+  --stone-200: #e2ded7;
+  --stone-50: #f7f5f2;
+  --white: #ffffff;
+  --pepper-500: #c94a2f;
+  --pepper-600: #b5381f;
+  --pepper-700: #962d19;
+}

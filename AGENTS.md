@@ -26,6 +26,8 @@ keep it accurate:
 - `docs/technical-debt/` — technical-debt registers with resolution strategies
   (`frontend.md`); close an item by deleting its entry in the PR that resolves it
 - `docs/videos/` — narrated walkthroughs (`creating-videos` skill)
+- `docs/marketing/` — print-ready pre-launch flyer and die-cut stickers, with
+  `render.mjs` to regenerate them (see its `README.md`)
 - `frontend/` — Angular workspace (ADR 0001); see `frontend/README.md`
   - `frontend/projects/components/` — `sh-*` design-system component library,
     one folder per CRD under `src/lib/<component>/`
