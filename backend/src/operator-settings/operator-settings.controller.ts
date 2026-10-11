@@ -1,6 +1,6 @@
 import { Controller, Get, Post } from '@nestjs/common';
 import { admins, anonymous, roles, type Reply, type Request } from '../http/endpoint.ts';
-import { Ctx, Refusal, UsePolicy } from '../http/nest/decorators.ts';
+import { CountsAsPublicRead, Ctx, Refusal, UsePolicy } from '../http/nest/decorators.ts';
 import { recordVisit } from './visits.ts';
 import { listModeratedReviews, moderateReview } from './moderate-reviews.ts';
 import { queryAuditLog } from './audit-log.ts';
@@ -112,6 +112,7 @@ export class OperatorSettingsController {
   /** Anonymous by deliberate choice: visitors who are not signed in are counted, without any id (L2-062). */
   @Post('api/visits')
   @UsePolicy(anonymous)
+  @CountsAsPublicRead()
   recordVisit(@Ctx() req: Request): Promise<Reply> {
     return recordVisit(req);
   }

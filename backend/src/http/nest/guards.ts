@@ -7,7 +7,7 @@ import type { Environment } from '../../environment.ts';
 import { RateLimiter } from '../../platform/rate-limit.ts';
 import { hashIp } from '../../platform/secrets.ts';
 import { BadJson, BodyTooLarge, MB, readBody } from './body.ts';
-import { MAX_BODY, POLICY, REFUSAL, WITHOUT_DATABASE, requestContext } from './decorators.ts';
+import { MAX_BODY, POLICY, PUBLIC_READ_LIMIT, REFUSAL, WITHOUT_CSRF, WITHOUT_DATABASE, requestContext } from './decorators.ts';
 import { PIPELINE_OPTIONS, type PipelineOptions } from './options.ts';
 import { writeLog } from '../../platform/log-redactor.ts';
 
@@ -39,7 +39,8 @@ export class RateLimitGuard implements CanActivate {
   canActivate(execution: ExecutionContext): boolean {
     const ctx = context(execution);
     const policy = this.reflector.get<Policy | undefined>(POLICY, execution.getHandler());
-    if (ctx.method !== 'GET' || policy?.kind !== 'anonymous' || this.reflector.get<boolean>(WITHOUT_DATABASE, execution.getHandler())) return true;
+    const counted = ctx.method === 'GET' || this.reflector.get<boolean>(PUBLIC_READ_LIMIT, execution.getHandler());
+    if (!counted || policy?.kind !== 'anonymous' || this.reflector.get<boolean>(WITHOUT_DATABASE, execution.getHandler())) return true;
     let limiter = this.limiters.get(ctx.env);
     if (!limiter) this.limiters.set(ctx.env, (limiter = new RateLimiter(PUBLIC_READS_PER_MINUTE)));
     const wait = limiter.take(ctx.ip, ctx.env.clock.now());
@@ -52,15 +53,19 @@ export class RateLimitGuard implements CanActivate {
 /** State changes must echo the CSRF cookie and come from an allowed origin (L2-081.4). */
 @Injectable()
 export class CsrfGuard implements CanActivate {
+  private readonly reflector: Reflector;
   private readonly options: PipelineOptions;
 
-  constructor(@Inject(PIPELINE_OPTIONS) options: PipelineOptions) {
+  constructor(reflector: Reflector, @Inject(PIPELINE_OPTIONS) options: PipelineOptions) {
+    this.reflector = reflector;
     this.options = options;
   }
 
   canActivate(execution: ExecutionContext): boolean {
     const ctx = context(execution);
     if (SAFE_METHODS.has(ctx.method)) return true;
+    const policy = this.reflector.get<Policy | undefined>(POLICY, execution.getHandler());
+    if (policy?.kind === 'anonymous' && this.reflector.get<boolean>(WITHOUT_CSRF, execution.getHandler())) return true;
     const { allowedOrigins } = this.options.config;
     const origin = ctx.headers.origin;
     const badOrigin = origin && allowedOrigins.length > 0 && !allowedOrigins.includes(origin);

@@ -20,4 +20,12 @@ describe('public read rate limit (L2-082.1)', () => {
     advanceClock(api, 60_000);
     assert.equal((await client.get('/api/public/cuisines')).status, 200);
   });
+
+  it('Given one address has used up its public reads, when it reports a visit, then the visit beacon is limited too (count-visits design)', async () => {
+    const api = await startApi();
+    const client = api.client();
+    for (let i = 0; i < 300; i++) await client.post('/api/visits', { pageType: 'Listing' });
+    assert.equal((await client.post('/api/visits', { pageType: 'Listing' })).status, 429);
+    assert.equal((await client.get('/api/public/cuisines')).status, 429, 'visits and reads share the limit');
+  });
 });

@@ -5,19 +5,29 @@ import { dispatchDueEmails, type EmailGateway } from '../platform/email-dispatch
 import { writeLog } from '../platform/log-redactor.ts';
 import { runDailyMaintenance } from './daily.ts';
 import { generateDataExports } from '../account/data-export.ts';
+import { aggregateMetrics } from '../operator-settings/metrics-aggregation.ts';
+
+/** The dashboard follows within the hour (L2-061.3); aggregating every 15 minutes leaves room. */
+const AGGREGATE_EVERY_MS = 15 * 60_000;
 
 /**
  * The background work (ADR 0008 keeps it in the API process; designs name a
  * background worker): every tick sends due emails, finishes waiting photos
- * and builds requested data exports; once per Toronto day it runs the daily maintenance job.
+ * and builds requested data exports; every 15 minutes it refreshes the
+ * metrics aggregates; once per Toronto day it runs the daily maintenance job.
  */
 export function startBackgroundWork(env: Environment, gateway: EmailGateway, everyMs = 15_000): () => void {
   let running = false;
   let lastDailyRun = '';
+  let lastAggregation = 0;
   const tick = async () => {
     await dispatchDueEmails(env, gateway);
     await processWaitingPhotos(env);
     await generateDataExports(env);
+    if (env.clock.now().getTime() - lastAggregation >= AGGREGATE_EVERY_MS) {
+      lastAggregation = env.clock.now().getTime();
+      await aggregateMetrics(env);
+    }
     const today = torontoDate(env.clock.now());
     if (today !== lastDailyRun) {
       lastDailyRun = today;

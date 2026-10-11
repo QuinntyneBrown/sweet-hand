@@ -5,6 +5,8 @@ export const POLICY = 'sweet-hand:policy';
 export const MAX_BODY = 'sweet-hand:max-body';
 export const REFUSAL = 'sweet-hand:refusal';
 export const WITHOUT_DATABASE = 'sweet-hand:without-database';
+export const WITHOUT_CSRF = 'sweet-hand:without-csrf';
+export const PUBLIC_READ_LIMIT = 'sweet-hand:public-read-limit';
 
 /** Who may call the endpoint (authorise-requests design). A route without one is refused. */
 export const UsePolicy = (policy: Policy) => SetMetadata(POLICY, policy);
@@ -20,6 +22,15 @@ export const Refusal = (refusal: (req: Request) => Promise<Reply>) => SetMetadat
  * answer even when the database cannot be reached (L2-088.3). Anonymous only.
  */
 export const WithoutDatabase = () => SetMetadata(WITHOUT_DATABASE, true);
+
+/**
+ * A server-to-server webhook that proves itself with its own token, not a
+ * browser session, so the CSRF check does not apply. Anonymous only.
+ */
+export const WithoutCsrf = () => SetMetadata(WITHOUT_CSRF, true);
+
+/** An anonymous write that counts against the public read rate limit, like the visit beacon (L2-082.1). */
+export const CountsAsPublicRead = () => SetMetadata(PUBLIC_READ_LIMIT, true);
 
 /** The request context use cases take: parsed request, environment, transaction, caller. */
 export const Ctx = createParamDecorator((_data: unknown, context: ExecutionContext): Request => requestContext(context));

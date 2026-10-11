@@ -34,7 +34,7 @@ export async function createNestApp(options: NestAppOptions): Promise<INestAppli
   const app = await NestFactory.create(ApiModule.register(options), { bodyParser: false, logger: ['error', 'warn'] });
   if (options.before) app.use(options.before);
   const reflector = app.get(Reflector);
-  app.useGlobalGuards(new RateLimitGuard(reflector), new CsrfGuard(options), new BodyGuard(reflector), new EndpointPolicyGuard(reflector, options));
+  app.useGlobalGuards(new RateLimitGuard(reflector), new CsrfGuard(reflector, options), new BodyGuard(reflector), new EndpointPolicyGuard(reflector, options));
   app.useGlobalInterceptors(new TransactionInterceptor(reflector, options));
   app.useGlobalFilters(new ProblemFilter());
   const server = app.getHttpAdapter().getInstance();
