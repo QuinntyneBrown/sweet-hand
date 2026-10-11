@@ -2,7 +2,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { testEnvironment } from '../../src/environment.ts';
 import { queueEmail, type OutboxEmail } from '../../src/platform/outbox.ts';
-import { dispatchDueEmails, type EmailGateway } from '../../src/platform/email-dispatch.ts';
+import { PermanentFailure, dispatchDueEmails, type EmailGateway } from '../../src/platform/email-dispatch.ts';
 
 const HOUR = 60 * 60_000;
 
@@ -70,5 +70,49 @@ describe('email delivery (L2-030)', () => {
     assert.equal(stored.status, 'failed');
     assert.ok(env.clock.now().getTime() - Date.parse(stored.at) >= 24 * HOUR);
     assert.equal(alerts.length, 1);
+  });
+});
+
+describe('launch list email delivery (L2-101.5)', () => {
+  it('Given a sent email with removal links, when it is sent, then the removal link and headers are no longer stored', async () => {
+    const env = await testEnvironment({ seed: false });
+    await env.db.transaction((tx) =>
+      queueEmail(tx, env.clock.now(), { to: 'marcia.t@example.com', kind: 'launch-confirm', link: '/?confirmed=a', removalLink: '/u?token=b', headers: { 'List-Unsubscribe': '<https://x/u?token=b>' } }),
+    );
+    await dispatchDueEmails(env, { send: async () => undefined });
+    const [stored] = await emails(env);
+    assert.equal(stored.status, 'sent');
+    assert.equal(stored.removalLink, undefined);
+    assert.equal(stored.headers, undefined);
+  });
+
+  it('Given a hard bounce, when the provider rejects the address, then the email fails at once and is not retried', async () => {
+    const env = await testEnvironment({ seed: false });
+    await env.db.transaction((tx) => queueEmail(tx, env.clock.now(), { to: 'gone@example.com', kind: 'launch-day-customer' }));
+    let attempts = 0;
+    const gateway: EmailGateway = {
+      send: async () => {
+        attempts++;
+        throw new PermanentFailure('hard bounce');
+      },
+    };
+    await dispatchDueEmails(env, gateway);
+    env.clock.advance(2 * HOUR);
+    await dispatchDueEmails(env, gateway);
+    assert.equal(attempts, 1);
+    assert.equal((await emails(env))[0].status, 'failed');
+  });
+
+  it('Given more due emails than the provider allows per tick, when the worker runs, then it sends at most that many', async () => {
+    const env = await testEnvironment({ seed: false });
+    await env.db.transaction(async (tx) => {
+      for (let i = 0; i < 5; i++) await queueEmail(tx, env.clock.now(), { to: `p${i}@example.com`, kind: 'launch-day-customer' });
+    });
+    const sent: string[] = [];
+    const gateway: EmailGateway = { send: async (e) => void sent.push(e.to) };
+    assert.equal(await dispatchDueEmails(env, gateway, undefined, { maxPerTick: 2 }), 2);
+    assert.equal(await dispatchDueEmails(env, gateway, undefined, { maxPerTick: 2 }), 2);
+    assert.equal(await dispatchDueEmails(env, gateway, undefined, { maxPerTick: 2 }), 1);
+    assert.equal(new Set(sent).size, 5);
   });
 });

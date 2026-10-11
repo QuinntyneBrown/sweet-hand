@@ -13,6 +13,12 @@ export const logGateway: EmailGateway = {
   send: async (email) => writeLog({ level: 'info', event: 'email-sent', kind: email.kind, toHash: hashIp(email.to), id: email.id }),
 };
 
+/** The provider refused the email for good (a hard bounce or rejected address): it is not retried (L2-101.5). */
+export class PermanentFailure extends Error {}
+
+/** The provider's rate limit per tick; `<TO SUPPLY>` with the provider, unlimited until then (L2-101.5). */
+const MAX_PER_TICK = Number(process.env['EMAILS_PER_TICK'] ?? 0) || Infinity;
+
 const MINUTE = 60_000;
 /** Retries back off exponentially from one minute, capped at an hour, for up to 24 hours (L2-030.2). */
 const GIVE_UP_AFTER_MS = 24 * 60 * MINUTE;
@@ -25,9 +31,16 @@ const due = (email: OutboxEmail, now: Date) => email.status === 'queued' && (!em
  * emails drop their link, which may hold a token. An email still failing 24
  * hours after it was queued becomes `failed` and raises an operator alert.
  */
-export async function dispatchDueEmails(env: Environment, gateway: EmailGateway, alert: (message: string) => void = (m) => writeLog({ level: 'alert', message: m })): Promise<number> {
+export async function dispatchDueEmails(
+  env: Environment,
+  gateway: EmailGateway,
+  alert: (message: string) => void = (m) => writeLog({ level: 'alert', message: m }),
+  options: { maxPerTick?: number } = {},
+): Promise<number> {
   const now = env.clock.now();
-  const pending = await env.db.transaction(async (tx) => (await outbox(tx).find({ status: 'queued' })).filter((e) => due(e, now)));
+  const limit = options.maxPerTick ?? MAX_PER_TICK;
+  const queued = await env.db.transaction(async (tx) => (await outbox(tx).find({ status: 'queued' })).filter((e) => due(e, now)));
+  const pending = queued.sort((a, b) => a.seq - b.seq).slice(0, limit);
   let sent = 0;
   for (const email of pending) {
     let failure: unknown;
@@ -40,14 +53,21 @@ export async function dispatchDueEmails(env: Environment, gateway: EmailGateway,
       const current = await outbox(tx).get(email.id);
       if (!current || current.status !== 'queued') return;
       if (!failure) {
-        const { link: _link, ...rest } = current;
+        // Each link, and the List-Unsubscribe header, may hold a token.
+        const { link: _link, removalLink: _removal, headers: _headers, ...rest } = current;
         void _link;
+        void _removal;
+        void _headers;
         // Mail to a deleted account keeps no address once sent (L2-072).
         await outbox(tx).put({ ...rest, ...(rest.forgetRecipient ? { to: '' } : {}), status: 'sent', sentAt: now.toISOString() });
         sent++;
         return;
       }
       const attempts = ((current.attempts as number | undefined) ?? 0) + 1;
+      if (failure instanceof PermanentFailure) {
+        await outbox(tx).put({ ...current, ...(current.forgetRecipient ? { to: '' } : {}), attempts, status: 'failed', failedAt: now.toISOString() });
+        return;
+      }
       if (now.getTime() - Date.parse(current.at) >= GIVE_UP_AFTER_MS) {
         await outbox(tx).put({ ...current, ...(current.forgetRecipient ? { to: '' } : {}), attempts, status: 'failed', failedAt: now.toISOString() });
         alert(`Email ${current.id} (${current.kind}) failed for 24 hours and was given up`);
