@@ -31,6 +31,21 @@ Static public files use Azure's global edge. Cloudflare processes only the bot c
 
 Namecheap remains authoritative. Preserve all Namecheap forwarding MX records. Replace the parking A and `www` records with the Static Web Apps validation records, add Azure Communication Services domain-verification and DKIM records, merge the Azure SPF include into the existing single SPF record, and add `_dmarc` with `v=DMARC1; p=none; rua=mailto:hello@sweethand.ca`.
 
+Records to publish in Namecheap Advanced DNS (values read from Azure on 2026-10-11; the validation tokens expire, so re-read them with `az staticwebapp hostname list` and `az communication email domain show` if they no longer match):
+
+| Type | Host | Value |
+|---|---|---|
+| TXT | `@` | `_r5e3z9u1v5kit51bynjp7biuxvj9nk8` (Static Web Apps apex validation) |
+| ALIAS | `@` | `happy-ocean-03d99600f.3.azurestaticapps.net` (replaces the parking A record) |
+| CNAME | `www` | `happy-ocean-03d99600f.3.azurestaticapps.net` (replaces `parkingpage.namecheap.com`) |
+| TXT | `@` | `ms-domain-verification=6d3a53f6-f0c6-4e4e-928c-2a6b4cce47b6` |
+| TXT | `@` | `v=spf1 include:spf.efwd.registrar-servers.com include:spf.protection.outlook.com ~all` (replaces the existing SPF record; keep exactly one) |
+| CNAME | `selector1-azurecomm-prod-net._domainkey` | `selector1-azurecomm-prod-net._domainkey.azurecomm.net` |
+| CNAME | `selector2-azurecomm-prod-net._domainkey` | `selector2-azurecomm-prod-net._domainkey.azurecomm.net` |
+| TXT | `_dmarc` | `v=DMARC1; p=none; rua=mailto:hello@sweethand.ca` |
+
+The `www` validation token (`_da8v0sbxnclttmujbt1xbxtm3prox09`) is satisfied by the `www` CNAME. Namecheap's email-forwarding MX records stay as they are.
+
 Azure Communication Services cannot send from `hello@sweethand.ca` until the domain is linked. After the DNS records publish, run `az communication email domain initiate-verification` for `Domain`, `SPF`, `DKIM` and `DKIM2`; once `az communication email domain show` reports each as `Verified`, the next Deploy production run links the domain (`linkEmailDomain=true`). Until then delivery warns and leaves it unlinked, so a foundation run cannot fail on an unverified domain.
 
 Namecheap forwarding shall keep `hello@sweethand.ca` delivering to the monitored inbox. Cloudflare Turnstile shall use a managed widget restricted to `sweethand.ca` and `www.sweethand.ca`. Store the public site key as GitHub environment variable `TURNSTILE_SITE_KEY` and its secret as `TURNSTILE_SECRET`.
