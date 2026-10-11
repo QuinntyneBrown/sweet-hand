@@ -2,6 +2,7 @@ import type { Clock } from './platform/clock.ts';
 import { FixedClock } from './platform/clock.ts';
 import type { Database } from './platform/database.ts';
 import { MemoryDatabase } from './platform/memory-database.ts';
+import { seedDatabase } from './seed/index.ts';
 
 /**
  * Everything a request runs against. Production has one; the test-control API
@@ -12,7 +13,9 @@ export interface Environment {
   clock: Clock;
 }
 
-/** A fresh environment on the fake database with the cast's clock (ADR 0007). */
-export async function testEnvironment(): Promise<Environment & { clock: FixedClock }> {
-  return { db: new MemoryDatabase(), clock: new FixedClock() };
+/** A fresh environment on the fake database with the cast's clock (ADR 0007), seeded with the cast unless asked not to. */
+export async function testEnvironment(options: { seed?: boolean } = {}): Promise<Environment & { clock: FixedClock; db: MemoryDatabase }> {
+  const env = { db: new MemoryDatabase(), clock: new FixedClock() };
+  if (options.seed !== false) await seedDatabase(env.db);
+  return env;
 }

@@ -43,6 +43,8 @@ export interface Request {
   actor?: Actor;
   /** `Set-Cookie` values to add to the reply. */
   cookiesOut: string[];
+  /** Per-request facts the authenticator leaves for handlers (for example, an expired session). */
+  locals: Record<string, unknown>;
 }
 
 export interface Reply {

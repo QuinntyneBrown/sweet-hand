@@ -173,6 +173,7 @@ export function createApp(options: AppOptions): (req: IncomingMessage, res: Serv
             tx,
             now: env.clock.now(),
             cookiesOut,
+            locals: {},
           };
           request.actor = await options.authenticate?.(request);
           const verdict = permits(match.route.policy, request.actor);

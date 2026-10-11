@@ -7,6 +7,7 @@ import type { AddressInfo } from 'node:net';
 import { createServer, type Server } from 'node:http';
 import { createApp, type AppOptions } from '../../src/app.ts';
 import { testEnvironment, type Environment } from '../../src/environment.ts';
+import { productOptions } from '../../src/product.ts';
 
 export interface Api {
   url: string;
@@ -76,7 +77,7 @@ export class Client {
 /** Starts the API for one test file; it stops when the file's tests finish. */
 export async function startApi(options: Partial<AppOptions> & { env?: Environment } = {}): Promise<Api> {
   const env = options.env ?? (await testEnvironment());
-  const app = createApp({ areas: [], environments: { resolve: () => env }, ...options });
+  const app = createApp({ ...productOptions(), environments: { resolve: () => env }, ...options });
   const server: Server = createServer(app);
   await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
   after(() => new Promise<void>((resolve) => server.close(() => resolve())));
