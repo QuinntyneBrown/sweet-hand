@@ -37,6 +37,8 @@ keep it accurate:
     development and acceptance tests (ADR 0004)
   - `frontend/e2e/` — Playwright: `support/` (fixtures, cast, ports),
     `pages/` (page objects), `specs/<area>/`
+- `backend/` — planned (ADRs 0006–0007): NestJS API and background worker;
+  not created yet
 
 See `README.md` and `frontend/README.md` for setup and development commands.
 
@@ -65,8 +67,29 @@ Frontend (ADRs 0001–0005):
   convenience, not security.
 - All user-facing text is marked for Angular i18n (ADR 0005); lint fails on
   unmarked template text.
-- The backend is not built yet. The fake backend implements the same HTTP
-  contract, with wire types shared from `projects/api/src/lib/models/`.
+- The backend (`backend/`, ADR 0006) is not built yet. The fake backend
+  implements the same HTTP contract, with wire types shared from
+  `projects/api/src/lib/models/`; the real backend imports them the same way.
+
+Backend (ADRs 0006–0007, planned in `backend/`):
+
+- NestJS on Node.js 22 and TypeScript. One codebase, two entry points: the
+  API (HTTP) and the background worker (queued and scheduled jobs).
+- PostgreSQL is the only stateful service: relational data, server-side
+  sessions, rate-limit and security counters, and the pg-boss job queue.
+  Access goes through Drizzle ORM; `drizzle-kit` migrations run through an
+  explicit command, never on startup. Database roles: `sweethand_migrate`,
+  `sweethand_app`, `sweethand_retention`.
+- Files live in S3-compatible object storage behind an `ObjectStore` port.
+  PostgreSQL and storage run in a Canadian region, with backups and replicas
+  in a second Canadian region.
+- Persistence and external services are abstract classes in the application
+  layer (each its own DI token) with `InMemory…` and `Drizzle…` or provider
+  implementations. Tests bootstrap the NestJS app in-process, inject the
+  in-memory implementations and drive the API over HTTP. No test starts
+  PostgreSQL.
+- Wire models are imported from `frontend/projects/api/src/lib/models/` with
+  `import type`.
 
 These rules hold whatever the stack:
 
@@ -173,7 +196,7 @@ no tests added afterward, and no weakening tests to manufacture a pass. Keep
 the requirement, detailed design, mock, criteria, tests, and implementation
 aligned until the entire feature or behavior change is complete.
 
-Back end: integration tests against the API. Front end: Playwright, using the
+Back end: integration tests against the API (ADR 0007: NestJS app in-process, in-memory repositories). Front end: Playwright, using the
 Page Object Model - one page object per screen, owning the selectors and the
 interactions. Tests state intent; page objects know the DOM. Never put a
 selector in a test.
