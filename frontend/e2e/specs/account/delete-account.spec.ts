@@ -14,7 +14,7 @@ test.describe('Delete my account', () => {
     const dialog = account.deleteAccount;
     await expect(dialog.title).toHaveText('Delete your account?');
     await expect(dialog.description).toHaveText('This can’t be undone. You’ll be signed out and get a confirmation email.');
-    await expect(dialog.listItems).toHaveText(['Your name, email and phone', 'Your 2 reviews (the caterers’ ratings are recalculated)', 'Your sign-in and saved devices']);
+    await expect(dialog.listItems).toHaveText(['Your name, email and phone', 'Your review (the caterer’s rating is recalculated)', 'Your sign-in and saved devices']);
     await expect(dialog.body).toContainText('Caterers keep your messages in their threads, signed “Former Sweet Hand user”. Everything is gone from our systems within 30 days and from backups within 35.');
     await expect(dialog.field(`Enter your password for ${cast.marcia.email}`)).toBeFocused();
     await expect(dialog.field(`Enter your password for ${cast.marcia.email}`)).toHaveAttribute('autocomplete', 'current-password');
@@ -115,7 +115,7 @@ test.describe('Delete my account', () => {
     await expect(dialog.listItems).toHaveText([
       'Pelau House comes off Sweet Hand straight away',
       'Your photos, menu and food handler certificate are deleted within 30 days',
-      'Your 3 open enquiries are closed, and Priya, Andre and Marcia are told',
+      'Your 4 open enquiries are closed, and Priya, Marcia and Andre are told',
       'Your 23 reviews and your responses are removed',
     ]);
     await expect(dialog.body).toContainText('Customers keep the messages in their threads. Backups age out within 35 days.');

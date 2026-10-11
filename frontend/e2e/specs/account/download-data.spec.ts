@@ -13,7 +13,7 @@ test.describe('Download my data', () => {
     const dialog = account.downloadData;
     await expect(dialog.title).toHaveText('Download your data');
     await expect(dialog.description).toHaveText('A JSON file with everything Sweet Hand holds about you.');
-    await expect(dialog.listItems).toHaveText(['Your profile and consent records', '4 enquiries and every message in them', '2 reviews you wrote', '1 report you sent']);
+    await expect(dialog.listItems).toHaveText(['Your profile and consent records', '4 enquiries and every message in them', '1 review you wrote', '1 report you sent']);
     await expect(dialog.body).toContainText('Caterers’ contact details are included only where they shared them with you.');
     await expect(dialog.button('Request export')).toBeFocused();
     await account.expectNoAccessibilityViolations();
@@ -78,8 +78,8 @@ test.describe('Download my data', () => {
       'Your account, profile and consent records',
       '6 full-size photos',
       '18 dishes and your food handler certificate details',
-      '5 enquiries and every message in them',
-      '1 response to a review',
+      '6 enquiries and every message in them',
+      '22 responses to reviews',
     ]);
     await expect(account.downloadData.body).toContainText('Customers’ contact details are included only where they shared them with you.');
   });
