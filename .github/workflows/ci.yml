@@ -65,7 +65,9 @@ jobs:
     timeout-minutes: 45
     env:
       CI: 'true'
-      E2E_WORKERS: '4'
+      # Two workers leave CPU for the API and both dev servers, so the timed checks
+      # (e.g. L2-061.4, 12 months of daily metrics within 3 seconds) are not starved.
+      E2E_WORKERS: '2'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

@@ -6,6 +6,8 @@ RUN npm ci --omit=dev
 
 FROM node:22-bookworm-slim AS runtime
 ENV NODE_ENV=production PORT=4300
+# Debian security fixes land before the node image is rebuilt; the CI scan fails on fixed critical CVEs.
+RUN apt-get update && apt-get upgrade -y --no-install-recommends && rm -rf /var/lib/apt/lists/*
 WORKDIR /app/backend
 COPY --from=dependencies /app/backend/node_modules ./node_modules
 COPY --chown=node:node backend/package.json backend/tsconfig.json ./
