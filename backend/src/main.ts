@@ -15,6 +15,7 @@ import { MemoryDatabase } from './platform/memory-database.ts';
 import { PostgresDatabase } from './platform/postgres-database.ts';
 import { MemoryMediaStore, PostgresMediaStore } from './platform/media.ts';
 import type { Environment } from './environment.ts';
+import { PassThroughImageProcessing } from './platform/image-processing.ts';
 
 const config = loadConfig();
 const db = config.databaseUrl ? new PostgresDatabase(config.databaseUrl) : new MemoryDatabase();
@@ -22,6 +23,8 @@ const env: Environment = {
   db,
   clock: systemClock,
   media: db instanceof PostgresDatabase ? new PostgresMediaStore(db.connection) : new MemoryMediaStore(),
+  // No image provider yet (L2-041.4–6 not implemented): uploads pass through unchanged.
+  images: new PassThroughImageProcessing(),
 };
 
 useSecureCookies(config.secureCookies);

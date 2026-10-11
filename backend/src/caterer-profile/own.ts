@@ -2,6 +2,7 @@ import type { Request } from '../http/router.ts';
 import { conflict, fail, notFound } from '../http/problems.ts';
 import { caterers, type Caterer } from '../caterers/model.ts';
 import { liveUser, type User } from '../identity/model.ts';
+import { settleProcessing } from './processing.ts';
 
 /** The caller and the profile they own. */
 export interface Own {
@@ -17,6 +18,8 @@ export async function loadOwn(req: Request): Promise<Own> {
   const user = await liveUser(req.tx, req.actor?.userId);
   const caterer = user?.catererId ? await caterers(req.tx).get(user.catererId) : undefined;
   if (!user || !caterer) return fail(notFound());
+  // Photos still processing are finished as soon as the image service is back (L2-091.2).
+  if (await settleProcessing(req, caterer)) await caterers(req.tx).put(caterer);
   return { user, caterer };
 }
 
