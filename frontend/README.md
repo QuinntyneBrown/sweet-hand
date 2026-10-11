@@ -1,7 +1,7 @@
 # Sweet Hand frontend
 
 Angular 21 workspace (ADR 0001) with three projects and the Playwright
-acceptance suite. The API it talks to is `../backend` (ADRs 0006–0008).
+acceptance suite. The API it talks to is `../backend`, a NestJS application (ADRs 0006–0009).
 
 ```
 frontend/

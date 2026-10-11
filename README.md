@@ -12,7 +12,7 @@ A platform for finding Caribbean caterers in Toronto and the GTA. Read
 
 ## Backend
 
-The API is in `backend/` (ADRs 0006–0008). Node 22.18 or newer.
+The API is in `backend/`: NestJS on Node.js (ADRs 0006–0009). Node 22.18 or newer.
 
 ```sh
 cd backend

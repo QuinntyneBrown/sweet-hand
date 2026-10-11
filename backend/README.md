@@ -1,7 +1,7 @@
 # Sweet Hand backend
 
-The HTTP API (ADR 0006): TypeScript on Node.js 22 with type stripping, no web
-framework, PostgreSQL in production and an in-memory fake database in every
+The HTTP API: NestJS on Node.js 22, TypeScript run through SWC (ADRs 0006,
+0009), PostgreSQL in production and an in-memory fake database in every
 automated test (ADR 0007). The frontend's Playwright suite runs against this
 API in test mode (ADR 0008).
 
@@ -29,12 +29,13 @@ database).
 ```
 src/
   main.ts            composition root
-  app.ts             request pipeline: correlation ID, CSRF, body limits, endpoint policy, one transaction per request
-  areas.ts           every feature area's routes
-  product.ts         areas + authentication + denial logging, shared by main.ts and the tests
-  http/              router (with endpoint policies), cookies, problem replies
+  api-app.ts         the NestJS application, shared by main.ts and the tests
+  product.ts         every area's controller, authentication and denial logging
+  http/endpoint.ts   request context, reply, endpoint policies; http/problems.ts, http/cookies.ts
+  http/nest/         the request pipeline: context middleware; rate-limit, CSRF, body and
+                     endpoint-policy guards; the transaction interceptor; the problem filter
   platform/          persistence port and adapters, clock, outbox, audit log, security log, throttles, media, secrets
-  <area>/            model.ts (documents and collections), use cases, routes.ts
+  <area>/            model.ts (documents and collections), use cases, <area>.controller.ts
   seed/              the fictional cast, as documents per collection
   testing/           test mode only: per-session environments, /__test/ control API, scenarios/<area>.ts
 test/
@@ -45,13 +46,22 @@ test/
 ## Conventions
 
 - **Business rules live in use cases and domain functions** under
-  `src/<area>/`, never in `routes.ts`, which only maps a route to a use case.
-- **Every route declares an endpoint policy**: `anonymous` (an explicit,
-  commented choice), `roles(...)`, `signedIn` or `admins`. The authorisation
-  test checks every protected route returns 401 to visitors and 403 to roles
-  it does not allow (L2-079.3). A route may pass a `refusal` option to
-  give its 403 a specific body (Admin-only routes name the Admins to ask,
-  L2-056.5); the pipeline still makes the decision and logs it.
+  `src/<area>/`, never in the controller. A controller method only maps a
+  route to a use case: `@Post('api/…') @UsePolicy(…) name(@Ctx() req: Request)
+  { return useCase(req); }`. Use cases take the framework-free `Request`
+  context and return a `Reply` (status, body, headers); the transaction
+  interceptor writes it.
+- **Every route declares an endpoint policy** with `@UsePolicy(...)`:
+  `anonymous` (an explicit, commented choice), `roles(...)`, `signedIn` or
+  `admins`. A route without one is refused. The authorisation test reads every
+  controller's routes and checks each protected one returns 401 to visitors
+  and 403 to roles it does not allow (L2-079.3). `@Refusal(fn)` gives a 403 a
+  specific body (Admin-only routes name the Admins to ask, L2-056.5); the
+  guard still makes the decision and logs it. `@MaxBody(bytes)` raises the
+  1 MB body limit for uploads. `@WithoutDatabase()` is for health checks only.
+- **Register a new controller** in `productControllers` (`src/product.ts`).
+  Routes match in declaration order, so declare `items/order` before
+  `items/:id`.
 - **Records are scoped to the caller.** A record the caller may not see is a
   404 identical to a missing one. Bodies are read field by field into
   commands, so fields such as `status` or `ownerId` are ignored (L2-079.2).
@@ -71,8 +81,9 @@ test/
   '@contract/x.ts'` (one type per file in `frontend/projects/api/src/lib/models`).
 - **Seed data is fictional and deterministic**: fixed ids, so `npm run seed`
   stays idempotent. Never real people, businesses or addresses.
-- Erasable TypeScript only (no enums, no parameter properties), `.ts`
-  extensions in relative imports.
+- TypeScript runs through SWC with decorators and their metadata
+  (`node --import @swc-node/register/esm-register`); there is no build output.
+  Use `.ts` extensions in relative imports. Avoid enums.
 
 ## How a change is made (ATDD)
 

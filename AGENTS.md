@@ -42,9 +42,10 @@ keep it accurate:
 
 - `backend/` — the HTTP API (ADRs 0006–0008); see `backend/README.md`
   - `backend/src/<area>/` — the area's documents (`model.ts`), use cases and
-    `routes.ts`; `backend/src/platform/` — persistence port and adapters,
-    clock, outbox, audit and security logs; `backend/src/http/` — router,
-    endpoint policies, problems
+    NestJS controller (`<area>.controller.ts`); `backend/src/platform/` —
+    persistence port and adapters, clock, outbox, audit and security logs;
+    `backend/src/http/` — request context, endpoint policies, problems, and
+    the NestJS request pipeline (`http/nest/`)
   - `backend/src/seed/` — the fictional cast; `backend/src/testing/` — test
     mode only: per-session environments, `/__test/` control API, scenarios
   - `backend/test/<area>/` — acceptance tests against the API
@@ -102,13 +103,19 @@ Backend (ADRs 0006–0007, planned in `backend/`):
   `import type`.
 Backend (ADRs 0006–0008):
 - TypeScript on Node.js 22 (type stripping, no web framework) in `backend/`.
+Backend (ADRs 0006–0009):
+- NestJS 11 (Express adapter) on Node.js 22 in `backend/`; TypeScript runs
+  through SWC with decorators, with no build output (ADR 0009).
   Responses are typed with the frontend's wire models through
   `import type` (`@contract/*` → `frontend/projects/api/src/lib/models/`).
 - Feature areas under `backend/src/<area>/`: use cases and domain functions
-  hold the rules; `routes.ts` only maps HTTP to them. Every route declares an
-  endpoint policy (`anonymous` by explicit choice, `roles(...)`, `signedIn`,
-  `admins`); a catalog-driven test checks every protected route refuses the
-  roles it does not allow.
+  hold the rules and take a framework-free request context; the area's
+  controller only maps routes to them. Every route declares an endpoint
+  policy with `@UsePolicy` (`anonymous` by explicit choice, `roles(...)`,
+  `signedIn`, `admins`); a route without one is refused, and a catalog-driven
+  test checks every protected route refuses the roles it does not allow.
+- The pipeline is NestJS middleware, guards (rate limit, CSRF, body limits,
+  endpoint policy), a transaction interceptor and a problem filter.
 - Persistence is a port of JSON document collections (`get`, `find` on
   top-level scalars, `all`, `put`, `delete`) with one transaction per
   request: PostgreSQL in production, an in-memory fake in every automated
