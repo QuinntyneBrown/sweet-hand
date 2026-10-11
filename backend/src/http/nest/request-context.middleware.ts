@@ -4,6 +4,7 @@ import type { Request as ExpressRequest, Response, NextFunction } from 'express'
 import { parseCookies, serializeCookie } from '../cookies.ts';
 import type { Request } from '../endpoint.ts';
 import type { Transaction } from '../../platform/database.ts';
+import { redactPostalPath } from '../../discovery/postal-code.ts';
 import { applyStandardHeaders } from './reply.ts';
 import { PIPELINE_OPTIONS, type PipelineOptions } from './options.ts';
 
@@ -41,7 +42,8 @@ export class RequestContextMiddleware implements NestMiddleware {
       const url = new URL(req.originalUrl ?? req.url ?? '/', 'http://localhost');
       const ctx: Request = {
         method: req.method,
-        path: url.pathname,
+        // Never more than a postal code's FSA in anything that logs the path (L2-012.6).
+        path: redactPostalPath(url.pathname),
         params: {},
         query: url.searchParams,
         body: undefined,

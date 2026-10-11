@@ -42,7 +42,7 @@ describe('manage the cuisine list (L2-007)', () => {
     assert.equal(list.body.length, 19);
     assert.equal(list.body[4].name, 'Caymanian');
     const offered = await api.client().get('/api/public/cuisines');
-    assert.deepEqual(offered.body.at(-1), { id: 'caymanian', name: 'Caymanian' });
+    assert.deepEqual(offered.body[4], { id: 'caymanian', name: 'Caymanian' }, 'offered A to Z (L2-007.1)');
     const entries = (await documents(api, 'audit')).filter((e) => e.targetId === 'caymanian');
     assert.equal(entries.length, 1);
     assert.deepEqual(
