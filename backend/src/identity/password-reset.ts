@@ -2,6 +2,7 @@ import type { Request, Reply } from '../http/router.ts';
 import { accepted, gone, invalid, ok, problem } from '../http/problems.ts';
 import { validChallenge } from '../platform/bot-challenge.ts';
 import { queueEmail } from '../platform/outbox.ts';
+import { recordSecurityEvent } from '../platform/security-log.ts';
 import { hashPassword } from '../platform/secrets.ts';
 import { recentEvents, recordEvent } from '../platform/throttle.ts';
 import type { PasswordResetLink, PasswordResetRequest, ResetPasswordRequest } from '@contract/identity.models.ts';
@@ -53,6 +54,7 @@ export async function resetPassword(req: Request): Promise<Reply> {
   await consumeToken(req.tx, req.now, token);
   await endSessionsOf(req, user.id);
   await queueEmail(req.tx, req.now, { to: user.email, kind: 'password-changed' });
+  await recordSecurityEvent(req, 'password-reset', { userId: user.id });
   clearSessionCookie(req);
   return { status: 204 };
 }

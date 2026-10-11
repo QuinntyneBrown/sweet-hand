@@ -8,6 +8,8 @@ import { createServer, type Server } from 'node:http';
 import { createApp, type AppOptions } from '../../src/app.ts';
 import { testEnvironment, type TestEnvironment } from '../../src/environment.ts';
 import { productOptions } from '../../src/product.ts';
+import { SEED_PASSWORD } from '../../src/seed/users.ts';
+import { totp } from '../../src/identity/totp.ts';
 
 export interface Api {
   url: string;
@@ -98,4 +100,20 @@ export async function outbox(api: Api): Promise<{ to: string; kind: string; at: 
 /** Moves the test environment's clock. */
 export function advanceClock(api: Api, ms: number): void {
   api.env.clock.advance(ms);
+}
+
+/** A client signed in as a seeded account; operators complete their second factor. */
+export async function signedInClient(api: Api, email: string): Promise<Client> {
+  const client = api.client();
+  const res = await client.post('/api/identity/sign-in', { email, password: SEED_PASSWORD });
+  if (res.status !== 200) throw new Error(`Sign-in as ${email} failed: ${res.status} ${JSON.stringify(res.body)}`);
+  if (res.body.secondFactorRequired) {
+    const user = (await documents(api, 'users')).find((u) => u.emailKey === email.toLowerCase());
+    const second = user.totpSecret
+      ? { method: 'authenticator app', code: totp(user.totpSecret, api.env.clock.now()) }
+      : { method: 'security key', assertion: 'local-key:test' };
+    const done = await client.post('/api/identity/second-factor', second);
+    if (done.status !== 200) throw new Error(`Second factor for ${email} failed: ${done.status}`);
+  }
+  return client;
 }

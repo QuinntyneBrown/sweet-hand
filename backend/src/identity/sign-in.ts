@@ -2,6 +2,7 @@ import type { Request, Reply } from '../http/router.ts';
 import { ok, problem } from '../http/problems.ts';
 import { validChallenge } from '../platform/bot-challenge.ts';
 import { queueEmail } from '../platform/outbox.ts';
+import { recordSecurityEvent } from '../platform/security-log.ts';
 import { verifyAgainstNothing, verifyPassword } from '../platform/secrets.ts';
 import { recentEvents, recordEvent } from '../platform/throttle.ts';
 import { findUserByEmail, users, type User } from './model.ts';
@@ -19,12 +20,14 @@ export const NETWORK_FAILURE_KIND = 'sign-in-failure';
 
 async function recordFailure(req: Request, user: User | undefined): Promise<void> {
   await recordEvent(req.tx, NETWORK_FAILURE_KIND, req.ip, req.now, FAILURE_WINDOW_MS);
+  await recordSecurityEvent(req, 'sign-in-failure', { userId: user?.id });
   if (!user) return;
   const now = req.now.getTime();
   const recent = [...(user.failedSignInsAt ?? []), req.now.toISOString()].filter((t) => now - Date.parse(t) < FAILURE_WINDOW_MS);
   if (recent.length >= ACCOUNT_FAILURES) {
     await users(req.tx).put({ ...user, failedSignInsAt: [], lockedUntil: new Date(now + FAILURE_WINDOW_MS).toISOString() });
     await queueEmail(req.tx, req.now, { to: user.email, kind: 'sign-in-paused' });
+    await recordSecurityEvent(req, 'lockout', { userId: user.id });
   } else {
     await users(req.tx).put({ ...user, failedSignInsAt: recent });
   }
@@ -55,6 +58,7 @@ export async function signIn(req: Request): Promise<Reply> {
   }
 
   await users(req.tx).put({ ...user, failedSignInsAt: [], lockedUntil: null });
+  await recordSecurityEvent(req, 'sign-in-success', { userId: user.id });
   if (user.role === 'Operator') {
     await startSession(req, user, { pendingSecondFactor: true });
     return ok({ secondFactorRequired: true, privacyUpdateRequired: false } satisfies SignInResult);
@@ -65,7 +69,7 @@ export async function signIn(req: Request): Promise<Reply> {
 
 /** Ends the session on the server (L2-078.4). */
 export async function signOut(req: Request): Promise<Reply> {
-  await endCurrentSession(req);
+  if (await endCurrentSession(req)) await recordSecurityEvent(req, 'session-revoked');
   clearSessionCookie(req);
   return { status: 204 };
 }

@@ -1,8 +1,16 @@
 import type { AppOptions } from './app.ts';
 import { productAreas } from './areas.ts';
 import { authenticate } from './identity/sessions.ts';
+import { recordSecurityEvent } from './platform/security-log.ts';
 
 /** The product's routes and request hooks, shared by main.ts and the acceptance tests. */
 export function productOptions(): Pick<AppOptions, 'areas' | 'authenticate' | 'onDenied'> {
-  return { areas: productAreas, authenticate };
+  return {
+    areas: productAreas,
+    authenticate,
+    // Authorisation failures are security events (L2-079.4); a missing session is not.
+    onDenied: async (req, status) => {
+      if (status === 403) await recordSecurityEvent(req, 'authorization-failure', { targetId: Object.values(req.params)[0] });
+    },
+  };
 }

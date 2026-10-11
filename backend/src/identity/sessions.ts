@@ -87,9 +87,11 @@ export async function startSession(req: Request, user: User, options: { pendingS
   return token;
 }
 
-export async function endCurrentSession(req: Request): Promise<void> {
+/** Ends the browser's session, if any; true when there was one. */
+export async function endCurrentSession(req: Request): Promise<boolean> {
   const session = await currentSession(req);
   if (session) await sessions(req.tx).delete(session.id);
+  return !!session;
 }
 
 /** Ends every session of the account except `keepId` (password reset and change, deletion). */
