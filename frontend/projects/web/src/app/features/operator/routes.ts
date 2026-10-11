@@ -22,6 +22,11 @@ export const operatorPages: Routes = [
     loadComponent: () => import('./moderation/caterers/caterers.page').then((m) => m.OperatorCaterersPage),
     title: $localize`:@@caterers.title:Caterers · Sweet Hand`,
   },
+  {
+    path: 'caterers/:id',
+    loadComponent: () => import('./moderation/caterer-record/caterer-record.page').then((m) => m.CatererRecordPage),
+    title: $localize`:@@record.title:Caterer record · Sweet Hand`,
+  },
 ];
 
 /** Routes of the operator area; every page needs the role (L2-079). */

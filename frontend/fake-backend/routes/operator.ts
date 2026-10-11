@@ -11,6 +11,7 @@ import { OCCASIONS, slugify } from '../seed/taxonomy.ts';
 import type {
   CatererCounts,
   CatererFlag,
+  CatererRecordView,
   CatererRowView,
   CaterersPageView,
   CatererStatusFilter,
@@ -28,7 +29,7 @@ import type {
   ReportReason,
 } from '../../projects/web/src/app/core/api/operator-moderation.models.ts';
 import { areaName, cuisineName } from './discovery.ts';
-import { reviewerLabel } from './reviews.ts';
+import { ratingSummary, reviewerLabel } from './reviews.ts';
 
 /**
  * Fake endpoints of operator moderation (docs/detailed-designs/moderation):
@@ -564,7 +565,51 @@ function catererRow(store: Store, c: Caterer): CatererRowView {
   };
 }
 
+export function catererRecord(store: Store, c: Caterer): CatererRecordView {
+  const m = store.operator.moderation;
+  const enquiries = store.enquiries.filter((e) => e.catererId === c.id);
+  const history = statusHistory(store, c);
+  const lastSuspension = [...history].reverse().find((h) => h.step === 'suspended');
+  const removal = [...history].reverse().find((h) => h.step === 'removed');
+  return {
+    id: c.id,
+    name: c.name,
+    slug: c.slug,
+    status: c.status,
+    photo: coverOf(c),
+    pendingName: c.pendingName ?? null,
+    owner: catererOwner(store, c),
+    profile: {
+      photos: c.photos.map((p) => ({ id: p.id, src: `/media/${p.file}?w=400&fm=jpeg`, alt: p.caption })),
+      cuisines: c.cuisines.map((id) => cuisineName(store, id)),
+      areas: c.areas.map((id) => areaName(store, id)),
+      minGuests: c.minGuests,
+      maxGuests: c.maxGuests,
+      occasions: c.occasions.map(occasionName),
+      dishes: c.dishes.map((d) => ({ id: d.id, name: d.name })),
+      description: c.description,
+    },
+    certificate: certificateView(store, c),
+    certificateReminders: m.expiredCertificates[c.id]?.reminders ?? [],
+    activity: {
+      enquiries: enquiries.length,
+      openEnquiries: enquiries.filter((e) => e.status === 'Open' || e.status === 'Replied').length,
+      rating: ratingSummary(store, c.id),
+      openReports: openReportsAbout(store, c),
+    },
+    history: [...history].reverse().map((h) => ({ at: h.at, status: h.status, by: h.by, step: h.step, reason: h.reason ?? null })),
+    suspension: c.status === 'Suspended' && lastSuspension ? { at: lastSuspension.at, closedEnquiries: m.closedBySuspension[c.id] ?? 0 } : null,
+    removal: c.status === 'Removed' && removal ? { at: removal.at } : null,
+  };
+}
+
 function registerCaterers(r: Router<Store>): void {
+  r.get('/api/operator/caterers/:id', (ctx) => {
+    const t = target(ctx);
+    if (!('c' in t)) return t;
+    return ok(catererRecord(ctx.store, t.c));
+  });
+
   r.get('/api/operator/caterers', (ctx) => {
     const who = operator(ctx);
     if (isReply(who)) return who;
