@@ -6,16 +6,16 @@ title Containers — Enforce retention limits
 System_Ext(email, "Email provider", "Sends transactional email")
 System_Ext(obs, "Observability platform", "Logs, metrics, traces, alerts")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Runs the daily retention job and account deletion processing")
-  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent queue of background jobs")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Enquiries, accounts, audit log, hashed visits, retention runs")
-  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Certificate files")
+  Container(worker, "Sweet Hand background worker", "NestJS worker (Node.js, TypeScript)", "Runs the daily retention job and account deletion processing")
+  ContainerQueue(queue, "Job queue", "pg-boss (PostgreSQL)", "Persistent queue of background jobs")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Enquiries, accounts, audit log, hashed visits, retention runs")
+  ContainerDb(storage, "Object storage", "S3-compatible object storage", "Certificate files")
 }
 
-Rel(worker, db, "Deletes expired records; records RetentionRun", "<TO SUPPLY>")
+Rel(worker, db, "Deletes expired records; records RetentionRun", "Drizzle ORM (SQL)")
 Rel(worker, storage, "Deletes expired certificate files")
 Rel(worker, queue, "Enqueues warning emails and ProcessAccountDeletionJob")
 Rel(queue, worker, "Delivers jobs to")
-Rel(worker, email, "Sends inactivity warnings via", "<TO SUPPLY>")
+Rel(worker, email, "Sends inactivity warnings via", "HTTPS")
 Rel(worker, obs, "Emits run metrics and failure alerts")
 @enduml

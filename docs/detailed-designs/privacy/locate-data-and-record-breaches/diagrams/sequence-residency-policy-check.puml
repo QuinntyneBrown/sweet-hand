@@ -15,7 +15,7 @@ skinparam package {
   BackgroundColor #F9FAFB
 }
 actor "Contributor" as actor
-box "Build — Continuous integration service" #F2F4F7
+box "Build — CI pipeline" #F2F4F7
   participant "CI pipeline" as ci
   participant "Infrastructure-as-code definitions" as iac
   participant "DataResidencyPolicyCheck" as check
