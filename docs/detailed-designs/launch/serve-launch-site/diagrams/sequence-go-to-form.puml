@@ -1,0 +1,25 @@
+@startuml
+title UML sequence behaviour — Go to the sign-up form
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Launch site" #E0F2FE
+  participant "LaunchPage" as page
+  participant "LaunchSignUpForm" as form
+  participant "NotifyScroller" as scroller
+end box
+alt header "Get the launch email"
+  actor -> page : Activate header button
+  page -> scroller : scrollToNotify(heading)
+else "Join as a caterer"
+  actor -> page : Activate call-out button
+  page -> form : selectRole('caterer'), keep typed email (L2-094 AC2, AC3)
+  form --> actor : "Business name (optional)" appears
+  page -> scroller : scrollToNotify(heading)
+end
+scroller -> scroller : Smooth scroll, or jump when prefers-reduced-motion (L2-094 AC4)
+scroller --> actor : Focus on "Get the launch email" heading (L2-094 AC1)
+@enduml

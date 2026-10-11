@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Retire the launch site
+
+Person(visitor, "Visitor", "Opens / after launch")
+Person(person, "Person on the list", "Opens a link from an earlier launch list email")
+Person(operator, "Operator", "Switches / to the product on launch day")
+System(sweethand, "Sweet Hand", "Product application and API")
+System_Ext(cdn, "CDN and static host", "<TO SUPPLY>")
+
+Rel(operator, cdn, "Points / at the product build")
+Rel(visitor, cdn, "Opens /", "HTTPS")
+Rel(person, sweethand, "Opens removal or confirmation links", "HTTPS")
+Rel(cdn, sweethand, "Serves the product build of")
+@enduml

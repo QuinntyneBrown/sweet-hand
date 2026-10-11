@@ -1,0 +1,38 @@
+@startuml
+title UML sequence behaviour — Build and load the launch site
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Build — CI" #F2F4F7
+  participant "ng build launch" as build
+  participant "Budget check" as budget
+end box
+box "Frontend — Launch site" #E0F2FE
+  participant "CDN / static host" as cdn
+  participant "LaunchApp" as app
+  participant "LaunchPage" as page
+  participant "LaunchUrlState" as url
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "LaunchListController" as ctrl
+end box
+build -> build : Prerender '' with RenderMode.Prerender (L2-105 AC1)
+build -> budget : Gzip initial JavaScript
+budget --> build : Fail above 100 KB (L2-105 AC2)
+build -> cdn : Publish index.html and hashed assets (L2-105 AC6)
+actor -> cdn : GET /
+cdn --> actor : Prerendered HTML: full text and photos, no API call
+actor -> app : Hydrate
+app -> page : Create
+page -> url : read(location)
+alt no ?confirmed= or ?remove=
+  url --> page : null
+  page --> actor : Default state; no request until submit (L2-105 AC5)
+else token present
+  url --> page : LaunchLink
+  page -> ctrl : POST confirmation or removal (see those designs)
+end
+@enduml

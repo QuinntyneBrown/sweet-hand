@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Serve the launch site
+
+Person(visitor, "Visitor", "Phone, tablet or desktop browser")
+System_Boundary(sh, "Sweet Hand") {
+  Container(launch, "Launch site", "Angular 21, prerendered (frontend/projects/launch)", "One static page at / until launch day")
+  Container(api, "Sweet Hand API", "NestJS 11 on Node.js 22", "Launch list endpoints (join, confirm, leave)")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "launchList documents, outbox")
+}
+System_Ext(cdn, "CDN and static host", "<TO SUPPLY>")
+
+Rel(visitor, cdn, "Loads /", "HTTPS")
+Rel(cdn, launch, "Caches and serves the build output of")
+Rel(launch, api, "Calls only on submit or a token link", "JSON/HTTPS, /api/...")
+Rel(api, db, "Reads and writes", "persistence port (ADR 0008)")
+@enduml

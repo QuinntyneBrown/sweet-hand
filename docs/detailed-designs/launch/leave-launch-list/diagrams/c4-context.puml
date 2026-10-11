@@ -1,0 +1,13 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Leave the launch list
+
+Person(person, "Person on the list", "Owns the email address")
+System_Ext(mail, "Mail client", "Shows a one-click unsubscribe control (RFC 8058)")
+System(sweethand, "Sweet Hand", "Launch site and launch list API")
+
+Rel(person, sweethand, "Activates Remove my email, or opens a removal link", "HTTPS")
+Rel(person, mail, "Uses unsubscribe in")
+Rel(mail, sweethand, "POSTs List-Unsubscribe=One-Click", "HTTPS")
+@enduml

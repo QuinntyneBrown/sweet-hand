@@ -1,0 +1,63 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Serve the launch site
+
+class LaunchApp <<component>> {
+  +skipToMain(): void
+}
+class LaunchPage <<component>> {
+  +panel: Signal<NotifyPanel>
+  +notice: Signal<LaunchNotice | null>
+  +preselectedRole: Signal<LaunchRole | null>
+  +goToForm(): void
+  +joinAsCaterer(): void
+}
+class NotifyScroller {
+  +scrollToNotify(heading: HTMLElement): void
+  -reducedMotion(): boolean
+}
+class LaunchUrlState {
+  +read(location: Location): LaunchLink | null
+  +clear(): void
+}
+class LaunchLink {
+  +kind: 'confirm' | 'remove'
+  +token: string
+}
+enum NotifyPanel {
+  form
+  success
+  confirmed
+}
+enum LaunchNotice {
+  link-expired
+  unsubscribed
+}
+enum LaunchRole {
+  customer
+  caterer
+}
+class LaunchSiteConfig {
+  +contactEmail: string
+  +canonicalUrl: string
+  +ogImage: string
+}
+
+LaunchApp *-- LaunchPage : hosts
+LaunchPage ..> NotifyScroller : uses
+LaunchPage ..> LaunchUrlState : uses
+LaunchUrlState ..> LaunchLink : returns
+LaunchPage --> NotifyPanel
+LaunchPage --> LaunchNotice
+LaunchPage --> LaunchRole
+LaunchApp ..> LaunchSiteConfig : reads (build-time)
+@enduml

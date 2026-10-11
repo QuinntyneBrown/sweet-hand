@@ -1,0 +1,100 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Join the launch list
+
+package "frontend/projects/api (wire models)" {
+  class LaunchSignUpRequest {
+    +role: LaunchRole
+    +email: string
+    +businessName?: string
+    +consent: true
+    +challengeToken: string
+  }
+  enum LaunchRole {
+    customer
+    caterer
+  }
+  abstract class LaunchListService {
+    +status(): Observable<LaunchListStatus>
+    +signUp(request: LaunchSignUpRequest): Observable<void>
+    +confirm(token: string): Observable<LaunchConfirmation>
+    +remove(token: string): Observable<LaunchRemoval>
+  }
+  class HttpLaunchListService
+  class LaunchListStatus {
+    +open: boolean
+  }
+}
+package "frontend/projects/launch" {
+  class LaunchSignUpForm <<component>> {
+    +values: LaunchFormValues
+    +errors: Signal<LaunchFormErrors>
+    +state: Signal<'idle' | 'sending' | 'failed'>
+    +reference: Signal<string | null>
+    +submit(): Promise<void>
+    +selectRole(role: LaunchRole): void
+    +reset(): void
+  }
+  class "launch-form.ts" as lf <<functions>> {
+    +validateLaunchForm(v): LaunchFormErrors
+    +summaryTitle(count: number): string
+    +toRequest(v, token): LaunchSignUpRequest
+  }
+}
+package "backend/src/launch-list" {
+  class LaunchListEntry <<document>> {
+    +id: string
+    +emailKey: string
+    +email: string
+    +role: LaunchRole
+    +businessName?: string
+    +status: 'Pending' | 'Confirmed'
+    +consent: LaunchConsent
+    +confirmationsSent: string[]
+    +alreadyListedSentAt?: string
+    +launchEmailQueuedAt?: string
+    +createdAt: string
+    +updatedAt: string
+  }
+  class LaunchConsent {
+    +wording: string[]
+    +noticeVersion: string
+    +pageUrl: string
+    +signedUpAt: string
+    +confirmedAt?: string
+  }
+  class LaunchListToken <<document>> {
+    +id: string
+    +entryId: string
+    +kind: 'confirm' | 'remove'
+    +tokenHash: string
+    +issuedAt: string
+    +consumedAt?: string
+  }
+  class "sign-up.ts" as su <<use case>> {
+    +joinLaunchList(req: Request): Promise<Reply>
+  }
+  class "rules.ts" as rl <<functions>> {
+    +validateSignUp(body): Record<string, string[]>
+    +emailKey(email: string): string
+  }
+}
+HttpLaunchListService --|> LaunchListService
+LaunchSignUpForm ..> LaunchListService : injects
+LaunchSignUpForm ..> lf : uses
+LaunchListService ..> LaunchSignUpRequest
+LaunchSignUpRequest --> LaunchRole
+su ..> rl : uses
+su --> LaunchListEntry : creates / updates
+LaunchListEntry *-- LaunchConsent
+LaunchListEntry "1" o-- "*" LaunchListToken : entryId
+@enduml

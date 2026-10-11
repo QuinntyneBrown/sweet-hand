@@ -1,0 +1,23 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Leave the launch list
+
+Container_Boundary(fe, "Launch site") {
+  Component(page, "LaunchPage", "Page component", "Remove my email; ?remove= links")
+  Component(svc, "LaunchListService", "@sweet-hand/api contract", "remove(token)")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "LaunchListController", "NestJS controller", "removals, unsubscribe (GET and POST)")
+  Component(nocsrf, "@WithoutCsrf()", "Route metadata", "Lets CsrfGuard pass the one-click POST only")
+  Component(leave, "leaveLaunchList", "Use case (leave.ts)", "Finds entry by remove token, deletes it")
+  Component(erase, "eraseEntry", "Domain function (erase.ts)", "Deletes entry, tokens, queued launch-* emails")
+}
+ComponentDb(db, "Sweet Hand database", "PostgreSQL", "Document collections")
+Rel(page, svc, "remove(token)")
+Rel(svc, ctrl, "Calls", "JSON/HTTPS")
+Rel(ctrl, nocsrf, "Marks one-click POST with")
+Rel(ctrl, leave, "Calls")
+Rel(leave, erase, "Calls")
+Rel(erase, db, "Deletes")
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Retire the launch site
+
+Person(person, "Person on the list", "Browser")
+System_Boundary(sh, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "Angular 21 (projects/sweet-hand)", "Product at / ; forwards launch links")
+  Container(launch, "Launch site", "Angular 21 (projects/launch)", "No longer deployed after launch")
+  Container(api, "Sweet Hand API", "NestJS 11", "Sign-ups closed (410); removals still work")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "launchState, launchList until deleted")
+}
+Rel(person, web, "Opens /?remove= or /?confirmed=", "HTTPS")
+Rel(web, api, "POST /api/launch-list/removals", "JSON/HTTPS")
+Rel(api, db, "Reads launchState, deletes entries")
+@enduml

@@ -344,8 +344,8 @@ the mock changed.
     assume a single launch-day email with express consent, a confirmation link (48 hours),
     one-click removal without sign-in, and deletion 30 days after launch. Copy is
     kept deliberately sparse. The success message is the same for a new or an
-    existing address, so the page never reveals who signed up. *Needs a detailed design
-    before implementation; confirm the email rules against CASL.* The L2s mark the
+    existing address, so the page never reveals who signed up. Its detailed designs are in
+    `docs/detailed-designs/launch/`. *Confirm the email rules against CASL.* The L2s mark the
     behaviour that still needs mocks *(needs a mock)*: the confirmation, already-on-the-list
     and launch-day emails, a rate-limited message, the bot-protection challenge and a
     removal link for an address that is already gone.

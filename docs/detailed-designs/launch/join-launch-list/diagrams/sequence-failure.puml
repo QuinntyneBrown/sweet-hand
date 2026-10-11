@@ -1,0 +1,37 @@
+@startuml
+title UML sequence behaviour — Sign-up refused or failed
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+box "Frontend — Launch site" #E0F2FE
+  participant "LaunchSignUpForm" as form
+  participant "LaunchListService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "LaunchListController" as ctrl
+end box
+form -> svc : signUp(request)
+svc -> ctrl : POST /api/launch-list/sign-ups
+alt 400 with field errors (L2-096 AC6)
+  ctrl --> svc : { title, errors }
+  svc --> form : field errors
+  form --> actor : Same summary and inline errors as the client check
+else 5xx, network failure or 15 s timeout (L2-097 AC3)
+  ctrl --> svc : 5xx with X-Correlation-ID
+  svc --> form : failure
+  form --> actor : "We couldn’t add you just now", Reference {first 8 of correlation ID}, "Try again"
+  actor -> form : Try again (L2-097 AC4)
+  form -> svc : signUp(same request)
+else 429 (L2-097 AC5)
+  ctrl --> svc : 429 Retry-After
+  svc --> form : failure
+  form --> actor : Error state, no automatic retry
+else 410 sign-ups closed (L2-102 AC1)
+  ctrl --> svc : 410
+  svc --> form : closed
+  form --> actor : Error state <TO SUPPLY: closed message needs a mock>
+end
+@enduml
