@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { Reply, Request } from '../http/router.ts';
+import type { Reply, Request } from '../http/endpoint.ts';
 import { badRequest, conflict, fail, invalid, notFound } from '../http/problems.ts';
 import type { Dish } from '../caterers/model.ts';
 import { DIETARY_TAGS } from '../discovery/taxonomy.ts';

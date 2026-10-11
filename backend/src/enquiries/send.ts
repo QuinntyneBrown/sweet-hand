@@ -1,6 +1,6 @@
 /** Sending an enquiry and the limits that protect caterers (send-enquiry and limit-enquiry-abuse designs). */
 import { randomUUID } from 'node:crypto';
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { invalid, notFound, ok } from '../http/problems.ts';
 import { validChallenge } from '../platform/bot-challenge.ts';
 import { mailServiceStatus } from '../platform/mail-service.ts';

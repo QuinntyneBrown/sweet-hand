@@ -1,4 +1,4 @@
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { invalid, noContent } from '../http/problems.ts';
 import { queueEmail } from '../platform/outbox.ts';
 import { recordSecurityEvent } from '../platform/security-log.ts';

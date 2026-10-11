@@ -1,6 +1,6 @@
 /** Status changes operators make to caterer profiles (L2-046, L2-058), shared by decisions, records and reports. */
 import { randomUUID } from 'node:crypto';
-import type { Request } from '../http/router.ts';
+import type { Request } from '../http/endpoint.ts';
 import { conflict, fail, notFound } from '../http/problems.ts';
 import type { Transaction } from '../platform/database.ts';
 import { queueEmail } from '../platform/outbox.ts';

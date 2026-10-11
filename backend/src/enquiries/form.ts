@@ -1,5 +1,5 @@
 /** What the enquiry form sends, read field by field, and who may send it (send-enquiry design). */
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { problem } from '../http/problems.ts';
 import type { Transaction } from '../platform/database.ts';
 import type { EnquiryFormValues } from '@contract/enquiry-form-values.ts';

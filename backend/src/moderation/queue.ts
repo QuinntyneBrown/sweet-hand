@@ -1,5 +1,5 @@
 /** The operator review queue (work-review-queue design, L2-047, L2-055.1). */
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { ok } from '../http/problems.ts';
 import type { Transaction } from '../platform/database.ts';
 import { caterers, type Caterer } from '../caterers/model.ts';

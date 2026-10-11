@@ -1,4 +1,4 @@
-import type { Request } from '../http/router.ts';
+import type { Request } from '../http/endpoint.ts';
 import type { Dish, Photo } from '../caterers/model.ts';
 import { recordProfileEdit } from '../moderation/model.ts';
 import { areaName, occasionName } from '../discovery/taxonomy.ts';

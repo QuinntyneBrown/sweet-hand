@@ -1,4 +1,4 @@
-import type { Reply, Request } from '../http/router.ts';
+import type { Reply, Request } from '../http/endpoint.ts';
 import { ok } from '../http/problems.ts';
 import { allCuisines, OCCASIONS, REGION_LIST } from '../discovery/taxonomy.ts';
 import type { ReferenceDataView } from '@contract/reference-data-view.ts';

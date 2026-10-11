@@ -1,4 +1,4 @@
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { ok } from '../http/problems.ts';
 import { caterers, type Caterer } from '../caterers/model.ts';
 import type { ListingPageView } from '@contract/listing-page-view.ts';

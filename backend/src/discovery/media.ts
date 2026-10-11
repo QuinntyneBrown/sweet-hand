@@ -1,4 +1,4 @@
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { notFound } from '../http/problems.ts';
 import { isPublicMedia } from '../platform/media.ts';
 

@@ -1,5 +1,5 @@
 import { Controller, Delete, Get, Patch, Post, Put } from '@nestjs/common';
-import { roles, type Reply, type Request } from '../http/router.ts';
+import { roles, type Reply, type Request } from '../http/endpoint.ts';
 import { Ctx, MaxBody, UsePolicy } from '../http/nest/decorators.ts';
 import { ownProfile, referenceData } from './profile.ts';
 import { saveSection } from './sections.ts';

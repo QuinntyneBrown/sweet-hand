@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { Reply, Request } from '../http/router.ts';
+import type { Reply, Request } from '../http/endpoint.ts';
 import { badRequest, conflict, fail, invalid, notFound, ok } from '../http/problems.ts';
 import type { Photo } from '../caterers/model.ts';
 import { assertEditable, loadOwn, reorder, saveCaterer, text, type Own } from './own.ts';

@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { Reply, Request } from '../http/router.ts';
+import type { Reply, Request } from '../http/endpoint.ts';
 import { conflict, invalid, notFound, ok } from '../http/problems.ts';
 import { PRIVATE_MEDIA } from '../platform/media.ts';
 import { torontoDate } from '../discovery/listing.ts';

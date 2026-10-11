@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { Request } from '../http/router.ts';
+import type { Request } from '../http/endpoint.ts';
 import type { Transaction } from '../platform/database.ts';
 import { queueEmail } from '../platform/outbox.ts';
 import { randomToken, sha256 } from '../platform/secrets.ts';

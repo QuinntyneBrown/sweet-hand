@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { currentUser } from '../identity/sessions.ts';
 import { accountViewOf } from './account-view.ts';
 import { dataExports } from './model.ts';

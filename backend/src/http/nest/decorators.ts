@@ -1,5 +1,5 @@
 import { SetMetadata, createParamDecorator, type ExecutionContext } from '@nestjs/common';
-import type { Policy, Reply, Request } from '../router.ts';
+import type { Policy, Reply, Request } from '../endpoint.ts';
 
 export const POLICY = 'sweet-hand:policy';
 export const MAX_BODY = 'sweet-hand:max-body';

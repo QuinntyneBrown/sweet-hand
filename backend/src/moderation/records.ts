@@ -1,5 +1,5 @@
 /** The operator caterer list and record (suspend-reinstate-remove-profile, edit-profile-as-operator designs). */
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { ok } from '../http/problems.ts';
 import type { Transaction } from '../platform/database.ts';
 import { caterers, type Caterer, type ProfileStatus } from '../caterers/model.ts';

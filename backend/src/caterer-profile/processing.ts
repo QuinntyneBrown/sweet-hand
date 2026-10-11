@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { Request } from '../http/router.ts';
+import type { Request } from '../http/endpoint.ts';
 import type { Caterer, Photo } from '../caterers/model.ts';
 import { PRIVATE_MEDIA, type MediaObject } from '../platform/media.ts';
 

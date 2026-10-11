@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { RequestMethod, type Type } from '@nestjs/common';
 import { METHOD_METADATA, PATH_METADATA } from '@nestjs/common/constants.js';
-import type { Policy } from '../router.ts';
+import type { Policy } from '../endpoint.ts';
 import { POLICY } from './decorators.ts';
 
 export interface CatalogRoute {

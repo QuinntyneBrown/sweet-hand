@@ -1,6 +1,6 @@
 /** Opening a profile or a name change for a decision (work-review-queue, decide-profile-approval designs). */
 import { randomBytes } from 'node:crypto';
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { notFound, ok } from '../http/problems.ts';
 import type { Transaction } from '../platform/database.ts';
 import { sha256 } from '../platform/secrets.ts';

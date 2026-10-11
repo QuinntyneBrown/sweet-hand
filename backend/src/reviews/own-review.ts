@@ -1,4 +1,4 @@
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { fail, forbidden, invalid, noContent, notFound, ok } from '../http/problems.ts';
 import { reviews, type Review } from './model.ts';
 import { canEdit } from './rules.ts';

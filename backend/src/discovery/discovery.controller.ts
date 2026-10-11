@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { anonymous, type Reply, type Request } from '../http/router.ts';
+import { anonymous, type Reply, type Request } from '../http/endpoint.ts';
 import { Ctx, UsePolicy } from '../http/nest/decorators.ts';
 import { activeCuisines, forwardSortationArea, occasions, serviceAreas } from './taxonomy-views.ts';
 import { listCaterers } from './listing.ts';

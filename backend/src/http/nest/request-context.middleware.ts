@@ -2,7 +2,7 @@ import { Inject, Injectable, type NestMiddleware } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import type { Request as ExpressRequest, Response, NextFunction } from 'express';
 import { parseCookies, serializeCookie } from '../cookies.ts';
-import type { Request } from '../router.ts';
+import type { Request } from '../endpoint.ts';
 import type { Transaction } from '../../platform/database.ts';
 import { applyStandardHeaders } from './reply.ts';
 import { PIPELINE_OPTIONS, type PipelineOptions } from './options.ts';

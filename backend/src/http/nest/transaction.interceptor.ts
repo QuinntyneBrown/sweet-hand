@@ -2,7 +2,7 @@ import { Injectable, type CallHandler, type ExecutionContext, type NestIntercept
 import { Reflector } from '@nestjs/core';
 import type { Response } from 'express';
 import { from, lastValueFrom, type Observable } from 'rxjs';
-import type { Reply } from '../router.ts';
+import type { Reply } from '../endpoint.ts';
 import { WITHOUT_DATABASE, requestContext } from './decorators.ts';
 import { prepareReply } from './reply.ts';
 

@@ -1,6 +1,6 @@
 import { StreamableFile } from '@nestjs/common';
 import type { Response } from 'express';
-import type { Reply, Request } from '../router.ts';
+import type { Reply, Request } from '../endpoint.ts';
 
 const SECURITY_HEADERS: Record<string, string> = {
   'x-content-type-options': 'nosniff',

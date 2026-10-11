@@ -1,4 +1,4 @@
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { conflict, created, fail, forbidden, invalid, notFound, ok } from '../http/problems.ts';
 import type { OwnReviewPageView } from '@contract/own-review-page-view.ts';
 import type { OwnReviewView } from '@contract/own-review-view.ts';

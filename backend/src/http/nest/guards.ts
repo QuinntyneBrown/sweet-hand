@@ -2,7 +2,7 @@ import { Inject, Injectable, type CanActivate, type ExecutionContext } from '@ne
 import { Reflector } from '@nestjs/core';
 import type { Request as ExpressRequest } from 'express';
 import { ProblemError, forbidden, problem, unauthorized } from '../problems.ts';
-import type { Actor, Policy, Reply, Request } from '../router.ts';
+import type { Actor, Policy, Reply, Request } from '../endpoint.ts';
 import type { Environment } from '../../environment.ts';
 import { RateLimiter } from '../../platform/rate-limit.ts';
 import { hashIp } from '../../platform/secrets.ts';

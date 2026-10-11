@@ -1,6 +1,6 @@
 /** The recent-changes feed (L2-047.4, L2-044.1) and Revert (L2-057.3). */
 import { randomUUID } from 'node:crypto';
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { conflict, noContent, notFound, ok } from '../http/problems.ts';
 import { recordAudit } from '../platform/audit.ts';
 import { caterers, type Caterer } from '../caterers/model.ts';

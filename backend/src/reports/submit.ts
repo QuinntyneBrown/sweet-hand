@@ -1,4 +1,4 @@
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { conflict, invalid, problem } from '../http/problems.ts';
 import type { Transaction } from '../platform/database.ts';
 import { validChallenge } from '../platform/bot-challenge.ts';

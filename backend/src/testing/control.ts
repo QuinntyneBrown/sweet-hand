@@ -5,7 +5,7 @@
  */
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { randomUUID } from 'node:crypto';
-import type { Environments } from '../app.ts';
+import type { Environments } from '../http/nest/options.ts';
 import { testEnvironment, type TestEnvironment } from '../environment.ts';
 import { findUserByEmail, sessions } from '../identity/model.ts';
 import { randomToken, sha256 } from '../platform/secrets.ts';

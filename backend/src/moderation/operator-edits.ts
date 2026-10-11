@@ -1,5 +1,5 @@
 /** Operator edits to a caterer's profile, each with a reason (edit-profile-as-operator design, L2-057, L2-060). */
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { invalid, notFound, ok } from '../http/problems.ts';
 import type { Transaction } from '../platform/database.ts';
 import { recordAudit } from '../platform/audit.ts';

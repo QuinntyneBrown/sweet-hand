@@ -1,5 +1,5 @@
 import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
-import { anonymous, roles, signedIn, type Reply, type Request } from '../http/router.ts';
+import { anonymous, roles, signedIn, type Reply, type Request } from '../http/endpoint.ts';
 import { Ctx, UsePolicy } from '../http/nest/decorators.ts';
 import { listPublicReviews } from './public-reviews.ts';
 import { reviewEligibility } from './eligibility.ts';

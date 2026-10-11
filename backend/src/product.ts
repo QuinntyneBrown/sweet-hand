@@ -1,6 +1,5 @@
 import type { Type } from '@nestjs/common';
-import type { AppOptions } from './app.ts';
-import { productAreas } from './areas.ts';
+import type { PipelineOptions } from './http/nest/options.ts';
 import { authenticate } from './identity/sessions.ts';
 import { recordSecurityEvent } from './platform/security-log.ts';
 import { HealthController } from './health/health.controller.ts';
@@ -14,10 +13,9 @@ import { ReviewsController } from './reviews/reviews.controller.ts';
 import { EnquiriesController } from './enquiries/enquiries.controller.ts';
 import { IdentityController } from './identity/identity.controller.ts';
 
-/** The product's routes and request hooks, shared by main.ts and the acceptance tests. */
-export function productOptions(): Pick<AppOptions, 'areas' | 'authenticate' | 'onDenied'> {
+/** The product's request hooks: who is calling, and what a refusal records. */
+export function productHooks(): Pick<PipelineOptions, 'authenticate' | 'onDenied'> {
   return {
-    areas: productAreas,
     authenticate,
     // Authorisation failures are security events (L2-079.4); a missing session is not.
     onDenied: async (req, status) => {
@@ -26,5 +24,5 @@ export function productOptions(): Pick<AppOptions, 'areas' | 'authenticate' | 'o
   };
 }
 
-/** The NestJS controllers of every area moved to NestJS so far (ADR 0009). */
+/** Every feature area's NestJS controller (ADR 0009). */
 export const productControllers: Type<unknown>[] = [HealthController, DiscoveryController, IdentityController, EnquiriesController, ReviewsController, ReportsController, AccountController, OperatorSettingsController, CatererProfileController, ModerationController];

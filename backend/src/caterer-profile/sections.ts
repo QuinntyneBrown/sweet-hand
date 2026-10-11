@@ -1,4 +1,4 @@
-import type { Reply, Request } from '../http/router.ts';
+import type { Reply, Request } from '../http/endpoint.ts';
 import { badRequest, fail, invalid, notFound } from '../http/problems.ts';
 import { allCuisines, ALL_AREAS, OCCASIONS } from '../discovery/taxonomy.ts';
 import { assertEditable, loadOwn, saveCaterer, text, type Own } from './own.ts';

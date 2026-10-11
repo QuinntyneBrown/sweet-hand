@@ -1,4 +1,4 @@
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { invalid, ok, unauthorized } from '../http/problems.ts';
 import { validSecurityKeyAssertion } from '../platform/security-key.ts';
 import type { SecondFactorRequest } from '@contract/second-factor-request.ts';

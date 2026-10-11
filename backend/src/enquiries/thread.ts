@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { conflict, fail, forbidden, invalid, notFound, ok } from '../http/problems.ts';
 import { mailServiceStatus } from '../platform/mail-service.ts';
 import { currentUser } from '../identity/sessions.ts';

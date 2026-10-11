@@ -1,4 +1,4 @@
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { ok } from '../http/problems.ts';
 import { currentUser } from '../identity/sessions.ts';
 import type { EnquiryStatus } from '@contract/enquiry-status.ts';

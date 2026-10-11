@@ -1,5 +1,5 @@
 /** Unsent enquiry values kept for 24 hours (send-enquiry design, `EnquiryDraft`; L2-023.3). */
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { noContent, notFound, ok } from '../http/problems.ts';
 import type { Document, Transaction } from '../platform/database.ts';
 import type { EnquiryDraftView } from '@contract/enquiry-draft-view.ts';

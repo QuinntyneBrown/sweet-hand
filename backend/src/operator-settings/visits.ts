@@ -1,5 +1,5 @@
 import { createHmac, randomBytes, randomUUID } from 'node:crypto';
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { noContent } from '../http/problems.ts';
 import type { Transaction } from '../platform/database.ts';
 import { torontoDate } from '../discovery/listing.ts';

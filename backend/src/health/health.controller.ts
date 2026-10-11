@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { anonymous, type Reply, type Request } from '../http/router.ts';
+import { anonymous, type Reply, type Request } from '../http/endpoint.ts';
 import { ok, problem } from '../http/problems.ts';
 import { Ctx, UsePolicy, WithoutDatabase } from '../http/nest/decorators.ts';
 

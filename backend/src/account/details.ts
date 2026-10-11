@@ -1,4 +1,4 @@
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { invalid, ok } from '../http/problems.ts';
 import type { UpdateDetailsRequest } from '@contract/update-details-request.ts';
 import { findUserByEmail, users } from '../identity/model.ts';

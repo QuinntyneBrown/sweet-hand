@@ -1,4 +1,4 @@
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { ok } from '../http/problems.ts';
 import type { Document, Transaction } from '../platform/database.ts';
 import type { SiteNotice } from '@contract/notices.models.ts';

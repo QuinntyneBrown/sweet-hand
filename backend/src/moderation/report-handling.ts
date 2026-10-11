@@ -1,5 +1,5 @@
 /** Handling reports (handle-reports design, L2-055, L2-034.3–4, L2-060). */
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { conflict, fail, forbidden, invalid, notFound, ok } from '../http/problems.ts';
 import type { Transaction } from '../platform/database.ts';
 import { recordAudit, type AuditEntry } from '../platform/audit.ts';

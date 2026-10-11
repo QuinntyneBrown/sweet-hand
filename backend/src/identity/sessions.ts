@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { Actor, Request } from '../http/router.ts';
+import type { Actor, Request } from '../http/endpoint.ts';
 import { serializeCookie } from '../http/cookies.ts';
 import { randomToken, sha256 } from '../platform/secrets.ts';
 import { liveUser, sessions, type Session, type User } from './model.ts';

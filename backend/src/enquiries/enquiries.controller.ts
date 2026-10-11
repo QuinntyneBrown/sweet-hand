@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Put } from '@nestjs/common';
-import { roles, signedIn, type Reply, type Request } from '../http/router.ts';
+import { roles, signedIn, type Reply, type Request } from '../http/endpoint.ts';
 import { Ctx, UsePolicy } from '../http/nest/decorators.ts';
 import { sendEnquiry } from './send.ts';
 import { getDraft, saveDraft } from './drafts.ts';

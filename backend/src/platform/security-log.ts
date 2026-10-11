@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { Request } from '../http/router.ts';
+import type { Request } from '../http/endpoint.ts';
 import type { Document, Transaction } from './database.ts';
 import { hashIp } from './secrets.ts';
 import { nextSequence } from './sequence.ts';

@@ -1,5 +1,5 @@
 import { Controller, Get, Post } from '@nestjs/common';
-import { admins, anonymous, roles, type Reply, type Request } from '../http/router.ts';
+import { admins, anonymous, roles, type Reply, type Request } from '../http/endpoint.ts';
 import { Ctx, Refusal, UsePolicy } from '../http/nest/decorators.ts';
 import { recordVisit } from './visits.ts';
 import { listModeratedReviews, moderateReview } from './moderate-reviews.ts';

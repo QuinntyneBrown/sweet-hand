@@ -1,4 +1,4 @@
-import type { Actor, Request } from '../router.ts';
+import type { Actor, Request } from '../endpoint.ts';
 import type { Config } from '../../platform/config.ts';
 import type { Environment } from '../../environment.ts';
 import type { IncomingMessage } from 'node:http';

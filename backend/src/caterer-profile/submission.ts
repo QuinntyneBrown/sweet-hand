@@ -1,4 +1,4 @@
-import type { Reply, Request } from '../http/router.ts';
+import type { Reply, Request } from '../http/endpoint.ts';
 import { conflict } from '../http/problems.ts';
 import { recordStatusChange } from '../moderation/model.ts';
 import type { SubmissionProblem } from '@contract/submission-problem.ts';

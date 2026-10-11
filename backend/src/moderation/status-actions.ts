@@ -1,5 +1,5 @@
 /** Suspend, reinstate and remove (suspend-reinstate-remove-profile design, L2-058, L2-046.3, L2-060). */
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { fail, invalid, ok } from '../http/problems.ts';
 import { recordAudit, type AuditEntry } from '../platform/audit.ts';
 import type { Caterer } from '../caterers/model.ts';

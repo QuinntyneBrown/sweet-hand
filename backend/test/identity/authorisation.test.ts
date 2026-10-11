@@ -2,18 +2,10 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { documents, signedInClient, startApi, type Client } from '../support/api.ts';
 import { Controller, Get } from '@nestjs/common';
-import { productAreas } from '../../src/areas.ts';
 import { productControllers } from '../../src/product.ts';
-import { Router, roles, type Policy, type Reply, type Role } from '../../src/http/router.ts';
+import { roles, type Reply, type Role } from '../../src/http/endpoint.ts';
 import { UsePolicy } from '../../src/http/nest/decorators.ts';
 import { routeCatalog } from '../../src/http/nest/catalog.ts';
-
-/** Every endpoint of the API with its policy: the NestJS controllers, and routes not moved to them yet. */
-function catalog(): { method: string; path: string; policy: Policy | undefined }[] {
-  const legacy = new Router();
-  for (const area of productAreas) area(legacy);
-  return [...routeCatalog(productControllers), ...legacy.routes];
-}
 
 @Controller('api/probe')
 class OperatorsOnlyController {
@@ -33,7 +25,7 @@ const ACCOUNTS: Record<Role, string> = {
 describe('authorisation (L2-079)', () => {
   it('Given every API endpoint, when each role it does not allow calls it, then the answer is 401 for visitors and 403 for signed-in roles (L2-079.3)', async () => {
     const api = await startApi();
-    const routes = catalog();
+    const routes = routeCatalog(productControllers);
     const clients: Record<Role, Client> = {
       Customer: await signedInClient(api, ACCOUNTS.Customer),
       Caterer: await signedInClient(api, ACCOUNTS.Caterer),

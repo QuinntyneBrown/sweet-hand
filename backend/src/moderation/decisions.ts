@@ -1,5 +1,5 @@
 /** Approving or sending back a profile or a name change (decide-profile-approval design, L2-044, L2-046, L2-048, L2-060). */
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { fail, invalid, ok } from '../http/problems.ts';
 import { recordAudit } from '../platform/audit.ts';
 import { caterers, slugify } from '../caterers/model.ts';

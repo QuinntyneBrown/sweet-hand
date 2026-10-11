@@ -10,23 +10,18 @@ import { PIPELINE_OPTIONS, type PipelineOptions } from './options.ts';
 
 export interface NestAppOptions extends PipelineOptions {
   controllers: Type<unknown>[];
-  /** Serves routes no controller has yet (the legacy router, while areas move). */
-  fallback?: (req: ExpressRequest, res: Response) => void;
   /** Express middleware tried before the app's routes (the test-control API, ADR 0008). */
   before?: (req: ExpressRequest, res: Response, next: () => void) => void;
 }
 
 @Module({})
 class ApiModule implements NestModule {
-  static controllers: Type<unknown>[] = [];
-
   static register(options: NestAppOptions): DynamicModule {
-    ApiModule.controllers = options.controllers;
     return { module: ApiModule, controllers: options.controllers, providers: [{ provide: PIPELINE_OPTIONS, useValue: options }] };
   }
 
   configure(consumer: MiddlewareConsumer): void {
-    if (ApiModule.controllers.length) consumer.apply(RequestContextMiddleware).forRoutes(...ApiModule.controllers);
+    consumer.apply(RequestContextMiddleware).forRoutes('*');
   }
 }
 
@@ -41,7 +36,7 @@ export async function createNestApp(options: NestAppOptions): Promise<INestAppli
   const reflector = app.get(Reflector);
   app.useGlobalGuards(new RateLimitGuard(), new CsrfGuard(options), new BodyGuard(reflector), new EndpointPolicyGuard(reflector, options));
   app.useGlobalInterceptors(new TransactionInterceptor(reflector));
-  app.useGlobalFilters(new ProblemFilter(options.fallback));
+  app.useGlobalFilters(new ProblemFilter());
   const server = app.getHttpAdapter().getInstance();
   server.disable('x-powered-by');
   server.set('etag', false);

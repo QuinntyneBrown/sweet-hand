@@ -1,4 +1,4 @@
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { gone, ok } from '../http/problems.ts';
 import type { Document, Transaction } from '../platform/database.ts';
 import { caterers } from '../caterers/model.ts';

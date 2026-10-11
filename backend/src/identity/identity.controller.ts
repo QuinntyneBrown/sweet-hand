@@ -1,5 +1,5 @@
 import { Controller, Get, Post } from '@nestjs/common';
-import { anonymous, signedIn, type Reply, type Request } from '../http/router.ts';
+import { anonymous, signedIn, type Reply, type Request } from '../http/endpoint.ts';
 import { Ctx, UsePolicy } from '../http/nest/decorators.ts';
 import { acceptPrivacyNotice, privacyNotice } from './consent.ts';
 import { sessionView } from './session-view.ts';

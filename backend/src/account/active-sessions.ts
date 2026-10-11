@@ -1,4 +1,4 @@
-import type { Request, Reply } from '../http/router.ts';
+import type { Request, Reply } from '../http/endpoint.ts';
 import { noContent, notFound, ok } from '../http/problems.ts';
 import { recordSecurityEvent } from '../platform/security-log.ts';
 import type { ActiveSession } from '@contract/active-session.ts';

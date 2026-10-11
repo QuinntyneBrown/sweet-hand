@@ -1,5 +1,5 @@
 import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
-import { roles, signedIn, type Reply, type Request } from '../http/router.ts';
+import { roles, signedIn, type Reply, type Request } from '../http/endpoint.ts';
 import { Ctx, UsePolicy } from '../http/nest/decorators.ts';
 import { accountView } from './account-view.ts';
 import { endSession, listSessions } from './active-sessions.ts';

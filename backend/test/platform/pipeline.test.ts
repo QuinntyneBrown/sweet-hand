@@ -2,7 +2,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { startApi } from '../support/api.ts';
 import { Controller, Get, Post } from '@nestjs/common';
-import { anonymous, roles, type Reply, type Request } from '../../src/http/router.ts';
+import { anonymous, roles, type Reply, type Request } from '../../src/http/endpoint.ts';
 import { Ctx, UsePolicy } from '../../src/http/nest/decorators.ts';
 import { productControllers } from '../../src/product.ts';
 

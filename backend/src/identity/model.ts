@@ -1,5 +1,5 @@
 import type { Document, Transaction } from '../platform/database.ts';
-import type { Role } from '../http/router.ts';
+import type { Role } from '../http/endpoint.ts';
 
 export type SecondFactorMethod = 'authenticator app' | 'security key';
 

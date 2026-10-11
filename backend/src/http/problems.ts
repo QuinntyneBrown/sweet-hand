@@ -1,4 +1,4 @@
-import type { Reply } from './router.ts';
+import type { Reply } from './endpoint.ts';
 
 /** RFC 9457 problem replies (ADR 0003). Field names in `errors` match the form control names. */
 export const ok = (body: unknown, status = 200): Reply => ({ status, body });
