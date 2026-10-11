@@ -40,7 +40,7 @@ export async function createNestApp(options: NestAppOptions): Promise<INestAppli
   if (options.before) app.use(options.before);
   const reflector = app.get(Reflector);
   app.useGlobalGuards(new RateLimitGuard(), new CsrfGuard(options), new BodyGuard(reflector), new EndpointPolicyGuard(reflector, options));
-  app.useGlobalInterceptors(new TransactionInterceptor());
+  app.useGlobalInterceptors(new TransactionInterceptor(reflector));
   app.useGlobalFilters(new ProblemFilter(options.fallback));
   const server = app.getHttpAdapter().getInstance();
   server.disable('x-powered-by');

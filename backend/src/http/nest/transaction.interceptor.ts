@@ -1,8 +1,9 @@
 import { Injectable, type CallHandler, type ExecutionContext, type NestInterceptor } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
 import type { Response } from 'express';
 import { from, lastValueFrom, type Observable } from 'rxjs';
 import type { Reply } from '../router.ts';
-import { requestContext } from './decorators.ts';
+import { WITHOUT_DATABASE, requestContext } from './decorators.ts';
 import { prepareReply } from './reply.ts';
 
 /**
@@ -12,9 +13,18 @@ import { prepareReply } from './reply.ts';
  */
 @Injectable()
 export class TransactionInterceptor implements NestInterceptor {
+  private readonly reflector: Reflector;
+
+  constructor(reflector: Reflector) {
+    this.reflector = reflector;
+  }
+
   intercept(execution: ExecutionContext, next: CallHandler<Reply>): Observable<unknown> {
     const ctx = requestContext(execution);
     const res = execution.switchToHttp().getResponse<Response>();
+    if (this.reflector.get<boolean>(WITHOUT_DATABASE, execution.getHandler())) {
+      return from(lastValueFrom(next.handle()).then((reply) => prepareReply(res, ctx, reply)));
+    }
     return from(
       ctx.env.db
         .transaction(async (tx) => {

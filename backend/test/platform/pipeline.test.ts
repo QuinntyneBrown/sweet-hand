@@ -1,20 +1,52 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { startApi } from '../support/api.ts';
-import { anonymous, roles, type Area } from '../../src/http/router.ts';
+import { Controller, Get, Post } from '@nestjs/common';
+import { anonymous, roles, type Reply, type Request } from '../../src/http/router.ts';
+import { Ctx, UsePolicy } from '../../src/http/nest/decorators.ts';
+import { productControllers } from '../../src/product.ts';
 
 /** Routes that exist only in this test, to exercise the pipeline itself. */
-const probe: Area = (r) => {
-  r.get('/api/probe/public', anonymous, async () => ({ status: 200, body: { ok: true } }));
-  r.post('/api/probe/echo', anonymous, async (req) => ({ status: 200, body: req.body }));
-  r.get('/api/probe/customers', roles('Customer'), async () => ({ status: 200, body: {} }));
-  r.get('/api/probe/boom', anonymous, async () => {
+@Controller('api/probe')
+class ProbeController {
+  @Get('public')
+  @UsePolicy(anonymous)
+  async public(): Promise<Reply> {
+    return { status: 200, body: { ok: true } };
+  }
+
+  @Post('echo')
+  @UsePolicy(anonymous)
+  async echo(@Ctx() req: Request): Promise<Reply> {
+    return { status: 200, body: req.body };
+  }
+
+  @Get('customers')
+  @UsePolicy(roles('Customer'))
+  async customers(): Promise<Reply> {
+    return { status: 200, body: {} };
+  }
+
+  @Get('undeclared')
+  async undeclared(): Promise<Reply> {
+    return { status: 200, body: { leaked: true } };
+  }
+
+  @Get('boom')
+  @UsePolicy(anonymous)
+  async boom(): Promise<Reply> {
     throw new Error('kaboom: internal detail');
-  });
-};
+  }
+}
 
 describe('request pipeline (L2-079, L2-080, L2-081, L2-089)', async () => {
-  const api = await startApi({ areas: [probe] });
+  const api = await startApi({ controllers: [...productControllers, ProbeController] });
+
+  it('Given an endpoint that declares no policy, when anyone calls it, then it is refused (authentication by default)', async () => {
+    const res = await api.client().get('/api/probe/undeclared');
+    assert.equal(res.status, 403);
+    assert.equal(JSON.stringify(res.body).includes('leaked'), false);
+  });
 
   it('Given any request, when it is answered, then it carries a correlation ID and the security headers', async () => {
     const res = await api.client().get('/api/probe/public');

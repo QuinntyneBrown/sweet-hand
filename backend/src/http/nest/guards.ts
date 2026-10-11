@@ -7,7 +7,7 @@ import type { Environment } from '../../environment.ts';
 import { RateLimiter } from '../../platform/rate-limit.ts';
 import { hashIp } from '../../platform/secrets.ts';
 import { BadJson, BodyTooLarge, MB, readBody } from './body.ts';
-import { MAX_BODY, POLICY, REFUSAL, requestContext } from './decorators.ts';
+import { MAX_BODY, POLICY, REFUSAL, WITHOUT_DATABASE, requestContext } from './decorators.ts';
 import { PIPELINE_OPTIONS, type PipelineOptions } from './options.ts';
 
 /** Public reads allowed per address per minute (L2-082.1). */
@@ -112,6 +112,7 @@ export class EndpointPolicyGuard implements CanActivate {
     const ctx = context(execution);
     const policy = this.reflector.get<Policy | undefined>(POLICY, execution.getHandler());
     const refusal = this.reflector.get<((req: Request) => Promise<Reply>) | undefined>(REFUSAL, execution.getHandler());
+    if (policy?.kind === 'anonymous' && this.reflector.get<boolean>(WITHOUT_DATABASE, execution.getHandler())) return true;
     const denial = await ctx.env.db.transaction(async (tx): Promise<Reply | undefined> => {
       ctx.tx = tx;
       ctx.actor = await this.options.authenticate?.(ctx);

@@ -1,8 +1,28 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { documents, signedInClient, startApi, type Client } from '../support/api.ts';
+import { Controller, Get } from '@nestjs/common';
 import { productAreas } from '../../src/areas.ts';
-import { Router, roles, type Area, type Role } from '../../src/http/router.ts';
+import { productControllers } from '../../src/product.ts';
+import { Router, roles, type Policy, type Reply, type Role } from '../../src/http/router.ts';
+import { UsePolicy } from '../../src/http/nest/decorators.ts';
+import { routeCatalog } from '../../src/http/nest/catalog.ts';
+
+/** Every endpoint of the API with its policy: the NestJS controllers, and routes not moved to them yet. */
+function catalog(): { method: string; path: string; policy: Policy | undefined }[] {
+  const legacy = new Router();
+  for (const area of productAreas) area(legacy);
+  return [...routeCatalog(productControllers), ...legacy.routes];
+}
+
+@Controller('api/probe')
+class OperatorsOnlyController {
+  @Get('operators')
+  @UsePolicy(roles('Operator'))
+  async operators(): Promise<Reply> {
+    return { status: 200, body: {} };
+  }
+}
 
 const ACCOUNTS: Record<Role, string> = {
   Customer: 'marcia.t@example.com',
@@ -13,16 +33,16 @@ const ACCOUNTS: Record<Role, string> = {
 describe('authorisation (L2-079)', () => {
   it('Given every API endpoint, when each role it does not allow calls it, then the answer is 401 for visitors and 403 for signed-in roles (L2-079.3)', async () => {
     const api = await startApi();
-    const catalog = new Router();
-    for (const area of productAreas) area(catalog);
+    const routes = catalog();
     const clients: Record<Role, Client> = {
       Customer: await signedInClient(api, ACCOUNTS.Customer),
       Caterer: await signedInClient(api, ACCOUNTS.Caterer),
       Operator: await signedInClient(api, ACCOUNTS.Operator),
     };
     let checked = 0;
-    for (const route of catalog.routes) {
-      if (route.policy.kind === 'anonymous') continue;
+    for (const route of routes) {
+      // Undeclared routes refuse everyone (the pipeline test proves it); anonymous ones admit everyone.
+      if (!route.policy || route.policy.kind === 'anonymous') continue;
       const path = route.path.replace(/:[A-Za-z]+/g, 'x');
       const visitor = await api.client().request(route.method, path, route.method === 'GET' ? undefined : {});
       assert.equal(visitor.status, 401, `${route.method} ${route.path} for a visitor`);
@@ -34,13 +54,12 @@ describe('authorisation (L2-079)', () => {
         checked++;
       }
     }
-    assert.ok(catalog.routes.length > 0);
+    assert.ok(routes.length > 100);
     void checked;
   });
 
   it('Given an authorisation failure, when it happens, then a security event records the user, endpoint and time without the IP in clear (L2-079.4, L2-084)', async () => {
-    const operatorsOnly: Area = (r) => r.get('/api/probe/operators', roles('Operator'), async () => ({ status: 200, body: {} }));
-    const api = await startApi({ areas: [...productAreas, operatorsOnly] });
+    const api = await startApi({ controllers: [...productControllers, OperatorsOnlyController] });
     const marcia = await signedInClient(api, 'marcia.t@example.com');
     const res = await marcia.get('/api/probe/operators');
     assert.equal(res.status, 403);
