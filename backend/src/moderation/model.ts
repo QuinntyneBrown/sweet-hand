@@ -15,6 +15,8 @@ export interface StatusChange extends Document {
   by: string;
   step: 'created' | 'submitted' | 'resubmitted' | 'approved' | 'changes-requested' | 'suspended' | 'reinstated' | 'removed';
   reason?: string;
+  /** Suspensions only: how many open enquiries the suspension closed (L2-058.2). */
+  closedEnquiries?: number;
 }
 
 /** One caterer edit to a published profile (L2-044.1), for the operators' recent-changes feed. */
@@ -41,9 +43,34 @@ export interface ProfileSnapshot extends Document {
   cuisines: string[];
 }
 
+/** What the daily certificate job found for a caterer (L2-040.2–3), keyed by caterer id. */
+export interface CertificateExpiry extends Document {
+  /** When the expired certificate was found. */
+  detectedAt?: string;
+  /** When the expiry reminders went out. */
+  reminders: string[];
+}
+
+/** A time-limited link to a certificate copy (L2-040.4); only the hash of the link's token is kept, as the id. */
+export interface CertificateLink extends Document {
+  catererId: string;
+  expiresAt: string;
+}
+
+/** The last change an operator or the platform made to a caterer record, keyed by caterer id (the caterer list's order). */
+export interface RecordChange extends Document {
+  at: string;
+}
+
 export const statusHistory = (tx: Transaction) => tx.collection<StatusChange>('statusHistory');
 export const profileEdits = (tx: Transaction) => tx.collection<ProfileEdit>('profileEdits');
 export const profileSnapshots = (tx: Transaction) => tx.collection<ProfileSnapshot>('profileSnapshots');
+export const certificateExpiries = (tx: Transaction) => tx.collection<CertificateExpiry>('certificateExpiries');
+export const certificateLinks = (tx: Transaction) => tx.collection<CertificateLink>('certificateLinks');
+export const recordChanges = (tx: Transaction) => tx.collection<RecordChange>('recordChanges');
+
+/** Notes that a caterer record changed now. */
+export const touchRecord = (tx: Transaction, catererId: string, now: Date) => recordChanges(tx).put({ id: catererId, at: now.toISOString() });
 
 export async function recordStatusChange(tx: Transaction, now: Date, change: Omit<StatusChange, 'id' | 'at' | 'seq'>): Promise<StatusChange> {
   const doc: StatusChange = { id: `status-${randomUUID()}`, at: now.toISOString(), seq: nextSequence(), ...change };

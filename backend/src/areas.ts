@@ -8,6 +8,7 @@ import { reviewsArea } from './reviews/routes.ts';
 import { reportsArea } from './reports/routes.ts';
 import { operatorSettingsArea } from './operator-settings/routes.ts';
 import { catererProfileArea } from './caterer-profile/routes.ts';
+import { moderationArea } from './moderation/routes.ts';
 
 /** Every product feature area, in registration order. */
 export const productAreas: Area[] = [
@@ -20,4 +21,5 @@ export const productAreas: Area[] = [
   reportsArea,
   operatorSettingsArea,
   catererProfileArea,
+  moderationArea,
 ];

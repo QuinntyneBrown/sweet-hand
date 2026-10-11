@@ -16,7 +16,7 @@ describe('operator second factor and timeouts (L2-056.2, L2-078.3)', async () =>
     const pending = await client.get('/api/session');
     assert.equal(pending.body.user, null);
     assert.deepEqual(pending.body.pendingSecondFactor, { email: 'leah@sweethand.example', method: 'authenticator app' });
-    assert.equal((await client.get('/api/operator/queue')).status, 404, 'no operator route exists yet, and no session either');
+    assert.equal((await client.get('/api/operator/queue')).status, 401, 'no operator route opens without the second factor');
 
     const wrong = await client.post('/api/identity/second-factor', { method: 'authenticator app', code: '000000' });
     assert.equal(wrong.status, 400);

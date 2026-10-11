@@ -12,9 +12,10 @@ import { seedReviewEnquiries } from './review-enquiries.ts';
 import { seedReports } from './reports.ts';
 import { seedCuisines } from '../discovery/taxonomy.ts';
 import { seedAudit, seedBreaches, seedDailyMetrics, seedMetricsState, seedOperatorActivity } from './operator-settings.ts';
+import { withModerationCast } from './moderation.ts';
 
 export async function castDocuments(): Promise<Record<string, Document[]>> {
-  return {
+  return withModerationCast({
     users: await seedUsers(),
     sessions: seedSessions(),
     settings: [seedPrivacyNotice()],
@@ -28,7 +29,7 @@ export async function castDocuments(): Promise<Record<string, Document[]>> {
     audit: seedAudit(),
     dailyMetrics: seedDailyMetrics(),
     metricsState: seedMetricsState(),
-  };
+  });
 }
 
 /** Idempotent: inserts only documents whose id is not there yet, so it is safe to re-run. */
