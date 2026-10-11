@@ -3,6 +3,8 @@ import { sessionView } from './session-view.ts';
 import { signIn, signOut } from './sign-in.ts';
 import { completeSecondFactor } from './second-factor.ts';
 import { registerCaterer, registerCustomer } from './registration.ts';
+import { resendVerification, verifyEmail } from './verification.ts';
+import { openResetLink, requestPasswordReset, resetPassword } from './password-reset.ts';
 
 /** Identity endpoints (docs/detailed-designs/identity-and-security). */
 export const identityArea: Area = (r) => {
@@ -14,4 +16,10 @@ export const identityArea: Area = (r) => {
   r.post('/api/identity/second-factor', anonymous, completeSecondFactor);
   r.post('/api/identity/registrations', anonymous, registerCustomer);
   r.post('/api/identity/registrations/caterer', anonymous, registerCaterer);
+  // Links from emails work without a session, by design.
+  r.post('/api/identity/email-verifications', anonymous, verifyEmail);
+  r.post('/api/identity/email-verifications/resend', anonymous, resendVerification);
+  r.post('/api/identity/password-reset-requests', anonymous, requestPasswordReset);
+  r.get('/api/identity/password-resets/:token', anonymous, openResetLink);
+  r.post('/api/identity/password-resets', anonymous, resetPassword);
 };
