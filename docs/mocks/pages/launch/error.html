@@ -43,7 +43,7 @@
     <fieldset class="field"><legend class="field__label">I’m…</legend><div class="option-grid"><label class="choice choice--card"><input type="radio" id="role-event" name="role" value="customer" required><span class="choice__text"><span>Planning an event</span></span></label><label class="choice choice--card"><input type="radio" id="role-caterer" name="role" value="caterer" checked><span class="choice__text"><span>A caterer</span></span></label></div></fieldset>
     <div class="field"><label class="field__label" for="business">Business name <span class="text-subtle">(optional)</span></label><input class="input input--lg" id="business" name="business" type="text" autocomplete="organization" maxlength="60" value="Pelau House"><span class="visually-hidden" role="status"></span></div>
     <div class="field"><label class="field__label" for="email">Email</label><input class="input input--lg" id="email" name="email" type="email" autocomplete="email" spellcheck="false" required value="kendra@pelauhouse.example"><span class="visually-hidden" role="status"></span></div>
-    <div class="field"><label class="choice"><input type="checkbox" id="consent" name="consent" required aria-describedby="consent-summary" checked><span class="choice__text"><span>Email me when Sweet Hand opens</span></span></label><p class="consent-summary" id="consent-summary">One email, nothing else. <a href="#privacy">Privacy</a></p><span class="visually-hidden" role="status"></span></div>
+    <div class="field"><label class="choice"><input type="checkbox" id="consent" name="consent" required aria-describedby="consent-summary" checked><span class="choice__text"><span>Email me when Sweet Hand opens</span></span></label><p class="consent-summary" id="consent-summary">One email, nothing else. <a href="../privacy/default.html">Privacy</a></p><span class="visually-hidden" role="status"></span></div>
     <button class="btn btn--primary btn--lg btn--block" type="submit"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>Try again</button>
   </form>
   </section>
@@ -67,21 +67,13 @@
   </div>
 </section>
 
-<section class="container container--narrow section-gap" id="privacy" aria-labelledby="privacy-title">
-  <h2 id="privacy-title" class="section">Your email</h2>
-  <ul class="prose">
-    <li>One email when we open.</li>
-    <li>Deleted 30 days after launch.</li>
-    <li>Stored in Canada, never shared.</li>
-  </ul>
-</section>
 </main>
 
 <footer class="site-footer">
   <div class="site-footer__brand"><strong>Sweet Hand</strong></div>
   <nav aria-label="Footer">
     <ul>
-      <li><a href="#privacy">Privacy</a></li>
+      <li><a href="../privacy/default.html">Privacy</a></li>
       <li><a href="mailto:hello@sweethand.example">Contact</a></li>
     </ul>
   </nav>

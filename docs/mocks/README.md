@@ -346,7 +346,8 @@ the mock changed.
     kept deliberately sparse. The success message is the same for a new or an
     existing address, so the page never reveals who signed up. *Needs an L1/L2 and a
     detailed design before implementation; confirm the email rules against CASL.*
-    `privacy@sweethand.example` is a placeholder.
+    The page has no privacy section; its Privacy links point to the product privacy
+    notice (`pages/privacy`), which needs a launch-list section. `hello@sweethand.example` is a placeholder.
 
 ## Coverage
 

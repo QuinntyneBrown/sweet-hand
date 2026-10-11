@@ -42,7 +42,7 @@
     <div class="form-summary" role="alert" tabindex="-1" id="error-summary" aria-labelledby="error-summary-title"><h3 id="error-summary-title">Fix 3 things</h3><ul><li><a href="#role-event">Choose one</a></li><li><a href="#email">Enter an email like name@example.com</a></li><li><a href="#consent">Tick the box to get the email</a></li></ul></div>
     <fieldset class="field"><legend class="field__label">I’m…</legend><span class="field__error" id="role-error">Choose one</span><div class="option-grid"><label class="choice choice--card"><input type="radio" id="role-event" name="role" value="customer" required aria-invalid="true" aria-describedby="role-error"><span class="choice__text"><span>Planning an event</span></span></label><label class="choice choice--card"><input type="radio" id="role-caterer" name="role" value="caterer" aria-invalid="true" aria-describedby="role-error"><span class="choice__text"><span>A caterer</span></span></label></div></fieldset>
     <div class="field"><label class="field__label" for="email">Email</label><input class="input input--lg" id="email" name="email" type="email" autocomplete="email" spellcheck="false" required value="marcia.t@example" aria-invalid="true" aria-describedby="email-error"><span class="field__error" id="email-error">Enter an email like name@example.com</span><span class="visually-hidden" role="status"></span></div>
-    <div class="field"><label class="choice"><input type="checkbox" id="consent" name="consent" required aria-describedby="consent-error consent-summary" aria-invalid="true"><span class="choice__text"><span>Email me when Sweet Hand opens</span></span></label><p class="consent-summary" id="consent-summary">One email, nothing else. <a href="#privacy">Privacy</a></p><span class="field__error" id="consent-error">Tick the box to get the email</span><span class="visually-hidden" role="status"></span></div>
+    <div class="field"><label class="choice"><input type="checkbox" id="consent" name="consent" required aria-describedby="consent-error consent-summary" aria-invalid="true"><span class="choice__text"><span>Email me when Sweet Hand opens</span></span></label><p class="consent-summary" id="consent-summary">One email, nothing else. <a href="../privacy/default.html">Privacy</a></p><span class="field__error" id="consent-error">Tick the box to get the email</span><span class="visually-hidden" role="status"></span></div>
     <button class="btn btn--primary btn--lg btn--block" type="submit">Get the launch email</button>
   </form>
   </section>
@@ -66,21 +66,13 @@
   </div>
 </section>
 
-<section class="container container--narrow section-gap" id="privacy" aria-labelledby="privacy-title">
-  <h2 id="privacy-title" class="section">Your email</h2>
-  <ul class="prose">
-    <li>One email when we open.</li>
-    <li>Deleted 30 days after launch.</li>
-    <li>Stored in Canada, never shared.</li>
-  </ul>
-</section>
 </main>
 
 <footer class="site-footer">
   <div class="site-footer__brand"><strong>Sweet Hand</strong></div>
   <nav aria-label="Footer">
     <ul>
-      <li><a href="#privacy">Privacy</a></li>
+      <li><a href="../privacy/default.html">Privacy</a></li>
       <li><a href="mailto:hello@sweethand.example">Contact</a></li>
     </ul>
   </nav>
