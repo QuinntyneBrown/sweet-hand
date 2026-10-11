@@ -24,7 +24,7 @@ import {
 import { EnquiryDraftStore } from '../../../core/enquiry/enquiry-draft-store';
 import { RESUME_PARAM, RESUME_VALUE } from '../../../core/enquiry/enquiry-launcher';
 import { count, shortDate, torontoToday } from '../../../core/format/format';
-import { problemOf, reference } from '../../../core/forms/problem';
+import { reference, type Problem } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
 import { Session } from '../../../core/session/session';
 import { areaWarning, dateRange, EMPTY_VALUES, enquiryErrors, type Field, FIELDS, guestsWarning, MESSAGE_MAX, serverErrors } from './enquiry-rules';
@@ -33,6 +33,7 @@ import { BotChallengeService, DiscoveryService, EnquiriesService, type EnquiryFo
 import type { EnquiryFormRequest } from './enquiry-form-request';
 import type { Mode } from './mode';
 import type { Notice } from './notice';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 /**
  * "Send an enquiry" (docs/detailed-designs/enquiries/send-enquiry,
@@ -60,11 +61,10 @@ export class EnquiryFormDialog implements OnInit {
   protected readonly caterer = computed(() => this.request().caterer);
   protected readonly mode = signal<Mode>('form');
   protected readonly values = signal<EnquiryFormValues>(EMPTY_VALUES);
-  protected readonly errors = signal<FieldErrors>({});
+  /** The dialog exists only while it is open. */
+  protected readonly state = new FormDialogState<FieldErrors>(signal(true), { noErrors: {} });
   /** What the summary lists: the errors of the last send, until the next one (form-layout CRD, "Fixing"). */
   private readonly reported = signal<FieldErrors>({});
-  protected readonly attempt = signal(0);
-  protected readonly busy = signal(false);
   protected readonly notice = signal<Notice | null>(null);
   protected readonly sent = signal<SentEnquiryView | null>(null);
 
@@ -114,7 +114,8 @@ export class EnquiryFormDialog implements OnInit {
 
   /** Limits can't be lifted by trying again now (docs/mocks/dialogs/enquiry/limit). */
   protected readonly limited = computed(() => this.notice()?.kind === 'limit');
-  protected readonly failed = computed(() => this.notice()?.kind === 'failed');
+  /** The send failed on our side: the button offers to try again. */
+  protected readonly retry = computed(() => this.notice()?.kind === 'failed');
 
   private readonly firstName = computed(() => (this.session.user()?.displayName ?? '').split(/\s+/)[0]);
   protected readonly welcomeTitle = computed(() => $localize`:@@enquiryForm.welcomeBack:Welcome back, ${this.firstName()}:name:`);
@@ -199,60 +200,50 @@ export class EnquiryFormDialog implements OnInit {
     this.values.update((v) => ({ ...v, [field]: value }));
     const control: Field = field === 'eventDate' ? 'date' : field === 'postalCode' ? 'postal' : field;
     // A field's error clears as it is fixed; the summary keeps it until the next send (form-layout CRD, "Fixing").
-    if (this.errors()[control]) this.errors.update((e) => ({ ...e, [control]: undefined }));
+    if (this.state.errors()[control]) this.state.errors.update((e) => ({ ...e, [control]: undefined }));
   }
 
   protected async submit(): Promise<void> {
-    if (this.busy() || this.limited()) return;
+    if (this.state.busy() || this.limited()) return;
     const values = this.values();
     const errors = enquiryErrors(values, torontoToday());
-    this.report(errors);
-    if (Object.keys(errors).length) {
-      this.attempt.update((n) => n + 1);
-      return;
-    }
+    this.reported.set(errors);
+    if (!this.state.validate(errors)) return;
     if (!this.session.user()) {
       this.signInFirst(values);
       return;
     }
-    this.busy.set(true);
-    try {
-      const challengeToken = await this.challenge.token('enquiry');
-      const sent = await firstValueFrom(this.api.send({ ...values, catererSlug: this.caterer().slug, challengeToken }));
-      this.sent.set(sent);
-      this.notice.set(null);
-      this.mode.set('sent');
-      afterNextRender(() => this.inboxLink()?.nativeElement.focus(), { injector: this.injector });
-    } catch (error) {
-      this.refused(error, values);
-    } finally {
-      this.busy.set(false);
-    }
+    await this.state.submit(
+      async () => {
+        const challengeToken = await this.challenge.token('enquiry');
+        const sent = await firstValueFrom(this.api.send({ ...values, catererSlug: this.caterer().slug, challengeToken }));
+        this.sent.set(sent);
+        this.notice.set(null);
+        this.mode.set('sent');
+        afterNextRender(() => this.inboxLink()?.nativeElement.focus(), { injector: this.injector });
+      },
+      (status, problem) => this.refused(status, problem, values),
+    );
   }
 
-  private report(errors: FieldErrors): void {
-    this.errors.set(errors);
-    this.reported.set(errors);
-  }
-
-  private refused(error: unknown, values: EnquiryFormValues): void {
-    const { status, problem } = problemOf(error);
+  /** Every refusal has its own notice, so none falls back to the dialog's generic failure. */
+  private refused(status: number, problem: Problem, values: EnquiryFormValues): true {
     const code = problem['code'] as EnquiryRefusal | undefined;
     if (status === 400 && problem.errors) {
       // The server checks every field again (L2-022.6); its errors show like the form's own.
       this.notice.set(null);
-      this.report(serverErrors(problem.errors));
-      this.attempt.update((n) => n + 1);
-      return;
+      const errors = serverErrors(problem.errors);
+      this.reported.set(errors);
+      return this.state.reject(errors);
     }
     if (status === 401) {
       // Signed out meanwhile: sign in again and come back to the same values.
       this.signInFirst(values);
-      return;
+      return true;
     }
     if (code === 'customer-only') {
       void this.session.refresh().then(() => this.mode.set('wrong-account'));
-      return;
+      return true;
     }
     if (code === 'email-unverified') {
       this.notice.set({ kind: 'unverified' });
@@ -266,6 +257,7 @@ export class EnquiryFormDialog implements OnInit {
       this.notice.set({ kind: 'failed', reference: reference(problem) });
     }
     afterNextRender(() => this.alert()?.focusTitle(), { injector: this.injector });
+    return true;
   }
 
   /** A visitor signs in or registers first; what they typed comes back with them (L2-013.3, L2-023.1). */

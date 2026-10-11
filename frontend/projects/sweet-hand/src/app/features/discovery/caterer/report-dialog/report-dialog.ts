@@ -2,11 +2,10 @@ import { ChangeDetectionStrategy, Component, Injector, afterNextRender, computed
 import { firstValueFrom } from 'rxjs';
 import { Alert, Button, Dialog, FormField, Icon, Radio, RadioGroup, Textarea, graphemeLength } from '@sweet-hand/components';
 import { count, shortDate } from '../../../../core/format/format';
-import { problemOf } from '../../../../core/forms/problem';
 import { DETAILS_MAX, REPORT_REASONS, reportErrors } from './report-rules';
 import { BotChallengeService, type ReportReason, type ReportRequest, ReportsService } from '@sweet-hand/api';
 import type { Step } from './step';
-import type { Failure } from './failure';
+import { FormDialogState } from '../../../../core/forms/form-dialog-state';
 
 /**
  * "Report this listing" (docs/detailed-designs/moderation/report-content,
@@ -33,10 +32,19 @@ export class ReportDialog {
   protected readonly step = signal<Step>('form');
   protected readonly reason = signal<string | null>(null);
   protected readonly details = signal('');
-  protected readonly errors = signal<{ reason: string | null; details: string | null }>({ reason: null, details: null });
-  protected readonly busy = signal(false);
-  protected readonly failure = signal<Failure>(null);
   protected readonly reportedAt = signal<string | null>(null);
+  /** Too many reports from here: sending again is refused for a while. */
+  protected readonly limited = signal(false);
+  protected readonly state = new FormDialogState<{ reason: string | null; details: string | null }>(this.open, {
+    noErrors: { reason: null, details: null },
+    reset: () => {
+      this.step.set('form');
+      this.reason.set(null);
+      this.details.set('');
+      this.reportedAt.set(null);
+      this.limited.set(false);
+    },
+  });
 
   protected readonly length = computed(() => graphemeLength(this.details()));
   protected readonly counter = computed(() => `${count(this.length())} / ${count(DETAILS_MAX)}`);
@@ -59,50 +67,45 @@ export class ReportDialog {
 
   protected choose(value: string): void {
     this.reason.set(value);
-    this.errors.update((e) => ({ ...e, reason: null }));
+    this.state.errors.update((e) => ({ ...e, reason: null }));
   }
 
   protected async submit(): Promise<void> {
-    if (this.busy() || this.failure() === 'limit') return;
-    this.failure.set(null);
+    if (this.state.busy() || this.limited()) return;
     const reason = this.reason() as ReportReason | null;
     const errors = reportErrors(reason, this.details(), this.length());
-    this.errors.set(errors);
-    if (errors.reason) return this.afterRender(() => this.group()?.focus());
-    if (errors.details) return this.afterRender(() => this.detailsField()?.focusControl());
-
-    this.busy.set(true);
-    try {
-      const challengeToken = await this.bot.token('report');
-      const t = this.target();
-      await firstValueFrom(this.api.submit({ targetKind: t.kind, targetId: t.id, reason: reason!, details: this.details().trim(), challengeToken }));
-      this.finish('sent');
-    } catch (error) {
-      const { status, problem } = problemOf(error);
-      if (status === 409) {
-        this.reportedAt.set(typeof problem['reportedAt'] === 'string' ? problem['reportedAt'] : null);
-        this.finish('duplicate');
-      } else if (status === 429) {
-        this.failure.set('limit');
-      } else if (status === 400 && problem.errors?.['details']) {
-        this.errors.set({ reason: null, details: problem.errors['details'][0] });
-        this.afterRender(() => this.detailsField()?.focusControl());
-      } else {
-        this.failure.set('server');
-      }
-    } finally {
-      this.busy.set(false);
+    if (!this.state.validate(errors)) {
+      if (errors.reason) this.afterRender(() => this.group()?.focus());
+      else this.afterRender(() => this.detailsField()?.focusControl());
+      return;
     }
+    await this.state.submit(
+      async () => {
+        const challengeToken = await this.bot.token('report');
+        const t = this.target();
+        await firstValueFrom(this.api.submit({ targetKind: t.kind, targetId: t.id, reason: reason!, details: this.details().trim(), challengeToken }));
+        this.finish('sent');
+      },
+      (status, problem) => {
+        if (status === 409) {
+          this.reportedAt.set(typeof problem['reportedAt'] === 'string' ? problem['reportedAt'] : null);
+          this.finish('duplicate');
+        } else if (status === 429) {
+          this.limited.set(true);
+        } else if (status === 400 && problem.errors?.['details']) {
+          this.state.errors.set({ reason: null, details: problem.errors['details'][0] });
+          this.afterRender(() => this.detailsField()?.focusControl());
+        } else {
+          return false;
+        }
+        return true;
+      },
+    );
   }
 
   /** Closing resets the dialog, so the next report starts afresh. */
   protected reset(): void {
-    this.step.set('form');
-    this.reason.set(null);
-    this.details.set('');
-    this.errors.set({ reason: null, details: null });
-    this.failure.set(null);
-    this.reportedAt.set(null);
+    this.state.open();
   }
 
   private finish(step: Step): void {

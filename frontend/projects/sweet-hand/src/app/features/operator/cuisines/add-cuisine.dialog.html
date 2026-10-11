@@ -10,28 +10,28 @@
   i18n-closeLabel="@@common.close"
   cancelLabel="Cancel"
   i18n-cancelLabel="@@common.cancel"
-  [busy]="busy()"
+  [busy]="state.busy()"
   [busyMessage]="adding"
   [returnFocus]="returnFocus()"
   (dismissed)="closed.emit()"
   (submitted)="add()"
 >
-  @if (failedName()) {
+  @if (state.failed()) {
     <sh-alert tone="danger" live="assertive" [title]="failedTitle()"
       ><ng-container i18n="@@addCuisine.failedText">Nothing was saved. Check your connection and try again.</ng-container></sh-alert
     >
   }
-  <sh-form-summary [heading]="summaryTitle()" [headingLevel]="3" [items]="summary()" [attempt]="attempt()" summaryId="add-cuisine-summary" />
+  <sh-form-summary [heading]="summaryTitle()" [headingLevel]="3" [items]="summary()" [attempt]="state.attempt()" summaryId="add-cuisine-summary" />
   <sh-form-field
     label="Cuisine name"
     i18n-label="@@addCuisine.name"
     controlId="cuisine-name"
-    [error]="error()"
+    [error]="state.errors()"
     help="Name it the way the community does, like “Kittitian & Nevisian”. 2–40 characters."
     i18n-help="@@addCuisine.nameHelp"
   >
-    <sh-text-field [formControl]="name" name="name" autocomplete="off" [maxlength]="40" [required]="true" [readonly]="busy()" [autofocus]="true" />
+    <sh-text-field [formControl]="name" name="name" autocomplete="off" [maxlength]="40" [required]="true" [readonly]="state.busy()" [autofocus]="true" />
   </sh-form-field>
   <p class="private-note" i18n="@@addCuisine.note">Caterers can choose it straight away, and the listing filter offers it.</p>
-  <sh-button slot="footer" type="submit" variant="primary" [busy]="busy()"><ng-container i18n="@@addCuisine.submit">Add cuisine</ng-container></sh-button>
+  <sh-button slot="footer" type="submit" variant="primary" [busy]="state.busy()"><ng-container i18n="@@addCuisine.submit">Add cuisine</ng-container></sh-button>
 </sh-dialog>

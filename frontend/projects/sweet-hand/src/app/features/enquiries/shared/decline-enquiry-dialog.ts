@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Button, Dialog, FormField, FormSummary, Icon, Textarea, graphemeLength, type SummaryItem } from '@sweet-hand/components';
 import { count } from '../../../core/format/format';
-import { problemOf } from '../../../core/forms/problem';
 import { NOTE_MAX, noteError, otherShortName } from '../thread-view';
 import { EnquiriesService, type ThreadView } from '@sweet-hand/api';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 /**
  * "Decline Priya’s enquiry?" with an optional note of up to 500 characters
@@ -41,56 +41,34 @@ export class DeclineEnquiryDialog {
   );
 
   protected readonly note = signal('');
-  protected readonly error = signal<string | null>(null);
-  protected readonly attempt = signal(0);
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
   protected readonly conflict = signal(false);
+  protected readonly state = new FormDialogState<string | null>(this.open, {
+    noErrors: null,
+    reset: () => {
+      this.note.set('');
+      this.conflict.set(false);
+    },
+  });
   protected readonly over = computed(() => graphemeLength(this.note()) > NOTE_MAX);
   protected readonly counter = computed(() => `${count(graphemeLength(this.note()))} / ${count(NOTE_MAX)}`);
   protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.error();
+    const e = this.state.errors();
     return e ? [{ controlId: 'note', message: e }] : [];
   });
 
-  constructor() {
-    effect(() => {
-      if (!this.open()) return;
-      untracked(() => {
-        this.note.set('');
-        this.error.set(null);
-        this.failed.set(false);
-        this.conflict.set(false);
-      });
-    });
-  }
-
   protected async confirm(): Promise<void> {
-    if (this.busy() || this.conflict()) return;
-    const error = noteError(this.note());
-    this.error.set(error);
-    this.failed.set(false);
-    if (error) {
-      this.attempt.update((n) => n + 1);
-      return;
-    }
-    this.busy.set(true);
-    try {
-      this.done.emit(await firstValueFrom(this.api.decline(this.thread().id, this.note().trim())));
-    } catch (e) {
-      const { status, problem } = problemOf(e);
-      if (status === 409) {
+    if (this.state.busy() || this.conflict()) return;
+    if (!this.state.validate(noteError(this.note()))) return;
+    await this.state.submit(
+      async () => this.done.emit(await firstValueFrom(this.api.decline(this.thread().id, this.note().trim()))),
+      async (status, problem) => {
+        if (status === 400) return this.state.reject(problem.errors?.['note']?.[0] ?? null);
+        if (status !== 409) return false;
         this.conflict.set(true);
         const fresh = await firstValueFrom(this.api.thread(this.thread().id, { markRead: false })).catch(() => null);
         if (fresh) this.updated.emit(fresh);
-      } else if (status === 400) {
-        this.error.set(problem.errors?.['note']?.[0] ?? null);
-        this.attempt.update((n) => n + 1);
-      } else {
-        this.failed.set(true);
-      }
-    } finally {
-      this.busy.set(false);
-    }
+        return true;
+      },
+    );
   }
 }

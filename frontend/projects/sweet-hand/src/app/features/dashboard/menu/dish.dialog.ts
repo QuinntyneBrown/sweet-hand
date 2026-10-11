@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Alert, DIETARY_TAGS, Dialog, Fieldset, FormField, FormSummary, TextField, Textarea, type DietaryTag, type SummaryItem } from '@sweet-hand/components';
-import { problemOf } from '../../../core/forms/problem';
 import { DIETARY_LABELS } from '../../discovery/caterer/dietary-labels';
 import { CatererProfileService, type DietaryTagId, type OwnDishView, type OwnProfileView } from '@sweet-hand/api';
 import type { Errors } from './errors';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 const NONE: Errors = { name: null, description: null, price: null };
 
@@ -38,10 +38,16 @@ export class DishDialog {
   protected readonly desc = signal('');
   protected readonly tags = signal<ReadonlySet<DietaryTag>>(new Set());
   protected readonly price = signal('');
-  protected readonly errors = signal<Errors>(NONE);
-  protected readonly attempt = signal(0);
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
+  protected readonly state = new FormDialogState<Errors, OwnDishView | null>(this.open, {
+    noErrors: NONE,
+    from: this.dish,
+    reset: (d) => {
+      this.name.set(d?.name ?? '');
+      this.desc.set(d?.description ?? '');
+      this.tags.set(new Set((d?.tags ?? []) as DietaryTag[]));
+      this.price.set(d?.price ?? '');
+    },
+  });
 
   protected readonly description = computed(() => {
     const d = this.dish();
@@ -51,7 +57,7 @@ export class DishDialog {
   });
   protected readonly counter = computed(() => $localize`:@@dish.counter:${this.desc().trim().length}:count: / 300`);
   protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.errors();
+    const e = this.state.errors();
     const priceSummary = $localize`:@@dish.priceError:Keep price guidance to 60 characters`;
     return [
       e.name && { controlId: 'dish-name', message: e.name },
@@ -65,7 +71,7 @@ export class DishDialog {
     return n === 1 ? $localize`:@@dish.fixOneAdd:Fix 1 thing to add this dish` : $localize`:@@dish.fixManyAdd:Fix ${n}:count: things to add this dish`;
   });
   protected readonly submitLabel = computed(() => {
-    if (this.failed()) return $localize`:@@common.tryAgain:Try again`;
+    if (this.state.failed()) return $localize`:@@common.tryAgain:Try again`;
     return this.dish() ? $localize`:@@common.saveChanges:Save changes` : $localize`:@@dish.add:Add dish`;
   });
   protected readonly busyMessage = computed(() => (this.dish() ? $localize`:@@dish.saving:Saving the dish` : $localize`:@@dish.adding:Adding the dish`));
@@ -73,22 +79,6 @@ export class DishDialog {
     const name = this.name().trim();
     return this.dish() ? $localize`:@@dish.failedSave:We couldn’t save “${name}:name:”` : $localize`:@@dish.failedAdd:We couldn’t add “${name}:name:”`;
   });
-
-  constructor() {
-    effect(() => {
-      if (!this.open()) return;
-      const d = this.dish();
-      untracked(() => {
-        this.name.set(d?.name ?? '');
-        this.desc.set(d?.description ?? '');
-        this.tags.set(new Set((d?.tags ?? []) as DietaryTag[]));
-        this.price.set(d?.price ?? '');
-        this.errors.set(NONE);
-        this.failed.set(false);
-        this.attempt.set(0);
-      });
-    });
-  }
 
   protected toggle(tag: DietaryTag, on: boolean): void {
     const next = new Set(this.tags());
@@ -99,7 +89,7 @@ export class DishDialog {
 
   /** Name 2–80, description up to 300, price guidance up to 60 (L2-043, L2-043.4). */
   protected async save(): Promise<void> {
-    if (this.busy()) return;
+    if (this.state.busy()) return;
     const name = this.name().trim();
     const description = this.desc().trim();
     const price = this.price().trim();
@@ -108,28 +98,15 @@ export class DishDialog {
       description: description.length > 300 ? $localize`:@@dish.descriptionError:Keep the description to 300 characters` : null,
       price: price.length > 60 ? $localize`:@@dish.priceLong:Keep price guidance to 60 characters (this is ${price.length}:count:)` : null,
     };
-    this.errors.set(errors);
-    this.failed.set(false);
-    if (errors.name || errors.description || errors.price) {
-      this.attempt.update((n) => n + 1);
-      return;
-    }
+    if (!this.state.validate(errors)) return;
     const request = { name, description, price, tags: DIETARY_TAGS.filter((t) => this.tags().has(t)) as DietaryTagId[] };
     const d = this.dish();
-    this.busy.set(true);
-    try {
-      const profile = await firstValueFrom(d ? this.api.updateDish(d.id, request) : this.api.addDish(request));
-      this.saved.emit(profile);
-    } catch (error) {
-      const { status, problem } = problemOf(error);
-      if (status === 400 && problem.errors) {
-        this.errors.set({ name: problem.errors['name']?.[0] ?? null, description: problem.errors['description']?.[0] ?? null, price: problem.errors['price']?.[0] ?? null });
-        this.attempt.update((n) => n + 1);
-      } else {
-        this.failed.set(true);
-      }
-    } finally {
-      this.busy.set(false);
-    }
+    await this.state.submit(
+      async () => this.saved.emit(await firstValueFrom(d ? this.api.updateDish(d.id, request) : this.api.addDish(request))),
+      (status, problem) =>
+        status === 400 &&
+        !!problem.errors &&
+        this.state.reject({ name: problem.errors['name']?.[0] ?? null, description: problem.errors['description']?.[0] ?? null, price: problem.errors['price']?.[0] ?? null }),
+    );
   }
 }

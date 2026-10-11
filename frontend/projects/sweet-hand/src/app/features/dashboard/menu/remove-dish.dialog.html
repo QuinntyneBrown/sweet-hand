@@ -9,7 +9,7 @@
   cancelLabel="Cancel"
   i18n-cancelLabel="@@common.cancel"
   [initialFocus]="blocked() ? 'auto' : 'cancel'"
-  [busy]="busy()"
+  [busy]="state.busy()"
   [busyMessage]="busyMessage()"
   [returnFocus]="returnFocus()"
   (dismissed)="closed.emit()"
@@ -19,7 +19,7 @@
   } @else {
     <svg slot="icon" shIcon="trash"></svg>
   }
-  @if (failed()) {
+  @if (state.failed()) {
     <sh-alert tone="danger" live="assertive" title="The dish wasn’t removed" i18n-title="@@removeDish.failedTitle"
       ><ng-container i18n="@@removeDish.failedText">We couldn’t reach Sweet Hand. Try again in a moment.</ng-container></sh-alert
     >
@@ -31,8 +31,8 @@
       slot="footer"
       class="btn btn--danger"
       type="button"
-      [attr.aria-busy]="busy() ? 'true' : null"
-      [attr.aria-disabled]="busy() ? 'true' : null"
+      [attr.aria-busy]="state.busy() ? 'true' : null"
+      [attr.aria-disabled]="state.busy() ? 'true' : null"
       (click)="remove()"
       i18n="@@removeDish.action"
     >

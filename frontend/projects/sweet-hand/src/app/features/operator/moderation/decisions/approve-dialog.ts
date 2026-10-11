@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Alert, ButtonAnchor, Checklist, ChecklistItem, Dialog, type CheckStatusLabels } from '@sweet-hand/components';
-import { problemOf } from '../../../../core/forms/problem';
 import { fullDate } from '../moderation-text';
 import { conflictText } from './decision-text';
 import { type DecisionResult, OperatorModerationService, type ProfileReviewView } from '@sweet-hand/api';
+import { FormDialogState } from '../../../../core/forms/form-dialog-state';
 
 /** "Approve Auntie Bev's Kitchen?" for a submission or a name change (decide-profile-approval design; docs/mocks/dialogs/approve-profile). */
 @Component({
@@ -22,9 +22,8 @@ export class ApproveDialog {
   readonly dismissed = output<void>();
   readonly done = output<DecisionResult>();
 
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
   protected readonly conflict = signal<string | null>(null);
+  protected readonly state = new FormDialogState(this.open, { noErrors: null, reset: () => this.conflict.set(null) });
   protected readonly tryAgain = $localize`:@@common.tryAgain:Try again`;
   protected readonly checkLabels: CheckStatusLabels = { done: '', missing: '', attention: '' };
 
@@ -63,29 +62,16 @@ export class ApproveDialog {
       : $localize`:@@approve.failedText:It is still pending and nothing was published. Try again in a moment.`,
   );
 
-  constructor() {
-    effect(() => {
-      if (!this.open()) return;
-      untracked(() => {
-        this.failed.set(false);
-        this.conflict.set(null);
-      });
-    });
-  }
-
   protected async approve(): Promise<void> {
-    if (this.busy() || this.conflict()) return;
+    if (this.state.busy() || this.conflict()) return;
     const r = this.review();
-    this.failed.set(false);
-    this.busy.set(true);
-    try {
-      this.done.emit(await firstValueFrom(r.kind === 'name-change' ? this.api.approveName(r.id) : this.api.approve(r.id)));
-    } catch (e) {
-      const { status, problem } = problemOf(e);
-      if (status === 409) this.conflict.set(conflictText(r.name, problem));
-      else this.failed.set(true);
-    } finally {
-      this.busy.set(false);
-    }
+    await this.state.submit(
+      async () => this.done.emit(await firstValueFrom(r.kind === 'name-change' ? this.api.approveName(r.id) : this.api.approve(r.id))),
+      (status, problem) => {
+        if (status !== 409) return false;
+        this.conflict.set(conflictText(r.name, problem));
+        return true;
+      },
+    );
   }
 }

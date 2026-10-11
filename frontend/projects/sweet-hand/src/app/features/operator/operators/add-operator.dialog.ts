@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Button, Dialog, FormField, FormSummary, Radio, RadioGroup, TextField, type SummaryItem } from '@sweet-hand/components';
-import { problemOf } from '../../../core/forms/problem';
 import { summaryHeading } from '../../../core/forms/validation';
 import { type OperatorAccount, OperatorSettingsService } from '@sweet-hand/api';
 import type { Field } from './field';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 const CONTROL: Record<Field, string> = { name: 'op-name', email: 'op-email' };
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -30,58 +30,34 @@ export class AddOperatorDialog {
   protected readonly email = new FormControl('', { nonNullable: true });
   /** Starts on Operator, the least privilege, so it is never empty. */
   protected readonly role = signal<string | null>('operator');
-  protected readonly errors = signal<Partial<Record<Field, string>>>({});
-  protected readonly attempt = signal(0);
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
+  protected readonly state = new FormDialogState<Partial<Record<Field, string>>>(this.open, {
+    noErrors: {},
+    reset: () => {
+      this.name.reset();
+      this.email.reset();
+      this.role.set('operator');
+    },
+  });
   protected readonly sending = $localize`:@@addOperator.busy:Sending the invitation`;
   protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.errors();
+    const e = this.state.errors();
     return (['name', 'email'] as const).filter((f) => e[f]).map((f) => ({ controlId: CONTROL[f], message: e[f]! }));
   });
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@addOperator.action:send the invitation`));
 
-  constructor() {
-    effect(() => {
-      if (this.open())
-        untracked(() => {
-          this.name.reset();
-          this.email.reset();
-          this.role.set('operator');
-          this.errors.set({});
-          this.failed.set(false);
-          this.attempt.set(0);
-        });
-    });
-  }
-
   protected async send(): Promise<void> {
-    if (this.busy()) return;
+    if (this.state.busy()) return;
     const name = this.name.value.replace(/\s+/g, ' ').trim();
     const email = this.email.value.trim();
     const errors: Partial<Record<Field, string>> = {};
     if (!name) errors.name = $localize`:@@addOperator.nameRequired:Enter their full name`;
     if (!email) errors.email = $localize`:@@addOperator.emailRequired:Enter their work email`;
     else if (!EMAIL.test(email)) errors.email = $localize`:@@validation.emailFormat:Enter an email address like name@example.com`;
-    this.failed.set(false);
-    this.errors.set(errors);
-    if (errors.name || errors.email) {
-      this.attempt.update((n) => n + 1);
-      return;
-    }
-    this.busy.set(true);
-    try {
-      this.added.emit(await firstValueFrom(this.api.addOperator({ name, email, role: this.role() === 'admin' ? 'admin' : 'operator' })));
-    } catch (error) {
-      const { status, problem } = problemOf(error);
-      if (status === 400 && problem.errors?.['email']) {
-        this.errors.set({ email: $localize`:@@addOperator.emailTaken:This email already has a Sweet Hand account` });
-        this.attempt.update((n) => n + 1);
-      } else {
-        this.failed.set(true);
-      }
-    } finally {
-      this.busy.set(false);
-    }
+    if (!this.state.validate(errors)) return;
+    await this.state.submit(
+      async () => this.added.emit(await firstValueFrom(this.api.addOperator({ name, email, role: this.role() === 'admin' ? 'admin' : 'operator' }))),
+      (status, problem) =>
+        status === 400 && !!problem.errors?.['email'] && this.state.reject({ email: $localize`:@@addOperator.emailTaken:This email already has a Sweet Hand account` }),
+    );
   }
 }

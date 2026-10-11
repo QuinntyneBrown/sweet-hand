@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Injector, afterNextRender, computed, effect, inject, input, output, signal, untracked, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Injector, afterNextRender, computed, inject, input, output, signal, viewChild } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Checklist, ChecklistItem, Dialog, Icon } from '@sweet-hand/components';
 import { AccountService, type AccountView } from '@sweet-hand/api';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 const plural = (n: number, one: string, many: string) => (n === 1 ? one : many);
 
@@ -50,9 +51,8 @@ export class DownloadDataDialog {
   /** The account with its export in progress, once requested. */
   readonly exportRequested = output<AccountView>();
 
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
   protected readonly requested = signal<AccountView | null>(null);
+  protected readonly state = new FormDialogState(this.open, { noErrors: null, reset: () => this.requested.set(null) });
   protected readonly lines = computed(() => exportLines(this.account()));
   protected readonly firstName = computed(() => this.account().displayName.trim().split(/\s+/)[0]);
   protected readonly title = $localize`:@@download.title:Download your data`;
@@ -63,28 +63,12 @@ export class DownloadDataDialog {
   protected readonly requesting = $localize`:@@download.busy:Requesting your export`;
   private readonly done = viewChild<ElementRef<HTMLButtonElement>>('done');
 
-  constructor() {
-    effect(() => {
-      if (this.open())
-        untracked(() => {
-          this.requested.set(null);
-          this.failed.set(false);
-        });
-    });
-  }
-
   protected async request(): Promise<void> {
-    if (this.busy()) return;
-    this.busy.set(true);
-    this.failed.set(false);
-    try {
+    if (this.state.busy()) return;
+    await this.state.submit(async () => {
       this.requested.set(await firstValueFrom(this.api.requestDataExport()));
       afterNextRender(() => this.done()?.nativeElement.focus(), { injector: this.injector });
-    } catch {
-      this.failed.set(true);
-    } finally {
-      this.busy.set(false);
-    }
+    });
   }
 
   protected close(): void {

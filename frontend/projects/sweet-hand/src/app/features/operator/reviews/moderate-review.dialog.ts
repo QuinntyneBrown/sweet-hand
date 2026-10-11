@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Button, Checkbox, Dialog, FormField, FormSummary, Icon, Stars, Textarea, Well, type SummaryItem } from '@sweet-hand/components';
@@ -6,6 +6,7 @@ import { summaryHeading } from '../../../core/forms/validation';
 import { ratingLabel } from '../../reviews/reviews-section/review-labels';
 import { type ModeratedReview, type ModerationAction, OperatorSettingsService } from '@sweet-hand/api';
 import type { Tone } from './tone';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 /** Approve, keep hidden, restore or remove a review, with a reason (docs/mocks/dialogs/moderate-review; ModerateReviewDialog, L2-059). */
 @Component({
@@ -28,10 +29,13 @@ export class ModerateReviewDialog {
 
   protected readonly reason = new FormControl('', { nonNullable: true });
   protected readonly understood = signal(false);
-  protected readonly errors = signal<{ reason?: string; understand?: string }>({});
-  protected readonly attempt = signal(0);
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
+  protected readonly state = new FormDialogState<{ reason?: string; understand?: string }>(this.open, {
+    noErrors: {},
+    reset: () => {
+      this.reason.reset();
+      this.understood.set(false);
+    },
+  });
   protected readonly saving = $localize`:@@moderate.busy:Saving your decision`;
   protected readonly retryLabel = $localize`:@@common.tryAgain:Try again`;
 
@@ -90,46 +94,23 @@ export class ModerateReviewDialog {
     return out;
   });
   protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.errors();
+    const e = this.state.errors();
     return [e.reason ? { controlId: 'reason', message: e.reason } : null, e.understand ? { controlId: 'understand', message: e.understand } : null].filter(
       (x): x is SummaryItem => !!x,
     );
   });
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@moderate.action:save your decision`));
 
-  constructor() {
-    effect(() => {
-      if (this.open())
-        untracked(() => {
-          this.reason.reset();
-          this.understood.set(false);
-          this.errors.set({});
-          this.failed.set(false);
-          this.attempt.set(0);
-        });
-    });
-  }
-
   protected async decide(): Promise<void> {
-    if (this.busy()) return;
+    if (this.state.busy()) return;
     const reason = this.reason.value.trim();
     const errors: { reason?: string; understand?: string } = {};
     if (!reason) errors.reason = $localize`:@@moderate.reasonRequired:Add a reason for this decision`;
     if (this.action() === 'remove' && !this.understood()) errors.understand = $localize`:@@moderate.understandRequired:Confirm you understand the review can’t be restored`;
-    this.errors.set(errors);
-    if (errors.reason || errors.understand) {
-      this.attempt.update((n) => n + 1);
-      return;
-    }
-    this.failed.set(false);
-    this.busy.set(true);
-    try {
+    if (!this.state.validate(errors)) return;
+    await this.state.submit(async () => {
       await firstValueFrom(this.api.moderate(this.review().id, this.action(), { reason }));
       this.decided.emit({ review: this.review(), action: this.action() });
-    } catch {
-      this.failed.set(true);
-    } finally {
-      this.busy.set(false);
-    }
+    });
   }
 }

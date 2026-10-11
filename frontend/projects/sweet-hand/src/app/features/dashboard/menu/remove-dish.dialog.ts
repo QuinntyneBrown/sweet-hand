@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Dialog, Icon } from '@sweet-hand/components';
 import { CatererProfileService, type OwnDishView, type OwnProfileView } from '@sweet-hand/api';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 /** Remove “Curry goat”? and Keep at least 3 dishes (docs/mocks/dialogs/remove-dish; L2-043.2). */
 @Component({
@@ -22,8 +23,7 @@ export class RemoveDishDialog {
   readonly removed = output<OwnProfileView>();
   readonly addRequested = output<void>();
 
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
+  protected readonly state = new FormDialogState(this.open, { noErrors: null });
   protected readonly title = computed(() =>
     this.blocked() ? $localize`:@@removeDish.blockedTitle:Keep at least 3 dishes` : $localize`:@@removeDish.title:Remove “${this.dish()?.name ?? ''}:name:”?`,
   );
@@ -34,23 +34,11 @@ export class RemoveDishDialog {
   );
   protected readonly busyMessage = computed(() => $localize`:@@removeDish.busy:Removing ${this.dish()?.name ?? ''}:name:`);
 
-  constructor() {
-    effect(() => {
-      if (this.open()) untracked(() => this.failed.set(false));
-    });
-  }
-
   protected async remove(): Promise<void> {
     const dish = this.dish();
-    if (!dish || this.busy()) return;
-    this.busy.set(true);
-    this.failed.set(false);
-    try {
+    if (!dish || this.state.busy()) return;
+    await this.state.submit(async () => {
       this.removed.emit(await firstValueFrom(this.api.removeDish(dish.id)));
-    } catch {
-      this.failed.set(true);
-    } finally {
-      this.busy.set(false);
-    }
+    });
   }
 }

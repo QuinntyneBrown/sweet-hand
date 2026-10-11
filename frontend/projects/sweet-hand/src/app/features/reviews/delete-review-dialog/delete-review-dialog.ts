@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Alert, Button, Dialog, Icon } from '@sweet-hand/components';
 import { ReviewsService } from '@sweet-hand/api';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 /**
  * "Delete your review?" (docs/detailed-designs/reviews/edit-or-delete-review,
@@ -25,8 +26,7 @@ export class DeleteReviewDialog {
 
   private readonly api = inject(ReviewsService);
 
-  protected readonly busy = signal(false);
-  protected readonly failed = signal(false);
+  protected readonly state = new FormDialogState(this.open, { noErrors: null });
   protected readonly deleting = $localize`:@@deleteReview.busy:Deleting your review`;
   protected readonly description = computed(() =>
     this.hasResponse()
@@ -34,24 +34,14 @@ export class DeleteReviewDialog {
       : $localize`:@@deleteReview.desc:Your review of ${this.catererName()}:name: will be removed. This can’t be undone.`,
   );
 
-  constructor() {
-    effect(() => {
-      if (this.open()) untracked(() => this.failed.set(false));
-    });
-  }
-
   protected async confirm(): Promise<void> {
     const id = this.reviewId();
-    if (this.busy() || !id) return;
-    this.busy.set(true);
-    this.failed.set(false);
-    try {
+    if (this.state.busy() || !id) return;
+    let deleted = false;
+    await this.state.submit(async () => {
       await firstValueFrom(this.api.remove(id));
-      this.busy.set(false);
-      this.closed.emit(true);
-    } catch {
-      this.busy.set(false);
-      this.failed.set(true);
-    }
+      deleted = true;
+    });
+    if (deleted) this.closed.emit(true);
   }
 }

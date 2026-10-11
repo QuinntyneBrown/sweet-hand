@@ -3,10 +3,10 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { Router, RouterLink, type Params } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Button, Combobox, Dialog, FormField, type AreaOption } from '@sweet-hand/components';
-import { problemOf } from '../../../core/forms/problem';
 import { toQueryParams, withArea, withRegion } from '../listing/listing-query';
 import { interpretSearch, matchCountText } from './area-search';
 import { DiscoveryService, type ListingQuery } from '@sweet-hand/api';
+import { FormDialogState } from '../../../core/forms/form-dialog-state';
 
 const REGIONS = [
   { id: 'city-of-toronto', name: 'City of Toronto' },
@@ -36,9 +36,15 @@ export class SearchDialog {
   protected readonly regions = REGIONS;
   protected readonly matchCountText = matchCountText;
   protected readonly text = signal('');
-  protected readonly error = signal<string | null>(null);
   protected readonly warning = signal<string | null>(null);
-  protected readonly busy = signal(false);
+  protected readonly state = new FormDialogState<string | null>(this.open, {
+    noErrors: null,
+    reset: () => {
+      this.text.set('');
+      this.warning.set(null);
+      this.state.busy.set(false);
+    },
+  });
   protected readonly busyMessage = computed(() => $localize`:@@search.busy:Finding caterers near ${this.text().trim().toUpperCase()}:postal:`);
 
   private readonly areas = rxResource({ params: () => this.open() || undefined, stream: () => this.api.serviceAreas() });
@@ -63,7 +69,7 @@ export class SearchDialog {
   }
 
   protected async submit(): Promise<void> {
-    this.error.set(null);
+    this.state.errors.set(null);
     this.warning.set(null);
     // A search sent before the area list has arrived waits for it rather than finding nothing.
     const areas = this.areas.hasValue() ? this.list() : await firstValueFrom(this.api.serviceAreas()).catch(() => []);
@@ -72,29 +78,26 @@ export class SearchDialog {
       case 'area':
         return this.goToArea(outcome.area.id);
       case 'invalid-postal':
-        this.error.set($localize`:@@search.invalidPostal:Enter a valid postal code, like M5V 2T6`);
+        this.state.errors.set($localize`:@@search.invalidPostal:Enter a valid postal code, like M5V 2T6`);
         return;
       case 'no-match':
       case 'empty':
         return;
       case 'postal': {
-        this.busy.set(true);
-        try {
-          const area = await firstValueFrom(this.api.resolveFsa(outcome.fsa));
-          this.busy.set(false);
-          return this.goToArea(area.id);
-        } catch (e) {
-          this.busy.set(false);
-          if (problemOf(e).status === 404) this.warning.set($localize`:@@search.outOfArea:Sweet Hand currently serves Toronto and the GTA`);
-        }
+        let id: string | undefined;
+        await this.state.submit(
+          async () => (id = (await firstValueFrom(this.api.resolveFsa(outcome.fsa))).id),
+          (status) => {
+            if (status === 404) this.warning.set($localize`:@@search.outOfArea:Sweet Hand currently serves Toronto and the GTA`);
+            return true;
+          },
+        );
+        if (id) return this.goToArea(id);
       }
     }
   }
 
   private reset(): void {
-    this.text.set('');
-    this.error.set(null);
-    this.warning.set(null);
-    this.busy.set(false);
+    this.state.open();
   }
 }

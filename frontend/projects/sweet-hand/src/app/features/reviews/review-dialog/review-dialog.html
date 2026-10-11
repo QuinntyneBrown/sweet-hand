@@ -6,7 +6,7 @@
   i18n-closeLabel="@@common.close"
   [cancelLabel]="step() === 'form' ? cancelText : null"
   [form]="step() === 'form'"
-  [busy]="busy()"
+  [busy]="state.busy()"
   [busyMessage]="busyMessage()"
   [returnFocus]="returnFocus()"
   (dismissed)="closed.emit('dismissed')"
@@ -28,32 +28,32 @@
       </div>
     }
     @default {
-      @if (failed()) {
+      @if (state.failed()) {
         <sh-alert tone="danger" live="assertive" [title]="editing() ? notSavedTitle : notPostedTitle"
           ><ng-container i18n="@@review.failedText">Something went wrong on our side. Your words are still here.</ng-container></sh-alert
         >
       }
-      <sh-form-summary [heading]="summaryTitle()" [headingLevel]="3" [items]="summary()" [attempt]="attempt()" summaryId="review-summary" />
+      <sh-form-summary [heading]="summaryTitle()" [headingLevel]="3" [items]="summary()" [attempt]="state.attempt()" summaryId="review-summary" />
       <sh-star-input
         [value]="rating()"
         (valueChange)="rating.set($event)"
         legend="Your rating"
         i18n-legend="@@review.ratingLegend"
         [starLabels]="starLabels"
-        [error]="errors().rating"
-        [disabled]="busy()"
+        [error]="state.errors().rating"
+        [disabled]="state.busy()"
         [autofocus]="!editing()"
       />
-      <sh-form-field label="Your review" i18n-label="@@review.textLabel" controlId="text" [help]="help()" [counter]="counter()" [counterOver]="length() > 2000" [error]="errors().text">
-        <sh-textarea name="text" [rows]="5" [(value)]="text" [readonly]="busy()" [autofocus]="editing()" />
+      <sh-form-field label="Your review" i18n-label="@@review.textLabel" controlId="text" [help]="help()" [counter]="counter()" [counterOver]="length() > 2000" [error]="state.errors().text">
+        <sh-textarea name="text" [rows]="5" [(value)]="text" [readonly]="state.busy()" [autofocus]="editing()" />
       </sh-form-field>
     }
   }
 
   @switch (step()) {
     @case ('form') {
-      <sh-button slot="footer" type="submit" variant="primary" [busy]="busy()"
-        >@if (failed()) {<ng-container i18n="@@common.tryAgain">Try again</ng-container>} @else if (editing()) {<ng-container i18n="@@review.save">Save changes</ng-container>} @else {<ng-container
+      <sh-button slot="footer" type="submit" variant="primary" [busy]="state.busy()"
+        >@if (state.failed()) {<ng-container i18n="@@common.tryAgain">Try again</ng-container>} @else if (editing()) {<ng-container i18n="@@review.save">Save changes</ng-container>} @else {<ng-container
             i18n="@@review.post"
             >Post review</ng-container
           >}</sh-button
