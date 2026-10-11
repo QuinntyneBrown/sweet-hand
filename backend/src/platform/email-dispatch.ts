@@ -42,13 +42,14 @@ export async function dispatchDueEmails(env: Environment, gateway: EmailGateway,
       if (!failure) {
         const { link: _link, ...rest } = current;
         void _link;
-        await outbox(tx).put({ ...rest, status: 'sent', sentAt: now.toISOString() });
+        // Mail to a deleted account keeps no address once sent (L2-072).
+        await outbox(tx).put({ ...rest, ...(rest.forgetRecipient ? { to: '' } : {}), status: 'sent', sentAt: now.toISOString() });
         sent++;
         return;
       }
       const attempts = ((current.attempts as number | undefined) ?? 0) + 1;
       if (now.getTime() - Date.parse(current.at) >= GIVE_UP_AFTER_MS) {
-        await outbox(tx).put({ ...current, attempts, status: 'failed', failedAt: now.toISOString() });
+        await outbox(tx).put({ ...current, ...(current.forgetRecipient ? { to: '' } : {}), attempts, status: 'failed', failedAt: now.toISOString() });
         alert(`Email ${current.id} (${current.kind}) failed for 24 hours and was given up`);
         return;
       }

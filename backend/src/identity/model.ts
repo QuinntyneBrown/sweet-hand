@@ -34,6 +34,10 @@ export interface User extends Document {
   acceptedPrivacyAt: string;
   /** Recent failed sign-ins (L2-076.4). */
   failedSignInsAt?: string[];
+  /** The latest completed sign-in; inactivity is counted from it, or from creation (L2-073.2). */
+  lastSignInAt?: string;
+  /** When the inactivity warning was sent; a sign-in clears it (L2-073.2). */
+  inactivityWarnedAt?: string;
   lockedUntil?: string | null;
 }
 

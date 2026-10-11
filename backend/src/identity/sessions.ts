@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import type { Actor, Request } from '../http/endpoint.ts';
 import { serializeCookie } from '../http/cookies.ts';
 import { randomToken, sha256 } from '../platform/secrets.ts';
-import { liveUser, sessions, type Session, type User } from './model.ts';
+import { liveUser, sessions, users, type Session, type User } from './model.ts';
 
 export const SESSION_COOKIE = 'sh_session';
 
@@ -85,7 +85,17 @@ export async function startSession(req: Request, user: User, options: { pendingS
     ...(options.pendingSecondFactor ? { pendingSecondFactor: true } : {}),
   });
   sessionCookie(req, token);
+  if (!options.pendingSecondFactor) await recordSignIn(req, user.id);
   return token;
+}
+
+/** A completed sign-in: the inactivity clock restarts and any inactivity warning is cleared (L2-073.2). */
+export async function recordSignIn(req: Request, userId: string): Promise<void> {
+  const current = await users(req.tx).get(userId);
+  if (!current) return;
+  const { inactivityWarnedAt: _warned, ...rest } = current;
+  void _warned;
+  await users(req.tx).put({ ...rest, lastSignInAt: req.now.toISOString() });
 }
 
 /** Ends the browser's session, if any; true when there was one. */

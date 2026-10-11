@@ -1,6 +1,9 @@
 import type { Request, Reply } from '../http/endpoint.ts';
 import { invalid, noContent } from '../http/problems.ts';
-import { queueEmail } from '../platform/outbox.ts';
+import { outbox, queueEmail } from '../platform/outbox.ts';
+import { enquiryDrafts } from '../enquiries/drafts.ts';
+import { removedPhotos } from '../caterer-profile/model.ts';
+import { discardPhotoMedia } from '../caterer-profile/processing.ts';
 import { verifyPassword } from '../platform/secrets.ts';
 import type { DeleteAccountRequest } from '@contract/delete-account-request.ts';
 import { caterers, type Caterer } from '../caterers/model.ts';
@@ -47,7 +50,12 @@ async function processCaterer(req: Request, profile: Caterer): Promise<string[]>
     await enquiries(req.tx).put(next);
   }
   for (const r of await reviews(req.tx).find({ catererId: profile.id })) await reviews(req.tx).delete(r.id);
-  const files = [...profile.photos.map((p) => p.file), ...(profile.certificate?.fileMediaId ? [profile.certificate.fileMediaId] : [])];
+  // Photos waiting behind Undo, pending replacements and the certificate go too.
+  const removed = await removedPhotos(req.tx).find({ catererId: profile.id });
+  for (const r of removed) await removedPhotos(req.tx).delete(r.id);
+  const photos = [...profile.photos, ...removed.map((r) => r.photo)];
+  for (const p of photos) if (p.pendingFile) await discardPhotoMedia(req, p.pendingFile);
+  const files = [...photos.map((p) => p.file), ...(profile.certificate?.fileMediaId ? [profile.certificate.fileMediaId] : [])];
   await caterers(req.tx).put({
     ...profile,
     status: 'Removed',
@@ -82,7 +90,22 @@ export async function deleteAccount(req: Request): Promise<Reply> {
     return invalid({ password: ['That password isn’t right'] });
   }
 
-  await queueEmail(req.tx, req.now, { to: user.email, kind: 'account-deleted' });
+  await processDeletion(req, user);
+  clearSessionCookie(req);
+  return noContent();
+}
+
+/**
+ * The deletion processing (ProcessAccountDeletionJob, AccountDeletionPolicy),
+ * shared by self-deletion and the inactive-account retention rule (L2-072,
+ * L2-073.2). Every email already sent to the address forgets it; the
+ * confirmation and anything still queued forget it once sent.
+ */
+export async function processDeletion(req: Request, user: User): Promise<void> {
+  for (const m of await outbox(req.tx).find({ to: user.email })) {
+    await outbox(req.tx).put(m.status === 'queued' ? { ...m, forgetRecipient: true } : { ...m, to: '' });
+  }
+  await queueEmail(req.tx, req.now, { to: user.email, kind: 'account-deleted', forgetRecipient: true });
   const profile = user.catererId ? await caterers(req.tx).get(user.catererId) : undefined;
   const files = profile ? await processCaterer(req, profile) : [];
   if (!profile) await processCustomer(req, user);
@@ -106,7 +129,9 @@ export async function deleteAccount(req: Request): Promise<Reply> {
     deleted: true,
     deletedAt: req.now.toISOString(),
   });
-  clearSessionCookie(req);
-  for (const f of files) await req.env.media.delete(f);
-  return noContent();
+  for (const d of await enquiryDrafts(req.tx).find({ userId: user.id })) await enquiryDrafts(req.tx).delete(d.id);
+  for (const f of files) {
+    await discardPhotoMedia(req, f);
+    await req.env.media.delete(f);
+  }
 }

@@ -4,7 +4,7 @@ import { validSecurityKeyAssertion } from '../platform/security-key.ts';
 import type { SecondFactorRequest } from '@contract/second-factor-request.ts';
 import type { SignInResult } from '@contract/sign-in-result.ts';
 import { sessions, type User } from './model.ts';
-import { currentSession } from './sessions.ts';
+import { currentSession, recordSignIn } from './sessions.ts';
 import { privacyUpdateRequired } from './privacy.ts';
 import { verifyTotp } from './totp.ts';
 
@@ -20,5 +20,6 @@ export async function completeSecondFactor(req: Request): Promise<Reply> {
       : body.method === 'authenticator app' && !!user.totpSecret && verifyTotp(user.totpSecret, body.code, req.now);
   if (!passed) return invalid({ code: ['That code didn’t work'] });
   await sessions(req.tx).put({ ...session, pendingSecondFactor: false, lastActiveAt: req.now.toISOString() });
+  await recordSignIn(req, user.id);
   return ok({ secondFactorRequired: false, privacyUpdateRequired: await privacyUpdateRequired(req.tx, user) } satisfies SignInResult);
 }
