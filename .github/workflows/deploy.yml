@@ -33,7 +33,9 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
       - name: Assert the production subscription
-        run: test "$(az account show --query id -o tsv)" = "4a1b5113-89f9-4d27-acfe-581493385536"
+        run: |
+          test "$(az account show --query id -o tsv)" = "4a1b5113-89f9-4d27-acfe-581493385536"
+          az extension add --name containerapp --only-show-errors
       - name: Choose the bot challenge
         # Both Turnstile values turn the challenge on. Neither is the documented, temporary
         # opt-out before the widget exists (L2-104.9); one without the other is a mistake.
