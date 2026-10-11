@@ -5,6 +5,7 @@ import { approveName, approveProfile, declineName, requestChanges } from './deci
 import { catererRecordView, listCaterersForOperators } from './records.ts';
 import { reinstate, remove, suspend } from './status-actions.ts';
 import { editProfile, removeDish, removePhoto } from './operator-edits.ts';
+import { recentChanges, revertChange } from './recent-changes.ts';
 import { certificateFile, certificateFileLink, profileForReview } from './profile-review.ts';
 
 const operators = roles('Operator');
@@ -29,6 +30,8 @@ export const moderationArea: Area = (r) => {
   r.patch('/api/operator/profiles/:id', operators, editProfile);
   r.delete('/api/operator/profiles/:id/photos/:item', operators, removePhoto);
   r.delete('/api/operator/profiles/:id/menu-items/:item', operators, removeDish);
+  r.get('/api/operator/recent-changes', operators, recentChanges);
+  r.post('/api/operator/recent-changes/:id/revert', operators, revertChange);
   r.post('/api/operator/profiles/:id/name/approve', operators, approveName);
   r.post('/api/operator/profiles/:id/name/request-changes', operators, declineName);
 };

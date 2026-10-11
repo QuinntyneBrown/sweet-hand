@@ -1,4 +1,5 @@
 import { caterers } from '../../caterers/model.ts';
+import { profileEdits } from '../../moderation/model.ts';
 import type { Scenarios } from '../scenario.ts';
 
 /** Named arrangements of the operator moderation specs (frontend/e2e/specs/operator/moderation). */
@@ -14,5 +15,9 @@ export const moderationScenarios: Scenarios = {
   /** First run: no caterer has registered (admin-caterers/empty). */
   'no-caterers': async ({ tx }) => {
     for (const c of await caterers(tx).all()) await caterers(tx).delete(c.id);
+  },
+  /** No caterer edited a published profile in the last 30 days (admin-changes/empty). */
+  'no-recent-changes': async ({ tx }) => {
+    for (const e of await profileEdits(tx).all()) await profileEdits(tx).delete(e.id);
   },
 };
