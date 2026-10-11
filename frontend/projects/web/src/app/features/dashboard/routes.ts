@@ -30,6 +30,13 @@ export const dashboardRoutes: Routes = [
         data: { mainClass: 'container' },
         title: $localize`:@@details.documentTitle:Business details · Sweet Hand`,
       },
+      {
+        path: 'profile/cuisines',
+        canActivate: [editorOpen],
+        loadComponent: () => import('./cuisines/cuisines.page').then((m) => m.CuisinesPage),
+        data: { mainClass: 'container' },
+        title: $localize`:@@cuisines.documentTitle:Cuisines and areas · Sweet Hand`,
+      },
       { path: '**', loadComponent: () => import('../../shell/system-page').then((m) => m.SystemPage), data: { kind: 'not-found' } },
     ],
   },
