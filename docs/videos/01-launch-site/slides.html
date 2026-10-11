@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video 01 Slides</title>
+<link rel="stylesheet" href="../assets/slides.css">
+</head>
+<body data-video-number="01" data-video-title="The launch site" data-parts="Introduction|The page|Going to the form|Accessibility|Phones and no JavaScript|Performance|Architecture|Privacy notice|Recap">
+
+<section id="title" data-part="0">
+  <img class="mark" src="../assets/mark.svg" alt="">
+  <div class="kicker">Sweet Hand · Video 01</div>
+  <h1>The launch site</h1>
+  <p class="lead">One prerendered page at <code>/</code> until launch day, running against the real API on PostgreSQL</p>
+</section>
+
+<section id="outcomes" data-part="0" data-cue="By the end you'll know what the page shows">
+  <h2>By the end, you'll know</h2>
+  <ul>
+    <li>What the launch page shows, and what it deliberately leaves out</li>
+    <li>How the header button and “Join as a caterer” reach the form</li>
+    <li>How it holds up on a phone, in dark mode, by keyboard and without JavaScript</li>
+  </ul>
+  <p class="small muted">Requirements L2-092 to L2-094 and L2-105 to L2-107 · <span class="file">docs/detailed-designs/launch/serve-launch-site/</span></p>
+</section>
+
+<section id="page-tour" data-part="1" data-cue="Here is the page as a visitor first sees it" data-clip="clips/page-tour.mp4" data-clip-delay="1">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">Real app</span>
+    <h3>Header, hero, form, How it works, caterers, footer</h3>
+    <p class="muted">In the mock's order, with the mock's copy (L2-093).</p>
+  </aside>
+</section>
+
+<section id="links" data-part="1" data-cue="That order and that copy come straight from the launch mock">
+  <h2>Only four kinds of link</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>The page links to</h3>
+      <ul><li><code>/</code> and in-page anchors</li><li>The privacy notice, <code>/privacy</code></li><li>The contact <code>mailto:</code> address</li></ul>
+    </div>
+    <div class="card">
+      <h3>Never to</h3>
+      <ul><li>Sign in or registration</li><li>Caterer listings</li><li>Anything in the unopened product</li></ul>
+    </div>
+  </div>
+  <p class="small muted">L2-093 criterion 2, checked by <span class="file">e2e/specs/launch/serve-launch-site.spec.ts</span></p>
+</section>
+
+<section id="two-buttons" data-part="2" data-cue="Two ways to the form">
+  <h2>Two ways to the form</h2>
+  <ol class="steps">
+    <li><span><strong>Get the launch email</strong> in the header: scroll to the form, focus its heading</span></li>
+    <li><span><strong>Join as a caterer</strong>: same, and select “A caterer” first, keeping any typed email</span></li>
+  </ol>
+</section>
+
+<section id="go-to-form" data-part="2" data-cue="Watch the header button first" data-clip="clips/go-to-form.mp4" data-clip-delay="0.5">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">L2-094</span>
+    <h3>Header button, then Join as a caterer</h3>
+    <p class="muted">The role switches to caterer, the business name field appears, the email stays.</p>
+  </aside>
+</section>
+
+<section id="motion" data-part="2" data-cue="If the system asks for reduced motion">
+  <h2>Small details that matter</h2>
+  <ul>
+    <li><code>prefers-reduced-motion: reduce</code> → jump, no smooth scroll</li>
+    <li><code>/#notify</code> opens already at the form (the flyer's QR code can use it)</li>
+    <li>Focus lands on the section heading, so screen readers start in the right place</li>
+  </ul>
+  <p class="file">frontend/projects/launch/src/app/launch-page/notify-scroller.ts</p>
+</section>
+
+<section id="a11y" data-part="3" data-cue="Accessibility is a requirement, not a polish step">
+  <h2>WCAG 2.2 AA in every state</h2>
+  <p class="lead">Light and dark, phone and desktop (L2-107)</p>
+</section>
+
+<section id="keyboard" data-part="3" data-cue="The first Tab shows a Skip to main content link" data-clip="clips/keyboard.mp4" data-clip-delay="0.5">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">Keyboard only</span>
+    <h3>Skip link, reading order, one radio group</h3>
+    <p class="muted">Space selects a role; arrow keys move between them.</p>
+  </aside>
+</section>
+
+<section id="axe" data-part="3" data-cue="runs axe-core with the WCAG 2.2 A and AA rules">
+  <h2>Checked by the suite</h2>
+  <pre class="code" data-lang="ts">/** axe-core with WCAG 2.2 A and AA rules, at XS and XL,
+    in the light and dark themes (L2-107.1). */
+async expectNoAccessibilityViolations() {
+  for (const width of [375, 1280]) {
+    for (const colorScheme of ['light', 'dark'] as const) {
+      await this.page.setViewportSize({ width, height: 900 });
+      await this.page.emulateMedia({ colorScheme });
+      const results = await new AxeBuilder({ page: this.page })
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22aa'])
+        .analyze();</pre>
+  <p class="file">frontend/e2e/pages/launch.page.ts</p>
+</section>
+
+<section id="phone-dark" data-part="4" data-cue="Here it is at three hundred and ninety pixels wide" data-clip="clips/phone-dark.mp4" data-clip-delay="0.5">
+  <video class="clip phone"></video>
+  <aside class="clip-notes">
+    <span class="tag">390 px · dark mode</span>
+    <h3>Stacks on a phone, follows the system theme</h3>
+    <p class="muted">No sideways scrolling from 320 to 2560 pixels; <code>viewport-fit=cover</code> with safe-area insets (L2-106).</p>
+  </aside>
+</section>
+
+<section id="no-js" data-part="4" data-cue="Now the same page with JavaScript turned off" data-clip="clips/no-javascript.mp4" data-clip-delay="0.5">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">JavaScript off</span>
+    <h3>Every word and photo still there</h3>
+    <p class="muted"><code>/</code> and <code>/privacy</code> are prerendered to static HTML at build time (L2-105.1).</p>
+  </aside>
+</section>
+
+<section id="budget" data-part="5" data-cue="That prerendering is part of a performance budget">
+  <h2>The first-load budget</h2>
+  <table class="facts">
+    <thead><tr><th>Measure</th><th>Limit (L2-105)</th><th>This build</th></tr></thead>
+    <tbody>
+      <tr><td>Initial JavaScript, gzipped</td><td>100 KB</td><td><strong>73.5 KB</strong></td></tr>
+      <tr><td>Everything the first load transfers</td><td>350 KB</td><td><strong>141.9 KB</strong></td></tr>
+      <tr><td>Largest photo</td><td>25 KB</td><td><strong>4 photos, all under</strong></td></tr>
+    </tbody>
+  </table>
+  <pre class="code" data-lang="sh">$ npm run build:launch
+Prerendered 2 static routes.
+launch: initial JavaScript 73.5 KB gzipped, first load 141.9 KB, 4 photos</pre>
+</section>
+
+<section id="quiet-load" data-part="5" data-cue="Opening the page also makes no request to the API">
+  <h2>A quiet first load</h2>
+  <div class="cols">
+    <div class="card"><h3>0 API requests</h3><p>Until the form is sent or an email link is opened (L2-105.5)</p></div>
+    <div class="card"><h3>0 cookies</h3><p>The CSRF cookie arrives with the first sign-up; no analytics or third-party scripts (L2-103.5)</p></div>
+  </div>
+</section>
+
+<section id="architecture" data-part="6" data-cue="A slim application of its own">
+  <h2>A slim application of its own</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>Frontend</h3>
+      <p class="file">frontend/projects/launch/</p>
+      <ul><li>Its own build, serve, test and i18n targets</li><li>Imports only Angular and <code>@sweet-hand/api</code>; its only CSS is the design system</li><li>Deleted on launch day without touching the product</li></ul>
+    </div>
+    <div class="card">
+      <h3>Backend</h3>
+      <p class="file">backend/src/launch-list/</p>
+      <ul><li>An area of the existing NestJS API</li><li>No new stateful service: PostgreSQL only</li><li>Every route anonymous by explicit choice</li></ul>
+    </div>
+  </div>
+</section>
+
+<section id="privacy" data-part="7" data-cue="Both Privacy links open a notice" data-clip="clips/privacy.mp4" data-clip-delay="0.5">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">L2-103.4</span>
+    <h3>Served before the product exists</h3>
+    <p class="muted">Purpose, data kept, processors in Canada, retention, how to leave.</p>
+  </aside>
+</section>
+
+<section id="fixes" data-part="7" data-cue="While recording this video we found two small bugs">
+  <h2>Two fixes found while recording</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>“Write tohello@…”</h3>
+      <p>The space before the contact link was dropped. The sentence is now one i18n message with the link inside.</p>
+      <p class="file">launch-privacy-page.html</p>
+    </div>
+    <div class="card">
+      <h3>Stray table border</h3>
+      <p>The last row of a table with row headers kept a border under its header cell.</p>
+      <p class="file">docs/design-system/assets/components.css</p>
+    </div>
+  </div>
+</section>
+
+<section id="recap" data-part="8" data-cue="Things to remember">
+  <h2>Things to remember</h2>
+  <ul class="recap">
+    <li>One prerendered page, the mock's content, no links into the unopened product</li>
+    <li>Two buttons to the form; “Join as a caterer” picks the role and keeps what was typed</li>
+    <li>Phones, dark mode, keyboard, no JavaScript, and a strict size budget</li>
+  </ul>
+  <p class="lead">Next: video 02, joining the launch list</p>
+</section>
+
+<script src="../assets/slides.js"></script>
+</body>
+</html>

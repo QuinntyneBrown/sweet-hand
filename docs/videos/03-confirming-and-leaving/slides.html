@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video 03 Slides</title>
+<link rel="stylesheet" href="../assets/slides.css">
+</head>
+<body data-video-number="03" data-video-title="Confirming and leaving" data-parts="Introduction|Double opt-in|Confirming|Expired links|Leaving|One-click unsubscribe|What is stored|Recap">
+
+<section id="title" data-part="0">
+  <img class="mark" src="../assets/mark.svg" alt="">
+  <div class="kicker">Sweet Hand · Video 03</div>
+  <h1>Confirming and leaving</h1>
+  <p class="lead">Double opt-in by email, and one click to leave</p>
+</section>
+
+<section id="opt-in" data-part="1" data-cue="Requirement L2-099 makes the launch list double opt-in">
+  <h2>Double opt-in</h2>
+  <ul>
+    <li>One confirmation link to the launch site, single-use, valid for 48 hours</li>
+    <li>Ignored? Nothing happens; the hourly sweep deletes the pending record after 48 hours</li>
+    <li>Only confirmed addresses get the launch-day email</li>
+  </ul>
+  <p class="small muted">L2-099 · <span class="file">docs/detailed-designs/launch/confirm-launch-list-email/</span></p>
+</section>
+
+<section id="outbox-note" data-part="1" data-cue="There is no email provider chosen yet">
+  <h2>About the emails on screen</h2>
+  <div class="card">
+    <h3>Outbox records, not designed emails</h3>
+    <p>The email provider and the email designs are still to come. The recordings show exactly what the API queued: sender, address, links and the sender details CASL needs.</p>
+  </div>
+</section>
+
+<section id="confirm-clip" data-part="2" data-cue="Marcia has just signed up as a caterer" data-clip="clips/confirm.mp4" data-clip-delay="0.5">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">L2-099</span>
+    <h3>“You’re on the list”</h3>
+    <p class="muted">Token posted after load, then cleared from the address bar.</p>
+  </aside>
+</section>
+
+<section id="post-not-get" data-part="2" data-cue="The API marks the record confirmed and records the time">
+  <h2>Why a POST after the page loads</h2>
+  <div class="cols">
+    <div class="card"><h3>Scanners fetch links</h3><p>Opening <code>/?confirmed=…</code> changes nothing on its own. The page posts the token to <code>/api/launch-list/confirmations</code>.</p></div>
+    <div class="card"><h3>Then the token goes</h3><p><code>history.replaceState</code> drops it, so reloading or sharing shows the plain launch page.</p></div>
+  </div>
+  <p class="small muted">Focus moves to “You’re on the list”; “Remove my email” is next in the tab order (L2-107.6).</p>
+</section>
+
+<section id="phone-clip" data-part="2" data-cue="The same flow on a phone" data-clip="clips/confirm-phone.mp4" data-clip-delay="0.3">
+  <video class="clip phone"></video>
+  <aside class="clip-notes">
+    <span class="tag">390 px</span>
+    <h3>Confirmed, on a phone</h3>
+  </aside>
+</section>
+
+<section id="expired-clip" data-part="3" data-cue="What if Marcia opens the same link again" data-clip="clips/link-expired.mp4" data-clip-delay="0.3">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">HTTP 410</span>
+    <h3>“That link has expired”</h3>
+    <p class="muted">Used, older than 48 hours, replaced, or unknown: same warning, list unchanged.</p>
+  </aside>
+</section>
+
+<section id="leaving" data-part="4" data-cue="Requirement L2-100 says leaving takes one click">
+  <h2>Leaving: one click, deleted</h2>
+  <ol class="steps">
+    <li><span>“Remove my email” on the confirmed page</span></li>
+    <li><span>The removal link in any launch list email</span></li>
+    <li><span>The mail client's own unsubscribe button</span></li>
+  </ol>
+</section>
+
+<section id="remove-clip" data-part="4" data-cue="From the confirmed page, Andre presses Remove my email" data-clip="clips/remove-button.mp4" data-clip-delay="0.3">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">L2-100.1</span>
+    <h3>“You’re off the list”</h3>
+    <p class="muted">“We’ve deleted andre.p@example.com.” The consent box is unticked again.</p>
+  </aside>
+</section>
+
+<section id="removal-clip" data-part="4" data-cue="Every email the launch list sends also carries a removal link" data-clip="clips/removal-link.mp4" data-clip-delay="0.3">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">L2-100.3 · L2-100.5</span>
+    <h3>From the email, then again</h3>
+    <p class="muted">303 to <code>/?remove=…</code>, the page posts the token. A second visit names no address.</p>
+  </aside>
+</section>
+
+<section id="one-click" data-part="5" data-cue="Mail clients offer their own unsubscribe button">
+  <h2>RFC 8058 one-click unsubscribe</h2>
+  <pre class="code" data-lang="sh">List-Unsubscribe: &lt;https://…/api/launch-list/unsubscribe?token=…&gt;
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+
+GET  /api/launch-list/unsubscribe?token=…   → 303 /?remove=…   record still there
+POST /api/launch-list/unsubscribe?token=…   → 200              record gone, 0 tokens left</pre>
+  <p class="small muted">Real responses from the API on PostgreSQL. The POST is <code>@WithoutCsrf()</code>: its token is its only authority, and it can only delete.</p>
+</section>
+
+<section id="stored" data-part="6" data-cue="Requirement L2-103 keeps the record small">
+  <h2>A confirmed record</h2>
+  <pre class="code tight" data-lang="json">{
+  "role": "caterer",
+  "email": "marcia.t@example.com",
+  "businessName": "Demerara Kitchen",
+  "status": "Confirmed",
+  "consent": {
+    "wording": ["Email me when Sweet Hand opens", "One email, nothing else."],
+    "noticeVersion": "2026-03",
+    "pageUrl": "http://localhost:4201/",
+    "signedUpAt": "2026-10-11T13:11:32.633Z",
+    "confirmedAt": "2026-10-11T13:11:32.681Z"
+  },
+  "createdAt": "2026-10-11T13:11:32.633Z",
+  "confirmationsSent": ["2026-10-11T13:11:32.633Z"]
+}</pre>
+  <p class="small muted">From the <code>launchList</code> collection in PostgreSQL (id and lookup key omitted)</p>
+</section>
+
+<section id="tokens" data-part="6" data-cue="Tokens are never stored as they are">
+  <h2>Tokens: hashes only</h2>
+  <pre class="code tight" data-lang="json">{"kind":"confirm","tokenHash":"9706f29bef9cf2363ee8c17fadc6…","consumedAt":"2026-10-11T13:11:32.681Z"}
+{"kind":"remove", "tokenHash":"3bbffbd5b43e859a60219dc45e6b…"}</pre>
+  <ul>
+    <li>256 bits from <code>randomBytes(32)</code>; only the SHA-256 hash is stored</li>
+    <li>Removal deletes the record, its tokens and its queued emails</li>
+  </ul>
+  <p class="file">backend/src/launch-list/tokens.ts · erase.ts</p>
+</section>
+
+<section id="recap" data-part="7" data-cue="Things to remember">
+  <h2>Things to remember</h2>
+  <ul class="recap">
+    <li>It only counts once confirmed: one single-use link, 48 hours</li>
+    <li>Tokens are posted after load and cleared from the address bar</li>
+    <li>One click to leave, from the page, the email or the mail client, and it deletes</li>
+  </ul>
+  <p class="lead">Next: video 04, launch day</p>
+</section>
+
+<script src="../assets/slides.js"></script>
+</body>
+</html>

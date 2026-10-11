@@ -131,7 +131,9 @@ sweet-hand/
 │   ├── design-system/         tokens, foundations and components
 │   ├── adr/                   architecture decision records
 │   ├── technical-debt/        technical-debt registers
-│   └── marketing/             print-ready flyer and stickers
+│   ├── marketing/             print-ready flyer and stickers
+│   └── videos/                narrated demo videos of the launch app
+├── tools/          video tooling: narration, screen recordings, MP4 builds
 └── assets/         logo and shared imagery
 ```
 

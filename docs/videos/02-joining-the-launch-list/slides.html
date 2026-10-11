@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video 02 Slides</title>
+<link rel="stylesheet" href="../assets/slides.css">
+</head>
+<body data-video-number="02" data-video-title="Joining the launch list" data-parts="Introduction|The fields|Mistakes|Server checks|Success|Failure|No enumeration|Rate limits|Recap">
+
+<section id="title" data-part="0">
+  <img class="mark" src="../assets/mark.svg" alt="">
+  <div class="kicker">Sweet Hand · Video 02</div>
+  <h1>Joining the launch list</h1>
+  <p class="lead">The sign-up form, its mistakes and failures, and an answer that never gives anyone away</p>
+</section>
+
+<section id="fields" data-part="1" data-cue="The form asks for four things and nothing else">
+  <h2>Four fields, nothing else</h2>
+  <table class="facts">
+    <thead><tr><th>Field</th><th>Control</th><th>Rule (L2-095)</th></tr></thead>
+    <tbody>
+      <tr><td>I’m…</td><td>Planning an event · A caterer</td><td>Required, none selected at first</td></tr>
+      <tr><td>Business name (optional)</td><td>Text, caterers only</td><td>At most 60 characters</td></tr>
+      <tr><td>Email</td><td><code>type="email"</code></td><td>Required, at most 254 characters</td></tr>
+      <tr><td>Email me when Sweet Hand opens</td><td>Checkbox, never pre-ticked</td><td>Must be ticked</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="fields-clip" data-part="1" data-cue="Here it is in action" data-clip="clips/fields.mp4" data-clip-delay="0.5">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">L2-095</span>
+    <h3>Business name: caterers only</h3>
+    <p class="muted">Cut at 60 characters; hidden and not sent for Planning an event.</p>
+  </aside>
+</section>
+
+<section id="invalid-clip" data-part="2" data-cue="Watch what happens with no role chosen" data-clip="clips/invalid.mp4" data-clip-delay="0.5">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">L2-096</span>
+    <h3>“Fix 3 things”</h3>
+    <p class="muted">Nothing sent. Summary links move focus to each field; fixing one clears its message.</p>
+  </aside>
+</section>
+
+<section id="messages" data-part="2" data-cue="The three messages are Choose one">
+  <h2>The messages</h2>
+  <table class="facts">
+    <thead><tr><th>Problem</th><th>Message</th></tr></thead>
+    <tbody>
+      <tr><td>No role chosen</td><td>Choose one</td></tr>
+      <tr><td>Email empty or malformed</td><td>Enter an email like name@example.com</td></tr>
+      <tr><td>Consent not ticked</td><td>Tick the box to get the email</td></tr>
+    </tbody>
+  </table>
+  <p class="small muted">Inline errors carry <code>aria-invalid="true"</code> and <code>aria-describedby</code>. Title: “Fix 1 thing”, “Fix 2 things”, “Fix 3 things”.</p>
+</section>
+
+<section id="server" data-part="3" data-cue="The page is a convenience; the server is the authority">
+  <h2>The server checks again</h2>
+  <pre class="code tight" data-lang="sh">$ curl -X POST /api/launch-list/sign-ups \
+    -d '{"role":"chef","email":"bad@x","consent":false,…}'
+{"title":"Check the form","errors":{"role":["Choose one"],
+ "email":["Enter an email like name@example.com"],
+ "consent":["Tick the box to get the email"]}}             [400]
+
+$ … '{"role":"customer","businessName":"Shop",…}'
+{"title":"Check the form","errors":{"businessName":
+ ["Enter a business name of up to 60 characters"]}}       [400]
+
+$ … a 5 KB body                     {"title":"The request is too large"}      [413]
+$ … from https://evil.example       {"title":"Missing or invalid CSRF token"}  [403]
+$ … without a challenge token       {"errors":{"challengeToken":[…]}}          [400]</pre>
+  <p class="small muted">Real responses from the API on PostgreSQL · <span class="file">backend/src/launch-list/rules.ts</span></p>
+</section>
+
+<section id="success-clip" data-part="4" data-cue="Here is the happy path" data-clip="clips/success.mp4" data-clip-delay="0.5">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">L2-097 · L2-098</span>
+    <h3>Locked while sending, then “Check your email”</h3>
+    <p class="muted">“Use a different address” returns an empty form.</p>
+  </aside>
+</section>
+
+<section id="announcements" data-part="4" data-cue="Then the form is replaced by Check your email">
+  <h2>What a screen reader hears</h2>
+  <ol class="steps">
+    <li><span>While sending: “Adding you to the list” (polite live region)</span></li>
+    <li><span>On success: focus moves to the result, “Check your email. We sent a confirmation link.”</span></li>
+    <li><span>On failure: the alert, as <code>role="alert"</code></span></li>
+  </ol>
+</section>
+
+<section id="failure-clip" data-part="5" data-cue="When sending fails" data-clip="clips/failure.mp4" data-clip-delay="0.5">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">L2-097</span>
+    <h3>“We couldn’t add you just now”</h3>
+    <p class="muted">Details kept, a reference to quote, and “Try again” once the API is back.</p>
+  </aside>
+</section>
+
+<section id="reference" data-part="5" data-cue="The reference is the first eight characters">
+  <h2>The reference</h2>
+  <pre class="code" data-lang="ts">export function failureReference(correlationId: string | null): string {
+  return (correlationId || crypto.randomUUID()).slice(0, 8);
+}</pre>
+  <ul>
+    <li>From the response's <code>X-Correlation-ID</code>, or made up when there is no response</li>
+    <li>5xx, network failure or more than 15 seconds: the same error state</li>
+  </ul>
+  <p class="file">frontend/projects/launch/src/app/sign-up/launch-form.ts</p>
+</section>
+
+<section id="same-answer" data-part="6" data-cue="A sign-up form can leak who is on a list">
+  <h2>One answer for everyone</h2>
+  <pre class="code tight" data-lang="sh">new        202 {}  359 header chars
+pending    202 {}  359 header chars
+confirmed  202 {}  359 header chars
+headers identical: true   (date and correlation ID excluded)</pre>
+  <p class="small muted">Measured against the running API. Also covered by <span class="file">backend/test/launch-list/sign-up.test.ts</span> (L2-098.2).</p>
+</section>
+
+<section id="by-email" data-part="6" data-cue="What happens next is decided by email alone">
+  <h2>What happens next, by email only</h2>
+  <table class="facts">
+    <thead><tr><th>Address</th><th>Server action</th></tr></thead>
+    <tbody>
+      <tr><td>Not on the list</td><td>Pending record + confirmation email</td></tr>
+      <tr><td>Pending</td><td>Details updated, earlier links invalid, new confirmation email</td></tr>
+      <tr><td>Confirmed</td><td>Nothing changes; “already on the list” email, at most once a day</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="already-clip" data-part="6" data-cue="Here Keisha, who confirmed earlier, signs up again" data-clip="clips/already-listed.mp4" data-clip-delay="0.5">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">Outbox record</span>
+    <h3>Same page, different email</h3>
+    <p class="muted"><code>launch-already-listed</code>, with a removal link. No email provider is chosen yet, so the queued record is shown.</p>
+  </aside>
+</section>
+
+<section id="rate-clip" data-part="7" data-cue="An open form invites abuse" data-clip="clips/rate-limited.mp4" data-clip-delay="0.5">
+  <video class="clip"></video>
+  <aside class="clip-notes">
+    <span class="tag">L2-104.5</span>
+    <h3>HTTP 429 after 10 an hour</h3>
+    <p class="muted">The page shows the failure state and never retries by itself.</p>
+  </aside>
+</section>
+
+<section id="limits" data-part="7" data-cue="Separately, one address that signs up more than three times">
+  <h2>Two limits</h2>
+  <div class="cols">
+    <div class="card"><h3>Per IP address</h3><p>More than 10 sign-ups an hour → 429 with <code>Retry-After</code></p></div>
+    <div class="card"><h3>Per email address</h3><p>More than 3 a day → same answer, no more email that day</p></div>
+  </div>
+  <p class="small muted">Still to mock: a rate-limited message that names the wait (L2-097.5).</p>
+</section>
+
+<section id="recap" data-part="8" data-cue="Things to remember">
+  <h2>Things to remember</h2>
+  <ul class="recap">
+    <li>Role, email, optional business name for caterers, ticked consent. Nothing else.</li>
+    <li>Every problem at once, checked again by the server; failures keep what was typed</li>
+    <li>Always “Check your email”: the page never reveals who is on the list</li>
+  </ul>
+  <p class="lead">Next: video 03, confirming and leaving</p>
+</section>
+
+<script src="../assets/slides.js"></script>
+</body>
+</html>
