@@ -27,7 +27,7 @@ The launch site is a new application project, `launch`, in the Angular workspace
 **Frontend — Launch site (`frontend/projects/launch/src/`)**
 
 - **`main.ts` / `main.server.ts`** — browser and build-time bootstraps. `main.server.ts` exists only so the builder can prerender. No Node server is deployed.
-- **`app/app.config.ts`** — `appConfig` with `provideRouter`, `provideClientHydration()`, `provideHttpClient(withFetch(), withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }))`, `{ provide: LaunchListService, useClass: HttpLaunchListService }` and `{ provide: BotChallengeService, useClass: LocalBotChallengeService }` until a provider is chosen (`L2-092 AC4`).
+- **`app/app.config.ts`** — `appConfig` with `provideRouter`, `provideClientHydration()`, `provideHttpClient(withFetch(), withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }))`, `{ provide: LaunchListService, useClass: HttpLaunchListService }` and `TurnstileBotChallengeService` when the build supplies its public site key. Local development keeps `LocalBotChallengeService` (`L2-092 AC4`).
 - **`app/app.routes.server.ts`** — `serverRoutes: ServerRoute[] = [{ path: '', renderMode: RenderMode.Prerender }]`. It prerenders `/` only (`L2-105 AC1`).
 - **`LaunchApp`** (`app/app.ts`, `.html`, `.css`) — root component. It renders the "Skip to main content" link, `sh-site-header` with the "Sweet Hand" wordmark and the "Get the launch email" button, `<main id="main">` holding `LaunchPage`, and `sh-footer` with the "Privacy" and "Contact" links (`L2-093`). The contact `mailto:` address and the privacy notice URL come from `LaunchSiteConfig` at build time (`L2-093 AC4`).
 - **`LaunchPage`** (`app/launch-page/launch-page.ts`, `.html`, `.css`) — the page. It renders the hero (three decorative `sh-photo` images, the overline, the `h1` "Find someone with a sweet hand" and the subtitle), the sign-up panel, "How it works" with its three steps, and the caterer call-out (`L2-093 AC1`). It owns two signals: `panel` (`form`, `success` or `confirmed`) and `notice` (`link-expired`, `unsubscribed` or none). The panel content belongs to the sibling features. After hydration it asks `LaunchUrlState` for a token link, so that prerendered HTML never depends on a query string.
@@ -54,7 +54,7 @@ The launch site is a new application project, `launch`, in the Angular workspace
 
 **Hosting**
 
-- The CDN and static host for the build output are `<TO SUPPLY>`. Hashed assets are served with `Cache-Control: public, max-age=31536000, immutable` and `index.html` with a CDN lifetime of 300 s or less (`L2-105 AC6`). Responses carry the headers of `L2-081`. Requests under `/api/` are routed to the Sweet Hand API on the same origin, so the XSRF cookie and same-origin policy hold.
+- Azure Static Web Apps Standard serves the build output at `sweethand.ca`. Hashed assets use `Cache-Control: public, max-age=31536000, immutable`; HTML uses a 300-second maximum. `staticwebapp.config.json` supplies the headers from `L2-081` and the Cloudflare Turnstile CSP sources. A linked Azure Container App receives `/api/` on the same origin, so the XSRF cookie and same-origin policy hold (ADR 0011, L2-108).
 
 ## Requirements
 

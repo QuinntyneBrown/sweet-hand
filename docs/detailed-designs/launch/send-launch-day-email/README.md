@@ -30,7 +30,7 @@ The command marks the launch, which closes sign-ups (feature `launch/retire-laun
   - a cap on emails sent per tick, from configuration, set to the provider's rate limit (`<TO SUPPLY>`) (`L2-101 AC5`);
   - on success it removes `removalLink` and `headers` as well as `link`, since each may hold a token;
   - when the gateway throws `PermanentFailure` (a hard bounce or rejected address), the email becomes `failed` at once with no retry. Temporary failures keep the existing back-off.
-- **`EmailGateway`** — the provider adapter passes `headers` (`List-Unsubscribe`, `List-Unsubscribe-Post`) through to the provider. The adapter is `<TO SUPPLY>`.
+- **`AzureCommunicationEmailGateway`** — the provider adapter composes the launch templates, includes the CASL sender footer, passes `List-Unsubscribe` and `List-Unsubscribe-Post`, authenticates through managed identity and maps permanent provider refusals to `PermanentFailure`.
 
 **Retention — `sweep.ts`**
 

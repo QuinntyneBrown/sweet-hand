@@ -58,7 +58,6 @@ AGENTS.md requires: criterion, failing acceptance test, then code.
 
 | ID | Item | Area | Severity | Effort |
 |---|---|---|---|---|
-| T-01 | No continuous integration | Tooling | High | S |
 | T-02 | Prettier configured but never run or enforced | Tooling | Medium | S |
 | T-03 | Lint covers only `projects/**`; e2e and fake backend are unlinted | Tooling | Medium | S |
 | T-04 | Accessibility and `any` lint rules switched off; 170-entry i18n ignore list | Tooling | Medium | M |
@@ -127,29 +126,6 @@ AGENTS.md requires: criterion, failing acceptance test, then code.
 ---
 
 ## A. Tooling, build and delivery
-
-### T-01 No continuous integration — High, S
-
-**Evidence.** No `.github/workflows`, no other CI configuration. Every
-`process.env['CI']` branch in `playwright.config.ts` is dead. Lint, typecheck,
-build and the 653 acceptance tests run only when a contributor remembers.
-
-**Why it matters.** Every other safety net in this register depends on
-something running it. The ATDD rule in AGENTS.md cannot be enforced without a
-gate.
-
-**Resolution.**
-1. Add one workflow that runs on every push and pull request: `npm ci`,
-   `npm run lint`, `npm run typecheck`, `npm run build`, `npm run e2e` with
-   `E2E_WORKERS=4`, and `npx prettier --check` once T-02 lands.
-2. Cache `~/.npm` and the Playwright Chromium download; upload the Playwright
-   HTML report and traces as artifacts on failure.
-3. Make the workflow a required check on the default branch.
-4. Add an `ng extract-i18n` step that fails when `messages.xlf` would change,
-   so the catalogue cannot drift (it is in sync today only by discipline).
-
-**Done when** a pull request cannot merge with red lint, types, build, i18n
-catalogue or acceptance tests.
 
 ### T-02 Prettier configured but never run or enforced — Medium, S
 

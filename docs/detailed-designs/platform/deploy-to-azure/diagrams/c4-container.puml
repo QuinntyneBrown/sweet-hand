@@ -1,0 +1,20 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Deploy to Azure
+Person(visitor, "Launch visitor", "Joins the launch list")
+System_Boundary(sweet, "Sweet Hand on Azure") {
+  Container(web, "Launch site", "Azure Static Web Apps", "Prerendered Angular files")
+  Container(api, "Sweet Hand API", "Azure Container Apps / NestJS", "Launch-list API and outbox worker")
+  ContainerDb(db, "Production database", "PostgreSQL Flexible Server", "Launch-list and outbox documents")
+  Container(vault, "Secrets", "Azure Key Vault", "Database and provider secrets")
+  Container(email, "Email", "Azure Communication Services", "Transactional messages")
+  Container(logs, "Observability", "Application Insights and Log Analytics", "Redacted telemetry and alerts")
+}
+Rel(visitor, web, "Uses", "HTTPS")
+Rel(web, api, "Calls /api", "JSON/HTTPS")
+Rel(api, db, "Reads and writes", "TLS/private network")
+Rel(api, vault, "Reads through managed identity")
+Rel(api, email, "Sends through managed identity")
+Rel(api, logs, "Emits redacted telemetry")
+@enduml

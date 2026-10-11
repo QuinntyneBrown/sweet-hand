@@ -25,10 +25,12 @@ Environment: `PORT`, `DATABASE_URL`, `SECURE_COOKIES` (default on with a
 database), `ALLOWED_ORIGINS` (comma-separated, for the CSRF origin check),
 `TRUST_PROXY` (behind it, plain HTTP is redirected to HTTPS), `IP_HASH_SECRET`,
 `TEST_CONTROL` (test mode, refused with a database), and for the launch list
-`SITE_URL`, `CONTACT_EMAIL` and `OPERATOR_MAILING_ADDRESS` (fictional
-placeholders by default) and `EMAILS_PER_TICK` (the email provider's rate limit). With a database,
-`ALLOWED_ORIGINS` and `IP_HASH_SECRET` are required and startup fails without
-them.
+`SITE_URL`, `CONTACT_EMAIL`, `OPERATOR_MAILING_ADDRESS`, `EMAILS_PER_TICK`,
+`PRELAUNCH_MODE`, `TURNSTILE_SECRET`, `TURNSTILE_HOSTNAMES`,
+`ACS_EMAIL_ENDPOINT` and `ACS_EMAIL_SENDER`. With a database, the origin,
+IP-hash, Turnstile and Azure email settings are required and startup fails
+without them. Production uses managed identity for Azure email; no connection
+string is stored.
 
 Background work runs in the API process (ADR 0008): every 15 seconds it sends
 due emails, finishes waiting photos and builds requested data exports; every

@@ -2,6 +2,7 @@ import { type ApplicationConfig, provideBrowserGlobalErrorListeners } from '@ang
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch, withXsrfConfiguration } from '@angular/common/http';
 import { BotChallengeService, HttpLaunchListService, LaunchListService, LocalBotChallengeService } from '@sweet-hand/api';
+import { TurnstileBotChallengeService } from './turnstile-bot-challenge.service';
 
 /**
  * The browser's providers. There is no router: each page is a prerendered file
@@ -14,7 +15,9 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(withFetch(), withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' })),
     { provide: LaunchListService, useClass: HttpLaunchListService },
-    // Until a bot-protection provider is chosen (rate-limit-and-challenge design, `<TO SUPPLY>`).
-    { provide: BotChallengeService, useClass: LocalBotChallengeService },
+    {
+      provide: BotChallengeService,
+      useFactory: () => LAUNCH_TURNSTILE_SITE_KEY ? new TurnstileBotChallengeService() : new LocalBotChallengeService(),
+    },
   ],
 };

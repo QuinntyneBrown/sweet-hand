@@ -4,8 +4,9 @@
 import { readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { gzipSync } from 'node:zlib';
+import { fileURLToPath } from 'node:url';
 
-const root = new URL('../dist/launch/browser/', import.meta.url).pathname;
+const root = fileURLToPath(new URL('../dist/launch/browser/', import.meta.url));
 const html = readFileSync(join(root, 'index.html'), 'utf8');
 const gz = (file) => gzipSync(readFileSync(join(root, file)), { level: 9 }).length;
 const refs = (pattern) => [...html.matchAll(pattern)].map((m) => m[1]).filter((f) => !/^(https?:|data:|\/\/)/.test(f));

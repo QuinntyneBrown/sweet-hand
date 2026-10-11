@@ -1,6 +1,5 @@
 import type { Request, Reply } from '../http/endpoint.ts';
 import { ok, problem } from '../http/problems.ts';
-import { validChallenge } from '../platform/bot-challenge.ts';
 import { queueEmail } from '../platform/outbox.ts';
 import { recordSecurityEvent } from '../platform/security-log.ts';
 import { verifyAgainstNothing, verifyPassword } from '../platform/secrets.ts';
@@ -44,7 +43,7 @@ export async function signIn(req: Request): Promise<Reply> {
   const body = (req.body ?? {}) as Partial<SignInRequest>;
   // Past the network threshold nothing is checked until the challenge passes (L2-076.5, L2-082.2).
   const networkFailures = await recentEvents(req.tx, NETWORK_FAILURE_KIND, req.ip, req.now, FAILURE_WINDOW_MS);
-  if (networkFailures.length >= NETWORK_FAILURES && !validChallenge(body.challengeToken, 'sign-in')) {
+  if (networkFailures.length >= NETWORK_FAILURES && !(await req.env.challenges.verify(body.challengeToken, 'sign-in'))) {
     return problem(400, 'Confirm you’re a person', { challengeRequired: true });
   }
 

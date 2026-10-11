@@ -53,11 +53,16 @@ describe('identity and transport hardening (identity-and-security designs)', () 
     assert.equal(last, 429);
   });
 
-  it('Given a real database, when the API starts without an origin allow-list or an IP hash secret, then it refuses to start (L2-081.4, secure-build-pipeline design)', () => {
-    const db = { DATABASE_URL: 'postgres://localhost/sweethand', TEST_CONTROL: undefined };
-    assert.throws(() => withEnv({ ...db, ALLOWED_ORIGINS: undefined, IP_HASH_SECRET: 'k' }, loadConfig), /ALLOWED_ORIGINS/);
-    assert.throws(() => withEnv({ ...db, ALLOWED_ORIGINS: 'https://sweethand.example', IP_HASH_SECRET: undefined }, loadConfig), /IP_HASH_SECRET/);
-    assert.equal(withEnv({ ...db, ALLOWED_ORIGINS: 'https://sweethand.example', IP_HASH_SECRET: 'k' }, loadConfig).allowedOrigins[0], 'https://sweethand.example');
+  it('Given a real database, when the API starts without an origin allow-list, an IP hash secret, a Turnstile secret or Azure email settings, then it refuses to start (L2-081.4, secure-build-pipeline and deploy-to-azure designs)', () => {
+    const production = {
+      DATABASE_URL: 'postgres://localhost/sweethand', TEST_CONTROL: undefined,
+      ALLOWED_ORIGINS: 'https://sweethand.example', IP_HASH_SECRET: 'k', TURNSTILE_SECRET: 't',
+      ACS_EMAIL_ENDPOINT: 'https://acs.example', ACS_EMAIL_SENDER: 'hello@sweethand.example',
+    };
+    for (const missing of ['ALLOWED_ORIGINS', 'IP_HASH_SECRET', 'TURNSTILE_SECRET', 'ACS_EMAIL_ENDPOINT', 'ACS_EMAIL_SENDER']) {
+      assert.throws(() => withEnv({ ...production, [missing]: undefined }, loadConfig), new RegExp(missing));
+    }
+    assert.equal(withEnv(production, loadConfig).allowedOrigins[0], 'https://sweethand.example');
   });
 
   it('Given the API behind a TLS proxy, when a request arrives over plain HTTP, then it is redirected to HTTPS with 301 (L2-081.1)', async () => {

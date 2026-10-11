@@ -190,7 +190,8 @@
             ],
             "define": {
               "LAUNCH_SITE_URL": "'https://sweethand.example'",
-              "LAUNCH_CONTACT_EMAIL": "'hello@sweethand.example'"
+              "LAUNCH_CONTACT_EMAIL": "'hello@sweethand.example'",
+              "LAUNCH_TURNSTILE_SITE_KEY": "''"
             }
           },
           "configurations": {

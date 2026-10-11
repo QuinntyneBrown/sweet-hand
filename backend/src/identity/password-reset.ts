@@ -1,6 +1,5 @@
 import type { Request, Reply } from '../http/endpoint.ts';
 import { accepted, gone, invalid, ok, problem } from '../http/problems.ts';
-import { validChallenge } from '../platform/bot-challenge.ts';
 import { queueEmail } from '../platform/outbox.ts';
 import { recordSecurityEvent } from '../platform/security-log.ts';
 import { hashPassword } from '../platform/secrets.ts';
@@ -30,7 +29,7 @@ export async function requestPasswordReset(req: Request): Promise<Reply> {
     return { ...problem(429, 'Too many reset requests'), headers: { 'retry-after': String(retryAfter) } };
   }
   const body = (req.body ?? {}) as Partial<PasswordResetRequest>;
-  if (!validChallenge(body.challengeToken, 'password-reset')) return invalid({ challengeToken: ['Confirm you’re a person'] });
+  if (!(await req.env.challenges.verify(body.challengeToken, 'password-reset'))) return invalid({ challengeToken: ['Confirm you’re a person'] });
   if (!EMAIL.test(text(body.email))) return invalid({ email: ['Enter an email address like name@example.com'] });
   await recordEvent(req.tx, RESET_REQUEST_KIND, req.ip, req.now, HOUR);
   const user = await findUserByEmail(req.tx, body.email);

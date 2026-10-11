@@ -24,7 +24,10 @@ const MINUTE = 60_000;
 const GIVE_UP_AFTER_MS = 24 * 60 * MINUTE;
 const backoff = (attempts: number) => Math.min(MINUTE * 2 ** (attempts - 1), 60 * MINUTE);
 
-const due = (email: OutboxEmail, now: Date) => email.status === 'queued' && (!email.nextAttemptAt || Date.parse(email.nextAttemptAt as string) <= now.getTime());
+const CLAIM_TIMEOUT_MS = 10 * MINUTE;
+const due = (email: OutboxEmail, now: Date) =>
+  (email.status === 'queued' && (!email.nextAttemptAt || Date.parse(email.nextAttemptAt as string) <= now.getTime())) ||
+  (email.status === 'sending' && typeof email.processingStartedAt === 'string' && Date.parse(email.processingStartedAt) <= now.getTime() - CLAIM_TIMEOUT_MS);
 
 /**
  * Sends every queued email that is due (notify-enquiry-activity design). Sent
@@ -39,10 +42,17 @@ export async function dispatchDueEmails(
 ): Promise<number> {
   const now = env.clock.now();
   const limit = options.maxPerTick ?? MAX_PER_TICK;
-  const queued = await env.db.transaction(async (tx) => (await outbox(tx).find({ status: 'queued' })).filter((e) => due(e, now)));
+  const queued = await env.db.transaction(async (tx) => (await outbox(tx).all()).filter((e) => due(e, now)));
   const pending = queued.sort((a, b) => a.seq - b.seq).slice(0, limit);
   let sent = 0;
   for (const email of pending) {
+    const claimed = await env.db.transaction(async (tx) => {
+      const current = await outbox(tx).get(email.id);
+      if (!current || !due(current, now)) return false;
+      await outbox(tx).put({ ...current, status: 'sending', processingStartedAt: now.toISOString() });
+      return true;
+    });
+    if (!claimed) continue;
     let failure: unknown;
     try {
       await gateway.send(email);
@@ -51,7 +61,7 @@ export async function dispatchDueEmails(
     }
     await env.db.transaction(async (tx) => {
       const current = await outbox(tx).get(email.id);
-      if (!current || current.status !== 'queued') return;
+      if (!current || current.status !== 'sending') return;
       if (!failure) {
         // Each link, and the List-Unsubscribe header, may hold a token.
         const { link: _link, removalLink: _removal, headers: _headers, ...rest } = current;
@@ -73,7 +83,9 @@ export async function dispatchDueEmails(
         alert(`Email ${current.id} (${current.kind}) failed for 24 hours and was given up`);
         return;
       }
-      await outbox(tx).put({ ...current, attempts, nextAttemptAt: new Date(now.getTime() + backoff(attempts)).toISOString() });
+        const { processingStartedAt: _processing, ...rest } = current;
+        void _processing;
+        await outbox(tx).put({ ...rest, status: 'queued', attempts, nextAttemptAt: new Date(now.getTime() + backoff(attempts)).toISOString() });
     });
   }
   return sent;

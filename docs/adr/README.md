@@ -15,3 +15,4 @@ cover an area before changing it.
 | [0008](0008-persistence-document-collections.md) | Persistence as implemented: document collections on PostgreSQL, faked in memory for tests | Accepted for the current code; conflicts with 0006 and 0007 (open) |
 | [0009](0009-acceptance-tests-against-the-backend-in-test-mode.md) | Acceptance tests run against the real backend in test mode | Accepted |
 | [0010](0010-backend-nestjs-structure-and-tooling.md) | NestJS application structure and tooling | Accepted |
+| [0011](0011-azure-launch-hosting-and-delivery.md) | Azure launch hosting, providers and continuous delivery | Accepted |

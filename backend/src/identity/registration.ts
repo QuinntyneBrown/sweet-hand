@@ -1,7 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { Request, Reply } from '../http/endpoint.ts';
 import { accepted, invalid } from '../http/problems.ts';
-import { validChallenge } from '../platform/bot-challenge.ts';
 import { queueEmail } from '../platform/outbox.ts';
 import { hashPassword } from '../platform/secrets.ts';
 import { caterers, uniqueSlug } from '../caterers/model.ts';
@@ -61,7 +60,7 @@ async function alreadyRegistered(req: Request, email: string): Promise<boolean> 
 /** Customer registration (register-customer design). The role is never read from the body (L2-079.2). */
 export async function registerCustomer(req: Request): Promise<Reply> {
   const body = (req.body ?? {}) as Partial<RegisterRequest>;
-  if (!validChallenge(body.challengeToken, 'register')) return invalid({ challengeToken: ['Confirm you’re a person'] });
+  if (!(await req.env.challenges.verify(body.challengeToken, 'register'))) return invalid({ challengeToken: ['Confirm you’re a person'] });
   const displayName = text(body.displayName);
   const email = text(body.email);
   const errors: Record<string, string[]> = {};
@@ -85,7 +84,7 @@ export async function registerCustomer(req: Request): Promise<Reply> {
  */
 export async function registerCaterer(req: Request): Promise<Reply> {
   const body = (req.body ?? {}) as Partial<RegisterCatererRequest>;
-  if (!validChallenge(body.challengeToken, 'register-caterer')) return invalid({ challengeToken: ['Confirm you’re a person'] });
+  if (!(await req.env.challenges.verify(body.challengeToken, 'register-caterer'))) return invalid({ challengeToken: ['Confirm you’re a person'] });
   const businessName = text(body.businessName);
   const contactName = text(body.contactName);
   const email = text(body.email);

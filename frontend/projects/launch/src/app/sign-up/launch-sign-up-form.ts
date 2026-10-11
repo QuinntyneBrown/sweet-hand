@@ -26,13 +26,13 @@ export class LaunchSignUpForm {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
 
   protected readonly values = signal<LaunchFormValues>(emptyLaunchForm());
-  protected readonly state = signal<'editing' | 'sending' | 'failed'>('editing');
+  protected readonly state = signal<'editing' | 'challenging' | 'sending' | 'failed'>('editing');
   /** Inline messages; a fixed field loses its message at once (L2-096.4). */
   protected readonly errors = signal<LaunchFormErrors>({});
   /** The summary's items as of the last submit; it updates on the next one (L2-096.4). */
   protected readonly summary = signal<{ target: string; message: string }[]>([]);
   protected readonly reference = signal('');
-  protected readonly sending = computed(() => this.state() === 'sending');
+  protected readonly sending = computed(() => this.state() === 'challenging' || this.state() === 'sending');
 
   chooseRole(role: LaunchRole): void {
     this.update({ role });
@@ -67,9 +67,11 @@ export class LaunchSignUpForm {
     if (Object.keys(errors).length) return this.showErrors(errors);
     this.errors.set({});
     this.summary.set([]);
-    this.state.set('sending');
+    this.state.set('challenging');
     try {
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
       const token = await this.challenge.token('launch-sign-up');
+      this.state.set('sending');
       await firstValueFrom(this.launchList.signUp(toRequest(values, token)).pipe(timeout(SEND_TIMEOUT_MS)));
       this.state.set('editing');
       this.accepted.emit(values.email.trim());
