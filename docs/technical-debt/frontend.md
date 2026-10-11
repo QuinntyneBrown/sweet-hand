@@ -77,7 +77,7 @@ AGENTS.md requires: criterion, failing acceptance test, then code.
 | T-17 | Route paths, titles and role landing pages as scattered literals | App | High | M |
 | T-18 | Every feature's routes and providers loaded eagerly; order-dependent flat route list | App | Medium | M |
 | T-19 | `requireAdmin` unused; admin pages rely on runtime 403 | App | Medium | S |
-| T-20 | Operator sign-out always lands on `/caterers` | App | High | S |
+| T-20 | ~~Operator sign-out always lands on `/caterers`~~ **Fixed** | App | High | S |
 | T-21 | Session bootstrap swallows failures; privacy redirect lives in a service | App | Medium | M |
 | T-22 | Effects used for state synchronisation (36 writes inside `effect`) | App | Medium | M |
 | T-23 | Three god components (`photos`, `overview`, `enquiry-form-dialog`) | App | Medium | L |
@@ -491,7 +491,13 @@ and render a fallback.
 generic outcome from T-12. **Behaviour change**: the redirect to `/403` for a
 non-admin operator needs a criterion and an acceptance test first.
 
-### T-20 Operator sign-out always lands on `/caterers` — High, S
+### T-20 Operator sign-out always lands on `/caterers` — High, S — Fixed
+
+**Status. Fixed** on 2026-10-11. `app.ts` `signOut()` reads the user's role
+before awaiting `session.signOut()`, so an operator lands on `/sign-in` and
+customers and caterers on `/caterers`. L2-078.6 states where each role lands,
+and `e2e/specs/shell/header-and-footer.spec.ts` covers operator sign-out. The
+evidence below is kept as the record of what was wrong.
 
 **Evidence.** `app.ts` `signOut()` awaits `session.signOut()`, which resets the
 view to visitor, then reads `this.user()?.role === 'Operator'` to choose the
