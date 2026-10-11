@@ -18,12 +18,15 @@ Run from `backend/` (Node 22.18+).
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run migrate` | Apply SQL migrations to `DATABASE_URL`; never done on startup |
 | `npm run seed` | Load the fictional cast and its photos into `DATABASE_URL`; safe to re-run |
+| `npm run launch-email` | Launch day: close launch list sign-ups and queue one launch-day email per confirmed address in `DATABASE_URL`; safe to re-run (L2-101) |
 | `npm run smoke:postgres` | Hand check that the PostgreSQL adapter behaves like the in-memory fake |
 
 Environment: `PORT`, `DATABASE_URL`, `SECURE_COOKIES` (default on with a
 database), `ALLOWED_ORIGINS` (comma-separated, for the CSRF origin check),
 `TRUST_PROXY` (behind it, plain HTTP is redirected to HTTPS), `IP_HASH_SECRET`,
-`TEST_CONTROL` (test mode, refused with a database). With a database,
+`TEST_CONTROL` (test mode, refused with a database), and for the launch list
+`SITE_URL`, `CONTACT_EMAIL` and `OPERATOR_MAILING_ADDRESS` (fictional
+placeholders by default) and `EMAILS_PER_TICK` (the email provider's rate limit). With a database,
 `ALLOWED_ORIGINS` and `IP_HASH_SECRET` are required and startup fails without
 them.
 
@@ -31,7 +34,8 @@ Background work runs in the API process (ADR 0008): every 15 seconds it sends
 due emails, finishes waiting photos and builds requested data exports; every
 15 minutes it refreshes the metrics aggregates; once per Toronto day it runs
 the daily maintenance job (enquiry auto-close, certificate reminders and
-expiry, retention). It is off in test mode, where `POST /__test/background`
+expiry, retention); every hour it sweeps the launch list (unconfirmed entries after
+48 hours, the whole list 30 days after launch day). It is off in test mode, where `POST /__test/background`
 and `POST /__test/maintenance` run one pass on demand.
 
 ## Layout
@@ -72,7 +76,8 @@ test/
   guard still makes the decision and logs it. `@MaxBody(bytes)` raises the
   1 MB body limit for uploads. `@WithoutDatabase()` is for health checks only.
   `@WithoutCsrf()` is for anonymous server-to-server webhooks that prove
-  themselves with their own token (email events); `@CountsAsPublicRead()`
+  themselves with their own token (email events, the launch list's RFC 8058
+  one-click unsubscribe); `@CountsAsPublicRead()`
   puts an anonymous write under the public read rate limit (the visit beacon).
 - **Refusals are logged.** Return `hidden(id)` (404) or `refused(id)` (403)
   for a record outside the caller's scope; the pipeline records the

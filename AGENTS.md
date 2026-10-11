@@ -42,6 +42,9 @@ keep it accurate:
   - `frontend/projects/sweet-hand/` — the product application: `core/`
     (session, formatting, form helpers), `shell/` (header, footer, menus,
     system pages), `features/<area>/` (pages, routes, providers)
+  - `frontend/projects/launch/` — the pre-launch site served at `/` until
+    launch day (L2-092): prerendered, no router in the browser bundle, removed
+    after launch
   - `frontend/e2e/` — Playwright: `support/` (fixtures, cast, ports),
     `pages/` (page objects), `specs/<area>/`
 - `backend/` — the HTTP API, NestJS (ADRs 0006–0010); see `backend/README.md`

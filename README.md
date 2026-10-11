@@ -76,6 +76,7 @@ npm install --prefix frontend
 
 cd frontend
 npm start          # API on :4300 (in-memory, seeded) and the app on :4200
+# or: npm run start:launch   # the pre-launch site on :4200 instead
 ```
 
 Open <http://localhost:4200>. Every seeded account is fictional and uses the
@@ -92,6 +93,7 @@ npm run typecheck
 
 cd ../frontend
 npm run e2e        # Playwright acceptance suite (Chromium) against the backend in test mode
+npm run build:launch  # prerendered launch site and its size check
 npm run lint
 npm run typecheck
 ```
@@ -120,6 +122,7 @@ sweet-hand/
 │   ├── projects/components/   sh-* design-system component library
 │   ├── projects/api/          @sweet-hand/api: backend services and wire models
 │   ├── projects/sweet-hand/   the product application
+│   ├── projects/launch/       the pre-launch site, served at / until launch day
 │   └── e2e/                   Playwright acceptance suite (page objects)
 ├── docs/
 │   ├── specs/                 L1/L2 requirements and component requirements
