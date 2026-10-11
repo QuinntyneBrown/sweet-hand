@@ -1,16 +1,19 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { Alert, Dialog, FormField, FormSummary, Select, TextField, Textarea, graphemeLength, type SelectOption, type SummaryItem } from '@sweet-hand/components';
+import { Alert, Dialog, FormField, FormSummary, Select, TextField, Textarea, graphemeLength, type SelectOption } from '@sweet-hand/components';
 import { count } from '../../../../core/format/format';
-import { summaryHeading } from '../../../../core/forms/validation';
+import { summaryFrom, summaryHeading } from '../../../../core/forms/validation';
 import { firstName } from '../moderation-text';
 import { reasonError } from './decision-text';
 import { type CatererRecordView, type EditableField, type OperatorEditRequest, OperatorModerationService } from '@sweet-hand/api';
 import type { EditField } from './edit-field';
 import type { EditOutcome } from './edit-outcome';
 import { FormDialogState } from '../../../../core/forms/form-dialog-state';
+import { applyProblem } from '../../../../core/forms/problem';
 
 const DESCRIPTION_MAX = 2000;
+/** The dialog's fields, in the order the error summary lists them. */
+const FIELDS = ['value', 'min', 'max', 'reason'] as const;
 
 /**
  * "Edit Pelau House": one field, photo or menu item at a time, always with a
@@ -48,7 +51,7 @@ export class OperatorEditDialog {
   protected readonly max = signal('');
   protected readonly item = signal('');
   protected readonly reason = signal('');
-  protected readonly state = new FormDialogState<Record<string, string>>(this.open, {
+  protected readonly state = new FormDialogState<Partial<Record<(typeof FIELDS)[number], string | null>>>(this.open, {
     noErrors: {},
     reset: () => {
       this.reason.set('');
@@ -73,10 +76,7 @@ export class OperatorEditDialog {
         ? $localize`:@@edit.removeDish:Remove dish`
         : $localize`:@@edit.save:Save change`,
   );
-  protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.state.errors();
-    return (['value', 'min', 'max', 'reason'] as const).filter((k) => e[k]).map((k) => ({ controlId: k, message: e[k] }));
-  });
+  protected readonly summary = computed(() => summaryFrom(this.state.errors(), FIELDS));
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@edit.action:save the change`));
 
   /** A new field starts from the profile's current value. */
@@ -102,8 +102,8 @@ export class OperatorEditDialog {
     this.item.set(field === 'photo' ? (p.photos[0]?.id ?? '') : field === 'dish' ? (p.dishes[0]?.id ?? '') : '');
   }
 
-  private validate(): Record<string, string> {
-    const e: Record<string, string> = {};
+  private validate(): Partial<Record<(typeof FIELDS)[number], string>> {
+    const e: Partial<Record<(typeof FIELDS)[number], string>> = {};
     const f = this.field();
     const text = this.text().trim();
     if (f === 'name' && !text) e['value'] = $localize`:@@edit.nameRequired:Enter the business name`;
@@ -149,12 +149,8 @@ export class OperatorEditDialog {
           this.done.emit({ kind: 'edit' });
         }
       },
-      (status, problem) => {
-        if (status !== 400 || !problem.errors) return false;
-        const mapped: Record<string, string> = {};
-        for (const [k, v] of Object.entries(problem.errors)) mapped[k === 'field' ? 'value' : k] = v[0];
-        return this.state.reject(mapped);
-      },
+      // The API names a missing field choice `field`; it shows on the value's control.
+      (status, problem) => applyProblem(this.state, status, problem, FIELDS, { value: ['value', 'field'] }),
     );
   }
 }

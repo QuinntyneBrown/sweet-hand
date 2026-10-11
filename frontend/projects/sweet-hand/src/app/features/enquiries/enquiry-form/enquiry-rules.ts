@@ -16,15 +16,8 @@ export const GUESTS_MAX = 5000;
 export const FIELDS = ['date', 'guests', 'area', 'postal', 'occasion', 'message'] as const;
 export type Field = (typeof FIELDS)[number];
 
-/** The server's field names (request properties) for each control. */
-const SERVER_FIELD: Record<string, Field> = {
-  eventDate: 'date',
-  guests: 'guests',
-  area: 'area',
-  postalCode: 'postal',
-  occasion: 'occasion',
-  message: 'message',
-};
+/** The server's field names (request properties) where they differ from the control ids. */
+export const SERVER_FIELD: Partial<Record<Field, string>> = { date: 'eventDate', postal: 'postalCode' };
 
 export const EMPTY_VALUES: EnquiryFormValues = { eventDate: '', guests: '', area: '', postalCode: '', occasion: '', message: '' };
 
@@ -73,15 +66,6 @@ export function enquiryErrors(v: EnquiryFormValues, today: string): FieldErrors 
 }
 
 /** Server field errors (HTTP 400, L2-022.6) as control errors. */
-export function serverErrors(errors: Record<string, string[]>): FieldErrors {
-  const out: FieldErrors = {};
-  for (const [key, messages] of Object.entries(errors)) {
-    const field = SERVER_FIELD[key];
-    if (field && messages[0]) out[field] = messages[0];
-  }
-  return out;
-}
-
 /** "This caterer usually serves 20–300 guests" for a valid count outside the range (L2-024.1). */
 export function guestsWarning(guests: string, caterer: EnquiryTarget): string | null {
   const n = guestCount(guests);

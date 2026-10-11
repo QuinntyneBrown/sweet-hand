@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
-import { Alert, Button, Checkbox, Dialog, FormField, FormSummary, Radio, RadioGroup, TextField, Textarea, type SummaryItem } from '@sweet-hand/components';
+import { Alert, Button, Checkbox, Dialog, FormField, FormSummary, Radio, RadioGroup, TextField, Textarea } from '@sweet-hand/components';
 import { torontoToday } from '../../../core/format/format';
-import { summaryHeading } from '../../../core/forms/validation';
+import { summaryFrom, summaryHeading } from '../../../core/forms/validation';
 import { breachErrors, type BreachField } from './breach-rules';
 import type { BreachErrors } from './breach-errors';
 import { type BreachInformation, type BreachRecord, OperatorSettingsService, type RecordBreachRequest } from '@sweet-hand/api';
 import { FormDialogState } from '../../../core/forms/form-dialog-state';
+import { applyProblem } from '../../../core/forms/problem';
 
 const INFORMATION: { value: BreachInformation; label: string }[] = [
   { value: 'Names', label: $localize`:@@recordBreach.names:Names` },
@@ -56,10 +57,7 @@ export class RecordBreachDialog {
     },
   });
   protected readonly saving = $localize`:@@recordBreach.busy:Saving the record`;
-  protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.state.errors();
-    return (Object.keys(CONTROL) as BreachField[]).filter((f) => e[f]).map((f) => ({ controlId: CONTROL[f], message: e[f]! }));
-  });
+  protected readonly summary = computed(() => summaryFrom(this.state.errors(), CONTROL));
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@recordBreach.action:save the record`));
 
   protected toggle(value: BreachInformation, checked: boolean): void {
@@ -81,9 +79,7 @@ export class RecordBreachDialog {
     await this.state.submit(
       async () => this.recorded.emit(await firstValueFrom(this.api.recordBreach(request))),
       (status, problem) =>
-        status === 400 &&
-        !!problem.errors &&
-        this.state.reject(Object.fromEntries(Object.entries(problem.errors).map(([f, m]) => [f, m[0]])) as BreachErrors),
+        applyProblem(this.state, status, problem, Object.keys(CONTROL) as BreachField[]),
     );
   }
 }

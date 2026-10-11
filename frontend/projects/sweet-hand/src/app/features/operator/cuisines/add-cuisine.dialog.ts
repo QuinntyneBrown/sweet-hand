@@ -6,6 +6,7 @@ import { summaryHeading } from '../../../core/forms/validation';
 import { cuisineNameError } from './cuisines-view';
 import { type OperatorCuisine, OperatorSettingsService } from '@sweet-hand/api';
 import { FormDialogState } from '../../../core/forms/form-dialog-state';
+import { fieldError } from '../../../core/forms/problem';
 
 /** Add cuisine (docs/mocks/dialogs/add-cuisine; AddCuisineDialog, L2-007.4). */
 @Component({
@@ -45,7 +46,7 @@ export class AddCuisineDialog {
     await this.state.submit(
       async () => this.added.emit(await firstValueFrom(this.api.addCuisine({ name }))),
       (status, problem) => {
-        const message = status === 400 ? problem.errors?.['name']?.[0] : undefined;
+        const message = status === 400 ? fieldError(problem, 'name') : null;
         return !!message && this.state.reject(message);
       },
     );

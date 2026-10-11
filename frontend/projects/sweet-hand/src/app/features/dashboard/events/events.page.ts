@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { BackLink, EMPTY_STATE, FormField, FormRow, FormSummary, Fieldset, Icon, PrivateNote, SaveStatus, TextField, type SummaryItem } from '@sweet-hand/components';
-import { problemOf } from '../../../core/forms/problem';
+import { BackLink, EMPTY_STATE, FormField, FormRow, FormSummary, Fieldset, Icon, PrivateNote, SaveStatus, TextField } from '@sweet-hand/components';
+import { fieldErrors, hasFieldErrors, problemOf } from '../../../core/forms/problem';
+import { summaryFrom } from '../../../core/forms/validation';
 import { Autosave } from '../shared/autosave';
 import { DashboardLayout } from '../shared/dashboard-layout';
 import { ListingPreview } from '../shared/listing-preview';
@@ -69,14 +70,9 @@ export class EventsPage {
       .map((o) => o.name)
       .join(', ');
   });
-  protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.errors();
-    return [
-      e.minGuests && { controlId: 'min-guests', message: e.minGuests },
-      e.maxGuests && { controlId: 'max-guests', message: e.maxGuests },
-      e.occasions && { controlId: `o-${this.allOccasions()[0]?.id}`, message: e.occasions },
-    ].filter(Boolean) as SummaryItem[];
-  });
+  protected readonly summary = computed(() =>
+    summaryFrom(this.errors(), { minGuests: 'min-guests', maxGuests: 'max-guests', occasions: `o-${this.allOccasions()[0]?.id}` }),
+  );
   protected readonly summaryHeading = computed(() => fixHeading(this.summary().length));
   protected readonly statusText = computed(() => (this.autosave.state() === 'invalid' ? notSavedText(this.summary().length) : this.autosave.text()));
   protected readonly saveState = computed(() => {
@@ -132,9 +128,8 @@ export class EventsPage {
       return 'saved';
     } catch (error) {
       const { status, problem } = problemOf(error);
-      if (status === 400 && problem.errors) {
-        const e = problem.errors;
-        this.errors.set({ minGuests: e['minGuests']?.[0] ?? null, maxGuests: e['maxGuests']?.[0] ?? null, occasions: e['occasions']?.[0] ?? null });
+      if (status === 400 && hasFieldErrors(problem)) {
+        this.errors.set(fieldErrors(problem, ['minGuests', 'maxGuests', 'occasions']));
         this.attempt.update((x) => x + 1);
         return 'invalid';
       }

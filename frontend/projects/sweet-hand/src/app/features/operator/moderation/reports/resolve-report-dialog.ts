@@ -5,6 +5,7 @@ import { firstName } from '../moderation-text';
 import { conflictText } from '../decisions/decision-text';
 import { OperatorModerationService, type ReportGroupView, type ResolveAction } from '@sweet-hand/api';
 import { FormDialogState } from '../../../../core/forms/form-dialog-state';
+import { fieldError } from '../../../../core/forms/problem';
 
 /**
  * "Resolve report": dismiss with a note, or take action on the reported
@@ -112,7 +113,8 @@ export class ResolveReportDialog {
     await this.state.submit(
       async () => this.done.emit(await firstValueFrom(this.api.resolveReport(this.group().id, request))),
       (status, problem) => {
-        if (status === 400 && problem.errors?.['note']) return this.state.reject(problem.errors['note'][0]);
+        const note = status === 400 && fieldError(problem, 'note');
+        if (note) return this.state.reject(note);
         if (status !== 409) return false;
         const t = this.group().target;
         this.conflict.set(conflictText(t.kind === 'Review' ? t.caterer.name : t.name, problem));

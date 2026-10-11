@@ -3,6 +3,7 @@ import { firstValueFrom, type Observable } from 'rxjs';
 import { Alert, ButtonAnchor, Dialog, FormField, FormSummary, Icon, Textarea, type IconName, type SummaryItem } from '@sweet-hand/components';
 import { conflictText } from './decision-text';
 import { FormDialogState } from '../../../../core/forms/form-dialog-state';
+import { fieldError } from '../../../../core/forms/problem';
 
 /**
  * The shared shape of an operator decision that needs a written reason
@@ -83,8 +84,8 @@ export class ReasonDialog<T = unknown> {
         this.done.emit({ result, reason: reason.trim() });
       },
       (status, problem) => {
-        const fieldError = problem.errors?.[this.controlId()]?.[0] ?? problem.errors?.['reason']?.[0];
-        if (status === 400 && fieldError) return this.state.reject(fieldError);
+        const message = fieldError(problem, [this.controlId(), 'reason']);
+        if (status === 400 && message) return this.state.reject(message);
         if (status === 409) this.conflict.set(conflictText(this.name(), problem));
         else if (status === 403 && this.forbiddenTitle()) this.refused.set(true);
         // No answer from the API: the connection dropped, or a proxy gave up on it.

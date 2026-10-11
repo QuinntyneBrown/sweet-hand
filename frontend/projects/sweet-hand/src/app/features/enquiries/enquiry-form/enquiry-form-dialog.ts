@@ -19,15 +19,14 @@ import {
   graphemeLength,
   type SelectGroup,
   type SelectOption,
-  type SummaryItem,
 } from '@sweet-hand/components';
 import { EnquiryDraftStore } from '../../../core/enquiry/enquiry-draft-store';
 import { RESUME_PARAM, RESUME_VALUE } from '../../../core/enquiry/enquiry-launcher';
 import { count, shortDate, torontoToday } from '../../../core/format/format';
-import { reference, type Problem } from '../../../core/forms/problem';
-import { summaryHeading } from '../../../core/forms/validation';
+import { fieldErrors, hasFieldErrors, reference, type Problem } from '../../../core/forms/problem';
+import { summaryFrom, summaryHeading } from '../../../core/forms/validation';
 import { Session } from '../../../core/session/session';
-import { areaWarning, dateRange, EMPTY_VALUES, enquiryErrors, type Field, FIELDS, guestsWarning, MESSAGE_MAX, serverErrors } from './enquiry-rules';
+import { areaWarning, dateRange, EMPTY_VALUES, enquiryErrors, type Field, FIELDS, guestsWarning, MESSAGE_MAX, SERVER_FIELD } from './enquiry-rules';
 import type { FieldErrors } from './field-errors';
 import { BotChallengeService, DiscoveryService, EnquiriesService, type EnquiryFormValues, type EnquiryRefusal, type SentEnquiryView } from '@sweet-hand/api';
 import type { EnquiryFormRequest } from './enquiry-form-request';
@@ -106,10 +105,7 @@ export class EnquiryFormDialog implements OnInit {
   protected readonly over = computed(() => this.length() > MESSAGE_MAX);
   protected readonly overBy = computed(() => $localize`:@@enquiryForm.overBy:${count(this.length() - MESSAGE_MAX)}:count: characters too many`);
 
-  protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.reported();
-    return FIELDS.filter((f) => e[f]).map((f) => ({ controlId: f, message: e[f]! }));
-  });
+  protected readonly summary = computed(() => summaryFrom(this.reported(), FIELDS));
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@enquiryForm.action:send your enquiry`));
 
   /** Limits can't be lifted by trying again now (docs/mocks/dialogs/enquiry/limit). */
@@ -229,10 +225,10 @@ export class EnquiryFormDialog implements OnInit {
   /** Every refusal has its own notice, so none falls back to the dialog's generic failure. */
   private refused(status: number, problem: Problem, values: EnquiryFormValues): true {
     const code = problem['code'] as EnquiryRefusal | undefined;
-    if (status === 400 && problem.errors) {
+    if (status === 400 && hasFieldErrors(problem)) {
       // The server checks every field again (L2-022.6); its errors show like the form's own.
       this.notice.set(null);
-      const errors = serverErrors(problem.errors);
+      const errors = fieldErrors(problem, FIELDS, SERVER_FIELD);
       this.reported.set(errors);
       return this.state.reject(errors);
     }

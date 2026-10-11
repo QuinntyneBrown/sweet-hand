@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
-import { Alert, Button, Dialog, FormField, FormSummary, TextField, type SummaryItem } from '@sweet-hand/components';
-import { emailError, summaryHeading } from '../../../core/forms/validation';
+import { Alert, Button, Dialog, FormField, FormSummary, TextField } from '@sweet-hand/components';
+import { emailError, summaryFrom, summaryHeading } from '../../../core/forms/validation';
 import { displayNameError, normalisePhone, phoneError } from '../../identity/rules';
 import { AccountService, type AccountView } from '@sweet-hand/api';
 import type { Errors } from './errors';
 import { FormDialogState } from '../../../core/forms/form-dialog-state';
+import { fieldError } from '../../../core/forms/problem';
 
 const NO_ERRORS: Errors = { name: null, email: null, phone: null };
 
@@ -50,10 +51,7 @@ export class EditDetailsDialog {
     this.account().role === 'Caterer' ? $localize`:@@account.contactName:Contact name` : $localize`:@@account.displayName:Display name`,
   );
 
-  protected readonly summary = computed<SummaryItem[]>(() => {
-    const e = this.state.errors();
-    return (['name', 'email', 'phone'] as const).filter((f) => e[f]).map((f) => ({ controlId: f, message: e[f]! }));
-  });
+  protected readonly summary = computed(() => summaryFrom(this.state.errors(), ['name', 'email', 'phone']));
   protected readonly summaryTitle = computed(() => summaryHeading(this.summary().length, $localize`:@@editDetails.action:save your details`));
 
   protected async save(): Promise<void> {
@@ -69,7 +67,7 @@ export class EditDetailsDialog {
         this.saved.emit({ account, message: this.message(before, account) });
       },
       (status, problem) =>
-        status === 400 && !!problem.errors?.['email'] && this.state.reject({ ...NO_ERRORS, email: $localize`:@@editDetails.emailTaken:Use a different email address` }),
+        status === 400 && !!fieldError(problem, 'email') && this.state.reject({ ...NO_ERRORS, email: $localize`:@@editDetails.emailTaken:Use a different email address` }),
     );
   }
 
