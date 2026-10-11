@@ -11,6 +11,6 @@ System_Ext(cdn, "CDN", "Caches public HTML for 60 s or less")
 
 Rel(caterer, sweethand, "Edits published profile using", "HTTPS")
 Rel(operator, sweethand, "Approves name changes in", "HTTPS")
-Rel(sweethand, cdn, "Purges changed pages through", "<TO SUPPLY>")
+Rel(sweethand, cdn, "Purges changed pages through", "HTTPS")
 Rel(visitor, cdn, "Requests caterer pages through", "HTTPS")
 @enduml

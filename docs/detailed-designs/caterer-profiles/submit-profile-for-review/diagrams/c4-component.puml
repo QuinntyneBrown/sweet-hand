@@ -18,7 +18,7 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(transitions, "ProfileStatusTransitions", "Domain policy", "L2-046 transition table")
   Component(repos, "CatererProfileRepository / ProfileSubmissionRepository", "Infrastructure", "Persistence in one unit of work")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles, history, submissions")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Profiles, history, submissions")
 
 Rel(caterer, page, "Submits")
 Rel(page, dialog, "Opens to withdraw")

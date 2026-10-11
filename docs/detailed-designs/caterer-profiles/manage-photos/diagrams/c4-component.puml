@@ -24,8 +24,8 @@ Container_Boundary(worker, "Sweet Hand background worker") {
   Component(scanner, "MalwareScanner", "Infrastructure", "Calls malware scanning service")
   Component(imaging, "ImageProcessor", "Infrastructure", "AVIF, WebP, JPEG at 400, 800, 1200, 2000 px")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Photos")
-ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Originals and derivatives")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Photos")
+ContainerDb(storage, "Object storage", "S3-compatible object storage", "Originals and derivatives")
 
 Rel(caterer, page, "Uses")
 Rel(page, dialog, "Opens")

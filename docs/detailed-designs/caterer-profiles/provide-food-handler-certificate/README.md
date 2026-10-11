@@ -25,8 +25,9 @@ profile on its own.
 
 ## Description
 
-Technology choices for every component below are `<TO SUPPLY>` pending
-architecture decision records in `docs/adr/`.
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`.
 
 Frontend (Sweet Hand web application):
 

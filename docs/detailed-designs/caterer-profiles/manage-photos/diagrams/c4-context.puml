@@ -10,7 +10,7 @@ System_Ext(malware, "Malware scanning service", "Scans uploaded files")
 System_Ext(cdn, "CDN", "Serves processed photos and caches public pages")
 
 Rel(caterer, sweethand, "Manages photos using", "HTTPS")
-Rel(sweethand, malware, "Scans each upload with", "<TO SUPPLY>")
-Rel(sweethand, cdn, "Publishes derivatives and purges stale content through", "<TO SUPPLY>")
+Rel(sweethand, malware, "Scans each upload with", "HTTPS")
+Rel(sweethand, cdn, "Publishes derivatives and purges stale content through", "HTTPS")
 Rel(visitor, cdn, "Loads photos from", "HTTPS")
 @enduml

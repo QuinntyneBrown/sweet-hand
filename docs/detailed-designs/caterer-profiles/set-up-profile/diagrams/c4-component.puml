@@ -21,7 +21,7 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(rules, "ProfileSubmissionRules", "Domain service", "Evaluates L2-039 rules into a checklist")
   Component(repos, "CatererProfileRepository / CuisineRepository / ServiceAreaRepository", "Infrastructure", "Persistence")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles and reference data")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Profiles and reference data")
 
 Rel(caterer, page, "Edits")
 Rel(page, section, "Renders")

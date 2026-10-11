@@ -21,7 +21,7 @@ Container_Boundary(api, "Sweet Hand API") {
   Component(purger, "CdnPurger", "Infrastructure", "Purges public paths")
   Component(repos, "CatererProfileRepository / ProfileChangeFeed / AuditLog", "Infrastructure", "Persistence")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Profiles, feed, redirects, audit")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Profiles, feed, redirects, audit")
 System_Ext(cdn, "CDN", "Caches public HTML")
 
 Rel(caterer, editor, "Edits")
@@ -38,7 +38,7 @@ Rel(approve, profile, "Applies BusinessName")
 Rel(approve, slugs, "Derives new slug")
 Rel(save, purger, "Purges")
 Rel(approve, purger, "Purges")
-Rel(purger, cdn, "Calls", "<TO SUPPLY>")
+Rel(purger, cdn, "Calls", "HTTPS")
 Rel(save, repos, "Saves profile and feed entry")
 Rel(request, repos, "Saves profile and queue item")
 Rel(approve, repos, "Saves profile, redirect, audit entry")
