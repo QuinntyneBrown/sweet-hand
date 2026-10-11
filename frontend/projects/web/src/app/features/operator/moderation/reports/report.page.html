@@ -1,0 +1,204 @@
+<sh-back-link href="/admin/queue" i18n="@@nav.reviewQueue">Review queue</sh-back-link>
+
+@if (failed()) {
+  <sh-empty-state
+    tone="error"
+    [headingLevel]="1"
+    heading="We couldn’t load this report"
+    i18n-heading="@@report.errorTitle"
+    text="The report didn’t come back from the server. Nothing has changed. Try again, or go back to the queue."
+    i18n-text="@@report.errorText"
+    [reference]="errorReference()"
+    referenceLabel="Reference"
+    i18n-referenceLabel="@@system.reference"
+  >
+    <svg slot="icon" shIcon="danger"></svg>
+    <button slot="actions" class="btn btn--primary" type="button" (click)="report.reload()" i18n="@@common.tryAgain">Try again</button>
+    <a slot="actions" class="btn" routerLink="/admin/queue" i18n="@@record.backToQueue">Back to the queue</a>
+  </sh-empty-state>
+} @else if (!view()) {
+  <h1 class="visually-hidden" i18n="@@report.loadingHeading">Report</h1>
+  <p class="visually-hidden" role="status" i18n="@@report.loading">Loading report</p>
+  <div class="page-intro report-intro" aria-hidden="true">
+    <span class="skeleton skeleton--title report-skeleton--80"></span><span class="skeleton skeleton--text report-skeleton--40"></span>
+  </div>
+  <div class="cluster report-actions" aria-hidden="true"><span class="skeleton skeleton--rect report-skeleton--button"></span></div>
+  <section class="caterer-section report-first" aria-hidden="true">
+    <span class="skeleton skeleton--title report-skeleton--35"></span>
+    <div class="well stack stack--sm report-well">
+      <span class="photo photo--sm"><span class="skeleton skeleton--circle"></span></span><span class="skeleton skeleton--text report-skeleton--90"></span
+      ><span class="skeleton skeleton--text report-skeleton--70"></span>
+    </div>
+  </section>
+  <section class="caterer-section" aria-hidden="true">
+    <span class="skeleton skeleton--title report-skeleton--25"></span>
+    <span class="skeleton skeleton--text report-skeleton--60"></span><span class="skeleton skeleton--text report-skeleton--80"></span>
+  </section>
+} @else if (view(); as g) {
+  <div class="page-intro report-intro">
+    <h1>{{ heading() }}</h1>
+    <p class="cluster">
+      @if (g.status === 'Open') {
+        <sh-status tone="open" label="Open" i18n-label="@@report.open" />
+      } @else {
+        <sh-status tone="closed" label="Resolved" i18n-label="@@report.resolved" />
+      }
+      <span class="subtitle">{{ subtitle() }}</span>
+    </p>
+  </div>
+  @if (g.status === 'Open') {
+    <div class="cluster report-actions">
+      <sh-button variant="primary" haspopup="dialog" (activated)="open('resolve', $event)"><ng-container i18n="@@report.resolve">Resolve report</ng-container></sh-button>
+    </div>
+  }
+  @if (g.resolution) {
+    <div class="report-notice">
+      <sh-alert tone="success" [title]="resolvedTitle()"
+        >{{ resolvedText() }}
+        @if (admin()) {
+          <div slot="actions" class="alert__actions"><a routerLink="/admin/audit" i18n="@@report.seeAudit">See the audit entry</a></div>
+        }
+      </sh-alert>
+    </div>
+  } @else if (autoHidden()) {
+    <div class="report-notice">
+      <sh-alert tone="warning" [title]="hiddenTitle()">{{ hiddenText() }}</sh-alert>
+    </div>
+  }
+
+  @if (g.target; as t) {
+    @if (t.kind === 'Review') {
+      <section class="caterer-section report-first" aria-labelledby="item-title">
+        <h2 id="item-title" i18n="@@report.reportedReview">Reported review</h2>
+        <div class="well stack stack--sm">
+          <div class="dialog__caterer">
+            @if (t.caterer.photo) {
+              <span class="photo"><img [src]="t.caterer.photo" alt="" width="56" height="56" /></span>
+            }
+            <span class="dialog__caterer-name">{{ t.caterer.name }}</span>
+          </div>
+          <div class="review__head">
+            <span class="review__author">{{ t.author }}</span><span class="review__date">{{ eventLine(t.eventDate) }}</span>
+            <sh-stars [value]="t.rating" [label]="outOf5(t.rating)" />
+          </div>
+          <p class="review__body">{{ t.text }}</p>
+          <p><sh-status [tone]="reviewStatus().tone" [label]="reviewStatus().label" /></p>
+        </div>
+      </section>
+    } @else {
+      <section class="caterer-section report-first" aria-labelledby="item-title">
+        <h2 id="item-title" i18n="@@report.reportedCaterer">Reported caterer</h2>
+        <div class="thread__head">
+          @if (t.photo) {
+            <span class="photo photo--md"><img [src]="t.photo" alt="" width="96" height="96" /></span>
+          } @else {
+            <span class="photo photo--md photo--placeholder"><svg shIcon="plate"></svg></span>
+          }
+          <div class="thread__title">
+            <p class="queue-item__title">
+              <a [routerLink]="'/admin/caterers/' + t.catererId">{{ t.name }}</a>
+            </p>
+            <p class="queue-item__meta">{{ t.cuisine }} · {{ t.area }} · {{ t.owner }}</p>
+            <p><sh-status [tone]="statusTone(t.status)" [label]="statusLabel(t.status)" /></p>
+          </div>
+        </div>
+        @if (t.certificate; as c) {
+          <dl class="certificate report-certificate">
+            <dt i18n="@@report.certificate">Certificate</dt>
+            <dd>
+              @if (c.expired) {
+                <sh-status tone="suspended" label="Expired" i18n-label="@@record.expired" />
+              } @else {
+                <sh-status tone="published" label="Valid" i18n-label="@@record.valid" />
+              }
+            </dd>
+            <dt i18n="@@review.issuedBy">Issued by</dt>
+            <dd>{{ c.issuer }}</dd>
+            <dt i18n="@@review.number">Number</dt>
+            <dd>{{ c.number }}</dd>
+            <dt i18n="@@review.expires">Expires</dt>
+            <dd><time [attr.datetime]="c.expires">{{ fullDate(c.expires) }}</time></dd>
+          </dl>
+        }
+      </section>
+    }
+  }
+
+  <section class="caterer-section" aria-labelledby="reports-title">
+    <h2 id="reports-title">{{ reportsHeading() }}</h2>
+    <ul class="review-list">
+      @for (r of g.reports; track $index) {
+        <li class="review">
+          <div class="review__head">
+            <span class="review__author">{{ r.reason }}</span><span class="review__date">{{ byline(r) }}</span>
+          </div>
+          @if (r.details) {
+            <p class="review__body">{{ r.details }}</p>
+          }
+        </li>
+      }
+    </ul>
+    <p class="private-note report-note"><svg class="icon--sm" shIcon="shield"></svg>{{ privacy() }}</p>
+  </section>
+
+  @if (g.linkedEnquiry) {
+    <section class="caterer-section" aria-labelledby="linked-title">
+      <h2 id="linked-title" i18n="@@report.linkedEnquiry">Linked enquiry</h2>
+      <p>{{ enquiryLine() }}</p>
+      <p class="private-note report-note--sm"><svg class="icon--sm" shIcon="lock"></svg><ng-container i18n="@@report.enquiryPrivate">Enquiries are private. Opening this one is written to the audit log.</ng-container></p>
+      @if (enquiry(); as e) {
+        <div class="report-thread">
+          <sh-message-list label="Messages" i18n-label="@@thread.messages">
+            <sh-message kind="theirs" [sender]="e.customer" [text]="e.message" [time]="messageTime(e.sentAt)" [datetime]="e.sentAt" />
+            @for (m of e.entries; track m.id) {
+              <sh-message kind="theirs" [sender]="m.from === 'customer' ? e.customer : e.caterer" [text]="m.text" [time]="messageTime(m.at)" [datetime]="m.at" />
+            }
+          </sh-message-list>
+        </div>
+      } @else if (g.status === 'Open') {
+        <p class="report-open">
+          <sh-button haspopup="dialog" (activated)="open('enquiry', $event)"><ng-container i18n="@@report.openEnquiry">Open linked enquiry</ng-container></sh-button>
+        </p>
+      }
+    </section>
+  }
+
+  <app-resolve-report-dialog [open]="dialog() === 'resolve'" [group]="g" [returnFocus]="opener()" (dismissed)="dialog.set(null)" (done)="resolved($event)" />
+  @if (g.linkedEnquiry) {
+    <app-reason-dialog
+      [open]="dialog() === 'enquiry'"
+      title="Open the linked enquiry?"
+      i18n-title="@@openEnquiry.title"
+      [description]="enquiryDescription()"
+      tone="info"
+      icon="info"
+      label="Reason"
+      i18n-label="@@revert.label"
+      help="Why you need to read it."
+      i18n-help="@@openEnquiry.help"
+      [rows]="2"
+      submitLabel="Open enquiry"
+      i18n-submitLabel="@@openEnquiry.submit"
+      busyMessage="Opening the enquiry"
+      i18n-busyMessage="@@openEnquiry.busy"
+      failedTitle="We couldn’t open the enquiry"
+      i18n-failedTitle="@@openEnquiry.failedTitle"
+      [failedText]="enquiryFailedText"
+      forbiddenTitle="You can’t open this enquiry"
+      i18n-forbiddenTitle="@@openEnquiry.forbiddenTitle"
+      forbiddenText="No report links to it any more, so it stays private. Nothing was recorded."
+      i18n-forbiddenText="@@openEnquiry.forbiddenText"
+      [summaryHeading]="enquirySummary"
+      [validate]="validateEnquiryReason"
+      [action]="enquiryAction"
+      [returnFocus]="opener()"
+      (dismissed)="dialog.set(null)"
+      (done)="opened($any($event.result))"
+    >
+      <ng-container slot="before">
+        <p>{{ enquiryExplanation() }}</p>
+        <p class="private-note" i18n="@@openEnquiry.audited">This access is written to the audit log with your name, the time and your reason.</p>
+      </ng-container>
+    </app-reason-dialog>
+  }
+}

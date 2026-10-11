@@ -4,6 +4,7 @@ import type { Ctx, Reply } from '../lib/http.ts';
 import { conflict, forbidden, invalid, noContent, notFound, ok, unauthorized } from '../lib/http.ts';
 import { currentUser, torontoDate, type AuditEntry, type Store } from '../lib/store.ts';
 import type { Caterer, ProfileStatus } from '../seed/caterers.ts';
+import type { Enquiry } from '../seed/enquiries.ts';
 import type { User } from '../seed/users.ts';
 import type { Report } from '../seed/reports.ts';
 import { ownerFor, type ProfileEdit, type StatusChange } from '../seed/operator.ts';
@@ -22,6 +23,10 @@ import type {
   RecentChangesPageView,
   RecentChangeView,
   RemoveItemResult,
+  ReportEnquiryView,
+  ReportGroupView,
+  ReportedTargetView,
+  ResolveReportRequest,
   OwnerView,
   PublicProfileView,
   ReviewHistoryView,
@@ -917,8 +922,206 @@ function registerRecentChanges(r: Router<Store>): void {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Reports (handle-reports design, L2-055, L2-034.3–4)
+// ---------------------------------------------------------------------------
+
+/** The reports handled together with this one: the open ones about the same item, or those resolved by the same decision. */
+function reportGroup(store: Store, id: string): Report[] | null {
+  const report = store.reports.find((r) => r.id === id);
+  if (!report) return null;
+  const same = (r: Report) =>
+    r.targetKind === report.targetKind &&
+    r.targetId === report.targetId &&
+    (report.status === 'Open' ? r.status === 'Open' : r.resolution?.auditId === report.resolution?.auditId);
+  return store.reports.filter(same).sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+}
+
+/** The enquiry a reported review came from (EnquiryAccessPolicy): the reviewer's enquiry to that caterer. */
+function linkedEnquiry(store: Store, group: Report[]): Enquiry | null {
+  const first = group[0];
+  if (first.targetKind !== 'Review') return null;
+  const review = store.reviews.find((r) => r.id === first.targetId);
+  if (!review) return null;
+  return (
+    store.operator.moderation.reviewEnquiries[review.id] ??
+    store.enquiries.find((e) => e.customerId === review.authorUserId && e.catererId === review.catererId) ??
+    null
+  );
+}
+
+function reportView(store: Store, group: Report[]): ReportGroupView | null {
+  const first = group[0];
+  let targetView: ReportedTargetView;
+  if (first.targetKind === 'Review') {
+    const review = store.reviews.find((r) => r.id === first.targetId);
+    const c = review && store.caterers.find((x) => x.id === review.catererId);
+    if (!review || !c) return null;
+    targetView = {
+      kind: 'Review',
+      reviewId: review.id,
+      caterer: { name: c.name, photo: coverOf(c) },
+      author: reviewerLabel(review.authorName),
+      rating: review.rating,
+      text: review.text,
+      eventDate: review.eventDate,
+      status: review.status,
+      hiddenBy: review.status === 'Hidden' ? (review.hiddenBy ?? 'operator') : null,
+      hiddenAt: review.hiddenAt ?? null,
+    };
+  } else {
+    const c = store.caterers.find((x) => x.id === first.targetId);
+    if (!c) return null;
+    targetView = {
+      kind: 'CatererProfile',
+      catererId: c.id,
+      name: c.name,
+      photo: coverOf(c),
+      cuisine: cuisineName(store, c.cuisines[0]),
+      area: areaName(store, c.areas[0]),
+      owner: catererOwner(store, c).name,
+      status: c.status,
+      certificate: certificateView(store, c),
+    };
+  }
+  const enquiry = linkedEnquiry(store, group);
+  const customer = enquiry && store.users.find((u) => u.id === enquiry.customerId);
+  const caterer = enquiry && store.caterers.find((x) => x.id === enquiry.catererId);
+  const res = first.resolution;
+  const resolver = res && store.users.find((u) => u.id === res.byUserId);
+  return {
+    id: first.id,
+    status: first.status,
+    since: first.createdAt,
+    target: targetView,
+    reports: group.map((r) => ({ reason: r.reason, details: r.details ?? null, at: r.createdAt, signedIn: !!r.reporterUserId })),
+    linkedEnquiry:
+      enquiry && caterer
+        ? { customer: customer ? reviewerLabel(customer.displayName) : '', caterer: caterer.name, eventDate: enquiry.eventDate, guests: enquiry.guests, status: enquiry.status }
+        : null,
+    resolution: res
+      ? { at: res.at, by: resolver?.displayName ?? '', outcome: res.outcome, note: res.note, auditId: res.auditId, reporterEmailed: group.some((r) => !!r.reporterUserId) }
+      : null,
+  };
+}
+
+function registerReportHandling(r: Router<Store>): void {
+  r.get('/api/operator/reports/:id', (ctx) => {
+    const who = operator(ctx);
+    if (isReply(who)) return who;
+    const group = reportGroup(ctx.store, ctx.params['id']);
+    const view = group && reportView(ctx.store, group);
+    return view ? ok(view) : notFound();
+  });
+
+  r.post('/api/operator/reports/:id/resolve', (ctx) => {
+    const who = operator(ctx);
+    if (isReply(who)) return who;
+    const store = ctx.store;
+    const group = reportGroup(store, ctx.params['id']);
+    if (!group) return notFound();
+    const body = (ctx.body ?? {}) as Partial<ResolveReportRequest>;
+    const note = trimmed(body.note);
+    const dismiss = body.decision !== 'action';
+    if (!note) return invalid({ note: [dismiss ? 'Add a note explaining your decision' : 'Add a reason for this change'] });
+    const first = group[0];
+    if (first.status !== 'Open') return conflict('This report was already resolved', { status: first.status });
+
+    let outcome: NonNullable<Report['resolution']>['outcome'];
+    let entry: AuditEntry;
+    if (dismiss) {
+      outcome = 'dismissed';
+      const review = first.targetKind === 'Review' ? store.reviews.find((x) => x.id === first.targetId) : undefined;
+      // Dismissing undoes automatic hiding (L2-055.3).
+      if (review?.status === 'Hidden' && review.hiddenBy === 'reports') {
+        review.status = 'Published';
+        delete review.hiddenBy;
+        delete review.hiddenAt;
+      }
+      entry = audit(store, who, 'Dismiss reports', 'Report', first.id, note, { status: 'Open' }, { status: 'Resolved', outcome });
+    } else if (first.targetKind === 'Review') {
+      const review = store.reviews.find((x) => x.id === first.targetId);
+      if (!review || review.status === 'Removed') return notFound();
+      const before = { status: review.status };
+      const author = review.authorUserId ? store.users.find((u) => u.id === review.authorUserId) : undefined;
+      if (body.action === 'remove-review') {
+        outcome = 'review-removed';
+        review.status = 'Removed';
+        entry = audit(store, who, 'Remove review', 'Review', review.id, note, before, { status: 'Removed' });
+        if (author) email(store, author.email, 'review-removed', { reason: note });
+      } else {
+        outcome = 'hidden';
+        review.status = 'Hidden';
+        review.hiddenBy = 'operator';
+        review.hiddenAt = store.now.toISOString();
+        entry = audit(store, who, 'Hide review', 'Review', review.id, note, before, { status: 'Hidden' });
+        if (author) email(store, author.email, 'review-hidden', { reason: note });
+      }
+    } else {
+      const c = store.caterers.find((x) => x.id === first.targetId);
+      if (!c) return notFound();
+      if (body.action === 'remove') {
+        if (c.status === 'Removed') return stale(c);
+        outcome = 'removed';
+        const before = c.status;
+        closeEnquiries(store, c);
+        transition(store, c, 'Removed', who, 'removed', note);
+        c.statusReason = note;
+        entry = audit(store, who, 'Remove', 'CatererProfile', c.id, note, { status: before }, { status: 'Removed' });
+        email(store, catererOwner(store, c).email, 'caterer-removed', { reason: note });
+      } else {
+        if (c.status !== 'Published') return stale(c);
+        outcome = 'suspended';
+        store.operator.moderation.closedBySuspension[c.id] = closeEnquiries(store, c);
+        transition(store, c, 'Suspended', who, 'suspended', note);
+        c.statusReason = note;
+        entry = audit(store, who, 'Suspend', 'CatererProfile', c.id, note, { status: 'Published' }, { status: 'Suspended' });
+        email(store, catererOwner(store, c).email, 'caterer-suspended', { reason: note });
+      }
+    }
+    for (const rep of group) {
+      rep.status = 'Resolved';
+      rep.resolution = { at: store.now.toISOString(), byUserId: who.id, outcome, note, auditId: entry.id };
+      // Reporters hear that it was reviewed, never what was done (L2-055.5).
+      const reporter = rep.reporterUserId && store.users.find((u) => u.id === rep.reporterUserId);
+      if (reporter) email(store, reporter.email, 'report-reviewed');
+    }
+    return ok(reportView(store, group));
+  });
+
+  /** Read-only access to a linked enquiry, only while handling its report, always audited (L2-034.3–4). */
+  r.post('/api/operator/reports/:id/enquiry', (ctx) => {
+    const who = operator(ctx);
+    if (isReply(who)) return who;
+    const store = ctx.store;
+    const group = reportGroup(store, ctx.params['id']);
+    if (!group) return notFound();
+    const reason = trimmed(ctx.body?.reason);
+    if (!reason) return invalid({ reason: ['Add a reason for opening this enquiry'] });
+    const enquiry = linkedEnquiry(store, group);
+    if (!enquiry) return forbidden();
+    audit(store, who, 'Open enquiry', 'Enquiry', enquiry.id, reason, null, { reportId: group[0].id });
+    const customer = store.users.find((u) => u.id === enquiry.customerId);
+    const caterer = store.caterers.find((x) => x.id === enquiry.catererId);
+    const view: ReportEnquiryView = {
+      customer: customer ? reviewerLabel(customer.displayName) : '',
+      caterer: caterer?.name ?? '',
+      eventDate: enquiry.eventDate,
+      guests: enquiry.guests,
+      status: enquiry.status,
+      message: enquiry.message,
+      sentAt: enquiry.createdAt,
+      entries: enquiry.events
+        .filter((e) => e.kind === 'reply' && e.by !== 'system')
+        .map((e) => ({ id: e.id, from: e.by as 'customer' | 'caterer', text: e.text ?? '', at: e.at })),
+    };
+    return ok(view);
+  });
+}
+
 /** Fake endpoints of the operator area. */
 export function registerOperator(r: Router<Store>): void {
+  registerReportHandling(r);
   registerRecentChanges(r);
   registerEdits(r);
   registerStatusActions(r);
@@ -936,6 +1139,28 @@ const hoursAgo = (store: Store, hours: number) => new Date(store.now.getTime() -
 
 /** Named store changes tests can ask for (`backend.scenario(name, args)`). */
 export const operatorScenarios: Record<string, (store: Store, args: any) => unknown> = {
+  /** A third report in 7 days hides Devon W.'s review automatically (L2-055.2; admin-report/auto-hidden). */
+  'third-report': (store) => {
+    const at = '2026-10-10T12:05:00.000Z';
+    store.reports.push({
+      id: 'R-2049',
+      targetKind: 'Review',
+      targetId: 'review-devon-maracas',
+      reason: 'Fake or spam',
+      details: 'Copy-paste review. I’ve seen it on other pages.',
+      reporterUserId: 'user-andre',
+      createdAt: at,
+      status: 'Open',
+    });
+    const review = store.reviews.find((r) => r.id === 'review-devon-maracas')!;
+    review.status = 'Hidden';
+    review.hiddenBy = 'reports';
+    review.hiddenAt = at;
+  },
+  /** Devon's review no longer links to an enquiry (L2-034.4). */
+  'unlink-review-enquiry': (store) => {
+    delete store.operator.moderation.reviewEnquiries['review-devon-maracas'];
+  },
   /** No caterer edited a published profile in the last 30 days (admin-changes/empty). */
   'no-recent-changes': (store) => {
     store.operator.moderation.edits.length = 0;

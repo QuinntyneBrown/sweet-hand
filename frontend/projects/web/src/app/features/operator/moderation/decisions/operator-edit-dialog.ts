@@ -54,40 +54,40 @@ const DESCRIPTION_MAX = 2000;
       </sh-form-field>
       @switch (field()) {
         @case ('name') {
-          <sh-form-field label="Business name" i18n-label="@@edit.name" controlId="value" [error]="errors()['value'] ?? null">
+          <sh-form-field label="Business name" i18n-label="@@edit.name" controlId="value" [error]="errors()['value'] || null">
             <sh-text-field name="value" [(value)]="text" [readonly]="busy()" />
           </sh-form-field>
         }
         @case ('description') {
-          <sh-form-field label="Description" i18n-label="@@edit.description" controlId="value" [error]="errors()['value'] ?? null" [counter]="counter()" [counterOver]="over()">
+          <sh-form-field label="Description" i18n-label="@@edit.description" controlId="value" [error]="errors()['value'] || null" [counter]="counter()" [counterOver]="over()">
             <sh-textarea name="value" [rows]="6" [(value)]="text" [readonly]="busy()" />
           </sh-form-field>
         }
         @case ('guests') {
-          <sh-form-field label="Fewest guests" i18n-label="@@edit.min" controlId="min" [error]="errors()['min'] ?? null">
+          <sh-form-field label="Fewest guests" i18n-label="@@edit.min" controlId="min" [error]="errors()['min'] || null">
             <sh-text-field name="min" inputmode="numeric" [(value)]="min" [readonly]="busy()" />
           </sh-form-field>
-          <sh-form-field label="Most guests" i18n-label="@@edit.max" controlId="max" [error]="errors()['max'] ?? null">
+          <sh-form-field label="Most guests" i18n-label="@@edit.max" controlId="max" [error]="errors()['max'] || null">
             <sh-text-field name="max" inputmode="numeric" [(value)]="max" [readonly]="busy()" />
           </sh-form-field>
         }
         @case ('photo') {
-          <sh-form-field label="Photo to remove" i18n-label="@@edit.photo" controlId="value" [error]="errors()['value'] ?? null">
+          <sh-form-field label="Photo to remove" i18n-label="@@edit.photo" controlId="value" [error]="errors()['value'] || null">
             <sh-select name="value" [options]="photoOptions()" [(value)]="item" [disabled]="busy()" />
           </sh-form-field>
         }
         @case ('dish') {
-          <sh-form-field label="Dish to remove" i18n-label="@@edit.dish" controlId="value" [error]="errors()['value'] ?? null">
+          <sh-form-field label="Dish to remove" i18n-label="@@edit.dish" controlId="value" [error]="errors()['value'] || null">
             <sh-select name="value" [options]="dishOptions()" [(value)]="item" [disabled]="busy()" />
           </sh-form-field>
         }
         @default {
-          <sh-form-field [label]="listLabel()" controlId="value" help="Separate with commas. The first is the primary." i18n-help="@@edit.listHelp" [error]="errors()['value'] ?? null">
+          <sh-form-field [label]="listLabel()" controlId="value" help="Separate with commas. The first is the primary." i18n-help="@@edit.listHelp" [error]="errors()['value'] || null">
             <sh-text-field name="value" [(value)]="text" [readonly]="busy()" />
           </sh-form-field>
         }
       }
-      <sh-form-field [label]="reasonLabel()" controlId="reason" help="For example: Removed phone number from description" i18n-help="@@edit.reasonHelp" [error]="errors()['reason'] ?? null">
+      <sh-form-field [label]="reasonLabel()" controlId="reason" help="For example: Removed phone number from description" i18n-help="@@edit.reasonHelp" [error]="errors()['reason'] || null">
         <sh-textarea name="reason" [rows]="2" [required]="true" [(value)]="reason" [readonly]="busy()" [autofocus]="true" />
       </sh-form-field>
       <button slot="footer" class="btn btn--primary" type="submit" [attr.aria-busy]="busy() ? 'true' : null" [attr.aria-disabled]="busy() ? 'true' : null">

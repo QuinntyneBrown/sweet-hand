@@ -39,6 +39,8 @@ import { conflictText } from './decision-text';
       }
       @if (conflict(); as c) {
         <sh-alert tone="warning" live="assertive" title="This profile changed while you were looking" i18n-title="@@decision.conflictTitle">{{ c }}</sh-alert>
+      } @else if (refused() && forbiddenTitle()) {
+        <sh-alert tone="danger" live="assertive" [title]="forbiddenTitle()!">{{ forbiddenText() }}</sh-alert>
       } @else if (failed()) {
         <sh-alert tone="danger" live="assertive" [title]="failedTitle()">{{ failedText() }}</sh-alert>
       }
@@ -91,6 +93,9 @@ export class ReasonDialog<T = unknown> {
   readonly conflictHref = input('/admin/queue');
   readonly conflictLink = input($localize`:@@review.backToQueue:Back to review queue`);
   readonly returnFocus = input<HTMLElement | null>(null);
+  /** What a 403 means for this decision, when it can happen (L2-034.4). */
+  readonly forbiddenTitle = input<string | null>(null);
+  readonly forbiddenText = input<string | null>(null);
   /** When the server cannot be reached, close and let the page raise a toast instead of the in-dialog error (admin-toast/danger). */
   readonly toastWhenUnreachable = input(false);
 
@@ -105,6 +110,7 @@ export class ReasonDialog<T = unknown> {
   protected readonly busy = signal(false);
   protected readonly failed = signal(false);
   protected readonly conflict = signal<string | null>(null);
+  protected readonly refused = signal(false);
   protected readonly summary = computed<SummaryItem[]>(() => {
     const e = this.error();
     return e ? [{ controlId: this.controlId(), message: e }] : [];
@@ -118,6 +124,7 @@ export class ReasonDialog<T = unknown> {
         this.error.set(null);
         this.failed.set(false);
         this.conflict.set(null);
+        this.refused.set(false);
         this.attempt.set(0);
       });
     });
@@ -129,6 +136,7 @@ export class ReasonDialog<T = unknown> {
     const error = this.validate()(reason);
     this.error.set(error);
     this.failed.set(false);
+    this.refused.set(false);
     if (error) {
       this.attempt.update((n) => n + 1);
       return;
@@ -145,6 +153,8 @@ export class ReasonDialog<T = unknown> {
         this.attempt.update((n) => n + 1);
       } else if (status === 409) {
         this.conflict.set(conflictText(this.name(), problem));
+      } else if (status === 403 && this.forbiddenTitle()) {
+        this.refused.set(true);
       } else if (this.toastWhenUnreachable() && (status === 0 || (status >= 500 && !problem.title))) {
         // No answer from the API: the connection dropped, or a proxy gave up on it.
         this.unreachable.emit(reason);

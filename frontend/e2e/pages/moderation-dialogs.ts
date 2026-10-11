@@ -164,6 +164,52 @@ export class RevertDialog extends ModerationDialog {
   }
 }
 
+/** "Resolve report" (dialogs/resolve-report). */
+export class ResolveReportDialog extends ModerationDialog {
+  constructor(page: Page) {
+    super(page, 'Resolve report');
+  }
+
+  get decisions() {
+    return this.dialog.getByRole('group', { name: 'Decision' }).getByRole('radio');
+  }
+
+  decision(name: 'Dismiss' | 'Take action') {
+    return this.dialog.getByRole('group', { name: 'Decision' }).getByRole('radio', { name: new RegExp(`^${name}`) });
+  }
+
+  action(name: string) {
+    return this.dialog.getByRole('group', { name: 'Action' }).getByRole('radio', { name: new RegExp(`^${name}`) });
+  }
+
+  get actions() {
+    return this.dialog.getByRole('group', { name: 'Action' }).getByRole('radio');
+  }
+
+  get note() {
+    return this.dialog.locator('#note');
+  }
+
+  get noteLabel() {
+    return this.dialog.locator('label[for="note"]');
+  }
+
+  get caption() {
+    return this.dialog.locator('.dialog__body > .text-caption');
+  }
+}
+
+/** "Open the linked enquiry?" (dialogs/open-enquiry). */
+export class OpenEnquiryDialog extends ModerationDialog {
+  constructor(page: Page) {
+    super(page, 'Open the linked enquiry?');
+  }
+
+  get explanation() {
+    return this.dialog.locator('.dialog__body > p').first();
+  }
+}
+
 /** "Request changes to Auntie Bev's Kitchen" (dialogs/request-changes). */
 export class RequestChangesDialog extends ModerationDialog {
   constructor(page: Page) {
