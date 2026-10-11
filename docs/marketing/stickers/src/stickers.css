@@ -1,0 +1,48 @@
+@font-face {
+  font-family: "Figtree";
+  src: url("../../assets/fonts/figtree-latin.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+}
+
+/* Palette copied by value from docs/design-system/tokens/tokens.css. */
+:root {
+  --stone-950: #141312;
+  --stone-200: #e2ded7;
+  --white: #ffffff;
+  --pepper-500: #c94a2f;
+  --pepper-600: #b5381f;
+}
+
+html, body { margin: 0; background: transparent; }
+body { font-family: "Figtree", system-ui, sans-serif; }
+
+/* 900 x 900 CSS px = 3in x 3in at 300 DPI. */
+.stage { width: 900px; height: 900px; }
+.stage svg { display: block; width: 900px; height: 900px; }
+
+/* Review-only: the sticker on paper with a soft shadow. */
+body.preview { background: #f1eee9; }
+body.preview .stage svg { filter: drop-shadow(0 10px 18px rgb(20 19 18 / 0.25)); }
+
+/* --- Shared artwork idioms (copied into every exported SVG) --- */
+/* The die cut. Each silhouette piece is painted white with a fat round-joined
+   stroke and paint-order: stroke, so the stroke lies wholly outside the shape;
+   overlapping pieces union into one outline. Rim width = (stroke width) / 2,
+   so --cut-extra 130px gives a 65px (0.217in) white keyline past the artwork.
+   Set --art-stroke on a piece when the artwork paints its own outer stroke. */
+.keyline {
+  fill: #ffffff;
+  stroke: #ffffff;
+  stroke-linejoin: round;
+  paint-order: stroke;
+  stroke-width: calc(var(--cut-extra, 130px) + var(--art-stroke, 0px));
+}
+.edge-url {
+  font-family: "Figtree", system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 30px;
+  letter-spacing: 7px;
+  fill: #000000;
+}
+.wm { font-family: "Figtree", system-ui, sans-serif; font-weight: 700; letter-spacing: -0.02em; }
