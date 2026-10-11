@@ -40,6 +40,16 @@ export abstract class BasePage {
 
   /** axe-core with WCAG 2.1 A and AA rules reports no violations (L2-066). */
   async expectNoAccessibilityViolations() {
+    // Entrance animations fade dialogs and sheets in; axe folds that opacity into its
+    // contrast ratios, so a mid-fade snapshot fails text that passes once settled.
+    await this.page.evaluate(() =>
+      Promise.all(
+        document
+          .getAnimations()
+          .filter((animation) => animation.effect?.getTiming().iterations !== Infinity)
+          .map((animation) => animation.finished.catch(() => undefined)),
+      ),
+    );
     const results = await new AxeBuilder({ page: this.page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze();
