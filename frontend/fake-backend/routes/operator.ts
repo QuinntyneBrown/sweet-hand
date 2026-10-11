@@ -9,6 +9,11 @@ import type { Report } from '../seed/reports.ts';
 import { ownerFor, type StatusChange } from '../seed/operator.ts';
 import { OCCASIONS, slugify } from '../seed/taxonomy.ts';
 import type {
+  CatererCounts,
+  CatererFlag,
+  CatererRowView,
+  CaterersPageView,
+  CatererStatusFilter,
   CertificateView,
   DecisionResult,
   NameChangeReviewView,
@@ -511,8 +516,83 @@ function registerDecisions(r: Router<Store>): void {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Caterer records (suspend-reinstate-remove-profile, edit-profile-as-operator)
+// ---------------------------------------------------------------------------
+
+const STATUS_FILTERS: Record<CatererStatusFilter, ProfileStatus> = {
+  draft: 'Draft',
+  pending: 'Pending review',
+  changes: 'Changes requested',
+  published: 'Published',
+  suspended: 'Suspended',
+  removed: 'Removed',
+};
+
+/** The record's last change: seeded, or when it was published or created. */
+export function lastChange(store: Store, c: Caterer): string {
+  return store.operator.moderation.updatedAt[c.id] ?? c.publishedAt ?? c.createdAt;
+}
+
+function openReportsAbout(store: Store, c: Caterer): number {
+  return store.reports.filter((r) => r.status === 'Open' && r.targetKind === 'CatererProfile' && r.targetId === c.id).length;
+}
+
+function catererRow(store: Store, c: Caterer): CatererRowView {
+  const openReports = openReportsAbout(store, c);
+  const today = torontoDate(store.now);
+  const flag: CatererFlag | null = c.pendingName
+    ? 'name-change'
+    : openReports
+      ? 'open-reports'
+      : c.status === 'Pending review' && submission(store, c).resubmitted
+        ? 'resubmitted'
+        : c.status === 'Published' && c.certificate && c.certificate.expires < today
+          ? 'certificate-expired'
+          : null;
+  return {
+    id: c.id,
+    name: c.name,
+    status: c.status,
+    photo: coverOf(c),
+    cuisine: cuisineName(store, c.cuisines[0]),
+    area: areaName(store, c.areas[0]),
+    owner: catererOwner(store, c).name,
+    updatedAt: lastChange(store, c),
+    flag,
+    openReports,
+  };
+}
+
+function registerCaterers(r: Router<Store>): void {
+  r.get('/api/operator/caterers', (ctx) => {
+    const who = operator(ctx);
+    if (isReply(who)) return who;
+    const store = ctx.store;
+    const status = STATUS_FILTERS[ctx.query.get('status') as CatererStatusFilter] as ProfileStatus | undefined;
+    const q = (ctx.query.get('q') ?? '').trim().toLocaleLowerCase('en-CA');
+    const all = store.caterers.map((c) => catererRow(store, c)).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+    const found = q ? all.filter((c) => c.name.toLocaleLowerCase('en-CA').includes(q) || c.owner.toLocaleLowerCase('en-CA').includes(q)) : all;
+    const matching = status ? found.filter((c) => c.status === status) : found;
+    const n = (s: ProfileStatus) => all.filter((c) => c.status === s).length;
+    const counts: CatererCounts = {
+      all: all.length,
+      draft: n('Draft'),
+      pending: n('Pending review'),
+      changes: n('Changes requested'),
+      published: n('Published'),
+      suspended: n('Suspended'),
+      removed: n('Removed'),
+    };
+    const other = !matching.length && status && q ? found[0] : undefined;
+    const view: CaterersPageView = { ...paginate(matching, page(ctx.query)), counts, otherMatch: other ? { name: other.name, status: other.status } : null };
+    return ok(view);
+  });
+}
+
 /** Fake endpoints of the operator area. */
 export function registerOperator(r: Router<Store>): void {
+  registerCaterers(r);
   registerQueue(r);
   registerProfileReview(r);
   registerDecisions(r);
@@ -526,6 +606,10 @@ const hoursAgo = (store: Store, hours: number) => new Date(store.now.getTime() -
 
 /** Named store changes tests can ask for (`backend.scenario(name, args)`). */
 export const operatorScenarios: Record<string, (store: Store, args: any) => unknown> = {
+  /** First run: no caterer has registered (admin-caterers/empty). */
+  'no-caterers': (store) => {
+    store.caterers.length = 0;
+  },
   /** Nothing waits for a decision (admin-queue/empty). */
   'empty-review-queue': (store) => {
     for (const c of store.caterers) {

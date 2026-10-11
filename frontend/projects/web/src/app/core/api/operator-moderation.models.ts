@@ -241,6 +241,8 @@ export interface CaterersPageView {
   pageCount: number;
   /** Caterers in each status, ignoring the filters. */
   counts: CatererCounts;
+  /** With a search and a status that match nothing: the first caterer the search finds in another status. */
+  otherMatch: { name: string; status: ProfileStatus } | null;
 }
 
 export interface CatererRecordView {
