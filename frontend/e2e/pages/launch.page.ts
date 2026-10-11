@@ -214,6 +214,16 @@ export class LaunchPage {
     await this.submit.click();
   }
 
+  /** Lets `ms` pass on the page's clock. */
+  waitFor(ms: number) {
+    return this.page.clock.runFor(ms);
+  }
+
+  /** Activates the submit button even while it reports itself busy (`aria-disabled`), as a visitor can. */
+  async activateSubmitWhileBusy() {
+    await this.submit.click({ force: true });
+  }
+
   // Checks
 
   async expectNoHorizontalScroll() {

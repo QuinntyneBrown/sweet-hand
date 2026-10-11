@@ -1,36 +1,118 @@
-<h2 id="notify-title" i18n="@@launch.signUp.heading">Get the launch email</h2>
+<h2 id="notify-title" tabindex="-1" i18n="@@launch.signUp.heading">Get the launch email</h2>
 <form class="form form--compact" novalidate (submit)="submit($event)">
+  @if (summary().length) {
+    <div class="form-summary" role="alert" tabindex="-1" id="error-summary" aria-labelledby="error-summary-title">
+      <h3 id="error-summary-title" i18n="@@launch.signUp.summaryTitle">{summary().length, plural, =1 {Fix 1 thing} other {Fix {{ summary().length }} things}}</h3>
+      <ul>
+        @for (item of summary(); track item.target) {
+          <li><a [href]="'#' + item.target" (click)="focusField($event, item.target)">{{ item.message }}</a></li>
+        }
+      </ul>
+    </div>
+  }
+  @if (state() === 'failed') {
+    <div class="alert alert--danger" role="alert">
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v6M12 16.5v.5" /></svg>
+      <div class="alert__body">
+        <p class="alert__title" i18n="@@launch.signUp.failedTitle">We couldn’t add you just now</p>
+        <p i18n="@@launch.signUp.failedText">Your details are still here. Reference {{ reference() }}.</p>
+      </div>
+    </div>
+  }
   <fieldset class="field">
     <legend class="field__label" i18n="@@launch.signUp.roleLegend">I’m…</legend>
+    @if (errors().role; as message) {
+      <span class="field__error" id="role-error">{{ message }}</span>
+    }
     <div class="option-grid">
       <label class="choice choice--card"
-        ><input type="radio" id="role-event" name="role" value="customer" required [checked]="values().role === 'customer'" (change)="chooseRole('customer')" /><span class="choice__text"
-          ><span i18n="@@launch.signUp.roleCustomer">Planning an event</span></span
-        ></label
+        ><input
+          type="radio"
+          id="role-event"
+          name="role"
+          value="customer"
+          required
+          [checked]="values().role === 'customer'"
+          [disabled]="sending()"
+          [attr.aria-invalid]="errors().role ? 'true' : null"
+          [attr.aria-describedby]="describedBy('role')"
+          (change)="chooseRole('customer')" /><span class="choice__text"><span i18n="@@launch.signUp.roleCustomer">Planning an event</span></span></label
       ><label class="choice choice--card"
-        ><input type="radio" id="role-caterer" name="role" value="caterer" [checked]="values().role === 'caterer'" (change)="chooseRole('caterer')" /><span class="choice__text"
-          ><span i18n="@@launch.signUp.roleCaterer">A caterer</span></span
-        ></label
+        ><input
+          type="radio"
+          id="role-caterer"
+          name="role"
+          value="caterer"
+          [checked]="values().role === 'caterer'"
+          [disabled]="sending()"
+          [attr.aria-invalid]="errors().role ? 'true' : null"
+          [attr.aria-describedby]="describedBy('role')"
+          (change)="chooseRole('caterer')" /><span class="choice__text"><span i18n="@@launch.signUp.roleCaterer">A caterer</span></span></label
       >
     </div>
   </fieldset>
   @if (values().role === 'caterer') {
     <div class="field">
       <label class="field__label" for="business" i18n="@@launch.signUp.businessName">Business name <span class="text-subtle">(optional)</span></label>
-      <input class="input input--lg" id="business" name="business" type="text" autocomplete="organization" maxlength="60" [value]="values().businessName" (input)="setBusinessName($any($event.target).value)" />
+      <input
+        class="input input--lg"
+        id="business"
+        name="business"
+        type="text"
+        autocomplete="organization"
+        maxlength="60"
+        [readOnly]="sending()"
+        [value]="values().businessName"
+        (input)="setBusinessName($any($event.target).value)" />
     </div>
   }
   <div class="field">
     <label class="field__label" for="email" i18n="@@launch.signUp.email">Email</label>
-    <input class="input input--lg" id="email" name="email" type="email" autocomplete="email" spellcheck="false" required [value]="values().email" (input)="setEmail($any($event.target).value)" />
+    <input
+      class="input input--lg"
+      id="email"
+      name="email"
+      type="email"
+      autocomplete="email"
+      spellcheck="false"
+      required
+      [readOnly]="sending()"
+      [attr.aria-invalid]="errors().email ? 'true' : null"
+      [attr.aria-describedby]="describedBy('email')"
+      [value]="values().email"
+      (input)="setEmail($any($event.target).value)" />
+    @if (errors().email; as message) {
+      <span class="field__error" id="email-error">{{ message }}</span>
+    }
   </div>
   <div class="field">
     <label class="choice"
-      ><input type="checkbox" id="consent" name="consent" required aria-describedby="consent-summary" [checked]="values().consent" (change)="setConsent($any($event.target).checked)" /><span class="choice__text"
-        ><span i18n="@@launch.signUp.consent">Email me when Sweet Hand opens</span></span
-      ></label
+      ><input
+        type="checkbox"
+        id="consent"
+        name="consent"
+        required
+        [checked]="values().consent"
+        [disabled]="sending()"
+        [attr.aria-invalid]="errors().consent ? 'true' : null"
+        [attr.aria-describedby]="describedBy('consent', 'consent-summary')"
+        (change)="setConsent($any($event.target).checked)" /><span class="choice__text"><span i18n="@@launch.signUp.consent">Email me when Sweet Hand opens</span></span></label
     >
-    <p class="consent-summary" id="consent-summary"><ng-container i18n="@@launch.signUp.consentSummary">One email, nothing else.</ng-container> <a routerLink="/privacy" i18n="@@launch.signUp.privacy">Privacy</a></p>
+    <p class="consent-summary" id="consent-summary"><ng-container i18n="@@launch.signUp.consentSummary">One email, nothing else.</ng-container>&ngsp;<a href="/privacy" i18n="@@launch.signUp.privacy">Privacy</a></p>
+    @if (errors().consent; as message) {
+      <span class="field__error" id="consent-error">{{ message }}</span>
+    }
   </div>
-  <button class="btn btn--primary btn--lg btn--block" type="submit" i18n="@@launch.signUp.submit">Get the launch email</button>
+  <button class="btn btn--primary btn--lg btn--block" type="submit" [attr.aria-busy]="sending() ? 'true' : null" [attr.aria-disabled]="sending() ? 'true' : null">
+    @if (state() === 'failed') {
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5" /></svg><ng-container i18n="@@launch.signUp.tryAgain">Try again</ng-container>
+    } @else {
+      <ng-container i18n="@@launch.signUp.submit">Get the launch email</ng-container>
+    }
+  </button>
+  <p class="visually-hidden" role="status">
+    @if (sending()) {
+      <ng-container i18n="@@launch.signUp.sending">Adding you to the list</ng-container>
+    }
+  </p>
 </form>
