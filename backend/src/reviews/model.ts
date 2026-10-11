@@ -15,7 +15,7 @@ export interface Review extends Document {
   createdAt: string;
   editedAt?: string;
   status: ReviewStatus;
-  response?: { text: string; createdAt: string };
+  response?: { text: string; createdAt: string; updatedAt?: string };
   /** Hidden reviews: who hid it (an operator's user id, or null when hidden automatically after reports), why and when (L2-059). */
   hidden?: { by: string | null; reports: number; reason: string; at: string };
   /** Why a held review was held back (L2-050.3). */
