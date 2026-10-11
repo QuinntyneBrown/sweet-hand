@@ -16,6 +16,11 @@ param turnstileHostnames string = 'sweethand.ca,www.sweethand.ca'
 param postgresAdmin string = 'sweethand_migrate'
 param contactEmail string = 'hello@sweethand.ca'
 param mailingAddress string = '309–2091 Hurontario Street, Mississauga, Ontario L5A 4E6'
+@description('Link the custom email domain to Communication Services; true only once Azure reports the domain verified.')
+param linkEmailDomain bool = false
+param budgetAmount int = 100
+param budgetEmail string = 'quinntyne@hotmail.com'
+param budgetStartDate string = '2026-10-01'
 
 var suffix = take(uniqueString(subscription().id, resourceGroup().id), 6)
 var acrName = 'acrsweethand${suffix}'
@@ -194,7 +199,7 @@ resource swa 'Microsoft.Web/staticSites@2023-12-01' = {
 resource communication 'Microsoft.Communication/communicationServices@2023-04-01' = {
   name: communicationName
   location: 'global'
-  properties: { dataLocation: 'Canada' }
+  properties: { dataLocation: 'Canada', linkedDomains: linkEmailDomain ? [emailDomain.id] : [] }
 }
 
 resource email 'Microsoft.Communication/emailServices@2023-04-01' = {
@@ -262,6 +267,7 @@ resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApi) {
           { name: 'ACS_EMAIL_ENDPOINT', value: 'https://${communication.name}.communication.azure.com' }
           { name: 'ACS_EMAIL_SENDER', value: contactEmail }
           { name: 'APPLICATIONINSIGHTS_CONNECTION_STRING', value: insights.properties.ConnectionString }
+          { name: 'AZURE_CLIENT_ID', value: identity.properties.clientId }
         ]
         probes: [
           { type: 'Liveness', httpGet: { path: '/health/live', port: 4300, scheme: 'HTTP' }, initialDelaySeconds: 15, periodSeconds: 20 }
@@ -291,6 +297,22 @@ resource migrate 'Microsoft.App/jobs@2024-03-01' = if (deployMigration) {
     template: { containers: [{ name: 'migrate', image: containerImage, command: ['npm'], args: ['run', 'migrate'], resources: { cpu: json('0.5'), memory: '1Gi' }, env: [{ name: 'DATABASE_URL', secretRef: 'database-url' }] }] }
   }
   dependsOn: [acrPull, vaultReader, postgres]
+}
+
+resource budget 'Microsoft.Consumption/budgets@2023-11-01' = {
+  name: 'budget-${baseName}'
+  properties: {
+    category: 'Cost'
+    amount: budgetAmount
+    timeGrain: 'Monthly'
+    timePeriod: { startDate: budgetStartDate }
+    notifications: {
+      actual50: { enabled: true, operator: 'GreaterThanOrEqualTo', threshold: 50, thresholdType: 'Actual', contactEmails: [budgetEmail] }
+      actual80: { enabled: true, operator: 'GreaterThanOrEqualTo', threshold: 80, thresholdType: 'Actual', contactEmails: [budgetEmail] }
+      actual100: { enabled: true, operator: 'GreaterThanOrEqualTo', threshold: 100, thresholdType: 'Actual', contactEmails: [budgetEmail] }
+      forecast100: { enabled: true, operator: 'GreaterThanOrEqualTo', threshold: 100, thresholdType: 'Forecasted', contactEmails: [budgetEmail] }
+    }
+  }
 }
 
 output acrName string = acr.name
