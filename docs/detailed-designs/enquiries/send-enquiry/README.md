@@ -18,7 +18,7 @@ A sent enquiry starts in status `Open` and appears in both the customer's and th
 
 ## Description
 
-Technology choices for every component are `<TO SUPPLY>`, pending architecture decision records in `docs/adr/`. The components below are described by role.
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage); providers not named there remain `<TO SUPPLY>`. The components below are described by role.
 
 **Frontend — Sweet Hand web application**
 

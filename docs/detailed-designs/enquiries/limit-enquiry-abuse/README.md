@@ -20,7 +20,7 @@ Platform-wide request rate limits for public read endpoints, and the stricter fa
 
 ## Description
 
-Technology choices for every component are `<TO SUPPLY>`, pending architecture decision records in `docs/adr/`. The bot-protection provider is `<TO SUPPLY>`.
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage); providers not named there remain `<TO SUPPLY>`. The bot-protection provider is `<TO SUPPLY>`.
 
 **Frontend — Sweet Hand web application**
 

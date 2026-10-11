@@ -4,24 +4,24 @@ LAYOUT_WITH_LEGEND()
 title Components — Decline or close an enquiry
 
 Container_Boundary(web, "Sweet Hand web application") {
-  Component(pane, "ThreadPane", "<TO SUPPLY>", "Decline and Close actions")
-  Component(decl, "DeclineEnquiryDialog", "<TO SUPPLY>", "Optional note up to 500 characters")
-  Component(close, "CloseEnquiryDialog", "<TO SUPPLY>", "Confirmation")
-  Component(client, "EnquiriesClient", "<TO SUPPLY>", "API client contract")
+  Component(pane, "ThreadPane", "Page component", "Decline and Close actions")
+  Component(decl, "DeclineEnquiryDialog", "Dialog", "Optional note up to 500 characters")
+  Component(close, "CloseEnquiryDialog", "Dialog", "Confirmation")
+  Component(client, "EnquiriesClient", "API client contract", "API client contract")
 }
 Container_Boundary(api, "Sweet Hand API") {
-  Component(ep, "EnquiriesEndpoints", "<TO SUPPLY>", "decline and close endpoints")
-  Component(dh, "DeclineEnquiryHandler", "<TO SUPPLY>", "Caterer decline")
-  Component(ch, "CloseEnquiryHandler", "<TO SUPPLY>", "Party close")
-  Component(ah, "AutoCloseEnquiriesHandler", "<TO SUPPLY>", "Closes enquiries 30 days after event")
-  Component(agg, "Enquiry", "<TO SUPPLY>", "Status state machine")
-  Component(sched, "NotificationScheduler", "<TO SUPPLY>", "Queues decline email")
-  Component(repo, "EnquiryRepository", "<TO SUPPLY>", "Enquiry persistence")
+  Component(ep, "EnquiriesEndpoints", "Endpoint group", "decline and close endpoints")
+  Component(dh, "DeclineEnquiryHandler", "Command handler", "Caterer decline")
+  Component(ch, "CloseEnquiryHandler", "Command handler", "Party close")
+  Component(ah, "AutoCloseEnquiriesHandler", "Command handler", "Closes enquiries 30 days after event")
+  Component(agg, "Enquiry", "Domain aggregate", "Status state machine")
+  Component(sched, "NotificationScheduler", "Domain service", "Queues decline email")
+  Component(repo, "EnquiryRepository", "Repository", "Enquiry persistence")
 }
 Container_Boundary(worker, "Sweet Hand background worker") {
-  Component(job, "DailyMaintenanceJob", "<TO SUPPLY>", "Runs daily rules")
+  Component(job, "DailyMaintenanceJob", "Scheduled job", "Runs daily rules")
 }
-ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Enquiries and notifications")
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Enquiries and notifications")
 
 Rel(pane, decl, "Opens")
 Rel(pane, close, "Opens")

@@ -25,7 +25,7 @@ Emails never carry the customer's email address or phone number. The `Reply-To` 
 
 ## Description
 
-Technology choices for every component, and the email provider, are `<TO SUPPLY>`, pending architecture decision records in `docs/adr/`.
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage); providers not named there remain `<TO SUPPLY>`. The email provider is `<TO SUPPLY>`.
 
 **Backend — Sweet Hand Application and Domain**
 
