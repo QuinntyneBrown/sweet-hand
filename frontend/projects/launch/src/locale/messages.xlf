@@ -91,7 +91,7 @@
         <source>Enter your email again for a new one.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/launch/src/app/launch-page/launch-page.html</context>
-          <context context-type="linenumber">9,12</context>
+          <context context-type="linenumber">9,11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="launch.unsubscribed.title" datatype="html">
@@ -259,7 +259,7 @@
         <source>Before Sweet Hand opens</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
-          <context context-type="linenumber">4,7</context>
+          <context context-type="linenumber">4,6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="launch.privacy.intro" datatype="html">
@@ -326,7 +326,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="launch.privacy.processor" datatype="html">
-        <source>Our email provider sends the confirmation and launch-day emails. The list, its backups and our email provider are all in Canada.</source>
+        <source>Microsoft Azure Communication Services sends the confirmation and launch-day emails with its data location set to Canada. Cloudflare Turnstile processes a security challenge only after you submit a valid form. We do not share the list with Cloudflare.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
           <context context-type="linenumber">19,20</context>
@@ -385,7 +385,7 @@
         <source>30 days after launch day, or at once if you remove it</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
-          <context context-type="linenumber">38,42</context>
+          <context context-type="linenumber">38,41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="launch.privacy.leaveHeading" datatype="html">
@@ -410,7 +410,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="launch.privacy.cookies" datatype="html">
-        <source>Opening the page sets no cookies. When you sign up, confirm or leave, we set a security token cookie that stops other sites acting as you. There are no analytics, advertising or tracking cookies.</source>
+        <source>Opening the page sets no cookies and loads no third-party script. When you submit the form, Cloudflare Turnstile loads to prevent automated sign-ups. Sign-up, confirmation and removal requests set a security token cookie that stops other sites acting as you. There are no analytics, advertising or tracking cookies.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/launch/src/app/privacy/launch-privacy-page.html</context>
           <context context-type="linenumber">47,48</context>
@@ -535,25 +535,46 @@
           <context context-type="linenumber">101,102</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="launch.signUp.challengeTitle" datatype="html">
+        <source>One quick check</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">108,109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.challengeText" datatype="html">
+        <source>Cloudflare helps keep automated sign-ups off the list.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">109,110</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="launch.signUp.tryAgain" datatype="html">
         <source>Try again</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
-          <context context-type="linenumber">108,110</context>
+          <context context-type="linenumber">115,117</context>
         </context-group>
       </trans-unit>
       <trans-unit id="launch.signUp.submit" datatype="html">
         <source>Get the launch email</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
-          <context context-type="linenumber">110,113</context>
+          <context context-type="linenumber">117,119</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="launch.signUp.checking" datatype="html">
+        <source>Checking that you’re a person</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
+          <context context-type="linenumber">122,123</context>
         </context-group>
       </trans-unit>
       <trans-unit id="launch.signUp.sending" datatype="html">
         <source>Adding you to the list</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/launch/src/app/sign-up/launch-sign-up-form.html</context>
-          <context context-type="linenumber">115,118</context>
+          <context context-type="linenumber">124,127</context>
         </context-group>
       </trans-unit>
     </body>

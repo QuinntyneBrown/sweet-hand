@@ -2,7 +2,6 @@
 import { randomUUID } from 'node:crypto';
 import type { Request, Reply } from '../http/endpoint.ts';
 import { invalid, notFound, ok } from '../http/problems.ts';
-import { validChallenge } from '../platform/bot-challenge.ts';
 import { mailServiceStatus } from '../platform/mail-service.ts';
 import { recordSecurityEvent } from '../platform/security-log.ts';
 import type { Transaction } from '../platform/database.ts';
@@ -88,7 +87,7 @@ export async function sendEnquiry(req: Request): Promise<Reply> {
   if (isReply(user)) return user;
   if (!user.emailVerified) return refuse(403, 'email-unverified', 'Verify your email to send enquiries');
   const body = (req.body ?? {}) as Partial<SendEnquiryRequest>;
-  if (!validChallenge(body.challengeToken, 'enquiry')) return refuse(400, 'challenge-failed', 'The bot check failed');
+  if (!(await req.env.challenges.verify(body.challengeToken, 'enquiry'))) return refuse(400, 'challenge-failed', 'The bot check failed');
   const caterer = await publishedCaterer(req.tx, body.catererSlug);
   if (!caterer) return notFound();
   const values = formValues(req.body);

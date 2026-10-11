@@ -1,0 +1,14 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+interface ChallengeVerifier { +verify(token: string, action: ProtectedAction): Promise<boolean> }
+class LocalChallengeVerifier
+class TurnstileChallengeVerifier
+interface EmailGateway { +send(email: OutboxEmail): Promise<void> }
+class AzureCommunicationEmailGateway
+ChallengeVerifier <|.. LocalChallengeVerifier
+ChallengeVerifier <|.. TurnstileChallengeVerifier
+EmailGateway <|.. AzureCommunicationEmailGateway
+@enduml

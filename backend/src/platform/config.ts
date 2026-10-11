@@ -13,6 +13,11 @@ export interface Config {
   testControl: boolean;
   /** Where uploaded media live when there is no database (local development). */
   mediaDir?: string;
+  turnstileSecret?: string;
+  turnstileHostnames: string[];
+  prelaunchMode: boolean;
+  communicationEmailEndpoint?: string;
+  communicationEmailSender?: string;
 }
 
 export function requiredEnv(name: string): string {
@@ -35,6 +40,11 @@ export function loadConfig(): Config {
     trustProxy: flag('TRUST_PROXY', false),
     testControl: flag('TEST_CONTROL', false),
     mediaDir: process.env['MEDIA_DIR'] || undefined,
+    turnstileSecret: process.env['TURNSTILE_SECRET'] || undefined,
+    turnstileHostnames: (process.env['TURNSTILE_HOSTNAMES'] ?? 'sweethand.ca,www.sweethand.ca').split(',').map((s) => s.trim()).filter(Boolean),
+    prelaunchMode: flag('PRELAUNCH_MODE', false),
+    communicationEmailEndpoint: process.env['ACS_EMAIL_ENDPOINT'] || undefined,
+    communicationEmailSender: process.env['ACS_EMAIL_SENDER'] || undefined,
   };
   if (config.testControl && config.databaseUrl) throw new Error('TEST_CONTROL cannot be used with a real database');
   if (config.databaseUrl) {
@@ -42,6 +52,9 @@ export function loadConfig(): Config {
     // and keys IP hashes with its own secret, never the built-in one.
     if (!config.allowedOrigins.length) throw new Error('ALLOWED_ORIGINS is not set');
     if (!process.env['IP_HASH_SECRET']) throw new Error('IP_HASH_SECRET is not set');
+    if (!config.turnstileSecret) throw new Error('TURNSTILE_SECRET is not set');
+    if (!config.communicationEmailEndpoint) throw new Error('ACS_EMAIL_ENDPOINT is not set');
+    if (!config.communicationEmailSender) throw new Error('ACS_EMAIL_SENDER is not set');
   }
   return config;
 }

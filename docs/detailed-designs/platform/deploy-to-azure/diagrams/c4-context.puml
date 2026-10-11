@@ -1,0 +1,14 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Deploy to Azure
+Person(visitor, "Launch visitor", "Joins the Sweet Hand launch list")
+System(sweet, "Sweet Hand", "Pre-launch site and launch-list API")
+System_Ext(github, "GitHub", "Source and Actions delivery")
+System_Ext(cloudflare, "Cloudflare Turnstile", "Bot challenge verification")
+System_Ext(namecheap, "Namecheap", "Authoritative DNS and inbound forwarding")
+Rel(visitor, sweet, "Uses", "HTTPS")
+Rel(github, sweet, "Deploys through OIDC and Azure CLI")
+Rel(sweet, cloudflare, "Verifies challenge tokens", "HTTPS")
+Rel(namecheap, sweet, "Points sweethand.ca to")
+@enduml

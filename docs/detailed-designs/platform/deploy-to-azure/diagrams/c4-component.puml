@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Azure production runtime
+Container_Boundary(api, "Sweet Hand API") {
+  Component(gate, "PrelaunchGuard", "Express middleware", "Conceals unfinished routes")
+  Component(ctrl, "LaunchListController", "NestJS controller", "Launch-list endpoints")
+  Component(bot, "TurnstileChallengeVerifier", "Provider adapter", "Checks token, action and hostname")
+  Component(outbox, "Email dispatcher", "Application service", "Claims and sends queued messages")
+  Component(mail, "AzureCommunicationEmailGateway", "Provider adapter", "Sends transactional email")
+}
+Rel(gate, ctrl, "Allows launch-list requests")
+Rel(ctrl, bot, "Verifies sign-up challenge")
+Rel(outbox, mail, "Sends claimed email")
+@enduml

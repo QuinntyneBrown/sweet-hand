@@ -4,10 +4,11 @@ import { createNestApp } from './http/nest/create-app.ts';
 import type { Environments } from './http/nest/options.ts';
 import type { Config } from './platform/config.ts';
 import { productControllers, productHooks } from './product.ts';
+import { prelaunchGate } from './http/prelaunch-gate.ts';
 
 export interface ApiAppOptions {
   environments: Environments;
-  config?: Partial<Pick<Config, 'secureCookies' | 'allowedOrigins' | 'trustProxy'>>;
+  config?: Partial<Pick<Config, 'secureCookies' | 'allowedOrigins' | 'trustProxy' | 'prelaunchMode'>>;
   /** Handled before any route: the test-control API in test mode (ADR 0009). */
   control?: (req: IncomingMessage, res: ServerResponse) => Promise<boolean>;
   /** Overrides, for tests that add probe controllers. */
@@ -20,12 +21,12 @@ export async function createApiApp(options: ApiAppOptions): Promise<INestApplica
   return createNestApp({
     controllers: options.controllers ?? productControllers,
     environments: options.environments,
-    config: { secureCookies: false, allowedOrigins: [], trustProxy: false, ...options.config },
+    config: { secureCookies: false, allowedOrigins: [], trustProxy: false, prelaunchMode: false, ...options.config },
     ...productHooks(),
-    before: control
-      ? (req, res, next) => {
-          control(req, res).then((handled) => handled || next(), next);
-        }
-      : undefined,
+    before: (req, res, next) => {
+      if (options.config?.prelaunchMode && prelaunchGate(req, res)) return;
+      if (control) control(req, res).then((handled) => handled || next(), next);
+      else next();
+    },
   });
 }

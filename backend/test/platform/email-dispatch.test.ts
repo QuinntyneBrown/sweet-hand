@@ -115,4 +115,15 @@ describe('launch list email delivery (L2-101.5)', () => {
     assert.equal(await dispatchDueEmails(env, gateway, undefined, { maxPerTick: 2 }), 1);
     assert.equal(new Set(sent).size, 5);
   });
+
+  it('Given two overlapping workers, when both claim the same due email, then the provider receives it once', async () => {
+    const env = await testEnvironment({ seed: false });
+    await env.db.transaction((tx) => queueEmail(tx, env.clock.now(), { to: 'marcia.t@example.com', kind: 'launch-day-customer', link: 'https://sweethand.ca/caterers', mailingAddress: '309–2091 Hurontario Street, Mississauga, Ontario L5A 4E6', contactEmail: 'hello@sweethand.ca', askedOn: 'October 11, 2026', removalLink: 'https://sweethand.ca/u' }));
+    let sends = 0;
+    const gateway: EmailGateway = { send: async () => { sends++; await Promise.resolve(); } };
+
+    await Promise.all([dispatchDueEmails(env, gateway), dispatchDueEmails(env, gateway)]);
+
+    assert.equal(sends, 1);
+  });
 });

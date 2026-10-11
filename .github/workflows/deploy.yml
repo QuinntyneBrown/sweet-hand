@@ -1,0 +1,96 @@
+name: Deploy production
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.event == 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    environment: production
+    env:
+      AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      RESOURCE_GROUP: rg-sweethand-prod
+      IMAGE_TAG: ${{ github.event.workflow_run.head_sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Assert the production subscription
+        run: test "$(az account show --query id -o tsv)" = "4a1b5113-89f9-4d27-acfe-581493385536"
+      - name: Apply foundation
+        run: |
+          az deployment group create --resource-group "$RESOURCE_GROUP" --name "foundation-$IMAGE_TAG" --template-file infra/main.bicep \
+            --parameters deployApi=false deployMigration=false postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
+      - name: Build and scan the immutable API image
+        run: |
+          ACR=$(az deployment group show -g "$RESOURCE_GROUP" -n "foundation-$IMAGE_TAG" --query properties.outputs.acrName.value -o tsv)
+          echo "ACR=$ACR" >> "$GITHUB_ENV"
+          az acr build --registry "$ACR" --image "sweet-hand-api:$IMAGE_TAG" --file backend/Dockerfile .
+      - name: Apply migration job
+        run: |
+          IMAGE="$ACR.azurecr.io/sweet-hand-api:$IMAGE_TAG"
+          az deployment group create --resource-group "$RESOURCE_GROUP" --name "migration-$IMAGE_TAG" --template-file infra/main.bicep \
+            --parameters deployApi=false deployMigration=true containerImage="$IMAGE" postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
+      - name: Run explicit migrations
+        run: |
+          EXECUTION=$(az containerapp job start -g "$RESOURCE_GROUP" -n caj-swh-migrate --query name -o tsv)
+          for attempt in $(seq 1 60); do
+            STATUS=$(az containerapp job execution show -g "$RESOURCE_GROUP" -n caj-swh-migrate --job-execution-name "$EXECUTION" --query properties.status -o tsv)
+            if [ "$STATUS" = Succeeded ]; then exit 0; fi
+            if [ "$STATUS" = Failed ]; then exit 1; fi
+            sleep 10
+          done
+          exit 1
+      - name: Promote the migrated API image
+        run: |
+          IMAGE="$ACR.azurecr.io/sweet-hand-api:$IMAGE_TAG"
+          az deployment group create --resource-group "$RESOURCE_GROUP" --name "release-$IMAGE_TAG" --template-file infra/main.bicep \
+            --parameters deployApi=true deployMigration=true containerImage="$IMAGE" postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
+      - name: Link the same-origin API
+        run: |
+          API_ID=$(az containerapp show -g "$RESOURCE_GROUP" -n ca-swh-api --query id -o tsv)
+          az staticwebapp backends link -g "$RESOURCE_GROUP" -n swa-sweethand-launch-prod --backend-resource-id "$API_ID" --backend-region canadacentral || true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.18.0'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Build the production launch application
+        working-directory: frontend
+        run: |
+          npm ci
+          npx ng build launch --define "LAUNCH_SITE_URL='https://sweethand.ca'" --define "LAUNCH_CONTACT_EMAIL='hello@sweethand.ca'" --define "LAUNCH_TURNSTILE_SITE_KEY='${{ vars.TURNSTILE_SITE_KEY }}'"
+          node scripts/check-launch-size.mjs
+      - name: Deploy the launch application
+        id: swa
+        run: echo "token=$(az staticwebapp secrets list -g "$RESOURCE_GROUP" -n swa-sweethand-launch-prod --query properties.apiKey -o tsv)" >> "$GITHUB_OUTPUT"
+      - uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ steps.swa.outputs.token }}
+          action: upload
+          app_location: frontend/dist/launch/browser
+          skip_app_build: true
+          skip_api_build: true
+      - name: Production smoke checks
+        run: |
+          curl --fail --retry 12 --retry-delay 10 https://sweethand.ca/
+          curl --fail https://sweethand.ca/privacy
+          curl --fail https://sweethand.ca/api/public/launch-list
+          test "$(curl -s -o /dev/null -w '%{http_code}' https://sweethand.ca/api/caterers)" = 404

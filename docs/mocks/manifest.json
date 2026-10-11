@@ -1819,6 +1819,8 @@
         "caterer",
         "invalid",
         "submitting",
+        "challenge",
+        "challenge-error",
         "error",
         "success",
         "confirmed",

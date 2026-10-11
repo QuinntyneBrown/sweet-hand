@@ -9,6 +9,7 @@ import { useSecureCookies } from './identity/sessions.ts';
 import { seedDatabase } from './seed/index.ts';
 import { TestEnvironments, testControl } from './testing/control.ts';
 import { logGateway } from './platform/email-dispatch.ts';
+import { azureEmailGateway } from './platform/azure-email.ts';
 import { startBackgroundWork } from './maintenance/scheduler.ts';
 import { loadConfig } from './platform/config.ts';
 import { systemClock } from './platform/clock.ts';
@@ -18,6 +19,7 @@ import { MemoryMediaStore, PostgresMediaStore } from './platform/media.ts';
 import type { Environment } from './environment.ts';
 import { PassThroughImageProcessing } from './platform/image-processing.ts';
 import { SignatureScanner } from './platform/malware-scanner.ts';
+import { LocalChallengeVerifier, TurnstileChallengeVerifier } from './platform/bot-challenge.ts';
 
 const config = loadConfig();
 const db = config.databaseUrl ? new PostgresDatabase(config.databaseUrl) : new MemoryDatabase();
@@ -29,6 +31,7 @@ const env: Environment = {
   images: new PassThroughImageProcessing(),
   // No scanning provider yet: the stand-in flags only the EICAR test file.
   scanner: new SignatureScanner(),
+  challenges: config.databaseUrl ? new TurnstileChallengeVerifier(config.turnstileSecret!, config.turnstileHostnames) : new LocalChallengeVerifier(),
 };
 
 useSecureCookies(config.secureCookies);
@@ -50,7 +53,10 @@ server.headersTimeout = 66_000;
 
 // The background work: emails (L2-030), waiting photos (L2-091.2) and the daily
 // maintenance job. In test mode it stays off so specs control time and read queued emails.
-const stopBackgroundWork = testEnvs ? undefined : startBackgroundWork(env, logGateway);
+const emailGateway = config.databaseUrl
+  ? azureEmailGateway(config.communicationEmailEndpoint!, config.communicationEmailSender!)
+  : logGateway;
+const stopBackgroundWork = testEnvs ? undefined : startBackgroundWork(env, emailGateway);
 await app.listen(config.port);
 console.log(`Sweet Hand API on http://localhost:${config.port}${config.databaseUrl ? '' : config.testControl ? ' (test mode)' : ' (in-memory database)'}`);
 

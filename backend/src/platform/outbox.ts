@@ -16,7 +16,7 @@ export interface OutboxEmail extends Document {
   seq: number;
   /** The link the email carries; removed once the email is sent, since it may hold a token. */
   link?: string;
-  status: 'queued' | 'sent' | 'failed';
+  status: 'queued' | 'sending' | 'sent' | 'failed';
   [detail: string]: unknown;
 }
 

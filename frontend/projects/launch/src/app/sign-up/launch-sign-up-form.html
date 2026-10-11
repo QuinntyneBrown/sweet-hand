@@ -103,6 +103,13 @@
       <span class="field__error" id="consent-error">{{ message }}</span>
     }
   </div>
+  @if (state() === 'challenging') {
+    <div class="well stack stack--sm" role="group" aria-labelledby="challenge-title">
+      <p id="challenge-title"><strong i18n="@@launch.signUp.challengeTitle">One quick check</strong></p>
+      <p class="text-muted" i18n="@@launch.signUp.challengeText">Cloudflare helps keep automated sign-ups off the list.</p>
+      <div id="turnstile-challenge"></div>
+    </div>
+  }
   <button class="btn btn--primary btn--lg btn--block" type="submit" [attr.aria-busy]="sending() ? 'true' : null" [attr.aria-disabled]="sending() ? 'true' : null">
     @if (state() === 'failed') {
       <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5" /></svg><ng-container i18n="@@launch.signUp.tryAgain">Try again</ng-container>
@@ -111,7 +118,9 @@
     }
   </button>
   <p class="visually-hidden" role="status">
-    @if (sending()) {
+    @if (state() === 'challenging') {
+      <ng-container i18n="@@launch.signUp.checking">Checking that you’re a person</ng-container>
+    } @else if (sending()) {
       <ng-container i18n="@@launch.signUp.sending">Adding you to the list</ng-container>
     }
   </p>

@@ -53,7 +53,7 @@ The visitor chooses "Planning an event" or "A caterer", enters an email, optiona
 - **`sign-up.ts`** — `joinLaunchList(req)`, in the request's single transaction:
   1. Reads `LaunchState`. After the launch-day run it returns `gone(...)` (HTTP 410) and stores nothing (`L2-102 AC1`).
   2. Counts recent `launch-sign-up` events for the hashed IP with `recentEvents`. Above 10 in an hour it returns HTTP 429 with `Retry-After` (`L2-104 AC5`), then records the event.
-  3. Checks `validChallenge(body.challengeToken, 'launch-sign-up')`. A missing or invalid token returns HTTP 400 and stores nothing (`L2-104 AC4`). When the provider cannot be reached, the limit in step 2 halves to 5, as in `platform/degrade-gracefully`.
+  3. Awaits `req.env.challenges.verify(body.challengeToken, 'launch-sign-up')`. Production uses `TurnstileChallengeVerifier`, which requires provider success, the `launch-sign-up` action and an allowed Sweet Hand hostname. Tests use `LocalChallengeVerifier`. A missing or invalid token returns HTTP 400 and stores nothing (`L2-104 AC4`).
   4. Runs `validateSignUp`.
   5. Finds the entry by `emailKey` and applies the table in `L2-098`: a new address gets a `Pending` entry; a `Pending` entry takes the new role, business name and consent record; a `Confirmed` entry is left unchanged.
   6. For a new or `Pending` entry with fewer than 3 `confirmationsSent` in the last 24 hours, it issues a `confirm` token and a `remove` token and queues a `launch-confirm` email with `queueEmail` (`L2-098 AC5`, `L2-099 AC1`). For a `Confirmed` entry with no `alreadyListedSentAt` in the last 24 hours, it issues a `remove` token and queues `launch-already-listed`.

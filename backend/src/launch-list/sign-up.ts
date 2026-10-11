@@ -1,7 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { Request, Reply } from '../http/endpoint.ts';
 import { accepted, gone, invalid } from '../http/problems.ts';
-import { validChallenge } from '../platform/bot-challenge.ts';
 import { hashIp } from '../platform/secrets.ts';
 import { writeLog } from '../platform/log-redactor.ts';
 import { currentPrivacyNotice } from '../identity/privacy.ts';
@@ -48,7 +47,7 @@ export async function joinLaunchList(req: Request): Promise<Reply> {
   if (launched(await launchState(req.tx))) return gone('Sign-ups have closed');
   await throttleLaunchList(req, 'launch-sign-up', SIGN_UPS_PER_HOUR);
   const body = (req.body ?? {}) as Record<string, unknown>;
-  if (!validChallenge(body['challengeToken'], 'launch-sign-up')) return invalid({ challengeToken: ['Confirm you’re a person'] });
+  if (!(await req.env.challenges.verify(body['challengeToken'], 'launch-sign-up'))) return invalid({ challengeToken: ['Confirm you’re a person'] });
   const validation = validateSignUp(body);
   if (!validation.ok) return invalid(validation.errors);
   const { command } = validation;

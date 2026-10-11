@@ -1,0 +1,30 @@
+@startuml
+title UML sequence behaviour — Deploy a main commit
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+actor "Maintainer" as actor
+box "Frontend — GitHub Actions" #E0F2FE
+  participant "CI workflow" as ci
+  participant "Deploy workflow" as deploy
+end box
+box "Backend — Azure control plane" #D1FADF
+  participant "Azure CLI / Bicep" as azure
+  participant "Migration job" as migrate
+  participant "Container App" as app
+end box
+actor -> ci : Push commit to main
+ci -> ci : Validate L2-108 AC1
+ci --> deploy : Successful tested SHA
+deploy -> azure : Apply infrastructure with OIDC
+deploy -> migrate : Run explicit migration
+migrate --> deploy : Success
+deploy -> app : Create immutable revision
+deploy -> app : Check readiness and smoke tests
+alt checks pass
+  app --> deploy : Promote revision
+else checks fail
+  deploy -> app : Restore preceding revision
+end
+@enduml

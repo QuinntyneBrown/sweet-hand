@@ -1,7 +1,6 @@
 import type { Request, Reply } from '../http/endpoint.ts';
 import { conflict, invalid, problem } from '../http/problems.ts';
 import type { Transaction } from '../platform/database.ts';
-import { validChallenge } from '../platform/bot-challenge.ts';
 import { hashIp } from '../platform/secrets.ts';
 import { recordSecurityEvent } from '../platform/security-log.ts';
 import { recentEvents, recordEvent } from '../platform/throttle.ts';
@@ -65,7 +64,7 @@ export async function submitReport(req: Request): Promise<Reply> {
   const body = (req.body ?? {}) as Partial<ReportRequest>;
   const reporterUserId = req.actor?.userId;
   // Anonymous reports pass the bot-protection challenge (L2-082.2).
-  if (!reporterUserId && !validChallenge(body.challengeToken, 'report')) return invalid({ challengeToken: ['Complete the check'] });
+  if (!reporterUserId && !(await req.env.challenges.verify(body.challengeToken, 'report'))) return invalid({ challengeToken: ['Complete the check'] });
 
   const errors: Record<string, string[]> = {};
   const reason = REASONS.find((r) => r === body.reason);
