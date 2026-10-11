@@ -1,5 +1,6 @@
 import { roles, type Area } from '../http/router.ts';
 import { ownProfile, referenceData } from './profile.ts';
+import { saveSection } from './sections.ts';
 
 const caterer = roles('Caterer');
 
@@ -7,4 +8,5 @@ const caterer = roles('Caterer');
 export const catererProfileArea: Area = (r) => {
   r.get('/api/caterer/profile', caterer, ownProfile);
   r.get('/api/caterer/profile/reference-data', caterer, referenceData);
+  r.put('/api/caterer/profile/sections/:section', caterer, saveSection);
 };
