@@ -1,10 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { Alert, BackLink, Button, EMPTY_STATE, Icon, PhotoRow, Status } from '@sweet-hand/components';
+import { Alert, BackLink, Button, Checklist, ChecklistItem, EMPTY_STATE, Icon, PhotoRow, Status, ToastNotifier, type CheckStatusLabels } from '@sweet-hand/components';
 import { ModerationApi } from '../../../../core/api/operator-moderation-api';
-import type { CatererRecordView } from '../../../../core/api/operator-moderation.models';
+import type { CatererRecordView, DecisionResult } from '../../../../core/api/operator-moderation.models';
 import { problemOf, reference } from '../../../../core/forms/problem';
+import { summaryHeading } from '../../../../core/forms/validation';
+import { reasonError } from '../decisions/decision-text';
+import { ReasonDialog } from '../decisions/reason-dialog';
+import { RemoveDialog } from '../decisions/remove-dialog';
 import { shortDate } from '../../../../core/format/format';
 import { Session } from '../../../../core/session/session';
 import { guestRange } from '../../../discovery/caterer/caterer-view';
@@ -34,7 +38,7 @@ export type RecordDialog = 'edit' | 'suspend' | 'reinstate' | 'remove';
  */
 @Component({
   selector: 'app-caterer-record-page',
-  imports: [RouterLink, Alert, BackLink, Button, EMPTY_STATE, Icon, PhotoRow, Status],
+  imports: [RouterLink, Alert, BackLink, Button, Checklist, ChecklistItem, EMPTY_STATE, Icon, PhotoRow, Status, ReasonDialog, RemoveDialog],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './caterer-record.page.html',
   styleUrl: './caterer-record.page.css',
@@ -42,6 +46,8 @@ export type RecordDialog = 'edit' | 'suspend' | 'reinstate' | 'remove';
 export class CatererRecordPage {
   private readonly api = inject(ModerationApi);
   private readonly session = inject(Session);
+  private readonly toasts = inject(ToastNotifier);
+  protected readonly noLabels: CheckStatusLabels = { done: '', missing: '', attention: '' };
   protected readonly admin = computed(() => !!this.session.user()?.admin);
 
   /** The caterer id from the route. */
@@ -92,9 +98,83 @@ export class CatererRecordPage {
   protected readonly dialog = signal<RecordDialog | null>(null);
   protected readonly opener = signal<HTMLElement | null>(null);
 
+  /** A reason kept after the server did not answer, for Try again (admin-toast/danger). */
+  protected readonly keptReason = signal('');
+
   protected openDialog(kind: RecordDialog, event: MouseEvent): void {
     this.opener.set(event.currentTarget as HTMLElement);
+    this.keptReason.set('');
     this.dialog.set(kind);
+  }
+
+  protected readonly validateReason = reasonError;
+  protected readonly suspendAction = (reason: string) => this.api.suspend(this.id(), reason);
+  protected readonly reinstateAction = (reason: string) => this.api.reinstate(this.id(), reason);
+  protected readonly reasonLabel = computed(() => $localize`:@@decision.reasonFor:Reason (sent to ${firstName(this.r().owner.name)}:name:)`);
+  protected readonly suspendTitle = computed(() => $localize`:@@suspend.title:Suspend ${this.r().name}:name:?`);
+  protected readonly suspendSummary = computed(() => summaryHeading(1, $localize`:@@suspend.action:suspend ${this.r().name}:name:`));
+  protected readonly suspendBusy = computed(() => $localize`:@@suspend.busy:Suspending ${this.r().name}:name:`);
+  protected readonly suspendFailed = computed(() => $localize`:@@suspend.failedTitle:We couldn’t suspend ${this.r().name}:name:`);
+  protected readonly failedKept = $localize`:@@decision.failedKept:Nothing has changed. Check your connection and try again; your reason is kept.`;
+  protected readonly suspendLines = computed(() => {
+    const r = this.r();
+    const first = firstName(r.owner.name);
+    const open = r.activity.openEnquiries;
+    return [
+      $localize`:@@suspend.lineEmail:${first}:name: gets an email with your reason.`,
+      open === 0
+        ? $localize`:@@suspend.lineNoEnquiries:No open enquiries need closing.`
+        : open === 1
+          ? $localize`:@@suspend.lineOneEnquiry:1 open enquiry closes; that customer is told ${r.name}:business: is no longer available.`
+          : $localize`:@@suspend.lineEnquiries:${open}:count: open enquiries close; those customers are told ${r.name}:business: is no longer available.`,
+    ];
+  });
+  protected readonly reinstateTitle = computed(() => $localize`:@@reinstate.title:Reinstate ${this.r().name}:name:?`);
+  protected readonly reinstateDescription = computed(() => {
+    const r = this.r();
+    const first = firstName(r.owner.name);
+    const n = r.activity.rating.count;
+    return n === 0
+      ? $localize`:@@reinstate.descriptionNoReviews:It’s back in the listing within a minute. ${first}:name: gets an email.`
+      : n === 1
+        ? $localize`:@@reinstate.descriptionOneReview:It’s back in the listing within a minute, with its earlier review. ${first}:name: gets an email.`
+        : $localize`:@@reinstate.description:It’s back in the listing within a minute, with its ${n}:count: earlier reviews. ${first}:name: gets an email.`;
+  });
+  protected readonly reinstateSummary = computed(() => summaryHeading(1, $localize`:@@reinstate.action:reinstate ${this.r().name}:name:`));
+  protected readonly reinstateBusy = computed(() => $localize`:@@reinstate.busy:Reinstating ${this.r().name}:name:`);
+  protected readonly reinstateFailed = computed(() => $localize`:@@reinstate.failedTitle:We couldn’t reinstate ${this.r().name}:name:`);
+
+  /** After a status change the record shows the new state, and a toast says what happened. */
+  protected changed(kind: 'suspended' | 'reinstated' | 'removed', result: DecisionResult): void {
+    this.dialog.set(null);
+    const first = firstName(result.owner);
+    const toast =
+      kind === 'suspended'
+        ? { title: $localize`:@@suspend.toastTitle:${result.name}:name: is suspended`, text: $localize`:@@suspend.toastText:It leaves the listing within a minute. ${first}:name: has been emailed.` }
+        : kind === 'reinstated'
+          ? { title: $localize`:@@reinstate.toastTitle:${result.name}:name: is reinstated`, text: $localize`:@@reinstate.toastText:It’s back in the listing within a minute. ${first}:name: has been emailed.` }
+          : { title: $localize`:@@remove.toastTitle:${result.name}:name: is removed`, text: $localize`:@@remove.toastText:Its page returns “gone” from now on. ${first}:name: has been emailed.` };
+    this.toasts.show(toast);
+    this.record.reload();
+    void this.session.refresh();
+  }
+
+  /** The server did not answer: nothing changed; Try again reopens the dialog with the reason (admin-toast/danger). */
+  protected unreachable(reason: string): void {
+    const name = this.r().name;
+    this.dialog.set(null);
+    this.toasts.show({
+      tone: 'danger',
+      title: $localize`:@@suspend.unreachableTitle:Couldn’t suspend ${name}:name:`,
+      text: $localize`:@@suspend.unreachableText:The server didn’t respond. Nothing was changed and the caterer wasn’t emailed.`,
+      action: {
+        label: $localize`:@@common.tryAgain:Try again`,
+        run: () => {
+          this.keptReason.set(reason);
+          this.dialog.set('suspend');
+        },
+      },
+    });
   }
 
   protected openCertificate(): void {

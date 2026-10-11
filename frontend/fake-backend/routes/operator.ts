@@ -635,8 +635,77 @@ function registerCaterers(r: Router<Store>): void {
   });
 }
 
+/** Closes the caterer's open and replied enquiries and tells each customer (L2-058.2). Returns how many closed. */
+function closeEnquiries(store: Store, c: Caterer): number {
+  const open = store.enquiries.filter((e) => e.catererId === c.id && (e.status === 'Open' || e.status === 'Replied'));
+  for (const e of open) {
+    e.status = 'Closed';
+    e.events.push({ id: randomUUID(), kind: 'closed', by: 'system', at: store.now.toISOString() });
+    const customer = store.users.find((u) => u.id === e.customerId && !u.deleted);
+    if (customer) email(store, customer.email, 'caterer-unavailable');
+  }
+  return open.length;
+}
+
+const reasonRequired = () => invalid({ reason: ['Add a reason for this change'] });
+
+function registerStatusActions(r: Router<Store>): void {
+  r.post('/api/operator/profiles/:id/suspend', (ctx) => {
+    const t = target(ctx);
+    if (!('c' in t)) return t;
+    const { who, c } = t;
+    const reason = trimmed(ctx.body?.reason);
+    if (!reason) return reasonRequired();
+    if (c.status !== 'Published') return stale(c);
+    const store = ctx.store;
+    store.operator.moderation.closedBySuspension[c.id] = closeEnquiries(store, c);
+    transition(store, c, 'Suspended', who, 'suspended', reason);
+    c.statusReason = reason;
+    audit(store, who, 'Suspend', 'CatererProfile', c.id, reason, { status: 'Published' }, { status: 'Suspended' });
+    email(store, catererOwner(store, c).email, 'caterer-suspended', { reason });
+    return ok(decision(store, c));
+  });
+
+  r.post('/api/operator/profiles/:id/reinstate', (ctx) => {
+    const t = target(ctx);
+    if (!('c' in t)) return t;
+    const { who, c } = t;
+    const reason = trimmed(ctx.body?.reason);
+    if (!reason) return reasonRequired();
+    if (c.status !== 'Suspended') return stale(c);
+    const store = ctx.store;
+    transition(store, c, 'Published', who, 'reinstated', reason);
+    delete c.statusReason;
+    audit(store, who, 'Reinstate', 'CatererProfile', c.id, reason, { status: 'Suspended' }, { status: 'Published' });
+    email(store, catererOwner(store, c).email, 'caterer-reinstated', { reason });
+    return ok(decision(store, c));
+  });
+
+  /** Any status but Removed may be removed; removal is final (L2-046.3, L2-058.4). */
+  r.post('/api/operator/profiles/:id/remove', (ctx) => {
+    const t = target(ctx);
+    if (!('c' in t)) return t;
+    const { who, c } = t;
+    const reason = trimmed(ctx.body?.reason);
+    const errors: Record<string, string[]> = {};
+    if (!reason) errors['reason'] = ['Add a reason for this change'];
+    if (ctx.body?.confirm !== c.name) errors['confirm'] = [`Type the business name exactly: ${c.name}`];
+    if (Object.keys(errors).length) return invalid(errors);
+    if (c.status === 'Removed') return stale(c);
+    const store = ctx.store;
+    const before = c.status;
+    closeEnquiries(store, c);
+    transition(store, c, 'Removed', who, 'removed', reason);
+    c.statusReason = reason;
+    audit(store, who, 'Remove', 'CatererProfile', c.id, reason, { status: before }, { status: 'Removed' });
+    email(store, catererOwner(store, c).email, 'caterer-removed', { reason });
+    return ok(decision(store, c));
+  });
+}
+
 /** Fake endpoints of the operator area. */
 export function registerOperator(r: Router<Store>): void {
+  registerStatusActions(r);
   registerCaterers(r);
   registerQueue(r);
   registerProfileReview(r);

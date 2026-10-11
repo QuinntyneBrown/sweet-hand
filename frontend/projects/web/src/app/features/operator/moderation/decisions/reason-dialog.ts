@@ -91,8 +91,12 @@ export class ReasonDialog<T = unknown> {
   readonly conflictHref = input('/admin/queue');
   readonly conflictLink = input($localize`:@@review.backToQueue:Back to review queue`);
   readonly returnFocus = input<HTMLElement | null>(null);
+  /** When the server cannot be reached, close and let the page raise a toast instead of the in-dialog error (admin-toast/danger). */
+  readonly toastWhenUnreachable = input(false);
 
   readonly dismissed = output<void>();
+  /** The server did not respond; the reason the operator wrote, to keep for Try again. */
+  readonly unreachable = output<string>();
   readonly done = output<{ result: T; reason: string }>();
 
   protected readonly reason = signal('');
@@ -141,6 +145,9 @@ export class ReasonDialog<T = unknown> {
         this.attempt.update((n) => n + 1);
       } else if (status === 409) {
         this.conflict.set(conflictText(this.name(), problem));
+      } else if (this.toastWhenUnreachable() && (status === 0 || (status >= 500 && !problem.title))) {
+        // No answer from the API: the connection dropped, or a proxy gave up on it.
+        this.unreachable.emit(reason);
       } else {
         this.failed.set(true);
       }

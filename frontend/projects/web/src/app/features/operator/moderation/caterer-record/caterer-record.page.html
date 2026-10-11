@@ -195,3 +195,70 @@
     <p class="text-caption record-caption" i18n="@@record.historyFixed">History entries can’t be edited.</p>
   </section>
 }
+
+@if (view(); as r) {
+  <app-reason-dialog
+    [open]="dialog() === 'suspend'"
+    [title]="suspendTitle()"
+    description="It leaves the listing within a minute and its page returns “not found”. You can reinstate it later."
+    i18n-description="@@suspend.description"
+    tone="danger"
+    icon="danger"
+    [name]="r.name"
+    [label]="reasonLabel()"
+    help="Be specific: what happened and what they can do about it."
+    i18n-help="@@suspend.help"
+    [initialReason]="keptReason()"
+    submitLabel="Suspend caterer"
+    i18n-submitLabel="@@suspend.submit"
+    submitVariant="danger"
+    [busyMessage]="suspendBusy()"
+    [failedTitle]="suspendFailed()"
+    [failedText]="failedKept"
+    [summaryHeading]="suspendSummary()"
+    [validate]="validateReason"
+    [action]="suspendAction"
+    conflictHref="/admin/caterers"
+    conflictLink="Back to caterers"
+    i18n-conflictLink="@@record.backToCaterers"
+    [toastWhenUnreachable]="true"
+    [returnFocus]="opener()"
+    (dismissed)="dialog.set(null)"
+    (unreachable)="unreachable($event)"
+    (done)="changed('suspended', $event.result)"
+  >
+    <sh-checklist slot="before" [statusLabels]="noLabels">
+      @for (line of suspendLines(); track $index) {
+        <li sh-checklist-item [status]="null">{{ line }}</li>
+      }
+    </sh-checklist>
+  </app-reason-dialog>
+  <app-reason-dialog
+    [open]="dialog() === 'reinstate'"
+    [title]="reinstateTitle()"
+    [description]="reinstateDescription()"
+    tone="success"
+    icon="success"
+    [name]="r.name"
+    [label]="reasonLabel()"
+    help="Say what changed since the suspension."
+    i18n-help="@@reinstate.help"
+    submitLabel="Reinstate"
+    i18n-submitLabel="@@record.reinstate"
+    [busyMessage]="reinstateBusy()"
+    [failedTitle]="reinstateFailed()"
+    [failedText]="failedKept"
+    [summaryHeading]="reinstateSummary()"
+    [validate]="validateReason"
+    [action]="reinstateAction"
+    conflictHref="/admin/caterers"
+    conflictLink="Back to caterers"
+    i18n-conflictLink="@@record.backToCaterers"
+    [returnFocus]="opener()"
+    (dismissed)="dialog.set(null)"
+    (done)="changed('reinstated', $event.result)"
+  >
+    <p slot="after" class="text-caption" i18n="@@reinstate.caption">Enquiries closed by the suspension stay closed.</p>
+  </app-reason-dialog>
+  <app-remove-dialog [open]="dialog() === 'remove'" [record]="r" [returnFocus]="opener()" (dismissed)="dialog.set(null)" (done)="changed('removed', $event)" />
+}
