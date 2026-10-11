@@ -2,7 +2,9 @@ import type { Request, Reply } from '../http/router.ts';
 import { gone, ok } from '../http/problems.ts';
 import type { Document, Transaction } from '../platform/database.ts';
 import { caterers } from '../caterers/model.ts';
-import type { EmailVerified, ResendVerificationRequest, VerificationSent } from '@contract/identity.models.ts';
+import type { EmailVerified } from '@contract/email-verified.ts';
+import type { ResendVerificationRequest } from '@contract/resend-verification-request.ts';
+import type { VerificationSent } from '@contract/verification-sent.ts';
 import { findUserByEmail, liveUser, users } from './model.ts';
 import { consumeToken, findToken, liveToken, sendVerification } from './tokens.ts';
 

@@ -1,6 +1,7 @@
 import type { Request, Reply } from '../http/router.ts';
 import { invalid, noContent, ok } from '../http/problems.ts';
-import type { ConsentRequest, PrivacyNotice } from '@contract/privacy.models.ts';
+import type { ConsentRequest } from '@contract/consent-request.ts';
+import type { PrivacyNotice } from '@contract/privacy-notice.ts';
 import { users } from './model.ts';
 import { currentPrivacyNotice } from './privacy.ts';
 import { currentUser } from './sessions.ts';

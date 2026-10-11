@@ -7,7 +7,7 @@
 
 The detailed designs leave every backend technology `<TO SUPPLY>`. The
 frontend already defines the HTTP contract (ADR 0003) as import-free wire
-types in `frontend/projects/web/src/app/core/api/*.models.ts`, and the fake
+types in `frontend/projects/api/src/lib/models/` (one type per file), and the fake
 backend (ADR 0004) proved that contract with a small Node server. AGENTS.md
 asks for business rules in the domain/application layer, authentication by
 default, and acceptance tests against the API.
@@ -18,7 +18,8 @@ default, and acceptance tests against the API.
   22 with type stripping (erasable TypeScript only: no enums, no parameter
   properties, `.ts` extensions in relative imports). `tsc --noEmit` checks it.
 - Responses are typed with the frontend's wire types through `import type`
-  from `frontend/projects/web/src/app/core/api/`, so the compiler catches
+  from `frontend/projects/api/src/lib/models/` (aliased `@contract/*` in
+  `backend/tsconfig.json`), so the compiler catches
   contract drift on both sides. Imports are type-only and erased at run time.
 - HTTP uses `node:http` with a small router of our own. Bodies are JSON
   (uploads are base64 in JSON, per the contract), so no framework is needed.

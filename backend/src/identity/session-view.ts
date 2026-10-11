@@ -2,7 +2,8 @@ import type { Request, Reply } from '../http/router.ts';
 import { ok } from '../http/problems.ts';
 import type { Transaction } from '../platform/database.ts';
 import { caterers } from '../caterers/model.ts';
-import type { SessionUser, SessionView } from '@contract/session.models.ts';
+import type { SessionUser } from '@contract/session-user.ts';
+import type { SessionView } from '@contract/session-view.ts';
 import type { User } from './model.ts';
 import { privacyUpdateRequired } from './privacy.ts';
 

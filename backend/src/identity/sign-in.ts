@@ -8,7 +8,9 @@ import { recentEvents, recordEvent } from '../platform/throttle.ts';
 import { findUserByEmail, users, type User } from './model.ts';
 import { clearSessionCookie, endCurrentSession, startSession } from './sessions.ts';
 import { privacyUpdateRequired } from './privacy.ts';
-import type { SignInLocked, SignInRequest, SignInResult } from '@contract/identity.models.ts';
+import type { SignInLocked } from '@contract/sign-in-locked.ts';
+import type { SignInRequest } from '@contract/sign-in-request.ts';
+import type { SignInResult } from '@contract/sign-in-result.ts';
 
 const MINUTE = 60_000;
 /** 5 failed sign-ins for one account within 15 minutes pause it for 15 minutes (L2-076.4). */

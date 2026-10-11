@@ -1,7 +1,8 @@
 import type { Request, Reply } from '../http/router.ts';
 import { invalid, ok, unauthorized } from '../http/problems.ts';
 import { validSecurityKeyAssertion } from '../platform/security-key.ts';
-import type { SecondFactorRequest, SignInResult } from '@contract/identity.models.ts';
+import type { SecondFactorRequest } from '@contract/second-factor-request.ts';
+import type { SignInResult } from '@contract/sign-in-result.ts';
 import { sessions, type User } from './model.ts';
 import { currentSession } from './sessions.ts';
 import { privacyUpdateRequired } from './privacy.ts';
