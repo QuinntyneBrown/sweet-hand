@@ -1,7 +1,7 @@
 import { test as base, expect } from '@playwright/test';
 import { Backend, SESSION_HEADER } from './backend';
 
-/** Saturday 10 October 2026, 10:00 a.m. in Toronto: "today" in the mocks and the fake backend. */
+/** Saturday 10 October 2026, 10:00 a.m. in Toronto: "today" in the mocks and the backend's test clock. */
 export const TODAY = new Date('2026-10-10T10:00:00-04:00');
 
 export const test = base.extend<{ backend: Backend; isolation: void }>({

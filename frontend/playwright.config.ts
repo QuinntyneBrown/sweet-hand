@@ -1,8 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
-import { API_PORT, API_URL, BACKEND, WEB_PORT, WEB_URL } from './e2e/support/ports';
+import { API_PORT, API_URL, WEB_PORT, WEB_URL } from './e2e/support/ports';
 
 /**
- * Frontend acceptance tests (ADR 0004): Chromium only, against the fake backend.
+ * Frontend acceptance tests (ADRs 0004, 0008): Chromium only, against the backend in test mode.
  * `npm run e2e` starts both servers unless they are already running.
  */
 export default defineConfig({
@@ -27,17 +27,12 @@ export default defineConfig({
     },
   ],
   webServer: [
-    BACKEND === 'real'
-      ? {
-          command: `PORT=${API_PORT} TEST_CONTROL=1 node ../backend/src/main.ts`,
-          url: `${API_URL}/health/live`,
-          reuseExistingServer: !process.env['CI'],
-        }
-      : {
-          command: `PORT=${API_PORT} node fake-backend/server.ts`,
-          url: `${API_URL}/__fake/requests`,
-          reuseExistingServer: !process.env['CI'],
-        },
+    {
+      // The backend in test mode (ADR 0008): in-memory database, one environment per test.
+      command: `PORT=${API_PORT} TEST_CONTROL=1 node ../backend/src/main.ts`,
+      url: `${API_URL}/health/live`,
+      reuseExistingServer: !process.env['CI'],
+    },
     {
       command: `E2E_API_PORT=${API_PORT} npx ng serve --port ${WEB_PORT}`,
       url: WEB_URL,

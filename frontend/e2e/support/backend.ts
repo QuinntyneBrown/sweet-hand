@@ -1,10 +1,11 @@
 import type { APIRequestContext, BrowserContext, Request, Route } from '@playwright/test';
 import { cast, type CastMember } from './cast';
-import { API_URL, BACKEND, WEB_URL } from './ports';
+import { API_URL, WEB_URL } from './ports';
 import type { FaultOptions } from './fault-options';
 
-const CONTROL = BACKEND === 'real' ? `${API_URL}/__test` : `${API_URL}/__fake`;
-export const SESSION_HEADER = BACKEND === 'real' ? 'x-test-session' : 'x-fake-session';
+const CONTROL = `${API_URL}/__test`;
+/** Names the test's own backend environment on every request (ADR 0008). */
+export const SESSION_HEADER = 'x-test-session';
 
 /** `GET /api/public/caterers*` style patterns: method or `*`, then a path with `*` globs. */
 function matches(fault: { method: string; path: string }, method: string, path: string): boolean {
@@ -16,7 +17,7 @@ function matches(fault: { method: string; path: string }, method: string, path: 
 const isBackendPath = (path: string) => path.startsWith('/api/') || path.startsWith('/media/');
 
 /**
- * The test's handle on its own isolated backend (ADR 0004, ADR 0008). Tests
+ * The test's handle on its own isolated backend environment (ADR 0008). Tests
  * arrange state and failures through intent-named methods; they never touch
  * routes. State lives in the backend's test session; faults and the request
  * log live here, on the browser context's network.
@@ -134,8 +135,7 @@ export class Backend {
   /** Emails the platform queued, oldest first: each has `to`, `kind`, and a `link` or `reason` where the email carries one. */
   async emails(): Promise<any[]> {
     const state = await this.state();
-    if (BACKEND === 'real') return [...(state.outbox ?? [])].sort((a: { seq: number }, b: { seq: number }) => a.seq - b.seq);
-    return [...(state.account?.outbox ?? []), ...(state.operator?.moderation?.emails ?? []), ...(state.outbox ?? [])];
+    return [...(state.outbox ?? [])].sort((a: { seq: number }, b: { seq: number }) => a.seq - b.seq);
   }
 
   /**

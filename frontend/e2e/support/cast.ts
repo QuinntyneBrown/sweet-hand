@@ -1,7 +1,6 @@
-import { BACKEND } from './ports';
 import { operatorCodeAt } from './operator-code';
 
-/** Fictional people from docs/mocks/README.md who can sign in to the fake backend. */
+/** Fictional people from docs/mocks/README.md, seeded in the backend's test mode. */
 export const cast = {
   marcia: { email: 'marcia.t@example.com', name: 'Marcia Thompson', initials: 'MT' },
   andre: { email: 'andre.c@example.com', name: 'Andre Clarke', initials: 'AC' },
@@ -26,6 +25,6 @@ export const SEED_PASSWORD = 'pepperpot-sunday-2026';
 
 /**
  * The code Leah's authenticator app shows at the backend's test clock, Saturday
- * 10 October 2026 10:00 a.m. Toronto (L2-056.2); the fake backend accepts its own.
+ * 10 October 2026 10:00 a.m. Toronto (L2-056.2).
  */
-export const OPERATOR_CODE = BACKEND === 'real' ? operatorCodeAt('2026-10-10T14:00:00Z') : '731905';
+export const OPERATOR_CODE = operatorCodeAt('2026-10-10T14:00:00Z');

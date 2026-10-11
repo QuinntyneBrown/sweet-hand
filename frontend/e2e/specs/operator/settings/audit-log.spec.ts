@@ -1,4 +1,3 @@
-import { BACKEND } from '../../../support/ports';
 import { test, expect } from '../../../support/test';
 import { OperatorAuditPage } from '../../../pages/operator-audit.page';
 import { OperatorCuisinesPage } from '../../../pages/operator-cuisines.page';
@@ -199,8 +198,8 @@ test.describe('Audit log', () => {
     await expect(audit.sideNavLink('Audit log')).toHaveCount(0);
     await audit.expectNoAccessibilityViolations();
     const state = await backend.state();
-    // The real backend logs every refused request as an authorization-failure security event (L2-084); the fake keeps only these.
-    const refused = BACKEND === 'real' ? state.securityEvents.filter((e: { type: string }) => e.type === 'authorization-failure') : state.operatorSettings.securityEvents;
+    // Every refused request is an authorization-failure security event (L2-079.4, L2-084).
+    const refused = state.securityEvents.filter((e: { type: string }) => e.type === 'authorization-failure');
     expect(refused).toMatchObject([{ userId: 'user-tomas', path: '/api/operator/audit-log' }]);
   });
 
