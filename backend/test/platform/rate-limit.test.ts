@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { advanceClock, startApi } from '../support/api.ts';
+import { advanceClock, signedInClient, startApi } from '../support/api.ts';
 
 describe('public read rate limit (L2-082.1)', () => {
   it('Given one address sends more than 300 public reads in a minute, when the limit is passed, then further reads get 429 with Retry-After until the window resets', async () => {
@@ -13,7 +13,9 @@ describe('public read rate limit (L2-082.1)', () => {
     assert.equal(blocked.status, 429);
     assert.equal(blocked.headers.get('retry-after'), '60');
     assert.equal(blocked.body.title, 'Too many requests');
-    assert.equal((await client.get('/api/session')).status, 200, 'signed-in and private endpoints are not counted');
+    assert.equal((await client.get('/api/session')).status, 429, 'every anonymous read counts');
+    const marcia = await signedInClient(api, 'marcia.t@example.com');
+    assert.equal((await marcia.get('/api/me/sessions')).status, 200, 'signed-in endpoints are not counted');
 
     advanceClock(api, 60_000);
     assert.equal((await client.get('/api/public/cuisines')).status, 200);

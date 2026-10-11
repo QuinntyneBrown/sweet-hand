@@ -10,8 +10,11 @@ export interface Environments {
 /** Resolves the signed-in caller from the request (identity area); may set cookies. */
 export type Authenticator = (req: Request) => Promise<Actor | undefined>;
 
-/** Called when a caller is refused by an endpoint policy (security log, L2-079.4). */
-export type DenialRecorder = (req: Request, status: 401 | 403) => Promise<void>;
+/**
+ * Called when a caller is refused, by an endpoint policy (401, 403) or inside a
+ * handler for a record outside their scope (403, 404); security log, L2-079.4.
+ */
+export type DenialRecorder = (req: Request, status: number, targetId?: string) => Promise<void>;
 
 /** Everything the request pipeline needs, provided once when the app is created. */
 export interface PipelineOptions {

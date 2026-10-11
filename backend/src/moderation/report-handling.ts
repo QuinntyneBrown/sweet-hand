@@ -1,6 +1,6 @@
 /** Handling reports (handle-reports design, L2-055, L2-034.3–4, L2-060). */
 import type { Request, Reply } from '../http/endpoint.ts';
-import { conflict, fail, forbidden, invalid, notFound, ok } from '../http/problems.ts';
+import { conflict, fail, invalid, notFound, ok, refused } from '../http/problems.ts';
 import type { Transaction } from '../platform/database.ts';
 import { recordAudit, type AuditEntry } from '../platform/audit.ts';
 import { queueEmail } from '../platform/outbox.ts';
@@ -138,7 +138,7 @@ export async function resolveReport(req: Request): Promise<Reply> {
     const review = first.targetKind === 'Review' ? await reviews(req.tx).get(first.targetId) : undefined;
     // Dismissing undoes automatic hiding (L2-055.3).
     if (review?.status === 'Hidden' && hiddenByReports(review)) await reviews(req.tx).put(shownReview(review));
-    entry = await recordAudit(req.tx, req.now, { operatorId, action: 'Dismiss reports', targetType: 'Report', targetId: first.id, reason: note, before: { status: 'Open' }, after: { status: 'Resolved', outcome } });
+    entry = await recordAudit(req, { operatorId, action: 'Dismiss reports', targetType: 'Report', targetId: first.id, reason: note, before: { status: 'Open' }, after: { status: 'Resolved', outcome } });
   } else if (first.targetKind === 'Review') {
     const review = await reviews(req.tx).get(first.targetId);
     if (!review || review.status === 'Removed') return notFound();
@@ -146,12 +146,12 @@ export async function resolveReport(req: Request): Promise<Reply> {
     if (body.action === 'remove-review') {
       outcome = 'review-removed';
       await reviews(req.tx).put({ ...review, status: 'Removed', text: '', response: undefined, hidden: undefined, hiddenBy: undefined, hiddenAt: undefined });
-      entry = await recordAudit(req.tx, req.now, { operatorId, action: 'Remove review', targetType: 'Review', targetId: review.id, reason: note, before, after: { status: 'Removed' } });
+      entry = await recordAudit(req, { operatorId, action: 'Remove review', targetType: 'Review', targetId: review.id, reason: note, before, after: { status: 'Removed' } });
       await emailAuthor(req, review, 'review-removed', note);
     } else {
       outcome = 'hidden';
       await reviews(req.tx).put(hiddenReview(review, operatorId, note, req.now, group.length));
-      entry = await recordAudit(req.tx, req.now, { operatorId, action: 'Hide review', targetType: 'Review', targetId: review.id, reason: note, before, after: { status: 'Hidden' } });
+      entry = await recordAudit(req, { operatorId, action: 'Hide review', targetType: 'Review', targetId: review.id, reason: note, before, after: { status: 'Hidden' } });
       await emailAuthor(req, review, 'review-hidden', note);
     }
   } else {
@@ -183,10 +183,10 @@ export async function openLinkedEnquiry(req: Request): Promise<Reply> {
   const reason = trimmed(req.body?.reason);
   if (!reason) return invalid({ reason: ['Add a reason for opening this enquiry'] });
   // Only while the report is still being handled (L2-034.3).
-  if (group[0].status !== 'Open') return forbidden();
+  if (group[0].status !== 'Open') return refused(group[0].id);
   const enquiry = await linkedEnquiry(req.tx, group);
-  if (!enquiry) return forbidden();
-  await recordAudit(req.tx, req.now, { operatorId: req.actor!.userId, action: 'Open enquiry', targetType: 'Enquiry', targetId: enquiry.id, reason, before: null, after: { reportId: group[0].id } });
+  if (!enquiry) return refused(group[0].id);
+  await recordAudit(req, { operatorId: req.actor!.userId, action: 'Open enquiry', targetType: 'Enquiry', targetId: enquiry.id, reason, before: null, after: { reportId: group[0].id } });
   const customer = await users(req.tx).get(enquiry.customerId);
   const caterer = await caterers(req.tx).get(enquiry.catererId);
   const view: ReportEnquiryView = {

@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { Reply, Request } from '../http/endpoint.ts';
-import { badRequest, conflict, fail, invalid, notFound, ok } from '../http/problems.ts';
+import { badRequest, conflict, fail, hidden, invalid, notFound, ok } from '../http/problems.ts';
 import type { Photo } from '../caterers/model.ts';
 import { assertEditable, loadOwn, reorder, saveCaterer, text, type Own } from './own.ts';
 import { recordCoverChange } from './live-edits.ts';
@@ -119,7 +119,8 @@ export async function removePhoto(req: Request): Promise<Reply> {
 export async function restorePhoto(req: Request): Promise<Reply> {
   const own = await editableOwn(req);
   const removed = await removedPhotos(req.tx).get(req.params['id']);
-  if (!removed || removed.catererId !== own.caterer.id) return notFound();
+  if (!removed) return notFound();
+  if (removed.catererId !== own.caterer.id) return hidden(removed.id);
   if (own.caterer.photos.length >= MAX_PHOTOS) return conflict('You can have up to 30 photos');
   const cover = own.caterer.photos[0];
   own.caterer.photos.splice(Math.min(removed.index, own.caterer.photos.length), 0, removed.photo);

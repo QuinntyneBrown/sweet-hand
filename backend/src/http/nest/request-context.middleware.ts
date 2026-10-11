@@ -31,6 +31,11 @@ export class RequestContextMiddleware implements NestMiddleware {
   async use(req: ExpressRequest, res: Response, next: NextFunction): Promise<void> {
     try {
       const { config } = this.options;
+      // Behind the TLS proxy, plain HTTP is sent to HTTPS (L2-081.1).
+      if (config.trustProxy && config.secureCookies && req.headers['x-forwarded-proto'] === 'http') {
+        res.redirect(301, `https://${req.headers.host}${req.originalUrl ?? req.url}`);
+        return;
+      }
       const upstream = config.trustProxy ? String(req.headers['x-correlation-id'] ?? '') : '';
       const correlationId = /^[\w-]{8,64}$/.test(upstream) ? upstream : randomUUID();
       const cookies = parseCookies(req.headers.cookie);

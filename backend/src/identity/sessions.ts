@@ -1,3 +1,4 @@
+import { recordSecurityEvent } from '../platform/security-log.ts';
 import { randomUUID } from 'node:crypto';
 import type { Actor, Request } from '../http/endpoint.ts';
 import { serializeCookie } from '../http/cookies.ts';
@@ -96,7 +97,21 @@ export async function endCurrentSession(req: Request): Promise<boolean> {
 
 /** Ends every session of the account except `keepId` (password reset and change, deletion). */
 export async function endSessionsOf(req: Request, userId: string, keepId?: string): Promise<void> {
-  for (const s of await sessions(req.tx).find({ userId })) if (s.id !== keepId) await sessions(req.tx).delete(s.id);
+  let ended = 0;
+  for (const s of await sessions(req.tx).find({ userId })) {
+    if (s.id === keepId) continue;
+    await sessions(req.tx).delete(s.id);
+    ended++;
+  }
+  // Revocations are security events (manage-sessions design, L2-084.1).
+  if (ended) await recordSecurityEvent(req, 'session-revoked', { userId });
+}
+
+/** True while a session has not passed its role's idle or absolute timeout (L2-078). */
+export function isLive(session: Session, role: User['role'], now: Date): boolean {
+  const limits = TIMEOUTS[role];
+  const t = now.getTime();
+  return !session.expired && t - Date.parse(session.lastActiveAt) <= limits.idle && t - Date.parse(session.createdAt) <= limits.absolute;
 }
 
 export function actorOf(user: User, session: Session): Actor {

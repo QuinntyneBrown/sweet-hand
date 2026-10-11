@@ -1,5 +1,5 @@
 import type { Request, Reply } from '../http/endpoint.ts';
-import { conflict, created, fail, forbidden, invalid, notFound, ok } from '../http/problems.ts';
+import { conflict, created, fail, invalid, notFound, ok, refused } from '../http/problems.ts';
 import type { OwnReviewPageView } from '@contract/own-review-page-view.ts';
 import type { OwnReviewView } from '@contract/own-review-view.ts';
 import { caterers, type Caterer } from '../caterers/model.ts';
@@ -39,7 +39,7 @@ async function reviewToAnswer(req: Request, posting = false): Promise<{ caterer:
   const caterer = await ownCaterer(req);
   const review = await reviews(req.tx).get(req.params['id']);
   if (!review || review.status === 'Removed' || (posting && review.status !== 'Published')) return fail(notFound());
-  if (review.catererId !== caterer.id) return fail(forbidden());
+  if (review.catererId !== caterer.id) return fail(refused(review.id));
   if (caterer.status === 'Suspended' || caterer.status === 'Removed') return fail(conflict('Your profile can’t be changed right now'));
   return { caterer, review };
 }

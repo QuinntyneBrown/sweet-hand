@@ -3,6 +3,7 @@ import type { Request } from '../http/endpoint.ts';
 import type { Document, Transaction } from './database.ts';
 import { hashIp } from './secrets.ts';
 import { nextSequence } from './sequence.ts';
+import { writeLog } from './log-redactor.ts';
 
 export type SecurityEventType =
   | 'sign-in-success'
@@ -13,7 +14,8 @@ export type SecurityEventType =
   | 'mfa-change'
   | 'session-revoked'
   | 'authorization-failure'
-  | 'rate-limit-block';
+  | 'rate-limit-block'
+  | 'operator-action';
 
 /**
  * A security-relevant event (L2-084.1): type, user, hashed IP, time and
@@ -50,5 +52,5 @@ export async function recordSecurityEvent(
     correlationId: req.correlationId,
   };
   await securityEvents(req.tx).put(event);
-  console.log(JSON.stringify({ level: 'security', ...event, id: undefined, seq: undefined }));
+  writeLog({ level: 'security', ...event, id: undefined, seq: undefined });
 }

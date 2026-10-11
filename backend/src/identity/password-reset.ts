@@ -26,6 +26,7 @@ export async function requestPasswordReset(req: Request): Promise<Reply> {
   const recent = await recentEvents(req.tx, RESET_REQUEST_KIND, req.ip, req.now, HOUR);
   if (recent.length >= RESETS_PER_HOUR) {
     const retryAfter = Math.ceil((Date.parse(recent[0]) + HOUR - req.now.getTime()) / 1000);
+    await recordSecurityEvent(req, 'rate-limit-block');
     return { ...problem(429, 'Too many reset requests'), headers: { 'retry-after': String(retryAfter) } };
   }
   const body = (req.body ?? {}) as Partial<PasswordResetRequest>;

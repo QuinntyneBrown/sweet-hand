@@ -13,7 +13,7 @@ export async function suspendCaterer(req: Request, c: Caterer, reason: string): 
   if (c.status !== 'Published') stale(c);
   const closed = await closeOpenEnquiries(req, c);
   const caterer = await transition(req, c, 'Suspended', 'suspended', reason, { statusReason: reason }, { closedEnquiries: closed });
-  const entry = await recordAudit(req.tx, req.now, { operatorId: req.actor!.userId, action: 'Suspend', targetType: 'CatererProfile', targetId: c.id, reason, before: { status: 'Published' }, after: { status: 'Suspended' } });
+  const entry = await recordAudit(req, { operatorId: req.actor!.userId, action: 'Suspend', targetType: 'CatererProfile', targetId: c.id, reason, before: { status: 'Published' }, after: { status: 'Suspended' } });
   await emailOwner(req, caterer, 'caterer-suspended', { reason });
   return { caterer, entry };
 }
@@ -23,7 +23,7 @@ export async function removeCaterer(req: Request, c: Caterer, reason: string): P
   if (c.status === 'Removed') stale(c);
   await closeOpenEnquiries(req, c);
   const caterer = await transition(req, c, 'Removed', 'removed', reason, { statusReason: reason });
-  const entry = await recordAudit(req.tx, req.now, { operatorId: req.actor!.userId, action: 'Remove', targetType: 'CatererProfile', targetId: c.id, reason, before: { status: c.status }, after: { status: 'Removed' } });
+  const entry = await recordAudit(req, { operatorId: req.actor!.userId, action: 'Remove', targetType: 'CatererProfile', targetId: c.id, reason, before: { status: c.status }, after: { status: 'Removed' } });
   await emailOwner(req, caterer, 'caterer-removed', { reason });
   return { caterer, entry };
 }
@@ -43,7 +43,7 @@ export async function reinstate(req: Request): Promise<Reply> {
   const reason = reasonOf(req) || reasonRequired();
   if (c.status !== 'Suspended') return stale(c);
   const caterer = await transition(req, c, 'Published', 'reinstated', reason, { statusReason: undefined });
-  await recordAudit(req.tx, req.now, { operatorId: req.actor!.userId, action: 'Reinstate', targetType: 'CatererProfile', targetId: c.id, reason, before: { status: 'Suspended' }, after: { status: 'Published' } });
+  await recordAudit(req, { operatorId: req.actor!.userId, action: 'Reinstate', targetType: 'CatererProfile', targetId: c.id, reason, before: { status: 'Suspended' }, after: { status: 'Published' } });
   await emailOwner(req, caterer, 'caterer-reinstated', { reason });
   return ok(await decision(req.tx, caterer));
 }

@@ -1,5 +1,5 @@
 import type { Request, Reply } from '../http/endpoint.ts';
-import { fail, forbidden, invalid, noContent, notFound, ok } from '../http/problems.ts';
+import { fail, forbidden, invalid, noContent, notFound, ok, refused } from '../http/problems.ts';
 import { reviews, type Review } from './model.ts';
 import { canEdit } from './rules.ts';
 import { isCommand, readReview, result, screen } from './write.ts';
@@ -8,7 +8,7 @@ import { isCommand, readReview, result, screen } from './write.ts';
 async function authorsReview(req: Request): Promise<Review> {
   const review = await reviews(req.tx).get(req.params['id']);
   if (!review || review.status === 'Removed') return fail(notFound());
-  if (review.authorUserId !== req.actor!.userId) return fail(forbidden());
+  if (review.authorUserId !== req.actor!.userId) return fail(refused(review.id));
   return review;
 }
 

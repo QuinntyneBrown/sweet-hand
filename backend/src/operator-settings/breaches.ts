@@ -59,6 +59,6 @@ export async function recordBreach(req: Request): Promise<Reply> {
       body.decision === 'report' ? 'Reported to the Privacy Commissioner; the people affected are being notified.' : 'Not reportable: no real risk of significant harm.',
   };
   await breaches(req.tx).put(record);
-  await recordAudit(req.tx, req.now, { operatorId: me.id, action: 'RecordBreach', targetType: 'breach', targetId: record.id, reason: 'Recorded in the breach register', before: null, after: record.title });
+  await recordAudit(req, { operatorId: me.id, action: 'RecordBreach', targetType: 'breach', targetId: record.id, reason: 'Recorded in the breach register', before: null, after: record.title });
   return created(view(record));
 }

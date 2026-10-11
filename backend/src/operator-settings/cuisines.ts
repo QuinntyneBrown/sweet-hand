@@ -64,7 +64,7 @@ export async function addCuisine(req: Request): Promise<Reply> {
     addedBy: operatorId,
   };
   await cuisines(req.tx).put(cuisine);
-  await recordAudit(req.tx, req.now, { operatorId, action: 'AddCuisine', targetType: 'cuisine', targetId: id, reason: 'Added to the cuisine list', before: null, after: name });
+  await recordAudit(req, { operatorId, action: 'AddCuisine', targetType: 'cuisine', targetId: id, reason: 'Added to the cuisine list', before: null, after: name });
   return created(await cuisineView(req.tx, cuisine, await publishedCaterers(req.tx)));
 }
 
@@ -81,7 +81,7 @@ export async function retireCuisine(req: Request): Promise<Reply> {
   if (!cuisine.retired) {
     cuisine = { ...cuisine, retired: true, retiredAt: req.now.toISOString() };
     await cuisines(req.tx).put(cuisine);
-    await recordAudit(req.tx, req.now, {
+    await recordAudit(req, {
       operatorId: req.actor!.userId,
       action: 'RetireCuisine',
       targetType: 'cuisine',

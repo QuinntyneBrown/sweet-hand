@@ -76,7 +76,7 @@ export async function editProfile(req: Request): Promise<Reply> {
   if (!reason) return reasonRequired();
   await caterers(req.tx).put(result.next);
   await touchRecord(req.tx, c.id, req.now);
-  await recordAudit(req.tx, req.now, { operatorId: req.actor!.userId, action: 'Edit', targetType: 'CatererProfile', targetId: c.id, reason, before: result.before, after: result.after });
+  await recordAudit(req, { operatorId: req.actor!.userId, action: 'Edit', targetType: 'CatererProfile', targetId: c.id, reason, before: result.before, after: result.after });
   await emailOwner(req, result.next, 'operator-edit', { reason });
   return ok(await catererRecord(req.tx, req.now, result.next));
 }
@@ -96,7 +96,7 @@ const removeItem =
     const replaceBy = short ? torontoDate(new Date(req.now.getTime() + REPLACE_WITHIN_DAYS * DAY_MS)) : null;
     await caterers(req.tx).put(next);
     await touchRecord(req.tx, c.id, req.now);
-    await recordAudit(req.tx, req.now, { operatorId: req.actor!.userId, action: kind === 'photo' ? 'Remove photo' : 'Remove dish', targetType: 'CatererProfile', targetId: c.id, reason, before: { [kind]: item }, after: null });
+    await recordAudit(req, { operatorId: req.actor!.userId, action: kind === 'photo' ? 'Remove photo' : 'Remove dish', targetType: 'CatererProfile', targetId: c.id, reason, before: { [kind]: item }, after: null });
     await emailOwner(req, next, kind === 'photo' ? 'operator-removed-photo' : 'operator-removed-dish', { reason, ...(replaceBy ? { replaceBy } : {}) });
     const view: RemoveItemResult = { replaceBy };
     return ok(view);

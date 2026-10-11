@@ -9,6 +9,7 @@ import { hashIp } from '../../platform/secrets.ts';
 import { BadJson, BodyTooLarge, MB, readBody } from './body.ts';
 import { MAX_BODY, POLICY, REFUSAL, WITHOUT_DATABASE, requestContext } from './decorators.ts';
 import { PIPELINE_OPTIONS, type PipelineOptions } from './options.ts';
+import { writeLog } from '../../platform/log-redactor.ts';
 
 /** Public reads allowed per address per minute (L2-082.1). */
 const PUBLIC_READS_PER_MINUTE = 300;
@@ -21,19 +22,29 @@ function context(execution: ExecutionContext): Request {
   return ctx;
 }
 
-/** 300 public reads a minute per address; one limiter per environment, so test sessions never share counts (L2-082.1). */
+/**
+ * 300 public reads a minute per address: every anonymous GET in the endpoint
+ * policy catalogue except the health checks. One limiter per environment, so
+ * test sessions never share counts (L2-082.1).
+ */
 @Injectable()
 export class RateLimitGuard implements CanActivate {
   private readonly limiters = new WeakMap<Environment, RateLimiter>();
+  private readonly reflector: Reflector;
+
+  constructor(reflector: Reflector) {
+    this.reflector = reflector;
+  }
 
   canActivate(execution: ExecutionContext): boolean {
     const ctx = context(execution);
-    if (ctx.method !== 'GET' || !(ctx.path.startsWith('/api/public/') || ctx.path.startsWith('/media/'))) return true;
+    const policy = this.reflector.get<Policy | undefined>(POLICY, execution.getHandler());
+    if (ctx.method !== 'GET' || policy?.kind !== 'anonymous' || this.reflector.get<boolean>(WITHOUT_DATABASE, execution.getHandler())) return true;
     let limiter = this.limiters.get(ctx.env);
     if (!limiter) this.limiters.set(ctx.env, (limiter = new RateLimiter(PUBLIC_READS_PER_MINUTE)));
     const wait = limiter.take(ctx.ip, ctx.env.clock.now());
     if (wait === null) return true;
-    console.log(JSON.stringify({ level: 'security', type: 'rate-limit-block', path: ctx.path, ipHash: hashIp(ctx.ip), at: ctx.env.clock.now().toISOString(), correlationId: ctx.correlationId }));
+    writeLog({ level: 'security', type: 'rate-limit-block', path: ctx.path, ipHash: hashIp(ctx.ip), at: ctx.env.clock.now().toISOString(), correlationId: ctx.correlationId });
     throw new ProblemError({ ...problem(429, 'Too many requests'), headers: { 'retry-after': String(wait) } });
   }
 }

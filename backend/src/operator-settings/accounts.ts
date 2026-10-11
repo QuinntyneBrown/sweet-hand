@@ -113,7 +113,7 @@ export async function inviteOperator(req: Request): Promise<Reply> {
   };
   await operatorInvitations(req.tx).put(invite);
   await queueEmail(req.tx, req.now, { to: email, kind: 'operator-invitation', link: `/operator-invitations/${token}`, name, expiresAt: invite.expiresAt });
-  await recordAudit(req.tx, req.now, {
+  await recordAudit(req, {
     operatorId: req.actor!.userId,
     action: 'CreateOperator',
     targetType: 'operator',
@@ -136,7 +136,7 @@ export async function deactivateOperator(req: Request): Promise<Reply> {
       await operatorDeactivations(req.tx).put({ id, at: req.now.toISOString(), by: me });
       await users(req.tx).put({ ...user, deleted: true });
       for (const s of await sessions(req.tx).find({ userId: id })) await sessions(req.tx).delete(s.id);
-      await recordAudit(req.tx, req.now, {
+      await recordAudit(req, {
         operatorId: me,
         action: 'DeactivateOperator',
         targetType: 'operator',
@@ -153,6 +153,6 @@ export async function deactivateOperator(req: Request): Promise<Reply> {
   if (invite.deactivatedAt) return ok(invitationView(invite));
   const done = { ...invite, deactivatedAt: req.now.toISOString() };
   await operatorInvitations(req.tx).put(done);
-  await recordAudit(req.tx, req.now, { operatorId: me, action: 'DeactivateOperator', targetType: 'operator', targetId: id, reason: 'Operator account deactivated', before: 'Invited', after: 'Deactivated' });
+  await recordAudit(req, { operatorId: me, action: 'DeactivateOperator', targetType: 'operator', targetId: id, reason: 'Operator account deactivated', before: 'Invited', after: 'Deactivated' });
   return ok(invitationView(done));
 }
