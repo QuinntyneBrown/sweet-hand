@@ -8,7 +8,7 @@ import { seedPrivacyNotice, seedSessions } from './account.ts';
 import { seedCaterers } from './caterers.ts';
 import { seedReviews } from './reviews.ts';
 import { seedCuisines } from '../discovery/taxonomy.ts';
-import { seedBreaches, seedOperatorActivity } from './operator-settings.ts';
+import { seedAudit, seedBreaches, seedOperatorActivity } from './operator-settings.ts';
 
 export async function castDocuments(): Promise<Record<string, Document[]>> {
   return {
@@ -20,6 +20,7 @@ export async function castDocuments(): Promise<Record<string, Document[]>> {
     reviews: seedReviews(),
     breaches: seedBreaches(),
     operatorActivity: seedOperatorActivity(),
+    audit: seedAudit(),
   };
 }
 

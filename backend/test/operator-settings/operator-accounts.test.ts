@@ -86,7 +86,7 @@ describe('manage operator accounts (L2-056)', () => {
     const [stored] = await documents(api, 'operatorInvitations');
     assert.equal(JSON.stringify(stored).includes(token), false);
     assert.equal(stored.expiresAt, '2026-10-11T14:00:00.000Z');
-    const entry = (await documents(api, 'audit')).find((e) => e.action === 'CreateOperator');
+    const entry = (await documents(api, 'audit')).find((e) => e.action === 'CreateOperator' && e.targetId === res.body.id);
     assert.deepEqual([entry.operatorId, entry.targetType, entry.targetId, entry.before, entry.after], ['user-leah', 'operator', res.body.id, null, 'Operator']);
   });
 
