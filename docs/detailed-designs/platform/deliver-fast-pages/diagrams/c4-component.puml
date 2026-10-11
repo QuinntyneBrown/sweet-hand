@@ -7,22 +7,22 @@ Person(visitor, "Visitor", "Phone browser")
 System_Ext(cdn, "CDN", "Edge cache")
 System_Ext(obs, "Observability platform", "Metrics")
 Container_Boundary(web, "Sweet Hand web application") {
-  Component(pages, "Listing and caterer pages", "<TO SUPPLY>", "Public page templates")
-  Component(cache, "CachePolicy", "<TO SUPPLY>", "Cache-Control per asset kind")
-  Component(imgs, "ImageLoadingPolicy", "<TO SUPPLY>", "Eager first viewport (2, 4 or 6 by viewport class), lazy below")
-  Component(vitals, "WebVitalsReporter", "<TO SUPPLY>", "First-party LCP, INP, CLS beacon")
+  Component(pages, "Listing and caterer pages", "Page", "Public page templates")
+  Component(cache, "CachePolicy", "Client rule", "Cache-Control per asset kind")
+  Component(imgs, "ImageLoadingPolicy", "Client rule", "Eager first viewport (2, 4 or 6 by viewport class), lazy below")
+  Component(vitals, "WebVitalsReporter", "Infrastructure", "First-party LCP, INP, CLS beacon")
 }
 Container_Boundary(api, "Sweet Hand API") {
-  Component(perf, "PerformanceEndpoints", "<TO SUPPLY>", "Receives Web Vitals beacons")
-  Component(read, "Listing and caterer query handlers", "<TO SUPPLY>", "p95 300 ms listing, 250 ms caterer page")
+  Component(perf, "PerformanceEndpoints", "Endpoint group", "Receives Web Vitals beacons")
+  Component(read, "Listing and caterer query handlers", "Query handlers", "p95 300 ms listing, 250 ms caterer page")
 }
 Container_Boundary(worker, "Sweet Hand background worker") {
-  Component(encode, "ImageEncodingProfile", "<TO SUPPLY>", "800 px AVIF or WebP at 120 KB or less")
+  Component(encode, "ImageEncodingProfile", "Policy data", "800 px AVIF or WebP at 120 KB or less")
 }
 Container_Boundary(ci, "CI pipeline") {
   Component(lh, "LighthouseBudgetStep", "Lighthouse", "Mobile score of 90 or more")
-  Component(bundle, "BundleSizeBudgetStep", "<TO SUPPLY>", "170 KB gzip first-load JavaScript")
-  Component(load, "LoadTestSuite", "<TO SUPPLY>", "Planned peak and 2x peak")
+  Component(bundle, "BundleSizeBudgetStep", "Pipeline step", "170 KB gzip first-load JavaScript")
+  Component(load, "LoadTestSuite", "Test suite", "Planned peak and 2x peak")
 }
 
 Rel(visitor, cdn, "Requests", "HTTPS")

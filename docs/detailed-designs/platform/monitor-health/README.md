@@ -27,8 +27,9 @@ Terms used in this document:
 
 ## Description
 
-Technology choices for every component below are `<TO SUPPLY>`, pending
-architecture decision records in `docs/adr/`. The hosting platform that runs
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`. The hosting platform that runs
 probes and routes traffic is also `<TO SUPPLY>`.
 
 - **`HealthEndpoints`** — two unauthenticated endpoints on the API and the web

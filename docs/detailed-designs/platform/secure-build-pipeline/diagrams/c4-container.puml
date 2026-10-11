@@ -6,12 +6,12 @@ title Containers — Secure build pipeline
 System_Ext(ci, "CI pipeline", "<TO SUPPLY>")
 System_Ext(secrets, "Managed secret store", "<TO SUPPLY>")
 System_Boundary(sweethand, "Sweet Hand (Canadian region, declared in IaC)") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Non-root container image")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Non-root container image")
-  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Non-root container image")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Personal information; Canadian region")
-  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Photos, certificates, exports; Canadian region")
-  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Canadian region")
+  Container(web, "Sweet Hand web application", "Angular 21", "Non-root container image")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "Non-root container image")
+  Container(worker, "Sweet Hand background worker", "NestJS worker (Node.js, TypeScript)", "Non-root container image")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Personal information; Canadian region")
+  ContainerDb(storage, "Object storage", "S3-compatible object storage", "Photos, certificates, exports; Canadian region")
+  ContainerQueue(queue, "Job queue", "pg-boss (PostgreSQL)", "Canadian region")
 }
 
 Rel(ci, web, "Scans image of")

@@ -8,16 +8,16 @@ System_Ext(repo, "Source repository", "<TO SUPPLY>")
 System_Ext(registry, "Container registry", "<TO SUPPLY>")
 System_Ext(secrets, "Managed secret store", "<TO SUPPLY>")
 Container_Boundary(ci, "CI pipeline") {
-  Component(secretscan, "SecretScanStep", "<TO SUPPLY>", "Credentials, API keys, private keys")
-  Component(sca, "CompositionAnalysisStep", "<TO SUPPLY>", "Critical or High with fix fails")
-  Component(imagescan, "ImageScanStep", "<TO SUPPLY>", "No Critical; non-root user")
-  Component(region, "RegionPolicyCheckStep", "<TO SUPPLY>", "Personal-information resources in Canadian regions")
-  Component(lint, "StringLiteralLintStep", "<TO SUPPLY>", "User-facing literals outside resource files")
-  Component(gate, "PipelineGatePolicy", "<TO SUPPLY>", "Required steps block merge")
+  Component(secretscan, "SecretScanStep", "Pipeline step", "Credentials, API keys, private keys")
+  Component(sca, "CompositionAnalysisStep", "Pipeline step", "Critical or High with fix fails")
+  Component(imagescan, "ImageScanStep", "Pipeline step", "No Critical; non-root user")
+  Component(region, "RegionPolicyCheckStep", "Pipeline step", "Personal-information resources in Canadian regions")
+  Component(lint, "StringLiteralLintStep", "Pipeline step", "User-facing literals outside resource files")
+  Component(gate, "PipelineGatePolicy", "Infrastructure as code", "Required steps block merge")
 }
 Container_Boundary(api, "Sweet Hand API (same pattern in web application and worker)") {
-  Component(provider, "SecretProvider", "<TO SUPPLY>", "Loads secrets at start-up")
-  Component(config, "RuntimeConfiguration", "<TO SUPPLY>", "Non-secret settings and secret references")
+  Component(provider, "SecretProvider", "Infrastructure", "Loads secrets at start-up")
+  Component(config, "RuntimeConfiguration", "Infrastructure", "Non-secret settings and secret references")
 }
 
 Rel(contributor, repo, "Pushes")

@@ -26,8 +26,9 @@ comes from resource files, so French can be added later without code changes.
 
 ## Description
 
-Technology choices for every component below are `<TO SUPPLY>`, pending
-architecture decision records in `docs/adr/`. The components are described by
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`. The components are described by
 role.
 
 - **`ViewportClass`** — enumeration of XS, SM, MD, LG and XL with their minimum

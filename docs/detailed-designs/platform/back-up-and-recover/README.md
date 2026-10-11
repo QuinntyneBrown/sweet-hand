@@ -24,8 +24,9 @@ Terms used in this document:
 
 ## Description
 
-Technology choices for every component below are `<TO SUPPLY>`, pending
-architecture decision records in `docs/adr/`. Backup settings live in the
+Technology choices follow ADR 0001 (Angular 21) and ADR 0006 (NestJS on
+Node.js, PostgreSQL through Drizzle ORM, S3-compatible object storage);
+providers not named there remain `<TO SUPPLY>`. Backup settings live in the
 infrastructure-as-code definitions, so they are reviewable and subject to the
 region policy check in `platform/secure-build-pipeline`.
 

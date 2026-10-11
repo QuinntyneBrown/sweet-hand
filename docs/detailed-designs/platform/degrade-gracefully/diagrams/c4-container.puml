@@ -9,12 +9,12 @@ System_Ext(email, "Email provider", "May be down")
 System_Ext(bot, "Bot-protection provider", "May be unreachable")
 System_Ext(obs, "Observability platform", "Alerts")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(web, "Sweet Hand web application", "<TO SUPPLY>", "Pages and forms")
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Enqueues jobs; bot-protection fallback")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Enquiries, photos, notifications")
-  ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent notification and photo jobs")
-  Container(worker, "Sweet Hand background worker", "<TO SUPPLY>", "Retries email and image processing")
-  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Photo originals and derivatives")
+  Container(web, "Sweet Hand web application", "Angular 21", "Pages and forms")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "Enqueues jobs; bot-protection fallback")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Enquiries, photos, notifications")
+  ContainerQueue(queue, "Job queue", "pg-boss (PostgreSQL)", "Persistent notification and photo jobs")
+  Container(worker, "Sweet Hand background worker", "NestJS worker (Node.js, TypeScript)", "Retries email and image processing")
+  ContainerDb(storage, "Object storage", "S3-compatible object storage", "Photo originals and derivatives")
 }
 
 Rel(customer, cdn, "Requests pages", "HTTPS")

@@ -5,13 +5,13 @@ title Containers — Back up and recover
 
 Person(ops, "Operations team", "Runs restores and drills")
 System_Boundary(sweethand, "Sweet Hand") {
-  Container(api, "Sweet Hand API", "<TO SUPPLY>", "Writes profiles, enquiries and reviews")
-  ContainerDb(db, "Sweet Hand database", "<TO SUPPLY>", "Primary Canadian region; PITR enabled")
-  ContainerDb(storage, "Object storage", "<TO SUPPLY>", "Photos and certificate files; versioned or replicated")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "Writes profiles, enquiries and reviews")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Primary Canadian region; PITR enabled")
+  ContainerDb(storage, "Object storage", "S3-compatible object storage", "Photos and certificate files; versioned or replicated")
 }
 System_Boundary(secondary, "Secondary Canadian region") {
-  ContainerDb(dbbackup, "Database backups", "<TO SUPPLY>", "Encrypted; 35 days of point-in-time recovery")
-  ContainerDb(replica, "Replicated object storage", "<TO SUPPLY>", "Photo and certificate copies or versions")
+  ContainerDb(dbbackup, "Database backups", "PostgreSQL point-in-time backups", "Encrypted; 35 days of point-in-time recovery")
+  ContainerDb(replica, "Replicated object storage", "S3-compatible object storage", "Photo and certificate copies or versions")
 }
 System_Ext(restore, "Isolated restore environment", "Canadian region")
 

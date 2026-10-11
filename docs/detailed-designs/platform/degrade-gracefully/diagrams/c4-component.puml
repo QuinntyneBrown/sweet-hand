@@ -7,16 +7,16 @@ System_Ext(email, "Email provider", "Transactional email")
 System_Ext(bot, "Bot-protection provider", "Challenge tokens")
 System_Ext(obs, "Observability platform", "Alerts")
 Container_Boundary(api, "Sweet Hand API") {
-  Component(handlers, "Command handlers", "<TO SUPPLY>", "SendEnquiryHandler, ReplyToEnquiryHandler, UploadPhotoHandler")
-  Component(verifier, "BotProtectionVerifier", "<TO SUPPLY>", "Returns ProviderUnavailable on outage")
-  Component(health, "DependencyHealth", "<TO SUPPLY>", "Tracks availability per dependency")
-  Component(limits, "RateLimitPolicy", "<TO SUPPLY>", "Halves thresholds in degraded mode")
-  Component(alert, "DegradationAlert", "<TO SUPPLY>", "Raises on-call alert")
+  Component(handlers, "Command handlers", "Command handlers", "SendEnquiryHandler, ReplyToEnquiryHandler, UploadPhotoHandler")
+  Component(verifier, "BotProtectionVerifier", "Infrastructure", "Returns ProviderUnavailable on outage")
+  Component(health, "DependencyHealth", "Infrastructure", "Tracks availability per dependency")
+  Component(limits, "RateLimitPolicy", "Domain policy", "Halves thresholds in degraded mode")
+  Component(alert, "DegradationAlert", "Infrastructure", "Raises on-call alert")
 }
-ContainerQueue(queue, "Job queue", "<TO SUPPLY>", "Persistent jobs")
+ContainerQueue(queue, "Job queue", "pg-boss (PostgreSQL)", "Persistent jobs")
 Container_Boundary(worker, "Sweet Hand background worker") {
-  Component(notify, "SendNotificationJob", "<TO SUPPLY>", "Exponential backoff up to 24 hours")
-  Component(photo, "ProcessPhotoJob", "<TO SUPPLY>", "Retries until processing recovers")
+  Component(notify, "SendNotificationJob", "Job", "Exponential backoff up to 24 hours")
+  Component(photo, "ProcessPhotoJob", "Job", "Retries until processing recovers")
 }
 
 Rel(handlers, queue, "Enqueue jobs in the same unit of work")
