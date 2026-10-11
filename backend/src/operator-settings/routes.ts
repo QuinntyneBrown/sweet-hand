@@ -1,5 +1,6 @@
 import { admins, roles, type Area } from '../http/router.ts';
 import { queryAuditLog } from './audit-log.ts';
+import { enquiryMetrics, exportMetrics, metricsReport } from './metrics.ts';
 import { adminOnly, deactivateOperator, inviteOperator, listOperators } from './accounts.ts';
 import { listBreaches, recordBreach } from './breaches.ts';
 import { addCuisine, cuisineUsage, listCuisines, retireCuisine } from './cuisines.ts';
@@ -21,4 +22,7 @@ export const operatorSettingsArea: Area = (r) => {
   r.post('/api/operator/accounts/:id/deactivate', admins, deactivateOperator, adminOptions);
   // Read-only by design: no route edits or deletes an entry (L2-060.2).
   r.get('/api/operator/audit-log', admins, queryAuditLog, adminOptions);
+  r.get('/api/operator/metrics', operators, metricsReport);
+  r.get('/api/operator/metrics/enquiries', operators, enquiryMetrics);
+  r.get('/api/operator/metrics/export.csv', operators, exportMetrics);
 };

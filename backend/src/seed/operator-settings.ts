@@ -2,7 +2,62 @@
  * Operator console settings and metrics state from docs/mocks/README.md: the
  * breach register. Every person and record is fictional.
  */
-import type { Breach, OperatorActivity } from '../operator-settings/model.ts';
+import { METRICS_STATE_ID, type Breach, type DailyMetrics, type MetricsState, type OperatorActivity } from '../operator-settings/model.ts';
+
+/**
+ * Weekly figures, Monday to Sunday, from 3 Aug 2026; the last week runs to
+ * Saturday 10 Oct. Weeks from 31 Aug match docs/mocks/pages/admin-metrics
+ * (12 enquiries in the week of 28 Sep, L2-061.1).
+ * [enquiries per day, replied within 48 hours per day, listing, caterer, unique, published per day]
+ */
+const WEEKS: [number[], number[], number, number, number, number[]][] = [
+  [[0, 1, 0, 1, 0, 1, 0], [0, 1, 0, 1, 0, 0, 0], 1850, 3020, 1410, [0, 0, 0, 0, 0, 0, 0]],
+  [[1, 0, 1, 1, 0, 1, 1], [1, 0, 1, 1, 0, 1, 0], 2240, 3860, 1690, [2, 0, 0, 0, 0, 0, 0]],
+  [[1, 1, 0, 1, 1, 1, 1], [1, 1, 0, 1, 1, 1, 0], 2610, 4390, 1880, [0, 0, 0, 0, 0, 0, 0]],
+  [[1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 0, 0], 2890, 5020, 2050, [0, 0, 1, 0, 0, 0, 0]],
+  [[1, 1, 2, 1, 1, 1, 1], [1, 1, 2, 1, 1, 0, 0], 3120, 5610, 2210, [0, 1, 0, 0, 0, 0, 0]],
+  [[2, 1, 2, 1, 2, 2, 1], [2, 1, 2, 1, 1, 1, 1], 3480, 6020, 2390, [0, 0, 0, 0, 0, 0, 0]],
+  [[2, 2, 3, 2, 2, 2, 2], [2, 2, 2, 2, 2, 1, 1], 4050, 7140, 2760, [0, 1, 0, 1, 0, 0, 0]],
+  [[2, 2, 2, 2, 2, 2, 1], [2, 2, 2, 2, 1, 1, 1], 3910, 6880, 2640, [0, 0, 0, 0, 0, 0, 0]],
+  [[2, 2, 2, 2, 1, 2, 1], [2, 2, 2, 1, 1, 1, 1], 4240, 7350, 2890, [0, 0, 0, 1, 0, 0, 0]],
+  [[3, 3, 2, 2, 1, 1], [3, 2, 2, 0, 0, 0], 3870, 6700, 2580, [0, 0, 0, 0, 0, 0]],
+];
+
+/** Splits a weekly total over its days so the parts add up exactly. */
+function split(total: number, days: number): number[] {
+  const base = Math.floor(total / days);
+  return Array.from({ length: days }, (_, i) => base + (i < total - base * days ? 1 : 0));
+}
+
+function addDays(date: string, n: number): string {
+  const d = new Date(`${date}T12:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+/** Daily aggregates from 3 Aug 2026 to today. */
+export function seedDailyMetrics(): DailyMetrics[] {
+  return WEEKS.flatMap(([enquiries, replied, listing, caterer, unique, published], w) => {
+    const days = enquiries.length;
+    const [l, c, u] = [split(listing, days), split(caterer, days), split(unique, days)];
+    return enquiries.map((_, d) => ({ id: addDays('2026-08-03', w * 7 + d), listing: l[d], caterer: c[d], unique: u[d], enquiries: enquiries[d], replied: replied[d], published: published[d] }));
+  });
+}
+
+export const seedMetricsState = (): MetricsState[] => [
+  {
+    id: METRICS_STATE_ID,
+    countingSince: '2026-08-03',
+    statuses: [
+      { status: 'Published', count: 60 },
+      { status: 'Pending review', count: 3 },
+      { status: 'Changes requested', count: 1 },
+      { status: 'Draft', count: 9 },
+      { status: 'Suspended', count: 1 },
+      { status: 'Removed', count: 2 },
+    ],
+  },
+];
 import type { AuditEntry } from '../platform/audit.ts';
 
 type Change = [action: string, targetType: string, targetId: string, reason: string, before: string | null, after: string | null];

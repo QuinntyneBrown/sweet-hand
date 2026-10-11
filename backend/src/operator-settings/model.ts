@@ -32,7 +32,33 @@ export interface OperatorActivity extends Document {
   lastActiveAt: string;
 }
 
-export const breaches = (tx: Transaction) => tx.collection<Breach>('breaches');
+/**
+ * One day's aggregates (view-metrics-dashboard: DailyMetric), keyed by the
+ * Toronto date YYYY-MM-DD. Visits recorded since the day was aggregated are
+ * added from the `visits` collection.
+ */
+export interface DailyMetrics extends Document {
+  listing: number;
+  caterer: number;
+  unique: number;
+  enquiries: number;
+  /** Enquiries created that day that had a caterer reply within 48 hours. */
+  replied: number;
+  /** Caterers first published that day. */
+  published: number;
+}
+
+/** What the aggregation last worked out for today: when counting began and caterers by status, Published first. */
+export interface MetricsState extends Document {
+  countingSince: string;
+  statuses: { status: string; count: number }[];
+}
+
+export const METRICS_STATE_ID = 'current';
+
+export const breaches =(tx: Transaction) => tx.collection<Breach>('breaches');
 export const operatorInvitations = (tx: Transaction) => tx.collection<OperatorInvitation>('operatorInvitations');
 export const operatorDeactivations = (tx: Transaction) => tx.collection<OperatorDeactivation>('operatorDeactivations');
 export const operatorActivity = (tx: Transaction) => tx.collection<OperatorActivity>('operatorActivity');
+export const dailyMetrics = (tx: Transaction) => tx.collection<DailyMetrics>('dailyMetrics');
+export const metricsState = (tx: Transaction) => tx.collection<MetricsState>('metricsState');
