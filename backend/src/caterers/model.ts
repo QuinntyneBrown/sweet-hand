@@ -80,3 +80,26 @@ export function slugify(name: string): string {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
 }
+
+/**
+ * A free address for `name` (SlugService, L2-018.2): `-2`, `-3`, … when another
+ * caterer uses it or keeps it as a redirect. `self` may take back its own old
+ * addresses.
+ */
+export async function uniqueSlug(tx: Transaction, name: string, self?: string): Promise<string> {
+  const base = slugify(name) || 'caterer';
+  const taken = new Set((await caterers(tx).all()).filter((c) => c.id !== self).flatMap((c) => [c.slug, ...c.previousSlugs]));
+  let slug = base;
+  for (let n = 2; taken.has(slug); n++) slug = `${base}-${n}`;
+  return slug;
+}
+
+/**
+ * The caterer under a new name: a free address, the old one kept as a
+ * redirect, and the new one never left among its own redirects (L2-018.3).
+ */
+export async function withAddressFor(tx: Transaction, c: Caterer, name: string): Promise<Pick<Caterer, 'slug' | 'previousSlugs'>> {
+  const slug = await uniqueSlug(tx, name, c.id);
+  if (slug === c.slug) return { slug, previousSlugs: c.previousSlugs };
+  return { slug, previousSlugs: [...c.previousSlugs.filter((s) => s !== slug), c.slug] };
+}

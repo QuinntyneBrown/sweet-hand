@@ -4,7 +4,7 @@ import { accepted, invalid } from '../http/problems.ts';
 import { validChallenge } from '../platform/bot-challenge.ts';
 import { queueEmail } from '../platform/outbox.ts';
 import { hashPassword } from '../platform/secrets.ts';
-import { caterers, slugify } from '../caterers/model.ts';
+import { caterers, uniqueSlug } from '../caterers/model.ts';
 import type { RegisterCatererRequest } from '@contract/register-caterer-request.ts';
 import type { RegisterRequest } from '@contract/register-request.ts';
 import { findUserByEmail, users, type User } from './model.ts';
@@ -76,14 +76,6 @@ export async function registerCustomer(req: Request): Promise<Reply> {
   return accepted();
 }
 
-async function uniqueSlug(req: Request, name: string): Promise<string> {
-  const base = slugify(name) || 'caterer';
-  const taken = new Set((await caterers(req.tx).all()).flatMap((c) => [c.slug, ...c.previousSlugs]));
-  let slug = base;
-  for (let n = 2; taken.has(slug); n++) slug = `${base}-${n}`;
-  return slug;
-}
-
 /**
  * Caterer registration (register-caterer design): an account, a draft
  * profile, a verification email and a session so the caterer can set up
@@ -112,7 +104,7 @@ export async function registerCaterer(req: Request): Promise<Reply> {
   const user = await newUser(req, { role: 'Caterer', displayName: contactName, email, phone: phone!, catererId }, String(body.password));
   await caterers(req.tx).put({
     id: catererId,
-    slug: await uniqueSlug(req, businessName),
+    slug: await uniqueSlug(req.tx, businessName),
     name: businessName,
     status: 'Draft',
     ownerUserId: user.id,

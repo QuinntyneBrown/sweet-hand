@@ -5,7 +5,7 @@ import type { Transaction } from '../platform/database.ts';
 import { recordAudit } from '../platform/audit.ts';
 import { torontoDate } from '../discovery/listing.ts';
 import { ALL_AREAS, allCuisines, OCCASIONS } from '../discovery/taxonomy.ts';
-import { caterers, slugify, type Caterer } from '../caterers/model.ts';
+import { caterers, withAddressFor, type Caterer } from '../caterers/model.ts';
 import { touchRecord } from './model.ts';
 import { emailOwner, stale, targetCaterer } from './lifecycle.ts';
 import { catererRecord } from './records.ts';
@@ -31,8 +31,8 @@ async function editField(tx: Transaction, c: Caterer, field: EditableField, valu
       if (!name) return { errors: { value: ['Enter the business name'] } };
       const before = { name: c.name, slug: c.slug };
       if (name === c.name) return { next: c, before, after: before };
-      const slug = slugify(name);
-      return { next: { ...c, name, slug, previousSlugs: slug === c.slug ? c.previousSlugs : [...c.previousSlugs, c.slug] }, before, after: { name, slug } };
+      const address = await withAddressFor(tx, c, name);
+      return { next: { ...c, name, ...address }, before, after: { name, slug: address.slug } };
     }
     case 'description': {
       const text = trimmed(value);

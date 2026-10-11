@@ -2,7 +2,7 @@
 import type { Request, Reply } from '../http/endpoint.ts';
 import { fail, invalid, ok } from '../http/problems.ts';
 import { recordAudit } from '../platform/audit.ts';
-import { caterers, slugify } from '../caterers/model.ts';
+import { caterers, uniqueSlug, withAddressFor } from '../caterers/model.ts';
 import { profileSnapshots, touchRecord } from './model.ts';
 import { decision, emailOwner, stale, targetCaterer, transition } from './lifecycle.ts';
 import { trimmed } from './views.ts';
@@ -18,7 +18,9 @@ function changeReason(body: unknown): string {
 export async function approveProfile(req: Request): Promise<Reply> {
   const c = await targetCaterer(req);
   if (c.status !== 'Pending review') return stale(c);
-  const next = await transition(req, c, 'Published', 'approved', undefined, { publishedAt: c.publishedAt ?? req.now.toISOString(), statusReason: undefined, attention: undefined });
+  // The first publication takes its address from the name it is published under (L2-018.1).
+  const address = c.publishedAt ? {} : { slug: await uniqueSlug(req.tx, c.name, c.id) };
+  const next = await transition(req, c, 'Published', 'approved', undefined, { ...address, publishedAt: c.publishedAt ?? req.now.toISOString(), statusReason: undefined, attention: undefined });
   await recordAudit(req, { operatorId: req.actor!.userId, action: 'Approve', targetType: 'CatererProfile', targetId: c.id, reason: null, before: { status: 'Pending review' }, after: { status: 'Published' } });
   await emailOwner(req, next, 'profile-approved', { link: `/caterers/${next.slug}` });
   return ok(await decision(req.tx, next));
@@ -51,8 +53,9 @@ export async function approveName(req: Request): Promise<Reply> {
   const c = await targetCaterer(req);
   if (!c.pendingName || c.status === 'Removed') return stale(c);
   const before = { name: c.name, slug: c.slug };
-  const slug = slugify(c.pendingName);
-  const next = { ...c, name: c.pendingName, slug, previousSlugs: slug === c.slug ? c.previousSlugs : [...c.previousSlugs, c.slug], pendingName: undefined, pendingNameAt: undefined };
+  const address = await withAddressFor(req.tx, c, c.pendingName);
+  const slug = address.slug;
+  const next = { ...c, name: c.pendingName, ...address, pendingName: undefined, pendingNameAt: undefined };
   await caterers(req.tx).put(next);
   await touchRecord(req.tx, c.id, req.now);
   await recordAudit(req, { operatorId: req.actor!.userId, action: 'Approve name change', targetType: 'CatererProfile', targetId: c.id, reason: null, before, after: { name: next.name, slug } });
