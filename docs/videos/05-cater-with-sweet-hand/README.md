@@ -78,6 +78,11 @@ just as well.
 - The caterer listing and caterer page are a preview of the product with fictional seed caterers; keep the “Preview” tag if the product UI changes before launch.
 - Don't promise anything the first release doesn't do: no payments, no batches or pre-orders, enquiries only (L1 assumptions A-1 to A-3).
 
+## Publishing
+
+The YouTube thumbnail, captions, title, description and posting steps are in
+`docs/marketing/youtube/README.md`.
+
 ## References
 
 - `docs/specs/L1.md` (assumptions A-1 to A-4, A-8; L1-006, L1-007, L1-013)

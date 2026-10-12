@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<title>Sweet Hand — YouTube channel art</title>
+<link rel="stylesheet" href="../assets/print.css">
+<!--
+  YouTube channel art and the promo video's thumbnail, one per <section>.
+  Rendered by ../render.mjs (node docs/marketing/render.mjs --only youtube).
+
+  .avatar     800 x 800 px. YouTube crops the profile picture to a circle, so
+              the mark sits inside the inscribed circle on a full pepper tile.
+  .banner     2560 x 1440 px. YouTube shows the middle 2560 x 423 strip on
+              desktop and only the central 1546 x 423 "safe area" on phones,
+              so everything that matters sits inside .safe. The band and the
+              background run to the edges and only show on TVs and desktops.
+  .thumbnail  1280 x 720 px (16:9), for 05-cater-with-sweet-hand.mp4. Big type,
+              dark like the makers' flyer side, because the video speaks to cooks.
+
+  Open this file in a browser to preview: the banner's desktop strip and phone
+  safe area are shaded pink and the avatar's circle crop is outlined.
+  Colours come from docs/design-system/tokens/tokens.css via ../assets/print.css.
+-->
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #e9e6e1; }
+  body { font-family: "Figtree", system-ui, sans-serif; }
+
+  .art { position: relative; overflow: hidden; }
+
+  /* ---------- Avatar ---------- */
+  .avatar { width: 800px; height: 800px; background: var(--pepper-600); }
+  .avatar svg { display: block; width: 800px; height: 800px; }
+
+  /* ---------- Banner ---------- */
+  .banner { width: 2560px; height: 1440px; background: var(--stone-950); color: var(--white); }
+  .banner .band { position: absolute; top: 0; bottom: 0; left: 0; width: 72px; background: var(--pepper-600); }
+  .banner .safe {
+    position: absolute;
+    left: 507px; top: 508px;
+    width: 1546px; height: 423px;
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    padding: 0 48px;
+  }
+  .banner .mark { width: 208px; height: 208px; flex: none; }
+  .banner .wordmark { font-weight: 700; font-size: 132px; line-height: 1; letter-spacing: -0.03em; }
+  .banner .wordmark span { color: var(--pepper-500); }
+  .banner .tagline { margin-top: 22px; font-weight: 500; font-size: 46px; line-height: 1.25; color: #d6d2cc; }
+  .banner .url { margin-top: 26px; font-weight: 700; font-size: 44px; letter-spacing: -0.01em; }
+  .banner .url span { font-weight: 500; color: var(--stone-350); }
+
+  /* ---------- Thumbnail ---------- */
+  .thumbnail { width: 1280px; height: 720px; background: var(--stone-950); color: var(--white); }
+  .thumbnail .band { position: absolute; top: 0; bottom: 0; right: 0; width: 40px; background: var(--pepper-600); }
+  .thumbnail .inner {
+    position: absolute; inset: 0 112px 0 72px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 56px 0 52px;
+  }
+  .thumbnail .brand { display: flex; align-items: center; gap: 22px; }
+  .thumbnail .brand .mark { width: 84px; height: 84px; flex: none; }
+  .thumbnail .brand .wordmark { font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.02em; }
+  .thumbnail .brand .wordmark span { color: var(--pepper-500); }
+  .thumbnail h1 { font-weight: 700; font-size: 128px; line-height: 0.98; letter-spacing: -0.035em; }
+  .thumbnail h1 span { display: block; margin-top: 18px; color: #d6d2cc; }
+  .thumbnail .foot { display: flex; align-items: baseline; justify-content: space-between; gap: 32px; }
+  .thumbnail .foot .join { font-weight: 700; font-size: 44px; letter-spacing: -0.01em; color: var(--pepper-500); }
+  .thumbnail .foot .url { font-weight: 500; font-size: 36px; color: var(--stone-350); }
+
+  /* ---------- Screen preview only ---------- */
+  @media screen {
+    body:not(.export) {
+      min-height: 100vh;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+    body:not(.export) .art { zoom: 0.35; box-shadow: 0 8px 24px rgb(20 19 18 / 0.18); }
+    /* The circle YouTube crops the avatar to. */
+    body:not(.export) .avatar::after {
+      content: ""; position: absolute; inset: 0; border-radius: 50%;
+      box-shadow: 0 0 0 400px rgb(255 0 160 / 0.25); pointer-events: none;
+    }
+    /* Desktop strip (light pink) and phone safe area (darker pink). */
+    body:not(.export) .banner::before {
+      content: ""; position: absolute; left: 0; right: 0; top: 508px; height: 423px;
+      background: rgb(255 0 160 / 0.10); pointer-events: none;
+    }
+    body:not(.export) .banner::after {
+      content: ""; position: absolute; left: 507px; top: 508px; width: 1546px; height: 423px;
+      outline: 4px dashed rgb(255 0 160 / 0.7); pointer-events: none;
+    }
+    body.export { background: transparent; }
+  }
+</style>
+</head>
+<body>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <!-- The logo mark, from assets/logo/sweet-hand-mark.svg -->
+    <symbol id="mark" viewBox="0 0 120 120">
+      <rect x="4" y="4" width="112" height="112" rx="28" fill="#b5381f"/>
+      <path d="M60 58 C 60 58 40 46 40 34 C 40 26 46 21 52 21 C 56 21 59 23 60 27 C 61 23 64 21 68 21 C 74 21 80 26 80 34 C 80 46 60 58 60 58 Z" fill="#ffffff"/>
+      <path d="M26 66 H 94 C 94 85 79 98 60 98 C 41 98 26 85 26 66 Z" fill="#ffffff"/>
+      <rect x="44" y="99" width="32" height="5" rx="2.5" fill="#ffffff"/>
+    </symbol>
+    <!-- The same bowl and heart without the tile, for the full-bleed avatar. -->
+    <symbol id="bowl" viewBox="0 0 120 120">
+      <path d="M60 58 C 60 58 40 46 40 34 C 40 26 46 21 52 21 C 56 21 59 23 60 27 C 61 23 64 21 68 21 C 74 21 80 26 80 34 C 80 46 60 58 60 58 Z" fill="#ffffff"/>
+      <path d="M26 66 H 94 C 94 85 79 98 60 98 C 41 98 26 85 26 66 Z" fill="#ffffff"/>
+      <rect x="44" y="99" width="32" height="5" rx="2.5" fill="#ffffff"/>
+    </symbol>
+  </svg>
+
+  <!-- Profile picture: 800 x 800, cropped to a circle by YouTube -->
+  <section class="art avatar" aria-label="Profile picture">
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+      <rect width="120" height="120" fill="#b5381f"/>
+      <!-- Scaled to 0.9 about the centre so the bowl clears the circle crop. -->
+      <g transform="translate(60 62) scale(0.9) translate(-60 -60)"><use href="#bowl"/></g>
+    </svg>
+  </section>
+
+  <!-- Channel banner: 2560 x 1440, phone safe area 1546 x 423 centred -->
+  <section class="art banner" aria-label="Channel banner">
+    <div class="band" aria-hidden="true"></div>
+    <div class="safe">
+      <svg class="mark" aria-hidden="true"><use href="#mark"/></svg>
+      <div>
+        <div class="wordmark">Sweet Hand<span>.</span></div>
+        <p class="tagline">Caribbean home cooks and small-batch makers of Toronto and the GTA.</p>
+        <p class="url">sweethand.ca <span>· Opening soon</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Thumbnail for 05 · Cater with Sweet Hand: 1280 x 720 -->
+  <section class="art thumbnail" aria-label="Thumbnail: Cater with Sweet Hand">
+    <div class="band" aria-hidden="true"></div>
+    <div class="inner">
+      <div class="brand">
+        <svg class="mark" aria-hidden="true"><use href="#mark"/></svg>
+        <div class="wordmark">Sweet Hand<span>.</span></div>
+      </div>
+      <h1>You have a sweet hand. <span>Let Toronto find it.</span></h1>
+      <div class="foot">
+        <p class="join">Cater with Sweet Hand</p>
+        <p class="url">sweethand.ca</p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

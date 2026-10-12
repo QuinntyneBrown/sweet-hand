@@ -1,7 +1,9 @@
 /**
- * Renders the Sweet Hand pre-launch flyer and die-cut stickers.
+ * Renders the Sweet Hand pre-launch flyer, die-cut stickers, WhatsApp Status
+ * images and YouTube channel art.
  *
- *   node docs/marketing/render.mjs
+ *   node docs/marketing/render.mjs                 everything
+ *   node docs/marketing/render.mjs --only youtube  one group: flyer, stickers, whatsapp or youtube
  *
  * Writes (all committed, so a printer file never depends on a rebuild):
  *   assets/qr-sweethand-ca.svg            offline QR for https://sweethand.ca
@@ -14,6 +16,9 @@
  *   stickers/sticker-N-*.svg              editable vector, font inlined, hidden #cutline layer
  *   stickers/contact-sheet.png
  *   whatsapp/status-1-eaters.png, status-2-makers.png  1080 x 1920 WhatsApp Status images
+ *   youtube/channel-avatar.png            800 x 800 profile picture (YouTube crops it to a circle)
+ *   youtube/channel-banner.png            2560 x 1440 banner, copy inside the 1546 x 423 safe area
+ *   youtube/thumbnail-05-cater-with-sweet-hand.png  1280 x 720 thumbnail for the promo video
  *
  * Playwright is not a dependency of this folder. It is borrowed from
  * frontend/node_modules (@playwright/test); point SWEET_HAND_MODULE_ROOT at any
@@ -44,6 +49,14 @@ const STICKERS = [
 ]
 
 const inches = (px) => (px / 300).toFixed(2)
+
+const GROUPS = ['flyer', 'stickers', 'whatsapp', 'youtube']
+const onlyFlag = process.argv.indexOf('--only')
+const only = onlyFlag === -1 ? GROUPS : process.argv.slice(onlyFlag + 1).filter((g) => !g.startsWith('--'))
+for (const g of only) {
+  if (!GROUPS.includes(g)) throw new Error(`--only: unknown group "${g}" (expected ${GROUPS.join(', ')})`)
+}
+const wants = (group) => only.includes(group)
 
 /** PNG header reader: enough to assert dimensions and pixel format. */
 function readPngHeader(buffer) {
@@ -324,12 +337,49 @@ async function renderWhatsApp() {
   console.log(`✓ WhatsApp Status ${names.join(', ')} (1080x1920)`)
 }
 
+/** YouTube channel art and the promo video's thumbnail; each checked against YouTube's size limits. */
+async function renderYouTube() {
+  // YouTube's limits: profile picture 800 x 800 recommended, 4 MB; banner 2560 x 1440, 6 MB,
+  // 1546 x 423 safe area; thumbnail 1280 x 720, 2 MB.
+  const ART = [
+    { selector: '.avatar', name: 'channel-avatar.png', w: 800, h: 800, maxBytes: 4 * 1024 * 1024 },
+    { selector: '.banner', name: 'channel-banner.png', w: 2560, h: 1440, maxBytes: 6 * 1024 * 1024 },
+    { selector: '.thumbnail', name: 'thumbnail-05-cater-with-sweet-hand.png', w: 1280, h: 720, maxBytes: 2 * 1024 * 1024 },
+  ]
+  const ctx = await browser.newContext({ viewport: { width: 2560, height: 1440 }, deviceScaleFactor: 1 })
+  const page = await ctx.newPage()
+  await page.goto(pathToFileURL(path.join(here, 'youtube', 'channel.html')).href, { waitUntil: 'load' })
+  await page.evaluate(() => document.body.classList.add('export'))
+  await requireFigtree(page, 'youtube')
+  const done = []
+  for (const { selector, name, w, h, maxBytes } of ART) {
+    const out = path.join(here, 'youtube', name)
+    // One piece at a time, alone in a viewport of its own size: an element screenshot of a
+    // piece that follows another on the page can composite the page background over it.
+    await page.setViewportSize({ width: w, height: h })
+    await page.evaluate((sel) => {
+      for (const el of document.querySelectorAll('.art')) el.style.display = el.matches(sel) ? '' : 'none'
+    }, selector)
+    await page.locator(selector).screenshot({ path: out, animations: 'disabled' })
+    const png = await readFile(out)
+    const { width, height } = readPngHeader(png)
+    if (width !== w || height !== h) throw new Error(`${name}: expected ${w}x${h}, got ${width}x${height}`)
+    if (png.length > maxBytes) throw new Error(`${name}: ${png.length} bytes is over YouTube's ${maxBytes / 1024 / 1024} MB limit`)
+    done.push(`${name} (${w}x${h}, ${(png.length / 1024).toFixed(0)} KB)`)
+  }
+  await ctx.close()
+  console.log(`✓ YouTube ${done.join(', ')}`)
+}
+
 try {
-  const qr = await writeQr()
-  console.log(`✓ QR for ${SITE_URL} (version ${qr.version}, ${qr.modules}x${qr.modules} modules, ECC M)`)
-  await renderFlyer()
-  await renderStickers()
-  await renderWhatsApp()
+  if (wants('flyer')) {
+    const qr = await writeQr()
+    console.log(`✓ QR for ${SITE_URL} (version ${qr.version}, ${qr.modules}x${qr.modules} modules, ECC M)`)
+    await renderFlyer()
+  }
+  if (wants('stickers')) await renderStickers()
+  if (wants('whatsapp')) await renderWhatsApp()
+  if (wants('youtube')) await renderYouTube()
 } finally {
   await browser.close()
 }

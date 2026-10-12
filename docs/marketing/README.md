@@ -1,8 +1,8 @@
-# Pre-launch marketing: flyer, stickers and WhatsApp Status
+# Pre-launch marketing: flyer, stickers, WhatsApp Status and YouTube
 
-A two-sided flyer and three die-cut stickers, low on words, in the design
-system's look (Figtree, stone and pepper). Everything points at
-`https://sweethand.ca`.
+A two-sided flyer, three die-cut stickers, two WhatsApp Status images and the
+YouTube channel kit, low on words, in the design system's look (Figtree, stone
+and pepper). Everything points at `https://sweethand.ca`.
 
 | File | Purpose |
 | --- | --- |
@@ -18,6 +18,9 @@ system's look (Figtree, stone and pepper). Everything points at
 | `assets/` | Figtree (SIL Open Font License 1.1, `fonts/OFL.txt`), `print.css`, and the generated `qr-sweethand-ca.svg`. `figtree-500/600/700.ttf` are static instances of the variable `figtree-latin.woff2`, used by the flyer (see the print spec). |
 | `whatsapp/status-1-eaters.png`, `status-2-makers.png` | WhatsApp Status (Update) images, 1080 × 1920 px. Post them in this order. |
 | `whatsapp/status.html` | Source for both. Open in a browser to preview with WhatsApp's overlay zones shaded pink. |
+| `youtube/channel-avatar.png`, `channel-banner.png` | YouTube profile picture (800 × 800 px) and banner (2560 × 1440 px, copy inside the 1546 × 423 px safe area). |
+| `youtube/thumbnail-05-cater-with-sweet-hand.png`, `05-cater-with-sweet-hand.en-CA.srt` | Thumbnail (1280 × 720 px) and captions for the promo video. |
+| `youtube/channel.html`, `youtube/README.md` | Source for the three images, and the channel settings, video copy and posting steps (see [youtube/README.md](youtube/README.md)). |
 | `lib/press.mjs` | Prepress layouts shared with `docs/business-cards/`: crop marks, gang-up sheets, PDF checks. |
 | `lib/qrcodegen.mjs` | Project Nayuki's QR Code generator (MIT), transpiled from its TypeScript. |
 | `render.mjs` | Regenerates every file above. |
@@ -74,6 +77,16 @@ system's look (Figtree, stone and pepper). Everything points at
 - Add `https://sweethand.ca` as the Status caption: WhatsApp makes a typed link
   tappable, but not text in an image.
 
+## YouTube
+
+- Channel art and the promo video's thumbnail, with the channel description,
+  video title, description with chapters, tags, captions and the posting steps,
+  are in [`youtube/`](youtube/README.md). Opening the channel and uploading
+  are done by the person whose Google account owns the channel.
+- The banner keeps every word inside YouTube's 1546 × 423 px safe area, the
+  only part shown on phones; the pepper band on the left shows on desktops and
+  TVs only.
+
 ## Sticker print spec
 
 | | |
@@ -103,12 +116,16 @@ cd frontend && npm install        # once; borrows @playwright/test
 node docs/marketing/render.mjs
 ```
 
+`--only flyer`, `--only stickers`, `--only whatsapp` or `--only youtube`
+renders one group (the flyer PDFs carry a creation date, so rendering only the
+group you changed keeps the diff to that group).
+
 Set `SWEET_HAND_MODULE_ROOT` to another folder whose `package.json` resolves
 `@playwright/test` if `frontend/node_modules` is not installed. The renderer fails if
 Figtree falls back to a system font, a PDF is not 2 pages of 5.25 × 7.25 in, a proof is
 not 1575 × 2175 px, a sticker is not 900 × 900 RGBA with transparent corners, the
-artwork touches the canvas edge, a die cut is more than one piece, or any flyer PDF
-has a Type 3 font.
+artwork touches the canvas edge, a die cut is more than one piece, any flyer PDF
+has a Type 3 font, or a YouTube image is not its exact size or over YouTube's file limit.
 
 To regenerate the static weights after changing the variable font:
 
