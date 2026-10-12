@@ -1,0 +1,230 @@
+name: Deliver
+
+# One delivery, called once per environment by deploy-staging.yml, deploy-uat.yml and
+# deploy.yml (production). docs/operations/environments.md describes the promotion path.
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: GitHub environment that holds this environment's variables, secrets and approvals.
+        type: string
+        required: true
+      env-name:
+        description: The envName the Bicep template takes (prod, staging or uat).
+        type: string
+        required: true
+      resource-group:
+        type: string
+        required: true
+      sha:
+        description: The exact commit to deliver.
+        type: string
+        required: true
+      site-hostnames:
+        description: Comma-separated public hostnames; the first is the canonical site URL.
+        type: string
+        required: true
+      custom-email-domain:
+        description: Send from the verified sweethand.ca domain (production only).
+        type: boolean
+        default: false
+      register-hostnames:
+        description: Add each hostname to Static Web Apps once its CNAME points at the default hostname.
+        type: boolean
+        default: true
+      parameters:
+        description: Extra Bicep parameters for this environment, as a JSON object of name to value.
+        type: string
+        default: '{}'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deliver:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    environment:
+      name: ${{ inputs.environment }}
+      url: https://${{ inputs.env-name == 'prod' && 'sweethand.ca' || format('{0}.sweethand.ca', inputs.env-name) }}
+    concurrency:
+      group: ${{ inputs.environment }}
+      cancel-in-progress: false
+    env:
+      AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      RESOURCE_GROUP: ${{ inputs.resource-group }}
+      STATIC_WEB_APP: swa-sweethand-launch-${{ inputs.env-name }}
+      SITE_HOSTNAMES: ${{ inputs.site-hostnames }}
+      IMAGE_TAG: ${{ inputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.sha }}
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Assert the Sweet Hand subscription
+        run: |
+          test "$(az account show --query id -o tsv)" = "4a1b5113-89f9-4d27-acfe-581493385536"
+          az extension add --name containerapp --only-show-errors
+      - name: Choose the bot challenge
+        # Both Turnstile values turn the challenge on. Neither is the documented, temporary
+        # opt-out before the widget exists (L2-104.9); one without the other is a mistake.
+        env:
+          TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
+          TURNSTILE_SECRET: ${{ secrets.TURNSTILE_SECRET }}
+        run: |
+          if [ -n "$TURNSTILE_SITE_KEY" ] && [ -n "$TURNSTILE_SECRET" ]; then
+            echo "BOT_CHALLENGE=turnstile" >> "$GITHUB_ENV"
+          elif [ -z "$TURNSTILE_SITE_KEY" ] && [ -z "$TURNSTILE_SECRET" ]; then
+            echo "BOT_CHALLENGE=off" >> "$GITHUB_ENV"
+            echo "::warning::Bot protection is OFF: set the ${{ inputs.environment }} variable TURNSTILE_SITE_KEY and secret TURNSTILE_SECRET to turn Cloudflare Turnstile on"
+          else
+            echo "::error::Set both the ${{ inputs.environment }} variable TURNSTILE_SITE_KEY and the secret TURNSTILE_SECRET, or neither"; exit 1
+          fi
+      - name: Link the email domain once Azure has verified it
+        if: inputs.custom-email-domain
+        run: |
+          az extension add --name communication --only-show-errors
+          EMAIL=$(az resource list -g "$RESOURCE_GROUP" --resource-type Microsoft.Communication/emailServices --query "[0].name" -o tsv)
+          STATES=$(az communication email domain show -g "$RESOURCE_GROUP" --email-service-name "$EMAIL" -n sweethand.ca --only-show-errors \
+            --query "[verificationStates.Domain.status, verificationStates.SPF.status, verificationStates.DKIM.status, verificationStates.DKIM2.status]" -o tsv | sort -u)
+          if [ "$STATES" = Verified ]; then echo "LINK_EMAIL=true" >> "$GITHUB_ENV"; else echo "LINK_EMAIL=false" >> "$GITHUB_ENV"; echo "::warning::sweethand.ca is not verified for Azure email yet; launch emails will not send"; fi
+      - name: Write the environment's deployment parameters
+        # Secrets go in a file on the ephemeral runner rather than on the command line.
+        env:
+          POSTGRES_ADMIN_PASSWORD: ${{ secrets.POSTGRES_ADMIN_PASSWORD }}
+          IP_HASH_SECRET: ${{ secrets.IP_HASH_SECRET }}
+          TURNSTILE_SECRET: ${{ secrets.TURNSTILE_SECRET }}
+          SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
+          EXTRA_PARAMETERS: ${{ inputs.parameters }}
+        run: |
+          jq -n \
+            --arg envName '${{ inputs.env-name }}' \
+            --arg siteHostnames "$SITE_HOSTNAMES" \
+            --argjson customEmailDomain '${{ inputs.custom-email-domain }}' \
+            --argjson linkEmailDomain "${LINK_EMAIL:-false}" \
+            --arg botChallenge "$BOT_CHALLENGE" \
+            --arg postgresAdminPassword "$POSTGRES_ADMIN_PASSWORD" \
+            --arg ipHashSecret "$IP_HASH_SECRET" \
+            --arg turnstileSecret "$TURNSTILE_SECRET" \
+            --arg sitePassword "$SITE_PASSWORD" \
+            --argjson extra "$EXTRA_PARAMETERS" \
+            '{contentVersion: "1.0.0.0", parameters: ({envName: $envName, siteHostnames: $siteHostnames, customEmailDomain: $customEmailDomain,
+              linkEmailDomain: $linkEmailDomain, botChallenge: $botChallenge, postgresAdminPassword: $postgresAdminPassword, ipHashSecret: $ipHashSecret,
+              turnstileSecret: $turnstileSecret, sitePassword: $sitePassword} + $extra | with_entries(.value |= {value: .}))}' \
+            > "$RUNNER_TEMP/parameters.json"
+          echo "PARAMETERS=$RUNNER_TEMP/parameters.json" >> "$GITHUB_ENV"
+      - name: Apply foundation
+        run: |
+          az deployment group create --resource-group "$RESOURCE_GROUP" --name "foundation-$IMAGE_TAG" --template-file infra/main.bicep \
+            --parameters "@$PARAMETERS" --parameters deployApi=false deployMigration=false
+      - name: Build and scan the immutable API image
+        run: |
+          ACR=$(az deployment group show -g "$RESOURCE_GROUP" -n "foundation-$IMAGE_TAG" --query properties.outputs.acrName.value -o tsv)
+          echo "ACR=$ACR" >> "$GITHUB_ENV"
+          az acr build --registry "$ACR" --image "sweet-hand-api:$IMAGE_TAG" --file backend/Dockerfile .
+      - name: Apply migration job
+        run: |
+          IMAGE="$ACR.azurecr.io/sweet-hand-api:$IMAGE_TAG"
+          az deployment group create --resource-group "$RESOURCE_GROUP" --name "migration-$IMAGE_TAG" --template-file infra/main.bicep \
+            --parameters "@$PARAMETERS" --parameters deployApi=false deployMigration=true containerImage="$IMAGE"
+      - name: Run explicit migrations
+        run: |
+          EXECUTION=$(az containerapp job start -g "$RESOURCE_GROUP" -n caj-swh-migrate --query name -o tsv)
+          for attempt in $(seq 1 60); do
+            STATUS=$(az containerapp job execution show -g "$RESOURCE_GROUP" -n caj-swh-migrate --job-execution-name "$EXECUTION" --query properties.status -o tsv)
+            if [ "$STATUS" = Succeeded ]; then exit 0; fi
+            if [ "$STATUS" = Failed ]; then exit 1; fi
+            sleep 10
+          done
+          exit 1
+      - name: Record the serving API image
+        run: |
+          PREVIOUS=$(az containerapp show -g "$RESOURCE_GROUP" -n ca-swh-api --query "properties.template.containers[0].image" -o tsv 2>/dev/null || true)
+          echo "PREVIOUS_IMAGE=$PREVIOUS" >> "$GITHUB_ENV"
+      - name: Promote the migrated API image
+        run: |
+          IMAGE="$ACR.azurecr.io/sweet-hand-api:$IMAGE_TAG"
+          az deployment group create --resource-group "$RESOURCE_GROUP" --name "release-$IMAGE_TAG" --template-file infra/main.bicep \
+            --parameters "@$PARAMETERS" --parameters deployApi=true deployMigration=true containerImage="$IMAGE"
+      - name: Link the same-origin API
+        run: |
+          API_ID=$(az containerapp show -g "$RESOURCE_GROUP" -n ca-swh-api --query id -o tsv)
+          LINKED=$(az staticwebapp backends show -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --query "[?backendResourceId=='$API_ID'] | length(@)" -o tsv 2>/dev/null || echo 0)
+          if [ "$LINKED" != 1 ]; then
+            az staticwebapp backends link -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --backend-resource-id "$API_ID" --backend-region canadacentral
+          fi
+      - name: Register custom hostnames whose DNS points here
+        # A subdomain validates by CNAME, so it joins as soon as Namecheap serves the record.
+        if: inputs.register-hostnames
+        run: |
+          DEFAULT=$(az staticwebapp show -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --query defaultHostname -o tsv)
+          for HOST in ${SITE_HOSTNAMES//,/ }; do
+            if [ -n "$(az staticwebapp hostname show -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --hostname "$HOST" --query status -o tsv 2>/dev/null)" ]; then continue; fi
+            if [ "$(dig +short CNAME "$HOST" | sed 's/\.$//')" = "$DEFAULT" ]; then
+              az staticwebapp hostname set -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --hostname "$HOST" --validation-method cname-delegation --no-wait
+            else
+              echo "::warning::$HOST has no CNAME to $DEFAULT yet; add it in Namecheap (docs/operations/environments.md)"
+            fi
+          done
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.18.0'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Build the launch application
+        working-directory: frontend
+        run: |
+          npm ci
+          npx ng build launch --define "LAUNCH_SITE_URL='https://${SITE_HOSTNAMES%%,*}'" --define "LAUNCH_CONTACT_EMAIL='hello@sweethand.ca'" --define "LAUNCH_TURNSTILE_SITE_KEY='${{ vars.TURNSTILE_SITE_KEY }}'"
+          node scripts/check-launch-size.mjs
+      - name: Deploy the launch application
+        id: swa
+        run: echo "token=$(az staticwebapp secrets list -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --query properties.apiKey -o tsv)" >> "$GITHUB_OUTPUT"
+      - uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ steps.swa.outputs.token }}
+          action: upload
+          app_location: frontend/dist/launch/browser
+          skip_app_build: true
+          skip_api_build: true
+      - name: Smoke checks
+        # The Static Web Apps default hostname always serves the release; custom hostnames join once Azure reports them Ready.
+        # A password-protected site (staging, UAT) answers with its sign-in page, so the API is checked on its own hostname instead.
+        env:
+          SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
+        run: |
+          ORIGINS="https://$(az staticwebapp show -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --query defaultHostname -o tsv)"
+          for HOST in ${SITE_HOSTNAMES//,/ }; do
+            if [ "$(az staticwebapp hostname show -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --hostname "$HOST" --query status -o tsv 2>/dev/null)" = Ready ]; then
+              ORIGINS="$ORIGINS https://$HOST"
+            else
+              echo "::warning::$HOST is not validated for Static Web Apps yet; the release is live only at the default hostname"
+            fi
+          done
+          if [ -n "$SITE_PASSWORD" ]; then
+            API="https://$(az containerapp show -g "$RESOURCE_GROUP" -n ca-swh-api --query properties.configuration.ingress.fqdn -o tsv)"
+            curl --fail --retry 12 --retry-delay 10 "$API/api/public/launch-list"
+            test "$(curl -s -o /dev/null -w '%{http_code}' "$API/api/caterers")" = 404
+            for ORIGIN in $ORIGINS; do
+              CODE=$(curl -s -o /dev/null -w '%{http_code}' --retry 12 --retry-delay 10 "$ORIGIN/")
+              [ "$CODE" -ge 200 ] && [ "$CODE" -lt 500 ]
+            done
+            exit 0
+          fi
+          for ORIGIN in $ORIGINS; do
+            curl --fail --retry 12 --retry-delay 10 "$ORIGIN/"
+            curl --fail "$ORIGIN/privacy"
+            curl --fail "$ORIGIN/api/public/launch-list"
+            test "$(curl -s -o /dev/null -w '%{http_code}' "$ORIGIN/api/caterers")" = 404
+          done
+      - name: Restore the preceding API image
+        if: failure() && env.PREVIOUS_IMAGE != ''
+        run: |
+          az containerapp update -g "$RESOURCE_GROUP" -n ca-swh-api --image "$PREVIOUS_IMAGE"
+          echo "::error::Deployment failed; the API was restored to $PREVIOUS_IMAGE. Re-run the last good ${{ inputs.environment }} delivery to restore the launch site."

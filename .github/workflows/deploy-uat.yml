@@ -1,0 +1,42 @@
+name: Deploy UAT
+
+# A release candidate tag (v1.4.0-rc.1) on a commit whose CI passed goes to
+# uat.sweethand.ca (L2-109.2). Cut it from main for a release, or from a
+# release/vX.Y branch for a hotfix.
+
+on:
+  push:
+    tags: ['v*.*.*-rc.*']
+
+permissions:
+  contents: read
+  id-token: write
+  actions: read
+
+jobs:
+  gate:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Require a release candidate tag on a commit that passed CI
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [[ ! "$GITHUB_REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+$ ]]; then
+            echo "::error::$GITHUB_REF_NAME is not a release candidate tag (vMAJOR.MINOR.PATCH-rc.N)"; exit 1
+          fi
+          PASSED=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/ci.yml/runs?head_sha=$GITHUB_SHA&status=success&per_page=1" --jq .total_count)
+          if [ "$PASSED" -lt 1 ]; then
+            echo "::error::CI has not passed on $GITHUB_SHA; wait for it to go green on its branch, then delete and push the tag again"; exit 1
+          fi
+
+  uat:
+    needs: gate
+    uses: ./.github/workflows/deliver.yml
+    with:
+      environment: uat
+      env-name: uat
+      resource-group: rg-sweethand-uat
+      sha: ${{ github.sha }}
+      site-hostnames: uat.sweethand.ca
+      parameters: '{"postgresBackupRetentionDays": 7, "postgresGeoRedundantBackup": false, "budgetAmount": 60}'
+    secrets: inherit

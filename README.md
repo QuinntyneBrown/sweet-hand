@@ -132,6 +132,7 @@ sweet-hand/
 │   ├── adr/                   architecture decision records
 │   ├── technical-debt/        technical-debt registers
 │   ├── plans/                 plans for work not yet specified
+│   ├── operations/            environments, release and hotfix process, Azure runbooks
 │   ├── marketing/             print-ready flyer and stickers
 │   ├── business-cards/        print-ready business cards
 │   └── videos/                narrated demo videos of the launch app
@@ -150,6 +151,7 @@ sweet-hand/
 | Backend | NestJS on Node.js 22 with PostgreSQL | [ADR 0006](docs/adr/0006-backend-stack-nestjs-postgresql-drizzle.md), [ADR 0010](docs/adr/0010-backend-nestjs-structure-and-tooling.md) |
 | Persistence | JSON document collections behind one port | [ADR 0008](docs/adr/0008-persistence-document-collections.md) |
 | Testing | API tests in-process on an in-memory database; Playwright against the backend in test mode | [ADR 0007](docs/adr/0007-backend-tests-against-in-memory-repositories.md), [ADR 0009](docs/adr/0009-acceptance-tests-against-the-backend-in-test-mode.md) |
+| Delivery | Azure; `main` to staging, release candidate tags to UAT, approved release tags to production | [ADR 0011](docs/adr/0011-azure-launch-hosting-and-delivery.md), [ADR 0012](docs/adr/0012-environments-and-release-promotion.md) |
 
 The full index is in [`docs/adr/README.md`](docs/adr/README.md).
 
@@ -161,6 +163,7 @@ The full index is in [`docs/adr/README.md`](docs/adr/README.md).
 - **Design system:** [`docs/design-system/`](docs/design-system/)
 - **Decisions:** [`docs/adr/`](docs/adr/)
 - **Plans:** [`docs/plans/`](docs/plans/), including the [public preview](docs/plans/public-preview.md)
+- **Environments, releases and hotfixes:** [`docs/operations/environments.md`](docs/operations/environments.md)
 - **Working agreements for contributors and coding agents:** [`AGENTS.md`](AGENTS.md)
 
 ## Contributing

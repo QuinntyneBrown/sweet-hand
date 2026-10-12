@@ -13,7 +13,7 @@
 | Public domain | `sweethand.ca` |
 | Operational notifications | `quinntyne@hotmail.com` |
 
-`infra/main.bicep` is the source of truth. `infra/deploy.ps1` is the interactive Azure CLI bootstrap. GitHub Actions applies the same template through workload identity federation after each successful `main` build.
+`infra/main.bicep` is the source of truth. `infra/deploy.ps1` is the interactive Azure CLI bootstrap. GitHub Actions applies the same template through workload identity federation when an approved release tag that passed UAT is pushed. Staging, UAT, promotion and hotfixes are in [`environments.md`](environments.md).
 
 ## Services and data location
 
@@ -73,7 +73,7 @@ The GitHub deployer (`github-sweethand-production`) holds Contributor on `rg-swe
 
 GitHub's OIDC subject for this repository includes the owner and repository IDs (`repo:QuinntyneBrown@1749159/sweet-hand@1413231887:environment:production`). The `github-sweethand-production` app registration holds a federated credential for that exact subject; a credential with the plain `repo:QuinntyneBrown/sweet-hand:environment:production` subject is not matched.
 
-If any step after promotion fails, the workflow redeploys the API image that was serving before the run (`az containerapp update --image <previous>`), which creates a new revision from the known-good image; the app runs in single-revision mode, so a traffic split is not available. To roll back by hand, read the image of an earlier revision with `az containerapp revision list -g rg-sweethand-prod -n ca-swh-api -o table` and apply it the same way. Re-run smoke checks. For a static rollback, rerun the last successful Deploy production workflow for the known commit. Database migrations shall remain backward compatible with the preceding image.
+If any step after promotion fails, the workflow redeploys the API image that was serving before the run (`az containerapp update --image <previous>`), which creates a new revision from the known-good image; the app runs in single-revision mode, so a traffic split is not available. To roll back by hand, read the image of an earlier revision with `az containerapp revision list -g rg-sweethand-prod -n ca-swh-api -o table` and apply it the same way. Re-run smoke checks. For a release rollback, run Deploy production by hand from the earlier release tag (`environments.md`, Rollback). Database migrations shall remain backward compatible with the preceding image.
 
 ## Recovery
 

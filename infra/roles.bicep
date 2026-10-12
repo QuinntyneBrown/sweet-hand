@@ -3,7 +3,9 @@
 // write role assignments, so `main.bicep` never carries them.
 targetScope = 'resourceGroup'
 
-param baseName string = 'swh-prod'
+@allowed(['prod', 'staging', 'uat'])
+param envName string = 'prod'
+param baseName string = 'swh-${envName}'
 
 var suffix = take(uniqueString(subscription().id, resourceGroup().id), 6)
 

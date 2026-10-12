@@ -30,11 +30,13 @@ keep it accurate:
 - `docs/adr/` — architecture decisions; read relevant ADRs before changing the areas they cover
 - `docs/technical-debt/` — technical-debt registers with resolution strategies
   (`frontend.md`); close an item by deleting its entry in the PR that resolves it
-- `docs/operations/` — production subscription, costs, deployment, DNS, rollback and recovery runbooks
+- `docs/operations/` — environments, release and hotfix process (`environments.md`), and the
+  production subscription, costs, deployment, DNS, rollback and recovery runbook
+- `infra/` — Azure Bicep (one template for staging, UAT and production) and Azure CLI
+  entry points (`deploy.ps1` production bootstrap, `new-environment.ps1` staging and UAT)
 - `docs/plans/` — forward-looking plans for work not yet specified (`public-preview.md`:
   the code-gated preview at `preview.sweethand.ca`); a plan is not a requirement,
   so its work still needs L1/L2, a detailed design and mocks before implementation
-- `infra/` — Azure Bicep and Azure CLI deployment entry points
 - `docs/videos/` — narrated walkthroughs (`creating-videos` skill); see its `README.md`
 - `tools/` — video tooling: `video-audio/` (narration), `video-build/` (MP4),
   `video-record/` (screen recordings and the local launch demo stack)

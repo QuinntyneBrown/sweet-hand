@@ -2,7 +2,12 @@ targetScope = 'resourceGroup'
 
 @description('Primary Canadian region for stateful resources.')
 param location string = 'canadacentral'
-param baseName string = 'swh-prod'
+@description('The environment this resource group holds (docs/operations/environments.md). Every default below is production\'s.')
+@allowed(['prod', 'staging', 'uat'])
+param envName string = 'prod'
+param baseName string = 'swh-${envName}'
+@description('Public hostnames the site answers on; the first is the canonical site URL.')
+param siteHostnames string = 'sweethand.ca,www.sweethand.ca'
 param deployApi bool = false
 param deployMigration bool = false
 param containerImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
@@ -15,12 +20,21 @@ param ipHashSecret string
 param botChallenge string = 'turnstile'
 @secure()
 param turnstileSecret string = ''
-param turnstileHostnames string = 'sweethand.ca,www.sweethand.ca'
+param turnstileHostnames string = siteHostnames
 param postgresAdmin string = 'sweethand_migrate'
 param contactEmail string = 'hello@sweethand.ca'
 param mailingAddress string = '309–2091 Hurontario Street, Mississauga, Ontario L5A 4E6'
+@description('Send from the verified sweethand.ca domain (production) or from an Azure-managed azurecomm.net domain that needs no DNS (staging, UAT).')
+param customEmailDomain bool = true
 @description('Link the custom email domain to Communication Services; true only once Azure reports the domain verified.')
 param linkEmailDomain bool = false
+@description('Hide every API route outside the launch-list surface (ADR 0011).')
+param prelaunchMode bool = true
+param postgresBackupRetentionDays int = 35
+param postgresGeoRedundantBackup bool = true
+@secure()
+@description('Password that Static Web Apps asks for before serving the site; empty leaves the site public (production).')
+param sitePassword string = ''
 param budgetAmount int = 100
 param budgetEmail string = 'quinntyne@hotmail.com'
 param budgetStartDate string = '2026-10-01'
@@ -29,7 +43,7 @@ var suffix = take(uniqueString(subscription().id, resourceGroup().id), 6)
 var acrName = 'acrsweethand${suffix}'
 var vaultName = 'kv-swh-${suffix}'
 var postgresName = 'psql-swh-${suffix}'
-var swaName = 'swa-sweethand-launch-prod'
+var swaName = 'swa-sweethand-launch-${envName}'
 var staticWebAppLocation = 'eastus2'
 var environmentName = 'cae-${baseName}'
 var apiName = 'ca-swh-api'
@@ -38,6 +52,8 @@ var workspaceName = 'log-${baseName}'
 var appInsightsName = 'appi-${baseName}'
 var communicationName = 'acs-${baseName}-${suffix}'
 var emailName = 'email-${baseName}-${suffix}'
+var siteHosts = split(siteHostnames, ',')
+var siteOrigins = join(map(siteHosts, host => 'https://${host}'), ',')
 var databaseUrl = 'postgresql://${postgresAdmin}:${uriComponent(postgresAdminPassword)}@${postgresName}.postgres.database.azure.com:5432/sweethand?sslmode=require'
 
 resource vnet 'Microsoft.Network/virtualNetworks@2024-05-01' = {
@@ -72,7 +88,7 @@ resource privateDns 'Microsoft.Network/privateDnsZones@2024-06-01' = {
 
 resource privateDnsLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2024-06-01' = {
   parent: privateDns
-  name: 'sweethand-prod'
+  name: 'sweethand-${envName}'
   location: 'global'
   properties: {
     registrationEnabled: false
@@ -148,7 +164,7 @@ resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2024-08-01' = {
     version: '16'
     createMode: 'Default'
     storage: { storageSizeGB: 32, autoGrow: 'Enabled' }
-    backup: { backupRetentionDays: 35, geoRedundantBackup: 'Enabled' }
+    backup: { backupRetentionDays: postgresBackupRetentionDays, geoRedundantBackup: postgresGeoRedundantBackup ? 'Enabled' : 'Disabled' }
     highAvailability: { mode: 'Disabled' }
     network: {
       delegatedSubnetResourceId: vnet.properties.subnets[1].id
@@ -189,10 +205,21 @@ resource swa 'Microsoft.Web/staticSites@2023-12-01' = {
   properties: { allowConfigFileUpdates: true, stagingEnvironmentPolicy: 'Enabled' }
 }
 
+// Staging and UAT sit behind a shared password so nobody mistakes them for the real site
+// or joins a launch list that is not production's.
+resource swaPassword 'Microsoft.Web/staticSites/basicAuth@2023-12-01' = if (!empty(sitePassword)) {
+  parent: swa
+  name: 'default'
+  properties: { applicableEnvironmentsMode: 'AllEnvironments', password: sitePassword, secretUrl: '' }
+}
+
 resource communication 'Microsoft.Communication/communicationServices@2023-04-01' = {
   name: communicationName
   location: 'global'
-  properties: { dataLocation: 'Canada', linkedDomains: linkEmailDomain ? [emailDomain.id] : [] }
+  properties: {
+    dataLocation: 'Canada'
+    linkedDomains: customEmailDomain ? (linkEmailDomain ? [emailDomain.id] : []) : [managedEmailDomain.id]
+  }
 }
 
 resource email 'Microsoft.Communication/emailServices@2023-04-01' = {
@@ -201,17 +228,24 @@ resource email 'Microsoft.Communication/emailServices@2023-04-01' = {
   properties: { dataLocation: 'Canada' }
 }
 
-resource emailDomain 'Microsoft.Communication/emailServices/domains@2023-04-01' = {
+resource emailDomain 'Microsoft.Communication/emailServices/domains@2023-04-01' = if (customEmailDomain) {
   parent: email
   name: 'sweethand.ca'
   location: 'global'
   properties: { domainManagement: 'CustomerManaged', userEngagementTracking: 'Disabled' }
 }
 
-resource emailSender 'Microsoft.Communication/emailServices/domains/senderUsernames@2023-04-01' = {
+resource emailSender 'Microsoft.Communication/emailServices/domains/senderUsernames@2023-04-01' = if (customEmailDomain) {
   parent: emailDomain
   name: 'hello'
   properties: { username: 'hello', displayName: 'Sweet Hand' }
+}
+
+resource managedEmailDomain 'Microsoft.Communication/emailServices/domains@2023-04-01' = if (!customEmailDomain) {
+  parent: email
+  name: 'AzureManagedDomain'
+  location: 'global'
+  properties: { domainManagement: 'AzureManaged', userEngagementTracking: 'Disabled' }
 }
 
 resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApi) {
@@ -242,15 +276,15 @@ resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApi) {
           { name: 'IP_HASH_SECRET', secretRef: 'ip-hash-secret' }
           { name: 'BOT_CHALLENGE', value: botChallenge }
           { name: 'TURNSTILE_HOSTNAMES', value: '${turnstileHostnames},${swa.properties.defaultHostname}' }
-          { name: 'ALLOWED_ORIGINS', value: 'https://sweethand.ca,https://www.sweethand.ca,https://${swa.properties.defaultHostname}' }
+          { name: 'ALLOWED_ORIGINS', value: '${siteOrigins},https://${swa.properties.defaultHostname}' }
           { name: 'TRUST_PROXY', value: 'true' }
-          { name: 'PRELAUNCH_MODE', value: 'true' }
+          { name: 'PRELAUNCH_MODE', value: prelaunchMode ? 'true' : 'false' }
           { name: 'SECURE_COOKIES', value: 'true' }
-          { name: 'SITE_URL', value: 'https://sweethand.ca' }
+          { name: 'SITE_URL', value: 'https://${siteHosts[0]}' }
           { name: 'CONTACT_EMAIL', value: contactEmail }
           { name: 'OPERATOR_MAILING_ADDRESS', value: mailingAddress }
           { name: 'ACS_EMAIL_ENDPOINT', value: 'https://${communication.name}.communication.azure.com' }
-          { name: 'ACS_EMAIL_SENDER', value: contactEmail }
+          { name: 'ACS_EMAIL_SENDER', value: customEmailDomain ? contactEmail : 'DoNotReply@${managedEmailDomain!.properties.mailFromSenderDomain}' }
           { name: 'APPLICATIONINSIGHTS_CONNECTION_STRING', value: insights.properties.ConnectionString }
           { name: 'AZURE_CLIENT_ID', value: identity.properties.clientId }
         ], botChallenge == 'turnstile' ? [{ name: 'TURNSTILE_SECRET', secretRef: 'turnstile-secret' }] : [])
@@ -303,6 +337,7 @@ resource budget 'Microsoft.Consumption/budgets@2023-11-01' = {
 output acrName string = acr.name
 output acrLoginServer string = acr.properties.loginServer
 output staticWebAppName string = swa.name
+output staticWebAppHostname string = swa.properties.defaultHostname
 output containerAppName string = apiName
 output communicationServiceName string = communication.name
 output emailServiceName string = email.name
