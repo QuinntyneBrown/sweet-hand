@@ -258,6 +258,85 @@
       "i18n": {
         "sourceLocale": "en-CA"
       }
+    },
+    "board": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "skipTests": true
+        }
+      },
+      "root": "projects/board",
+      "sourceRoot": "projects/board/src",
+      "prefix": "board",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/board/src/main.ts",
+            "outputPath": "dist/board",
+            "tsConfig": "projects/board/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/board/public"
+              }
+            ],
+            "styles": [
+              "../docs/design-system/tokens/tokens.css",
+              "@angular/cdk/overlay-prebuilt.css",
+              "projects/board/src/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "400kB",
+                  "maximumError": "500kB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kB",
+                  "maximumError": "10kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "board:build:production"
+            },
+            "development": {
+              "buildTarget": "board:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4202
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/board/src/**/*.ts",
+              "projects/board/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }

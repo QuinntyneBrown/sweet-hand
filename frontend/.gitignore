@@ -47,3 +47,6 @@ Thumbs.db
 /test-results/
 /playwright-report/
 /blob-report/
+
+# Sprint board data, generated from docs/plans/launch-backlog.md (ADR 0013)
+/projects/board/public/backlog.json

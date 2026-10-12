@@ -1,6 +1,6 @@
 # Sweet Hand frontend
 
-Angular 21 workspace (ADR 0001) with four projects and the Playwright
+Angular 21 workspace (ADR 0001) with five projects and the Playwright
 acceptance suite. The API it talks to is `../backend`, a NestJS application (ADRs 0006, 0010).
 
 ```
@@ -9,6 +9,7 @@ frontend/
   projects/api/          @sweet-hand/api: backend services and wire models
   projects/sweet-hand/   the product application
   projects/launch/       the pre-launch site served at / until launch day (L2-092)
+  projects/board/        the founder's sprint board, internal tooling (ADR 0013)
   e2e/                   Playwright: support/, pages/ (page objects), specs/
 ```
 
@@ -31,8 +32,13 @@ Run everything from `frontend/` (Node 22.18+), after `npm install` in both
 | `npm run lint:launch` | ESLint for the launch site; every string needs an `@@launch.…` i18n ID |
 | `npm run test:launch` | The launch site's Playwright project (`e2e/specs/launch/`, one `LaunchPage` page object) |
 | `npm run extract-i18n:launch` | Writes `projects/launch/src/locale/messages.xlf` |
+| `npm run start:board` | The sprint board on :4202, with its data regenerated from `docs/plans/launch-backlog.md` |
+| `npm run build:board` | Regenerates the board's data, then builds `dist/board` |
+| `npm run lint:board` | ESLint for the sprint board |
+| `npm run test:board` | The board's Playwright project (`e2e/specs/board/`, one `BoardPage` page object) |
+| `npm run board:data` | Writes `projects/board/public/backlog.json` from the backlog (`scripts/backlog-to-board.mjs`) |
 
-Ports: set `E2E_WEB_PORT`, `E2E_LAUNCH_PORT` (default 4201) and `E2E_API_PORT` to run a second checkout side by
+Ports: set `E2E_WEB_PORT`, `E2E_LAUNCH_PORT` (default 4201), `E2E_BOARD_PORT` (default 4202) and `E2E_API_PORT` to run a second checkout side by
 side (`E2E_WEB_PORT=4210 E2E_API_PORT=4310 npx playwright test`).
 `E2E_WORKERS=1` limits Playwright workers.
 
@@ -52,6 +58,25 @@ address bar. The contact address and site URL come from `define` in
 `angular.json` (placeholders until deployment). Delete the project, its
 `angular.json` entry, `e2e/specs/launch/` and `e2e/pages/launch.page.ts` once
 the product launches (L2-102.5).
+
+## The sprint board (`projects/board/`)
+
+The founder's agile board for the launch sprints (ADR 0013): one screen with
+the sprint's goal, a To do / In progress / Review / Done board with drag and
+drop, story details with ticked tasks, a lane filter and a burndown. It is
+internal tooling, never deployed, and has no backend and no i18n. It imports
+neither library.
+
+`docs/plans/launch-backlog.md` is its only source of stories:
+`scripts/backlog-to-board.mjs` reads the sprint table, each sprint's plan,
+goal and demo, and every `#### SH-xx` story into
+`projects/board/public/backlog.json` (gitignored) before each start, build
+and Playwright run, and fails if a planned story has no section. Card
+positions, done dates, ticks and the lane filter live in this browser's
+`localStorage` (`sweet-hand-board/v1`). Use Export and Import to move them
+to another browser. The specs serve a fictional backlog
+(`e2e/support/board-backlog.ts`) with a pinned clock. One spec reads the
+real file.
 
 ## How a change is made (AGENTS.md, ATDD)
 

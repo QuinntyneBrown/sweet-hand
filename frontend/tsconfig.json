@@ -34,6 +34,9 @@
       "path": "./projects/launch/tsconfig.app.json"
     },
     {
+      "path": "./projects/board/tsconfig.app.json"
+    },
+    {
       "path": "./projects/components/tsconfig.lib.json"
     },
     {

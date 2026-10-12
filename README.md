@@ -77,6 +77,7 @@ npm install --prefix frontend
 cd frontend
 npm start          # API on :4300 (in-memory, seeded) and the app on :4200
 # or: npm run start:launch   # the pre-launch site on :4200 instead
+# or: npm run start:board    # the launch sprint board on :4202 (ADR 0013)
 ```
 
 Open <http://localhost:4200>. Every seeded account is fictional and uses the
@@ -123,6 +124,7 @@ sweet-hand/
 │   ├── projects/api/          @sweet-hand/api: backend services and wire models
 │   ├── projects/sweet-hand/   the product application
 │   ├── projects/launch/       the pre-launch site, served at / until launch day
+│   ├── projects/board/        the founder's sprint board, from docs/plans/launch-backlog.md
 │   └── e2e/                   Playwright acceptance suite (page objects)
 ├── docs/
 │   ├── specs/                 L1/L2 requirements and component requirements
@@ -162,7 +164,7 @@ The full index is in [`docs/adr/README.md`](docs/adr/README.md).
 - **Mocks:** [`docs/mocks/`](docs/mocks/), open `docs/mocks/index.html` in a browser
 - **Design system:** [`docs/design-system/`](docs/design-system/)
 - **Decisions:** [`docs/adr/`](docs/adr/)
-- **Plans:** [`docs/plans/`](docs/plans/), including the [public preview](docs/plans/public-preview.md) and the [business plan](docs/plans/business-plan.md)
+- **Plans:** [`docs/plans/`](docs/plans/), including the [public preview](docs/plans/public-preview.md), the [business plan](docs/plans/business-plan.md), and the [launch roadmap](docs/plans/launch-roadmap.md) with its [backlog](docs/plans/launch-backlog.md)
 - **Environments, releases and hotfixes:** [`docs/operations/environments.md`](docs/operations/environments.md)
 - **Working agreements for contributors and coding agents:** [`AGENTS.md`](AGENTS.md)
 

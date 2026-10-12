@@ -5,3 +5,5 @@ export const WEB_URL = `http://localhost:${WEB_PORT}`;
 export const API_URL = `http://localhost:${API_PORT}`;
 export const LAUNCH_PORT = Number(process.env['E2E_LAUNCH_PORT'] ?? 4201);
 export const LAUNCH_URL = `http://localhost:${LAUNCH_PORT}`;
+export const BOARD_PORT = Number(process.env['E2E_BOARD_PORT'] ?? 4202);
+export const BOARD_URL = `http://localhost:${BOARD_PORT}`;
