@@ -3,7 +3,7 @@
 // Runs each clip in <folder>/clips/clips.mjs in Chromium and writes
 // <folder>/clips/<name>.mp4 at 1408×792 (desktop) or 390×844 (phone).
 //
-//   node tools/video-record/record-clips.mjs docs/videos/NN-topic [--base http://localhost:4201] [--only name]
+//   node tools/video-record/record-clips.mjs docs/videos/NN-topic [--base http://localhost:4201] [--only name] [--show-host sweethand.ca]
 //
 // The app runs inside a browser-like frame (an address bar and an iframe on the
 // app's own origin), so viewers see the address change: token links arriving
@@ -29,6 +29,8 @@ const option = (name, fallback) => {
 const folder = resolve(args.find((a, i) => !a.startsWith('--') && !args[i - 1]?.startsWith('--')) ?? '');
 const base = option('base', process.env.DEMO_BASE_URL ?? 'http://localhost:4201');
 const only = option('only');
+// The host the address bar shows, e.g. sweethand.ca for a promo; the app's real host by default.
+const shownHost = option('show-host', process.env.DEMO_SHOW_HOST);
 const FFMPEG = process.env.FFMPEG_PATH ?? 'ffmpeg';
 const require = createRequire(join(repo, 'frontend', 'package.json'));
 const { chromium } = require('playwright');
@@ -78,7 +80,7 @@ const frameHtml = (phone) => `<!doctype html>
       last = href;
       const u = new URL(href);
       url.innerHTML = '';
-      const host = document.createElement('b'); host.textContent = u.host; url.append(host);
+      const host = document.createElement('b'); host.textContent = ${JSON.stringify(shownHost ?? null)} ?? u.host; url.append(host);
       url.append(document.createTextNode(u.pathname === '/' && !u.search && !u.hash ? '/' : u.pathname));
       if (u.search) { const q = document.createElement('span'); q.className = 'q'; q.textContent = u.search; url.append(q); }
       if (u.hash) url.append(document.createTextNode(u.hash));

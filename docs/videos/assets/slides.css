@@ -107,3 +107,9 @@ section[data-clip]:has(.clip.phone) .clip-notes h3 { font-size: 54px; }
 /* Title slide. */
 section#title { background: var(--slide-panel); }
 section#title .mark { width: 140px; height: 140px; }
+
+/* Promo decks (<body class="promo">): no header label or progress bar, clips sit higher. */
+body.promo .slide-header, body.promo .slide-progress { display: none; }
+body.promo section { padding-top: 90px; }
+body.promo section[data-clip] { padding-top: 70px; align-items: center; padding-bottom: 210px; }
+body.promo .big { font-size: 64px; line-height: 1.2; font-weight: 600; }
