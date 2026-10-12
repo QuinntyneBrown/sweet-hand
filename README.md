@@ -131,6 +131,7 @@ sweet-hand/
 │   ├── design-system/         tokens, foundations and components
 │   ├── adr/                   architecture decision records
 │   ├── technical-debt/        technical-debt registers
+│   ├── plans/                 plans for work not yet specified
 │   ├── marketing/             print-ready flyer and stickers
 │   ├── business-cards/        print-ready business cards
 │   └── videos/                narrated demo videos of the launch app
@@ -159,6 +160,7 @@ The full index is in [`docs/adr/README.md`](docs/adr/README.md).
 - **Mocks:** [`docs/mocks/`](docs/mocks/), open `docs/mocks/index.html` in a browser
 - **Design system:** [`docs/design-system/`](docs/design-system/)
 - **Decisions:** [`docs/adr/`](docs/adr/)
+- **Plans:** [`docs/plans/`](docs/plans/), including the [public preview](docs/plans/public-preview.md)
 - **Working agreements for contributors and coding agents:** [`AGENTS.md`](AGENTS.md)
 
 ## Contributing
