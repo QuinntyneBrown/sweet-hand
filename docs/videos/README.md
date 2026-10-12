@@ -12,6 +12,7 @@ generated `NN-topic.mp3` and `NN-topic.mp4`.
 | 02 | [Joining the launch list](02-joining-the-launch-list/README.md) | 5:47 | L2-095 to L2-098, L2-104 |
 | 03 | [Confirming and leaving](03-confirming-and-leaving/README.md) | 4:59 | L2-099, L2-100, L2-103, L2-104.2 |
 | 04 | [Launch day](04-launch-day/README.md) | 4:20 | L2-101, L2-102 |
+| 05 | [Cater with Sweet Hand](05-cater-with-sweet-hand/README.md) | 1:19 | Promo for home cooks: join the launch list as a caterer |
 
 ## Making or updating a video
 
@@ -27,7 +28,7 @@ node tools/video-audio/generate-audio.mjs docs/videos/NN-topic
 PIPER_MODEL=path/to/en-us-ryan-high.onnx node tools/video-audio/generate-audio.mjs docs/videos/NN-topic --engine piper
 
 # 2. Screen recordings of the real app (see "The launch stack" below)
-node tools/video-record/record-clips.mjs docs/videos/NN-topic [--only clip-name]
+node tools/video-record/record-clips.mjs docs/videos/NN-topic [--only clip-name] [--show-host sweethand.ca]
 
 # 3. Video: check cues, look at the slides, then encode
 node tools/video-build/build-video.mjs docs/videos/NN-topic --check
