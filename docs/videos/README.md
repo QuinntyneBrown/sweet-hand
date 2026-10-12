@@ -13,6 +13,7 @@ generated `NN-topic.mp3` and `NN-topic.mp4`.
 | 03 | [Confirming and leaving](03-confirming-and-leaving/README.md) | 4:59 | L2-099, L2-100, L2-103, L2-104.2 |
 | 04 | [Launch day](04-launch-day/README.md) | 4:20 | L2-101, L2-102 |
 | 05 | [Cater with Sweet Hand](05-cater-with-sweet-hand/README.md) | 1:19 | Promo for home cooks: join the launch list as a caterer |
+| 06 | [The plan, in plain words](06-the-plan-in-plain-words/README.md) | 7:08 | The business plan explained simply, and what changes if the founder cooks on Sweet Hand |
 
 ## Making or updating a video
 

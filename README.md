@@ -162,7 +162,7 @@ The full index is in [`docs/adr/README.md`](docs/adr/README.md).
 - **Mocks:** [`docs/mocks/`](docs/mocks/), open `docs/mocks/index.html` in a browser
 - **Design system:** [`docs/design-system/`](docs/design-system/)
 - **Decisions:** [`docs/adr/`](docs/adr/)
-- **Plans:** [`docs/plans/`](docs/plans/), including the [public preview](docs/plans/public-preview.md)
+- **Plans:** [`docs/plans/`](docs/plans/), including the [public preview](docs/plans/public-preview.md) and the [business plan](docs/plans/business-plan.md)
 - **Environments, releases and hotfixes:** [`docs/operations/environments.md`](docs/operations/environments.md)
 - **Working agreements for contributors and coding agents:** [`AGENTS.md`](AGENTS.md)
 
