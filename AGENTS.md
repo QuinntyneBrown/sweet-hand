@@ -42,7 +42,8 @@ keep it accurate:
   `video-record/` (screen recordings and the local launch demo stack)
 - `docs/marketing/` — print-ready pre-launch flyer, die-cut stickers, WhatsApp Status images,
   the YouTube channel kit (`youtube/`: art, copy, captions, posting steps) and the
-  Facebook Page kit (`facebook/`: art, feed images, copy, posting steps), with
+  Facebook Page kit (`facebook/`: art, feed images, copy, posting steps) and the
+  Instagram kit (`instagram/`: settings, copy, posting steps), with
   `render.mjs` to regenerate them (see its `README.md`)
 - `docs/business-cards/` — print-ready business cards, one folder per person,
   with `render.mjs` to regenerate them (see each folder's `README.md`)
