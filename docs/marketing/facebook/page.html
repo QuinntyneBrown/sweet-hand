@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<title>Sweet Hand — Facebook Page art</title>
+<link rel="stylesheet" href="../assets/print.css">
+<!--
+  Facebook Page art and two feed images, one per <section>.
+  Rendered by ../render.mjs (node docs/marketing/render.mjs --only facebook).
+
+  .avatar   1080 x 1080 px. Facebook shows the profile picture as a circle
+            (170 px on desktop, 128 px on phones), so the bowl sits inside the
+            inscribed circle on a full pepper tile.
+  .cover    1640 x 720 px. Facebook shows the cover as 820 x 312 on desktop
+            (the middle 1640 x 624 strip at 2x) and 640 x 360 on phones (the
+            central 1280 x 720 at 2x). The only area both show is the central
+            1280 x 624, so every word sits inside .safe. The band and the
+            background run to the edges.
+  .post     1080 x 1080 px (1:1) feed images: 1 for eaters, 2 for makers, the
+            same copy as the flyer and the WhatsApp Status images.
+
+  Open this file in a browser to preview: the cover's desktop strip and phone
+  crop are shaded pink and the safe area is outlined; the avatar's circle crop
+  is outlined. Colours come from docs/design-system/tokens/tokens.css via
+  ../assets/print.css.
+-->
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #e9e6e1; }
+  body { font-family: "Figtree", system-ui, sans-serif; }
+
+  .art { position: relative; overflow: hidden; }
+
+  /* ---------- Avatar ---------- */
+  .avatar { width: 1080px; height: 1080px; background: var(--pepper-600); }
+  .avatar svg { display: block; width: 1080px; height: 1080px; }
+
+  /* ---------- Cover ---------- */
+  .cover { width: 1640px; height: 720px; background: var(--stone-950); color: var(--white); }
+  .cover .band { position: absolute; top: 0; bottom: 0; left: 0; width: 56px; background: var(--pepper-600); }
+  .cover .safe {
+    position: absolute;
+    left: 180px; top: 48px;
+    width: 1280px; height: 624px;
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    padding: 0 48px;
+  }
+  .cover .mark { width: 200px; height: 200px; flex: none; }
+  .cover .wordmark { font-weight: 700; font-size: 124px; line-height: 1; letter-spacing: -0.03em; }
+  .cover .wordmark span { color: var(--pepper-500); }
+  .cover .tagline { margin-top: 22px; font-weight: 500; font-size: 42px; line-height: 1.25; color: #d6d2cc; }
+  .cover .url { margin-top: 26px; font-weight: 700; font-size: 42px; letter-spacing: -0.01em; }
+  .cover .url span { font-weight: 500; color: var(--stone-350); }
+
+  /* ---------- Feed images ---------- */
+  .post { width: 1080px; height: 1080px; }
+  .post .band { position: absolute; top: 0; bottom: 0; width: 48px; background: var(--pepper-600); }
+  .post .inner {
+    position: absolute; top: 80px; bottom: 80px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .post .brand { display: flex; align-items: center; gap: 22px; }
+  .post .brand .mark { width: 84px; height: 84px; flex: none; }
+  .post .brand .wordmark { font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.02em; }
+  .post .brand .wordmark span { color: var(--pepper-500); }
+  .post .rule { width: 96px; height: 8px; background: var(--pepper-500); margin-bottom: 28px; }
+  .post .cta .url { font-weight: 700; font-size: 60px; line-height: 1; letter-spacing: -0.02em; }
+  .post .cta .soon { margin-top: 14px; font-weight: 500; font-size: 32px; line-height: 1.3; }
+
+  .eaters { background: var(--white); color: var(--stone-950); }
+  .eaters .band { right: 0; }
+  .eaters .inner { left: 80px; right: 136px; }
+  .eaters h1 { font-weight: 700; font-size: 104px; line-height: 1; letter-spacing: -0.035em; }
+  .eaters .lead { margin-top: 28px; font-weight: 500; font-size: 34px; line-height: 1.35; color: var(--stone-700); }
+  .eaters .dishes {
+    margin-top: 40px; list-style: none; columns: 2; column-gap: 40px;
+    font-weight: 500; font-size: 38px; line-height: 1.45; letter-spacing: -0.01em;
+  }
+  .eaters .dishes li[aria-current] { color: var(--pepper-600); font-weight: 700; }
+  .eaters .cta .soon { color: var(--stone-600); }
+
+  .makers { background: var(--stone-950); color: var(--white); }
+  .makers .band { left: 0; }
+  .makers .inner { left: 136px; right: 80px; }
+  .makers h2 { font-weight: 700; font-size: 84px; line-height: 1.02; letter-spacing: -0.035em; }
+  .makers h2 span { display: block; margin-top: 18px; color: #d6d2cc; white-space: nowrap; }
+  .makers .facts { margin-top: 40px; list-style: none; font-weight: 500; font-size: 32px; line-height: 1.3; }
+  .makers .facts li { padding: 18px 0; border-top: 2px solid var(--stone-700); }
+  .makers .facts li:last-child { border-bottom: 2px solid var(--stone-700); }
+  .makers .join { margin-top: 32px; font-weight: 700; font-size: 42px; letter-spacing: -0.01em; color: var(--pepper-500); }
+  .makers .cta .soon { color: var(--stone-350); }
+
+  /* ---------- Screen preview only ---------- */
+  @media screen {
+    body:not(.export) {
+      min-height: 100vh;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+    body:not(.export) .art { zoom: 0.35; box-shadow: 0 8px 24px rgb(20 19 18 / 0.18); }
+    /* The circle Facebook crops the avatar to. */
+    body:not(.export) .avatar::after {
+      content: ""; position: absolute; inset: 0; border-radius: 50%;
+      box-shadow: 0 0 0 600px rgb(255 0 160 / 0.25); pointer-events: none;
+    }
+    /* Desktop strip (light pink, 1640 x 624) and phone crop (darker pink, 1280 x 720). */
+    body:not(.export) .cover::before {
+      content: ""; position: absolute; left: 0; right: 0; top: 48px; height: 624px;
+      background: rgb(255 0 160 / 0.10); pointer-events: none;
+    }
+    body:not(.export) .cover::after {
+      content: ""; position: absolute; left: 180px; top: 0; width: 1280px; height: 720px;
+      background: rgb(255 0 160 / 0.10); outline: 4px dashed rgb(255 0 160 / 0.7); outline-offset: -52px;
+      pointer-events: none;
+    }
+    body.export { background: transparent; }
+  }
+</style>
+</head>
+<body>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <!-- The logo mark, from assets/logo/sweet-hand-mark.svg -->
+    <symbol id="mark" viewBox="0 0 120 120">
+      <rect x="4" y="4" width="112" height="112" rx="28" fill="#b5381f"/>
+      <path d="M60 58 C 60 58 40 46 40 34 C 40 26 46 21 52 21 C 56 21 59 23 60 27 C 61 23 64 21 68 21 C 74 21 80 26 80 34 C 80 46 60 58 60 58 Z" fill="#ffffff"/>
+      <path d="M26 66 H 94 C 94 85 79 98 60 98 C 41 98 26 85 26 66 Z" fill="#ffffff"/>
+      <rect x="44" y="99" width="32" height="5" rx="2.5" fill="#ffffff"/>
+    </symbol>
+    <!-- The same bowl and heart without the tile, for the full-bleed avatar. -->
+    <symbol id="bowl" viewBox="0 0 120 120">
+      <path d="M60 58 C 60 58 40 46 40 34 C 40 26 46 21 52 21 C 56 21 59 23 60 27 C 61 23 64 21 68 21 C 74 21 80 26 80 34 C 80 46 60 58 60 58 Z" fill="#ffffff"/>
+      <path d="M26 66 H 94 C 94 85 79 98 60 98 C 41 98 26 85 26 66 Z" fill="#ffffff"/>
+      <rect x="44" y="99" width="32" height="5" rx="2.5" fill="#ffffff"/>
+    </symbol>
+  </svg>
+
+  <!-- Profile picture: 1080 x 1080, shown as a circle by Facebook -->
+  <section class="art avatar" aria-label="Profile picture">
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+      <rect width="120" height="120" fill="#b5381f"/>
+      <!-- Scaled to 0.9 about the centre so the bowl clears the circle crop. -->
+      <g transform="translate(60 62) scale(0.9) translate(-60 -60)"><use href="#bowl"/></g>
+    </svg>
+  </section>
+
+  <!-- Cover photo: 1640 x 720, safe area 1280 x 624 centred -->
+  <section class="art cover" aria-label="Cover photo">
+    <div class="band" aria-hidden="true"></div>
+    <div class="safe">
+      <svg class="mark" aria-hidden="true"><use href="#mark"/></svg>
+      <div>
+        <div class="wordmark">Sweet Hand<span>.</span></div>
+        <p class="tagline">Caribbean home cooks and small-batch makers of Toronto and the GTA.</p>
+        <p class="url">sweethand.ca <span>· Opening soon</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feed image 1: for eaters, 1080 x 1080 -->
+  <section class="art post eaters" aria-label="Feed image: for eaters">
+    <div class="band" aria-hidden="true"></div>
+    <div class="inner">
+      <div class="brand">
+        <svg class="mark" aria-hidden="true"><use href="#mark"/></svg>
+        <div class="wordmark">Sweet Hand<span>.</span></div>
+      </div>
+      <div>
+        <h1>Someone with a sweet hand.</h1>
+        <p class="lead">Caribbean home cooks and small-batch makers of Toronto and the GTA.</p>
+        <ul class="dishes">
+          <li aria-current="true">Doubles</li>
+          <li>Roti</li>
+          <li>Oxtail</li>
+          <li>Jerk</li>
+          <li>Patties</li>
+          <li>Pepper sauce</li>
+          <li>Black cake</li>
+          <li>Sorrel</li>
+        </ul>
+      </div>
+      <div class="cta">
+        <div class="rule" aria-hidden="true"></div>
+        <p class="url">sweethand.ca</p>
+        <p class="soon">Coming soon.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feed image 2: for makers, 1080 x 1080 -->
+  <section class="art post makers" aria-label="Feed image: for makers">
+    <div class="band" aria-hidden="true"></div>
+    <div class="inner">
+      <div class="brand">
+        <svg class="mark" aria-hidden="true"><use href="#mark"/></svg>
+        <div class="wordmark">Sweet Hand<span>.</span></div>
+      </div>
+      <div>
+        <h2>You have a<br>sweet hand. <span>Let Toronto find it.</span></h2>
+        <ul class="facts">
+          <li>Free to list.</li>
+          <li>You set the menu, the batches and the days.</li>
+          <li>Your home address stays private.</li>
+        </ul>
+        <p class="join">Cater with Sweet Hand</p>
+      </div>
+      <div class="cta">
+        <div class="rule" aria-hidden="true"></div>
+        <p class="url">sweethand.ca</p>
+        <p class="soon">Coming soon.</p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

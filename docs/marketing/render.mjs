@@ -1,9 +1,9 @@
 /**
  * Renders the Sweet Hand pre-launch flyer, die-cut stickers, WhatsApp Status
- * images and YouTube channel art.
+ * images, YouTube channel art and Facebook Page art.
  *
  *   node docs/marketing/render.mjs                 everything
- *   node docs/marketing/render.mjs --only youtube  one group: flyer, stickers, whatsapp or youtube
+ *   node docs/marketing/render.mjs --only youtube  one group: flyer, stickers, whatsapp, youtube or facebook
  *
  * Writes (all committed, so a printer file never depends on a rebuild):
  *   assets/qr-sweethand-ca.svg            offline QR for https://sweethand.ca
@@ -19,6 +19,9 @@
  *   youtube/channel-avatar.png            800 x 800 profile picture (YouTube crops it to a circle)
  *   youtube/channel-banner.png            2560 x 1440 banner, copy inside the 1546 x 423 safe area
  *   youtube/thumbnail-05-cater-with-sweet-hand.png  1280 x 720 thumbnail for the promo video
+ *   facebook/page-avatar.png              1080 x 1080 profile picture (Facebook shows it as a circle)
+ *   facebook/page-cover.png               1640 x 720 cover photo, copy inside the 1280 x 624 safe area
+ *   facebook/post-1-eaters.png, post-2-makers.png  1080 x 1080 feed images
  *
  * Playwright is not a dependency of this folder. It is borrowed from
  * frontend/node_modules (@playwright/test); point SWEET_HAND_MODULE_ROOT at any
@@ -50,7 +53,7 @@ const STICKERS = [
 
 const inches = (px) => (px / 300).toFixed(2)
 
-const GROUPS = ['flyer', 'stickers', 'whatsapp', 'youtube']
+const GROUPS = ['flyer', 'stickers', 'whatsapp', 'youtube', 'facebook']
 const onlyFlag = process.argv.indexOf('--only')
 const only = onlyFlag === -1 ? GROUPS : process.argv.slice(onlyFlag + 1).filter((g) => !g.startsWith('--'))
 for (const g of only) {
@@ -371,6 +374,41 @@ async function renderYouTube() {
   console.log(`✓ YouTube ${done.join(', ')}`)
 }
 
+/** Facebook Page art and two feed images; each checked against its exact size and a 4 MB cap. */
+async function renderFacebook() {
+  // Facebook shows the profile picture as a circle; the cover as 820 x 312 on desktop and
+  // 640 x 360 on phones, so at 2x the safe area is the central 1280 x 624 of 1640 x 720.
+  // Feed images are 1:1. Facebook recompresses on upload, so the cap is only a sanity check.
+  const ART = [
+    { selector: '.avatar', name: 'page-avatar.png', w: 1080, h: 1080 },
+    { selector: '.cover', name: 'page-cover.png', w: 1640, h: 720 },
+    { selector: '.post.eaters', name: 'post-1-eaters.png', w: 1080, h: 1080 },
+    { selector: '.post.makers', name: 'post-2-makers.png', w: 1080, h: 1080 },
+  ]
+  const maxBytes = 4 * 1024 * 1024
+  const ctx = await browser.newContext({ viewport: { width: 1640, height: 1080 }, deviceScaleFactor: 1 })
+  const page = await ctx.newPage()
+  await page.goto(pathToFileURL(path.join(here, 'facebook', 'page.html')).href, { waitUntil: 'load' })
+  await page.evaluate(() => document.body.classList.add('export'))
+  await requireFigtree(page, 'facebook')
+  const done = []
+  for (const { selector, name, w, h } of ART) {
+    const out = path.join(here, 'facebook', name)
+    await page.setViewportSize({ width: w, height: h })
+    await page.evaluate((sel) => {
+      for (const el of document.querySelectorAll('.art')) el.style.display = el.matches(sel) ? '' : 'none'
+    }, selector)
+    await page.locator(selector).screenshot({ path: out, animations: 'disabled' })
+    const png = await readFile(out)
+    const { width, height } = readPngHeader(png)
+    if (width !== w || height !== h) throw new Error(`${name}: expected ${w}x${h}, got ${width}x${height}`)
+    if (png.length > maxBytes) throw new Error(`${name}: ${png.length} bytes is over the 4 MB cap`)
+    done.push(`${name} (${w}x${h}, ${(png.length / 1024).toFixed(0)} KB)`)
+  }
+  await ctx.close()
+  console.log(`✓ Facebook ${done.join(', ')}`)
+}
+
 try {
   if (wants('flyer')) {
     const qr = await writeQr()
@@ -380,6 +418,7 @@ try {
   if (wants('stickers')) await renderStickers()
   if (wants('whatsapp')) await renderWhatsApp()
   if (wants('youtube')) await renderYouTube()
+  if (wants('facebook')) await renderFacebook()
 } finally {
   await browser.close()
 }
