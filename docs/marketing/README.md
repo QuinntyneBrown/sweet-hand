@@ -1,7 +1,7 @@
-# Pre-launch marketing: flyer, stickers, WhatsApp Status and YouTube
+# Pre-launch marketing: flyer, stickers, WhatsApp Status, YouTube and Facebook
 
-A two-sided flyer, three die-cut stickers, two WhatsApp Status images and the
-YouTube channel kit, low on words, in the design system's look (Figtree, stone
+A two-sided flyer, three die-cut stickers, two WhatsApp Status images, the
+YouTube channel kit and the Facebook Page kit, low on words, in the design system's look (Figtree, stone
 and pepper). Everything points at `https://sweethand.ca`.
 
 | File | Purpose |
@@ -21,6 +21,9 @@ and pepper). Everything points at `https://sweethand.ca`.
 | `youtube/channel-avatar.png`, `channel-banner.png` | YouTube profile picture (800 × 800 px) and banner (2560 × 1440 px, copy inside the 1546 × 423 px safe area). |
 | `youtube/thumbnail-05-cater-with-sweet-hand.png`, `05-cater-with-sweet-hand.en-CA.srt` | Thumbnail (1280 × 720 px) and captions for the promo video. |
 | `youtube/channel.html`, `youtube/README.md` | Source for the three images, and the channel settings, video copy and posting steps (see [youtube/README.md](youtube/README.md)). |
+| `facebook/page-avatar.png`, `page-cover.png` | Facebook Page profile picture (1080 × 1080 px) and cover photo (1640 × 720 px, copy inside the 1280 × 624 px area desktop and phones both show). |
+| `facebook/post-1-eaters.png`, `post-2-makers.png` | Feed images, 1080 × 1080 px, with the flyer's copy. |
+| `facebook/page.html`, `facebook/README.md` | Source for the four images, and the Page settings, first posts and posting steps (see [facebook/README.md](facebook/README.md)). |
 | `lib/press.mjs` | Prepress layouts shared with `docs/business-cards/`: crop marks, gang-up sheets, PDF checks. |
 | `lib/qrcodegen.mjs` | Project Nayuki's QR Code generator (MIT), transpiled from its TypeScript. |
 | `render.mjs` | Regenerates every file above. |
@@ -87,6 +90,16 @@ and pepper). Everything points at `https://sweethand.ca`.
   only part shown on phones; the pepper band on the left shows on desktops and
   TVs only.
 
+## Facebook
+
+- Page art and two feed images, with the Page settings, the first posts'
+  captions and the posting steps, are in [`facebook/`](facebook/README.md).
+  Opening the Page is done by the person whose Facebook account owns it.
+- Facebook shows the cover as 820 × 312 on desktop and 640 × 360 on phones.
+  At 2× the only area both show is the central 1280 × 624 px of the
+  1640 × 720 px file, so every word sits inside it; the pepper band on the
+  left shows on desktop only.
+
 ## Sticker print spec
 
 | | |
@@ -116,8 +129,8 @@ cd frontend && npm install        # once; borrows @playwright/test
 node docs/marketing/render.mjs
 ```
 
-`--only flyer`, `--only stickers`, `--only whatsapp` or `--only youtube`
-renders one group (the flyer PDFs carry a creation date, so rendering only the
+`--only flyer`, `--only stickers`, `--only whatsapp`, `--only youtube` or
+`--only facebook` renders one group (the flyer PDFs carry a creation date, so rendering only the
 group you changed keeps the diff to that group).
 
 Set `SWEET_HAND_MODULE_ROOT` to another folder whose `package.json` resolves
@@ -125,7 +138,8 @@ Set `SWEET_HAND_MODULE_ROOT` to another folder whose `package.json` resolves
 Figtree falls back to a system font, a PDF is not 2 pages of 5.25 × 7.25 in, a proof is
 not 1575 × 2175 px, a sticker is not 900 × 900 RGBA with transparent corners, the
 artwork touches the canvas edge, a die cut is more than one piece, any flyer PDF
-has a Type 3 font, or a YouTube image is not its exact size or over YouTube's file limit.
+has a Type 3 font, a YouTube image is not its exact size or over YouTube's file limit,
+or a Facebook image is not its exact size.
 
 To regenerate the static weights after changing the variable font:
 
