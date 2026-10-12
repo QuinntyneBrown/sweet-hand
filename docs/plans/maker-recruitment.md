@@ -399,6 +399,7 @@ Check on Sunday Oct 25 and Sunday Nov 1.
 | WhatsApp image for makers | `docs/marketing/whatsapp/status-2-makers.png` |
 | Facebook post image for makers | `docs/marketing/facebook/post-2-makers.png` |
 | Facebook and Instagram setup and first posts | `docs/marketing/facebook/README.md`, `docs/marketing/instagram/README.md` |
+| Messages for old contacts on Facebook | `docs/marketing/facebook/reconnecting.md` |
 | Business cards | `docs/business-cards/quinntyne-brown/` |
 | The maker pitch as a video | `docs/videos/05-cater-with-sweet-hand/` |
 | The plan in plain words, for partners | `docs/videos/06-the-plan-in-plain-words/` |
