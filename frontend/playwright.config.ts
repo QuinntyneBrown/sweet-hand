@@ -1,5 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
-import { API_PORT, API_URL, LAUNCH_PORT, LAUNCH_URL, WEB_PORT, WEB_URL } from './e2e/support/ports';
+import { API_PORT, API_URL, BOARD_PORT, BOARD_URL, LAUNCH_PORT, LAUNCH_URL, WEB_PORT, WEB_URL } from './e2e/support/ports';
 
 /**
  * Frontend acceptance tests (ADRs 0004, 0009): Chromium only, against the backend in test mode.
@@ -23,7 +23,7 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      testIgnore: 'launch/**',
+      testIgnore: ['launch/**', 'board/**'],
       use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 900 } },
     },
     {
@@ -31,6 +31,12 @@ export default defineConfig({
       name: 'launch',
       testMatch: 'launch/**/*.spec.ts',
       use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 900 }, baseURL: LAUNCH_URL },
+    },
+    {
+      // The sprint board is internal tooling with no backend (ADR 0013).
+      name: 'board',
+      testMatch: 'board/**/*.spec.ts',
+      use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 900 }, baseURL: BOARD_URL },
     },
   ],
   webServer: [
@@ -49,6 +55,12 @@ export default defineConfig({
     {
       command: `E2E_API_PORT=${API_PORT} npx ng serve launch --port ${LAUNCH_PORT}`,
       url: LAUNCH_URL,
+      reuseExistingServer: !process.env['CI'],
+      timeout: 180_000,
+    },
+    {
+      command: `node scripts/backlog-to-board.mjs && npx ng serve board --port ${BOARD_PORT}`,
+      url: BOARD_URL,
       reuseExistingServer: !process.env['CI'],
       timeout: 180_000,
     },

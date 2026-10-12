@@ -1,0 +1,11 @@
+<button type="button" class="card" [class.is-done]="done()" [attr.aria-label]="label()" (click)="opened.emit()">
+  <span class="card-top">
+    <span class="id">{{ story().id }}</span>
+    <span class="pts" aria-hidden="true">{{ story().points }}</span>
+  </span>
+  <span class="card-title">{{ story().title }}</span>
+  <span class="card-foot">
+    <span class="lane" [class.biz]="story().lane === 'Business'">{{ story().lane }}</span>
+    <span class="progress">{{ progress() }}</span>
+  </span>
+</button>

@@ -17,3 +17,4 @@ cover an area before changing it.
 | [0010](0010-backend-nestjs-structure-and-tooling.md) | NestJS application structure and tooling | Accepted |
 | [0011](0011-azure-launch-hosting-and-delivery.md) | Azure launch hosting, providers and continuous delivery | Accepted; delivery trigger superseded by 0012 |
 | [0012](0012-environments-and-release-promotion.md) | Staging, UAT and production environments with tag-based promotion and hotfixes | Accepted |
+| [0013](0013-sprint-board-internal-tool.md) | The sprint board is an internal tool beside the product | Accepted |

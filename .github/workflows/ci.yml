@@ -34,9 +34,11 @@ jobs:
         run: |
           npm run lint --prefix frontend
           npm run lint:launch --prefix frontend
+          npm run lint:board --prefix frontend
           npm run typecheck --prefix frontend
           npm run build --prefix frontend
           npm run build:launch --prefix frontend
+          npm run build:board --prefix frontend
       - name: Verify extracted messages are current
         run: |
           npm run extract-i18n --prefix frontend

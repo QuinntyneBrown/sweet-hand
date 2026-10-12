@@ -1,0 +1,30 @@
+/* Page foundations for the sprint board (ADR 0013). Colours and type come from the design-system tokens. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg-canvas);
+  color: var(--color-fg-default);
+  font-family: var(--font-family-sans, system-ui, sans-serif);
+  font-size: 15px;
+  line-height: 1.5;
+  padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(40px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Inline code from the backlog's markdown, rendered with [innerHTML] in the story details. */
+code {
+  padding: 0.05em 0.3em;
+  border-radius: 4px;
+  background: var(--color-bg-subtle);
+  font: 0.88em var(--font-family-mono, monospace);
+  overflow-wrap: anywhere;
+}

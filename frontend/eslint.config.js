@@ -8,7 +8,7 @@ module.exports = tseslint.config(
     extends: [...tseslint.configs.recommended, ...angular.configs.tsRecommended],
     processor: angular.processInlineTemplates,
     rules: {
-      '@angular-eslint/component-selector': ['error', { type: 'element', prefix: ['app', 'sh', 'launch'], style: 'kebab-case' }],
+      '@angular-eslint/component-selector': ['error', { type: 'element', prefix: ['app', 'sh', 'launch', 'board'], style: 'kebab-case' }],
       '@angular-eslint/directive-selector': ['error', { type: 'attribute', prefix: ['app', 'sh'], style: 'camelCase' }],
       '@typescript-eslint/no-explicit-any': 'off',
     },

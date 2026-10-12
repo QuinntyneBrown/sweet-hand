@@ -37,7 +37,8 @@ keep it accurate:
 - `docs/plans/` — forward-looking plans for work not yet specified (`public-preview.md`:
   the code-gated preview at `preview.sweethand.ca`; `business-plan.md`: the founder's
   business plan, revenue streams and forecast; `maker-recruitment.md`: the field
-  plan to find the first 100 makers before launch); a plan is not a requirement,
+  plan to find the first 100 makers before launch; `launch-roadmap.md`: the road to the
+  26 November 2026 launch; `launch-backlog.md`: its Scrum backlog and sprints); a plan is not a requirement,
   so its work still needs L1/L2, a detailed design and mocks before implementation
 - `docs/videos/` — narrated walkthroughs (`creating-videos` skill); see its `README.md`
 - `tools/` — video tooling: `video-audio/` (narration), `video-build/` (MP4),
@@ -62,6 +63,10 @@ keep it accurate:
   - `frontend/projects/launch/` — the pre-launch site served at `/` until
     launch day (L2-092): prerendered, no router in the browser bundle, removed
     after launch
+  - `frontend/projects/board/` — the founder's sprint board (ADR 0013):
+    internal tooling generated from `docs/plans/launch-backlog.md` by
+    `scripts/backlog-to-board.mjs`, state in `localStorage`, no backend,
+    never deployed
   - `frontend/e2e/` — Playwright: `support/` (fixtures, cast, ports),
     `pages/` (page objects), `specs/<area>/`
 - `backend/` — the HTTP API, NestJS (ADRs 0006–0010); see `backend/README.md`

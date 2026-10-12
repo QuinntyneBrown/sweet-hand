@@ -1,0 +1,80 @@
+@if (sprint(); as sprint) {
+  <div class="wrap">
+    <header class="top">
+      <section class="sprint" aria-labelledby="sprint-name">
+        <p class="eyebrow"><span class="brand">Sweet Hand</span> <span class="dates">{{ dates() }}</span></p>
+        <h1 id="sprint-name">{{ sprint.name }}</h1>
+        <ul class="goal" aria-label="Sprint goal">
+          @for (line of sprint.goal; track $index) {
+            <li>{{ line }}</li>
+          }
+        </ul>
+        <div class="toolbar">
+          <div class="field">
+            <label for="sprint-picker">Sprint</label>
+            <select id="sprint-picker" (change)="chooseSprint($any($event.target).value)">
+              @for (s of backlog()!.sprints; track s.number) {
+                <option [value]="s.number" [selected]="s.number === sprint.number">Sprint {{ s.number }} · {{ s.name }}</option>
+              }
+            </select>
+          </div>
+          <div class="seg" role="group" aria-label="Show lane">
+            @for (lane of lanes; track lane) {
+              <button type="button" [attr.aria-pressed]="store.lane() === lane" (click)="store.setLane(lane)">{{ lane }}</button>
+            }
+          </div>
+          <button type="button" class="btn reset" [class.confirm]="resetArmed()" (click)="reset()">
+            {{ resetArmed() ? 'Move this sprint’s cards back to To do?' : 'Reset sprint' }}
+          </button>
+          <button type="button" class="btn" (click)="exportBoard()">Export</button>
+          <button type="button" class="btn" (click)="file.click()">Import</button>
+          <input #file type="file" accept="application/json,.json" hidden (change)="importBoard(file)" />
+          <p class="status" role="status">{{ status() }}</p>
+        </div>
+      </section>
+      @if (burndown(); as b) {
+        <section class="burn" aria-labelledby="burn-title">
+          <div class="burn-head">
+            <h2 id="burn-title">Burndown</h2>
+            <span class="chip" [class.behind]="b.tone === 'behind'" [class.idle]="b.tone === 'idle'">{{ b.pace }}</span>
+          </div>
+          <div class="stats">
+            <span><strong>{{ b.left }}</strong> of {{ b.total }} pts left</span>
+            <span><strong>{{ b.storiesDone }}</strong> of {{ b.storiesTotal }} stories done</span>
+            <span><strong>{{ b.daysLeft }}</strong> working {{ b.daysLeft === 1 ? 'day' : 'days' }} left</span>
+          </div>
+          <board-burndown-chart role="img" [attr.aria-label]="chartLabel()" [data]="b" />
+          <div class="legend" aria-hidden="true"><span class="l-actual">Points remaining</span><span class="l-ideal">Ideal</span></div>
+        </section>
+      }
+    </header>
+
+    <main class="board" aria-label="Sprint board" cdkDropListGroup>
+      @for (column of board(); track column.id) {
+        <section
+          class="col"
+          [attr.aria-labelledby]="'col-' + column.id"
+          cdkDropList
+          cdkDropListSortingDisabled
+          [cdkDropListData]="column.id"
+          (cdkDropListDropped)="drop($event)"
+        >
+          <div class="col-head">
+            <h2 [id]="'col-' + column.id">{{ column.name }}</h2>
+            <span class="col-count">{{ column.stories.length }} · {{ column.points }} pts</span>
+          </div>
+          @for (story of column.stories; track story.id) {
+            <board-card cdkDrag [cdkDragData]="story" [story]="story" [state]="store.card(story)" (opened)="openDetails(story)" />
+          } @empty {
+            <p class="empty">{{ column.id === 'todo' ? 'Nothing left to start.' : 'Drag a card here.' }}</p>
+          }
+        </section>
+      }
+    </main>
+  </div>
+} @else if (failed()) {
+  <main class="wrap">
+    <h1>The backlog didn’t load</h1>
+    <p>Run <code>npm run board:data</code> in <code>frontend/</code>, then reload.</p>
+  </main>
+}
