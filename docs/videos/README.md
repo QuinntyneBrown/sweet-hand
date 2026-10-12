@@ -14,6 +14,8 @@ generated `NN-topic.mp3` and `NN-topic.mp4`.
 | 04 | [Launch day](04-launch-day/README.md) | 4:20 | L2-101, L2-102 |
 | 05 | [Cater with Sweet Hand](05-cater-with-sweet-hand/README.md) | 1:19 | Promo for home cooks: join the launch list as a caterer |
 | 06 | [The plan, in plain words](06-the-plan-in-plain-words/README.md) | 7:08 | The business plan explained simply, and what changes if the founder cooks on Sweet Hand |
+| 07 | [The twenty-second pitch](07-the-twenty-second-pitch/README.md) | 6:48 | The maker-recruitment pitch line by line, and how it changes with people you know, Instagram cooks, shop owners and churches |
+| 08 | [Handling objections](08-handling-objections/README.md) | 4:44 | Eight objections role-played with a second voice as the cook, where each comes up, and what to say back |
 
 ## Making or updating a video
 
