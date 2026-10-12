@@ -36,7 +36,8 @@ keep it accurate:
   entry points (`deploy.ps1` production bootstrap, `new-environment.ps1` staging and UAT)
 - `docs/plans/` — forward-looking plans for work not yet specified (`public-preview.md`:
   the code-gated preview at `preview.sweethand.ca`; `business-plan.md`: the founder's
-  business plan, revenue streams and forecast); a plan is not a requirement,
+  business plan, revenue streams and forecast; `maker-recruitment.md`: the field
+  plan to find the first 100 makers before launch); a plan is not a requirement,
   so its work still needs L1/L2, a detailed design and mocks before implementation
 - `docs/videos/` — narrated walkthroughs (`creating-videos` skill); see its `README.md`
 - `tools/` — video tooling: `video-audio/` (narration), `video-build/` (MP4),
