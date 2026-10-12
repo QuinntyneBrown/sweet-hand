@@ -1,0 +1,10 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Close, reopen or delete a place
+
+Person(operator, "Operator", "Marks places closed, reopens them, or deletes them with a 10-second undo")
+System(sweethand, "Sweet Hand", "Caribbean food platform for Toronto and the GTA; operator console with the directory of places and events")
+
+Rel(operator, sweethand, "Closes, reopens and deletes places using", "HTTPS")
+@enduml

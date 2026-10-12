@@ -111,6 +111,24 @@ Accounts and request security: registration, sign-in, tokens, sessions, authoris
 | [Validate input and secure transport](identity-and-security/validate-input-and-secure-transport/README.md) | `L2-080`, `L2-081` |
 | [Verify an email address and reset a password](identity-and-security/verify-email-and-reset-password/README.md) | `L2-077`, `L2-082` |
 
+## directory
+
+The operator directory of Caribbean food places and events (draft, `L2-110` to `L2-136`): places, the places map, events, repeating events and the event calendar. Written against the backend as built (ADR 0008 document collections, request-context use cases, `@UsePolicy`); the geocoder, map tiles and the map and calendar component CRDs are `<TO SUPPLY>`.
+
+| Feature | L2 requirements |
+|---------|-----------------|
+| [Add and edit a place](directory/manage-places/README.md) | `L2-110`, `L2-111`, `L2-112`, `L2-113`, `L2-133` |
+| [Place a storefront on the map](directory/locate-places/README.md) | `L2-114` |
+| [Browse and search the places list](directory/browse-places/README.md) | `L2-115`, `L2-134`, `L2-135`, `L2-136` |
+| [View a place and its opening hours](directory/view-place/README.md) | `L2-116`, `L2-117` |
+| [Close, reopen or delete a place](directory/close-or-delete-place/README.md) | `L2-118`, `L2-119`, `L2-132`, `L2-133` |
+| [View the places map](directory/view-places-map/README.md) | `L2-120`, `L2-121`, `L2-122`, `L2-134`, `L2-135`, `L2-136` |
+| [Add and edit an event](directory/manage-events/README.md) | `L2-123`, `L2-124`, `L2-133` |
+| [Repeat an event and skip a stop](directory/schedule-repeating-events/README.md) | `L2-125` |
+| [Browse events and open an event](directory/browse-events/README.md) | `L2-126`, `L2-127` |
+| [Cancel or delete an event](directory/cancel-or-delete-event/README.md) | `L2-128`, `L2-129`, `L2-132` |
+| [View the event calendar](directory/view-event-calendar/README.md) | `L2-130`, `L2-131`, `L2-134`, `L2-135`, `L2-136` |
+
 ## platform
 
 Cross-cutting quality and operations: responsive pages, accessibility, performance, health and observability, backup, graceful degradation and the build pipeline.

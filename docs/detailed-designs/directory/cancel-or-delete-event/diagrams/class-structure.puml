@@ -1,0 +1,59 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Cancel or delete an event
+
+enum DeleteScope {
+  one
+  following
+  all
+}
+class DeleteEventRequest <<wire model>> {
+  +scope: DeleteScope
+  +from?: 'YYYY-MM-DD'
+}
+class CancelEventRequest <<wire model>> {
+  +reason: string
+  +version: number
+}
+class Cancellation {
+  +at: string
+  +by: string
+  +reason: string
+}
+class "event-lifecycle.ts" as Life <<use case>> {
+  +cancelEvent(req): Promise<Reply>
+}
+class "deletions.ts" as Del <<use cases>> {
+  +deleteEvent(req): Promise<Reply>
+  +undoDeletion(req): Promise<Reply>
+}
+class Deletion <<Document, collection directoryDeletions>> {
+  +kind: 'event' | 'stops'
+  +snapshot: DirectoryEvent
+  +restoreUntil: string
+}
+class DeleteEventDialog <<Angular>> {
+  +scope: DeleteScope
+  +nextStop: string
+  +stopCount: number
+  +confirmLabel(): 'Delete stop' | 'Delete stops' | 'Delete event'
+}
+class CancelEventDialog <<Angular, needs a mock>> {
+  +reason: string
+}
+DeleteEventRequest --> DeleteScope
+Life ..> CancelEventRequest
+Life ..> Cancellation : sets on DirectoryEvent
+Del ..> DeleteEventRequest
+Del ..> Deletion
+DeleteEventDialog ..> DeleteScope
+@enduml

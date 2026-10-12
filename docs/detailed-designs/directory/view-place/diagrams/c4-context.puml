@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — View a place and its opening hours
+
+Person(operator, "Operator", "Reads everything recorded about a place")
+System(sweethand, "Sweet Hand", "Caribbean food platform for Toronto and the GTA; operator console with the directory of places and events")
+System_Ext(tiles, "Map tile provider", "<TO SUPPLY> (A-13)")
+
+Rel(operator, sweethand, "Opens place pages using", "HTTPS")
+Rel(operator, tiles, "Browser loads the location map from", "HTTPS")
+@enduml

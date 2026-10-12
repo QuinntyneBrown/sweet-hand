@@ -1,0 +1,28 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Repeat an event and skip a stop
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(dlg, "EventEditorDialog", "Angular dialog", "Repeats, Until and the stop-count help")
+  Component(page, "EventPage", "Angular page", "Stops section; skip action (needs a mock)")
+  Component(svc, "DirectoryService", "@sweet-hand/api", "skipStop, restoreStop")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "DirectoryController", "NestJS controller", "POST .../stops/:date/skip and /restore")
+  Component(rec, "recurrence.ts", "Domain functions", "expandOccurrences, nextStop, countStops")
+  Component(tz, "toronto-time.ts", "Domain functions", "Wall-clock Toronto time to UTC instants")
+  Component(skip, "stops.ts", "Use cases", "skipStop, restoreStop")
+  Component(audit, "recordAudit", "platform/audit.ts", "SkipStop, RestoreStop")
+}
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "places, directoryEvents, directoryDeletions, audit")
+
+Rel(dlg, svc, "Saves recurrence with event")
+Rel(page, svc, "skipStop(date, reason)")
+Rel(svc, ctrl, "POST", "JSON/HTTPS")
+Rel(ctrl, skip, "Calls")
+Rel(skip, rec, "Checks the date is a stop")
+Rel(rec, tz, "Converts each stop")
+Rel(skip, db, "put event.skips")
+Rel(skip, audit, "Records")
+@enduml

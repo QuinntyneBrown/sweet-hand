@@ -1,0 +1,43 @@
+@startuml
+title UML sequence behaviour — Tell the operator about places without a pin
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application (operator console)" #E0F2FE
+  participant "PlacesMapPage" as page
+  participant "ToastService" as toast
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "DirectoryController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain (backend/src/directory)" #ECFDF3
+  participant "placesMapData" as uc
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> page : Open /admin/places/map
+page -> ctrl : GET /api/operator/directory/map?date=2026-10-10
+ctrl -> uc : placesMapData(req)
+uc -> db : find places, not deleted, not closed
+db --> uc : places
+uc --> ctrl : { pins, trucksOutToday, unpinned: [{ id, name, draft: true }] }
+ctrl --> page : 200
+opt unpinned is not empty (L2-114 AC5)
+  page -> toast : info "1 place has no pin yet" / "Coconut Bread Corner is a draft without an address, so it isn’t on the map." + "Add address"
+  actor -> toast : Activate "Add address"
+  toast --> actor : Opens the place
+end
+@enduml

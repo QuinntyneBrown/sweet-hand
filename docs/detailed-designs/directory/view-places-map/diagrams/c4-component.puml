@@ -1,0 +1,30 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — View the places map
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "PlacesMapPage", "Angular routed page", "/admin/places/map; default, loading, error, empty, selected, filtered")
+  Component(view, "map-view.ts", "Plain TypeScript", "Filters, URL state, subtitle, A to Z list, pin names")
+  Component(map, "sh-map", "Component library (CRD <TO SUPPLY>)", "Region with zoom, fit, keyboard pan, pins, clusters, legend")
+  Component(card, "sh-popover map card", "Component library", "Selected place summary with View, Edit, Close")
+  Component(svc, "DirectoryService", "@sweet-hand/api", "placesMap(date)")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "DirectoryController", "NestJS controller", "GET api/operator/directory/map")
+  Component(uc, "places-map.ts", "Use case", "placesMapData")
+  Component(rec, "recurrence.ts", "Domain functions", "Occurrences today for food truck stops")
+  Component(hours, "hours.ts", "Domain functions", "openStatusAt for each storefront")
+}
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "places, directoryEvents, directoryDeletions, audit")
+
+Rel(page, view, "Applies filters and selection")
+Rel(page, map, "Pins, clusters, selection")
+Rel(page, card, "Opens for selected pin or row")
+Rel(page, svc, "placesMap(today)")
+Rel(svc, ctrl, "GET", "JSON/HTTPS")
+Rel(ctrl, uc, "Calls")
+Rel(uc, rec, "Expands today")
+Rel(uc, hours, "Open now")
+Rel(uc, db, "find places, events")
+@enduml

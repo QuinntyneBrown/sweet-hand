@@ -1,0 +1,63 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Repeat an event and skip a stop
+
+enum RepeatRule {
+  none
+  weekly
+  fortnightly
+  monthly
+}
+class Recurrence {
+  +rule: RepeatRule
+  +until: 'YYYY-MM-DD'
+}
+class SkippedStop {
+  +date: 'YYYY-MM-DD'
+  +reason: string
+  +at: string
+  +by: string
+}
+class Occurrence <<value>> {
+  +eventId: string
+  +date: 'YYYY-MM-DD'
+  +startsAt: Instant
+  +endsAt: Instant
+  +index: number
+  +of: number
+  +skipped?: SkippedStop
+  +cancelled: boolean
+}
+class "recurrence.ts" as Rec <<functions>> {
+  +expandOccurrences(event, from, to): Occurrence[]
+  +countStops(start, recurrence): number
+  +nextStop(event, now): Occurrence | null
+  -MAX_OCCURRENCES = 52
+}
+class "toronto-time.ts" as TZ <<functions>> {
+  +toInstant(date, time): Instant
+  +torontoDate(instant): 'YYYY-MM-DD'
+}
+class "stops.ts" as Stops <<use cases>> {
+  +skipStop(req): Promise<Reply>
+  +restoreStop(req): Promise<Reply>
+}
+class DirectoryEvent
+DirectoryEvent *-- "0..1" Recurrence
+DirectoryEvent *-- "*" SkippedStop
+Recurrence --> RepeatRule
+Rec ..> DirectoryEvent
+Rec ..> Occurrence : produces
+Rec ..> TZ
+Stops ..> Rec
+Stops ..> SkippedStop
+@enduml

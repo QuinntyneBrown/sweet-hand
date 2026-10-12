@@ -1,0 +1,32 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Close, reopen or delete a place
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(dlg, "DeletePlaceDialog", "Angular dialog", "Impact warning, focus on Cancel, busy and failed states")
+  Component(undo, "DirectoryUndo", "Angular service", "Toast with Undo, 10 s timer paused on focus or hover, Ctrl+Z")
+  Component(page, "PlacePage", "Angular page", "Reopen; closed alert")
+  Component(svc, "DirectoryService", "@sweet-hand/api", "deletionImpact, deletePlace, closePlace, reopenPlace, undoDeletion")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "DirectoryController", "NestJS controller", "Place lifecycle and undo routes")
+  Component(life, "place-lifecycle.ts", "Use cases", "closePlace, reopenPlace")
+  Component(del, "deletions.ts", "Use cases", "deletionImpact, deletePlace, undoDeletion")
+  Component(purge, "purge.ts", "Scheduled rule", "purgeDeletedDirectoryRecords, hourly")
+  Component(audit, "recordAudit", "platform/audit.ts", "ClosePlace, ReopenPlace, DeletePlace, RestorePlace")
+}
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "places, directoryEvents, directoryDeletions, audit")
+
+Rel(dlg, svc, "deletionImpact, deletePlace")
+Rel(dlg, undo, "Hands over DeletionReceipt")
+Rel(undo, svc, "undoDeletion")
+Rel(page, svc, "reopenPlace")
+Rel(svc, ctrl, "POST / DELETE", "JSON/HTTPS")
+Rel(ctrl, life, "Calls")
+Rel(ctrl, del, "Calls")
+Rel(del, db, "Soft-deletes; writes Deletion snapshot")
+Rel(purge, db, "Erases after restoreUntil")
+Rel(life, audit, "Records")
+Rel(del, audit, "Records")
+@enduml

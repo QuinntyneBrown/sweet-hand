@@ -1,0 +1,77 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — View the places map
+
+class PlacesMap <<wire model>> {
+  +date: string
+  +storefronts: MapPin[]
+  +trucks: TruckPin[]
+  +unpinned: { id, name, draft }[]
+}
+class MapPin <<wire model>> {
+  +id: string
+  +name: string
+  +type: PlaceType
+  +draft: boolean
+  +position: MapPosition
+  +area: string
+  +street: string
+  +primaryCuisine: string
+  +openNow?: OpenStatus
+}
+class TruckPin <<wire model>> {
+  +id: string
+  +name: string
+  +homeBase: Municipality
+  +position: MapPosition
+  +eventId: string
+  +eventTitle: string
+  +until: 'HH:mm'
+}
+class MapFilters <<view state>> {
+  +types: Set<PlaceType>
+  +trucksOutToday: boolean
+  +selected?: string
+}
+class "map-view.ts" as View <<functions>> {
+  +fromUrl(params): MapFilters
+  +toUrl(filters): Params
+  +visible(map, filters): (MapPin | TruckPin)[]
+  +subtitle(map, filters): string
+  +pinName(pin): string
+  +aToZ(visible): ListRow[]
+}
+class "sh-map" as ShMap <<component>> {
+  +pins: input<PinSpec[]>
+  +selected: input<string | null>
+  +pinActivate: output<string>
+  +zoomIn() / zoomOut() / fitAll()
+  -clusterPins(pins, zoom): (PinSpec | Cluster)[]
+}
+class Cluster {
+  +count: number
+  +names: string[]
+  +label: string
+}
+class PlacesMapPage <<Angular>> {
+  +filters: Signal<MapFilters>
+  +state: 'loading' | 'ready' | 'empty' | 'error'
+  +select(id): void
+  +closeCard(): void
+}
+PlacesMap *-- "*" MapPin
+PlacesMap *-- "*" TruckPin
+PlacesMapPage ..> View
+PlacesMapPage ..> ShMap
+ShMap ..> Cluster
+View ..> MapFilters
+@enduml

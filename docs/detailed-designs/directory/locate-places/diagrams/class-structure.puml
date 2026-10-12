@@ -1,0 +1,62 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Place a storefront on the map
+
+class MapPosition {
+  +lat: number
+  +lng: number
+}
+class GeocodeRequest <<wire model>> {
+  +street: string
+  +municipality: Municipality
+  +postalCode: string
+}
+class GeocodeResult <<wire model>> {
+  +position: MapPosition | null
+  +source: 'address' | 'none'
+}
+abstract class Geocoder <<DI token>> {
+  +lookup(address: GeocodeRequest): Promise<MapPosition | null>
+}
+class LocalGeocoder {
+  -fsaCentroids: Map<string, MapPosition>
+  +lookup(address): Promise<MapPosition | null>
+}
+class ProviderGeocoder <<TO SUPPLY>> {
+  +lookup(address): Promise<MapPosition | null>
+}
+class "geocoding.ts" as Geo <<use case>> {
+  +geocodeAddress(req: Request): Promise<Reply>
+  -LIMIT_PER_MINUTE = 60
+  -TIMEOUT_MS = 5000
+}
+class "gta-bounds.ts" as Bounds <<functions>> {
+  +isInsideGta(p: MapPosition): boolean
+}
+class PinPicker <<sh-map mode>> {
+  +position: MapPosition | null
+  +positionChange: output<MapPosition>
+  +nudge(direction): void
+}
+class UnpinnedNotice <<view model>> {
+  +count: number
+  +single?: { id, name, draft }
+}
+Geocoder <|-- LocalGeocoder
+Geocoder <|-- ProviderGeocoder
+Geo ..> Geocoder : looks up
+Geo ..> Bounds : checks
+Geo ..> GeocodeRequest
+Geo ..> GeocodeResult
+GeocodeResult --> MapPosition
+PinPicker --> MapPosition
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — View the places map
+
+Person(operator, "Operator", "Sees storefronts and today's food trucks on a GTA map")
+System(sweethand, "Sweet Hand", "Caribbean food platform for Toronto and the GTA; operator console with the directory of places and events")
+System_Ext(tiles, "Map tile provider", "Map imagery; <TO SUPPLY> (A-13)")
+
+Rel(operator, sweethand, "Views the places map using", "HTTPS")
+Rel(operator, tiles, "Browser loads tiles from", "HTTPS")
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Place a storefront on the map
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(editor, "PlaceEditorDialog", "Angular dialog", "Debounces address input by 500 ms")
+  Component(pin, "sh-map (pin picker mode)", "Component library", "Draggable, keyboard-movable pin; CRD <TO SUPPLY>")
+  Component(svc, "DirectoryService", "@sweet-hand/api", "geocode(request)")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "DirectoryController", "NestJS controller", "POST api/operator/directory/geocode")
+  Component(geouc, "geocoding.ts", "Use case", "geocodeAddress, inside-GTA check, per-operator limit")
+  Component(port, "Geocoder", "Abstract class (DI token)", "LocalGeocoder in tests; provider adapter <TO SUPPLY>")
+  Component(bounds, "gta-bounds.ts", "Domain", "GTA bounding polygon and isInsideGta")
+}
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "places, directoryEvents, directoryDeletions, audit")
+System_Ext(geo, "Geocoder", "<TO SUPPLY>")
+
+Rel(editor, svc, "geocode once address fields are valid")
+Rel(editor, pin, "Shows and moves pin")
+Rel(svc, ctrl, "POST", "JSON/HTTPS")
+Rel(ctrl, geouc, "Calls")
+Rel(geouc, port, "lookup(address)")
+Rel(geouc, bounds, "Rejects positions outside the GTA")
+Rel(port, geo, "HTTPS request with business address only")
+@enduml

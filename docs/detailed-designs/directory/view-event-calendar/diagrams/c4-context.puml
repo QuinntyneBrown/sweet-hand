@@ -1,0 +1,10 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — View the event calendar
+
+Person(operator, "Operator", "Sees events by month, week and day and adds an event on a day")
+System(sweethand, "Sweet Hand", "Caribbean food platform for Toronto and the GTA; operator console with the directory of places and events")
+
+Rel(operator, sweethand, "Plans with the calendar using", "HTTPS")
+@enduml

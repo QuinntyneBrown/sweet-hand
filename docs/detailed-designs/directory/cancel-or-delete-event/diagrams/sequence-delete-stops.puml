@@ -1,0 +1,58 @@
+@startuml
+title UML sequence behaviour — Delete stops of a repeating event and undo
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application (operator console)" #E0F2FE
+  participant "DeleteEventDialog" as dlg
+  participant "DirectoryUndo" as undo
+  participant "DirectoryService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "DirectoryController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain (backend/src/directory)" #ECFDF3
+  participant "deletions.ts" as uc
+  participant "recurrence.ts" as rec
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+  participant "recordAudit" as audit
+end box
+actor -> dlg : "Delete Jerk Drum Wednesdays"
+dlg --> actor : "Which stops?" Only Wed 14 Oct (chosen) / Wed 14 Oct and every stop after it / All 7 stops; focus on "Keep it" (L2-129 AC1, AC2)
+actor -> dlg : Choose "Wed 14 Oct and every stop after it" -> button "Delete stops"
+dlg -> svc : deleteEvent(id, { scope: "following", from: "2026-10-14" })
+svc -> ctrl : DELETE /api/operator/directory/events/{id}?scope=following&from=2026-10-14
+ctrl -> uc : deleteEvent(req)
+alt scope all, or following from the first stop
+  uc -> db : mark event deleted
+else following from a later stop
+  uc -> rec : set Until to the stop before {from}
+else one
+  uc -> db : add the date to removedDates (leaves the Stops list)
+end
+uc -> db : put Deletion { kind, snapshot, restoreUntil = now + 15 s }
+uc -> audit : DeleteEvent or DeleteStops
+uc --> svc : DeletionReceipt
+svc --> dlg : receipt
+dlg -> undo : offer(receipt, "Jerk Drum Wednesdays deleted") <TO SUPPLY: toast text needs a mock>
+undo --> actor : Toast with Undo (L2-129 AC4)
+opt Undo or Ctrl+Z within 10 s (L2-129 AC5)
+  undo -> svc : undoDeletion(deletionId)
+  svc -> ctrl : POST /api/operator/directory/deletions/{id}/undo
+  ctrl -> uc : undoDeletion(req) -> restore snapshot; RestoreEvent
+end
+@enduml

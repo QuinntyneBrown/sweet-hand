@@ -1,0 +1,69 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Browse events and open an event
+
+enum EventTab {
+  upcoming
+  past
+  drafts
+}
+class EventListQuery <<wire model>> {
+  +tab: EventTab
+  +q?: string
+}
+class EventList <<wire model>> {
+  +counts: { upcoming, past, drafts }
+  +rows: EventRow[]
+}
+class EventRow <<wire model>> {
+  +id: string
+  +title: string
+  +type: EventType
+  +status: 'Scheduled' | 'Draft' | 'Cancelled' | 'Ended'
+  +nextStart?: string
+  +start: LocalDateTime
+  +end: LocalDateTime
+  +repeats?: { rule, weekday }
+  +venue: string
+  +area: string
+}
+class EventDetail <<wire model>> {
+  +event: EventView
+  +stops?: Occurrence[]
+  +vendors: { id, name, type, primaryCuisine, role? }[]
+  +history: { addedAt, addedBy, changedAt, changedBy, changeSummary }
+}
+class "event-list.ts" as UC <<use cases>> {
+  +listEvents(req): Promise<Reply>
+  +eventDetail(req): Promise<Reply>
+  -PAST_WINDOW_DAYS = 30
+}
+class "events-view.ts" as View <<functions>> {
+  +groups(rows, today): { heading, rows }[]
+  +whenLine(row): string
+  +subtitle(list, tab): string
+}
+class EventsPage <<Angular>> {
+  +query: Signal<EventListQuery>
+  +state: 'loading' | 'ready' | 'empty' | 'no-results' | 'error'
+}
+class EventPage <<Angular>> {
+  +detail: Signal<EventDetail>
+  +state: 'loading' | 'ready' | 'error'
+}
+EventList *-- "*" EventRow
+UC ..> EventListQuery
+UC ..> EventList
+UC ..> EventDetail
+EventsPage ..> View
+EventPage ..> EventDetail
+@enduml

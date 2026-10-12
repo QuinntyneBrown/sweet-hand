@@ -1,0 +1,28 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Browse events and open an event
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(list, "EventsPage", "Angular routed page", "/admin/events; Upcoming, Past, Drafts")
+  Component(view, "events-view.ts", "Plain TypeScript", "Groups (This week, Later in, months), row when-lines, URL state")
+  Component(page, "EventPage", "Angular routed page", "/admin/events/{id}")
+  Component(svc, "DirectoryService", "@sweet-hand/api", "events(query), event(id)")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "DirectoryController", "NestJS controller", "GET api/operator/directory/events, GET .../events/:id")
+  Component(uc, "event-list.ts", "Use cases", "listEvents, eventDetail")
+  Component(rec, "recurrence.ts", "Domain functions", "nextStop, last occurrence end")
+  Component(search, "search.ts", "Domain functions", "fold, matchesAllWords")
+}
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "places, directoryEvents, directoryDeletions, audit")
+
+Rel(list, view, "Groups and formats")
+Rel(list, svc, "events({ tab, q })")
+Rel(page, svc, "event(id)")
+Rel(svc, ctrl, "GET", "JSON/HTTPS")
+Rel(ctrl, uc, "Calls")
+Rel(uc, rec, "Next and last occurrence")
+Rel(uc, search, "Filters")
+Rel(uc, db, "find events and places")
+@enduml

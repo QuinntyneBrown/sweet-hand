@@ -1,0 +1,117 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Add and edit a place
+
+enum PlaceType {
+  restaurant
+  takeout
+  grocery
+  bakery
+  truck
+}
+enum PlaceStatus {
+  Listed
+  Draft
+  Closed
+}
+enum DietaryCode {
+  halal
+  ital
+  vegan-options
+  gluten-free-options
+  contains-nuts
+  contains-shellfish
+}
+class Place <<Document, collection places>> {
+  +id: string
+  +version: number
+  +name: string
+  +nameKey: string
+  +type: PlaceType
+  +status: PlaceStatus
+  +statusBeforeClose?: PlaceStatus
+  +primaryCuisine: string
+  +otherCuisines: string[]
+  +knownFor: string[]
+  +storefront?: Storefront
+  +homeBase?: Municipality
+  +phone?: string
+  +website?: string
+  +instagram?: string
+  +dietary: DietaryTag[]
+  +hours?: OpeningHours
+  +closedOn?: string
+  +addedAt: string
+  +addedBy: string
+  +changedAt: string
+  +changedBy: string
+  +changeSummary: string
+  +deletionId?: string
+}
+class Storefront {
+  +street: string
+  +municipality: Municipality
+  +postalCode: string
+  +neighbourhood?: string
+  +intersection?: string
+  +position?: MapPosition
+}
+class DietaryTag {
+  +code: DietaryCode
+  +note?: string
+}
+class PlaceInput <<wire model>> {
+  +version?: number
+  +name: string
+  +type: PlaceType
+  +listed: boolean
+  +primaryCuisine: string
+  ...
+}
+class "place-rules.ts" as Rules <<functions>> {
+  +validatePlace(input, cuisines): FieldErrors
+  +findDuplicate(tx, input, exceptId?): Place | undefined
+  +normalisePostalCode(raw): string | null
+  +nameKey(name): string
+}
+class "places.ts" as UseCases <<use cases>> {
+  +addPlace(req: Request): Promise<Reply>
+  +updatePlace(req: Request): Promise<Reply>
+}
+class PlaceEditorDialog <<Angular>> {
+  +mode: 'add' | 'edit'
+  +state: 'editing' | 'saving' | 'failed'
+  +errors: FieldErrors
+  +save(): void
+}
+class "place-form.ts" as Form <<functions>> {
+  +validatePlaceForm(values): FieldErrors
+  +toPlaceInput(values): PlaceInput
+  +summaryTitle(count): string
+}
+abstract class DirectoryService <<@sweet-hand/api>> {
+  +createPlace(input: PlaceInput): Observable<PlaceDetail>
+  +updatePlace(id, input: PlaceInput): Observable<PlaceDetail>
+}
+class HttpDirectoryService
+Place *-- "0..1" Storefront
+Place *-- "*" DietaryTag
+Place --> PlaceType
+Place --> PlaceStatus
+DietaryTag --> DietaryCode
+UseCases ..> Rules : validates with
+UseCases ..> Place : creates / mutates
+UseCases ..> PlaceInput : reads
+PlaceEditorDialog ..> Form
+PlaceEditorDialog ..> DirectoryService
+DirectoryService <|-- HttpDirectoryService
+@enduml

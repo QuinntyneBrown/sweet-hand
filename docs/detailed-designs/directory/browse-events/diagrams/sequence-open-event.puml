@@ -1,0 +1,47 @@
+@startuml
+title UML sequence behaviour — Open an event page
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application (operator console)" #E0F2FE
+  participant "EventPage" as page
+  participant "DirectoryService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "DirectoryController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain (backend/src/directory)" #ECFDF3
+  participant "eventDetail" as uc
+  participant "recurrence.ts" as rec
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> page : Open /admin/events/{id}
+page --> actor : "Loading event"
+page -> svc : event(id)
+svc -> ctrl : GET /api/operator/directory/events/{id}
+ctrl -> uc : eventDetail(req)
+uc -> db : get(id)
+alt unknown or deleted (L2-127 AC6)
+  uc --> page : 404 -> not-found page
+else found
+  uc -> db : get vendor places (names, types, cuisines)
+  uc -> rec : expandOccurrences when repeating (L2-127 AC3)
+  uc --> ctrl : ok(EventDetail)
+  ctrl --> page : 200
+  page --> actor : Heading, status, When and where, About, Stops, Vendors from the directory {N}, History (L2-127)
+end
+@enduml

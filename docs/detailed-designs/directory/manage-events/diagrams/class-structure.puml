@@ -1,0 +1,100 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Add and edit an event
+
+enum EventType {
+  festival
+  market
+  trade-show
+  truck-stop
+  pop-up
+  workshop
+}
+enum EventStatus {
+  Draft
+  Scheduled
+  Cancelled
+}
+class DirectoryEvent <<Document, collection directoryEvents>> {
+  +id: string
+  +version: number
+  +title: string
+  +titleKey: string
+  +type: EventType
+  +status: EventStatus
+  +start: LocalDateTime
+  +end: LocalDateTime
+  +recurrence?: Recurrence
+  +venue: string
+  +area: EventArea
+  +venuePosition?: MapPosition
+  +admission: Admission
+  +vendors: VendorLink[]
+  +organiser?: string
+  +scheduleNote?: string
+  +otherExhibitors?: number
+  +about?: string
+  +website?: string
+  +skips: SkippedStop[]
+  +removedDates: string[]
+  +cancellation?: { at, by, reason }
+  +addedAt / addedBy / changedAt / changedBy / changeSummary
+  +deletionId?: string
+}
+class LocalDateTime {
+  +date: 'YYYY-MM-DD'
+  +time: 'HH:mm'
+}
+class Admission {
+  +kind: 'free' | 'ticketed'
+  +priceCents?: number
+}
+class VendorLink {
+  +placeId: string | null
+  +name: string
+  +role?: string
+}
+class EventInput <<wire model>> {
+  +version?: number
+  +title, type, start, end, repeats, until
+  +venue, area, admission, vendors
+  +about?, website?, published: boolean
+}
+class "event-rules.ts" as Rules <<functions>> {
+  +validateEvent(input, places): FieldErrors
+  +endAfterStartMessage(start): string
+}
+class "events.ts" as UC <<use cases>> {
+  +addEvent(req): Promise<Reply>
+  +updateEvent(req): Promise<Reply>
+  +vendorSuggestions(req): Promise<Reply>
+}
+class EventEditorDialog <<Angular>> {
+  +mode: 'add' | 'edit'
+  +prefill?: { day } | { truckId }
+  +state: 'editing' | 'saving' | 'failed'
+}
+class "event-form.ts" as Form <<functions>> {
+  +validateEventForm(values): FieldErrors
+  +toEventInput(values): EventInput
+  +untilHelp(occurrences): string
+}
+DirectoryEvent --> EventType
+DirectoryEvent --> EventStatus
+DirectoryEvent *-- "2" LocalDateTime
+DirectoryEvent *-- Admission
+DirectoryEvent *-- "0..50" VendorLink
+UC ..> Rules
+UC ..> DirectoryEvent : creates / mutates
+UC ..> EventInput
+EventEditorDialog ..> Form
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Cancel or delete an event
+
+Person(operator, "Operator", "Signed in with a second factor")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "Angular 21", "Cancel-event dialog (needs a mock), delete-event dialog, undo toast")
+  Container(api, "Sweet Hand API", "NestJS 11 on Node.js 22", "Cancel, delete by scope, undo")
+  Container(sched, "Maintenance scheduler", "In-process timer in the API", "purgeDeletedDirectoryRecords")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL, JSON document collections (ADR 0008)", "directoryEvents, directoryDeletions, audit")
+}
+
+Rel(operator, web, "Uses", "HTTPS")
+Rel(web, api, "Calls /api/operator/directory/events/{id}/cancel, DELETE /events/{id}, /deletions/{id}/undo", "JSON/HTTPS")
+Rel(api, db, "Writes events and deletions; appends audit", "one transaction per request")
+Rel(sched, db, "Erases records past the undo window", "hourly")
+@enduml

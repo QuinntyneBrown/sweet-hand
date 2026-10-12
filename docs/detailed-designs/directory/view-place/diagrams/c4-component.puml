@@ -1,0 +1,28 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — View a place and its opening hours
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "PlacePage", "Angular routed page", "/admin/places/{id}; storefront, food-truck, closed, loading, error")
+  Component(hours, "hours-view.ts", "Plain TypeScript", "Weekly table rows, exception caption, open-now line")
+  Component(map, "sh-map (small)", "Component library", "One pin, read-only")
+  Component(svc, "DirectoryService", "@sweet-hand/api", "place(id)")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "DirectoryController", "NestJS controller", "GET api/operator/directory/places/:id")
+  Component(uc, "place-detail.ts", "Use case", "placeDetail: events as vendor, today stop, history")
+  Component(hoursd, "hours.ts", "Domain functions", "validateHours, openStatusAt (America/Toronto)")
+  Component(occ, "recurrence.ts", "Domain functions", "expandOccurrences for the truck stops")
+}
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "places, directoryEvents, directoryDeletions, audit")
+
+Rel(page, svc, "place(id)")
+Rel(page, hours, "Formats hours")
+Rel(page, map, "Shows pin")
+Rel(svc, ctrl, "GET", "JSON/HTTPS")
+Rel(ctrl, uc, "Calls")
+Rel(uc, hoursd, "openStatusAt(now)")
+Rel(uc, occ, "Upcoming stops and today stop")
+Rel(uc, db, "get place; find events")
+@enduml

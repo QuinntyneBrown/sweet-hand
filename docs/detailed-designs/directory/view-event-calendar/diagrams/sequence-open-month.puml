@@ -1,0 +1,56 @@
+@startuml
+title UML sequence behaviour — Open the month and select a day
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application (operator console)" #E0F2FE
+  participant "CalendarPage" as page
+  participant "calendar-view.ts" as view
+  participant "sh-month-calendar" as grid
+  participant "DirectoryService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "DirectoryController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain (backend/src/directory)" #ECFDF3
+  participant "occurrencesInRange" as uc
+  participant "recurrence.ts" as rec
+  participant "ontario-holidays.ts" as hol
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> page : Open /admin/events/calendar
+page -> view : fromUrl -> month 2026-10, today selected (L2-130 AC1, AC10)
+page -> svc : occurrences("2026-09-27", "2026-10-31")
+svc -> ctrl : GET /api/operator/directory/occurrences?from=2026-09-27&to=2026-10-31
+ctrl -> uc : occurrencesInRange(req), range <= 42 days (L2-134 AC3)
+uc -> db : find events not deleted
+uc -> rec : expandOccurrences(event, from, to), skipped stops left out (L2-125 AC6)
+uc -> hol : ontarioHolidays(2026) -> Thanksgiving 2026-10-12
+uc --> ctrl : ok(OccurrenceRange)
+ctrl --> svc : 200
+svc --> page : OccurrenceRange
+page -> view : monthWeeks, cellItems(max 2, "+N more"), spanBars, dayLabel (L2-130 AC2 to AC4)
+page -> grid : Render; today aria-current="date"
+page --> actor : "19 events in October"; agenda "Today · Saturday 10 October"
+actor -> grid : Arrow keys to 17 Oct, Enter (L2-130 AC6)
+grid --> page : selectDay("2026-10-17")
+page --> actor : "Saturday 17 October" "4 events", "Add event on Sat 17 Oct" (L2-130 AC5)
+alt request fails (L2-130 AC9)
+  svc --> page : error
+  page --> actor : "Calendar unavailable", "Try again", "Use the list"
+end
+@enduml

@@ -1,0 +1,76 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — View a place and its opening hours
+
+class OpeningHours {
+  +week: DayHours[7]
+  +exceptions: HoursException[]
+}
+class DayHours {
+  +day: 'mon'..'sun'
+  +closed: boolean
+  +ranges: TimeRange[0..2]
+}
+class TimeRange {
+  +opens: 'HH:mm'
+  +closes: 'HH:mm'
+  +overnight: boolean
+}
+class HoursException {
+  +date: 'YYYY-MM-DD'
+  +label?: string
+  +closed: boolean
+  +ranges: TimeRange[]
+}
+class OpenStatus <<value>> {
+  +open: boolean
+  +until?: 'HH:mm'
+  +nextOpens?: { day, time }
+}
+class "hours.ts" as Hours <<functions>> {
+  +validateHours(hours): FieldErrors
+  +openStatusAt(hours, instant): OpenStatus
+}
+class PlaceDetail <<wire model>> {
+  +place: PlaceView
+  +openNow?: OpenStatus
+  +todayStop?: StopSummary
+  +upcomingStops: StopSummary[]
+  +atEvents: VendorEventSummary[]
+  +history: { addedAt, addedBy, changedAt, changedBy, changeSummary }
+}
+class VendorEventSummary {
+  +eventId: string
+  +title: string
+  +when: string
+  +repeats: boolean
+  +role?: string
+}
+class PlacePage <<Angular>> {
+  +detail: Signal<PlaceDetail>
+  +state: 'loading' | 'ready' | 'error'
+}
+class "hours-view.ts" as HV <<functions>> {
+  +weekRows(hours): { day, text }[]
+  +exceptionCaption(hours, today): string | null
+  +openNowLine(status): string
+}
+OpeningHours *-- "7" DayHours
+OpeningHours *-- "*" HoursException
+DayHours *-- "0..2" TimeRange
+Hours ..> OpeningHours
+Hours ..> OpenStatus
+PlaceDetail --> OpenStatus
+PlaceDetail *-- "*" VendorEventSummary
+PlacePage ..> HV
+PlacePage ..> PlaceDetail
+@enduml

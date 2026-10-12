@@ -1,0 +1,61 @@
+@startuml
+title UML sequence behaviour — Save refused: duplicate, invalid or stale
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application (operator console)" #E0F2FE
+  participant "PlaceEditorDialog" as dlg
+  participant "place-form.ts" as form
+  participant "DirectoryService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "Request pipeline" as pipe
+  participant "DirectoryController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain (backend/src/directory)" #ECFDF3
+  participant "addPlace / updatePlace" as uc
+  participant "place-rules.ts" as rules
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+  participant "recordAudit" as audit
+end box
+actor -> dlg : Activate "Add place" or "Save changes"
+dlg -> form : validatePlaceForm(values)
+alt client finds errors (L2-112 AC1)
+  form --> dlg : { postal: "Enter a postal code like L4X 1L6" }
+  dlg --> actor : Summary "Fix 1 thing to save the place", focus on summary
+else client check passes
+  dlg -> svc : createPlace / updatePlace
+  svc -> ctrl : POST or PUT
+  ctrl -> uc : addPlace / updatePlace
+  uc -> rules : validatePlace + findDuplicate
+  alt duplicate name and municipality (L2-112 AC2)
+    uc --> ctrl : invalid({ name: ["Roti Junction is already in the directory, on Dundas St E. ..."] })
+    ctrl --> svc : 400
+    svc --> dlg : field errors
+    dlg --> actor : Same summary and inline messages as the client check (L2-112 AC8)
+  else version differs from the stored place (L2-113 AC5)
+    uc --> ctrl : conflict("This place changed since you opened it")
+    ctrl --> svc : 409
+    svc --> dlg : conflict
+    dlg --> actor : Conflict message with reload <TO SUPPLY: needs a mock>
+  else 5xx, network failure or no answer in 15 s (L2-113 AC4)
+    ctrl --> svc : 5xx
+    svc --> dlg : failure
+    dlg --> actor : Alert "We couldn’t save your changes", values kept
+  end
+end
+@enduml

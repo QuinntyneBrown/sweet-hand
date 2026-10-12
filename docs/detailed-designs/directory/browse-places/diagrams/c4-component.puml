@@ -1,0 +1,26 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Browse and search the places list
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "PlacesPage", "Angular routed page", "/admin/places; states default, loading, empty, error, no-results, filtered")
+  Component(view, "places-view.ts", "Plain TypeScript", "URL state (q, type), subtitle, row meta lines, result count")
+  Component(nav, "operator-nav.ts", "Operator layout", "Directory group with Places and Events counts")
+  Component(svc, "DirectoryService", "@sweet-hand/api", "places(query), summary()")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "DirectoryController", "NestJS controller", "GET api/operator/directory/places, GET .../summary")
+  Component(uc, "place-list.ts", "Use case", "listPlaces, directorySummary")
+  Component(search, "search.ts", "Domain functions", "fold (case and accents), matchesAllWords")
+}
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "places, directoryEvents, directoryDeletions, audit")
+
+Rel(page, view, "Derives view model from PlaceList and URL")
+Rel(page, svc, "places({ q, type })")
+Rel(nav, svc, "summary()")
+Rel(svc, ctrl, "GET", "JSON/HTTPS")
+Rel(ctrl, uc, "Calls")
+Rel(uc, search, "Filters by every word")
+Rel(uc, db, "find places not deleted")
+@enduml

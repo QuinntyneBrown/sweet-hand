@@ -1,0 +1,14 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Place a storefront on the map
+
+Person(operator, "Operator", "Places storefronts on the map from their addresses")
+System(sweethand, "Sweet Hand", "Caribbean food platform for Toronto and the GTA; operator console with the directory of places and events")
+System_Ext(geo, "Geocoder", "Address-to-position lookup; provider <TO SUPPLY> (A-13)")
+System_Ext(tiles, "Map tile provider", "Map imagery; provider <TO SUPPLY> (A-13)")
+
+Rel(operator, sweethand, "Enters addresses and drags pins using", "HTTPS")
+Rel(sweethand, geo, "Sends the business address to", "HTTPS")
+Rel(operator, tiles, "Browser loads tiles from", "HTTPS")
+@enduml

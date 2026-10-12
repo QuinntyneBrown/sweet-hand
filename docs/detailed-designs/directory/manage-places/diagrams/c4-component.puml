@@ -1,0 +1,30 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Add and edit a place
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(editor, "PlaceEditorDialog", "Angular standalone dialog", "Add place / Edit place form; error summary; busy and failed states")
+  Component(form, "place-form.ts", "Plain TypeScript", "validatePlaceForm, toPlaceInput, summary title")
+  Component(svc, "DirectoryService", "@sweet-hand/api abstract class", "HttpDirectoryService implements it")
+  Component(toast, "ToastService", "core", "Success toast {name} saved")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "DirectoryController", "NestJS controller", "POST and PUT api/operator/directory/places; @UsePolicy(operators)")
+  Component(uc, "places.ts", "Use cases", "addPlace, updatePlace")
+  Component(rules, "place-rules.ts", "Domain functions", "validatePlace, findDuplicate, normalisePostalCode")
+  Component(area, "areaForPostalCode", "discovery/postal-code.ts", "L2-012 lookup of service area")
+  Component(audit, "recordAudit", "platform/audit.ts", "Append-only audit entry")
+}
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "places, directoryEvents, directoryDeletions, audit")
+
+Rel(editor, form, "Validates and builds PlaceInput with")
+Rel(editor, svc, "createPlace / updatePlace")
+Rel(editor, toast, "Shows result")
+Rel(svc, ctrl, "POST/PUT", "JSON/HTTPS")
+Rel(ctrl, uc, "Calls with request context")
+Rel(uc, rules, "Validates, normalises, checks duplicates")
+Rel(rules, area, "Checks postal code is inside the GTA")
+Rel(uc, db, "get / find / put places")
+Rel(uc, audit, "AddPlace, EditPlace")
+@enduml

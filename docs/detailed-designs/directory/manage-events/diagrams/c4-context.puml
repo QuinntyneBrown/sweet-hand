@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Add and edit an event
+
+Person(operator, "Operator", "Adds and corrects festivals, markets, trade shows, food truck stops, pop-ups and workshops")
+System(sweethand, "Sweet Hand", "Caribbean food platform for Toronto and the GTA; operator console with the directory of places and events")
+System_Ext(geo, "Geocoder", "Venue position for the map; <TO SUPPLY> (A-13)")
+
+Rel(operator, sweethand, "Adds and edits events using", "HTTPS")
+Rel(sweethand, geo, "Looks up venue positions via", "HTTPS")
+@enduml

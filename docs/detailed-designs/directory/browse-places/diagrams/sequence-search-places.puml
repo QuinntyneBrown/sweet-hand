@@ -1,0 +1,56 @@
+@startuml
+title UML sequence behaviour — Load, filter and search the places list
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application (operator console)" #E0F2FE
+  participant "PlacesPage" as page
+  participant "places-view.ts" as view
+  participant "DirectoryService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "DirectoryController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain (backend/src/directory)" #ECFDF3
+  participant "listPlaces" as uc
+  participant "search.ts" as search
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> page : Open /admin/places?type=truck&q=
+page -> view : fromUrl(params) (L2-115 AC10)
+page --> actor : Skeleton rows, search and filter disabled, "Loading places" (L2-115 AC8)
+page -> svc : places({ type: "truck" })
+svc -> ctrl : GET /api/operator/directory/places?type=truck
+ctrl -> uc : listPlaces(req)
+uc -> db : find({ deleted: false })
+db --> uc : 17 places
+uc -> uc : Counts by status and type over all places; sort by changedAt desc (L2-115 AC1, AC4)
+uc -> search : matchesAllWords(q, name, cuisines, street, area)
+uc --> ctrl : ok(PlaceList)
+ctrl --> svc : 200
+svc --> page : PlaceList
+page -> view : subtitle, rowMeta, resultCount
+page --> actor : "Food trucks" current, 3 rows, "3 food trucks"
+actor -> page : Type "jerk chicken scarborough" (250 ms pause, L2-134 AC4)
+page -> svc : places({ q, type })
+svc --> page : rows: []
+page --> actor : "No places match “jerk chicken scarborough”." + "Clear search", "Add place" (L2-115 AC6)
+alt request fails
+  svc --> page : error
+  page --> actor : "We couldn’t load the places" + "Try again" (L2-115 AC9)
+end
+@enduml

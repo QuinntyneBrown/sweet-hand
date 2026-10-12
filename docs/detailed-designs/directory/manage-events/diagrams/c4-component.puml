@@ -1,0 +1,31 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Add and edit an event
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(dlg, "EventEditorDialog", "Angular dialog", "Add event / Edit event; conditional price and Until; vendor combobox")
+  Component(form, "event-form.ts", "Plain TypeScript", "validateEventForm, toEventInput, prefill(day | truck)")
+  Component(combo, "sh-combobox", "Component library", "Vendor picker with chips")
+  Component(svc, "DirectoryService", "@sweet-hand/api", "createEvent, updateEvent, vendorSuggestions")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "DirectoryController", "NestJS controller", "POST/PUT api/operator/directory/events, GET .../vendors")
+  Component(uc, "events.ts", "Use cases", "addEvent, updateEvent, vendorSuggestions")
+  Component(rules, "event-rules.ts", "Domain functions", "validateEvent, Toronto time conversion")
+  Component(rec, "recurrence.ts", "Domain functions", "expandOccurrences, occurrence limit")
+  Component(audit, "recordAudit", "platform/audit.ts", "AddEvent, EditEvent")
+}
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "places, directoryEvents, directoryDeletions, audit")
+
+Rel(dlg, form, "Validates")
+Rel(dlg, combo, "Chooses vendors")
+Rel(dlg, svc, "createEvent / updateEvent")
+Rel(combo, svc, "vendorSuggestions(q)")
+Rel(svc, ctrl, "POST / PUT / GET", "JSON/HTTPS")
+Rel(ctrl, uc, "Calls")
+Rel(uc, rules, "Validates")
+Rel(uc, rec, "Counts occurrences")
+Rel(uc, db, "get/put directoryEvents; find places")
+Rel(uc, audit, "Records")
+@enduml

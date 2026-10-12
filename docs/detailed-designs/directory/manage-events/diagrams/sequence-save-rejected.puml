@@ -1,0 +1,53 @@
+@startuml
+title UML sequence behaviour — Event save refused or failed
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application (operator console)" #E0F2FE
+  participant "EventEditorDialog" as dlg
+  participant "event-form.ts" as form
+  participant "DirectoryService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "DirectoryController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain (backend/src/directory)" #ECFDF3
+  participant "addEvent / updateEvent" as uc
+  participant "event-rules.ts" as rules
+  participant "recurrence.ts" as rec
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+  participant "recordAudit" as audit
+end box
+actor -> dlg : "Add event" with end 11 a.m. before start 1 p.m., Ticketed without price
+dlg -> form : validateEventForm(values)
+form --> dlg : end-time: "End time must be after 1 p.m."; price: "Enter the ticket price, or choose Free"
+dlg --> actor : "Fix 2 things to save the event", focus on summary (L2-123 AC3)
+actor -> dlg : Correct and save
+dlg -> svc : updateEvent(id, input with version)
+svc -> ctrl : PUT /api/operator/directory/events/{id}
+ctrl -> uc : updateEvent(req)
+alt stale version (L2-124 AC9)
+  uc --> svc : 409
+  svc --> dlg : conflict <TO SUPPLY: needs a mock>
+else server validation fails (L2-123 AC7)
+  uc --> svc : 400 with the same messages
+  svc --> dlg : field errors in the summary
+else 5xx, network failure or 15 s timeout (L2-124 AC8)
+  svc --> dlg : failure
+  dlg --> actor : "We couldn’t save your changes" / "The calendar didn’t respond. ..." values kept
+end
+@enduml

@@ -1,0 +1,65 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Browse and search the places list
+
+class PlaceListQuery <<wire model>> {
+  +q?: string
+  +type?: PlaceType
+}
+class PlaceList <<wire model>> {
+  +total: number
+  +byStatus: { listed, draft, closed }
+  +byType: Record<PlaceType, number>
+  +rows: PlaceRow[]
+}
+class PlaceRow <<wire model>> {
+  +id: string
+  +name: string
+  +type: PlaceType
+  +primaryCuisine: string
+  +street?: string
+  +area?: string
+  +homeBase?: Municipality
+  +status: PlaceStatus
+  +changedAt: string
+}
+class DirectorySummary <<wire model>> {
+  +places: number
+  +upcomingEvents: number
+}
+class "place-list.ts" as List <<use case>> {
+  +listPlaces(req): Promise<Reply>
+  +directorySummary(req): Promise<Reply>
+}
+class "search.ts" as Search <<functions>> {
+  +fold(text): string
+  +matchesAllWords(query, fields): boolean
+}
+class PlacesPage <<Angular>> {
+  +query: Signal<PlaceListQuery>
+  +state: 'loading' | 'ready' | 'empty' | 'no-results' | 'error'
+  +retry(): void
+}
+class "places-view.ts" as View <<functions>> {
+  +fromUrl(params): PlaceListQuery
+  +toUrl(query): Params
+  +subtitle(list): string
+  +rowMeta(row): string
+  +resultCount(list, query): string
+}
+PlaceList *-- "*" PlaceRow
+List ..> Search
+List ..> PlaceListQuery
+List ..> PlaceList
+PlacesPage ..> View
+PlacesPage ..> PlaceList
+@enduml

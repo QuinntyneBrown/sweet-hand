@@ -1,0 +1,53 @@
+@startuml
+title UML sequence behaviour — Geocode while typing and adjust the pin
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application (operator console)" #E0F2FE
+  participant "PlaceEditorDialog" as dlg
+  participant "sh-map pin picker" as pin
+  participant "DirectoryService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "DirectoryController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain (backend/src/directory)" #ECFDF3
+  participant "geocodeAddress" as uc
+  participant "gta-bounds.ts" as bounds
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "Geocoder" as geo
+end box
+actor -> dlg : Type street, municipality, postal code
+dlg -> dlg : Wait until 500 ms without typing and all three valid (L2-114 AC1)
+dlg -> svc : geocode({ street, municipality, postalCode })
+svc -> ctrl : POST /api/operator/directory/geocode
+ctrl -> uc : geocodeAddress(req)
+uc -> uc : Per-operator limit 60/min, else 429 (L2-133 AC7)
+uc -> geo : lookup(business address only) (L2-114 AC6)
+geo --> uc : position
+uc -> bounds : isInsideGta(position) (L2-114 AC3)
+alt inside the GTA
+  uc --> ctrl : ok({ position, source: "address" })
+else outside, nothing found, error or 5 s timeout (L2-114 AC4)
+  uc --> ctrl : ok({ position: null, source: "none" })
+end
+ctrl --> svc : 200
+svc --> dlg : GeocodeResult
+dlg -> pin : Show pin, "Placed from the address. Drag the pin if the entrance is around the corner."
+actor -> pin : Drag, or focus and press arrow keys (L2-114 AC2, L2-136 AC5)
+pin -> bounds : client copy of isInsideGta
+pin --> dlg : positionChange (kept until the address changes)
+@enduml

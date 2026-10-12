@@ -1,0 +1,33 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Cancel or delete an event
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(cdlg, "CancelEventDialog", "Angular dialog", "Required reason; needs a mock")
+  Component(ddlg, "DeleteEventDialog", "Angular dialog", "Which stops? scope; Keep it / Delete stop(s) / Delete event")
+  Component(undo, "DirectoryUndo", "Angular service", "Shared with places: 10 s undo, pause, Ctrl+Z")
+  Component(svc, "DirectoryService", "@sweet-hand/api", "cancelEvent, deleteEvent, undoDeletion")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "DirectoryController", "NestJS controller", "Event lifecycle routes")
+  Component(cancel, "event-lifecycle.ts", "Use case", "cancelEvent")
+  Component(del, "deletions.ts", "Use cases", "deleteEvent(scope), undoDeletion")
+  Component(rec, "recurrence.ts", "Domain functions", "nextStop, split by date")
+  Component(audit, "recordAudit", "platform/audit.ts", "CancelEvent, DeleteEvent, DeleteStops, RestoreEvent")
+}
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "places, directoryEvents, directoryDeletions, audit")
+
+Rel(cdlg, svc, "cancelEvent(reason)")
+Rel(ddlg, svc, "deleteEvent(scope)")
+Rel(ddlg, undo, "Offers undo")
+Rel(undo, svc, "undoDeletion")
+Rel(svc, ctrl, "POST / DELETE", "JSON/HTTPS")
+Rel(ctrl, cancel, "Calls")
+Rel(ctrl, del, "Calls")
+Rel(del, rec, "Splits recurrence")
+Rel(cancel, db, "put event")
+Rel(del, db, "Soft-deletes with snapshot")
+Rel(cancel, audit, "Records")
+Rel(del, audit, "Records")
+@enduml

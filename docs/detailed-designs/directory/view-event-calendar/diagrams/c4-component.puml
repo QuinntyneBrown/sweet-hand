@@ -1,0 +1,32 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — View the event calendar
+
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(page, "CalendarPage", "Angular routed page", "/admin/events/calendar; month, week, selected day, filters")
+  Component(view, "calendar-view.ts", "Plain TypeScript", "Month weeks, cell overflow, span bars, week layout, labels, URL state")
+  Component(month, "sh-month-calendar", "Component library (CRD <TO SUPPLY>)", "Table grid, arrow-key day navigation, dots below 768px")
+  Component(week, "sh-week-grid", "Component library (CRD <TO SUPPLY>)", "All-day row and hour grid, sideways scroll on phones")
+  Component(agenda, "sh-agenda", "Component library (CRD <TO SUPPLY>)", "Day agenda list")
+  Component(svc, "DirectoryService", "@sweet-hand/api", "occurrences(from, to)")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "DirectoryController", "NestJS controller", "GET api/operator/directory/occurrences")
+  Component(uc, "calendar.ts", "Use case", "occurrencesInRange")
+  Component(rec, "recurrence.ts", "Domain functions", "expandOccurrences within range")
+  Component(hol, "ontario-holidays.ts", "Domain functions", "Ontario public holidays by year")
+}
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "places, directoryEvents, directoryDeletions, audit")
+
+Rel(page, view, "Lays out")
+Rel(page, month, "Month view")
+Rel(page, week, "Week view")
+Rel(page, agenda, "Selected day")
+Rel(page, svc, "occurrences(range)")
+Rel(svc, ctrl, "GET", "JSON/HTTPS")
+Rel(ctrl, uc, "Calls")
+Rel(uc, rec, "Expands")
+Rel(uc, hol, "Adds holidays")
+Rel(uc, db, "find events not deleted")
+@enduml

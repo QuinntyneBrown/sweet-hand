@@ -1,0 +1,68 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Close, reopen or delete a place
+
+class Deletion <<Document, collection directoryDeletions>> {
+  +id: string
+  +kind: 'place' | 'event' | 'stops'
+  +targetId: string
+  +operatorId: string
+  +at: string
+  +restoreUntil: string
+  +undoneAt?: string
+  +snapshot: unknown
+  +removedVendorLinks: { eventId, placeId, role? }[]
+  +cancelledEventIds: string[]
+}
+class DeletionImpact <<wire model>> {
+  +upcomingEvents: { id, title }[]
+  +eventsToCancel: { id, title }[]
+}
+class DeletionReceipt <<wire model>> {
+  +deletionId: string
+  +restoreUntil: string
+  +name: string
+}
+class "place-lifecycle.ts" as Life <<use cases>> {
+  +closePlace(req): Promise<Reply>
+  +reopenPlace(req): Promise<Reply>
+}
+class "deletions.ts" as Del <<use cases>> {
+  +deletionImpact(req): Promise<Reply>
+  +deletePlace(req): Promise<Reply>
+  +undoDeletion(req): Promise<Reply>
+  -UNDO_MS = 10000
+  -GRACE_MS = 5000
+}
+class "purge.ts" as Purge <<scheduled rule>> {
+  +purgeDeletedDirectoryRecords(env): Promise<number>
+}
+class DeletePlaceDialog <<Angular>> {
+  +impact: DeletionImpact
+  +state: 'confirm' | 'deleting' | 'failed'
+  +confirmLabel(): 'Delete place' | 'Delete truck'
+}
+class DirectoryUndo <<Angular service>> {
+  +offer(receipt: DeletionReceipt, title: string, text: string): void
+  -remainingMs: number
+  -paused: boolean
+  +undo(): void
+  +onKeydown(event: KeyboardEvent): void
+}
+Del ..> Deletion : writes / reads
+Del ..> DeletionImpact
+Del ..> DeletionReceipt
+Purge ..> Deletion : erases expired
+DeletePlaceDialog ..> DeletionImpact
+DeletePlaceDialog ..> DirectoryUndo
+DirectoryUndo ..> DeletionReceipt
+@enduml

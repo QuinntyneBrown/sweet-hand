@@ -1,0 +1,51 @@
+@startuml
+title UML sequence behaviour — List, group and search events
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application (operator console)" #E0F2FE
+  participant "EventsPage" as page
+  participant "events-view.ts" as view
+  participant "DirectoryService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "DirectoryController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain (backend/src/directory)" #ECFDF3
+  participant "listEvents" as uc
+  participant "recurrence.ts" as rec
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> page : Open /admin/events
+page --> actor : Skeleton rows, "Loading events" (L2-126 AC7)
+page -> svc : events({ tab: "upcoming" })
+svc -> ctrl : GET /api/operator/directory/events?tab=upcoming
+ctrl -> uc : listEvents(req)
+uc -> db : find events not deleted
+uc -> rec : nextStop / last end for each event
+uc -> uc : Upcoming = an occurrence not ended; Past = ended within 30 days; Drafts (L2-126 AC2, AC4)
+uc --> ctrl : ok(EventList { counts 12 / 2 / 2 })
+ctrl --> svc : 200
+svc --> page : EventList
+page -> view : groups(rows, today Sat 10 Oct)
+view --> page : "This week · today is Sat 10 Oct", "Later in October", "November"
+page --> actor : Rows with when-line, Repeats tag, status, Edit and Delete (L2-126 AC3)
+actor -> page : Search "caribana"
+page -> svc : events({ tab, q })
+svc --> page : rows: []
+page --> actor : "No events match “caribana”." + "Clear search", "Add event" (L2-126 AC5)
+@enduml

@@ -1,0 +1,68 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — View the event calendar
+
+class OccurrenceRange <<wire model>> {
+  +from: 'YYYY-MM-DD'
+  +to: 'YYYY-MM-DD'
+  +occurrences: CalendarOccurrence[]
+  +holidays: Holiday[]
+}
+class CalendarOccurrence <<wire model>> {
+  +eventId: string
+  +title: string
+  +type: EventType
+  +status: 'Scheduled' | 'Draft' | 'Cancelled'
+  +startDate / startTime / endDate / endTime
+  +venue: string
+  +area: string
+  +dayOf?: { day, of }
+  +repeats: boolean
+  +vendorNames: string[]
+}
+class Holiday {
+  +date: 'YYYY-MM-DD'
+  +name: string
+}
+class CalendarState <<view state>> {
+  +view: 'month' | 'week'
+  +date: 'YYYY-MM-DD'
+  +types: Set<EventType>
+}
+class "calendar-view.ts" as View <<functions>> {
+  +monthWeeks(month): Day[][]
+  +cellItems(day, occ, max = 2): { items, more }
+  +spanBars(occ, week): Bar[]
+  +layoutWeek(occ, week): Placed[]
+  +dayLabel(day, count, today): string
+  +subtitle(range, state): string
+  +fromUrl / toUrl
+}
+class "calendar.ts" as UC <<use case>> {
+  +occurrencesInRange(req): Promise<Reply>
+  -MAX_RANGE_DAYS = 42
+}
+class "ontario-holidays.ts" as Hol <<functions>> {
+  +ontarioHolidays(year): Holiday[]
+}
+class CalendarPage <<Angular>> {
+  +state: Signal<CalendarState>
+  +selectDay(date): void
+  +addOnDay(date): void
+}
+OccurrenceRange *-- "*" CalendarOccurrence
+OccurrenceRange *-- "*" Holiday
+UC ..> OccurrenceRange
+UC ..> Hol
+CalendarPage ..> View
+CalendarPage ..> CalendarState
+@enduml

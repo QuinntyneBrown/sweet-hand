@@ -1,0 +1,54 @@
+@startuml
+title UML sequence behaviour — Add a place
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application (operator console)" #E0F2FE
+  participant "PlaceEditorDialog" as dlg
+  participant "place-form.ts" as form
+  participant "DirectoryService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "Request pipeline" as pipe
+  participant "DirectoryController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain (backend/src/directory)" #ECFDF3
+  participant "addPlace / updatePlace" as uc
+  participant "place-rules.ts" as rules
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+  participant "recordAudit" as audit
+end box
+actor -> dlg : Activate "Add place" (focus on Name, L2-111 AC1)
+actor -> dlg : Fill fields, Listed on, activate "Add place"
+dlg -> form : validatePlaceForm(values)
+form --> dlg : no errors
+dlg -> svc : createPlace(PlaceInput)
+svc -> pipe : POST /api/operator/directory/places + X-XSRF-TOKEN
+pipe -> pipe : Session, second factor, roles(Operator), CSRF, body limit (L2-133 AC1, AC7)
+pipe -> ctrl : route
+ctrl -> uc : addPlace(req)
+uc -> rules : validatePlace(input, active cuisines) (L2-110, L2-112)
+rules --> uc : no errors; postal code "L4X 1L6"
+uc -> db : find({ nameKey }) for duplicates (L2-112 AC3)
+db --> uc : none
+uc -> db : put Place { status: Listed, version 1, addedBy, changeSummary: "added" }
+uc -> audit : AddPlace, before null, after place (L2-133 AC3)
+uc --> ctrl : created(PlaceDetail)
+ctrl --> svc : 201
+svc --> dlg : PlaceDetail
+dlg --> actor : Close dialog, focus back to opener, toast "{name} saved" (L2-111 AC4)
+@enduml

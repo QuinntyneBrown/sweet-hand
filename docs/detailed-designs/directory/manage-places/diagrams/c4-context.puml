@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Add and edit a place
+
+Person(operator, "Operator", "Adds and corrects restaurants, takeout, grocery stores, bakeries and food trucks")
+System(sweethand, "Sweet Hand", "Caribbean food platform for Toronto and the GTA; operator console with the directory of places and events")
+System_Ext(geo, "Geocoder", "Turns a business address into a map position; provider <TO SUPPLY>")
+
+Rel(operator, sweethand, "Adds and edits places using", "HTTPS")
+Rel(sweethand, geo, "Looks up storefront positions via", "HTTPS")
+@enduml

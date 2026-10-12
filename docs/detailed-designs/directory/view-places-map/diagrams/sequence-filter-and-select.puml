@@ -1,0 +1,36 @@
+@startuml
+title UML sequence behaviour — Filter by type and select a place
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application (operator console)" #E0F2FE
+  participant "PlacesMapPage" as page
+  participant "map-view.ts" as view
+  participant "sh-map" as map
+  participant "Map card" as card
+end box
+actor -> page : Unpress Restaurants, Takeout, Food trucks
+page -> view : visible(map, filters); toUrl(filters) (L2-121 AC5)
+view --> page : 6 pins
+page -> map : pins
+page --> actor : "6 of 15 places · grocery and bakeries" (L2-121 AC1)
+actor -> map : Activate pin "Yard Pot Jerk Centre, restaurant, York · Little Jamaica"
+map --> page : pinActivate(id)
+page -> card : Open beside pin: type and cuisine, address, status, "Open now · until 11 p.m.", View, Edit, Close (L2-121 AC3)
+page -> map : selected = id (aria-pressed="true"); list row aria-current="true"
+actor -> card : Escape
+card --> page : closed
+page -> map : Return focus to the pin (L2-121 AC4)
+@enduml
