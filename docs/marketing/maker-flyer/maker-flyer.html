@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<title>Sweet Hand — Maker flyer</title>
+<link rel="stylesheet" href="../assets/print.css">
+<!--
+  Print spec (same as ../flyer/flyer.html)
+  Trim:  5in x 7in
+  Bleed: 0.125in each side -> page 5.25in x 7.25in
+  Safe:  0.125in inside trim (0.25in from page edge)
+  Page 1 = front (the pitch), page 2 = back (questions makers ask). Flip on the long edge.
+  The pepper band sits on the left of the front and the right of the back, so
+  it lines up on both sides of the sheet.
+  Copy comes from docs/plans/maker-recruitment.md ("The pitch", "Objections").
+  Never say Sweet Hand certifies, inspects or approves a kitchen.
+-->
+<style>
+  :root {
+    --bleed: 0.125in;
+    --safe: 0.25in;
+    --band: 0.325in;
+    --clear: 0.55in;
+  }
+  @page { size: 5.25in 7.25in; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #e9e6e1; }
+  body {
+    font-family: "Figtree", system-ui, sans-serif;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .sheet {
+    position: relative;
+    width: 5.25in;
+    height: 7.25in;
+    overflow: hidden;
+    break-after: page;
+    page-break-after: always;
+  }
+  .sheet:last-child { break-after: auto; page-break-after: auto; }
+  .band {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: var(--band);
+    background: var(--pepper-600);
+  }
+  .safe {
+    position: absolute;
+    top: var(--safe);
+    bottom: var(--safe);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .wordmark {
+    font-weight: 700;
+    font-size: 20pt;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .wordmark span { color: var(--pepper-500); }
+
+  .qr { display: block; width: 1.2in; height: 1.2in; flex: none; }
+  .cta { display: flex; align-items: center; gap: 0.16in; }
+  .cta .ask { font-weight: 700; font-size: 15pt; letter-spacing: -0.01em; line-height: 1.1; }
+  .cta .url { margin-top: 0.04in; font-weight: 600; font-size: 13pt; line-height: 1.1; }
+  .cta .when { margin-top: 0.05in; font-weight: 500; font-size: 10pt; line-height: 1.3; }
+
+  /* ---------- Front: the pitch ---------- */
+  .front { background: var(--stone-950); color: var(--white); }
+  .front .band { left: 0; }
+  .front .safe { left: var(--clear); right: var(--safe); }
+  .front h1 {
+    font-weight: 700;
+    font-size: 34pt;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+  }
+  .front h1 span { display: block; margin-top: 0.1in; color: #d6d2cc; }
+  .front .pitch {
+    margin-top: 0.34in;
+    list-style: none;
+    counter-reset: pitch;
+  }
+  .front .pitch li {
+    counter-increment: pitch;
+    display: flex;
+    align-items: baseline;
+    gap: 0.16in;
+    padding: 0.1in 0;
+    border-top: 0.5pt solid var(--stone-700);
+    font-weight: 600;
+    font-size: 14pt;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .front .pitch li:last-child { border-bottom: 0.5pt solid var(--stone-700); }
+  .front .pitch li::before {
+    content: counter(pitch, decimal-leading-zero);
+    flex: none;
+    width: 0.28in;
+    font-weight: 700;
+    font-size: 10pt;
+    color: var(--pepper-500);
+  }
+  .front .pitch small {
+    display: block;
+    margin-top: 0.02in;
+    font-weight: 500;
+    font-size: 10pt;
+    color: var(--stone-350);
+    letter-spacing: 0;
+  }
+  .front .cta .url { color: #d6d2cc; }
+  .front .cta .when { color: var(--stone-350); }
+
+  /* ---------- Back: questions ---------- */
+  .back { background: var(--white); color: var(--stone-950); }
+  .back .band { right: 0; }
+  .back .safe { left: var(--safe); right: var(--clear); }
+  .back h2 {
+    font-weight: 700;
+    font-size: 30pt;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+  }
+  .back h2::after {
+    content: "";
+    display: block;
+    width: 0.4in;
+    height: 2pt;
+    margin-top: 0.14in;
+    background: var(--pepper-500);
+  }
+  .back .faq { margin-top: 0.26in; }
+  .back .faq div { padding: 0.105in 0; border-top: 0.5pt solid var(--stone-200); }
+  .back .faq div:last-child { border-bottom: 0.5pt solid var(--stone-200); }
+  .back dt {
+    font-weight: 700;
+    font-size: 12.5pt;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .back dt::before { content: "\201C"; color: var(--pepper-600); }
+  .back dt::after { content: "\201D"; color: var(--pepper-600); }
+  .back dd {
+    margin-top: 0.04in;
+    font-weight: 500;
+    font-size: 10.5pt;
+    line-height: 1.35;
+    color: var(--stone-700);
+  }
+  .back .url { font-weight: 700; font-size: 13pt; letter-spacing: -0.01em; }
+
+  /* ---------- Screen preview only ---------- */
+  @media screen {
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+    body.proof { padding: 0; gap: 0; display: block; background: transparent; }
+    .sheet { box-shadow: 0 8px 24px rgb(20 19 18 / 0.18); }
+    body.proof .sheet { box-shadow: none; }
+    body:not(.proof) .sheet::before,
+    body:not(.proof) .sheet::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      z-index: 2;
+    }
+    body:not(.proof) .sheet::before { inset: var(--bleed); outline: 1px dashed rgb(0 160 255 / 0.9); }
+    body:not(.proof) .sheet::after  { inset: var(--safe);  outline: 1px dotted rgb(255 0 160 / 0.7); }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Front: the pitch -->
+  <section class="sheet front" aria-label="Front">
+    <div class="band" aria-hidden="true"></div>
+    <div class="safe">
+      <div class="wordmark">Sweet Hand<span>.</span></div>
+      <div>
+        <h1>You have a<br>sweet hand. <span>Let Toronto find it.</span></h1>
+        <ol class="pitch">
+          <li><span>Free to list.</span></li>
+          <li><span>Your menu. Your batches. Your days.</span></li>
+          <li><span>Your address stays private.</span></li>
+          <li><span>A free photo shoot of your dishes.<small>For the first 100 makers.</small></span></li>
+        </ol>
+      </div>
+      <div class="cta">
+        <img class="qr" src="../assets/qr-sweethand-ca.svg" alt="QR code for sweethand.ca">
+        <div>
+          <p class="ask">Get on the list.</p>
+          <p class="url">sweethand.ca</p>
+          <p class="when">Opens late November,<br>in time for Christmas orders.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back: questions makers ask -->
+  <section class="sheet back" aria-label="Back">
+    <div class="band" aria-hidden="true"></div>
+    <div class="safe">
+      <div class="wordmark">Sweet Hand<span>.</span></div>
+      <div>
+      <h2>Fair questions.</h2>
+      <dl class="faq">
+        <div>
+          <dt>I’m not licensed.</dt>
+          <dd>Sweet Hand never certifies anyone. Add your own food-safety note, or don’t. Your call.</dd>
+        </div>
+        <div>
+          <dt>I don’t want people seeing my address.</dt>
+          <dd>They never will. Only the area you pick shows. Pickup details go only to the customer you choose.</dd>
+        </div>
+        <div>
+          <dt>I only cook now and then.</dt>
+          <dd>Perfect. Fridays only, pre-order only, twelve plates. You set it.</dd>
+        </div>
+        <div>
+          <dt>What does it cost?</dt>
+          <dd>Nothing. Listing is free and stays free.</dd>
+        </div>
+        <div>
+          <dt>I’m not good with tech.</dt>
+          <dd>We’ll set up your profile with you.</dd>
+        </div>
+      </dl>
+      </div>
+      <p class="url">sweethand.ca</p>
+    </div>
+  </section>
+
+</body>
+</html>

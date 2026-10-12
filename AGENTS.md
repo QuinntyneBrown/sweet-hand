@@ -42,7 +42,7 @@ keep it accurate:
 - `docs/videos/` — narrated walkthroughs (`creating-videos` skill); see its `README.md`
 - `tools/` — video tooling: `video-audio/` (narration), `video-build/` (MP4),
   `video-record/` (screen recordings and the local launch demo stack)
-- `docs/marketing/` — print-ready pre-launch flyer, die-cut stickers, WhatsApp Status images,
+- `docs/marketing/` — print-ready pre-launch flyer, maker flyer (pitch and FAQ), die-cut stickers, WhatsApp Status images,
   the YouTube channel kit (`youtube/`: art, copy, captions, posting steps) and the
   Facebook Page kit (`facebook/`: art, feed images, copy, posting steps) and the
   Instagram kit (`instagram/`: settings, copy, posting steps), with

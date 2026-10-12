@@ -3,7 +3,7 @@
  * images, YouTube channel art and Facebook Page art.
  *
  *   node docs/marketing/render.mjs                 everything
- *   node docs/marketing/render.mjs --only youtube  one group: flyer, stickers, whatsapp, youtube or facebook
+ *   node docs/marketing/render.mjs --only youtube  one group: flyer, maker-flyer, stickers, whatsapp, youtube or facebook
  *
  * Writes (all committed, so a printer file never depends on a rebuild):
  *   assets/qr-sweethand-ca.svg            offline QR for https://sweethand.ca
@@ -11,6 +11,8 @@
  *   flyer/sweet-hand-pre-launch-flyer-crop-marks.pdf  same, centred on 6 x 8 in with crop marks
  *   flyer/sweet-hand-pre-launch-flyer-4up-12x18.pdf   4-up on a 12 x 18 in press sheet with crop marks
  *   flyer/proof-front.png, proof-back.png 300 dpi, full bleed, no guides
+ *   maker-flyer/sweet-hand-maker-flyer.pdf (+ -crop-marks, -4up-12x18), proof-front.png, proof-back.png
+ *                                         pitch + questions for makers, same print spec as the flyer
  *   stickers/sticker-N-*.png              900 x 900 RGBA, transparent: the alpha edge is the die cut
  *   stickers/sticker-N-*-preview.png      on paper, review only
  *   stickers/sticker-N-*.svg              editable vector, font inlined, hidden #cutline layer
@@ -42,7 +44,10 @@ const require = createRequire(pathToFileURL(path.join(moduleRoot, 'package.json'
 const { chromium } = require('@playwright/test')
 
 const SITE_URL = 'https://sweethand.ca'
-const FLYER_PDF = 'sweet-hand-pre-launch-flyer.pdf'
+const FLYERS = {
+  flyer: { dir: 'flyer', html: 'flyer.html', pdf: 'sweet-hand-pre-launch-flyer.pdf', name: 'Sweet Hand pre-launch flyer' },
+  'maker-flyer': { dir: 'maker-flyer', html: 'maker-flyer.html', pdf: 'sweet-hand-maker-flyer.pdf', name: 'Sweet Hand maker flyer' },
+}
 const FLYER_TRIM = { w: 5, h: 7 }
 const FLYER_BLEED = 0.125
 const STICKERS = [
@@ -53,7 +58,7 @@ const STICKERS = [
 
 const inches = (px) => (px / 300).toFixed(2)
 
-const GROUPS = ['flyer', 'stickers', 'whatsapp', 'youtube', 'facebook']
+const GROUPS = ['flyer', 'maker-flyer', 'stickers', 'whatsapp', 'youtube', 'facebook']
 const onlyFlag = process.argv.indexOf('--only')
 const only = onlyFlag === -1 ? GROUPS : process.argv.slice(onlyFlag + 1).filter((g) => !g.startsWith('--'))
 for (const g of only) {
@@ -109,29 +114,29 @@ async function requireFigtree(page, label) {
   if (!ok) throw new Error(`${label}: Figtree did not load (system font fallback)`)
 }
 
-async function renderFlyer() {
-  const src = pathToFileURL(path.join(here, 'flyer', 'flyer.html')).href
+async function renderFlyer({ dir, html, pdf: FLYER_PDF, name }) {
+  const src = pathToFileURL(path.join(here, dir, html)).href
 
   // PDF: page 1 front, page 2 back, page size from the CSS @page rule.
   const pdfCtx = await browser.newContext()
   const pdfPage = await pdfCtx.newPage()
   await pdfPage.goto(src, { waitUntil: 'load' })
-  await requireFigtree(pdfPage, 'flyer')
+  await requireFigtree(pdfPage, dir)
   const pdf = await pdfPage.pdf({ preferCSSPageSize: true, printBackground: true })
   await pdfCtx.close()
-  await writeFile(path.join(here, 'flyer', FLYER_PDF), pdf)
+  await writeFile(path.join(here, dir, FLYER_PDF), pdf)
 
-  assertPdf('flyer PDF', pdf, { pages: 2, w: 5.25, h: 7.25 })
+  assertPdf(`${dir} PDF`, pdf, { pages: 2, w: 5.25, h: 7.25 })
 
   // Print-shop versions: crop marks single-up, and 4-up on a 12 x 18 in sheet.
-  const press = { src, selector: '.sheet', trim: FLYER_TRIM, bleed: FLYER_BLEED, ready: (p) => requireFigtree(p, 'flyer press') }
-  const labels = (layout) => ['front', 'back'].map((side) => `Sweet Hand pre-launch flyer · ${side} · trim 5 × 7 in · bleed 0.125 in · ${layout}`)
+  const press = { src, selector: '.sheet', trim: FLYER_TRIM, bleed: FLYER_BLEED, ready: (p) => requireFigtree(p, `${dir} press`) }
+  const labels = (layout) => ['front', 'back'].map((side) => `${name} · ${side} · trim 5 × 7 in · bleed 0.125 in · ${layout}`)
   const crop = await pressPdf(browser, { ...press, labels: labels('crop marks') })
-  assertPdf('flyer crop marks', crop.pdf, { pages: 2, w: 6, h: 8 })
-  await writeFile(path.join(here, 'flyer', FLYER_PDF.replace('.pdf', '-crop-marks.pdf')), crop.pdf)
+  assertPdf(`${dir} crop marks`, crop.pdf, { pages: 2, w: 6, h: 8 })
+  await writeFile(path.join(here, dir, FLYER_PDF.replace('.pdf', '-crop-marks.pdf')), crop.pdf)
   const gang = await pressPdf(browser, { ...press, sheet: { w: 12, h: 18 }, cols: 2, rows: 2, labels: labels('4-up, flip on long edge') })
-  assertPdf('flyer 4-up', gang.pdf, { pages: 2, w: 12, h: 18 })
-  await writeFile(path.join(here, 'flyer', FLYER_PDF.replace('.pdf', '-4up-12x18.pdf')), gang.pdf)
+  assertPdf(`${dir} 4-up`, gang.pdf, { pages: 2, w: 12, h: 18 })
+  await writeFile(path.join(here, dir, FLYER_PDF.replace('.pdf', '-4up-12x18.pdf')), gang.pdf)
 
   // Proofs: 5.25 x 7.25 in at 300 dpi = 1575 x 2175, no guides.
   const ctx = await browser.newContext({
@@ -141,15 +146,15 @@ async function renderFlyer() {
   const page = await ctx.newPage()
   await page.goto(src, { waitUntil: 'load' })
   await page.evaluate(() => document.body.classList.add('proof'))
-  await requireFigtree(page, 'flyer proof')
+  await requireFigtree(page, `${dir} proof`)
   for (const [side, selector] of [['front', '.front'], ['back', '.back']]) {
-    const out = path.join(here, 'flyer', `proof-${side}.png`)
+    const out = path.join(here, dir, `proof-${side}.png`)
     await page.locator(selector).screenshot({ path: out, animations: 'disabled' })
     const { width, height } = readPngHeader(await readFile(out))
     if (width !== 1575 || height !== 2175) throw new Error(`proof-${side}: expected 1575x2175, got ${width}x${height}`)
   }
   await ctx.close()
-  console.log(`✓ flyer ${FLYER_PDF} (2 pages, 5.25 x 7.25 in), -crop-marks.pdf, -4up-12x18.pdf, proof-front.png, proof-back.png (1575x2175)`)
+  console.log(`✓ ${dir} ${FLYER_PDF} (2 pages, 5.25 x 7.25 in), -crop-marks.pdf, -4up-12x18.pdf, proof-front.png, proof-back.png (1575x2175)`)
 }
 
 /** Lifts a sticker's <svg> into a standalone file: font inlined, cut line layer added. */
@@ -413,8 +418,9 @@ try {
   if (wants('flyer')) {
     const qr = await writeQr()
     console.log(`✓ QR for ${SITE_URL} (version ${qr.version}, ${qr.modules}x${qr.modules} modules, ECC M)`)
-    await renderFlyer()
+    await renderFlyer(FLYERS.flyer)
   }
+  if (wants('maker-flyer')) await renderFlyer(FLYERS['maker-flyer'])
   if (wants('stickers')) await renderStickers()
   if (wants('whatsapp')) await renderWhatsApp()
   if (wants('youtube')) await renderYouTube()

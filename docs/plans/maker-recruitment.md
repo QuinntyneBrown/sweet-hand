@@ -395,6 +395,7 @@ Check on Sunday Oct 25 and Sunday Nov 1.
 | Need | Where |
 | --- | --- |
 | Flyer, print-ready | `docs/marketing/flyer/sweet-hand-pre-launch-flyer.pdf` |
+| Maker flyer with answers to the objections, print-ready | `docs/marketing/maker-flyer/sweet-hand-maker-flyer.pdf` |
 | Stickers for doors and boards | `docs/marketing/stickers/sticker-*.png` |
 | WhatsApp image for makers | `docs/marketing/whatsapp/status-2-makers.png` |
 | Facebook post image for makers | `docs/marketing/facebook/post-2-makers.png` |

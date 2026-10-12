@@ -11,6 +11,8 @@ and pepper). Everything points at `https://sweethand.ca`.
 | `flyer/sweet-hand-pre-launch-flyer-4up-12x18.pdf` | 4-up on a 12 × 18 in press sheet with crop marks; the back page backs up on a long-edge flip. |
 | `flyer/flyer.html` | Source. Open in a browser to preview with trim (blue dashed) and safe-zone (pink dotted) guides. |
 | `flyer/proof-front.png`, `proof-back.png` | 300 dpi proofs, full bleed, no guides. |
+| `maker-flyer/sweet-hand-maker-flyer.pdf` (+ `-crop-marks.pdf`, `-4up-12x18.pdf`) | Maker flyer, to hand to cooks: page 1 the pitch, page 2 the questions makers ask (licence, address, part-time, cost, tech). Same print spec and printer choices as the flyer. |
+| `maker-flyer/maker-flyer.html`, `proof-front.png`, `proof-back.png` | Source and 300 dpi proofs. |
 | `stickers/sticker-N-*.png` | Sticker print files: 900 × 900 px RGBA, transparent. The alpha edge is the die cut. |
 | `stickers/sticker-N-*.svg` | Editable vector, font inlined, hidden magenta `#cutline` layer. Outline the text before sending to a printer that is not using the PNG. |
 | `stickers/sticker-N-*-preview.png`, `contact-sheet.png` | Review only: on paper with a shadow. |
@@ -40,7 +42,12 @@ and pepper). Everything points at `https://sweethand.ca`.
 - "Coming soon." is the pre-launch line. Drop it from `flyer.html` once the site is live.
 - Sticker 2 uses the standard phrase "You have a sweet hand." A dialect spelling is a
   one-line edit in `stickers/src/sticker-2-sweet-hand.html`; makers' own spelling wins.
-- Under 40 words a side, excluding the dish list and URL. No claims about certified or
+- **Maker flyer**: the front is the pitch from `docs/plans/maker-recruitment.md`
+  (free to list; your menu, batches and days; address private; free shoot for the first
+  100). The back answers that plan's objections in one line each. "Opens late November"
+  is the pre-launch line; drop it once the site is live, and drop the photo-shoot line
+  once the first 100 are booked.
+- Under 40 words a side (the maker flyer's question side runs to about 70), excluding the dish list and URL. No claims about certified or
   inspected kitchens (see `docs/design-system/foundations/content.html`).
 
 ## Flyer print spec
@@ -137,7 +144,7 @@ cd frontend && npm install        # once; borrows @playwright/test
 node docs/marketing/render.mjs
 ```
 
-`--only flyer`, `--only stickers`, `--only whatsapp`, `--only youtube` or
+`--only flyer`, `--only maker-flyer`, `--only stickers`, `--only whatsapp`, `--only youtube` or
 `--only facebook` renders one group (the flyer PDFs carry a creation date, so rendering only the
 group you changed keeps the diff to that group).
 
