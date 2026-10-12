@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Add or edit place · invalid — Sweet Hand mocks</title>
+<meta name="mock:kind" content="dialog">
+<meta name="mock:screen" content="place-editor">
+<meta name="mock:state" content="invalid">
+<meta name="mock:requirements" content="">
+<meta name="description" content="Duplicate name and bad postal code: error summary plus inline errors.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+
+<!-- The page underneath is inert while the dialog is open. -->
+<div class="page" inert aria-hidden="true">
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="wordmark" href="../../pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-caterers/default.html">Caterers</a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-metrics/default.html">Metrics</a>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+  </nav>
+</header>
+
+<main id="main" class="container">
+  <div class="work-layout">
+    <nav class="side-nav" aria-label="Operator">
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-changes/default.html">Recent changes</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-caterers/default.html">Caterers</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-reviews/default.html">Reviews</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-metrics/default.html">Metrics</a></li>
+      </ul>
+      <ul class="filter-list" aria-label="Directory">
+        <li><a class="filter-list__item" href="../../pages/admin-places/default.html" aria-current="page">Places <span class="filter-list__count">17</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-places-map/default.html">Places map</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-events/default.html">Events <span class="filter-list__count">12</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-calendar/default.html">Calendar</a></li>
+      </ul>
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../../pages/admin-audit/default.html">Audit log</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-cuisines/default.html">Cuisines</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-operators/default.html">Operators</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-breaches/default.html">Breach register</a></li>
+      </ul>
+    </nav>
+
+    <div class="work-main">
+      <div class="page-intro">
+        <div class="page-intro__row">
+          <div><h1>Places</h1><p class="subtitle">17 places · 15 listed, 1 draft, 1 closed · sorted by last change</p></div>
+          <div class="cluster"><a class="btn" href="../../pages/admin-places-map/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Map</a><button class="btn btn--primary" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/place-editor/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add place</button></div>
+        </div>
+      </div>
+      <nav class="tabs" aria-label="View" style="margin-bottom: var(--space-6);"><a class="tab" href="../../pages/admin-places/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>List</a><a class="tab" href="../../pages/admin-places-map/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Map</a></nav>
+      <form role="search" action="../../pages/admin-places/no-results.html" style="max-width: 28rem; margin-bottom: var(--space-4);">
+        <div class="field">
+          <label class="visually-hidden" for="place-q">Search places by name, cuisine, street or area</label>
+          <div class="search-field">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input class="input" id="place-q" name="q" type="search" placeholder="Name, cuisine, street or area" autocomplete="off">
+          </div>
+        </div>
+      </form>
+      <ul class="segmented" aria-label="Filter by type">
+        <li><a href="../../pages/admin-places/default.html" aria-current="page">All <span class="filter-list__count">17</span></a></li>
+        <li><a href="../../pages/admin-places/no-results.html">Restaurants <span class="filter-list__count">5</span></a></li>
+        <li><a href="../../pages/admin-places/no-results.html">Takeout <span class="filter-list__count">3</span></a></li>
+        <li><a href="../../pages/admin-places/no-results.html">Grocery <span class="filter-list__count">3</span></a></li>
+        <li><a href="../../pages/admin-places/no-results.html">Bakeries <span class="filter-list__count">3</span></a></li>
+        <li><a href="../../pages/admin-places/filtered.html">Food trucks <span class="filter-list__count">3</span></a></li>
+      </ul>
+      <ul class="admin-list" aria-label="Places, most recently changed first">
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Yard Pot Jerk Centre</a>
+            <span class="admin-row__meta">Restaurant · Jamaican · 1742 Eglinton Ave W, York · Little Jamaica</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated today</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Yard Pot Jerk Centre" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Yard Pot Jerk Centre" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Shark &amp; Bake Bar</a>
+            <span class="admin-row__meta">Restaurant · Trinidadian &amp; Tobagonian · 3315 Lawrence Ave E, Scarborough</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated today</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Shark &amp; Bake Bar" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Shark &amp; Bake Bar" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Roti Junction</a>
+            <span class="admin-row__meta">Takeout · Trinidadian &amp; Tobagonian · 2286 Dundas St E, Mississauga</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Fri 9 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Roti Junction" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Roti Junction" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Kaieteur Grocery</a>
+            <span class="admin-row__meta">Grocery store · Guyanese · 418 Queen St E, Brampton</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Fri 9 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Kaieteur Grocery" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Kaieteur Grocery" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Mabi Market</a>
+            <span class="admin-row__meta">Grocery store · Pan-Caribbean · 2950 Kingston Rd, Scarborough</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Thu 8 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Mabi Market" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Mabi Market" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Bridgetown Bakeshop</a>
+            <span class="admin-row__meta">Bakery · Barbadian (Bajan) · 2681 Jane St, North York · Jane &amp; Finch</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Thu 8 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Bridgetown Bakeshop" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Bridgetown Bakeshop" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Lakou Kreyòl</a>
+            <span class="admin-row__meta">Restaurant · Haitian · 981 Queen St W, Downtown Toronto</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Wed 7 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Lakou Kreyòl" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Lakou Kreyòl" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Spice Isle Patty Co.</a>
+            <span class="admin-row__meta">Bakery · Grenadian · 57 Harwood Ave S, Ajax</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Tue 6 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Spice Isle Patty Co." data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Spice Isle Patty Co." data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Coconut Bread Corner</a>
+            <span class="admin-row__meta">Bakery · Vincentian · 1530 Albion Rd, Etobicoke</span>
+            <span class="admin-row__meta"><span class="status status--draft">Draft</span> · updated Tue 6 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Coconut Bread Corner" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Coconut Bread Corner" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Pholourie Palace</a>
+            <span class="admin-row__meta">Takeout · Guyanese · 5221 Highway 7 E, Markham</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Mon 5 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Pholourie Palace" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Pholourie Palace" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Sorrel Tree Grocery</a>
+            <span class="admin-row__meta">Grocery store · Jamaican · 88 Simcoe St S, Oshawa</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Sun 4 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Sorrel Tree Grocery" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Sorrel Tree Grocery" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Sancocho Spot</a>
+            <span class="admin-row__meta">Restaurant · Dominican (Dominican Republic) · 3900 Steeles Ave W, Vaughan</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Sat 3 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Sancocho Spot" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Sancocho Spot" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Pepperpot Lunch Counter</a>
+            <span class="admin-row__meta">Takeout · Guyanese · 214 Dundas St W, Downtown Toronto</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Fri 2 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Pepperpot Lunch Counter" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Pepperpot Lunch Counter" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.5"/><circle cx="17" cy="17.5" r="1.5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/food-truck.html">Doubles on Wheels</a>
+            <span class="admin-row__meta">Food truck · Trinidadian &amp; Tobagonian · Home base: Mississauga</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Fri 2 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Doubles on Wheels" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Doubles on Wheels" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.5"/><circle cx="17" cy="17.5" r="1.5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/food-truck.html">Jerk Drum Truck</a>
+            <span class="admin-row__meta">Food truck · Jamaican · Home base: Brampton</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Thu 1 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Jerk Drum Truck" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Jerk Drum Truck" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.5"/><circle cx="17" cy="17.5" r="1.5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/food-truck.html">Callaloo Cart</a>
+            <span class="admin-row__meta">Food truck · St. Lucian · Home base: Downtown Toronto</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Wed 30 Sep</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Callaloo Cart" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Callaloo Cart" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/closed.html">Old Tradewinds Rum Shop</a>
+            <span class="admin-row__meta">Restaurant · Barbadian (Bajan) · 1101 Kingston Rd, Pickering</span>
+            <span class="admin-row__meta"><span class="status status--removed">Closed</span> · updated Fri 25 Sep</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Old Tradewinds Rum Shop" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Old Tradewinds Rum Shop" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+      </ul>
+      <p class="result-count">Showing 1–17 of 17</p>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__brand"><strong>Sweet Hand</strong><span>Operator console. Every action is written to the audit log.</span></div>
+  <nav aria-label="Footer">
+    <ul>
+      <li><a href="../../pages/privacy/default.html">Privacy</a></li>
+      <li><a href="../../pages/terms/default.html">Terms</a></li>
+    </ul>
+  </nav>
+</footer>
+</div>
+
+<div class="backdrop"></div>
+<div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc" data-dismiss-on-escape>
+  <form class="dialog__panel dialog__panel--form" action="../../pages/admin-places/default.html" novalidate>
+    <div class="dialog__header">
+      <div class="dialog__heading">
+        <h2 class="dialog__title" id="dlg-title">Add place</h2>
+        <p class="dialog__desc" id="dlg-desc">Restaurants, takeout, grocery stores, bakeries and food trucks in Toronto and the GTA.</p>
+      </div>
+      <button class="icon-btn" type="button" aria-label="Close" data-mock-href="../../pages/admin-places/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="dialog__body stack">
+      <div class="form-summary" role="alert" tabindex="-1" aria-labelledby="summary-title">
+        <h3 id="summary-title">Fix 2 things to save the place</h3>
+        <ul><li><a href="#name">Roti Junction is already in the directory</a></li><li><a href="#postal">Enter a postal code like L4X 1L6</a></li></ul>
+      </div>
+        <div class="field"><label class="field__label" for="name">Name</label>
+          <input class="input" id="name" name="name" type="text" value="Roti Junction" required aria-invalid="true" aria-describedby="name-error name-help">
+          <span class="field__error" id="name-error">Roti Junction is already in the directory, on Dundas St E. Open it instead, or add the branch name, like “Roti Junction Malton”.</span>
+          <span class="field__help" id="name-help">As the business writes it, accents and all.</span>
+        </div>
+        <fieldset class="field"><legend class="field__label">Type</legend><div class="option-grid"><label class="choice choice--card"><input type="radio" name="ptype" value="restaurant"><span class="choice__text">Restaurant</span></label><label class="choice choice--card"><input type="radio" name="ptype" value="takeout" checked><span class="choice__text">Takeout</span></label><label class="choice choice--card"><input type="radio" name="ptype" value="grocery"><span class="choice__text">Grocery store</span></label><label class="choice choice--card"><input type="radio" name="ptype" value="bakery"><span class="choice__text">Bakery</span></label><label class="choice choice--card"><input type="radio" name="ptype" value="truck"><span class="choice__text">Food truck</span></label></div></fieldset>
+        <div class="field"><label class="field__label" for="cuisine">Primary cuisine</label>
+          <select class="select" id="cuisine" name="cuisine" aria-describedby="cuisine-help"><option>Choose a cuisine</option><option>Jamaican</option><option selected>Trinidadian &amp; Tobagonian</option><option>Guyanese</option><option>Barbadian (Bajan)</option><option>Haitian</option><option>Grenadian</option><option>Vincentian</option><option>St. Lucian</option><option>Dominican (Dominican Republic)</option><option>Pan-Caribbean</option></select>
+          <span class="field__help" id="cuisine-help">Name the island or country, not just “Caribbean”, when the business does.</span>
+        </div>
+        <div class="field"><label class="field__label" for="known">Known for <span class="text-muted">(optional)</span></label>
+          <input class="input" id="known" name="known" type="text" value="Doubles, buss up shut, aloo pie" aria-describedby="known-help">
+          <span class="field__help" id="known-help">A few dishes, separated by commas.</span>
+        </div>
+        <div class="field"><label class="field__label" for="street">Street address</label>
+          <input class="input" id="street" name="street" type="text" value="2286 Dundas St E" required autocomplete="street-address">
+        </div>
+        <div class="field-row">
+  <div class="field"><label class="field__label" for="muni">Municipality</label>
+          <select class="select" id="muni" name="muni"><option>Toronto</option><option selected>Mississauga</option><option>Brampton</option><option>Vaughan</option><option>Markham</option><option>Richmond Hill</option><option>Pickering</option><option>Ajax</option><option>Whitby</option><option>Oshawa</option><option>Oakville</option><option>Milton</option><option>Caledon</option></select>
+        </div>
+        <div class="field"><label class="field__label" for="postal">Postal code</label>
+          <input class="input" id="postal" name="postal" type="text" value="L4X1L" required aria-invalid="true" aria-describedby="postal-error" autocomplete="postal-code" inputmode="text">
+          <span class="field__error" id="postal-error">Enter a postal code like L4X 1L6</span>
+        </div>
+        </div>
+        <div class="field"><span class="field__label">Pin</span><div class="map map--sm" role="region" aria-label="Places map" tabindex="0">
+        
+        <div class="map__canvas">
+        <svg viewBox="0 0 1000 640" role="img" aria-label="Map of Toronto and the GTA from Oakville to Oshawa along Lake Ontario">
+          <rect class="map__land" width="1000" height="640"/>
+          <path class="map__water" d="M0 560 C140 530 300 482 420 458 C470 448 520 452 560 440 C650 414 760 384 860 362 C920 349 960 342 1000 336 L1000 640 L0 640 Z"/>
+          <path class="map__water" d="M486 470 c14 -8 40 -10 58 -4 c-10 10 -40 14 -58 4z"/>
+          <text class="map__water-label" x="640" y="560">LAKE ONTARIO</text>
+          <path class="map__boundary" d="M330 474 L330 248 L640 222 L700 262 L792 330 L770 392"/>
+          <path class="map__road" d="M40 520 C180 488 330 452 470 432"/>
+          <path class="map__road" d="M110 330 C300 300 520 288 700 300 C820 306 920 290 1000 272"/>
+          <path class="map__road" d="M90 250 C300 210 560 176 760 168 C860 164 940 160 1000 150"/>
+          <path class="map__road" d="M432 300 L428 0"/>
+          <path class="map__road" d="M560 438 C580 380 600 330 604 300 L612 0"/>
+          <path class="map__road" d="M330 470 L330 190"/>
+          <path class="map__road" d="M236 330 L224 60"/>
+          <path class="map__road map__road--major" d="M300 420 C380 400 450 380 560 360 C660 345 760 330 860 316"/>
+          <path class="map__road map__road--major" d="M470 300 L470 448"/>
+          <text class="map__road-label" x="170" y="324">401</text>
+          <text class="map__road-label" x="120" y="496">QEW</text>
+          <text class="map__road-label" x="438" y="90">400</text>
+          <text class="map__road-label" x="620" y="90">404</text>
+          <text class="map__road-label" x="336" y="230">427</text>
+          <text class="map__road-label" x="242" y="110">410</text>
+          <text class="map__road-label" x="780" y="160">407</text>
+          <text class="map__label" x="70" y="470">Oakville</text>
+          <text class="map__label" x="190" y="380">Mississauga</text>
+          <text class="map__label" x="170" y="190">Brampton</text>
+          <text class="map__label" x="360" y="150">Vaughan</text>
+          <text class="map__label" x="510" y="130">Richmond Hill</text>
+          <text class="map__label" x="700" y="200">Markham</text>
+          <text class="map__label" x="560" y="300">Toronto</text>
+          <text class="map__label map__label--sm" x="700" y="316">Scarborough</text>
+          <text class="map__label map__label--sm" x="350" y="400">Etobicoke</text>
+          <text class="map__label map__label--sm" x="452" y="254">North York</text>
+          <text class="map__label" x="810" y="290">Pickering</text>
+          <text class="map__label" x="884" y="342">Ajax</text>
+          <text class="map__label" x="930" y="262">Oshawa</text>
+        </svg>
+        <button class="pin pin--takeout" type="button" style="left: 30.0%; top: 65.6%;" aria-pressed="true" aria-label="Roti Junction, takeout, Mississauga" data-mock-href="#"><span class="pin__head"><span aria-hidden="true">T</span></span></button>
+        </div>
+      </div><span class="field__help">Placed from the address. Drag the pin if the entrance is around the corner.</span></div>
+        <div class="field-row">
+        <div class="field"><label class="field__label" for="phone">Phone <span class="text-muted">(optional)</span></label>
+          <input class="input" id="phone" name="phone" type="tel">
+        </div>
+        <div class="field"><label class="field__label" for="web">Website <span class="text-muted">(optional)</span></label>
+          <input class="input" id="web" name="web" type="url">
+        </div>
+        </div>
+        <fieldset class="field"><legend class="field__label">Dietary and allergens <span class="text-muted">(optional)</span></legend><div class="option-grid"><label class="choice"><input type="checkbox"><span class="choice__text">Halal</span></label><label class="choice"><input type="checkbox"><span class="choice__text">Ital</span></label><label class="choice"><input type="checkbox"><span class="choice__text">Vegan options</span></label><label class="choice"><input type="checkbox"><span class="choice__text">Gluten-free options</span></label><label class="choice"><input type="checkbox"><span class="choice__text">Contains nuts</span></label><label class="choice"><input type="checkbox"><span class="choice__text">Contains shellfish</span></label></div><span class="field__help">What the business says about its own food. Sweet Hand doesn’t certify kitchens.</span></fieldset>
+        <div class="field"><label class="field__label" for="hours">Hours <span class="text-muted">(optional)</span></label>
+          <input class="input" id="hours" name="hours" type="text" aria-describedby="hours-help">
+          <span class="field__help" id="hours-help">Edit day by day on the place page once it’s saved.</span>
+        </div>
+        <label class="switch"><input type="checkbox" role="switch"><span class="switch__text">Listed — visible on the map and in search</span></label>
+
+    </div>
+    <div class="dialog__footer">
+      <button class="btn" type="button" data-mock-href="../../pages/admin-places/default.html">Cancel</button>
+      <button class="btn btn--primary" type="submit">Add place</button>
+    </div>
+  </form>
+</div>
+
+<p class="mock-note" style="top: 1rem; left: 1rem;">Focus moves to the summary; each link jumps to its field. Duplicate check compares name and municipality, ignoring case and accents.</p>
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Add or edit place</span>
+  <ul class="mock-bar__states">
+    <li><a href="default.html">default</a></li>
+    <li><a href="edit.html">edit</a></li>
+    <li><a href="food-truck.html">food-truck</a></li>
+    <li><a href="busy.html">busy</a></li>
+    <li><a href="invalid.html" aria-current="page">invalid</a></li>
+    <li><a href="failed.html">failed</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>

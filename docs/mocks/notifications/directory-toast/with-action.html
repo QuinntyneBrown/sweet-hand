@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Directory toast · with-action — Sweet Hand mocks</title>
+<meta name="mock:kind" content="notification">
+<meta name="mock:screen" content="directory-toast">
+<meta name="mock:state" content="with-action">
+<meta name="mock:requirements" content="">
+<meta name="description" content="Old Tradewinds Rum Shop deleted: It’s off the directory and the map.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+<div class="page">
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="wordmark" href="../../pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-caterers/default.html">Caterers</a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-metrics/default.html">Metrics</a>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+  </nav>
+</header>
+
+<main id="main" class="container">
+  <div class="work-layout">
+    <nav class="side-nav" aria-label="Operator">
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-changes/default.html">Recent changes</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-caterers/default.html">Caterers</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-reviews/default.html">Reviews</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-metrics/default.html">Metrics</a></li>
+      </ul>
+      <ul class="filter-list" aria-label="Directory">
+        <li><a class="filter-list__item" href="../../pages/admin-places/default.html" aria-current="page">Places <span class="filter-list__count">17</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-places-map/default.html">Places map</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-events/default.html">Events <span class="filter-list__count">12</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-calendar/default.html">Calendar</a></li>
+      </ul>
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../../pages/admin-audit/default.html">Audit log</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-cuisines/default.html">Cuisines</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-operators/default.html">Operators</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-breaches/default.html">Breach register</a></li>
+      </ul>
+    </nav>
+
+    <div class="work-main">
+      <div class="page-intro">
+        <div class="page-intro__row">
+          <div><h1>Places</h1><p class="subtitle">17 places · 15 listed, 1 draft, 1 closed · sorted by last change</p></div>
+          <div class="cluster"><a class="btn" href="../../pages/admin-places-map/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Map</a><button class="btn btn--primary" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/place-editor/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add place</button></div>
+        </div>
+      </div>
+      <nav class="tabs" aria-label="View" style="margin-bottom: var(--space-6);"><a class="tab" href="../../pages/admin-places/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>List</a><a class="tab" href="../../pages/admin-places-map/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Map</a></nav>
+      <form role="search" action="../../pages/admin-places/no-results.html" style="max-width: 28rem; margin-bottom: var(--space-4);">
+        <div class="field">
+          <label class="visually-hidden" for="place-q">Search places by name, cuisine, street or area</label>
+          <div class="search-field">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input class="input" id="place-q" name="q" type="search" placeholder="Name, cuisine, street or area" autocomplete="off">
+          </div>
+        </div>
+      </form>
+      <ul class="segmented" aria-label="Filter by type">
+        <li><a href="../../pages/admin-places/default.html" aria-current="page">All <span class="filter-list__count">17</span></a></li>
+        <li><a href="../../pages/admin-places/no-results.html">Restaurants <span class="filter-list__count">5</span></a></li>
+        <li><a href="../../pages/admin-places/no-results.html">Takeout <span class="filter-list__count">3</span></a></li>
+        <li><a href="../../pages/admin-places/no-results.html">Grocery <span class="filter-list__count">3</span></a></li>
+        <li><a href="../../pages/admin-places/no-results.html">Bakeries <span class="filter-list__count">3</span></a></li>
+        <li><a href="../../pages/admin-places/filtered.html">Food trucks <span class="filter-list__count">3</span></a></li>
+      </ul>
+      <ul class="admin-list" aria-label="Places, most recently changed first">
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Yard Pot Jerk Centre</a>
+            <span class="admin-row__meta">Restaurant · Jamaican · 1742 Eglinton Ave W, York · Little Jamaica</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated today</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Yard Pot Jerk Centre" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Yard Pot Jerk Centre" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Shark &amp; Bake Bar</a>
+            <span class="admin-row__meta">Restaurant · Trinidadian &amp; Tobagonian · 3315 Lawrence Ave E, Scarborough</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated today</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Shark &amp; Bake Bar" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Shark &amp; Bake Bar" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Roti Junction</a>
+            <span class="admin-row__meta">Takeout · Trinidadian &amp; Tobagonian · 2286 Dundas St E, Mississauga</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Fri 9 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Roti Junction" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Roti Junction" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Kaieteur Grocery</a>
+            <span class="admin-row__meta">Grocery store · Guyanese · 418 Queen St E, Brampton</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Fri 9 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Kaieteur Grocery" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Kaieteur Grocery" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Mabi Market</a>
+            <span class="admin-row__meta">Grocery store · Pan-Caribbean · 2950 Kingston Rd, Scarborough</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Thu 8 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Mabi Market" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Mabi Market" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Bridgetown Bakeshop</a>
+            <span class="admin-row__meta">Bakery · Barbadian (Bajan) · 2681 Jane St, North York · Jane &amp; Finch</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Thu 8 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Bridgetown Bakeshop" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Bridgetown Bakeshop" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Lakou Kreyòl</a>
+            <span class="admin-row__meta">Restaurant · Haitian · 981 Queen St W, Downtown Toronto</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Wed 7 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Lakou Kreyòl" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Lakou Kreyòl" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Spice Isle Patty Co.</a>
+            <span class="admin-row__meta">Bakery · Grenadian · 57 Harwood Ave S, Ajax</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Tue 6 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Spice Isle Patty Co." data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Spice Isle Patty Co." data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Coconut Bread Corner</a>
+            <span class="admin-row__meta">Bakery · Vincentian · 1530 Albion Rd, Etobicoke</span>
+            <span class="admin-row__meta"><span class="status status--draft">Draft</span> · updated Tue 6 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Coconut Bread Corner" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Coconut Bread Corner" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Pholourie Palace</a>
+            <span class="admin-row__meta">Takeout · Guyanese · 5221 Highway 7 E, Markham</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Mon 5 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Pholourie Palace" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Pholourie Palace" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Sorrel Tree Grocery</a>
+            <span class="admin-row__meta">Grocery store · Jamaican · 88 Simcoe St S, Oshawa</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Sun 4 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Sorrel Tree Grocery" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Sorrel Tree Grocery" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Sancocho Spot</a>
+            <span class="admin-row__meta">Restaurant · Dominican (Dominican Republic) · 3900 Steeles Ave W, Vaughan</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Sat 3 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Sancocho Spot" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Sancocho Spot" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/default.html">Pepperpot Lunch Counter</a>
+            <span class="admin-row__meta">Takeout · Guyanese · 214 Dundas St W, Downtown Toronto</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Fri 2 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Pepperpot Lunch Counter" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Pepperpot Lunch Counter" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.5"/><circle cx="17" cy="17.5" r="1.5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/food-truck.html">Doubles on Wheels</a>
+            <span class="admin-row__meta">Food truck · Trinidadian &amp; Tobagonian · Home base: Mississauga</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Fri 2 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Doubles on Wheels" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Doubles on Wheels" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.5"/><circle cx="17" cy="17.5" r="1.5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/food-truck.html">Jerk Drum Truck</a>
+            <span class="admin-row__meta">Food truck · Jamaican · Home base: Brampton</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Thu 1 Oct</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Jerk Drum Truck" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Jerk Drum Truck" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.5"/><circle cx="17" cy="17.5" r="1.5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/food-truck.html">Callaloo Cart</a>
+            <span class="admin-row__meta">Food truck · St. Lucian · Home base: Downtown Toronto</span>
+            <span class="admin-row__meta"><span class="status status--published">Listed</span> · updated Wed 30 Sep</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Callaloo Cart" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Callaloo Cart" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+        <li class="admin-row">
+          <span class="photo photo--placeholder photo--xs"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h16l-1-5H5zM5 9v11h14V9M10 20v-5h4v5"/></svg></span>
+          <span class="admin-row__body">
+            <a class="admin-row__title" href="../../pages/admin-place/closed.html">Old Tradewinds Rum Shop</a>
+            <span class="admin-row__meta">Restaurant · Barbadian (Bajan) · 1101 Kingston Rd, Pickering</span>
+            <span class="admin-row__meta"><span class="status status--removed">Closed</span> · updated Fri 25 Sep</span>
+          </span>
+          <span class="admin-row__actions">
+            <button class="btn btn--sm" type="button" aria-haspopup="dialog" aria-label="Edit Old Tradewinds Rum Shop" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button>
+            <button class="btn btn--sm btn--ghost btn--icon" type="button" aria-haspopup="dialog" aria-label="Delete Old Tradewinds Rum Shop" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </span>
+        </li>
+      </ul>
+      <p class="result-count">Showing 1–17 of 17</p>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__brand"><strong>Sweet Hand</strong><span>Operator console. Every action is written to the audit log.</span></div>
+  <nav aria-label="Footer">
+    <ul>
+      <li><a href="../../pages/privacy/default.html">Privacy</a></li>
+      <li><a href="../../pages/terms/default.html">Terms</a></li>
+    </ul>
+  </nav>
+</footer>
+</div>
+<div class="toast-region" role="status" aria-live="polite">
+  <div class="toast toast--success">
+    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+    <div class="toast__body">
+      <div class="toast__title">Old Tradewinds Rum Shop deleted</div>
+      <p>It’s off the directory and the map.</p>
+    </div>
+    <div class="toast__actions"><button class="toast__action" type="button">Undo</button></div>
+    <button class="icon-btn" type="button" aria-label="Dismiss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+</div>
+<p class="mock-note" style="bottom: 4.5rem; right: 1rem;">Undo stays for 10 seconds and the timer pauses while the toast has focus or hover. Ctrl+Z also undoes.</p>
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Directory toast</span>
+  <ul class="mock-bar__states">
+    <li><a href="info.html">info</a></li>
+    <li><a href="success.html">success</a></li>
+    <li><a href="warning.html">warning</a></li>
+    <li><a href="danger.html">danger</a></li>
+    <li><a href="with-action.html" aria-current="page">with-action</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>

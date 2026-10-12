@@ -1831,6 +1831,177 @@
         "loading": "Prerendered at build time; no data loads after first paint.",
         "empty": "Static content and a form; there is no collection that can be empty."
       }
+    },
+    {
+      "id": "admin-places",
+      "kind": "page",
+      "title": "Places",
+      "route": "/admin/places",
+      "requirements": [],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "no-results",
+        "filtered"
+      ]
+    },
+    {
+      "id": "admin-place",
+      "kind": "page",
+      "title": "Place",
+      "route": "/admin/places/{id}",
+      "requirements": [],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "food-truck",
+        "closed"
+      ],
+      "not_applicable": {
+        "empty": "A place always has a name, type and cuisine (required in the editor); there is no empty record."
+      }
+    },
+    {
+      "id": "admin-places-map",
+      "kind": "page",
+      "title": "Places map",
+      "route": "/admin/places/map",
+      "requirements": [],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "empty",
+        "selected",
+        "filtered"
+      ]
+    },
+    {
+      "id": "admin-events",
+      "kind": "page",
+      "title": "Events",
+      "route": "/admin/events",
+      "requirements": [],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "no-results",
+        "past"
+      ]
+    },
+    {
+      "id": "admin-calendar",
+      "kind": "page",
+      "title": "Calendar",
+      "route": "/admin/events/calendar",
+      "requirements": [],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "week",
+        "day",
+        "filtered"
+      ]
+    },
+    {
+      "id": "admin-event",
+      "kind": "page",
+      "title": "Event",
+      "route": "/admin/events/{id}",
+      "requirements": [],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "recurring",
+        "cancelled"
+      ],
+      "not_applicable": {
+        "empty": "An event always has a title, type, date and venue (required in the editor); there is no empty record."
+      }
+    },
+    {
+      "id": "place-editor",
+      "kind": "dialog",
+      "title": "Add or edit place",
+      "opens_from": "admin-places",
+      "requirements": [],
+      "states": [
+        "default",
+        "edit",
+        "food-truck",
+        "busy",
+        "invalid",
+        "failed"
+      ]
+    },
+    {
+      "id": "delete-place",
+      "kind": "dialog",
+      "title": "Delete place",
+      "opens_from": "admin-place",
+      "requirements": [],
+      "states": [
+        "default",
+        "busy",
+        "has-events",
+        "failed"
+      ],
+      "not_applicable": {
+        "invalid": "Deleting has no inputs to validate; it only asks for confirmation."
+      }
+    },
+    {
+      "id": "event-editor",
+      "kind": "dialog",
+      "title": "Add or edit event",
+      "opens_from": "admin-calendar",
+      "requirements": [],
+      "states": [
+        "default",
+        "edit",
+        "recurring",
+        "busy",
+        "invalid",
+        "failed"
+      ]
+    },
+    {
+      "id": "delete-event",
+      "kind": "dialog",
+      "title": "Delete event",
+      "opens_from": "admin-event",
+      "requirements": [],
+      "states": [
+        "default",
+        "busy",
+        "recurring",
+        "failed"
+      ],
+      "not_applicable": {
+        "invalid": "Deleting has no free-text inputs; the repeating choice always has a default."
+      }
+    },
+    {
+      "id": "directory-toast",
+      "kind": "notification",
+      "title": "Directory toast",
+      "opens_from": "admin-places",
+      "requirements": [],
+      "states": [
+        "info",
+        "success",
+        "warning",
+        "danger",
+        "with-action"
+      ]
     }
   ]
 }

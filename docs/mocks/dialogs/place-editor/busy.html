@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Add or edit place · busy — Sweet Hand mocks</title>
+<meta name="mock:kind" content="dialog">
+<meta name="mock:screen" content="place-editor">
+<meta name="mock:state" content="busy">
+<meta name="mock:requirements" content="">
+<meta name="description" content="Saving: fields and buttons disabled, spinner on Save.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+
+<!-- The page underneath is inert while the dialog is open. -->
+<div class="page" inert aria-hidden="true">
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="wordmark" href="../../pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-caterers/default.html">Caterers</a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-metrics/default.html">Metrics</a>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+  </nav>
+</header>
+
+<main id="main" class="container">
+  <div class="work-layout">
+    <nav class="side-nav" aria-label="Operator">
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-changes/default.html">Recent changes</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-caterers/default.html">Caterers</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-reviews/default.html">Reviews</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-metrics/default.html">Metrics</a></li>
+      </ul>
+      <ul class="filter-list" aria-label="Directory">
+        <li><a class="filter-list__item" href="../../pages/admin-places/default.html" aria-current="page">Places <span class="filter-list__count">17</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-places-map/default.html">Places map</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-events/default.html">Events <span class="filter-list__count">12</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-calendar/default.html">Calendar</a></li>
+      </ul>
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../../pages/admin-audit/default.html">Audit log</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-cuisines/default.html">Cuisines</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-operators/default.html">Operators</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-breaches/default.html">Breach register</a></li>
+      </ul>
+    </nav>
+
+    <div class="work-main">
+      <a class="eyebrow" href="../../pages/admin-places/default.html"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>Places</a>
+      <div class="page-intro" style="margin-top: var(--space-4);">
+        <div class="page-intro__row">
+          <div><h1>Yard Pot Jerk Centre</h1><p class="cluster subtitle"><span class="status status--published">Listed</span><span>Restaurant · Jamaican</span></p></div>
+          <div class="cluster"><button class="btn" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button><button class="btn btn--ghost" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Delete</button></div>
+        </div>
+      </div>
+      <section class="caterer-section" style="margin-top: var(--space-8);" aria-labelledby="loc-title">
+        <h2 id="loc-title">Location</h2>
+        <div class="stack">
+          <div class="map map--sm" role="region" aria-label="Places map" tabindex="0">
+        
+        <div class="map__canvas">
+        <svg viewBox="0 0 1000 640" role="img" aria-label="Map of Toronto and the GTA from Oakville to Oshawa along Lake Ontario">
+          <rect class="map__land" width="1000" height="640"/>
+          <path class="map__water" d="M0 560 C140 530 300 482 420 458 C470 448 520 452 560 440 C650 414 760 384 860 362 C920 349 960 342 1000 336 L1000 640 L0 640 Z"/>
+          <path class="map__water" d="M486 470 c14 -8 40 -10 58 -4 c-10 10 -40 14 -58 4z"/>
+          <text class="map__water-label" x="640" y="560">LAKE ONTARIO</text>
+          <path class="map__boundary" d="M330 474 L330 248 L640 222 L700 262 L792 330 L770 392"/>
+          <path class="map__road" d="M40 520 C180 488 330 452 470 432"/>
+          <path class="map__road" d="M110 330 C300 300 520 288 700 300 C820 306 920 290 1000 272"/>
+          <path class="map__road" d="M90 250 C300 210 560 176 760 168 C860 164 940 160 1000 150"/>
+          <path class="map__road" d="M432 300 L428 0"/>
+          <path class="map__road" d="M560 438 C580 380 600 330 604 300 L612 0"/>
+          <path class="map__road" d="M330 470 L330 190"/>
+          <path class="map__road" d="M236 330 L224 60"/>
+          <path class="map__road map__road--major" d="M300 420 C380 400 450 380 560 360 C660 345 760 330 860 316"/>
+          <path class="map__road map__road--major" d="M470 300 L470 448"/>
+          <text class="map__road-label" x="170" y="324">401</text>
+          <text class="map__road-label" x="120" y="496">QEW</text>
+          <text class="map__road-label" x="438" y="90">400</text>
+          <text class="map__road-label" x="620" y="90">404</text>
+          <text class="map__road-label" x="336" y="230">427</text>
+          <text class="map__road-label" x="242" y="110">410</text>
+          <text class="map__road-label" x="780" y="160">407</text>
+          <text class="map__label" x="70" y="470">Oakville</text>
+          <text class="map__label" x="190" y="380">Mississauga</text>
+          <text class="map__label" x="170" y="190">Brampton</text>
+          <text class="map__label" x="360" y="150">Vaughan</text>
+          <text class="map__label" x="510" y="130">Richmond Hill</text>
+          <text class="map__label" x="700" y="200">Markham</text>
+          <text class="map__label" x="560" y="300">Toronto</text>
+          <text class="map__label map__label--sm" x="700" y="316">Scarborough</text>
+          <text class="map__label map__label--sm" x="350" y="400">Etobicoke</text>
+          <text class="map__label map__label--sm" x="452" y="254">North York</text>
+          <text class="map__label" x="810" y="290">Pickering</text>
+          <text class="map__label" x="884" y="342">Ajax</text>
+          <text class="map__label" x="930" y="262">Oshawa</text>
+        </svg>
+        <button class="pin pin--restaurant" type="button" style="left: 46.8%; top: 57.5%;" aria-pressed="true" aria-label="Yard Pot Jerk Centre, restaurant, York · Little Jamaica" data-mock-href="../../pages/admin-place/default.html"><span class="pin__head"><span aria-hidden="true">R</span></span></button>
+        </div>
+      </div>
+          <dl class="kv">
+            <dt>Address</dt><dd>1742 Eglinton Ave W, Toronto ON M6E 2H8</dd>
+            <dt>Area</dt><dd>York · Little Jamaica</dd>
+            <dt>Nearest intersection</dt><dd>Eglinton Ave W &amp; Oakwood Ave</dd>
+          </dl>
+          <p class="text-caption">A storefront’s address is public. Home cooks are never listed here; they stay on their caterer page with an approximate area.</p>
+        </div>
+      </section>
+      <section class="caterer-section" aria-labelledby="det-title">
+        <h2 id="det-title">Details</h2>
+        <dl class="kv">
+          <dt>Cuisine</dt><dd>Jamaican (primary), Pan-Caribbean</dd>
+          <dt>Known for</dt><dd>Jerk chicken, oxtail, festival, Saturday soup</dd>
+          <dt>Dietary</dt><dd><span class="tags"><span class="tag">Halal chicken</span><span class="tag">Ital options</span><span class="tag tag--allergen">Contains nuts (peanut punch)</span></span></dd>
+          <dt>Phone</dt><dd>+1 416 555 0164</dd>
+          <dt>Website</dt><dd><a class="link--external" href="https://yard-pot-jerk-centre.example" rel="noopener">yard-pot-jerk-centre.example <svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></dd>
+          <dt>Instagram</dt><dd>@yardpotjerkcentre</dd>
+        </dl>
+      </section>
+      <section class="caterer-section" aria-labelledby="hours-title">
+        <h2 id="hours-title">Hours</h2>
+        <div class="table-wrap"><table class="table table--dense"><caption class="visually-hidden">Opening hours</caption><tbody><tr><th scope="row">Monday</th><td>Closed</td></tr><tr><th scope="row">Tuesday</th><td>11 a.m.–9 p.m.</td></tr><tr><th scope="row">Wednesday</th><td>11 a.m.–9 p.m.</td></tr><tr><th scope="row">Thursday</th><td>11 a.m.–9 p.m.</td></tr><tr><th scope="row">Friday</th><td>11 a.m.–11 p.m.</td></tr><tr><th scope="row">Saturday</th><td>10 a.m.–11 p.m.</td></tr><tr><th scope="row">Sunday</th><td>12–8 p.m.</td></tr></tbody></table></div>
+        <p class="text-caption" style="margin-top: var(--space-3);">Thanksgiving Monday 12 Oct: closed.</p>
+      </section>
+      <section class="caterer-section" aria-labelledby="ev-title">
+        <h2 id="ev-title">At events</h2>
+        <ul class="agenda">
+          <li><a class="agenda__item ev--market" href="../../pages/admin-event/recurring.html"><span class="agenda__time">Every Saturday</span><span class="agenda__title">Little Jamaica Saturday Market</span><span class="agenda__meta">Vendor · until Sat 31 Oct</span></a></li>
+          <li><a class="agenda__item ev--festival" href="../../pages/admin-event/default.html"><span class="agenda__time">Sat 17 Oct</span><span class="agenda__title">Pepper Sauce Throwdown</span><span class="agenda__meta">Judge’s table sponsor</span></a></li>
+        </ul>
+      </section>
+      <section class="caterer-section" aria-labelledby="hist-title">
+        <h2 id="hist-title">History</h2>
+        <dl class="kv">
+          <dt>Added</dt><dd>Mon 13 Jul by Leah Mohammed</dd>
+          <dt>Last change</dt><dd>Today 9:14 a.m. by Leah Mohammed · hours updated</dd>
+        </dl>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__brand"><strong>Sweet Hand</strong><span>Operator console. Every action is written to the audit log.</span></div>
+  <nav aria-label="Footer">
+    <ul>
+      <li><a href="../../pages/privacy/default.html">Privacy</a></li>
+      <li><a href="../../pages/terms/default.html">Terms</a></li>
+    </ul>
+  </nav>
+</footer>
+</div>
+
+<div class="backdrop"></div>
+<div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc" data-dismiss-on-escape>
+  <form class="dialog__panel dialog__panel--form" action="../../pages/admin-place/default.html" novalidate>
+    <div class="dialog__header">
+      <div class="dialog__heading">
+        <h2 class="dialog__title" id="dlg-title">Edit place</h2>
+        <p class="dialog__desc" id="dlg-desc">Changes go live as soon as you save.</p>
+      </div>
+      <button class="icon-btn" type="button" aria-label="Close" data-mock-href="../../pages/admin-places/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="dialog__body stack">
+        <div class="field"><label class="field__label" for="name">Name</label>
+          <input class="input" id="name" name="name" type="text" value="Yard Pot Jerk Centre" required aria-describedby="name-help" disabled>
+          <span class="field__help" id="name-help">As the business writes it, accents and all.</span>
+        </div>
+        <fieldset class="field"><legend class="field__label">Type</legend><div class="option-grid"><label class="choice choice--card"><input type="radio" name="ptype" value="restaurant" checked disabled><span class="choice__text">Restaurant</span></label><label class="choice choice--card"><input type="radio" name="ptype" value="takeout" disabled><span class="choice__text">Takeout</span></label><label class="choice choice--card"><input type="radio" name="ptype" value="grocery" disabled><span class="choice__text">Grocery store</span></label><label class="choice choice--card"><input type="radio" name="ptype" value="bakery" disabled><span class="choice__text">Bakery</span></label><label class="choice choice--card"><input type="radio" name="ptype" value="truck" disabled><span class="choice__text">Food truck</span></label></div></fieldset>
+        <div class="field"><label class="field__label" for="cuisine">Primary cuisine</label>
+          <select class="select" id="cuisine" name="cuisine" aria-describedby="cuisine-help"><option>Choose a cuisine</option><option selected>Jamaican</option><option>Trinidadian &amp; Tobagonian</option><option>Guyanese</option><option>Barbadian (Bajan)</option><option>Haitian</option><option>Grenadian</option><option>Vincentian</option><option>St. Lucian</option><option>Dominican (Dominican Republic)</option><option>Pan-Caribbean</option></select>
+          <span class="field__help" id="cuisine-help">Name the island or country, not just “Caribbean”, when the business does.</span>
+        </div>
+        <div class="field"><label class="field__label" for="known">Known for <span class="text-muted">(optional)</span></label>
+          <input class="input" id="known" name="known" type="text" value="Jerk chicken, oxtail, festival, Saturday soup" aria-describedby="known-help" disabled>
+          <span class="field__help" id="known-help">A few dishes, separated by commas.</span>
+        </div>
+        <div class="field"><label class="field__label" for="street">Street address</label>
+          <input class="input" id="street" name="street" type="text" value="1742 Eglinton Ave W" required disabled autocomplete="street-address">
+        </div>
+        <div class="field-row">
+  <div class="field"><label class="field__label" for="muni">Municipality</label>
+          <select class="select" id="muni" name="muni"><option selected>Toronto</option><option>Mississauga</option><option>Brampton</option><option>Vaughan</option><option>Markham</option><option>Richmond Hill</option><option>Pickering</option><option>Ajax</option><option>Whitby</option><option>Oshawa</option><option>Oakville</option><option>Milton</option><option>Caledon</option></select>
+        </div>
+        <div class="field"><label class="field__label" for="postal">Postal code</label>
+          <input class="input" id="postal" name="postal" type="text" value="M6E 2H8" required aria-describedby="postal-help" disabled autocomplete="postal-code" inputmode="text">
+          <span class="field__help" id="postal-help">Like M6E 2H8.</span>
+        </div>
+        </div>
+        <div class="field"><span class="field__label">Pin</span><div class="map map--sm" role="region" aria-label="Places map" tabindex="0">
+        
+        <div class="map__canvas">
+        <svg viewBox="0 0 1000 640" role="img" aria-label="Map of Toronto and the GTA from Oakville to Oshawa along Lake Ontario">
+          <rect class="map__land" width="1000" height="640"/>
+          <path class="map__water" d="M0 560 C140 530 300 482 420 458 C470 448 520 452 560 440 C650 414 760 384 860 362 C920 349 960 342 1000 336 L1000 640 L0 640 Z"/>
+          <path class="map__water" d="M486 470 c14 -8 40 -10 58 -4 c-10 10 -40 14 -58 4z"/>
+          <text class="map__water-label" x="640" y="560">LAKE ONTARIO</text>
+          <path class="map__boundary" d="M330 474 L330 248 L640 222 L700 262 L792 330 L770 392"/>
+          <path class="map__road" d="M40 520 C180 488 330 452 470 432"/>
+          <path class="map__road" d="M110 330 C300 300 520 288 700 300 C820 306 920 290 1000 272"/>
+          <path class="map__road" d="M90 250 C300 210 560 176 760 168 C860 164 940 160 1000 150"/>
+          <path class="map__road" d="M432 300 L428 0"/>
+          <path class="map__road" d="M560 438 C580 380 600 330 604 300 L612 0"/>
+          <path class="map__road" d="M330 470 L330 190"/>
+          <path class="map__road" d="M236 330 L224 60"/>
+          <path class="map__road map__road--major" d="M300 420 C380 400 450 380 560 360 C660 345 760 330 860 316"/>
+          <path class="map__road map__road--major" d="M470 300 L470 448"/>
+          <text class="map__road-label" x="170" y="324">401</text>
+          <text class="map__road-label" x="120" y="496">QEW</text>
+          <text class="map__road-label" x="438" y="90">400</text>
+          <text class="map__road-label" x="620" y="90">404</text>
+          <text class="map__road-label" x="336" y="230">427</text>
+          <text class="map__road-label" x="242" y="110">410</text>
+          <text class="map__road-label" x="780" y="160">407</text>
+          <text class="map__label" x="70" y="470">Oakville</text>
+          <text class="map__label" x="190" y="380">Mississauga</text>
+          <text class="map__label" x="170" y="190">Brampton</text>
+          <text class="map__label" x="360" y="150">Vaughan</text>
+          <text class="map__label" x="510" y="130">Richmond Hill</text>
+          <text class="map__label" x="700" y="200">Markham</text>
+          <text class="map__label" x="560" y="300">Toronto</text>
+          <text class="map__label map__label--sm" x="700" y="316">Scarborough</text>
+          <text class="map__label map__label--sm" x="350" y="400">Etobicoke</text>
+          <text class="map__label map__label--sm" x="452" y="254">North York</text>
+          <text class="map__label" x="810" y="290">Pickering</text>
+          <text class="map__label" x="884" y="342">Ajax</text>
+          <text class="map__label" x="930" y="262">Oshawa</text>
+        </svg>
+        <button class="pin pin--restaurant" type="button" style="left: 46.8%; top: 57.5%;" aria-pressed="true" aria-label="Yard Pot Jerk Centre, restaurant, York · Little Jamaica" data-mock-href="#"><span class="pin__head"><span aria-hidden="true">R</span></span></button>
+        </div>
+      </div><span class="field__help">Placed from the address. Drag the pin if the entrance is around the corner.</span></div>
+        <div class="field-row">
+        <div class="field"><label class="field__label" for="phone">Phone <span class="text-muted">(optional)</span></label>
+          <input class="input" id="phone" name="phone" type="tel" value="+1 416 555 0164" disabled>
+        </div>
+        <div class="field"><label class="field__label" for="web">Website <span class="text-muted">(optional)</span></label>
+          <input class="input" id="web" name="web" type="url" value="https://yard-pot-jerk-centre.example" disabled>
+        </div>
+        </div>
+        <fieldset class="field"><legend class="field__label">Dietary and allergens <span class="text-muted">(optional)</span></legend><div class="option-grid"><label class="choice"><input type="checkbox" checked disabled><span class="choice__text">Halal</span></label><label class="choice"><input type="checkbox" checked disabled><span class="choice__text">Ital</span></label><label class="choice"><input type="checkbox" disabled><span class="choice__text">Vegan options</span></label><label class="choice"><input type="checkbox" disabled><span class="choice__text">Gluten-free options</span></label><label class="choice"><input type="checkbox" checked disabled><span class="choice__text">Contains nuts</span></label><label class="choice"><input type="checkbox" disabled><span class="choice__text">Contains shellfish</span></label></div><span class="field__help">What the business says about its own food. Sweet Hand doesn’t certify kitchens.</span></fieldset>
+        <div class="field"><label class="field__label" for="hours">Hours <span class="text-muted">(optional)</span></label>
+          <input class="input" id="hours" name="hours" type="text" value="Tue–Thu 11 a.m.–9 p.m.; Fri 11 a.m.–11 p.m.; Sat 10 a.m.–11 p.m.; Sun 12–8 p.m.; Mon closed" aria-describedby="hours-help" disabled>
+          <span class="field__help" id="hours-help">Edit day by day on the place page once it’s saved.</span>
+        </div>
+        <label class="switch"><input type="checkbox" role="switch" checked disabled><span class="switch__text">Listed — visible on the map and in search</span></label>
+        <p class="visually-hidden" role="status">Saving Yard Pot Jerk Centre</p>
+
+    </div>
+    <div class="dialog__footer">
+      <button class="btn" type="button" disabled>Cancel</button>
+      <button class="btn btn--primary" type="submit" aria-disabled="true" aria-busy="true"><span class="spinner spinner--sm" aria-hidden="true"></span>Saving…</button>
+    </div>
+  </form>
+</div>
+
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Add or edit place</span>
+  <ul class="mock-bar__states">
+    <li><a href="default.html">default</a></li>
+    <li><a href="edit.html">edit</a></li>
+    <li><a href="food-truck.html">food-truck</a></li>
+    <li><a href="busy.html" aria-current="page">busy</a></li>
+    <li><a href="invalid.html">invalid</a></li>
+    <li><a href="failed.html">failed</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>
