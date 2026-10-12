@@ -1,4 +1,4 @@
-import { expect, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 type Role = 'Planning an event' | 'A caterer';
@@ -48,11 +48,11 @@ export class LaunchPage {
   }
 
   get heroPhotos() {
-    return this.page.locator('.page-intro .photo-row');
+    return this.page.locator('.launch-hero__intro .launch-collage');
   }
 
   get overline() {
-    return this.page.locator('.page-intro .overline');
+    return this.page.locator('.launch-hero__intro .overline');
   }
 
   get heading() {
@@ -60,7 +60,7 @@ export class LaunchPage {
   }
 
   get subtitle() {
-    return this.page.locator('.page-intro .subtitle');
+    return this.page.locator('.launch-hero__intro .subtitle');
   }
 
   get signUpSection() {
@@ -75,8 +75,13 @@ export class LaunchPage {
     return this.page.getByRole('heading', { name: 'How it works' });
   }
 
-  get steps() {
-    return this.page.locator('#how .stack');
+  /** The "How it works" steps, as the items of an ordered (numbered) list. */
+  get numberedSteps() {
+    return this.page.locator('#how ol').getByRole('listitem');
+  }
+
+  get catererCallout() {
+    return this.page.locator('#caterers');
   }
 
   get catererHeading() {
@@ -118,6 +123,24 @@ export class LaunchPage {
 
   get canonical() {
     return this.page.locator('link[rel="canonical"]');
+  }
+
+  // Layout
+
+  /** The rendered box of a part of the page, in CSS pixels from the top left of the page. */
+  async box(part: Locator) {
+    const box = await part.boundingBox();
+    if (!box) throw new Error('The part is not rendered');
+    return { left: box.x, top: box.y, right: box.x + box.width, bottom: box.y + box.height, width: box.width };
+  }
+
+  /** The empty space between the header and the hero, and between the caterer call-out and the footer. */
+  async spaceAroundContent() {
+    const header = await this.box(this.header);
+    const footer = await this.box(this.footer);
+    const firstPart = await this.box(this.heroPhotos);
+    const lastPart = await this.box(this.catererCallout);
+    return { above: firstPart.top - header.bottom, below: footer.top - lastPart.bottom };
   }
 
   // The form
