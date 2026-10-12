@@ -24,12 +24,12 @@ banner, 2 MB thumbnail).
 | Setting | Value |
 | --- | --- |
 | Name | Sweet Hand |
-| Handle | `@sweethandca` (fallbacks, in order: `@sweethand`, `@sweethand.ca`) |
+| Handle | `@SweetHandToronto` (the channel was opened with this handle; `@sweethandca` was the first choice) |
 | Description | See below (under 1,000 characters) |
 | Links | `https://sweethand.ca` titled "Join the launch list"; `https://github.com/QuinntyneBrown/sweet-hand` titled "Open source on GitHub" |
 | Contact email | `hello@sweethand.ca` (the production mailbox in `docs/operations/`) |
 | Country | Canada |
-| Keywords | `"Sweet Hand" "Caribbean food" "Caribbean caterer" Toronto GTA Jamaican Trinidadian Guyanese Barbadian "home cooks" "small batch" roti doubles jerk oxtail pelau "black cake"` |
+| Keywords | `Sweet Hand, Caribbean food, Caribbean caterer, Toronto, GTA, Jamaican, Trinidadian, Guyanese, Barbadian, home cooks, small batch, roti, doubles, jerk, oxtail, pelau, black cake` (Studio takes comma-separated values; one chip per phrase) |
 | Upload defaults | Visibility Public · Category Howto & Style · Language English (Canada) · Licence Standard YouTube · Not made for kids · Comments on, hold potentially inappropriate comments for review |
 
 Channel description:
@@ -123,3 +123,15 @@ channel.
 
 Embedding the video on the launch page is a product change: it needs L1/L2
 requirements, a detailed design and a mock first (see `AGENTS.md`).
+
+## Published
+
+| What | Where |
+| --- | --- |
+| Channel | <https://www.youtube.com/@SweetHandToronto> (channel ID `UCujHUBEWBc3DDPNys72pTdg`) |
+| 05 · Cater with Sweet Hand | <https://youtu.be/kJeesMheqQ8>, Public since 12 October 2026, in the "For caterers" playlist, with the English (Canada) captions |
+
+Still to do on the channel: verify a phone number under **Settings → Channel →
+Feature eligibility**, then set `thumbnail-05-cater-with-sweet-hand.png` as the
+video's thumbnail (the upload fell back to an auto-generated frame), and post
+and pin the comment above.
