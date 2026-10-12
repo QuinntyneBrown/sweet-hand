@@ -1,4 +1,4 @@
-<div class="container container--narrow">
+<div class="container launch-hero">
   @switch (notice()?.kind) {
     @case ('link-expired') {
       <div class="section">
@@ -25,18 +25,18 @@
       </div>
     }
   }
-  <div class="page-intro">
-    <div class="photo-row" aria-hidden="true">
-      <span class="photo"><img src="img/maracas-bay.webp" alt="" width="72" height="72" /></span>
-      <span class="photo"><img src="img/pelau-house.webp" alt="" width="104" height="104" fetchpriority="high" /></span>
-      <span class="photo"><img src="img/black-cake-co.webp" alt="" width="72" height="72" /></span>
+  <div class="launch-hero__intro">
+    <div class="launch-collage" aria-hidden="true">
+      <span class="photo"><img src="img/roti-road.webp" alt="" width="160" height="160" /></span>
+      <span class="photo"><img src="img/pelau-house.webp" alt="" width="224" height="224" fetchpriority="high" /></span>
+      <span class="photo"><img src="img/black-cake-co.webp" alt="" width="160" height="160" /></span>
     </div>
     <p class="overline" i18n="@@launch.hero.overline">Opening soon · Toronto and the GTA</p>
     <h1 i18n="@@launch.hero.heading">Find someone with a sweet hand</h1>
-    <p class="subtitle" i18n="@@launch.hero.subtitle">Caribbean caterers, all in one place.</p>
+    <p class="subtitle" i18n="@@launch.hero.subtitle">Jamaican, Trini, Guyanese, Bajan and more: caterers across Toronto and the GTA, all in one place.</p>
   </div>
 
-  <section class="well stack" id="notify" aria-labelledby="notify-title">
+  <section class="well stack launch-hero__form" id="notify" aria-labelledby="notify-title">
     @switch (panel().kind) {
       @case ('success') {
         <div class="empty empty--info" tabindex="-1" id="notify-result">
@@ -66,31 +66,31 @@
   </section>
 </div>
 
-<section class="container section-gap" id="how" aria-labelledby="how-title">
-  <h2 id="how-title" class="section" i18n="@@launch.how.heading">How it works</h2>
-  <div class="grid grid--auto">
-    <div class="stack stack--sm">
+<section class="container launch-section" id="how" aria-labelledby="how-title">
+  <h2 id="how-title" i18n="@@launch.how.heading">How it works</h2>
+  <ol class="launch-steps">
+    <li>
       <h3 i18n="@@launch.how.browse">Browse</h3>
       <p class="text-muted" i18n="@@launch.how.browseText">By island, area and occasion.</p>
-    </div>
-    <div class="stack stack--sm">
+    </li>
+    <li>
       <h3 i18n="@@launch.how.enquire">Enquire</h3>
       <p class="text-muted" i18n="@@launch.how.enquireText">Send your date and guest count.</p>
-    </div>
-    <div class="stack stack--sm">
+    </li>
+    <li>
       <h3 i18n="@@launch.how.agree">Agree</h3>
       <p class="text-muted" i18n="@@launch.how.agreeText">Directly with the caterer. No fees.</p>
-    </div>
-  </div>
+    </li>
+  </ol>
 </section>
 
-<section class="container container--narrow section-gap" id="caterers" aria-labelledby="caterers-title">
-  <div class="stack">
-    <span class="photo photo--md"><img src="img/demerara-kitchen.webp" alt="" width="96" height="96" loading="lazy" /></span>
-    <h2 id="caterers-title" i18n="@@launch.caterers.heading">Caterers: be there on day one</h2>
-    <p class="text-muted" i18n="@@launch.caterers.text">Listing is free. You’ll need a food handler certificate.</p>
-    <div class="cluster">
-      <a class="btn" href="#notify" (click)="joinAsCaterer($event)" i18n="@@launch.caterers.join">Join as a caterer</a>
+<section class="container launch-section" id="caterers" aria-labelledby="caterers-title">
+  <div class="launch-callout">
+    <span class="photo"><img src="img/ti-kay.webp" alt="" width="128" height="128" loading="lazy" /></span>
+    <div class="stack stack--sm">
+      <h2 id="caterers-title" i18n="@@launch.caterers.heading">Caterers: be there on day one</h2>
+      <p class="text-muted" i18n="@@launch.caterers.text">Listing is free. You’ll need a food handler certificate.</p>
     </div>
+    <a class="btn" href="#notify" (click)="joinAsCaterer($event)" i18n="@@launch.caterers.join">Join as a caterer</a>
   </div>
 </section>
