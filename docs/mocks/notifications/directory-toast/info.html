@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Directory toast · info — Sweet Hand mocks</title>
+<meta name="mock:kind" content="notification">
+<meta name="mock:screen" content="directory-toast">
+<meta name="mock:state" content="info">
+<meta name="mock:requirements" content="">
+<meta name="description" content="1 place has no pin yet: Coconut Bread Corner is a draft without an address, so it isn’t on the map.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+<div class="page">
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <a class="wordmark" href="../../pages/admin-queue/default.html">Sweet Hand <span class="wordmark__tag">Operator</span></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-queue/default.html">Queue <span class="badge badge--count" aria-hidden="true">7</span><span class="visually-hidden">, 7 items waiting</span></a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-caterers/default.html">Caterers</a>
+    <a class="site-nav__link site-nav__extra" href="../../pages/admin-metrics/default.html">Metrics</a>
+    <button class="icon-btn site-nav__menu" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" data-mock-href="../../dialogs/site-menu/operator.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+    <button class="avatar site-nav__extra" type="button" aria-label="Account menu for Leah Mohammed" aria-haspopup="menu" aria-expanded="false" data-mock-href="../../dialogs/account-menu/operator.html">LM</button>
+  </nav>
+</header>
+
+<main id="main" class="container">
+  <div class="work-layout">
+    <nav class="side-nav" aria-label="Operator">
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../../pages/admin-queue/default.html">Review queue <span class="filter-list__count"><span aria-hidden="true">7</span><span class="visually-hidden">7 waiting</span></span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-changes/default.html">Recent changes</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-caterers/default.html">Caterers</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-reviews/default.html">Reviews</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-metrics/default.html">Metrics</a></li>
+      </ul>
+      <ul class="filter-list" aria-label="Directory">
+        <li><a class="filter-list__item" href="../../pages/admin-places/default.html">Places <span class="filter-list__count">17</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-places-map/default.html" aria-current="page">Places map</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-events/default.html">Events <span class="filter-list__count">12</span></a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-calendar/default.html">Calendar</a></li>
+      </ul>
+      <ul class="filter-list">
+        <li><a class="filter-list__item" href="../../pages/admin-audit/default.html">Audit log</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-cuisines/default.html">Cuisines</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-operators/default.html">Operators</a></li>
+        <li><a class="filter-list__item" href="../../pages/admin-breaches/default.html">Breach register</a></li>
+      </ul>
+    </nav>
+
+    <div class="work-main">
+      <div class="page-intro">
+        <div class="page-intro__row">
+          <div><h1>Places map</h1><p class="subtitle">15 places · 1 food truck out today</p></div>
+          <div class="cluster"><button class="btn btn--primary" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/place-editor/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add place</button></div>
+        </div>
+      </div>
+      <nav class="tabs" aria-label="View" style="margin-bottom: var(--space-6);"><a class="tab" href="../../pages/admin-places/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>List</a><a class="tab" href="../../pages/admin-places-map/default.html" aria-current="page"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Map</a></nav>
+      <div class="cluster cluster--between" style="margin-bottom: var(--space-4);"><div class="cluster" role="group" aria-label="Show types"><button class="chip" type="button" aria-pressed="true" data-mock-href="../../pages/admin-places-map/filtered.html">Restaurants</button><button class="chip" type="button" aria-pressed="true" data-mock-href="../../pages/admin-places-map/filtered.html">Takeout</button><button class="chip" type="button" aria-pressed="true" data-mock-href="../../pages/admin-places-map/filtered.html">Grocery</button><button class="chip" type="button" aria-pressed="true" data-mock-href="../../pages/admin-places-map/filtered.html">Bakeries</button><button class="chip" type="button" aria-pressed="true" data-mock-href="../../pages/admin-places-map/filtered.html">Food trucks</button></div><label class="switch"><input type="checkbox" role="switch" checked><span class="switch__text">Food trucks out today</span></label></div>
+      <div class="map-layout">
+        <div class="map-layout__list"><ul class="section-list" aria-label="Places on the map"><li><a class="section-link" href="../../pages/admin-places-map/selected.html"><span class="section-link__body"><span class="section-link__title">Bridgetown Bakeshop</span><span class="section-link__meta">Bakery · North York · Jane &amp; Finch</span></span></a></li><li><a class="section-link" href="../../pages/admin-places-map/selected.html"><span class="section-link__body"><span class="section-link__title">Coconut Bread Corner</span><span class="section-link__meta">Bakery · Etobicoke</span></span></a></li><li><a class="section-link" href="../../pages/admin-places-map/selected.html"><span class="section-link__body"><span class="section-link__title">Kaieteur Grocery</span><span class="section-link__meta">Grocery store · Brampton</span></span></a></li><li><a class="section-link" href="../../pages/admin-places-map/selected.html"><span class="section-link__body"><span class="section-link__title">Lakou Kreyòl</span><span class="section-link__meta">Restaurant · Downtown Toronto</span></span></a></li><li><a class="section-link" href="../../pages/admin-places-map/selected.html"><span class="section-link__body"><span class="section-link__title">Mabi Market</span><span class="section-link__meta">Grocery store · Scarborough</span></span></a></li><li><a class="section-link" href="../../pages/admin-places-map/selected.html"><span class="section-link__body"><span class="section-link__title">Pepperpot Lunch Counter</span><span class="section-link__meta">Takeout · Downtown Toronto</span></span></a></li><li><a class="section-link" href="../../pages/admin-places-map/selected.html"><span class="section-link__body"><span class="section-link__title">Pholourie Palace</span><span class="section-link__meta">Takeout · Markham</span></span></a></li><li><a class="section-link" href="../../pages/admin-places-map/selected.html"><span class="section-link__body"><span class="section-link__title">Roti Junction</span><span class="section-link__meta">Takeout · Mississauga</span></span></a></li><li><a class="section-link" href="../../pages/admin-places-map/selected.html"><span class="section-link__body"><span class="section-link__title">Sancocho Spot</span><span class="section-link__meta">Restaurant · Vaughan</span></span></a></li><li><a class="section-link" href="../../pages/admin-places-map/selected.html"><span class="section-link__body"><span class="section-link__title">Shark &amp; Bake Bar</span><span class="section-link__meta">Restaurant · Scarborough</span></span></a></li><li><a class="section-link" href="../../pages/admin-places-map/selected.html"><span class="section-link__body"><span class="section-link__title">Sorrel Tree Grocery</span><span class="section-link__meta">Grocery store · Oshawa</span></span></a></li><li><a class="section-link" href="../../pages/admin-places-map/selected.html"><span class="section-link__body"><span class="section-link__title">Spice Isle Patty Co.</span><span class="section-link__meta">Bakery · Ajax</span></span></a></li><li><a class="section-link" href="../../pages/admin-places-map/selected.html"><span class="section-link__body"><span class="section-link__title">Yard Pot Jerk Centre</span><span class="section-link__meta">Restaurant · York · Little Jamaica</span></span></a></li></ul></div>
+        <div>
+        <div class="map" role="region" aria-label="Places map" tabindex="0">
+        <div class="map__controls"><button class="icon-btn" type="button" aria-label="Zoom in"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button><button class="icon-btn" type="button" aria-label="Zoom out"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><button class="icon-btn" type="button" aria-label="Fit all places"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7"/></svg></button></div>
+        <div class="map__canvas">
+        <svg viewBox="0 0 1000 640" role="img" aria-label="Map of Toronto and the GTA from Oakville to Oshawa along Lake Ontario">
+          <rect class="map__land" width="1000" height="640"/>
+          <path class="map__water" d="M0 560 C140 530 300 482 420 458 C470 448 520 452 560 440 C650 414 760 384 860 362 C920 349 960 342 1000 336 L1000 640 L0 640 Z"/>
+          <path class="map__water" d="M486 470 c14 -8 40 -10 58 -4 c-10 10 -40 14 -58 4z"/>
+          <text class="map__water-label" x="640" y="560">LAKE ONTARIO</text>
+          <path class="map__boundary" d="M330 474 L330 248 L640 222 L700 262 L792 330 L770 392"/>
+          <path class="map__road" d="M40 520 C180 488 330 452 470 432"/>
+          <path class="map__road" d="M110 330 C300 300 520 288 700 300 C820 306 920 290 1000 272"/>
+          <path class="map__road" d="M90 250 C300 210 560 176 760 168 C860 164 940 160 1000 150"/>
+          <path class="map__road" d="M432 300 L428 0"/>
+          <path class="map__road" d="M560 438 C580 380 600 330 604 300 L612 0"/>
+          <path class="map__road" d="M330 470 L330 190"/>
+          <path class="map__road" d="M236 330 L224 60"/>
+          <path class="map__road map__road--major" d="M300 420 C380 400 450 380 560 360 C660 345 760 330 860 316"/>
+          <path class="map__road map__road--major" d="M470 300 L470 448"/>
+          <text class="map__road-label" x="170" y="324">401</text>
+          <text class="map__road-label" x="120" y="496">QEW</text>
+          <text class="map__road-label" x="438" y="90">400</text>
+          <text class="map__road-label" x="620" y="90">404</text>
+          <text class="map__road-label" x="336" y="230">427</text>
+          <text class="map__road-label" x="242" y="110">410</text>
+          <text class="map__road-label" x="780" y="160">407</text>
+          <text class="map__label" x="70" y="470">Oakville</text>
+          <text class="map__label" x="190" y="380">Mississauga</text>
+          <text class="map__label" x="170" y="190">Brampton</text>
+          <text class="map__label" x="360" y="150">Vaughan</text>
+          <text class="map__label" x="510" y="130">Richmond Hill</text>
+          <text class="map__label" x="700" y="200">Markham</text>
+          <text class="map__label" x="560" y="300">Toronto</text>
+          <text class="map__label map__label--sm" x="700" y="316">Scarborough</text>
+          <text class="map__label map__label--sm" x="350" y="400">Etobicoke</text>
+          <text class="map__label map__label--sm" x="452" y="254">North York</text>
+          <text class="map__label" x="810" y="290">Pickering</text>
+          <text class="map__label" x="884" y="342">Ajax</text>
+          <text class="map__label" x="930" y="262">Oshawa</text>
+        </svg>
+        <button class="pin pin--restaurant" type="button" style="left: 46.8%; top: 57.5%;" aria-pressed="false" aria-label="Yard Pot Jerk Centre, restaurant, York · Little Jamaica" data-mock-href="../../pages/admin-places-map/selected.html"><span class="pin__head"><span aria-hidden="true">R</span></span></button>
+<button class="pin pin--restaurant" type="button" style="left: 70.2%; top: 52.5%;" aria-pressed="false" aria-label="Shark &amp; Bake Bar, restaurant, Scarborough" data-mock-href="../../pages/admin-places-map/selected.html"><span class="pin__head"><span aria-hidden="true">R</span></span></button>
+<button class="pin pin--takeout" type="button" style="left: 30.0%; top: 65.6%;" aria-pressed="false" aria-label="Roti Junction, takeout, Mississauga" data-mock-href="../../pages/admin-places-map/selected.html"><span class="pin__head"><span aria-hidden="true">T</span></span></button>
+<button class="pin pin--grocery" type="button" style="left: 23.8%; top: 36.2%;" aria-pressed="false" aria-label="Kaieteur Grocery, grocery store, Brampton" data-mock-href="../../pages/admin-places-map/selected.html"><span class="pin__head"><span aria-hidden="true">G</span></span></button>
+<button class="pin pin--grocery" type="button" style="left: 74.2%; top: 58.1%;" aria-pressed="false" aria-label="Mabi Market, grocery store, Scarborough" data-mock-href="../../pages/admin-places-map/selected.html"><span class="pin__head"><span aria-hidden="true">G</span></span></button>
+<button class="pin pin--bakery" type="button" style="left: 41.8%; top: 44.1%;" aria-pressed="false" aria-label="Bridgetown Bakeshop, bakery, North York · Jane &amp; Finch" data-mock-href="../../pages/admin-places-map/selected.html"><span class="pin__head"><span aria-hidden="true">B</span></span></button>
+<button class="pin pin--bakery" type="button" style="left: 89.6%; top: 49.4%;" aria-pressed="false" aria-label="Spice Isle Patty Co., bakery, Ajax" data-mock-href="../../pages/admin-places-map/selected.html"><span class="pin__head"><span aria-hidden="true">B</span></span></button>
+<button class="pin pin--bakery pin--draft" type="button" style="left: 35.2%; top: 46.9%;" aria-pressed="false" aria-label="Coconut Bread Corner, bakery, Etobicoke, draft" data-mock-href="../../pages/admin-places-map/selected.html"><span class="pin__head"><span aria-hidden="true">B</span></span></button>
+<button class="pin pin--takeout" type="button" style="left: 69.0%; top: 34.4%;" aria-pressed="false" aria-label="Pholourie Palace, takeout, Markham" data-mock-href="../../pages/admin-places-map/selected.html"><span class="pin__head"><span aria-hidden="true">T</span></span></button>
+<button class="pin pin--grocery" type="button" style="left: 97.2%; top: 45.6%;" aria-pressed="false" aria-label="Sorrel Tree Grocery, grocery store, Oshawa" data-mock-href="../../pages/admin-places-map/selected.html"><span class="pin__head"><span aria-hidden="true">G</span></span></button>
+<button class="pin pin--restaurant" type="button" style="left: 41.0%; top: 30.6%;" aria-pressed="false" aria-label="Sancocho Spot, restaurant, Vaughan" data-mock-href="../../pages/admin-places-map/selected.html"><span class="pin__head"><span aria-hidden="true">R</span></span></button>
+<button class="pin-cluster" type="button" style="left: 51%; top: 68.5%;" aria-label="3 places downtown: Lakou Kreyòl, Pepperpot Lunch Counter, and 1 more. Zoom in to see them.">3</button>
+<button class="pin pin--truck" type="button" style="left: 49.2%; top: 54.1%;" aria-pressed="false" aria-label="Jerk Drum Truck, food truck, Home base: Brampton, out today at Little Jamaica Saturday Market until 4 p.m." data-mock-href="../../pages/admin-places-map/selected.html"><span class="pin__head"><span aria-hidden="true">F</span></span></button>
+        </div>
+      </div>
+        <ul class="map-legend" aria-label="Map key"><li><span class="pin pin--restaurant"><span class="pin__head"><span aria-hidden="true">R</span></span></span>Restaurant</li><li><span class="pin pin--takeout"><span class="pin__head"><span aria-hidden="true">T</span></span></span>Takeout</li><li><span class="pin pin--grocery"><span class="pin__head"><span aria-hidden="true">G</span></span></span>Grocery store</li><li><span class="pin pin--bakery"><span class="pin__head"><span aria-hidden="true">B</span></span></span>Bakery</li><li><span class="pin pin--truck"><span class="pin__head"><span aria-hidden="true">F</span></span></span>Food truck</li><li><span class="pin pin--restaurant pin--draft"><span class="pin__head"><span aria-hidden="true">R</span></span></span>Draft (outline)</li></ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__brand"><strong>Sweet Hand</strong><span>Operator console. Every action is written to the audit log.</span></div>
+  <nav aria-label="Footer">
+    <ul>
+      <li><a href="../../pages/privacy/default.html">Privacy</a></li>
+      <li><a href="../../pages/terms/default.html">Terms</a></li>
+    </ul>
+  </nav>
+</footer>
+</div>
+<div class="toast-region" role="status" aria-live="polite">
+  <div class="toast toast--info">
+    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+    <div class="toast__body">
+      <div class="toast__title">1 place has no pin yet</div>
+      <p>Coconut Bread Corner is a draft without an address, so it isn’t on the map.</p>
+    </div>
+    <div class="toast__actions"><a class="toast__action" href="../../pages/admin-place/default.html">Add address</a></div>
+    <button class="icon-btn" type="button" aria-label="Dismiss"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+</div>
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Directory toast</span>
+  <ul class="mock-bar__states">
+    <li><a href="info.html" aria-current="page">info</a></li>
+    <li><a href="success.html">success</a></li>
+    <li><a href="warning.html">warning</a></li>
+    <li><a href="danger.html">danger</a></li>
+    <li><a href="with-action.html">with-action</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>
