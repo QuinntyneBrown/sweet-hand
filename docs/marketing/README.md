@@ -24,6 +24,7 @@ and pepper). Everything points at `https://sweethand.ca`.
 | `facebook/page-avatar.png`, `page-cover.png` | Facebook Page profile picture (1080 × 1080 px) and cover photo (1640 × 720 px, copy inside the 1280 × 624 px area desktop and phones both show). |
 | `facebook/post-1-eaters.png`, `post-2-makers.png` | Feed images, 1080 × 1080 px, with the flyer's copy. |
 | `facebook/page.html`, `facebook/README.md` | Source for the four images, and the Page settings, first posts and posting steps (see [facebook/README.md](facebook/README.md)). |
+| `facebook/reconnecting.md` | One-to-one messages for reconnecting with old contacts who might cook, know cooks or help (see [facebook/reconnecting.md](facebook/reconnecting.md)). |
 | `instagram/README.md` | Instagram account settings, bio, first posts and posting steps; reuses the Facebook and WhatsApp images (see [instagram/README.md](instagram/README.md)). |
 | `lib/press.mjs` | Prepress layouts shared with `docs/business-cards/`: crop marks, gang-up sheets, PDF checks. |
 | `lib/qrcodegen.mjs` | Project Nayuki's QR Code generator (MIT), transpiled from its TypeScript. |
@@ -96,6 +97,8 @@ and pepper). Everything points at `https://sweethand.ca`.
 - Page art and two feed images, with the Page settings, the first posts'
   captions and the posting steps, are in [`facebook/`](facebook/README.md).
   Opening the Page is done by the person whose Facebook account owns it.
+- Messages for old contacts who might cook, know cooks or help are in
+  [`facebook/reconnecting.md`](facebook/reconnecting.md).
 - Facebook shows the cover as 820 × 312 on desktop and 640 × 360 on phones.
   At 2× the only area both show is the central 1280 × 624 px of the
   1640 × 720 px file, so every word sits inside it; the pepper band on the
