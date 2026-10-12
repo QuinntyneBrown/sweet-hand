@@ -10,10 +10,12 @@ The deployment feature publishes the pre-launch website and launch-list API to t
 
 ## Description
 
-- **`infra/main.bicep`** — subscription-specific resource graph for Static Web Apps, Container Apps, PostgreSQL, Container Registry, Key Vault, monitoring and Communication Services.
+- **`infra/main.bicep`** — one resource graph for staging, UAT and production (`envName` and per-environment parameters; every default is production's), covering Static Web Apps, Container Apps, PostgreSQL, Container Registry, Key Vault, monitoring and Communication Services.
 - **`infra/roles.bicep`** — the API identity's role assignments, applied once by an Owner; the GitHub deployer holds Contributor only and never writes role assignments.
 - **`ci.yml`** — change validation for branches and pull requests. It performs no Azure mutation.
-- **`deploy.yml`** — `main` delivery using GitHub OIDC and Azure CLI. It applies Bicep, pushes the commit-tagged image, runs the migration job and promotes healthy artifacts.
+- **`deliver.yml`** — the delivery every environment shares, using GitHub OIDC and Azure CLI. It applies Bicep, pushes the commit-tagged image, runs the migration job and promotes healthy artifacts.
+- **`deploy-staging.yml`, `deploy-uat.yml`, `deploy.yml`** — the triggers and gates: green `main` commits to staging, release candidate tags to UAT, and release tags that passed UAT to production after approval (`L2-109`, `docs/operations/environments.md`).
+- **`infra/new-environment.ps1`** — one-time Owner bootstrap of staging or UAT: resource group, foundation, roles, deployer and GitHub environment.
 - **`PrelaunchGuard`** — request middleware that returns HTTP 404 before unfinished product controllers execute.
 - **`AzureCommunicationEmailGateway`** — managed-identity adapter that sends queued messages through the verified `sweethand.ca` domain.
 - **`TurnstileChallengeVerifier`** — server-side verifier for token, action and hostname. `createChallengeVerifier(config)` selects it whenever a database is configured, unless `BOT_CHALLENGE=off`; then production falls back to `LocalChallengeVerifier`, the API logs that bot protection is off, and `deploy.yml` warns on every run (`L2-104 AC9`). Without a database, development and tests always use the local verifier.
@@ -29,7 +31,8 @@ The deployment feature publishes the pre-launch website and launch-list API to t
 | `L2-090` | `L1-023` | PostgreSQL shall retain recoverable backups for 35 days, with a documented temporary regional RPO exception during launch. |
 | `L2-103` | `L1-020` | Launch-list processors, locations, retention and the lazily loaded bot provider shall be disclosed. |
 | `L2-104` | `L1-021` | Public launch-list requests shall resist automated submissions and shall disclose no list membership. |
-| `L2-108` | `L1-023` | The launch application and API shall be deployed reproducibly to Azure after every successful `main` change. |
+| `L2-108` | `L1-023` | The launch application and API shall be deployed reproducibly to Azure from Git commits without long-lived deployment credentials. |
+| `L2-109` | `L1-023` | Every change shall reach production by promotion of one exact commit through staging and UAT, and hotfixes shall not ship unreleased work. |
 
 ## Diagrams
 

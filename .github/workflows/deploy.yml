@@ -1,141 +1,45 @@
 name: Deploy production
 
+# A release tag (v1.4.0) goes to sweethand.ca only when that exact commit was
+# accepted in UAT, and only after a required reviewer approves the production
+# environment (L2-109.3). Running this workflow by hand from an earlier release
+# tag redeploys that release (L2-109.7).
+
 on:
-  workflow_run:
-    workflows: [CI]
-    types: [completed]
+  push:
+    tags: ['v*.*.*', '!v*.*.*-*']
+  workflow_dispatch:
 
 permissions:
   contents: read
   id-token: write
-
-concurrency:
-  group: production
-  cancel-in-progress: false
+  deployments: read
 
 jobs:
-  deploy:
-    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.event == 'push'
+  gate:
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
-    environment: production
-    env:
-      AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-      RESOURCE_GROUP: rg-sweethand-prod
-      IMAGE_TAG: ${{ github.event.workflow_run.head_sha }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.workflow_run.head_sha }}
-      - uses: azure/login@v2
-        with:
-          client-id: ${{ vars.AZURE_CLIENT_ID }}
-          tenant-id: ${{ vars.AZURE_TENANT_ID }}
-          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-      - name: Assert the production subscription
-        run: |
-          test "$(az account show --query id -o tsv)" = "4a1b5113-89f9-4d27-acfe-581493385536"
-          az extension add --name containerapp --only-show-errors
-      - name: Choose the bot challenge
-        # Both Turnstile values turn the challenge on. Neither is the documented, temporary
-        # opt-out before the widget exists (L2-104.9); one without the other is a mistake.
+      - name: Require a release tag whose commit deployed to UAT
         env:
-          TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
-          TURNSTILE_SECRET: ${{ secrets.TURNSTILE_SECRET }}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          if [ -n "$TURNSTILE_SITE_KEY" ] && [ -n "$TURNSTILE_SECRET" ]; then
-            echo "BOT_CHALLENGE=turnstile" >> "$GITHUB_ENV"
-          elif [ -z "$TURNSTILE_SITE_KEY" ] && [ -z "$TURNSTILE_SECRET" ]; then
-            echo "BOT_CHALLENGE=off" >> "$GITHUB_ENV"
-            echo "::warning::Bot protection is OFF: set the production variable TURNSTILE_SITE_KEY and secret TURNSTILE_SECRET to turn Cloudflare Turnstile on"
-          else
-            echo "::error::Set both the production variable TURNSTILE_SITE_KEY and the secret TURNSTILE_SECRET, or neither"; exit 1
+          if [ "$GITHUB_REF_TYPE" != tag ] || [[ ! "$GITHUB_REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Production deploys only from a release tag (vMAJOR.MINOR.PATCH); $GITHUB_REF_NAME is not one"; exit 1
           fi
-      - name: Link the email domain once Azure has verified it
-        run: |
-          az extension add --name communication --only-show-errors
-          EMAIL=$(az resource list -g "$RESOURCE_GROUP" --resource-type Microsoft.Communication/emailServices --query "[0].name" -o tsv)
-          STATES=$(az communication email domain show -g "$RESOURCE_GROUP" --email-service-name "$EMAIL" -n sweethand.ca --only-show-errors \
-            --query "[verificationStates.Domain.status, verificationStates.SPF.status, verificationStates.DKIM.status, verificationStates.DKIM2.status]" -o tsv | sort -u)
-          if [ "$STATES" = Verified ]; then echo "LINK_EMAIL=true" >> "$GITHUB_ENV"; else echo "LINK_EMAIL=false" >> "$GITHUB_ENV"; echo "::warning::sweethand.ca is not verified for Azure email yet; launch emails will not send"; fi
-      - name: Apply foundation
-        run: |
-          az deployment group create --resource-group "$RESOURCE_GROUP" --name "foundation-$IMAGE_TAG" --template-file infra/main.bicep \
-            --parameters linkEmailDomain="$LINK_EMAIL" deployApi=false deployMigration=false botChallenge="$BOT_CHALLENGE" postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
-      - name: Build and scan the immutable API image
-        run: |
-          ACR=$(az deployment group show -g "$RESOURCE_GROUP" -n "foundation-$IMAGE_TAG" --query properties.outputs.acrName.value -o tsv)
-          echo "ACR=$ACR" >> "$GITHUB_ENV"
-          az acr build --registry "$ACR" --image "sweet-hand-api:$IMAGE_TAG" --file backend/Dockerfile .
-      - name: Apply migration job
-        run: |
-          IMAGE="$ACR.azurecr.io/sweet-hand-api:$IMAGE_TAG"
-          az deployment group create --resource-group "$RESOURCE_GROUP" --name "migration-$IMAGE_TAG" --template-file infra/main.bicep \
-            --parameters linkEmailDomain="$LINK_EMAIL" deployApi=false deployMigration=true containerImage="$IMAGE" botChallenge="$BOT_CHALLENGE" postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
-      - name: Run explicit migrations
-        run: |
-          EXECUTION=$(az containerapp job start -g "$RESOURCE_GROUP" -n caj-swh-migrate --query name -o tsv)
-          for attempt in $(seq 1 60); do
-            STATUS=$(az containerapp job execution show -g "$RESOURCE_GROUP" -n caj-swh-migrate --job-execution-name "$EXECUTION" --query properties.status -o tsv)
-            if [ "$STATUS" = Succeeded ]; then exit 0; fi
-            if [ "$STATUS" = Failed ]; then exit 1; fi
-            sleep 10
+          for ID in $(gh api "repos/$GITHUB_REPOSITORY/deployments?environment=uat&sha=$GITHUB_SHA&per_page=100" --jq '.[].id'); do
+            if [ "$(gh api "repos/$GITHUB_REPOSITORY/deployments/$ID/statuses" --jq 'any(.[]; .state == "success")')" = true ]; then exit 0; fi
           done
-          exit 1
-      - name: Record the serving API image
-        run: |
-          PREVIOUS=$(az containerapp show -g "$RESOURCE_GROUP" -n ca-swh-api --query "properties.template.containers[0].image" -o tsv 2>/dev/null || true)
-          echo "PREVIOUS_IMAGE=$PREVIOUS" >> "$GITHUB_ENV"
-      - name: Promote the migrated API image
-        run: |
-          IMAGE="$ACR.azurecr.io/sweet-hand-api:$IMAGE_TAG"
-          az deployment group create --resource-group "$RESOURCE_GROUP" --name "release-$IMAGE_TAG" --template-file infra/main.bicep \
-            --parameters linkEmailDomain="$LINK_EMAIL" deployApi=true deployMigration=true containerImage="$IMAGE" botChallenge="$BOT_CHALLENGE" postgresAdminPassword='${{ secrets.POSTGRES_ADMIN_PASSWORD }}' ipHashSecret='${{ secrets.IP_HASH_SECRET }}' turnstileSecret='${{ secrets.TURNSTILE_SECRET }}'
-      - name: Link the same-origin API
-        run: |
-          API_ID=$(az containerapp show -g "$RESOURCE_GROUP" -n ca-swh-api --query id -o tsv)
-          LINKED=$(az staticwebapp backends show -g "$RESOURCE_GROUP" -n swa-sweethand-launch-prod --query "[?backendResourceId=='$API_ID'] | length(@)" -o tsv 2>/dev/null || echo 0)
-          if [ "$LINKED" != 1 ]; then
-            az staticwebapp backends link -g "$RESOURCE_GROUP" -n swa-sweethand-launch-prod --backend-resource-id "$API_ID" --backend-region canadacentral
-          fi
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22.18.0'
-          cache: npm
-          cache-dependency-path: frontend/package-lock.json
-      - name: Build the production launch application
-        working-directory: frontend
-        run: |
-          npm ci
-          npx ng build launch --define "LAUNCH_SITE_URL='https://sweethand.ca'" --define "LAUNCH_CONTACT_EMAIL='hello@sweethand.ca'" --define "LAUNCH_TURNSTILE_SITE_KEY='${{ vars.TURNSTILE_SITE_KEY }}'"
-          node scripts/check-launch-size.mjs
-      - name: Deploy the launch application
-        id: swa
-        run: echo "token=$(az staticwebapp secrets list -g "$RESOURCE_GROUP" -n swa-sweethand-launch-prod --query properties.apiKey -o tsv)" >> "$GITHUB_OUTPUT"
-      - uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ steps.swa.outputs.token }}
-          action: upload
-          app_location: frontend/dist/launch/browser
-          skip_app_build: true
-          skip_api_build: true
-      - name: Production smoke checks
-        # The Static Web Apps default hostname always serves the release; sweethand.ca joins once its DNS validates.
-        run: |
-          ORIGINS="https://$(az staticwebapp show -g "$RESOURCE_GROUP" -n swa-sweethand-launch-prod --query defaultHostname -o tsv)"
-          if [ "$(az staticwebapp hostname show -g "$RESOURCE_GROUP" -n swa-sweethand-launch-prod --hostname sweethand.ca --query status -o tsv 2>/dev/null)" = Ready ]; then
-            ORIGINS="$ORIGINS https://sweethand.ca"
-          else
-            echo "::warning::sweethand.ca is not validated for Static Web Apps yet; the release is live only at $ORIGINS"
-          fi
-          for ORIGIN in $ORIGINS; do
-            curl --fail --retry 12 --retry-delay 10 "$ORIGIN/"
-            curl --fail "$ORIGIN/privacy"
-            curl --fail "$ORIGIN/api/public/launch-list"
-            test "$(curl -s -o /dev/null -w '%{http_code}' "$ORIGIN/api/caterers")" = 404
-          done
-      - name: Restore the preceding API image
-        if: failure() && env.PREVIOUS_IMAGE != ''
-        run: |
-          az containerapp update -g "$RESOURCE_GROUP" -n ca-swh-api --image "$PREVIOUS_IMAGE"
-          echo "::error::Deployment failed; the API was restored to $PREVIOUS_IMAGE. Re-run the last good Deploy production run to restore the launch site."
+          echo "::error::$GITHUB_SHA never deployed successfully to UAT; push a release candidate tag on it first"; exit 1
+
+  production:
+    needs: gate
+    uses: ./.github/workflows/deliver.yml
+    with:
+      environment: production
+      env-name: prod
+      resource-group: rg-sweethand-prod
+      sha: ${{ github.sha }}
+      site-hostnames: sweethand.ca,www.sweethand.ca
+      custom-email-domain: true
+      register-hostnames: false
+    secrets: inherit

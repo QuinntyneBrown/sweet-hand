@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted — 2026-10-11
+Accepted — 2026-10-11. The delivery trigger (every successful `main` commit to production) is superseded by [ADR 0012](0012-environments-and-release-promotion.md).
 
 ## Context
 
