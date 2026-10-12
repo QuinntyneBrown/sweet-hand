@@ -40,7 +40,8 @@ keep it accurate:
 - `docs/videos/` — narrated walkthroughs (`creating-videos` skill); see its `README.md`
 - `tools/` — video tooling: `video-audio/` (narration), `video-build/` (MP4),
   `video-record/` (screen recordings and the local launch demo stack)
-- `docs/marketing/` — print-ready pre-launch flyer, die-cut stickers and WhatsApp Status images, with
+- `docs/marketing/` — print-ready pre-launch flyer, die-cut stickers, WhatsApp Status images
+  and the YouTube channel kit (`youtube/`: art, copy, captions, posting steps), with
   `render.mjs` to regenerate them (see its `README.md`)
 - `docs/business-cards/` — print-ready business cards, one folder per person,
   with `render.mjs` to regenerate them (see each folder's `README.md`)
