@@ -568,6 +568,50 @@ legend .optional { color: var(--color-fg-subtle); font-weight: var(--font-weight
 .auth__head .photo-row { justify-content: flex-start; margin-bottom: var(--space-4); }
 .auth__alt { font: var(--text-body-sm); color: var(--color-fg-muted); }
 
+/* Launch page (pre-launch site, L2-092). One axis: every block starts on the
+   container edge. Two-column hero from 75rem; content centres vertically when
+   the page is shorter than the viewport, so the footer never floats in a void. */
+main.launch { display: flex; flex-direction: column; justify-content: center; }
+.launch-hero { display: grid; gap: var(--space-8); align-items: center; margin-top: var(--space-8); }
+.launch-hero > .section { margin-block: 0; }
+.launch-hero__intro, .launch-hero__form { width: 100%; max-width: 36rem; }
+.launch-hero__intro { display: flex; flex-direction: column; gap: var(--space-2); }
+.launch-hero__intro h1 { font-size: clamp(var(--font-size-4xl), 1.5rem + 2vw, 3.5rem); }
+.launch-hero__intro .subtitle { margin-top: var(--space-2); font: var(--text-body-lg); font-size: clamp(var(--font-size-lg), 0.75rem + 0.5vw, 1.25rem); }
+.well.launch-hero__form { gap: var(--space-5); padding: var(--space-6); }
+@media (min-width: 48rem) { .well.launch-hero__form { padding: var(--space-8); } }
+.launch-collage { display: flex; align-items: center; margin-bottom: var(--space-2); }
+.launch-collage .photo { width: 4.5rem; box-shadow: 0 0 0 var(--space-1) var(--color-bg-canvas); }
+.launch-collage .photo:nth-child(2) { width: 6.5rem; z-index: 1; }
+.launch-collage .photo + .photo { margin-left: calc(-1 * var(--space-2)); }
+@media (min-width: 48rem) {
+  .launch-collage .photo { width: 6rem; }
+  .launch-collage .photo:nth-child(2) { width: 8.5rem; }
+  .launch-collage .photo + .photo { margin-left: calc(-1 * var(--space-4)); }
+}
+@media (min-width: 75rem) {
+  .launch-hero { grid-template-columns: minmax(0, 1fr) minmax(24rem, 30rem); column-gap: var(--space-16); margin-top: var(--space-12); }
+  .launch-hero > .section { grid-column: 1 / -1; }
+  .launch-hero__intro { max-width: 40rem; }
+  .launch-collage { margin-bottom: var(--space-4); }
+  .launch-collage .photo { width: 10rem; box-shadow: 0 0 0 var(--space-2) var(--color-bg-canvas); }
+  .launch-collage .photo:nth-child(2) { width: 14rem; }
+  .launch-collage .photo + .photo { margin-left: calc(-1 * var(--space-6)); }
+}
+.launch-section { margin-top: var(--layout-section-gap); }
+.launch-section > h2 { margin-bottom: var(--space-8); }
+.launch-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8) var(--layout-gutter); counter-reset: launch-step; }
+@media (min-width: 48rem) { .launch-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.launch-steps > li { counter-increment: launch-step; display: flex; flex-direction: column; gap: var(--space-2); }
+.launch-steps > li::before { content: counter(launch-step); display: grid; place-items: center; width: var(--space-10); height: var(--space-10); margin-bottom: var(--space-2); border-radius: var(--radius-full); background: var(--color-accent-subtle); color: var(--color-fg-accent); font: var(--text-h4); }
+.launch-callout { display: grid; gap: var(--space-6); align-items: center; justify-items: start; padding: var(--space-6); background: var(--color-bg-surface-sunken); border-radius: var(--radius-lg); }
+.launch-callout > .photo { width: 6rem; }
+.launch-callout > .photo img { scale: 1.08; }
+@media (min-width: 48rem) {
+  .launch-callout { grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--space-8); padding: var(--space-8) var(--space-10); }
+  .launch-callout > .photo { width: 8rem; }
+}
+
 /* ---------- Card and well · components/card.html --------------------------- */
 .card { background: var(--color-bg-surface); border: var(--border-width-hairline) solid var(--color-border-default); border-radius: var(--radius-lg); padding: var(--space-6); }
 .card--flush { padding: 0; overflow: hidden; }

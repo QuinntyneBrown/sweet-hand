@@ -23,20 +23,20 @@
   </nav>
 </header>
 
-<main id="main">
-<div class="container container--narrow">
-  <div class="page-intro">
-    <div class="photo-row" aria-hidden="true">
-      <span class="photo"><img src="../../assets/img/maracas-bay.jpg" alt="" width="72" height="72"></span>
-      <span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="" width="104" height="104"></span>
-      <span class="photo"><img src="../../assets/img/black-cake-co.jpg" alt="" width="72" height="72"></span>
+<main id="main" class="launch">
+<div class="container launch-hero">
+  <div class="launch-hero__intro">
+    <div class="launch-collage" aria-hidden="true">
+      <span class="photo"><img src="../../assets/img/roti-road.jpg" alt="" width="160" height="160"></span>
+      <span class="photo"><img src="../../assets/img/pelau-house.jpg" alt="" width="224" height="224"></span>
+      <span class="photo"><img src="../../assets/img/black-cake-co.jpg" alt="" width="160" height="160"></span>
     </div>
     <p class="overline">Opening soon · Toronto and the GTA</p>
     <h1>Find someone with a sweet hand</h1>
-    <p class="subtitle">Caribbean caterers, all in one place.</p>
+    <p class="subtitle">Jamaican, Trini, Guyanese, Bajan and more: caterers across Toronto and the GTA, all in one place.</p>
   </div>
 
-  <section class="well stack" id="notify" aria-labelledby="notify-title">
+  <section class="well stack launch-hero__form" id="notify" aria-labelledby="notify-title">
   <h2 id="notify-title">Get the launch email</h2>
   <form class="form form--compact" action="success.html" method="post" novalidate>
     <fieldset class="field"><legend class="field__label">I’m…</legend><div class="option-grid"><label class="choice choice--card"><input type="radio" id="role-event" name="role" value="customer" required disabled><span class="choice__text"><span>Planning an event</span></span></label><label class="choice choice--card"><input type="radio" id="role-caterer" name="role" value="caterer" checked disabled><span class="choice__text"><span>A caterer</span></span></label></div></fieldset>
@@ -48,21 +48,23 @@
   </section>
 </div>
 
-<section class="container section-gap" id="how" aria-labelledby="how-title">
-  <h2 id="how-title" class="section">How it works</h2>
-  <div class="grid grid--auto">
-    <div class="stack stack--sm"><h3>Browse</h3><p class="text-muted">By island, area and occasion.</p></div>
-    <div class="stack stack--sm"><h3>Enquire</h3><p class="text-muted">Send your date and guest count.</p></div>
-    <div class="stack stack--sm"><h3>Agree</h3><p class="text-muted">Directly with the caterer. No fees.</p></div>
-  </div>
+<section class="container launch-section" id="how" aria-labelledby="how-title">
+  <h2 id="how-title">How it works</h2>
+  <ol class="launch-steps">
+    <li><h3>Browse</h3><p class="text-muted">By island, area and occasion.</p></li>
+    <li><h3>Enquire</h3><p class="text-muted">Send your date and guest count.</p></li>
+    <li><h3>Agree</h3><p class="text-muted">Directly with the caterer. No fees.</p></li>
+  </ol>
 </section>
 
-<section class="container container--narrow section-gap" id="caterers" aria-labelledby="caterers-title">
-  <div class="stack">
-    <span class="photo photo--md"><img src="../../assets/img/demerara-kitchen.jpg" alt="" width="96" height="96" loading="lazy"></span>
-    <h2 id="caterers-title">Caterers: be there on day one</h2>
-    <p class="text-muted">Listing is free. You’ll need a food handler certificate.</p>
-    <div class="cluster"><a class="btn" href="caterer.html#notify">Join as a caterer</a></div>
+<section class="container launch-section" id="caterers" aria-labelledby="caterers-title">
+  <div class="launch-callout">
+    <span class="photo"><img src="../../assets/img/ti-kay.jpg" alt="" width="128" height="128" loading="lazy"></span>
+    <div class="stack stack--sm">
+      <h2 id="caterers-title">Caterers: be there on day one</h2>
+      <p class="text-muted">Listing is free. You’ll need a food handler certificate.</p>
+    </div>
+    <a class="btn" href="caterer.html#notify">Join as a caterer</a>
   </div>
 </section>
 
