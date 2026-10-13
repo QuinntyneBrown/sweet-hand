@@ -66,8 +66,9 @@ keep it accurate:
     after launch
   - `frontend/projects/board/` — the founder's sprint board (ADR 0013):
     internal tooling generated from `docs/plans/launch-backlog.md` by
-    `scripts/backlog-to-board.mjs`, state in `localStorage`, no backend,
-    never deployed
+    `scripts/backlog-to-board.mjs`, state in `localStorage`, no backend;
+    published to a Free-tier Azure Static Web App on every push to `main`
+    (ADR 0014, `deploy-board.yml`)
   - `frontend/e2e/` — Playwright: `support/` (fixtures, cast, ports),
     `pages/` (page objects), `specs/<area>/`
 - `backend/` — the HTTP API, NestJS (ADRs 0006–0010); see `backend/README.md`

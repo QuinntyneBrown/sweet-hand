@@ -1,6 +1,7 @@
 # 0013 — The sprint board is an internal tool beside the product
 
-- Status: Accepted
+- Status: Accepted; amended by ADR 0014 (the board is deployed to its own
+  Static Web App; everything else here still holds)
 - Date: 2026-10-12
 
 ## Context
@@ -35,6 +36,8 @@ production behaviour change for an L1/L2, a detailed design and a mock first.
   `e2e/pages/board.page.ts`) against a fictional backlog fixture.
 - Its text is not marked for i18n; it is not user-facing product.
 - The board is never deployed. `npm run start:board` serves it locally.
+  (Amended by ADR 0014: every push to `main` publishes it to a Free-tier
+  Azure Static Web App, public at its default hostname.)
 
 ## Consequences
 
@@ -45,4 +48,5 @@ production behaviour change for an L1/L2, a detailed design and a mock first.
   the rest of the suite.
 - If the board ever needs to be shared or reached from a phone, that is a new
   decision: a backend store means endpoints, an admin-only policy and backend
-  tests.
+  tests. (ADR 0014 takes the first step: the board is reachable from a phone,
+  with its state still in that browser.)

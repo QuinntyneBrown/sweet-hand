@@ -20,6 +20,12 @@ acceptance criteria. `azure-production.md` stays the production runbook.
 | Database backups | none | 7 days, local | 7 days, local | 35 days, geo-redundant in Canada East |
 | Monthly budget alert | none | CAD 60 | CAD 60 | CAD 100 |
 
+The founder's sprint board is outside this table: it is internal tooling (ADR 0013) that
+`deploy-board.yml` publishes to a public Free-tier Azure Static Web App on every push to
+`main`, without tags, approvals, a database or Bicep (ADR 0014). The workflow signs in as
+the staging deployer, creates `swa-sweethand-board` in `rg-sweethand-staging` the first time,
+and prints the board's address on each run of **Actions → Deploy board**.
+
 Development also covers the checks on every branch and pull request: `ci.yml` runs the backend
 acceptance tests, Chromium Playwright tests, lint, type checks, builds, the i18n catalogue
 check, the container scan, gitleaks and the Bicep build. CI changes no Azure resource.
