@@ -1,9 +1,10 @@
 name: Deploy board
 
 # Every push to main publishes the founder's sprint board, built from that commit's
-# docs/plans/launch-backlog.md, to its Azure Static Web App (ADR 0014). The only setup is
-# the Static Web App's deployment token in the repository secret
-# AZURE_STATIC_WEB_APPS_API_TOKEN_BOARD. Run it by hand to republish the current main.
+# docs/plans/launch-backlog.md, to a public Free-tier Azure Static Web App (ADR 0014).
+# Nothing to set up: it signs in as the staging deployer that already exists, creates the
+# app in the staging resource group the first time, and uploads the build. Run it by hand
+# to republish the current main.
 
 on:
   push:
@@ -12,6 +13,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 concurrency:
   group: board
@@ -21,6 +23,12 @@ jobs:
   board:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    environment:
+      name: staging
+      url: ${{ steps.swa.outputs.url }}
+    env:
+      RESOURCE_GROUP: rg-sweethand-staging
+      STATIC_WEB_APP: swa-sweethand-board
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -33,10 +41,26 @@ jobs:
         run: |
           npm ci
           npm run build:board
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Create the Static Web App the first time
+        run: |
+          if ! az staticwebapp show -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --only-show-errors > /dev/null 2>&1; then
+            az staticwebapp create -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --location eastus2 --sku Free --only-show-errors > /dev/null
+          fi
+      - name: Read the deployment token and address
+        id: swa
+        run: |
+          echo "token=$(az staticwebapp secrets list -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --query properties.apiKey -o tsv)" >> "$GITHUB_OUTPUT"
+          echo "url=https://$(az staticwebapp show -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --query defaultHostname -o tsv)" >> "$GITHUB_OUTPUT"
       - uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BOARD }}
+          azure_static_web_apps_api_token: ${{ steps.swa.outputs.token }}
           action: upload
           app_location: frontend/dist/board/browser
           skip_app_build: true
           skip_api_build: true
+      - run: echo "The board is live at ${{ steps.swa.outputs.url }}/"

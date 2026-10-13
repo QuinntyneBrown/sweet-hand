@@ -21,11 +21,10 @@ acceptance criteria. `azure-production.md` stays the production runbook.
 | Monthly budget alert | none | CAD 60 | CAD 60 | CAD 100 |
 
 The founder's sprint board is outside this table: it is internal tooling (ADR 0013) that
-`deploy-board.yml` publishes to a Free-tier Azure Static Web App on every push to `main`,
-without tags, approvals, a database or Bicep (ADR 0014). The app is created once in the
-Azure portal; its deployment token is the repository secret
-`AZURE_STATIC_WEB_APPS_API_TOKEN_BOARD`, and the board is public at the app's default
-hostname.
+`deploy-board.yml` publishes to a public Free-tier Azure Static Web App on every push to
+`main`, without tags, approvals, a database or Bicep (ADR 0014). The workflow signs in as
+the staging deployer, creates `swa-sweethand-board` in `rg-sweethand-staging` the first time,
+and prints the board's address on each run of **Actions → Deploy board**.
 
 Development also covers the checks on every branch and pull request: `ci.yml` runs the backend
 acceptance tests, Chromium Playwright tests, lint, type checks, builds, the i18n catalogue
