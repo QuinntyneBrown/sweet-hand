@@ -1,0 +1,71 @@
+<div class="d-inner">
+  <div class="d-top">
+    <p class="d-meta">
+      <span class="id">{{ story.id }}</span>
+      <span class="lane" [class.biz]="story.lane === 'Business'">{{ story.lane }}</span>
+      <span>{{ story.points }} {{ story.points === 1 ? 'point' : 'points' }}</span>
+      <span>{{ story.epic }}</span>
+    </p>
+    <button type="button" class="d-close" aria-label="Close" (click)="ref.close()">×</button>
+  </div>
+  <h2 id="d-title">{{ story.title }}</h2>
+  <div class="d-controls">
+    <div class="field">
+      <label for="d-column">Column</label>
+      <select id="d-column" (change)="move($any($event.target).value)">
+        @for (column of columns; track column.id) {
+          <option [value]="column.id" [selected]="column.id === card().col">{{ column.name }}</option>
+        }
+      </select>
+    </div>
+    @if (card().col === 'done') {
+      <div class="field">
+        <label for="d-done">Done on</label>
+        <input
+          id="d-done"
+          type="date"
+          [min]="sprint.start"
+          [max]="sprint.end"
+          [value]="card().doneAt"
+          (change)="setDoneAt($any($event.target).value)"
+        />
+      </div>
+    }
+  </div>
+  <p class="d-desc" [innerHTML]="md(story.description)"></p>
+  <section class="d-sec" aria-labelledby="d-dod">
+    <h3 id="d-dod">Definition of done</h3>
+    <ul class="d-list" aria-labelledby="d-dod">
+      @for (item of story.dod; track $index) {
+        <li [class]="'depth-' + item.depth" [innerHTML]="md(item.text)"></li>
+      }
+    </ul>
+  </section>
+  <section class="d-sec" aria-labelledby="d-tasks">
+    <h3 id="d-tasks">Tasks <span class="d-prog">{{ ticked() }} of {{ story.tasks.length }}</span></h3>
+    <ul class="tasks" aria-labelledby="d-tasks">
+      @for (task of story.tasks; track $index) {
+        <li>
+          <input
+            type="checkbox"
+            [id]="'d-task-' + $index"
+            [checked]="card().ticks[$index]"
+            (change)="tick($index, $any($event.target).checked)"
+          />
+          <label [for]="'d-task-' + $index" [innerHTML]="md(task)"></label>
+        </li>
+      }
+    </ul>
+  </section>
+  <details>
+    <summary id="d-lane-dod">{{ story.lane }} Definition of Done</summary>
+    <ul class="d-list" aria-labelledby="d-lane-dod">
+      @for (line of laneDod; track $index) {
+        <li [innerHTML]="md(line)"></li>
+      }
+    </ul>
+  </details>
+  @if (story.meta) {
+    <p class="d-trace">{{ story.meta }}</p>
+  }
+</div>

@@ -1,0 +1,31 @@
+@let c = chart();
+<svg [attr.viewBox]="'0 0 ' + c.w + ' ' + height" [attr.width]="c.w" [attr.height]="height" aria-hidden="true">
+  @for (tick of c.ticks; track tick.v) {
+    <line class="grid" [attr.x1]="c.left" [attr.x2]="c.right" [attr.y1]="tick.y" [attr.y2]="tick.y" />
+    <text [attr.x]="c.left - 8" [attr.y]="tick.y + 4" text-anchor="end">{{ tick.v }}</text>
+  }
+  @for (label of c.labels; track $index) {
+    @if (label.show) {
+      <text [attr.x]="label.x" [attr.y]="height - 8" text-anchor="middle">{{ label.text }}</text>
+    }
+  }
+  <polyline class="ideal" [attr.points]="c.ideal" />
+  @if (c.today; as today) {
+    <line class="today" [attr.x1]="today.x" [attr.x2]="today.x" y1="12" [attr.y2]="c.base" />
+    <text class="today-label" [attr.x]="today.labelX" y="12">Today</text>
+  }
+  @if (c.area) {
+    <polygon class="area" [attr.points]="c.area" />
+  }
+  @if (c.actual) {
+    <polyline class="actual" [attr.points]="c.actual" />
+  }
+  @if (c.end; as end) {
+    <circle class="dot" [attr.cx]="end.x" [attr.cy]="end.y" r="5" />
+  }
+  @for (hit of c.hits; track $index) {
+    <rect class="hit" [attr.x]="hit.x" y="0" [attr.width]="hit.width" [attr.height]="c.base">
+      <title>{{ hit.title }}</title>
+    </rect>
+  }
+</svg>
