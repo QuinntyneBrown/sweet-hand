@@ -64,8 +64,10 @@ the product launches (L2-102.5).
 The founder's agile board for the launch sprints (ADR 0013): one screen with
 the sprint's goal, a To do / In progress / Review / Done board with drag and
 drop, story details with ticked tasks, a lane filter and a burndown. It is
-internal tooling, never deployed, and has no backend and no i18n. It imports
-neither library.
+internal tooling with no backend and no i18n, and it imports neither
+library. Every push to `main` publishes it to its own Azure Static Web App
+(ADR 0014, `.github/workflows/deploy-board.yml`); `projects/board/public/
+staticwebapp.config.json` sets its headers and caching.
 
 `docs/plans/launch-backlog.md` is its only source of stories:
 `scripts/backlog-to-board.mjs` reads the sprint table, each sprint's plan,

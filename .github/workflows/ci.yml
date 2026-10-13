@@ -116,3 +116,4 @@ jobs:
       - run: |
           az bicep build --file infra/main.bicep --stdout > /dev/null
           az bicep build --file infra/roles.bicep --stdout > /dev/null
+          az bicep build --file infra/board.bicep --stdout > /dev/null
