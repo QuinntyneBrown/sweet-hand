@@ -50,10 +50,15 @@ If UAT finds a problem: fix it on `main`, wait for staging, then tag `-rc.2`.
 
 ### 4. Tag the release (deploys production)
 
-Tag the **same commit** the candidate points to:
+Tag the **same commit** the candidate points to. Find it, then tag it by SHA (the
+`tag^{commit}` syntax breaks in the Windows command prompt, where `^` is an escape):
 
 ```bash
-git tag -a v0.2.0 -m "Release 0.2.0" v0.2.0-rc.1^{commit} && git push origin v0.2.0
+git rev-parse --short v0.2.0-rc.1
+```
+
+```bash
+git tag -a v0.2.0 -m "Release 0.2.0" <sha from above> && git push origin v0.2.0
 ```
 
 *Deploy production* checks that this commit passed UAT, then deploys. If the
