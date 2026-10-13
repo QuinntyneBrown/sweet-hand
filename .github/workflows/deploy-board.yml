@@ -1,10 +1,9 @@
 name: Deploy board
 
 # Every push to main publishes the founder's sprint board, built from that commit's
-# docs/plans/launch-backlog.md, to its Free-tier Static Web App (ADR 0014). It does not
-# wait for CI: the board is internal tooling with no backend, a broken build fails here,
-# and the backlog should reach the board within minutes of merging. Run it by hand to
-# republish the current main.
+# docs/plans/launch-backlog.md, to its Azure Static Web App (ADR 0014). The only setup is
+# the Static Web App's deployment token in the repository secret
+# AZURE_STATIC_WEB_APPS_API_TOKEN_BOARD. Run it by hand to republish the current main.
 
 on:
   push:
@@ -13,7 +12,6 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 concurrency:
   group: board
@@ -23,12 +21,6 @@ jobs:
   board:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
-    environment:
-      name: board
-      url: ${{ steps.swa.outputs.url }}
-    env:
-      RESOURCE_GROUP: rg-sweethand-board
-      STATIC_WEB_APP: swa-sweethand-board
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -41,41 +33,10 @@ jobs:
         run: |
           npm ci
           npm run build:board
-      - uses: azure/login@v2
-        with:
-          client-id: ${{ vars.AZURE_CLIENT_ID }}
-          tenant-id: ${{ vars.AZURE_TENANT_ID }}
-          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-      - name: Assert the Sweet Hand subscription
-        run: test "$(az account show --query id -o tsv)" = "4a1b5113-89f9-4d27-acfe-581493385536"
-      - name: Apply the board's Static Web App
-        run: |
-          az deployment group create --resource-group "$RESOURCE_GROUP" --name "board-$GITHUB_SHA" --template-file infra/board.bicep \
-            --parameters name="$STATIC_WEB_APP"
-      - name: Read the deployment token and hostname
-        id: swa
-        run: |
-          echo "token=$(az staticwebapp secrets list -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --query properties.apiKey -o tsv)" >> "$GITHUB_OUTPUT"
-          echo "url=https://$(az staticwebapp show -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --query defaultHostname -o tsv)" >> "$GITHUB_OUTPUT"
       - uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ steps.swa.outputs.token }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BOARD }}
           action: upload
           app_location: frontend/dist/board/browser
           skip_app_build: true
           skip_api_build: true
-      - name: Smoke checks
-        env:
-          ORIGIN: ${{ steps.swa.outputs.url }}
-        # The edge can serve the previous release for a short while after the upload, so the
-        # backlog is compared with the one just built until they match.
-        run: |
-          curl --fail --silent --show-error --retry 12 --retry-delay 10 --retry-all-errors -o /dev/null "$ORIGIN/"
-          for attempt in $(seq 1 12); do
-            curl --fail --silent --show-error -o "$RUNNER_TEMP/backlog.json" "$ORIGIN/backlog.json" || true
-            if cmp -s "$RUNNER_TEMP/backlog.json" frontend/dist/board/browser/backlog.json; then
-              echo "The board is live at $ORIGIN/"; exit 0
-            fi
-            sleep 10
-          done
-          echo "::error::$ORIGIN/backlog.json is not the backlog built from $GITHUB_SHA"; exit 1

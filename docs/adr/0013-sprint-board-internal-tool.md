@@ -37,7 +37,7 @@ production behaviour change for an L1/L2, a detailed design and a mock first.
 - Its text is not marked for i18n; it is not user-facing product.
 - The board is never deployed. `npm run start:board` serves it locally.
   (Amended by ADR 0014: every push to `main` publishes it to a Free-tier
-  Azure Static Web App.)
+  Azure Static Web App, public at its default hostname.)
 
 ## Consequences
 

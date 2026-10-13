@@ -33,9 +33,8 @@ keep it accurate:
 - `docs/operations/` — the short release guide (`releasing.md`), environments, release and
   hotfix process in full (`environments.md`), and the
   production subscription, costs, deployment, DNS, rollback and recovery runbook
-- `infra/` — Azure Bicep (one template for staging, UAT and production, and `board.bicep`
-  for the sprint board's Static Web App) and Azure CLI entry points (`deploy.ps1`
-  production bootstrap, `new-environment.ps1` staging and UAT, `new-board.ps1` the board)
+- `infra/` — Azure Bicep (one template for staging, UAT and production) and Azure CLI
+  entry points (`deploy.ps1` production bootstrap, `new-environment.ps1` staging and UAT)
 - `docs/plans/` — forward-looking plans for work not yet specified (`public-preview.md`:
   the code-gated preview at `preview.sweethand.ca`; `business-plan.md`: the founder's
   business plan, revenue streams and forecast; `maker-recruitment.md`: the field
@@ -68,7 +67,7 @@ keep it accurate:
   - `frontend/projects/board/` — the founder's sprint board (ADR 0013):
     internal tooling generated from `docs/plans/launch-backlog.md` by
     `scripts/backlog-to-board.mjs`, state in `localStorage`, no backend;
-    published to its own Free-tier Static Web App on every push to `main`
+    published to a Free-tier Azure Static Web App on every push to `main`
     (ADR 0014, `deploy-board.yml`)
   - `frontend/e2e/` — Playwright: `support/` (fixtures, cast, ports),
     `pages/` (page objects), `specs/<area>/`
