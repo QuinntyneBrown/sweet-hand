@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Map — Sweet Hand design system</title>
+<meta name="description" content="Sweet Hand places map: scrolling map frame and small map, schematic base map, typed pins with letters, draft pins, clusters, the place card, the legend and the map-with-list layout, in default, hover, focus, selected, loading, empty and error states.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Sweet Hand DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Actions</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/icon-button.html">Icon button</a></li>
+      <li><a href="../components/button-group.html">Button group</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+    </ul></details>
+    <details open><summary>Inputs</summary><ul>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/textarea.html">Textarea</a></li>
+      <li><a href="../components/select.html">Select</a></li>
+      <li><a href="../components/combobox.html">Combobox</a></li>
+      <li><a href="../components/checkbox.html">Checkbox</a></li>
+      <li><a href="../components/radio-group.html">Radio group</a></li>
+      <li><a href="../components/switch.html">Switch</a></li>
+      <li><a href="../components/file-upload.html">File upload</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+    </ul></details>
+    <details open><summary>Navigation</summary><ul>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/site-header.html">Site header</a></li>
+      <li><a href="../components/side-nav.html">Side navigation</a></li>
+      <li><a href="../components/tabs.html">Tabs</a></li>
+      <li><a href="../components/breadcrumb.html">Breadcrumb</a></li>
+      <li><a href="../components/pagination.html">Pagination</a></li>
+      <li><a href="../components/footer.html">Footer</a></li>
+      <li><a href="../components/filter-list.html">Filter list</a></li>
+      <li><a href="../components/filter-trigger.html">Filter trigger</a></li>
+    </ul></details>
+    <details open><summary>Containers and overlays</summary><ul>
+      <li><a href="../components/container.html">Container and grid</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/photo.html">Photo</a></li>
+      <li><a href="../components/caterer-card.html">Caterer card</a></li>
+      <li><a href="../components/gallery.html">Gallery and viewer</a></li>
+      <li><a href="../components/accordion.html">Accordion</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/sheet.html">Sheet and drawer</a></li>
+      <li><a href="../components/popover.html">Popover</a></li>
+      <li><a href="../components/tooltip.html">Tooltip</a></li>
+      <li><a href="../components/divider.html">Divider</a></li>
+      <li><a href="../components/sticky-cta.html">Sticky call to action</a></li>
+    </ul></details>
+    <details open><summary>Data display</summary><ul>
+      <li><a href="../components/table.html">Table</a></li>
+      <li><a href="../components/list.html">List rows</a></li>
+      <li><a href="../components/inbox-row.html">Inbox row</a></li>
+      <li><a href="../components/queue-item.html">Queue item</a></li>
+      <li><a href="../components/description-list.html">Description list</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/badge.html">Badge</a></li>
+      <li><a href="../components/status.html">Status label</a></li>
+      <li><a href="../components/chip.html">Chip</a></li>
+      <li><a href="../components/tag.html">Tag</a></li>
+      <li><a href="../components/stat.html">Stat</a></li>
+      <li><a href="../components/bar-chart.html">Bar chart</a></li>
+      <li><a href="../components/calendar.html">Calendar</a></li>
+      <li><a href="../components/map.html">Map</a></li>
+      <li><a href="../components/timeline.html">Timeline</a></li>
+      <li><a href="../components/message.html">Message thread</a></li>
+      <li><a href="../components/dish.html">Dish</a></li>
+      <li><a href="../components/rating.html">Rating</a></li>
+      <li><a href="../components/review.html">Review</a></li>
+      <li><a href="../components/checklist.html">Checklist</a></li>
+      <li><a href="../components/photo-tile.html">Photo tile</a></li>
+    </ul></details>
+    <details open><summary>Feedback</summary><ul>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/alert.html">Alert and banner</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/progress.html">Progress and meter</a></li>
+      <li><a href="../components/spinner.html">Spinner</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/navigation.html">Navigation and page structure</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/tables-and-lists.html">Data tables and lists</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Data display</p>
+      <h1>Map</h1>
+      <p class="ds-lead">The operators’ places map: a schematic map of Toronto and the GTA with one lettered pin per place, a card for the selected place, and the same places as an A-to-Z list beside it.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: new</span><span class="ds-pill"><code>.map</code> <code>.pin</code> <code>.map-card</code></span></div>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li></ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The map shows the operators' directory of places on a map of Toronto and the GTA. It appears on two screens: the <a href="../../mocks/pages/admin-places-map/default.html">places map</a>, a full-width map beside an A-to-Z list, and the <a href="../../mocks/pages/admin-place/default.html">place page</a> and <a href="../../mocks/dialogs/place-editor/edit.html">place editor</a>, where a small map shows one place's pin. The directory is for operators only (L2-110), so the map never appears on customer or caterer screens.</p>
+      <ul>
+        <li><b>Use the map</b> to show where several places sit relative to each other, or to confirm one storefront's pin.</li>
+        <li><b>Use a <a href="list.html">list</a></b> for anything people must read or act on in order; the map always has the A-to-Z list beside or below it, with the same rows and the same selection.</li>
+        <li><b>Don't</b> put a home address, a caterer or a food truck's overnight base on the map. Caterers show an approximate area on their own page; food trucks appear only at the day's stop.</li>
+      </ul>
+      <p>Pins carry a letter for their type (R, T, G, B, F) as well as a colour, so type never rests on colour alone. Pepper marks restaurants because they are the most common type; the selected pin grows and gets a ring rather than changing colour.</p>
+      <p>The map tiles come from a provider still to be chosen. Until then the land, water, roads and labels are a schematic SVG drawn with surface tokens, which keeps both themes legible.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="display: block; padding: var(--space-4);"><div class="map" style="width: 100%;" role="region" aria-label="Places map" tabindex="0">
+        <div class="map__controls"><button class="icon-btn" type="button" aria-label="Zoom in"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button><button class="icon-btn" type="button" aria-label="Zoom out"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><button class="icon-btn" type="button" aria-label="Fit all places"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7"/></svg></button></div>
+        <div class="map__canvas">
+        <svg viewBox="0 0 1000 640" role="img" aria-label="Map of Toronto and the GTA from Oakville to Oshawa along Lake Ontario">
+          <rect class="map__land" width="1000" height="640"/>
+          <path class="map__water" d="M0 560 C140 530 300 482 420 458 C470 448 520 452 560 440 C650 414 760 384 860 362 C920 349 960 342 1000 336 L1000 640 L0 640 Z"/>
+          <path class="map__water" d="M486 470 c14 -8 40 -10 58 -4 c-10 10 -40 14 -58 4z"/>
+          <text class="map__water-label" x="640" y="560">LAKE ONTARIO</text>
+          <path class="map__boundary" d="M330 474 L330 248 L640 222 L700 262 L792 330 L770 392"/>
+          <path class="map__road" d="M40 520 C180 488 330 452 470 432"/>
+          <path class="map__road" d="M110 330 C300 300 520 288 700 300 C820 306 920 290 1000 272"/>
+          <path class="map__road" d="M90 250 C300 210 560 176 760 168 C860 164 940 160 1000 150"/>
+          <path class="map__road" d="M432 300 L428 0"/>
+          <path class="map__road" d="M560 438 C580 380 600 330 604 300 L612 0"/>
+          <path class="map__road" d="M330 470 L330 190"/>
+          <path class="map__road" d="M236 330 L224 60"/>
+          <path class="map__road map__road--major" d="M300 420 C380 400 450 380 560 360 C660 345 760 330 860 316"/>
+          <path class="map__road map__road--major" d="M470 300 L470 448"/>
+          <text class="map__road-label" x="170" y="324">401</text>
+          <text class="map__road-label" x="120" y="496">QEW</text>
+          <text class="map__road-label" x="438" y="90">400</text>
+          <text class="map__road-label" x="620" y="90">404</text>
+          <text class="map__road-label" x="336" y="230">427</text>
+          <text class="map__road-label" x="242" y="110">410</text>
+          <text class="map__road-label" x="780" y="160">407</text>
+          <text class="map__label" x="70" y="470">Oakville</text>
+          <text class="map__label" x="190" y="380">Mississauga</text>
+          <text class="map__label" x="170" y="190">Brampton</text>
+          <text class="map__label" x="360" y="150">Vaughan</text>
+          <text class="map__label" x="510" y="130">Richmond Hill</text>
+          <text class="map__label" x="700" y="200">Markham</text>
+          <text class="map__label" x="560" y="300">Toronto</text>
+          <text class="map__label map__label--sm" x="700" y="316">Scarborough</text>
+          <text class="map__label map__label--sm" x="350" y="400">Etobicoke</text>
+          <text class="map__label map__label--sm" x="452" y="254">North York</text>
+          <text class="map__label" x="810" y="290">Pickering</text>
+          <text class="map__label" x="884" y="342">Ajax</text>
+          <text class="map__label" x="930" y="262">Oshawa</text>
+        </svg>
+        <button class="pin pin--restaurant" type="button" style="left: 46.8%; top: 57.5%;" aria-pressed="true" aria-label="Yard Pot Jerk Centre, restaurant, York · Little Jamaica"><span class="pin__head"><span aria-hidden="true">R</span></span></button>
+<button class="pin pin--restaurant" type="button" style="left: 70.2%; top: 52.5%;" aria-pressed="false" aria-label="Shark &amp; Bake Bar, restaurant, Scarborough"><span class="pin__head"><span aria-hidden="true">R</span></span></button>
+<button class="pin pin--takeout" type="button" style="left: 30.0%; top: 65.6%;" aria-pressed="false" aria-label="Roti Junction, takeout, Mississauga"><span class="pin__head"><span aria-hidden="true">T</span></span></button>
+<button class="pin pin--grocery" type="button" style="left: 23.8%; top: 36.2%;" aria-pressed="false" aria-label="Kaieteur Grocery, grocery store, Brampton"><span class="pin__head"><span aria-hidden="true">G</span></span></button>
+<button class="pin pin--grocery" type="button" style="left: 74.2%; top: 58.1%;" aria-pressed="false" aria-label="Mabi Market, grocery store, Scarborough"><span class="pin__head"><span aria-hidden="true">G</span></span></button>
+<button class="pin pin--bakery" type="button" style="left: 41.8%; top: 44.1%;" aria-pressed="false" aria-label="Bridgetown Bakeshop, bakery, North York · Jane &amp; Finch"><span class="pin__head"><span aria-hidden="true">B</span></span></button>
+<button class="pin pin--bakery" type="button" style="left: 89.6%; top: 49.4%;" aria-pressed="false" aria-label="Spice Isle Patty Co., bakery, Ajax"><span class="pin__head"><span aria-hidden="true">B</span></span></button>
+<button class="pin pin--bakery pin--draft" type="button" style="left: 35.2%; top: 46.9%;" aria-pressed="false" aria-label="Coconut Bread Corner, bakery, Etobicoke, draft"><span class="pin__head"><span aria-hidden="true">B</span></span></button>
+<button class="pin pin--takeout" type="button" style="left: 69.0%; top: 34.4%;" aria-pressed="false" aria-label="Pholourie Palace, takeout, Markham"><span class="pin__head"><span aria-hidden="true">T</span></span></button>
+<button class="pin pin--grocery" type="button" style="left: 97.2%; top: 45.6%;" aria-pressed="false" aria-label="Sorrel Tree Grocery, grocery store, Oshawa"><span class="pin__head"><span aria-hidden="true">G</span></span></button>
+<button class="pin pin--restaurant" type="button" style="left: 41.0%; top: 30.6%;" aria-pressed="false" aria-label="Sancocho Spot, restaurant, Vaughan"><span class="pin__head"><span aria-hidden="true">R</span></span></button>
+<button class="pin-cluster" type="button" style="left: 51%; top: 68.5%;" aria-label="3 places downtown: Lakou Kreyòl, Pepperpot Lunch Counter, and 1 more. Zoom in to see them.">3</button>
+<button class="pin pin--truck" type="button" style="left: 49.2%; top: 54.1%;" aria-pressed="false" aria-label="Jerk Drum Truck, food truck, Home base: Brampton, out today at Little Jamaica Saturday Market until 4 p.m."><span class="pin__head"><span aria-hidden="true">F</span></span></button><div class="map-card" style="left: 46.8%; top: 57.5%;">
+          <div class="popover" role="dialog" aria-labelledby="mc-title-an">
+            <p class="map-card__type">Restaurant · Jamaican</p>
+            <h2 class="popover__title" id="mc-title-an">Yard Pot Jerk Centre</h2>
+            <p class="text-muted">1742 Eglinton Ave W · York · Little Jamaica</p>
+            <p class="cluster" style="margin-top: var(--space-2);"><span class="status status--published">Listed</span><span class="text-caption">Open now · until 11 p.m.</span></p>
+            <div class="popover__actions"><a class="btn btn--sm" href="../../mocks/pages/admin-place/default.html">View</a><button class="btn btn--sm" type="button" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button><button class="icon-btn" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+          </div>
+        </div>
+        </div>
+      </div><ul class="map-legend" aria-label="Map key"><li><span class="pin pin--restaurant"><span class="pin__head"><span aria-hidden="true">R</span></span></span>Restaurant</li><li><span class="pin pin--takeout"><span class="pin__head"><span aria-hidden="true">T</span></span></span>Takeout</li><li><span class="pin pin--grocery"><span class="pin__head"><span aria-hidden="true">G</span></span></span>Grocery store</li><li><span class="pin pin--bakery"><span class="pin__head"><span aria-hidden="true">B</span></span></span>Bakery</li><li><span class="pin pin--truck"><span class="pin__head"><span aria-hidden="true">F</span></span></span>Food truck</li><li><span class="pin pin--restaurant pin--draft"><span class="pin__head"><span aria-hidden="true">R</span></span></span>Draft (outline)</li></ul></figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Map</b><small>(<code>.map</code>): a focusable region with a hairline border; the canvas scrolls inside it on narrow screens.</small></div></li>
+          <li><div><b>Canvas</b><small>(<code>.map__canvas</code>): fixed 1000 × 640 aspect ratio, at least 40rem wide; pins are positioned in percent of it.</small></div></li>
+          <li><div><b>Base map</b><small>(<code>svg</code> with <code>.map__land</code>, <code>.map__water</code>, <code>.map__road</code>, <code>.map__boundary</code>, <code>.map__label</code>): <code>role="img"</code> with a label naming the area shown.</small></div></li>
+          <li><div><b>Controls</b><small>(<code>.map__controls</code>): zoom in, zoom out and fit all, as <a href="icon-button.html">icon buttons</a>; they stay in the top corner while the canvas scrolls.</small></div></li>
+          <li><div><b>Pin</b><small>(<code>.pin</code> + type modifier): a 44px button with a teardrop head and a letter.</small></div></li>
+          <li><div><b>Cluster</b><small>(<code>.pin-cluster</code>): a round count for pins that would overlap; its label names the places in it.</small></div></li>
+          <li><div><b>Card</b><small>(<code>.map-card</code> holding a <a href="popover.html">popover</a>): the selected place's type, name, address, status, open-now text and actions.</small></div></li>
+          <li><div><b>Legend</b><small>(<code>.map-legend</code>): one entry per type, plus the draft outline.</small></div></li>
+          <li><div><b>Attribution</b><small>(<code>.map__attribution</code>): the tile provider's credit, bottom right, once a provider is chosen.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <h3>Pin types</h3>
+      <div class="ds-example"><div class="ds-example__canvas"><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--restaurant" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Restaurant pin"><span class="pin__head"><span aria-hidden="true">R</span></span></button></div><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--takeout" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Takeout pin"><span class="pin__head"><span aria-hidden="true">T</span></span></button></div><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--grocery" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Grocery store pin"><span class="pin__head"><span aria-hidden="true">G</span></span></button></div><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--bakery" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Bakery pin"><span class="pin__head"><span aria-hidden="true">B</span></span></button></div><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--truck" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Food truck pin"><span class="pin__head"><span aria-hidden="true">F</span></span></button></div><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--restaurant pin--draft" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Restaurant pin, draft"><span class="pin__head"><span aria-hidden="true">R</span></span></button></div><div style="position: relative; width: 3.5rem; height: 3.5rem;"><button class="pin-cluster" type="button" style="left: 50%; top: 50%;" aria-label="3 places downtown: Lakou Kreyòl, Pepperpot Lunch Counter, and 1 more. Zoom in to see them.">3</button></div></div></div>
+      <ul>
+        <li><b>Storefront pins</b> (<code>.pin--restaurant</code>, <code>--takeout</code>, <code>--grocery</code>, <code>--bakery</code>) use a teardrop head that points at the address.</li>
+        <li><b>Food truck</b> (<code>.pin--truck</code>) uses a square head: it marks the day's stop, not a fixed address.</li>
+        <li><b>Draft</b> (<code>.pin--draft</code>, added to a type) is an outline with a coloured letter. It marks a place that is not yet listed.</li>
+        <li><b>Cluster</b> (<code>.pin-cluster</code>) replaces pins whose heads would overlap at the current zoom; activating it zooms in on them.</li>
+      </ul>
+      <h3>Map with list (<code>.map-layout</code>)</h3>
+      <p>The places map pairs the map with an A-to-Z <a href="list.html">section list</a> (<code>.map-layout__list</code>). Selecting a list row selects the pin, and the reverse; the current row takes <code>aria-current="true"</code>.</p>
+      <h3>Small map (<code>.map--sm</code>)</h3>
+      <div class="ds-example"><div class="ds-example__canvas ds-example__canvas--stack" style="max-width: 28rem;"><div class="map map--sm" role="region" aria-label="Places map" tabindex="0">
+        
+        <div class="map__canvas">
+        <svg viewBox="0 0 1000 640" role="img" aria-label="Map of Toronto and the GTA from Oakville to Oshawa along Lake Ontario">
+          <rect class="map__land" width="1000" height="640"/>
+          <path class="map__water" d="M0 560 C140 530 300 482 420 458 C470 448 520 452 560 440 C650 414 760 384 860 362 C920 349 960 342 1000 336 L1000 640 L0 640 Z"/>
+          <path class="map__water" d="M486 470 c14 -8 40 -10 58 -4 c-10 10 -40 14 -58 4z"/>
+          <text class="map__water-label" x="640" y="560">LAKE ONTARIO</text>
+          <path class="map__boundary" d="M330 474 L330 248 L640 222 L700 262 L792 330 L770 392"/>
+          <path class="map__road" d="M40 520 C180 488 330 452 470 432"/>
+          <path class="map__road" d="M110 330 C300 300 520 288 700 300 C820 306 920 290 1000 272"/>
+          <path class="map__road" d="M90 250 C300 210 560 176 760 168 C860 164 940 160 1000 150"/>
+          <path class="map__road" d="M432 300 L428 0"/>
+          <path class="map__road" d="M560 438 C580 380 600 330 604 300 L612 0"/>
+          <path class="map__road" d="M330 470 L330 190"/>
+          <path class="map__road" d="M236 330 L224 60"/>
+          <path class="map__road map__road--major" d="M300 420 C380 400 450 380 560 360 C660 345 760 330 860 316"/>
+          <path class="map__road map__road--major" d="M470 300 L470 448"/>
+          <text class="map__road-label" x="170" y="324">401</text>
+          <text class="map__road-label" x="120" y="496">QEW</text>
+          <text class="map__road-label" x="438" y="90">400</text>
+          <text class="map__road-label" x="620" y="90">404</text>
+          <text class="map__road-label" x="336" y="230">427</text>
+          <text class="map__road-label" x="242" y="110">410</text>
+          <text class="map__road-label" x="780" y="160">407</text>
+          <text class="map__label" x="70" y="470">Oakville</text>
+          <text class="map__label" x="190" y="380">Mississauga</text>
+          <text class="map__label" x="170" y="190">Brampton</text>
+          <text class="map__label" x="360" y="150">Vaughan</text>
+          <text class="map__label" x="510" y="130">Richmond Hill</text>
+          <text class="map__label" x="700" y="200">Markham</text>
+          <text class="map__label" x="560" y="300">Toronto</text>
+          <text class="map__label map__label--sm" x="700" y="316">Scarborough</text>
+          <text class="map__label map__label--sm" x="350" y="400">Etobicoke</text>
+          <text class="map__label map__label--sm" x="452" y="254">North York</text>
+          <text class="map__label" x="810" y="290">Pickering</text>
+          <text class="map__label" x="884" y="342">Ajax</text>
+          <text class="map__label" x="930" y="262">Oshawa</text>
+        </svg>
+        <button class="pin pin--restaurant" type="button" style="left: 46.8%; top: 57.5%;" aria-pressed="true" aria-label="Yard Pot Jerk Centre, restaurant, York · Little Jamaica"><span class="pin__head"><span aria-hidden="true">R</span></span></button>
+        </div>
+      </div></div></div>
+      <p>The place page and the place editor show one pin on a canvas that fits its container instead of scrolling. In the editor the pin can be dragged, or moved with the arrow keys, to correct a geocoded address (L2-113).</p>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>Two sizes: the full map (<code>.map</code>, canvas at least 40rem wide and scrolling inside the frame) and the small map (<code>.map--sm</code>, canvas at 100% of its container). Pins are one size: a 44px target (<code>--target-comfortable</code>) with a 1.75rem head, 1.25rem in the legend.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <div class="ds-matrix"><table>
+        <caption class="visually-hidden">Pin and cluster states</caption>
+        <thead><tr><th scope="col">Type</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Selected</th><th scope="col">Draft</th></tr></thead>
+        <tbody>
+<tr><th scope="row">Restaurant</th><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--restaurant" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Restaurant pin, default"><span class="pin__head"><span aria-hidden="true">R</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--restaurant" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Restaurant pin, hover" data-state="hover"><span class="pin__head"><span aria-hidden="true">R</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--restaurant" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Restaurant pin, focus" data-state="focus"><span class="pin__head"><span aria-hidden="true">R</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--restaurant" type="button" style="left: 50%; top: 100%;" aria-pressed="true" aria-label="Restaurant pin, selected"><span class="pin__head"><span aria-hidden="true">R</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--restaurant pin--draft" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Restaurant pin, draft"><span class="pin__head"><span aria-hidden="true">R</span></span></button></div></td></tr>
+<tr><th scope="row">Takeout</th><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--takeout" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Takeout pin, default"><span class="pin__head"><span aria-hidden="true">T</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--takeout" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Takeout pin, hover" data-state="hover"><span class="pin__head"><span aria-hidden="true">T</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--takeout" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Takeout pin, focus" data-state="focus"><span class="pin__head"><span aria-hidden="true">T</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--takeout" type="button" style="left: 50%; top: 100%;" aria-pressed="true" aria-label="Takeout pin, selected"><span class="pin__head"><span aria-hidden="true">T</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--takeout pin--draft" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Takeout pin, draft"><span class="pin__head"><span aria-hidden="true">T</span></span></button></div></td></tr>
+<tr><th scope="row">Grocery store</th><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--grocery" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Grocery store pin, default"><span class="pin__head"><span aria-hidden="true">G</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--grocery" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Grocery store pin, hover" data-state="hover"><span class="pin__head"><span aria-hidden="true">G</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--grocery" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Grocery store pin, focus" data-state="focus"><span class="pin__head"><span aria-hidden="true">G</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--grocery" type="button" style="left: 50%; top: 100%;" aria-pressed="true" aria-label="Grocery store pin, selected"><span class="pin__head"><span aria-hidden="true">G</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--grocery pin--draft" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Grocery store pin, draft"><span class="pin__head"><span aria-hidden="true">G</span></span></button></div></td></tr>
+<tr><th scope="row">Bakery</th><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--bakery" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Bakery pin, default"><span class="pin__head"><span aria-hidden="true">B</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--bakery" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Bakery pin, hover" data-state="hover"><span class="pin__head"><span aria-hidden="true">B</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--bakery" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Bakery pin, focus" data-state="focus"><span class="pin__head"><span aria-hidden="true">B</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--bakery" type="button" style="left: 50%; top: 100%;" aria-pressed="true" aria-label="Bakery pin, selected"><span class="pin__head"><span aria-hidden="true">B</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--bakery pin--draft" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Bakery pin, draft"><span class="pin__head"><span aria-hidden="true">B</span></span></button></div></td></tr>
+<tr><th scope="row">Food truck</th><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--truck" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Food truck pin, default"><span class="pin__head"><span aria-hidden="true">F</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--truck" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Food truck pin, hover" data-state="hover"><span class="pin__head"><span aria-hidden="true">F</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--truck" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Food truck pin, focus" data-state="focus"><span class="pin__head"><span aria-hidden="true">F</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--truck" type="button" style="left: 50%; top: 100%;" aria-pressed="true" aria-label="Food truck pin, selected"><span class="pin__head"><span aria-hidden="true">F</span></span></button></div></td><td><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--truck pin--draft" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Food truck pin, draft"><span class="pin__head"><span aria-hidden="true">F</span></span></button></div></td></tr>
+<tr><th scope="row">Cluster</th><td><div style="position: relative; width: 3.5rem; height: 3.5rem;"><button class="pin-cluster" type="button" style="left: 50%; top: 50%;" aria-label="3 places downtown: Lakou Kreyòl, Pepperpot Lunch Counter, and 1 more. Zoom in to see them.">3</button></div></td><td><div style="position: relative; width: 3.5rem; height: 3.5rem;"><button class="pin-cluster" type="button" style="left: 50%; top: 50%;" data-state="hover" aria-label="3 places downtown: Lakou Kreyòl, Pepperpot Lunch Counter, and 1 more. Zoom in to see them.">3</button></div></td><td><div style="position: relative; width: 3.5rem; height: 3.5rem;"><button class="pin-cluster" type="button" style="left: 50%; top: 50%;" data-state="focus" aria-label="3 places downtown: Lakou Kreyòl, Pepperpot Lunch Counter, and 1 more. Zoom in to see them.">3</button></div></td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li><b>Hover</b> grows the head by 20%. <b>Focus</b> adds the shared focus ring around the head. <b>Selected</b> (<code>aria-pressed="true"</code>) grows the head, adds a ring in the pin's colour and raises the pin above its neighbours.</li>
+        <li><b>Card open</b>: the selected pin's card sits above the pin, or below it when there is no room above inside the frame (the <a href="../../mocks/pages/admin-places-map/selected.html">selected</a> mock clips it at the top edge); Escape or the close button closes it and returns focus to the pin.</li>
+        <li><b>Loading</b> (<a href="../../mocks/pages/admin-places-map/loading.html">loading</a>): the list shows skeleton rows, the map frame shows the base map with no pins, and one visually hidden status says "Loading places on the map".</li>
+        <li><b>Empty</b>: no place has a pin. The base map stays, with a centred <a href="card.html">card</a>, "No places on the map yet", and "Add place" over it.</li>
+        <li><b>Error</b>: the map or the places failed. An error empty state replaces the map and offers "Use the list".</li>
+      </ul>
+      <div class="ds-example"><div class="ds-example__canvas ds-example__canvas--stack"><div class="map" style="width: 100%;" role="region" aria-label="Places map" tabindex="0">
+        <div class="map__controls"><button class="icon-btn" type="button" aria-label="Zoom in"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button><button class="icon-btn" type="button" aria-label="Zoom out"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><button class="icon-btn" type="button" aria-label="Fit all places"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7"/></svg></button></div>
+        <div class="map__canvas">
+        <svg viewBox="0 0 1000 640" role="img" aria-label="Map of Toronto and the GTA from Oakville to Oshawa along Lake Ontario">
+          <rect class="map__land" width="1000" height="640"/>
+          <path class="map__water" d="M0 560 C140 530 300 482 420 458 C470 448 520 452 560 440 C650 414 760 384 860 362 C920 349 960 342 1000 336 L1000 640 L0 640 Z"/>
+          <path class="map__water" d="M486 470 c14 -8 40 -10 58 -4 c-10 10 -40 14 -58 4z"/>
+          <text class="map__water-label" x="640" y="560">LAKE ONTARIO</text>
+          <path class="map__boundary" d="M330 474 L330 248 L640 222 L700 262 L792 330 L770 392"/>
+          <path class="map__road" d="M40 520 C180 488 330 452 470 432"/>
+          <path class="map__road" d="M110 330 C300 300 520 288 700 300 C820 306 920 290 1000 272"/>
+          <path class="map__road" d="M90 250 C300 210 560 176 760 168 C860 164 940 160 1000 150"/>
+          <path class="map__road" d="M432 300 L428 0"/>
+          <path class="map__road" d="M560 438 C580 380 600 330 604 300 L612 0"/>
+          <path class="map__road" d="M330 470 L330 190"/>
+          <path class="map__road" d="M236 330 L224 60"/>
+          <path class="map__road map__road--major" d="M300 420 C380 400 450 380 560 360 C660 345 760 330 860 316"/>
+          <path class="map__road map__road--major" d="M470 300 L470 448"/>
+          <text class="map__road-label" x="170" y="324">401</text>
+          <text class="map__road-label" x="120" y="496">QEW</text>
+          <text class="map__road-label" x="438" y="90">400</text>
+          <text class="map__road-label" x="620" y="90">404</text>
+          <text class="map__road-label" x="336" y="230">427</text>
+          <text class="map__road-label" x="242" y="110">410</text>
+          <text class="map__road-label" x="780" y="160">407</text>
+          <text class="map__label" x="70" y="470">Oakville</text>
+          <text class="map__label" x="190" y="380">Mississauga</text>
+          <text class="map__label" x="170" y="190">Brampton</text>
+          <text class="map__label" x="360" y="150">Vaughan</text>
+          <text class="map__label" x="510" y="130">Richmond Hill</text>
+          <text class="map__label" x="700" y="200">Markham</text>
+          <text class="map__label" x="560" y="300">Toronto</text>
+          <text class="map__label map__label--sm" x="700" y="316">Scarborough</text>
+          <text class="map__label map__label--sm" x="350" y="400">Etobicoke</text>
+          <text class="map__label map__label--sm" x="452" y="254">North York</text>
+          <text class="map__label" x="810" y="290">Pickering</text>
+          <text class="map__label" x="884" y="342">Ajax</text>
+          <text class="map__label" x="930" y="262">Oshawa</text>
+        </svg>
+        <div style="position: absolute; inset: 0; display: grid; place-items: center; padding: var(--space-6);"><div class="card" style="max-width: 22rem; text-align: center;"><h2 class="card__title">No places on the map yet</h2><p class="text-muted" style="margin-block: var(--space-2) var(--space-4);">A pin appears when a listed place has an address. Food trucks show on the days they’re out.</p><button class="btn btn--primary" type="button" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add place</button></div></div>
+        </div>
+      </div><div class="empty empty--error">
+        <div class="empty__icon" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16v.5"/></svg></div>
+        <h2 class="empty__title">We couldn’t load the map</h2>
+        <p class="empty__text">The places didn’t come through. The list view still works while we sort this out.</p>
+        <div class="empty__actions"><a class="btn" href="../../mocks/pages/admin-places-map/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>Try again</a><a class="btn btn--ghost" href="../../mocks/pages/admin-places/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>Use the list</a></div>
+      </div></div></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+<div data-theme="light"><p class="text-caption">Light</p><div class="map" role="region" aria-label="Places map" tabindex="0">
+        <div class="map__controls"><button class="icon-btn" type="button" aria-label="Zoom in"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button><button class="icon-btn" type="button" aria-label="Zoom out"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><button class="icon-btn" type="button" aria-label="Fit all places"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7"/></svg></button></div>
+        <div class="map__canvas">
+        <svg viewBox="0 0 1000 640" role="img" aria-label="Map of Toronto and the GTA from Oakville to Oshawa along Lake Ontario">
+          <rect class="map__land" width="1000" height="640"/>
+          <path class="map__water" d="M0 560 C140 530 300 482 420 458 C470 448 520 452 560 440 C650 414 760 384 860 362 C920 349 960 342 1000 336 L1000 640 L0 640 Z"/>
+          <path class="map__water" d="M486 470 c14 -8 40 -10 58 -4 c-10 10 -40 14 -58 4z"/>
+          <text class="map__water-label" x="640" y="560">LAKE ONTARIO</text>
+          <path class="map__boundary" d="M330 474 L330 248 L640 222 L700 262 L792 330 L770 392"/>
+          <path class="map__road" d="M40 520 C180 488 330 452 470 432"/>
+          <path class="map__road" d="M110 330 C300 300 520 288 700 300 C820 306 920 290 1000 272"/>
+          <path class="map__road" d="M90 250 C300 210 560 176 760 168 C860 164 940 160 1000 150"/>
+          <path class="map__road" d="M432 300 L428 0"/>
+          <path class="map__road" d="M560 438 C580 380 600 330 604 300 L612 0"/>
+          <path class="map__road" d="M330 470 L330 190"/>
+          <path class="map__road" d="M236 330 L224 60"/>
+          <path class="map__road map__road--major" d="M300 420 C380 400 450 380 560 360 C660 345 760 330 860 316"/>
+          <path class="map__road map__road--major" d="M470 300 L470 448"/>
+          <text class="map__road-label" x="170" y="324">401</text>
+          <text class="map__road-label" x="120" y="496">QEW</text>
+          <text class="map__road-label" x="438" y="90">400</text>
+          <text class="map__road-label" x="620" y="90">404</text>
+          <text class="map__road-label" x="336" y="230">427</text>
+          <text class="map__road-label" x="242" y="110">410</text>
+          <text class="map__road-label" x="780" y="160">407</text>
+          <text class="map__label" x="70" y="470">Oakville</text>
+          <text class="map__label" x="190" y="380">Mississauga</text>
+          <text class="map__label" x="170" y="190">Brampton</text>
+          <text class="map__label" x="360" y="150">Vaughan</text>
+          <text class="map__label" x="510" y="130">Richmond Hill</text>
+          <text class="map__label" x="700" y="200">Markham</text>
+          <text class="map__label" x="560" y="300">Toronto</text>
+          <text class="map__label map__label--sm" x="700" y="316">Scarborough</text>
+          <text class="map__label map__label--sm" x="350" y="400">Etobicoke</text>
+          <text class="map__label map__label--sm" x="452" y="254">North York</text>
+          <text class="map__label" x="810" y="290">Pickering</text>
+          <text class="map__label" x="884" y="342">Ajax</text>
+          <text class="map__label" x="930" y="262">Oshawa</text>
+        </svg>
+        <button class="pin pin--restaurant" type="button" style="left: 46.8%; top: 57.5%;" aria-pressed="true" aria-label="Yard Pot Jerk Centre, restaurant, York · Little Jamaica"><span class="pin__head"><span aria-hidden="true">R</span></span></button>
+<button class="pin pin--restaurant" type="button" style="left: 70.2%; top: 52.5%;" aria-pressed="false" aria-label="Shark &amp; Bake Bar, restaurant, Scarborough"><span class="pin__head"><span aria-hidden="true">R</span></span></button>
+<button class="pin pin--takeout" type="button" style="left: 30.0%; top: 65.6%;" aria-pressed="false" aria-label="Roti Junction, takeout, Mississauga"><span class="pin__head"><span aria-hidden="true">T</span></span></button>
+<button class="pin pin--grocery" type="button" style="left: 23.8%; top: 36.2%;" aria-pressed="false" aria-label="Kaieteur Grocery, grocery store, Brampton"><span class="pin__head"><span aria-hidden="true">G</span></span></button>
+<button class="pin pin--grocery" type="button" style="left: 74.2%; top: 58.1%;" aria-pressed="false" aria-label="Mabi Market, grocery store, Scarborough"><span class="pin__head"><span aria-hidden="true">G</span></span></button>
+<button class="pin pin--bakery" type="button" style="left: 41.8%; top: 44.1%;" aria-pressed="false" aria-label="Bridgetown Bakeshop, bakery, North York · Jane &amp; Finch"><span class="pin__head"><span aria-hidden="true">B</span></span></button>
+<button class="pin pin--bakery" type="button" style="left: 89.6%; top: 49.4%;" aria-pressed="false" aria-label="Spice Isle Patty Co., bakery, Ajax"><span class="pin__head"><span aria-hidden="true">B</span></span></button>
+<button class="pin pin--bakery pin--draft" type="button" style="left: 35.2%; top: 46.9%;" aria-pressed="false" aria-label="Coconut Bread Corner, bakery, Etobicoke, draft"><span class="pin__head"><span aria-hidden="true">B</span></span></button>
+<button class="pin pin--takeout" type="button" style="left: 69.0%; top: 34.4%;" aria-pressed="false" aria-label="Pholourie Palace, takeout, Markham"><span class="pin__head"><span aria-hidden="true">T</span></span></button>
+<button class="pin pin--grocery" type="button" style="left: 97.2%; top: 45.6%;" aria-pressed="false" aria-label="Sorrel Tree Grocery, grocery store, Oshawa"><span class="pin__head"><span aria-hidden="true">G</span></span></button>
+<button class="pin pin--restaurant" type="button" style="left: 41.0%; top: 30.6%;" aria-pressed="false" aria-label="Sancocho Spot, restaurant, Vaughan"><span class="pin__head"><span aria-hidden="true">R</span></span></button>
+<button class="pin-cluster" type="button" style="left: 51%; top: 68.5%;" aria-label="3 places downtown: Lakou Kreyòl, Pepperpot Lunch Counter, and 1 more. Zoom in to see them.">3</button>
+<button class="pin pin--truck" type="button" style="left: 49.2%; top: 54.1%;" aria-pressed="false" aria-label="Jerk Drum Truck, food truck, Home base: Brampton, out today at Little Jamaica Saturday Market until 4 p.m."><span class="pin__head"><span aria-hidden="true">F</span></span></button><div class="map-card" style="left: 46.8%; top: 57.5%;">
+          <div class="popover" role="dialog" aria-labelledby="mc-title-light">
+            <p class="map-card__type">Restaurant · Jamaican</p>
+            <h2 class="popover__title" id="mc-title-light">Yard Pot Jerk Centre</h2>
+            <p class="text-muted">1742 Eglinton Ave W · York · Little Jamaica</p>
+            <p class="cluster" style="margin-top: var(--space-2);"><span class="status status--published">Listed</span><span class="text-caption">Open now · until 11 p.m.</span></p>
+            <div class="popover__actions"><a class="btn btn--sm" href="../../mocks/pages/admin-place/default.html">View</a><button class="btn btn--sm" type="button" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button><button class="icon-btn" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+          </div>
+        </div>
+        </div>
+      </div><ul class="map-legend" aria-label="Map key"><li><span class="pin pin--restaurant"><span class="pin__head"><span aria-hidden="true">R</span></span></span>Restaurant</li><li><span class="pin pin--takeout"><span class="pin__head"><span aria-hidden="true">T</span></span></span>Takeout</li><li><span class="pin pin--grocery"><span class="pin__head"><span aria-hidden="true">G</span></span></span>Grocery store</li><li><span class="pin pin--bakery"><span class="pin__head"><span aria-hidden="true">B</span></span></span>Bakery</li><li><span class="pin pin--truck"><span class="pin__head"><span aria-hidden="true">F</span></span></span>Food truck</li><li><span class="pin pin--restaurant pin--draft"><span class="pin__head"><span aria-hidden="true">R</span></span></span>Draft (outline)</li></ul></div>
+<div data-theme="dark"><p class="text-caption">Dark</p><div class="map" role="region" aria-label="Places map" tabindex="0">
+        <div class="map__controls"><button class="icon-btn" type="button" aria-label="Zoom in"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button><button class="icon-btn" type="button" aria-label="Zoom out"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><button class="icon-btn" type="button" aria-label="Fit all places"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7"/></svg></button></div>
+        <div class="map__canvas">
+        <svg viewBox="0 0 1000 640" role="img" aria-label="Map of Toronto and the GTA from Oakville to Oshawa along Lake Ontario">
+          <rect class="map__land" width="1000" height="640"/>
+          <path class="map__water" d="M0 560 C140 530 300 482 420 458 C470 448 520 452 560 440 C650 414 760 384 860 362 C920 349 960 342 1000 336 L1000 640 L0 640 Z"/>
+          <path class="map__water" d="M486 470 c14 -8 40 -10 58 -4 c-10 10 -40 14 -58 4z"/>
+          <text class="map__water-label" x="640" y="560">LAKE ONTARIO</text>
+          <path class="map__boundary" d="M330 474 L330 248 L640 222 L700 262 L792 330 L770 392"/>
+          <path class="map__road" d="M40 520 C180 488 330 452 470 432"/>
+          <path class="map__road" d="M110 330 C300 300 520 288 700 300 C820 306 920 290 1000 272"/>
+          <path class="map__road" d="M90 250 C300 210 560 176 760 168 C860 164 940 160 1000 150"/>
+          <path class="map__road" d="M432 300 L428 0"/>
+          <path class="map__road" d="M560 438 C580 380 600 330 604 300 L612 0"/>
+          <path class="map__road" d="M330 470 L330 190"/>
+          <path class="map__road" d="M236 330 L224 60"/>
+          <path class="map__road map__road--major" d="M300 420 C380 400 450 380 560 360 C660 345 760 330 860 316"/>
+          <path class="map__road map__road--major" d="M470 300 L470 448"/>
+          <text class="map__road-label" x="170" y="324">401</text>
+          <text class="map__road-label" x="120" y="496">QEW</text>
+          <text class="map__road-label" x="438" y="90">400</text>
+          <text class="map__road-label" x="620" y="90">404</text>
+          <text class="map__road-label" x="336" y="230">427</text>
+          <text class="map__road-label" x="242" y="110">410</text>
+          <text class="map__road-label" x="780" y="160">407</text>
+          <text class="map__label" x="70" y="470">Oakville</text>
+          <text class="map__label" x="190" y="380">Mississauga</text>
+          <text class="map__label" x="170" y="190">Brampton</text>
+          <text class="map__label" x="360" y="150">Vaughan</text>
+          <text class="map__label" x="510" y="130">Richmond Hill</text>
+          <text class="map__label" x="700" y="200">Markham</text>
+          <text class="map__label" x="560" y="300">Toronto</text>
+          <text class="map__label map__label--sm" x="700" y="316">Scarborough</text>
+          <text class="map__label map__label--sm" x="350" y="400">Etobicoke</text>
+          <text class="map__label map__label--sm" x="452" y="254">North York</text>
+          <text class="map__label" x="810" y="290">Pickering</text>
+          <text class="map__label" x="884" y="342">Ajax</text>
+          <text class="map__label" x="930" y="262">Oshawa</text>
+        </svg>
+        <button class="pin pin--restaurant" type="button" style="left: 46.8%; top: 57.5%;" aria-pressed="true" aria-label="Yard Pot Jerk Centre, restaurant, York · Little Jamaica"><span class="pin__head"><span aria-hidden="true">R</span></span></button>
+<button class="pin pin--restaurant" type="button" style="left: 70.2%; top: 52.5%;" aria-pressed="false" aria-label="Shark &amp; Bake Bar, restaurant, Scarborough"><span class="pin__head"><span aria-hidden="true">R</span></span></button>
+<button class="pin pin--takeout" type="button" style="left: 30.0%; top: 65.6%;" aria-pressed="false" aria-label="Roti Junction, takeout, Mississauga"><span class="pin__head"><span aria-hidden="true">T</span></span></button>
+<button class="pin pin--grocery" type="button" style="left: 23.8%; top: 36.2%;" aria-pressed="false" aria-label="Kaieteur Grocery, grocery store, Brampton"><span class="pin__head"><span aria-hidden="true">G</span></span></button>
+<button class="pin pin--grocery" type="button" style="left: 74.2%; top: 58.1%;" aria-pressed="false" aria-label="Mabi Market, grocery store, Scarborough"><span class="pin__head"><span aria-hidden="true">G</span></span></button>
+<button class="pin pin--bakery" type="button" style="left: 41.8%; top: 44.1%;" aria-pressed="false" aria-label="Bridgetown Bakeshop, bakery, North York · Jane &amp; Finch"><span class="pin__head"><span aria-hidden="true">B</span></span></button>
+<button class="pin pin--bakery" type="button" style="left: 89.6%; top: 49.4%;" aria-pressed="false" aria-label="Spice Isle Patty Co., bakery, Ajax"><span class="pin__head"><span aria-hidden="true">B</span></span></button>
+<button class="pin pin--bakery pin--draft" type="button" style="left: 35.2%; top: 46.9%;" aria-pressed="false" aria-label="Coconut Bread Corner, bakery, Etobicoke, draft"><span class="pin__head"><span aria-hidden="true">B</span></span></button>
+<button class="pin pin--takeout" type="button" style="left: 69.0%; top: 34.4%;" aria-pressed="false" aria-label="Pholourie Palace, takeout, Markham"><span class="pin__head"><span aria-hidden="true">T</span></span></button>
+<button class="pin pin--grocery" type="button" style="left: 97.2%; top: 45.6%;" aria-pressed="false" aria-label="Sorrel Tree Grocery, grocery store, Oshawa"><span class="pin__head"><span aria-hidden="true">G</span></span></button>
+<button class="pin pin--restaurant" type="button" style="left: 41.0%; top: 30.6%;" aria-pressed="false" aria-label="Sancocho Spot, restaurant, Vaughan"><span class="pin__head"><span aria-hidden="true">R</span></span></button>
+<button class="pin-cluster" type="button" style="left: 51%; top: 68.5%;" aria-label="3 places downtown: Lakou Kreyòl, Pepperpot Lunch Counter, and 1 more. Zoom in to see them.">3</button>
+<button class="pin pin--truck" type="button" style="left: 49.2%; top: 54.1%;" aria-pressed="false" aria-label="Jerk Drum Truck, food truck, Home base: Brampton, out today at Little Jamaica Saturday Market until 4 p.m."><span class="pin__head"><span aria-hidden="true">F</span></span></button><div class="map-card" style="left: 46.8%; top: 57.5%;">
+          <div class="popover" role="dialog" aria-labelledby="mc-title-dark">
+            <p class="map-card__type">Restaurant · Jamaican</p>
+            <h2 class="popover__title" id="mc-title-dark">Yard Pot Jerk Centre</h2>
+            <p class="text-muted">1742 Eglinton Ave W · York · Little Jamaica</p>
+            <p class="cluster" style="margin-top: var(--space-2);"><span class="status status--published">Listed</span><span class="text-caption">Open now · until 11 p.m.</span></p>
+            <div class="popover__actions"><a class="btn btn--sm" href="../../mocks/pages/admin-place/default.html">View</a><button class="btn btn--sm" type="button" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button><button class="icon-btn" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+          </div>
+        </div>
+        </div>
+      </div><ul class="map-legend" aria-label="Map key"><li><span class="pin pin--restaurant"><span class="pin__head"><span aria-hidden="true">R</span></span></span>Restaurant</li><li><span class="pin pin--takeout"><span class="pin__head"><span aria-hidden="true">T</span></span></span>Takeout</li><li><span class="pin pin--grocery"><span class="pin__head"><span aria-hidden="true">G</span></span></span>Grocery store</li><li><span class="pin pin--bakery"><span class="pin__head"><span aria-hidden="true">B</span></span></span>Bakery</li><li><span class="pin pin--truck"><span class="pin__head"><span aria-hidden="true">F</span></span></span>Food truck</li><li><span class="pin pin--restaurant pin--draft"><span class="pin__head"><span aria-hidden="true">R</span></span></span>Draft (outline)</li></ul></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>All widths:</b> the canvas keeps its 1000 × 640 ratio and is at least 40rem wide. Below that the map frame scrolls in both directions inside its own border, and the page itself never scrolls sideways. The controls stay in the top-right corner.</li>
+        <li><b>Below 100rem:</b> <code>.map-layout</code> is one column with the map first and the A-to-Z list below it.</li>
+        <li><b>100rem and up:</b> the list is an 18rem column on the left, at most 40rem tall, and scrolls on its own.</li>
+        <li><b>Small map:</b> always fits its container; it never scrolls.</li>
+        <li>Pins and clusters stay 44px at every width; the card is at most 18rem wide and never wider than the frame minus <code>--space-6</code>.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>Land reads <code>--color-bg-surface-sunken</code>, water <code>--color-bg-subtle</code>, roads <code>--color-border-default</code> and <code>--color-border-strong</code>, labels <code>--color-fg-muted</code> and <code>--color-fg-subtle</code>. Pin colours are semantic: restaurant <code>--color-accent</code>, takeout <code>--color-action</code>, grocery <code>--color-success-solid</code>, bakery <code>--color-warning-solid</code>, food truck <code>--color-info-solid</code>; letters use <code>--color-fg-on-accent</code>. Each pin head has a <code>--color-bg-surface</code> halo so it separates from roads in both themes. A third-party tile layer must offer a light and a dark style, chosen by the same theme attribute.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>The map is a <code>role="region"</code> named "Places map" with <code>tabindex="0"</code>, so keyboard users can reach it and pan it. The base map is <code>role="img"</code> with a label naming the area. Each pin and cluster is a native <code>&lt;button&gt;</code> using the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/button/">toggle button pattern</a> (<code>aria-pressed</code>). The card is a non-modal <a href="popover.html">popover</a> (<code>role="dialog"</code>, labelled by its heading). The A-to-Z list is the complete text alternative: every pin has a list row with the same name.</p>
+      <h3>Keyboard</h3>
+      <div class="ds-table-wrap"><table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Moves to the map region, then the controls, then each pin and cluster in A-to-Z order (the list's order), then on.</td></tr>
+        <tr><td><kbd>Arrow keys</kbd></td><td>Pan the map while the region has focus.</td></tr>
+        <tr><td><kbd>+</kbd>, <kbd>−</kbd></td><td>Zoom in and out while the region has focus.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Select a pin and open its card; on a cluster, zoom in to it.</td></tr>
+        <tr><td><kbd>Escape</kbd></td><td>Close the card and return focus to its pin.</td></tr>
+        <tr><td><kbd>Arrow keys</kbd> on the editor's pin</td><td>Move the pin by a small step to correct the address (L2-113).</td></tr>
+      </tbody></table></div>
+      <h3>Focus</h3>
+      <p>Pins hide the button outline and draw the shared focus ring around the head, which is the visible shape. The ring and the 44px target meet WCAG 2.4.11 and 2.5.8.</p>
+      <h3>Labelling</h3>
+      <p>A pin's label gives name, type, area and any status: "Yard Pot Jerk Centre, restaurant, York · Little Jamaica"; "Coconut Bread Corner, bakery, Etobicoke, draft". A cluster's label gives the count, up to 2 names and "Zoom in to see them". The letter inside the head is <code>aria-hidden</code>.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Restaurant pin letter</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Takeout pin letter</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-action" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Grocery pin letter</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-success-solid" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Bakery pin letter</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-warning-solid" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Food truck pin letter</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-info-solid" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Bakery pin vs land</span><span class="ds-pair__ratio" data-contrast="--color-warning-solid|--color-bg-surface-sunken" data-min="3"></span></div>
+        <div class="ds-pair"><span>Draft pin outline</span><span class="ds-pair__ratio" data-contrast="--color-accent|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Cluster count</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-action|--color-action" data-min="4.5"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>The head scales over <code>--duration-fast</code>; with reduced motion the change is instant. Panning and zooming never animate on their own.</p>
+      <h3>Touch</h3>
+      <p>Every pin and cluster is a 44px target. Dragging the canvas pans it; pinch zooms when a tile provider supports it. The editor's pin is dragged with one finger, and the arrow keys are the alternative (WCAG 2.5.7).</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>The summary above the map counts what is shown: "15 places · 1 food truck out today"; filtered, "6 of 15 places · grocery and bakeries".</li>
+        <li>The legend uses the type names from the place editor: Restaurant, Takeout, Grocery store, Bakery, Food truck, and "Draft (outline)".</li>
+        <li>The card's open-now line reads "Open now · until 11 p.m." or "Closed now", in Toronto time.</li>
+        <li>The base map's label names the area: "Map of Toronto and the GTA from Oakville to Oshawa along Lake Ontario".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--grocery" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Grocery store pin"><span class="pin__head"><span aria-hidden="true">G</span></span></button></div><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--bakery" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Bakery pin"><span class="pin__head"><span aria-hidden="true">B</span></span></button></div></div><figcaption>Give every pin its type letter, so grocery and bakery differ without colour.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--grocery" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Grocery store pin without a letter"><span class="pin__head"><span aria-hidden="true"></span></span></button></div><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--bakery" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Bakery pin without a letter"><span class="pin__head"><span aria-hidden="true"></span></span></button></div></div><figcaption>Don't rely on green and amber alone; they look alike to many people.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--truck" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Food truck pin at today's stop"><span class="pin__head"><span aria-hidden="true">F</span></span></button></div></div><figcaption>Show a food truck at today's stop, from the events calendar.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div style="position: relative; width: 3rem; height: 3.5rem;"><button class="pin pin--truck" type="button" style="left: 50%; top: 100%;" aria-pressed="false" aria-label="Food truck pin at its home base"><span class="pin__head"><span aria-hidden="true">F</span></span></button></div></div><figcaption>Never pin a food truck's home base or any home address; the place record keeps only the municipality.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Land, map frame</td><td><code>--color-bg-surface-sunken</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-sunken" data-swatch></i><span data-token="--color-bg-surface-sunken"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-sunken" data-swatch></i><span data-token="--color-bg-surface-sunken"></span></span></td></tr>
+          <tr><td>Water</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Minor road, frame border</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Major road, boundary</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Area labels</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Small labels, attribution</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Restaurant pin</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Takeout pin, cluster</td><td><code>--color-action</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-action" data-swatch></i><span data-token="--color-action"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-action" data-swatch></i><span data-token="--color-action"></span></span></td></tr>
+          <tr><td>Grocery pin</td><td><code>--color-success-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-success-solid" data-swatch></i><span data-token="--color-success-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-success-solid" data-swatch></i><span data-token="--color-success-solid"></span></span></td></tr>
+          <tr><td>Bakery pin</td><td><code>--color-warning-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-warning-solid" data-swatch></i><span data-token="--color-warning-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-warning-solid" data-swatch></i><span data-token="--color-warning-solid"></span></span></td></tr>
+          <tr><td>Food truck pin</td><td><code>--color-info-solid</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-info-solid" data-swatch></i><span data-token="--color-info-solid"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-info-solid" data-swatch></i><span data-token="--color-info-solid"></span></span></td></tr>
+          <tr><td>Pin letter</td><td><code>--color-fg-on-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span></td></tr>
+          <tr><td>Pin halo, draft fill</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+          <tr><td>Pin target</td><td><code>--target-comfortable</code></td><td colspan="2"><span data-token="--target-comfortable"></span></td></tr>
+          <tr><td>Frame radius, truck head</td><td><code>--radius-lg</code>, <code>--radius-sm</code></td><td colspan="2"><span data-token="--radius-lg"></span> · <span data-token="--radius-sm"></span></td></tr>
+          <tr><td>Pin shadow, selected shadow</td><td><code>--shadow-1</code>, <code>--shadow-2</code></td><td colspan="2"><span data-token="--shadow-1"></span> · <span data-token="--shadow-2"></span></td></tr>
+          <tr><td>Pin layer, selected layer, card layer</td><td><code>--z-raised</code>, <code>--z-dropdown</code>, <code>--z-popover</code></td><td colspan="2"><span data-token="--z-raised"></span> · <span data-token="--z-dropdown"></span> · <span data-token="--z-popover"></span></td></tr>
+          <tr><td>Head transition</td><td><code>--duration-fast</code></td><td colspan="2"><span data-token="--duration-fast"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="map" role="region" aria-label="Places map" tabindex="0"&gt;
+  &lt;div class="map__controls"&gt;…zoom in, zoom out, fit all…&lt;/div&gt;
+  &lt;div class="map__canvas"&gt;
+    &lt;svg viewBox="0 0 1000 640" role="img" aria-label="Map of Toronto and the GTA…"&gt;…&lt;/svg&gt;
+    &lt;button class="pin pin--restaurant" type="button" style="left: 46.8%; top: 57.5%;"
+      aria-pressed="true" aria-label="Yard Pot Jerk Centre, restaurant, York · Little Jamaica"&gt;
+      &lt;span class="pin__head"&gt;&lt;span aria-hidden="true"&gt;R&lt;/span&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="pin-cluster" type="button" style="left: 51%; top: 68.5%;" aria-label="3 places downtown: …"&gt;3&lt;/button&gt;
+    &lt;div class="map-card" style="left: 46.8%; top: 57.5%;"&gt;&lt;div class="popover" role="dialog" aria-labelledby="mc-title"&gt;…&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;ul class="map-legend" aria-label="Map key"&gt;…&lt;/ul&gt;</code></pre>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.map</code> / <code>.map--sm</code></td><td>Scrolling map frame / small map that fits its container.</td></tr>
+        <tr><td><code>.map__canvas</code></td><td>1000 × 640 positioning box, at least 40rem wide.</td></tr>
+        <tr><td><code>.map__land</code>, <code>__water</code>, <code>__road</code>, <code>__road--major</code>, <code>__boundary</code>, <code>__label</code>, <code>__label--sm</code>, <code>__road-label</code>, <code>__water-label</code></td><td>Schematic base map fills and strokes.</td></tr>
+        <tr><td><code>.map__controls</code>, <code>.map__attribution</code></td><td>Sticky zoom controls; provider credit.</td></tr>
+        <tr><td><code>.pin</code> + <code>--restaurant | --takeout | --grocery | --bakery | --truck</code></td><td>Pin; <code>style="left; top"</code> in percent of the canvas.</td></tr>
+        <tr><td><code>.pin--draft</code></td><td>Outline head for a draft place.</td></tr>
+        <tr><td><code>aria-pressed="true"</code></td><td>Selected pin.</td></tr>
+        <tr><td><code>.pin-cluster</code></td><td>Count of overlapping pins.</td></tr>
+        <tr><td><code>.map-card</code>, <code>.map-card__type</code></td><td>Positions a popover above a pin.</td></tr>
+        <tr><td><code>.map-legend</code></td><td>Key of pin types.</td></tr>
+        <tr><td><code>.map-layout</code>, <code>.map-layout__list</code></td><td>Map with the A-to-Z list.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <ul>
+        <li><a href="../../mocks/pages/admin-places-map/default.html">pages/admin-places-map/default</a>, <a href="../../mocks/pages/admin-places-map/selected.html">selected</a>, <a href="../../mocks/pages/admin-places-map/filtered.html">filtered</a>, <a href="../../mocks/pages/admin-places-map/loading.html">loading</a>, <a href="../../mocks/pages/admin-places-map/empty.html">empty</a>, <a href="../../mocks/pages/admin-places-map/error.html">error</a></li>
+        <li><a href="../../mocks/pages/admin-place/default.html">pages/admin-place/default</a> (small map)</li>
+        <li><a href="../../mocks/dialogs/place-editor/edit.html">dialogs/place-editor/edit</a> (draggable pin)</li>
+      </ul>
+      <p>Drift fixed during extraction: pins had no <code>data-state</code> hooks, so hover and focus could not be shown statically; <code>.pin[data-state="hover"]</code> and <code>[data-state="focus"]</code> were added. The base map's label sizes are fixed pixel sizes inside the SVG coordinate space, which scales with the canvas; they stay as they are.</p>
+    </section>
+
+    <footer class="ds-footer"><span>Sweet Hand design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 10 October 2026; map and calendar added 13 October 2026</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

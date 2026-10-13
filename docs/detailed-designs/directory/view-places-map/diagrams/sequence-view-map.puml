@@ -1,0 +1,44 @@
+@startuml
+title UML sequence behaviour — Open the map and select a pin
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "PlacesMapPage" as page
+  participant "sh-map" as map
+  participant "HttpPlacesService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "DirectoryController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "map.ts" as uc
+  participant "occurrences.ts" as occ
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "places and events collections" as db
+end box
+actor -> page : Open /admin/places/map
+page -> svc : map({})
+svc -> ctrl : GET /api/operator/places/map
+ctrl -> ctrl : Require operator role on the server (L2-110)
+ctrl -> uc : mapView(req)
+uc -> db : places.all(), events.all()
+db --> uc : Documents
+uc -> occ : expandOccurrences(event, today, today)
+occ --> uc : Today's occurrences
+uc -> uc : Keep storefronts not Closed with a pin;\nadd trucks with a stop today at its venue (L2-115)
+uc --> page : 200 PlacesMap
+page -> map : pins A to Z, drafts as outline pins (L2-115 AC1)
+page --> actor : "15 places · 1 food truck out today"
+actor -> page : Choose Grocery and Bakeries
+page -> page : Update URL and summary "6 of 15 places · grocery and bakeries" (L2-115 AC2)
+actor -> map : Tab to a pin, press Enter (L2-115 AC3)
+map --> page : select(id)
+page --> actor : Card: status, "Open now · until 11 p.m.", View, Edit (L2-115 AC4)
+actor -> map : Escape
+map --> actor : Card closes; focus returns to the pin
+@enduml

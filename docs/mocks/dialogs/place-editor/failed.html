@@ -7,7 +7,7 @@
 <meta name="mock:kind" content="dialog">
 <meta name="mock:screen" content="place-editor">
 <meta name="mock:state" content="failed">
-<meta name="mock:requirements" content="">
+<meta name="mock:requirements" content="L2-113">
 <meta name="description" content="Save failed: alert at the top, values kept, Save again.">
 <link rel="stylesheet" href="../../assets/tokens.css">
 <link rel="stylesheet" href="../../assets/ui.css">
@@ -58,7 +58,7 @@
       <div class="page-intro" style="margin-top: var(--space-4);">
         <div class="page-intro__row">
           <div><h1>Yard Pot Jerk Centre</h1><p class="cluster subtitle"><span class="status status--published">Listed</span><span>Restaurant · Jamaican</span></p></div>
-          <div class="cluster"><button class="btn" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button><button class="btn btn--ghost" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/delete-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Delete</button></div>
+          <div class="cluster"><button class="btn" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/place-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button><button class="btn btn--ghost" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/close-place/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Mark closed</button></div>
         </div>
       </div>
       <section class="caterer-section" style="margin-top: var(--space-8);" aria-labelledby="loc-title">
@@ -111,7 +111,7 @@
             <dt>Area</dt><dd>York · Little Jamaica</dd>
             <dt>Nearest intersection</dt><dd>Eglinton Ave W &amp; Oakwood Ave</dd>
           </dl>
-          <p class="text-caption">A storefront’s address is public. Home cooks are never listed here; they stay on their caterer page with an approximate area.</p>
+          <p class="text-caption">Home cooks are never listed here; they stay on their caterer page with an approximate area.</p>
         </div>
       </section>
       <section class="caterer-section" aria-labelledby="det-title">
@@ -181,6 +181,11 @@
           <select class="select" id="cuisine" name="cuisine" aria-describedby="cuisine-help"><option>Choose a cuisine</option><option selected>Jamaican</option><option>Trinidadian &amp; Tobagonian</option><option>Guyanese</option><option>Barbadian (Bajan)</option><option>Haitian</option><option>Grenadian</option><option>Vincentian</option><option>St. Lucian</option><option>Dominican (Dominican Republic)</option><option>Pan-Caribbean</option></select>
           <span class="field__help" id="cuisine-help">Name the island or country, not just “Caribbean”, when the business does.</span>
         </div>
+        <div class="field"><label class="field__label" for="cuisines">Other cuisines <span class="text-muted">(optional)</span></label>
+          <input class="input" id="cuisines" type="text" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-describedby="cuisines-help" autocomplete="off">
+          <span class="field__help" id="cuisines-help">Up to 4 more from the cuisine list.</span>
+          <div class="cluster" style="margin-top: var(--space-2);"><span class="chip chip--filter">Pan-Caribbean<button class="remove" type="button" aria-label="Remove Pan-Caribbean"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></span></div>
+        </div>
         <div class="field"><label class="field__label" for="known">Known for <span class="text-muted">(optional)</span></label>
           <input class="input" id="known" name="known" type="text" value="Jerk chicken, oxtail, festival, Saturday soup" aria-describedby="known-help">
           <span class="field__help" id="known-help">A few dishes, separated by commas.</span>
@@ -247,11 +252,67 @@
           <input class="input" id="web" name="web" type="url" value="https://yard-pot-jerk-centre.example">
         </div>
         </div>
-        <fieldset class="field"><legend class="field__label">Dietary and allergens <span class="text-muted">(optional)</span></legend><div class="option-grid"><label class="choice"><input type="checkbox" checked><span class="choice__text">Halal</span></label><label class="choice"><input type="checkbox" checked><span class="choice__text">Ital</span></label><label class="choice"><input type="checkbox"><span class="choice__text">Vegan options</span></label><label class="choice"><input type="checkbox"><span class="choice__text">Gluten-free options</span></label><label class="choice"><input type="checkbox" checked><span class="choice__text">Contains nuts</span></label><label class="choice"><input type="checkbox"><span class="choice__text">Contains shellfish</span></label></div><span class="field__help">What the business says about its own food. Sweet Hand doesn’t certify kitchens.</span></fieldset>
-        <div class="field"><label class="field__label" for="hours">Hours <span class="text-muted">(optional)</span></label>
-          <input class="input" id="hours" name="hours" type="text" value="Tue–Thu 11 a.m.–9 p.m.; Fri 11 a.m.–11 p.m.; Sat 10 a.m.–11 p.m.; Sun 12–8 p.m.; Mon closed" aria-describedby="hours-help">
-          <span class="field__help" id="hours-help">Edit day by day on the place page once it’s saved.</span>
+        <div class="field"><label class="field__label" for="insta">Instagram <span class="text-muted">(optional)</span></label>
+          <input class="input" id="insta" name="insta" type="text" aria-describedby="insta-help" value="@yardpotjerkcentre">
+          <span class="field__help" id="insta-help">The handle, like @yardpotjerkcentre.</span>
         </div>
+        <fieldset class="field"><legend class="field__label">Dietary and allergens <span class="text-muted">(optional)</span></legend><div class="option-grid"><label class="choice"><input type="checkbox" checked><span class="choice__text">Halal</span></label><label class="choice"><input type="checkbox" checked><span class="choice__text">Ital</span></label><label class="choice"><input type="checkbox"><span class="choice__text">Vegan options</span></label><label class="choice"><input type="checkbox"><span class="choice__text">Gluten-free options</span></label><label class="choice"><input type="checkbox" checked><span class="choice__text">Contains nuts</span></label><label class="choice"><input type="checkbox"><span class="choice__text">Contains shellfish</span></label></div><span class="field__help">What the business says about its own food. Sweet Hand doesn’t certify kitchens.</span></fieldset>
+        <fieldset class="field"><legend class="field__label">Hours <span class="text-muted">(optional)</span></legend>
+          <p class="field__help" id="hours-help">Toronto time. Leave a day empty if you don’t know it yet.</p>
+          <fieldset class="field"><legend class="field__label">Monday</legend>
+            <div class="field-row">
+              <div class="field"><label class="field__label" for="mon-open">Opens</label><input class="input" id="mon-open" type="time" disabled></div>
+              <div class="field"><label class="field__label" for="mon-close">Closes</label><input class="input" id="mon-close" type="time" disabled></div>
+            </div>
+            <label class="choice"><input type="checkbox" checked><span class="choice__text">Closed on Mondays</span></label>
+          </fieldset>
+          <fieldset class="field"><legend class="field__label">Tuesday</legend>
+            <div class="field-row">
+              <div class="field"><label class="field__label" for="tue-open">Opens</label><input class="input" id="tue-open" type="time" value="11:00"></div>
+              <div class="field"><label class="field__label" for="tue-close">Closes</label><input class="input" id="tue-close" type="time" value="21:00"></div>
+            </div>
+            <label class="choice"><input type="checkbox"><span class="choice__text">Closed on Tuesdays</span></label>
+          </fieldset>
+          <fieldset class="field"><legend class="field__label">Wednesday</legend>
+            <div class="field-row">
+              <div class="field"><label class="field__label" for="wed-open">Opens</label><input class="input" id="wed-open" type="time" value="11:00"></div>
+              <div class="field"><label class="field__label" for="wed-close">Closes</label><input class="input" id="wed-close" type="time" value="21:00"></div>
+            </div>
+            <label class="choice"><input type="checkbox"><span class="choice__text">Closed on Wednesdays</span></label>
+          </fieldset>
+          <fieldset class="field"><legend class="field__label">Thursday</legend>
+            <div class="field-row">
+              <div class="field"><label class="field__label" for="thu-open">Opens</label><input class="input" id="thu-open" type="time" value="11:00"></div>
+              <div class="field"><label class="field__label" for="thu-close">Closes</label><input class="input" id="thu-close" type="time" value="21:00"></div>
+            </div>
+            <label class="choice"><input type="checkbox"><span class="choice__text">Closed on Thursdays</span></label>
+          </fieldset>
+          <fieldset class="field"><legend class="field__label">Friday</legend>
+            <div class="field-row">
+              <div class="field"><label class="field__label" for="fri-open">Opens</label><input class="input" id="fri-open" type="time" value="11:00"></div>
+              <div class="field"><label class="field__label" for="fri-close">Closes</label><input class="input" id="fri-close" type="time" value="23:00"></div>
+            </div>
+            <label class="choice"><input type="checkbox"><span class="choice__text">Closed on Fridays</span></label>
+          </fieldset>
+          <fieldset class="field"><legend class="field__label">Saturday</legend>
+            <div class="field-row">
+              <div class="field"><label class="field__label" for="sat-open">Opens</label><input class="input" id="sat-open" type="time" value="10:00"></div>
+              <div class="field"><label class="field__label" for="sat-close">Closes</label><input class="input" id="sat-close" type="time" value="23:00"></div>
+            </div>
+            <label class="choice"><input type="checkbox"><span class="choice__text">Closed on Saturdays</span></label>
+          </fieldset>
+          <fieldset class="field"><legend class="field__label">Sunday</legend>
+            <div class="field-row">
+              <div class="field"><label class="field__label" for="sun-open">Opens</label><input class="input" id="sun-open" type="time" value="12:00"></div>
+              <div class="field"><label class="field__label" for="sun-close">Closes</label><input class="input" id="sun-close" type="time" value="20:00"></div>
+            </div>
+            <label class="choice"><input type="checkbox"><span class="choice__text">Closed on Sundays</span></label>
+          </fieldset>
+          <div class="field"><label class="field__label" for="hours-note">Hours note <span class="text-muted">(optional)</span></label>
+            <input class="input" id="hours-note" name="hours-note" type="text" aria-describedby="hours-note-help" value="Thanksgiving Monday 12 Oct: closed.">
+            <span class="field__help" id="hours-note-help">Holiday closures and the like, up to 200 characters.</span>
+          </div>
+        </fieldset>
         <label class="switch"><input type="checkbox" role="switch" checked><span class="switch__text">Listed — visible on the map and in search</span></label>
 
     </div>

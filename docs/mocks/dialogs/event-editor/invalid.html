@@ -7,7 +7,7 @@
 <meta name="mock:kind" content="dialog">
 <meta name="mock:screen" content="event-editor">
 <meta name="mock:state" content="invalid">
-<meta name="mock:requirements" content="">
+<meta name="mock:requirements" content="L2-118 L2-119">
 <meta name="description" content="End before start and missing ticket price: summary plus inline errors.">
 <link rel="stylesheet" href="../../assets/tokens.css">
 <link rel="stylesheet" href="../../assets/ui.css">
@@ -164,6 +164,9 @@
           <span class="field__error" id="price-error">Enter the ticket price, or choose Free</span>
           <span class="field__help" id="price-help">From-price is fine, like 15.00.</span>
         </div>
+        <div class="field"><label class="field__label" for="organiser">Organiser <span class="text-muted">(optional)</span></label>
+          <input class="input" id="organiser" name="organiser" type="text">
+        </div>
         <div class="field"><label class="field__label" for="vendors">Vendors from the directory <span class="text-muted">(optional)</span></label>
           <input class="input" id="vendors" type="text" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-describedby="vendors-help" autocomplete="off">
           <span class="field__help" id="vendors-help">Type a place name. Linked places show this event on their page.</span>
@@ -174,7 +177,7 @@
         <div class="field"><label class="field__label" for="eweb">Website <span class="text-muted">(optional)</span></label>
           <input class="input" id="eweb" name="eweb" type="url">
         </div>
-        <label class="switch"><input type="checkbox" role="switch"><span class="switch__text">Published — shows on the public events listing</span></label>
+        <label class="switch"><input type="checkbox" role="switch"><span class="switch__text">Scheduled — the date and details are confirmed</span></label>
 
     </div>
     <div class="dialog__footer">

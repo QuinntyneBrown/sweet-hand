@@ -1837,7 +1837,10 @@
       "kind": "page",
       "title": "Places",
       "route": "/admin/places",
-      "requirements": [],
+      "requirements": [
+        "L2-110",
+        "L2-111"
+      ],
       "states": [
         "default",
         "loading",
@@ -1852,7 +1855,11 @@
       "kind": "page",
       "title": "Place",
       "route": "/admin/places/{id}",
-      "requirements": [],
+      "requirements": [
+        "L2-110",
+        "L2-112",
+        "L2-114"
+      ],
       "states": [
         "default",
         "loading",
@@ -1869,7 +1876,10 @@
       "kind": "page",
       "title": "Places map",
       "route": "/admin/places/map",
-      "requirements": [],
+      "requirements": [
+        "L2-110",
+        "L2-115"
+      ],
       "states": [
         "default",
         "loading",
@@ -1884,7 +1894,10 @@
       "kind": "page",
       "title": "Events",
       "route": "/admin/events",
-      "requirements": [],
+      "requirements": [
+        "L2-110",
+        "L2-116"
+      ],
       "states": [
         "default",
         "loading",
@@ -1899,7 +1912,11 @@
       "kind": "page",
       "title": "Calendar",
       "route": "/admin/events/calendar",
-      "requirements": [],
+      "requirements": [
+        "L2-110",
+        "L2-119",
+        "L2-121"
+      ],
       "states": [
         "default",
         "loading",
@@ -1915,7 +1932,12 @@
       "kind": "page",
       "title": "Event",
       "route": "/admin/events/{id}",
-      "requirements": [],
+      "requirements": [
+        "L2-110",
+        "L2-117",
+        "L2-119",
+        "L2-120"
+      ],
       "states": [
         "default",
         "loading",
@@ -1932,7 +1954,9 @@
       "kind": "dialog",
       "title": "Add or edit place",
       "opens_from": "admin-places",
-      "requirements": [],
+      "requirements": [
+        "L2-113"
+      ],
       "states": [
         "default",
         "edit",
@@ -1943,11 +1967,13 @@
       ]
     },
     {
-      "id": "delete-place",
+      "id": "close-place",
       "kind": "dialog",
-      "title": "Delete place",
+      "title": "Close place",
       "opens_from": "admin-place",
-      "requirements": [],
+      "requirements": [
+        "L2-114"
+      ],
       "states": [
         "default",
         "busy",
@@ -1955,7 +1981,7 @@
         "failed"
       ],
       "not_applicable": {
-        "invalid": "Deleting has no inputs to validate; it only asks for confirmation."
+        "invalid": "The reason is optional; there is nothing to validate."
       }
     },
     {
@@ -1963,7 +1989,10 @@
       "kind": "dialog",
       "title": "Add or edit event",
       "opens_from": "admin-calendar",
-      "requirements": [],
+      "requirements": [
+        "L2-118",
+        "L2-119"
+      ],
       "states": [
         "default",
         "edit",
@@ -1974,27 +2003,34 @@
       ]
     },
     {
-      "id": "delete-event",
+      "id": "cancel-event",
       "kind": "dialog",
-      "title": "Delete event",
+      "title": "Cancel event",
       "opens_from": "admin-event",
-      "requirements": [],
+      "requirements": [
+        "L2-119",
+        "L2-120"
+      ],
       "states": [
         "default",
         "busy",
         "recurring",
+        "invalid",
         "failed"
-      ],
-      "not_applicable": {
-        "invalid": "Deleting has no free-text inputs; the repeating choice always has a default."
-      }
+      ]
     },
     {
       "id": "directory-toast",
       "kind": "notification",
       "title": "Directory toast",
       "opens_from": "admin-places",
-      "requirements": [],
+      "requirements": [
+        "L2-113",
+        "L2-114",
+        "L2-115",
+        "L2-118",
+        "L2-121"
+      ],
       "states": [
         "info",
         "success",

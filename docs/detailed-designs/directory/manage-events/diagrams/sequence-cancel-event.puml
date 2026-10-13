@@ -1,0 +1,47 @@
+@startuml
+title UML sequence behaviour — Cancel and restore an event
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "EventPage" as page
+  participant "CancelEventDialog" as dialog
+  participant "HttpEventsService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "DirectoryController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "events.ts" as uc
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "recordAudit" as audit
+  database "events collection" as db
+end box
+actor -> page : Activate "Cancel event"
+page -> dialog : Open; focus on "Keep it" (L2-120 AC1)
+actor -> dialog : Confirm without a reason
+dialog --> actor : "Say why it's cancelled" (L2-120 AC6)
+actor -> dialog : Reason "Heavy rain warning for the lakeshore", confirm
+dialog -> svc : cancel(id, scope all, reason)
+svc -> ctrl : POST /api/operator/events/{id}/cancel
+ctrl -> ctrl : Require operator role on the server (L2-110)
+ctrl -> uc : cancelEvent(req)
+uc -> db : get(id)
+db --> uc : Event (Scheduled)
+uc -> db : put(status Cancelled, statusBeforeCancel Scheduled, reason)
+uc -> audit : Cancel event, reason, before and after
+uc --> page : 200 EventDetail
+page --> actor : Alert "Cancelled on <date> by <operator>"; toast with Undo (L2-120 AC3)
+actor -> page : Undo within 10 seconds, or "Restore event" later
+page -> svc : restore(id)
+svc -> ctrl : POST /api/operator/events/{id}/restore
+ctrl -> uc : restoreEvent(req)
+uc -> uc : Refuse when the end has passed (L2-120 AC5)
+uc -> db : put(status = statusBeforeCancel)
+uc -> audit : Restore event, before and after
+uc --> page : 200 EventDetail (Scheduled)
+@enduml

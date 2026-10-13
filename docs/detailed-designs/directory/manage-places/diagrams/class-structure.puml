@@ -1,0 +1,84 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Manage places
+
+enum PlaceType {
+  Restaurant
+  Takeout
+  GroceryStore
+  Bakery
+  FoodTruck
+}
+enum PlaceStatus {
+  Draft
+  Listed
+  Closed
+}
+class Place <<document>> {
+  +id: string
+  +name: string
+  +type: PlaceType
+  +primaryCuisine: string
+  +otherCuisines: string[]
+  +knownFor: string
+  +dietary: DietaryTag[]
+  +phone / website / instagram: string
+  +hours: PlaceDay[7]
+  +hoursNote: string
+  +street / municipality / postalCode / area: string
+  +pin: Pin | null
+  +homeBase: string
+  +status: PlaceStatus
+  +closedFrom: PlaceStatus
+  +closedAt / closedBy / closeReason
+  +addedAt / addedBy / changedAt / changedBy
+}
+class PlaceDay {
+  +opens: string | null
+  +closes: string | null
+  +closed: boolean
+}
+class Pin {
+  +lat: number
+  +lng: number
+}
+class "places.ts" as Uc <<use cases>> {
+  +listPlaces(req): Reply
+  +getPlace(req): Reply
+  +addPlace(req): Reply
+  +editPlace(req): Reply
+  +closePlace(req): Reply
+  +reopenPlace(req): Reply
+  +geocodeAddress(req): Reply
+}
+class "place-rules.ts" as Rules <<pure>> {
+  +validatePlace(input): FieldErrors
+  +isComplete(place): boolean
+  +duplicateOf(place, all): Place | undefined
+  +areaForPostalCode(code): string
+}
+abstract class Geocoder {
+  +locate(address): Promise<Pin | null>
+}
+class LocalGeocoder
+class "recordAudit" as Audit <<function>>
+
+Place --> PlaceType
+Place --> PlaceStatus
+Place "1" *-- "7" PlaceDay
+Place "1" *-- "0..1" Pin
+Uc ..> Place : reads / writes
+Uc ..> Rules : uses
+Uc ..> Geocoder : uses
+Uc ..> Audit : calls
+Geocoder <|-- LocalGeocoder
+@enduml

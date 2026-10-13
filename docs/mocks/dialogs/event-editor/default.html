@@ -7,7 +7,7 @@
 <meta name="mock:kind" content="dialog">
 <meta name="mock:screen" content="event-editor">
 <meta name="mock:state" content="default">
-<meta name="mock:requirements" content="">
+<meta name="mock:requirements" content="L2-118 L2-119">
 <meta name="description" content="Add event over the calendar: title, type, start and end, repeats, venue, area, admission, vendors from the directory, about, website, published.">
 <link rel="stylesheet" href="../../assets/tokens.css">
 <link rel="stylesheet" href="../../assets/ui.css">
@@ -154,6 +154,9 @@
         <fieldset class="field"><legend class="field__label">Admission</legend><div class="cluster">
           <label class="choice"><input type="radio" name="adm"><span class="choice__text">Free</span></label>
           <label class="choice"><input type="radio" name="adm"><span class="choice__text">Ticketed</span></label></div></fieldset>
+        <div class="field"><label class="field__label" for="organiser">Organiser <span class="text-muted">(optional)</span></label>
+          <input class="input" id="organiser" name="organiser" type="text">
+        </div>
         <div class="field"><label class="field__label" for="vendors">Vendors from the directory <span class="text-muted">(optional)</span></label>
           <input class="input" id="vendors" type="text" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-describedby="vendors-help" autocomplete="off">
           <span class="field__help" id="vendors-help">Type a place name. Linked places show this event on their page.</span>
@@ -164,7 +167,7 @@
         <div class="field"><label class="field__label" for="eweb">Website <span class="text-muted">(optional)</span></label>
           <input class="input" id="eweb" name="eweb" type="url">
         </div>
-        <label class="switch"><input type="checkbox" role="switch"><span class="switch__text">Published — shows on the public events listing</span></label>
+        <label class="switch"><input type="checkbox" role="switch"><span class="switch__text">Scheduled — the date and details are confirmed</span></label>
 
     </div>
     <div class="dialog__footer">

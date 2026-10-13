@@ -672,6 +672,90 @@
       "bg": "--color-bg-canvas",
       "min": 4.5,
       "note": "hovered link on page"
+    },
+    {
+      "fg": "--color-fg-on-accent",
+      "bg": "--color-accent",
+      "min": 4.5,
+      "note": "map pin letter, restaurant"
+    },
+    {
+      "fg": "--color-fg-on-accent",
+      "bg": "--color-action",
+      "min": 4.5,
+      "note": "map pin letter, takeout"
+    },
+    {
+      "fg": "--color-fg-on-accent",
+      "bg": "--color-success-solid",
+      "min": 4.5,
+      "note": "map pin letter, grocery store"
+    },
+    {
+      "fg": "--color-fg-on-accent",
+      "bg": "--color-warning-solid",
+      "min": 4.5,
+      "note": "map pin letter, bakery"
+    },
+    {
+      "fg": "--color-fg-on-accent",
+      "bg": "--color-info-solid",
+      "min": 4.5,
+      "note": "map pin letter, food truck"
+    },
+    {
+      "fg": "--color-accent",
+      "bg": "--color-bg-surface",
+      "min": 3,
+      "note": "draft pin outline and letter (restaurant)"
+    },
+    {
+      "fg": "--color-action",
+      "bg": "--color-bg-surface-sunken",
+      "min": 3,
+      "note": "pin head vs map land, takeout"
+    },
+    {
+      "fg": "--color-warning-solid",
+      "bg": "--color-bg-surface-sunken",
+      "min": 3,
+      "note": "pin head vs map land, bakery"
+    },
+    {
+      "fg": "--color-fg-on-action",
+      "bg": "--color-action",
+      "min": 4.5,
+      "note": "pin cluster count"
+    },
+    {
+      "fg": "--color-fg-on-accent",
+      "bg": "--color-accent",
+      "min": 4.5,
+      "note": "calendar today date"
+    },
+    {
+      "fg": "--color-warning-solid",
+      "bg": "--color-bg-surface",
+      "min": 3,
+      "note": "calendar event dot, food truck stop"
+    },
+    {
+      "fg": "--color-border-strong",
+      "bg": "--color-bg-surface",
+      "min": 3,
+      "note": "calendar event dot, workshop"
+    },
+    {
+      "fg": "--color-fg-subtle",
+      "bg": "--color-bg-surface-sunken",
+      "min": 4.5,
+      "note": "outside-month date and holiday label"
+    },
+    {
+      "fg": "--color-fg-default",
+      "bg": "--color-bg-surface-sunken",
+      "min": 4.5,
+      "note": "week event text on tinted fill (approximation)"
     }
   ]
 }

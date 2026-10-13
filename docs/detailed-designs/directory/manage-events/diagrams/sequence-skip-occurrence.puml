@@ -1,0 +1,41 @@
+@startuml
+title UML sequence behaviour — Skip one date
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "EventPage" as page
+  participant "HttpEventsService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "DirectoryController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "events.ts" as uc
+  participant "occurrences.ts" as occ
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "recordAudit" as audit
+  database "events collection" as db
+end box
+actor -> page : Skip Wed 11 Nov with the reason "Remembrance Day road closures"
+page -> svc : skip(id, 2026-11-11, reason)
+svc -> ctrl : POST /api/operator/events/{id}/occurrences/2026-11-11/skip
+ctrl -> ctrl : Require operator role on the server (L2-110)
+ctrl -> uc : skipOccurrence(req)
+uc -> db : get(id)
+db --> uc : Repeating event
+uc -> occ : expandOccurrences(event)
+occ --> uc : 2026-11-11 is an occurrence
+uc -> db : put(exceptions[2026-11-11] = skipped, reason)
+uc -> audit : Skip date, reason, before and after
+uc --> page : 200 EventDetail
+page --> actor : "Skipped · Remembrance Day road closures", Restore; "6 of 7 going ahead" (L2-119 AC4, AC5)
+alt Request fails
+  svc --> page : Error
+  page --> actor : Danger toast: event named, nothing changed, "Try again" (L2-121 AC10)
+end
+@enduml

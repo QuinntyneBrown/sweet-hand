@@ -1,0 +1,95 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Manage events
+
+enum EventType {
+  Festival
+  Market
+  TradeShow
+  FoodTruckStop
+  PopUp
+  Workshop
+}
+enum EventStatus {
+  Draft
+  Scheduled
+  Cancelled
+}
+class DirectoryEvent <<document>> {
+  +id: string
+  +title: string
+  +type: EventType
+  +startLocal: string
+  +endLocal: string
+  +repeat: RepeatRule | null
+  +venue: string
+  +area: string
+  +venuePin: Pin | null
+  +admission: Admission
+  +organiser: string
+  +vendorIds: string[]
+  +about / website: string
+  +status: EventStatus
+  +statusBeforeCancel: EventStatus
+  +cancelledAt / cancelledBy / cancelReason
+  +exceptions: Map<date, OccurrenceException>
+  +addedAt / addedBy / changedAt / changedBy
+}
+class RepeatRule {
+  +every: week | 2weeks | month
+  +until: string
+}
+class OccurrenceException {
+  +skipped: boolean
+  +cancelled: boolean
+  +reason: string
+  +startLocal / endLocal: string
+}
+class Admission {
+  +free: boolean
+  +priceCents: number
+}
+class Occurrence <<value>> {
+  +eventId: string
+  +date: string
+  +startsAt: Instant
+  +endsAt: Instant
+  +skipped: boolean
+  +cancelled: boolean
+}
+class "occurrences.ts" as Occ <<pure>> {
+  +expandOccurrences(event, from, to): Occurrence[]
+}
+class "event-rules.ts" as Rules <<pure>> {
+  +validateEvent(input, places, now): FieldErrors
+}
+class "events.ts" as Uc <<use cases>> {
+  +listEvents(req): Reply
+  +getEvent(req): Reply
+  +addEvent(req): Reply
+  +editEvent(req): Reply
+  +cancelEvent(req): Reply
+  +restoreEvent(req): Reply
+  +skipOccurrence(req): Reply
+  +restoreOccurrence(req): Reply
+}
+DirectoryEvent --> EventType
+DirectoryEvent --> EventStatus
+DirectoryEvent "1" *-- "0..1" RepeatRule
+DirectoryEvent "1" *-- "*" OccurrenceException
+DirectoryEvent "1" *-- "1" Admission
+Occ ..> DirectoryEvent : reads
+Occ ..> Occurrence : creates
+Uc ..> Occ : uses
+Uc ..> Rules : uses
+Uc ..> DirectoryEvent : reads / writes
+@enduml

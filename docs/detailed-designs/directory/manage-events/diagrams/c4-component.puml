@@ -1,0 +1,33 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Manage events
+
+Container_Boundary(spa, "Sweet Hand web application") {
+  Component(list, "EventsPage", "Angular page", "/admin/events: tabs, search, grouped rows")
+  Component(page, "EventPage", "Angular page", "/admin/events/{id}: record, stops, Cancel, Restore")
+  Component(editor, "EventEditorDialog", "Angular dialog on sh-dialog", "Add and edit an event")
+  Component(cancel, "CancelEventDialog", "Angular dialog on sh-dialog", "Reason and which stops")
+  Component(svc, "HttpEventsService", "extends EventsService", "Calls the directory endpoints")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "DirectoryController", "NestJS controller", "Routes under @UsePolicy(roles('Operator'))")
+  Component(uc, "events.ts", "Use cases", "listEvents, getEvent, addEvent, editEvent, cancelEvent, restoreEvent, skipOccurrence, restoreOccurrence")
+  Component(rules, "event-rules.ts", "Pure functions", "validateEvent")
+  Component(occ, "occurrences.ts", "Pure functions", "expandOccurrences")
+  Component(audit, "recordAudit", "platform/audit.ts", "Appends to the audit log")
+  Component(retention, "retention.ts", "Daily job", "Deletes events ended over 2 years ago")
+  ComponentDb(db, "events collection", "Persistence port", "JSON documents in PostgreSQL")
+}
+Rel(list, svc, "list(tab, q)")
+Rel(page, svc, "get, cancel, restore, skip")
+Rel(editor, svc, "add, edit")
+Rel(cancel, svc, "cancel(id, request)")
+Rel(svc, ctrl, "Calls", "JSON/HTTPS")
+Rel(ctrl, uc, "Maps routes to")
+Rel(uc, rules, "Validates with")
+Rel(uc, occ, "Expands dates with")
+Rel(uc, audit, "Records each change")
+Rel(uc, db, "Reads and writes")
+Rel(retention, db, "Deletes old events")
+@enduml

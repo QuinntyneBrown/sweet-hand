@@ -194,6 +194,7 @@ table.
 - Hypercare.
 - The Christmas menus campaign is live.
 - Pre-orders and payments are specified.
+- The operator directory of places and events is specified, and its build is ready to plan.
 
 | Order | Story | Lane | Points |
 | --- | --- | --- | ---: |
@@ -1443,7 +1444,7 @@ can point them to the same course.
 ## I5 Year-one revenue and after-launch product
 
 The founder's services start earning, and the next product stage is specified. Business lane,
-except SH-34 and SH-35.
+except SH-34, SH-35, SH-69 and SH-70.
 
 ### E5.1 Services and partnerships
 
@@ -1578,3 +1579,54 @@ never chase a payment and nobody fails to show up at pickup.
 - [ ] Draft the L2s
 - [ ] Draft the ADR
 - [ ] Founder approves
+
+#### SH-69 · Specify the operator directory
+
+Engineering · **5 points** · Not in a sprint: done 13 Oct · Traces: L1-026, L1-027; amends A-1
+
+As an operator, I want an internal directory of Caribbean food places and events in Toronto and the
+GTA, so that I can track the restaurants, groceries, bakeries, food trucks and events around our
+caterers. The directory is for operators only; places are separate records from caterers, and
+nothing is deleted: a place is closed and an event cancelled, and both can be restored.
+
+**Definition of done**
+
+- An amended A-1, L1-026, L1-027 and L2-110 to L2-121 are approved, with Given-When-Then criteria.
+- The mocks match the decisions: `close-place` and `cancel-event` replace the delete dialogs, no
+  copy promises a public directory, and every directory mock lists its L2s.
+- Detailed designs exist in `docs/detailed-designs/directory/` for managing places, the places
+  map, managing events and the events calendar.
+- Design-system pages and CRDs exist for the map and the calendar.
+
+**Tasks**
+
+- [x] Draft the L1 and L2s with the `engineering-requirements` skill
+- [x] Align the mocks and their manifest
+- [x] Write the detailed designs
+- [x] Write the map and calendar design-system pages and CRDs
+- [ ] Founder approves the amended A-1 and the new L1/L2s
+
+#### SH-70 · Build the operator directory
+
+Engineering · **13 points** · After launch · Traces: L2-110 to L2-121
+
+As an operator, I want the places list, place page, places map, events list, event page and
+calendar working on production, so that I can keep the directory current from the console.
+
+**Definition of done**
+
+- Every L2 from L2-110 to L2-121 passes its acceptance tests: backend tests against the in-memory
+  database, Playwright in Chromium through page objects.
+- Built slice by slice with `implementing-incrementally`, each slice's acceptance test written
+  and failing first.
+- `sh-map` and `sh-calendar` meet their CRDs; the pages match the mocks.
+- The geocoding and map tile providers are chosen and recorded in an ADR, or the local stand-ins
+  ship behind their ports.
+
+**Tasks**
+
+- [ ] Plan the slices from the four detailed designs
+- [ ] Backend: `backend/src/directory/` with places, events, occurrences, map and calendar use cases
+- [ ] Library: `sh-map`, `sh-map-legend`, `sh-calendar`, `sh-agenda`, `sh-type-key`
+- [ ] Pages and dialogs under `features/operator/directory/`
+- [ ] Choose the geocoding and map tile providers

@@ -1,0 +1,57 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — View the events calendar
+
+class CalendarView <<wire model>> {
+  +view: month | week | day
+  +from: string
+  +to: string
+  +occurrences: CalendarOccurrence[]
+  +holidays: Holiday[]
+  +totalBeforeFilter: number
+}
+class CalendarOccurrence <<wire model>> {
+  +eventId: string
+  +title: string
+  +type: EventType
+  +status: EventStatus
+  +startsAt: string
+  +endsAt: string
+  +allDay: boolean
+  +struck: boolean
+  +dayOfEvent: number
+  +daysInEvent: number
+}
+class Holiday <<wire model>> {
+  +date: string
+  +name: string
+}
+class "calendar.ts" as Uc <<use case>> {
+  +calendarView(req): Reply
+}
+class "holidays.ts" as Hol <<pure>> {
+  +ontarioHolidays(year): Holiday[]
+}
+class "occurrences.ts" as Occ <<pure>> {
+  +expandOccurrences(event, from, to): Occurrence[]
+}
+class "calendar-view.ts" as View <<frontend>> {
+  +cells(view, calendar): DayCell[]
+  +summary(calendar, types): string
+}
+CalendarView "1" *-- "*" CalendarOccurrence
+CalendarView "1" *-- "*" Holiday
+Uc ..> CalendarView : returns
+Uc ..> Occ : uses
+Uc ..> Hol : uses
+View ..> CalendarView : reads
+@enduml
