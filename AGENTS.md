@@ -31,8 +31,9 @@ keep it accurate:
 - `docs/technical-debt/` — technical-debt registers with resolution strategies
   (`frontend.md`); close an item by deleting its entry in the PR that resolves it
 - `docs/operations/` — the short release guide (`releasing.md`), environments, release and
-  hotfix process in full (`environments.md`), and the
-  production subscription, costs, deployment, DNS, rollback and recovery runbook
+  hotfix process in full (`environments.md`), the
+  production subscription, costs, deployment, DNS, rollback and recovery runbook,
+  and how the sprint board is deployed (`board-deployment.md`)
 - `infra/` — Azure Bicep (one template for staging, UAT and production) and Azure CLI
   entry points (`deploy.ps1` production bootstrap, `new-environment.ps1` staging and UAT)
 - `docs/plans/` — forward-looking plans for work not yet specified (`public-preview.md`:

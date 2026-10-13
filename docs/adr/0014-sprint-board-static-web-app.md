@@ -48,6 +48,9 @@ shows is public in this repository. It needs none of the product's delivery
 - The app lives beside staging's resources and is created by the workflow,
   not by Bicep. Deleting the staging resource group deletes the board too;
   the next push to `main` creates it again.
+- Azure allows ten Free static sites per subscription. The first run hit
+  that limit; the workflow then names the command that lists them so one can
+  be deleted and the run repeated.
 - The Free tier has no SLA. If the board ever needs a password or
   `board.sweethand.ca`, that is a plan change on the app, not a change to the
   product's templates.
