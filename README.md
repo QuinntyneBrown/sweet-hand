@@ -165,6 +165,7 @@ The full index is in [`docs/adr/README.md`](docs/adr/README.md).
 - **Design system:** [`docs/design-system/`](docs/design-system/)
 - **Decisions:** [`docs/adr/`](docs/adr/)
 - **Plans:** [`docs/plans/`](docs/plans/), including the [public preview](docs/plans/public-preview.md), the [business plan](docs/plans/business-plan.md), and the [launch roadmap](docs/plans/launch-roadmap.md) with its [backlog](docs/plans/launch-backlog.md)
+- **How to release:** [`docs/operations/releasing.md`](docs/operations/releasing.md)
 - **Environments, releases and hotfixes:** [`docs/operations/environments.md`](docs/operations/environments.md)
 - **Working agreements for contributors and coding agents:** [`AGENTS.md`](AGENTS.md)
 
