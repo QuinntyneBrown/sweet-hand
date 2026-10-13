@@ -67,7 +67,7 @@ The email footer uses this runtime configuration and does not expose a maker add
 5. Bicep updates the API only after migration. Container Apps readiness gates the single active revision.
 6. Static Web Apps receives the prerendered launch files. Smoke checks cover `/`, `/privacy`, the public launch-list status and a concealed product endpoint.
 
-Delivery stops before touching Azure when only one of `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET` is set in the `production` environment. Smoke checks always run against the Static Web Apps default hostname and add `sweethand.ca` once Azure reports its custom domain `Ready`.
+Delivery stops before touching Azure when only one of `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET` is set in the `production` environment. Smoke checks always run against the Static Web Apps default hostname and add `sweethand.ca` once Azure reports its custom domain `Ready`. Linking the API to Static Web Apps turns on Azure's built-in authentication on the Container App, so its own `azurecontainerapps.io` hostname answers every direct call with `401`; nothing checks the API there.
 
 The GitHub deployer (`github-sweethand-production`) holds Contributor on `rg-sweethand-prod` and nothing more. The API identity's role assignments live in `infra/roles.bicep`; a subscription Owner applies them once, in an MFA session, with `az deployment group create -g rg-sweethand-prod --template-file infra/roles.bicep`, and again only when that file changes.
 

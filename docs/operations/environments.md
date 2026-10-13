@@ -45,7 +45,10 @@ UAT. Testers sign up with their own addresses. All three run in pre-launch mode,
 2. **Staging.** Every merge to `main` deploys to staging once CI passes on it. Staging is
    where `main` is seen running on Azure with a real database, real email and the real
    pipeline: migrations, the API image, the static site and the smoke checks. A red
-   staging delivery blocks the next release until it is fixed on `main`.
+   staging delivery blocks the next release until it is fixed on `main`. Because the site
+   password covers every path, `/api` included, and the linked API refuses direct calls,
+   the staging and UAT smoke checks confirm the API revision is `Healthy` and that the site
+   redirects to its sign-in page; the full path checks run only in production.
 3. **Release candidate to UAT.** When `main` holds what the next release should contain, tag
    the commit that staging is serving:
 

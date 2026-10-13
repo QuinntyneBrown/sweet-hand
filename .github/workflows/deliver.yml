@@ -195,7 +195,9 @@ jobs:
           skip_api_build: true
       - name: Smoke checks
         # The Static Web Apps default hostname always serves the release; custom hostnames join once Azure reports them Ready.
-        # A password-protected site (staging, UAT) answers with its sign-in page, so the API is checked on its own hostname instead.
+        # A password-protected site (staging, UAT) answers every path, /api included, with its sign-in redirect, and the linked
+        # API accepts calls only from Static Web Apps (Azure turns on its built-in authentication when a backend is linked),
+        # so there the API is checked through its revision's readiness probe and the site through the sign-in redirect.
         env:
           SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
         run: |
@@ -208,12 +210,19 @@ jobs:
             fi
           done
           if [ -n "$SITE_PASSWORD" ]; then
-            API="https://$(az containerapp show -g "$RESOURCE_GROUP" -n ca-swh-api --query properties.configuration.ingress.fqdn -o tsv)"
-            curl --fail --retry 12 --retry-delay 10 "$API/api/public/launch-list"
-            test "$(curl -s -o /dev/null -w '%{http_code}' "$API/api/caterers")" = 404
+            REVISION=$(az containerapp show -g "$RESOURCE_GROUP" -n ca-swh-api --query properties.latestRevisionName -o tsv)
+            for attempt in $(seq 1 12); do
+              HEALTH=$(az containerapp revision show -g "$RESOURCE_GROUP" -n ca-swh-api --revision "$REVISION" --query properties.healthState -o tsv)
+              if [ "$HEALTH" = Healthy ]; then break; fi
+              sleep 10
+            done
+            if [ "$HEALTH" != Healthy ]; then echo "::error::API revision $REVISION is $HEALTH, not Healthy"; exit 1; fi
             for ORIGIN in $ORIGINS; do
-              CODE=$(curl -s -o /dev/null -w '%{http_code}' --retry 12 --retry-delay 10 "$ORIGIN/")
-              [ "$CODE" -ge 200 ] && [ "$CODE" -lt 500 ]
+              LOGIN=$(curl -s -o /dev/null -w '%{redirect_url}' --retry 12 --retry-delay 10 "$ORIGIN/")
+              case "$LOGIN" in
+                "$ORIGIN"/.auth/basicAuth/login*) ;;
+                *) echo "::error::$ORIGIN/ did not ask for the site password (redirected to '$LOGIN')"; exit 1 ;;
+              esac
             done
             exit 0
           fi
