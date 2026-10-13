@@ -49,7 +49,8 @@ jobs:
       - name: Create the Static Web App the first time
         run: |
           if ! az staticwebapp show -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --only-show-errors > /dev/null 2>&1; then
-            az staticwebapp create -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --location eastus2 --sku Free --only-show-errors > /dev/null
+            az staticwebapp create -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --location eastus2 --sku Free --only-show-errors > /dev/null \
+              || { echo "::error::Could not create $STATIC_WEB_APP. Azure allows ten Free static sites per subscription: list them with az staticwebapp list --query \"[?sku.name=='Free'].{name:name, resourceGroup:resourceGroup}\" -o table, delete one, then re-run this workflow."; exit 1; }
           fi
       - name: Read the deployment token and address
         id: swa
