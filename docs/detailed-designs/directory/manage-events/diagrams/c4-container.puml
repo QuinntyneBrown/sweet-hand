@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Manage events
+
+Person(op, "Operator", "Signed in with a second factor")
+System_Boundary(sh, "Sweet Hand") {
+  Container(spa, "Sweet Hand web application", "Angular 21", "Operator console: directory pages and dialogs")
+  Container(api, "Sweet Hand API", "NestJS 11 on Node.js 22", "Directory use cases under roles('Operator')")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "JSON document collections: places, events, audit")
+}
+System_Ext(ext, "Geocoding provider", "<TO SUPPLY>")
+
+Rel(op, spa, "Uses", "HTTPS")
+Rel(spa, api, "Calls /api/operator/...", "JSON/HTTPS")
+Rel(api, db, "Reads and writes in one transaction per request", "persistence port")
+Rel(api, ext, "Geocodes venues through the Geocoder port", "HTTPS")
+@enduml

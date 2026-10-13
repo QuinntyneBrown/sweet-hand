@@ -1,0 +1,44 @@
+@startuml
+title UML sequence behaviour — Open the month and select a day
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "CalendarPage" as page
+  participant "sh-calendar" as cal
+  participant "HttpEventsService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "DirectoryController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "calendar.ts" as uc
+  participant "occurrences.ts" as occ
+  participant "holidays.ts" as hol
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "events collection" as db
+end box
+actor -> page : Open /admin/events/calendar on Sat 10 Oct
+page -> svc : calendar(month, 2026-10-10, all types)
+svc -> ctrl : GET /api/operator/calendar?view=month&date=2026-10-10
+ctrl -> ctrl : Require operator role on the server (L2-110)
+ctrl -> uc : calendarView(req)
+uc -> db : all()
+db --> uc : Events
+uc -> occ : expandOccurrences(event, Sun 27 Sep, Sat 31 Oct)
+occ --> uc : 19 October occurrences, skipped and cancelled flagged
+uc -> hol : ontarioHolidays(2026)
+hol --> uc : Thanksgiving Mon 12 Oct (L2-121 AC4)
+uc --> page : 200 CalendarView
+page -> cal : Cells: first 2 per day, "+N more", "continues" (L2-121 AC2)
+page --> actor : "October 2026", "19 events in October", agenda "Today · Saturday 10 October" (L2-121 AC1)
+actor -> page : Choose Trade show and Workshop
+page -> page : Update URL and summary "2 of 19 events in October · trade shows and workshops" (L2-121 AC6, AC11)
+actor -> cal : Arrow keys to Sat 17 Oct, Enter (L2-121 AC9)
+cal --> page : select(2026-10-17)
+page --> actor : Agenda for Saturday 17 October, with "Add event on Sat 17 Oct"
+@enduml

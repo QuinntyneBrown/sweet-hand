@@ -1,0 +1,53 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — View the places map
+
+class PlacesMap <<wire model>> {
+  +places: MapPlace[]
+  +unpinned: PlaceRef[]
+  +total: number
+  +trucksOutToday: number
+}
+class MapPlace <<wire model>> {
+  +id: string
+  +name: string
+  +type: PlaceType
+  +cuisine: string
+  +area: string
+  +status: PlaceStatus
+  +pin: Pin
+  +hours: PlaceDay[7]
+  +todayStop: StopRef | null
+}
+class "map.ts" as MapUc <<use case>> {
+  +mapView(req): Reply
+}
+class "occurrences.ts" as Occ <<pure>> {
+  +expandOccurrences(event, from, to): Occurrence[]
+}
+class "places-map-view.ts" as View <<frontend>> {
+  +pins(map, filter): MapPin[]
+  +summary(map, filter): string
+  +openNow(hours, now): string
+}
+class "sh-map" as ShMap <<component>> {
+  +pins: MapPin[]
+  +selected: string | null
+  +tiles: MapTileSource
+  +select: output<string>
+}
+PlacesMap "1" *-- "*" MapPlace
+MapUc ..> PlacesMap : returns
+MapUc ..> Occ : uses
+View ..> PlacesMap : reads
+View ..> ShMap : feeds pins to
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — View the places map
+
+Container_Boundary(spa, "Sweet Hand web application") {
+  Component(page, "PlacesMapPage", "Angular page", "/admin/places/map: filter, side list, card")
+  Component(view, "places-map-view.ts", "Plain TypeScript", "Pins, legend, summary, open-now text")
+  Component(map, "sh-map", "Library component (CRD map.md)", "Pins as buttons, keyboard pan and zoom")
+  Component(tiles, "MapTileSource", "Input to sh-map", "Local schematic stand-in; provider <TO SUPPLY>")
+  Component(svc, "HttpPlacesService", "extends PlacesService", "map(filter)")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "DirectoryController", "NestJS controller", "GET /api/operator/places/map")
+  Component(uc, "map.ts", "Use case", "mapView")
+  Component(occ, "occurrences.ts", "Pure functions", "expandOccurrences: today's truck stops")
+  ComponentDb(db, "places and events collections", "Persistence port", "Read only")
+}
+Rel(page, view, "Builds view models with")
+Rel(page, map, "Passes pins to")
+Rel(map, tiles, "Draws tiles from")
+Rel(page, svc, "map(filter)")
+Rel(svc, ctrl, "Calls", "JSON/HTTPS")
+Rel(ctrl, uc, "Maps route to")
+Rel(uc, occ, "Finds today's stops with")
+Rel(uc, db, "Reads")
+@enduml

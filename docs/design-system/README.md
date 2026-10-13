@@ -109,6 +109,8 @@ The look comes from the reference design: a white canvas, a bold wordmark, a qui
 | [Tag](components/tag.html) | dietary, allergen, with icon | default, with icon, hovered row, changed, loading, none | caterer, profile-menu, dish, admin-profile-review |
 | [Stat](components/stat.html) | stat, delta up/down, stat grid | default, loading, not loaded, zero, large | dashboard, admin-metrics, profile-banner |
 | [Bar chart](components/bar-chart.html) | count, percentage, current period accent, chart grid, table alternative | default, partial, empty, error, loading, invalid, summary hover/focus/expanded | admin-metrics |
+| [Calendar](components/calendar.html) | month, week, day agenda; event types; multi-day; type key | date default, hover, focus, today, selected, outside, holiday; event cancelled, draft, more; loading, empty, error | admin-calendar, admin-event |
+| [Map](components/map.html) | full map, small map, pin types, draft pin, cluster, card, legend, map with list | pin default, hover, focus, selected, draft; loading, empty, error | admin-places-map, admin-place, place-editor |
 | [Timeline](components/timeline.html) | status history, sentence history, next steps | default, long reason, one entry, loading, long | admin-caterer, admin-profile-review, suspend-caterer, submit-profile, admin-audit |
 | [Message thread](components/message.html) | theirs, mine, system, shared contact; thread head; reply box; closed note; placeholder | pending, failed; reply default/focus/invalid/submitting; open, replied, shared, declined, closed, former user, loading | thread, dashboard-enquiry, inbox, toast |
 | [Dish](components/dish.html) | full, per-item price, no price, tags, allergen, long name, menu-manager row | default, loading, action hover/focus, read-only; list collapsed/expanded/empty/full/error | caterer, profile-menu, dialogs/dish, dialogs/remove-dish |
@@ -253,15 +255,18 @@ Each row is something the mocks did inconsistently or below the bar, and what th
 | `pages/account/default`, `saved` | Privacy notice "version 2026-03, accepted Sat 14 Mar" contradicts the README (v1.0, Thu 1 Oct 2026). | README value; flagged for the mocks. |
 | `pages/profile-details/read-only`, `suspended` | `aria-labelledby` on a `<p>`. | Plain label above `.read-only-value`. |
 | (component kit) `.input--sm` | 14px text makes iOS zoom on focus. | 16px below 48rem. |
+| `pages/admin-places-map/*`, `pages/admin-place/*` (map, pins) | Pins, calendar dates, events, agenda items and week events had no `data-state` hooks, so their hover and focus could not be shown statically. | `[data-state="hover"]` and `[data-state="focus"]` added beside the real pseudo-classes. |
+| `pages/admin-places-map/selected` | The place card sits above the pin and is clipped at the top edge of the frame. | The card opens below the pin when there is no room above. |
+| `pages/admin-calendar/*` | Every date link is in the tab order (42 stops a month), against the mock note that arrow keys move between days. | One roving tab stop; arrow keys, Home, End, Page Up and Page Down move between days. |
 
 ## Verification
 
-Run on Saturday 10 October 2026 against this folder:
+Run on Saturday 10 October 2026 against this folder, and again on Tuesday 13 October 2026 after the map and calendar pages were added:
 
 | Check | Command | Result |
 |---|---|---|
-| Contrast, both themes | `python .claude/skills/extracting-design-systems/scripts/check_contrast.py docs/design-system/tokens/tokens.css` | 224 pairs passed, 0 failed, 0 unresolved (light and dark) |
-| Structure, sections, labels, links, raw colours | `python .claude/skills/extracting-design-systems/scripts/check_design_system.py docs/design-system` | 84 pages (12 foundations, 63 components, 8 patterns, index), 0 errors, 0 warnings |
+| Contrast, both themes | `python .claude/skills/extracting-design-systems/scripts/check_contrast.py docs/design-system/tokens/tokens.css` | 252 pairs passed, 0 failed, 0 unresolved (light and dark), 13 Oct |
+| Structure, sections, labels, links, raw colours | `python .claude/skills/extracting-design-systems/scripts/check_design_system.py docs/design-system` | 86 pages (12 foundations, 65 components, 8 patterns, index), 0 errors, 0 warnings, 13 Oct |
 | Token export | `python .claude/skills/extracting-design-systems/scripts/tokens_to_json.py docs/design-system/tokens/tokens.css` | 289 tokens written to `tokens.json` |
 | Mocks after switching to this system | `python .claude/skills/writing-html-mocks/scripts/check_mocks.py docs/mocks` | 90 screens, 436 mocks, 0 errors, 0 warnings |
 | Reflow, live contrast, unresolved tokens | Headless Chromium over all 84 pages at 320px and 360px, light and dark: document `scrollWidth`, every `[data-contrast]` ratio, every `[data-token]` cell | No sideways scroll, no failing live ratio, no unresolved token |

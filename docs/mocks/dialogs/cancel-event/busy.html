@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Delete event · default — Sweet Hand mocks</title>
+<title>Cancel event · busy — Sweet Hand mocks</title>
 <meta name="mock:kind" content="dialog">
-<meta name="mock:screen" content="delete-event">
-<meta name="mock:state" content="default">
-<meta name="mock:requirements" content="">
-<meta name="description" content="Confirm deleting the trade expo; Cancel event suggested instead.">
+<meta name="mock:screen" content="cancel-event">
+<meta name="mock:state" content="busy">
+<meta name="mock:requirements" content="L2-119 L2-120">
+<meta name="description" content="Confirm cancelling an event, with a required reason; it stays on the calendar, struck through, and can be restored.">
 <link rel="stylesheet" href="../../assets/tokens.css">
 <link rel="stylesheet" href="../../assets/ui.css">
 <link rel="stylesheet" href="../../assets/mock.css">
@@ -58,7 +58,7 @@
       <div class="page-intro" style="margin-top: var(--space-4);">
         <div class="page-intro__row">
           <div><h1>GTA Caribbean Food &amp; Trade Expo</h1><p class="cluster subtitle"><span class="status status--published">Scheduled</span><span class="badge">Trade show</span></p></div>
-          <div class="cluster"><button class="btn" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/event-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button><button class="btn" type="button">Cancel event</button><button class="btn btn--ghost" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/delete-event/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Delete</button></div>
+          <div class="cluster"><button class="btn" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/event-editor/edit.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit</button><button class="btn" type="button" aria-haspopup="dialog" data-mock-href="../../dialogs/cancel-event/default.html">Cancel event</button></div>
         </div>
       </div>
       <section class="caterer-section" style="margin-top: var(--space-8);" aria-labelledby="when-title">
@@ -106,33 +106,38 @@
 
 <div class="backdrop"></div>
 <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc" data-dismiss-on-escape>
-  <form class="dialog__panel dialog__panel--sm" action="../../pages/admin-events/default.html" novalidate>
+  <form class="dialog__panel dialog__panel--sm" action="../../pages/admin-event/cancelled.html" novalidate>
     <div class="dialog__header">
       <div class="dialog__heading">
-        <h2 class="dialog__title" id="dlg-title">Delete GTA Caribbean Food &amp; Trade Expo?</h2>
-        <p class="dialog__desc" id="dlg-desc">Deleted events can be restored for 10 seconds.</p>
+        <h2 class="dialog__title" id="dlg-title">Cancel GTA Caribbean Food &amp; Trade Expo?</h2>
+        <p class="dialog__desc" id="dlg-desc">You can restore it until it would have ended.</p>
       </div>
       <button class="icon-btn" type="button" aria-label="Close" data-mock-href="../../pages/admin-event/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>
     <div class="dialog__body stack">
-      <p>GTA Caribbean Food &amp; Trade Expo comes off the calendar and the 5 vendor pages that link to it. You can undo for 10 seconds.</p>
-      <p class="text-muted">If it isn’t happening, <strong>Cancel event</strong> keeps it on the calendar, struck through, so people who saw it know.</p>
+      <p>GTA Caribbean Food &amp; Trade Expo stays on the calendar, struck through, and on its 5 vendors’ pages as cancelled.</p>
+      <div class="field"><label class="field__label" for="reason">Reason</label>
+        <textarea class="textarea" id="reason" name="reason" rows="2" required aria-describedby="reason-help" disabled>Heavy rain warning for the lakeshore.</textarea>
+        <span class="field__help" id="reason-help">Up to 200 characters. It shows on the event page.</span>
+      </div>
+      <p class="visually-hidden" role="status">Cancelling the event</p>
 
     </div>
     <div class="dialog__footer">
-      <button class="btn" type="button" data-mock-href="../../pages/admin-event/default.html">Keep it</button>
-      <button class="btn btn--danger" type="submit">Delete event</button>
+      <button class="btn" type="button" disabled>Keep it</button>
+      <button class="btn btn--danger" type="submit" aria-disabled="true" aria-busy="true"><span class="spinner spinner--sm" aria-hidden="true"></span>Cancelling…</button>
     </div>
   </form>
 </div>
 
 <nav class="mock-bar" aria-label="Mock navigation">
   <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
-  <span class="mock-bar__screen">Delete event</span>
+  <span class="mock-bar__screen">Cancel event</span>
   <ul class="mock-bar__states">
-    <li><a href="default.html" aria-current="page">default</a></li>
-    <li><a href="busy.html">busy</a></li>
+    <li><a href="default.html">default</a></li>
+    <li><a href="busy.html" aria-current="page">busy</a></li>
     <li><a href="recurring.html">recurring</a></li>
+    <li><a href="invalid.html">invalid</a></li>
     <li><a href="failed.html">failed</a></li>
   </ul>
   <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>

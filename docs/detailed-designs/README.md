@@ -63,6 +63,17 @@ Operator work: review queue, approval decisions, operator edits, suspension and 
 | [Suspend, reinstate or remove a profile](moderation/suspend-reinstate-remove-profile/README.md) | `L2-018`, `L2-046`, `L2-058` |
 | [Work the review queue](moderation/work-review-queue/README.md) | `L2-047` |
 
+## directory
+
+The operators' internal directory of places and events (operators only, never public): places, the places map, events with repeats and skipped dates, and the events calendar.
+
+| Feature | L2 requirements |
+|---------|-----------------|
+| [Manage places](directory/manage-places/README.md) | `L2-110`, `L2-111`, `L2-112`, `L2-113`, `L2-114` |
+| [View the places map](directory/view-places-map/README.md) | `L2-115` |
+| [Manage events](directory/manage-events/README.md) | `L2-110`, `L2-116`, `L2-117`, `L2-118`, `L2-119`, `L2-120` |
+| [View the events calendar](directory/view-events-calendar/README.md) | `L2-121` |
+
 ## reviews
 
 Customer reviews of caterers: eligibility, writing, display, caterer responses, editing and deletion.

@@ -1,0 +1,56 @@
+@startuml
+title UML sequence behaviour — Add a place
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Operator" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "PlacesPage" as list
+  participant "PlaceEditorDialog" as dialog
+  participant "HttpPlacesService" as svc
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "DirectoryController" as ctrl
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "places.ts" as uc
+  participant "place-rules.ts" as rules
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "Geocoder" as geo
+  participant "recordAudit" as audit
+  database "places collection" as db
+end box
+actor -> list : Activate "Add place"
+list -> dialog : Open editor; focus on Name (L2-113 AC1)
+actor -> dialog : Type name, type, cuisine, address
+dialog -> svc : geocode(address) after 500 ms idle (L2-113 AC3)
+svc -> ctrl : POST /api/operator/geocode
+ctrl -> ctrl : Require operator role on the server (L2-110)
+ctrl -> uc : geocodeAddress(req)
+uc -> geo : locate(address)
+geo --> uc : Pin or null
+uc --> dialog : Pin shown in the preview map
+actor -> dialog : Save with "Listed" ticked
+dialog -> svc : add(PlaceRequest)
+svc -> ctrl : POST /api/operator/places
+ctrl -> uc : addPlace(req)
+uc -> rules : validatePlace(input) (L2-113 AC5, AC7)
+rules --> uc : No field errors
+uc -> db : all()
+db --> uc : Places
+uc -> rules : duplicateOf(input, places) (L2-113 AC6)
+rules --> uc : None
+uc -> rules : areaForPostalCode(postalCode)
+uc -> geo : locate(address)
+geo --> uc : Pin (none on failure, L2-113 AC4)
+uc -> db : put(place) with status Listed
+uc -> audit : Add place, after values (L2-110 AC5)
+uc --> ctrl : 201 PlaceDetail
+ctrl --> svc : HTTP 201 JSON
+svc --> dialog : Saved
+dialog --> list : Close; focus returns to "Add place"
+list --> actor : Toast "<name> saved" (L2-113 AC9)
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Manage events
+
+Person(op, "Operator", "Sweet Hand team member, with or without the Admin permission")
+Person_Ext(public, "Visitor, customer or caterer", "Never sees the directory (L2-110)")
+System(sh, "Sweet Hand", "Caterer platform with an operator-only directory of places and events")
+System_Ext(ext, "Geocoding provider", "<TO SUPPLY>: pins each venue")
+Rel(sh, ext, "Asks for venue pins via", "HTTPS")
+
+Rel(op, sh, "Keeps the directory in", "HTTPS")
+Rel(public, sh, "Uses public pages, which return no directory data")
+@enduml

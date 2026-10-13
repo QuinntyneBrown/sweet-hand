@@ -68,7 +68,8 @@ and get approved before launch, through invites (a new requirement, SH-02).
 - **The public preview** at `preview.sweethand.ca` ([plan](public-preview.md)). Founding caterers
   use the real product instead. Only the preview plan's photo move (slice 1) and product static
   config (slice 9) are pulled in, because launch needs them.
-- **The operator directory mocks** (places, map, events, calendar), which have no requirements yet.
+- **The operator directory** (places, map, events, calendar). It is specified (SH-69: L1-026, L1-027,
+  L2-110 to L2-121, designs and CRDs); the build is SH-70.
 - **Most of the frontend technical debt** (`docs/technical-debt/frontend.md`). Only T-19 (admin
   route guard) and T-58 (WCAG 2.2 checks) are pulled in.
 - **The ADR 0008 reconciliation** (object storage, a job queue, a separate worker). Launch runs one

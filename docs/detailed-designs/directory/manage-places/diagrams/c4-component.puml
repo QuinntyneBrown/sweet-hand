@@ -1,0 +1,31 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Manage places
+
+Container_Boundary(spa, "Sweet Hand web application") {
+  Component(list, "PlacesPage", "Angular page", "/admin/places: search, type filter, rows")
+  Component(page, "PlacePage", "Angular page", "/admin/places/{id}: record, Mark closed, Reopen")
+  Component(editor, "PlaceEditorDialog", "Angular dialog on sh-dialog", "Add and edit a place")
+  Component(close, "ClosePlaceDialog", "Angular dialog on sh-dialog", "Confirm closing, optional reason")
+  Component(svc, "HttpPlacesService", "extends PlacesService", "Calls the directory endpoints")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "DirectoryController", "NestJS controller", "Routes under @UsePolicy(roles('Operator'))")
+  Component(uc, "places.ts", "Use cases", "listPlaces, getPlace, addPlace, editPlace, closePlace, reopenPlace")
+  Component(rules, "place-rules.ts", "Pure functions", "validatePlace, isComplete, duplicateOf, areaForPostalCode")
+  Component(geo, "Geocoder", "Abstract class (port)", "LocalGeocoder stand-in; provider <TO SUPPLY>")
+  Component(audit, "recordAudit", "platform/audit.ts", "Appends to the audit log")
+  ComponentDb(db, "places collection", "Persistence port", "JSON documents in PostgreSQL")
+}
+Rel(list, svc, "list(filter)")
+Rel(page, svc, "get(id), reopen(id)")
+Rel(editor, svc, "add, edit, geocode")
+Rel(close, svc, "close(id, reason)")
+Rel(svc, ctrl, "Calls", "JSON/HTTPS")
+Rel(ctrl, uc, "Maps routes to")
+Rel(uc, rules, "Validates with")
+Rel(uc, geo, "Asks for pins")
+Rel(uc, audit, "Records each change")
+Rel(uc, db, "Reads and writes")
+@enduml

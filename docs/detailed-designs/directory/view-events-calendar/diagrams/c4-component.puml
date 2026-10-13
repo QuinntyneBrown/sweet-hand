@@ -1,0 +1,29 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — View the events calendar
+
+Container_Boundary(spa, "Sweet Hand web application") {
+  Component(page, "CalendarPage", "Angular page", "/admin/events/calendar: views, filter, agenda")
+  Component(view, "calendar-view.ts", "Plain TypeScript", "Cells, +N more, summary, URL state")
+  Component(cal, "sh-calendar", "Library component (CRD calendar.md)", "Month, week and day grids; arrow-key navigation")
+  Component(editor, "EventEditorDialog", "Angular dialog (manage-events)", "Add event on a chosen day")
+  Component(svc, "HttpEventsService", "extends EventsService", "calendar(view, date, types)")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(ctrl, "DirectoryController", "NestJS controller", "GET /api/operator/calendar")
+  Component(uc, "calendar.ts", "Use case", "calendarView")
+  Component(occ, "occurrences.ts", "Pure functions", "expandOccurrences")
+  Component(hol, "holidays.ts", "Pure functions", "ontarioHolidays(year)")
+  ComponentDb(db, "events collection", "Persistence port", "Read only")
+}
+Rel(page, view, "Builds cells with")
+Rel(page, cal, "Passes cells to")
+Rel(page, editor, "Opens with a date")
+Rel(page, svc, "calendar(...)")
+Rel(svc, ctrl, "Calls", "JSON/HTTPS")
+Rel(ctrl, uc, "Maps route to")
+Rel(uc, occ, "Expands occurrences with")
+Rel(uc, hol, "Labels holidays with")
+Rel(uc, db, "Reads")
+@enduml
