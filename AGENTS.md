@@ -30,7 +30,8 @@ keep it accurate:
 - `docs/adr/` — architecture decisions; read relevant ADRs before changing the areas they cover
 - `docs/technical-debt/` — technical-debt registers with resolution strategies
   (`frontend.md`); close an item by deleting its entry in the PR that resolves it
-- `docs/operations/` — environments, release and hotfix process (`environments.md`), and the
+- `docs/operations/` — the short release guide (`releasing.md`), environments, release and
+  hotfix process in full (`environments.md`), and the
   production subscription, costs, deployment, DNS, rollback and recovery runbook
 - `infra/` — Azure Bicep (one template for staging, UAT and production) and Azure CLI
   entry points (`deploy.ps1` production bootstrap, `new-environment.ps1` staging and UAT)
