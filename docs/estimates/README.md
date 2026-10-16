@@ -5,7 +5,7 @@
 
 | Subsystem | Effort | Complete |
 |---|---|---|
-| [identity-and-security](identity-and-security.md) | 38 days | 96% |
+| [identity-and-security](identity-and-security.md) | 38 days | 99% |
 | [caterer-profiles](caterer-profiles.md) | 35 days | 94% |
 | [discovery](discovery.md) | 26 days | 97% |
 | [moderation](moderation.md) | 52 days | 91% |
@@ -19,7 +19,7 @@
 
 ## Roadmap
 
-1. Finish identity-and-security rate-limit-and-challenge and validate-input-and-secure-transport
+1. Finish identity-and-security validate-input-and-secure-transport: the OWASP ZAP baseline scan, which must get past the staging site password
 2. Finish caterer-profiles manage-photos, discovery browse-listing and view-caterer-page, and reviews show-reviews
 3. Finish moderation manage-operator-accounts, query-audit-log, report-content and decide-profile-approval
 4. Finish metrics count-visits, privacy locate-data-and-record-breaches and launch retire-launch-site and serve-launch-site
