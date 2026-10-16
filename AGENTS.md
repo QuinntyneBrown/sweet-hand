@@ -28,6 +28,10 @@ keep it accurate:
 - `docs/mocks/` — static HTML design reference (`writing-html-mocks` skill)
 - `docs/design-system/` — design system extracted from the mocks (`extracting-design-systems` skill)
 - `docs/adr/` — architecture decisions; read relevant ADRs before changing the areas they cover
+- `docs/estimates/` — developer-day estimates and percent complete per detailed
+  design (`estimating-designs` skill)
+- `docs/user-journeys.md` — every built or planned user journey with its estimate
+  and percent complete
 - `docs/technical-debt/` — technical-debt registers with resolution strategies
   (`frontend.md`); close an item by deleting its entry in the PR that resolves it
 - `docs/operations/` — the short release guide (`releasing.md`), environments, release and
@@ -320,3 +324,4 @@ for other agents. Keep the two copies identical.
 - `writing-component-requirements-documents` — CRDs for UI components
 - `implementing-incrementally` — thin, verifiable slices (mandatory, see above)
 - `creating-videos` — narrated walkthrough videos
+- `estimating-designs` — effort and percent complete per detailed design
