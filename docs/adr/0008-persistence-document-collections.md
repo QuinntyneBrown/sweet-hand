@@ -51,3 +51,13 @@ must be as small and as generic as possible.
   application. At the planned 5,000 caterers (L2-086) this is a few
   megabytes per request; a read model or SQL pushdown for the listing is the
   first optimisation if load tests miss the latency budget.
+- **Deferred: the database does not enforce the append-only audit log
+  (L2-060 AC2, second sentence).** Audit entries are the `audit` collection
+  in the shared `documents` table, and the API and the retention job connect
+  with one `DATABASE_URL`, so no grant can withhold UPDATE and DELETE on audit
+  entries alone. The `sweethand_app` and `sweethand_retention` roles of ADR
+  0006 do not exist. The application side holds: the log is written only
+  through `recordAudit`, no endpoint edits or deletes an entry, and only the
+  retention job deletes entries, after 7 years. Closing this needs a separate
+  audit table with role grants and a second connection for retention, and is
+  decided with the reconciliation above.
