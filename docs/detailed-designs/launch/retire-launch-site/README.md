@@ -15,6 +15,7 @@ The order on launch day is fixed. The operator first switches `/` to the product
 **Hosting**
 
 - The switch-over is a configuration change on the CDN and static host, `<TO SUPPLY>`: `/` and every product route serve the `sweet-hand` build, and the `launch` build is no longer published (`L2-102 AC2`). Requests under `/api/` keep reaching the Sweet Hand API.
+- The product build gets the real bot challenge before the switch-over. Its protected forms (sign-in, registration, password reset, enquiry, report) still use `LocalBotChallengeService`. They move to Turnstile, as the launch form uses it, whenever a site key is configured (`L2-082 AC2`, feature `identity-and-security/rate-limit-and-challenge`). Their mocks show the Turnstile host before it is built.
 - The `launch` project then has no consumer. It can be deleted from `frontend/angular.json`, `frontend/projects/launch/`, the CI jobs and `frontend/e2e/specs/launch/` without touching `projects/sweet-hand/`, because the product never imports it (`L2-102 AC5`, `L2-092 AC3`). The launch list API, `LaunchListService` and the product's removal page stay until the list is deleted.
 
 **Backend — `backend/src/launch-list/`**
