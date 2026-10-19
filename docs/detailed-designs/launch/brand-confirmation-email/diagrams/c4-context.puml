@@ -1,0 +1,13 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Brand the confirmation email
+
+Person(person, "Person who signed up", "Reads the email in a mail client")
+System(sweethand, "Sweet Hand", "Launch site and launch list API")
+System_Ext(email, "Azure Communication Services Email", "Email provider")
+
+Rel(sweethand, email, "Sends launch-confirm with HTML and plain-text parts via")
+Rel(email, person, "Delivers the email to")
+Rel(person, sweethand, "Loads the logo from /img/; opens the confirmation link", "HTTPS")
+@enduml

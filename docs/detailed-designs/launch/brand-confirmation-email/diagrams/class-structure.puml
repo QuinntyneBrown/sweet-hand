@@ -1,0 +1,53 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Brand the confirmation email
+
+class OutboxEmail <<document>> {
+  +to: string
+  +kind: 'launch-confirm'
+  +link?: string
+  +removalLink?: string
+  +mailingAddress: string
+  +contactEmail: string
+  +askedOn: string
+  +headers: Record<string, string>
+}
+class ConfirmationEmailFields <<interface>> {
+  +link: string
+  +removalLink: string
+  +mailingAddress: string
+  +contactEmail: string
+  +askedOn: string
+}
+class "confirmation-email.ts" as tpl <<functions>> {
+  +confirmationEmail(fields): { subject, plainText, html }
+  -escapeHtml(value: string): string
+}
+class AzureCommunicationEmailGateway {
+  -client: AzureEmailClient
+  -senderAddress: string
+  +send(email: OutboxEmail): Promise<void>
+}
+class "EmailMessage.content" as content <<Azure SDK>> {
+  +subject: string
+  +plainText: string
+  +html: string
+}
+interface EmailGateway {
+  +send(email: OutboxEmail): Promise<void>
+}
+AzureCommunicationEmailGateway ..|> EmailGateway
+AzureCommunicationEmailGateway ..> OutboxEmail : reads fields
+AzureCommunicationEmailGateway ..> tpl : launch-confirm
+tpl ..> ConfirmationEmailFields : takes
+AzureCommunicationEmailGateway ..> content : builds
+@enduml

@@ -1,0 +1,19 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Brand the confirmation email
+
+System_Ext(acs, "Azure Communication Services Email", "Email provider")
+Container_Boundary(api, "Sweet Hand API") {
+  Component(dispatch, "dispatchDueEmails", "Worker (email-dispatch.ts)", "Sends due outbox emails, strips links after sending")
+  Component(gateway, "AzureCommunicationEmailGateway", "EmailGateway (azure-email.ts)", "launchContent() picks the template by kind")
+  Component(template, "confirmationEmail", "Pure function (confirmation-email.ts)", "Builds subject, plainText and html; escapes every value")
+  Component(log, "logGateway", "EmailGateway", "Local development and tests; unchanged")
+}
+ComponentDb(db, "Sweet Hand database", "PostgreSQL", "outbox")
+Rel(dispatch, db, "Reads and updates")
+Rel(dispatch, gateway, "send(email)")
+Rel(dispatch, log, "send(email) when no provider is configured")
+Rel(gateway, template, "confirmationEmail(fields) for launch-confirm")
+Rel(gateway, acs, "beginSend(message)", "HTTPS")
+@enduml

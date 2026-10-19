@@ -1,0 +1,17 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Brand the confirmation email
+
+Person(person, "Person who signed up", "Mail client")
+System_Ext(acs, "Azure Communication Services Email", "Email provider")
+System_Boundary(sh, "Sweet Hand") {
+  Container(launch, "Launch site", "Angular 21 (projects/launch), Static Web App", "Serves /img/sweet-hand-email-logo.png")
+  Container(api, "Sweet Hand API", "NestJS 11", "launch-list area; outbox worker renders the email at send time")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "outbox: template fields only, no HTML")
+}
+Rel(api, db, "Reads queued launch-confirm, marks it sent")
+Rel(api, acs, "beginSend({ subject, plainText, html })", "HTTPS")
+Rel(acs, person, "Delivers")
+Rel(person, launch, "GET /img/sweet-hand-email-logo.png", "HTTPS")
+@enduml
