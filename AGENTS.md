@@ -325,3 +325,5 @@ for other agents. Keep the two copies identical.
 - `implementing-incrementally` — thin, verifiable slices (mandatory, see above)
 - `creating-videos` — narrated walkthrough videos
 - `estimating-designs` — effort and percent complete per detailed design
+- `writing-feature-prompts` — a ready-to-run implementation prompt for a
+  feature or bug fix, saved outside the repository
