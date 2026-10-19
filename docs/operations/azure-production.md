@@ -39,7 +39,7 @@ Records to publish in Namecheap Advanced DNS (values read from Azure on 2026-10-
 | ALIAS | `@` | `happy-ocean-03d99600f.3.azurestaticapps.net` (replaces the parking A record) |
 | CNAME | `www` | `happy-ocean-03d99600f.3.azurestaticapps.net` (replaces `parkingpage.namecheap.com`) |
 | TXT | `@` | `ms-domain-verification=6d3a53f6-f0c6-4e4e-928c-2a6b4cce47b6` |
-| TXT | `@` | `v=spf1 include:spf.efwd.registrar-servers.com include:spf.protection.outlook.com ~all` (replaces the existing SPF record; keep exactly one) |
+| TXT | `@` | `v=spf1 include:spf.efwd.registrar-servers.com include:spf.protection.outlook.com -all` (replaces the existing SPF record; keep exactly one. Azure only verifies SPF ending in `-all`) |
 | CNAME | `selector1-azurecomm-prod-net._domainkey` | `selector1-azurecomm-prod-net._domainkey.azurecomm.net` |
 | CNAME | `selector2-azurecomm-prod-net._domainkey` | `selector2-azurecomm-prod-net._domainkey.azurecomm.net` |
 | TXT | `_dmarc` | `v=DMARC1; p=none; rua=mailto:hello@sweethand.ca` |
