@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { testEnvironment } from '../../src/environment.ts';
 import { queueEmail, type OutboxEmail } from '../../src/platform/outbox.ts';
 import { PermanentFailure, dispatchDueEmails, type EmailGateway } from '../../src/platform/email-dispatch.ts';
+import { AzureCommunicationEmailGateway } from '../../src/platform/azure-email.ts';
 
 const HOUR = 60 * 60_000;
 
@@ -125,5 +126,31 @@ describe('launch list email delivery (L2-101.5)', () => {
     await Promise.all([dispatchDueEmails(env, gateway), dispatchDueEmails(env, gateway)]);
 
     assert.equal(sends, 1);
+  });
+});
+
+describe('branded confirmation email storage (L2-122.7)', () => {
+  it('Given a launch confirmation sent through the Azure gateway, when it has been sent, then the provider got the HTML and the outbox keeps no HTML, link, removal link or headers', async () => {
+    const env = await testEnvironment({ seed: false });
+    await env.db.transaction((tx) =>
+      queueEmail(tx, env.clock.now(), {
+        to: 'marcia.t@example.com', kind: 'launch-confirm', link: 'https://sweethand.ca/?confirmed=a', removalLink: 'https://sweethand.ca/api/launch-list/unsubscribe?token=b',
+        mailingAddress: 'Sweet Hand, 100 Example Street, Toronto ON M5V 0A1', contactEmail: 'hello@sweethand.ca', askedOn: 'October 10, 2026',
+        headers: { 'List-Unsubscribe': '<https://sweethand.ca/api/launch-list/unsubscribe?token=b>', 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' },
+      }),
+    );
+    const sent: { content: { html?: string } }[] = [];
+    const gateway = new AzureCommunicationEmailGateway(
+      { beginSend: async (message) => { sent.push(message as never); return { pollUntilDone: async () => ({ status: 'Succeeded' }) }; } },
+      'hello@sweethand.ca',
+    );
+
+    await dispatchDueEmails(env, gateway);
+
+    assert.match(sent[0]!.content.html ?? '', /Confirm my email/);
+    const [stored] = await emails(env);
+    assert.equal(stored.status, 'sent');
+    for (const field of ['html', 'link', 'removalLink', 'headers']) assert.equal(stored[field], undefined, field);
+    assert.doesNotMatch(JSON.stringify(stored), /confirmed=a|token=b|<html/);
   });
 });
