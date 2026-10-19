@@ -64,4 +64,23 @@ describe('Branded confirmation email (L2-122)', () => {
     assert.match(html, /@media \(prefers-color-scheme: dark\)\s*\{[^}]*\.sh-bg \{ background: #1a1917 !important; \}/);
     assert.match(html, /max-width:600px/);
   });
+
+  it('Given values containing <, & and ", when the HTML part is composed, then each is escaped and never becomes markup (L2-122.6)', () => {
+    const { html } = confirmationEmail({
+      link: 'https://sweethand.ca/?confirmed=a&b="><script>alert(1)</script>',
+      removalLink: 'https://sweethand.ca/api/launch-list/unsubscribe?token=x"onmouseover="alert(2)',
+      mailingAddress: '<img src=x onerror=alert(3)> & Sons',
+      contactEmail: 'hello"@sweethand.ca',
+      askedOn: '<b>October</b> 10, 2026',
+    });
+    assert.doesNotMatch(html, /<script/i);
+    assert.doesNotMatch(html, /<img src=x/);
+    assert.doesNotMatch(html, /<b>/);
+    assert.doesNotMatch(html, /"onmouseover=/);
+    assert.match(html, /href="https:\/\/sweethand\.ca\/\?confirmed=a&amp;b=&quot;&gt;&lt;script&gt;alert\(1\)&lt;\/script&gt;"/);
+    assert.match(html, /&lt;img src=x onerror=alert\(3\)&gt; &amp; Sons/);
+    assert.match(html, /href="mailto:hello&quot;@sweethand\.ca"/);
+    assert.match(html, /You asked for this email on &lt;b&gt;October&lt;\/b&gt; 10, 2026\./);
+    assert.equal((html.match(/<img\b/g) ?? []).length, 1);
+  });
 });

@@ -31,6 +31,13 @@ const STYLE = `<style>
   }
 </style>`;
 
+const ENTITIES: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+
+/** Every dynamic value goes through this, in text and attributes, so it is shown as text (L2-122.6, L2-104.7). */
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, (c) => ENTITIES[c]!);
+}
+
 /**
  * The confirmation email (L2-099.1, L2-122): an HTML part in the Sweet Hand
  * design and a plain-text part with the same facts, rendered at send time from
@@ -44,7 +51,8 @@ export function confirmationEmail(fields: ConfirmationEmailFields): { subject: s
   const ignore = 'If you didn’t ask for this, ignore this email and nothing happens.';
   const plainText = `${why}\n\nConfirm your email within 48 hours: ${link}\n\n${ignore}\n\nYou asked for this email on ${askedOn}.\nSweet Hand\n${mailingAddress}\n${contactEmail}\nRemove your email: ${removalLink}`;
   // The confirmation link is always on the site URL, so the logo is too.
-  const logo = new URL('/img/sweet-hand-email-logo.png', link).href;
+  const logo = escapeHtml(new URL('/img/sweet-hand-email-logo.png', link).href);
+  const [href, remove, address, contact, asked] = [link, removalLink, mailingAddress, contactEmail, askedOn].map(escapeHtml);
   const html = `<!doctype html>
 <html lang="en-CA">
 <head>
@@ -68,19 +76,19 @@ ${STYLE}
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px;">
               <tr>
                 <td class="sh-btn" style="border-radius:9999px;background:#141312;">
-                  <a class="sh-btn" href="${link}" style="display:inline-block;padding:16px 28px;border-radius:9999px;background:#141312;color:#ffffff;font-size:16px;line-height:1.25;font-weight:600;text-decoration:none;">Confirm my email</a>
+                  <a class="sh-btn" href="${href}" style="display:inline-block;padding:16px 28px;border-radius:9999px;background:#141312;color:#ffffff;font-size:16px;line-height:1.25;font-weight:600;text-decoration:none;">Confirm my email</a>
                 </td>
               </tr>
             </table>
-            <p class="sh-muted" style="margin:0 0 24px;font-size:14px;line-height:1.5;color:#4d4b48;">Or copy this link into your browser:<br><a class="sh-link" href="${link}" style="color:#141312;text-decoration:underline;word-break:break-all;">${link}</a></p>
+            <p class="sh-muted" style="margin:0 0 24px;font-size:14px;line-height:1.5;color:#4d4b48;">Or copy this link into your browser:<br><a class="sh-link" href="${href}" style="color:#141312;text-decoration:underline;word-break:break-all;">${href}</a></p>
             <p class="sh-muted" style="margin:0;font-size:16px;line-height:1.5;color:#4d4b48;">The link expires in 48 hours. ${ignore}</p>
           </td>
         </tr>
         <tr>
           <td class="sh-subtle" style="padding:24px 8px 0;font-family:${FONT};font-size:14px;line-height:1.5;color:#6b6863;">
-            <p style="margin:0 0 8px;">You asked for this email on ${askedOn}.</p>
-            <p style="margin:0 0 8px;">Sweet Hand<br>${mailingAddress}<br><a class="sh-link" href="mailto:${contactEmail}" style="color:#141312;text-decoration:underline;">${contactEmail}</a></p>
-            <p style="margin:0;"><a class="sh-link" href="${removalLink}" style="color:#141312;text-decoration:underline;">Remove your email</a> from the launch list.</p>
+            <p style="margin:0 0 8px;">You asked for this email on ${asked}.</p>
+            <p style="margin:0 0 8px;">Sweet Hand<br>${address}<br><a class="sh-link" href="mailto:${contact}" style="color:#141312;text-decoration:underline;">${contact}</a></p>
+            <p style="margin:0;"><a class="sh-link" href="${remove}" style="color:#141312;text-decoration:underline;">Remove your email</a> from the launch list.</p>
           </td>
         </tr>
       </table>
