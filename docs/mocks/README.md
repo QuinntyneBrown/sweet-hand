@@ -327,7 +327,10 @@ the mock changed.
 13. **No cookie banner.** L2-074 sets only strictly necessary cookies, so no consent
     banner exists. If non-essential cookies are ever added, a banner mock is needed.
 14. **No notification centre.** L2 has unread counts on the inbox only (L2-029); the
-    inbox is the notification centre. Emails are out of scope for these mocks.
+    inbox is the notification centre. Emails are out of scope for these mocks, except
+    the launch list confirmation email (`notifications/launch-confirm-email/`, L2-122):
+    its HTML part in light and dark at phone and desktop widths, and its plain-text
+    part. The other launch list emails and the product emails are not mocked yet.
 15. **Accessibility target.** L1-019 says WCAG 2.1 AA; `AGENTS.md` says 2.2 AA. The
     mocks meet 2.2 AA (target size, focus not obscured, accessible authentication).
 
@@ -501,13 +504,14 @@ Legend: ✅ mock exists · ➖ not applicable (reason in manifest) · ❌ missin
 
 ### Notifications
 
-| Screen | info | success | warning | danger | with-action | stacked | persistent | Requirements |
-|---|---|---|---|---|---|---|---|---|
-| Toast (`toast`) | [✅](notifications/toast/info.html) | [✅](notifications/toast/success.html) | [✅](notifications/toast/warning.html) | [✅](notifications/toast/danger.html) | [✅](notifications/toast/with-action.html) | [✅](notifications/toast/stacked.html) |  | `L2-028`, `L2-030`, `L2-032`, `L2-035`, `L2-091` |
-| Site banner (`site-banner`) | [✅](notifications/site-banner/info.html) | [✅](notifications/site-banner/success.html) | [✅](notifications/site-banner/warning.html) | [✅](notifications/site-banner/danger.html) |  |  | [✅](notifications/site-banner/persistent.html) | `L2-023`, `L2-030`, `L2-070`, `L2-088`, `L2-091` |
-| Dashboard toast (`dashboard-toast`) | [✅](notifications/dashboard-toast/info.html) | [✅](notifications/dashboard-toast/success.html) | [✅](notifications/dashboard-toast/warning.html) | [✅](notifications/dashboard-toast/danger.html) | [✅](notifications/dashboard-toast/with-action.html) | [✅](notifications/dashboard-toast/stacked.html) |  | `L2-038`, `L2-041`, `L2-042`, `L2-043` |
-| Profile status banner (`profile-banner`) | [✅](notifications/profile-banner/info.html) | [✅](notifications/profile-banner/success.html) | [✅](notifications/profile-banner/warning.html) | [✅](notifications/profile-banner/danger.html) |  |  | [✅](notifications/profile-banner/persistent.html) | `L2-039`, `L2-040`, `L2-044`, `L2-048`, `L2-058` |
-| Operator toast (`admin-toast`) | [✅](notifications/admin-toast/info.html) | [✅](notifications/admin-toast/success.html) | [✅](notifications/admin-toast/warning.html) | [✅](notifications/admin-toast/danger.html) |  | [✅](notifications/admin-toast/stacked.html) |  | `L2-048`, `L2-055`, `L2-058`, `L2-059`, `L2-063` |
-| Directory toast (`directory-toast`) | [✅](notifications/directory-toast/info.html) | [✅](notifications/directory-toast/success.html) | [✅](notifications/directory-toast/warning.html) | [✅](notifications/directory-toast/danger.html) | [✅](notifications/directory-toast/with-action.html) |  |  | `L2-113`, `L2-114`, `L2-115`, `L2-118`, `L2-121` |
+| Screen | info | success | warning | danger | with-action | stacked | persistent | default | caterer | plain-text | Requirements |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Toast (`toast`) | [✅](notifications/toast/info.html) | [✅](notifications/toast/success.html) | [✅](notifications/toast/warning.html) | [✅](notifications/toast/danger.html) | [✅](notifications/toast/with-action.html) | [✅](notifications/toast/stacked.html) |  |  |  |  | `L2-028`, `L2-030`, `L2-032`, `L2-035`, `L2-091` |
+| Site banner (`site-banner`) | [✅](notifications/site-banner/info.html) | [✅](notifications/site-banner/success.html) | [✅](notifications/site-banner/warning.html) | [✅](notifications/site-banner/danger.html) |  |  | [✅](notifications/site-banner/persistent.html) |  |  |  | `L2-023`, `L2-030`, `L2-070`, `L2-088`, `L2-091` |
+| Dashboard toast (`dashboard-toast`) | [✅](notifications/dashboard-toast/info.html) | [✅](notifications/dashboard-toast/success.html) | [✅](notifications/dashboard-toast/warning.html) | [✅](notifications/dashboard-toast/danger.html) | [✅](notifications/dashboard-toast/with-action.html) | [✅](notifications/dashboard-toast/stacked.html) |  |  |  |  | `L2-038`, `L2-041`, `L2-042`, `L2-043` |
+| Profile status banner (`profile-banner`) | [✅](notifications/profile-banner/info.html) | [✅](notifications/profile-banner/success.html) | [✅](notifications/profile-banner/warning.html) | [✅](notifications/profile-banner/danger.html) |  |  | [✅](notifications/profile-banner/persistent.html) |  |  |  | `L2-039`, `L2-040`, `L2-044`, `L2-048`, `L2-058` |
+| Operator toast (`admin-toast`) | [✅](notifications/admin-toast/info.html) | [✅](notifications/admin-toast/success.html) | [✅](notifications/admin-toast/warning.html) | [✅](notifications/admin-toast/danger.html) |  | [✅](notifications/admin-toast/stacked.html) |  |  |  |  | `L2-048`, `L2-055`, `L2-058`, `L2-059`, `L2-063` |
+| Directory toast (`directory-toast`) | [✅](notifications/directory-toast/info.html) | [✅](notifications/directory-toast/success.html) | [✅](notifications/directory-toast/warning.html) | [✅](notifications/directory-toast/danger.html) | [✅](notifications/directory-toast/with-action.html) |  |  |  |  |  | `L2-113`, `L2-114`, `L2-115`, `L2-118`, `L2-121` |
+| Launch confirmation email (`launch-confirm-email`) | ➖ | ➖ | ➖ | ➖ |  |  |  | [✅](notifications/launch-confirm-email/default.html) | [✅](notifications/launch-confirm-email/caterer.html) | [✅](notifications/launch-confirm-email/plain-text.html) | `L2-099`, `L2-100`, `L2-101`, `L2-122` |
 
 <!-- coverage:end -->

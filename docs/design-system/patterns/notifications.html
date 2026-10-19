@@ -123,7 +123,7 @@
       <h1>Notifications</h1>
       <p class="ds-lead">News that is not an answer to what someone just did: a reply arrived, email is running late, a certificate expired, maintenance is coming. Toasts for passing news, banners for conditions that last, inline messages for the thing in front of you, and the inbox as the only notification centre.</p>
       <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>.toast</code></span><span class="ds-pill"><code>.banner</code></span><span class="ds-pill"><code>.alert</code></span><span class="ds-pill"><code>.badge--count</code></span></div>
-      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#when">When to use which</a></li><li><a href="#structure">Structure</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li></ul>
+      <ul class="ds-toc"><li><a href="#overview">Overview</a></li><li><a href="#when">When to use which</a></li><li><a href="#structure">Structure</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive behaviour</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#email">Email</a></li><li><a href="#sources">Sources</a></li></ul>
     </header>
 
 <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
@@ -132,7 +132,7 @@
         <li><b>Toast</b> (<a href="../components/toast.html">toast</a>): passing news, in the corner, gone after 8 s unless it is an error: "New message from Pelau House", "Photo order saved", "Couldn’t suspend Flying Fish Kitchen".</li>
         <li><b>Banner</b> (<a href="../components/alert.html">alert and banner</a>, <code>.alert.banner</code>): a condition that lasts across pages, full-bleed under the header: "Verify your email to send enquiries", "Your profile is suspended and hidden from customers", "Scheduled maintenance".</li>
         <li><b>Inline</b> (<a href="../components/alert.html">alert</a>, <a href="../components/inline-message.html">inline message</a>): a condition of the thing on screen, next to it: the fit warning on an enquiry, "Name change waiting for review" on Business details.</li>
-        <li><b>Email and badges</b>: email for anything that matters when people are away (a reply, a decision, an approval); unread counts (<a href="../components/badge.html">badge</a>) on Inbox, Enquiries and Queue. The inbox is the notification centre (open question 14); there is no bell.</li>
+        <li><b>Email and badges</b>: email for anything that matters when people are away (a reply, a decision, an approval); unread counts (<a href="../components/badge.html">badge</a>) on Inbox, Enquiries and Queue. The inbox is the notification centre (open question 14); there is no bell. Email layout and styling follow <a href="#email">Email</a>.</li>
       </ul>
       <p>Feedback on the person's own action (saved, sent, failed to send) follows the same visual components but is chosen by <a href="feedback-and-loading.html">Feedback and loading</a>.</p>
     </section>
@@ -299,6 +299,46 @@
       </div>
     </section>
 
+    <section class="ds-section" id="email"><h2><a href="#email">Email</a></h2>
+      <p>Mail clients ignore CSS custom properties, external stylesheets and web fonts, and many drop <code>&lt;style&gt;</code>. An email therefore carries <b>fixed values written as inline CSS</b>. Each value is read from a token by role and recorded below; this is the one place the system allows a hex value outside <code>tokens.css</code>, and it adds no CSS variable. Change a token and update this table and the template in the same pull request. Reference: <a href="../../mocks/notifications/launch-confirm-email/default.html">launch confirmation email</a> (L2-122); template <code>backend/src/launch-list/confirmation-email.ts</code>.</p>
+      <h3>Layout</h3>
+      <ul>
+        <li>One centred column at most <b>600px</b> wide, built from tables marked <code>role="presentation"</code>; no <code>div</code> layout, no floats, no grid.</li>
+        <li>A white card (<code>--radius-lg</code>, 20px; 1px <code>--color-border-default</code> edge; 32px padding, <code>--space-8</code>) on the sunken page colour, with the footer under the card.</li>
+        <li>At 600px and below a <code>@media (max-width: 600px)</code> rule drops the card padding to 24px (<code>--space-6</code>) and the outer padding to 16px by 8px, so it reads at 320px with no sideways scroll. Long URLs wrap with <code>word-break: break-all</code>.</li>
+        <li>Order: logo, heading (<code>&lt;h1&gt;</code>), why it was sent, the button, the link written out, what happens next, then the footer (CASL identification and the removal link, L2-101.4).</li>
+      </ul>
+      <h3>Fixed values and their tokens</h3>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <caption class="visually-hidden">Email values and the tokens they come from</caption>
+        <thead><tr><th scope="col">Use</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Page behind the card, footer background</td><td><code>--color-bg-surface-sunken</code></td><td><code>#f7f5f2</code></td><td><code>#1a1917</code></td></tr>
+          <tr><td>Card</td><td><code>--color-bg-surface</code></td><td><code>#ffffff</code></td><td><code>#141312</code></td></tr>
+          <tr><td>Card edge</td><td><code>--color-border-default</code></td><td><code>#e2ded7</code></td><td><code>#2e2b28</code></td></tr>
+          <tr><td>Heading</td><td><code>--color-fg-default</code></td><td><code>#141312</code></td><td><code>#efece7</code></td></tr>
+          <tr><td>Body text</td><td><code>--color-fg-muted</code></td><td><code>#4d4b48</code></td><td><code>#b8b2a8</code></td></tr>
+          <tr><td>Footer text</td><td><code>--color-fg-subtle</code></td><td><code>#6b6863</code></td><td><code>#9a948a</code></td></tr>
+          <tr><td>Links (underlined)</td><td><code>--color-fg-link</code></td><td><code>#141312</code></td><td><code>#efece7</code></td></tr>
+          <tr><td>Button fill / label</td><td><code>--color-action</code> / <code>--color-fg-on-action</code></td><td><code>#141312</code> / <code>#ffffff</code></td><td><code>#efece7</code> / <code>#141312</code></td></tr>
+          <tr><td>Heading size</td><td><code>--font-size-2xl</code>, <code>--font-weight-bold</code>, <code>--line-height-snug</code>, <code>--letter-spacing-tight</code></td><td colspan="2">24px, 700, 1.3, −0.02em</td></tr>
+          <tr><td>Body size</td><td><code>--font-size-md</code>, <code>--line-height-normal</code></td><td colspan="2">16px, 1.5</td></tr>
+          <tr><td>Footer, link line</td><td><code>--font-size-sm</code></td><td colspan="2">14px</td></tr>
+          <tr><td>Button</td><td><code>--radius-full</code>, <code>--font-weight-semibold</code>, <code>--control-height-lg</code></td><td colspan="2">9999px, 600, 52px tall (16px by 28px padding)</td></tr>
+          <tr><td>Gaps</td><td><code>--space-2</code>, <code>--space-4</code>, <code>--space-6</code>, <code>--space-8</code></td><td colspan="2">8, 16, 24, 32px</td></tr>
+        </tbody>
+      </table></div>
+      <p>Every text pairing meets WCAG 2.2 AA in both modes (body 8.69:1 light, 8.81:1 dark; footer 5.1:1 light, 5.84:1 dark; <code>tokens/contrast-pairs.json</code>).</p>
+      <h3>Type</h3>
+      <p>The <code>--font-family-sans</code> stack, inline: <code>Figtree, 'Instrument Sans', 'Avenir Next', Avenir, 'Segoe UI Variable Display', 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif</code>. No web-font link: Figtree shows only where it is installed, and the system fonts carry the rest.</p>
+      <h3>Logo</h3>
+      <p>A hosted PNG, never inline SVG or a data URI (most clients block both): <code>/img/sweet-hand-email-logo.png</code> on the site URL, served by the launch site. It is the light lockup on a white rounded tile (<code>--radius-lg</code> scaled), 480 by 128 pixels shown at 240 by 64 for high-density screens, with <code>alt="Sweet Hand"</code>. The tile keeps the dark wordmark readable in dark mode and when a client inverts colours. It is the only remote resource: no tracking pixel, no other image, stylesheet or script.</p>
+      <h3>Dark mode</h3>
+      <p>Light is the baseline, written inline, so a client that drops <code>&lt;style&gt;</code> shows the light email. A <code>@media (prefers-color-scheme: dark)</code> block swaps to the dark values above with <code>!important</code>, keyed on classes (<code>sh-bg</code>, <code>sh-card</code>, <code>sh-text</code>, <code>sh-muted</code>, <code>sh-subtle</code>, <code>sh-link</code>, <code>sh-btn</code>). <code>&lt;meta name="color-scheme" content="light dark"&gt;</code> tells clients both are designed.</p>
+      <h3>Call to action</h3>
+      <p>One button per email, a link styled as a pill inside a presentation table cell. The same URL is always written out as underlined text under it ("Or copy this link into your browser:"), for clients that strip buttons and for people who copy links. A plain-text part with the same facts goes beside the HTML.</p>
+    </section>
+
     <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
       <ul>
         <li>Toast: <a href="../../mocks/notifications/toast/info.html">info</a>, <a href="../../mocks/notifications/toast/success.html">success</a>, <a href="../../mocks/notifications/toast/warning.html">warning</a>, <a href="../../mocks/notifications/toast/danger.html">danger</a>, <a href="../../mocks/notifications/toast/with-action.html">with-action</a>, <a href="../../mocks/notifications/toast/stacked.html">stacked</a></li>
@@ -306,6 +346,7 @@
         <li>Operator toast: <a href="../../mocks/notifications/admin-toast/info.html">info</a>, <a href="../../mocks/notifications/admin-toast/success.html">success</a>, <a href="../../mocks/notifications/admin-toast/warning.html">warning</a>, <a href="../../mocks/notifications/admin-toast/danger.html">danger</a>, <a href="../../mocks/notifications/admin-toast/stacked.html">stacked</a></li>
         <li>Site banner: <a href="../../mocks/notifications/site-banner/info.html">info</a>, <a href="../../mocks/notifications/site-banner/success.html">success</a>, <a href="../../mocks/notifications/site-banner/warning.html">warning</a>, <a href="../../mocks/notifications/site-banner/danger.html">danger</a>, <a href="../../mocks/notifications/site-banner/persistent.html">persistent</a></li>
         <li>Profile banner: <a href="../../mocks/notifications/profile-banner/info.html">info</a>, <a href="../../mocks/notifications/profile-banner/success.html">success</a>, <a href="../../mocks/notifications/profile-banner/warning.html">warning</a>, <a href="../../mocks/notifications/profile-banner/danger.html">danger</a>, <a href="../../mocks/notifications/profile-banner/persistent.html">persistent</a></li>
+        <li>Launch confirmation email: <a href="../../mocks/notifications/launch-confirm-email/default.html">default</a>, <a href="../../mocks/notifications/launch-confirm-email/caterer.html">caterer</a>, <a href="../../mocks/notifications/launch-confirm-email/plain-text.html">plain-text</a></li>
       </ul>
       <p>Drift fixed during extraction: the three stacked mocks gave three eviction rules ("a fourth replaces the oldest"; "the oldest auto-dismissing toast leaves first"; "older info and success toasts leave first, the error stays"); the system uses the last two together. Warning toasts auto-dismissed in the customer and dashboard families but stayed in the operator family; the rule is now "a warning with an action stays, one without auto-dismisses". The customer toast mock names its stacked text "Pelau House will get the email soon" where the single toast says "as soon as our mail service catches up"; the longer, specific line is the standard. <a href="../../mocks/notifications/dashboard-toast/danger.html">dashboard-toast/danger</a> labels its action "Retry"; the library string is "Try again". Site-banner mocks use <code>.alert--info</code>, which components.css does not define; info is the default <code>.alert</code> tone, so the modifier is dropped.</p>
     </section>
