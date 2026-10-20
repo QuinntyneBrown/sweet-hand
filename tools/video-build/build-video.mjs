@@ -6,8 +6,9 @@
 //
 //   node tools/video-build/build-video.mjs docs/videos/NN-topic --check
 //   node tools/video-build/build-video.mjs docs/videos/NN-topic --slides-only
-//   node tools/video-build/build-video.mjs docs/videos/NN-topic
+//   node tools/video-build/build-video.mjs docs/videos/NN-topic [--no-captions]
 //
+// --no-captions leaves the captions out of the picture (the brand video, 07).
 // Needs Chromium (Playwright's, or EDGE_PATH) and ffmpeg with libx264 and libass
 // (FFMPEG_PATH overrides).
 import { execFileSync } from 'node:child_process';
@@ -252,7 +253,8 @@ async function main() {
   assFile(captions(timing), ass);
   const mp4 = join(folder, `${name}.mp4`);
   const assArg = ass.replace(/\\/g, '/').replace(/:/g, '\\:').replace(/'/g, "\\'");
-  ff('-i', silent, '-i', mp3, '-vf', `ass='${assArg}'`, '-c:v', 'libx264', '-preset', 'medium', '-crf', '26', '-tune', 'stillimage', '-pix_fmt', 'yuv420p', '-r', String(FPS), '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-shortest', mp4);
+  const subtitles = flag('no-captions') ? [] : ['-vf', `ass='${assArg}'`];
+  ff('-i', silent, '-i', mp3, ...subtitles, '-c:v', 'libx264', '-preset', 'medium', '-crf', '26', '-tune', 'stillimage', '-pix_fmt', 'yuv420p', '-r', String(FPS), '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-shortest', mp4);
   console.log(`\n${mp4} (${duration(mp4).toFixed(1)} s; narration ${total.toFixed(1)} s)`);
 }
 

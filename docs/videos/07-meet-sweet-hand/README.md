@@ -53,13 +53,15 @@ node tools/video-audio/generate-audio.mjs docs/videos/07-meet-sweet-hand --dry-r
 EDGE_VOICE=en-US-AvaMultilingualNeural node tools/video-audio/generate-audio.mjs docs/videos/07-meet-sweet-hand
 node tools/video-build/build-video.mjs docs/videos/07-meet-sweet-hand --check
 node tools/video-build/build-video.mjs docs/videos/07-meet-sweet-hand --slides-only
-node tools/video-build/build-video.mjs docs/videos/07-meet-sweet-hand
+node tools/video-build/build-video.mjs docs/videos/07-meet-sweet-hand --no-captions
 cp docs/videos/07-meet-sweet-hand/07-meet-sweet-hand.mp4 marketing/assets/video/meet-sweet-hand.mp4
 ffmpeg -y -ss 3 -i marketing/assets/video/meet-sweet-hand.mp4 -frames:v 1 -q:v 3 marketing/assets/video/meet-sweet-hand.jpg
 ```
 
 The narrator is the free Edge voice `en-US-AvaMultilingualNeural`, warmer and
 more upbeat than the walkthroughs' default voice; `EDGE_VOICE` selects it.
+Unlike the walkthroughs, the video carries no burned-in captions
+(`--no-captions`): the words on screen are the slides' own.
 
 ## Pitfalls
 

@@ -35,7 +35,7 @@ node tools/video-record/record-clips.mjs docs/videos/NN-topic [--only clip-name]
 # 3. Video: check cues, look at the slides, then encode
 node tools/video-build/build-video.mjs docs/videos/NN-topic --check
 node tools/video-build/build-video.mjs docs/videos/NN-topic --slides-only
-node tools/video-build/build-video.mjs docs/videos/NN-topic
+node tools/video-build/build-video.mjs docs/videos/NN-topic        # --no-captions for a promo without burned-in captions
 ```
 
 The tools need Node 22, Python 3 with the speech engine, ffmpeg with libx264
