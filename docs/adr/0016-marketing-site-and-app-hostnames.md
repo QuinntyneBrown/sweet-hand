@@ -48,10 +48,11 @@ same shape on its own delivery (ADRs 0011, 0012).
   Before launch the launch site answers those paths with its 404 rewrite,
   which is the launch page and its form, so a visitor still lands on the
   one thing they can do today.
-- **A brand video.** `docs/videos/07-meet-sweet-hand` is a photo-led promo
-  of about a minute, narrated with the free Edge voice
-  `en-US-AvaMultilingualNeural`, and served by the page itself with a poster
-  and the browser's controls. It does not autoplay.
+- **A brand video.** `docs/videos/07-meet-sweet-hand` is a twenty-second
+  promo of round photos and a few words, with no burned-in captions,
+  narrated with the free Edge voice `en-US-EmmaMultilingualNeural`, and
+  served by the page itself with a poster and the browser's controls. It
+  does not autoplay.
 - **Photographs.** The page and the video use the brand's own photographs
   (`assets/`) and photographs from Wikimedia Commons under CC0, CC BY and
   CC BY-SA licences. `marketing/credits.html` lists every photograph

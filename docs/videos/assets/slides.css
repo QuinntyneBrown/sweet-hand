@@ -114,15 +114,8 @@ body.promo section { padding-top: 90px; }
 body.promo section[data-clip] { padding-top: 70px; align-items: center; padding-bottom: 210px; }
 body.promo .big { font-size: 64px; line-height: 1.2; font-weight: 600; }
 
-/* Photo-led promo slides (07, the brand video): a full-bleed photograph with a few
-   words on a dark gradient, and a mosaic of round photos. Scoped to body.promo. */
-body.promo section.photo-slide { padding: 0; justify-content: flex-end; align-items: flex-start; }
-body.promo section.photo-slide > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-body.promo section.photo-slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(20, 19, 18, 0.82) 0%, rgba(20, 19, 18, 0.35) 45%, rgba(20, 19, 18, 0) 75%); }
-body.promo section.photo-slide .words { position: relative; z-index: 1; margin: 0 var(--slide-pad) 150px; color: #fff; display: grid; gap: 20px; max-width: 1500px; }
-body.promo section.photo-slide .words h2 { font-size: 112px; line-height: 1.02; letter-spacing: -0.025em; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35); }
-body.promo section.photo-slide .words h2 em { font-style: normal; color: var(--palette-pepper-300); }
-body.promo section.photo-slide .words p { font-size: 44px; color: rgba(255, 255, 255, 0.88); }
+/* Promo slides with round photos (07, the brand video): a cluster beside a few words,
+   and a mosaic of dishes. Scoped to body.promo. */
 body.promo .mosaic { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 48px; width: 100%; }
 body.promo .mosaic li { display: grid; gap: 18px; justify-items: center; list-style: none; font-size: 40px; font-weight: 600; }
 body.promo .mosaic img { width: 300px; height: 300px; border-radius: 50%; object-fit: cover; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16); }
@@ -132,4 +125,5 @@ body.promo .cluster img { position: absolute; border-radius: 50%; object-fit: co
 body.promo section.split { flex-direction: row; align-items: center; gap: 90px; }
 body.promo section.split .words { display: grid; gap: 28px; }
 body.promo section.split .words h2 { font-size: 96px; line-height: 1.04; }
+body.promo section.split .words h2 em { font-style: normal; color: var(--slide-accent); }
 body.promo section.split .words p { font-size: 44px; color: var(--slide-muted); }
