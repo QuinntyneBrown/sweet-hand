@@ -1,6 +1,6 @@
 name: Deploy production
 
-# A release tag (v1.4.0) goes to sweethand.ca only when that exact commit was
+# A release tag (v1.4.0) goes to app.sweethand.ca and www.sweethand.ca only when that exact commit was
 # accepted in UAT, and only after a required reviewer approves the production
 # environment (L2-109.3). Running this workflow by hand from an earlier release
 # tag redeploys that release (L2-109.7).
@@ -39,7 +39,8 @@ jobs:
       env-name: prod
       resource-group: rg-sweethand-prod
       sha: ${{ github.sha }}
-      site-hostnames: sweethand.ca,www.sweethand.ca
+      site-hostnames: app.sweethand.ca
+      marketing-hostnames: www.sweethand.ca,sweethand.ca
       custom-email-domain: true
       register-hostnames: false
     secrets: inherit

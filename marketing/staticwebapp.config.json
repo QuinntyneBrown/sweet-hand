@@ -1,0 +1,28 @@
+{
+  "globalHeaders": {
+    "Content-Security-Policy": "default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self' data:; media-src 'self'; object-src 'none'; script-src 'self'; style-src 'self'; upgrade-insecure-requests",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()"
+  },
+  "routes": [
+    { "route": "/sign-in", "redirect": "https://app.sweethand.ca/sign-in", "statusCode": 301 },
+    { "route": "/register", "redirect": "https://app.sweethand.ca/register", "statusCode": 301 },
+    { "route": "/join", "redirect": "https://app.sweethand.ca/join", "statusCode": 301 },
+    { "route": "/caterers", "redirect": "https://app.sweethand.ca/caterers", "statusCode": 301 },
+    { "route": "/privacy", "redirect": "https://app.sweethand.ca/privacy", "statusCode": 301 },
+    { "route": "/terms", "redirect": "https://app.sweethand.ca/terms", "statusCode": 301 },
+    {
+      "route": "/index.html",
+      "headers": { "Cache-Control": "public, max-age=300, must-revalidate" }
+    },
+    { "route": "/assets/*", "headers": { "Cache-Control": "public, max-age=86400" } }
+  ],
+  "mimeTypes": {
+    ".mp4": "video/mp4",
+    ".xml": "application/xml",
+    ".woff2": "font/woff2"
+  }
+}

@@ -22,9 +22,13 @@ on:
         type: string
         required: true
       site-hostnames:
-        description: Comma-separated public hostnames; the first is the canonical site URL.
+        description: Comma-separated public hostnames of the application; the first is the canonical site URL.
         type: string
         required: true
+      marketing-hostnames:
+        description: Comma-separated public hostnames of the static marketing site (marketing/, ADR 0016); empty leaves it on its default hostname.
+        type: string
+        default: ''
       custom-email-domain:
         description: Send from the verified sweethand.ca domain (production only).
         type: boolean
@@ -48,7 +52,7 @@ jobs:
     timeout-minutes: 45
     environment:
       name: ${{ inputs.environment }}
-      url: https://${{ inputs.env-name == 'prod' && 'sweethand.ca' || format('{0}.sweethand.ca', inputs.env-name) }}
+      url: https://${{ inputs.env-name == 'prod' && 'www.sweethand.ca' || format('{0}.sweethand.ca', inputs.env-name) }}
     concurrency:
       group: ${{ inputs.environment }}
       cancel-in-progress: false
@@ -56,7 +60,9 @@ jobs:
       AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
       RESOURCE_GROUP: ${{ inputs.resource-group }}
       STATIC_WEB_APP: swa-sweethand-launch-${{ inputs.env-name }}
+      MARKETING_WEB_APP: swa-sweethand-www-${{ inputs.env-name }}
       SITE_HOSTNAMES: ${{ inputs.site-hostnames }}
+      MARKETING_HOSTNAMES: ${{ inputs.marketing-hostnames }}
       IMAGE_TAG: ${{ inputs.sha }}
     steps:
       - uses: actions/checkout@v4
@@ -160,18 +166,25 @@ jobs:
             az staticwebapp backends link -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --backend-resource-id "$API_ID" --backend-region canadacentral
           fi
       - name: Register custom hostnames whose DNS points here
-        # A subdomain validates by CNAME, so it joins as soon as Namecheap serves the record.
+        # A subdomain validates by CNAME, so it joins as soon as Namecheap serves the record. The apex
+        # (production's marketing site) validates by TXT token and is registered by hand (azure-production.md).
         if: inputs.register-hostnames
         run: |
-          DEFAULT=$(az staticwebapp show -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --query defaultHostname -o tsv)
-          for HOST in ${SITE_HOSTNAMES//,/ }; do
-            if [ -n "$(az staticwebapp hostname show -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --hostname "$HOST" --query status -o tsv 2>/dev/null)" ]; then continue; fi
-            if [ "$(dig +short CNAME "$HOST" | sed 's/\.$//')" = "$DEFAULT" ]; then
-              az staticwebapp hostname set -g "$RESOURCE_GROUP" -n "$STATIC_WEB_APP" --hostname "$HOST" --validation-method cname-delegation --no-wait
-            else
-              echo "::warning::$HOST has no CNAME to $DEFAULT yet; add it in Namecheap (docs/operations/environments.md)"
-            fi
-          done
+          register() {
+            local APP=$1 HOSTS=$2
+            DEFAULT=$(az staticwebapp show -g "$RESOURCE_GROUP" -n "$APP" --query defaultHostname -o tsv)
+            for HOST in ${HOSTS//,/ }; do
+              case "$HOST" in *.*.*) ;; *) continue ;; esac
+              if [ -n "$(az staticwebapp hostname show -g "$RESOURCE_GROUP" -n "$APP" --hostname "$HOST" --query status -o tsv 2>/dev/null)" ]; then continue; fi
+              if [ "$(dig +short CNAME "$HOST" | sed 's/\.$//')" = "$DEFAULT" ]; then
+                az staticwebapp hostname set -g "$RESOURCE_GROUP" -n "$APP" --hostname "$HOST" --validation-method cname-delegation --no-wait
+              else
+                echo "::warning::$HOST has no CNAME to $DEFAULT yet; add it in Namecheap (docs/operations/environments.md)"
+              fi
+            done
+          }
+          register "$STATIC_WEB_APP" "$SITE_HOSTNAMES"
+          register "$MARKETING_WEB_APP" "$MARKETING_HOSTNAMES"
       - uses: actions/setup-node@v4
         with:
           node-version: '22.18.0'
@@ -193,6 +206,39 @@ jobs:
           app_location: frontend/dist/launch/browser
           skip_app_build: true
           skip_api_build: true
+      - name: Deploy the marketing site
+        # marketing/ is committed with production's app origin in every link; other environments get their own.
+        id: www
+        run: |
+          rm -rf marketing-dist && cp -r marketing marketing-dist
+          APP_ORIGIN="https://${SITE_HOSTNAMES%%,*}"
+          if [ "$APP_ORIGIN" != https://app.sweethand.ca ]; then
+            grep -rl 'https://app.sweethand.ca' marketing-dist | xargs -r sed -i "s#https://app.sweethand.ca#$APP_ORIGIN#g"
+          fi
+          echo "token=$(az staticwebapp secrets list -g "$RESOURCE_GROUP" -n "$MARKETING_WEB_APP" --query properties.apiKey -o tsv)" >> "$GITHUB_OUTPUT"
+      - uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ steps.www.outputs.token }}
+          action: upload
+          app_location: marketing-dist
+          skip_app_build: true
+          skip_api_build: true
+      - name: Smoke check the marketing site
+        # The page and its security headers, on the default hostname and on every custom hostname Azure reports Ready.
+        run: |
+          ORIGINS="https://$(az staticwebapp show -g "$RESOURCE_GROUP" -n "$MARKETING_WEB_APP" --query defaultHostname -o tsv)"
+          for HOST in ${MARKETING_HOSTNAMES//,/ }; do
+            if [ "$(az staticwebapp hostname show -g "$RESOURCE_GROUP" -n "$MARKETING_WEB_APP" --hostname "$HOST" --query status -o tsv 2>/dev/null)" = Ready ]; then
+              ORIGINS="$ORIGINS https://$HOST"
+            else
+              echo "::warning::$HOST is not validated for the marketing Static Web App yet (docs/operations/azure-production.md)"
+            fi
+          done
+          for ORIGIN in $ORIGINS; do
+            HEADERS=$(curl --fail -sS -D - -o /dev/null --retry 12 --retry-delay 10 "$ORIGIN/")
+            echo "$HEADERS" | grep -qi '^content-security-policy:' || { echo "::error::$ORIGIN/ has no Content-Security-Policy header"; exit 1; }
+            curl --fail -sS -o /dev/null "$ORIGIN/assets/video/meet-sweet-hand.mp4" -r 0-0
+          done
       - name: Smoke checks
         # The Static Web Apps default hostname always serves the release; custom hostnames join once Azure reports them Ready.
         # A password-protected site (staging, UAT) answers every path, /api included, with its sign-in redirect, and the linked

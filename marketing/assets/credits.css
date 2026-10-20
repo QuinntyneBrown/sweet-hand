@@ -1,0 +1,35 @@
+/* The photo credits page (credits.html): a list, nothing more. */
+.credits {
+  display: grid;
+  gap: var(--space-6);
+  padding-block: var(--space-10) var(--space-16);
+  max-width: 48rem;
+}
+.credits h1 {
+  font: var(--text-h1);
+  letter-spacing: var(--letter-spacing-tight);
+}
+.credits p {
+  color: var(--color-fg-muted);
+}
+.credits__list {
+  display: grid;
+  gap: var(--space-4);
+}
+.credits__list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.credits__list .photo {
+  width: 3.5rem;
+  height: 3.5rem;
+  box-shadow: none;
+}
+.credits__list a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.credits__note {
+  font: var(--text-body-sm);
+}

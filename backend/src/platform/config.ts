@@ -50,7 +50,7 @@ export function loadConfig(): Config {
     mediaDir: process.env['MEDIA_DIR'] || undefined,
     botChallenge: botChallengeMode(process.env['BOT_CHALLENGE']),
     turnstileSecret: process.env['TURNSTILE_SECRET'] || undefined,
-    turnstileHostnames: (process.env['TURNSTILE_HOSTNAMES'] ?? 'sweethand.ca,www.sweethand.ca').split(',').map((s) => s.trim()).filter(Boolean),
+    turnstileHostnames: (process.env['TURNSTILE_HOSTNAMES'] ?? 'app.sweethand.ca').split(',').map((s) => s.trim()).filter(Boolean),
     prelaunchMode: flag('PRELAUNCH_MODE', false),
     communicationEmailEndpoint: process.env['ACS_EMAIL_ENDPOINT'] || undefined,
     communicationEmailSender: process.env['ACS_EMAIL_SENDER'] || undefined,

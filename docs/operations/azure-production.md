@@ -17,7 +17,8 @@
 
 ## Services and data location
 
-- Azure Static Web Apps Standard uses the East US 2 control plane, serves only prerendered public files globally and links `/api` to the Canadian Container App. Azure does not offer a Canada Central Static Web Apps control-plane location on this subscription.
+- Azure Static Web Apps Standard (`swa-sweethand-launch-prod`, `app.sweethand.ca`) uses the East US 2 control plane, serves only prerendered public files globally and links `/api` to the Canadian Container App. Azure does not offer a Canada Central Static Web Apps control-plane location on this subscription.
+- A second Static Web App on the Free tier (`swa-sweethand-www-prod`, `www.sweethand.ca` and the apex) serves the static marketing page from `marketing/` (ADR 0016). It links no API and holds no data.
 - Azure Container Apps runs one 0.5-vCPU, 1-GiB API replica. Maximum replicas remain one while the scheduler runs inside the API process.
 - PostgreSQL Flexible Server B1ms stores launch-list and outbox data on a private subnet. It retains 35 days of point-in-time backups and a geo-redundant backup in Canada East.
 - Key Vault stores the database URL, IP-hash key and Turnstile secret. The API reads versioned references through its managed identity.
@@ -29,30 +30,43 @@ Static public files use Azure's global edge. Cloudflare processes only the bot c
 
 ## External configuration
 
-Namecheap remains authoritative. Preserve all Namecheap forwarding MX records. Replace the parking A and `www` records with the Static Web Apps validation records, add Azure Communication Services domain-verification and DKIM records, merge the Azure SPF include into the existing single SPF record, and add `_dmarc` with `v=DMARC1; p=none; rua=mailto:hello@sweethand.ca`.
+Namecheap remains authoritative. Preserve all Namecheap forwarding MX records. The application answers on `app.sweethand.ca`; `www.sweethand.ca` and the apex point at the marketing Static Web App (ADR 0016). Add Azure Communication Services domain-verification and DKIM records, merge the Azure SPF include into the existing single SPF record, and add `_dmarc` with `v=DMARC1; p=none; rua=mailto:hello@sweethand.ca`.
 
-Records to publish in Namecheap Advanced DNS (values read from Azure on 2026-10-11; the validation tokens expire, so re-read them with `az staticwebapp hostname list` and `az communication email domain show` if they no longer match):
+Records to publish in Namecheap Advanced DNS (the Static Web Apps default hostnames and validation tokens are read from Azure: `az staticwebapp show -g rg-sweethand-prod -n <app> --query defaultHostname -o tsv` and `az staticwebapp hostname show -g rg-sweethand-prod -n <app> --hostname <host> --query validationToken -o tsv`; the email values were read on 2026-10-11 and expire, so re-read them with `az communication email domain show` if they no longer match):
 
 | Type | Host | Value |
 |---|---|---|
-| TXT | `@` | `_r5e3z9u1v5kit51bynjp7biuxvj9nk8` (Static Web Apps apex validation) |
-| ALIAS | `@` | `happy-ocean-03d99600f.3.azurestaticapps.net` (replaces the parking A record) |
-| CNAME | `www` | `happy-ocean-03d99600f.3.azurestaticapps.net` (replaces `parkingpage.namecheap.com`) |
+| CNAME | `app` | the default hostname of `swa-sweethand-launch-prod` (`happy-ocean-03d99600f.3.azurestaticapps.net`; was the `www` target) |
+| CNAME | `www` | the default hostname of `swa-sweethand-www-prod` |
+| ALIAS | `@` | the default hostname of `swa-sweethand-www-prod` |
+| TXT | `@` | the apex validation token of `swa-sweethand-www-prod` (replaces `_r5e3z9u1v5kit51bynjp7biuxvj9nk8`, which validated the apex on the launch app) |
 | TXT | `@` | `ms-domain-verification=6d3a53f6-f0c6-4e4e-928c-2a6b4cce47b6` |
 | TXT | `@` | `v=spf1 include:spf.efwd.registrar-servers.com include:spf.protection.outlook.com -all` (replaces the existing SPF record; keep exactly one. Azure only verifies SPF ending in `-all`) |
 | CNAME | `selector1-azurecomm-prod-net._domainkey` | `selector1-azurecomm-prod-net._domainkey.azurecomm.net` |
 | CNAME | `selector2-azurecomm-prod-net._domainkey` | `selector2-azurecomm-prod-net._domainkey.azurecomm.net` |
 | TXT | `_dmarc` | `v=DMARC1; p=none; rua=mailto:hello@sweethand.ca` |
 
-The `www` validation token (`_da8v0sbxnclttmujbt1xbxtm3prox09`) is satisfied by the `www` CNAME. Namecheap's email-forwarding MX records stay as they are.
+A subdomain validates through its CNAME, so `app` and `www` need no TXT record. Namecheap's email-forwarding MX records stay as they are.
+
+Register the hostnames once, in an MFA session, after the records resolve (production delivery runs with `register-hostnames: false`):
+
+```sh
+az staticwebapp hostname set -g rg-sweethand-prod -n swa-sweethand-launch-prod --hostname app.sweethand.ca --validation-method cname-delegation
+az staticwebapp hostname set -g rg-sweethand-prod -n swa-sweethand-www-prod --hostname www.sweethand.ca --validation-method cname-delegation
+az staticwebapp hostname set -g rg-sweethand-prod -n swa-sweethand-www-prod --hostname sweethand.ca --validation-method dns-txt-token
+az staticwebapp hostname delete -g rg-sweethand-prod -n swa-sweethand-launch-prod --hostname www.sweethand.ca
+az staticwebapp hostname delete -g rg-sweethand-prod -n swa-sweethand-launch-prod --hostname sweethand.ca
+```
+
+Then make `www.sweethand.ca` the marketing app's default domain (portal: the app's Custom domains, **Set default**), so `https://sweethand.ca/` answers `301` to `https://www.sweethand.ca/`; check it with `curl -sI https://sweethand.ca/`. Order matters for visitors: register `app` first, change the `www` CNAME and the apex ALIAS, then move the two old hostnames, so neither host serves an error in between.
 
 Azure Communication Services cannot send from `hello@sweethand.ca` until the domain is linked. After the DNS records publish, run `az communication email domain initiate-verification` for `Domain`, `SPF`, `DKIM` and `DKIM2`; once `az communication email domain show` reports each as `Verified`, the next Deploy production run links the domain (`linkEmailDomain=true`). Until then delivery warns and leaves it unlinked, so a foundation run cannot fail on an unverified domain.
 
-Namecheap forwarding shall keep `hello@sweethand.ca` delivering to the monitored inbox. Cloudflare Turnstile shall use a managed widget allowing `sweethand.ca`, `www.sweethand.ca` and the Static Web Apps default hostname `happy-ocean-03d99600f.3.azurestaticapps.net`. Store the public site key as GitHub environment variable `TURNSTILE_SITE_KEY` and its secret as `TURNSTILE_SECRET`.
+Namecheap forwarding shall keep `hello@sweethand.ca` delivering to the monitored inbox. Cloudflare Turnstile shall use a managed widget allowing `app.sweethand.ca` and the Static Web Apps default hostname `happy-ocean-03d99600f.3.azurestaticapps.net`. Store the public site key as GitHub environment variable `TURNSTILE_SITE_KEY` and its secret as `TURNSTILE_SECRET`.
 
 Until the Turnstile widget exists, leave both unset: delivery then deploys with `botChallenge=off` (API `BOT_CHALLENGE=off`), warns on every run, and the launch form uses the local stand-in token with no bot protection (L2-104.9). Setting both values turns Turnstile on at the next deployment; setting only one stops delivery.
 
-The API accepts the Static Web Apps default hostname as an origin and Turnstile hostname alongside `sweethand.ca`, so the release is usable before the custom domain validates.
+The API accepts the Static Web Apps default hostname as an origin and Turnstile hostname alongside `app.sweethand.ca`, so the release is usable before the custom domain validates.
 
 The email footer uses this runtime configuration and does not expose a maker address:
 
@@ -65,9 +79,9 @@ The email footer uses this runtime configuration and does not expose a maker add
 3. Bicep applies the foundation. ACR builds the immutable `sweet-hand-api:<commit>` image.
 4. The Container Apps migration job runs `npm run migrate`. A failed job stops the release.
 5. Bicep updates the API only after migration. Container Apps readiness gates the single active revision.
-6. Static Web Apps receives the prerendered launch files. Smoke checks cover `/`, `/privacy`, the public launch-list status and a concealed product endpoint.
+6. Static Web Apps receives the prerendered launch files, and the marketing Static Web App receives `marketing/`. Smoke checks cover `/`, `/privacy`, the public launch-list status and a concealed product endpoint on the application, and the page, its security headers and the video on the marketing site.
 
-Delivery stops before touching Azure when only one of `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET` is set in the `production` environment. Smoke checks always run against the Static Web Apps default hostname and add `sweethand.ca` once Azure reports its custom domain `Ready`. Linking the API to Static Web Apps turns on Azure's built-in authentication on the Container App, so its own `azurecontainerapps.io` hostname answers every direct call with `401`; nothing checks the API there.
+Delivery stops before touching Azure when only one of `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET` is set in the `production` environment. Smoke checks always run against the Static Web Apps default hostnames and add `app.sweethand.ca` and `www.sweethand.ca` once Azure reports each custom domain `Ready`. Linking the API to Static Web Apps turns on Azure's built-in authentication on the Container App, so its own `azurecontainerapps.io` hostname answers every direct call with `401`; nothing checks the API there.
 
 The GitHub deployer (`github-sweethand-production`) holds Contributor on `rg-sweethand-prod` and nothing more. The API identity's role assignments live in `infra/roles.bicep`; a subscription Owner applies them once, in an MFA session, with `az deployment group create -g rg-sweethand-prod --template-file infra/roles.bicep`, and again only when that file changes.
 

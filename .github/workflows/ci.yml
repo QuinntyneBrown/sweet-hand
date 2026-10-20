@@ -39,6 +39,12 @@ jobs:
           npm run build --prefix frontend
           npm run build:launch --prefix frontend
           npm run build:board --prefix frontend
+      - name: Marketing page is formatted and carries the current tokens
+        # marketing/ (ADR 0016) sits outside frontend/, so neither the pre-commit hook nor the
+        # workspace lint sees it; its tokens.css is a copy of the design system's.
+        run: |
+          npx --prefix frontend prettier --check marketing
+          cmp docs/design-system/tokens/tokens.css marketing/assets/tokens.css
       - name: Verify extracted messages are current
         run: |
           npm run extract-i18n --prefix frontend

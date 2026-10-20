@@ -6,8 +6,11 @@ param location string = 'canadacentral'
 @allowed(['prod', 'staging', 'uat'])
 param envName string = 'prod'
 param baseName string = 'swh-${envName}'
-@description('Public hostnames the site answers on; the first is the canonical site URL.')
-param siteHostnames string = 'sweethand.ca,www.sweethand.ca'
+@description('Public hostnames the application answers on; the first is the canonical site URL (ADR 0016: app.sweethand.ca).')
+param siteHostnames string = 'app.sweethand.ca'
+@description('SKU of the static marketing site\'s Static Web App (ADR 0016). Free costs nothing; Standard if the subscription has no Free quota left.')
+@allowed(['Free', 'Standard'])
+param marketingSkuName string = 'Free'
 param deployApi bool = false
 param deployMigration bool = false
 param containerImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
@@ -44,6 +47,7 @@ var acrName = 'acrsweethand${suffix}'
 var vaultName = 'kv-swh-${suffix}'
 var postgresName = 'psql-swh-${suffix}'
 var swaName = 'swa-sweethand-launch-${envName}'
+var marketingSwaName = 'swa-sweethand-www-${envName}'
 var staticWebAppLocation = 'eastus2'
 var environmentName = 'cae-${baseName}'
 var apiName = 'ca-swh-api'
@@ -213,6 +217,15 @@ resource swaPassword 'Microsoft.Web/staticSites/basicAuth@2023-12-01' = if (!emp
   properties: { applicableEnvironmentsMode: 'AllEnvironments', password: sitePassword, secretUrl: '' }
 }
 
+// The static marketing site (marketing/, ADR 0016): www.sweethand.ca and the apex in
+// production, its default hostname elsewhere. No API link, no password: the page is public.
+resource marketingSwa 'Microsoft.Web/staticSites@2023-12-01' = {
+  name: marketingSwaName
+  location: staticWebAppLocation
+  sku: { name: marketingSkuName, tier: marketingSkuName }
+  properties: { allowConfigFileUpdates: true, stagingEnvironmentPolicy: 'Disabled' }
+}
+
 resource communication 'Microsoft.Communication/communicationServices@2023-04-01' = {
   name: communicationName
   location: 'global'
@@ -338,6 +351,8 @@ output acrName string = acr.name
 output acrLoginServer string = acr.properties.loginServer
 output staticWebAppName string = swa.name
 output staticWebAppHostname string = swa.properties.defaultHostname
+output marketingWebAppName string = marketingSwa.name
+output marketingWebAppHostname string = marketingSwa.properties.defaultHostname
 output containerAppName string = apiName
 output communicationServiceName string = communication.name
 output emailServiceName string = email.name

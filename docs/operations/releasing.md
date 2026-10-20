@@ -1,4 +1,4 @@
-# Releasing to sweethand.ca
+# Releasing to app.sweethand.ca
 
 The short version of how a change on `main` reaches the live site. The full process,
 hotfixes and rollback are in [`environments.md`](environments.md).
@@ -9,7 +9,7 @@ hotfixes and rollback are in [`environments.md`](environments.md).
 main  ──automatic──▶  staging  ──tag v1.2.3-rc.1──▶  UAT  ──tag v1.2.3──▶  production
 ```
 
-- **Merging to `main` does not change sweethand.ca.** It only deploys staging.
+- **Merging to `main` does not change app.sweethand.ca or www.sweethand.ca.** It only deploys staging.
 - Production deploys only from a release tag, and only if that exact commit already
   deployed successfully to UAT.
 - Tags are never moved or reused. A second attempt is `-rc.2`.

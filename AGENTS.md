@@ -40,6 +40,11 @@ keep it accurate:
   and how the sprint board is deployed (`board-deployment.md`)
 - `infra/` — Azure Bicep (one template for staging, UAT and production) and Azure CLI
   entry points (`deploy.ps1` production bootstrap, `new-environment.ps1` staging and UAT)
+- `marketing/` — the static marketing page served at `www.sweethand.ca` (ADR 0016): plain
+  HTML, one stylesheet and one script, no framework, build, requirement or tests; its
+  `assets/tokens.css` is a copy of the design system's tokens that CI compares; every call
+  to action links to the application at `app.sweethand.ca`; `credits.html`
+  lists each photograph's author and licence
 - `docs/plans/` — forward-looking plans for work not yet specified (`public-preview.md`:
   the code-gated preview at `preview.sweethand.ca`; `business-plan.md`: the founder's
   business plan, revenue streams and forecast; `maker-recruitment.md`: the field
@@ -66,9 +71,9 @@ keep it accurate:
   - `frontend/projects/sweet-hand/` — the product application: `core/`
     (session, formatting, form helpers), `shell/` (header, footer, menus,
     system pages), `features/<area>/` (pages, routes, providers)
-  - `frontend/projects/launch/` — the pre-launch site served at `/` until
-    launch day (L2-092): prerendered, no router in the browser bundle, removed
-    after launch
+  - `frontend/projects/launch/` — the pre-launch site served at
+    `app.sweethand.ca` until launch day (L2-092): prerendered, no router in
+    the browser bundle, removed after launch
   - `frontend/projects/board/` — the founder's sprint board (ADR 0013):
     internal tooling generated from `docs/plans/launch-backlog.md` by
     `scripts/backlog-to-board.mjs`, state in `localStorage`, no backend;
