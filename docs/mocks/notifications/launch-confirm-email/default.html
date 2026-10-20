@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Launch confirmation email · default — Sweet Hand mocks</title>
+<meta name="mock:kind" content="notification">
+<meta name="mock:screen" content="launch-confirm-email">
+<meta name="mock:state" content="default">
+<meta name="mock:requirements" content="L2-099 L2-100 L2-101 L2-122">
+<meta name="description" content="Confirmation email for a customer: logo, heading, confirm button with the link written out, 48-hour expiry, “nothing happens” line and the CASL footer.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+<style>
+  /* The email's own styles: copied into backend/src/launch-list/confirmation-email.ts. */
+  @media (max-width: 600px) {
+    .sh-outer { padding: 16px 8px !important; }
+    .sh-card { padding: 24px !important; }
+  }
+  /* Shipped email: @media (prefers-color-scheme: dark) { the rules below, unscoped }.
+     Mock only: scoped to [data-theme] so the mock bar toggle and ?theme= work. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .sh-bg { background: #1a1917 !important; }
+    :root:not([data-theme="light"]) .sh-card { background: #141312 !important; border-color: #2e2b28 !important; }
+    :root:not([data-theme="light"]) .sh-text { color: #efece7 !important; }
+    :root:not([data-theme="light"]) .sh-muted { color: #b8b2a8 !important; }
+    :root:not([data-theme="light"]) .sh-subtle { color: #9a948a !important; }
+    :root:not([data-theme="light"]) .sh-link { color: #efece7 !important; }
+    :root:not([data-theme="light"]) .sh-btn { background: #efece7 !important; color: #141312 !important; }
+  }
+  [data-theme="dark"] .sh-bg { background: #1a1917 !important; }
+    [data-theme="dark"] .sh-card { background: #141312 !important; border-color: #2e2b28 !important; }
+    [data-theme="dark"] .sh-text { color: #efece7 !important; }
+    [data-theme="dark"] .sh-muted { color: #b8b2a8 !important; }
+    [data-theme="dark"] .sh-subtle { color: #9a948a !important; }
+    [data-theme="dark"] .sh-link { color: #efece7 !important; }
+    [data-theme="dark"] .sh-btn { background: #efece7 !important; color: #141312 !important; }
+</style>
+</head>
+<body class="sh-bg" style="margin:0;padding:0;background:#f7f5f2;">
+<a class="skip-link" href="#main">Skip to main content</a>
+<main id="main">
+<table role="presentation" class="sh-bg" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f7f5f2;">
+  <tr>
+    <td class="sh-outer" align="center" style="padding:32px 16px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
+        <tr>
+          <td class="sh-card" style="background:#ffffff;border:1px solid #e2ded7;border-radius:20px;padding:32px;font-family:Figtree,'Instrument Sans','Avenir Next',Avenir,'Segoe UI Variable Display','Segoe UI',system-ui,-apple-system,Roboto,'Helvetica Neue',Arial,sans-serif;">
+            <img src="../../../../frontend/projects/launch/public/img/sweet-hand-email-logo.png" width="240" height="64" alt="Sweet Hand" style="display:block;width:240px;max-width:100%;height:auto;border:0;margin:0 0 24px;">
+            <h1 class="sh-text" style="margin:0 0 16px;font-size:24px;line-height:1.3;font-weight:700;letter-spacing:-0.02em;color:#141312;">Confirm your email</h1>
+            <p class="sh-muted" style="margin:0 0 24px;font-size:16px;line-height:1.5;color:#4d4b48;">You asked Sweet Hand to email you when the platform opens. Confirm this address and we’ll send you one email on launch day.</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px;">
+              <tr>
+                <td class="sh-btn" style="border-radius:9999px;background:#141312;">
+                  <a class="sh-btn" href="https://sweethand.ca/?confirmed=example-confirmation-token" style="display:inline-block;padding:16px 28px;border-radius:9999px;background:#141312;color:#ffffff;font-size:16px;line-height:1.25;font-weight:600;text-decoration:none;">Confirm my email</a>
+                </td>
+              </tr>
+            </table>
+            <p class="sh-muted" style="margin:0 0 24px;font-size:14px;line-height:1.5;color:#4d4b48;">Or copy this link into your browser:<br><a class="sh-link" href="https://sweethand.ca/?confirmed=example-confirmation-token" style="color:#141312;text-decoration:underline;word-break:break-all;">https://sweethand.ca/?confirmed=example-confirmation-token</a></p>
+            <p class="sh-muted" style="margin:0;font-size:16px;line-height:1.5;color:#4d4b48;">The link expires in 48 hours. If you didn’t ask for this, ignore this email and nothing happens.</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="sh-subtle" style="padding:24px 8px 0;font-family:Figtree,'Instrument Sans','Avenir Next',Avenir,'Segoe UI Variable Display','Segoe UI',system-ui,-apple-system,Roboto,'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:1.5;color:#6b6863;">
+            <p style="margin:0 0 8px;">You asked for this email on October 10, 2026.</p>
+            <p style="margin:0 0 8px;">Sweet Hand<br>Sweet Hand, 100 Example Street, Toronto ON M5V 0A1<br><a class="sh-link" href="mailto:hello@sweethand.ca" style="color:#141312;text-decoration:underline;">hello@sweethand.ca</a></p>
+            <p style="margin:0;"><a class="sh-link" href="https://sweethand.ca/api/launch-list/unsubscribe?token=example-removal-token" style="color:#141312;text-decoration:underline;">Remove your email</a> from the launch list.</p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</main>
+<p class="mock-note" style="top: 1rem; right: 1rem;">Subject “Confirm your Sweet Hand launch email”, from Sweet Hand. Headers: List-Unsubscribe and List-Unsubscribe-Post (one click). The only remote resource is the logo.</p>
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Launch confirmation email</span>
+  <ul class="mock-bar__states">
+    <li><a href="default.html" aria-current="page">default</a></li>
+    <li><a href="caterer.html">caterer</a></li>
+    <li><a href="plain-text.html">plain-text</a></li>
+  </ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>

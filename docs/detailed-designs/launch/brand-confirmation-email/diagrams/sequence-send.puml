@@ -1,0 +1,35 @@
+@startuml
+title UML sequence behaviour — Send the branded confirmation email
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Person" as actor
+box "Frontend — Launch site (Static Web App)" #E0F2FE
+  participant "/img/sweet-hand-email-logo.png" as logo
+end box
+box "Backend — Sweet Hand API worker" #D1FADF
+  participant "dispatchDueEmails" as dispatch
+  participant "AzureCommunicationEmailGateway" as gw
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "confirmationEmail" as tpl
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+  participant "Azure Communication Services" as acs
+end box
+dispatch -> db : claim queued launch-confirm (template fields, no HTML)
+dispatch -> gw : send(email)
+gw -> tpl : confirmationEmail({ link, removalLink, mailingAddress, contactEmail, askedOn })
+tpl -> tpl : escape every value (L2-122 AC6)
+tpl --> gw : { subject, plainText, html } (L2-122 AC1-AC5)
+gw -> acs : beginSend({ content, headers unchanged }) (L2-100 AC2)
+acs --> gw : Succeeded
+gw --> dispatch : sent
+dispatch -> db : status sent; drop link, removalLink, headers (L2-122 AC7)
+acs -> actor : email with HTML and plain-text parts
+actor -> logo : client loads the logo (the only remote resource)
+logo --> actor : 200 image/png
+@enduml

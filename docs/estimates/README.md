@@ -1,6 +1,6 @@
 # Estimates
 
-- Overall effort: 336 days
+- Overall effort: 338 days
 - Complete: 84%
 
 | Subsystem | Effort | Complete |
@@ -13,7 +13,7 @@
 | [reviews](reviews.md) | 16 days | 98% |
 | [privacy](privacy.md) | 31 days | 92% |
 | [metrics](metrics.md) | 14 days | 79% |
-| [launch](launch.md) | 26 days | 87% |
+| [launch](launch.md) | 28 days | 88% |
 | [platform](platform.md) | 39 days | 61% |
 | [directory](directory.md) | 20 days | 0% |
 

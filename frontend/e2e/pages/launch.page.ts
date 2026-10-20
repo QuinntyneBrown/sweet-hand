@@ -21,6 +21,11 @@ export class LaunchPage {
     await this.open(`?remove=${token}`);
   }
 
+  /** Requests the logo the confirmation email loads from the site (L2-122.2), through the page's request context. */
+  fetchEmailLogo() {
+    return this.page.request.get('/img/sweet-hand-email-logo.png');
+  }
+
   usePhone(width = 375) {
     return this.page.setViewportSize({ width, height: 780 });
   }

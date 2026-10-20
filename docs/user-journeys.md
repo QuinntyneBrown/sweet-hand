@@ -4,12 +4,13 @@ Every user journey Sweet Hand has built or plans to build, one per detailed desi
 `docs/detailed-designs/`. Estimates are developer-days and percent complete is measured
 from code plus acceptance tests, both from `docs/estimates/` (`estimating-designs` skill).
 
-53 journeys, 283 days, 88% complete (effort-weighted).
+54 journeys, 285 days, 88% complete (effort-weighted).
 
 | Name | Description | Estimate | Complete |
 |---|---|---|---|
 | Join the launch list | Visitor picks a role, enters an email and consent, and is told to check their email. | 6 days | 100% |
 | Confirm launch list email | Visitor clicks the emailed link and sees they are on the list, or that it expired. | 4 days | 100% |
+| Read the confirmation email | Person opens a branded email with the logo, a confirm button and the link written out, in light or dark. | 2 days | 100% |
 | Leave the launch list | Person removes their address in one click from the page, an email link, or their mail client. | 3 days | 100% |
 | Visit the launch site | Visitor lands on the fast prerendered launch page, reads it, and jumps to sign-up. | 5 days | 90% |
 | Send the launch day email | Operator runs one command that emails each confirmed address once; the list is deleted later. | 5 days | 100% |

@@ -756,6 +756,12 @@
       "bg": "--color-bg-surface-sunken",
       "min": 4.5,
       "note": "week event text on tinted fill (approximation)"
+    },
+    {
+      "fg": "--color-fg-link",
+      "bg": "--color-bg-surface-sunken",
+      "min": 4.5,
+      "note": "footer links in the launch confirmation email (patterns/notifications.html#email)"
     }
   ]
 }

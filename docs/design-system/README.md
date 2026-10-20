@@ -142,7 +142,7 @@ The look comes from the reference design: a white canvas, a bold wordmark, a qui
 | [Navigation and page structure](patterns/navigation.html) | Site header per role, phone site menu, side nav vs section list, segments vs tabs vs sub-pages, page intro and back link, layouts by breakpoint, back behaviour and URL state. |
 | [Dialogs and overlays](patterns/dialogs-and-overlays.html) | Dialog vs full screen vs bottom sheet vs side sheet vs dropdown vs popover vs viewer vs page; success in a dialog vs a toast; no stacking; focus start and return; inert page. |
 | [Data tables and lists](patterns/tables-and-lists.html) | Rows over tables and when a real table is right; density; filtering with segments, toolbar and search; fixed sort orders; numbered pages, no infinite scroll; loading/empty/error rows; phone strategy. |
-| [Notifications](patterns/notifications.html) | Toast vs banner vs inline vs email and badges; priority; persistence (danger never auto-dismisses, 8s pausing); stacking (max 3); live regions; banner and toast families. |
+| [Notifications](patterns/notifications.html) | Toast vs banner vs inline vs email and badges; priority; persistence (danger never auto-dismisses, 8s pausing); stacking (max 3); live regions; banner and toast families; email layout, fixed values from tokens, hosted logo, dark mode. |
 | [Content and tone](patterns/content-and-tone.html) | Tone by moment, high-stakes message anatomy, copy through the enquiry, review, moderation and suspension flows, consistent nouns and verbs, flow strings for the library. |
 
 ## Tokens

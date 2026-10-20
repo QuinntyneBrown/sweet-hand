@@ -19,3 +19,4 @@ cover an area before changing it.
 | [0012](0012-environments-and-release-promotion.md) | Staging, UAT and production environments with tag-based promotion and hotfixes | Accepted |
 | [0013](0013-sprint-board-internal-tool.md) | The sprint board is an internal tool beside the product | Accepted; deployment amended by 0014 |
 | [0014](0014-sprint-board-static-web-app.md) | The sprint board is published to its own Static Web App on every push to `main` | Accepted |
+| [0015](0015-branded-html-emails.md) | Branded HTML emails are hand-written inline-CSS templates with a hosted logo | Accepted |

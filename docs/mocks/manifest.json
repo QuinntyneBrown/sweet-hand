@@ -2038,6 +2038,29 @@
         "danger",
         "with-action"
       ]
+    },
+    {
+      "id": "launch-confirm-email",
+      "kind": "notification",
+      "title": "Launch confirmation email",
+      "opens_from": "launch",
+      "requirements": [
+        "L2-099",
+        "L2-100",
+        "L2-101",
+        "L2-122"
+      ],
+      "states": [
+        "default",
+        "caterer",
+        "plain-text"
+      ],
+      "not_applicable": {
+        "info": "An email, not an in-app message: it has one tone and no severity variants.",
+        "success": "An email, not an in-app message: confirming happens on the launch page (pages/launch/confirmed).",
+        "warning": "An email, not an in-app message: an expired link is shown on the launch page (pages/launch/link-expired).",
+        "danger": "An email, not an in-app message: a failed send is retried by the outbox and never shown to the person."
+      }
     }
   ]
 }

@@ -142,6 +142,7 @@ The pre-launch site: a separate, prerendered `launch` application at `/` until l
 
 | Feature | L2 requirements |
 |---------|-----------------|
+| [Brand the confirmation email](launch/brand-confirmation-email/README.md) | `L2-122` |
 | [Confirm the launch list email](launch/confirm-launch-list-email/README.md) | `L2-099` |
 | [Join the launch list](launch/join-launch-list/README.md) | `L2-095`, `L2-096`, `L2-097`, `L2-098`, `L2-103`, `L2-104` |
 | [Leave the launch list](launch/leave-launch-list/README.md) | `L2-100` |

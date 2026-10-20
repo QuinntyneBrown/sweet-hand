@@ -17,7 +17,7 @@ The person opens the link from their inbox. The launch site loads its usual prer
 **Email — `launch-confirm`**
 
 - Queued by `joinLaunchList` (feature `launch/join-launch-list`) through `queueEmail` with `kind: 'launch-confirm'`, `link` (the confirmation URL) and `removalLink`. The outbox removes both links once the email is sent, as for other token emails.
-- Content: sender "Sweet Hand"; why it was sent; the confirmation link and its 48-hour expiry; a line saying nothing happens if it is ignored; the removal link; the operator's mailing address and contact address (`L2-099 AC1`, `L2-101 AC4`). Headers `List-Unsubscribe` and `List-Unsubscribe-Post` follow feature `launch/leave-launch-list`. The template wording and layout need a mock, `<TO SUPPLY>`.
+- Content: sender "Sweet Hand"; why it was sent; the confirmation link and its 48-hour expiry; a line saying nothing happens if it is ignored; the removal link; the operator's mailing address and contact address (`L2-099 AC1`, `L2-101 AC4`). Headers `List-Unsubscribe` and `List-Unsubscribe-Post` follow feature `launch/leave-launch-list`. The wording and layout are the mock `docs/mocks/notifications/launch-confirm-email/`; the HTML and plain-text parts are built by feature `launch/brand-confirmation-email` (`L2-122`).
 
 **Frontend — Launch site**
 
