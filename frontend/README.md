@@ -8,7 +8,7 @@ frontend/
   projects/components/   sh-* design-system components (docs/specs/components)
   projects/api/          @sweet-hand/api: backend services and wire models
   projects/sweet-hand/   the product application
-  projects/launch/       the pre-launch site served at / until launch day (L2-092)
+  projects/launch/       the pre-launch site served at app.sweethand.ca until launch day (L2-092, ADR 0016)
   projects/board/        the founder's sprint board, internal tooling (ADR 0013)
   e2e/                   Playwright: support/, pages/ (page objects), specs/
 ```

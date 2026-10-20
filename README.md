@@ -123,7 +123,7 @@ sweet-hand/
 │   ├── projects/components/   sh-* design-system component library
 │   ├── projects/api/          @sweet-hand/api: backend services and wire models
 │   ├── projects/sweet-hand/   the product application
-│   ├── projects/launch/       the pre-launch site, served at / until launch day
+│   ├── projects/launch/       the pre-launch site, served at app.sweethand.ca until launch day
 │   ├── projects/board/        the founder's sprint board, from docs/plans/launch-backlog.md
 │   └── e2e/                   Playwright acceptance suite (page objects)
 ├── docs/
@@ -137,7 +137,8 @@ sweet-hand/
 │   ├── operations/            environments, release and hotfix process, Azure runbooks
 │   ├── marketing/             print-ready flyer and stickers
 │   ├── business-cards/        print-ready business cards
-│   └── videos/                narrated demo videos of the launch app
+│   └── videos/                narrated demo videos of the launch app, and the brand video
+├── marketing/      the static marketing page at www.sweethand.ca (ADR 0016)
 ├── tools/          video tooling: narration, screen recordings, MP4 builds
 └── assets/         logo and shared imagery
 ```
@@ -154,6 +155,7 @@ sweet-hand/
 | Persistence | JSON document collections behind one port | [ADR 0008](docs/adr/0008-persistence-document-collections.md) |
 | Testing | API tests in-process on an in-memory database; Playwright against the backend in test mode | [ADR 0007](docs/adr/0007-backend-tests-against-in-memory-repositories.md), [ADR 0009](docs/adr/0009-acceptance-tests-against-the-backend-in-test-mode.md) |
 | Delivery | Azure; `main` to staging, release candidate tags to UAT, approved release tags to production | [ADR 0011](docs/adr/0011-azure-launch-hosting-and-delivery.md), [ADR 0012](docs/adr/0012-environments-and-release-promotion.md) |
+| Hosts | The static marketing page at `www.sweethand.ca`, the application at `app.sweethand.ca` | [ADR 0016](docs/adr/0016-marketing-site-and-app-hostnames.md) |
 
 The full index is in [`docs/adr/README.md`](docs/adr/README.md).
 

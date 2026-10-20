@@ -5,3 +5,4 @@ docs/design-system/.cache/
 
 # Video tooling scratch (timing, renders, recordings, the local demo stack)
 .cache/
+marketing-dist/

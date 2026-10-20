@@ -20,3 +20,4 @@ cover an area before changing it.
 | [0013](0013-sprint-board-internal-tool.md) | The sprint board is an internal tool beside the product | Accepted; deployment amended by 0014 |
 | [0014](0014-sprint-board-static-web-app.md) | The sprint board is published to its own Static Web App on every push to `main` | Accepted |
 | [0015](0015-branded-html-emails.md) | Branded HTML emails are hand-written inline-CSS templates with a hosted logo | Accepted |
+| [0016](0016-marketing-site-and-app-hostnames.md) | A static marketing site at `www.sweethand.ca`; the application moves to `app.sweethand.ca` | Accepted; amends 0011 and 0012 |

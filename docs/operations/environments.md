@@ -1,6 +1,6 @@
 # Environments, promotion and hotfixes
 
-How a change travels from a developer's machine to `sweethand.ca`, and how an urgent fix
+How a change travels from a developer's machine to `app.sweethand.ca`, and how an urgent fix
 skips the queue without skipping the checks. ADR 0012 records the decision; L2-109 holds the
 acceptance criteria. `azure-production.md` stays the production runbook.
 
@@ -9,7 +9,8 @@ acceptance criteria. `azure-production.md` stays the production runbook.
 | | Development | Staging | UAT | Production |
 |---|---|---|---|---|
 | Purpose | Build and test a change | See `main` running on Azure, every commit | Accept a release candidate before it ships | The real site |
-| Address | `localhost` | `staging.sweethand.ca` | `uat.sweethand.ca` | `sweethand.ca`, `www.sweethand.ca` |
+| Address | `localhost` | `staging.sweethand.ca` | `uat.sweethand.ca` | `app.sweethand.ca` |
+| Marketing page (`marketing/`, ADR 0016) | `node tools/marketing-server.mjs` | The marketing app's default hostname | The marketing app's default hostname | `www.sweethand.ca`, `sweethand.ca` |
 | What runs there | Any branch | Every green commit on `main` | A tag `vX.Y.Z-rc.N` | A tag `vX.Y.Z` that passed UAT |
 | How it gets there | `npm start` (README) | Automatically, `deploy-staging.yml` | Pushing the tag, `deploy-uat.yml` | Pushing the tag, then approval, `deploy.yml` |
 | Who approves | Pull request review | Merging the pull request | Pushing the tag | A required reviewer of the `production` environment |
@@ -32,7 +33,7 @@ check, the container scan, gitleaks and the Bicep build. CI changes no Azure res
 
 Staging, UAT and production are the same Bicep template (`infra/main.bicep`) with different
 parameters, each in its own resource group with its own PostgreSQL server, Key Vault, managed
-identity, container registry, Static Web App and GitHub deployer. No environment can read
+identity, container registry, two Static Web Apps (the application and the marketing page) and GitHub deployer. No environment can read
 another's data or secrets, and no production personal information is copied into staging or
 UAT. Testers sign up with their own addresses. All three run in pre-launch mode, as production does.
 

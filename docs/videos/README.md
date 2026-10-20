@@ -14,6 +14,7 @@ generated `NN-topic.mp3` and `NN-topic.mp4`.
 | 04 | [Launch day](04-launch-day/README.md) | 4:20 | L2-101, L2-102 |
 | 05 | [Cater with Sweet Hand](05-cater-with-sweet-hand/README.md) | 1:19 | Promo for home cooks: join the launch list as a caterer |
 | 06 | [The plan, in plain words](06-the-plan-in-plain-words/README.md) | 7:08 | The business plan explained simply, and what changes if the founder cooks on Sweet Hand |
+| 07 | [Meet Sweet Hand](07-meet-sweet-hand/README.md) | 0:20 | The brand video on www.sweethand.ca (ADR 0016): round photos, few words, one ask |
 
 ## Making or updating a video
 
@@ -34,7 +35,7 @@ node tools/video-record/record-clips.mjs docs/videos/NN-topic [--only clip-name]
 # 3. Video: check cues, look at the slides, then encode
 node tools/video-build/build-video.mjs docs/videos/NN-topic --check
 node tools/video-build/build-video.mjs docs/videos/NN-topic --slides-only
-node tools/video-build/build-video.mjs docs/videos/NN-topic
+node tools/video-build/build-video.mjs docs/videos/NN-topic        # --no-captions for a promo without burned-in captions
 ```
 
 The tools need Node 22, Python 3 with the speech engine, ffmpeg with libx264

@@ -113,3 +113,17 @@ body.promo .slide-header, body.promo .slide-progress { display: none; }
 body.promo section { padding-top: 90px; }
 body.promo section[data-clip] { padding-top: 70px; align-items: center; padding-bottom: 210px; }
 body.promo .big { font-size: 64px; line-height: 1.2; font-weight: 600; }
+
+/* Promo slides with round photos (07, the brand video): a cluster beside a few words,
+   and a mosaic of dishes. Scoped to body.promo. */
+body.promo .mosaic { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 48px; width: 100%; }
+body.promo .mosaic li { display: grid; gap: 18px; justify-items: center; list-style: none; font-size: 40px; font-weight: 600; }
+body.promo .mosaic img { width: 300px; height: 300px; border-radius: 50%; object-fit: cover; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16); }
+body.promo .mosaic .pepper { color: var(--slide-accent); }
+body.promo .cluster { position: relative; width: 760px; height: 760px; flex: none; }
+body.promo .cluster img { position: absolute; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 10px var(--slide-bg), 0 14px 40px rgba(0, 0, 0, 0.16); }
+body.promo section.split { flex-direction: row; align-items: center; gap: 90px; }
+body.promo section.split .words { display: grid; gap: 28px; }
+body.promo section.split .words h2 { font-size: 96px; line-height: 1.04; }
+body.promo section.split .words h2 em { font-style: normal; color: var(--slide-accent); }
+body.promo section.split .words p { font-size: 44px; color: var(--slide-muted); }
