@@ -54,13 +54,14 @@
     justify-content: space-between;
   }
 
+  .brand { display: flex; align-items: center; gap: 0.1in; }
+  .brand svg { width: 0.34in; height: 0.34in; flex: none; }
   .wordmark {
     font-weight: 700;
     font-size: 20pt;
     line-height: 1;
     letter-spacing: -0.02em;
   }
-  .wordmark span { color: var(--pepper-500); }
   .rule {
     width: 0.4in;
     height: 2pt;
@@ -174,7 +175,10 @@
   <section class="sheet front" aria-label="Front">
     <div class="band" aria-hidden="true"></div>
     <div class="safe">
-      <div class="wordmark">Sweet Hand<span>.</span></div>
+      <div class="brand">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18 L14 34 A18 18 0 0 0 50 34 L50 28" stroke-width="7"/><circle cx="32" cy="33" r="9" fill="#b5381f" stroke="none"/><path d="M32 24.5 C32 20.5 34 17.5 38.5 16.5" stroke-width="3.5"/></svg>
+        <div class="wordmark">Sweet Hand</div>
+      </div>
       <div>
         <h1>Someone with a sweet hand.</h1>
         <p class="lead">Caribbean home cooks and small-batch makers of Toronto and the GTA.</p>
@@ -203,7 +207,10 @@
   <section class="sheet back" aria-label="Back">
     <div class="band" aria-hidden="true"></div>
     <div class="safe">
-      <div class="wordmark">Sweet Hand<span>.</span></div>
+      <div class="brand">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18 L14 34 A18 18 0 0 0 50 34 L50 28" stroke-width="7"/><circle cx="32" cy="33" r="9" fill="#b5381f" stroke="none"/><path d="M32 24.5 C32 20.5 34 17.5 38.5 16.5" stroke-width="3.5"/></svg>
+        <div class="wordmark">Sweet Hand</div>
+      </div>
       <div>
         <h2>You have a<br>sweet hand. <span>Let Toronto find it.</span></h2>
         <ul class="facts">

@@ -1,6 +1,6 @@
 # 02 · Joining the launch list
 
-> **Runtime:** ~6 min · **Audience:** the Sweet Hand team, contributors and reviewers · **Prerequisites:** video 01
+> **Runtime:** ~7 min · **Audience:** the Sweet Hand team, contributors and reviewers · **Prerequisites:** video 01
 
 **Video:** [02-joining-the-launch-list.mp4](02-joining-the-launch-list.mp4) · [Slides](slides.html) · **Audio:** [02-joining-the-launch-list.mp3](02-joining-the-launch-list.mp3) · [Transcript](script.md)
 

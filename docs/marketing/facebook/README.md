@@ -6,7 +6,7 @@ does that; this folder holds the art, the copy and the settings.
 
 | File | Purpose |
 | --- | --- |
-| `page-avatar.png` | Profile picture, 1080 × 1080 px. Facebook shows it as a circle (170 px on desktop, 128 px on phones); the bowl sits inside the circle on a full pepper tile. |
+| `page-avatar.png` | Profile picture, 1080 × 1080 px. Facebook shows it as a circle (170 px on desktop, 128 px on phones); the mark sits inside the circle on a full stone tile. |
 | `page-cover.png` | Cover photo, 1640 × 720 px. Desktop shows the middle 1640 × 624 strip, phones the central 1280 × 720, so all copy sits in the 1280 × 624 px area both show. |
 | `post-1-eaters.png`, `post-2-makers.png` | Feed images, 1080 × 1080 px, the flyer's copy: eaters first, makers second. |
 | `reconnecting.md` | Messages for reaching people you have not talked to in years who might cook, know cooks or help, with follow-ups and a call plan. |

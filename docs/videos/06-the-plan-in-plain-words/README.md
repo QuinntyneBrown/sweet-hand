@@ -1,6 +1,6 @@
 # 06 · The plan, in plain words
 
-> **Runtime:** ~7:08 · **Audience:** the founder's family, friends, community partners and anyone who asks how a free directory makes money · **Prerequisites:** none
+> **Runtime:** ~7:11 · **Audience:** the founder's family, friends, community partners and anyone who asks how a free directory makes money · **Prerequisites:** none
 
 **Video:** [06-the-plan-in-plain-words.mp4](06-the-plan-in-plain-words.mp4) · [Slides](slides.html) · **Audio:** [06-the-plan-in-plain-words.mp3](06-the-plan-in-plain-words.mp3) · [Transcript](script.md)
 

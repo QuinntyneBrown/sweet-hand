@@ -1,6 +1,6 @@
 # 07 · Meet Sweet Hand
 
-> **Runtime:** ~0:20 · **Audience:** anyone hearing about Sweet Hand for the first time: eaters, cooks, and the people who know a cook · **Where it plays:** the marketing page, www.sweethand.ca (ADR 0016)
+> **Runtime:** ~0:23 · **Audience:** anyone hearing about Sweet Hand for the first time: eaters, cooks, and the people who know a cook · **Where it plays:** the marketing page, www.sweethand.ca (ADR 0016)
 
 **Video:** [07-meet-sweet-hand.mp4](07-meet-sweet-hand.mp4) · [Slides](slides.html) · **Audio:** [07-meet-sweet-hand.mp3](07-meet-sweet-hand.mp3) · [Transcript](script.md)
 

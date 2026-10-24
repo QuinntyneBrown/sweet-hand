@@ -7,7 +7,7 @@ Facebook kit, which is already Instagram's sizes.
 
 | Asset | Use on Instagram |
 | --- | --- |
-| [`../facebook/page-avatar.png`](../facebook/page-avatar.png) | Profile picture, 1080 × 1080 px. Instagram shows it as a circle; the bowl sits inside the circle. |
+| [`../facebook/page-avatar.png`](../facebook/page-avatar.png) | Profile picture, 1080 × 1080 px. Instagram shows it as a circle; the mark sits inside the circle. |
 | [`../facebook/post-1-eaters.png`](../facebook/post-1-eaters.png) | First post, 1080 × 1080 px (1:1). |
 | [`../facebook/post-2-makers.png`](../facebook/post-2-makers.png) | Second post, 1080 × 1080 px (1:1). |
 | [`../whatsapp/status-1-eaters.png`](../whatsapp/status-1-eaters.png), [`status-2-makers.png`](../whatsapp/status-2-makers.png) | Stories, 1080 × 1920 px (9:16). Their copy already clears the top and bottom bands where Instagram draws its own controls. |

@@ -29,7 +29,7 @@
   .art { position: relative; overflow: hidden; }
 
   /* ---------- Avatar ---------- */
-  .avatar { width: 800px; height: 800px; background: var(--pepper-600); }
+  .avatar { width: 800px; height: 800px; background: var(--stone-950); color: var(--white); }
   .avatar svg { display: block; width: 800px; height: 800px; }
 
   /* ---------- Banner ---------- */
@@ -46,7 +46,6 @@
   }
   .banner .mark { width: 208px; height: 208px; flex: none; }
   .banner .wordmark { font-weight: 700; font-size: 132px; line-height: 1; letter-spacing: -0.03em; }
-  .banner .wordmark span { color: var(--pepper-500); }
   .banner .tagline { margin-top: 22px; font-weight: 500; font-size: 46px; line-height: 1.25; color: #d6d2cc; }
   .banner .url { margin-top: 26px; font-weight: 700; font-size: 44px; letter-spacing: -0.01em; }
   .banner .url span { font-weight: 500; color: var(--stone-350); }
@@ -62,7 +61,6 @@
   .thumbnail .brand { display: flex; align-items: center; gap: 22px; }
   .thumbnail .brand .mark { width: 84px; height: 84px; flex: none; }
   .thumbnail .brand .wordmark { font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.02em; }
-  .thumbnail .brand .wordmark span { color: var(--pepper-500); }
   .thumbnail h1 { font-weight: 700; font-size: 128px; line-height: 0.98; letter-spacing: -0.035em; }
   .thumbnail h1 span { display: block; margin-top: 18px; color: #d6d2cc; }
   .thumbnail .foot { display: flex; align-items: baseline; justify-content: space-between; gap: 32px; }
@@ -102,27 +100,20 @@
 <body>
 
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <!-- The logo mark, from assets/logo/sweet-hand-mark.svg -->
-    <symbol id="mark" viewBox="0 0 120 120">
-      <rect x="4" y="4" width="112" height="112" rx="28" fill="#b5381f"/>
-      <path d="M60 58 C 60 58 40 46 40 34 C 40 26 46 21 52 21 C 56 21 59 23 60 27 C 61 23 64 21 68 21 C 74 21 80 26 80 34 C 80 46 60 58 60 58 Z" fill="#ffffff"/>
-      <path d="M26 66 H 94 C 94 85 79 98 60 98 C 41 98 26 85 26 66 Z" fill="#ffffff"/>
-      <rect x="44" y="99" width="32" height="5" rx="2.5" fill="#ffffff"/>
-    </symbol>
-    <!-- The same bowl and heart without the tile, for the full-bleed avatar. -->
-    <symbol id="bowl" viewBox="0 0 120 120">
-      <path d="M60 58 C 60 58 40 46 40 34 C 40 26 46 21 52 21 C 56 21 59 23 60 27 C 61 23 64 21 68 21 C 74 21 80 26 80 34 C 80 46 60 58 60 58 Z" fill="#ffffff"/>
-      <path d="M26 66 H 94 C 94 85 79 98 60 98 C 41 98 26 85 26 66 Z" fill="#ffffff"/>
-      <rect x="44" y="99" width="32" height="5" rx="2.5" fill="#ffffff"/>
+    <!-- The logo mark, from assets/logo/sweet-hand-mark.svg; strokes take the surrounding text colour -->
+    <symbol id="mark" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 18 L14 34 A18 18 0 0 0 50 34 L50 28" stroke-width="7"/>
+      <circle cx="32" cy="33" r="9" fill="#b5381f" stroke="none"/>
+      <path d="M32 24.5 C32 20.5 34 17.5 38.5 16.5" stroke-width="3.5"/>
     </symbol>
   </svg>
 
   <!-- Profile picture: 800 x 800, cropped to a circle by YouTube -->
   <section class="art avatar" aria-label="Profile picture">
     <svg viewBox="0 0 120 120" aria-hidden="true">
-      <rect width="120" height="120" fill="#b5381f"/>
-      <!-- Scaled to 0.9 about the centre so the bowl clears the circle crop. -->
-      <g transform="translate(60 62) scale(0.9) translate(-60 -60)"><use href="#bowl"/></g>
+      <rect width="120" height="120" fill="#141312"/>
+      <!-- Scaled to 0.9 about the centre so the mark clears the circle crop. -->
+      <g transform="translate(60 62) scale(0.9) translate(-60 -60)"><use href="#mark"/></g>
     </svg>
   </section>
 
@@ -132,7 +123,7 @@
     <div class="safe">
       <svg class="mark" aria-hidden="true"><use href="#mark"/></svg>
       <div>
-        <div class="wordmark">Sweet Hand<span>.</span></div>
+        <div class="wordmark">Sweet Hand</div>
         <p class="tagline">Caribbean home cooks and small-batch makers of Toronto and the GTA.</p>
         <p class="url">sweethand.ca <span>· Opening soon</span></p>
       </div>
@@ -145,7 +136,7 @@
     <div class="inner">
       <div class="brand">
         <svg class="mark" aria-hidden="true"><use href="#mark"/></svg>
-        <div class="wordmark">Sweet Hand<span>.</span></div>
+        <div class="wordmark">Sweet Hand</div>
       </div>
       <h1>You have a sweet hand. <span>Let Toronto find it.</span></h1>
       <div class="foot">

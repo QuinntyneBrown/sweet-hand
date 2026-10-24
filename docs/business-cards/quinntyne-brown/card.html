@@ -71,13 +71,14 @@
   /* ---------- Front ---------- */
   .front { background: var(--stone-950); color: var(--white); }
   .front .safe { justify-content: center; }
+  .front .brand { display: flex; align-items: center; gap: 0.1in; }
+  .front .brand svg { width: 0.42in; height: 0.42in; flex: none; }
   .front .wordmark {
     font-weight: 700;
     font-size: 28pt;
     line-height: 1;
     letter-spacing: -0.02em;
   }
-  .front .wordmark span { color: var(--pepper-500); }
   .front .rule {
     width: 0.4in;
     height: 2pt;
@@ -90,13 +91,6 @@
     line-height: 1.35;
     color: #d6d2cc;
     letter-spacing: 0.01em;
-  }
-  /* Accent band that runs into the bleed */
-  .front .band {
-    position: absolute;
-    right: 0; top: 0; bottom: 0;
-    width: calc(var(--bleed) + 0.18in);
-    background: var(--pepper-600);
   }
 
   /* ---------- Back ---------- */
@@ -128,12 +122,13 @@
     border-top: 0.5pt solid var(--stone-200);
     padding-top: 0.07in;
   }
+  .back .foot .brand { display: flex; align-items: center; gap: 0.06in; }
+  .back .foot .brand svg { width: 0.2in; height: 0.2in; flex: none; }
   .back .foot .brand {
     font-weight: 700;
     font-size: 9pt;
     letter-spacing: -0.02em;
   }
-  .back .foot .brand span { color: var(--pepper-600); }
   .back .foot .contact { text-align: right; }
   .back .foot .email,
   .back .foot .url {
@@ -175,9 +170,11 @@
 
   <!-- Front -->
   <section class="card front" aria-label="Front">
-    <div class="band" aria-hidden="true"></div>
     <div class="safe">
-      <div class="wordmark">Sweet Hand<span>.</span></div>
+      <div class="brand">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18 L14 34 A18 18 0 0 0 50 34 L50 28" stroke-width="7"/><circle cx="32" cy="33" r="9" fill="#b5381f" stroke="none"/><path d="M32 24.5 C32 20.5 34 17.5 38.5 16.5" stroke-width="3.5"/></svg>
+        <div class="wordmark">Sweet Hand</div>
+      </div>
       <div class="rule" aria-hidden="true"></div>
       <p class="tagline">Caribbean home cooks and small-batch makers<br>of Toronto and the GTA</p>
     </div>
@@ -192,7 +189,7 @@
         <div class="rule" aria-hidden="true"></div>
       </div>
       <div class="foot">
-        <span class="brand">Sweet Hand<span>.</span></span>
+        <span class="brand"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18 L14 34 A18 18 0 0 0 50 34 L50 28" stroke-width="7"/><circle cx="32" cy="33" r="9" fill="#b5381f" stroke="none"/><path d="M32 24.5 C32 20.5 34 17.5 38.5 16.5" stroke-width="3.5"/></svg><span>Sweet Hand</span></span>
         <span class="contact">
           <span class="email">hello@sweethand.ca</span>
           <span class="url">sweethand.ca</span>
