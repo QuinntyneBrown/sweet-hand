@@ -58,7 +58,9 @@ keep it accurate:
   the YouTube channel kit (`youtube/`: art, copy, captions, posting steps) and the
   Facebook Page kit (`facebook/`: art, feed images, copy, posting steps, messages for
   reconnecting with old contacts) and the
-  Instagram kit (`instagram/`: settings, copy, posting steps), with
+  Instagram kit (`instagram/`: settings, copy, posting steps) and the
+  caterer sales kit (`sales-kit/`: elevator pitch, FAQ, pitch deck, leave-behind,
+  photoshoot card, product screenshots; its videos are 08 and 09), with
   `render.mjs` to regenerate them (see its `README.md`)
 - `docs/business-cards/` — print-ready business cards, one folder per person,
   with `render.mjs` to regenerate them (see each folder's `README.md`)
