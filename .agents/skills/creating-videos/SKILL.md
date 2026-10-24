@@ -104,6 +104,7 @@ Rules:
 
 - **Every slide except the first has a `data-cue`**: a phrase copied *verbatim* from `script.md` (a heading or the start of a sentence), unique in the script, with cues in **narration order**. A slide appears when narration reaches its cue.
 - `data-part` indexes `data-parts` (header label and progress bar); parts line up with `##` sections.
+- **Every deck names the background music**: `<body data-music="../assets/music/on-the-beach-intro-outro.mp3">`. The builder loops it under the narration at `data-music-db` (default −10.8 dB) with a fade in, and holds the last slide 3 s so the music fades out. Provenance lives in `docs/videos/assets/music/README.md`.
 - Roughly one slide every 20-40 seconds. Cue changes inside a section are estimated from word counts (within a second or two); section boundaries are exact.
 - Slides support the narration, they don't transcribe it: a heading, 3-5 short bullets, a diagram, or a short code excerpt.
 - Code: `<pre class="code" data-lang="cs|ts|json|yaml|sql|sh|md|xml" data-mark="2,5">` (escape `<`, `>`, `&`); add `tight` for longer excerpts. Keep excerpts to ~16 lines, copied from the real file.
@@ -117,7 +118,7 @@ Rules:
 Keep two small scripts under `tools/` (language of the repo's choice; a .NET single-file app, Node or Python all work):
 
 - **Audio generator** (`tools/video-audio/`): parses `script.md` strictly; `--dry-run` validates and estimates length without network. Otherwise it uses the `edge-tts` Python package or `python -m edge_tts` CLI with plain text per paragraph: a neural narrator voice (e.g. `en-US-AndrewMultilingualNeural`) and a second voice for other speakers (e.g. `en-US-AvaMultilingualNeural`). Check available voices with `python -m edge_tts --list-voices`. Edge does not support custom SSML: apply `pronunciations.json` as spoken text replacements before synthesis, synthesize speaker paragraphs separately, and insert `[pause 5s]` as ffmpeg-generated silence. Normalize clips to a common audio format, measure their actual durations with ffprobe, concatenate clips and silence into the MP3, and write the timing manifest from those durations.
-- **Video builder** (`tools/video-build/`): opens `slides.html` in headless Chrome/Edge, resolves each `data-cue` to a time using the manifest (section boundaries exact, in-section by word count), screenshots each slide at 1920x1080, writes an SRT/ASS caption file from the script, and runs ffmpeg (libx264, aac) to produce the MP4 with burned-in captions. Supports `--check` and `--slides-only`.
+- **Video builder** (`tools/video-build/`): opens `slides.html` in headless Chrome/Edge, resolves each `data-cue` to a time using the manifest (section boundaries exact, in-section by word count), screenshots each slide at 1920x1080, writes an SRT/ASS caption file from the script, mixes the deck's `data-music` track under the narration, and runs ffmpeg (libx264, aac) to produce the MP4 with burned-in captions. Supports `--check` and `--slides-only`.
 
 Prefer an existing equivalent if the repo already has one. In this repository, run from the repo root (Edge is the default engine, so `--engine edge` is optional):
 

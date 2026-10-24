@@ -1,6 +1,6 @@
 # 04 · Launch day
 
-> **Runtime:** ~4.5 min · **Audience:** the Sweet Hand team, operators and reviewers · **Prerequisites:** video 03
+> **Runtime:** ~5.5 min · **Audience:** the Sweet Hand team, operators and reviewers · **Prerequisites:** video 03
 
 **Video:** [04-launch-day.mp4](04-launch-day.mp4) · [Slides](slides.html) · **Audio:** [04-launch-day.mp3](04-launch-day.mp3) · [Transcript](script.md)
 

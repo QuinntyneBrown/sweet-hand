@@ -8,13 +8,13 @@ generated `NN-topic.mp3` and `NN-topic.mp4`.
 
 | # | Video | Runtime | Covers |
 |---|---|---|---|
-| 01 | [The launch site](01-launch-site/README.md) | 5:26 | L2-092 to L2-094, L2-103.4, L2-105 to L2-107 |
-| 02 | [Joining the launch list](02-joining-the-launch-list/README.md) | 5:47 | L2-095 to L2-098, L2-104 |
-| 03 | [Confirming and leaving](03-confirming-and-leaving/README.md) | 4:59 | L2-099, L2-100, L2-103, L2-104.2 |
-| 04 | [Launch day](04-launch-day/README.md) | 4:20 | L2-101, L2-102 |
-| 05 | [Cater with Sweet Hand](05-cater-with-sweet-hand/README.md) | 1:19 | Promo for home cooks: join the launch list as a caterer |
-| 06 | [The plan, in plain words](06-the-plan-in-plain-words/README.md) | 7:08 | The business plan explained simply, and what changes if the founder cooks on Sweet Hand |
-| 07 | [Meet Sweet Hand](07-meet-sweet-hand/README.md) | 0:20 | The brand video on www.sweethand.ca (ADR 0016): round photos, few words, one ask |
+| 01 | [The launch site](01-launch-site/README.md) | 6:29 | L2-092 to L2-094, L2-103.4, L2-105 to L2-107 |
+| 02 | [Joining the launch list](02-joining-the-launch-list/README.md) | 6:52 | L2-095 to L2-098, L2-104 |
+| 03 | [Confirming and leaving](03-confirming-and-leaving/README.md) | 5:58 | L2-099, L2-100, L2-103, L2-104.2 |
+| 04 | [Launch day](04-launch-day/README.md) | 5:18 | L2-101, L2-102 |
+| 05 | [Cater with Sweet Hand](05-cater-with-sweet-hand/README.md) | 1:26 | Promo for home cooks: join the launch list as a caterer |
+| 06 | [The plan, in plain words](06-the-plan-in-plain-words/README.md) | 7:11 | The business plan explained simply, and what changes if the founder cooks on Sweet Hand |
+| 07 | [Meet Sweet Hand](07-meet-sweet-hand/README.md) | 0:23 | The brand video on www.sweethand.ca (ADR 0016): round photos, few words, one ask |
 
 ## Making or updating a video
 
@@ -52,6 +52,13 @@ appears when the narration reaches that phrase. A slide with
 `data-clip="clips/x.mp4"` and a `<video class="clip">` (or `class="clip phone"`)
 plays that recording in the box; the builder speeds a clip up when the
 narration is shorter than the clip, and holds its last frame when it is longer.
+
+### Background music
+
+Every deck lays `assets/music/on-the-beach-intro-outro.mp3` under its narration
+(`<body data-music="../assets/music/…">`), looped, at −10.8 dB with a fade in; the
+last slide holds 3 s after the narration so the music fades out. The track's
+source and licence are in `assets/music/README.md`.
 
 ### The launch stack
 

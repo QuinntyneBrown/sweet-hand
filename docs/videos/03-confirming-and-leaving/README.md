@@ -1,6 +1,6 @@
 # 03 · Confirming and leaving
 
-> **Runtime:** ~5 min · **Audience:** the Sweet Hand team, contributors and reviewers · **Prerequisites:** video 02
+> **Runtime:** ~6 min · **Audience:** the Sweet Hand team, contributors and reviewers · **Prerequisites:** video 02
 
 **Video:** [03-confirming-and-leaving.mp4](03-confirming-and-leaving.mp4) · [Slides](slides.html) · **Audio:** [03-confirming-and-leaving.mp3](03-confirming-and-leaving.mp3) · [Transcript](script.md)
 

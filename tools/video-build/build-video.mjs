@@ -9,6 +9,9 @@
 //   node tools/video-build/build-video.mjs docs/videos/NN-topic [--no-captions]
 //
 // --no-captions leaves the captions out of the picture (the brand video, 07).
+// <body data-music="../assets/music/x.mp3"> lays that track under the narration:
+// looped if it is shorter, at data-music-db (default -10.8 dB), faded in over
+// 1.5 s; the last slide holds 3 s after the narration so the music fades out.
 // Needs Chromium (Playwright's, or EDGE_PATH) and ffmpeg with libx264 and libass
 // (FFMPEG_PATH overrides).
 import { execFileSync } from 'node:child_process';
@@ -29,6 +32,10 @@ const W = 1920;
 const H = 1080;
 /** The builder speeds a clip up to fit its slide; above this it warns. */
 const MAX_SPEED = 1.6;
+const MUSIC_DB = -10.8;
+const MUSIC_FADE_IN = 1.5;
+const MUSIC_FADE_OUT = 2;
+const MUSIC_TAIL = 3;
 
 const folder = resolve(args.find((a) => !a.startsWith('--')) ?? '');
 const name = basename(folder);
@@ -56,7 +63,13 @@ async function readSlides() {
       clipDelay: Number(s.dataset.clipDelay ?? 0),
     })),
   );
-  return { browser, page, url, slides };
+  const music = await page.evaluate(() => ({ src: document.body.dataset.music ?? null, db: document.body.dataset.musicDb ?? null }));
+  if (music.src) {
+    music.file = join(folder, music.src);
+    if (!existsSync(music.file)) throw new Error(`data-music: ${music.src} not found`);
+    music.db = Number(music.db ?? MUSIC_DB);
+  }
+  return { browser, page, url, slides, music: music.src ? music : null };
 }
 
 /** Each cue's time: section headings are exact, phrases inside a paragraph are placed by word count. */
@@ -169,7 +182,7 @@ async function main() {
   const mp3 = join(folder, `${name}.mp3`);
   const total = duration(mp3);
 
-  const { browser, page, url, slides } = await readSlides();
+  const { browser, page, url, slides, music } = await readSlides();
   const { times, errors } = schedule(slides, script, timing);
   if (errors.length) {
     await browser.close();
@@ -194,6 +207,7 @@ async function main() {
     if (note.includes('←')) warnings++;
     console.log(`${String(s.index).padStart(3)}  ${mmss(s.start).padStart(7)}  ${d.toFixed(1).padStart(5)} s  ${s.id}${note}`);
   }
+  if (music) console.log(`music: ${basename(music.file)} at ${music.db} dB under the narration, ${MUSIC_TAIL} s tail`);
   console.log(`${slides.length} slides, ${mmss(total)} total, ${warnings} warning(s)`);
   if (flag('check')) {
     await browser.close();
@@ -223,8 +237,12 @@ async function main() {
   rmSync(segments, { recursive: true, force: true });
   mkdirSync(segments, { recursive: true });
   const list = [];
+  // With music the last slide holds for a tail after the narration, so the track fades out
+  // instead of being cut with the last word.
+  const tail = music ? MUSIC_TAIL : 0;
   for (const s of spans) {
-    const frames = Math.round(s.end * FPS) - Math.round(s.start * FPS);
+    const last = s === spans.at(-1);
+    const frames = Math.round((s.end + (last ? tail : 0)) * FPS) - Math.round(s.start * FPS);
     const d = frames / FPS;
     const out = join(segments, `${String(s.index).padStart(3, '0')}.mp4`);
     const encode = ['-r', String(FPS), '-frames:v', String(frames), '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', '-an', out];
@@ -253,8 +271,18 @@ async function main() {
   assFile(captions(timing), ass);
   const mp4 = join(folder, `${name}.mp4`);
   const assArg = ass.replace(/\\/g, '/').replace(/:/g, '\\:').replace(/'/g, "\\'");
-  const subtitles = flag('no-captions') ? [] : ['-vf', `ass='${assArg}'`];
-  ff('-i', silent, '-i', mp3, ...subtitles, '-c:v', 'libx264', '-preset', 'medium', '-crf', '26', '-tune', 'stillimage', '-pix_fmt', 'yuv420p', '-r', String(FPS), '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-shortest', mp4);
+  const video = flag('no-captions') ? '[0:v]null[v]' : `[0:v]ass='${assArg}'[v]`;
+  // The music is looped so it outlasts the narration; the narration is padded with the tail's
+  // silence and the mix keeps that length, so -shortest still ends the file after the tail.
+  const audio = music
+    ? [
+        `[2:a]volume=${music.db}dB,afade=t=in:d=${MUSIC_FADE_IN},afade=t=out:st=${Math.max(0, total + tail - MUSIC_FADE_OUT).toFixed(3)}:d=${MUSIC_FADE_OUT}[m]`,
+        `[1:a]apad=pad_dur=${tail}[n]`,
+        '[n][m]amix=inputs=2:duration=first:normalize=0[a]',
+      ]
+    : ['[1:a]anull[a]'];
+  const inputs = ['-i', silent, '-i', mp3, ...(music ? ['-stream_loop', '-1', '-i', music.file] : [])];
+  ff(...inputs, '-filter_complex', [video, ...audio].join(';'), '-map', '[v]', '-map', '[a]', '-c:v', 'libx264', '-preset', 'medium', '-crf', '26', '-tune', 'stillimage', '-pix_fmt', 'yuv420p', '-r', String(FPS), '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-shortest', mp4);
   console.log(`\n${mp4} (${duration(mp4).toFixed(1)} s; narration ${total.toFixed(1)} s)`);
 }
 

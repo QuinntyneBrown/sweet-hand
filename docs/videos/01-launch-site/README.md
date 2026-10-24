@@ -1,6 +1,6 @@
 # 01 · The launch site
 
-> **Runtime:** ~5.5 min · **Audience:** the Sweet Hand team, contributors and reviewers · **Prerequisites:** none
+> **Runtime:** ~6.5 min · **Audience:** the Sweet Hand team, contributors and reviewers · **Prerequisites:** none
 
 **Video:** [01-launch-site.mp4](01-launch-site.mp4) · [Slides](slides.html) · **Audio:** [01-launch-site.mp3](01-launch-site.mp3) · [Transcript](script.md)
 

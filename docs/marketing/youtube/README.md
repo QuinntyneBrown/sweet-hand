@@ -8,7 +8,7 @@ the settings so that takes ten minutes, not an afternoon.
 
 | File | Purpose |
 | --- | --- |
-| `channel-avatar.png` | Profile picture, 800 × 800 px. YouTube crops it to a circle; the bowl sits inside the circle on a full pepper tile. |
+| `channel-avatar.png` | Profile picture, 800 × 800 px. YouTube crops it to a circle; the mark sits inside the circle on a full stone tile. |
 | `channel-banner.png` | Channel banner, 2560 × 1440 px. All copy sits in the 1546 × 423 px safe area that every device shows. |
 | `thumbnail-05-cater-with-sweet-hand.png` | Thumbnail for the promo video, 1280 × 720 px. |
 | `05-cater-with-sweet-hand.en-CA.srt` | Closed captions for the promo video, English (Canada). |

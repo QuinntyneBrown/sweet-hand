@@ -1,6 +1,6 @@
 # 05 · Cater with Sweet Hand
 
-> **Runtime:** ~1:19 · **Audience:** Caribbean home cooks and small caterers in Toronto and the GTA · **Prerequisites:** none
+> **Runtime:** ~1:26 · **Audience:** Caribbean home cooks and small caterers in Toronto and the GTA · **Prerequisites:** none
 
 **Video:** [05-cater-with-sweet-hand.mp4](05-cater-with-sweet-hand.mp4) · [Slides](slides.html) · **Audio:** [05-cater-with-sweet-hand.mp3](05-cater-with-sweet-hand.mp3) · [Transcript](script.md)
 
