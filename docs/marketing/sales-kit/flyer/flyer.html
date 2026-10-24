@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<title>Sweet Hand — Caterer leave-behind</title>
+<link rel="stylesheet" href="../../assets/print.css">
+<!--
+  Three pieces, one source. Rendered by docs/marketing/render.mjs (--only sales-kit).
+
+  1. Leave-behind (.sheet.leave-behind): US Letter.
+     Trim 8.5in x 11in, bleed 0.125in -> page 8.75in x 11.25in.
+  2. Photoshoot card (.sheet.card): half Letter.
+     Trim 5.5in x 8.5in, bleed 0.125in -> page 5.75in x 8.75in.
+  3. Phone share image (.share): 1080 x 1350 px (4:5), for WhatsApp and Facebook.
+
+  Safe zone: all text sits at least 0.25in inside the trim on print pieces.
+  The offer sentence is the kit's, word for word (sales-kit/elevator-pitch.md).
+  Colours come from docs/design-system/tokens/tokens.css via print.css.
+-->
+<style>
+  :root { --bleed: 0.125in; --safe: 0.375in; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #e9e6e1; }
+  body {
+    font-family: "Figtree", system-ui, sans-serif;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .sheet { position: relative; overflow: hidden; break-after: page; page-break-after: always; }
+  .safe { position: absolute; inset: var(--safe); display: flex; flex-direction: column; }
+
+  .brand { display: flex; align-items: center; gap: 0.1in; }
+  .brand svg { width: 0.42in; height: 0.42in; flex: none; }
+  .wordmark { font-weight: 700; font-size: 22pt; line-height: 1; letter-spacing: -0.02em; }
+  .qr { display: block; flex: none; }
+
+  /* ---------- 1 · Leave-behind (Letter) ---------- */
+  .leave-behind { width: 8.75in; height: 11.25in; background: var(--white); color: var(--stone-950); }
+  .leave-behind .top { display: flex; justify-content: space-between; align-items: center; }
+  .leave-behind .opens { font-weight: 600; font-size: 12pt; color: var(--stone-700); text-align: right; line-height: 1.3; }
+  .leave-behind .opens b { display: block; font-weight: 700; font-size: 14pt; color: var(--stone-950); }
+  .leave-behind .body { display: grid; grid-template-columns: 1fr 2.55in; gap: 0.4in; margin-top: 0.45in; }
+  .leave-behind h1 { font-weight: 700; font-size: 40pt; line-height: 1.03; letter-spacing: -0.03em; }
+  .leave-behind h1 span { display: block; color: var(--pepper-600); }
+  .leave-behind .lead { margin-top: 0.18in; font-weight: 500; font-size: 13pt; line-height: 1.4; color: var(--stone-700); }
+  .facts { margin-top: 0.25in; list-style: none; font-weight: 600; font-size: 14pt; line-height: 1.3; }
+  .facts li { padding: 0.09in 0; border-top: 0.75pt solid var(--stone-200); }
+  .facts li:last-child { border-bottom: 0.75pt solid var(--stone-200); }
+  .offer { margin-top: 0.3in; padding: 0.22in 0.25in; border-radius: 0.14in; background: var(--stone-950); color: var(--white); }
+  .offer .kicker { font-weight: 700; font-size: 11pt; letter-spacing: 0.06em; text-transform: uppercase; color: #e8846c; }
+  .offer p { margin-top: 0.06in; font-weight: 600; font-size: 14pt; line-height: 1.32; }
+  .offer .small { margin-top: 0.08in; font-weight: 500; font-size: 10pt; color: var(--stone-350); }
+  .phone {
+    align-self: start;
+    width: 2.55in;
+    border: 0.07in solid var(--stone-950);
+    border-radius: 0.28in;
+    overflow: hidden;
+    background: var(--stone-950);
+  }
+  .phone img { display: block; width: 100%; }
+  .caption { margin-top: 0.08in; font-weight: 500; font-size: 10pt; color: var(--stone-600); text-align: center; }
+  .ctas { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 0.3in; }
+  .cta { display: flex; align-items: center; gap: 0.18in; padding: 0.16in; border-radius: 0.14in; background: var(--stone-50); }
+  .cta .qr { width: 1.25in; height: 1.25in; }
+  .cta .n { font-weight: 700; font-size: 11pt; color: var(--pepper-600); letter-spacing: 0.04em; text-transform: uppercase; }
+  .cta .ask { font-weight: 700; font-size: 17pt; line-height: 1.1; letter-spacing: -0.01em; margin-top: 0.03in; }
+  .cta .how { margin-top: 0.06in; font-weight: 500; font-size: 11pt; line-height: 1.3; color: var(--stone-700); }
+
+  /* ---------- 2 · Photoshoot card (half Letter) ---------- */
+  .card { width: 5.75in; height: 8.75in; background: var(--stone-950); color: var(--white); }
+  .card .safe { inset: 0.4in; }
+  .card .big { margin-top: 0.5in; font-weight: 700; font-size: 110pt; line-height: 0.9; letter-spacing: -0.05em; color: var(--pepper-500); }
+  .card h2 { margin-top: 0.15in; font-weight: 700; font-size: 26pt; line-height: 1.08; letter-spacing: -0.02em; }
+  .card .terms { margin-top: 0.22in; font-weight: 500; font-size: 13pt; line-height: 1.4; color: #e2ded7; }
+  .card .ctas { grid-template-columns: 1fr 1fr; gap: 0.2in; }
+  .card .cta { flex-direction: column; align-items: flex-start; gap: 0.08in; padding: 0.14in; background: #262422; }
+  .card .cta .qr { width: 1.05in; height: 1.05in; }
+  .card .cta .ask { font-size: 14pt; color: var(--white); }
+  .card .cta .how { color: var(--stone-350); font-size: 10pt; }
+
+  /* ---------- 3 · Phone share image (1080 x 1350 px) ---------- */
+  .share {
+    width: 1080px; height: 1350px; position: relative; overflow: hidden;
+    background: var(--white); color: var(--stone-950); padding: 72px 72px 64px;
+    display: grid; grid-template-columns: 1fr 330px; grid-template-rows: auto 1fr auto; column-gap: 56px;
+  }
+  .share .brand { grid-column: 1 / -1; }
+  .share .brand svg { width: 64px; height: 64px; }
+  .share .wordmark { font-size: 44px; }
+  .share .copy { margin-top: 56px; }
+  .share h1 { font-weight: 700; font-size: 64px; line-height: 1.02; letter-spacing: -0.03em; }
+  .share h1 span { display: block; color: var(--pepper-600); }
+  .share .facts { margin-top: 36px; font-size: 30px; }
+  .share .facts li { padding: 14px 0; border-top-width: 2px; }
+  .share .facts li:last-child { border-bottom-width: 2px; }
+  .share .phone { margin-top: 56px; width: 330px; border-width: 10px; border-radius: 40px; }
+  .share .offer { grid-column: 1 / -1; margin-top: 40px; padding: 30px 36px; border-radius: 24px; }
+  .share .offer .kicker { font-size: 22px; }
+  .share .offer p { font-size: 31px; margin-top: 8px; }
+  .share .links { grid-column: 1 / -1; margin-top: 28px; list-style: none; font-weight: 700; font-size: 32px; line-height: 1.45; }
+  .share .links span { font-weight: 500; color: var(--stone-600); }
+
+  /* ---------- Screen preview only ---------- */
+  @media screen {
+    body { min-height: 100vh; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; justify-content: center; padding: 32px 16px; }
+    body.export { padding: 0; gap: 0; display: block; background: transparent; }
+    .sheet, .share { box-shadow: 0 8px 24px rgb(20 19 18 / 0.18); }
+    body.export .sheet, body.export .share { box-shadow: none; }
+    body:not(.export) .sheet::before,
+    body:not(.export) .sheet::after { content: ""; position: absolute; pointer-events: none; z-index: 2; }
+    body:not(.export) .sheet::before { inset: var(--bleed); outline: 1px dashed rgb(0 160 255 / 0.9); }
+    body:not(.export) .sheet::after { inset: 0.25in; outline: 1px dotted rgb(255 0 160 / 0.7); }
+  }
+</style>
+</head>
+<body>
+
+  <!-- 1 · Leave-behind: US Letter -->
+  <section class="sheet leave-behind" aria-label="Leave-behind">
+    <div class="safe">
+      <div class="top">
+        <div class="brand">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18 L14 34 A18 18 0 0 0 50 34 L50 28" stroke-width="7"/><circle cx="32" cy="33" r="9" fill="#b5381f" stroke="none"/><path d="M32 24.5 C32 20.5 34 17.5 38.5 16.5" stroke-width="3.5"/></svg>
+          <div class="wordmark">Sweet Hand</div>
+        </div>
+        <p class="opens">Opens<b>Thursday 26 November 2026</b></p>
+      </div>
+      <div class="body">
+        <div>
+          <h1>You have a sweet hand. <span>Let Toronto find it.</span></h1>
+          <p class="lead">Your own page, where people in Toronto and the GTA find Caribbean caterers by dish, island and area.</p>
+          <ul class="facts">
+            <li>Free to list.</li>
+            <li>You set the menu, the batches and the days.</li>
+            <li>Your home address stays private.</li>
+          </ul>
+          <div class="offer">
+            <p class="kicker">Free photoshoot</p>
+            <p>The first 100 caterers who register get a free photoshoot: 10 of their dishes, shot in our studio. In return we ask for a complete profile and a launch-day post.</p>
+            <p class="small">Ask your Sweet Hand contact for the shoot dates.</p>
+          </div>
+        </div>
+        <div>
+          <div class="phone"><img src="../screenshots/caterer-profile-jerk-phone.png" alt="A caterer’s page on Sweet Hand, on a phone"></div>
+          <p class="caption">A caterer’s page. Example data.</p>
+        </div>
+      </div>
+      <div class="ctas">
+        <div class="cta">
+          <img class="qr" src="../../assets/qr-sweethand-ca.svg" alt="QR code for sweethand.ca">
+          <div>
+            <p class="n">1 · Sign up</p>
+            <p class="ask">sweethand.ca</p>
+            <p class="how">Press “Join as a caterer”</p>
+          </div>
+        </div>
+        <div class="cta">
+          <img class="qr" src="../../assets/qr-facebook-page.svg" alt="QR code for the Sweet Hand Facebook Page">
+          <div>
+            <p class="n">2 · Follow us</p>
+            <p class="ask">Sweet Hand on Facebook</p>
+            <p class="how">Launch news and shoot days</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Photoshoot card: half Letter -->
+  <section class="sheet card" aria-label="Photoshoot card">
+    <div class="safe">
+      <div class="brand">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18 L14 34 A18 18 0 0 0 50 34 L50 28" stroke-width="7"/><circle cx="32" cy="33" r="9" fill="#b5381f" stroke="none"/><path d="M32 24.5 C32 20.5 34 17.5 38.5 16.5" stroke-width="3.5"/></svg>
+        <div class="wordmark">Sweet Hand</div>
+      </div>
+      <p class="big">100</p>
+      <h2>Free photoshoot.</h2>
+      <p class="terms">The first 100 caterers who register get a free photoshoot: 10 of their dishes, shot in our studio. In return we ask for a complete profile and a launch-day post.</p>
+      <div class="ctas">
+        <div class="cta">
+          <img class="qr" src="../../assets/qr-sweethand-ca.svg" alt="QR code for sweethand.ca">
+          <p class="ask">sweethand.ca</p>
+          <p class="how">Join as a caterer</p>
+        </div>
+        <div class="cta">
+          <img class="qr" src="../../assets/qr-facebook-page.svg" alt="QR code for the Sweet Hand Facebook Page">
+          <p class="ask">Follow us</p>
+          <p class="how">Sweet Hand on Facebook</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · Phone share image -->
+  <section class="share" aria-label="Phone share image">
+    <div class="brand">
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18 L14 34 A18 18 0 0 0 50 34 L50 28" stroke-width="7"/><circle cx="32" cy="33" r="9" fill="#b5381f" stroke="none"/><path d="M32 24.5 C32 20.5 34 17.5 38.5 16.5" stroke-width="3.5"/></svg>
+      <div class="wordmark">Sweet Hand</div>
+    </div>
+    <div class="copy">
+      <h1>You have a sweet hand. <span>Let Toronto find it.</span></h1>
+      <ul class="facts">
+        <li>Free to list.</li>
+        <li>You set the menu, the batches and the days.</li>
+        <li>Your home address stays private.</li>
+        <li>Opens Thursday 26 November 2026.</li>
+      </ul>
+    </div>
+    <div class="phone"><img src="../screenshots/caterer-profile-jerk-phone.png" alt="A caterer’s page on Sweet Hand, on a phone"></div>
+    <div class="offer">
+      <p class="kicker">Free photoshoot</p>
+      <p>The first 100 caterers who register get a free photoshoot: 10 of their dishes, shot in our studio. In return we ask for a complete profile and a launch-day post.</p>
+    </div>
+    <ol class="links">
+      <li>1 · Sign up: sweethand.ca <span>→ Join as a caterer</span></li>
+      <li>2 · Follow: Sweet Hand on Facebook</li>
+    </ol>
+  </section>
+
+</body>
+</html>

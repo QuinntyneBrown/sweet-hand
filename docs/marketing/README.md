@@ -26,6 +26,8 @@ and pepper). Everything points at `https://sweethand.ca`.
 | `facebook/page.html`, `facebook/README.md` | Source for the four images, and the Page settings, first posts and posting steps (see [facebook/README.md](facebook/README.md)). |
 | `facebook/reconnecting.md` | One-to-one messages for reconnecting with old contacts who might cook, know cooks or help (see [facebook/reconnecting.md](facebook/reconnecting.md)). |
 | `instagram/README.md` | Instagram account settings, bio, first posts and posting steps; reuses the Facebook and WhatsApp images (see [instagram/README.md](instagram/README.md)). |
+| `sales-kit/` | The caterer sales kit: elevator pitch, FAQ, pitch deck (`.pptx` and PDF), Letter leave-behind, half-page photoshoot card, phone share image and product screenshots, with videos 08 and 09 (see [sales-kit/README.md](sales-kit/README.md)). |
+| `assets/qr-facebook-page.svg` | Generated QR code for the Facebook Page, used by the sales kit. |
 | `lib/press.mjs` | Prepress layouts shared with `docs/business-cards/`: crop marks, gang-up sheets, PDF checks. |
 | `lib/qrcodegen.mjs` | Project Nayuki's QR Code generator (MIT), transpiled from its TypeScript. |
 | `render.mjs` | Regenerates every file above. |
@@ -140,8 +142,8 @@ cd frontend && npm install        # once; borrows @playwright/test
 node docs/marketing/render.mjs
 ```
 
-`--only flyer`, `--only stickers`, `--only whatsapp`, `--only youtube` or
-`--only facebook` renders one group (the flyer PDFs carry a creation date, so rendering only the
+`--only flyer`, `--only stickers`, `--only whatsapp`, `--only youtube`,
+`--only facebook` or `--only sales-kit` renders one group (the flyer PDFs carry a creation date, so rendering only the
 group you changed keeps the diff to that group).
 
 Set `SWEET_HAND_MODULE_ROOT` to another folder whose `package.json` resolves
@@ -150,7 +152,9 @@ Figtree falls back to a system font, a PDF is not 2 pages of 5.25 × 7.25 in, a 
 not 1575 × 2175 px, a sticker is not 900 × 900 RGBA with transparent corners, the
 artwork touches the canvas edge, a die cut is more than one piece, any flyer PDF
 has a Type 3 font, a YouTube image is not its exact size or over YouTube's file limit,
-or a Facebook image is not its exact size.
+a Facebook image is not its exact size, or a sales kit PDF or image is not its
+exact size. The sales kit's screenshots and deck have their own commands (see
+[sales-kit/README.md](sales-kit/README.md#regenerating)).
 
 To regenerate the static weights after changing the variable font:
 

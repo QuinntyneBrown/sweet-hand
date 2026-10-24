@@ -322,8 +322,10 @@ the mock changed.
 11. **Brand typeface.** The reference type is a geometric grotesque. The mocks name
     "Figtree" first and fall back to the system UI font, because mocks open from disk
     without web fonts. *Decision needed on the licensed web font.*
-12. **Photos.** Mock photos are the 12 crops from the reference, plus rotated and
-    mirrored copies so 36 caterers look distinct. Real caterers upload their own photos.
+12. **Photos.** Mock photos are the 12 crops from the reference, plus mirrored and
+    closer-cropped copies so 36 caterers look distinct. Every copy stays upright: a
+    rotated copy showed pots, cakes and plates sideways or upside down. Real caterers
+    upload their own photos.
 13. **No cookie banner.** L2-074 sets only strictly necessary cookies, so no consent
     banner exists. If non-essential cookies are ever added, a banner mock is needed.
 14. **No notification centre.** L2 has unread counts on the inbox only (L2-029); the
