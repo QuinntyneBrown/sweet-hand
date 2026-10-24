@@ -15,6 +15,8 @@ generated `NN-topic.mp3` and `NN-topic.mp4`.
 | 05 | [Cater with Sweet Hand](05-cater-with-sweet-hand/README.md) | 1:26 | Promo for home cooks: join the launch list as a caterer |
 | 06 | [The plan, in plain words](06-the-plan-in-plain-words/README.md) | 7:11 | The business plan explained simply, and what changes if the founder cooks on Sweet Hand |
 | 07 | [Meet Sweet Hand](07-meet-sweet-hand/README.md) | 0:23 | The brand video on www.sweethand.ca (ADR 0016): round photos, few words, one ask |
+| 08 | [A pitch for caterers](08-pitch-for-caterers/README.md) | 1:37 | The caterer sales kit's pitch: own page, free photoshoot for the first 100, ideas being explored; register and follow on Facebook |
+| 09 | [Sales training: signing up caterers](09-sales-training/README.md) | 4:53 | For sales people: the kit, who to approach, the pitch, objections, registering on the spot, what never to promise |
 
 ## Making or updating a video
 
