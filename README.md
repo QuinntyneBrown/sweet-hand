@@ -1,6 +1,6 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/logo/sweet-hand-logo-dark.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo/sweet-hand-logo-dark.svg?k=1">
     <img alt="Sweet Hand" src="assets/logo/sweet-hand-logo-light.svg" width="440">
   </picture>
 </p>
