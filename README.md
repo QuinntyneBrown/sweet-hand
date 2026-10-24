@@ -4,7 +4,6 @@
     <img alt="Sweet Hand" src="assets/logo/sweet-hand-logo-light.svg" width="440">
   </picture>
 </p>
-
 <p align="center">
   <strong>Find the Caribbean home cooks and small-batch food makers of Toronto and the GTA.</strong>
 </p>
