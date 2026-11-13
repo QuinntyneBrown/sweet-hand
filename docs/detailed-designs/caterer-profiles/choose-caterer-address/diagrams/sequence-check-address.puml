@@ -1,0 +1,59 @@
+@startuml
+title UML sequence behaviour — Check an address
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "AddressField" as field
+  participant "AddressAvailability" as avail
+  participant "CatererAddressService" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CatererAddressEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "CheckAddressHandler" as handler
+  participant "ReservedAddresses" as reserved
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AddressRegistry" as registry
+end box
+actor -> field : Open business details
+field -> field : suggestAddress("Auntie Bev's Kitchen") = auntie-bevs-kitchen (L2-123 AC1)
+actor -> field : Type or accept the address
+field -> field : Lower-case; keep a-z, 0-9, hyphen (L2-123 AC2)
+alt rule broken
+  field --> actor : Field invalid with the rule (L2-123 AC3)
+else well formed
+  field -> avail : Address changed
+  avail -> avail : Wait 500 ms (L2-123 AC5)
+  avail -> client : check(address)
+  client -> endpoints : GET /caterer/profile/address-availability
+  endpoints -> endpoints : Policy: caterer role, else 401 or 403 (L2-127 AC7)
+  alt more than 30 checks in one minute
+    endpoints --> client : HTTP 429 Retry-After (L2-127 AC8)
+    avail --> actor : "Try again in N seconds"
+  else allowed
+    endpoints -> handler : Send CheckAddressQuery
+    handler -> handler : CatererAddress.parse; refuse xn-- (L2-124 AC5)
+    handler -> reserved : contains(address) (L2-124 AC4)
+    handler -> registry : isFree(address)
+    alt free
+      handler --> endpoints : Free
+      endpoints --> client : HTTP 200 free
+      avail --> actor : "This address is free", announced
+    else taken or reserved
+      handler -> registry : isFree for address-2, address-3, ...
+      handler --> endpoints : Taken, up to 3 alternatives
+      endpoints --> client : HTTP 200 taken
+      avail --> actor : "This address is taken" with alternatives (L2-123 AC6)
+    end
+  end
+  alt request fails
+    avail --> actor : "Could not check" with Try again; value kept (L2-123 AC7)
+  end
+end
+@enduml

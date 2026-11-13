@@ -1,0 +1,37 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Open a caterer page by its address
+
+Person(visitor, "Visitor", "Opens a caterer's address")
+System_Ext(edge, "Edge", "HTTPS for *.sweethand.ca")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(host, "RequestHostPolicy", "Server step", "Site, address host or neither")
+  Component(routes, "AddressHostRoutes", "Routes", "/, /robots.txt, /sitemap.xml; GET and HEAD only")
+  Component(page, "CatererPage", "Server-rendered page", "Caterer page as a visitor sees it")
+  Component(links, "SiteLinks", "Service", "Absolute links to the application host")
+  Component(meta, "CatererPageMetadata", "Component", "Canonical and og:url are the address")
+  Component(robots, "AddressRobots / AddressSitemap", "Routes", "One address only")
+  Component(client, "CatererPageClient", "API client contract", "GET /api/public/caterers/{address}")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "PublicCaterersEndpoints", "Endpoint group", "Anonymous caterer page endpoint")
+  Component(handler, "GetCatererPageHandler", "Query handler", "Address, status and projection")
+  Component(repo, "CatererProfileRepository", "Repository", "Approved profile values")
+}
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Profiles")
+
+Rel(visitor, edge, "Requests the address", "HTTPS")
+Rel(edge, host, "Forwards")
+Rel(host, routes, "Passes address-host requests")
+Rel(routes, page, "Renders /")
+Rel(routes, robots, "Serves")
+Rel(page, links, "Builds links")
+Rel(page, meta, "Renders")
+Rel(page, client, "Requests view")
+Rel(robots, client, "Checks published")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, handler, "Sends GetCatererPageQuery")
+Rel(handler, repo, "Reads by address")
+Rel(repo, db, "Queries")
+@enduml

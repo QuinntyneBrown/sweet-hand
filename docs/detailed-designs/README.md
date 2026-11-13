@@ -14,6 +14,7 @@ Public browsing: the caterer listing, filters, postal-code search, caterer pages
 | [Filter the listing by area](discovery/filter-by-area/README.md) | `L2-009`, `L2-010`, `L2-011` |
 | [Filter the listing by cuisine](discovery/filter-by-cuisine/README.md) | `L2-007`, `L2-008`, `L2-009` |
 | [Manage the cuisine list](discovery/manage-cuisine-list/README.md) | `L2-007` |
+| [Open a caterer page by its address](discovery/open-caterer-page-by-address/README.md) | `L2-018`, `L2-125`, `L2-127` |
 | [Search the listing by postal code](discovery/search-by-postal-code/README.md) | `L2-012` |
 | [View a caterer page](discovery/view-caterer-page/README.md) | `L2-013`, `L2-014`, `L2-015`, `L2-017`, `L2-018`, `L2-019`, `L2-020`, `L2-021` |
 | [View the photo gallery](discovery/view-photo-gallery/README.md) | `L2-016`, `L2-019` |
@@ -39,6 +40,7 @@ Caterer registration and self-service profile management: setup, submission, foo
 
 | Feature | L2 requirements |
 |---------|-----------------|
+| [Choose a caterer address](caterer-profiles/choose-caterer-address/README.md) | `L2-039`, `L2-123`, `L2-124`, `L2-126`, `L2-127` |
 | [Edit a published profile](caterer-profiles/edit-published-profile/README.md) | `L2-018`, `L2-044` |
 | [Manage the menu](caterer-profiles/manage-menu/README.md) | `L2-017`, `L2-043` |
 | [Manage photos](caterer-profiles/manage-photos/README.md) | `L2-041`, `L2-042`, `L2-091` |

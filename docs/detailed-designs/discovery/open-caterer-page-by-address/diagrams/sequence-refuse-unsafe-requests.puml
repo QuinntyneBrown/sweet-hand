@@ -1,0 +1,33 @@
+@startuml
+title UML sequence behaviour — Refuse unsafe requests
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Client" as actor
+participant "Edge" as edge
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "RequestHostPolicy" as host
+  participant "AddressHostRoutes" as routes
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CSRF and origin guard" as guard
+end box
+group Unknown host
+  actor -> edge : GET / with Host evil.example
+  edge -> host : Forward
+  host --> actor : HTTP 400, fixed body without the host (L2-127 AC6)
+end
+group Write to an address host
+  actor -> edge : POST https://auntie-bevs-kitchen.sweethand.ca/
+  edge -> host : Forward
+  host -> routes : Address host
+  routes --> actor : HTTP 405 (L2-127 AC4)
+end
+group Write to the application from an address origin
+  actor -> guard : POST app.sweethand.ca/api/... with Origin https://auntie-bevs-kitchen.sweethand.ca
+  guard -> guard : Origin is not on the allow-list
+  guard --> actor : HTTP 403 (L2-127 AC5, L2-081)
+end
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Choose a caterer address
+
+Person(caterer, "Caterer", "Chooses the address of their public page")
+Person(operator, "Operator", "Sees the address when reviewing a profile")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+
+Rel(caterer, sweethand, "Checks and saves an address", "HTTPS")
+Rel(operator, sweethand, "Reviews the address with the profile", "HTTPS")
+@enduml

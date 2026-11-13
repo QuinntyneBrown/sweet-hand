@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Choose a caterer address
+
+Person(caterer, "Caterer", "Chooses the address")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "Angular 21", "Profile editor with the address field; dashboard card")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "Address rules, reserved words, claims")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Profiles, address claims, reserved words")
+}
+Rel(caterer, web, "Uses", "HTTPS")
+Rel(web, api, "GET address-availability, PUT business-details", "JSON/HTTPS")
+Rel(api, db, "Reads and writes claims")
+@enduml

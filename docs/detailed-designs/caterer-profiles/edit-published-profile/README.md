@@ -2,6 +2,8 @@
 
 ## Overview
 
+> **Superseded in part (2026-11-13).** An approved business name change no longer changes the slug or creates a redirect: the caterer's address is fixed from first publication (`choose-caterer-address`, `L2-126`). `SlugService` and `SlugRedirect` no longer apply. The text and diagrams below still show the earlier slug rules.
+
 Once an operator approves a caterer profile, it is `Published` and visible to
 everyone. Caterers keep their pages current — a new dish, a new area, a
 different cover photo — without going back through the full review. This

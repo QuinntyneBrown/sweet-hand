@@ -1,0 +1,54 @@
+@startuml
+title UML sequence behaviour — Open an address
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Visitor" as actor
+participant "Edge" as edge
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "RequestHostPolicy" as host
+  participant "AddressHostRoutes" as routes
+  participant "CatererPage" as page
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "PublicCaterersEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "GetCatererPageHandler" as handler
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  database "Sweet Hand database" as db
+end box
+actor -> edge : GET https://Auntie-Bevs-Kitchen.sweethand.ca/
+edge -> edge : Wildcard certificate; HTTP redirects to HTTPS (L2-127 AC1, AC2)
+edge -> host : Forward with Host header, no cookies (L2-127 AC3)
+host -> host : Lower-case and classify the host (L2-125 AC5)
+alt reserved word or nested host
+  host --> actor : HTTP 404 not-found page (L2-125 AC8)
+else address host
+  host -> routes : Address auntie-bevs-kitchen
+  alt path is not /, /robots.txt or /sitemap.xml
+    routes --> actor : HTTP 404 (L2-125 AC6)
+  else path /
+    routes -> page : Render for the address
+    page -> endpoints : GET /api/public/caterers/auntie-bevs-kitchen
+    endpoints -> handler : Send GetCatererPageQuery
+    handler -> db : Find profile by address
+    db --> handler : Profile or none
+    alt Published
+      handler --> endpoints : PublicCatererView
+      endpoints --> page : HTTP 200 JSON
+      page -> page : Links to app.sweethand.ca (L2-125 AC2); canonical is the address (L2-018 AC4)
+      page --> actor : HTTP 200 full HTML, headers of L2-081 (L2-125 AC1)
+    else Removed
+      endpoints --> page : HTTP 410
+      page --> actor : HTTP 410 with link to the listing (L2-125 AC4)
+    else any other status, or no profile
+      endpoints --> page : HTTP 404, identical body
+      page --> actor : HTTP 404 not-found page (L2-125 AC3)
+    end
+  end
+end
+@enduml

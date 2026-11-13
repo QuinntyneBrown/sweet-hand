@@ -2,6 +2,8 @@
 
 ## Overview
 
+> **Superseded in part (2026-11-13).** Approval no longer assigns a slug through `SlugGenerator`: the profile already holds the address its caterer chose, and the review queue shows it (`choose-caterer-address`, `L2-124 AC9`). The text and diagrams below still show the earlier slug rule.
+
 A caterer profile appears to visitors only after an operator approves it
 (`L1-013`). This feature covers the operator's decision on a submitted profile
 and the profile status lifecycle that the decision moves along.

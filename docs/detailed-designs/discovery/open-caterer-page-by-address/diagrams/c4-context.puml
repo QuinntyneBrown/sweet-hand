@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Open a caterer page by its address
+
+Person(visitor, "Visitor", "Opens a caterer's address from a card or a shared link")
+System(sweethand, "Sweet Hand", "Platform connecting Toronto and GTA customers with Caribbean caterers")
+System_Ext(edge, "Edge", "Terminates HTTPS for *.sweethand.ca; caches public HTML for 60 s or less")
+System_Ext(dns, "DNS", "Wildcard record for *.sweethand.ca")
+System_Ext(search, "Search engines", "Crawl each address, its robots.txt and sitemap")
+
+Rel(visitor, dns, "Resolves {address}.sweethand.ca")
+Rel(visitor, edge, "Requests the address", "HTTPS")
+Rel(search, edge, "Crawls the address", "HTTPS")
+Rel(edge, sweethand, "Forwards uncached requests with the Host header", "HTTPS")
+@enduml
