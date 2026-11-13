@@ -1,0 +1,60 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Open a caterer page by its address
+
+enum HostKind {
+  Site
+  AddressHost
+  ReservedOrNested
+  Unknown
+}
+class HostClassification {
+  +HostKind Kind
+  +string? Address
+}
+class RequestHostPolicy {
+  +classify(host: string): HostClassification
+}
+class AddressHostRoutes {
+  +handle(request: Request, host: HostClassification): Response
+}
+class SiteLinks {
+  +applicationUrl(path: string): string
+  +addressUrl(address: string): string
+}
+class CatererPageMetadata {
+  +canonicalUrl(address: string): string
+}
+class CatererPage
+class AddressSitemap {
+  +render(address: string): string
+}
+class GetCatererPageHandler {
+  +Handle(query: GetCatererPageQuery): CatererPageResult
+}
+class CatererPageResult {
+  +PublicCatererView? View
+  +bool Gone
+  +bool NotFound
+}
+
+RequestHostPolicy ..> HostClassification : returns
+HostClassification --> HostKind
+AddressHostRoutes ..> HostClassification : reads
+AddressHostRoutes ..> CatererPage : renders
+AddressHostRoutes ..> AddressSitemap : serves
+CatererPage ..> SiteLinks : builds links
+CatererPage ..> CatererPageMetadata : renders
+CatererPageMetadata ..> SiteLinks : addressUrl
+CatererPage ..> CatererPageResult : renders from
+GetCatererPageHandler ..> CatererPageResult : returns
+@enduml

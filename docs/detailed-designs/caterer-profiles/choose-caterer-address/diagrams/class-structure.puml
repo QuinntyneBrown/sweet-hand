@@ -1,0 +1,67 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Choose a caterer address
+
+class CatererAddress <<value object>> {
+  +string Value
+  +{static} parse(text: string): CatererAddress
+  +{static} suggestFrom(businessName: string): CatererAddress?
+  +equals(other: CatererAddress): bool
+}
+class ReservedAddresses {
+  +contains(address: CatererAddress): bool
+}
+abstract class AddressRegistry {
+  +isFree(address: CatererAddress, askedBy: Guid): bool
+  +claim(address: CatererAddress, catererId: Guid): void
+  +release(address: CatererAddress): void
+}
+class InMemoryAddressRegistry
+class AddressClaim {
+  +string Address
+  +Guid? CatererId
+  +bool EverPublished
+}
+class CatererProfile {
+  +Guid Id
+  +CatererAddress? Address
+  +ProfileStatus Status
+  +bool EverPublished
+  +ChangeAddress(address: CatererAddress): void
+}
+class CheckAddressQuery {
+  +string Address
+}
+class CheckAddressHandler {
+  +Handle(query: CheckAddressQuery): AddressAvailabilityView
+}
+class AddressAvailabilityView {
+  +string Address
+  +bool Free
+  +List<string> Alternatives
+}
+class SaveProfileSectionHandler {
+  +Handle(command: SaveProfileSectionCommand): void
+}
+
+AddressRegistry <|-- InMemoryAddressRegistry
+AddressRegistry ..> AddressClaim : stores
+CheckAddressHandler ..> CheckAddressQuery : handles
+CheckAddressHandler ..> AddressAvailabilityView : returns
+CheckAddressHandler ..> CatererAddress : parses
+CheckAddressHandler ..> ReservedAddresses : consults
+CheckAddressHandler ..> AddressRegistry : asks
+SaveProfileSectionHandler ..> CatererProfile : calls ChangeAddress
+SaveProfileSectionHandler ..> ReservedAddresses : consults
+SaveProfileSectionHandler ..> AddressRegistry : claims, releases
+CatererProfile o-- CatererAddress
+@enduml

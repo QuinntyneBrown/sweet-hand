@@ -1,0 +1,52 @@
+@startuml
+title UML sequence behaviour — Save an address
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+actor "Caterer" as actor
+box "Frontend — Sweet Hand web application" #E0F2FE
+  participant "AddressField" as field
+  participant "CatererProfileClient" as client
+end box
+box "Backend — Sweet Hand API application" #D1FADF
+  participant "CatererProfileEndpoints" as endpoints
+end box
+box "Backend — Sweet Hand Application and Domain" #ECFDF3
+  participant "SaveProfileSectionHandler" as handler
+  participant "CatererProfile" as profile
+end box
+box "Backend — Sweet Hand Infrastructure" #FFF4E5
+  participant "AddressRegistry" as registry
+  database "Sweet Hand database" as db
+end box
+actor -> field : Stop typing a free address
+field -> client : saveSection(business-details, address) (L2-038)
+client -> endpoints : PUT /caterer/profile/sections/business-details
+endpoints -> handler : Send SaveProfileSectionCommand for the session's own profile (L2-079)
+handler -> handler : CatererAddress.parse and reserved check
+alt rule broken or reserved
+  handler --> endpoints : Invalid
+  endpoints --> client : HTTP 422 field and code (L2-124 AC6)
+else profile was ever published
+  handler -> profile : ChangeAddress
+  profile --> handler : Refused
+  endpoints --> client : HTTP 409 address_fixed (L2-126 AC3)
+else never published
+  handler -> profile : ChangeAddress
+  profile -> registry : claim(new address)
+  registry -> db : Insert claim keyed by address
+  alt another caterer holds the address
+    db --> registry : Key exists
+    registry --> handler : Taken
+    endpoints --> client : HTTP 409 address_taken (L2-124 AC3)
+    field --> actor : Address marked taken, alternatives offered
+  else claimed
+    profile -> registry : release(former address) (L2-126 AC1)
+    handler -> db : Save profile
+    endpoints --> client : HTTP 200 with checklist
+    field --> actor : "Saved"; checklist item done (L2-123 AC8)
+  end
+end
+@enduml

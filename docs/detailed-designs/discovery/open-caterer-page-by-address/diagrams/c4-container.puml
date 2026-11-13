@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Open a caterer page by its address
+
+Person(visitor, "Visitor", "Opens a caterer's address")
+System_Ext(edge, "Edge", "Wildcard certificate, HTTP to HTTPS redirect, 60 s cache")
+System_Boundary(sweethand, "Sweet Hand") {
+  Container(web, "Sweet Hand web application", "Angular 21 server renderer", "Classifies the host; renders the caterer page, robots.txt and sitemap")
+  Container(api, "Sweet Hand API", "NestJS (Node.js, TypeScript)", "Public caterer view by address; status rule")
+  ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Approved profile values and addresses")
+}
+Rel(visitor, edge, "GET https://{address}.sweethand.ca/", "HTTPS")
+Rel(edge, web, "Forwards with the Host header; no cookies", "HTTPS")
+Rel(web, api, "GET /api/public/caterers/{address}", "JSON/HTTPS")
+Rel(api, db, "Reads approved profile values")
+Rel(visitor, web, "Follows links to app.sweethand.ca for sign-in and enquiries", "HTTPS")
+@enduml

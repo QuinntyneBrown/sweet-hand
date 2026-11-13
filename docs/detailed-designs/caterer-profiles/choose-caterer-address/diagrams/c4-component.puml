@@ -1,0 +1,41 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Choose a caterer address
+
+Person(caterer, "Caterer", "Chooses the address")
+Container_Boundary(web, "Sweet Hand web application") {
+  Component(field, "AddressField", "Component", "Input, hint, fixed text once published")
+  Component(avail, "AddressAvailability", "State holder", "Debounced check and its states")
+  Component(card, "DashboardAddressCard", "Component", "Address text and Copy link")
+  Component(client, "CatererAddressService", "API service contract", "check(address)")
+  Component(profileClient, "CatererProfileClient", "API client contract", "saveSection(business-details)")
+}
+Container_Boundary(api, "Sweet Hand API") {
+  Component(endpoints, "CatererAddressEndpoints", "Endpoint", "Caterer role; 30 checks per minute")
+  Component(profileEndpoints, "CatererProfileEndpoints", "Endpoint group", "Own profile sections")
+  Component(check, "CheckAddressHandler", "Query handler", "Free, taken, alternatives")
+  Component(save, "SaveProfileSectionHandler", "Command handler", "Applies ChangeAddress")
+  Component(address, "CatererAddress", "Value object", "Format rules and suggestion")
+  Component(reserved, "ReservedAddresses", "Setting", "Words that are never an address")
+  Component(registry, "AddressRegistry", "Port", "isFree, claim, release")
+}
+ContainerDb(db, "Sweet Hand database", "PostgreSQL", "Address claims")
+
+Rel(caterer, field, "Types an address")
+Rel(field, avail, "Reports input")
+Rel(avail, client, "Checks")
+Rel(field, profileClient, "Saves with the section")
+Rel(client, endpoints, "Calls", "JSON/HTTPS")
+Rel(profileClient, profileEndpoints, "Calls", "JSON/HTTPS")
+Rel(endpoints, check, "Sends CheckAddressQuery")
+Rel(profileEndpoints, save, "Sends SaveProfileSectionCommand")
+Rel(check, address, "Parses")
+Rel(check, reserved, "Consults")
+Rel(check, registry, "Asks isFree")
+Rel(save, address, "Parses")
+Rel(save, reserved, "Consults")
+Rel(save, registry, "Claims and releases")
+Rel(registry, db, "Reads and writes")
+Rel(caterer, card, "Copies the link")
+@enduml

@@ -2,6 +2,8 @@
 
 ## Overview
 
+> **Superseded in part (2026-11-13).** The slug is now the address the caterer chooses (`choose-caterer-address`, `L2-123` to `L2-126`). `SlugGenerator`, `SlugRedirect` and the HTTP 301 for a retired slug no longer apply: an address does not change after first publication. The canonical URL is the caterer's own address (`open-caterer-page-by-address`). The text and diagrams below still show the earlier slug rules.
+
 Each published caterer on Sweet Hand has one public page. It is where a customer
 decides whether a caterer suits an event: photos of the food, the caterer's
 cuisines and description, how many guests they serve, the occasions they take
